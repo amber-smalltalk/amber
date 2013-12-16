@@ -6,7 +6,7 @@ smalltalk.addClass('HLContainer', smalltalk.HLWidget, ['splitter'], 'Helios-Layo
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -25,7 +25,7 @@ smalltalk.HLContainer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "splitter",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -43,7 +43,7 @@ smalltalk.HLContainer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "splitter:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aSplitter){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -60,7 +60,7 @@ smalltalk.HLContainer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "with:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aSplitter){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -83,7 +83,7 @@ smalltalk.addClass('HLSplitter', smalltalk.Widget, ['firstWidget', 'secondWidget
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cssClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -99,7 +99,7 @@ smalltalk.HLSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "firstWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -117,7 +117,7 @@ smalltalk.HLSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "firstWidget:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -133,7 +133,7 @@ smalltalk.HLSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isHeliosSplitter",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -149,7 +149,7 @@ smalltalk.HLSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "panesCssClass",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -165,7 +165,7 @@ smalltalk.HLSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -208,7 +208,7 @@ smalltalk.HLSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "resize",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -223,7 +223,7 @@ smalltalk.HLSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "secondWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -241,7 +241,7 @@ smalltalk.HLSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "secondWidget:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -257,7 +257,7 @@ smalltalk.HLSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupSplitter",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -273,7 +273,7 @@ smalltalk.HLSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "with:with:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aWidget,anotherWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -297,7 +297,7 @@ smalltalk.addClass('HLHorizontalSplitter', smalltalk.HLSplitter, [], 'Helios-Lay
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cssClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -315,7 +315,7 @@ smalltalk.HLHorizontalSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "panesCssClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -333,7 +333,7 @@ smalltalk.HLHorizontalSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "resize",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -349,7 +349,7 @@ smalltalk.HLHorizontalSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "resize:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anInteger){
 var self=this;
 var container,size,offset,percentage;
@@ -401,7 +401,7 @@ smalltalk.HLHorizontalSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupSplitter",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -435,7 +435,7 @@ smalltalk.HLHorizontalSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "startResizing:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aSplitter){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -454,7 +454,7 @@ smalltalk.addClass('HLVerticalSplitter', smalltalk.HLSplitter, [], 'Helios-Layou
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cssClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -472,7 +472,7 @@ smalltalk.HLVerticalSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "panesCssClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -490,7 +490,7 @@ smalltalk.HLVerticalSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "resize",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -506,7 +506,7 @@ smalltalk.HLVerticalSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "resize:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anInteger){
 var self=this;
 var container,size,offset,percentage;
@@ -558,7 +558,7 @@ smalltalk.HLVerticalSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupSplitter",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -592,7 +592,7 @@ smalltalk.HLVerticalSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "startResizing:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aSplitter){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -609,7 +609,7 @@ smalltalk.HLVerticalSplitter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isHeliosSplitter",
-category: '*Helios-Layout',
+protocol: '*Helios-Layout',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

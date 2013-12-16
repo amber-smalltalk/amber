@@ -7,7 +7,7 @@ smalltalk.IRInlinedAssignment.comment="I represent an inlined assignment instruc
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -25,7 +25,7 @@ smalltalk.IRInlinedAssignment);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInlined",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -45,7 +45,7 @@ smalltalk.IRInlinedClosure.comment="I represent an inlined closure instruction."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -61,7 +61,7 @@ smalltalk.IRInlinedClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInlined",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -81,7 +81,7 @@ smalltalk.IRInlinedReturn.comment="I represent an inlined local return instructi
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -99,7 +99,7 @@ smalltalk.IRInlinedReturn);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInlined",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -119,7 +119,7 @@ smalltalk.IRInlinedSend.comment="I am the abstract super class of inlined messag
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -135,7 +135,7 @@ smalltalk.IRInlinedSend);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInlined",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -155,7 +155,7 @@ smalltalk.IRInlinedIfFalse.comment="I represent an inlined `#ifFalse:` message s
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -175,7 +175,7 @@ smalltalk.IRInlinedIfNilIfNotNil.comment="I represent an inlined `#ifNil:ifNotNi
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -195,7 +195,7 @@ smalltalk.IRInlinedIfTrue.comment="I represent an inlined `#ifTrue:` message sen
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -215,7 +215,7 @@ smalltalk.IRInlinedIfTrueIfFalse.comment="I represent an inlined `#ifTrue:ifFals
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -235,7 +235,7 @@ smalltalk.IRInlinedSequence.comment="I represent a (block) sequence inside an in
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -251,7 +251,7 @@ smalltalk.IRInlinedSequence);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInlined",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -271,7 +271,7 @@ smalltalk.IRInliner.comment="I visit an IR tree, inlining message sends and bloc
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assignmentInliner",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 function $IRAssignmentInliner(){return smalltalk.IRAssignmentInliner||(typeof IRAssignmentInliner=="undefined"?nil:IRAssignmentInliner)}
@@ -293,7 +293,7 @@ smalltalk.IRInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "returnInliner",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 function $IRReturnInliner(){return smalltalk.IRReturnInliner||(typeof IRReturnInliner=="undefined"?nil:IRReturnInliner)}
@@ -315,7 +315,7 @@ smalltalk.IRInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sendInliner",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 function $IRSendInliner(){return smalltalk.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
@@ -337,7 +337,7 @@ smalltalk.IRInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldInlineAssignment:",
-category: 'testing',
+protocol: 'testing',
 fn: function (anIRAssignment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -367,7 +367,7 @@ smalltalk.IRInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldInlineReturn:",
-category: 'testing',
+protocol: 'testing',
 fn: function (anIRReturn){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -397,7 +397,7 @@ smalltalk.IRInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldInlineSend:",
-category: 'testing',
+protocol: 'testing',
 fn: function (anIRSend){
 var self=this;
 function $IRSendInliner(){return smalltalk.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
@@ -419,7 +419,7 @@ smalltalk.IRInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "transformNonLocalReturn:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRNonLocalReturn){
 var self=this;
 var localReturn;
@@ -462,7 +462,7 @@ smalltalk.IRInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRAssignment:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRAssignment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -485,7 +485,7 @@ smalltalk.IRInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRNonLocalReturn:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRNonLocalReturn){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -503,7 +503,7 @@ smalltalk.IRInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRReturn:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRReturn){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -526,7 +526,7 @@ smalltalk.IRInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRSend:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -553,7 +553,7 @@ smalltalk.IRInliningJSTranslator.comment="I am a specialized JavaScript translat
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInlinedAssignment:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInlinedAssignment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -569,7 +569,7 @@ smalltalk.IRInliningJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInlinedClosure:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInlinedClosure){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -592,7 +592,7 @@ smalltalk.IRInliningJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInlinedIfFalse:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInlinedIfFalse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -626,7 +626,7 @@ smalltalk.IRInliningJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInlinedIfNil:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInlinedIfNil){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -660,7 +660,7 @@ smalltalk.IRInliningJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInlinedIfNilIfNotNil:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInlinedIfNilIfNotNil){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -701,7 +701,7 @@ smalltalk.IRInliningJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInlinedIfTrue:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInlinedIfTrue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -735,7 +735,7 @@ smalltalk.IRInliningJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInlinedIfTrueIfFalse:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInlinedIfTrueIfFalse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -776,7 +776,7 @@ smalltalk.IRInliningJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInlinedNonLocalReturn:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInlinedReturn){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -801,7 +801,7 @@ smalltalk.IRInliningJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInlinedReturn:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInlinedReturn){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -817,7 +817,7 @@ smalltalk.IRInliningJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInlinedSequence:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInlinedSequence){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -843,7 +843,7 @@ smalltalk.IRSendInliner.comment="I inline some message sends and block closure a
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifFalse:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRInstruction){
 var self=this;
 function $IRInlinedIfFalse(){return smalltalk.IRInlinedIfFalse||(typeof IRInlinedIfFalse=="undefined"?nil:IRInlinedIfFalse)}
@@ -862,7 +862,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifFalse:ifTrue:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -880,7 +880,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNil:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRInstruction){
 var self=this;
 function $IRInlinedIfNilIfNotNil(){return smalltalk.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
@@ -916,7 +916,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNil:ifNotNil:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 function $IRInlinedIfNilIfNotNil(){return smalltalk.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
@@ -935,7 +935,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNotNil:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRInstruction){
 var self=this;
 function $IRInlinedIfNilIfNotNil(){return smalltalk.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
@@ -971,7 +971,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNotNil:ifNil:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 function $IRInlinedIfNilIfNotNil(){return smalltalk.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
@@ -990,7 +990,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifTrue:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRInstruction){
 var self=this;
 function $IRInlinedIfTrue(){return smalltalk.IRInlinedIfTrue||(typeof IRInlinedIfTrue=="undefined"?nil:IRInlinedIfTrue)}
@@ -1009,7 +1009,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifTrue:ifFalse:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 function $IRInlinedIfTrueIfFalse(){return smalltalk.IRInlinedIfTrueIfFalse||(typeof IRInlinedIfTrueIfFalse=="undefined"?nil:IRInlinedIfTrueIfFalse)}
@@ -1028,7 +1028,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inlineClosure:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRClosure){
 var self=this;
 var inlinedClosure,sequence,statements;
@@ -1152,7 +1152,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inlineSend:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRSend){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1174,7 +1174,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inlinedClosure",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 function $IRInlinedClosure(){return smalltalk.IRInlinedClosure||(typeof IRInlinedClosure=="undefined"?nil:IRInlinedClosure)}
@@ -1193,7 +1193,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inlinedSend:with:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (inlinedSend,anIRInstruction){
 var self=this;
 var inlinedClosure;
@@ -1229,7 +1229,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inlinedSend:with:with:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (inlinedSend,anIRInstruction,anotherIRInstruction){
 var self=this;
 var inlinedClosure1,inlinedClosure2;
@@ -1274,7 +1274,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inlinedSequence",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 function $IRInlinedSequence(){return smalltalk.IRInlinedSequence||(typeof IRInlinedSequence=="undefined"?nil:IRInlinedSequence)}
@@ -1293,7 +1293,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inliningError:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (aString){
 var self=this;
 function $InliningError(){return smalltalk.InliningError||(typeof InliningError=="undefined"?nil:InliningError)}
@@ -1310,7 +1310,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "send",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1328,7 +1328,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "send:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIRSend){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1344,7 +1344,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "translator",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1362,7 +1362,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "translator:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anASTTranslator){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1379,7 +1379,7 @@ smalltalk.IRSendInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inlinedSelectors",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1397,7 +1397,7 @@ smalltalk.IRSendInliner.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldInline:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIRInstruction){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1432,7 +1432,7 @@ smalltalk.IRAssignmentInliner.comment="I inline message sends together with assi
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assignment",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1450,7 +1450,7 @@ smalltalk.IRAssignmentInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assignment:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1466,7 +1466,7 @@ smalltalk.IRAssignmentInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inlineAssignment:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRAssignment){
 var self=this;
 var inlinedAssignment;
@@ -1496,7 +1496,7 @@ smalltalk.IRAssignmentInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inlineClosure:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRClosure){
 var self=this;
 var inlinedClosure,statements;
@@ -1544,7 +1544,7 @@ smalltalk.IRReturnInliner.comment="I inline message sends with inlined closure t
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inlineClosure:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRClosure){
 var self=this;
 var closure,statements;
@@ -1583,7 +1583,7 @@ smalltalk.IRReturnInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inlineReturn:",
-category: 'inlining',
+protocol: 'inlining',
 fn: function (anIRReturn){
 var self=this;
 var return_;
@@ -1611,7 +1611,7 @@ smalltalk.IRReturnInliner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inlinedReturn",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 function $IRInlinedReturn(){return smalltalk.IRInlinedReturn||(typeof IRInlinedReturn=="undefined"?nil:IRInlinedReturn)}
@@ -1634,7 +1634,7 @@ smalltalk.InliningCodeGenerator.comment="I am a specialized code generator that 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileNode:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aNode){
 var self=this;
 var ir,stream;
@@ -1663,7 +1663,7 @@ smalltalk.InliningCodeGenerator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inliner",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (){
 var self=this;
 function $IRInliner(){return smalltalk.IRInliner||(typeof IRInliner=="undefined"?nil:IRInliner)}
@@ -1682,7 +1682,7 @@ smalltalk.InliningCodeGenerator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "irTranslator",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (){
 var self=this;
 function $IRInliningJSTranslator(){return smalltalk.IRInliningJSTranslator||(typeof IRInliningJSTranslator=="undefined"?nil:IRInliningJSTranslator)}

@@ -23,7 +23,7 @@ smalltalk.InvalidAssignmentError.comment="I get signaled when a pseudo variable 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -41,7 +41,7 @@ smalltalk.InvalidAssignmentError);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variableName",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -59,7 +59,7 @@ smalltalk.InvalidAssignmentError);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variableName:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -79,7 +79,7 @@ smalltalk.ShadowingVariableError.comment="I get signaled when a variable in a bl
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -98,7 +98,7 @@ smalltalk.ShadowingVariableError);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variableName",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -116,7 +116,7 @@ smalltalk.ShadowingVariableError);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variableName:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -136,7 +136,7 @@ smalltalk.UnknownVariableError.comment="I get signaled when a variable is not de
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -155,7 +155,7 @@ smalltalk.UnknownVariableError);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variableName",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -173,7 +173,7 @@ smalltalk.UnknownVariableError);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variableName:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -193,7 +193,7 @@ smalltalk.RethrowErrorHandler.comment="This class is used in the commandline ver
 smalltalk.addMethod(
 smalltalk.method({
 selector: "basicSignal:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -209,7 +209,7 @@ smalltalk.RethrowErrorHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleError:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

@@ -7,7 +7,7 @@ smalltalk.AbstractExporter.comment="I am an abstract exporter for Amber source c
 smalltalk.addMethod(
 smalltalk.method({
 selector: "chunkEscape:",
-category: 'convenience',
+protocol: 'convenience',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -25,7 +25,7 @@ smalltalk.AbstractExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classNameFor:",
-category: 'convenience',
+protocol: 'convenience',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -55,7 +55,7 @@ smalltalk.AbstractExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackage:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -71,7 +71,7 @@ smalltalk.AbstractExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "extensionMethodsOfPackage:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 var result;
@@ -96,7 +96,7 @@ smalltalk.AbstractExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "extensionProtocolsOfPackage:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 var extensionName,result;
@@ -135,7 +135,7 @@ smalltalk.ChunkExporter.comment="I am an exporter dedicated to outputting Amber 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportCategoryEpilogueOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aCategory,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -155,7 +155,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportCategoryPrologueOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aCategory,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -178,7 +178,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportDefinitionOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -250,7 +250,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportMetaDefinitionOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -295,7 +295,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportMethod:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aMethod,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -319,7 +319,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackage:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -348,7 +348,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackageDefinitionOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -368,7 +368,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportProtocol:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aProtocol,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -389,7 +389,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportProtocolEpilogueOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aProtocol,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -409,7 +409,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportProtocolPrologueOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aProtocol,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -432,7 +432,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportProtocols:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aCollection,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -451,7 +451,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "extensionCategoriesOfPackage:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 var name,map,result;
@@ -501,7 +501,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ownCategoriesOfClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 var map;
@@ -536,7 +536,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ownCategoriesOfMetaClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -554,7 +554,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ownMethodProtocolsOfClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 function $ExportMethodProtocol(){return smalltalk.ExportMethodProtocol||(typeof ExportMethodProtocol=="undefined"?nil:ExportMethodProtocol)}
@@ -580,7 +580,7 @@ smalltalk.Exporter.comment="I am responsible for outputting Amber code into a Ja
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classNameFor:",
-category: 'convenience',
+protocol: 'convenience',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -610,7 +610,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportDefinitionOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -683,7 +683,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportMetaDefinitionOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aClass,aStream){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -733,7 +733,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportMethod:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aMethod,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -756,7 +756,7 @@ _st(aStream)._nextPutAll_($1);
 $ctx1.sendIdx["nextPutAll:"]=3;
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=3;
-$5="category: '".__comma(_st(aMethod)._protocol());
+$5="protocol: '".__comma(_st(aMethod)._protocol());
 $ctx1.sendIdx[","]=4;
 $4=_st($5).__comma("',");
 $ctx1.sendIdx[","]=3;
@@ -820,7 +820,7 @@ $ctx1.sendIdx["lf"]=11;
 $19=_st(aStream)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},smalltalk.Exporter)})},
 args: ["aMethod", "aStream"],
-source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09\x22nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x22\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'category: ''', aMethod protocol, ''',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
+source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09\x22nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x22\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
 messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "protocol", "compiledSource", "fn", "arguments", "source", "messageSends", "referencedClasses", "classNameFor:", "methodClass"],
 referencedClasses: []
 }),
@@ -829,7 +829,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackage:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -873,7 +873,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackageDefinitionOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -895,7 +895,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackageEpilogueOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -913,7 +913,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackagePrologueOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -931,7 +931,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackageTransportOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -957,7 +957,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ownMethodsOfClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -983,7 +983,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ownMethodsOfMetaClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1005,7 +1005,7 @@ smalltalk.AmdExporter.comment="I am used to export Packages in an AMD (Asynchron
 smalltalk.addMethod(
 smalltalk.method({
 selector: "amdNamesOfPackages:",
-category: 'private',
+protocol: 'private',
 fn: function (anArray){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1032,7 +1032,7 @@ smalltalk.AmdExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "amdNamespaceOfPackage:",
-category: 'private',
+protocol: 'private',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1058,7 +1058,7 @@ smalltalk.AmdExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackageEpilogueOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1076,7 +1076,7 @@ smalltalk.AmdExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackagePrologueOf:on:",
-category: 'output',
+protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1110,7 +1110,7 @@ smalltalk.ChunkParser.comment="I am responsible for parsing aStream contents in 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextChunk",
-category: 'reading',
+protocol: 'reading',
 fn: function (){
 var self=this;
 var char,result,chunk;
@@ -1154,7 +1154,7 @@ smalltalk.ChunkParser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "stream:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1171,7 +1171,7 @@ smalltalk.ChunkParser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1192,7 +1192,7 @@ smalltalk.ExportMethodProtocol.comment="I am an abstraction for a method protoco
 smalltalk.addMethod(
 smalltalk.method({
 selector: "methods",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1215,7 +1215,7 @@ smalltalk.ExportMethodProtocol);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "name",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1233,7 +1233,7 @@ smalltalk.ExportMethodProtocol);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "name:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1249,7 +1249,7 @@ smalltalk.ExportMethodProtocol);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1267,7 +1267,7 @@ smalltalk.ExportMethodProtocol);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1284,7 +1284,7 @@ smalltalk.ExportMethodProtocol);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "name:theClass:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aString,aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1309,7 +1309,7 @@ smalltalk.Importer.comment="I can import Amber code from a string in the chunk f
 smalltalk.addMethod(
 smalltalk.method({
 selector: "import:",
-category: 'fileIn',
+protocol: 'fileIn',
 fn: function (aStream){
 var self=this;
 var chunk,result,parser,lastEmpty;
@@ -1356,7 +1356,7 @@ smalltalk.PackageHandler.comment="I am responsible for handling package loading 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ajaxPutAt:data:",
-category: 'private',
+protocol: 'private',
 fn: function (aURL,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1391,7 +1391,7 @@ smalltalk.PackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "chunkContentsFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -1413,7 +1413,7 @@ smalltalk.PackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "chunkExporter",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1431,7 +1431,7 @@ smalltalk.PackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "chunkExporterClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $ChunkExporter(){return smalltalk.ChunkExporter||(typeof ChunkExporter=="undefined"?nil:ChunkExporter)}
@@ -1448,7 +1448,7 @@ smalltalk.PackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commit:",
-category: 'committing',
+protocol: 'committing',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1473,7 +1473,7 @@ smalltalk.PackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitJsFileFor:",
-category: 'committing',
+protocol: 'committing',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1494,7 +1494,7 @@ smalltalk.PackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitPathJsFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1510,7 +1510,7 @@ smalltalk.PackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitPathStFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1526,7 +1526,7 @@ smalltalk.PackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitStFileFor:",
-category: 'committing',
+protocol: 'committing',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1547,7 +1547,7 @@ smalltalk.PackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "contentsFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -1569,7 +1569,7 @@ smalltalk.PackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exporter",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1587,7 +1587,7 @@ smalltalk.PackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exporterClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Exporter(){return smalltalk.Exporter||(typeof Exporter=="undefined"?nil:Exporter)}
@@ -1604,7 +1604,7 @@ smalltalk.PackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "load:",
-category: 'loading',
+protocol: 'loading',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1624,7 +1624,7 @@ smalltalk.AmdPackageHandler.comment="I am responsible for handling package loadi
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitPathJsFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1642,7 +1642,7 @@ smalltalk.AmdPackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitPathStFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1660,7 +1660,7 @@ smalltalk.AmdPackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exporterClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $AmdExporter(){return smalltalk.AmdExporter||(typeof AmdExporter=="undefined"?nil:AmdExporter)}
@@ -1677,7 +1677,7 @@ smalltalk.AmdPackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "load:",
-category: 'loading',
+protocol: 'loading',
 fn: function (aPackage){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -1706,7 +1706,7 @@ smalltalk.AmdPackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "namespaceFor:",
-category: 'committing',
+protocol: 'committing',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1724,7 +1724,7 @@ smalltalk.AmdPackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "toUrl:",
-category: 'private',
+protocol: 'private',
 fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -1751,7 +1751,7 @@ smalltalk.AmdPackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultNamespace",
-category: 'commit paths',
+protocol: 'commit paths',
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -1770,7 +1770,7 @@ smalltalk.AmdPackageHandler.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultNamespace:",
-category: 'commit paths',
+protocol: 'commit paths',
 fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -1790,7 +1790,7 @@ smalltalk.PackageTransport.comment="I represent the transport mechanism used to 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1808,7 +1808,7 @@ smalltalk.PackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commit",
-category: 'committing',
+protocol: 'committing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1824,7 +1824,7 @@ smalltalk.PackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitHandler",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1842,7 +1842,7 @@ smalltalk.PackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitHandlerClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1858,7 +1858,7 @@ smalltalk.PackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "definition",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1874,7 +1874,7 @@ smalltalk.PackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "load",
-category: 'loading',
+protocol: 'loading',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1890,7 +1890,7 @@ smalltalk.PackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "package",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1908,7 +1908,7 @@ smalltalk.PackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "package:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1924,7 +1924,7 @@ smalltalk.PackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupFromJson:",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1939,7 +1939,7 @@ smalltalk.PackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "type",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1959,7 +1959,7 @@ smalltalk.PackageTransport.klass.iVarNames = ['registry'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classRegisteredFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1977,7 +1977,7 @@ smalltalk.PackageTransport.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultType",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $AmdPackageTransport(){return smalltalk.AmdPackageTransport||(typeof AmdPackageTransport=="undefined"?nil:AmdPackageTransport)}
@@ -1996,7 +1996,7 @@ smalltalk.PackageTransport.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "for:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2014,7 +2014,7 @@ smalltalk.PackageTransport.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fromJson:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2042,7 +2042,7 @@ smalltalk.PackageTransport.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2060,7 +2060,7 @@ smalltalk.PackageTransport.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "register",
-category: 'registration',
+protocol: 'registration',
 fn: function (){
 var self=this;
 function $PackageTransport(){return smalltalk.PackageTransport||(typeof PackageTransport=="undefined"?nil:PackageTransport)}
@@ -2077,7 +2077,7 @@ smalltalk.PackageTransport.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "register:",
-category: 'registration',
+protocol: 'registration',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2100,7 +2100,7 @@ smalltalk.PackageTransport.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "type",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2119,7 +2119,7 @@ smalltalk.AmdPackageTransport.comment="I am the default transport for committing
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2140,7 +2140,7 @@ smalltalk.AmdPackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitHandlerClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $AmdPackageHandler(){return smalltalk.AmdPackageHandler||(typeof AmdPackageHandler=="undefined"?nil:AmdPackageHandler)}
@@ -2157,7 +2157,7 @@ smalltalk.AmdPackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultNamespace",
-category: 'defaults',
+protocol: 'defaults',
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -2176,7 +2176,7 @@ smalltalk.AmdPackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "definition",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -2205,7 +2205,7 @@ smalltalk.AmdPackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "namespace",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2228,7 +2228,7 @@ smalltalk.AmdPackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "namespace:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2244,7 +2244,7 @@ smalltalk.AmdPackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printOn:",
-category: 'printing',
+protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2266,7 +2266,7 @@ smalltalk.AmdPackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupFromJson:",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2283,7 +2283,7 @@ smalltalk.AmdPackageTransport);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "namespace:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2304,7 +2304,7 @@ smalltalk.AmdPackageTransport.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "type",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2320,7 +2320,7 @@ smalltalk.AmdPackageTransport.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commit",
-category: '*Kernel-ImportExport',
+protocol: '*Kernel-ImportExport',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2338,7 +2338,7 @@ smalltalk.Package);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "load",
-category: '*Kernel-ImportExport',
+protocol: '*Kernel-ImportExport',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2356,7 +2356,7 @@ smalltalk.Package);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "loadFromNamespace:",
-category: '*Kernel-ImportExport',
+protocol: '*Kernel-ImportExport',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2377,7 +2377,7 @@ smalltalk.Package);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "load:",
-category: '*Kernel-ImportExport',
+protocol: '*Kernel-ImportExport',
 fn: function (aPackageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2393,7 +2393,7 @@ smalltalk.Package.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "load:fromNamespace:",
-category: '*Kernel-ImportExport',
+protocol: '*Kernel-ImportExport',
 fn: function (aPackageName,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

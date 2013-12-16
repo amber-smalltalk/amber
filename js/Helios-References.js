@@ -6,7 +6,7 @@ smalltalk.addClass('HLMethodReference', smalltalk.Object, ['selector', 'methodCl
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeFromMethod:",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (aCompiledMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -24,7 +24,7 @@ smalltalk.HLMethodReference);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "method",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -42,7 +42,7 @@ smalltalk.HLMethodReference);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "methodClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -60,7 +60,7 @@ smalltalk.HLMethodReference);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "methodClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -76,7 +76,7 @@ smalltalk.HLMethodReference);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -94,7 +94,7 @@ smalltalk.HLMethodReference);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -110,7 +110,7 @@ smalltalk.HLMethodReference);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "source",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -129,7 +129,7 @@ smalltalk.HLMethodReference);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aCompiledMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -152,7 +152,7 @@ smalltalk.addClass('HLReferences', smalltalk.HLWidget, ['model', 'sendersListWid
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classReferencesListWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLClassReferencesListWidget(){return smalltalk.HLClassReferencesListWidget||(typeof HLClassReferencesListWidget=="undefined"?nil:HLClassReferencesListWidget)}
@@ -178,7 +178,7 @@ smalltalk.HLReferences);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "implementorsListWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLImplementorsListWidget(){return smalltalk.HLImplementorsListWidget||(typeof HLImplementorsListWidget=="undefined"?nil:HLImplementorsListWidget)}
@@ -204,7 +204,7 @@ smalltalk.HLReferences);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLReferencesModel(){return smalltalk.HLReferencesModel||(typeof HLReferencesModel=="undefined"?nil:HLReferencesModel)}
@@ -232,7 +232,7 @@ smalltalk.HLReferences);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -248,7 +248,7 @@ smalltalk.HLReferences);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "regexpListWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLRegexpListWidget(){return smalltalk.HLRegexpListWidget||(typeof HLRegexpListWidget=="undefined"?nil:HLRegexpListWidget)}
@@ -274,7 +274,7 @@ smalltalk.HLReferences);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "registerBindingsOn:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aBindingGroup){
 var self=this;
 function $HLToolCommand(){return smalltalk.HLToolCommand||(typeof HLToolCommand=="undefined"?nil:HLToolCommand)}
@@ -291,7 +291,7 @@ smalltalk.HLReferences);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
@@ -322,7 +322,7 @@ smalltalk.HLReferences);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "search:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -338,7 +338,7 @@ smalltalk.HLReferences);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sendersListWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLSendersListWidget(){return smalltalk.HLSendersListWidget||(typeof HLSendersListWidget=="undefined"?nil:HLSendersListWidget)}
@@ -364,7 +364,7 @@ smalltalk.HLReferences);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sourceCodeWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLBrowserCodeWidget(){return smalltalk.HLBrowserCodeWidget||(typeof HLBrowserCodeWidget=="undefined"?nil:HLBrowserCodeWidget)}
@@ -393,7 +393,7 @@ smalltalk.HLReferences);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canBeOpenAsTab",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -409,7 +409,7 @@ smalltalk.HLReferences.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -425,7 +425,7 @@ smalltalk.HLReferences.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -441,7 +441,7 @@ smalltalk.HLReferences.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabPriority",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -459,7 +459,7 @@ smalltalk.addClass('HLReferencesListWidget', smalltalk.HLToolListWidget, [], 'He
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activateListItem:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anItem){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -478,7 +478,7 @@ smalltalk.HLReferencesListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commandCategory",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -494,7 +494,7 @@ smalltalk.HLReferencesListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -510,7 +510,7 @@ smalltalk.HLReferencesListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "observeModel",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLSearchReferences(){return smalltalk.HLSearchReferences||(typeof HLSearchReferences=="undefined"?nil:HLSearchReferences)}
@@ -538,7 +538,7 @@ smalltalk.HLReferencesListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onMethodSelected:",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -576,7 +576,7 @@ smalltalk.HLReferencesListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onSearchReferences:",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -592,7 +592,7 @@ smalltalk.HLReferencesListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderItemLabel:on:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (aMethod,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -611,7 +611,7 @@ smalltalk.HLReferencesListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectItem:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -628,7 +628,7 @@ smalltalk.HLReferencesListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -651,7 +651,7 @@ smalltalk.addClass('HLClassReferencesListWidget', smalltalk.HLReferencesListWidg
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -667,7 +667,7 @@ smalltalk.HLClassReferencesListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onSearchReferences:",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -688,7 +688,7 @@ smalltalk.addClass('HLImplementorsListWidget', smalltalk.HLReferencesListWidget,
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -704,7 +704,7 @@ smalltalk.HLImplementorsListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onSearchReferences:",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -725,7 +725,7 @@ smalltalk.addClass('HLRegexpListWidget', smalltalk.HLReferencesListWidget, [], '
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -741,7 +741,7 @@ smalltalk.HLRegexpListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onSearchReferences:",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -762,7 +762,7 @@ smalltalk.addClass('HLSendersListWidget', smalltalk.HLReferencesListWidget, [], 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -778,7 +778,7 @@ smalltalk.HLSendersListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onSearchReferences:",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -799,7 +799,7 @@ smalltalk.addClass('HLReferencesModel', smalltalk.HLToolModel, ['methodsCache', 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allMethods",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -817,7 +817,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allSelectors",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -838,7 +838,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classReferencesOf:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -859,7 +859,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classesAndMetaclasses",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -877,7 +877,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classesAndMetaclassesCache",
-category: 'cache',
+protocol: 'cache',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -901,7 +901,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "implementorsOf:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -925,7 +925,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isReferencesModel",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -941,7 +941,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "methodReferenceOn:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCompiledMethod){
 var self=this;
 function $HLMethodReference(){return smalltalk.HLMethodReference||(typeof HLMethodReference=="undefined"?nil:HLMethodReference)}
@@ -960,7 +960,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "methodsCache",
-category: 'cache',
+protocol: 'cache',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -984,7 +984,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "regexpReferencesOf:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1008,7 +1008,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "search:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 function $HLSearchReferences(){return smalltalk.HLSearchReferences||(typeof HLSearchReferences=="undefined"?nil:HLSearchReferences)}
@@ -1030,7 +1030,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sendersOf:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1054,7 +1054,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateCaches",
-category: 'cache',
+protocol: 'cache',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1072,7 +1072,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateClassesAndMetaclassesCache",
-category: 'cache',
+protocol: 'cache',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -1098,7 +1098,7 @@ smalltalk.HLReferencesModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateMethodsCache",
-category: 'cache',
+protocol: 'cache',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}

@@ -7,7 +7,7 @@ smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "main",
-category: 'not yet classified',
+protocol: 'not yet classified',
 fn: function (){
 var self=this;
 var result;
@@ -25,7 +25,7 @@ smalltalk.Benchfib.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "benchFib",
-category: '*Benchfib',
+protocol: '*Benchfib',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -54,7 +54,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "benchmark",
-category: '*Benchfib',
+protocol: '*Benchfib',
 fn: function (){
 var self=this;
 var size,flags,prime,k,count;
@@ -111,7 +111,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "jsbenchFib",
-category: '*Benchfib',
+protocol: '*Benchfib',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -130,7 +130,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "jsbenchmark",
-category: '*Benchfib',
+protocol: '*Benchfib',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -167,7 +167,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "jstinyBenchmarks",
-category: '*Benchfib',
+protocol: '*Benchfib',
 fn: function (){
 var self=this;
 var t1,t2,r,n1,n2;
@@ -232,7 +232,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tinyBenchmarks",
-category: '*Benchfib',
+protocol: '*Benchfib',
 fn: function (){
 var self=this;
 var t1,t2,r,n1,n2;

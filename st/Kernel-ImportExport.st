@@ -299,7 +299,7 @@ exportMethod: aMethod on: aStream
 		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
 		nextPutAll: 'smalltalk.method({';lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
-		nextPutAll: 'category: ''', aMethod protocol, ''',';lf;
+		nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
 		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
 		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;

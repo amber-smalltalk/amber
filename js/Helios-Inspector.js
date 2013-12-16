@@ -6,7 +6,7 @@ smalltalk.addClass('HLInspectorDisplayWidget', smalltalk.HLNavigationListWidget,
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -24,7 +24,7 @@ smalltalk.HLInspectorDisplayWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -40,7 +40,7 @@ smalltalk.HLInspectorDisplayWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -56,7 +56,7 @@ smalltalk.HLInspectorDisplayWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectionDisplayString",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 var selection;
@@ -84,7 +84,7 @@ smalltalk.addClass('HLInspectorModel', smalltalk.Object, ['announcer', 'environm
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announcer",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
@@ -109,7 +109,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "code",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLCodeModel(){return smalltalk.HLCodeModel||(typeof HLCodeModel=="undefined"?nil:HLCodeModel)}
@@ -134,7 +134,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "environment",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
@@ -158,7 +158,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "environment:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anEnvironment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -174,7 +174,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspect:on:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anObject,anInspector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -192,7 +192,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectee",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -210,7 +210,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectee:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -226,7 +226,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "instVarObjectAt:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anInstVarName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -244,7 +244,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -267,7 +267,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -283,7 +283,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onKeyDown:",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (anEvent){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -315,7 +315,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedInstVar:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anInstVarName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -331,7 +331,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedInstVarObject",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -349,7 +349,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selection",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -372,7 +372,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selection:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 function $HLInstanceVariableSelected(){return smalltalk.HLInstanceVariableSelected||(typeof HLInstanceVariableSelected=="undefined"?nil:HLInstanceVariableSelected)}
@@ -390,7 +390,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "subscribe:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -406,7 +406,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variables",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -430,7 +430,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variables:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -447,7 +447,7 @@ smalltalk.HLInspectorModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anEnvironment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -470,7 +470,7 @@ smalltalk.addClass('HLInspectorVariablesWidget', smalltalk.HLNavigationListWidge
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announcer",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
@@ -495,7 +495,7 @@ smalltalk.HLInspectorVariablesWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultItems",
-category: 'defaults',
+protocol: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -513,7 +513,7 @@ smalltalk.HLInspectorVariablesWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -531,7 +531,7 @@ smalltalk.HLInspectorVariablesWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -549,7 +549,7 @@ smalltalk.HLInspectorVariablesWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -565,7 +565,7 @@ smalltalk.HLInspectorVariablesWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "refresh",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -586,7 +586,7 @@ smalltalk.HLInspectorVariablesWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderButtonsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $HLDiveRequested(){return smalltalk.HLDiveRequested||(typeof HLDiveRequested=="undefined"?nil:HLDiveRequested)}
@@ -611,7 +611,7 @@ smalltalk.HLInspectorVariablesWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -628,7 +628,7 @@ smalltalk.HLInspectorVariablesWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderHeadOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -647,7 +647,7 @@ smalltalk.HLInspectorVariablesWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "resetItems",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -663,7 +663,7 @@ smalltalk.HLInspectorVariablesWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectItem:",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -680,7 +680,7 @@ smalltalk.HLInspectorVariablesWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selection",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -698,7 +698,7 @@ smalltalk.HLInspectorVariablesWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variables",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -719,7 +719,7 @@ smalltalk.addClass('HLInspectorWidget', smalltalk.HLWidget, ['model', 'variables
 smalltalk.addMethod(
 smalltalk.method({
 selector: "codeWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLCodeWidget(){return smalltalk.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
@@ -748,7 +748,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLInspectorDisplayWidget(){return smalltalk.HLInspectorDisplayWidget||(typeof HLInspectorDisplayWidget=="undefined"?nil:HLInspectorDisplayWidget)}
@@ -776,7 +776,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -793,7 +793,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspect:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -812,7 +812,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectee",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -830,7 +830,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectee:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -846,7 +846,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -864,7 +864,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLInspectorModel(){return smalltalk.HLInspectorModel||(typeof HLInspectorModel=="undefined"?nil:HLInspectorModel)}
@@ -889,7 +889,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -910,7 +910,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "observeCodeWidget",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLDoItExecuted(){return smalltalk.HLDoItExecuted||(typeof HLDoItExecuted=="undefined"?nil:HLDoItExecuted)}
@@ -930,7 +930,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "observeModel",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLInstanceVariableSelected(){return smalltalk.HLInstanceVariableSelected||(typeof HLInstanceVariableSelected=="undefined"?nil:HLInstanceVariableSelected)}
@@ -947,7 +947,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "observeVariablesWidget",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLDiveRequested(){return smalltalk.HLDiveRequested||(typeof HLDiveRequested=="undefined"?nil:HLDiveRequested)}
@@ -967,7 +967,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onDive",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (){
 var self=this;
 function $HLInspector(){return smalltalk.HLInspector||(typeof HLInspector=="undefined"?nil:HLInspector)}
@@ -987,7 +987,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onDoneIt",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1003,7 +1003,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onInspectIt",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1018,7 +1018,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onInstanceVariableSelected",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1035,7 +1035,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onPrintIt",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1050,7 +1050,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "refresh",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1066,7 +1066,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "refreshDisplayWidget",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1082,7 +1082,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "refreshVariablesWidget",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1098,7 +1098,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "register",
-category: 'registration',
+protocol: 'registration',
 fn: function (){
 var self=this;
 function $HLInspector(){return smalltalk.HLInspector||(typeof HLInspector=="undefined"?nil:HLInspector)}
@@ -1115,7 +1115,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
@@ -1136,7 +1136,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setLabel:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1152,7 +1152,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setVariables:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aDictionary){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1168,7 +1168,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1184,7 +1184,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unregister",
-category: 'registration',
+protocol: 'registration',
 fn: function (){
 var self=this;
 function $HLInspector(){return smalltalk.HLInspector||(typeof HLInspector=="undefined"?nil:HLInspector)}
@@ -1202,7 +1202,7 @@ smalltalk.HLInspectorWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variablesWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLInspectorVariablesWidget(){return smalltalk.HLInspectorVariablesWidget||(typeof HLInspectorVariablesWidget=="undefined"?nil:HLInspectorVariablesWidget)}
@@ -1233,7 +1233,7 @@ smalltalk.addClass('HLInspector', smalltalk.HLInspectorWidget, [], 'Helios-Inspe
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
@@ -1263,7 +1263,7 @@ smalltalk.HLInspector.klass.iVarNames = ['inspectors'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canBeOpenAsTab",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1279,7 +1279,7 @@ smalltalk.HLInspector.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1296,7 +1296,7 @@ smalltalk.HLInspector.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspect:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1315,7 +1315,7 @@ smalltalk.HLInspector.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectors",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -1340,7 +1340,7 @@ smalltalk.HLInspector.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "register:",
-category: 'registration',
+protocol: 'registration',
 fn: function (anInspector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1356,7 +1356,7 @@ smalltalk.HLInspector.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1372,7 +1372,7 @@ smalltalk.HLInspector.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1388,7 +1388,7 @@ smalltalk.HLInspector.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabPriority",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1404,7 +1404,7 @@ smalltalk.HLInspector.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unregister:",
-category: 'registration',
+protocol: 'registration',
 fn: function (anInspector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1420,7 +1420,7 @@ smalltalk.HLInspector.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "watchChanges",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

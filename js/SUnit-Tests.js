@@ -7,7 +7,7 @@ smalltalk.ExampleSetTest.comment="ExampleSetTest is taken from Pharo 1.4.\x0a\x0
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setUp",
-category: 'running',
+protocol: 'running',
 fn: function (){
 var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
@@ -25,7 +25,7 @@ smalltalk.ExampleSetTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAdd",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -42,7 +42,7 @@ smalltalk.ExampleSetTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testGrow",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -59,7 +59,7 @@ smalltalk.ExampleSetTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIllegal",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -84,7 +84,7 @@ smalltalk.ExampleSetTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIncludes",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -105,7 +105,7 @@ smalltalk.ExampleSetTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testOccurrences",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -131,7 +131,7 @@ smalltalk.ExampleSetTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testRemove",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -155,7 +155,7 @@ smalltalk.addClass('SUnitAsyncTest', smalltalk.TestCase, ['flag'], 'SUnit-Tests'
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fakeError",
-category: 'helpers',
+protocol: 'helpers',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -178,7 +178,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fakeErrorFailingInTearDown",
-category: 'helpers',
+protocol: 'helpers',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -199,7 +199,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fakeFailure",
-category: 'helpers',
+protocol: 'helpers',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -222,7 +222,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fakeMultipleTimeoutFailing",
-category: 'helpers',
+protocol: 'helpers',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -251,7 +251,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fakeMultipleTimeoutPassing",
-category: 'helpers',
+protocol: 'helpers',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -280,7 +280,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fakeTimeout",
-category: 'helpers',
+protocol: 'helpers',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -300,7 +300,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectorSetOf:",
-category: 'private',
+protocol: 'private',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -321,7 +321,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setUp",
-category: 'running',
+protocol: 'running',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -337,7 +337,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tearDown",
-category: 'running',
+protocol: 'running',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -353,7 +353,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAsyncErrorsAndFailures",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var suite,runner,result,assertBlock;
@@ -400,7 +400,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAsyncNeedsTimeout",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -431,7 +431,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testFinishedNeedsTimeout",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -457,7 +457,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIsAsyncReturnsCorrectValues",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -483,7 +483,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testPass",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -507,7 +507,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testTimeouts",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var suite,runner,result,assertBlock;
@@ -553,7 +553,7 @@ smalltalk.SUnitAsyncTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testTwoAsyncPassesWithFinishedOnlyOneIsRun",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var x;

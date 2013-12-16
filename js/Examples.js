@@ -7,7 +7,7 @@ smalltalk.Counter.comment="This is a trivial Widget example mimicking the classi
 smalltalk.addMethod(
 smalltalk.method({
 selector: "decrease",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -27,7 +27,7 @@ smalltalk.Counter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "increase",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -47,7 +47,7 @@ smalltalk.Counter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -64,7 +64,7 @@ smalltalk.Counter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -101,7 +101,7 @@ smalltalk.Counter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tryExample",
-category: 'example',
+protocol: 'example',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

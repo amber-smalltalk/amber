@@ -7,7 +7,7 @@ smalltalk.ObjectSpace.comment="I am a connection to another Smalltalk environmen
 smalltalk.addMethod(
 smalltalk.method({
 selector: "connectTo:",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (aFrame){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -24,7 +24,7 @@ smalltalk.ObjectSpace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "create",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -45,7 +45,7 @@ smalltalk.ObjectSpace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "destroy",
-category: 'releasing',
+protocol: 'releasing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -69,7 +69,7 @@ smalltalk.ObjectSpace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "do:",
-category: 'evaluating',
+protocol: 'evaluating',
 fn: function (aBlock){
 var self=this;
 function $ObjectSpaceConnectionError(){return smalltalk.ObjectSpaceConnectionError||(typeof ObjectSpaceConnectionError=="undefined"?nil:ObjectSpaceConnectionError)}
@@ -96,7 +96,7 @@ smalltalk.ObjectSpace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "frame",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -114,7 +114,7 @@ smalltalk.ObjectSpace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -131,7 +131,7 @@ smalltalk.ObjectSpace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isConnected",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -149,7 +149,7 @@ smalltalk.ObjectSpace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "release",
-category: 'releasing',
+protocol: 'releasing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -165,7 +165,7 @@ smalltalk.ObjectSpace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "whenReadyDo:",
-category: 'events',
+protocol: 'events',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -182,7 +182,7 @@ smalltalk.ObjectSpace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aFrame){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -205,7 +205,7 @@ smalltalk.addClass('ObjectSpaceConnectionError', smalltalk.Error, [], 'Spaces');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -224,7 +224,7 @@ smalltalk.addClass('ObjectSpaceTest', smalltalk.TestCase, ['space'], 'Spaces');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setUp",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $ObjectSpace(){return smalltalk.ObjectSpace||(typeof ObjectSpace=="undefined"?nil:ObjectSpace)}
@@ -241,7 +241,7 @@ smalltalk.ObjectSpaceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tearDown",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -257,7 +257,7 @@ smalltalk.ObjectSpaceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testConnection",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $ObjectSpaceConnectionError(){return smalltalk.ObjectSpaceConnectionError||(typeof ObjectSpaceConnectionError=="undefined"?nil:ObjectSpaceConnectionError)}
@@ -281,7 +281,7 @@ smalltalk.ObjectSpaceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCreate",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -299,7 +299,7 @@ smalltalk.ObjectSpaceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testEvaluation",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var result;
@@ -332,7 +332,7 @@ smalltalk.ObjectSpaceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testRelease",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

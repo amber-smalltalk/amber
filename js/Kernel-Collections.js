@@ -7,7 +7,7 @@ smalltalk.Association.comment="I represent a pair of associated objects, a key a
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (anAssociation){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -42,7 +42,7 @@ smalltalk.Association);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -60,7 +60,7 @@ smalltalk.Association);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aKey){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -76,7 +76,7 @@ smalltalk.Association);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printOn:",
-category: 'printing',
+protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -95,7 +95,7 @@ smalltalk.Association);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "value",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -113,7 +113,7 @@ smalltalk.Association);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "value:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -130,7 +130,7 @@ smalltalk.Association);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key:value:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aKey,aValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -155,7 +155,7 @@ smalltalk.Collection.comment="I am the abstract superclass of all classes that r
 smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
-category: 'copying',
+protocol: 'copying',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -176,7 +176,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -192,7 +192,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addAll:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -212,7 +212,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allSatisfy:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -240,7 +240,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "anyOne",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -267,7 +267,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "anySatisfy:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -295,7 +295,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asArray",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -314,7 +314,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -335,7 +335,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asOrderedCollection",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -353,7 +353,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asSet",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
@@ -372,7 +372,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collect:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var stream;
@@ -396,7 +396,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "contains:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -415,7 +415,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "copyWith:",
-category: 'copying',
+protocol: 'copying',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -436,7 +436,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "copyWithAll:",
-category: 'copying',
+protocol: 'copying',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -457,7 +457,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "copyWithoutAll:",
-category: 'copying',
+protocol: 'copying',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -478,7 +478,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "detect:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -499,7 +499,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "detect:ifNone:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -515,7 +515,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "do:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -531,7 +531,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "do:separatedBy:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
 var actionBeforeElement;
@@ -557,7 +557,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "errorNotFound",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -573,7 +573,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifEmpty:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -595,7 +595,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifEmpty:ifNotEmpty:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -614,7 +614,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNotEmpty:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -636,7 +636,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNotEmpty:ifEmpty:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -655,7 +655,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "includes:",
-category: 'testing',
+protocol: 'testing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -676,7 +676,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inject:into:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (anObject,aBlock){
 var self=this;
 var result;
@@ -701,7 +701,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "intersection:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aCollection){
 var self=this;
 var set,outputSet;
@@ -735,7 +735,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isEmpty",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -753,7 +753,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "noneSatisfy:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -781,7 +781,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "notEmpty",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -799,7 +799,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "occurrencesOf:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 var tally;
@@ -827,7 +827,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "putOn:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -846,7 +846,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "reject:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -867,7 +867,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -888,7 +888,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:ifAbsent:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anObject,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -904,7 +904,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeAll",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -920,7 +920,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "select:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var stream;
@@ -947,7 +947,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "select:thenCollect:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (selectBlock,collectBlock){
 var self=this;
 var stream;
@@ -975,7 +975,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -992,7 +992,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "heliosClass",
-category: 'helios',
+protocol: 'helios',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1008,7 +1008,7 @@ smalltalk.Collection.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "new:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1026,7 +1026,7 @@ smalltalk.Collection.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "with:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1047,7 +1047,7 @@ smalltalk.Collection.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "with:with:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anObject,anotherObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1070,7 +1070,7 @@ smalltalk.Collection.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "with:with:with:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (firstObject,secondObject,thirdObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1095,7 +1095,7 @@ smalltalk.Collection.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "withAll:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1119,7 +1119,7 @@ smalltalk.IndexableCollection.comment="I am a key-value store collection, that i
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIndex){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1140,7 +1140,7 @@ smalltalk.IndexableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1156,7 +1156,7 @@ smalltalk.IndexableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifPresent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1177,7 +1177,7 @@ smalltalk.IndexableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifPresent:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1193,7 +1193,7 @@ smalltalk.IndexableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:put:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIndex,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1209,7 +1209,7 @@ smalltalk.IndexableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "indexOf:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1230,7 +1230,7 @@ smalltalk.IndexableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "indexOf:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1246,7 +1246,7 @@ smalltalk.IndexableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "with:do:",
-category: 'enumarating',
+protocol: 'enumarating',
 fn: function (anotherCollection,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1265,7 +1265,7 @@ smalltalk.IndexableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "withIndexDo:",
-category: 'enumarating',
+protocol: 'enumarating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1285,7 +1285,7 @@ smalltalk.HashedCollection.comment="I am a traditional JavaScript object, or a S
 smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
-category: 'copying',
+protocol: 'copying',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1301,7 +1301,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aHashedCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1335,7 +1335,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anAssociation){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1351,7 +1351,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addAll:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (aHashedCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1368,7 +1368,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asDictionary",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -1387,7 +1387,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 var c;
@@ -1411,7 +1411,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "associations",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var associations;
@@ -1435,7 +1435,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "associationsDo:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 function $Association(){return smalltalk.Association||(typeof Association=="undefined"?nil:Association)}
@@ -1455,7 +1455,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1477,7 +1477,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsentPut:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1498,7 +1498,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifPresent:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aKey,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1520,7 +1520,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:put:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aKey,aValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1538,7 +1538,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collect:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var newDict;
@@ -1562,7 +1562,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 var copy;
@@ -1586,7 +1586,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "detect:ifNone:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1604,7 +1604,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "do:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1620,7 +1620,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "includes:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1638,7 +1638,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "includesKey:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aKey){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1654,7 +1654,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "indexOf:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1675,7 +1675,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "keyAtValue:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1696,7 +1696,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "keyAtValue:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1714,7 +1714,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "keys",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1730,7 +1730,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "keysAndValuesDo:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1749,7 +1749,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "keysDo:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1765,7 +1765,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printOn:",
-category: 'printing',
+protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1793,7 +1793,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:ifAbsent:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1811,7 +1811,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeAll",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1832,7 +1832,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeKey:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (aKey){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1850,7 +1850,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeKey:ifAbsent:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1873,7 +1873,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "select:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var newDict;
@@ -1900,7 +1900,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shallowCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 var copy;
@@ -1924,7 +1924,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1942,7 +1942,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "values",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1962,7 +1962,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "valuesDo:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1981,7 +1981,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "withIndexDo:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2001,7 +2001,7 @@ smalltalk.HashedCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "from:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 var newCollection;
@@ -2025,7 +2025,7 @@ smalltalk.HashedCollection.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fromPairs:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2043,7 +2043,7 @@ smalltalk.HashedCollection.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "newFromPairs:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 var newCollection;
@@ -2079,7 +2079,7 @@ smalltalk.Dictionary.comment="I represent a set of elements that can be viewed f
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asHashedCollection",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
@@ -2098,7 +2098,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2116,7 +2116,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2135,7 +2135,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:put:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aKey,aValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2160,7 +2160,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "includesKey:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aKey){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2176,7 +2176,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "indexOf:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
 var index;
@@ -2204,7 +2204,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2222,7 +2222,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "keys",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2240,7 +2240,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "keysAndValuesDo:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2258,7 +2258,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "keysDo:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2276,7 +2276,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "positionOfKey:",
-category: 'private',
+protocol: 'private',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2298,7 +2298,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeAll",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2316,7 +2316,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeKey:ifAbsent:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2345,7 +2345,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "values",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2363,7 +2363,7 @@ smalltalk.Dictionary);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "valuesDo:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2385,7 +2385,7 @@ smalltalk.SequenceableCollection.comment="I am an IndexableCollection\x0awith nu
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2427,7 +2427,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addLast:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2443,7 +2443,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allButFirst",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2461,7 +2461,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allButLast",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2479,7 +2479,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "atRandom",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2497,7 +2497,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "copyFrom:to:",
-category: 'copying',
+protocol: 'copying',
 fn: function (anIndex,anotherIndex){
 var self=this;
 var range,newCollection;
@@ -2522,7 +2522,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 var newCollection;
@@ -2546,7 +2546,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "detect:ifNone:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2568,7 +2568,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "do:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2589,7 +2589,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "first",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2607,7 +2607,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "first:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (n){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2625,7 +2625,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fourth",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2643,7 +2643,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "includes:",
-category: 'testing',
+protocol: 'testing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2664,7 +2664,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "indexOf:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2686,7 +2686,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "indexOf:startingAt:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject,start){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2707,7 +2707,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "indexOf:startingAt:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject,start,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2729,7 +2729,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "last",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2747,7 +2747,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "newStream",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2765,7 +2765,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "numericallyIndexable",
-category: 'private',
+protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2781,7 +2781,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "readStream",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2799,7 +2799,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeLast",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2817,7 +2817,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "reversed",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2833,7 +2833,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "second",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2851,7 +2851,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shallowCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 var newCollection;
@@ -2875,7 +2875,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "stream",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2893,7 +2893,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "streamClass",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2911,7 +2911,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "third",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2929,7 +2929,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "with:do:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (anotherCollection,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2951,7 +2951,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "withIndexDo:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2972,7 +2972,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "writeStream",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2991,7 +2991,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "streamClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Stream(){return smalltalk.Stream||(typeof Stream=="undefined"?nil:Stream)}
@@ -3008,7 +3008,7 @@ smalltalk.SequenceableCollection.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "streamContents:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 var stream;
@@ -3032,7 +3032,7 @@ smalltalk.Array.comment="I represent a collection of objects ordered by the coll
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3048,7 +3048,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addFirst:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3064,7 +3064,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJavascript",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3086,7 +3086,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3105,7 +3105,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifPresent:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3121,7 +3121,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:put:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIndex,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3137,7 +3137,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collect:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3153,7 +3153,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "join:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3169,7 +3169,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "numericallyIndexable",
-category: 'private',
+protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3185,7 +3185,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printOn:",
-category: 'printing',
+protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3213,7 +3213,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:ifAbsent:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anObject,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3237,7 +3237,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeAll",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3253,7 +3253,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeFrom:to:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (aNumber,anotherNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3269,7 +3269,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeIndex:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3285,7 +3285,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeLast",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3301,7 +3301,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "reversed",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3317,7 +3317,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "select:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3341,7 +3341,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3357,7 +3357,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sort",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3375,7 +3375,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sort:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3395,7 +3395,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sorted",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3413,7 +3413,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sorted:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3432,7 +3432,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "new:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3448,7 +3448,7 @@ smalltalk.Array.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "with:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3469,7 +3469,7 @@ smalltalk.Array.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "with:with:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anObject,anObject2){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3492,7 +3492,7 @@ smalltalk.Array.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "with:with:with:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anObject,anObject2,anObject3){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3517,7 +3517,7 @@ smalltalk.Array.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "withAll:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 var instance,index;
@@ -3547,7 +3547,7 @@ smalltalk.CharacterArray.comment="I am the abstract superclass of string-like co
 smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
-category: 'copying',
+protocol: 'copying',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3567,7 +3567,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3583,7 +3583,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asLowercase",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3601,7 +3601,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asNumber",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3619,7 +3619,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3637,7 +3637,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asSymbol",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3655,7 +3655,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asUppercase",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3673,7 +3673,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:put:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIndex,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3689,7 +3689,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "errorReadOnly",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3705,7 +3705,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printOn:",
-category: 'printing',
+protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3721,7 +3721,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "putOn:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3737,7 +3737,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3754,7 +3754,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fromString:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3773,7 +3773,7 @@ smalltalk.String.comment="I am an indexed collection of Characters. Unlike most 
 smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
-category: 'copying',
+protocol: 'copying',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3789,7 +3789,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "<",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3805,7 +3805,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "<=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3821,7 +3821,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3843,7 +3843,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "==",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3861,7 +3861,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: ">",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3877,7 +3877,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: ">=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3893,7 +3893,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3909,7 +3909,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJavascript",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3930,7 +3930,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asLowercase",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3946,7 +3946,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asMutator",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3968,7 +3968,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asNumber",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3984,7 +3984,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asRegexp",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
@@ -4003,7 +4003,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asSelector",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4019,7 +4019,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4035,7 +4035,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asSymbol",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4051,7 +4051,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asUppercase",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4067,7 +4067,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asciiValue",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4083,7 +4083,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4099,7 +4099,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifPresent:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4118,7 +4118,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "capitalized",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4141,7 +4141,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "charCodeAt:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4157,7 +4157,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "copyFrom:to:",
-category: 'copying',
+protocol: 'copying',
 fn: function (anIndex,anotherIndex){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4173,7 +4173,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "crlfSanitized",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -4192,7 +4192,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4210,7 +4210,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "escaped",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4226,7 +4226,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "identityHash",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4244,7 +4244,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "includesSubString:",
-category: 'testing',
+protocol: 'testing',
 fn: function (subString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4260,7 +4260,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isCapitalized",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4281,7 +4281,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isImmutable",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4297,7 +4297,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isString",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4313,7 +4313,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isVowel",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4334,7 +4334,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "join:",
-category: 'split join',
+protocol: 'split join',
 fn: function (aCollection){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -4363,7 +4363,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "lineIndicesDo:",
-category: 'split join',
+protocol: 'split join',
 fn: function (aBlock){
 var self=this;
 var cr,lf,start,sz,nextLF,nextCR;
@@ -4462,7 +4462,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "lineNumber:",
-category: 'split join',
+protocol: 'split join',
 fn: function (anIndex){
 var self=this;
 var lineCount;
@@ -4495,7 +4495,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "lines",
-category: 'split join',
+protocol: 'split join',
 fn: function (){
 var self=this;
 var lines;
@@ -4520,7 +4520,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "linesDo:",
-category: 'split join',
+protocol: 'split join',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4539,7 +4539,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "match:",
-category: 'regular expressions',
+protocol: 'regular expressions',
 fn: function (aRegexp){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4555,7 +4555,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "matchesOf:",
-category: 'regular expressions',
+protocol: 'regular expressions',
 fn: function (aRegularExpression){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4571,7 +4571,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "numericallyIndexable",
-category: 'private',
+protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4587,7 +4587,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printNl",
-category: 'printing',
+protocol: 'printing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4603,7 +4603,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printOn:",
-category: 'printing',
+protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4624,7 +4624,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "replace:with:",
-category: 'regular expressions',
+protocol: 'regular expressions',
 fn: function (aString,anotherString){
 var self=this;
 function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
@@ -4643,7 +4643,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "replaceRegexp:with:",
-category: 'regular expressions',
+protocol: 'regular expressions',
 fn: function (aRegexp,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4659,7 +4659,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "reversed",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4675,7 +4675,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shallowCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4693,7 +4693,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4709,7 +4709,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "subStrings:",
-category: 'split join',
+protocol: 'split join',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4727,7 +4727,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tokenize:",
-category: 'split join',
+protocol: 'split join',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4743,7 +4743,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "trimBoth",
-category: 'regular expressions',
+protocol: 'regular expressions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4761,7 +4761,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "trimBoth:",
-category: 'regular expressions',
+protocol: 'regular expressions',
 fn: function (separators){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4779,7 +4779,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "trimLeft",
-category: 'regular expressions',
+protocol: 'regular expressions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4797,7 +4797,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "trimLeft:",
-category: 'regular expressions',
+protocol: 'regular expressions',
 fn: function (separators){
 var self=this;
 function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
@@ -4819,7 +4819,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "trimRight",
-category: 'regular expressions',
+protocol: 'regular expressions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4837,7 +4837,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "trimRight:",
-category: 'regular expressions',
+protocol: 'regular expressions',
 fn: function (separators){
 var self=this;
 function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
@@ -4859,7 +4859,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unescaped",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4875,7 +4875,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "uriComponentDecoded",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4891,7 +4891,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "uriComponentEncoded",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4907,7 +4907,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "uriDecoded",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4923,7 +4923,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "uriEncoded",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4940,7 +4940,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cr",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4956,7 +4956,7 @@ smalltalk.String.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "crlf",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4972,7 +4972,7 @@ smalltalk.String.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "esc",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4990,7 +4990,7 @@ smalltalk.String.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fromCharCode:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5006,7 +5006,7 @@ smalltalk.String.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fromString:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5022,7 +5022,7 @@ smalltalk.String.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "lf",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5038,7 +5038,7 @@ smalltalk.String.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "random",
-category: 'random',
+protocol: 'random',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5054,7 +5054,7 @@ smalltalk.String.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "randomNotIn:",
-category: 'random',
+protocol: 'random',
 fn: function (aString){
 var self=this;
 var result;
@@ -5079,7 +5079,7 @@ smalltalk.String.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "space",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5095,7 +5095,7 @@ smalltalk.String.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "streamClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $StringStream(){return smalltalk.StringStream||(typeof StringStream=="undefined"?nil:StringStream)}
@@ -5112,7 +5112,7 @@ smalltalk.String.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tab",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5128,7 +5128,7 @@ smalltalk.String.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "value:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aUTFCharCode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5147,7 +5147,7 @@ smalltalk.Set.comment="I represent an unordered set of objects without duplicate
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5188,7 +5188,7 @@ smalltalk.Set);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5213,7 +5213,7 @@ smalltalk.Set);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asArray",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5231,7 +5231,7 @@ smalltalk.Set);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collect:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5249,7 +5249,7 @@ smalltalk.Set);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "detect:ifNone:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5267,7 +5267,7 @@ smalltalk.Set);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "do:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5283,7 +5283,7 @@ smalltalk.Set);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "includes:",
-category: 'testing',
+protocol: 'testing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5301,7 +5301,7 @@ smalltalk.Set);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5318,7 +5318,7 @@ smalltalk.Set);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printOn:",
-category: 'printing',
+protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5346,7 +5346,7 @@ smalltalk.Set);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5362,7 +5362,7 @@ smalltalk.Set);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:ifAbsent:",
-category: 'adding/removing',
+protocol: 'adding/removing',
 fn: function (anObject,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5378,7 +5378,7 @@ smalltalk.Set);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "select:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var collection;
@@ -5405,7 +5405,7 @@ smalltalk.Set);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5427,7 +5427,7 @@ smalltalk.Queue.comment="I am a one-sided queue.\x0a\x0a## Usage\x0a\x0aUse `#ne
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -5448,7 +5448,7 @@ smalltalk.Queue);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "next",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5469,7 +5469,7 @@ smalltalk.Queue);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextIfAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 var result;
@@ -5517,7 +5517,7 @@ smalltalk.Queue);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPut:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5537,7 +5537,7 @@ smalltalk.RegularExpression.comment="I represent a regular expression object. My
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compile:",
-category: 'evaluating',
+protocol: 'evaluating',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5553,7 +5553,7 @@ smalltalk.RegularExpression);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exec:",
-category: 'evaluating',
+protocol: 'evaluating',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5569,7 +5569,7 @@ smalltalk.RegularExpression);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "test:",
-category: 'evaluating',
+protocol: 'evaluating',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5586,7 +5586,7 @@ smalltalk.RegularExpression);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fromString:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5604,7 +5604,7 @@ smalltalk.RegularExpression.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fromString:flag:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aString,anotherString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5623,7 +5623,7 @@ smalltalk.Stream.comment="I represent an accessor for a sequence of objects. Thi
 smalltalk.addMethod(
 smalltalk.method({
 selector: "<<",
-category: 'writing',
+protocol: 'writing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5639,7 +5639,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "atEnd",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5657,7 +5657,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "atStart",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5675,7 +5675,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "close",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5690,7 +5690,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5708,7 +5708,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "contents",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5726,7 +5726,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "do:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5748,7 +5748,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "flush",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5763,7 +5763,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isEmpty",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5781,7 +5781,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "next",
-category: 'reading',
+protocol: 'reading',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5808,7 +5808,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "next:",
-category: 'reading',
+protocol: 'reading',
 fn: function (anInteger){
 var self=this;
 var tempCollection;
@@ -5835,7 +5835,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPut:",
-category: 'writing',
+protocol: 'writing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5860,7 +5860,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutAll:",
-category: 'writing',
+protocol: 'writing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5879,7 +5879,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutString:",
-category: 'writing',
+protocol: 'writing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5895,7 +5895,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "peek",
-category: 'reading',
+protocol: 'reading',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5916,7 +5916,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "position",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5940,7 +5940,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "position:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5956,7 +5956,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "reset",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5972,7 +5972,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "resetContents",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5989,7 +5989,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setCollection:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6005,7 +6005,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setStreamSize:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6021,7 +6021,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setToEnd",
-category: 'positioning',
+protocol: 'positioning',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6037,7 +6037,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6055,7 +6055,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "skip:",
-category: 'positioning',
+protocol: 'positioning',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6071,7 +6071,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "streamSize",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6089,7 +6089,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "write:",
-category: 'writing',
+protocol: 'writing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6106,7 +6106,7 @@ smalltalk.Stream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6131,7 +6131,7 @@ smalltalk.StringStream.comment="I am a Stream specific to `String` objects.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cr",
-category: 'writing',
+protocol: 'writing',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -6150,7 +6150,7 @@ smalltalk.StringStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "crlf",
-category: 'writing',
+protocol: 'writing',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -6169,7 +6169,7 @@ smalltalk.StringStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "lf",
-category: 'writing',
+protocol: 'writing',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -6188,7 +6188,7 @@ smalltalk.StringStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "next:",
-category: 'reading',
+protocol: 'reading',
 fn: function (anInteger){
 var self=this;
 var tempCollection;
@@ -6216,7 +6216,7 @@ smalltalk.StringStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPut:",
-category: 'writing',
+protocol: 'writing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6232,7 +6232,7 @@ smalltalk.StringStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutAll:",
-category: 'writing',
+protocol: 'writing',
 fn: function (aString){
 var self=this;
 var pre,post;
@@ -6288,7 +6288,7 @@ smalltalk.StringStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutString:",
-category: 'writing',
+protocol: 'writing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6304,7 +6304,7 @@ smalltalk.StringStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "space",
-category: 'writing',
+protocol: 'writing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6320,7 +6320,7 @@ smalltalk.StringStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tab",
-category: 'writing',
+protocol: 'writing',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}

@@ -7,7 +7,7 @@ smalltalk.ResultAnnouncement.comment="I get signaled when a `TestCase` has been 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "result",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -25,7 +25,7 @@ smalltalk.ResultAnnouncement);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "result:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aTestResult){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -45,7 +45,7 @@ smalltalk.TestCase.comment="I am an implementation of the command pattern to run
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assert:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBoolean){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -61,7 +61,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assert:description:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBoolean,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -79,7 +79,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assert:equals:",
-category: 'testing',
+protocol: 'testing',
 fn: function (actual,expected){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -105,7 +105,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "async:",
-category: 'async',
+protocol: 'async',
 fn: function (aBlock){
 var self=this;
 var c;
@@ -132,7 +132,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aRunningTestContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -148,7 +148,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deny:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBoolean){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -164,7 +164,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "errorIfNotAsync:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -184,7 +184,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "finished",
-category: 'async',
+protocol: 'async',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -201,7 +201,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isAsync",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -219,7 +219,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "performTest",
-category: 'running',
+protocol: 'running',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -236,7 +236,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "runCase",
-category: 'running',
+protocol: 'running',
 fn: function (){
 var self=this;
 function $TestContext(){return smalltalk.TestContext||(typeof TestContext=="undefined"?nil:TestContext)}
@@ -253,7 +253,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -271,7 +271,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setTestSelector:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -287,7 +287,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setUp",
-category: 'running',
+protocol: 'running',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -302,7 +302,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "should:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -318,7 +318,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "should:raise:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock,anExceptionClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -341,7 +341,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldnt:raise:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock,anExceptionClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -364,7 +364,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "signalFailure:",
-category: 'private',
+protocol: 'private',
 fn: function (aString){
 var self=this;
 function $TestFailure(){return smalltalk.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
@@ -384,7 +384,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tearDown",
-category: 'running',
+protocol: 'running',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -399,7 +399,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "timeout:",
-category: 'async',
+protocol: 'async',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -427,7 +427,7 @@ smalltalk.TestCase);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allTestSelectors",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var selectors;
@@ -451,7 +451,7 @@ smalltalk.TestCase.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "buildSuite",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -472,7 +472,7 @@ smalltalk.TestCase.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "heliosClass",
-category: 'helios',
+protocol: 'helios',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -488,7 +488,7 @@ smalltalk.TestCase.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isAbstract",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -506,7 +506,7 @@ smalltalk.TestCase.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "lookupHierarchyRoot",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $TestCase(){return smalltalk.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
@@ -523,7 +523,7 @@ smalltalk.TestCase.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -544,7 +544,7 @@ smalltalk.TestCase.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldInheritSelectors",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -562,7 +562,7 @@ smalltalk.TestCase.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSelectors",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -586,7 +586,7 @@ smalltalk.TestContext.comment="I govern running a particular test case.\x0a\x0aM
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute:",
-category: 'running',
+protocol: 'running',
 fn: function (aBlock){
 var self=this;
 var failed;
@@ -628,7 +628,7 @@ smalltalk.TestContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "start",
-category: 'running',
+protocol: 'running',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -648,7 +648,7 @@ smalltalk.TestContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCase:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aTestCase){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -665,7 +665,7 @@ smalltalk.TestContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCase:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aTestCase){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -689,7 +689,7 @@ smalltalk.ReportingTestContext.comment="I add `TestResult` reporting to `TestCon
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute:",
-category: 'running',
+protocol: 'running',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -719,7 +719,7 @@ smalltalk.ReportingTestContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "finished:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -735,7 +735,7 @@ smalltalk.ReportingTestContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "result:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aTestResult){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -751,7 +751,7 @@ smalltalk.ReportingTestContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "withErrorReporting:",
-category: 'private',
+protocol: 'private',
 fn: function (aBlock){
 var self=this;
 function $TestFailure(){return smalltalk.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
@@ -780,7 +780,7 @@ smalltalk.ReportingTestContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCase:result:finished:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aTestCase,aTestResult,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -809,7 +809,7 @@ smalltalk.TestResult.comment="I implement the collecting parameter pattern for r
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addError:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -825,7 +825,7 @@ smalltalk.TestResult);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addFailure:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aFailure){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -841,7 +841,7 @@ smalltalk.TestResult);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "errors",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -859,7 +859,7 @@ smalltalk.TestResult);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "failures",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -877,7 +877,7 @@ smalltalk.TestResult);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "increaseRuns",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -893,7 +893,7 @@ smalltalk.TestResult);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
@@ -917,7 +917,7 @@ smalltalk.TestResult);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextRunDo:",
-category: 'running',
+protocol: 'running',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -940,7 +940,7 @@ smalltalk.TestResult);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "runCase:",
-category: 'running',
+protocol: 'running',
 fn: function (aTestCase){
 var self=this;
 function $TestFailure(){return smalltalk.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
@@ -972,7 +972,7 @@ smalltalk.TestResult);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "runs",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -990,7 +990,7 @@ smalltalk.TestResult);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "status",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1019,7 +1019,7 @@ smalltalk.TestResult);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "timestamp",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1037,7 +1037,7 @@ smalltalk.TestResult);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "total",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1055,7 +1055,7 @@ smalltalk.TestResult);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "total:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1075,7 +1075,7 @@ smalltalk.TestSuiteRunner.comment="I am responsible for running a collection (`s
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announcer",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1093,7 +1093,7 @@ smalltalk.TestSuiteRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "contextOf:",
-category: 'private',
+protocol: 'private',
 fn: function (anInteger){
 var self=this;
 function $ReportingTestContext(){return smalltalk.ReportingTestContext||(typeof ReportingTestContext=="undefined"?nil:ReportingTestContext)}
@@ -1115,7 +1115,7 @@ smalltalk.TestSuiteRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
@@ -1147,7 +1147,7 @@ smalltalk.TestSuiteRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "result",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1165,7 +1165,7 @@ smalltalk.TestSuiteRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "resume",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $ResultAnnouncement(){return smalltalk.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
@@ -1183,7 +1183,7 @@ smalltalk.TestSuiteRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "run",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1200,7 +1200,7 @@ smalltalk.TestSuiteRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "suite:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1217,7 +1217,7 @@ smalltalk.TestSuiteRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "new",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1233,7 +1233,7 @@ smalltalk.TestSuiteRunner.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

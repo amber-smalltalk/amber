@@ -7,7 +7,7 @@ smalltalk.HLTranscript.comment="I am a widget responsible for displaying transcr
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clear",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -23,7 +23,7 @@ smalltalk.HLTranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -40,7 +40,7 @@ smalltalk.HLTranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "register",
-category: 'registration',
+protocol: 'registration',
 fn: function (){
 var self=this;
 function $HLTranscriptHandler(){return smalltalk.HLTranscriptHandler||(typeof HLTranscriptHandler=="undefined"?nil:HLTranscriptHandler)}
@@ -57,7 +57,7 @@ smalltalk.HLTranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -80,7 +80,7 @@ smalltalk.HLTranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "show:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -102,7 +102,7 @@ smalltalk.HLTranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unregister",
-category: 'registration',
+protocol: 'registration',
 fn: function (){
 var self=this;
 function $HLTranscriptHandler(){return smalltalk.HLTranscriptHandler||(typeof HLTranscriptHandler=="undefined"?nil:HLTranscriptHandler)}
@@ -126,7 +126,7 @@ smalltalk.HLTranscriptHandler.klass.iVarNames = ['transcripts'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clear",
-category: 'registration',
+protocol: 'registration',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -145,7 +145,7 @@ smalltalk.HLTranscriptHandler.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
@@ -162,7 +162,7 @@ smalltalk.HLTranscriptHandler.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "register:",
-category: 'registration',
+protocol: 'registration',
 fn: function (aTranscript){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -178,7 +178,7 @@ smalltalk.HLTranscriptHandler.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "show:",
-category: 'registration',
+protocol: 'registration',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -197,7 +197,7 @@ smalltalk.HLTranscriptHandler.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "transcripts",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -222,7 +222,7 @@ smalltalk.HLTranscriptHandler.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unregister:",
-category: 'registration',
+protocol: 'registration',
 fn: function (aTranscript){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

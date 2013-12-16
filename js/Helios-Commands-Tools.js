@@ -6,7 +6,7 @@ smalltalk.addClass('HLToolCommand', smalltalk.HLModelCommand, [], 'Helios-Comman
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -23,7 +23,7 @@ smalltalk.HLToolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "for:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aToolModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -44,7 +44,7 @@ smalltalk.HLToolCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isValidFor:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -64,7 +64,7 @@ smalltalk.addClass('HLCommitPackageCommand', smalltalk.HLToolCommand, [], 'Helio
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -80,7 +80,7 @@ smalltalk.HLCommitPackageCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
-category: 'executing',
+protocol: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -96,7 +96,7 @@ smalltalk.HLCommitPackageCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -113,7 +113,7 @@ smalltalk.HLCommitPackageCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -129,7 +129,7 @@ smalltalk.HLCommitPackageCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -148,7 +148,7 @@ smalltalk.addClass('HLCopyCommand', smalltalk.HLToolCommand, [], 'Helios-Command
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -164,7 +164,7 @@ smalltalk.HLCopyCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -182,7 +182,7 @@ smalltalk.addClass('HLCopyClassCommand', smalltalk.HLCopyCommand, [], 'Helios-Co
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -198,7 +198,7 @@ smalltalk.HLCopyClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultInput",
-category: 'defaults',
+protocol: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -216,7 +216,7 @@ smalltalk.HLCopyClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -232,7 +232,7 @@ smalltalk.HLCopyClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
-category: 'executing',
+protocol: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -248,7 +248,7 @@ smalltalk.HLCopyClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -266,7 +266,7 @@ smalltalk.HLCopyClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInputRequired",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -283,7 +283,7 @@ smalltalk.HLCopyClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -299,7 +299,7 @@ smalltalk.HLCopyClassCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -315,7 +315,7 @@ smalltalk.HLCopyClassCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "menuLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -334,7 +334,7 @@ smalltalk.addClass('HLFindCommand', smalltalk.HLToolCommand, [], 'Helios-Command
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -350,7 +350,7 @@ smalltalk.HLFindCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -368,7 +368,7 @@ smalltalk.addClass('HLFindClassCommand', smalltalk.HLFindCommand, [], 'Helios-Co
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -384,7 +384,7 @@ smalltalk.HLFindClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
-category: 'executing',
+protocol: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -400,7 +400,7 @@ smalltalk.HLFindClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputCompletion",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -418,7 +418,7 @@ smalltalk.HLFindClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -434,7 +434,7 @@ smalltalk.HLFindClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInputRequired",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -451,7 +451,7 @@ smalltalk.HLFindClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isValidFor:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -469,7 +469,7 @@ smalltalk.HLFindClassCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -485,7 +485,7 @@ smalltalk.HLFindClassCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -503,7 +503,7 @@ smalltalk.addClass('HLFindReferencesCommand', smalltalk.HLFindCommand, [], 'Heli
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultInput",
-category: 'defaults',
+protocol: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -537,7 +537,7 @@ smalltalk.HLFindReferencesCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -553,7 +553,7 @@ smalltalk.HLFindReferencesCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
-category: 'executing',
+protocol: 'executing',
 fn: function (){
 var self=this;
 function $HLReferences(){return smalltalk.HLReferences||(typeof HLReferences=="undefined"?nil:HLReferences)}
@@ -573,7 +573,7 @@ smalltalk.HLFindReferencesCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputCompletion",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -594,7 +594,7 @@ smalltalk.HLFindReferencesCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -610,7 +610,7 @@ smalltalk.HLFindReferencesCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInputRequired",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -627,7 +627,7 @@ smalltalk.HLFindReferencesCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -643,7 +643,7 @@ smalltalk.HLFindReferencesCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -662,7 +662,7 @@ smalltalk.addClass('HLMoveToCommand', smalltalk.HLToolCommand, [], 'Helios-Comma
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -678,7 +678,7 @@ smalltalk.HLMoveToCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -696,7 +696,7 @@ smalltalk.addClass('HLMoveClassToCommand', smalltalk.HLMoveToCommand, [], 'Helio
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -715,7 +715,7 @@ smalltalk.HLMoveClassToCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -731,7 +731,7 @@ smalltalk.HLMoveClassToCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -749,7 +749,7 @@ smalltalk.addClass('HLMoveClassToPackageCommand', smalltalk.HLMoveClassToCommand
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -765,7 +765,7 @@ smalltalk.HLMoveClassToPackageCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -781,7 +781,7 @@ smalltalk.HLMoveClassToPackageCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
-category: 'executing',
+protocol: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -797,7 +797,7 @@ smalltalk.HLMoveClassToPackageCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputCompletion",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -815,7 +815,7 @@ smalltalk.HLMoveClassToPackageCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -831,7 +831,7 @@ smalltalk.HLMoveClassToPackageCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInputRequired",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -848,7 +848,7 @@ smalltalk.HLMoveClassToPackageCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -864,7 +864,7 @@ smalltalk.HLMoveClassToPackageCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -880,7 +880,7 @@ smalltalk.HLMoveClassToPackageCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "menuLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -898,7 +898,7 @@ smalltalk.addClass('HLMoveMethodToCommand', smalltalk.HLMoveToCommand, [], 'Heli
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -914,7 +914,7 @@ smalltalk.HLMoveMethodToCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -933,7 +933,7 @@ smalltalk.HLMoveMethodToCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -949,7 +949,7 @@ smalltalk.HLMoveMethodToCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -967,7 +967,7 @@ smalltalk.addClass('HLMoveMethodToClassCommand', smalltalk.HLMoveMethodToCommand
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -983,7 +983,7 @@ smalltalk.HLMoveMethodToClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
-category: 'executing',
+protocol: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -999,7 +999,7 @@ smalltalk.HLMoveMethodToClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputCompletion",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1017,7 +1017,7 @@ smalltalk.HLMoveMethodToClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1033,7 +1033,7 @@ smalltalk.HLMoveMethodToClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInputRequired",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1050,7 +1050,7 @@ smalltalk.HLMoveMethodToClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1066,7 +1066,7 @@ smalltalk.HLMoveMethodToClassCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1082,7 +1082,7 @@ smalltalk.HLMoveMethodToClassCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "menuLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1100,7 +1100,7 @@ smalltalk.addClass('HLMoveMethodToProtocolCommand', smalltalk.HLMoveMethodToComm
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1116,7 +1116,7 @@ smalltalk.HLMoveMethodToProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
-category: 'executing',
+protocol: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1132,7 +1132,7 @@ smalltalk.HLMoveMethodToProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputCompletion",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1150,7 +1150,7 @@ smalltalk.HLMoveMethodToProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1166,7 +1166,7 @@ smalltalk.HLMoveMethodToProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInputRequired",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1183,7 +1183,7 @@ smalltalk.HLMoveMethodToProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1199,7 +1199,7 @@ smalltalk.HLMoveMethodToProtocolCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1215,7 +1215,7 @@ smalltalk.HLMoveMethodToProtocolCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "menuLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1234,7 +1234,7 @@ smalltalk.addClass('HLRemoveCommand', smalltalk.HLToolCommand, [], 'Helios-Comma
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1250,7 +1250,7 @@ smalltalk.HLRemoveCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1268,7 +1268,7 @@ smalltalk.addClass('HLRemoveClassCommand', smalltalk.HLRemoveCommand, [], 'Helio
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1284,7 +1284,7 @@ smalltalk.HLRemoveClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
-category: 'executing',
+protocol: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1300,7 +1300,7 @@ smalltalk.HLRemoveClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1319,7 +1319,7 @@ smalltalk.HLRemoveClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1335,7 +1335,7 @@ smalltalk.HLRemoveClassCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1351,7 +1351,7 @@ smalltalk.HLRemoveClassCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "menuLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1369,7 +1369,7 @@ smalltalk.addClass('HLRemoveMethodCommand', smalltalk.HLRemoveCommand, [], 'Heli
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1385,7 +1385,7 @@ smalltalk.HLRemoveMethodCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
-category: 'executing',
+protocol: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1401,7 +1401,7 @@ smalltalk.HLRemoveMethodCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1420,7 +1420,7 @@ smalltalk.HLRemoveMethodCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1436,7 +1436,7 @@ smalltalk.HLRemoveMethodCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1452,7 +1452,7 @@ smalltalk.HLRemoveMethodCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "menuLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1470,7 +1470,7 @@ smalltalk.addClass('HLRemoveProtocolCommand', smalltalk.HLRemoveCommand, [], 'He
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1486,7 +1486,7 @@ smalltalk.HLRemoveProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
-category: 'executing',
+protocol: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1502,7 +1502,7 @@ smalltalk.HLRemoveProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1521,7 +1521,7 @@ smalltalk.HLRemoveProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1537,7 +1537,7 @@ smalltalk.HLRemoveProtocolCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1553,7 +1553,7 @@ smalltalk.HLRemoveProtocolCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "menuLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1572,7 +1572,7 @@ smalltalk.addClass('HLRenameCommand', smalltalk.HLToolCommand, [], 'Helios-Comma
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1588,7 +1588,7 @@ smalltalk.HLRenameCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1606,7 +1606,7 @@ smalltalk.addClass('HLRenameClassCommand', smalltalk.HLRenameCommand, [], 'Helio
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1622,7 +1622,7 @@ smalltalk.HLRenameClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultInput",
-category: 'defaults',
+protocol: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1640,7 +1640,7 @@ smalltalk.HLRenameClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1656,7 +1656,7 @@ smalltalk.HLRenameClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
-category: 'executing',
+protocol: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1672,7 +1672,7 @@ smalltalk.HLRenameClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1690,7 +1690,7 @@ smalltalk.HLRenameClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInputRequired",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1707,7 +1707,7 @@ smalltalk.HLRenameClassCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1723,7 +1723,7 @@ smalltalk.HLRenameClassCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1739,7 +1739,7 @@ smalltalk.HLRenameClassCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "menuLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1757,7 +1757,7 @@ smalltalk.addClass('HLRenameProtocolCommand', smalltalk.HLRenameCommand, [], 'He
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1773,7 +1773,7 @@ smalltalk.HLRenameProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultInput",
-category: 'defaults',
+protocol: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1791,7 +1791,7 @@ smalltalk.HLRenameProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1807,7 +1807,7 @@ smalltalk.HLRenameProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
-category: 'executing',
+protocol: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1823,7 +1823,7 @@ smalltalk.HLRenameProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1841,7 +1841,7 @@ smalltalk.HLRenameProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInputRequired",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1858,7 +1858,7 @@ smalltalk.HLRenameProtocolCommand);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1874,7 +1874,7 @@ smalltalk.HLRenameProtocolCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1890,7 +1890,7 @@ smalltalk.HLRenameProtocolCommand.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "menuLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

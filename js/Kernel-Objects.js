@@ -7,7 +7,7 @@ smalltalk.ProtoObject.comment="I implement the basic behavior required for any o
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -25,7 +25,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "class",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -41,7 +41,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "doesNotUnderstand:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (aMessage){
 var self=this;
 function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
@@ -62,7 +62,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "identityHash",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -84,7 +84,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -99,7 +99,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspect",
-category: 'inspecting',
+protocol: 'inspecting',
 fn: function (){
 var self=this;
 function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
@@ -116,7 +116,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectOn:",
-category: 'inspecting',
+protocol: 'inspecting',
 fn: function (anInspector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -131,7 +131,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "instVarAt:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -147,7 +147,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "instVarAt:put:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -163,7 +163,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "perform:",
-category: 'message handling',
+protocol: 'message handling',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -181,7 +181,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "perform:withArguments:",
-category: 'message handling',
+protocol: 'message handling',
 fn: function (aString,aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -197,7 +197,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printOn:",
-category: 'printing',
+protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -227,7 +227,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
-category: 'printing',
+protocol: 'printing',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -249,7 +249,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "yourself",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -266,7 +266,7 @@ smalltalk.ProtoObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "heliosClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -282,7 +282,7 @@ smalltalk.ProtoObject.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -300,7 +300,7 @@ smalltalk.Object.comment="**I am the root of the Smalltalk class system**. With 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "->",
-category: 'converting',
+protocol: 'converting',
 fn: function (anObject){
 var self=this;
 function $Association(){return smalltalk.Association||(typeof Association=="undefined"?nil:Association)}
@@ -319,7 +319,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -337,7 +337,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "==",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -357,7 +357,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 var variables;
@@ -382,7 +382,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSONString",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 function $JSON(){return smalltalk.JSON||(typeof JSON=="undefined"?nil:JSON)}
@@ -401,7 +401,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJavascript",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -419,7 +419,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "basicAt:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -435,7 +435,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "basicAt:put:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -451,7 +451,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "basicDelete:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -467,7 +467,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "basicPerform:",
-category: 'message handling',
+protocol: 'message handling',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -485,7 +485,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "basicPerform:withArguments:",
-category: 'message handling',
+protocol: 'message handling',
 fn: function (aString,aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -501,7 +501,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "copy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -519,7 +519,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -543,7 +543,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deprecatedAPI",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -573,7 +573,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "error:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (aString){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -590,7 +590,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "halt",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -606,7 +606,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNil:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -622,7 +622,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNil:ifNotNil:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -640,7 +640,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNotNil:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -658,7 +658,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNotNil:ifNil:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -676,7 +676,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectOn:",
-category: 'inspecting',
+protocol: 'inspecting',
 fn: function (anInspector){
 var self=this;
 var variables;
@@ -703,7 +703,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isBehavior",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -719,7 +719,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isBoolean",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -735,7 +735,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isClass",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -751,7 +751,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isCompiledMethod",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -767,7 +767,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isImmutable",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -783,7 +783,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isKindOf:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -806,7 +806,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isMemberOf:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -824,7 +824,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isMetaclass",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -840,7 +840,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isNil",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -856,7 +856,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isNumber",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -872,7 +872,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isPackage",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -888,7 +888,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isParseFailure",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -904,7 +904,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isString",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -920,7 +920,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSymbol",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -936,7 +936,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "notNil",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -954,7 +954,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "postCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -969,7 +969,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "putOn:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -985,7 +985,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "respondsTo:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1003,7 +1003,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shallowCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1027,7 +1027,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldNotImplement",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1043,7 +1043,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1059,7 +1059,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "subclassResponsibility",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1075,7 +1075,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "throw:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1091,7 +1091,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "try:catch:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1107,7 +1107,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "value",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1123,7 +1123,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "~=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1142,7 +1142,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "~~",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1161,7 +1161,7 @@ smalltalk.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "heliosClass",
-category: 'helios',
+protocol: 'helios',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1177,7 +1177,7 @@ smalltalk.Object.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1195,7 +1195,7 @@ smalltalk.Boolean.comment="I define the protocol for logic testing operations an
 smalltalk.addMethod(
 smalltalk.method({
 selector: "&",
-category: 'controlling',
+protocol: 'controlling',
 fn: function (aBoolean){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1217,7 +1217,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aBoolean){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1238,7 +1238,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "==",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aBoolean){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1256,7 +1256,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "and:",
-category: 'controlling',
+protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1278,7 +1278,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asBit",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1300,7 +1300,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1316,7 +1316,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1332,7 +1332,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1348,7 +1348,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifFalse:",
-category: 'controlling',
+protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1368,7 +1368,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifFalse:ifTrue:",
-category: 'controlling',
+protocol: 'controlling',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1386,7 +1386,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifTrue:",
-category: 'controlling',
+protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1406,7 +1406,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifTrue:ifFalse:",
-category: 'controlling',
+protocol: 'controlling',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1428,7 +1428,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isBoolean",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1444,7 +1444,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isImmutable",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1460,7 +1460,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "not",
-category: 'controlling',
+protocol: 'controlling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1478,7 +1478,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "or:",
-category: 'controlling',
+protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1500,7 +1500,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printOn:",
-category: 'printing',
+protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1516,7 +1516,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shallowCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1532,7 +1532,7 @@ smalltalk.Boolean);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "|",
-category: 'controlling',
+protocol: 'controlling',
 fn: function (aBoolean){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1558,7 +1558,7 @@ smalltalk.Date.comment="I am used to work with both dates and times. Therefore `
 smalltalk.addMethod(
 smalltalk.method({
 selector: "+",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aDate){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1574,7 +1574,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "-",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aDate){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1590,7 +1590,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "<",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aDate){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1606,7 +1606,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "<=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aDate){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1622,7 +1622,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: ">",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aDate){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1638,7 +1638,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: ">=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aDate){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1654,7 +1654,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asDateString",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1670,7 +1670,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asLocaleString",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1686,7 +1686,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asMilliseconds",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1704,7 +1704,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asNumber",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1722,7 +1722,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1738,7 +1738,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asTimeString",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1754,7 +1754,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "day",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1772,7 +1772,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "day:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1788,7 +1788,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "dayOfMonth",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1804,7 +1804,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "dayOfMonth:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1820,7 +1820,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "dayOfWeek",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1836,7 +1836,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "dayOfWeek:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1852,7 +1852,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hours",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1868,7 +1868,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hours:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1884,7 +1884,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "milliseconds",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1900,7 +1900,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "milliseconds:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1916,7 +1916,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "minutes",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1932,7 +1932,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "minutes:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1948,7 +1948,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "month",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1964,7 +1964,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "month:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1980,7 +1980,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printOn:",
-category: 'printing',
+protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1996,7 +1996,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "seconds",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2012,7 +2012,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "seconds:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2028,7 +2028,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "time",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2044,7 +2044,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "time:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2060,7 +2060,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "year",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2076,7 +2076,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "year:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2093,7 +2093,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fromMilliseconds:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2111,7 +2111,7 @@ smalltalk.Date.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fromSeconds:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2129,7 +2129,7 @@ smalltalk.Date.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fromString:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2147,7 +2147,7 @@ smalltalk.Date.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "heliosClass",
-category: 'helios',
+protocol: 'helios',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2163,7 +2163,7 @@ smalltalk.Date.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "millisecondsToRun:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aBlock){
 var self=this;
 var t;
@@ -2186,7 +2186,7 @@ smalltalk.Date.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "new:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2202,7 +2202,7 @@ smalltalk.Date.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "now",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2220,7 +2220,7 @@ smalltalk.Date.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "today",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2241,7 +2241,7 @@ smalltalk.Number.comment="I am the Amber representation for all numbers.\x0aI am
 smalltalk.addMethod(
 smalltalk.method({
 selector: "&",
-category: 'converting',
+protocol: 'converting',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2257,7 +2257,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "*",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2273,7 +2273,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "**",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (exponent){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2291,7 +2291,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "+",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2307,7 +2307,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "-",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2323,7 +2323,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "/",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2339,7 +2339,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "//",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2357,7 +2357,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "<",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2373,7 +2373,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "<=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2389,7 +2389,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2410,7 +2410,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: ">",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2426,7 +2426,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: ">=",
-category: 'comparing',
+protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2442,7 +2442,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "@",
-category: 'converting',
+protocol: 'converting',
 fn: function (aNumber){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
@@ -2461,7 +2461,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "\x5c\x5c",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2477,7 +2477,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "abs",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2493,7 +2493,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "arcCos",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2509,7 +2509,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "arcSin",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2525,7 +2525,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "arcTan",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2541,7 +2541,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2557,7 +2557,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJavascript",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2576,7 +2576,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asNumber",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2592,7 +2592,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asPoint",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
@@ -2611,7 +2611,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2627,7 +2627,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "atRandom",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 function $Random(){return smalltalk.Random||(typeof Random=="undefined"?nil:Random)}
@@ -2646,7 +2646,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ceiling",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2662,7 +2662,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "copy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2678,7 +2678,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cos",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2694,7 +2694,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2712,7 +2712,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "even",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2730,7 +2730,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "floor",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2746,7 +2746,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "identityHash",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2764,7 +2764,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isImmutable",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2780,7 +2780,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isNumber",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2796,7 +2796,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isZero",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2814,7 +2814,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ln",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2830,7 +2830,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "log",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2846,7 +2846,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "log:",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2862,7 +2862,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "max:",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2878,7 +2878,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "min:",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2894,7 +2894,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "negated",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2912,7 +2912,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "negative",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2930,7 +2930,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "odd",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2948,7 +2948,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "positive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2966,7 +2966,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printOn:",
-category: 'printing',
+protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2982,7 +2982,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printShowingDecimalPlaces:",
-category: 'printing',
+protocol: 'printing',
 fn: function (placesDesired){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2998,7 +2998,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "raisedTo:",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (exponent){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3014,7 +3014,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "rounded",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3030,7 +3030,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sign",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3056,7 +3056,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sin",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3072,7 +3072,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sqrt",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3088,7 +3088,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "squared",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3106,7 +3106,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tan",
-category: 'mathematical functions',
+protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3122,7 +3122,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "timesRepeat:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var count;
@@ -3148,7 +3148,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "to:",
-category: 'converting',
+protocol: 'converting',
 fn: function (aNumber){
 var self=this;
 var array,first,last,count;
@@ -3183,7 +3183,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "to:by:",
-category: 'converting',
+protocol: 'converting',
 fn: function (stop,step){
 var self=this;
 var array,value,pos;
@@ -3241,7 +3241,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "to:by:do:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (stop,step,aBlock){
 var self=this;
 var value;
@@ -3288,7 +3288,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "to:do:",
-category: 'enumerating',
+protocol: 'enumerating',
 fn: function (stop,aBlock){
 var self=this;
 var nextValue;
@@ -3314,7 +3314,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "truncated",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3336,7 +3336,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "|",
-category: 'converting',
+protocol: 'converting',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3353,7 +3353,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "e",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3369,7 +3369,7 @@ smalltalk.Number.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "heliosClass",
-category: 'helios',
+protocol: 'helios',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3385,7 +3385,7 @@ smalltalk.Number.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "pi",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3404,7 +3404,7 @@ smalltalk.Point.comment="I represent an x-y pair of numbers usually designating 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "*",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aPoint){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
@@ -3433,7 +3433,7 @@ smalltalk.Point);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "+",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aPoint){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
@@ -3462,7 +3462,7 @@ smalltalk.Point);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "-",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aPoint){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
@@ -3491,7 +3491,7 @@ smalltalk.Point);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "/",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aPoint){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
@@ -3520,7 +3520,7 @@ smalltalk.Point);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
-category: 'arithmetic',
+protocol: 'arithmetic',
 fn: function (aPoint){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3552,7 +3552,7 @@ smalltalk.Point);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asPoint",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3568,7 +3568,7 @@ smalltalk.Point);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printOn:",
-category: 'printing',
+protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3595,7 +3595,7 @@ smalltalk.Point);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "translateBy:",
-category: 'transforming',
+protocol: 'transforming',
 fn: function (delta){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3615,7 +3615,7 @@ smalltalk.Point);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "x",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3633,7 +3633,7 @@ smalltalk.Point);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "x:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3649,7 +3649,7 @@ smalltalk.Point);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "y",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3667,7 +3667,7 @@ smalltalk.Point);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "y:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3684,7 +3684,7 @@ smalltalk.Point);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "heliosClass",
-category: 'helios',
+protocol: 'helios',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3700,7 +3700,7 @@ smalltalk.Point.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "x:y:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aNumber,anotherNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3725,7 +3725,7 @@ smalltalk.Random.comment="I an used to generate a random number and I am impleme
 smalltalk.addMethod(
 smalltalk.method({
 selector: "next",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3741,7 +3741,7 @@ smalltalk.Random);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "next:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3766,7 +3766,7 @@ smalltalk.UndefinedObject.comment="I describe the behavior of my sole instance, 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3784,7 +3784,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3800,7 +3800,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNil:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3820,7 +3820,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNil:ifNotNil:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3838,7 +3838,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNotNil:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3854,7 +3854,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNotNil:ifNil:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3872,7 +3872,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isImmutable",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3888,7 +3888,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isNil",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3904,7 +3904,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "notNil",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3920,7 +3920,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printOn:",
-category: 'printing',
+protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3936,7 +3936,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shallowCopy",
-category: 'copying',
+protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3952,7 +3952,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "subclass:instanceVariableNames:",
-category: 'class creation',
+protocol: 'class creation',
 fn: function (aString,anotherString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3970,7 +3970,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "subclass:instanceVariableNames:category:",
-category: 'class creation',
+protocol: 'class creation',
 fn: function (aString,aString2,aString3){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3989,7 +3989,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "subclass:instanceVariableNames:package:",
-category: 'class creation',
+protocol: 'class creation',
 fn: function (aString,aString2,aString3){
 var self=this;
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
@@ -4009,7 +4009,7 @@ smalltalk.UndefinedObject);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "new",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

@@ -7,7 +7,7 @@ smalltalk.HLBinding.comment="I am the abstract representation of a keybinding in
 smalltalk.addMethod(
 smalltalk.method({
 selector: "apply",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -22,7 +22,7 @@ smalltalk.HLBinding);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "atKey:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aKey){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -38,7 +38,7 @@ smalltalk.HLBinding);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -56,7 +56,7 @@ smalltalk.HLBinding);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -74,7 +74,7 @@ smalltalk.HLBinding);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -92,7 +92,7 @@ smalltalk.HLBinding);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "key:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -108,7 +108,7 @@ smalltalk.HLBinding);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -126,7 +126,7 @@ smalltalk.HLBinding);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -142,7 +142,7 @@ smalltalk.HLBinding);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "release",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -157,7 +157,7 @@ smalltalk.HLBinding);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:html:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (aBindingHelper,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -172,7 +172,7 @@ smalltalk.HLBinding);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shortcut",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -192,7 +192,7 @@ smalltalk.HLBinding);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:labelled:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anInteger,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -217,7 +217,7 @@ smalltalk.HLBindingAction.comment="My instances are the leafs of the binding tre
 smalltalk.addMethod(
 smalltalk.method({
 selector: "apply",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLKeyBinder(){return smalltalk.HLKeyBinder||(typeof HLKeyBinder=="undefined"?nil:HLKeyBinder)}
@@ -240,7 +240,7 @@ smalltalk.HLBindingAction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "command",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -258,7 +258,7 @@ smalltalk.HLBindingAction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "command:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCommand){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -274,7 +274,7 @@ smalltalk.HLBindingAction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "executeCommand",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLKeyBinder(){return smalltalk.HLKeyBinder||(typeof HLKeyBinder=="undefined"?nil:HLKeyBinder)}
@@ -292,7 +292,7 @@ smalltalk.HLBindingAction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "input:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -308,7 +308,7 @@ smalltalk.HLBindingAction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputBinding",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLBindingInput(){return smalltalk.HLBindingInput||(typeof HLBindingInput=="undefined"?nil:HLBindingInput)}
@@ -356,7 +356,7 @@ smalltalk.HLBindingAction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLBindingActionInputWidget(){return smalltalk.HLBindingActionInputWidget||(typeof HLBindingActionInputWidget=="undefined"?nil:HLBindingActionInputWidget)}
@@ -394,7 +394,7 @@ smalltalk.HLBindingAction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -416,7 +416,7 @@ smalltalk.HLBindingGroup.comment="My instances hold other bindings, either actio
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activeBindings",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -437,7 +437,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
-category: 'adding',
+protocol: 'adding',
 fn: function (aBinding){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -455,7 +455,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addActionKey:labelled:callback:",
-category: 'adding',
+protocol: 'adding',
 fn: function (anInteger,aString,aBlock){
 var self=this;
 function $HLBindingAction(){return smalltalk.HLBindingAction||(typeof HLBindingAction=="undefined"?nil:HLBindingAction)}
@@ -476,7 +476,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addGroupKey:labelled:",
-category: 'add',
+protocol: 'add',
 fn: function (anInteger,aString){
 var self=this;
 function $HLBindingGroup(){return smalltalk.HLBindingGroup||(typeof HLBindingGroup=="undefined"?nil:HLBindingGroup)}
@@ -493,7 +493,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -517,7 +517,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:add:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString,aBinding){
 var self=this;
 var binding;
@@ -542,7 +542,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "atKey:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -566,7 +566,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "bindings",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -591,7 +591,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -609,7 +609,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -627,7 +627,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "release",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -646,7 +646,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:html:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (aBindingHelper,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -670,7 +670,7 @@ smalltalk.HLBindingActionInputWidget.comment="My instances are built when a `HLB
 smalltalk.addMethod(
 smalltalk.method({
 selector: "callback",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -696,7 +696,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "callback:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -712,7 +712,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clearStatus",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -730,7 +730,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultValue",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -753,7 +753,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultValue:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -769,7 +769,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "errorStatus",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -786,7 +786,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "evaluate:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -814,7 +814,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ghostText",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -832,7 +832,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ghostText:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aText){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -848,7 +848,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "input",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -866,7 +866,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputCompletion",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -889,7 +889,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputCompletion:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -905,7 +905,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "message",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -929,7 +929,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "message:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -945,7 +945,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "refresh",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -969,7 +969,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1031,7 +1031,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "status",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1055,7 +1055,7 @@ smalltalk.HLBindingActionInputWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "status:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aStatus){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1075,7 +1075,7 @@ smalltalk.HLKeyBinder.comment="My `current` instance holds keybindings for Helio
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activate",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1091,7 +1091,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activationKey",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1107,7 +1107,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activationKeyLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1123,7 +1123,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "applyBinding:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aBinding){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1145,7 +1145,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "bindings",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1169,7 +1169,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deactivate",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1193,7 +1193,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultBindings",
-category: 'defaults',
+protocol: 'defaults',
 fn: function (){
 var self=this;
 var group;
@@ -1229,7 +1229,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "escapeKey",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1245,7 +1245,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "flushBindings",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1261,7 +1261,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleActiveKeyDown:",
-category: 'events',
+protocol: 'events',
 fn: function (event){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1295,7 +1295,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleBindingFor:",
-category: 'events',
+protocol: 'events',
 fn: function (anEvent){
 var self=this;
 var binding;
@@ -1321,7 +1321,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleInactiveKeyDown:",
-category: 'events',
+protocol: 'events',
 fn: function (event){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1346,7 +1346,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleKeyDown:",
-category: 'events',
+protocol: 'events',
 fn: function (event){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1369,7 +1369,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "helper",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1387,7 +1387,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $HLKeyBinderHelperWidget(){return smalltalk.HLKeyBinderHelperWidget||(typeof HLKeyBinderHelperWidget=="undefined"?nil:HLKeyBinderHelperWidget)}
@@ -1409,7 +1409,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1427,7 +1427,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectBinding:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aBinding){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1449,7 +1449,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedBinding",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1472,7 +1472,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupEvents",
-category: 'events',
+protocol: 'events',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1491,7 +1491,7 @@ smalltalk.HLKeyBinder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "systemIsMac",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1511,7 +1511,7 @@ smalltalk.HLKeyBinder.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1535,7 +1535,7 @@ smalltalk.HLKeyBinder.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "new",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1554,7 +1554,7 @@ smalltalk.HLKeyBinderHelperWidget.comment="I am the widget responsible for displ
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cssClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1570,7 +1570,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hide",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1587,7 +1587,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hideCog",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1603,7 +1603,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "keyBinder",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1621,7 +1621,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "keyBinder:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aKeyBinder){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1637,7 +1637,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "mainId",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1653,7 +1653,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderBindingActionFor:on:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (aBinding,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1691,7 +1691,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderBindingGroup:on:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (aBindingGroup,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1716,7 +1716,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderCloseOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1743,7 +1743,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderCog",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1779,7 +1779,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1811,7 +1811,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderLabelOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1837,7 +1837,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderSelectedBindingOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1853,7 +1853,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderStart",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1889,7 +1889,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedBinding",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1907,7 +1907,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "show",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1924,7 +1924,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "showCog",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1940,7 +1940,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "showWidget:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1965,7 +1965,7 @@ smalltalk.HLKeyBinderHelperWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aKeyBinder){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1989,7 +1989,7 @@ smalltalk.HLRepeatedKeyDownHandler.comment="I am responsible for handling repeat
 smalltalk.addMethod(
 smalltalk.method({
 selector: "bindKeys",
-category: 'binding',
+protocol: 'binding',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2011,7 +2011,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultRepeatInterval",
-category: 'defaults',
+protocol: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2027,7 +2027,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleEvent:forKey:action:",
-category: 'events handling',
+protocol: 'events handling',
 fn: function (anEvent,anInteger,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2050,7 +2050,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleKeyDown:",
-category: 'events handling',
+protocol: 'events handling',
 fn: function (anEvent){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2069,7 +2069,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleKeyUp",
-category: 'events handling',
+protocol: 'events handling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2102,7 +2102,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isKeyDown",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2125,7 +2125,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "keyBindings",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -2150,7 +2150,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "rebindKeys",
-category: 'binding',
+protocol: 'binding',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2168,7 +2168,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "repeatInterval",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2191,7 +2191,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "repeatInterval:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2207,7 +2207,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "startRepeatingAction:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2233,7 +2233,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unbindKeys",
-category: 'binding',
+protocol: 'binding',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2249,7 +2249,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "whileKeyDown:do:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2265,7 +2265,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "whileKeyDownDo:",
-category: 'events handling',
+protocol: 'events handling',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2287,7 +2287,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "widget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2305,7 +2305,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "widget:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2322,7 +2322,7 @@ smalltalk.HLRepeatedKeyDownHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

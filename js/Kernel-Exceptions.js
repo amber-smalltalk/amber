@@ -7,7 +7,7 @@ smalltalk.Error.comment="From the ANSI standard:\x0a\x0aThis protocol describes 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -23,7 +23,7 @@ smalltalk.Error);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -39,7 +39,7 @@ smalltalk.Error);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSmalltalkError",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -55,7 +55,7 @@ smalltalk.Error);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "jsStack",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -71,7 +71,7 @@ smalltalk.Error);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -89,7 +89,7 @@ smalltalk.Error);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -105,7 +105,7 @@ smalltalk.Error);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "resignal",
-category: 'signaling',
+protocol: 'signaling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -121,7 +121,7 @@ smalltalk.Error);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "signal",
-category: 'signaling',
+protocol: 'signaling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -137,7 +137,7 @@ smalltalk.Error);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "signal:",
-category: 'signaling',
+protocol: 'signaling',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -155,7 +155,7 @@ smalltalk.Error);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "heliosClass",
-category: 'helios',
+protocol: 'helios',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -171,7 +171,7 @@ smalltalk.Error.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "signal",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -189,7 +189,7 @@ smalltalk.Error.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "signal:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -210,7 +210,7 @@ smalltalk.JavaScriptException.comment="A JavaScriptException is thrown when a no
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -226,7 +226,7 @@ smalltalk.JavaScriptException);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exception",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -244,7 +244,7 @@ smalltalk.JavaScriptException);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exception:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anException){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -260,7 +260,7 @@ smalltalk.JavaScriptException);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -277,7 +277,7 @@ smalltalk.JavaScriptException);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anException){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -298,7 +298,7 @@ smalltalk.JavaScriptException.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:context:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anException,aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -323,7 +323,7 @@ smalltalk.MessageNotUnderstood.comment="This exception is provided to support `O
 smalltalk.addMethod(
 smalltalk.method({
 selector: "message",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -341,7 +341,7 @@ smalltalk.MessageNotUnderstood);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "message:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aMessage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -357,7 +357,7 @@ smalltalk.MessageNotUnderstood);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -376,7 +376,7 @@ smalltalk.MessageNotUnderstood);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "receiver",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -394,7 +394,7 @@ smalltalk.MessageNotUnderstood);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "receiver:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -414,7 +414,7 @@ smalltalk.NonBooleanReceiver.comment="NonBooleanReceiver exceptions may be throw
 smalltalk.addMethod(
 smalltalk.method({
 selector: "object",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -432,7 +432,7 @@ smalltalk.NonBooleanReceiver);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "object:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -452,7 +452,7 @@ smalltalk.ErrorHandler.comment="I am used to manage Smalltalk errors.\x0aSee `bo
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleError:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -476,7 +476,7 @@ smalltalk.ErrorHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "log:",
-category: 'private',
+protocol: 'private',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -492,7 +492,7 @@ smalltalk.ErrorHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "logContext:",
-category: 'private',
+protocol: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -516,7 +516,7 @@ smalltalk.ErrorHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "logError:",
-category: 'private',
+protocol: 'private',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -532,7 +532,7 @@ smalltalk.ErrorHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "logErrorContext:",
-category: 'private',
+protocol: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -561,7 +561,7 @@ smalltalk.ErrorHandler.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -579,7 +579,7 @@ smalltalk.ErrorHandler.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "register",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
@@ -596,7 +596,7 @@ smalltalk.ErrorHandler.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setCurrent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anHandler){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

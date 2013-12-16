@@ -7,7 +7,7 @@ smalltalk.AbstractCodeGenerator.comment="I am the abstract super class of all co
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classNameFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -37,7 +37,7 @@ smalltalk.AbstractCodeGenerator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileNode:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -53,7 +53,7 @@ smalltalk.AbstractCodeGenerator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currentClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -71,7 +71,7 @@ smalltalk.AbstractCodeGenerator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currentClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -87,7 +87,7 @@ smalltalk.AbstractCodeGenerator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "pseudoVariables",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -106,7 +106,7 @@ smalltalk.AbstractCodeGenerator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "safeVariableNameFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -130,7 +130,7 @@ smalltalk.AbstractCodeGenerator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "source",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -153,7 +153,7 @@ smalltalk.AbstractCodeGenerator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "source:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -173,7 +173,7 @@ smalltalk.CodeGenerator.comment="I am a basic code generator. I generate a valid
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileNode:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aNode){
 var self=this;
 var ir,stream;
@@ -200,7 +200,7 @@ smalltalk.CodeGenerator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "irTranslator",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (){
 var self=this;
 function $IRJSTranslator(){return smalltalk.IRJSTranslator||(typeof IRJSTranslator=="undefined"?nil:IRJSTranslator)}
@@ -219,7 +219,7 @@ smalltalk.CodeGenerator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "semanticAnalyzer",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (){
 var self=this;
 function $SemanticAnalyzer(){return smalltalk.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
@@ -238,7 +238,7 @@ smalltalk.CodeGenerator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "translator",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (){
 var self=this;
 function $IRASTTranslator(){return smalltalk.IRASTTranslator||(typeof IRASTTranslator=="undefined"?nil:IRASTTranslator)}
@@ -265,7 +265,7 @@ smalltalk.Compiler.comment="I provide the public interface for compiling Amber s
 smalltalk.addMethod(
 smalltalk.method({
 selector: "codeGeneratorClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $InliningCodeGenerator(){return smalltalk.InliningCodeGenerator||(typeof InliningCodeGenerator=="undefined"?nil:InliningCodeGenerator)}
@@ -289,7 +289,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "codeGeneratorClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -305,7 +305,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compile:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -323,7 +323,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compile:forClass:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aString,aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -343,7 +343,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileExpression:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aString){
 var self=this;
 function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
@@ -366,7 +366,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileExpression:on:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -388,7 +388,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileNode:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aNode){
 var self=this;
 var generator,result;
@@ -413,7 +413,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currentClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -431,7 +431,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currentClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -447,7 +447,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "eval:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -463,7 +463,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "evaluateExpression:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aString){
 var self=this;
 function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
@@ -482,7 +482,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "evaluateExpression:on:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aString,anObject){
 var self=this;
 var result,method;
@@ -508,7 +508,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "install:forClass:protocol:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aString,aBehavior,anotherString){
 var self=this;
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
@@ -527,7 +527,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "parse:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -546,7 +546,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "parseExpression:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -566,7 +566,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "recompile:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -590,7 +590,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "recompileAll",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -610,7 +610,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "source",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -633,7 +633,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "source:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -649,7 +649,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unknownVariables",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -667,7 +667,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unknownVariables:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -684,7 +684,7 @@ smalltalk.Compiler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "recompile:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -700,7 +700,7 @@ smalltalk.Compiler.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "recompileAll",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -727,7 +727,7 @@ smalltalk.NodeVisitor.comment="I am the abstract super class of all AST node vis
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visit:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -745,7 +745,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitAll:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -766,7 +766,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitAssignmentNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -784,7 +784,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitBlockNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -802,7 +802,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitBlockSequenceNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -820,7 +820,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitCascadeNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -838,7 +838,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitDynamicArrayNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -856,7 +856,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitDynamicDictionaryNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -874,7 +874,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitJSStatementNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -892,7 +892,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitMethodNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -910,7 +910,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -928,7 +928,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitReturnNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -946,7 +946,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitSendNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -964,7 +964,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitSequenceNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -982,7 +982,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitValueNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1000,7 +1000,7 @@ smalltalk.NodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitVariableNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

@@ -6,7 +6,7 @@ smalltalk.addClass('HLAboutToChange', smalltalk.Object, ['actionBlock'], 'Helios
 smalltalk.addMethod(
 smalltalk.method({
 selector: "actionBlock",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -24,7 +24,7 @@ smalltalk.HLAboutToChange);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "actionBlock:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -45,7 +45,7 @@ smalltalk.HLAnnouncement.comment="I am the root of the announcement class hierar
 smalltalk.addMethod(
 smalltalk.method({
 selector: "heliosClass",
-category: 'helios',
+protocol: 'helios',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -64,7 +64,7 @@ smalltalk.HLCodeHandled.comment="I am the root class of announcements emitted by
 smalltalk.addMethod(
 smalltalk.method({
 selector: "code",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -82,7 +82,7 @@ smalltalk.HLCodeHandled);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "code:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -99,7 +99,7 @@ smalltalk.HLCodeHandled);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aCodeModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -138,7 +138,7 @@ smalltalk.addClass('HLDebuggerAnnouncement', smalltalk.HLAnnouncement, ['context
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -156,7 +156,7 @@ smalltalk.HLDebuggerAnnouncement);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -175,7 +175,7 @@ smalltalk.addClass('HLDebuggerContextSelected', smalltalk.HLDebuggerAnnouncement
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -193,7 +193,7 @@ smalltalk.HLDebuggerContextSelected);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -224,7 +224,7 @@ smalltalk.addClass('HLErrorRaised', smalltalk.HLAnnouncement, ['error'], 'Helios
 smalltalk.addMethod(
 smalltalk.method({
 selector: "error",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -242,7 +242,7 @@ smalltalk.HLErrorRaised);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "error:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -264,7 +264,7 @@ smalltalk.addClass('HLParseErrorRaised', smalltalk.HLErrorRaised, ['line', 'colu
 smalltalk.addMethod(
 smalltalk.method({
 selector: "column",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -282,7 +282,7 @@ smalltalk.HLParseErrorRaised);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "column:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -298,7 +298,7 @@ smalltalk.HLParseErrorRaised);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "line",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -316,7 +316,7 @@ smalltalk.HLParseErrorRaised);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "line:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -332,7 +332,7 @@ smalltalk.HLParseErrorRaised);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "message",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -350,7 +350,7 @@ smalltalk.HLParseErrorRaised);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "message:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -390,7 +390,7 @@ smalltalk.addClass('HLInstVarAdded', smalltalk.HLAnnouncement, ['theClass', 'var
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -408,7 +408,7 @@ smalltalk.HLInstVarAdded);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -424,7 +424,7 @@ smalltalk.HLInstVarAdded);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variableName",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -442,7 +442,7 @@ smalltalk.HLInstVarAdded);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variableName:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -461,7 +461,7 @@ smalltalk.addClass('HLItemSelected', smalltalk.HLAnnouncement, ['item'], 'Helios
 smalltalk.addMethod(
 smalltalk.method({
 selector: "item",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -479,7 +479,7 @@ smalltalk.HLItemSelected);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "item:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -496,7 +496,7 @@ smalltalk.HLItemSelected);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anItem){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -537,7 +537,7 @@ smalltalk.addClass('HLSearchReferences', smalltalk.HLAnnouncement, ['searchStrin
 smalltalk.addMethod(
 smalltalk.method({
 selector: "searchString",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -555,7 +555,7 @@ smalltalk.HLSearchReferences);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "searchString:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

@@ -7,7 +7,7 @@ smalltalk.LexicalScope.comment="I represent a lexical scope where variable names
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addArg:",
-category: 'adding',
+protocol: 'adding',
 fn: function (aString){
 var self=this;
 function $ArgVar(){return smalltalk.ArgVar||(typeof ArgVar=="undefined"?nil:ArgVar)}
@@ -28,7 +28,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addTemp:",
-category: 'adding',
+protocol: 'adding',
 fn: function (aString){
 var self=this;
 function $TempVar(){return smalltalk.TempVar||(typeof TempVar=="undefined"?nil:TempVar)}
@@ -49,7 +49,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alias",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -67,7 +67,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allVariableNames",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -87,7 +87,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "args",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -112,7 +112,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "bindingFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aStringOrNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -147,7 +147,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "blockIndex",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -170,7 +170,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "blockIndex:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -186,7 +186,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canInlineNonLocalReturns",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -207,7 +207,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "instruction",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -225,7 +225,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "instruction:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIRInstruction){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -241,7 +241,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isBlockScope",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -259,7 +259,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInlined",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -283,7 +283,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isMethodScope",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -299,7 +299,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "lookupVariable:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 var lookup;
@@ -332,7 +332,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "methodScope",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -356,7 +356,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "node",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -374,7 +374,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "node:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -390,7 +390,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "outerScope",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -408,7 +408,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "outerScope:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aLexicalScope){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -424,7 +424,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "pseudoVars",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -442,7 +442,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "scopeLevel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -475,7 +475,7 @@ smalltalk.LexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "temps",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -504,7 +504,7 @@ smalltalk.MethodLexicalScope.comment="I represent a method scope.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addIVar:",
-category: 'adding',
+protocol: 'adding',
 fn: function (aString){
 var self=this;
 function $InstanceVar(){return smalltalk.InstanceVar||(typeof InstanceVar=="undefined"?nil:InstanceVar)}
@@ -525,7 +525,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addNonLocalReturn:",
-category: 'adding',
+protocol: 'adding',
 fn: function (aScope){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -541,7 +541,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allVariableNames",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -559,7 +559,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "bindingFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -585,7 +585,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canInlineNonLocalReturns",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -601,7 +601,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hasLocalReturn",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -619,7 +619,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hasNonLocalReturn",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -637,7 +637,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "iVars",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -662,7 +662,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isMethodScope",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -678,7 +678,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "localReturn",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -701,7 +701,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "localReturn:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBoolean){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -717,7 +717,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "methodScope",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -733,7 +733,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nonLocalReturns",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -758,7 +758,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "pseudoVars",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -793,7 +793,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeNonLocalReturn:",
-category: 'adding',
+protocol: 'adding',
 fn: function (aScope){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -811,7 +811,7 @@ smalltalk.MethodLexicalScope);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unknownVariables",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -840,7 +840,7 @@ smalltalk.ScopeVar.comment="I am an entry in a LexicalScope that gets associated
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alias",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -858,7 +858,7 @@ smalltalk.ScopeVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isArgVar",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -874,7 +874,7 @@ smalltalk.ScopeVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isClassRefVar",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -890,7 +890,7 @@ smalltalk.ScopeVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isImmutable",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -906,7 +906,7 @@ smalltalk.ScopeVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInstanceVar",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -922,7 +922,7 @@ smalltalk.ScopeVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isPseudoVar",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -938,7 +938,7 @@ smalltalk.ScopeVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isTempVar",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -954,7 +954,7 @@ smalltalk.ScopeVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isUnknownVar",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -970,7 +970,7 @@ smalltalk.ScopeVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "name",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -988,7 +988,7 @@ smalltalk.ScopeVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "name:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1004,7 +1004,7 @@ smalltalk.ScopeVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "scope",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1022,7 +1022,7 @@ smalltalk.ScopeVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "scope:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aScope){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1038,7 +1038,7 @@ smalltalk.ScopeVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "validateAssignment",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 function $InvalidAssignmentError(){return smalltalk.InvalidAssignmentError||(typeof InvalidAssignmentError=="undefined"?nil:InvalidAssignmentError)}
@@ -1066,7 +1066,7 @@ smalltalk.ScopeVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1090,7 +1090,7 @@ smalltalk.AliasVar.comment="I am an internally defined variable by the compiler"
 smalltalk.addMethod(
 smalltalk.method({
 selector: "node",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1108,7 +1108,7 @@ smalltalk.AliasVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "node:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1128,7 +1128,7 @@ smalltalk.ArgVar.comment="I am an argument of a method or block.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isArgVar",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1144,7 +1144,7 @@ smalltalk.ArgVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isImmutable",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1164,7 +1164,7 @@ smalltalk.ClassRefVar.comment="I am an class reference variable";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alias",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1183,7 +1183,7 @@ smalltalk.ClassRefVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isClassRefVar",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1199,7 +1199,7 @@ smalltalk.ClassRefVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isImmutable",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1219,7 +1219,7 @@ smalltalk.InstanceVar.comment="I am an instance variable of a method or block.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alias",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1238,7 +1238,7 @@ smalltalk.InstanceVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInstanceVar",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1258,7 +1258,7 @@ smalltalk.PseudoVar.comment="I am an pseudo variable.\x0a\x0aThe five Smalltalk 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alias",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1276,7 +1276,7 @@ smalltalk.PseudoVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isImmutable",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1292,7 +1292,7 @@ smalltalk.PseudoVar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isPseudoVar",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1312,7 +1312,7 @@ smalltalk.TempVar.comment="I am an temporary variable of a method or block.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isTempVar",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1332,7 +1332,7 @@ smalltalk.UnknownVar.comment="I am an unknown variable. Amber uses unknown varia
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isUnknownVar",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1352,7 +1352,7 @@ smalltalk.SemanticAnalyzer.comment="I semantically analyze the abstract syntax t
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classReferences",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
@@ -1377,7 +1377,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "errorShadowingVariable:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (aString){
 var self=this;
 function $ShadowingVariableError(){return smalltalk.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
@@ -1397,7 +1397,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "errorUnknownVariable:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (aNode){
 var self=this;
 var identifier;
@@ -1433,7 +1433,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isVariableGloballyUndefined:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1449,7 +1449,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageSends",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -1474,7 +1474,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "newBlockScope",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 function $LexicalScope(){return smalltalk.LexicalScope||(typeof LexicalScope=="undefined"?nil:LexicalScope)}
@@ -1493,7 +1493,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "newMethodScope",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 function $MethodLexicalScope(){return smalltalk.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
@@ -1512,7 +1512,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "newScopeOfClass:",
-category: 'factory',
+protocol: 'factory',
 fn: function (aLexicalScopeClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1533,7 +1533,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextBlockIndex",
-category: 'private',
+protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1559,7 +1559,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "popScope",
-category: 'scope',
+protocol: 'scope',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1582,7 +1582,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "pushScope:",
-category: 'scope',
+protocol: 'scope',
 fn: function (aScope){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1599,7 +1599,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "superSends",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -1624,7 +1624,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1642,7 +1642,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1658,7 +1658,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "validateVariableScope:",
-category: 'scope',
+protocol: 'scope',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1680,7 +1680,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitAssignmentNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1697,7 +1697,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitBlockNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1723,7 +1723,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitCascadeNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1750,7 +1750,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitMethodNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1784,7 +1784,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitReturnNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1808,7 +1808,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitSendNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
@@ -1879,7 +1879,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitSequenceNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1900,7 +1900,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitVariableNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var binding;
@@ -1954,7 +1954,7 @@ smalltalk.SemanticAnalyzer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

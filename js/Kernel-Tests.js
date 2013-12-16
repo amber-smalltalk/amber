@@ -6,7 +6,7 @@ smalltalk.addClass('AnnouncementSubscriptionTest', smalltalk.TestCase, [], 'Kern
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testHandlesAnnouncement",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var subscription,announcementClass1,announcementClass2,classBuilder;
@@ -44,7 +44,7 @@ smalltalk.addClass('AnnouncerTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testOnDo",
-category: 'not yet classified',
+protocol: 'not yet classified',
 fn: function (){
 var self=this;
 var counter,announcer;
@@ -80,7 +80,7 @@ smalltalk.AnnouncerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testOnDoOnce",
-category: 'not yet classified',
+protocol: 'not yet classified',
 fn: function (){
 var self=this;
 var counter,announcer;
@@ -119,7 +119,7 @@ smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCanClearInterval",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -142,7 +142,7 @@ smalltalk.BlockClosureTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCanClearTimeout",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -165,7 +165,7 @@ smalltalk.BlockClosureTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCompiledSource",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -184,7 +184,7 @@ smalltalk.BlockClosureTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCurrySelf",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var curriedMethod,array;
@@ -215,7 +215,7 @@ smalltalk.BlockClosureTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testEnsure",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -237,7 +237,7 @@ smalltalk.BlockClosureTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testEnsureRaises",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -263,7 +263,7 @@ smalltalk.BlockClosureTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testExceptionSemantics",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -294,7 +294,7 @@ smalltalk.BlockClosureTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNewWithValues",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -321,7 +321,7 @@ smalltalk.BlockClosureTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNumArgs",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -346,7 +346,7 @@ smalltalk.BlockClosureTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testOnDo",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -369,7 +369,7 @@ smalltalk.BlockClosureTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testValue",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -407,7 +407,7 @@ smalltalk.BlockClosureTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testValueWithPossibleArguments",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -442,7 +442,7 @@ smalltalk.BlockClosureTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testWhileFalse",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var i;
@@ -479,7 +479,7 @@ smalltalk.BlockClosureTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testWhileTrue",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var i;
@@ -519,7 +519,7 @@ smalltalk.addClass('BooleanTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testEquality",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -576,7 +576,7 @@ smalltalk.BooleanTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIdentity",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -633,7 +633,7 @@ smalltalk.BooleanTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIfTrueIfFalse",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -696,7 +696,7 @@ smalltalk.BooleanTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIfTrueIfFalseWithBoxing",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -774,7 +774,7 @@ smalltalk.BooleanTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testLogic",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -856,7 +856,7 @@ smalltalk.BooleanTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testLogicKeywords",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -977,7 +977,7 @@ smalltalk.BooleanTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNonBooleanError",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $NonBooleanReceiver(){return smalltalk.NonBooleanReceiver||(typeof NonBooleanReceiver=="undefined"?nil:NonBooleanReceiver)}
@@ -1002,7 +1002,7 @@ smalltalk.addClass('ClassBuilderTest', smalltalk.TestCase, ['builder', 'theClass
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setUp",
-category: 'running',
+protocol: 'running',
 fn: function (){
 var self=this;
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
@@ -1019,7 +1019,7 @@ smalltalk.ClassBuilderTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tearDown",
-category: 'running',
+protocol: 'running',
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -1044,7 +1044,7 @@ smalltalk.ClassBuilderTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testClassCopy",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $ObjectMock(){return smalltalk.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
@@ -1085,7 +1085,7 @@ smalltalk.ClassBuilderTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testClassMigration",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var instance,oldClass;
@@ -1147,7 +1147,7 @@ smalltalk.ClassBuilderTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testClassMigrationWithClassInstanceVariables",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $ObjectMock(){return smalltalk.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
@@ -1176,7 +1176,7 @@ smalltalk.ClassBuilderTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testClassMigrationWithSubclasses",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $ObjectMock(){return smalltalk.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
@@ -1223,7 +1223,7 @@ smalltalk.ClassBuilderTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testInstanceVariableNames",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1242,7 +1242,7 @@ smalltalk.addClass('CollectionTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assertSameContents:as:",
-category: 'convenience',
+protocol: 'convenience',
 fn: function (aCollection,anotherCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1271,7 +1271,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1289,7 +1289,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1307,7 +1307,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionWithDuplicates",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1325,7 +1325,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultValues",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1343,7 +1343,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isCollectionReadOnly",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1359,7 +1359,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAllSatisfy",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var collection,anyOne;
@@ -1388,7 +1388,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAnyOne",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -1414,7 +1414,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAnySatisfy",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var anyOne;
@@ -1448,7 +1448,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAsArray",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1467,7 +1467,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAsOrderedCollection",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1486,7 +1486,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAsSet",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var c,set;
@@ -1509,7 +1509,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCollect",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var newCollection;
@@ -1530,7 +1530,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testDetect",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -1562,7 +1562,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testDo",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var newCollection;
@@ -1588,7 +1588,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIfEmptyFamily",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1690,7 +1690,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIsEmpty",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1710,7 +1710,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNoneSatisfy",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var anyOne;
@@ -1744,7 +1744,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testRemoveAll",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1764,7 +1764,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSelect",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var newCollection;
@@ -1785,7 +1785,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSize",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1807,7 +1807,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1823,7 +1823,7 @@ smalltalk.CollectionTest.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isAbstract",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1843,7 +1843,7 @@ smalltalk.addClass('IndexableCollectionTest', smalltalk.CollectionTest, [], 'Ker
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAt",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -1869,7 +1869,7 @@ smalltalk.IndexableCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAtIfAbsent",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1892,7 +1892,7 @@ smalltalk.IndexableCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIndexOf",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -1925,7 +1925,7 @@ smalltalk.IndexableCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testWithIndexDo",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var collection;
@@ -1950,7 +1950,7 @@ smalltalk.addClass('HashedCollectionTest', smalltalk.IndexableCollectionTest, []
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1974,7 +1974,7 @@ smalltalk.HashedCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionWithDuplicates",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2004,7 +2004,7 @@ smalltalk.HashedCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAsDictionary",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -2021,7 +2021,7 @@ smalltalk.HashedCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAt",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -2047,7 +2047,7 @@ smalltalk.HashedCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testFrom",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var associations;
@@ -2074,7 +2074,7 @@ smalltalk.HashedCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIndexOf",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -2107,7 +2107,7 @@ smalltalk.HashedCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNewFromPairs",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var flattenedAssociations;
@@ -2131,7 +2131,7 @@ smalltalk.HashedCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
@@ -2150,7 +2150,7 @@ smalltalk.addClass('DictionaryTest', smalltalk.HashedCollectionTest, [], 'Kernel
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -2178,7 +2178,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionWithDuplicates",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -2212,7 +2212,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAccessing",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var d;
@@ -2279,7 +2279,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAsHashedCollection",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
@@ -2296,7 +2296,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testDynamicDictionaries",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -2318,7 +2318,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testEquality",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var d1,d2;
@@ -2390,7 +2390,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIfAbsent",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var d,visited;
@@ -2415,7 +2415,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIfPresent",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var d,visited,absent;
@@ -2448,7 +2448,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIfPresentIfAbsent",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var d,visited;
@@ -2489,7 +2489,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testKeys",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var d;
@@ -2513,7 +2513,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testPointKey",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var d;
@@ -2567,7 +2567,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testPrintString",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -2591,7 +2591,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testRemoveKey",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var d,key;
@@ -2625,7 +2625,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testRemoveKeyIfAbsent",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var d,key;
@@ -2665,7 +2665,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSize",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var d;
@@ -2696,7 +2696,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testValues",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var d;
@@ -2721,7 +2721,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -2740,7 +2740,7 @@ smalltalk.addClass('SequenceableCollectionTest', smalltalk.IndexableCollectionTe
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testFirst",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2760,7 +2760,7 @@ smalltalk.SequenceableCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testFourth",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2780,7 +2780,7 @@ smalltalk.SequenceableCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testLast",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2803,7 +2803,7 @@ smalltalk.SequenceableCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSecond",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2823,7 +2823,7 @@ smalltalk.SequenceableCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testThird",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2846,7 +2846,7 @@ smalltalk.addClass('ArrayTest', smalltalk.SequenceableCollectionTest, [], 'Kerne
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAdd",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
@@ -2865,7 +2865,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAddFirst",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2885,7 +2885,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAtIfAbsent",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
@@ -2934,7 +2934,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testFirstN",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2950,7 +2950,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIfEmpty",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2969,7 +2969,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testPrintString",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
@@ -3022,7 +3022,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testRemove",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
@@ -3047,7 +3047,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testRemoveFromTo",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3072,7 +3072,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testRemoveIndex",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3097,7 +3097,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testRemoveLast",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
@@ -3116,7 +3116,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testReversed",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
@@ -3134,7 +3134,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSort",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
@@ -3154,7 +3154,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -3173,7 +3173,7 @@ smalltalk.addClass('StringTest', smalltalk.SequenceableCollectionTest, [], 'Kern
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3189,7 +3189,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionWithDuplicates",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3205,7 +3205,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAddRemove",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -3230,7 +3230,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAsArray",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3246,7 +3246,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAsLowerCase",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3262,7 +3262,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAsNumber",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3287,7 +3287,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAsUpperCase",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3303,7 +3303,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAsciiValue",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var characterA,characterU;
@@ -3327,7 +3327,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAt",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3353,7 +3353,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAtPut",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -3373,7 +3373,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCapitalized",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3404,7 +3404,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCharCodeAt",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3441,7 +3441,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCollect",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var newCollection;
@@ -3462,7 +3462,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCopyFromTo",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3483,7 +3483,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCopyWithoutAll",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3499,7 +3499,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testDetect",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -3532,7 +3532,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testEquality",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3566,7 +3566,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIdentity",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3600,7 +3600,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIdentityHash",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3625,7 +3625,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIncludesSubString",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3645,7 +3645,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIndexOf",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -3678,7 +3678,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIsVowel",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var vowel,consonant;
@@ -3702,7 +3702,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testJoin",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3718,7 +3718,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testRemoveAll",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -3738,7 +3738,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testReversed",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3754,7 +3754,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSelect",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var newCollection;
@@ -3775,7 +3775,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSize",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3796,7 +3796,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testStreamContents",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -3821,7 +3821,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSubStrings",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3837,7 +3837,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testTrim",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3856,7 +3856,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -3875,7 +3875,7 @@ smalltalk.addClass('ConsoleTranscriptTest', smalltalk.TestCase, [], 'Kernel-Test
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testShow",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var originalTranscript;
@@ -3911,7 +3911,7 @@ smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "jsObject",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3927,7 +3927,7 @@ smalltalk.JSObjectProxyTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAtIfAbsent",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var testObject;
@@ -3970,7 +3970,7 @@ smalltalk.JSObjectProxyTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAtIfPresent",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var testObject;
@@ -4022,7 +4022,7 @@ smalltalk.JSObjectProxyTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAtIfPresentIfAbsent",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var testObject;
@@ -4086,7 +4086,7 @@ smalltalk.JSObjectProxyTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAtPut",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var testObject;
@@ -4111,7 +4111,7 @@ smalltalk.JSObjectProxyTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testDNU",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
@@ -4131,7 +4131,7 @@ smalltalk.JSObjectProxyTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testMessageSend",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4158,7 +4158,7 @@ smalltalk.JSObjectProxyTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testMethodWithArguments",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4174,7 +4174,7 @@ smalltalk.JSObjectProxyTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testPrinting",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4190,7 +4190,7 @@ smalltalk.JSObjectProxyTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testPropertyThatReturnsEmptyString",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var object;
@@ -4214,7 +4214,7 @@ smalltalk.JSObjectProxyTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testPropertyThatReturnsUndefined",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var object;
@@ -4238,7 +4238,7 @@ smalltalk.JSObjectProxyTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testValue",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var testObject;
@@ -4257,7 +4257,7 @@ smalltalk.JSObjectProxyTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testYourself",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var object;
@@ -4282,7 +4282,7 @@ smalltalk.addClass('JavaScriptExceptionTest', smalltalk.TestCase, [], 'Kernel-Te
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCatchingException",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -4305,7 +4305,7 @@ smalltalk.JavaScriptExceptionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testRaisingException",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $JavaScriptException(){return smalltalk.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
@@ -4325,7 +4325,7 @@ smalltalk.JavaScriptExceptionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "throwException",
-category: 'helpers',
+protocol: 'helpers',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4344,7 +4344,7 @@ smalltalk.addClass('MessageSendTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testValue",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var messageSend;
@@ -4370,7 +4370,7 @@ smalltalk.MessageSendTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testValueWithArguments",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var messageSend;
@@ -4399,7 +4399,7 @@ smalltalk.addClass('MethodInheritanceTest', smalltalk.TestCase, ['receiverTop', 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "codeGeneratorClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $CodeGenerator(){return smalltalk.CodeGenerator||(typeof CodeGenerator=="undefined"?nil:CodeGenerator)}
@@ -4416,7 +4416,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compiler",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
@@ -4438,7 +4438,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deinstallBottom",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4454,7 +4454,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deinstallMiddle",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4470,7 +4470,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deinstallTop",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4486,7 +4486,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "installBottom:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4502,7 +4502,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "installMiddle:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4518,7 +4518,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "installTop:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4534,7 +4534,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setUp",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4559,7 +4559,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldMNU",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4577,7 +4577,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldMNUBottom",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
@@ -4597,7 +4597,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldMNUMiddle",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
@@ -4617,7 +4617,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldMNUTop",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
@@ -4637,7 +4637,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldReturn:",
-category: 'testing',
+protocol: 'testing',
 fn: function (anObject){
 var self=this;
 var result;
@@ -4663,7 +4663,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldReturn:and:and:",
-category: 'testing',
+protocol: 'testing',
 fn: function (anObject,anObject2,anObject3){
 var self=this;
 var result;
@@ -4689,7 +4689,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "targetClassBottom",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $JavaScriptException(){return smalltalk.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
@@ -4706,7 +4706,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "targetClassMiddle",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -4723,7 +4723,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "targetClassTop",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
@@ -4740,7 +4740,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tearDown",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -4776,7 +4776,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testMNU11",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4802,7 +4802,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testMNU22",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4828,7 +4828,7 @@ smalltalk.MethodInheritanceTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testReturns1",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4856,7 +4856,7 @@ smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAbs",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4877,7 +4877,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testArithmetic",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4920,7 +4920,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAsNumber",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4936,7 +4936,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCeiling",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4961,7 +4961,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testComparison",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4999,7 +4999,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCopying",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5020,7 +5020,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testEquality",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5078,7 +5078,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testFloor",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5103,7 +5103,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testHexNumbers",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5142,7 +5142,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIdentity",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5188,7 +5188,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testInvalidHexNumbers",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
@@ -5408,7 +5408,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testLog",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Number(){return smalltalk.Number||(typeof Number=="undefined"?nil:Number)}
@@ -5429,7 +5429,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testMinMax",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5447,7 +5447,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNegated",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5468,7 +5468,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testPrintShowingDecimalPlaces",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5539,7 +5539,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testRaisedTo",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5570,7 +5570,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testRounded",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5595,7 +5595,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSign",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5620,7 +5620,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSqrt",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5641,7 +5641,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSquared",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5657,7 +5657,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testTimesRepeat",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var i;
@@ -5689,7 +5689,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testTo",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5705,7 +5705,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testToBy",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -5729,7 +5729,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testTrigonometry",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5755,7 +5755,7 @@ smalltalk.NumberTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testTruncated",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5784,7 +5784,7 @@ smalltalk.ObjectMock.comment="ObjectMock is there only to perform tests on class
 smalltalk.addMethod(
 smalltalk.method({
 selector: "foo",
-category: 'not yet classified',
+protocol: 'not yet classified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5802,7 +5802,7 @@ smalltalk.ObjectMock);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "foo:",
-category: 'not yet classified',
+protocol: 'not yet classified',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5821,7 +5821,7 @@ smalltalk.addClass('ObjectTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "notDefined",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5837,7 +5837,7 @@ smalltalk.ObjectTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testBasicAccess",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
@@ -5862,7 +5862,7 @@ smalltalk.ObjectTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testBasicPerform",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
@@ -5892,7 +5892,7 @@ smalltalk.ObjectTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testDNU",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
@@ -5913,7 +5913,7 @@ smalltalk.ObjectTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testEquality",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
@@ -5947,7 +5947,7 @@ smalltalk.ObjectTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testHalt",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
@@ -5968,7 +5968,7 @@ smalltalk.ObjectTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIdentity",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
@@ -6002,7 +6002,7 @@ smalltalk.ObjectTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIfNil",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
@@ -6058,7 +6058,7 @@ smalltalk.ObjectTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testInstVars",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
@@ -6087,7 +6087,7 @@ smalltalk.ObjectTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNilUndefined",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6103,7 +6103,7 @@ smalltalk.ObjectTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testYourself",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
@@ -6122,7 +6122,7 @@ smalltalk.ObjectTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testidentityHash",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var o1,o2;
@@ -6157,7 +6157,7 @@ smalltalk.addClass('PointTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAccessing",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
@@ -6191,7 +6191,7 @@ smalltalk.PointTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testArithmetic",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
@@ -6239,7 +6239,7 @@ smalltalk.PointTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAt",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
@@ -6256,7 +6256,7 @@ smalltalk.PointTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testEgality",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6283,7 +6283,7 @@ smalltalk.PointTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNew",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
@@ -6324,7 +6324,7 @@ smalltalk.PointTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testTranslateBy",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6381,7 +6381,7 @@ smalltalk.addClass('QueueTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNextIfAbsent",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var queue;
@@ -6407,7 +6407,7 @@ smalltalk.QueueTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testQueueNext",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var queue;
@@ -6447,7 +6447,7 @@ smalltalk.addClass('RandomTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAtRandomNumber",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var val;
@@ -6471,7 +6471,7 @@ smalltalk.RandomTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAtRandomSequenceableCollection",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var val;
@@ -6501,7 +6501,7 @@ smalltalk.RandomTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "textNext",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Random(){return smalltalk.Random||(typeof Random=="undefined"?nil:Random)}
@@ -6534,7 +6534,7 @@ smalltalk.addClass('SetTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAddRemove",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var set;
@@ -6567,7 +6567,7 @@ smalltalk.SetTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAt",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
@@ -6588,7 +6588,7 @@ smalltalk.SetTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCollect",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6611,7 +6611,7 @@ smalltalk.SetTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testComparing",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6650,7 +6650,7 @@ smalltalk.SetTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testPrintString",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var set;
@@ -6704,7 +6704,7 @@ smalltalk.SetTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSize",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
@@ -6732,7 +6732,7 @@ smalltalk.SetTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testUnboxedObjects",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6754,7 +6754,7 @@ smalltalk.SetTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testUnicity",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var set;
@@ -6790,7 +6790,7 @@ smalltalk.addClass('StreamTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6808,7 +6808,7 @@ smalltalk.StreamTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "newCollection",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6826,7 +6826,7 @@ smalltalk.StreamTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "newStream",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6844,7 +6844,7 @@ smalltalk.StreamTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAtStartAtEnd",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var stream;
@@ -6882,7 +6882,7 @@ smalltalk.StreamTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testContents",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var stream;
@@ -6905,7 +6905,7 @@ smalltalk.StreamTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIsEmpty",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var stream;
@@ -6928,7 +6928,7 @@ smalltalk.StreamTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testPosition",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var collection,stream;
@@ -6965,7 +6965,7 @@ smalltalk.StreamTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testReading",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var stream,collection;
@@ -6994,7 +6994,7 @@ smalltalk.StreamTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testStreamContents",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7009,7 +7009,7 @@ smalltalk.StreamTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testWrite",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var stream,collection;
@@ -7032,7 +7032,7 @@ smalltalk.StreamTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testWriting",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var stream,collection;
@@ -7064,7 +7064,7 @@ smalltalk.StreamTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7080,7 +7080,7 @@ smalltalk.StreamTest.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isAbstract",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7100,7 +7100,7 @@ smalltalk.addClass('ArrayStreamTest', smalltalk.StreamTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "newCollection",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7119,7 +7119,7 @@ smalltalk.ArrayStreamTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -7138,7 +7138,7 @@ smalltalk.addClass('StringStreamTest', smalltalk.StreamTest, [], 'Kernel-Tests')
 smalltalk.addMethod(
 smalltalk.method({
 selector: "newCollection",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7155,7 +7155,7 @@ smalltalk.StringStreamTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -7174,7 +7174,7 @@ smalltalk.addClass('UndefinedTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCopying",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7190,7 +7190,7 @@ smalltalk.UndefinedTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testDeepCopy",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7206,7 +7206,7 @@ smalltalk.UndefinedTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIfNil",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7251,7 +7251,7 @@ smalltalk.UndefinedTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testIsNil",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

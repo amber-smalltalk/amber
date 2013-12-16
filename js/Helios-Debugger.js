@@ -6,7 +6,7 @@ smalltalk.addClass('HLContextInspectorDecorator', smalltalk.Object, ['context'],
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -24,7 +24,7 @@ smalltalk.HLContextInspectorDecorator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeFromContext:",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -40,7 +40,7 @@ smalltalk.HLContextInspectorDecorator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectOn:",
-category: 'inspecting',
+protocol: 'inspecting',
 fn: function (anInspector){
 var self=this;
 var variables,inspectedContext;
@@ -85,7 +85,7 @@ smalltalk.HLContextInspectorDecorator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -109,7 +109,7 @@ smalltalk.HLDebugger.comment="I am the main widget for the Helios debugger.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "codeWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLDebuggerCodeWidget(){return smalltalk.HLDebuggerCodeWidget||(typeof HLDebuggerCodeWidget=="undefined"?nil:HLDebuggerCodeWidget)}
@@ -137,7 +137,7 @@ smalltalk.HLDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "focus",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -153,7 +153,7 @@ smalltalk.HLDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeFromMethodContext:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aMethodContext){
 var self=this;
 function $HLDebuggerModel(){return smalltalk.HLDebuggerModel||(typeof HLDebuggerModel=="undefined"?nil:HLDebuggerModel)}
@@ -171,7 +171,7 @@ smalltalk.HLDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectorWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLInspectorWidget(){return smalltalk.HLInspectorWidget||(typeof HLInspectorWidget=="undefined"?nil:HLInspectorWidget)}
@@ -196,7 +196,7 @@ smalltalk.HLDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLDebuggerModel(){return smalltalk.HLDebuggerModel||(typeof HLDebuggerModel=="undefined"?nil:HLDebuggerModel)}
@@ -221,7 +221,7 @@ smalltalk.HLDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "observeModel",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLDebuggerContextSelected(){return smalltalk.HLDebuggerContextSelected||(typeof HLDebuggerContextSelected=="undefined"?nil:HLDebuggerContextSelected)}
@@ -246,7 +246,7 @@ smalltalk.HLDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onContextSelected:",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 function $HLContextInspectorDecorator(){return smalltalk.HLContextInspectorDecorator||(typeof HLContextInspectorDecorator=="undefined"?nil:HLContextInspectorDecorator)}
@@ -263,7 +263,7 @@ smalltalk.HLDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "registerBindingsOn:",
-category: 'keybindings',
+protocol: 'keybindings',
 fn: function (aBindingGroup){
 var self=this;
 function $HLToolCommand(){return smalltalk.HLToolCommand||(typeof HLToolCommand=="undefined"?nil:HLToolCommand)}
@@ -280,7 +280,7 @@ smalltalk.HLDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
@@ -304,7 +304,7 @@ smalltalk.HLDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "stackListWidget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLStackListWidget(){return smalltalk.HLStackListWidget||(typeof HLStackListWidget=="undefined"?nil:HLStackListWidget)}
@@ -332,7 +332,7 @@ smalltalk.HLDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unregister",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -351,7 +351,7 @@ smalltalk.HLDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -372,7 +372,7 @@ smalltalk.HLDebugger.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -388,7 +388,7 @@ smalltalk.HLDebugger.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -406,7 +406,7 @@ smalltalk.addClass('HLDebuggerCodeWidget', smalltalk.HLBrowserCodeWidget, [], 'H
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addStopAt:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -422,7 +422,7 @@ smalltalk.HLDebuggerCodeWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clearHighlight",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -438,7 +438,7 @@ smalltalk.HLDebuggerCodeWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "contents:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -455,7 +455,7 @@ smalltalk.HLDebuggerCodeWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "editorOptions",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -476,7 +476,7 @@ smalltalk.HLDebuggerCodeWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "highlight",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -492,7 +492,7 @@ smalltalk.HLDebuggerCodeWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "highlightNode:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aNode){
 var self=this;
 var token;
@@ -556,7 +556,7 @@ smalltalk.HLDebuggerCodeWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "observeBrowserModel",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLDebuggerContextSelected(){return smalltalk.HLDebuggerContextSelected||(typeof HLDebuggerContextSelected=="undefined"?nil:HLDebuggerContextSelected)}
@@ -589,7 +589,7 @@ smalltalk.HLDebuggerCodeWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onContextSelected",
-category: 'reactions',
+protocol: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -609,7 +609,7 @@ smalltalk.HLDebuggerModel.comment="I am a model for Helios debugging.\x0a\x0aMy 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "contexts",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -627,7 +627,7 @@ smalltalk.HLDebuggerModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currentContext",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -651,7 +651,7 @@ smalltalk.HLDebuggerModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currentContext:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aContext){
 var self=this;
 function $HLDebuggerContextSelected(){return smalltalk.HLDebuggerContextSelected||(typeof HLDebuggerContextSelected=="undefined"?nil:HLDebuggerContextSelected)}
@@ -678,7 +678,7 @@ smalltalk.HLDebuggerModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeContexts",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 var context;
@@ -706,7 +706,7 @@ smalltalk.HLDebuggerModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeFromContext:",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (aMethodContext){
 var self=this;
 function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
@@ -724,7 +724,7 @@ smalltalk.HLDebuggerModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "interpreter",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -742,7 +742,7 @@ smalltalk.HLDebuggerModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextNode",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -760,7 +760,7 @@ smalltalk.HLDebuggerModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "restart",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLDebuggerStepped(){return smalltalk.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
@@ -782,7 +782,7 @@ smalltalk.HLDebuggerModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "rootContext",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -800,7 +800,7 @@ smalltalk.HLDebuggerModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "skip",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLDebuggerStepped(){return smalltalk.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
@@ -822,7 +822,7 @@ smalltalk.HLDebuggerModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "stepOver",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLDebuggerStepped(){return smalltalk.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
@@ -844,7 +844,7 @@ smalltalk.HLDebuggerModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "where",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLDebuggerWhere(){return smalltalk.HLDebuggerWhere||(typeof HLDebuggerWhere=="undefined"?nil:HLDebuggerWhere)}
@@ -862,7 +862,7 @@ smalltalk.HLDebuggerModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -885,7 +885,7 @@ smalltalk.addClass('HLErrorHandler', smalltalk.ErrorHandler, [], 'Helios-Debugge
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleError:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (anError){
 var self=this;
 function $HLDebugger(){return smalltalk.HLDebugger||(typeof HLDebugger=="undefined"?nil:HLDebugger)}
@@ -911,7 +911,7 @@ smalltalk.HLErrorHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onErrorHandled",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (){
 var self=this;
 function $HLProgressWidget(){return smalltalk.HLProgressWidget||(typeof HLProgressWidget=="undefined"?nil:HLProgressWidget)}
@@ -932,7 +932,7 @@ smalltalk.HLErrorHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleError:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -952,7 +952,7 @@ smalltalk.addClass('HLStackListWidget', smalltalk.HLToolListWidget, [], 'Helios-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "items",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -976,7 +976,7 @@ smalltalk.HLStackListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -992,7 +992,7 @@ smalltalk.HLStackListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderButtonsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1059,7 +1059,7 @@ smalltalk.HLStackListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "restart",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1075,7 +1075,7 @@ smalltalk.HLStackListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectItem:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1091,7 +1091,7 @@ smalltalk.HLStackListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "skip",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1107,7 +1107,7 @@ smalltalk.HLStackListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "stepOver",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1123,7 +1123,7 @@ smalltalk.HLStackListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "where",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

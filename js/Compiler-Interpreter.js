@@ -7,7 +7,7 @@ smalltalk.AIBlockClosure.comment="I am a special `BlockClosure` subclass used by
 smalltalk.addMethod(
 smalltalk.method({
 selector: "applyTo:arguments:",
-category: 'evaluating',
+protocol: 'evaluating',
 fn: function (anObject,aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -23,7 +23,7 @@ smalltalk.AIBlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compiledSource",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -39,7 +39,7 @@ smalltalk.AIBlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currySelf",
-category: 'converting',
+protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -55,7 +55,7 @@ smalltalk.AIBlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeWithContext:node:",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (aContext,aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -72,7 +72,7 @@ smalltalk.AIBlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "interpreterError",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (){
 var self=this;
 function $ASTInterpreterError(){return smalltalk.ASTInterpreterError||(typeof ASTInterpreterError=="undefined"?nil:ASTInterpreterError)}
@@ -89,7 +89,7 @@ smalltalk.AIBlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "numArgs",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -107,7 +107,7 @@ smalltalk.AIBlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "value",
-category: 'evaluating',
+protocol: 'evaluating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -125,7 +125,7 @@ smalltalk.AIBlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "value:",
-category: 'evaluating',
+protocol: 'evaluating',
 fn: function (anArgument){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -143,7 +143,7 @@ smalltalk.AIBlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "value:value:",
-category: 'evaluating',
+protocol: 'evaluating',
 fn: function (firstArgument,secondArgument){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -161,7 +161,7 @@ smalltalk.AIBlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "value:value:value:",
-category: 'evaluating',
+protocol: 'evaluating',
 fn: function (firstArgument,secondArgument,thirdArgument){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -179,7 +179,7 @@ smalltalk.AIBlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "valueWithPossibleArguments:",
-category: 'evaluating',
+protocol: 'evaluating',
 fn: function (aCollection){
 var self=this;
 var context,sequenceNode;
@@ -218,7 +218,7 @@ smalltalk.AIBlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "forContext:node:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aContext,aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -242,7 +242,7 @@ smalltalk.AIContext.comment="I am like a `MethodContext`, used by the `ASTInterp
 smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -263,7 +263,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ast",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -299,7 +299,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "evaluatedSelector",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -317,7 +317,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "evaluatedSelector:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -333,7 +333,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "index",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -356,7 +356,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "index:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -372,7 +372,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeAST",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $SemanticAnalyzer(){return smalltalk.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
@@ -393,7 +393,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeFromMethodContext:",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -434,7 +434,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeInterpreter",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $ASTInterpreter(){return smalltalk.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
@@ -461,7 +461,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeLocals",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -479,7 +479,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "innerContext",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -497,7 +497,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "innerContext:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anAIContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -513,7 +513,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "interpreter",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -537,7 +537,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "interpreter:",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (anInterpreter){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -553,7 +553,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "localAt:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -581,7 +581,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "localAt:ifAbsent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -609,7 +609,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "localAt:put:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -625,7 +625,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "locals",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -649,7 +649,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "method",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -677,7 +677,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "newBlockContext",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -698,7 +698,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "outerContext",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -716,7 +716,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "outerContext:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anAIContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -733,7 +733,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "receiver",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -751,7 +751,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "receiver:",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -767,7 +767,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -785,7 +785,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -801,7 +801,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sendIndexAt:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -822,7 +822,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sendIndexes",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -846,7 +846,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sendIndexes:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aDictionary){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -862,7 +862,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupInterpreter:",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (anInterpreter){
 var self=this;
 var currentNode;
@@ -898,7 +898,7 @@ smalltalk.AIContext);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fromMethodContext:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -922,7 +922,7 @@ smalltalk.ASTDebugger.comment="I am a stepping debugger interface for Amber code
 smalltalk.addMethod(
 smalltalk.method({
 selector: "atEnd",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -940,7 +940,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "buildAST",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 var ast;
@@ -963,7 +963,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -981,7 +981,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -997,7 +997,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultInterpreterClass",
-category: 'defaults',
+protocol: 'defaults',
 fn: function (){
 var self=this;
 function $ASTInterpreter(){return smalltalk.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
@@ -1014,7 +1014,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeInterpreter",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 var ast,next;
@@ -1039,7 +1039,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeWithContext:",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1056,7 +1056,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "interpreter",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1080,7 +1080,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "interpreter:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInterpreter){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1096,7 +1096,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "method",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1114,7 +1114,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextNode",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1132,7 +1132,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "proceed",
-category: 'stepping',
+protocol: 'stepping',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1148,7 +1148,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "restart",
-category: 'stepping',
+protocol: 'stepping',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1164,7 +1164,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "skip",
-category: 'stepping',
+protocol: 'stepping',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1180,7 +1180,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "stepInto",
-category: 'stepping',
+protocol: 'stepping',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1196,7 +1196,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "stepOver",
-category: 'stepping',
+protocol: 'stepping',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1213,7 +1213,7 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1237,7 +1237,7 @@ smalltalk.ASTInterpreter.comment="I visit an AST, interpreting (evaluating) node
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assign:to:",
-category: 'private',
+protocol: 'private',
 fn: function (aNode,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1264,7 +1264,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "atEnd",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1285,7 +1285,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1303,7 +1303,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1319,7 +1319,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "eval:",
-category: 'private',
+protocol: 'private',
 fn: function (aString){
 var self=this;
 var source,function_;
@@ -1366,7 +1366,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hasReturned",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1389,7 +1389,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "interpret",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1405,7 +1405,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "interpret:",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1422,7 +1422,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageFromSendNode:arguments:",
-category: 'private',
+protocol: 'private',
 fn: function (aSendNode,aCollection){
 var self=this;
 function $Message(){return smalltalk.Message||(typeof Message=="undefined"?nil:Message)}
@@ -1445,7 +1445,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageNotUnderstood:receiver:",
-category: 'private',
+protocol: 'private',
 fn: function (aMessage,anObject){
 var self=this;
 function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
@@ -1466,7 +1466,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "next",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1482,7 +1482,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "node",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1500,7 +1500,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "node:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1516,7 +1516,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "peek",
-category: 'stack',
+protocol: 'stack',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1544,7 +1544,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "pop",
-category: 'stack',
+protocol: 'stack',
 fn: function (){
 var self=this;
 var peekedValue;
@@ -1565,7 +1565,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "proceed",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1587,7 +1587,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "push:",
-category: 'stack',
+protocol: 'stack',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1605,7 +1605,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "restart",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1621,7 +1621,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "result",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1644,7 +1644,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "returnValue",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1662,7 +1662,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "returnValue:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1678,7 +1678,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sendMessage:to:superSend:",
-category: 'private',
+protocol: 'private',
 fn: function (aMessage,anObject,aBoolean){
 var self=this;
 var method;
@@ -1721,7 +1721,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setNonLocalReturnFromContext:",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1745,7 +1745,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "skip",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1761,7 +1761,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "stack",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -1786,7 +1786,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "step",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1804,7 +1804,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "stepOver",
-category: 'interpreting',
+protocol: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1828,7 +1828,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visit:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1848,7 +1848,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitAssignmentNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var poppedValue;
@@ -1869,7 +1869,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitBlockNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var block;
@@ -1888,7 +1888,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitDynamicArrayNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var array;
@@ -1910,7 +1910,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitDynamicDictionaryNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var associations,hashedCollection;
@@ -1942,7 +1942,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitJSStatementNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1959,7 +1959,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1974,7 +1974,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitReturnNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1991,7 +1991,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitSendNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var receiver,args,message,result;
@@ -2026,7 +2026,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitValueNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2042,7 +2042,7 @@ smalltalk.ASTInterpreter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitVariableNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
@@ -2114,7 +2114,7 @@ smalltalk.ASTPCNodeVisitor.comment="I visit an AST until I get to the current no
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2132,7 +2132,7 @@ smalltalk.ASTPCNodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2148,7 +2148,7 @@ smalltalk.ASTPCNodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currentNode",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2166,7 +2166,7 @@ smalltalk.ASTPCNodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "increaseIndex",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2182,7 +2182,7 @@ smalltalk.ASTPCNodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "index",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2206,7 +2206,7 @@ smalltalk.ASTPCNodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2224,7 +2224,7 @@ smalltalk.ASTPCNodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2240,7 +2240,7 @@ smalltalk.ASTPCNodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitJSStatementNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2256,7 +2256,7 @@ smalltalk.ASTPCNodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitSendNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var sendIndex;
@@ -2295,7 +2295,7 @@ smalltalk.ASTPCNodeVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSteppingNode",
-category: '*Compiler-Interpreter',
+protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2311,7 +2311,7 @@ smalltalk.Node);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSteppingNode",
-category: '*Compiler-Interpreter',
+protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2327,7 +2327,7 @@ smalltalk.AssignmentNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSteppingNode",
-category: '*Compiler-Interpreter',
+protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2343,7 +2343,7 @@ smalltalk.BlockNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSteppingNode",
-category: '*Compiler-Interpreter',
+protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2359,7 +2359,7 @@ smalltalk.DynamicArrayNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSteppingNode",
-category: '*Compiler-Interpreter',
+protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2375,7 +2375,7 @@ smalltalk.DynamicDictionaryNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSteppingNode",
-category: '*Compiler-Interpreter',
+protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2391,7 +2391,7 @@ smalltalk.JSStatementNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSteppingNode",
-category: '*Compiler-Interpreter',
+protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

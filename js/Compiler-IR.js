@@ -7,7 +7,7 @@ smalltalk.IRASTTranslator.comment="I am the AST (abstract syntax tree) visitor r
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alias:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var variable;
@@ -56,7 +56,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "aliasTemporally:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aCollection){
 var self=this;
 var threshold,result;
@@ -98,7 +98,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "method",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -116,7 +116,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "method:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIRMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -132,7 +132,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextAlias",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -158,7 +158,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sequence",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -176,7 +176,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sequence:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIRSequence){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -192,7 +192,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "source",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -210,7 +210,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "source:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -226,7 +226,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -244,7 +244,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -260,7 +260,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitAssignmentNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var left,right,assignment;
@@ -292,7 +292,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitBlockNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var closure;
@@ -341,7 +341,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitBlockSequenceNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 function $IRBlockSequence(){return smalltalk.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
@@ -407,7 +407,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitCascadeNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var alias,receiver;
@@ -455,7 +455,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitDynamicArrayNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var array;
@@ -480,7 +480,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitDynamicDictionaryNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var dictionary;
@@ -505,7 +505,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitJSStatementNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 function $IRVerbatim(){return smalltalk.IRVerbatim||(typeof IRVerbatim=="undefined"?nil:IRVerbatim)}
@@ -527,7 +527,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitMethodNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 function $IRMethod(){return smalltalk.IRMethod||(typeof IRMethod=="undefined"?nil:IRMethod)}
@@ -610,7 +610,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitOrAlias:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -633,7 +633,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitReturnNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var return_;
@@ -666,7 +666,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitSendNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var send,all,receiver,arguments;
@@ -703,7 +703,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitSequenceNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 function $IRSequence(){return smalltalk.IRSequence||(typeof IRSequence=="undefined"?nil:IRSequence)}
@@ -734,7 +734,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitValueNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 function $IRValue(){return smalltalk.IRValue||(typeof IRValue=="undefined"?nil:IRValue)}
@@ -756,7 +756,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitVariableNode:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 function $IRVariable(){return smalltalk.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
@@ -778,7 +778,7 @@ smalltalk.IRASTTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "withSequence:do:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aSequence,aBlock){
 var self=this;
 var outerSequence;
@@ -804,7 +804,7 @@ smalltalk.IRInstruction.comment="I am the abstract root class of the IR (interme
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -822,7 +822,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
-category: 'building',
+protocol: 'building',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -841,7 +841,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canBeAssigned",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -857,7 +857,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "instructions",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -882,7 +882,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isClosure",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -898,7 +898,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isInlined",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -914,7 +914,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isLocalReturn",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -930,7 +930,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isMethod",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -946,7 +946,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isReturn",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -962,7 +962,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSend",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -978,7 +978,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSequence",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -994,7 +994,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isTempDeclaration",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1010,7 +1010,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isVariable",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1026,7 +1026,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "method",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1044,7 +1044,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "needsBoxingAsReceiver",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1060,7 +1060,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "parent",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1078,7 +1078,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "parent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anIRInstruction){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1094,7 +1094,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove",
-category: 'building',
+protocol: 'building',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1110,7 +1110,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:",
-category: 'building',
+protocol: 'building',
 fn: function (anIRInstruction){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1126,7 +1126,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "replace:with:",
-category: 'building',
+protocol: 'building',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1146,7 +1146,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "replaceWith:",
-category: 'building',
+protocol: 'building',
 fn: function (anIRInstruction){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1162,7 +1162,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "scope",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1188,7 +1188,7 @@ smalltalk.IRInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aBuilder){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1211,7 +1211,7 @@ smalltalk.addClass('IRAssignment', smalltalk.IRInstruction, [], 'Compiler-IR');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1232,7 +1232,7 @@ smalltalk.addClass('IRDynamicArray', smalltalk.IRInstruction, [], 'Compiler-IR')
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1253,7 +1253,7 @@ smalltalk.addClass('IRDynamicDictionary', smalltalk.IRInstruction, [], 'Compiler
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1274,7 +1274,7 @@ smalltalk.addClass('IRScopedInstruction', smalltalk.IRInstruction, ['scope'], 'C
 smalltalk.addMethod(
 smalltalk.method({
 selector: "scope",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1292,7 +1292,7 @@ smalltalk.IRScopedInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "scope:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aScope){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1311,7 +1311,7 @@ smalltalk.addClass('IRClosureInstruction', smalltalk.IRScopedInstruction, ['argu
 smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1334,7 +1334,7 @@ smalltalk.IRClosureInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1350,7 +1350,7 @@ smalltalk.IRClosureInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "locals",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1374,7 +1374,7 @@ smalltalk.IRClosureInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "scope:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aScope){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1391,7 +1391,7 @@ smalltalk.IRClosureInstruction);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tempDeclarations",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1415,7 +1415,7 @@ smalltalk.addClass('IRClosure', smalltalk.IRClosureInstruction, [], 'Compiler-IR
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1433,7 +1433,7 @@ smalltalk.IRClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isClosure",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1449,7 +1449,7 @@ smalltalk.IRClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sequence",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1471,7 +1471,7 @@ smalltalk.IRMethod.comment="I am a method instruction";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1489,7 +1489,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classReferences",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1507,7 +1507,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classReferences:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1523,7 +1523,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "internalVariables",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
@@ -1548,7 +1548,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isMethod",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1564,7 +1564,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageSends",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1582,7 +1582,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "method",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1598,7 +1598,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1616,7 +1616,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1632,7 +1632,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sendIndexes",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1650,7 +1650,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sendIndexes:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aDictionary){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1666,7 +1666,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "source",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1684,7 +1684,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "source:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1700,7 +1700,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "superSends",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1718,7 +1718,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "superSends:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1734,7 +1734,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1752,7 +1752,7 @@ smalltalk.IRMethod);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1772,7 +1772,7 @@ smalltalk.IRReturn.comment="I am a local return instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1790,7 +1790,7 @@ smalltalk.IRReturn);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canBeAssigned",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1806,7 +1806,7 @@ smalltalk.IRReturn);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isBlockReturn",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1822,7 +1822,7 @@ smalltalk.IRReturn);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isLocalReturn",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1838,7 +1838,7 @@ smalltalk.IRReturn);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isNonLocalReturn",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1856,7 +1856,7 @@ smalltalk.IRReturn);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isReturn",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1872,7 +1872,7 @@ smalltalk.IRReturn);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "scope",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1899,7 +1899,7 @@ smalltalk.IRBlockReturn.comment="Smalltalk blocks return their last statement. I
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1917,7 +1917,7 @@ smalltalk.IRBlockReturn);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isBlockReturn",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1937,7 +1937,7 @@ smalltalk.IRNonLocalReturn.comment="I am a non local return instruction.\x0aNon 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1955,7 +1955,7 @@ smalltalk.IRNonLocalReturn);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isLocalReturn",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1974,7 +1974,7 @@ smalltalk.addClass('IRTempDeclaration', smalltalk.IRScopedInstruction, ['name'],
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1992,7 +1992,7 @@ smalltalk.IRTempDeclaration);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isTempDeclaration",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2008,7 +2008,7 @@ smalltalk.IRTempDeclaration);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "name",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2026,7 +2026,7 @@ smalltalk.IRTempDeclaration);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "name:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2046,7 +2046,7 @@ smalltalk.IRSend.comment="I am a message send instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2064,7 +2064,7 @@ smalltalk.IRSend);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classSend",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2082,7 +2082,7 @@ smalltalk.IRSend);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classSend:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2098,7 +2098,7 @@ smalltalk.IRSend);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "index",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2116,7 +2116,7 @@ smalltalk.IRSend);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "index:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2132,7 +2132,7 @@ smalltalk.IRSend);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSend",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2148,7 +2148,7 @@ smalltalk.IRSend);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2166,7 +2166,7 @@ smalltalk.IRSend);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2185,7 +2185,7 @@ smalltalk.addClass('IRSequence', smalltalk.IRInstruction, [], 'Compiler-IR');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2203,7 +2203,7 @@ smalltalk.IRSequence);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSequence",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2222,7 +2222,7 @@ smalltalk.addClass('IRBlockSequence', smalltalk.IRSequence, [], 'Compiler-IR');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2244,7 +2244,7 @@ smalltalk.IRValue.comment="I am the simplest possible instruction. I represent a
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2262,7 +2262,7 @@ smalltalk.IRValue);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "needsBoxingAsReceiver",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2278,7 +2278,7 @@ smalltalk.IRValue);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "value",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2296,7 +2296,7 @@ smalltalk.IRValue);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "value:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2316,7 +2316,7 @@ smalltalk.IRVariable.comment="I am a variable instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2334,7 +2334,7 @@ smalltalk.IRVariable);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isVariable",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2350,7 +2350,7 @@ smalltalk.IRVariable);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "needsBoxingAsReceiver",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2368,7 +2368,7 @@ smalltalk.IRVariable);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variable",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2386,7 +2386,7 @@ smalltalk.IRVariable);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variable:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aScopeVariable){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2405,7 +2405,7 @@ smalltalk.addClass('IRVerbatim', smalltalk.IRInstruction, ['source'], 'Compiler-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2423,7 +2423,7 @@ smalltalk.IRVerbatim);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "source",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2441,7 +2441,7 @@ smalltalk.IRVerbatim);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "source:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2460,7 +2460,7 @@ smalltalk.addClass('IRVisitor', smalltalk.Object, [], 'Compiler-IR');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visit:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInstruction){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2478,7 +2478,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRAssignment:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRAssignment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2496,7 +2496,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRBlockReturn:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRBlockReturn){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2514,7 +2514,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRBlockSequence:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRBlockSequence){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2532,7 +2532,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRClosure:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRClosure){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2550,7 +2550,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRDynamicArray:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRDynamicArray){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2568,7 +2568,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRDynamicDictionary:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRDynamicDictionary){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2586,7 +2586,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInlinedClosure:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInlinedClosure){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2604,7 +2604,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInlinedSequence:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInlinedSequence){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2622,7 +2622,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInstruction:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInstruction){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2642,7 +2642,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRMethod:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2660,7 +2660,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRNonLocalReturn:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRNonLocalReturn){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2678,7 +2678,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRNonLocalReturnHandling:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRNonLocalReturnHandling){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2696,7 +2696,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRReturn:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRReturn){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2714,7 +2714,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRSend:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2732,7 +2732,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRSequence:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRSequence){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2750,7 +2750,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRTempDeclaration:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRTempDeclaration){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2768,7 +2768,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRValue:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2786,7 +2786,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRVariable:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRVariable){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2804,7 +2804,7 @@ smalltalk.IRVisitor);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRVerbatim:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRVerbatim){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2825,7 +2825,7 @@ smalltalk.addClass('IRJSTranslator', smalltalk.IRVisitor, ['stream', 'currentCla
 smalltalk.addMethod(
 smalltalk.method({
 selector: "contents",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2843,7 +2843,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currentClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2861,7 +2861,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currentClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2877,7 +2877,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $JSStream(){return smalltalk.JSStream||(typeof JSStream=="undefined"?nil:JSStream)}
@@ -2895,7 +2895,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "stream",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2913,7 +2913,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "stream:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2929,7 +2929,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRAssignment:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRAssignment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2952,7 +2952,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRClosure:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRClosure){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2983,7 +2983,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRDynamicArray:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRDynamicArray){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3012,7 +3012,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRDynamicDictionary:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRDynamicDictionary){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3043,7 +3043,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRMethod:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3110,7 +3110,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRNonLocalReturn:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRNonLocalReturn){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3129,7 +3129,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRReturn:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRReturn){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3148,7 +3148,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRSend:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 var sends;
@@ -3179,7 +3179,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRSequence:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRSequence){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3204,7 +3204,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRTempDeclaration:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRTempDeclaration){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3219,7 +3219,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRValue:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3235,7 +3235,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRVariable:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRVariable){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3263,7 +3263,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRVerbatim:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRVerbatim){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3285,7 +3285,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitReceiver:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRInstruction){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3313,7 +3313,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitSend:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3350,7 +3350,7 @@ smalltalk.IRJSTranslator);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitSuperSend:",
-category: 'visiting',
+protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3399,7 +3399,7 @@ smalltalk.addClass('JSStream', smalltalk.Object, ['stream'], 'Compiler-IR');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "contents",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3417,7 +3417,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3434,7 +3434,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "lf",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3450,7 +3450,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPut:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3466,7 +3466,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutAll:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3482,7 +3482,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutAssignment",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3498,7 +3498,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutBlockContextFor:during:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (anIRClosure,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3572,7 +3572,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutClassRefFunction:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3607,7 +3607,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutClosureWith:arguments:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aBlock,anArray){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3639,7 +3639,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutContextFor:during:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aMethod,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3707,7 +3707,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutFunctionWith:arguments:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aBlock,anArray){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3744,7 +3744,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutIf:with:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3770,7 +3770,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutIfElse:with:with:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aBlock,ifBlock,elseBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3803,7 +3803,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutMethodDeclaration:with:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aMethod,aBlock){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -3897,7 +3897,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutNonLocalReturnHandlingWith:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3930,7 +3930,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutNonLocalReturnWith:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3949,7 +3949,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutReturn",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3965,7 +3965,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutReturnWith:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3982,7 +3982,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutSendIndexFor:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (anIRSend){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4010,7 +4010,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutSequenceWith:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4026,7 +4026,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutStatementWith:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4046,7 +4046,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutVars:",
-category: 'streaming',
+protocol: 'streaming',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4085,7 +4085,7 @@ smalltalk.JSStream);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "appendToInstruction:",
-category: '*Compiler-IR',
+protocol: '*Compiler-IR',
 fn: function (anIRInstruction){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4101,7 +4101,7 @@ smalltalk.BlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asVariableName",
-category: '*Compiler-IR',
+protocol: '*Compiler-IR',
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}

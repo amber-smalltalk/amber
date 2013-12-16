@@ -7,7 +7,7 @@ smalltalk.ConsoleTranscript.comment="I am a specific transcript emitting to the 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clear",
-category: 'printing',
+protocol: 'printing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -22,7 +22,7 @@ smalltalk.ConsoleTranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cr",
-category: 'printing',
+protocol: 'printing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -37,7 +37,7 @@ smalltalk.ConsoleTranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "open",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -52,7 +52,7 @@ smalltalk.ConsoleTranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "show:",
-category: 'printing',
+protocol: 'printing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -69,7 +69,7 @@ smalltalk.ConsoleTranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
@@ -91,7 +91,7 @@ smalltalk.Transcript.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clear",
-category: 'printing',
+protocol: 'printing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -107,7 +107,7 @@ smalltalk.Transcript.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cr",
-category: 'printing',
+protocol: 'printing',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -124,7 +124,7 @@ smalltalk.Transcript.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -142,7 +142,7 @@ smalltalk.Transcript.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspect:",
-category: 'printing',
+protocol: 'printing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -158,7 +158,7 @@ smalltalk.Transcript.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "new",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -174,7 +174,7 @@ smalltalk.Transcript.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "open",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -190,7 +190,7 @@ smalltalk.Transcript.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "register:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aTranscript){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -206,7 +206,7 @@ smalltalk.Transcript.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "show:",
-category: 'printing',
+protocol: 'printing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

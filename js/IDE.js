@@ -6,7 +6,7 @@ smalltalk.addClass('ClassesList', smalltalk.Widget, ['browser', 'ul', 'nodes'], 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "browser",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -24,7 +24,7 @@ smalltalk.ClassesList);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "browser:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBrowser){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -40,7 +40,7 @@ smalltalk.ClassesList);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -58,7 +58,7 @@ smalltalk.ClassesList);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "getNodes",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var classes,children,others;
@@ -96,7 +96,7 @@ smalltalk.ClassesList);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nodes",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -121,7 +121,7 @@ smalltalk.ClassesList);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -142,7 +142,7 @@ smalltalk.ClassesList);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "resetNodes",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -158,7 +158,7 @@ smalltalk.ClassesList);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateNodes",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -181,7 +181,7 @@ smalltalk.ClassesList);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aBrowser){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -204,7 +204,7 @@ smalltalk.addClass('ClassesListNode', smalltalk.Widget, ['browser', 'theClass', 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "browser",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -222,7 +222,7 @@ smalltalk.ClassesListNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "browser:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBrowser){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -238,7 +238,7 @@ smalltalk.ClassesListNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "getNodesFrom:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 var children,others;
@@ -272,7 +272,7 @@ smalltalk.ClassesListNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var str;
@@ -299,7 +299,7 @@ smalltalk.ClassesListNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "level",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -317,7 +317,7 @@ smalltalk.ClassesListNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "level:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -333,7 +333,7 @@ smalltalk.ClassesListNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nodes",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -351,7 +351,7 @@ smalltalk.ClassesListNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 var li,cssClass;
@@ -397,7 +397,7 @@ smalltalk.ClassesListNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -415,7 +415,7 @@ smalltalk.ClassesListNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -432,7 +432,7 @@ smalltalk.ClassesListNode);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:browser:classes:level:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aClass,aBrowser,aCollection,anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -458,7 +458,7 @@ smalltalk.addClass('DebugErrorHandler', smalltalk.ErrorHandler, [], 'IDE');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleError:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (anError){
 var self=this;
 function $Debugger(){return smalltalk.Debugger||(typeof Debugger=="undefined"?nil:Debugger)}
@@ -489,7 +489,7 @@ smalltalk.DebugErrorHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
@@ -514,7 +514,7 @@ smalltalk.addClass('SourceArea', smalltalk.Widget, ['editor', 'div', 'receiver',
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clear",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -530,7 +530,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currentLine",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -548,7 +548,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currentLineOrSelection",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -571,7 +571,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "doIt",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 var result;
@@ -598,7 +598,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "editor",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -616,7 +616,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "eval:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 var compiler;
@@ -650,7 +650,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fileIn",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $Importer(){return smalltalk.Importer||(typeof Importer=="undefined"?nil:Importer)}
@@ -667,7 +667,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "focus",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -683,7 +683,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleKeyDown:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anEvent){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -715,7 +715,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectIt",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -731,7 +731,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onDoIt",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -749,7 +749,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onDoIt:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -765,7 +765,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onKeyDown:",
-category: 'events',
+protocol: 'events',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -781,7 +781,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onKeyUp:",
-category: 'events',
+protocol: 'events',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -797,7 +797,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "print:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 var start,stop,currentLine;
@@ -859,7 +859,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printIt",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -876,7 +876,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "receiver",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
@@ -900,7 +900,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "receiver:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -916,7 +916,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 var textarea;
@@ -943,7 +943,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selection",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -961,7 +961,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setEditorOn:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aTextarea){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -985,7 +985,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "val",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1003,7 +1003,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "val:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1020,7 +1020,7 @@ smalltalk.SourceArea);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1037,7 +1037,7 @@ smalltalk.SourceArea.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupCodeMirror",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1055,7 +1055,7 @@ smalltalk.addClass('TabManager', smalltalk.Widget, ['selectedTab', 'tabs', 'open
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addTab:",
-category: 'adding/Removing',
+protocol: 'adding/Removing',
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1073,7 +1073,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "close",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1105,7 +1105,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "closeTab:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1124,7 +1124,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
@@ -1179,7 +1179,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "labelFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aWidget){
 var self=this;
 var label,maxSize;
@@ -1212,7 +1212,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "newBrowserTab",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:Browser)}
@@ -1229,7 +1229,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onResize:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1252,7 +1252,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onWindowResize:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1268,7 +1268,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "open",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1300,7 +1300,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeBodyMargin",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1316,7 +1316,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeTab:",
-category: 'adding/Removing',
+protocol: 'adding/Removing',
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1333,7 +1333,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1357,7 +1357,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderTabFor:on:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (aWidget,html){
 var self=this;
 var li;
@@ -1421,7 +1421,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderTabs",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1467,7 +1467,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderToolbarOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1509,7 +1509,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "search:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 var searchedClass;
@@ -1536,7 +1536,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectTab:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1559,7 +1559,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setBodyMargin:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1575,7 +1575,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabs",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -1600,7 +1600,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "update",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1616,7 +1616,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateBodyMargin",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1632,7 +1632,7 @@ smalltalk.TabManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updatePosition",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1654,7 +1654,7 @@ smalltalk.TabManager.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1678,7 +1678,7 @@ smalltalk.TabManager.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "new",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1694,7 +1694,7 @@ smalltalk.TabManager.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "toggleAmberIDE",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:Browser)}
@@ -1731,7 +1731,7 @@ smalltalk.addClass('TabWidget', smalltalk.Widget, ['div'], 'IDE');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canBeClosed",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1747,7 +1747,7 @@ smalltalk.TabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "close",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
@@ -1764,7 +1764,7 @@ smalltalk.TabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hide",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1780,7 +1780,7 @@ smalltalk.TabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1796,7 +1796,7 @@ smalltalk.TabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "open",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
@@ -1817,7 +1817,7 @@ smalltalk.TabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1833,7 +1833,7 @@ smalltalk.TabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderBoxOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1848,7 +1848,7 @@ smalltalk.TabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderButtonsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1863,7 +1863,7 @@ smalltalk.TabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1884,7 +1884,7 @@ smalltalk.TabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderTab",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1920,7 +1920,7 @@ smalltalk.TabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "show",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1936,7 +1936,7 @@ smalltalk.TabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "update",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1953,7 +1953,7 @@ smalltalk.TabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "open",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1973,7 +1973,7 @@ smalltalk.addClass('Browser', smalltalk.TabWidget, ['selectedPackage', 'selected
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addInstanceVariableNamed:toClass:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString,aClass){
 var self=this;
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
@@ -1998,7 +1998,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addNewClass",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 var className;
@@ -2029,7 +2029,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addNewProtocol",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 var newProtocol;
@@ -2055,7 +2055,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canBeClosed",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2071,7 +2071,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cancelChanges",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2094,7 +2094,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classCommentSource",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2112,7 +2112,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classDeclarationSource",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var stream;
@@ -2178,7 +2178,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classDeclarationTemplate",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2197,7 +2197,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classes",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -2224,7 +2224,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitPackage",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
@@ -2247,7 +2247,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compile",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 var currentEditLine;
@@ -2290,7 +2290,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileClassComment",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2306,7 +2306,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileDefinition",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 var newClass;
@@ -2329,7 +2329,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileMethodDefinition",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2352,7 +2352,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileMethodDefinitionFor:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aClass){
 var self=this;
 var compiler,method,source,node;
@@ -2418,7 +2418,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "copyClass",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 var className;
@@ -2449,7 +2449,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "declarationSource",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2472,7 +2472,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "disableSaveButton",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2495,7 +2495,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "dummyMethodSource",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2511,7 +2511,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleSourceAreaKeyDown:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anEvent){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2534,7 +2534,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hideClassButtons",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2550,7 +2550,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hideMethodButtons",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2566,7 +2566,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2585,7 +2585,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2608,7 +2608,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "metaclassDeclarationSource",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var stream;
@@ -2651,7 +2651,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "methodSource",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2674,7 +2674,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "methods",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var klass;
@@ -2734,7 +2734,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "packages",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var packages;
@@ -2766,7 +2766,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "protocols",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var klass;
@@ -2811,7 +2811,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeClass",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -2836,7 +2836,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeMethod",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2868,7 +2868,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removePackage",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -2892,7 +2892,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renameClass",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 var newName;
@@ -2920,7 +2920,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renamePackage",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 var newName;
@@ -2949,7 +2949,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderBottomPanelOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
@@ -2982,7 +2982,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderBoxOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3001,7 +3001,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderButtonsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3064,7 +3064,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderTabsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3081,7 +3081,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderTopPanelOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $ClassesList(){return smalltalk.ClassesList||(typeof ClassesList=="undefined"?nil:ClassesList)}
@@ -3169,7 +3169,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "resetClassesList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3185,7 +3185,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "search:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -3214,7 +3214,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "searchClassReferences",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $ReferencesBrowser(){return smalltalk.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
@@ -3231,7 +3231,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "searchReferencesOf:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 function $ReferencesBrowser(){return smalltalk.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
@@ -3248,7 +3248,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectCategory:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aCategory){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3280,7 +3280,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectClass:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3309,7 +3309,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectMethod:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3334,7 +3334,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectProtocol:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3361,7 +3361,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectTab:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3384,7 +3384,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3402,7 +3402,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedPackage",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3420,7 +3420,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setMethodProtocol:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3453,7 +3453,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "showClassButtons",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3469,7 +3469,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "showMethodButtons",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3485,7 +3485,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "source",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3523,7 +3523,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateCategoriesList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3567,7 +3567,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateClassesList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
@@ -3585,7 +3585,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateMethodsList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3621,7 +3621,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateProtocolsList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3657,7 +3657,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateSourceAndButtons",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 var currentProtocol;
@@ -3856,7 +3856,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateStatus",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3892,7 +3892,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateTabsList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4013,7 +4013,7 @@ smalltalk.Browser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "open",
-category: 'convenience',
+protocol: 'convenience',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4029,7 +4029,7 @@ smalltalk.Browser.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "openOn:",
-category: 'convenience',
+protocol: 'convenience',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4053,7 +4053,7 @@ smalltalk.addClass('Debugger', smalltalk.TabWidget, ['error', 'selectedContext',
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allVariables",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var all;
@@ -4087,7 +4087,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canBeClosed",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4103,7 +4103,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "error",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4121,7 +4121,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "error:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4137,7 +4137,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4154,7 +4154,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectSelectedVariable",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4170,7 +4170,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4186,7 +4186,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "method",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4204,7 +4204,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "proceed",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4221,7 +4221,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "receiver",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4239,7 +4239,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderBottomPanelOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
@@ -4273,7 +4273,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderBoxOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4291,7 +4291,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderButtonsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4374,7 +4374,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContext:on:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (aContext,html){
 var self=this;
 var li;
@@ -4409,7 +4409,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderTopPanelOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4455,7 +4455,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "save",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 var protocol;
@@ -4481,7 +4481,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectContext:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4505,7 +4505,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectVariable:named:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anObject,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4527,7 +4527,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "source",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4551,7 +4551,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateContextsList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4570,7 +4570,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateInspector",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4588,7 +4588,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateSourceArea",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4604,7 +4604,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateStatus",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4640,7 +4640,7 @@ smalltalk.Debugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateVariablesList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4702,7 +4702,7 @@ smalltalk.addClass('IDETranscript', smalltalk.TabWidget, ['textarea'], 'IDE');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clear",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4718,7 +4718,7 @@ smalltalk.IDETranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cr",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -4738,7 +4738,7 @@ smalltalk.IDETranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4754,7 +4754,7 @@ smalltalk.IDETranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "open",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
@@ -4774,7 +4774,7 @@ smalltalk.IDETranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderBoxOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4794,7 +4794,7 @@ smalltalk.IDETranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderButtonsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4816,7 +4816,7 @@ smalltalk.IDETranscript);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "show:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4843,7 +4843,7 @@ smalltalk.IDETranscript.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4867,7 +4867,7 @@ smalltalk.IDETranscript.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
@@ -4884,7 +4884,7 @@ smalltalk.IDETranscript.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "new",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4900,7 +4900,7 @@ smalltalk.IDETranscript.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "open",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
@@ -4923,7 +4923,7 @@ smalltalk.addClass('Inspector', smalltalk.TabWidget, ['label', 'variables', 'obj
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canBeClosed",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4939,7 +4939,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "dive",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4955,7 +4955,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspect:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4973,7 +4973,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4996,7 +4996,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "refresh",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5015,7 +5015,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderBottomPanelOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
@@ -5047,7 +5047,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderBoxOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5065,7 +5065,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderButtonsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5110,7 +5110,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderTopPanelOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5177,7 +5177,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectVariable:",
-category: 'updating',
+protocol: 'updating',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5197,7 +5197,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedVariable",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5215,7 +5215,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedVariable:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5231,7 +5231,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setLabel:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5247,7 +5247,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setVariables:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5263,7 +5263,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "sourceArea",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5281,7 +5281,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateButtons",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5310,7 +5310,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateValueTextarea",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5336,7 +5336,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateVariablesList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5372,7 +5372,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "variables",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5391,7 +5391,7 @@ smalltalk.Inspector);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspect:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5413,7 +5413,7 @@ smalltalk.Inspector.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5436,7 +5436,7 @@ smalltalk.addClass('ProgressBar', smalltalk.TabWidget, ['percent', 'progressDiv'
 smalltalk.addMethod(
 smalltalk.method({
 selector: "percent",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5459,7 +5459,7 @@ smalltalk.ProgressBar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "percent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5475,7 +5475,7 @@ smalltalk.ProgressBar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5496,7 +5496,7 @@ smalltalk.ProgressBar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderProgressBar",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5522,7 +5522,7 @@ smalltalk.ProgressBar);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updatePercent:",
-category: 'updating',
+protocol: 'updating',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5542,7 +5542,7 @@ smalltalk.addClass('ReferencesBrowser', smalltalk.TabWidget, ['implementors', 's
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canBeClosed",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5558,7 +5558,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classesAndMetaclasses",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -5584,7 +5584,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "implementors",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -5609,7 +5609,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5626,7 +5626,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5642,7 +5642,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "matches",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -5667,7 +5667,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "openBrowserOn:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aMethod){
 var self=this;
 var browser;
@@ -5705,7 +5705,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "referencedClasses",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -5730,7 +5730,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderBoxOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5751,7 +5751,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderImplementorsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5768,7 +5768,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderInputOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5790,7 +5790,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderMatchesOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5807,7 +5807,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderReferencedClassesOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5824,7 +5824,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderSendersOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5841,7 +5841,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "search:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5862,7 +5862,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "searchMethodSource",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 var regex;
@@ -5891,7 +5891,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "searchReferencedClasses",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5920,7 +5920,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "searchReferencesFor:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -5952,7 +5952,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "searchSelectorReferences",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5983,7 +5983,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6001,7 +6001,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "senders",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -6026,7 +6026,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setInputEvents",
-category: 'private',
+protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6060,7 +6060,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateImplementorsList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6112,7 +6112,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateMatchesList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6164,7 +6164,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateReferencedClassesList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6213,7 +6213,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateSendersList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6263,7 +6263,7 @@ smalltalk.ReferencesBrowser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "search:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6286,7 +6286,7 @@ smalltalk.addClass('TestRunner', smalltalk.TabWidget, ['selectedCategories', 'pa
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allClasses",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $TestCase(){return smalltalk.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
@@ -6308,7 +6308,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classes",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6334,7 +6334,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $TestResult(){return smalltalk.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
@@ -6352,7 +6352,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSelectedCategory:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aCategory){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6370,7 +6370,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isSelectedClass:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6388,7 +6388,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6404,7 +6404,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "packages",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var packages;
@@ -6435,7 +6435,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "performFailure:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aTestCase){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6451,7 +6451,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printErrors",
-category: 'printing',
+protocol: 'printing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6469,7 +6469,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printFailures",
-category: 'printing',
+protocol: 'printing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6487,7 +6487,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printPasses",
-category: 'printing',
+protocol: 'printing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6517,7 +6517,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printTotal",
-category: 'printing',
+protocol: 'printing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6535,7 +6535,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "progressBar",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $ProgressBar(){return smalltalk.ProgressBar||(typeof ProgressBar=="undefined"?nil:ProgressBar)}
@@ -6560,7 +6560,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderBoxOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6579,7 +6579,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderButtonsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6601,7 +6601,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderCategoriesOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6618,7 +6618,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderClassesOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6635,7 +6635,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderErrorsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6665,7 +6665,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderFailuresOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6695,7 +6695,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderResultsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6715,7 +6715,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "result",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6733,7 +6733,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "run:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aCollection){
 var self=this;
 var worker;
@@ -6765,7 +6765,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectAllCategories",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6790,7 +6790,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectAllClasses",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6815,7 +6815,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedCategories",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -6840,7 +6840,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedClasses",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -6865,7 +6865,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "statusInfo",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6886,7 +6886,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCases",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var testCases;
@@ -6913,7 +6913,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "toggleCategory:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aCategory){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6937,7 +6937,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "toggleClass:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -6960,7 +6960,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateCategoriesList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7008,7 +7008,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateClassesList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7059,7 +7059,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateMethodsList",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7079,7 +7079,7 @@ smalltalk.TestRunner);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateStatusDiv",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7102,7 +7102,7 @@ smalltalk.addClass('Workspace', smalltalk.TabWidget, ['sourceArea'], 'IDE');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clearWorkspace",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7118,7 +7118,7 @@ smalltalk.Workspace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "doIt",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7134,7 +7134,7 @@ smalltalk.Workspace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fileIn",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7150,7 +7150,7 @@ smalltalk.Workspace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectIt",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7166,7 +7166,7 @@ smalltalk.Workspace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7182,7 +7182,7 @@ smalltalk.Workspace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printIt",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7198,7 +7198,7 @@ smalltalk.Workspace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderBoxOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
@@ -7216,7 +7216,7 @@ smalltalk.Workspace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderButtonsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7281,7 +7281,7 @@ smalltalk.Workspace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "show",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -7299,7 +7299,7 @@ smalltalk.Workspace);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectOn:",
-category: '*IDE',
+protocol: '*IDE',
 fn: function (anInspector){
 var self=this;
 var variables;
@@ -7335,7 +7335,7 @@ smalltalk.Date);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectOn:",
-category: '*IDE',
+protocol: '*IDE',
 fn: function (anInspector){
 var self=this;
 var variables;
@@ -7362,7 +7362,7 @@ smalltalk.Collection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectOn:",
-category: '*IDE',
+protocol: '*IDE',
 fn: function (anInspector){
 var self=this;
 var label;
@@ -7395,7 +7395,63 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectOn:",
-category: '*IDE',
+protocol: '*IDE',
+fn: function (anInspector){
+var self=this;
+var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+variables=_st($Dictionary())._new();
+_st(variables)._at_put_("#self",self);
+$ctx1.sendIdx["at:put:"]=1;
+_st(variables)._at_put_("#keys",self._keys());
+$ctx1.sendIdx["at:put:"]=2;
+self._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) {
+return _st(variables)._at_put_(key,value);
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
+_st(anInspector)._setLabel_(self._printString());
+$1=_st(anInspector)._setVariables_(variables);
+return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.HashedCollection)})},
+args: ["anInspector"],
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#keys' put: self keys.\x0a\x09self keysAndValuesDo: [ :key :value |\x0a\x09\x09variables at: key put: value ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
+messageSends: ["new", "at:put:", "keys", "keysAndValuesDo:", "setLabel:", "printString", "setVariables:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspectOn:",
+protocol: '*IDE',
+fn: function (anInspector){
+var self=this;
+var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+variables=_st($Dictionary())._new();
+_st(variables)._at_put_("#self",self);
+$ctx1.sendIdx["at:put:"]=1;
+_st(self["@elements"])._withIndexDo_((function(each,i){
+return smalltalk.withContext(function($ctx2) {
+return _st(variables)._at_put_(i,each);
+}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,1)})}));
+_st(anInspector)._setLabel_(self._printString());
+$1=_st(anInspector)._setVariables_(variables);
+return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.Set)})},
+args: ["anInspector"],
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09elements withIndexDo: [ :each :i |\x0a\x09\x09variables at: i put: each ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
+messageSends: ["new", "at:put:", "withIndexDo:", "setLabel:", "printString", "setVariables:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspectOn:",
+protocol: '*IDE',
 fn: function (anInspector){
 var self=this;
 var variables;
@@ -7426,61 +7482,5 @@ messageSends: ["new", "at:put:", "home", "receiver", "selector", "temps", "do:",
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.MethodContext);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "inspectOn:",
-category: '*IDE',
-fn: function (anInspector){
-var self=this;
-var variables;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-variables=_st($Dictionary())._new();
-_st(variables)._at_put_("#self",self);
-$ctx1.sendIdx["at:put:"]=1;
-_st(variables)._at_put_("#keys",self._keys());
-$ctx1.sendIdx["at:put:"]=2;
-self._keysAndValuesDo_((function(key,value){
-return smalltalk.withContext(function($ctx2) {
-return _st(variables)._at_put_(key,value);
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
-_st(anInspector)._setLabel_(self._printString());
-$1=_st(anInspector)._setVariables_(variables);
-return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.HashedCollection)})},
-args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#keys' put: self keys.\x0a\x09self keysAndValuesDo: [ :key :value |\x0a\x09\x09variables at: key put: value ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-messageSends: ["new", "at:put:", "keys", "keysAndValuesDo:", "setLabel:", "printString", "setVariables:"],
-referencedClasses: ["Dictionary"]
-}),
-smalltalk.HashedCollection);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "inspectOn:",
-category: '*IDE',
-fn: function (anInspector){
-var self=this;
-var variables;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-variables=_st($Dictionary())._new();
-_st(variables)._at_put_("#self",self);
-$ctx1.sendIdx["at:put:"]=1;
-_st(self["@elements"])._withIndexDo_((function(each,i){
-return smalltalk.withContext(function($ctx2) {
-return _st(variables)._at_put_(i,each);
-}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,1)})}));
-_st(anInspector)._setLabel_(self._printString());
-$1=_st(anInspector)._setVariables_(variables);
-return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.Set)})},
-args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09elements withIndexDo: [ :each :i |\x0a\x09\x09variables at: i put: each ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-messageSends: ["new", "at:put:", "withIndexDo:", "setLabel:", "printString", "setVariables:"],
-referencedClasses: ["Dictionary"]
-}),
-smalltalk.Set);
 
 });

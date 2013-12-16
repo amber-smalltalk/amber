@@ -7,7 +7,7 @@ smalltalk.HLModel.comment="I am the abstract superclass of all models of Helios.
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announcer",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
@@ -32,7 +32,7 @@ smalltalk.HLModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "environment",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -55,7 +55,7 @@ smalltalk.HLModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "environment:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anEnvironment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -71,7 +71,7 @@ smalltalk.HLModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isBrowserModel",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -87,7 +87,7 @@ smalltalk.HLModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isReferencesModel",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -103,7 +103,7 @@ smalltalk.HLModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isToolModel",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -119,7 +119,7 @@ smalltalk.HLModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "manager",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
@@ -138,7 +138,7 @@ smalltalk.HLModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "systemAnnouncer",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -156,7 +156,7 @@ smalltalk.HLModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "withChangesDo:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (aBlock){
 var self=this;
 function $HLAboutToChange(){return smalltalk.HLAboutToChange||(typeof HLAboutToChange=="undefined"?nil:HLAboutToChange)}
@@ -184,7 +184,7 @@ smalltalk.HLToolModel.comment="I am a model specific to package and class manipu
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addInstVarNamed:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 function $HLInstVarAdded(){return smalltalk.HLInstVarAdded||(typeof HLInstVarAdded=="undefined"?nil:HLInstVarAdded)}
@@ -210,7 +210,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allProtocol",
-category: 'defaults',
+protocol: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -226,7 +226,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allSelectors",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -244,7 +244,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "availableClassNames",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -262,7 +262,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "availablePackageNames",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -280,7 +280,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "availablePackages",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -298,7 +298,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "availableProtocols",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -316,7 +316,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitPackage",
-category: 'commands actions',
+protocol: 'commands actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -332,7 +332,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compilationProtocol",
-category: 'private',
+protocol: 'private',
 fn: function (){
 var self=this;
 var currentProtocol;
@@ -373,7 +373,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileClassComment:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -389,7 +389,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileClassDefinition:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -405,7 +405,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileMethod:",
-category: 'compiling',
+protocol: 'compiling',
 fn: function (aString){
 var self=this;
 var method;
@@ -427,7 +427,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "copyClassTo:",
-category: 'commands actions',
+protocol: 'commands actions',
 fn: function (aClassName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -446,7 +446,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleCompileError:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (anError){
 var self=this;
 function $HLCompileErrorRaised(){return smalltalk.HLCompileErrorRaised||(typeof HLCompileErrorRaised=="undefined"?nil:HLCompileErrorRaised)}
@@ -467,7 +467,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleParseError:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (anError){
 var self=this;
 var split,line,column,messageToInsert;
@@ -510,7 +510,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleUnkownVariableError:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (anError){
 var self=this;
 function $HLUnknownVariableErrorRaised(){return smalltalk.HLUnknownVariableErrorRaised||(typeof HLUnknownVariableErrorRaised=="undefined"?nil:HLUnknownVariableErrorRaised)}
@@ -531,7 +531,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isToolModel",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -547,7 +547,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "moveClassToPackage:",
-category: 'commands actions',
+protocol: 'commands actions',
 fn: function (aPackageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -566,7 +566,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "moveMethodToClass:",
-category: 'commands actions',
+protocol: 'commands actions',
 fn: function (aClassName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -585,7 +585,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "moveMethodToProtocol:",
-category: 'commands actions',
+protocol: 'commands actions',
 fn: function (aProtocol){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -604,7 +604,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "openClassNamed:",
-category: 'commands actions',
+protocol: 'commands actions',
 fn: function (aString){
 var self=this;
 var class_;
@@ -627,7 +627,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "packages",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -645,7 +645,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeClass",
-category: 'commands actions',
+protocol: 'commands actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -673,7 +673,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeMethod",
-category: 'commands actions',
+protocol: 'commands actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -709,7 +709,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeProtocol",
-category: 'commands actions',
+protocol: 'commands actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -736,7 +736,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renameClassTo:",
-category: 'commands actions',
+protocol: 'commands actions',
 fn: function (aClassName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -755,7 +755,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renameProtocolTo:",
-category: 'commands actions',
+protocol: 'commands actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -774,7 +774,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "save:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 function $HLSourceCodeSaved(){return smalltalk.HLSourceCodeSaved||(typeof HLSourceCodeSaved=="undefined"?nil:HLSourceCodeSaved)}
@@ -798,7 +798,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "saveSourceCode",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLSaveSourceCode(){return smalltalk.HLSaveSourceCode||(typeof HLSaveSourceCode=="undefined"?nil:HLSaveSourceCode)}
@@ -815,7 +815,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -833,7 +833,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedClass:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 function $HLClassSelected(){return smalltalk.HLClassSelected||(typeof HLClassSelected=="undefined"?nil:HLClassSelected)}
@@ -888,7 +888,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedMethod",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -915,7 +915,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedMethod:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCompiledMethod){
 var self=this;
 function $HLMethodSelected(){return smalltalk.HLMethodSelected||(typeof HLMethodSelected=="undefined"?nil:HLMethodSelected)}
@@ -951,7 +951,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedPackage",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -969,7 +969,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedPackage:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 function $HLPackageSelected(){return smalltalk.HLPackageSelected||(typeof HLPackageSelected=="undefined"?nil:HLPackageSelected)}
@@ -997,7 +997,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedProtocol",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1015,7 +1015,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedProtocol:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 function $HLProtocolSelected(){return smalltalk.HLProtocolSelected||(typeof HLProtocolSelected=="undefined"?nil:HLProtocolSelected)}
@@ -1043,7 +1043,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldCompileClassDefinition:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1064,7 +1064,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unclassifiedProtocol",
-category: 'defaults',
+protocol: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1080,7 +1080,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "withCompileErrorHandling:",
-category: 'error handling',
+protocol: 'error handling',
 fn: function (aBlock){
 var self=this;
 function $ParseError(){return smalltalk.ParseError||(typeof ParseError=="undefined"?nil:ParseError)}
@@ -1121,7 +1121,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "withHelperLabelled:do:",
-category: 'private',
+protocol: 'private',
 fn: function (aString,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1157,7 +1157,7 @@ smalltalk.HLToolModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anEnvironment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1181,7 +1181,7 @@ smalltalk.HLProgressHandler.comment="I am a specific progress handler for Helios
 smalltalk.addMethod(
 smalltalk.method({
 selector: "do:on:displaying:",
-category: 'progress handling',
+protocol: 'progress handling',
 fn: function (aBlock,aCollection,aString){
 var self=this;
 function $HLProgressWidget(){return smalltalk.HLProgressWidget||(typeof HLProgressWidget=="undefined"?nil:HLProgressWidget)}
@@ -1202,7 +1202,7 @@ smalltalk.HLTabWidget.comment="I am a widget specialized into building another w
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activate",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1218,7 +1218,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1234,7 +1234,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cssClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1252,7 +1252,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1281,7 +1281,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "focus",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1303,7 +1303,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hide",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1325,7 +1325,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1343,7 +1343,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1366,7 +1366,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1382,7 +1382,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "manager",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
@@ -1401,7 +1401,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "registerBindings",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1417,7 +1417,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1440,7 +1440,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1461,7 +1461,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderTab",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1487,7 +1487,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "show",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1511,7 +1511,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "widget",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1529,7 +1529,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "widget:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1546,7 +1546,7 @@ smalltalk.HLTabWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:labelled:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aWidget,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1571,7 +1571,7 @@ smalltalk.HLWidget.comment="I am the abstract superclass of all Helios widgets.\
 smalltalk.addMethod(
 smalltalk.method({
 selector: "bindKeyDown:keyUp:",
-category: 'keybindings',
+protocol: 'keybindings',
 fn: function (keyDownBlock,keyUpBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1590,7 +1590,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canHaveFocus",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1606,7 +1606,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirm:ifTrue:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1622,7 +1622,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aCommand){
 var self=this;
 function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
@@ -1642,7 +1642,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "manager",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
@@ -1661,7 +1661,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "openAsTab",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
@@ -1679,7 +1679,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "refresh",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1711,7 +1711,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "registerBindings",
-category: 'keybindings',
+protocol: 'keybindings',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1727,7 +1727,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "registerBindingsOn:",
-category: 'keybindings',
+protocol: 'keybindings',
 fn: function (aBindingGroup){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1742,7 +1742,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1757,7 +1757,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1777,7 +1777,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "request:do:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1793,7 +1793,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "request:value:do:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString,valueString,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1809,7 +1809,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1827,7 +1827,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unbindKeyDownKeyUp",
-category: 'keybindings',
+protocol: 'keybindings',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1847,7 +1847,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unregister",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1862,7 +1862,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "wrapper",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1881,7 +1881,7 @@ smalltalk.HLWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canBeOpenAsTab",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1897,7 +1897,7 @@ smalltalk.HLWidget.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "openAsTab",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
@@ -1915,7 +1915,7 @@ smalltalk.HLWidget.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1931,7 +1931,7 @@ smalltalk.HLWidget.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1947,7 +1947,7 @@ smalltalk.HLWidget.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabPriority",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1966,7 +1966,7 @@ smalltalk.HLFocusableWidget.comment="I am a widget that can be focused.\x0a\x0a#
 smalltalk.addMethod(
 smalltalk.method({
 selector: "blur",
-category: 'events',
+protocol: 'events',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1982,7 +1982,7 @@ smalltalk.HLFocusableWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canHaveFocus",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1998,7 +1998,7 @@ smalltalk.HLFocusableWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "focus",
-category: 'events',
+protocol: 'events',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2014,7 +2014,7 @@ smalltalk.HLFocusableWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "focusClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2030,7 +2030,7 @@ smalltalk.HLFocusableWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hasFocus",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2054,7 +2054,7 @@ smalltalk.HLFocusableWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2069,7 +2069,7 @@ smalltalk.HLFocusableWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2112,7 +2112,7 @@ smalltalk.addClass('HLListWidget', smalltalk.HLFocusableWidget, ['items', 'selec
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activateFirstListItem",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2128,7 +2128,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activateItem:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2144,7 +2144,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activateListItem:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aListItem){
 var self=this;
 var item;
@@ -2175,7 +2175,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activateNextListItem",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2203,7 +2203,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activatePreviousListItem",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2219,7 +2219,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cssClassForItem:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2235,7 +2235,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultItems",
-category: 'defaults',
+protocol: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2253,7 +2253,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ensureVisible:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aListItem){
 var self=this;
 var parent,position;
@@ -2326,7 +2326,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "findListItemFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2351,7 +2351,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "focus",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2377,7 +2377,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "items",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2401,7 +2401,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "items:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2417,7 +2417,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "listCssClassForItem:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2440,7 +2440,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "positionOf:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aListItem){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2458,7 +2458,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "refresh",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2482,7 +2482,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderButtonsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2497,7 +2497,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2528,7 +2528,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderItem:on:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (anObject,html){
 var self=this;
 var li;
@@ -2567,7 +2567,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderItemLabel:on:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (anObject,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2583,7 +2583,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderListOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2602,7 +2602,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectItem:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2618,7 +2618,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedItem",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2636,7 +2636,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedItem:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2652,7 +2652,7 @@ smalltalk.HLListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupKeyBindings",
-category: 'events',
+protocol: 'events',
 fn: function (){
 var self=this;
 function $HLRepeatedKeyDownHandler(){return smalltalk.HLRepeatedKeyDownHandler||(typeof HLRepeatedKeyDownHandler=="undefined"?nil:HLRepeatedKeyDownHandler)}
@@ -2683,7 +2683,7 @@ smalltalk.addClass('HLNavigationListWidget', smalltalk.HLListWidget, ['previous'
 smalltalk.addMethod(
 smalltalk.method({
 selector: "next",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2701,7 +2701,7 @@ smalltalk.HLNavigationListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "next:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2722,7 +2722,7 @@ smalltalk.HLNavigationListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextFocus",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2745,7 +2745,7 @@ smalltalk.HLNavigationListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "previous",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2763,7 +2763,7 @@ smalltalk.HLNavigationListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "previous:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2784,7 +2784,7 @@ smalltalk.HLNavigationListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "previousFocus",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2807,7 +2807,7 @@ smalltalk.HLNavigationListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupKeyBindings",
-category: 'events',
+protocol: 'events',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2841,7 +2841,7 @@ smalltalk.addClass('HLToolListWidget', smalltalk.HLNavigationListWidget, ['model
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activateListItem:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anItem){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2860,7 +2860,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activateNextListItem",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2879,7 +2879,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activatePreviousListItem",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2898,7 +2898,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commandCategory",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2916,7 +2916,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2932,7 +2932,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "menuCommands",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLToolCommand(){return smalltalk.HLToolCommand||(typeof HLToolCommand=="undefined"?nil:HLToolCommand)}
@@ -2970,7 +2970,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2988,7 +2988,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBrowserModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3007,7 +3007,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "observeModel",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3022,7 +3022,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "observeSystem",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3037,7 +3037,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3054,7 +3054,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderHeadOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3078,7 +3078,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderMenuOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 var commands;
@@ -3141,7 +3141,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedItem:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anItem){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3158,7 +3158,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unregister",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3181,7 +3181,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateMenu",
-category: 'updating',
+protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3209,7 +3209,7 @@ smalltalk.HLToolListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3233,7 +3233,7 @@ smalltalk.HLTabListWidget.comment="I am a widget used to display a list of helio
 smalltalk.addMethod(
 smalltalk.method({
 selector: "callback",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3258,7 +3258,7 @@ smalltalk.HLTabListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "callback:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3274,7 +3274,7 @@ smalltalk.HLTabListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderItemLabel:on:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (aTab,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3293,7 +3293,7 @@ smalltalk.HLTabListWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectItem:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aTab){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3313,7 +3313,7 @@ smalltalk.addClass('HLManager', smalltalk.HLWidget, ['tabs', 'activeTab', 'envir
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activate:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aTab){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3335,7 +3335,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activeTab",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3353,7 +3353,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addTab:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aTab){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3370,7 +3370,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addToHistory:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aTab){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3387,7 +3387,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirm:ifFalse:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString,aBlock){
 var self=this;
 function $HLConfirmationWidget(){return smalltalk.HLConfirmationWidget||(typeof HLConfirmationWidget=="undefined"?nil:HLConfirmationWidget)}
@@ -3408,7 +3408,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirm:ifTrue:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString,aBlock){
 var self=this;
 function $HLConfirmationWidget(){return smalltalk.HLConfirmationWidget||(typeof HLConfirmationWidget=="undefined"?nil:HLConfirmationWidget)}
@@ -3429,7 +3429,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultEnvironment",
-category: 'defaults',
+protocol: 'defaults',
 fn: function (){
 var self=this;
 var parent,parentSmalltalk;
@@ -3474,7 +3474,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "environment",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3498,7 +3498,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "environment:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (anEnvironment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3514,7 +3514,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "history",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -3539,7 +3539,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "history:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3555,7 +3555,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $HLErrorHandler(){return smalltalk.HLErrorHandler||(typeof HLErrorHandler=="undefined"?nil:HLErrorHandler)}
@@ -3586,7 +3586,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "keyBinder",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $HLKeyBinder(){return smalltalk.HLKeyBinder||(typeof HLKeyBinder=="undefined"?nil:HLKeyBinder)}
@@ -3605,7 +3605,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "refresh",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3625,7 +3625,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "registerErrorHandler:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anErrorHandler){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3641,7 +3641,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "registerInspector:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anInspector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3657,7 +3657,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "registerProgressHandler:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aProgressHandler){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3673,7 +3673,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeActiveTab",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3689,7 +3689,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeFromHistory:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aTab){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3708,7 +3708,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeTab:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aTab){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3741,7 +3741,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderAddOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $HLWidget(){return smalltalk.HLWidget||(typeof HLWidget=="undefined"?nil:HLWidget)}
@@ -3809,7 +3809,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3840,7 +3840,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderTabsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3903,7 +3903,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "request:do:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3919,7 +3919,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "request:value:do:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString,valueString,aBlock){
 var self=this;
 function $HLRequestWidget(){return smalltalk.HLRequestWidget||(typeof HLRequestWidget=="undefined"?nil:HLRequestWidget)}
@@ -3941,7 +3941,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "show:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (aTab){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3963,7 +3963,7 @@ smalltalk.HLManager);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabs",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -3990,7 +3990,7 @@ smalltalk.HLManager.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4014,7 +4014,7 @@ smalltalk.HLManager.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4030,7 +4030,7 @@ smalltalk.HLManager.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "new",
-category: 'instance creation',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4049,7 +4049,7 @@ smalltalk.HLModalWidget.comment="I implement an abstract modal widget.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cancel",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4065,7 +4065,7 @@ smalltalk.HLModalWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirm",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4081,7 +4081,7 @@ smalltalk.HLModalWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cssClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4097,7 +4097,7 @@ smalltalk.HLModalWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hasButtons",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4113,7 +4113,7 @@ smalltalk.HLModalWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4140,7 +4140,7 @@ smalltalk.HLModalWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderButtonsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 var confirmButton;
@@ -4186,7 +4186,7 @@ smalltalk.HLModalWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 var confirmButton;
@@ -4218,7 +4218,7 @@ smalltalk.HLModalWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderMainOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4233,7 +4233,7 @@ smalltalk.HLModalWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupKeyBindings",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -4257,7 +4257,7 @@ smalltalk.HLModalWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "show",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4277,7 +4277,7 @@ smalltalk.HLConfirmationWidget.comment="I display confirmation messages. \x0a\x0
 smalltalk.addMethod(
 smalltalk.method({
 selector: "actionBlock",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4302,7 +4302,7 @@ smalltalk.HLConfirmationWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "actionBlock:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4318,7 +4318,7 @@ smalltalk.HLConfirmationWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cancel",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4335,7 +4335,7 @@ smalltalk.HLConfirmationWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cancelBlock",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4360,7 +4360,7 @@ smalltalk.HLConfirmationWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cancelBlock:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4376,7 +4376,7 @@ smalltalk.HLConfirmationWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirm",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4393,7 +4393,7 @@ smalltalk.HLConfirmationWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirmationString",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4416,7 +4416,7 @@ smalltalk.HLConfirmationWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirmationString:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4432,7 +4432,7 @@ smalltalk.HLConfirmationWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderMainOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4452,7 +4452,7 @@ smalltalk.HLRequestWidget.comment="I display a modal window requesting user inpu
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirm",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4469,7 +4469,7 @@ smalltalk.HLRequestWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cssClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4485,7 +4485,7 @@ smalltalk.HLRequestWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderMainOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4503,7 +4503,7 @@ smalltalk.HLRequestWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "value",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4526,7 +4526,7 @@ smalltalk.HLRequestWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "value:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4546,7 +4546,7 @@ smalltalk.HLProgressWidget.comment="I am a widget used to display progress modal
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addProgressBar:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aProgressBar){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4564,7 +4564,7 @@ smalltalk.HLProgressWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "do:on:displaying:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aBlock,aCollection,aString){
 var self=this;
 var progressBar;
@@ -4591,7 +4591,7 @@ smalltalk.HLProgressWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "flush",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4610,7 +4610,7 @@ smalltalk.HLProgressWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hasButtons",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4626,7 +4626,7 @@ smalltalk.HLProgressWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isVisible",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4649,7 +4649,7 @@ smalltalk.HLProgressWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "progressBars",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -4674,7 +4674,7 @@ smalltalk.HLProgressWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4696,7 +4696,7 @@ smalltalk.HLProgressWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeProgressBar:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aProgressBar){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4723,7 +4723,7 @@ smalltalk.HLProgressWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderMainOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4742,7 +4742,7 @@ smalltalk.HLProgressWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "show",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4766,7 +4766,7 @@ smalltalk.HLProgressWidget.klass.iVarNames = ['default'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "default",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4793,7 +4793,7 @@ smalltalk.HLTabSelectionWidget.comment="I am a modal window used to select or cr
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cancel",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4810,7 +4810,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cancelCallback",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4835,7 +4835,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cancelCallback:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4851,7 +4851,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirm",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4868,7 +4868,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirmCallback",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4893,7 +4893,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirmCallback:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4909,7 +4909,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4926,7 +4926,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderMainOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4947,7 +4947,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderTab:on:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (aTab,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4966,7 +4966,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderTabsOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4999,7 +4999,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectCallback",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5024,7 +5024,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectCallback:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5040,7 +5040,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectTab:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aTab){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5057,7 +5057,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedTab",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5075,7 +5075,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedTab:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aTab){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5091,7 +5091,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupKeyBindings",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -5116,7 +5116,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabList",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (){
 var self=this;
 function $HLTabListWidget(){return smalltalk.HLTabListWidget||(typeof HLTabListWidget=="undefined"?nil:HLTabListWidget)}
@@ -5151,7 +5151,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabs",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5174,7 +5174,7 @@ smalltalk.HLTabSelectionWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabs:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5194,7 +5194,7 @@ smalltalk.HLProgressBarWidget.comment="I am a widget used to display a progress 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5212,7 +5212,7 @@ smalltalk.HLProgressBarWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5228,7 +5228,7 @@ smalltalk.HLProgressBarWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "evaluateAt:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5268,7 +5268,7 @@ smalltalk.HLProgressBarWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5286,7 +5286,7 @@ smalltalk.HLProgressBarWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5302,7 +5302,7 @@ smalltalk.HLProgressBarWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "parent",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5320,7 +5320,7 @@ smalltalk.HLProgressBarWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "parent:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aProgress){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5336,7 +5336,7 @@ smalltalk.HLProgressBarWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5352,7 +5352,7 @@ smalltalk.HLProgressBarWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5382,7 +5382,7 @@ smalltalk.HLProgressBarWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "start",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5398,7 +5398,7 @@ smalltalk.HLProgressBarWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateProgress:",
-category: 'actions',
+protocol: 'actions',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5414,7 +5414,7 @@ smalltalk.HLProgressBarWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "workBlock",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5432,7 +5432,7 @@ smalltalk.HLProgressBarWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "workBlock:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5450,7 +5450,7 @@ smalltalk.HLProgressBarWidget.klass.iVarNames = ['default'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "default",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5477,7 +5477,7 @@ smalltalk.addClass('HLSUnit', smalltalk.HLWidget, [], 'Helios-Core');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canBeOpenAsTab",
-category: 'testing',
+protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5493,7 +5493,7 @@ smalltalk.HLSUnit.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5509,7 +5509,7 @@ smalltalk.HLSUnit.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabLabel",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -5525,7 +5525,7 @@ smalltalk.HLSUnit.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tabPriority",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

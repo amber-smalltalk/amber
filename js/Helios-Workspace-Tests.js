@@ -6,7 +6,7 @@ smalltalk.addClass('HLCodeWidgetTest', smalltalk.TestCase, [], 'Helios-Workspace
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testKeyMap",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $HLCodeWidget(){return smalltalk.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}

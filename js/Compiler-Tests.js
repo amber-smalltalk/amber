@@ -6,7 +6,7 @@ smalltalk.addClass('ASTParsingTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "analyze:forClass:",
-category: 'convenience',
+protocol: 'convenience',
 fn: function (aNode,aClass){
 var self=this;
 function $SemanticAnalyzer(){return smalltalk.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
@@ -24,7 +24,7 @@ smalltalk.ASTParsingTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "parse:",
-category: 'parsing',
+protocol: 'parsing',
 fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -43,7 +43,7 @@ smalltalk.ASTParsingTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "parse:forClass:",
-category: 'parsing',
+protocol: 'parsing',
 fn: function (aString,aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -64,7 +64,7 @@ smalltalk.addClass('ASTPCNodeVisitorTest', smalltalk.ASTParsingTest, [], 'Compil
 smalltalk.addMethod(
 smalltalk.method({
 selector: "astPCNodeVisitor",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 function $ASTPCNodeVisitor(){return smalltalk.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
@@ -91,7 +91,7 @@ smalltalk.ASTPCNodeVisitorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "astPCNodeVisitorForSelector:",
-category: 'factory',
+protocol: 'factory',
 fn: function (aString){
 var self=this;
 function $ASTPCNodeVisitor(){return smalltalk.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
@@ -119,7 +119,7 @@ smalltalk.ASTPCNodeVisitorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testJSStatementNode",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var ast,visitor;
@@ -142,7 +142,7 @@ smalltalk.ASTPCNodeVisitorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testMessageSend",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var ast;
@@ -165,7 +165,7 @@ smalltalk.ASTPCNodeVisitorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testMessageSendWithBlocks",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var ast;
@@ -188,7 +188,7 @@ smalltalk.ASTPCNodeVisitorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testMessageSendWithInlining",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var ast;
@@ -224,7 +224,7 @@ smalltalk.ASTPCNodeVisitorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNoMessageSend",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var ast;
@@ -247,7 +247,7 @@ smalltalk.ASTPCNodeVisitorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testPC",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var ast,visitor;
@@ -273,7 +273,7 @@ smalltalk.addClass('CodeGeneratorTest', smalltalk.ASTParsingTest, ['receiver'], 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "codeGeneratorClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $CodeGenerator(){return smalltalk.CodeGenerator||(typeof CodeGenerator=="undefined"?nil:CodeGenerator)}
@@ -290,7 +290,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compiler",
-category: 'factory',
+protocol: 'factory',
 fn: function (){
 var self=this;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
@@ -312,7 +312,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setUp",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
@@ -329,7 +329,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "should:receiver:return:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aString,anObject,aResult){
 var self=this;
 var method,result;
@@ -354,7 +354,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "should:return:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -372,7 +372,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tearDown",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -387,7 +387,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAssignment",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -407,7 +407,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testBackslashSelectors",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -425,7 +425,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testBlockReturn",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -445,7 +445,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testCascades",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -461,7 +461,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testDynamicArrayElementsOrdered",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -479,7 +479,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testDynamicDictionaryElementsOrdered",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -499,7 +499,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testGlobalVar",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $BlockClosure(){return smalltalk.BlockClosure||(typeof BlockClosure=="undefined"?nil:BlockClosure)}
@@ -520,7 +520,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testInnerTemporalDependentElementsOrdered",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -569,7 +569,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testJSStatement",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -585,7 +585,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testLiterals",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -623,7 +623,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testLocalReturn",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -647,7 +647,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testMessageSends",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -671,7 +671,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testMultipleSequences",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -687,7 +687,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testMutableLiterals",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -703,7 +703,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNestedIfTrue",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -725,7 +725,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNestedSends",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
@@ -742,7 +742,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNonLocalReturn",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -764,7 +764,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testPascalCaseGlobal",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -782,7 +782,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSendReceiverAndArgumentsOrdered",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -801,7 +801,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testSuperSend",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -817,7 +817,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testTempVariables",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -843,7 +843,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testThisContext",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -859,7 +859,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testifFalse",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -881,7 +881,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testifFalseIfTrue",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -903,7 +903,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testifNil",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -925,7 +925,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testifNilIfNotNil",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -947,7 +947,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testifNotNil",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -969,7 +969,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testifNotNilWithArgument",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -995,7 +995,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testifTrue",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1017,7 +1017,7 @@ smalltalk.CodeGeneratorTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testifTrueIfFalse",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1042,7 +1042,7 @@ smalltalk.addClass('InliningCodeGeneratorTest', smalltalk.CodeGeneratorTest, [],
 smalltalk.addMethod(
 smalltalk.method({
 selector: "codeGeneratorClass",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 function $InliningCodeGenerator(){return smalltalk.InliningCodeGenerator||(typeof InliningCodeGenerator=="undefined"?nil:InliningCodeGenerator)}
@@ -1062,7 +1062,7 @@ smalltalk.addClass('InterpreterTest', smalltalk.CodeGeneratorTest, [], 'Compiler
 smalltalk.addMethod(
 smalltalk.method({
 selector: "analyze:forClass:",
-category: 'parsing',
+protocol: 'parsing',
 fn: function (aNode,aClass){
 var self=this;
 function $SemanticAnalyzer(){return smalltalk.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
@@ -1080,7 +1080,7 @@ smalltalk.InterpreterTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "interpret:receiver:withArguments:",
-category: 'private',
+protocol: 'private',
 fn: function (aString,anObject,aDictionary){
 var self=this;
 var ctx,interpreter;
@@ -1117,7 +1117,7 @@ smalltalk.InterpreterTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "parse:",
-category: 'parsing',
+protocol: 'parsing',
 fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
@@ -1136,7 +1136,7 @@ smalltalk.InterpreterTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "parse:forClass:",
-category: 'parsing',
+protocol: 'parsing',
 fn: function (aString,aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1154,7 +1154,7 @@ smalltalk.InterpreterTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "should:receiver:return:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aString,anObject,aResult){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1173,7 +1173,7 @@ smalltalk.InterpreterTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "should:return:",
-category: 'testing',
+protocol: 'testing',
 fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1194,7 +1194,7 @@ smalltalk.addClass('ScopeVarTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testClassRefVar",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var node;
@@ -1224,7 +1224,7 @@ smalltalk.ScopeVarTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testInstanceVar",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var node,scope;
@@ -1251,7 +1251,7 @@ smalltalk.ScopeVarTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testPseudoVar",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var node,pseudoVars;
@@ -1281,7 +1281,7 @@ smalltalk.ScopeVarTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testTempVar",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var node,scope;
@@ -1308,7 +1308,7 @@ smalltalk.ScopeVarTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testUnknownVar",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var node;
@@ -1336,7 +1336,7 @@ smalltalk.addClass('SemanticAnalyzerTest', smalltalk.TestCase, ['analyzer'], 'Co
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setUp",
-category: 'running',
+protocol: 'running',
 fn: function (){
 var self=this;
 function $SemanticAnalyzer(){return smalltalk.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
@@ -1354,7 +1354,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAssignment",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
@@ -1377,7 +1377,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNonLocalReturn",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
@@ -1397,7 +1397,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testNonLocalReturn2",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
@@ -1417,7 +1417,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testScope",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
@@ -1444,7 +1444,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testScope2",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
@@ -1479,7 +1479,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testScopeLevel",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
@@ -1519,7 +1519,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testUnknownVariables",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
@@ -1542,7 +1542,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testUnknownVariablesWithScope",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
@@ -1565,7 +1565,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testVariableShadowing",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
@@ -1584,7 +1584,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testVariableShadowing2",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
@@ -1607,7 +1607,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testVariableShadowing3",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
@@ -1626,7 +1626,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testVariableShadowing4",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
@@ -1645,7 +1645,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testVariableShadowing5",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
@@ -1668,7 +1668,7 @@ smalltalk.SemanticAnalyzerTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testVariablesLookup",
-category: 'tests',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
