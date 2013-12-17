@@ -15,8 +15,11 @@
 var require;
 
 require = function (require) {
-    var scripts = document.getElementsByTagName("script");
-    var me = scripts[scripts.length - 1];
+    var me = document.getElementById("amber-path-mapper");
+    if (!me || me.tagName.toLowerCase() !== "script") {
+        var scripts = document.getElementsByTagName("script");
+        me = scripts[scripts.length - 1];
+    }
     var src = me.src;
     // strip the last two elements from the URL
     // e.g. http://app.com/amber/support/amber.js -> http://app.com/amber
