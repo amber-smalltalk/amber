@@ -6,6 +6,8 @@ Highlights:
 * JQuery updated to ~1.10.2; jquery-ui updated to match
 * You can create subclasses of `nil`
 * Amber loads in IE8
+* You can load amber.js asynchronously (it must
+  have id 'amber-path-mapper' in that case)
 
 Commits: https://github.com/amber-smalltalk/amber/compare/0.12.2...0.12.2
 Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=__&state=closed
