@@ -170,12 +170,8 @@ username: aUsername
 checkDirectoryLayout
 	(fs existsSync:	(self normalizePath: 'index.html')) ifFalse: [
 		console warn: 'Warning: project directory does not contain index.html.'.
-		console warn: '    You can specify the directory containing index.html with --base-path.'.].
-		console warn: '    You can also specify a custom error page with --fallback-page.'.
-	(fs existsSync:	(self normalizePath:  'st')) ifFalse: [
-		console warn: 'Warning: project directory is missing an "st" directory'].
-	(fs existsSync:	(self normalizePath: 'js')) ifFalse: [
-		console warn: 'Warning: project directory is missing a "js" directory'].
+		console warn: '    You can specify the directory containing index.html with --base-path.'.
+		console warn: '    You can also specify a custom error page with --fallback-page.'].
 !
 
 initialize
