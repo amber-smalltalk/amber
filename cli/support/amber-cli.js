@@ -39559,37 +39559,36 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$8,$7,$6,$9,$10;
+var $1,$2,$3,$4,$7,$6,$5,$8,$9;
 $1=self["@fs"];
 $2=self._basePath();
 $ctx1.sendIdx["basePath"]=1;
 _st($1)._stat_then_($2,(function(err,stat){
 return smalltalk.withContext(function($ctx2) {
-$3=_st(err)._isNil();
-if(smalltalk.assert($3)){
-$4=_st(stat)._isDirectory();
-if(! smalltalk.assert($4)){
-$5=console;
-$8=self._basePath();
+if(($receiver = err) == nil || $receiver == null){
+$3=_st(stat)._isDirectory();
+if(! smalltalk.assert($3)){
+$4=console;
+$7=self._basePath();
 $ctx2.sendIdx["basePath"]=2;
-$7="Warning: option  --base-path  ".__comma($8);
+$6="Warning: --base-path parameter ".__comma($7);
 $ctx2.sendIdx[","]=2;
-$6=_st($7).__comma(" , it is not a directory.");
+$5=_st($6).__comma(" is not a directory.");
 $ctx2.sendIdx[","]=1;
-return _st($5)._warn_($6);
+return _st($4)._warn_($5);
 $ctx2.sendIdx["warn:"]=1;
 };
 } else {
-$9=console;
-$10=_st("Warning: option --base-path ".__comma(self._basePath())).__comma(", that path can not be found.");
+$8=console;
+$9=_st("Warning: path at --base-path parameter ".__comma(self._basePath())).__comma(" does not exist.");
 $ctx2.sendIdx[","]=3;
-return _st($9)._warn_($10);
+return _st($8)._warn_($9);
 };
 }, function($ctx2) {$ctx2.fillBlock({err:err,stat:stat},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"validateBasePath",{},smalltalk.FileServer)})},
 args: [],
-source: "validateBasePath\x0a\x09\x22The basePath must be an existing directory. \x22\x0a\x09fs stat: self basePath then: [ :err : stat | err isNil\x0a\x09\x09ifTrue: [ stat isDirectory ifFalse: [ console warn: 'Warning: option  --base-path  ' , self basePath  , ' , it is not a directory.'  ]]\x0a\x09\x09ifFalse: [ console warn: 'Warning: option --base-path ' , self basePath , ', that path can not be found.'  ]].",
-messageSends: ["stat:then:", "basePath", "ifTrue:ifFalse:", "isNil", "ifFalse:", "isDirectory", "warn:", ","],
+source: "validateBasePath\x0a\x09\x22The basePath must be an existing directory. \x22\x0a\x09fs stat: self basePath then: [ :err :stat | err\x0a\x09\x09ifNil: [ stat isDirectory ifFalse: [ console warn: 'Warning: --base-path parameter ' , self basePath , ' is not a directory.' ]]\x0a\x09\x09ifNotNil: [ console warn: 'Warning: path at --base-path parameter ' , self basePath , ' does not exist.'  ]].",
+messageSends: ["stat:then:", "basePath", "ifNil:ifNotNil:", "ifFalse:", "isDirectory", "warn:", ","],
 referencedClasses: []
 }),
 smalltalk.FileServer);
