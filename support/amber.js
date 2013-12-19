@@ -15,8 +15,16 @@
 var require;
 
 require = function (require) {
+    // To be able to use its path and attrubutes
+    // to map other parts of Amber, this code must find its <script> tag.
+    // It first looks for id 'amber-path-mapper'.
+    // When loading amber.js asynchronously, you must include this id,
+    // or the code can not reliably find its <script>.
     var me = document.getElementById("amber-path-mapper");
     if (!me || me.tagName.toLowerCase() !== "script") {
+        // If <script> with 'amber-path-mapper' id is not present,
+        // (this id is not necessary for inline <script> tag in HTML),
+        // it uses the "find the last <script> tag present in the moment" method.
         var scripts = document.getElementsByTagName("script");
         me = scripts[scripts.length - 1];
     }
