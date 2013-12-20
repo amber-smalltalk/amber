@@ -363,13 +363,20 @@ protocol: 'compiling',
 fn: function (aString){
 var self=this;
 function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-self._eval_on_(aString,_st($DoIt())._new());
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._eval_on_(aString,_st($DoIt())._new());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(error){
+return smalltalk.withContext(function($ctx2) {
+return self._alert_(_st(error)._messageText());
+}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"compileClassDefinition:",{aString:aString},smalltalk.Environment)})},
 args: ["aString"],
-source: "compileClassDefinition: aString\x0a\x09self eval: aString on: DoIt new",
-messageSends: ["eval:on:", "new"],
-referencedClasses: ["DoIt"]
+source: "compileClassDefinition: aString\x0a\x09[ self eval: aString on: DoIt new ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :error | self alert: error messageText ]",
+messageSends: ["on:do:", "eval:on:", "new", "alert:", "messageText"],
+referencedClasses: ["DoIt", "Error"]
 }),
 smalltalk.Environment);
 

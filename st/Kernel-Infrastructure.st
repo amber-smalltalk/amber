@@ -229,7 +229,9 @@ compileClassComment: aString for: aClass
 !
 
 compileClassDefinition: aString
-	self eval: aString on: DoIt new
+	[ self eval: aString on: DoIt new ]
+		on: Error
+		do: [ :error | self alert: error messageText ]
 !
 
 compileMethod: sourceCode for: class protocol: protocol
