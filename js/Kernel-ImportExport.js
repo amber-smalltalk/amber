@@ -1105,8 +1105,26 @@ smalltalk.AmdExporter);
 
 
 
-smalltalk.addClass('ChunkParser', smalltalk.Object, ['stream'], 'Kernel-ImportExport');
+smalltalk.addClass('ChunkParser', smalltalk.Object, ['stream', 'last'], 'Kernel-ImportExport');
 smalltalk.ChunkParser.comment="I am responsible for parsing aStream contents in the chunk format.\x0a\x0a## API\x0a\x0a    ChunkParser new\x0a        stream: aStream;\x0a        nextChunk";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "last",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@last"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"last",{},smalltalk.ChunkParser)})},
+args: [],
+source: "last\x0a\x09^ last",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ChunkParser);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextChunk",
@@ -1115,7 +1133,7 @@ fn: function (){
 var self=this;
 var char,result,chunk;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$4;
 var $early={};
 try {
 result=""._writeStream();
@@ -1134,18 +1152,21 @@ $2=_st(_st(self["@stream"])._peek()).__eq("!");
 if(smalltalk.assert($2)){
 _st(self["@stream"])._next();
 } else {
-$3=_st(_st(result)._contents())._trimBoth();
+self["@last"]=_st(_st(result)._contents())._trimBoth();
+$3=self["@last"];
 throw $early=[$3];
 };
 };
 return _st(result)._nextPut_(char);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-return nil;
+self["@last"]=nil;
+$4=self["@last"];
+return $4;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"nextChunk",{char:char,result:result,chunk:chunk},smalltalk.ChunkParser)})},
 args: [],
-source: "nextChunk\x0a\x09\x22The chunk format (Smalltalk Interchange Format or Fileout format)\x0a\x09is a trivial format but can be a bit tricky to understand:\x0a\x09\x09- Uses the exclamation mark as delimiter of chunks.\x0a\x09\x09- Inside a chunk a normal exclamation mark must be doubled.\x0a\x09\x09- A non empty chunk must be a valid Smalltalk expression.\x0a\x09\x09- A chunk on top level with a preceding empty chunk is an instruction chunk:\x0a\x09\x09\x09- The object created by the expression then takes over reading chunks.\x0a\x0a\x09This method returns next chunk as a String (trimmed), empty String (all whitespace) or nil.\x22\x0a\x0a\x09| char result chunk |\x0a\x09result := '' writeStream.\x0a\x09\x09[ char := stream next.\x0a\x09\x09char notNil ] whileTrue: [\x0a\x09\x09\x09\x09char = '!' ifTrue: [\x0a\x09\x09\x09\x09\x09\x09stream peek = '!'\x0a\x09\x09\x09\x09\x09\x09\x09\x09ifTrue: [ stream next \x22skipping the escape double\x22 ]\x0a\x09\x09\x09\x09\x09\x09\x09\x09ifFalse: [ ^ result contents trimBoth \x22chunk end marker found\x22 ]].\x0a\x09\x09\x09\x09result nextPut: char ].\x0a\x09^ nil \x22a chunk needs to end with !\x22",
+source: "nextChunk\x0a\x09\x22The chunk format (Smalltalk Interchange Format or Fileout format)\x0a\x09is a trivial format but can be a bit tricky to understand:\x0a\x09\x09- Uses the exclamation mark as delimiter of chunks.\x0a\x09\x09- Inside a chunk a normal exclamation mark must be doubled.\x0a\x09\x09- A non empty chunk must be a valid Smalltalk expression.\x0a\x09\x09- A chunk on top level with a preceding empty chunk is an instruction chunk:\x0a\x09\x09\x09- The object created by the expression then takes over reading chunks.\x0a\x0a\x09This method returns next chunk as a String (trimmed), empty String (all whitespace) or nil.\x22\x0a\x0a\x09| char result chunk |\x0a\x09result := '' writeStream.\x0a\x09\x09[ char := stream next.\x0a\x09\x09char notNil ] whileTrue: [\x0a\x09\x09\x09\x09char = '!' ifTrue: [\x0a\x09\x09\x09\x09\x09\x09stream peek = '!'\x0a\x09\x09\x09\x09\x09\x09\x09\x09ifTrue: [ stream next \x22skipping the escape double\x22 ]\x0a\x09\x09\x09\x09\x09\x09\x09\x09ifFalse: [ ^ last := result contents trimBoth \x22chunk end marker found\x22 ]].\x0a\x09\x09\x09\x09result nextPut: char ].\x0a\x09^ last := nil \x22a chunk needs to end with !\x22",
 messageSends: ["writeStream", "whileTrue:", "next", "notNil", "ifTrue:", "=", "ifTrue:ifFalse:", "peek", "trimBoth", "contents", "nextPut:"],
 referencedClasses: []
 }),
@@ -1304,7 +1325,7 @@ referencedClasses: []
 smalltalk.ExportMethodProtocol.klass);
 
 
-smalltalk.addClass('Importer', smalltalk.Object, [], 'Kernel-ImportExport');
+smalltalk.addClass('Importer', smalltalk.Object, ['lastSection', 'lastChunk'], 'Kernel-ImportExport');
 smalltalk.Importer.comment="I can import Amber code from a string in the chunk format.\x0a\x0a## API\x0a\x0a    Importer new import: aString";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1315,22 +1336,29 @@ var self=this;
 var chunk,result,parser,lastEmpty;
 function $ChunkParser(){return smalltalk.ChunkParser||(typeof ChunkParser=="undefined"?nil:ChunkParser)}
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 parser=_st($ChunkParser())._on_(aStream);
 lastEmpty=false;
+self["@lastSection"]="n/a, not started";
+self["@lastChunk"]=nil;
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
+_st((function(){
+return smalltalk.withContext(function($ctx3) {
 chunk=_st(parser)._nextChunk();
 chunk;
 return _st(chunk)._isNil();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileFalse_((function(){
-return smalltalk.withContext(function($ctx2) {
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx3) {
 $1=_st(chunk)._isEmpty();
 if(smalltalk.assert($1)){
 lastEmpty=true;
 return lastEmpty;
 } else {
+self["@lastSection"]=chunk;
+self["@lastSection"];
 result=_st(_st($Compiler())._new())._evaluateExpression_(chunk);
 result;
 $2=lastEmpty;
@@ -1340,12 +1368,56 @@ lastEmpty;
 return _st(result)._scanFrom_(parser);
 };
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+self["@lastSection"]="n/a, finished";
+return self["@lastSection"];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(e){
+return smalltalk.withContext(function($ctx2) {
+self["@lastChunk"]=_st(parser)._last();
+self["@lastChunk"];
+return _st(e)._signal();
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,7)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"import:",{aStream:aStream,chunk:chunk,result:result,parser:parser,lastEmpty:lastEmpty},smalltalk.Importer)})},
 args: ["aStream"],
-source: "import: aStream\x0a\x09| chunk result parser lastEmpty |\x0a\x09parser := ChunkParser on: aStream.\x0a\x09lastEmpty := false.\x0a\x09[ chunk := parser nextChunk.\x0a\x09chunk isNil ] whileFalse: [\x0a\x09\x09chunk isEmpty\x0a\x09\x09\x09ifTrue: [ lastEmpty := true ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09result := Compiler new evaluateExpression: chunk.\x0a\x09\x09\x09\x09lastEmpty\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09lastEmpty := false.\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09result scanFrom: parser ]] ]",
-messageSends: ["on:", "whileFalse:", "nextChunk", "isNil", "ifTrue:ifFalse:", "isEmpty", "evaluateExpression:", "new", "ifTrue:", "scanFrom:"],
-referencedClasses: ["ChunkParser", "Compiler"]
+source: "import: aStream\x0a\x09| chunk result parser lastEmpty |\x0a\x09parser := ChunkParser on: aStream.\x0a\x09lastEmpty := false.\x0a\x09lastSection := 'n/a, not started'.\x0a\x09lastChunk := nil.\x0a\x09[\x0a\x09[ chunk := parser nextChunk.\x0a\x09chunk isNil ] whileFalse: [\x0a\x09\x09chunk isEmpty\x0a\x09\x09\x09ifTrue: [ lastEmpty := true ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09lastSection := chunk.\x0a\x09\x09\x09\x09result := Compiler new evaluateExpression: chunk.\x0a\x09\x09\x09\x09lastEmpty\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09lastEmpty := false.\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09result scanFrom: parser ]] ].\x0a\x09lastSection := 'n/a, finished'\x0a\x09] on: Error do: [:e | lastChunk := parser last. e signal ].",
+messageSends: ["on:", "on:do:", "whileFalse:", "nextChunk", "isNil", "ifTrue:ifFalse:", "isEmpty", "evaluateExpression:", "new", "ifTrue:", "scanFrom:", "last", "signal"],
+referencedClasses: ["ChunkParser", "Compiler", "Error"]
+}),
+smalltalk.Importer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lastChunk",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@lastChunk"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lastChunk",{},smalltalk.Importer)})},
+args: [],
+source: "lastChunk\x0a\x09^ lastChunk",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Importer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lastSection",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@lastSection"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lastSection",{},smalltalk.Importer)})},
+args: [],
+source: "lastSection\x0a\x09^ lastSection",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.Importer);
 
