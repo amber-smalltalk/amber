@@ -73,7 +73,7 @@ function createConcatenator () {
 		},
 		start: function () {
 			this.add(
-				'var define = (' + require('amdefine') + ')(), requirejs = define.require;',
+				'var define = (' + require('amdefine') + ')(null, function (id) { throw new Error("Dependency not found: " +  id); }), requirejs = define.require;',
 				'define("amber_vm/browser-compatibility", [], {});'
 			);
 		},
