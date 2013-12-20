@@ -447,6 +447,12 @@ function ClassesBrik(brikz, st) {
 
 	st.addClass = function(className, superclass, iVarNames, pkgName) {
 		if (superclass == nil) { superclass = null; }
+
+		// While subclassing nil is allowed, it might be an error, so
+		// warn about it.
+		if (superclass === null) {
+			console.warn('Compiling ' + className + ' as a subclass of `nil`. A dependency might be missing.');
+		}
 		rawAddClass(pkgName, className, superclass, iVarNames, false, null);
 	};
 
