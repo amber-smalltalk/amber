@@ -460,6 +460,24 @@ smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testCascadesWithInlining",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._should_return_("foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]",(1));
+$ctx1.sendIdx["should:return:"]=1;
+self._should_return_("foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]",(2));
+return self}, function($ctx1) {$ctx1.fill(self,"testCascadesWithInlining",{},smalltalk.CodeGeneratorTest)})},
+args: [],
+source: "testCascadesWithInlining\x0a\x09\x0a\x09self should: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 1.\x0a\x09self should: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 2",
+messageSends: ["should:return:"],
+referencedClasses: []
+}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testDynamicArrayElementsOrdered",
 protocol: 'tests',
 fn: function (){

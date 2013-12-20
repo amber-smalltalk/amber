@@ -175,6 +175,12 @@ testCascades
 	self should: 'foo ^ Array new add: 3; add: 4; yourself' return: #(3 4)
 !
 
+testCascadesWithInlining
+	
+	self should: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 1.
+	self should: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 2
+!
+
 testDynamicArrayElementsOrdered
 	self should: 'foo
 	| x |
