@@ -73,7 +73,7 @@ function createConcatenator () {
 		},
 		start: function () {
 			this.add(
-				'var define = (' + require('amdefine') + ')(), requirejs = define.require;',
+				'var define = (' + require('amdefine') + ')(null, function (id) { throw new Error("Dependency not found: " +  id); }), requirejs = define.require;',
 				'define("amber_vm/browser-compatibility", [], {});'
 			);
 		},
@@ -453,7 +453,18 @@ AmberC.prototype.compile = function() {
 		Array.prototype.slice.call(arguments).forEach(function(code) {
 			if (undefined !== code[0]) {
 				// get element 0 of code since all return values are stored inside an array by Combo
-				self.defaults.smalltalk.Importer._new()._import_(code[0]._stream());
+                var importer = self.defaults.smalltalk.Importer._new();
+                try {
+                    importer._import_(code[0]._stream());
+                } catch (ex) {
+                    throw new Error("Import error in section:\n" +
+                        importer._lastSection() +
+                        "\n\n" +
+                        "while processing chunk:\n" +
+                        importer._lastChunk() +
+                        "\n\n" +
+                        (ex._messageText && ex._messageText() || ex.message || ex));
+                }
 			}
 		});
 		self.category_export();

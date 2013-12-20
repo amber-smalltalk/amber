@@ -404,7 +404,7 @@ amdNamespaceOfPackage: aPackage
 ! !
 
 Object subclass: #ChunkParser
-	instanceVariableNames: 'stream'
+	instanceVariableNames: 'stream last'
 	package: 'Kernel-ImportExport'!
 !ChunkParser commentStamp!
 I am responsible for parsing aStream contents in the chunk format.
@@ -416,6 +416,10 @@ I am responsible for parsing aStream contents in the chunk format.
         nextChunk!
 
 !ChunkParser methodsFor: 'accessing'!
+
+last
+	^ last
+!
 
 stream: aStream
 	stream := aStream
@@ -441,9 +445,9 @@ nextChunk
 				char = '!!' ifTrue: [
 						stream peek = '!!'
 								ifTrue: [ stream next "skipping the escape double" ]
-								ifFalse: [ ^ result contents trimBoth "chunk end marker found" ]].
+								ifFalse: [ ^ last := result contents trimBoth "chunk end marker found" ]].
 				result nextPut: char ].
-	^ nil "a chunk needs to end with !!"
+	^ last := nil "a chunk needs to end with !!"
 ! !
 
 !ChunkParser class methodsFor: 'instance creation'!
@@ -494,7 +498,7 @@ name: aString theClass: aClass
 ! !
 
 Object subclass: #Importer
-	instanceVariableNames: ''
+	instanceVariableNames: 'lastSection lastChunk'
 	package: 'Kernel-ImportExport'!
 !Importer commentStamp!
 I can import Amber code from a string in the chunk format.
@@ -503,22 +507,38 @@ I can import Amber code from a string in the chunk format.
 
     Importer new import: aString!
 
+!Importer methodsFor: 'accessing'!
+
+lastChunk
+	^ lastChunk
+!
+
+lastSection
+	^ lastSection
+! !
+
 !Importer methodsFor: 'fileIn'!
 
 import: aStream
 	| chunk result parser lastEmpty |
 	parser := ChunkParser on: aStream.
 	lastEmpty := false.
+	lastSection := 'n/a, not started'.
+	lastChunk := nil.
+	[
 	[ chunk := parser nextChunk.
 	chunk isNil ] whileFalse: [
 		chunk isEmpty
 			ifTrue: [ lastEmpty := true ]
 			ifFalse: [
+				lastSection := chunk.
 				result := Compiler new evaluateExpression: chunk.
 				lastEmpty
 						ifTrue: [
 									lastEmpty := false.
-									result scanFrom: parser ]] ]
+									result scanFrom: parser ]] ].
+	lastSection := 'n/a, finished'
+	] on: Error do: [:e | lastChunk := parser last. e signal ].
 ! !
 
 InterfacingObject subclass: #PackageHandler
