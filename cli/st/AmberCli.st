@@ -168,14 +168,10 @@ username: aUsername
 !FileServer methodsFor: 'initialization'!
 
 checkDirectoryLayout
-	(fs existsSync: self basePath, 'index.html') ifFalse: [
+	(fs existsSync:	(self withBasePath: 'index.html')) ifFalse: [
 		console warn: 'Warning: project directory does not contain index.html.'.
-		console warn: '    You can specify the directory containing index.html with --base-path.'.].
-		console warn: '    You can also specify a custom error page with --fallback-page.'.
-	(fs existsSync: self basePath, 'st') ifFalse: [
-		console warn: 'Warning: project directory is missing an "st" directory'].
-	(fs existsSync: self basePath, 'js') ifFalse: [
-		console warn: 'Warning: project directory is missing a "js" directory'].
+		console warn: '    You can specify the directory containing index.html with --base-path.'.
+		console warn: '    You can also specify a custom error page with --fallback-page.'].
 !
 
 initialize
@@ -226,6 +222,11 @@ isAuthenticated: aRequest
 require: aModuleString
 	"call to the require function"
 	^require value: aModuleString
+!
+
+withBasePath: aBaseRelativePath
+	"return a file path which is relative to the basePath."
+	^	path join: self basePath with: aBaseRelativePath
 !
 
 writeData: data toFileNamed: aFilename

@@ -252,41 +252,19 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$4,$3,$1,$6,$8,$7,$5,$9;
-$2=self["@fs"];
-$4=self._basePath();
-$ctx1.sendIdx["basePath"]=1;
-$3=_st($4).__comma("index.html");
-$ctx1.sendIdx[","]=1;
-$1=_st($2)._existsSync_($3);
-$ctx1.sendIdx["existsSync:"]=1;
+var $1;
+$1=_st(self["@fs"])._existsSync_(self._withBasePath_("index.html"));
 if(! smalltalk.assert($1)){
 _st(console)._warn_("Warning: project directory does not contain index.html.");
 $ctx1.sendIdx["warn:"]=1;
 _st(console)._warn_("    You can specify the directory containing index.html with --base-path.");
 $ctx1.sendIdx["warn:"]=2;
-};
 _st(console)._warn_("    You can also specify a custom error page with --fallback-page.");
-$ctx1.sendIdx["warn:"]=3;
-$6=self["@fs"];
-$8=self._basePath();
-$ctx1.sendIdx["basePath"]=2;
-$7=_st($8).__comma("st");
-$ctx1.sendIdx[","]=2;
-$5=_st($6)._existsSync_($7);
-$ctx1.sendIdx["existsSync:"]=2;
-if(! smalltalk.assert($5)){
-_st(console)._warn_("Warning: project directory is missing an \x22st\x22 directory");
-$ctx1.sendIdx["warn:"]=4;
-};
-$9=_st(self["@fs"])._existsSync_(_st(self._basePath()).__comma("js"));
-if(! smalltalk.assert($9)){
-_st(console)._warn_("Warning: project directory is missing a \x22js\x22 directory");
 };
 return self}, function($ctx1) {$ctx1.fill(self,"checkDirectoryLayout",{},smalltalk.FileServer)})},
 args: [],
-source: "checkDirectoryLayout\x0a\x09(fs existsSync: self basePath, 'index.html') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.].\x0a\x09\x09console warn: '    You can also specify a custom error page with --fallback-page.'.\x0a\x09(fs existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(fs existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
-messageSends: ["ifFalse:", "existsSync:", ",", "basePath", "warn:"],
+source: "checkDirectoryLayout\x0a\x09(fs existsSync:\x09(self withBasePath: 'index.html')) ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.\x0a\x09\x09console warn: '    You can also specify a custom error page with --fallback-page.'].",
+messageSends: ["ifFalse:", "existsSync:", "withBasePath:", "warn:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -927,6 +905,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"username:",{aUsername:aUsername}
 args: ["aUsername"],
 source: "username: aUsername\x0a\x09username := aUsername.",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "withBasePath:",
+category: 'private',
+fn: function (aBaseRelativePath){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@path"])._join_with_(self._basePath(),aBaseRelativePath);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"withBasePath:",{aBaseRelativePath:aBaseRelativePath},smalltalk.FileServer)})},
+args: ["aBaseRelativePath"],
+source: "withBasePath: aBaseRelativePath\x0a\x09\x22return a file path which is relative to the basePath.\x22\x0a\x09^\x09path join: self basePath with: aBaseRelativePath",
+messageSends: ["join:with:", "basePath"],
 referencedClasses: []
 }),
 smalltalk.FileServer);

@@ -9905,6 +9905,89 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "allSatisfy:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+self._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(aBlock)._value_(each);
+if(! smalltalk.assert($1)){
+throw $early=[false];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return true;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"allSatisfy:",{aBlock:aBlock},smalltalk.Collection)})},
+args: ["aBlock"],
+source: "allSatisfy: aBlock\x0a\x09\x22Evaluate aBlock with the elements of the receiver.\x0a\x09If aBlock returns false for any element return false.\x0a\x09Otherwise return true.\x22\x0a\x0a\x09self do: [ :each | (aBlock value: each) ifFalse: [ ^ false ] ].\x0a\x09^ true",
+messageSends: ["do:", "ifFalse:", "value:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "anyOne",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $early={};
+try {
+self._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._error_("Collection is empty");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+self._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+throw $early=[each];
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"anyOne",{},smalltalk.Collection)})},
+args: [],
+source: "anyOne\x0a\x09\x22Answer a representative sample of the receiver. This method can\x0a\x09be helpful when needing to preinfer the nature of the contents of \x0a\x09semi-homogeneous collections.\x22\x0a\x0a\x09self ifEmpty: [ self error: 'Collection is empty' ].\x0a\x09self do: [ :each | ^ each ]",
+messageSends: ["ifEmpty:", "error:", "do:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "anySatisfy:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+self._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(aBlock)._value_(each);
+if(smalltalk.assert($1)){
+throw $early=[true];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return false;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"anySatisfy:",{aBlock:aBlock},smalltalk.Collection)})},
+args: ["aBlock"],
+source: "anySatisfy: aBlock\x0a\x09\x22Evaluate aBlock with the elements of the receiver.\x0a\x09If aBlock returns true for any element return true.\x0a\x09Otherwise return false.\x22\x0a\x0a\x09self do: [ :each | (aBlock value: each) ifTrue: [ ^ true ] ].\x0a\x09^ false",
+messageSends: ["do:", "ifTrue:", "value:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asArray",
 category: 'converting',
 fn: function (){
@@ -10012,22 +10095,13 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-var $early={};
-try {
-self._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-$1=_st(aBlock)._value_(each);
-if(smalltalk.assert($1)){
-throw $early=[true];
-};
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return false;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
+self._deprecatedAPI();
+$1=self._anySatisfy_(aBlock);
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"contains:",{aBlock:aBlock},smalltalk.Collection)})},
 args: ["aBlock"],
-source: "contains: aBlock\x0a\x09\x22Evaluate aBlock with the elements of the receiver.\x0a\x09If aBlock returns true for any element return true.\x0a\x09Otherwise return false.\x22\x0a\x0a\x09self do: [ :each | (aBlock value: each) ifTrue: [ ^ true ] ].\x0a\x09^ false",
-messageSends: ["do:", "ifTrue:", "value:"],
+source: "contains: aBlock\x0a\x09self deprecatedAPI.\x0a\x0a\x09^ self anySatisfy: aBlock",
+messageSends: ["deprecatedAPI", "anySatisfy:"],
 referencedClasses: []
 }),
 smalltalk.Collection);
@@ -10199,16 +10273,34 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._isEmpty();
-if(smalltalk.assert($2)){
-$1=_st(aBlock)._value();
-} else {
-$1=self;
-};
+$1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
+return smalltalk.withContext(function($ctx2) {
+return self;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifEmpty:",{aBlock:aBlock},smalltalk.Collection)})},
 args: ["aBlock"],
-source: "ifEmpty: aBlock\x0a\x09\x22Evaluate the given block with the receiver as argument, answering its value if the receiver is empty, otherwise answer the receiver. Note that the fact that this method returns its argument in case the receiver is not empty allows one to write expressions like the following ones: self classifyMethodAs:\x0a\x09\x09(myProtocol ifEmpty: ['As yet unclassified'])\x22\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: [ aBlock value ]\x0a\x09\x09ifFalse: [ self ]",
-messageSends: ["ifTrue:ifFalse:", "isEmpty", "value"],
+source: "ifEmpty: aBlock\x0a\x09\x22Evaluate the given block with the receiver as argument, answering its value if the receiver is empty, otherwise answer the receiver. \x0a\x09Note that the fact that this method returns its argument in case the receiver is not empty allows one to write expressions like the following ones: \x0a\x09\x09self classifyMethodAs:\x0a\x09\x09\x09(myProtocol ifEmpty: ['As yet unclassified'])\x22\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: [ self ]",
+messageSends: ["ifTrue:ifFalse:", "isEmpty"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ifEmpty:ifNotEmpty:",
+category: 'testing',
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._isEmpty();
+$1=_st($2)._ifTrue_ifFalse_(aBlock,anotherBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ifEmpty:ifNotEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Collection)})},
+args: ["aBlock", "anotherBlock"],
+source: "ifEmpty: aBlock ifNotEmpty: anotherBlock\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: anotherBlock",
+messageSends: ["ifTrue:ifFalse:", "isEmpty"],
 referencedClasses: []
 }),
 smalltalk.Collection);
@@ -10220,13 +10312,36 @@ category: 'testing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._notEmpty();
-_st($1)._ifTrue_(aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},smalltalk.Collection)})},
+var $2,$1;
+$2=self._notEmpty();
+$1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
+return smalltalk.withContext(function($ctx2) {
+return self;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},smalltalk.Collection)})},
 args: ["aBlock"],
-source: "ifNotEmpty: aBlock\x0a\x09self notEmpty ifTrue: aBlock.",
-messageSends: ["ifTrue:", "notEmpty"],
+source: "ifNotEmpty: aBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: [ self ]",
+messageSends: ["ifTrue:ifFalse:", "notEmpty"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ifNotEmpty:ifEmpty:",
+category: 'testing',
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._notEmpty();
+$1=_st($2)._ifTrue_ifFalse_(aBlock,anotherBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:ifEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Collection)})},
+args: ["aBlock", "anotherBlock"],
+source: "ifNotEmpty: aBlock ifEmpty: anotherBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: anotherBlock",
+messageSends: ["ifTrue:ifFalse:", "notEmpty"],
 referencedClasses: []
 }),
 smalltalk.Collection);
@@ -10237,24 +10352,18 @@ selector: "includes:",
 category: 'testing',
 fn: function (anObject){
 var self=this;
-var sentinel;
-function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-sentinel=_st($Object())._new();
-$1=_st(self._detect_ifNone_((function(each){
+$1=self._anySatisfy_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each).__eq(anObject);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return sentinel;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))).__tild_eq(sentinel);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject,sentinel:sentinel},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},smalltalk.Collection)})},
 args: ["anObject"],
-source: "includes: anObject\x0a\x09| sentinel |\x0a\x09sentinel := Object new.\x0a\x09^ (self detect: [ :each | each = anObject ] ifNone: [ sentinel ]) ~= sentinel",
-messageSends: ["new", "~=", "detect:ifNone:", "="],
-referencedClasses: ["Object"]
+source: "includes: anObject\x0a\x09^ self anySatisfy: [ :each | each = anObject ]",
+messageSends: ["anySatisfy:", "="],
+referencedClasses: []
 }),
 smalltalk.Collection);
 
@@ -10331,6 +10440,34 @@ return $1;
 args: [],
 source: "isEmpty\x0a\x09^ self size = 0",
 messageSends: ["=", "size"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "noneSatisfy:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+self._do_((function(item){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(aBlock)._value_(item);
+if(smalltalk.assert($1)){
+throw $early=[false];
+};
+}, function($ctx2) {$ctx2.fillBlock({item:item},$ctx1,1)})}));
+return true;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"noneSatisfy:",{aBlock:aBlock},smalltalk.Collection)})},
+args: ["aBlock"],
+source: "noneSatisfy: aBlock\x0a\x09\x22Evaluate aBlock with the elements of the receiver.\x0a\x09If aBlock returns false for all elements return true.\x0a\x09Otherwise return false\x22\x0a\x0a\x09self do: [ :item | (aBlock value: item) ifTrue: [ ^ false ] ].\x0a\x09^ true",
+messageSends: ["do:", "ifTrue:", "value:"],
 referencedClasses: []
 }),
 smalltalk.Collection);
@@ -10460,6 +10597,22 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "removeAll",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Collection)})},
+args: [],
+source: "removeAll\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "select:",
 category: 'enumerating',
 fn: function (aBlock){
@@ -10479,7 +10632,7 @@ $2=_st(stream)._contents();
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,stream:stream},smalltalk.Collection)})},
 args: ["aBlock"],
-source: "select: aBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [ :each |\x0a\x09\x09(aBlock value: each) ifTrue: [\x0a\x09\x09stream nextPut: each ]].\x0a\x09^ stream contents",
+source: "select: aBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [ :each |\x0a\x09\x09(aBlock value: each) ifTrue: [\x0a\x09\x09stream nextPut: each ] ].\x0a\x09^ stream contents",
 messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "value:", "nextPut:", "contents"],
 referencedClasses: []
 }),
@@ -10507,7 +10660,7 @@ $2=_st(stream)._contents();
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"select:thenCollect:",{selectBlock:selectBlock,collectBlock:collectBlock,stream:stream},smalltalk.Collection)})},
 args: ["selectBlock", "collectBlock"],
-source: "select: selectBlock thenCollect: collectBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [ :each |\x0a\x09\x09(selectBlock value: each) ifTrue: [\x0a\x09\x09stream nextPut: (collectBlock value: each) ]].\x0a\x09^ stream contents",
+source: "select: selectBlock thenCollect: collectBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [ :each |\x0a\x09\x09(selectBlock value: each) ifTrue: [\x0a\x09\x09stream nextPut: (collectBlock value: each) ] ].\x0a\x09^ stream contents",
 messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "value:", "nextPut:", "contents"],
 referencedClasses: []
 }),
@@ -11259,19 +11412,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-
-		if ('function'===typeof Object.keys) return Object.keys(self);
-		var keys = [];
-		for(var i in self) {
-			if(self.hasOwnProperty(i)) {
-				keys.push(i);
-			}
-		};
-		return keys;
-	;
+return Object.keys(self);
 return self}, function($ctx1) {$ctx1.fill(self,"keys",{},smalltalk.HashedCollection)})},
 args: [],
-source: "keys\x0a\x09<\x0a\x09\x09if ('function'===typeof Object.keys) return Object.keys(self);\x0a\x09\x09var keys = [];\x0a\x09\x09for(var i in self) {\x0a\x09\x09\x09if(self.hasOwnProperty(i)) {\x0a\x09\x09\x09\x09keys.push(i);\x0a\x09\x09\x09}\x0a\x09\x09};\x0a\x09\x09return keys;\x0a\x09>",
+source: "keys\x0a\x09<return Object.keys(self)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -11354,6 +11498,27 @@ return $1;
 args: ["aKey", "aBlock"],
 source: "remove: aKey ifAbsent: aBlock\x0a\x09^ self removeKey: aKey ifAbsent: aBlock",
 messageSends: ["removeKey:ifAbsent:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeAll",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._keys())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return self._removeKey_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.HashedCollection)})},
+args: [],
+source: "removeAll\x0a\x09^ self keys do: [ :each | self removeKey: each ]",
+messageSends: ["do:", "keys", "removeKey:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -11820,6 +11985,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"positionOfKey:",{anObject:anObje
 args: ["anObject"],
 source: "positionOfKey: anObject\x0a\x09<\x0a\x09\x09var keys = self['@keys'];\x0a\x09\x09for(var i=0;i<keys.length;i++){\x0a\x09\x09\x09if(keys[i].__eq(anObject)) { return i;}\x0a\x09\x09}\x0a\x09\x09return -1;\x0a\x09>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeAll",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@keys"])._removeAll();
+$ctx1.sendIdx["removeAll"]=1;
+_st(self["@values"])._removeAll();
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Dictionary)})},
+args: [],
+source: "removeAll\x0a\x09keys removeAll.\x0a\x09values removeAll",
+messageSends: ["removeAll"],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
@@ -12696,6 +12879,22 @@ smalltalk.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "removeAll",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self.length = 0;
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Array)})},
+args: [],
+source: "removeAll\x0a\x09<self.length = 0>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "removeFrom:to:",
 category: 'adding/removing',
 fn: function (aNumber,anotherNumber){
@@ -13221,10 +13420,10 @@ category: 'copying',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self + aString;
+return String(self) + aString;
 return self}, function($ctx1) {$ctx1.fill(self,",",{aString:aString},smalltalk.String)})},
 args: ["aString"],
-source: ", aString\x0a\x09<return self + aString>",
+source: ", aString\x0a\x09<return String(self) + aString>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -13670,7 +13869,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "escaped",
-category: 'accessing',
+category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -14303,7 +14502,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unescaped",
-category: 'accessing',
+category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -14311,6 +14510,70 @@ return unescape(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unescaped",{},smalltalk.String)})},
 args: [],
 source: "unescaped\x0a\x09<return unescape(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "uriComponentDecoded",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return decodeURIComponent(self);
+return self}, function($ctx1) {$ctx1.fill(self,"uriComponentDecoded",{},smalltalk.String)})},
+args: [],
+source: "uriComponentDecoded\x0a\x09<return decodeURIComponent(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "uriComponentEncoded",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return encodeURIComponent(self);
+return self}, function($ctx1) {$ctx1.fill(self,"uriComponentEncoded",{},smalltalk.String)})},
+args: [],
+source: "uriComponentEncoded\x0a\x09<return encodeURIComponent(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "uriDecoded",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return decodeURI(self);
+return self}, function($ctx1) {$ctx1.fill(self,"uriDecoded",{},smalltalk.String)})},
+args: [],
+source: "uriDecoded\x0a\x09<return decodeURI(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "uriEncoded",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return encodeURI(self);
+return self}, function($ctx1) {$ctx1.fill(self,"uriEncoded",{},smalltalk.String)})},
+args: [],
+source: "uriEncoded\x0a\x09<return encodeURI(self)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -17152,8 +17415,9 @@ var self=this;
 var starCategoryName;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$5,$1;
+var $4,$3,$2,$6,$5,$7,$1;
 starCategoryName="*".__comma(self._name());
+$ctx1.sendIdx[","]=1;
 $4=self._classes();
 $ctx1.sendIdx["classes"]=1;
 $3=_st($4)._collect_((function(each){
@@ -17166,15 +17430,18 @@ return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 _st($2)._addAll_(_st(_st(_st($Smalltalk())._current())._classes())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._protocols())._includes_(starCategoryName);
+$6=_st(each)._protocols();
+$ctx2.sendIdx["protocols"]=1;
+$5=_st($6).__comma(_st(_st(each)._class())._protocols());
+return _st($5)._includes_(starCategoryName);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})})));
-$5=_st($2)._yourself();
-$1=$5;
+$7=_st($2)._yourself();
+$1=$7;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"loadDependencyClasses",{starCategoryName:starCategoryName},smalltalk.Package)})},
 args: [],
-source: "loadDependencyClasses\x0a\x09\x22Returns classes needed at the time of loading a package.\x0a\x09These are all that are used to subclass\x0a\x09and to define an extension method\x22\x0a\x09\x0a\x09| starCategoryName |\x0a\x09starCategoryName := '*', self name.\x0a\x09^ (self classes collect: [ :each | each superclass ]) asSet\x0a\x09\x09remove: nil ifAbsent: [];\x0a\x09\x09addAll: (Smalltalk current classes select: [ :each | each protocols includes: starCategoryName ]);\x0a\x09\x09yourself",
-messageSends: [",", "name", "remove:ifAbsent:", "asSet", "collect:", "classes", "superclass", "addAll:", "select:", "current", "includes:", "protocols", "yourself"],
+source: "loadDependencyClasses\x0a\x09\x22Returns classes needed at the time of loading a package.\x0a\x09These are all that are used to subclass\x0a\x09and to define an extension method\x22\x0a\x09\x0a\x09| starCategoryName |\x0a\x09starCategoryName := '*', self name.\x0a\x09^ (self classes collect: [ :each | each superclass ]) asSet\x0a\x09\x09remove: nil ifAbsent: [];\x0a\x09\x09addAll: (Smalltalk current classes select: [ :each | each protocols, each class protocols includes: starCategoryName ]);\x0a\x09\x09yourself",
+messageSends: [",", "name", "remove:ifAbsent:", "asSet", "collect:", "classes", "superclass", "addAll:", "select:", "current", "includes:", "protocols", "class", "yourself"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Package);
@@ -19516,6 +19783,34 @@ smalltalk.Announcer);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "on:doOnce:",
+category: 'subscribing',
+fn: function (aClass,aBlock){
+var self=this;
+var subscription;
+function $AnnouncementSubscription(){return smalltalk.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($AnnouncementSubscription())._new();
+_st($1)._announcementClass_(aClass);
+$2=_st($1)._yourself();
+subscription=$2;
+_st(subscription)._valuable_((function(ann){
+return smalltalk.withContext(function($ctx2) {
+_st(self["@subscriptions"])._remove_(subscription);
+return _st(aBlock)._value_(ann);
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1,1)})}));
+_st(self["@subscriptions"])._add_(subscription);
+return self}, function($ctx1) {$ctx1.fill(self,"on:doOnce:",{aClass:aClass,aBlock:aBlock,subscription:subscription},smalltalk.Announcer)})},
+args: ["aClass", "aBlock"],
+source: "on: aClass doOnce: aBlock\x0a\x09| subscription |\x0a\x09\x0a\x09subscription := AnnouncementSubscription new\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself.\x0a\x09subscription valuable: [ :ann |\x0a\x09\x09subscriptions remove: subscription.\x0a\x09\x09aBlock value: ann ].\x0a\x0a\x09subscriptions add: subscription",
+messageSends: ["announcementClass:", "new", "yourself", "valuable:", "remove:", "value:", "add:"],
+referencedClasses: ["AnnouncementSubscription"]
+}),
+smalltalk.Announcer);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "on:send:to:",
 category: 'subscribing',
 fn: function (aClass,aSelector,anObject){
@@ -19613,42 +19908,8 @@ referencedClasses: []
 smalltalk.SystemAnnouncer.klass);
 
 
-smalltalk.addClass('SystemAnnouncement', smalltalk.Object, ['theClass'], 'Kernel-Announcements');
+smalltalk.addClass('SystemAnnouncement', smalltalk.Object, [], 'Kernel-Announcements');
 smalltalk.SystemAnnouncement.comment="I am the superclass of all system announcements";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "theClass",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@theClass"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.SystemAnnouncement)})},
-args: [],
-source: "theClass\x0a\x09^ theClass",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.SystemAnnouncement);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "theClass:",
-category: 'accessing',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@theClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.SystemAnnouncement)})},
-args: ["aClass"],
-source: "theClass: aClass\x0a\x09theClass := aClass",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.SystemAnnouncement);
-
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -21930,20 +22191,17 @@ return smalltalk.withContext(function($ctx2) {
 return self._shouldBeInlined();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))._or_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(self._nodes())._detect_ifNone_((function(each){
+return _st(self._nodes())._anySatisfy_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(each)._subtreeNeedsAliasing();
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,3)})}),(function(){
-return smalltalk.withContext(function($ctx3) {
-return false;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}))).__tild_eq(false);
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,3)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $ctx1.sendIdx["or:"]=1;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{},smalltalk.Node)})},
 args: [],
-source: "subtreeNeedsAliasing\x0a\x09^ (self shouldBeAliased or: [ self shouldBeInlined ]) or: [\x0a\x09\x09(self nodes detect: [ :each | each subtreeNeedsAliasing ] ifNone: [ false ]) ~= false ]",
-messageSends: ["or:", "shouldBeAliased", "shouldBeInlined", "~=", "detect:ifNone:", "nodes", "subtreeNeedsAliasing"],
+source: "subtreeNeedsAliasing\x0a\x09^ (self shouldBeAliased or: [ self shouldBeInlined ]) or: [\x0a\x09\x09self nodes anySatisfy: [ :each | each subtreeNeedsAliasing ] ]",
+messageSends: ["or:", "shouldBeAliased", "shouldBeInlined", "anySatisfy:", "nodes", "subtreeNeedsAliasing"],
 referencedClasses: []
 }),
 smalltalk.Node);
@@ -38335,41 +38593,19 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$4,$3,$1,$6,$8,$7,$5,$9;
-$2=self["@fs"];
-$4=self._basePath();
-$ctx1.sendIdx["basePath"]=1;
-$3=_st($4).__comma("index.html");
-$ctx1.sendIdx[","]=1;
-$1=_st($2)._existsSync_($3);
-$ctx1.sendIdx["existsSync:"]=1;
+var $1;
+$1=_st(self["@fs"])._existsSync_(self._withBasePath_("index.html"));
 if(! smalltalk.assert($1)){
 _st(console)._warn_("Warning: project directory does not contain index.html.");
 $ctx1.sendIdx["warn:"]=1;
 _st(console)._warn_("    You can specify the directory containing index.html with --base-path.");
 $ctx1.sendIdx["warn:"]=2;
-};
 _st(console)._warn_("    You can also specify a custom error page with --fallback-page.");
-$ctx1.sendIdx["warn:"]=3;
-$6=self["@fs"];
-$8=self._basePath();
-$ctx1.sendIdx["basePath"]=2;
-$7=_st($8).__comma("st");
-$ctx1.sendIdx[","]=2;
-$5=_st($6)._existsSync_($7);
-$ctx1.sendIdx["existsSync:"]=2;
-if(! smalltalk.assert($5)){
-_st(console)._warn_("Warning: project directory is missing an \x22st\x22 directory");
-$ctx1.sendIdx["warn:"]=4;
-};
-$9=_st(self["@fs"])._existsSync_(_st(self._basePath()).__comma("js"));
-if(! smalltalk.assert($9)){
-_st(console)._warn_("Warning: project directory is missing a \x22js\x22 directory");
 };
 return self}, function($ctx1) {$ctx1.fill(self,"checkDirectoryLayout",{},smalltalk.FileServer)})},
 args: [],
-source: "checkDirectoryLayout\x0a\x09(fs existsSync: self basePath, 'index.html') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.].\x0a\x09\x09console warn: '    You can also specify a custom error page with --fallback-page.'.\x0a\x09(fs existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(fs existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
-messageSends: ["ifFalse:", "existsSync:", ",", "basePath", "warn:"],
+source: "checkDirectoryLayout\x0a\x09(fs existsSync:\x09(self withBasePath: 'index.html')) ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.\x0a\x09\x09console warn: '    You can also specify a custom error page with --fallback-page.'].",
+messageSends: ["ifFalse:", "existsSync:", "withBasePath:", "warn:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -39010,6 +39246,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"username:",{aUsername:aUsername}
 args: ["aUsername"],
 source: "username: aUsername\x0a\x09username := aUsername.",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "withBasePath:",
+category: 'private',
+fn: function (aBaseRelativePath){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@path"])._join_with_(self._basePath(),aBaseRelativePath);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"withBasePath:",{aBaseRelativePath:aBaseRelativePath},smalltalk.FileServer)})},
+args: ["aBaseRelativePath"],
+source: "withBasePath: aBaseRelativePath\x0a\x09\x22return a file path which is relative to the basePath.\x22\x0a\x09^\x09path join: self basePath with: aBaseRelativePath",
+messageSends: ["join:with:", "basePath"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
