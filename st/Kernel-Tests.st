@@ -385,7 +385,7 @@ TestCase subclass: #CollectionTest
 !CollectionTest methodsFor: 'accessing'!
 
 collection
-	^ self collectionClass withAll: self defaultValues
+	self subclassResponsibility
 !
 
 collectionClass
@@ -393,11 +393,7 @@ collectionClass
 !
 
 collectionWithDuplicates
-	^ self collectionClass withAll: #('a' 'b' 'c' 1 2 1 'a')
-!
-
-defaultValues
-	^ #(1 2 3 -4)
+	self subclassResponsibility
 ! !
 
 !CollectionTest methodsFor: 'convenience'!
@@ -891,6 +887,16 @@ testThird
 SequenceableCollectionTest subclass: #ArrayTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
+
+!ArrayTest methodsFor: 'accessing'!
+
+collection
+	^#(1 2 3 -4)
+!
+
+collectionWithDuplicates
+	^#('a' 'b' 'c' 1 2 1 'a')
+! !
 
 !ArrayTest methodsFor: 'tests'!
 

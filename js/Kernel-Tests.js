@@ -1275,13 +1275,11 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._collectionClass())._withAll_(self._defaultValues());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.CollectionTest)})},
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.CollectionTest)})},
 args: [],
-source: "collection\x0a\x09^ self collectionClass withAll: self defaultValues",
-messageSends: ["withAll:", "collectionClass", "defaultValues"],
+source: "collection\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.CollectionTest);
@@ -1311,31 +1309,11 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._collectionClass())._withAll_(["a", "b", "c", (1), (2), (1), "a"]);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},smalltalk.CollectionTest)})},
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},smalltalk.CollectionTest)})},
 args: [],
-source: "collectionWithDuplicates\x0a\x09^ self collectionClass withAll: #('a' 'b' 'c' 1 2 1 'a')",
-messageSends: ["withAll:", "collectionClass"],
-referencedClasses: []
-}),
-smalltalk.CollectionTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "defaultValues",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=[(1), (2), (3), (-4)];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultValues",{},smalltalk.CollectionTest)})},
-args: [],
-source: "defaultValues\x0a\x09^ #(1 2 3 -4)",
-messageSends: [],
+source: "collectionWithDuplicates\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.CollectionTest);
@@ -2974,6 +2952,42 @@ smalltalk.SequenceableCollectionTest);
 
 
 smalltalk.addClass('ArrayTest', smalltalk.SequenceableCollectionTest, [], 'Kernel-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "collection",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=[(1), (2), (3), (-4)];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.ArrayTest)})},
+args: [],
+source: "collection\x0a\x09^#(1 2 3 -4)",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ArrayTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "collectionWithDuplicates",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=["a", "b", "c", (1), (2), (1), "a"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},smalltalk.ArrayTest)})},
+args: [],
+source: "collectionWithDuplicates\x0a\x09^#('a' 'b' 'c' 1 2 1 'a')",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ArrayTest);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testAdd",
