@@ -1028,13 +1028,13 @@ collectionLastTwo
 
 nonIndexesDo: aBlock
 	aBlock value: 0.
-	aBlock value: self collection size + 1.
+	aBlock value: self collectionSize + 1.
 	aBlock value: 'z'
 !
 
 samplesDo: aBlock
 	aBlock value: 1 value: self collectionFirst.
-	aBlock value: self collection size value: self collectionLast
+	aBlock value: self collectionSize value: self collectionLast
 ! !
 
 !SequenceableCollectionTest methodsFor: 'tests'!
@@ -1067,7 +1067,7 @@ testFirstN
 		equals: self collectionClass new.
 		
 	self
-		assert: (self collection first: self collection size)
+		assert: (self collection first: self collectionSize)
 		equals: self collection.
 		
 	self should: [ self collection first: 33 ] raise: Error
@@ -1091,7 +1091,7 @@ testLastN
 		equals: self collectionClass new.
 
 	self
-		assert: (self collection last: self collection size)
+		assert: (self collection last: self collectionSize)
 		equals: self collection.
 
 	self should: [ self collection last: 33 ] raise: Error

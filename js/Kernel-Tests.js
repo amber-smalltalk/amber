@@ -3597,13 +3597,13 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aBlock)._value_((0));
 $ctx1.sendIdx["value:"]=1;
-_st(aBlock)._value_(_st(_st(self._collection())._size()).__plus((1)));
+_st(aBlock)._value_(_st(self._collectionSize()).__plus((1)));
 $ctx1.sendIdx["value:"]=2;
 _st(aBlock)._value_("z");
 return self}, function($ctx1) {$ctx1.fill(self,"nonIndexesDo:",{aBlock:aBlock},smalltalk.SequenceableCollectionTest)})},
 args: ["aBlock"],
-source: "nonIndexesDo: aBlock\x0a\x09aBlock value: 0.\x0a\x09aBlock value: self collection size + 1.\x0a\x09aBlock value: 'z'",
-messageSends: ["value:", "+", "size", "collection"],
+source: "nonIndexesDo: aBlock\x0a\x09aBlock value: 0.\x0a\x09aBlock value: self collectionSize + 1.\x0a\x09aBlock value: 'z'",
+messageSends: ["value:", "+", "collectionSize"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollectionTest);
@@ -3617,11 +3617,11 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aBlock)._value_value_((1),self._collectionFirst());
 $ctx1.sendIdx["value:value:"]=1;
-_st(aBlock)._value_value_(_st(self._collection())._size(),self._collectionLast());
+_st(aBlock)._value_value_(self._collectionSize(),self._collectionLast());
 return self}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},smalltalk.SequenceableCollectionTest)})},
 args: ["aBlock"],
-source: "samplesDo: aBlock\x0a\x09aBlock value: 1 value: self collectionFirst.\x0a\x09aBlock value: self collection size value: self collectionLast",
-messageSends: ["value:value:", "collectionFirst", "size", "collection", "collectionLast"],
+source: "samplesDo: aBlock\x0a\x09aBlock value: 1 value: self collectionFirst.\x0a\x09aBlock value: self collectionSize value: self collectionLast",
+messageSends: ["value:value:", "collectionFirst", "collectionSize", "collectionLast"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollectionTest);
@@ -3722,7 +3722,7 @@ fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$6,$8,$7,$5,$9;
+var $2,$1,$4,$3,$6,$5,$7;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._first_((2));
@@ -3737,22 +3737,19 @@ self._assert_equals_($3,_st(self._collectionClass())._new());
 $ctx1.sendIdx["assert:equals:"]=2;
 $6=self._collection();
 $ctx1.sendIdx["collection"]=3;
-$8=self._collection();
-$ctx1.sendIdx["collection"]=4;
-$7=_st($8)._size();
-$5=_st($6)._first_($7);
+$5=_st($6)._first_(self._collectionSize());
 $ctx1.sendIdx["first:"]=3;
-$9=self._collection();
-$ctx1.sendIdx["collection"]=5;
-self._assert_equals_($5,$9);
+$7=self._collection();
+$ctx1.sendIdx["collection"]=4;
+self._assert_equals_($5,$7);
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._collection())._first_((33));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testFirstN",{},smalltalk.SequenceableCollectionTest)})},
 args: [],
-source: "testFirstN\x0a\x09self \x0a\x09\x09assert: (self collection first: 2)\x0a\x09\x09equals: self collectionFirstTwo.\x0a\x09\x09\x0a\x09self\x0a\x09\x09assert: (self collection first: 0)\x0a\x09\x09equals: self collectionClass new.\x0a\x09\x09\x0a\x09self\x0a\x09\x09assert: (self collection first: self collection size)\x0a\x09\x09equals: self collection.\x0a\x09\x09\x0a\x09self should: [ self collection first: 33 ] raise: Error",
-messageSends: ["assert:equals:", "first:", "collection", "collectionFirstTwo", "new", "collectionClass", "size", "should:raise:"],
+source: "testFirstN\x0a\x09self \x0a\x09\x09assert: (self collection first: 2)\x0a\x09\x09equals: self collectionFirstTwo.\x0a\x09\x09\x0a\x09self\x0a\x09\x09assert: (self collection first: 0)\x0a\x09\x09equals: self collectionClass new.\x0a\x09\x09\x0a\x09self\x0a\x09\x09assert: (self collection first: self collectionSize)\x0a\x09\x09equals: self collection.\x0a\x09\x09\x0a\x09self should: [ self collection first: 33 ] raise: Error",
+messageSends: ["assert:equals:", "first:", "collection", "collectionFirstTwo", "new", "collectionClass", "collectionSize", "should:raise:"],
 referencedClasses: ["Error"]
 }),
 smalltalk.SequenceableCollectionTest);
@@ -3801,7 +3798,7 @@ fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$6,$8,$7,$5,$9;
+var $2,$1,$4,$3,$6,$5,$7;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._last_((2));
@@ -3816,22 +3813,19 @@ self._assert_equals_($3,_st(self._collectionClass())._new());
 $ctx1.sendIdx["assert:equals:"]=2;
 $6=self._collection();
 $ctx1.sendIdx["collection"]=3;
-$8=self._collection();
-$ctx1.sendIdx["collection"]=4;
-$7=_st($8)._size();
-$5=_st($6)._last_($7);
+$5=_st($6)._last_(self._collectionSize());
 $ctx1.sendIdx["last:"]=3;
-$9=self._collection();
-$ctx1.sendIdx["collection"]=5;
-self._assert_equals_($5,$9);
+$7=self._collection();
+$ctx1.sendIdx["collection"]=4;
+self._assert_equals_($5,$7);
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._collection())._last_((33));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testLastN",{},smalltalk.SequenceableCollectionTest)})},
 args: [],
-source: "testLastN\x0a\x09self \x0a\x09\x09assert: (self collection last: 2) \x0a\x09\x09equals: self collectionLastTwo.\x0a\x09\x09\x0a\x09self\x0a\x09\x09assert: (self collection last: 0)\x0a\x09\x09equals: self collectionClass new.\x0a\x0a\x09self\x0a\x09\x09assert: (self collection last: self collection size)\x0a\x09\x09equals: self collection.\x0a\x0a\x09self should: [ self collection last: 33 ] raise: Error",
-messageSends: ["assert:equals:", "last:", "collection", "collectionLastTwo", "new", "collectionClass", "size", "should:raise:"],
+source: "testLastN\x0a\x09self \x0a\x09\x09assert: (self collection last: 2) \x0a\x09\x09equals: self collectionLastTwo.\x0a\x09\x09\x0a\x09self\x0a\x09\x09assert: (self collection last: 0)\x0a\x09\x09equals: self collectionClass new.\x0a\x0a\x09self\x0a\x09\x09assert: (self collection last: self collectionSize)\x0a\x09\x09equals: self collection.\x0a\x0a\x09self should: [ self collection last: 33 ] raise: Error",
+messageSends: ["assert:equals:", "last:", "collection", "collectionLastTwo", "new", "collectionClass", "collectionSize", "should:raise:"],
 referencedClasses: ["Error"]
 }),
 smalltalk.SequenceableCollectionTest);
