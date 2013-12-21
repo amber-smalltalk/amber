@@ -442,6 +442,65 @@ referencedClasses: []
 smalltalk.HLGenerateCommand.klass);
 
 
+smalltalk.addClass('HLCategorizeUnclassifiedCommand', smalltalk.HLGenerateCommand, [], 'Helios-Commands-Browser');
+smalltalk.HLCategorizeUnclassifiedCommand.comment="I am the command used to categorize unclassified methods";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "execute",
+protocol: 'executing',
+fn: function (){
+var self=this;
+var targetClass,unclassified;
+function $HLMethodClassifier(){return smalltalk.HLMethodClassifier||(typeof HLMethodClassifier=="undefined"?nil:HLMethodClassifier)}
+return smalltalk.withContext(function($ctx1) { 
+targetClass=_st(self._model())._selectedClass();
+unclassified=_st(_st(targetClass)._methods())._select_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(e)._protocol()).__eq("as yet unclassified");
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,1)})}));
+_st(_st($HLMethodClassifier())._new())._classifyAll_(unclassified);
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{targetClass:targetClass,unclassified:unclassified},smalltalk.HLCategorizeUnclassifiedCommand)})},
+args: [],
+source: "execute\x0a\x09| targetClass unclassified |\x0a\x09targetClass := self model selectedClass.\x0a\x0a\x09unclassified := targetClass methods select:[ :e | e protocol = 'as yet unclassified' ].\x0a\x09\x09\x0a\x09HLMethodClassifier new\x0a\x09\x09classifyAll: unclassified",
+messageSends: ["selectedClass", "model", "select:", "methods", "=", "protocol", "classifyAll:", "new"],
+referencedClasses: ["HLMethodClassifier"]
+}),
+smalltalk.HLCategorizeUnclassifiedCommand);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "c";
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCategorizeUnclassifiedCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 'c'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCategorizeUnclassifiedCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Categorize";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLCategorizeUnclassifiedCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Categorize'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCategorizeUnclassifiedCommand.klass);
+
+
 smalltalk.addClass('HLGenerateAccessorsCommand', smalltalk.HLGenerateCommand, [], 'Helios-Commands-Browser');
 smalltalk.HLGenerateAccessorsCommand.comment="I am the command used to generate the `getter` and the `setter` methods depending of the selected class";
 smalltalk.addMethod(

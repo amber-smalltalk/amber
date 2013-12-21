@@ -244,6 +244,132 @@ compile
 		initializeProtocolWith: self
 ! !
 
+Object subclass: #HLMethodClassifier
+	instanceVariableNames: 'prefixMapping'
+	package: 'Helios-Helpers'!
+!HLMethodClassifier commentStamp!
+I am in charge of categorizing methods following this strategy:
+
+- is it an accessor?
+- is it overriding a superclass method?
+- is it starting with a know prefix?
+- how are categorized the other implementations?!
+
+!HLMethodClassifier methodsFor: 'initialization'!
+
+buildPrefixDictionary
+	prefixMapping := Dictionary new.
+	prefixMapping 
+		at: 'test' put: 'tests';
+	 	at: 'bench' put: 'benchmarking';
+	 	at: 'copy' put: 'copying';
+		at: 'initialize' put: 'initialization';
+		at: 'accept' put: 'visitor';
+		at: 'visit' put: 'visitor';
+		at: 'signal' put: 'signalling';
+		at: 'parse' put: 'parsing';
+		at: 'add' put: 'adding';
+		at: 'is' put: 'testing';
+		at: 'as' put: 'converting';
+		at: 'new' put: 'instance creation'.
+!
+
+initialize
+	super initialize.
+	
+	self buildPrefixDictionary.
+! !
+
+!HLMethodClassifier methodsFor: 'private'!
+
+classifyAccessor: aMethod
+	| names selector |
+	
+	names := aMethod methodClass allInstanceVariableNames.
+	selector := aMethod selector.
+	
+	(selector last = ':')
+		ifTrue: [ "selector might be a setter"
+			selector := selector allButLast ].
+	
+	(names includes: selector)
+		ifFalse: [ ^ false ].
+		
+	aMethod protocol: 'accessing'.
+	^ true.
+!
+
+classifyByKnownPrefix: aMethod
+	prefixMapping keysAndValuesDo: [ :prefix :protocol |
+		(aMethod selector beginsWith: prefix)
+			ifTrue: [
+				aMethod protocol: protocol.
+				^ true ]].
+	^ false.
+!
+
+classifyByOtherImplementors: aMethod
+	| protocolBag methods protocolToUse counter |
+	
+	protocolBag := Dictionary new.
+	methods := HLReferencesModel new implementorsOf: aMethod selector.
+	methods
+		ifEmpty: [ ^ false ]
+		ifNotEmpty: [
+			methods 
+				do: [ :method || protocol |
+					protocol := method method protocol.
+					(aMethod methodClass = method methodClass)
+						ifFalse: [
+						((protocol first = '*') or: [ protocol = aMethod defaultProtocol ])
+							ifFalse: [ 
+								protocolBag 
+									at: protocol 
+									put: (protocolBag at: protocol ifAbsent: [ 0 ]) + 1 ] ] ] ].
+			
+	protocolBag ifEmpty: [ ^ false ].
+	protocolToUse := nil.
+	counter := 0.
+	protocolBag keysAndValuesDo: [ :key :value | value > counter 
+		ifTrue: [
+			counter := value.
+			protocolToUse := key ] ].
+	aMethod protocol: protocolToUse.
+	^ true
+!
+
+classifyInSuperclassProtocol: aMethod
+	| currentClass |
+	currentClass := aMethod methodClass.
+	
+	[ currentClass superclass isNil ] whileFalse: [
+		currentClass := currentClass superclass.
+		(currentClass includesSelector: aMethod selector)
+			ifTrue: [ 
+				aMethod protocol: (currentClass >> aMethod selector) protocol.
+				^ true ]].
+	
+	^ false.
+! !
+
+!HLMethodClassifier methodsFor: 'protocol'!
+
+classify: aMethod
+	(self classifyAccessor: aMethod)
+		ifTrue: [ ^ aMethod category ].
+	(self classifyInSuperclassProtocol: aMethod)
+		ifTrue: [ ^ aMethod category ].
+	(self classifyByKnownPrefix: aMethod)
+		ifTrue: [ ^ aMethod category ].
+	(self classifyByOtherImplementors: aMethod)
+		ifTrue: [ ^ aMethod category ].
+!
+
+classifyAll: aCollectionOfMethods
+	aCollectionOfMethods do: [ :method |
+		self classify: method ]
+! !
+
 Object subclass: #HLMethodSourceCode
 	instanceVariableNames: 'selector sourceCode'
 	package: 'Helios-Helpers'!
