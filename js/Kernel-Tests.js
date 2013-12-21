@@ -2815,7 +2815,7 @@ $1=_st($2)._first_((2));
 $ctx1.sendIdx["first:"]=1;
 $4=self._collection();
 $ctx1.sendIdx["collection"]=2;
-$3=_st($4)._copyFrom_to_((0),(2));
+$3=_st($4)._copyFrom_to_((1),(2));
 self._assert_equals_($1,$3);
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -2823,7 +2823,7 @@ return _st(self._collection())._first_((33));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testFirstN",{},smalltalk.SequenceableCollectionTest)})},
 args: [],
-source: "testFirstN\x0a\x09self \x0a\x09\x09assert: (self collection first: 2) \x0a\x09\x09equals: (self collection copyFrom: 0 to: 2).\x0a\x09\x09\x0a\x09self should: [ self collection first: 33 ] raise: Error",
+source: "testFirstN\x0a\x09self \x0a\x09\x09assert: (self collection first: 2) \x0a\x09\x09equals: (self collection copyFrom: 1 to: 2).\x0a\x09\x09\x0a\x09self should: [ self collection first: 33 ] raise: Error",
 messageSends: ["assert:equals:", "first:", "collection", "copyFrom:to:", "should:raise:"],
 referencedClasses: ["Error"]
 }),
@@ -3072,22 +3072,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{array:array},sm
 args: [],
 source: "testAtIfAbsent\x0a\x09| array |\x0a\x09array := #('hello' 'world').\x0a\x09self assert: (array at: 1) equals: 'hello'.\x0a\x09self assert: (array at: 2) equals: 'world'.\x0a\x09self assert: (array at: 2 ifAbsent: [ 'not found' ]) equals: 'world'.\x0a\x09self assert: (array at: 0 ifAbsent: [ 'not found' ]) equals: 'not found'.\x0a\x09self assert: (array at: -10 ifAbsent: [ 'not found' ]) equals: 'not found'.\x0a\x09self assert: (array at: 3 ifAbsent: [ 'not found' ]) equals: 'not found'.",
 messageSends: ["assert:equals:", "at:", "at:ifAbsent:"],
-referencedClasses: []
-}),
-smalltalk.ArrayTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testFirstN",
-protocol: 'tests',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(_st([(1),(2),(3),(4),(5)])._first_((3)),[(1),(2),(3)]);
-return self}, function($ctx1) {$ctx1.fill(self,"testFirstN",{},smalltalk.ArrayTest)})},
-args: [],
-source: "testFirstN\x0a\x09self assert: ({1. 2. 3. 4. 5} first: 3) equals: {1. 2. 3}",
-messageSends: ["assert:equals:", "first:"],
 referencedClasses: []
 }),
 smalltalk.ArrayTest);

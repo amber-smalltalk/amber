@@ -855,7 +855,7 @@ testFirst
 testFirstN
 	self 
 		assert: (self collection first: 2) 
-		equals: (self collection copyFrom: 0 to: 2).
+		equals: (self collection copyFrom: 1 to: 2).
 		
 	self should: [ self collection first: 33 ] raise: Error
 !
@@ -921,10 +921,6 @@ testAtIfAbsent
 	self assert: (array at: 0 ifAbsent: [ 'not found' ]) equals: 'not found'.
 	self assert: (array at: -10 ifAbsent: [ 'not found' ]) equals: 'not found'.
 	self assert: (array at: 3 ifAbsent: [ 'not found' ]) equals: 'not found'.
-!
-
-testFirstN
-	self assert: ({1. 2. 3. 4. 5} first: 3) equals: {1. 2. 3}
 !
 
 testIfEmpty
