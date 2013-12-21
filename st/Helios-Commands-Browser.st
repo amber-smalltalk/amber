@@ -175,7 +175,7 @@ HLGenerateCommand subclass: #HLGenerateAccessorsCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
 !HLGenerateAccessorsCommand commentStamp!
-I am the command used to generate the `initialize` method depending of the selected class!
+I am the command used to generate the `getter` and the `setter` methods depending of the selected class!
 
 !HLGenerateAccessorsCommand methodsFor: 'executing'!
 
@@ -188,7 +188,7 @@ execute
 		generate;
 		output.
 		
-	output serialize.
+	output compile.
 	first := output sourceCodes first.
 	self model
 		selectedProtocol: output protocol;
@@ -210,7 +210,7 @@ HLGenerateCommand subclass: #HLGenerateInitializeCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
 !HLGenerateInitializeCommand commentStamp!
-I am the command used to generate the `gettet` and the `setter` methods depending of the selected class!
+I am the command used to generate the `initialize` method depending of the selected class!
 
 !HLGenerateInitializeCommand methodsFor: 'executing'!
 
@@ -223,7 +223,7 @@ execute
 		generate;
 		output.
 		
-	output serialize.
+	output compile.
 	self model selectedProtocol: output protocol
 ! !
 

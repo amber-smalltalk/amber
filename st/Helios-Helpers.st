@@ -100,7 +100,7 @@ initialize
 
 !HLGenerator methodsFor: 'protocol'!
 
-generate
+compile
 
 	output targetClass ifNil: [ self error: 'class should not be nil'].
 ! !
@@ -135,7 +135,7 @@ getterFor: anInstanceVariable
 		selector:anInstanceVariable;
 		sourceCode: (String streamContents: [ :stream |
 		stream << anInstanceVariable.
-		stream cr cr tab.
+		stream cr tab.
 		stream << '^ ' << anInstanceVariable ])
 !
 
@@ -144,14 +144,14 @@ setterFor: anInstanceVariable
 		selector: anInstanceVariable, ':';
 		sourceCode: (String streamContents: [ :stream |
 		stream << anInstanceVariable << ': anObject'.
-		stream cr cr tab.
+		stream cr tab.
 		stream << anInstanceVariable << ' := anObject' ])
 ! !
 
 !HLAccessorsGenerator methodsFor: 'protocol'!
 
-generate
-	super generate.
+compile
+	super compile.
 	
 	output targetClass 
 		accessorsSourceCodesWith: self;
@@ -235,8 +235,8 @@ retrieveProtocolForObject
 
 !HLInitializeGenerator methodsFor: 'protocol'!
 
-generate
-	super generate.
+compile
+	super compile.
 	
 	output targetClass 
 		initializeSourceCodesWith: self;

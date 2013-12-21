@@ -223,7 +223,7 @@ smalltalk.HLGenerator);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "generate",
+selector: "compile",
 protocol: 'protocol',
 fn: function (){
 var self=this;
@@ -235,9 +235,9 @@ self._error_("class should not be nil");
 } else {
 $1;
 };
-return self}, function($ctx1) {$ctx1.fill(self,"generate",{},smalltalk.HLGenerator)})},
+return self}, function($ctx1) {$ctx1.fill(self,"compile",{},smalltalk.HLGenerator)})},
 args: [],
-source: "generate\x0a\x0a\x09output targetClass ifNil: [ self error: 'class should not be nil'].",
+source: "compile\x0a\x0a\x09output targetClass ifNil: [ self error: 'class should not be nil'].",
 messageSends: ["ifNil:", "targetClass", "error:"],
 referencedClasses: []
 }),
@@ -329,20 +329,20 @@ smalltalk.HLAccessorsGenerator);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "generate",
+selector: "compile",
 protocol: 'protocol',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.HLAccessorsGenerator.superclass.fn.prototype._generate.apply(_st(self), []);
+smalltalk.HLAccessorsGenerator.superclass.fn.prototype._compile.apply(_st(self), []);
 $1=_st(self["@output"])._targetClass();
 _st($1)._accessorsSourceCodesWith_(self);
 $2=_st($1)._accessorProtocolWith_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"generate",{},smalltalk.HLAccessorsGenerator)})},
+return self}, function($ctx1) {$ctx1.fill(self,"compile",{},smalltalk.HLAccessorsGenerator)})},
 args: [],
-source: "generate\x0a\x09super generate.\x0a\x09\x0a\x09output targetClass \x0a\x09\x09accessorsSourceCodesWith: self;\x0a\x09\x09accessorProtocolWith: self",
-messageSends: ["generate", "accessorsSourceCodesWith:", "targetClass", "accessorProtocolWith:"],
+source: "compile\x0a\x09super compile.\x0a\x09\x0a\x09output targetClass \x0a\x09\x09accessorsSourceCodesWith: self;\x0a\x09\x09accessorProtocolWith: self",
+messageSends: ["compile", "accessorsSourceCodesWith:", "targetClass", "accessorProtocolWith:"],
 referencedClasses: []
 }),
 smalltalk.HLAccessorsGenerator);
@@ -356,16 +356,14 @@ var self=this;
 function $HLMethodSourceCode(){return smalltalk.HLMethodSourceCode||(typeof HLMethodSourceCode=="undefined"?nil:HLMethodSourceCode)}
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$4,$3,$1;
+var $2,$3,$1;
 $2=_st($HLMethodSourceCode())._new();
 _st($2)._selector_(anInstanceVariable);
 $3=_st($2)._sourceCode_(_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {
 _st(stream).__lt_lt(anInstanceVariable);
 $ctx2.sendIdx["<<"]=1;
-$4=_st(_st(stream)._cr())._cr();
-$ctx2.sendIdx["cr"]=1;
-_st($4)._tab();
+_st(_st(stream)._cr())._tab();
 return _st(_st(stream).__lt_lt("^ ")).__lt_lt(anInstanceVariable);
 $ctx2.sendIdx["<<"]=2;
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})})));
@@ -373,7 +371,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"getterFor:",{anInstanceVariable:anInstanceVariable},smalltalk.HLAccessorsGenerator)})},
 args: ["anInstanceVariable"],
-source: "getterFor: anInstanceVariable\x0a\x09^ HLMethodSourceCode new\x0a\x09\x09selector:anInstanceVariable;\x0a\x09\x09sourceCode: (String streamContents: [ :stream |\x0a\x09\x09stream << anInstanceVariable.\x0a\x09\x09stream cr cr tab.\x0a\x09\x09stream << '^ ' << anInstanceVariable ])",
+source: "getterFor: anInstanceVariable\x0a\x09^ HLMethodSourceCode new\x0a\x09\x09selector:anInstanceVariable;\x0a\x09\x09sourceCode: (String streamContents: [ :stream |\x0a\x09\x09stream << anInstanceVariable.\x0a\x09\x09stream cr tab.\x0a\x09\x09stream << '^ ' << anInstanceVariable ])",
 messageSends: ["selector:", "new", "sourceCode:", "streamContents:", "<<", "tab", "cr"],
 referencedClasses: ["HLMethodSourceCode", "String"]
 }),
@@ -388,7 +386,7 @@ var self=this;
 function $HLMethodSourceCode(){return smalltalk.HLMethodSourceCode||(typeof HLMethodSourceCode=="undefined"?nil:HLMethodSourceCode)}
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$4,$5,$3,$1;
+var $2,$4,$3,$1;
 $2=_st($HLMethodSourceCode())._new();
 _st($2)._selector_(_st(anInstanceVariable).__comma(":"));
 $3=_st($2)._sourceCode_(_st($String())._streamContents_((function(stream){
@@ -397,9 +395,7 @@ $4=_st(stream).__lt_lt(anInstanceVariable);
 $ctx2.sendIdx["<<"]=2;
 _st($4).__lt_lt(": anObject");
 $ctx2.sendIdx["<<"]=1;
-$5=_st(_st(stream)._cr())._cr();
-$ctx2.sendIdx["cr"]=1;
-_st($5)._tab();
+_st(_st(stream)._cr())._tab();
 return _st(_st(stream).__lt_lt(anInstanceVariable)).__lt_lt(" := anObject");
 $ctx2.sendIdx["<<"]=3;
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})})));
@@ -407,7 +403,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"setterFor:",{anInstanceVariable:anInstanceVariable},smalltalk.HLAccessorsGenerator)})},
 args: ["anInstanceVariable"],
-source: "setterFor: anInstanceVariable\x0a\x09^ HLMethodSourceCode new\x0a\x09\x09selector: anInstanceVariable, ':';\x0a\x09\x09sourceCode: (String streamContents: [ :stream |\x0a\x09\x09stream << anInstanceVariable << ': anObject'.\x0a\x09\x09stream cr cr tab.\x0a\x09\x09stream << anInstanceVariable << ' := anObject' ])",
+source: "setterFor: anInstanceVariable\x0a\x09^ HLMethodSourceCode new\x0a\x09\x09selector: anInstanceVariable, ':';\x0a\x09\x09sourceCode: (String streamContents: [ :stream |\x0a\x09\x09stream << anInstanceVariable << ': anObject'.\x0a\x09\x09stream cr tab.\x0a\x09\x09stream << anInstanceVariable << ' := anObject' ])",
 messageSends: ["selector:", "new", ",", "sourceCode:", "streamContents:", "<<", "tab", "cr"],
 referencedClasses: ["HLMethodSourceCode", "String"]
 }),
@@ -417,6 +413,27 @@ smalltalk.HLAccessorsGenerator);
 
 smalltalk.addClass('HLInitializeGenerator', smalltalk.HLGenerator, [], 'Helios-Helpers');
 smalltalk.HLInitializeGenerator.comment="I am used to double-dispatch the `initialize` method(s) generation.\x0a\x0aUsage:\x0a\x0a    ^ HLInitializeGenerator new\x0a        class: aClass;\x0a        generate;\x0a        output\x0a\x0aI am a disposable object";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compile",
+protocol: 'protocol',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+smalltalk.HLInitializeGenerator.superclass.fn.prototype._compile.apply(_st(self), []);
+$1=_st(self["@output"])._targetClass();
+_st($1)._initializeSourceCodesWith_(self);
+_st($1)._initializeIndexWith_(self);
+$2=_st($1)._initializeProtocolWith_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"compile",{},smalltalk.HLInitializeGenerator)})},
+args: [],
+source: "compile\x0a\x09super compile.\x0a\x09\x0a\x09output targetClass \x0a\x09\x09initializeSourceCodesWith: self;\x0a\x09\x09initializeIndexWith: self;\x0a\x09\x09initializeProtocolWith: self",
+messageSends: ["compile", "initializeSourceCodesWith:", "targetClass", "initializeIndexWith:", "initializeProtocolWith:"],
+referencedClasses: []
+}),
+smalltalk.HLInitializeGenerator);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "computeIndexForObject",
@@ -442,27 +459,6 @@ return $1;
 args: [],
 source: "computeIndexForObject\x0a\x09| instVars headerSize firstInstVarSize |\x0a\x09\x0a\x09\x2232 is the size of the `initiliaze super initialize` part\x22\x0a\x09headerSize := 32.\x0a\x09instVars := output targetClass instanceVariableNames.\x0a\x09firstInstVarSize := instVars sorted\x0a\x09\x09ifEmpty: [ 0 ]\x0a\x09\x09ifNotEmpty:[ instVars first size  + 4 ].\x0a\x09^ headerSize + firstInstVarSize",
 messageSends: ["instanceVariableNames", "targetClass", "ifEmpty:ifNotEmpty:", "sorted", "+", "size", "first"],
-referencedClasses: []
-}),
-smalltalk.HLInitializeGenerator);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "generate",
-protocol: 'protocol',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-smalltalk.HLInitializeGenerator.superclass.fn.prototype._generate.apply(_st(self), []);
-$1=_st(self["@output"])._targetClass();
-_st($1)._initializeSourceCodesWith_(self);
-_st($1)._initializeIndexWith_(self);
-$2=_st($1)._initializeProtocolWith_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"generate",{},smalltalk.HLInitializeGenerator)})},
-args: [],
-source: "generate\x0a\x09super generate.\x0a\x09\x0a\x09output targetClass \x0a\x09\x09initializeSourceCodesWith: self;\x0a\x09\x09initializeIndexWith: self;\x0a\x09\x09initializeProtocolWith: self",
-messageSends: ["generate", "initializeSourceCodesWith:", "targetClass", "initializeIndexWith:", "initializeProtocolWith:"],
 referencedClasses: []
 }),
 smalltalk.HLInitializeGenerator);
