@@ -389,11 +389,31 @@ respondsTo: aSelector
 
 !Object class methodsFor: 'helios'!
 
+accessorProtocolWith: aGenerator
+	aGenerator accessorProtocolForObject
+!
+
+accessorsSourceCodesWith: aGenerator
+	aGenerator accessorsSourceCodesForObject
+!
+
 heliosClass
 	"Should be an Helios extension. Unfortunately, since helios can browse remote
 	environments, we can't extend base classes"
 	
 	^ 'class'
+!
+
+initializeIndexWith: aGenerator
+	aGenerator initializeIndexForObject
+!
+
+initializeProtocolWith: aGenerator
+	aGenerator initializeProtocolForObject
+!
+
+initializeSourceCodesWith: aGenerator
+	aGenerator initializeForObject
 ! !
 
 !Object class methodsFor: 'initialization'!

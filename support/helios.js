@@ -20,6 +20,7 @@ define([
 	'amber_core/Spaces',
 	'amber_core/Helios-Core',
 	'amber_core/Helios-Exceptions',
+	'amber_core/Helios-Helpers',
 	'amber_core/Helios-Commands-Core',
 	'amber_core/Helios-Commands-Tools',
 	'amber_core/Helios-Commands-Browser',
