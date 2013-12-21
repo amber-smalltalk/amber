@@ -564,6 +564,27 @@ CollectionTest subclass: #IndexableCollectionTest
 
 !IndexableCollectionTest methodsFor: 'fixture'!
 
+collectionWithNewValue
+	"Answers a collection which shows how
+	self collection would look after adding
+	self sampleNewValue at self sampleNewIndex"
+	
+	self subclassResponsibility
+!
+
+sampleNewIndex
+	"Answers a value that can be used as index in at:put: or at:ifAbsentPut:"
+	
+	self subclassResponsibility
+!
+
+sampleNewValue
+	"Answers a value that is not yet there
+	and can be put into a tested collection"
+	
+	^ 'N'
+!
+
 sampleNonIndexesDo: aBlock
 	"Executes block a few times,
 	each time passing value that is known
@@ -622,6 +643,16 @@ testAtIfPresentIfAbsent
 		self assert: visited equals: (self collection at: index) ]
 !
 
+testAtPut
+	| newCollection |
+	newCollection := self collection.
+	self samplesDo: [ :index :value |
+		newCollection at: index put: value ].
+	self assert: newCollection equals: self collection.
+	newCollection at: self sampleNewIndex put: self sampleNewValue.
+	self assert: newCollection equals: self collectionWithNewValue
+!
+
 testIndexOf
 	self should: [ self collection indexOf: self sampleNonValue ] raise: Error.
 	self samplesDo: [ :index :value |
@@ -650,9 +681,17 @@ collectionWithDuplicates
 	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }
 !
 
+collectionWithNewValue
+	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'new' -> 'N' }
+!
+
 nonIndexesDo: aBlock
 	aBlock value: 5.
 	aBlock value: 'z'
+!
+
+sampleNewIndex
+	^ 'new'
 !
 
 samplesDo: aBlock
@@ -696,7 +735,7 @@ collection
 		at: 1 put: 1;
 		at: 'a' put: 2;
 		at: true put: 3;
-		at: 4 put: -4;
+		at: 1@3 put: -4;
 		yourself
 !
 
@@ -710,6 +749,22 @@ collectionWithDuplicates
 		at: 3 put: 3;
 		at: false put: 12;
 		yourself
+!
+
+collectionWithNewValue
+	^ Dictionary new
+		at: 1 put: 1;
+		at: 'a' put: 2;
+		at: true put: 3;
+		at: 1@3 put: -4;
+		at: 'new' put: 'N';
+		yourself
+!
+
+samplesDo: aBlock
+	super samplesDo: aBlock.
+	aBlock value: true value: 3.
+	aBlock value: 1@3 value: -4
 ! !
 
 !DictionaryTest methodsFor: 'tests'!
@@ -993,6 +1048,14 @@ collectionLastTwo
 
 collectionWithDuplicates
 	^ #('a' 'b' 'c' 1 2 1 'a')
+!
+
+collectionWithNewValue
+	^ #(1 2 3 -4 'N')
+!
+
+sampleNewIndex
+	^ 5
 !
 
 samplesDo: aBlock
