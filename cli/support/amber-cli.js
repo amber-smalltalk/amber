@@ -38594,7 +38594,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@fs"])._existsSync_(self._normalizePath_("index.html"));
+$1=_st(self["@fs"])._existsSync_(self._withBasePath_("index.html"));
 if(! smalltalk.assert($1)){
 _st(console)._warn_("Warning: project directory does not contain index.html.");
 $ctx1.sendIdx["warn:"]=1;
@@ -38604,8 +38604,8 @@ _st(console)._warn_("    You can also specify a custom error page with --fallbac
 };
 return self}, function($ctx1) {$ctx1.fill(self,"checkDirectoryLayout",{},smalltalk.FileServer)})},
 args: [],
-source: "checkDirectoryLayout\x0a\x09(fs existsSync:\x09(self normalizePath: 'index.html')) ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.\x0a\x09\x09console warn: '    You can also specify a custom error page with --fallback-page.'].",
-messageSends: ["ifFalse:", "existsSync:", "normalizePath:", "warn:"],
+source: "checkDirectoryLayout\x0a\x09(fs existsSync:\x09(self withBasePath: 'index.html')) ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.\x0a\x09\x09console warn: '    You can also specify a custom error page with --fallback-page.'].",
+messageSends: ["ifFalse:", "existsSync:", "withBasePath:", "warn:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -38917,24 +38917,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"isAuthenticated:",{aRequest:aReq
 args: ["aRequest"],
 source: "isAuthenticated: aRequest\x0a\x09\x22Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175\x0a\x09 and https://gist.github.com/1686663\x22\x0a\x09| header token auth parts|\x0a\x0a\x09(username isNil and: [password isNil]) ifTrue: [^true].\x0a\x0a\x09\x22get authentication header\x22\x0a\x09header := (aRequest headers at: 'authorization') ifNil:[''].\x0a\x09(header isEmpty)\x0a\x09ifTrue: [^false]\x0a\x09ifFalse: [\x0a\x09\x09\x22get authentication token\x22\x0a\x09\x09token := (header tokenize: ' ') ifNil:[''].\x0a\x09\x09\x22convert back from base64\x22\x0a\x09\x09auth := self base64Decode: (token at: 2).\x0a\x09\x09\x22split token at colon\x22\x0a\x09\x09parts := auth tokenize: ':'.\x0a\x0a\x09\x09((username = (parts at: 1)) and: [password = (parts at: 2)])\x0a\x09\x09\x09ifTrue: [^true]\x0a\x09\x09\x09ifFalse: [^false]\x0a\x09].",
 messageSends: ["ifTrue:", "and:", "isNil", "ifNil:", "at:", "headers", "ifTrue:ifFalse:", "isEmpty", "tokenize:", "base64Decode:", "="],
-referencedClasses: []
-}),
-smalltalk.FileServer);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "normalizePath:",
-category: 'private',
-fn: function (aBaseRelativePath){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self["@path"])._join_with_(self._basePath(),aBaseRelativePath);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"normalizePath:",{aBaseRelativePath:aBaseRelativePath},smalltalk.FileServer)})},
-args: ["aBaseRelativePath"],
-source: "normalizePath: aBaseRelativePath\x0a\x09\x22return a nomalized path which is relative to the basePath.\x22\x0a\x09^\x09path join: self basePath with: aBaseRelativePath",
-messageSends: ["join:with:", "basePath"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -39264,6 +39246,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"username:",{aUsername:aUsername}
 args: ["aUsername"],
 source: "username: aUsername\x0a\x09username := aUsername.",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "withBasePath:",
+category: 'private',
+fn: function (aBaseRelativePath){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@path"])._join_with_(self._basePath(),aBaseRelativePath);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"withBasePath:",{aBaseRelativePath:aBaseRelativePath},smalltalk.FileServer)})},
+args: ["aBaseRelativePath"],
+source: "withBasePath: aBaseRelativePath\x0a\x09\x22return a file path which is relative to the basePath.\x22\x0a\x09^\x09path join: self basePath with: aBaseRelativePath",
+messageSends: ["join:with:", "basePath"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
