@@ -5462,6 +5462,22 @@ smalltalk.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "removeAll",
+protocol: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@elements"])._removeAll();
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Set)})},
+args: [],
+source: "removeAll\x0a\x09elements removeAll",
+messageSends: ["removeAll"],
+referencedClasses: []
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "select:",
 protocol: 'enumerating',
 fn: function (aBlock){

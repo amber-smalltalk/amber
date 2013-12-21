@@ -1735,6 +1735,10 @@ remove: anObject
 
 remove: anObject ifAbsent: aBlock
 	elements remove: anObject ifAbsent: aBlock
+!
+
+removeAll
+	elements removeAll
 ! !
 
 !Set methodsFor: 'comparing'!
