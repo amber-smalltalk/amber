@@ -901,12 +901,41 @@ function RuntimeBrik(brikz, st) {
 		return result;
 	}
 
+	/* Wrap a JavaScript exception in a Smalltalk Exception. 
+	 
+	 In case of a RangeError, stub the stack after 100 contexts to
+	 avoid another RangeError later when the stack is manipulated. */
 	function wrappedError(error) {
 		var errorWrapper = st.JavaScriptException._on_(error);
+		var context = st.getThisContext();
+		if(isRangeError(error)) {
+			stubContextStack(context);
+		}
+		// Set the error to signaled state in the Smalltalk-side
 		try { errorWrapper._signal(); } catch (ex) {}
-		errorWrapper._context_(st.getThisContext());
+		errorWrapper._context_(context);
 		return errorWrapper;
 	}
+
+	/* Stub the context stack after 100 contexts */
+	function stubContextStack(context) {
+		var currentContext = context;
+		var contexts = 0;
+		while(contexts < 100) {
+			if(currentContext) {
+				currentContext = currentContext.homeContext;
+			}
+			contexts++;
+		}
+		if(currentContext) {
+			currentContext.homeContext = undefined;
+		}
+	}
+
+	function isRangeError(error) {
+		return error.constructor === RangeError;
+	}
+
 
 	/* Handles Smalltalk errors. Triggers the registered ErrorHandler
 		(See the Smalltalk class ErrorHandler and its subclasses */
