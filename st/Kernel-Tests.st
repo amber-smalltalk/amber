@@ -425,6 +425,14 @@ collectionWithDuplicates
 	self subclassResponsibility
 !
 
+collectionWithNewValue
+	"Answers a collection which shows how
+	self collection would look after adding
+	self sampleNewValue"
+	
+	self subclassResponsibility
+!
+
 sampleNewValue
 	"Answers a value that is not yet there
 	and can be put into a tested collection"
@@ -433,8 +441,7 @@ sampleNewValue
 !
 
 sampleNewValueAsCollection
-	"Answers a value that is not yet there
-	and can be put into a tested collection,
+	"Answers self sampleNewValue
 	wrapped in single element collection
 	of tested type"
 	

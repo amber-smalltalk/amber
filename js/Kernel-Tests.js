@@ -1352,6 +1352,22 @@ smalltalk.CollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "collectionWithNewValue",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},smalltalk.CollectionTest)})},
+args: [],
+source: "collectionWithNewValue\x0a\x09\x22Answers a collection which shows how\x0a\x09self collection would look after adding\x0a\x09self sampleNewValue\x22\x0a\x09\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isCollectionReadOnly",
 protocol: 'testing',
 fn: function (){
@@ -1394,7 +1410,7 @@ $1=_st(self._collectionClass())._with_(self._sampleNewValue());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},smalltalk.CollectionTest)})},
 args: [],
-source: "sampleNewValueAsCollection\x0a\x09\x22Answers a value that is not yet there\x0a\x09and can be put into a tested collection,\x0a\x09wrapped in single element collection\x0a\x09of tested type\x22\x0a\x09\x0a\x09^ self collectionClass with: self sampleNewValue",
+source: "sampleNewValueAsCollection\x0a\x09\x22Answers self sampleNewValue\x0a\x09wrapped in single element collection\x0a\x09of tested type\x22\x0a\x09\x0a\x09^ self collectionClass with: self sampleNewValue",
 messageSends: ["with:", "collectionClass", "sampleNewValue"],
 referencedClasses: []
 }),
