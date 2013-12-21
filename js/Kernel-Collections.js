@@ -2608,16 +2608,20 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "first:",
 protocol: 'accessing',
-fn: function (n){
+fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._copyFrom_to_((1),n);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"first:",{n:n},smalltalk.SequenceableCollection)})},
-args: ["n"],
-source: "first: n\x0a\x09\x22Answer the first n elements of the receiver.\x0a\x09Raise an error if there are not enough elements.\x22\x0a\x0a\x09^ self copyFrom: 1 to: n",
-messageSends: ["copyFrom:to:"],
+var $1,$2;
+$1=_st(self._size()).__lt(aNumber);
+if(smalltalk.assert($1)){
+self._error_("Invalid number of elements");
+};
+$2=self._copyFrom_to_((1),aNumber);
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"first:",{aNumber:aNumber},smalltalk.SequenceableCollection)})},
+args: ["aNumber"],
+source: "first: aNumber\x0a\x09\x22Answer the first `aNumber` elements of the receiver.\x0a\x09Raise an error if there are not enough elements in the receiver.\x22\x0a\x0a\x09self size < aNumber ifTrue: [ self error: 'Invalid number of elements' ].\x0a\x0a\x09^ self copyFrom: 1 to: aNumber",
+messageSends: ["ifTrue:", "<", "size", "error:", "copyFrom:to:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
@@ -2740,6 +2744,33 @@ return $1;
 args: [],
 source: "last\x0a\x09^ self at: self size",
 messageSends: ["at:", "size"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "last:",
+protocol: 'accessing',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$5,$4,$3;
+$2=self._size();
+$ctx1.sendIdx["size"]=1;
+$1=_st($2).__lt(aNumber);
+if(smalltalk.assert($1)){
+self._error_("Invalid number of elements");
+};
+$5=self._size();
+$ctx1.sendIdx["size"]=2;
+$4=_st($5).__minus(aNumber);
+$3=self._copyFrom_to_($4,self._size());
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"last:",{aNumber:aNumber},smalltalk.SequenceableCollection)})},
+args: ["aNumber"],
+source: "last: aNumber\x0a\x09\x22Answer the last aNumber elements of the receiver.\x0a\x09Raise an error if there are not enough elements in the receiver.\x22\x0a\x0a\x09self size < aNumber ifTrue: [ self error: 'Invalid number of elements' ].\x0a\x0a\x09^ self copyFrom: self size - aNumber to: self size",
+messageSends: ["ifTrue:", "<", "size", "error:", "copyFrom:to:", "-"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);

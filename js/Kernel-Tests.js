@@ -2759,6 +2759,35 @@ smalltalk.SequenceableCollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testFirstN",
+protocol: 'tests',
+fn: function (){
+var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$4,$3;
+$2=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$1=_st($2)._first_((2));
+$ctx1.sendIdx["first:"]=1;
+$4=self._collection();
+$ctx1.sendIdx["collection"]=2;
+$3=_st($4)._copyFrom_to_((0),(2));
+self._assert_equals_($1,$3);
+self._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._collection())._first_((33));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
+return self}, function($ctx1) {$ctx1.fill(self,"testFirstN",{},smalltalk.SequenceableCollectionTest)})},
+args: [],
+source: "testFirstN\x0a\x09self \x0a\x09\x09assert: (self collection first: 2) \x0a\x09\x09equals: (self collection copyFrom: 0 to: 2).\x0a\x09\x09\x0a\x09self should: [ self collection first: 33 ] raise: Error",
+messageSends: ["assert:equals:", "first:", "collection", "copyFrom:to:", "should:raise:"],
+referencedClasses: ["Error"]
+}),
+smalltalk.SequenceableCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testFourth",
 protocol: 'tests',
 fn: function (){
@@ -2797,6 +2826,43 @@ args: [],
 source: "testLast\x0a\x09self assert: (self collection last) equals: (self collection at: self collection size)",
 messageSends: ["assert:equals:", "last", "collection", "at:", "size"],
 referencedClasses: []
+}),
+smalltalk.SequenceableCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testLastN",
+protocol: 'tests',
+fn: function (){
+var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$4,$7,$6,$5,$9,$8,$3;
+$2=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$1=_st($2)._last_((2));
+$ctx1.sendIdx["last:"]=1;
+$4=self._collection();
+$ctx1.sendIdx["collection"]=2;
+$7=self._collection();
+$ctx1.sendIdx["collection"]=3;
+$6=_st($7)._size();
+$ctx1.sendIdx["size"]=1;
+$5=_st($6).__minus((2));
+$9=self._collection();
+$ctx1.sendIdx["collection"]=4;
+$8=_st($9)._size();
+$3=_st($4)._copyFrom_to_($5,$8);
+self._assert_equals_($1,$3);
+self._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._collection())._last_((33));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
+return self}, function($ctx1) {$ctx1.fill(self,"testLastN",{},smalltalk.SequenceableCollectionTest)})},
+args: [],
+source: "testLastN\x0a\x09self \x0a\x09\x09assert: (self collection last: 2) \x0a\x09\x09equals: (self collection copyFrom: self collection size -2 to: self collection size).\x0a\x09\x09\x0a\x09self should: [ self collection last: 33 ] raise: Error",
+messageSends: ["assert:equals:", "last:", "collection", "copyFrom:to:", "-", "size", "should:raise:"],
+referencedClasses: ["Error"]
 }),
 smalltalk.SequenceableCollectionTest);
 

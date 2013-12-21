@@ -846,12 +846,28 @@ testFirst
 	self assert: (self collection first) equals: (self collection at: 1)
 !
 
+testFirstN
+	self 
+		assert: (self collection first: 2) 
+		equals: (self collection copyFrom: 0 to: 2).
+		
+	self should: [ self collection first: 33 ] raise: Error
+!
+
 testFourth
 	self assert: (self collection fourth) equals: (self collection at: 4)
 !
 
 testLast
 	self assert: (self collection last) equals: (self collection at: self collection size)
+!
+
+testLastN
+	self 
+		assert: (self collection last: 2) 
+		equals: (self collection copyFrom: self collection size -2 to: self collection size).
+		
+	self should: [ self collection last: 33 ] raise: Error
 !
 
 testSecond

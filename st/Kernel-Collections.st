@@ -821,11 +821,13 @@ first
 	^ self at: 1
 !
 
-first: n
-	"Answer the first n elements of the receiver.
-	Raise an error if there are not enough elements."
+first: aNumber
+	"Answer the first `aNumber` elements of the receiver.
+	Raise an error if there are not enough elements in the receiver."
 
-	^ self copyFrom: 1 to: n
+	self size < aNumber ifTrue: [ self error: 'Invalid number of elements' ].
+
+	^ self copyFrom: 1 to: aNumber
 !
 
 fourth
@@ -861,6 +863,15 @@ indexOf: anObject startingAt: start ifAbsent: aBlock
 
 last
 	^ self at: self size
+!
+
+last: aNumber
+	"Answer the last aNumber elements of the receiver.
+	Raise an error if there are not enough elements in the receiver."
+
+	self size < aNumber ifTrue: [ self error: 'Invalid number of elements' ].
+
+	^ self copyFrom: self size - aNumber to: self size
 !
 
 second
