@@ -420,7 +420,7 @@ collectionSize
 collectionWithDuplicates
 	"Answers pre-filled collection of type tested,
 	with exactly five distinct elements,
-	some of them appearing multiple times."
+	some of them appearing multiple times, if possible."
 
 	self subclassResponsibility
 !
@@ -1431,6 +1431,124 @@ collectionClass
 	^ String
 ! !
 
+CollectionTest subclass: #SetTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!SetTest methodsFor: 'fixture'!
+
+collection
+	^ Set new
+		add: 1;
+		add: 2;
+		add: 3;
+		add: -4;
+		yourself
+!
+
+collectionOfPrintStrings
+	^ Set new
+		add: '1';
+		add: '2';
+		add: '3';
+		add: '-4';
+		yourself
+!
+
+collectionSize
+	^ 4
+!
+
+collectionWithDuplicates
+	"Set has no duplicates"
+	^ self collection add: 'yet another'; yourself
+!
+
+collectionWithNewValue
+	^ Set new
+		add: 1;
+		add: 2;
+		add: 3;
+		add: 'N';
+		add: -4;
+		yourself
+! !
+
+!SetTest methodsFor: 'tests'!
+
+testAddRemove
+	| set |
+	set := Set new.
+	
+	self assert: set isEmpty.
+
+	set add: 3.
+	self assert: (set includes: 3).
+
+	set add: 5.
+	self assert: (set includes: 5).
+
+	set remove: 3.
+	self deny: (set includes: 3)
+!
+
+testAt
+	self should: [ Set new at: 1 put: 2 ] raise: Error
+!
+
+testCollect
+	super testCollect.
+	self assert: (#(5 6 8) asSet collect: [ :x | x \\ 3 ]) equals: #(0 2) asSet
+!
+
+testComparing
+	self assert: #(0 2) asSet equals: #(0 2) asSet.
+	self assert: #(2 0) asSet equals: #(0 2) asSet.
+	self deny: #(0 2 3) asSet = #(0 2) asSet.
+	self deny: #(1 2) asSet = #(0 2) asSet
+!
+
+testPrintString
+	| set |
+	set := Set new.
+	self assert: set printString equals: 'a Set ()'.
+	set add: 1; add: 3.
+	self assert: set printString equals: 'a Set (1 3)'.
+	set add: 'foo'.
+	self assert: set printString equals: 'a Set (1 3 ''foo'')'.
+	set remove: 1; remove: 3.
+	self assert: set printString equals: 'a Set (''foo'')'.
+	set add: 3.
+	self assert: set printString equals: 'a Set (''foo'' 3)'.
+	set add: 3.
+	self assert: set printString equals: 'a Set (''foo'' 3)'
+!
+
+testUnboxedObjects
+	self assert: {'foo' yourself. 'foo' yourself} asSet asArray equals: #('foo')
+!
+
+testUnicity
+	| set |
+	set := Set new.
+	set add: 21.
+	set add: 'hello'.
+
+	set add: 21.
+	self assert: set size equals: 2.
+	
+	set add: 'hello'.
+	self assert: set size equals: 2.
+
+	self assert: set asArray equals: #(21 'hello')
+! !
+
+!SetTest class methodsFor: 'fixture'!
+
+collectionClass
+	^ Set
+! !
+
 TestCase subclass: #ConsoleTranscriptTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
@@ -2210,84 +2328,6 @@ textNext
 			self assert: (next < 1).
 			self deny: current = next.
 			next = current ]
-! !
-
-TestCase subclass: #SetTest
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
-
-!SetTest methodsFor: 'tests'!
-
-testAddRemove
-	| set |
-	set := Set new.
-	
-	self assert: set isEmpty.
-
-	set add: 3.
-	self assert: (set includes: 3).
-
-	set add: 5.
-	self assert: (set includes: 5).
-
-	set remove: 3.
-	self deny: (set includes: 3)
-!
-
-testAt
-	self should: [ Set new at: 1 put: 2 ] raise: Error
-!
-
-testCollect
-	self assert: (#(5 6 8) asSet collect: [ :x | x \\ 3 ]) equals: #(0 2) asSet
-!
-
-testComparing
-	self assert: #(0 2) asSet equals: #(0 2) asSet.
-	self assert: #(2 0) asSet equals: #(0 2) asSet.
-	self deny: #(0 2 3) asSet = #(0 2) asSet.
-	self deny: #(1 2) asSet = #(0 2) asSet
-!
-
-testPrintString
-	| set |
-	set := Set new.
-	self assert: set printString equals: 'a Set ()'.
-	set add: 1; add: 3.
-	self assert: set printString equals: 'a Set (1 3)'.
-	set add: 'foo'.
-	self assert: set printString equals: 'a Set (1 3 ''foo'')'.
-	set remove: 1; remove: 3.
-	self assert: set printString equals: 'a Set (''foo'')'.
-	set add: 3.
-	self assert: set printString equals: 'a Set (''foo'' 3)'.
-	set add: 3.
-	self assert: set printString equals: 'a Set (''foo'' 3)'
-!
-
-testSize
-	self assert: Set new size equals: 0.
-	self assert: (Set withAll: #(1 2 3 4)) size equals: 4.
-	self assert: (Set withAll: #(1 1 1 1)) size equals: 1
-!
-
-testUnboxedObjects
-	self assert: {'foo' yourself. 'foo' yourself} asSet asArray equals: #('foo')
-!
-
-testUnicity
-	| set |
-	set := Set new.
-	set add: 21.
-	set add: 'hello'.
-
-	set add: 21.
-	self assert: set size equals: 2.
-	
-	set add: 'hello'.
-	self assert: set size equals: 2.
-
-	self assert: set asArray equals: #(21 'hello')
 ! !
 
 TestCase subclass: #StreamTest
