@@ -4148,6 +4148,32 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "beginsWith:",
+protocol: 'testing',
+fn: function (prefix){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1,$4;
+$2=self._size();
+$ctx1.sendIdx["size"]=1;
+$3=_st(prefix)._size();
+$ctx1.sendIdx["size"]=2;
+$1=_st($2).__lt($3);
+if(smalltalk.assert($1)){
+return false;
+};
+$4=_st(self._first_(_st(prefix)._size())).__eq(prefix);
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"beginsWith:",{prefix:prefix},smalltalk.String)})},
+args: ["prefix"],
+source: "beginsWith: prefix\x0a\x09self size < prefix size ifTrue: [ ^ false ].\x0a\x09^ (self first: prefix size) = prefix",
+messageSends: ["ifTrue:", "<", "size", "=", "first:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "capitalized",
 protocol: 'converting',
 fn: function (){
@@ -4234,6 +4260,32 @@ return $1;
 args: [],
 source: "deepCopy\x0a\x09^ self shallowCopy",
 messageSends: ["shallowCopy"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "endsWith:",
+protocol: 'testing',
+fn: function (suffix){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1,$4;
+$2=self._size();
+$ctx1.sendIdx["size"]=1;
+$3=_st(suffix)._size();
+$ctx1.sendIdx["size"]=2;
+$1=_st($2).__lt($3);
+if(smalltalk.assert($1)){
+return false;
+};
+$4=_st(self._last_(_st(suffix)._size())).__eq(suffix);
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"endsWith:",{suffix:suffix},smalltalk.String)})},
+args: ["suffix"],
+source: "endsWith: suffix\x0a\x09self size < suffix size ifTrue: [ ^ false ].\x0a\x09^ (self last: suffix size) = suffix",
+messageSends: ["ifTrue:", "<", "size", "=", "last:"],
 referencedClasses: []
 }),
 smalltalk.String);
