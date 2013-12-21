@@ -418,6 +418,22 @@ collectionWithDuplicates
 	self subclassResponsibility
 !
 
+sampleNewValue
+	"Answers a value that is not yet there
+	and can be put into a tested collection"
+	
+	^ 'N'
+!
+
+sampleNewValueAsCollection
+	"Answers a value that is not yet there
+	and can be put into a tested collection,
+	wrapped in single element collection
+	of tested type"
+	
+	^ self collectionClass with: self sampleNewValue
+!
+
 sampleNonValue
 	"Answer value that is guaranteed
 	not to be contained by self collection"
@@ -432,6 +448,14 @@ isCollectionReadOnly
 ! !
 
 !CollectionTest methodsFor: 'tests'!
+
+testAddAll
+	self assert: (self collection addAll: self collectionClass new; yourself) equals: self collection.
+	self assert: (self collectionClass new addAll: self collection; yourself) equals: self collection.
+	self assert: (self collectionClass new addAll: self collectionClass new; yourself) equals: self collectionClass new.
+	self assert: (self collection addAll: self sampleNewValueAsCollection; yourself) equals: self collectionWithNewValue.
+	self assertSameContents: (self sampleNewValueAsCollection addAll: self collection; yourself) as: self collectionWithNewValue
+!
 
 testAllSatisfy
 	| collection anyOne |
@@ -481,6 +505,14 @@ testCollect
 		assertSameContents: (self collection collect: [ :each |
 			each abs ])
 		as: newCollection
+!
+
+testComma
+	self assert: self collection, self collectionClass new equals: self collection.
+	self assert: self collectionClass new, self collection equals: self collection.
+	self assert: self collectionClass new, self collectionClass new equals: self collectionClass new.
+	self assert: self collection, self sampleNewValueAsCollection equals: self collectionWithNewValue.
+	self assertSameContents: self sampleNewValueAsCollection, self collection as: self collectionWithNewValue
 !
 
 testDetect
@@ -547,6 +579,7 @@ testSelect
 
 testSize
 	self assert: self collectionClass new size equals: 0.
+	self assert: self sampleNewValueAsCollection size equals: 1.
 	self assert: self collection size equals: self collectionSize
 ! !
 
@@ -583,13 +616,6 @@ sampleNewIndex
 	"Answers a value that can be used as index in at:put: or at:ifAbsentPut:"
 	
 	self subclassResponsibility
-!
-
-sampleNewValue
-	"Answers a value that is not yet there
-	and can be put into a tested collection"
-	
-	^ 'N'
 !
 
 sampleNonIndexesDo: aBlock
@@ -705,14 +731,29 @@ sampleNewIndex
 	^ 'new'
 !
 
+sampleNewValueAsCollection
+	^ #{ 'new' -> 'N' }
+!
+
 samplesDo: aBlock
 	aBlock value: 'a' value: 2
 ! !
 
 !HashedCollectionTest methodsFor: 'tests'!
 
+testAddAll
+	super testAddAll.
+	self assert: (self collection addAll: self collection; yourself) equals: self collection.
+	self assert: (self collection addAll: self collectionWithNewValue; yourself) equals: self collectionWithNewValue.
+	self assert: (self collectionWithNewValue addAll: self collection; yourself) equals: self collectionWithNewValue
+!
+
 testAsDictionary
 self assert: ( self collectionClass new asDictionary isMemberOf: Dictionary ).
+!
+
+testComma
+	self should: [ self collection, self collection ] raise: Error
 !
 
 testFrom
@@ -772,6 +813,12 @@ collectionWithNewValue
 		at: 'a' put: 2;
 		at: true put: 3;
 		at: 1@3 put: -4;
+		at: 'new' put: 'N';
+		yourself
+!
+
+sampleNewValueAsCollection
+	^ Dictionary new
 		at: 'new' put: 'N';
 		yourself
 !
@@ -1183,12 +1230,26 @@ collectionWithDuplicates
 	^ 'abbaerte'
 !
 
+collectionWithNewValue
+	^ 'helloN'
+!
+
+sampleNewValueAsCollection
+	
+	^ 'N'
+!
+
 samplesDo: aBlock
 	super samplesDo: aBlock.
 	aBlock value: 3 value: 'l'
 ! !
 
 !StringTest methodsFor: 'tests'!
+
+testAddAll
+	"String instances are read-only"
+	self should: [ self collection addAll: self collection ] raise: Error
+!
 
 testAddRemove
 	self should: [ 'hello' add: 'a' ] raise: Error.

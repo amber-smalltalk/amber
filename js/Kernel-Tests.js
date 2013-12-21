@@ -1352,6 +1352,40 @@ smalltalk.CollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "sampleNewValue",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "N";
+}, function($ctx1) {$ctx1.fill(self,"sampleNewValue",{},smalltalk.CollectionTest)})},
+args: [],
+source: "sampleNewValue\x0a\x09\x22Answers a value that is not yet there\x0a\x09and can be put into a tested collection\x22\x0a\x09\x0a\x09^ 'N'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sampleNewValueAsCollection",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._collectionClass())._with_(self._sampleNewValue());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},smalltalk.CollectionTest)})},
+args: [],
+source: "sampleNewValueAsCollection\x0a\x09\x22Answers a value that is not yet there\x0a\x09and can be put into a tested collection,\x0a\x09wrapped in single element collection\x0a\x09of tested type\x22\x0a\x09\x0a\x09^ self collectionClass with: self sampleNewValue",
+messageSends: ["with:", "collectionClass", "sampleNewValue"],
+referencedClasses: []
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "sampleNonValue",
 protocol: 'fixture',
 fn: function (){
@@ -1362,6 +1396,87 @@ return (999);
 args: [],
 source: "sampleNonValue\x0a\x09\x22Answer value that is guaranteed\x0a\x09not to be contained by self collection\x22\x0a\x09\x0a\x09^ 999",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testAddAll",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$5,$4,$6,$1,$7,$10,$9,$11,$12,$13,$8,$14,$17,$16,$18,$20,$19,$21,$15,$23,$24,$25,$26,$22,$27,$28,$29;
+$2=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$3=$2;
+$5=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=1;
+$4=_st($5)._new();
+$ctx1.sendIdx["new"]=1;
+_st($3)._addAll_($4);
+$ctx1.sendIdx["addAll:"]=1;
+$6=_st($2)._yourself();
+$ctx1.sendIdx["yourself"]=1;
+$1=$6;
+$7=self._collection();
+$ctx1.sendIdx["collection"]=2;
+self._assert_equals_($1,$7);
+$ctx1.sendIdx["assert:equals:"]=1;
+$10=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=2;
+$9=_st($10)._new();
+$ctx1.sendIdx["new"]=2;
+$11=$9;
+$12=self._collection();
+$ctx1.sendIdx["collection"]=3;
+_st($11)._addAll_($12);
+$ctx1.sendIdx["addAll:"]=2;
+$13=_st($9)._yourself();
+$ctx1.sendIdx["yourself"]=2;
+$8=$13;
+$14=self._collection();
+$ctx1.sendIdx["collection"]=4;
+self._assert_equals_($8,$14);
+$ctx1.sendIdx["assert:equals:"]=2;
+$17=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=3;
+$16=_st($17)._new();
+$ctx1.sendIdx["new"]=3;
+$18=$16;
+$20=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=4;
+$19=_st($20)._new();
+$ctx1.sendIdx["new"]=4;
+_st($18)._addAll_($19);
+$ctx1.sendIdx["addAll:"]=3;
+$21=_st($16)._yourself();
+$ctx1.sendIdx["yourself"]=3;
+$15=$21;
+self._assert_equals_($15,_st(self._collectionClass())._new());
+$ctx1.sendIdx["assert:equals:"]=3;
+$23=self._collection();
+$ctx1.sendIdx["collection"]=5;
+$24=$23;
+$25=self._sampleNewValueAsCollection();
+$ctx1.sendIdx["sampleNewValueAsCollection"]=1;
+_st($24)._addAll_($25);
+$ctx1.sendIdx["addAll:"]=4;
+$26=_st($23)._yourself();
+$ctx1.sendIdx["yourself"]=4;
+$22=$26;
+$27=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=1;
+self._assert_equals_($22,$27);
+$28=self._sampleNewValueAsCollection();
+_st($28)._addAll_(self._collection());
+$29=_st($28)._yourself();
+self._assertSameContents_as_($29,self._collectionWithNewValue());
+return self}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},smalltalk.CollectionTest)})},
+args: [],
+source: "testAddAll\x0a\x09self assert: (self collection addAll: self collectionClass new; yourself) equals: self collection.\x0a\x09self assert: (self collectionClass new addAll: self collection; yourself) equals: self collection.\x0a\x09self assert: (self collectionClass new addAll: self collectionClass new; yourself) equals: self collectionClass new.\x0a\x09self assert: (self collection addAll: self sampleNewValueAsCollection; yourself) equals: self collectionWithNewValue.\x0a\x09self assertSameContents: (self sampleNewValueAsCollection addAll: self collection; yourself) as: self collectionWithNewValue",
+messageSends: ["assert:equals:", "addAll:", "collection", "new", "collectionClass", "yourself", "sampleNewValueAsCollection", "collectionWithNewValue", "assertSameContents:as:"],
 referencedClasses: []
 }),
 smalltalk.CollectionTest);
@@ -1533,6 +1648,68 @@ return self}, function($ctx1) {$ctx1.fill(self,"testCollect",{newCollection:newC
 args: [],
 source: "testCollect\x0a\x09| newCollection |\x0a\x09newCollection := #(1 2 3 4).\x0a\x09self\x0a\x09\x09assertSameContents: (self collection collect: [ :each |\x0a\x09\x09\x09each abs ])\x0a\x09\x09as: newCollection",
 messageSends: ["assertSameContents:as:", "collect:", "collection", "abs"],
+referencedClasses: []
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testComma",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$4,$3,$1,$5,$8,$7,$9,$6,$10,$13,$12,$15,$14,$11,$17,$18,$16,$19;
+$2=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$4=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=1;
+$3=_st($4)._new();
+$ctx1.sendIdx["new"]=1;
+$1=_st($2).__comma($3);
+$ctx1.sendIdx[","]=1;
+$5=self._collection();
+$ctx1.sendIdx["collection"]=2;
+self._assert_equals_($1,$5);
+$ctx1.sendIdx["assert:equals:"]=1;
+$8=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=2;
+$7=_st($8)._new();
+$ctx1.sendIdx["new"]=2;
+$9=self._collection();
+$ctx1.sendIdx["collection"]=3;
+$6=_st($7).__comma($9);
+$ctx1.sendIdx[","]=2;
+$10=self._collection();
+$ctx1.sendIdx["collection"]=4;
+self._assert_equals_($6,$10);
+$ctx1.sendIdx["assert:equals:"]=2;
+$13=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=3;
+$12=_st($13)._new();
+$ctx1.sendIdx["new"]=3;
+$15=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=4;
+$14=_st($15)._new();
+$ctx1.sendIdx["new"]=4;
+$11=_st($12).__comma($14);
+$ctx1.sendIdx[","]=3;
+self._assert_equals_($11,_st(self._collectionClass())._new());
+$ctx1.sendIdx["assert:equals:"]=3;
+$17=self._collection();
+$ctx1.sendIdx["collection"]=5;
+$18=self._sampleNewValueAsCollection();
+$ctx1.sendIdx["sampleNewValueAsCollection"]=1;
+$16=_st($17).__comma($18);
+$ctx1.sendIdx[","]=4;
+$19=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=1;
+self._assert_equals_($16,$19);
+self._assertSameContents_as_(_st(self._sampleNewValueAsCollection()).__comma(self._collection()),self._collectionWithNewValue());
+return self}, function($ctx1) {$ctx1.fill(self,"testComma",{},smalltalk.CollectionTest)})},
+args: [],
+source: "testComma\x0a\x09self assert: self collection, self collectionClass new equals: self collection.\x0a\x09self assert: self collectionClass new, self collection equals: self collection.\x0a\x09self assert: self collectionClass new, self collectionClass new equals: self collectionClass new.\x0a\x09self assert: self collection, self sampleNewValueAsCollection equals: self collectionWithNewValue.\x0a\x09self assertSameContents: self sampleNewValueAsCollection, self collection as: self collectionWithNewValue",
+messageSends: ["assert:equals:", ",", "collection", "new", "collectionClass", "sampleNewValueAsCollection", "collectionWithNewValue", "assertSameContents:as:"],
 referencedClasses: []
 }),
 smalltalk.CollectionTest);
@@ -1811,16 +1988,20 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 $1=_st(_st(self._collectionClass())._new())._size();
 $ctx1.sendIdx["size"]=1;
 self._assert_equals_($1,(0));
 $ctx1.sendIdx["assert:equals:"]=1;
+$2=_st(self._sampleNewValueAsCollection())._size();
+$ctx1.sendIdx["size"]=2;
+self._assert_equals_($2,(1));
+$ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_(_st(self._collection())._size(),self._collectionSize());
 return self}, function($ctx1) {$ctx1.fill(self,"testSize",{},smalltalk.CollectionTest)})},
 args: [],
-source: "testSize\x0a\x09self assert: self collectionClass new size equals: 0.\x0a\x09self assert: self collection size equals: self collectionSize",
-messageSends: ["assert:equals:", "size", "new", "collectionClass", "collection", "collectionSize"],
+source: "testSize\x0a\x09self assert: self collectionClass new size equals: 0.\x0a\x09self assert: self sampleNewValueAsCollection size equals: 1.\x0a\x09self assert: self collection size equals: self collectionSize",
+messageSends: ["assert:equals:", "size", "new", "collectionClass", "sampleNewValueAsCollection", "collection", "collectionSize"],
 referencedClasses: []
 }),
 smalltalk.CollectionTest);
@@ -1890,22 +2071,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"sampleNewIndex",{},smalltalk.Ind
 args: [],
 source: "sampleNewIndex\x0a\x09\x22Answers a value that can be used as index in at:put: or at:ifAbsentPut:\x22\x0a\x09\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
-referencedClasses: []
-}),
-smalltalk.IndexableCollectionTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "sampleNewValue",
-protocol: 'fixture',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return "N";
-}, function($ctx1) {$ctx1.fill(self,"sampleNewValue",{},smalltalk.IndexableCollectionTest)})},
-args: [],
-source: "sampleNewValue\x0a\x09\x22Answers a value that is not yet there\x0a\x09and can be put into a tested collection\x22\x0a\x09\x0a\x09^ 'N'",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.IndexableCollectionTest);
@@ -2336,6 +2501,24 @@ smalltalk.HashedCollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "sampleNewValueAsCollection",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=smalltalk.HashedCollection._from_(["new".__minus_gt("N")]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},smalltalk.HashedCollectionTest)})},
+args: [],
+source: "sampleNewValueAsCollection\x0a\x09^ #{ 'new' -> 'N' }",
+messageSends: ["->"],
+referencedClasses: []
+}),
+smalltalk.HashedCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "samplesDo:",
 protocol: 'fixture',
 fn: function (aBlock){
@@ -2346,6 +2529,57 @@ return self}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},smal
 args: ["aBlock"],
 source: "samplesDo: aBlock\x0a\x09aBlock value: 'a' value: 2",
 messageSends: ["value:value:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testAddAll",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
+smalltalk.HashedCollectionTest.superclass.fn.prototype._testAddAll.apply(_st(self), []);
+$2=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$3=$2;
+$4=self._collection();
+$ctx1.sendIdx["collection"]=2;
+_st($3)._addAll_($4);
+$ctx1.sendIdx["addAll:"]=1;
+$5=_st($2)._yourself();
+$ctx1.sendIdx["yourself"]=1;
+$1=$5;
+$6=self._collection();
+$ctx1.sendIdx["collection"]=3;
+self._assert_equals_($1,$6);
+$ctx1.sendIdx["assert:equals:"]=1;
+$8=self._collection();
+$ctx1.sendIdx["collection"]=4;
+$9=$8;
+$10=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=1;
+_st($9)._addAll_($10);
+$ctx1.sendIdx["addAll:"]=2;
+$11=_st($8)._yourself();
+$ctx1.sendIdx["yourself"]=2;
+$7=$11;
+$12=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=2;
+self._assert_equals_($7,$12);
+$ctx1.sendIdx["assert:equals:"]=2;
+$14=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=3;
+_st($14)._addAll_(self._collection());
+$15=_st($14)._yourself();
+$13=$15;
+self._assert_equals_($13,self._collectionWithNewValue());
+return self}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},smalltalk.HashedCollectionTest)})},
+args: [],
+source: "testAddAll\x0a\x09super testAddAll.\x0a\x09self assert: (self collection addAll: self collection; yourself) equals: self collection.\x0a\x09self assert: (self collection addAll: self collectionWithNewValue; yourself) equals: self collectionWithNewValue.\x0a\x09self assert: (self collectionWithNewValue addAll: self collection; yourself) equals: self collectionWithNewValue",
+messageSends: ["testAddAll", "assert:equals:", "addAll:", "collection", "yourself", "collectionWithNewValue"],
 referencedClasses: []
 }),
 smalltalk.HashedCollectionTest);
@@ -2364,6 +2598,29 @@ args: [],
 source: "testAsDictionary\x0aself assert: ( self collectionClass new asDictionary isMemberOf: Dictionary ).",
 messageSends: ["assert:", "isMemberOf:", "asDictionary", "new", "collectionClass"],
 referencedClasses: ["Dictionary"]
+}),
+smalltalk.HashedCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testComma",
+protocol: 'tests',
+fn: function (){
+var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+$1=self._collection();
+$ctx2.sendIdx["collection"]=1;
+return _st($1).__comma(self._collection());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
+return self}, function($ctx1) {$ctx1.fill(self,"testComma",{},smalltalk.HashedCollectionTest)})},
+args: [],
+source: "testComma\x0a\x09self should: [ self collection, self collection ] raise: Error",
+messageSends: ["should:raise:", ",", "collection"],
+referencedClasses: ["Error"]
 }),
 smalltalk.HashedCollectionTest);
 
@@ -2541,6 +2798,28 @@ return $1;
 args: [],
 source: "collectionWithNewValue\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 1@3 put: -4;\x0a\x09\x09at: 'new' put: 'N';\x0a\x09\x09yourself",
 messageSends: ["at:put:", "new", "@", "yourself"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sampleNewValueAsCollection",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st($Dictionary())._new();
+_st($2)._at_put_("new","N");
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},smalltalk.DictionaryTest)})},
+args: [],
+source: "sampleNewValueAsCollection\x0a\x09^ Dictionary new\x0a\x09\x09at: 'new' put: 'N';\x0a\x09\x09yourself",
+messageSends: ["at:put:", "new", "yourself"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.DictionaryTest);
@@ -3845,6 +4124,38 @@ smalltalk.StringTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "collectionWithNewValue",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "helloN";
+}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},smalltalk.StringTest)})},
+args: [],
+source: "collectionWithNewValue\x0a\x09^ 'helloN'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sampleNewValueAsCollection",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "N";
+}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},smalltalk.StringTest)})},
+args: [],
+source: "sampleNewValueAsCollection\x0a\x09\x0a\x09^ 'N'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "samplesDo:",
 protocol: 'fixture',
 fn: function (aBlock){
@@ -3857,6 +4168,29 @@ args: ["aBlock"],
 source: "samplesDo: aBlock\x0a\x09super samplesDo: aBlock.\x0a\x09aBlock value: 3 value: 'l'",
 messageSends: ["samplesDo:", "value:value:"],
 referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testAddAll",
+protocol: 'tests',
+fn: function (){
+var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+$1=self._collection();
+$ctx2.sendIdx["collection"]=1;
+return _st($1)._addAll_(self._collection());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
+return self}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},smalltalk.StringTest)})},
+args: [],
+source: "testAddAll\x0a\x09\x22String instances are read-only\x22\x0a\x09self should: [ self collection addAll: self collection ] raise: Error",
+messageSends: ["should:raise:", "addAll:", "collection"],
+referencedClasses: ["Error"]
 }),
 smalltalk.StringTest);
 
