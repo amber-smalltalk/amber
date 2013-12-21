@@ -2807,22 +2807,23 @@ protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$5,$4,$3;
+var $2,$1,$6,$5,$4,$3;
 $2=self._size();
 $ctx1.sendIdx["size"]=1;
 $1=_st($2).__lt(aNumber);
 if(smalltalk.assert($1)){
 self._error_("Invalid number of elements");
 };
-$5=self._size();
+$6=self._size();
 $ctx1.sendIdx["size"]=2;
-$4=_st($5).__minus(aNumber);
+$5=_st($6).__minus(aNumber);
+$4=_st($5).__plus((1));
 $3=self._copyFrom_to_($4,self._size());
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"last:",{aNumber:aNumber},smalltalk.SequenceableCollection)})},
 args: ["aNumber"],
-source: "last: aNumber\x0a\x09\x22Answer the last aNumber elements of the receiver.\x0a\x09Raise an error if there are not enough elements in the receiver.\x22\x0a\x0a\x09self size < aNumber ifTrue: [ self error: 'Invalid number of elements' ].\x0a\x0a\x09^ self copyFrom: self size - aNumber to: self size",
-messageSends: ["ifTrue:", "<", "size", "error:", "copyFrom:to:", "-"],
+source: "last: aNumber\x0a\x09\x22Answer the last aNumber elements of the receiver.\x0a\x09Raise an error if there are not enough elements in the receiver.\x22\x0a\x0a\x09self size < aNumber ifTrue: [ self error: 'Invalid number of elements' ].\x0a\x0a\x09^ self copyFrom: self size - aNumber + 1 to: self size",
+messageSends: ["ifTrue:", "<", "size", "error:", "copyFrom:to:", "+", "-"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);

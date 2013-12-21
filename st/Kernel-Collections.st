@@ -871,7 +871,7 @@ last: aNumber
 
 	self size < aNumber ifTrue: [ self error: 'Invalid number of elements' ].
 
-	^ self copyFrom: self size - aNumber to: self size
+	^ self copyFrom: self size - aNumber + 1 to: self size
 !
 
 second
