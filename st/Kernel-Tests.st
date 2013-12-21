@@ -553,9 +553,10 @@ testSize
 !CollectionTest class methodsFor: 'fixture'!
 
 collectionClass
-	"Answers class of collection type tested"
+	"Answers class of collection type tested,
+	or nil if test is abstract"
 
-	self subclassResponsibility
+	^ nil
 ! !
 
 !CollectionTest class methodsFor: 'testing'!

@@ -1833,11 +1833,11 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.CollectionTest.klass)})},
+return nil;
+}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.CollectionTest.klass)})},
 args: [],
-source: "collectionClass\x0a\x09\x22Answers class of collection type tested\x22\x0a\x0a\x09self subclassResponsibility",
-messageSends: ["subclassResponsibility"],
+source: "collectionClass\x0a\x09\x22Answers class of collection type tested,\x0a\x09or nil if test is abstract\x22\x0a\x0a\x09^ nil",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.CollectionTest.klass);
