@@ -374,7 +374,7 @@ at: anIndex ifAbsent: aBlock
 	If it is present, answer the value stored at anIndex.
 	Otherwise, answer the value of aBlock."
 
-	self subclassReponsibility
+	self subclassResponsibility
 !
 
 at: anIndex ifPresent: aBlock
@@ -396,7 +396,7 @@ at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
 at: anIndex put: anObject
 	"Store anObject under the given index in the receiver."
 
-	self subclassReponsibility
+	self subclassResponsibility
 !
 
 indexOf: anObject
@@ -427,7 +427,7 @@ withIndexDo: aBlock
 	"Calls aBlock with every value from self
 	and with its index as the second argument"
 
-	self subclassReponsibility
+	self subclassResponsibility
 ! !
 
 IndexableCollection subclass: #HashedCollection
