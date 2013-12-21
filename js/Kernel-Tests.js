@@ -1304,6 +1304,22 @@ smalltalk.CollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "collectionSize",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},smalltalk.CollectionTest)})},
+args: [],
+source: "collectionSize\x0a\x09\x22Answers size of self collection.\x22\x0a\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
@@ -1800,11 +1816,11 @@ $1=_st(_st(self._collectionClass())._new())._size();
 $ctx1.sendIdx["size"]=1;
 self._assert_equals_($1,(0));
 $ctx1.sendIdx["assert:equals:"]=1;
-self._assert_equals_(_st(self._collection())._size(),(4));
+self._assert_equals_(_st(self._collection())._size(),self._collectionSize());
 return self}, function($ctx1) {$ctx1.fill(self,"testSize",{},smalltalk.CollectionTest)})},
 args: [],
-source: "testSize\x0a\x09self assert: self collectionClass new size equals: 0.\x0a\x09self assert: self collection size equals: 4",
-messageSends: ["assert:equals:", "size", "new", "collectionClass", "collection"],
+source: "testSize\x0a\x09self assert: self collectionClass new size equals: 0.\x0a\x09self assert: self collection size equals: self collectionSize",
+messageSends: ["assert:equals:", "size", "new", "collectionClass", "collection", "collectionSize"],
 referencedClasses: []
 }),
 smalltalk.CollectionTest);
@@ -2214,6 +2230,22 @@ smalltalk.HashedCollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "collectionSize",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (4);
+}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},smalltalk.HashedCollectionTest)})},
+args: [],
+source: "collectionSize\x0a\x09^ 4",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HashedCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
@@ -2430,6 +2462,22 @@ args: [],
 source: "collection\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 1@3 put: -4;\x0a\x09\x09yourself",
 messageSends: ["at:put:", "new", "@", "yourself"],
 referencedClasses: ["Dictionary"]
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "collectionSize",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (4);
+}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},smalltalk.DictionaryTest)})},
+args: [],
+source: "collectionSize\x0a\x09^ 4",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.DictionaryTest);
 
@@ -2866,37 +2914,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"testRemoveKeyIfAbsent",{d:d,key:
 args: [],
 source: "testRemoveKeyIfAbsent\x0a\x09| d key |\x0a\x0a\x09d := Dictionary new.\x0a\x09d at: 1 put: 2.\x0a\x09d at: 2 put: 3.\x0a\x09d at: 3 put: 4.\x0a\x0a\x09key := 2.\x0a\x09self assert: (d removeKey: key) equals: 3.\x0a\x0a\x09key := 3.\x0a\x09self assert: (d removeKey: key ifAbsent: [ 42 ]) equals: 4.\x0a\x0a\x09key := 'why'.\x0a\x09self assert: (d removeKey: key ifAbsent: [ 42 ] ) equals: 42.",
 messageSends: ["new", "at:put:", "assert:equals:", "removeKey:", "removeKey:ifAbsent:"],
-referencedClasses: ["Dictionary"]
-}),
-smalltalk.DictionaryTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testSize",
-protocol: 'tests',
-fn: function (){
-var self=this;
-var d;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-d=_st($Dictionary())._new();
-$1=_st(d)._size();
-$ctx1.sendIdx["size"]=1;
-self._assert_equals_($1,(0));
-$ctx1.sendIdx["assert:equals:"]=1;
-_st(d)._at_put_((1),(2));
-$ctx1.sendIdx["at:put:"]=1;
-$2=_st(d)._size();
-$ctx1.sendIdx["size"]=2;
-self._assert_equals_($2,(1));
-$ctx1.sendIdx["assert:equals:"]=2;
-_st(d)._at_put_((2),(3));
-self._assert_equals_(_st(d)._size(),(2));
-return self}, function($ctx1) {$ctx1.fill(self,"testSize",{d:d},smalltalk.DictionaryTest)})},
-args: [],
-source: "testSize\x0a\x09| d |\x0a\x0a\x09d := Dictionary new.\x0a\x09self assert: d size equals: 0.\x0a\x0a\x09d at: 1 put: 2.\x0a\x09self assert: d size equals: 1.\x0a\x0a\x09d at: 2 put: 3.\x0a\x09self assert: d size equals: 2.",
-messageSends: ["new", "assert:equals:", "size", "at:put:"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.DictionaryTest);
@@ -3388,6 +3405,22 @@ smalltalk.ArrayTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "collectionSize",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (4);
+}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},smalltalk.ArrayTest)})},
+args: [],
+source: "collectionSize\x0a\x09^ 4",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ArrayTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
@@ -3773,6 +3806,22 @@ return "lo";
 }, function($ctx1) {$ctx1.fill(self,"collectionLastTwo",{},smalltalk.StringTest)})},
 args: [],
 source: "collectionLastTwo\x0a\x09^ 'lo'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "collectionSize",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (5);
+}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},smalltalk.StringTest)})},
+args: [],
+source: "collectionSize\x0a\x09^ 5",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4318,27 +4367,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"testSelect",{newCollection:newCo
 args: [],
 source: "testSelect\x0a\x09| newCollection |\x0a\x09newCollection := 'o'.\x0a\x09self\x0a\x09\x09assertSameContents: (self collection select: [ :each |\x0a\x09\x09\x09each = 'o' ])\x0a\x09\x09as: newCollection",
 messageSends: ["assertSameContents:as:", "select:", "collection", "="],
-referencedClasses: []
-}),
-smalltalk.StringTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testSize",
-protocol: 'tests',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1="smalltalk"._size();
-$ctx1.sendIdx["size"]=1;
-self._assert_equals_($1,(9));
-$ctx1.sendIdx["assert:equals:"]=1;
-self._assert_equals_(""._size(),(0));
-return self}, function($ctx1) {$ctx1.fill(self,"testSize",{},smalltalk.StringTest)})},
-args: [],
-source: "testSize\x0a\x09self assert: 'smalltalk' size equals: 9.\x0a\x09self assert: '' size equals: 0",
-messageSends: ["assert:equals:", "size"],
 referencedClasses: []
 }),
 smalltalk.StringTest);

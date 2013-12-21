@@ -404,6 +404,12 @@ collectionClass
 	^ self class collectionClass
 !
 
+collectionSize
+	"Answers size of self collection."
+
+	self subclassResponsibility
+!
+
 collectionWithDuplicates
 	"Answers pre-filled collection of type tested,
 	with exactly five distinct elements,
@@ -541,7 +547,7 @@ testSelect
 
 testSize
 	self assert: self collectionClass new size equals: 0.
-	self assert: self collection size equals: 4
+	self assert: self collection size equals: self collectionSize
 ! !
 
 !CollectionTest class methodsFor: 'fixture'!
@@ -677,6 +683,10 @@ collection
 	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4 }
 !
 
+collectionSize
+	^ 4
+!
+
 collectionWithDuplicates
 	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }
 !
@@ -737,6 +747,10 @@ collection
 		at: true put: 3;
 		at: 1@3 put: -4;
 		yourself
+!
+
+collectionSize
+	^ 4
 !
 
 collectionWithDuplicates
@@ -889,19 +903,6 @@ testRemoveKeyIfAbsent
 	self assert: (d removeKey: key ifAbsent: [ 42 ] ) equals: 42.
 !
 
-testSize
-	| d |
-
-	d := Dictionary new.
-	self assert: d size equals: 0.
-
-	d at: 1 put: 2.
-	self assert: d size equals: 1.
-
-	d at: 2 put: 3.
-	self assert: d size equals: 2.
-!
-
 testValues
 	| d |
 
@@ -1046,6 +1047,10 @@ collectionLastTwo
 	^ #(3 -4)
 !
 
+collectionSize
+	^ 4
+!
+
 collectionWithDuplicates
 	^ #('a' 'b' 'c' 1 2 1 'a')
 !
@@ -1167,6 +1172,10 @@ collectionLast
 
 collectionLastTwo
 	^ 'lo'
+!
+
+collectionSize
+	^ 5
 !
 
 collectionWithDuplicates
@@ -1322,11 +1331,6 @@ testSelect
 		assertSameContents: (self collection select: [ :each |
 			each = 'o' ])
 		as: newCollection
-!
-
-testSize
-	self assert: 'smalltalk' size equals: 9.
-	self assert: '' size equals: 0
 !
 
 testStreamContents
