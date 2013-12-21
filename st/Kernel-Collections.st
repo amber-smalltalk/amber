@@ -1059,14 +1059,15 @@ I am directly mapped to JavaScript Number.
 !Array methodsFor: 'accessing'!
 
 at: anIndex ifAbsent: aBlock
-	<
-		if((anIndex < 1) || (self.length < anIndex)) {return aBlock._value()};
-		return self[anIndex - 1];
-	>
+	<return anIndex >>= 1 && anIndex <= self.length
+		? self[anIndex - 1]
+		: aBlock._value()>
 !
 
 at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
-	<return anIndex < 1 || self.length < anIndex ? anotherBlock._value() : aBlock._value_(self[anIndex - 1]);>
+	<return anIndex >>= 1 && anIndex <= self.length
+		? aBlock._value_(self[anIndex - 1])
+		: anotherBlock._value()>
 !
 
 at: anIndex put: anObject
@@ -1315,12 +1316,12 @@ asciiValue
 !
 
 at: anIndex ifAbsent: aBlock
-	<return String(self).charAt(anIndex - 1) || aBlock._value()>
+	<return String(self)[anIndex - 1] || aBlock._value()>
 !
 
 at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
 	<
-		var result = String(self).charAt(anIndex - 1);
+		var result = String(self)[anIndex - 1];
 		return result ? aBlock._value_(result) : anotherBlock._value();
 	>
 !
