@@ -1017,6 +1017,16 @@ writeStream
 
 !SequenceableCollection methodsFor: 'testing'!
 
+beginsWith: prefix
+	self size < prefix size ifTrue: [ ^ false ].
+	^ (self first: prefix size) = prefix
+!
+
+endsWith: suffix
+	self size < suffix size ifTrue: [ ^ false ].
+	^ (self last: suffix size) = suffix
+!
+
 includes: anObject
 	^ (self indexOf: anObject ifAbsent: [ nil ]) notNil
 ! !
@@ -1610,16 +1620,6 @@ tokenize: aString
 ! !
 
 !String methodsFor: 'testing'!
-
-beginsWith: prefix
-	self size < prefix size ifTrue: [ ^ false ].
-	^ (self first: prefix size) = prefix
-!
-
-endsWith: suffix
-	self size < suffix size ifTrue: [ ^ false ].
-	^ (self last: suffix size) = suffix
-!
 
 includesSubString: subString
 	< return self.indexOf(subString) !!= -1 >
