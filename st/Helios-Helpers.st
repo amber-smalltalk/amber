@@ -1,7 +1,174 @@
 Smalltalk current createPackage: 'Helios-Helpers'!
 Object subclass: #HLClassifierLink
-	instanceVariableNames: 'next'
+	instanceVariableNames: 'next method'
 	package: 'Helios-Helpers'!
+!HLClassifierLink commentStamp!
+I am an abstract class implementing a link in a `chain of responsibility` pattern.
+
+y subclasses are in charge of classifying a method according to multiple strategies!
+
+!HLClassifierLink methodsFor: 'accessing'!
+
+method
+	^ method
+!
+
+method: anObject
+	method := anObject.
+	self next
+		ifNotNil: [ :nextLink | nextLink method: anObject ]
+!
+
+next
+	^ next
+!
+
+next: anObject
+	next := anObject
+! !
+
+!HLClassifierLink methodsFor: 'private'!
+
+doClassify
+	self subclassResponsibility
+! !
+
+!HLClassifierLink methodsFor: 'protocol'!
+
+classify
+	self next ifNil: [ ^ false ].
+	
+	^ self doClassify
+		ifTrue: [ true ]
+		ifFalse: [ self next execute ]
+! !
+
+HLClassifierLink subclass: #HLAccessorClassifierLink
+	instanceVariableNames: ''
+	package: 'Helios-Helpers'!
+!HLAccessorClassifierLink commentStamp!
+I am a classifier checking the method selector matches an instance variable name!
+
+!HLAccessorClassifierLink methodsFor: 'private'!
+
+doClassify
+	| names selector |
+	
+	names := method methodClass allInstanceVariableNames.
+	selector := method selector.
+	
+	(selector last = ':')
+		ifTrue: [ "selector might be a setter"
+			selector := selector allButLast ].
+	
+	(names includes: selector)
+		ifFalse: [ ^ false ].
+		
+	method protocol: 'accessing'.
+	^ true.
+! !
+
+HLClassifierLink subclass: #HLImplementorClassifierLink
+	instanceVariableNames: ''
+	package: 'Helios-Helpers'!
+!HLImplementorClassifierLink commentStamp!
+I am a classifier checking the other implementations of the same selector and choose the protocol the most populated!
+
+!HLImplementorClassifierLink methodsFor: 'private'!
+
+doClassify
+	| currentClass |
+	currentClass := method methodClass.
+	
+	[ currentClass superclass isNil ] whileFalse: [
+		currentClass := currentClass superclass.
+		(currentClass includesSelector: method selector)
+			ifTrue: [ 
+				method protocol: (currentClass >> method selector) protocol.
+				^ true ]].
+	
+	^ false.
+! !
+
+HLClassifierLink subclass: #HLPrefixClassifierLink
+	instanceVariableNames: 'prefixMapping'
+	package: 'Helios-Helpers'!
+!HLPrefixClassifierLink commentStamp!
+I am classifier checking the method selector to know if it begins with a known prefix!
+
+!HLPrefixClassifierLink methodsFor: 'initialization'!
+
+buildPrefixDictionary
+	prefixMapping := Dictionary new.
+	prefixMapping 
+		at: 'test' put: 'tests';
+	 	at: 'bench' put: 'benchmarking';
+	 	at: 'copy' put: 'copying';
+		at: 'initialize' put: 'initialization';
+		at: 'accept' put: 'visitor';
+		at: 'visit' put: 'visitor';
+		at: 'signal' put: 'signalling';
+		at: 'parse' put: 'parsing';
+		at: 'add' put: 'adding';
+		at: 'is' put: 'testing';
+		at: 'as' put: 'converting';
+		at: 'new' put: 'instance creation'.
+!
+
+initialize
+	super initialize.
+
+	self buildPrefixDictionary
+! !
+
+!HLPrefixClassifierLink methodsFor: 'private'!
+
+doClassify
+	prefixMapping keysAndValuesDo: [ :prefix :protocol |
+		(method selector beginsWith: prefix)
+			ifTrue: [
+				method protocol: protocol.
+				^ true ]].
+	^ false.
+! !
+
+HLClassifierLink subclass: #HLSuperClassClassifierLink
+	instanceVariableNames: ''
+	package: 'Helios-Helpers'!
+!HLSuperClassClassifierLink commentStamp!
+I am a classifier checking the superclass chain to find a matching selector!
+
+!HLSuperClassClassifierLink methodsFor: 'private'!
+
+doClassify
+	| protocolBag methods protocolToUse counter |
+	
+	protocolBag := Dictionary new.
+	methods := HLReferencesModel new implementorsOf: method selector.
+	methods
+		ifEmpty: [ ^ false ]
+		ifNotEmpty: [
+			methods 
+				do: [ :aMethod || protocol |
+					protocol := aMethod method protocol.
+					(method methodClass = aMethod methodClass)
+						ifFalse: [
+						((protocol first = '*') or: [ protocol = method defaultProtocol ])
+							ifFalse: [ 
+								protocolBag 
+									at: protocol 
+									put: (protocolBag at: protocol ifAbsent: [ 0 ]) + 1 ] ] ] ].
+			
+	protocolBag ifEmpty: [ ^ false ].
+	protocolToUse := nil.
+	counter := 0.
+	protocolBag keysAndValuesDo: [ :key :value | value > counter 
+		ifTrue: [
+			counter := value.
+			protocolToUse := key ] ].
+	method protocol: protocolToUse.
+	^ true
+! !
 
 Object subclass: #HLGenerationOutput
 	instanceVariableNames: 'sourceCodes protocol targetClass'
@@ -248,7 +415,7 @@ generate
 ! !
 
 Object subclass: #HLMethodClassifier
-	instanceVariableNames: 'prefixMapping'
+	instanceVariableNames: 'firstLink'
 	package: 'Helios-Helpers'!
 !HLMethodClassifier commentStamp!
 I am in charge of categorizing methods following this strategy:
@@ -260,112 +427,32 @@ I am in charge of categorizing methods following this strategy:
 
 !HLMethodClassifier methodsFor: 'initialization'!
 
-buildPrefixDictionary
-	prefixMapping := Dictionary new.
-	prefixMapping 
-		at: 'test' put: 'tests';
-	 	at: 'bench' put: 'benchmarking';
-	 	at: 'copy' put: 'copying';
-		at: 'initialize' put: 'initialization';
-		at: 'accept' put: 'visitor';
-		at: 'visit' put: 'visitor';
-		at: 'signal' put: 'signalling';
-		at: 'parse' put: 'parsing';
-		at: 'add' put: 'adding';
-		at: 'is' put: 'testing';
-		at: 'as' put: 'converting';
-		at: 'new' put: 'instance creation'.
+buildChainOfResponsibility
+	self addLink: HLImplementorClassifierLink new.
+	self addLink: HLPrefixClassifierLink new.
+	self addLink: HLSuperclassClassifierLink new.
+	self addLink: HLAccessorClassifierLink new
 !
 
 initialize
 	super initialize.
 	
-	self buildPrefixDictionary.
+	self buildChainOfResponsibility
 ! !
 
 !HLMethodClassifier methodsFor: 'private'!
 
-classifyAccessor: aMethod
-	| names selector |
-	
-	names := aMethod methodClass allInstanceVariableNames.
-	selector := aMethod selector.
-	
-	(selector last = ':')
-		ifTrue: [ "selector might be a setter"
-			selector := selector allButLast ].
-	
-	(names includes: selector)
-		ifFalse: [ ^ false ].
-		
-	aMethod protocol: 'accessing'.
-	^ true.
-!
-
-classifyByKnownPrefix: aMethod
-	prefixMapping keysAndValuesDo: [ :prefix :protocol |
-		(aMethod selector beginsWith: prefix)
-			ifTrue: [
-				aMethod protocol: protocol.
-				^ true ]].
-	^ false.
-!
-
-classifyByOtherImplementors: aMethod
-	| protocolBag methods protocolToUse counter |
-	
-	protocolBag := Dictionary new.
-	methods := HLReferencesModel new implementorsOf: aMethod selector.
-	methods
-		ifEmpty: [ ^ false ]
-		ifNotEmpty: [
-			methods 
-				do: [ :method || protocol |
-					protocol := method method protocol.
-					(aMethod methodClass = method methodClass)
-						ifFalse: [
-						((protocol first = '*') or: [ protocol = aMethod defaultProtocol ])
-							ifFalse: [ 
-								protocolBag 
-									at: protocol 
-									put: (protocolBag at: protocol ifAbsent: [ 0 ]) + 1 ] ] ] ].
-			
-	protocolBag ifEmpty: [ ^ false ].
-	protocolToUse := nil.
-	counter := 0.
-	protocolBag keysAndValuesDo: [ :key :value | value > counter 
-		ifTrue: [
-			counter := value.
-			protocolToUse := key ] ].
-	aMethod protocol: protocolToUse.
-	^ true
-!
-
-classifyInSuperclassProtocol: aMethod
-	| currentClass |
-	currentClass := aMethod methodClass.
-	
-	[ currentClass superclass isNil ] whileFalse: [
-		currentClass := currentClass superclass.
-		(currentClass includesSelector: aMethod selector)
-			ifTrue: [ 
-				aMethod protocol: (currentClass >> aMethod selector) protocol.
-				^ true ]].
-	
-	^ false.
+addLink: aLink
+	aLink next: firstLink.
+	firstLink := aLink
 ! !
 
 !HLMethodClassifier methodsFor: 'protocol'!
 
 classify: aMethod
-	(self classifyAccessor: aMethod)
-		ifTrue: [ ^ aMethod category ].
-	(self classifyInSuperclassProtocol: aMethod)
-		ifTrue: [ ^ aMethod category ].
-	(self classifyByKnownPrefix: aMethod)
-		ifTrue: [ ^ aMethod category ].
-	(self classifyByOtherImplementors: aMethod)
-		ifTrue: [ ^ aMethod category ].
+	firstLink
+		method: aMethod;
+		classify
 !
 
 classifyAll: aCollectionOfMethods
