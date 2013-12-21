@@ -1937,6 +1937,119 @@ smalltalk.IndexableCollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testAtIfPresent",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var visited,sentinel;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$4,$3;
+sentinel=_st($Object())._new();
+self._nonIndexesDo_((function(each){
+return smalltalk.withContext(function($ctx2) {
+visited=nil;
+visited;
+$2=self._collection();
+$ctx2.sendIdx["collection"]=1;
+$1=_st($2)._at_ifPresent_(each,(function(value1){
+return smalltalk.withContext(function($ctx3) {
+visited=value1;
+visited;
+return sentinel;
+}, function($ctx3) {$ctx3.fillBlock({value1:value1},$ctx2,2)})}));
+$ctx2.sendIdx["at:ifPresent:"]=1;
+self._assert_equals_($1,nil);
+$ctx2.sendIdx["assert:equals:"]=1;
+return self._assert_(_st(visited)._isNil());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+self._samplesDo_((function(index,value){
+return smalltalk.withContext(function($ctx2) {
+visited=nil;
+visited;
+$4=self._collection();
+$ctx2.sendIdx["collection"]=2;
+$3=_st($4)._at_ifPresent_(index,(function(value2){
+return smalltalk.withContext(function($ctx3) {
+visited=value2;
+visited;
+return sentinel;
+}, function($ctx3) {$ctx3.fillBlock({value2:value2},$ctx2,4)})}));
+self._assert_equals_($3,sentinel);
+$ctx2.sendIdx["assert:equals:"]=2;
+return self._assert_equals_(visited,_st(self._collection())._at_(index));
+}, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,3)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{visited:visited,sentinel:sentinel},smalltalk.IndexableCollectionTest)})},
+args: [],
+source: "testAtIfPresent\x0a\x09| visited sentinel |\x0a\x09sentinel := Object new.\x0a\x09self nonIndexesDo: [ :each |\x0a\x09\x09visited := nil.\x0a\x09\x09self assert: (self collection at: each ifPresent: [ :value1 | visited := value1. sentinel ]) equals: nil.\x0a\x09\x09self assert: visited isNil ].\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09visited := nil.\x0a\x09\x09self assert: (self collection at: index ifPresent: [ :value2 | visited := value2. sentinel ]) equals: sentinel.\x0a\x09\x09self assert: visited equals: (self collection at: index) ]",
+messageSends: ["new", "nonIndexesDo:", "assert:equals:", "at:ifPresent:", "collection", "assert:", "isNil", "samplesDo:", "at:"],
+referencedClasses: ["Object"]
+}),
+smalltalk.IndexableCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testAtIfPresentIfAbsent",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var visited,sentinel;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$3,$5,$4;
+sentinel=_st($Object())._new();
+self._nonIndexesDo_((function(each){
+return smalltalk.withContext(function($ctx2) {
+visited=nil;
+visited;
+$2=self._collection();
+$ctx2.sendIdx["collection"]=1;
+$1=_st($2)._at_ifPresent_ifAbsent_(each,(function(value1){
+return smalltalk.withContext(function($ctx3) {
+visited=value1;
+visited;
+return sentinel;
+}, function($ctx3) {$ctx3.fillBlock({value1:value1},$ctx2,2)})}),(function(){
+return smalltalk.withContext(function($ctx3) {
+return self._sampleNonValue();
+$ctx3.sendIdx["sampleNonValue"]=1;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+$ctx2.sendIdx["at:ifPresent:ifAbsent:"]=1;
+$3=self._sampleNonValue();
+$ctx2.sendIdx["sampleNonValue"]=2;
+self._assert_equals_($1,$3);
+$ctx2.sendIdx["assert:equals:"]=1;
+return self._assert_(_st(visited)._isNil());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+self._samplesDo_((function(index,value){
+return smalltalk.withContext(function($ctx2) {
+visited=nil;
+visited;
+$5=self._collection();
+$ctx2.sendIdx["collection"]=2;
+$4=_st($5)._at_ifPresent_ifAbsent_(index,(function(value2){
+return smalltalk.withContext(function($ctx3) {
+visited=value2;
+visited;
+return sentinel;
+}, function($ctx3) {$ctx3.fillBlock({value2:value2},$ctx2,5)})}),(function(){
+return smalltalk.withContext(function($ctx3) {
+return self._sampleNonValue();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,6)})}));
+self._assert_equals_($4,sentinel);
+$ctx2.sendIdx["assert:equals:"]=2;
+return self._assert_equals_(visited,_st(self._collection())._at_(index));
+}, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,4)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{visited:visited,sentinel:sentinel},smalltalk.IndexableCollectionTest)})},
+args: [],
+source: "testAtIfPresentIfAbsent\x0a\x09| visited sentinel |\x0a\x09sentinel := Object new.\x0a\x09self nonIndexesDo: [ :each |\x0a\x09\x09visited := nil.\x0a\x09\x09self assert: (self collection at: each ifPresent: [ :value1 | visited := value1. sentinel ] ifAbsent: [ self sampleNonValue ] ) equals: self sampleNonValue.\x0a\x09\x09self assert: visited isNil ].\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09visited := nil.\x0a\x09\x09self assert: (self collection at: index ifPresent: [ :value2 | visited := value2. sentinel ] ifAbsent: [ self sampleNonValue ]) equals: sentinel.\x0a\x09\x09self assert: visited equals: (self collection at: index) ]",
+messageSends: ["new", "nonIndexesDo:", "assert:equals:", "at:ifPresent:ifAbsent:", "collection", "sampleNonValue", "assert:", "isNil", "samplesDo:", "at:"],
+referencedClasses: ["Object"]
+}),
+smalltalk.IndexableCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testIndexOf",
 protocol: 'tests',
 fn: function (){
@@ -2399,80 +2512,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{d1:d1,d2:d2},smal
 args: [],
 source: "testEquality\x0a\x09| d1 d2 |\x0a\x0a\x09self assert: (Dictionary new = Dictionary new).\x0a\x09\x09\x0a\x09d1 := Dictionary new at: 1 put: 2; yourself.\x0a\x09d2 := Dictionary new at: 1 put: 2; yourself.\x0a\x09self assert: (d1 = d2).\x0a\x0a\x09d2 := Dictionary new at: 1 put: 3; yourself.\x0a\x09self deny: d1 = d2.\x0a\x0a\x09d2 := Dictionary new at: 2 put: 2; yourself.\x0a\x09self deny: d1 = d2.\x0a\x0a\x09d2 := Dictionary new at: 1 put: 2; at: 3 put: 4; yourself.\x0a\x09self deny: d1 = d2.",
 messageSends: ["assert:", "=", "new", "at:put:", "yourself", "deny:"],
-referencedClasses: ["Dictionary"]
-}),
-smalltalk.DictionaryTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testIfPresent",
-protocol: 'tests',
-fn: function (){
-var self=this;
-var d,visited,absent;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
-visited=false;
-d=_st($Dictionary())._new();
-_st(d)._at_put_("hello","world");
-_st(d)._at_ifPresent_("hello",(function(value){
-return smalltalk.withContext(function($ctx2) {
-visited=value;
-return visited;
-}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1,1)})}));
-$ctx1.sendIdx["at:ifPresent:"]=1;
-self._assert_equals_(visited,"world");
-absent=_st(d)._at_ifPresent_("bye",(function(value){
-return smalltalk.withContext(function($ctx2) {
-visited=value;
-return visited;
-}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1,2)})}));
-self._assert_(_st(absent)._isNil());
-return self}, function($ctx1) {$ctx1.fill(self,"testIfPresent",{d:d,visited:visited,absent:absent},smalltalk.DictionaryTest)})},
-args: [],
-source: "testIfPresent\x0a\x0a\x09| d visited absent |\x0a\x09visited := false.\x0a\x09d := Dictionary new.\x0a\x09d at: 'hello' put: 'world'.\x0a\x0a\x09d at: 'hello' ifPresent: [ :value | visited := value ].\x0a\x09self assert: visited equals: 'world'.\x0a\x0a\x09absent := d at: 'bye' ifPresent: [ :value | visited := value ].\x0a\x09self assert: absent isNil.",
-messageSends: ["new", "at:put:", "at:ifPresent:", "assert:equals:", "assert:", "isNil"],
-referencedClasses: ["Dictionary"]
-}),
-smalltalk.DictionaryTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testIfPresentIfAbsent",
-protocol: 'tests',
-fn: function (){
-var self=this;
-var d,visited;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
-visited=false;
-d=_st($Dictionary())._new();
-_st(d)._at_put_("hello","world");
-_st(d)._at_ifPresent_ifAbsent_("hello",(function(value){
-return smalltalk.withContext(function($ctx2) {
-visited=value;
-return visited;
-}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-visited=true;
-return visited;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$ctx1.sendIdx["at:ifPresent:ifAbsent:"]=1;
-self._assert_equals_(visited,"world");
-_st(d)._at_ifPresent_ifAbsent_("buy",(function(value){
-return smalltalk.withContext(function($ctx2) {
-visited=value;
-return visited;
-}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1,3)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-visited=true;
-return visited;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
-self._assert_(visited);
-return self}, function($ctx1) {$ctx1.fill(self,"testIfPresentIfAbsent",{d:d,visited:visited},smalltalk.DictionaryTest)})},
-args: [],
-source: "testIfPresentIfAbsent\x0a\x0a\x09| d visited |\x0a\x09visited := false.\x0a\x09d := Dictionary new.\x0a\x09d at: 'hello' put: 'world'.\x0a\x0a\x09d at: 'hello' ifPresent: [ :value | visited := value ] ifAbsent: [ visited := true ].\x0a\x09self assert: visited equals: 'world'.\x0a\x0a\x09d at: 'buy' ifPresent: [ :value | visited := value ] ifAbsent: [ visited := true ].\x0a\x09self assert: visited.",
-messageSends: ["new", "at:put:", "at:ifPresent:ifAbsent:", "assert:equals:", "assert:"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.DictionaryTest);

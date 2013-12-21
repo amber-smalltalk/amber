@@ -590,6 +590,32 @@ testAtIfAbsent
 		self assert: (self collection at: index ifAbsent: [ self sampleNonValue ]) equals: value ].
 !
 
+testAtIfPresent
+	| visited sentinel |
+	sentinel := Object new.
+	self nonIndexesDo: [ :each |
+		visited := nil.
+		self assert: (self collection at: each ifPresent: [ :value1 | visited := value1. sentinel ]) equals: nil.
+		self assert: visited isNil ].
+	self samplesDo: [ :index :value |
+		visited := nil.
+		self assert: (self collection at: index ifPresent: [ :value2 | visited := value2. sentinel ]) equals: sentinel.
+		self assert: visited equals: (self collection at: index) ]
+!
+
+testAtIfPresentIfAbsent
+	| visited sentinel |
+	sentinel := Object new.
+	self nonIndexesDo: [ :each |
+		visited := nil.
+		self assert: (self collection at: each ifPresent: [ :value1 | visited := value1. sentinel ] ifAbsent: [ self sampleNonValue ] ) equals: self sampleNonValue.
+		self assert: visited isNil ].
+	self samplesDo: [ :index :value |
+		visited := nil.
+		self assert: (self collection at: index ifPresent: [ :value2 | visited := value2. sentinel ] ifAbsent: [ self sampleNonValue ]) equals: sentinel.
+		self assert: visited equals: (self collection at: index) ]
+!
+
 testIndexOf
 	self should: [ self collection indexOf: self sampleNonValue ] raise: Error.
 	self samplesDo: [ :index :value |
@@ -730,34 +756,6 @@ testEquality
 
 	d2 := Dictionary new at: 1 put: 2; at: 3 put: 4; yourself.
 	self deny: d1 = d2.
-!
-
-testIfPresent
-
-	| d visited absent |
-	visited := false.
-	d := Dictionary new.
-	d at: 'hello' put: 'world'.
-
-	d at: 'hello' ifPresent: [ :value | visited := value ].
-	self assert: visited equals: 'world'.
-
-	absent := d at: 'bye' ifPresent: [ :value | visited := value ].
-	self assert: absent isNil.
-!
-
-testIfPresentIfAbsent
-
-	| d visited |
-	visited := false.
-	d := Dictionary new.
-	d at: 'hello' put: 'world'.
-
-	d at: 'hello' ifPresent: [ :value | visited := value ] ifAbsent: [ visited := true ].
-	self assert: visited equals: 'world'.
-
-	d at: 'buy' ifPresent: [ :value | visited := value ] ifAbsent: [ visited := true ].
-	self assert: visited.
 !
 
 testKeys
