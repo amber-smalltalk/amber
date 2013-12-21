@@ -45,7 +45,7 @@ addSourceCode: aString
 	sourceCodes add: aString
 !
 
-serialize
+compile
 	sourceCodes do: [ :methodSourceCode |
 		(targetClass includesSelector: methodSourceCode selector)
 			ifFalse: [ 
@@ -100,8 +100,7 @@ initialize
 
 !HLGenerator methodsFor: 'protocol'!
 
-compile
-
+generate
 	output targetClass ifNil: [ self error: 'class should not be nil'].
 ! !
 
@@ -150,8 +149,8 @@ setterFor: anInstanceVariable
 
 !HLAccessorsGenerator methodsFor: 'protocol'!
 
-compile
-	super compile.
+generate
+	super generate.
 	
 	output targetClass 
 		accessorsSourceCodesWith: self;
@@ -235,8 +234,8 @@ retrieveProtocolForObject
 
 !HLInitializeGenerator methodsFor: 'protocol'!
 
-compile
-	super compile.
+generate
+	super generate.
 	
 	output targetClass 
 		initializeSourceCodesWith: self;
