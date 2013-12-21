@@ -404,6 +404,13 @@ collectionClass
 	^ self class collectionClass
 !
 
+collectionOfPrintStrings
+	"Answers self collection but with values
+	changed to their printStrings"
+
+	self subclassResponsibility
+!
+
 collectionSize
 	"Answers size of self collection."
 
@@ -432,13 +439,6 @@ sampleNewValueAsCollection
 	of tested type"
 	
 	^ self collectionClass with: self sampleNewValue
-!
-
-sampleNonValue
-	"Answer value that is guaranteed
-	not to be contained by self collection"
-	
-	^ 999
 ! !
 
 !CollectionTest methodsFor: 'testing'!
@@ -499,12 +499,11 @@ testAsSet
 !
 
 testCollect
-	| newCollection |
-	newCollection := #(1 2 3 4).
-	self
-		assertSameContents: (self collection collect: [ :each |
-			each abs ])
-		as: newCollection
+	self assert: (self collection collect: [ :each | each ]) equals: self collection.
+	self assert: (self collectionWithNewValue collect: [ :each | each ]) equals: self collectionWithNewValue.
+	self assert: (self collectionClass new collect: [ :each | each printString ]) equals: self collectionClass new.
+	self assert: ((self collection collect: [ self sampleNewValue ]) detect: [ true ]) equals: self sampleNewValue.
+	self assert: (self collection collect: [ :each | each printString ]) equals: self collectionOfPrintStrings
 !
 
 testComma
@@ -516,9 +515,16 @@ testComma
 !
 
 testDetect
-	self assert: (self collection detect: [ :each | each < 0 ]) equals: -4.
 	self
-		should: [ self collection detect: [ :each | each = 6 ] ]
+		shouldnt: [ self collection detect: [ true ] ]
+		raise: Error.
+	self
+		should: [ self collection detect: [ false ] ]
+		raise: Error.
+	self assert: (self sampleNewValueAsCollection detect: [ true ]) equals: self sampleNewValue.
+	self assert: (self collectionWithNewValue detect: [ :each | each = self sampleNewValue  ]) equals: self sampleNewValue.
+	self
+		should: [ self collection detect: [ :each | each = self sampleNewValue ] ]
 		raise: Error
 !
 
@@ -569,12 +575,12 @@ testRemoveAll
 !
 
 testSelect
-	| newCollection |
-	newCollection := #(2 -4).
-	self
-		assertSameContents: (self collection select: [ :each |
-			each even ])
-		as: newCollection
+	self assert: (self collection select: [ false ]) equals: self collectionClass new.
+	self assert: (self collection select: [ true ]) equals: self collection.
+	self assert: (self collectionWithNewValue select: [ :each | each = self sampleNewValue ]) equals: self sampleNewValueAsCollection.
+	self assert: (self collectionWithNewValue select: [ :each | each ~= self sampleNewValue ]) equals: self collection.
+	self assert: (self collection select: [ :each | each = self sampleNewValue ]) equals: self collectionClass new.
+	self assert: (self collectionWithNewValue select: [ :each | each ~= self sampleNewValue ]) equals: self collection
 !
 
 testSize
@@ -645,9 +651,9 @@ testAt
 
 testAtIfAbsent
 	self nonIndexesDo: [ :each |
-		self assert: (self collection at: each ifAbsent: [ self sampleNonValue ]) equals: self sampleNonValue ].
+		self assert: (self collection at: each ifAbsent: [ self sampleNewValue ]) equals: self sampleNewValue ].
 	self samplesDo: [ :index :value |
-		self assert: (self collection at: index ifAbsent: [ self sampleNonValue ]) equals: value ].
+		self assert: (self collection at: index ifAbsent: [ self sampleNewValue ]) equals: value ].
 !
 
 testAtIfPresent
@@ -668,11 +674,11 @@ testAtIfPresentIfAbsent
 	sentinel := Object new.
 	self nonIndexesDo: [ :each |
 		visited := nil.
-		self assert: (self collection at: each ifPresent: [ :value1 | visited := value1. sentinel ] ifAbsent: [ self sampleNonValue ] ) equals: self sampleNonValue.
+		self assert: (self collection at: each ifPresent: [ :value1 | visited := value1. sentinel ] ifAbsent: [ self sampleNewValue ] ) equals: self sampleNewValue.
 		self assert: visited isNil ].
 	self samplesDo: [ :index :value |
 		visited := nil.
-		self assert: (self collection at: index ifPresent: [ :value2 | visited := value2. sentinel ] ifAbsent: [ self sampleNonValue ]) equals: sentinel.
+		self assert: (self collection at: index ifPresent: [ :value2 | visited := value2. sentinel ] ifAbsent: [ self sampleNewValue ]) equals: sentinel.
 		self assert: visited equals: (self collection at: index) ]
 !
 
@@ -687,7 +693,7 @@ testAtPut
 !
 
 testIndexOf
-	self should: [ self collection indexOf: self sampleNonValue ] raise: Error.
+	self should: [ self collection indexOf: self sampleNewValue ] raise: Error.
 	self samplesDo: [ :index :value |
 		self assert: (self collection indexOf: value) equals: index ]
 !
@@ -708,6 +714,10 @@ IndexableCollectionTest subclass: #HashedCollectionTest
 
 collection
 	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4 }
+!
+
+collectionOfPrintStrings
+	^ #{ 'b' -> '1'. 'a' -> '2'. 'c' -> '3'. 'd' -> '-4' }
 !
 
 collectionSize
@@ -788,6 +798,15 @@ collection
 		at: 'a' put: 2;
 		at: true put: 3;
 		at: 1@3 put: -4;
+		yourself
+!
+
+collectionOfPrintStrings
+	^ Dictionary new
+		at: 1 put: '1';
+		at: 'a' put: '2';
+		at: true put: '3';
+		at: 1@3 put: '-4';
 		yourself
 !
 
@@ -1095,6 +1114,10 @@ collectionLastTwo
 	^ #(3 -4)
 !
 
+collectionOfPrintStrings
+	^ #('1' '2' '3' '-4')
+!
+
 collectionSize
 	^ 4
 !
@@ -1222,6 +1245,10 @@ collectionLastTwo
 	^ 'lo'
 !
 
+collectionOfPrintStrings
+	^ '''h''''e''''l''''l''''o'''
+!
+
 collectionSize
 	^ 5
 !
@@ -1304,15 +1331,6 @@ testCharCodeAt
 	self assert: ('jackie' charCodeAt:6) equals: 101
 !
 
-testCollect
-	| newCollection |
-	newCollection := 'hheelllloo'.
-	self
-		assertSameContents: (self collection collect: [ :each |
-			each, each ])
-		as: newCollection
-!
-
 testCopyFromTo
 	self assert: ('jackie' copyFrom: 1 to: 3) equals: 'jac'.
 	self assert: ('jackie' copyFrom: 4 to: 6) equals: 'kie'.
@@ -1322,13 +1340,6 @@ testCopyWithoutAll
 	self
 		assert: ('*hello* *world*' copyWithoutAll: '*')
 		equals: 'hello world'
-!
-
-testDetect
-	self assert: (self collection detect: [ :each | each = 'h' ]) equals: 'h'.
-	self
-		should: [ self collection detect: [ :each | each = 6 ] ]
-		raise: Error
 !
 
 testEquality
@@ -1384,15 +1395,6 @@ testRemoveAll
 
 testReversed
 	self assert: 'jackiechan' reversed equals: 'nahceikcaj'.
-!
-
-testSelect
-	| newCollection |
-	newCollection := 'o'.
-	self
-		assertSameContents: (self collection select: [ :each |
-			each = 'o' ])
-		as: newCollection
 !
 
 testStreamContents
