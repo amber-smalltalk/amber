@@ -1,4 +1,8 @@
 Smalltalk current createPackage: 'Helios-Helpers'!
+Object subclass: #HLClassifierLink
+	instanceVariableNames: 'next'
+	package: 'Helios-Helpers'!
+
 Object subclass: #HLGenerationOutput
 	instanceVariableNames: 'sourceCodes protocol targetClass'
 	package: 'Helios-Helpers'!

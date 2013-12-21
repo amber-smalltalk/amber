@@ -2,6 +2,9 @@ define("amber_core/Helios-Helpers", ["amber_vm/smalltalk", "amber_vm/nil", "ambe
 smalltalk.addPackage('Helios-Helpers');
 smalltalk.packages["Helios-Helpers"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
+smalltalk.addClass('HLClassifierLink', smalltalk.Object, ['next'], 'Helios-Helpers');
+
+
 smalltalk.addClass('HLGenerationOutput', smalltalk.Object, ['sourceCodes', 'protocol', 'targetClass'], 'Helios-Helpers');
 smalltalk.HLGenerationOutput.comment="I am a simple data object used to store the result of a generation process";
 smalltalk.addMethod(
