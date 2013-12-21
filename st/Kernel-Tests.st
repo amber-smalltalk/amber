@@ -842,6 +842,16 @@ IndexableCollectionTest subclass: #SequenceableCollectionTest
 
 !SequenceableCollectionTest methodsFor: 'tests'!
 
+testBeginsWith
+	self assert: (self collection beginsWith: (self collection first: 3)).
+	self deny: (self collection beginsWith: (self collection copyFrom: 2 to: 3))
+!
+
+testEndsWith
+	self assert: (self collection endsWith: (self collection last: 3)).
+	self deny: (self collection endsWith: (self collection copyFrom: self collection size - 3 to: self collection size - 1))
+!
+
 testFirst
 	self assert: (self collection first) equals: (self collection at: 1)
 !
@@ -865,7 +875,7 @@ testLast
 testLastN
 	self 
 		assert: (self collection last: 2) 
-		equals: (self collection copyFrom: self collection size -2 to: self collection size).
+		equals: (self collection copyFrom: self collection size -1 to: self collection size).
 		
 	self should: [ self collection last: 33 ] raise: Error
 !

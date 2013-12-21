@@ -2739,6 +2739,71 @@ smalltalk.DictionaryTest.klass);
 smalltalk.addClass('SequenceableCollectionTest', smalltalk.IndexableCollectionTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testBeginsWith",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$4,$3,$1,$6,$5;
+$2=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$4=self._collection();
+$ctx1.sendIdx["collection"]=2;
+$3=_st($4)._first_((3));
+$1=_st($2)._beginsWith_($3);
+$ctx1.sendIdx["beginsWith:"]=1;
+self._assert_($1);
+$6=self._collection();
+$ctx1.sendIdx["collection"]=3;
+$5=_st($6)._beginsWith_(_st(self._collection())._copyFrom_to_((2),(3)));
+self._deny_($5);
+return self}, function($ctx1) {$ctx1.fill(self,"testBeginsWith",{},smalltalk.SequenceableCollectionTest)})},
+args: [],
+source: "testBeginsWith\x0a\x09self assert: (self collection beginsWith: (self collection first: 3)).\x0a\x09self deny: (self collection beginsWith: (self collection copyFrom: 2 to: 3))",
+messageSends: ["assert:", "beginsWith:", "collection", "first:", "deny:", "copyFrom:to:"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testEndsWith",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$4,$3,$1,$6,$8,$11,$10,$9,$7,$5;
+$2=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$4=self._collection();
+$ctx1.sendIdx["collection"]=2;
+$3=_st($4)._last_((3));
+$1=_st($2)._endsWith_($3);
+$ctx1.sendIdx["endsWith:"]=1;
+self._assert_($1);
+$6=self._collection();
+$ctx1.sendIdx["collection"]=3;
+$8=self._collection();
+$ctx1.sendIdx["collection"]=4;
+$11=self._collection();
+$ctx1.sendIdx["collection"]=5;
+$10=_st($11)._size();
+$ctx1.sendIdx["size"]=1;
+$9=_st($10).__minus((3));
+$ctx1.sendIdx["-"]=1;
+$7=_st($8)._copyFrom_to_($9,_st(_st(self._collection())._size()).__minus((1)));
+$5=_st($6)._endsWith_($7);
+self._deny_($5);
+return self}, function($ctx1) {$ctx1.fill(self,"testEndsWith",{},smalltalk.SequenceableCollectionTest)})},
+args: [],
+source: "testEndsWith\x0a\x09self assert: (self collection endsWith: (self collection last: 3)).\x0a\x09self deny: (self collection endsWith: (self collection copyFrom: self collection size - 3 to: self collection size - 1))",
+messageSends: ["assert:", "endsWith:", "collection", "last:", "deny:", "copyFrom:to:", "-", "size"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testFirst",
 protocol: 'tests',
 fn: function (){
@@ -2848,7 +2913,7 @@ $7=self._collection();
 $ctx1.sendIdx["collection"]=3;
 $6=_st($7)._size();
 $ctx1.sendIdx["size"]=1;
-$5=_st($6).__minus((2));
+$5=_st($6).__minus((1));
 $9=self._collection();
 $ctx1.sendIdx["collection"]=4;
 $8=_st($9)._size();
@@ -2860,7 +2925,7 @@ return _st(self._collection())._last_((33));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testLastN",{},smalltalk.SequenceableCollectionTest)})},
 args: [],
-source: "testLastN\x0a\x09self \x0a\x09\x09assert: (self collection last: 2) \x0a\x09\x09equals: (self collection copyFrom: self collection size -2 to: self collection size).\x0a\x09\x09\x0a\x09self should: [ self collection last: 33 ] raise: Error",
+source: "testLastN\x0a\x09self \x0a\x09\x09assert: (self collection last: 2) \x0a\x09\x09equals: (self collection copyFrom: self collection size -1 to: self collection size).\x0a\x09\x09\x0a\x09self should: [ self collection last: 33 ] raise: Error",
 messageSends: ["assert:equals:", "last:", "collection", "copyFrom:to:", "-", "size", "should:raise:"],
 referencedClasses: ["Error"]
 }),

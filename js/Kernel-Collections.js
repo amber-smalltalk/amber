@@ -2496,6 +2496,32 @@ smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "beginsWith:",
+protocol: 'testing',
+fn: function (prefix){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1,$4;
+$2=self._size();
+$ctx1.sendIdx["size"]=1;
+$3=_st(prefix)._size();
+$ctx1.sendIdx["size"]=2;
+$1=_st($2).__lt($3);
+if(smalltalk.assert($1)){
+return false;
+};
+$4=_st(self._first_(_st(prefix)._size())).__eq(prefix);
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"beginsWith:",{prefix:prefix},smalltalk.SequenceableCollection)})},
+args: ["prefix"],
+source: "beginsWith: prefix\x0a\x09self size < prefix size ifTrue: [ ^ false ].\x0a\x09^ (self first: prefix size) = prefix",
+messageSends: ["ifTrue:", "<", "size", "=", "first:"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "copyFrom:to:",
 protocol: 'copying',
 fn: function (anIndex,anotherIndex){
@@ -2582,6 +2608,32 @@ return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.S
 args: ["aBlock"],
 source: "do: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=0; i < self.length; i++) {\x0a\x09\x09\x09aBlock._value_(self[i]);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "endsWith:",
+protocol: 'testing',
+fn: function (suffix){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1,$4;
+$2=self._size();
+$ctx1.sendIdx["size"]=1;
+$3=_st(suffix)._size();
+$ctx1.sendIdx["size"]=2;
+$1=_st($2).__lt($3);
+if(smalltalk.assert($1)){
+return false;
+};
+$4=_st(self._last_(_st(suffix)._size())).__eq(suffix);
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"endsWith:",{suffix:suffix},smalltalk.SequenceableCollection)})},
+args: ["suffix"],
+source: "endsWith: suffix\x0a\x09self size < suffix size ifTrue: [ ^ false ].\x0a\x09^ (self last: suffix size) = suffix",
+messageSends: ["ifTrue:", "<", "size", "=", "last:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
@@ -2755,22 +2807,23 @@ protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$5,$4,$3;
+var $2,$1,$6,$5,$4,$3;
 $2=self._size();
 $ctx1.sendIdx["size"]=1;
 $1=_st($2).__lt(aNumber);
 if(smalltalk.assert($1)){
 self._error_("Invalid number of elements");
 };
-$5=self._size();
+$6=self._size();
 $ctx1.sendIdx["size"]=2;
-$4=_st($5).__minus(aNumber);
+$5=_st($6).__minus(aNumber);
+$4=_st($5).__plus((1));
 $3=self._copyFrom_to_($4,self._size());
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"last:",{aNumber:aNumber},smalltalk.SequenceableCollection)})},
 args: ["aNumber"],
-source: "last: aNumber\x0a\x09\x22Answer the last aNumber elements of the receiver.\x0a\x09Raise an error if there are not enough elements in the receiver.\x22\x0a\x0a\x09self size < aNumber ifTrue: [ self error: 'Invalid number of elements' ].\x0a\x0a\x09^ self copyFrom: self size - aNumber to: self size",
-messageSends: ["ifTrue:", "<", "size", "error:", "copyFrom:to:", "-"],
+source: "last: aNumber\x0a\x09\x22Answer the last aNumber elements of the receiver.\x0a\x09Raise an error if there are not enough elements in the receiver.\x22\x0a\x0a\x09self size < aNumber ifTrue: [ self error: 'Invalid number of elements' ].\x0a\x0a\x09^ self copyFrom: self size - aNumber + 1 to: self size",
+messageSends: ["ifTrue:", "<", "size", "error:", "copyFrom:to:", "+", "-"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
@@ -4148,32 +4201,6 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "beginsWith:",
-protocol: 'testing',
-fn: function (prefix){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4;
-$2=self._size();
-$ctx1.sendIdx["size"]=1;
-$3=_st(prefix)._size();
-$ctx1.sendIdx["size"]=2;
-$1=_st($2).__lt($3);
-if(smalltalk.assert($1)){
-return false;
-};
-$4=_st(self._first_(_st(prefix)._size())).__eq(prefix);
-return $4;
-}, function($ctx1) {$ctx1.fill(self,"beginsWith:",{prefix:prefix},smalltalk.String)})},
-args: ["prefix"],
-source: "beginsWith: prefix\x0a\x09self size < prefix size ifTrue: [ ^ false ].\x0a\x09^ (self first: prefix size) = prefix",
-messageSends: ["ifTrue:", "<", "size", "=", "first:"],
-referencedClasses: []
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "capitalized",
 protocol: 'converting',
 fn: function (){
@@ -4260,32 +4287,6 @@ return $1;
 args: [],
 source: "deepCopy\x0a\x09^ self shallowCopy",
 messageSends: ["shallowCopy"],
-referencedClasses: []
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "endsWith:",
-protocol: 'testing',
-fn: function (suffix){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4;
-$2=self._size();
-$ctx1.sendIdx["size"]=1;
-$3=_st(suffix)._size();
-$ctx1.sendIdx["size"]=2;
-$1=_st($2).__lt($3);
-if(smalltalk.assert($1)){
-return false;
-};
-$4=_st(self._last_(_st(suffix)._size())).__eq(suffix);
-return $4;
-}, function($ctx1) {$ctx1.fill(self,"endsWith:",{suffix:suffix},smalltalk.String)})},
-args: ["suffix"],
-source: "endsWith: suffix\x0a\x09self size < suffix size ifTrue: [ ^ false ].\x0a\x09^ (self last: suffix size) = suffix",
-messageSends: ["ifTrue:", "<", "size", "=", "last:"],
 referencedClasses: []
 }),
 smalltalk.String);
