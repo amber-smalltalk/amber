@@ -8,7 +8,7 @@ smalltalk.AmberCli.comment="I am the Amber CLI (CommandLine Interface) tool whic
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commandLineSwitches",
-category: 'commandline',
+protocol: 'commandline',
 fn: function (){
 var self=this;
 var switches;
@@ -40,7 +40,7 @@ smalltalk.AmberCli.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleArguments:",
-category: 'commandline',
+protocol: 'commandline',
 fn: function (args){
 var self=this;
 var selector;
@@ -63,7 +63,7 @@ smalltalk.AmberCli.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "help:",
-category: 'commands',
+protocol: 'commands',
 fn: function (args){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -84,7 +84,7 @@ smalltalk.AmberCli.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "main",
-category: 'startup',
+protocol: 'startup',
 fn: function (){
 var self=this;
 var args,nodeMinorVersion;
@@ -122,7 +122,7 @@ smalltalk.AmberCli.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "repl:",
-category: 'commands',
+protocol: 'commands',
 fn: function (args){
 var self=this;
 function $Repl(){return smalltalk.Repl||(typeof Repl=="undefined"?nil:Repl)}
@@ -141,7 +141,7 @@ smalltalk.AmberCli.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectorForCommandLineSwitch:",
-category: 'commandline',
+protocol: 'commandline',
 fn: function (aSwitch){
 var self=this;
 var command,selector;
@@ -171,7 +171,7 @@ smalltalk.AmberCli.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "serve:",
-category: 'commands',
+protocol: 'commands',
 fn: function (args){
 var self=this;
 function $FileServer(){return smalltalk.FileServer||(typeof FileServer=="undefined"?nil:FileServer)}
@@ -193,7 +193,7 @@ smalltalk.FileServer.comment="I am the Amber Smalltalk FileServer.\x0aMy runtime
 smalltalk.addMethod(
 smalltalk.method({
 selector: "base64Decode:",
-category: 'private',
+protocol: 'private',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -209,7 +209,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "basePath",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -232,7 +232,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "basePath:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -248,7 +248,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "checkDirectoryLayout",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -266,8 +266,10 @@ $ctx1.sendIdx["warn:"]=1;
 _st(console)._warn_("    You can specify the directory containing index.html with --base-path.");
 $ctx1.sendIdx["warn:"]=2;
 };
-_st(console)._warn_("    You can also specify a custom error page with --fallback-page.");
+_st(console)._warn_("    You can also specify a page to be served by default,");
 $ctx1.sendIdx["warn:"]=3;
+_st(console)._warn_("        for all paths the do not map to file, with --fallback-page.");
+$ctx1.sendIdx["warn:"]=4;
 $6=self["@fs"];
 $8=self._basePath();
 $ctx1.sendIdx["basePath"]=2;
@@ -277,7 +279,7 @@ $5=_st($6)._existsSync_($7);
 $ctx1.sendIdx["existsSync:"]=2;
 if(! smalltalk.assert($5)){
 _st(console)._warn_("Warning: project directory is missing an \x22st\x22 directory");
-$ctx1.sendIdx["warn:"]=4;
+$ctx1.sendIdx["warn:"]=5;
 };
 $9=_st(self["@fs"])._existsSync_(_st(self._basePath()).__comma("js"));
 if(! smalltalk.assert($9)){
@@ -285,7 +287,7 @@ _st(console)._warn_("Warning: project directory is missing a \x22js\x22 director
 };
 return self}, function($ctx1) {$ctx1.fill(self,"checkDirectoryLayout",{},smalltalk.FileServer)})},
 args: [],
-source: "checkDirectoryLayout\x0a\x09(fs existsSync: self basePath, 'index.html') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.].\x0a\x09\x09console warn: '    You can also specify a custom error page with --fallback-page.'.\x0a\x09(fs existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(fs existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
+source: "checkDirectoryLayout\x0a\x09(fs existsSync: self basePath, 'index.html') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.].\x0a\x09\x09console warn: '    You can also specify a page to be served by default,'.\x0a\x09\x09console warn: '        for all paths the do not map to file, with --fallback-page.'.\x0a\x09(fs existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(fs existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
 messageSends: ["ifFalse:", "existsSync:", ",", "basePath", "warn:"],
 referencedClasses: []
 }),
@@ -294,7 +296,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fallbackPage",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -312,7 +314,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "fallbackPage:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -328,7 +330,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleGETRequest:respondTo:",
-category: 'request handling',
+protocol: 'request handling',
 fn: function (aRequest,aResponse){
 var self=this;
 var uri,filename;
@@ -354,7 +356,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleOPTIONSRequest:respondTo:",
-category: 'request handling',
+protocol: 'request handling',
 fn: function (aRequest,aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -381,7 +383,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handlePUTRequest:respondTo:",
-category: 'request handling',
+protocol: 'request handling',
 fn: function (aRequest,aResponse){
 var self=this;
 var file,stream;
@@ -437,7 +439,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleRequest:respondTo:",
-category: 'request handling',
+protocol: 'request handling',
 fn: function (aRequest,aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -471,7 +473,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "host",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -489,7 +491,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "host:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (hostname){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -505,7 +507,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -538,7 +540,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isAuthenticated:",
-category: 'private',
+protocol: 'private',
 fn: function (aRequest){
 var self=this;
 var header,token,auth,parts;
@@ -605,7 +607,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "password:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aPassword){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -621,7 +623,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "port",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -639,7 +641,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "port:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -655,7 +657,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "require:",
-category: 'private',
+protocol: 'private',
 fn: function (aModuleString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -673,7 +675,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "respondAuthenticationRequiredTo:",
-category: 'request handling',
+protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -692,7 +694,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "respondCreatedTo:",
-category: 'request handling',
+protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -713,7 +715,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "respondFileNamed:to:",
-category: 'request handling',
+protocol: 'request handling',
 fn: function (aFilename,aResponse){
 var self=this;
 var type,filename;
@@ -760,7 +762,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "respondInternalErrorTo:",
-category: 'request handling',
+protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -779,7 +781,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "respondNotCreatedTo:",
-category: 'request handling',
+protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -798,7 +800,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "respondNotFoundTo:",
-category: 'request handling',
+protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -817,7 +819,7 @@ _st(aResponse)._write_("<p>Did you forget to put an index.html file into the dir
 $ctx1.sendIdx["write:"]=2;
 _st(aResponse)._write_("<li>create an index.html in the served directory.</li>");
 $ctx1.sendIdx["write:"]=3;
-_st(aResponse)._write_("<li>can also specify the location of a page to display instead of this error page with the \x22--fallback-page\x22 option.</li>");
+_st(aResponse)._write_("<li>can also specify the location of a page to be served whenever path does not resolve to a file with the \x22--fallback-page\x22 option.</li>");
 $ctx1.sendIdx["write:"]=4;
 _st(aResponse)._write_("<li>change the directory to be served with the \x22--base-path\x22 option.</li>");
 $ctx1.sendIdx["write:"]=5;
@@ -825,7 +827,7 @@ _st(aResponse)._write_("</ul></p></body></html>");
 $4=_st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondNotFoundTo:",{aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aResponse"],
-source: "respondNotFoundTo: aResponse\x0a\x09self fallbackPage isNil ifFalse: [^self respondFileNamed: self fallbackPage to: aResponse].\x0a\x09aResponse \x0a\x09\x09writeHead: 404 options: #{'Content-Type' -> 'text/html'};\x0a\x09\x09write: '<html><body><p>404 Not found</p>';\x0a\x09\x09write: '<p>Did you forget to put an index.html file into the directory which is served by \x22bin/amber serve\x22? To solve this you can:<ul>';\x0a\x09\x09write: '<li>create an index.html in the served directory.</li>';\x0a\x09\x09write: '<li>can also specify the location of a page to display instead of this error page with the \x22--fallback-page\x22 option.</li>';\x0a\x09\x09write: '<li>change the directory to be served with the \x22--base-path\x22 option.</li>';\x0a\x09\x09write: '</ul></p></body></html>';\x0a\x09\x09end",
+source: "respondNotFoundTo: aResponse\x0a\x09self fallbackPage isNil ifFalse: [^self respondFileNamed: self fallbackPage to: aResponse].\x0a\x09aResponse \x0a\x09\x09writeHead: 404 options: #{'Content-Type' -> 'text/html'};\x0a\x09\x09write: '<html><body><p>404 Not found</p>';\x0a\x09\x09write: '<p>Did you forget to put an index.html file into the directory which is served by \x22bin/amber serve\x22? To solve this you can:<ul>';\x0a\x09\x09write: '<li>create an index.html in the served directory.</li>';\x0a\x09\x09write: '<li>can also specify the location of a page to be served whenever path does not resolve to a file with the \x22--fallback-page\x22 option.</li>';\x0a\x09\x09write: '<li>change the directory to be served with the \x22--base-path\x22 option.</li>';\x0a\x09\x09write: '</ul></p></body></html>';\x0a\x09\x09end",
 messageSends: ["ifFalse:", "isNil", "fallbackPage", "respondFileNamed:to:", "writeHead:options:", "->", "write:", "end"],
 referencedClasses: []
 }),
@@ -834,7 +836,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "respondOKTo:",
-category: 'request handling',
+protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -855,7 +857,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "start",
-category: 'starting',
+protocol: 'starting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -901,7 +903,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "startOn:",
-category: 'starting',
+protocol: 'starting',
 fn: function (aPort){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -918,7 +920,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "username:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aUsername){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -934,7 +936,7 @@ smalltalk.FileServer);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "writeData:toFileNamed:",
-category: 'private',
+protocol: 'private',
 fn: function (data,aFilename){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -952,7 +954,7 @@ smalltalk.FileServer.klass.iVarNames = ['mimeTypes'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commandLineSwitches",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var switches;
@@ -985,7 +987,7 @@ smalltalk.FileServer.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "createServerWithArguments:",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (options){
 var self=this;
 var server,popFront,front,optionName,optionValue,switches;
@@ -1064,7 +1066,7 @@ smalltalk.FileServer.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultHost",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1080,7 +1082,7 @@ smalltalk.FileServer.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultMimeTypes",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1914,7 +1916,7 @@ smalltalk.FileServer.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultPort",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1930,7 +1932,7 @@ smalltalk.FileServer.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "main",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 var fileServer,args;
@@ -1967,7 +1969,7 @@ smalltalk.FileServer.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "mimeTypeFor:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1988,7 +1990,7 @@ smalltalk.FileServer.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "mimeTypes",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2012,7 +2014,7 @@ smalltalk.FileServer.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printHelp",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2035,7 +2037,7 @@ smalltalk.FileServer.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectorForCommandLineSwitch:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aSwitch){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2061,7 +2063,7 @@ smalltalk.Repl.comment="I am a class representing a REPL (Read Evaluate Print Lo
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addVariableNamed:to:",
-category: 'private',
+protocol: 'private',
 fn: function (aString,anObject){
 var self=this;
 var newClass,newObject;
@@ -2084,7 +2086,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assignNewVariable:do:",
-category: 'private',
+protocol: 'private',
 fn: function (buffer,aBlock){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
@@ -2134,7 +2136,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clearScreen",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 var esc,cls;
@@ -2159,7 +2161,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "close",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2175,7 +2177,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commands",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2193,7 +2195,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "createInterface",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2223,7 +2225,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "encapsulateVariable:withValue:in:",
-category: 'private',
+protocol: 'private',
 fn: function (aString,anObject,aClass){
 var self=this;
 var compiler;
@@ -2255,7 +2257,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "eval:",
-category: 'actions',
+protocol: 'actions',
 fn: function (buffer){
 var self=this;
 function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
@@ -2274,7 +2276,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "eval:on:",
-category: 'actions',
+protocol: 'actions',
 fn: function (buffer,anObject){
 var self=this;
 var result;
@@ -2310,7 +2312,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "executeCommand:",
-category: 'private',
+protocol: 'private',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2339,7 +2341,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
@@ -2361,7 +2363,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "instanceVariableNamesFor:",
-category: 'private',
+protocol: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2387,7 +2389,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isIdentifier:",
-category: 'private',
+protocol: 'private',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2405,7 +2407,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isVariableDefined:",
-category: 'private',
+protocol: 'private',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2423,7 +2425,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextResultName",
-category: 'private',
+protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2447,7 +2449,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onKeyPress:",
-category: 'private',
+protocol: 'private',
 fn: function (key){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2470,7 +2472,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "parseAssignment:do:",
-category: 'private',
+protocol: 'private',
 fn: function (aString,aBlock){
 var self=this;
 var assignment;
@@ -2504,7 +2506,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "presentResultNamed:withValue:",
-category: 'private',
+protocol: 'private',
 fn: function (varName,value){
 var self=this;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
@@ -2530,7 +2532,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printWelcome",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
@@ -2558,7 +2560,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "processLine:",
-category: 'private',
+protocol: 'private',
 fn: function (buffer){
 var self=this;
 var show;
@@ -2588,7 +2590,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "prompt",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2604,7 +2606,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setPreviousVariablesFor:from:",
-category: 'private',
+protocol: 'private',
 fn: function (newObject,oldObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2623,7 +2625,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setPrompt",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2639,7 +2641,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupCommands",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -2666,7 +2668,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setupHotkeys",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2689,7 +2691,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "subclass:withVariable:",
-category: 'private',
+protocol: 'private',
 fn: function (aClass,varName){
 var self=this;
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
@@ -2708,7 +2710,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "subclassNameFor:",
-category: 'private',
+protocol: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2745,7 +2747,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "main",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
