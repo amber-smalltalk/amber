@@ -410,6 +410,13 @@ collectionWithDuplicates
 	some of them appearing multiple times."
 
 	self subclassResponsibility
+!
+
+sampleNonValue
+	"Answer value that is guaranteed
+	not to be contained by self collection"
+	
+	^ 999
 ! !
 
 !CollectionTest methodsFor: 'testing'!
@@ -549,21 +556,44 @@ CollectionTest subclass: #IndexableCollectionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
+!IndexableCollectionTest methodsFor: 'fixture'!
+
+sampleNonIndexesDo: aBlock
+	"Executes block a few times,
+	each time passing value that is known
+	not to be an index, as the first parameter"
+	
+	self subclassResponsibility
+!
+
+samplesDo: aBlock
+	"Executes block a few times,
+	each time passing known index and value stored
+	under that index as the parameters"
+	
+	self subclassResponsibility
+! !
+
 !IndexableCollectionTest methodsFor: 'tests'!
 
 testAt
-	self assert: (self collection at: 4) equals: -4.
-	self should: [ self collection at: 5 ] raise: Error
+	self nonIndexesDo: [ :each |
+		self should: [ self collection at: each ] raise: Error ].
+	self samplesDo: [ :index :value |
+		self assert: (self collection at: index) equals: value ]
 !
 
 testAtIfAbsent
-	self assert: (self collection at: (self collection size + 1) ifAbsent: [ 'none' ]) equals: 'none'
+	self nonIndexesDo: [ :each |
+		self assert: (self collection at: each ifAbsent: [ self sampleNonValue ]) equals: self sampleNonValue ].
+	self samplesDo: [ :index :value |
+		self assert: (self collection at: index ifAbsent: [ self sampleNonValue ]) equals: value ].
 !
 
 testIndexOf
-	self assert: (self collection indexOf: 2) equals: 2.
-	self should: [ self collection indexOf: 999 ] raise: Error.
-	self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'
+	self should: [ self collection indexOf: self sampleNonValue ] raise: Error.
+	self samplesDo: [ :index :value |
+		self assert: (self collection indexOf: value) equals: index ]
 !
 
 testWithIndexDo
@@ -586,6 +616,15 @@ collection
 
 collectionWithDuplicates
 	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }
+!
+
+nonIndexesDo: aBlock
+	aBlock value: 5.
+	aBlock value: 'z'
+!
+
+samplesDo: aBlock
+	aBlock value: 'a' value: 2
 ! !
 
 !HashedCollectionTest methodsFor: 'tests'!
@@ -594,22 +633,11 @@ testAsDictionary
 self assert: ( self collectionClass new asDictionary isMemberOf: Dictionary ).
 !
 
-testAt
-	self assert: (self collection at: 'a') equals: 2.
-	self should: [ self collection at: 5 ] raise: Error
-!
-
 testFrom
 "Accept a collection of associations."
 | associations |
 associations := { 'a' -> 1. 'b' -> 2 }.
 self assertSameContents: ( self class collectionClass from: associations ) as: #{ 'a' -> 1. 'b' -> 2 }.
-!
-
-testIndexOf
-	self assert: (self collection indexOf: 2) equals: 'a'.
-	self should: [ self collection indexOf: 999 ] raise: Error.
-	self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'
 !
 
 testNewFromPairs
@@ -702,16 +730,6 @@ testEquality
 
 	d2 := Dictionary new at: 1 put: 2; at: 3 put: 4; yourself.
 	self deny: d1 = d2.
-!
-
-testIfAbsent
-
-	| d visited |
-	visited := false.
-	d := Dictionary new.
-
-	d at: 'hello' ifAbsent: [ visited := true ].
-	self assert: visited.
 !
 
 testIfPresent
@@ -862,6 +880,17 @@ collectionLast
 
 collectionLastTwo
 	self subclassResponsibility
+!
+
+nonIndexesDo: aBlock
+	aBlock value: 0.
+	aBlock value: self collection size + 1.
+	aBlock value: 'z'
+!
+
+samplesDo: aBlock
+	aBlock value: 1 value: self collectionFirst.
+	aBlock value: self collection size value: self collectionLast
 ! !
 
 !SequenceableCollectionTest methodsFor: 'tests'!
@@ -960,6 +989,11 @@ collectionLastTwo
 
 collectionWithDuplicates
 	^ #('a' 'b' 'c' 1 2 1 'a')
+!
+
+samplesDo: aBlock
+	super samplesDo: aBlock.
+	aBlock value: 3 value: 3.
 ! !
 
 !ArrayTest methodsFor: 'tests'!
@@ -974,21 +1008,6 @@ testAdd
 
 testAddFirst
 	self assert: (self collection addFirst: 0; yourself) first equals: 0
-!
-
-testAtIfAbsent
-	| array |
-	array := #('hello' 'world').
-	self assert: (array at: 1) equals: 'hello'.
-	self assert: (array at: 2) equals: 'world'.
-	self assert: (array at: 2 ifAbsent: [ 'not found' ]) equals: 'world'.
-	self assert: (array at: 0 ifAbsent: [ 'not found' ]) equals: 'not found'.
-	self assert: (array at: -10 ifAbsent: [ 'not found' ]) equals: 'not found'.
-	self assert: (array at: 3 ifAbsent: [ 'not found' ]) equals: 'not found'.
-!
-
-testIfEmpty
-	self assert: ( '' ifEmpty: [ 'zork' ] ) equals: 'zork'
 !
 
 testPrintString
@@ -1085,6 +1104,11 @@ collectionLastTwo
 
 collectionWithDuplicates
 	^ 'abbaerte'
+!
+
+samplesDo: aBlock
+	super samplesDo: aBlock.
+	aBlock value: 3 value: 'l'
 ! !
 
 !StringTest methodsFor: 'tests'!
@@ -1118,12 +1142,6 @@ testAsciiValue
     characterU := 'U'.
     self assert: (characterA asciiValue) equals:65.
     self assert: (characterU asciiValue) equals:85
-!
-
-testAt
-	self assert: ('hello' at: 1) equals: 'h'.
-	self assert: ('hello' at: 5) equals: 'o'.
-	self assert: ('hello' at: 6 ifAbsent: [ nil ]) equals: nil
 !
 
 testAtPut
@@ -1208,12 +1226,6 @@ testIdentityHash
 testIncludesSubString
 	self assert: ('amber' includesSubString: 'ber').
 	self deny: ('amber' includesSubString: 'zork').
-!
-
-testIndexOf
-	self assert: (self collection indexOf: 'e') equals: 2.
-	self should: [ self collection indexOf: 999 ] raise: Error.
-	self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'
 !
 
 testIsVowel
