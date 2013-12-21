@@ -1818,9 +1818,86 @@ return _st(each).__eq(self._sampleNewValue());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,7)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testDetect",{},smalltalk.CollectionTest)})},
 args: [],
-source: "testDetect\x0a\x09self\x0a\x09\x09shouldnt: [ self collection detect: [ true ] ]\x0a\x09\x09raise: Error.\x0a\x09self\x0a\x09\x09should: [ self collection detect: [ false ] ]\x0a\x09\x09raise: Error.\x0a\x09self assert: (self sampleNewValueAsCollection detect: [ true ]) equals: self sampleNewValue.\x0a\x09self assert: (self collectionWithNewValue detect: [ :each | each = self sampleNewValue  ]) equals: self sampleNewValue.\x0a\x09self\x0a\x09\x09should: [ self collection detect: [ :each | each = self sampleNewValue ] ]\x0a\x09\x09raise: Error",
+source: "testDetect\x0a\x09self\x0a\x09\x09shouldnt: [ self collection detect: [ true ] ]\x0a\x09\x09raise: Error.\x0a\x09self\x0a\x09\x09should: [ self collection detect: [ false ] ]\x0a\x09\x09raise: Error.\x0a\x09self assert: (self sampleNewValueAsCollection detect: [ true ]) equals: self sampleNewValue.\x0a\x09self assert: (self collectionWithNewValue detect: [ :each | each = self sampleNewValue ]) equals: self sampleNewValue.\x0a\x09self\x0a\x09\x09should: [ self collection detect: [ :each | each = self sampleNewValue ] ]\x0a\x09\x09raise: Error",
 messageSends: ["shouldnt:raise:", "detect:", "collection", "should:raise:", "assert:equals:", "sampleNewValueAsCollection", "sampleNewValue", "collectionWithNewValue", "="],
 referencedClasses: ["Error"]
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testDetectIfNone",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var sentinel;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1,$5,$4,$6,$7,$9,$8,$10;
+sentinel=_st($Object())._new();
+$3=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$2=_st($3)._detect_ifNone_((function(){
+return smalltalk.withContext(function($ctx2) {
+return true;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return sentinel;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$ctx1.sendIdx["detect:ifNone:"]=1;
+$1=_st($2).__tild_eq(sentinel);
+self._assert_($1);
+$5=self._collection();
+$ctx1.sendIdx["collection"]=2;
+$4=_st($5)._detect_ifNone_((function(){
+return smalltalk.withContext(function($ctx2) {
+return false;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return sentinel;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
+$ctx1.sendIdx["detect:ifNone:"]=2;
+self._assert_equals_($4,sentinel);
+$ctx1.sendIdx["assert:equals:"]=1;
+$6=_st(self._sampleNewValueAsCollection())._detect_ifNone_((function(){
+return smalltalk.withContext(function($ctx2) {
+return true;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return sentinel;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
+$ctx1.sendIdx["detect:ifNone:"]=3;
+$7=self._sampleNewValue();
+$ctx1.sendIdx["sampleNewValue"]=1;
+self._assert_equals_($6,$7);
+$ctx1.sendIdx["assert:equals:"]=2;
+$8=_st(self._collectionWithNewValue())._detect_ifNone_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$9=self._sampleNewValue();
+$ctx2.sendIdx["sampleNewValue"]=2;
+return _st(each).__eq($9);
+$ctx2.sendIdx["="]=1;
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,7)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return sentinel;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,8)})}));
+$ctx1.sendIdx["detect:ifNone:"]=4;
+$10=self._sampleNewValue();
+$ctx1.sendIdx["sampleNewValue"]=3;
+self._assert_equals_($8,$10);
+$ctx1.sendIdx["assert:equals:"]=3;
+self._assert_equals_(_st(self._collection())._detect_ifNone_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(self._sampleNewValue());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,9)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return sentinel;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,10)})})),sentinel);
+return self}, function($ctx1) {$ctx1.fill(self,"testDetectIfNone",{sentinel:sentinel},smalltalk.CollectionTest)})},
+args: [],
+source: "testDetectIfNone\x0a\x09| sentinel |\x0a\x09sentinel := Object new.\x0a\x09self assert: (self collection detect: [ true ] ifNone: [ sentinel ]) ~= sentinel.\x0a\x09self assert: (self collection detect: [ false ] ifNone: [ sentinel ]) equals: sentinel.\x0a\x09self assert: (self sampleNewValueAsCollection detect: [ true ] ifNone: [ sentinel ]) equals: self sampleNewValue.\x0a\x09self assert: (self collectionWithNewValue detect: [ :each | each = self sampleNewValue ] ifNone: [ sentinel ]) equals: self sampleNewValue.\x0a\x09self assert: (self collection detect: [ :each | each = self sampleNewValue ] ifNone: [ sentinel ]) equals: sentinel",
+messageSends: ["new", "assert:", "~=", "detect:ifNone:", "collection", "assert:equals:", "sampleNewValueAsCollection", "sampleNewValue", "collectionWithNewValue", "="],
+referencedClasses: ["Object"]
 }),
 smalltalk.CollectionTest);
 

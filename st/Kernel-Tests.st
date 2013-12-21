@@ -522,10 +522,20 @@ testDetect
 		should: [ self collection detect: [ false ] ]
 		raise: Error.
 	self assert: (self sampleNewValueAsCollection detect: [ true ]) equals: self sampleNewValue.
-	self assert: (self collectionWithNewValue detect: [ :each | each = self sampleNewValue  ]) equals: self sampleNewValue.
+	self assert: (self collectionWithNewValue detect: [ :each | each = self sampleNewValue ]) equals: self sampleNewValue.
 	self
 		should: [ self collection detect: [ :each | each = self sampleNewValue ] ]
 		raise: Error
+!
+
+testDetectIfNone
+	| sentinel |
+	sentinel := Object new.
+	self assert: (self collection detect: [ true ] ifNone: [ sentinel ]) ~= sentinel.
+	self assert: (self collection detect: [ false ] ifNone: [ sentinel ]) equals: sentinel.
+	self assert: (self sampleNewValueAsCollection detect: [ true ] ifNone: [ sentinel ]) equals: self sampleNewValue.
+	self assert: (self collectionWithNewValue detect: [ :each | each = self sampleNewValue ] ifNone: [ sentinel ]) equals: self sampleNewValue.
+	self assert: (self collection detect: [ :each | each = self sampleNewValue ] ifNone: [ sentinel ]) equals: sentinel
 !
 
 testDo
