@@ -1271,14 +1271,14 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
 return self}, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.CollectionTest)})},
 args: [],
-source: "collection\x0a\x09self subclassResponsibility",
+source: "collection\x0a\x09\x22Answers pre-filled collection of type tested.\x22\x0a\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
@@ -1287,7 +1287,7 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1296,7 +1296,7 @@ $1=_st(self._class())._collectionClass();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.CollectionTest)})},
 args: [],
-source: "collectionClass\x0a\x09^ self class collectionClass",
+source: "collectionClass\x0a\x09\x22Answers class of collection type tested\x22\x0a\x0a\x09^ self class collectionClass",
 messageSends: ["collectionClass", "class"],
 referencedClasses: []
 }),
@@ -1305,14 +1305,14 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionWithDuplicates",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
 return self}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},smalltalk.CollectionTest)})},
 args: [],
-source: "collectionWithDuplicates\x0a\x09self subclassResponsibility",
+source: "collectionWithDuplicates\x0a\x09\x22Answers pre-filled collection of type tested,\x0a\x09with exactly five distinct elements,\x0a\x09some of them appearing multiple times.\x22\x0a\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
@@ -1785,15 +1785,15 @@ smalltalk.CollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return nil;
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.CollectionTest.klass)})},
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.CollectionTest.klass)})},
 args: [],
-source: "collectionClass\x0a\x09^ nil",
-messageSends: [],
+source: "collectionClass\x0a\x09\x22Answers class of collection type tested\x22\x0a\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.CollectionTest.klass);
@@ -1928,7 +1928,7 @@ smalltalk.addClass('HashedCollectionTest', smalltalk.IndexableCollectionTest, []
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1952,7 +1952,7 @@ smalltalk.HashedCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionWithDuplicates",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2109,7 +2109,7 @@ smalltalk.HashedCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
@@ -2128,7 +2128,7 @@ smalltalk.addClass('DictionaryTest', smalltalk.HashedCollectionTest, [], 'Kernel
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -2156,7 +2156,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionWithDuplicates",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -2699,7 +2699,7 @@ smalltalk.DictionaryTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -2718,7 +2718,7 @@ smalltalk.addClass('SequenceableCollectionTest', smalltalk.IndexableCollectionTe
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionFirst",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2734,7 +2734,7 @@ smalltalk.SequenceableCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionFirstTwo",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2750,7 +2750,7 @@ smalltalk.SequenceableCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionLast",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2766,7 +2766,7 @@ smalltalk.SequenceableCollectionTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionLastTwo",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3035,7 +3035,7 @@ smalltalk.addClass('ArrayTest', smalltalk.SequenceableCollectionTest, [], 'Kerne
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3053,7 +3053,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionFirst",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3069,7 +3069,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionFirstTwo",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3087,7 +3087,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionLast",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3103,7 +3103,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionLastTwo",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3121,7 +3121,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionWithDuplicates",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3431,7 +3431,7 @@ smalltalk.ArrayTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
@@ -3450,7 +3450,7 @@ smalltalk.addClass('StringTest', smalltalk.SequenceableCollectionTest, [], 'Kern
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3466,7 +3466,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionFirst",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3482,7 +3482,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionFirstTwo",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3498,7 +3498,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionLast",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3514,7 +3514,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionLastTwo",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3530,7 +3530,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionWithDuplicates",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4197,7 +4197,7 @@ smalltalk.StringTest);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionClass",
-protocol: 'accessing',
+protocol: 'fixture',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}

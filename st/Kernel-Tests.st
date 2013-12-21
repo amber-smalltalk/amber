@@ -382,26 +382,34 @@ TestCase subclass: #CollectionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!CollectionTest methodsFor: 'accessing'!
-
-collection
-	self subclassResponsibility
-!
-
-collectionClass
-	^ self class collectionClass
-!
-
-collectionWithDuplicates
-	self subclassResponsibility
-! !
-
 !CollectionTest methodsFor: 'convenience'!
 
 assertSameContents: aCollection as: anotherCollection
 	self assert: (aCollection size = anotherCollection size).
 	aCollection do: [ :each |
 		self assert: ((aCollection occurrencesOf: each) = (anotherCollection occurrencesOf: each)) ]
+! !
+
+!CollectionTest methodsFor: 'fixture'!
+
+collection
+	"Answers pre-filled collection of type tested."
+
+	self subclassResponsibility
+!
+
+collectionClass
+	"Answers class of collection type tested"
+
+	^ self class collectionClass
+!
+
+collectionWithDuplicates
+	"Answers pre-filled collection of type tested,
+	with exactly five distinct elements,
+	some of them appearing multiple times."
+
+	self subclassResponsibility
 ! !
 
 !CollectionTest methodsFor: 'testing'!
@@ -523,10 +531,12 @@ testSize
 	self assert: self collection size equals: 4
 ! !
 
-!CollectionTest class methodsFor: 'accessing'!
+!CollectionTest class methodsFor: 'fixture'!
 
 collectionClass
-	^ nil
+	"Answers class of collection type tested"
+
+	self subclassResponsibility
 ! !
 
 !CollectionTest class methodsFor: 'testing'!
@@ -568,7 +578,7 @@ IndexableCollectionTest subclass: #HashedCollectionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!HashedCollectionTest methodsFor: 'accessing'!
+!HashedCollectionTest methodsFor: 'fixture'!
 
 collection
 	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4 }
@@ -609,7 +619,7 @@ flattenedAssociations := { 'a'. 1. 'b'. 2 }.
 self assertSameContents: ( self class collectionClass newFromPairs: flattenedAssociations ) as: #{ 'a' -> 1. 'b' -> 2 }.
 ! !
 
-!HashedCollectionTest class methodsFor: 'accessing'!
+!HashedCollectionTest class methodsFor: 'fixture'!
 
 collectionClass
 	^ HashedCollection
@@ -619,7 +629,7 @@ HashedCollectionTest subclass: #DictionaryTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!DictionaryTest methodsFor: 'accessing'!
+!DictionaryTest methodsFor: 'fixture'!
 
 collection
 	^ Dictionary new
@@ -826,7 +836,7 @@ testValues
 	self assert: d values equals: #(2 3 4)
 ! !
 
-!DictionaryTest class methodsFor: 'accessing'!
+!DictionaryTest class methodsFor: 'fixture'!
 
 collectionClass
 	^ Dictionary
@@ -836,7 +846,7 @@ IndexableCollectionTest subclass: #SequenceableCollectionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!SequenceableCollectionTest methodsFor: 'accessing'!
+!SequenceableCollectionTest methodsFor: 'fixture'!
 
 collectionFirst
 	self subclassResponsibility
@@ -926,7 +936,7 @@ SequenceableCollectionTest subclass: #ArrayTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!ArrayTest methodsFor: 'accessing'!
+!ArrayTest methodsFor: 'fixture'!
 
 collection
 	^ #(1 2 3 -4)
@@ -1041,7 +1051,7 @@ testSort
 	self assert: array equals: #(1 2 3 4 5)
 ! !
 
-!ArrayTest class methodsFor: 'accessing'!
+!ArrayTest class methodsFor: 'fixture'!
 
 collectionClass
 	^ Array
@@ -1051,7 +1061,7 @@ SequenceableCollectionTest subclass: #StringTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!StringTest methodsFor: 'accessing'!
+!StringTest methodsFor: 'fixture'!
 
 collection
 	^ 'hello'
@@ -1258,7 +1268,7 @@ testTrim
 	self assert: 'jackie               ' trimRight equals: 'jackie'.
 ! !
 
-!StringTest class methodsFor: 'accessing'!
+!StringTest class methodsFor: 'fixture'!
 
 collectionClass
 	^ String
