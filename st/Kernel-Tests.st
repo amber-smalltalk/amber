@@ -836,26 +836,56 @@ IndexableCollectionTest subclass: #SequenceableCollectionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
+!SequenceableCollectionTest methodsFor: 'accessing'!
+
+collectionFirst
+	self subclassResponsibility
+!
+
+collectionFirstTwo
+	self subclassResponsibility
+!
+
+collectionLast
+	self subclassResponsibility
+!
+
+collectionLastTwo
+	self subclassResponsibility
+! !
+
 !SequenceableCollectionTest methodsFor: 'tests'!
 
 testBeginsWith
-	self assert: (self collection beginsWith: (self collection first: 3)).
-	self deny: (self collection beginsWith: (self collection copyFrom: 2 to: 3))
+	self assert: (self collection beginsWith: self collectionClass new).
+	self assert: (self collection beginsWith: self collection).
+	self assert: (self collection beginsWith: self collectionFirstTwo).
+	self deny: (self collection beginsWith: self collectionLastTwo)
 !
 
 testEndsWith
-	self assert: (self collection endsWith: (self collection last: 3)).
-	self deny: (self collection endsWith: (self collection copyFrom: self collection size - 3 to: self collection size - 1))
+	self assert: (self collection endsWith: self collectionClass new).
+	self assert: (self collection endsWith: self collection).
+	self assert: (self collection endsWith: self collectionLastTwo).
+	self deny: (self collection endsWith: self collectionFirstTwo)
 !
 
 testFirst
-	self assert: (self collection first) equals: (self collection at: 1)
+	self assert: self collection first equals: self collectionFirst
 !
 
 testFirstN
 	self 
-		assert: (self collection first: 2) 
-		equals: (self collection copyFrom: 1 to: 2).
+		assert: (self collection first: 2)
+		equals: self collectionFirstTwo.
+		
+	self
+		assert: (self collection first: 0)
+		equals: self collectionClass new.
+		
+	self
+		assert: (self collection first: self collection size)
+		equals: self collection.
 		
 	self should: [ self collection first: 33 ] raise: Error
 !
@@ -865,14 +895,22 @@ testFourth
 !
 
 testLast
-	self assert: (self collection last) equals: (self collection at: self collection size)
+	self assert: self collection last equals: self collectionLast
 !
 
 testLastN
 	self 
 		assert: (self collection last: 2) 
-		equals: (self collection copyFrom: self collection size -1 to: self collection size).
+		equals: self collectionLastTwo.
 		
+	self
+		assert: (self collection last: 0)
+		equals: self collectionClass new.
+
+	self
+		assert: (self collection last: self collection size)
+		equals: self collection.
+
 	self should: [ self collection last: 33 ] raise: Error
 !
 
@@ -891,11 +929,27 @@ SequenceableCollectionTest subclass: #ArrayTest
 !ArrayTest methodsFor: 'accessing'!
 
 collection
-	^#(1 2 3 -4)
+	^ #(1 2 3 -4)
+!
+
+collectionFirst
+	^ 1
+!
+
+collectionFirstTwo
+	^ #(1 2)
+!
+
+collectionLast
+	^ -4
+!
+
+collectionLastTwo
+	^ #(3 -4)
 !
 
 collectionWithDuplicates
-	^#('a' 'b' 'c' 1 2 1 'a')
+	^ #('a' 'b' 'c' 1 2 1 'a')
 ! !
 
 !ArrayTest methodsFor: 'tests'!
@@ -1001,6 +1055,22 @@ SequenceableCollectionTest subclass: #StringTest
 
 collection
 	^ 'hello'
+!
+
+collectionFirst
+	^ 'h'
+!
+
+collectionFirstTwo
+	^ 'he'
+!
+
+collectionLast
+	^ 'o'
+!
+
+collectionLastTwo
+	^ 'lo'
 !
 
 collectionWithDuplicates
