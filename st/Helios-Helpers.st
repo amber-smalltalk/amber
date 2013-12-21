@@ -205,7 +205,7 @@ computeIndexForObject
 	instVars := output targetClass instanceVariableNames.
 	firstInstVarSize := instVars sorted
 		ifEmpty: [ 0 ]
-		ifNotEmpty:[ instVars first size  + 4 ].
+		ifNotEmpty:[ instVars first size + 4 ].
 	^ headerSize + firstInstVarSize
 !
 

@@ -457,7 +457,7 @@ $1=_st(headerSize).__plus(firstInstVarSize);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"computeIndexForObject",{instVars:instVars,headerSize:headerSize,firstInstVarSize:firstInstVarSize},smalltalk.HLInitializeGenerator)})},
 args: [],
-source: "computeIndexForObject\x0a\x09| instVars headerSize firstInstVarSize |\x0a\x09\x0a\x09\x2232 is the size of the `initiliaze super initialize` part\x22\x0a\x09headerSize := 32.\x0a\x09instVars := output targetClass instanceVariableNames.\x0a\x09firstInstVarSize := instVars sorted\x0a\x09\x09ifEmpty: [ 0 ]\x0a\x09\x09ifNotEmpty:[ instVars first size  + 4 ].\x0a\x09^ headerSize + firstInstVarSize",
+source: "computeIndexForObject\x0a\x09| instVars headerSize firstInstVarSize |\x0a\x09\x0a\x09\x2232 is the size of the `initiliaze super initialize` part\x22\x0a\x09headerSize := 32.\x0a\x09instVars := output targetClass instanceVariableNames.\x0a\x09firstInstVarSize := instVars sorted\x0a\x09\x09ifEmpty: [ 0 ]\x0a\x09\x09ifNotEmpty:[ instVars first size + 4 ].\x0a\x09^ headerSize + firstInstVarSize",
 messageSends: ["instanceVariableNames", "targetClass", "ifEmpty:ifNotEmpty:", "sorted", "+", "size", "first"],
 referencedClasses: []
 }),
