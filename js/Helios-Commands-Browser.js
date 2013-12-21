@@ -406,6 +406,174 @@ referencedClasses: []
 smalltalk.HLEditCommentCommand.klass);
 
 
+smalltalk.addClass('HLGenerateCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
+smalltalk.HLGenerateCommand.comment="I am a group command used to gather all the commands generating code (`accessors`, `initialize`, etc)";
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "h";
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGenerateCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 'h'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLGenerateCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Generate";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLGenerateCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Generate'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLGenerateCommand.klass);
+
+
+smalltalk.addClass('HLGenerateAccessorsCommand', smalltalk.HLGenerateCommand, [], 'Helios-Commands-Browser');
+smalltalk.HLGenerateAccessorsCommand.comment="I am the command used to generate the `initialize` method depending of the selected class";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "execute",
+protocol: 'executing',
+fn: function (){
+var self=this;
+var targetClass,output,first;
+function $HLInitializeGenerator(){return smalltalk.HLInitializeGenerator||(typeof HLInitializeGenerator=="undefined"?nil:HLInitializeGenerator)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5;
+$1=self._model();
+$ctx1.sendIdx["model"]=1;
+targetClass=_st($1)._selectedClass();
+$2=_st($HLInitializeGenerator())._new();
+_st($2)._class_(targetClass);
+_st($2)._generate();
+$3=_st($2)._output();
+output=$3;
+_st(output)._serialize();
+first=_st(_st(output)._sourceCodes())._first();
+$4=self._model();
+_st($4)._selectedProtocol_(_st(output)._protocol());
+_st($4)._selectedMethod_(_st(targetClass).__gt_gt(_st(first)._selector()));
+$5=_st($4)._focusOnSourceCode();
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{targetClass:targetClass,output:output,first:first},smalltalk.HLGenerateAccessorsCommand)})},
+args: [],
+source: "execute\x0a\x09| targetClass output first |\x0a\x09targetClass := self model selectedClass.\x0a\x0a\x09output := HLInitializeGenerator new\x0a\x09\x09class: targetClass;\x0a\x09\x09generate;\x0a\x09\x09output.\x0a\x09\x09\x0a\x09output serialize.\x0a\x09first := output sourceCodes first.\x0a\x09self model\x0a\x09\x09selectedProtocol: output protocol;\x0a\x09\x09selectedMethod:(targetClass>>first selector);\x0a\x09\x09focusOnSourceCode",
+messageSends: ["selectedClass", "model", "class:", "new", "generate", "output", "serialize", "first", "sourceCodes", "selectedProtocol:", "protocol", "selectedMethod:", ">>", "selector", "focusOnSourceCode"],
+referencedClasses: ["HLInitializeGenerator"]
+}),
+smalltalk.HLGenerateAccessorsCommand);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "i";
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGenerateAccessorsCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 'i'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLGenerateAccessorsCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Initialize";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLGenerateAccessorsCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Initialize'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLGenerateAccessorsCommand.klass);
+
+
+smalltalk.addClass('HLGenerateInitializeCommand', smalltalk.HLGenerateCommand, [], 'Helios-Commands-Browser');
+smalltalk.HLGenerateInitializeCommand.comment="I am the command used to generate the `gettet` and the `setter` methods depending of the selected class";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "execute",
+protocol: 'executing',
+fn: function (){
+var self=this;
+var targetClass,output;
+function $HLAccessorsGenerator(){return smalltalk.HLAccessorsGenerator||(typeof HLAccessorsGenerator=="undefined"?nil:HLAccessorsGenerator)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=self._model();
+$ctx1.sendIdx["model"]=1;
+targetClass=_st($1)._selectedClass();
+$2=_st($HLAccessorsGenerator())._new();
+_st($2)._class_(targetClass);
+_st($2)._generate();
+$3=_st($2)._output();
+output=$3;
+_st(output)._serialize();
+_st(self._model())._selectedProtocol_(_st(output)._protocol());
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{targetClass:targetClass,output:output},smalltalk.HLGenerateInitializeCommand)})},
+args: [],
+source: "execute\x0a\x09| targetClass output |\x0a\x09targetClass := self model selectedClass.\x0a\x0a\x09output := HLAccessorsGenerator new\x0a\x09\x09class: targetClass;\x0a\x09\x09generate;\x0a\x09\x09output.\x0a\x09\x09\x0a\x09output serialize.\x0a\x09self model selectedProtocol: output protocol",
+messageSends: ["selectedClass", "model", "class:", "new", "generate", "output", "serialize", "selectedProtocol:", "protocol"],
+referencedClasses: ["HLAccessorsGenerator"]
+}),
+smalltalk.HLGenerateInitializeCommand);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "a";
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGenerateInitializeCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 'a'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLGenerateInitializeCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Accessors";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLGenerateInitializeCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Accessors'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLGenerateInitializeCommand.klass);
+
+
 smalltalk.addClass('HLToggleCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
 
 smalltalk.addMethod(

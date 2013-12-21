@@ -1160,6 +1160,38 @@ smalltalk.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "accessorProtocolWith:",
+protocol: 'helios',
+fn: function (aGenerator){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aGenerator)._accessorProtocolForObject();
+return self}, function($ctx1) {$ctx1.fill(self,"accessorProtocolWith:",{aGenerator:aGenerator},smalltalk.Object.klass)})},
+args: ["aGenerator"],
+source: "accessorProtocolWith: aGenerator\x0a\x09aGenerator accessorProtocolForObject",
+messageSends: ["accessorProtocolForObject"],
+referencedClasses: []
+}),
+smalltalk.Object.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "accessorsSourceCodesWith:",
+protocol: 'helios',
+fn: function (aGenerator){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aGenerator)._accessorsSourceCodesForObject();
+return self}, function($ctx1) {$ctx1.fill(self,"accessorsSourceCodesWith:",{aGenerator:aGenerator},smalltalk.Object.klass)})},
+args: ["aGenerator"],
+source: "accessorsSourceCodesWith: aGenerator\x0a\x09aGenerator accessorsSourceCodesForObject",
+messageSends: ["accessorsSourceCodesForObject"],
+referencedClasses: []
+}),
+smalltalk.Object.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
@@ -1185,6 +1217,54 @@ return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Object.
 args: [],
 source: "initialize\x0a\x09\x22no op\x22",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeIndexWith:",
+protocol: 'helios',
+fn: function (aGenerator){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aGenerator)._initializeIndexForObject();
+return self}, function($ctx1) {$ctx1.fill(self,"initializeIndexWith:",{aGenerator:aGenerator},smalltalk.Object.klass)})},
+args: ["aGenerator"],
+source: "initializeIndexWith: aGenerator\x0a\x09aGenerator initializeIndexForObject",
+messageSends: ["initializeIndexForObject"],
+referencedClasses: []
+}),
+smalltalk.Object.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeProtocolWith:",
+protocol: 'helios',
+fn: function (aGenerator){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aGenerator)._initializeProtocolForObject();
+return self}, function($ctx1) {$ctx1.fill(self,"initializeProtocolWith:",{aGenerator:aGenerator},smalltalk.Object.klass)})},
+args: ["aGenerator"],
+source: "initializeProtocolWith: aGenerator\x0a\x09aGenerator initializeProtocolForObject",
+messageSends: ["initializeProtocolForObject"],
+referencedClasses: []
+}),
+smalltalk.Object.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeSourceCodesWith:",
+protocol: 'helios',
+fn: function (aGenerator){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aGenerator)._initializeForObject();
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSourceCodesWith:",{aGenerator:aGenerator},smalltalk.Object.klass)})},
+args: ["aGenerator"],
+source: "initializeSourceCodesWith: aGenerator\x0a\x09aGenerator initializeForObject",
+messageSends: ["initializeForObject"],
 referencedClasses: []
 }),
 smalltalk.Object.klass);
