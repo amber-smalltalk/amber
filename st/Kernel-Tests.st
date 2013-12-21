@@ -491,6 +491,12 @@ testDo
 		newCollection add: each ].
 	self
 		assertSameContents: self collection
+		as: newCollection.
+	newCollection := OrderedCollection new.
+	self collectionWithDuplicates do: [ :each |
+		newCollection add: each ].
+	self
+		assertSameContents: self collectionWithDuplicates
 		as: newCollection
 !
 

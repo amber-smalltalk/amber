@@ -1562,19 +1562,31 @@ var self=this;
 var newCollection;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 newCollection=_st($OrderedCollection())._new();
+$ctx1.sendIdx["new"]=1;
 $1=self._collection();
 $ctx1.sendIdx["collection"]=1;
 _st($1)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(newCollection)._add_(each);
+$ctx2.sendIdx["add:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$ctx1.sendIdx["do:"]=1;
 self._assertSameContents_as_(self._collection(),newCollection);
+$ctx1.sendIdx["assertSameContents:as:"]=1;
+newCollection=_st($OrderedCollection())._new();
+$2=self._collectionWithDuplicates();
+$ctx1.sendIdx["collectionWithDuplicates"]=1;
+_st($2)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(newCollection)._add_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+self._assertSameContents_as_(self._collectionWithDuplicates(),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testDo",{newCollection:newCollection},smalltalk.CollectionTest)})},
 args: [],
-source: "testDo\x0a\x09| newCollection |\x0a\x09newCollection := OrderedCollection new.\x0a\x09self collection do: [ :each |\x0a\x09\x09newCollection add: each ].\x0a\x09self\x0a\x09\x09assertSameContents: self collection\x0a\x09\x09as: newCollection",
-messageSends: ["new", "do:", "collection", "add:", "assertSameContents:as:"],
+source: "testDo\x0a\x09| newCollection |\x0a\x09newCollection := OrderedCollection new.\x0a\x09self collection do: [ :each |\x0a\x09\x09newCollection add: each ].\x0a\x09self\x0a\x09\x09assertSameContents: self collection\x0a\x09\x09as: newCollection.\x0a\x09newCollection := OrderedCollection new.\x0a\x09self collectionWithDuplicates do: [ :each |\x0a\x09\x09newCollection add: each ].\x0a\x09self\x0a\x09\x09assertSameContents: self collectionWithDuplicates\x0a\x09\x09as: newCollection",
+messageSends: ["new", "do:", "collection", "add:", "assertSameContents:as:", "collectionWithDuplicates"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.CollectionTest);
