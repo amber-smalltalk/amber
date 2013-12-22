@@ -5145,6 +5145,57 @@ smalltalk.SetTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testAddAll",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
+smalltalk.SetTest.superclass.fn.prototype._testAddAll.apply(_st(self), []);
+$2=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$3=$2;
+$4=self._collection();
+$ctx1.sendIdx["collection"]=2;
+_st($3)._addAll_($4);
+$ctx1.sendIdx["addAll:"]=1;
+$5=_st($2)._yourself();
+$ctx1.sendIdx["yourself"]=1;
+$1=$5;
+$6=self._collection();
+$ctx1.sendIdx["collection"]=3;
+self._assert_equals_($1,$6);
+$ctx1.sendIdx["assert:equals:"]=1;
+$8=self._collection();
+$ctx1.sendIdx["collection"]=4;
+$9=$8;
+$10=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=1;
+_st($9)._addAll_($10);
+$ctx1.sendIdx["addAll:"]=2;
+$11=_st($8)._yourself();
+$ctx1.sendIdx["yourself"]=2;
+$7=$11;
+$12=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=2;
+self._assert_equals_($7,$12);
+$ctx1.sendIdx["assert:equals:"]=2;
+$14=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=3;
+_st($14)._addAll_(self._collection());
+$15=_st($14)._yourself();
+$13=$15;
+self._assert_equals_($13,self._collectionWithNewValue());
+return self}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},smalltalk.SetTest)})},
+args: [],
+source: "testAddAll\x0a\x09super testAddAll.\x0a\x09self assert: (self collection addAll: self collection; yourself) equals: self collection.\x0a\x09self assert: (self collection addAll: self collectionWithNewValue; yourself) equals: self collectionWithNewValue.\x0a\x09self assert: (self collectionWithNewValue addAll: self collection; yourself) equals: self collectionWithNewValue",
+messageSends: ["testAddAll", "assert:equals:", "addAll:", "collection", "yourself", "collectionWithNewValue"],
+referencedClasses: []
+}),
+smalltalk.SetTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testAddRemove",
 protocol: 'tests',
 fn: function (){
@@ -5217,6 +5268,47 @@ return self}, function($ctx1) {$ctx1.fill(self,"testCollect",{},smalltalk.SetTes
 args: [],
 source: "testCollect\x0a\x09super testCollect.\x0a\x09self assert: (#(5 6 8) asSet collect: [ :x | x \x5c\x5c 3 ]) equals: #(0 2) asSet",
 messageSends: ["testCollect", "assert:equals:", "collect:", "asSet", "\x5c\x5c"],
+referencedClasses: []
+}),
+smalltalk.SetTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testComma",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
+smalltalk.SetTest.superclass.fn.prototype._testComma.apply(_st(self), []);
+$2=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$3=self._collection();
+$ctx1.sendIdx["collection"]=2;
+$1=_st($2).__comma($3);
+$ctx1.sendIdx[","]=1;
+$4=self._collection();
+$ctx1.sendIdx["collection"]=3;
+self._assert_equals_($1,$4);
+$ctx1.sendIdx["assert:equals:"]=1;
+$6=self._collection();
+$ctx1.sendIdx["collection"]=4;
+$7=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=1;
+$5=_st($6).__comma($7);
+$ctx1.sendIdx[","]=2;
+$8=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=2;
+self._assert_equals_($5,$8);
+$ctx1.sendIdx["assert:equals:"]=2;
+$10=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=3;
+$9=_st($10).__comma(self._collection());
+self._assert_equals_($9,self._collectionWithNewValue());
+return self}, function($ctx1) {$ctx1.fill(self,"testComma",{},smalltalk.SetTest)})},
+args: [],
+source: "testComma\x0a\x09super testComma.\x0a\x09self assert: self collection, self collection equals: self collection.\x0a\x09self assert: self collection, self collectionWithNewValue equals: self collectionWithNewValue.\x0a\x09self assert: self collectionWithNewValue, self collection equals: self collectionWithNewValue",
+messageSends: ["testComma", "assert:equals:", ",", "collection", "collectionWithNewValue"],
 referencedClasses: []
 }),
 smalltalk.SetTest);
