@@ -16,6 +16,7 @@
 + PackageTransport >> load
 + PackageHandler >> load:
 + AmdPackageHandler >> load:
++ Set >> removeAll
 
 - CompiledMethod >>
   - category: (use #protocol:)
