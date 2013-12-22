@@ -1059,15 +1059,19 @@ I am directly mapped to JavaScript Number.
 !Array methodsFor: 'accessing'!
 
 at: anIndex ifAbsent: aBlock
-	<return anIndex >>= 1 && anIndex <= self.length
-		? self[anIndex - 1]
-		: aBlock._value()>
+	<
+		return anIndex >>= 1 && anIndex <= self.length
+			? self[anIndex - 1]
+			: aBlock._value()
+	>
 !
 
 at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
-	<return anIndex >>= 1 && anIndex <= self.length
-		? aBlock._value_(self[anIndex - 1])
-		: anotherBlock._value()>
+	<
+		return anIndex >>= 1 && anIndex <= self.length
+			? aBlock._value_(self[anIndex - 1])
+			: anotherBlock._value()
+	>
 !
 
 at: anIndex put: anObject
@@ -1130,6 +1134,7 @@ reversed
 
 collect: aBlock
 	"Optimized version"
+	
 	<return self.map(function(each) {return aBlock._value_(each)})>
 !
 
@@ -1327,7 +1332,7 @@ at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
 !
 
 charCodeAt: anInteger
-	< return self.charCodeAt(anInteger - 1) >
+	<return self.charCodeAt(anInteger - 1)>
 !
 
 identityHash
@@ -1519,7 +1524,6 @@ trimBoth
 !
 
 trimBoth: separators
-
 	^ (self trimLeft: separators) trimRight: separators
 !
 
@@ -1528,7 +1532,6 @@ trimLeft
 !
 
 trimLeft: separators
-
 	^ self replaceRegexp: (RegularExpression fromString: '^[', separators, ']+' flag: 'g') with: ''
 !
 
@@ -1537,7 +1540,6 @@ trimRight
 !
 
 trimRight: separators
-
 	^ self replaceRegexp: (RegularExpression fromString: '[', separators, ']+$' flag: 'g') with: ''
 ! !
 
@@ -1623,7 +1625,7 @@ tokenize: aString
 !String methodsFor: 'testing'!
 
 includesSubString: subString
-	< return self.indexOf(subString) !!= -1 >
+	<return self.indexOf(subString) !!= -1>
 !
 
 isCapitalized

@@ -3174,12 +3174,14 @@ protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return anIndex >= 1 && anIndex <= self.length
-		? self[anIndex - 1]
-		: aBlock._value();
+
+		return anIndex >= 1 && anIndex <= self.length
+			? self[anIndex - 1]
+			: aBlock._value()
+	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},smalltalk.Array)})},
 args: ["anIndex", "aBlock"],
-source: "at: anIndex ifAbsent: aBlock\x0a\x09<return anIndex >>= 1 && anIndex <= self.length\x0a\x09\x09? self[anIndex - 1]\x0a\x09\x09: aBlock._value()>",
+source: "at: anIndex ifAbsent: aBlock\x0a\x09<\x0a\x09\x09return anIndex >>= 1 && anIndex <= self.length\x0a\x09\x09\x09? self[anIndex - 1]\x0a\x09\x09\x09: aBlock._value()\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3192,12 +3194,14 @@ protocol: 'accessing',
 fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return anIndex >= 1 && anIndex <= self.length
-		? aBlock._value_(self[anIndex - 1])
-		: anotherBlock._value();
+
+		return anIndex >= 1 && anIndex <= self.length
+			? aBlock._value_(self[anIndex - 1])
+			: anotherBlock._value()
+	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Array)})},
 args: ["anIndex", "aBlock", "anotherBlock"],
-source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09<return anIndex >>= 1 && anIndex <= self.length\x0a\x09\x09? aBlock._value_(self[anIndex - 1])\x0a\x09\x09: anotherBlock._value()>",
+source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09<\x0a\x09\x09return anIndex >>= 1 && anIndex <= self.length\x0a\x09\x09\x09? aBlock._value_(self[anIndex - 1])\x0a\x09\x09\x09: anotherBlock._value()\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3229,7 +3233,7 @@ return smalltalk.withContext(function($ctx1) {
 return self.map(function(each) {return aBlock._value_(each)});
 return self}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock},smalltalk.Array)})},
 args: ["aBlock"],
-source: "collect: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09<return self.map(function(each) {return aBlock._value_(each)})>",
+source: "collect: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09\x0a\x09<return self.map(function(each) {return aBlock._value_(each)})>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4230,10 +4234,10 @@ protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
- return self.charCodeAt(anInteger - 1) ;
+return self.charCodeAt(anInteger - 1);
 return self}, function($ctx1) {$ctx1.fill(self,"charCodeAt:",{anInteger:anInteger},smalltalk.String)})},
 args: ["anInteger"],
-source: "charCodeAt: anInteger\x0a\x09< return self.charCodeAt(anInteger - 1) >",
+source: "charCodeAt: anInteger\x0a\x09<return self.charCodeAt(anInteger - 1)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4333,10 +4337,10 @@ protocol: 'testing',
 fn: function (subString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
- return self.indexOf(subString) != -1 ;
+return self.indexOf(subString) != -1;
 return self}, function($ctx1) {$ctx1.fill(self,"includesSubString:",{subString:subString},smalltalk.String)})},
 args: ["subString"],
-source: "includesSubString: subString\x0a\x09< return self.indexOf(subString) != -1 >",
+source: "includesSubString: subString\x0a\x09<return self.indexOf(subString) != -1>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4855,7 +4859,7 @@ $1=_st(self._trimLeft_(separators))._trimRight_(separators);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"trimBoth:",{separators:separators},smalltalk.String)})},
 args: ["separators"],
-source: "trimBoth: separators\x0a\x0a\x09^ (self trimLeft: separators) trimRight: separators",
+source: "trimBoth: separators\x0a\x09^ (self trimLeft: separators) trimRight: separators",
 messageSends: ["trimRight:", "trimLeft:"],
 referencedClasses: []
 }),
@@ -4895,7 +4899,7 @@ $1=self._replaceRegexp_with_($2,"");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"trimLeft:",{separators:separators},smalltalk.String)})},
 args: ["separators"],
-source: "trimLeft: separators\x0a\x0a\x09^ self replaceRegexp: (RegularExpression fromString: '^[', separators, ']+' flag: 'g') with: ''",
+source: "trimLeft: separators\x0a\x09^ self replaceRegexp: (RegularExpression fromString: '^[', separators, ']+' flag: 'g') with: ''",
 messageSends: ["replaceRegexp:with:", "fromString:flag:", ","],
 referencedClasses: ["RegularExpression"]
 }),
@@ -4935,7 +4939,7 @@ $1=self._replaceRegexp_with_($2,"");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"trimRight:",{separators:separators},smalltalk.String)})},
 args: ["separators"],
-source: "trimRight: separators\x0a\x0a\x09^ self replaceRegexp: (RegularExpression fromString: '[', separators, ']+$' flag: 'g') with: ''",
+source: "trimRight: separators\x0a\x09^ self replaceRegexp: (RegularExpression fromString: '[', separators, ']+$' flag: 'g') with: ''",
 messageSends: ["replaceRegexp:with:", "fromString:flag:", ","],
 referencedClasses: ["RegularExpression"]
 }),
