@@ -780,7 +780,10 @@ self assert: ( self collectionClass new asDictionary isMemberOf: Dictionary ).
 !
 
 testComma
-	self should: [ self collection, self collection ] raise: Error
+	super testComma.
+	self assert: self collection, self collection equals: self collection.
+	self assert: self collection, self collectionWithNewValue equals: self collectionWithNewValue.
+	self assert: self collectionWithNewValue, self collection equals: self collectionWithNewValue
 !
 
 testFrom

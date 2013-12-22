@@ -2862,20 +2862,38 @@ selector: "testComma",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-self._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {
-$1=self._collection();
-$ctx2.sendIdx["collection"]=1;
-return _st($1).__comma(self._collection());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
+var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
+smalltalk.HashedCollectionTest.superclass.fn.prototype._testComma.apply(_st(self), []);
+$2=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$3=self._collection();
+$ctx1.sendIdx["collection"]=2;
+$1=_st($2).__comma($3);
+$ctx1.sendIdx[","]=1;
+$4=self._collection();
+$ctx1.sendIdx["collection"]=3;
+self._assert_equals_($1,$4);
+$ctx1.sendIdx["assert:equals:"]=1;
+$6=self._collection();
+$ctx1.sendIdx["collection"]=4;
+$7=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=1;
+$5=_st($6).__comma($7);
+$ctx1.sendIdx[","]=2;
+$8=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=2;
+self._assert_equals_($5,$8);
+$ctx1.sendIdx["assert:equals:"]=2;
+$10=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=3;
+$9=_st($10).__comma(self._collection());
+self._assert_equals_($9,self._collectionWithNewValue());
 return self}, function($ctx1) {$ctx1.fill(self,"testComma",{},smalltalk.HashedCollectionTest)})},
 args: [],
-source: "testComma\x0a\x09self should: [ self collection, self collection ] raise: Error",
-messageSends: ["should:raise:", ",", "collection"],
-referencedClasses: ["Error"]
+source: "testComma\x0a\x09super testComma.\x0a\x09self assert: self collection, self collection equals: self collection.\x0a\x09self assert: self collection, self collectionWithNewValue equals: self collectionWithNewValue.\x0a\x09self assert: self collectionWithNewValue, self collection equals: self collectionWithNewValue",
+messageSends: ["testComma", "assert:equals:", ",", "collection", "collectionWithNewValue"],
+referencedClasses: []
 }),
 smalltalk.HashedCollectionTest);
 
