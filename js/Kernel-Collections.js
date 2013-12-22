@@ -3174,13 +3174,12 @@ protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-
-		if((anIndex < 1) || (self.length < anIndex)) {return aBlock._value()};
-		return self[anIndex - 1];
-	;
+return anIndex >= 1 && anIndex <= self.length
+		? self[anIndex - 1]
+		: aBlock._value();
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},smalltalk.Array)})},
 args: ["anIndex", "aBlock"],
-source: "at: anIndex ifAbsent: aBlock\x0a\x09<\x0a\x09\x09if((anIndex < 1) || (self.length < anIndex)) {return aBlock._value()};\x0a\x09\x09return self[anIndex - 1];\x0a\x09>",
+source: "at: anIndex ifAbsent: aBlock\x0a\x09<return anIndex >>= 1 && anIndex <= self.length\x0a\x09\x09? self[anIndex - 1]\x0a\x09\x09: aBlock._value()>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3193,10 +3192,12 @@ protocol: 'accessing',
 fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return anIndex < 1 || self.length < anIndex ? anotherBlock._value() : aBlock._value_(self[anIndex - 1]);;
+return anIndex >= 1 && anIndex <= self.length
+		? aBlock._value_(self[anIndex - 1])
+		: anotherBlock._value();
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Array)})},
 args: ["anIndex", "aBlock", "anotherBlock"],
-source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09<return anIndex < 1 || self.length < anIndex ? anotherBlock._value() : aBlock._value_(self[anIndex - 1]);>",
+source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09<return anIndex >>= 1 && anIndex <= self.length\x0a\x09\x09? aBlock._value_(self[anIndex - 1])\x0a\x09\x09: anotherBlock._value()>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4171,10 +4172,10 @@ protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return String(self).charAt(anIndex - 1) || aBlock._value();
+return String(self)[anIndex - 1] || aBlock._value();
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},smalltalk.String)})},
 args: ["anIndex", "aBlock"],
-source: "at: anIndex ifAbsent: aBlock\x0a\x09<return String(self).charAt(anIndex - 1) || aBlock._value()>",
+source: "at: anIndex ifAbsent: aBlock\x0a\x09<return String(self)[anIndex - 1] || aBlock._value()>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4188,12 +4189,12 @@ fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		var result = String(self).charAt(anIndex - 1);
+		var result = String(self)[anIndex - 1];
 		return result ? aBlock._value_(result) : anotherBlock._value();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.String)})},
 args: ["anIndex", "aBlock", "anotherBlock"],
-source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09<\x0a\x09\x09var result = String(self).charAt(anIndex - 1);\x0a\x09\x09return result ? aBlock._value_(result) : anotherBlock._value();\x0a\x09>",
+source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09<\x0a\x09\x09var result = String(self)[anIndex - 1];\x0a\x09\x09return result ? aBlock._value_(result) : anotherBlock._value();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5455,6 +5456,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anOb
 args: ["anObject", "aBlock"],
 source: "remove: anObject ifAbsent: aBlock\x0a\x09elements remove: anObject ifAbsent: aBlock",
 messageSends: ["remove:ifAbsent:"],
+referencedClasses: []
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeAll",
+protocol: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@elements"])._removeAll();
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Set)})},
+args: [],
+source: "removeAll\x0a\x09elements removeAll",
+messageSends: ["removeAll"],
 referencedClasses: []
 }),
 smalltalk.Set);
