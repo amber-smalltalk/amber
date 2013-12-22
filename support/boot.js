@@ -907,12 +907,12 @@ function RuntimeBrik(brikz, st) {
 	 avoid another RangeError later when the stack is manipulated. */
 	function wrappedError(error) {
 		var errorWrapper = st.JavaScriptException._on_(error);
+		// Add the error to the context, so it is visible in the stack
+		try { errorWrapper._signal(); } catch (ex) {}
 		var context = st.getThisContext();
 		if(isRangeError(error)) {
 			stubContextStack(context);
 		}
-		// Set the error to signaled state in the Smalltalk-side
-		try { errorWrapper._signal(); } catch (ex) {}
 		errorWrapper._context_(context);
 		return errorWrapper;
 	}
