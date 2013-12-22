@@ -230,17 +230,16 @@ require: aModuleString
 	^require value: aModuleString
 !
 
-withBasePath: aBaseRelativePath
-	"return a file path which is relative to the basePath."
-	^	path join: self basePath with: aBaseRelativePath
-!
-
-
 validateBasePath
 	"The basePath must be an existing directory. "
 	fs stat: self basePath then: [ :err :stat | err
 		ifNil: [ stat isDirectory ifFalse: [ console warn: 'Warning: --base-path parameter ' , self basePath , ' is not a directory.' ]]
 		ifNotNil: [ console warn: 'Warning: path at --base-path parameter ' , self basePath , ' does not exist.'  ]].
+!
+
+withBasePath: aBaseRelativePath
+	"return a file path which is relative to the basePath."
+	^	path join: self basePath with: aBaseRelativePath
 !
 
 writeData: data toFileNamed: aFilename
