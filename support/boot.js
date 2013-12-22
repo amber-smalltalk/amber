@@ -933,7 +933,7 @@ function RuntimeBrik(brikz, st) {
 	}
 
 	function isRangeError(error) {
-		return error.constructor === RangeError;
+		return error instanceof RangeError;
 	}
 
 
