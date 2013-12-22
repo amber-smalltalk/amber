@@ -2409,6 +2409,45 @@ smalltalk.IndexableCollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testAtIfAbsentPut",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var newCollection;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+newCollection=self._collection();
+$ctx1.sendIdx["collection"]=1;
+self._samplesDo_((function(index,value){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(newCollection)._at_ifAbsentPut_(index,(function(){
+return smalltalk.withContext(function($ctx3) {
+return self._sampleNewValue();
+$ctx3.sendIdx["sampleNewValue"]=1;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+$ctx2.sendIdx["at:ifAbsentPut:"]=1;
+return self._assert_equals_($1,value);
+$ctx2.sendIdx["assert:equals:"]=1;
+}, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,1)})}));
+self._assert_equals_(newCollection,self._collection());
+$ctx1.sendIdx["assert:equals:"]=2;
+self._assert_equals_(_st(newCollection)._at_ifAbsentPut_(self._sampleNewIndex(),(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._sampleNewValue();
+$ctx2.sendIdx["sampleNewValue"]=2;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})})),self._sampleNewValue());
+$ctx1.sendIdx["assert:equals:"]=3;
+self._assert_equals_(newCollection,self._collectionWithNewValue());
+return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsentPut",{newCollection:newCollection},smalltalk.IndexableCollectionTest)})},
+args: [],
+source: "testAtIfAbsentPut\x0a\x09| newCollection |\x0a\x09newCollection := self collection.\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09self assert: (newCollection at: index ifAbsentPut: [ self sampleNewValue ]) equals: value ].\x0a\x09self assert: newCollection equals: self collection.\x0a\x09self assert: (newCollection at: self sampleNewIndex ifAbsentPut: [ self sampleNewValue ]) equals: self sampleNewValue.\x0a\x09self assert: newCollection equals: self collectionWithNewValue",
+messageSends: ["collection", "samplesDo:", "assert:equals:", "at:ifAbsentPut:", "sampleNewValue", "sampleNewIndex", "collectionWithNewValue"],
+referencedClasses: []
+}),
+smalltalk.IndexableCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testAtIfPresent",
 protocol: 'tests',
 fn: function (){
@@ -4624,6 +4663,29 @@ args: [],
 source: "testAsciiValue\x0a    | characterA characterU |\x0a    characterA := 'A'.\x0a    characterU := 'U'.\x0a    self assert: (characterA asciiValue) equals:65.\x0a    self assert: (characterU asciiValue) equals:85",
 messageSends: ["assert:equals:", "asciiValue"],
 referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testAtIfAbsentPut",
+protocol: 'tests',
+fn: function (){
+var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+self._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return "hello"._at_ifAbsentPut_((6),(function(){
+return smalltalk.withContext(function($ctx3) {
+return "a";
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
+return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsentPut",{},smalltalk.StringTest)})},
+args: [],
+source: "testAtIfAbsentPut\x0a\x09\x22String instances are read-only\x22\x0a\x09self should: [ 'hello' at: 6 ifAbsentPut: [ 'a' ] ] raise: Error",
+messageSends: ["should:raise:", "at:ifAbsentPut:"],
+referencedClasses: ["Error"]
 }),
 smalltalk.StringTest);
 

@@ -673,6 +673,16 @@ testAtIfAbsent
 		self assert: (self collection at: index ifAbsent: [ self sampleNewValue ]) equals: value ].
 !
 
+testAtIfAbsentPut
+	| newCollection |
+	newCollection := self collection.
+	self samplesDo: [ :index :value |
+		self assert: (newCollection at: index ifAbsentPut: [ self sampleNewValue ]) equals: value ].
+	self assert: newCollection equals: self collection.
+	self assert: (newCollection at: self sampleNewIndex ifAbsentPut: [ self sampleNewValue ]) equals: self sampleNewValue.
+	self assert: newCollection equals: self collectionWithNewValue
+!
+
 testAtIfPresent
 	| visited sentinel |
 	sentinel := Object new.
@@ -1324,6 +1334,11 @@ testAsciiValue
     characterU := 'U'.
     self assert: (characterA asciiValue) equals:65.
     self assert: (characterU asciiValue) equals:85
+!
+
+testAtIfAbsentPut
+	"String instances are read-only"
+	self should: [ 'hello' at: 6 ifAbsentPut: [ 'a' ] ] raise: Error
 !
 
 testAtPut
