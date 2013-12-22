@@ -2,6 +2,7 @@
 
 * Package Import-Export renamed to Kernel-ImportExport
 * A dozen of methods moved from Object to ProtoObject
+* HashedCollection >> at:ifAbsentPut: pushed up to SequenceableCollection
 
 + CompiledMethod >>
   + defaultProtocol
