@@ -5349,9 +5349,10 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		var found;
+		var found, objAsReceiver;
+		objAsReceiver = _st(anObject);
 		for(var i=0; i < self['@elements'].length; i++) {
-			if(_st(anObject).__eq(self['@elements'][i])) {
+			if(objAsReceiver.__eq(self['@elements'][i])) {
 				found = true;
 				break;
 			}
@@ -5360,7 +5361,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},smalltalk.Set)})},
 args: ["anObject"],
-source: "add: anObject\x0a\x09<\x0a\x09\x09var found;\x0a\x09\x09for(var i=0; i < self['@elements'].length; i++) {\x0a\x09\x09\x09if(_st(anObject).__eq(self['@elements'][i])) {\x0a\x09\x09\x09\x09found = true;\x0a\x09\x09\x09\x09break;\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09if(!found) {self['@elements'].push(anObject)}\x0a\x09>",
+source: "add: anObject\x0a\x09<\x0a\x09\x09var found, objAsReceiver;\x0a\x09\x09objAsReceiver = _st(anObject);\x0a\x09\x09for(var i=0; i < self['@elements'].length; i++) {\x0a\x09\x09\x09if(objAsReceiver.__eq(self['@elements'][i])) {\x0a\x09\x09\x09\x09found = true;\x0a\x09\x09\x09\x09break;\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09if(!found) {self['@elements'].push(anObject)}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

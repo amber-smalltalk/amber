@@ -1747,9 +1747,10 @@ size
 
 add: anObject
 	<
-		var found;
+		var found, objAsReceiver;
+		objAsReceiver = _st(anObject);
 		for(var i=0; i < self['@elements'].length; i++) {
-			if(_st(anObject).__eq(self['@elements'][i])) {
+			if(objAsReceiver.__eq(self['@elements'][i])) {
 				found = true;
 				break;
 			}
