@@ -1585,6 +1585,124 @@ collectionClass
 	^ Set
 ! !
 
+CollectionTest subclass: #StringSetTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!StringSetTest methodsFor: 'fixture'!
+
+collection
+	^ StringSet new
+		add: 1;
+		add: 2;
+		add: 3;
+		add: -4;
+		yourself
+!
+
+collectionOfPrintStrings
+	^ StringSet new
+		add: '''1''';
+		add: '''2''';
+		add: '''3''';
+		add: '''-4''';
+		yourself
+!
+
+collectionSize
+	^ 4
+!
+
+collectionWithDuplicates
+	"Set has no duplicates"
+	^ self collection add: 'yet another'; yourself
+!
+
+collectionWithNewValue
+	^ StringSet new
+		add: 1;
+		add: 2;
+		add: 3;
+		add: 'N';
+		add: -4;
+		yourself
+! !
+
+!StringSetTest methodsFor: 'tests'!
+
+testAddRemove
+	| set |
+	set := StringSet new.
+	
+	self assert: set isEmpty.
+
+	set add: 3.
+	self assert: (set includes: 3).
+
+	set add: 5.
+	self assert: (set includes: 5).
+
+	set remove: 3.
+	self deny: (set includes: 3)
+!
+
+testAt
+	self should: [ Set new at: 1 put: 2 ] raise: Error
+!
+
+testCollect
+	super testCollect.
+	self assert: (#(5 6 8) asStringSet collect: [ :x | x asNumber \\ 3 ]) equals: #(2 0) asStringSet
+!
+
+testComparing
+	self assert: #(0 2) asStringSet equals: #(0 2) asStringSet.
+	self assert: #(2 0) asStringSet equals: #(0 2) asStringSet.
+	self deny: #(0 2 3) asStringSet = #(0 2) asStringSet.
+	self deny: #(1 2) asStringSet = #(0 2) asStringSet
+!
+
+testPrintString
+	| set |
+	set := StringSet new.
+	self assert: set printString equals: 'a StringSet ()'.
+	set add: 1; add: 3.
+	self assert: set printString equals: 'a StringSet (''1'' ''3'')'.
+	set add: 'foo'.
+	self assert: set printString equals: 'a StringSet (''1'' ''3'' ''foo'')'.
+	set remove: 1; remove: 3.
+	self assert: set printString equals: 'a StringSet (''foo'')'.
+	set add: 3.
+	self assert: set printString equals: 'a StringSet (''3'' ''foo'')'.
+	set add: 3.
+	self assert: set printString equals: 'a StringSet (''3'' ''foo'')'
+!
+
+testUnboxedObjects
+	self assert: {'foo' yourself. 'foo' yourself} asStringSet asArray equals: #('foo')
+!
+
+testUnicity
+	| set |
+	set := StringSet new.
+	set add: 21.
+	set add: 'hello'.
+
+	set add: 21.
+	self assert: set size equals: 2.
+	
+	set add: 'hello'.
+	self assert: set size equals: 2.
+
+	self assert: set asArray equals: #('21' 'hello')
+! !
+
+!StringSetTest class methodsFor: 'fixture'!
+
+collectionClass
+	^ StringSet
+! !
+
 TestCase subclass: #ConsoleTranscriptTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
