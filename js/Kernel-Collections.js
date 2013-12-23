@@ -1155,6 +1155,27 @@ smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "at:ifAbsentPut:",
+protocol: 'accessing',
+fn: function (aKey,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._at_ifAbsent_(aKey,(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._at_put_(aKey,_st(aBlock)._value());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsentPut:",{aKey:aKey,aBlock:aBlock},smalltalk.IndexableCollection)})},
+args: ["aKey", "aBlock"],
+source: "at: aKey ifAbsentPut: aBlock\x0a\x09^ self at: aKey ifAbsent: [\x0a\x09\x09self at: aKey put: aBlock value ]",
+messageSends: ["at:ifAbsent:", "at:put:", "value"],
+referencedClasses: []
+}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "at:ifPresent:",
 protocol: 'accessing',
 fn: function (anIndex,aBlock){
@@ -1470,27 +1491,6 @@ return $1;
 args: ["aKey", "aBlock"],
 source: "at: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ self basicAt: aKey ]\x0a\x09\x09ifFalse: aBlock",
 messageSends: ["ifTrue:ifFalse:", "includesKey:", "basicAt:"],
-referencedClasses: []
-}),
-smalltalk.HashedCollection);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "at:ifAbsentPut:",
-protocol: 'accessing',
-fn: function (aKey,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._at_ifAbsent_(aKey,(function(){
-return smalltalk.withContext(function($ctx2) {
-return self._at_put_(aKey,_st(aBlock)._value());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsentPut:",{aKey:aKey,aBlock:aBlock},smalltalk.HashedCollection)})},
-args: ["aKey", "aBlock"],
-source: "at: aKey ifAbsentPut: aBlock\x0a\x09^ self at: aKey ifAbsent: [\x0a\x09\x09self at: aKey put: aBlock value ]",
-messageSends: ["at:ifAbsent:", "at:put:", "value"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);

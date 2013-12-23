@@ -377,6 +377,11 @@ at: anIndex ifAbsent: aBlock
 	self subclassResponsibility
 !
 
+at: aKey ifAbsentPut: aBlock
+	^ self at: aKey ifAbsent: [
+		self at: aKey put: aBlock value ]
+!
+
 at: anIndex ifPresent: aBlock
 	"Lookup the given index in the receiver.
 	If it is present, answer the value of evaluating aBlock with the value stored at anIndex.
@@ -451,11 +456,6 @@ at: aKey ifAbsent: aBlock
 	^ (self includesKey: aKey)
 		ifTrue: [ self basicAt: aKey ]
 		ifFalse: aBlock
-!
-
-at: aKey ifAbsentPut: aBlock
-	^ self at: aKey ifAbsent: [
-		self at: aKey put: aBlock value ]
 !
 
 at: aKey ifPresent: aBlock ifAbsent: anotherBlock

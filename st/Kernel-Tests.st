@@ -673,6 +673,16 @@ testAtIfAbsent
 		self assert: (self collection at: index ifAbsent: [ self sampleNewValue ]) equals: value ].
 !
 
+testAtIfAbsentPut
+	| newCollection |
+	newCollection := self collection.
+	self samplesDo: [ :index :value |
+		self assert: (newCollection at: index ifAbsentPut: [ self sampleNewValue ]) equals: value ].
+	self assert: newCollection equals: self collection.
+	self assert: (newCollection at: self sampleNewIndex ifAbsentPut: [ self sampleNewValue ]) equals: self sampleNewValue.
+	self assert: newCollection equals: self collectionWithNewValue
+!
+
 testAtIfPresent
 	| visited sentinel |
 	sentinel := Object new.
@@ -1326,6 +1336,11 @@ testAsciiValue
     self assert: (characterU asciiValue) equals:85
 !
 
+testAtIfAbsentPut
+	"String instances are read-only"
+	self should: [ 'hello' at: 6 ifAbsentPut: [ 'a' ] ] raise: Error
+!
+
 testAtPut
 	"String instances are read-only"
 	self should: [ 'hello' at: 1 put: 'a' ] raise: Error
@@ -1483,6 +1498,13 @@ collectionWithNewValue
 
 !SetTest methodsFor: 'tests'!
 
+testAddAll
+	super testAddAll.
+	self assert: (self collection addAll: self collection; yourself) equals: self collection.
+	self assert: (self collection addAll: self collectionWithNewValue; yourself) equals: self collectionWithNewValue.
+	self assert: (self collectionWithNewValue addAll: self collection; yourself) equals: self collectionWithNewValue
+!
+
 testAddRemove
 	| set |
 	set := Set new.
@@ -1506,6 +1528,13 @@ testAt
 testCollect
 	super testCollect.
 	self assert: (#(5 6 8) asSet collect: [ :x | x \\ 3 ]) equals: #(0 2) asSet
+!
+
+testComma
+	super testComma.
+	self assert: self collection, self collection equals: self collection.
+	self assert: self collection, self collectionWithNewValue equals: self collectionWithNewValue.
+	self assert: self collectionWithNewValue, self collection equals: self collectionWithNewValue
 !
 
 testComparing
