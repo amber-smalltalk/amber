@@ -1355,11 +1355,14 @@ size
 
 = aString
 	<
-		if(typeof aString === 'undefined') { return false }
-		if(!!aString._isString || !! aString._isString()) {
-			return false;
+		switch(typeof aString) {
+			case 'string':
+				return String(self) === aString;
+			case 'object':
+				return typeof aString._isString === "function" && aString._isString() && String(self) === String(aString);
+			default:
+				return false;
 		}
-		return String(self) === String(aString)
 	>
 !
 
@@ -1720,9 +1723,10 @@ size
 
 add: anObject
 	<
-		var found;
+		var found, objAsReceiver;
+		objAsReceiver = _st(anObject);
 		for(var i=0; i < self['@elements'].length; i++) {
-			if(_st(anObject).__eq(self['@elements'][i])) {
+			if(objAsReceiver.__eq(self['@elements'][i])) {
 				found = true;
 				break;
 			}

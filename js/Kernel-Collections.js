@@ -3915,15 +3915,18 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		if(typeof aString === 'undefined') { return false }
-		if(!aString._isString || ! aString._isString()) {
-			return false;
+		switch(typeof aString) {
+			case 'string':
+				return String(self) === aString;
+			case 'object':
+				return typeof aString._isString === "function" && aString._isString() && String(self) === String(aString);
+			default:
+				return false;
 		}
-		return String(self) === String(aString)
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"=",{aString:aString},smalltalk.String)})},
 args: ["aString"],
-source: "= aString\x0a\x09<\x0a\x09\x09if(typeof aString === 'undefined') { return false }\x0a\x09\x09if(!aString._isString || ! aString._isString()) {\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09return String(self) === String(aString)\x0a\x09>",
+source: "= aString\x0a\x09<\x0a\x09\x09switch(typeof aString) {\x0a\x09\x09\x09case 'string':\x0a\x09\x09\x09\x09return String(self) === aString;\x0a\x09\x09\x09case 'object':\x0a\x09\x09\x09\x09return typeof aString._isString === \x22function\x22 && aString._isString() && String(self) === String(aString);\x0a\x09\x09\x09default:\x0a\x09\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5282,9 +5285,10 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		var found;
+		var found, objAsReceiver;
+		objAsReceiver = _st(anObject);
 		for(var i=0; i < self['@elements'].length; i++) {
-			if(_st(anObject).__eq(self['@elements'][i])) {
+			if(objAsReceiver.__eq(self['@elements'][i])) {
 				found = true;
 				break;
 			}
@@ -5293,7 +5297,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},smalltalk.Set)})},
 args: ["anObject"],
-source: "add: anObject\x0a\x09<\x0a\x09\x09var found;\x0a\x09\x09for(var i=0; i < self['@elements'].length; i++) {\x0a\x09\x09\x09if(_st(anObject).__eq(self['@elements'][i])) {\x0a\x09\x09\x09\x09found = true;\x0a\x09\x09\x09\x09break;\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09if(!found) {self['@elements'].push(anObject)}\x0a\x09>",
+source: "add: anObject\x0a\x09<\x0a\x09\x09var found, objAsReceiver;\x0a\x09\x09objAsReceiver = _st(anObject);\x0a\x09\x09for(var i=0; i < self['@elements'].length; i++) {\x0a\x09\x09\x09if(objAsReceiver.__eq(self['@elements'][i])) {\x0a\x09\x09\x09\x09found = true;\x0a\x09\x09\x09\x09break;\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09if(!found) {self['@elements'].push(anObject)}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
