@@ -371,6 +371,25 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asStringSet",
+protocol: 'converting',
+fn: function (){
+var self=this;
+function $StringSet(){return smalltalk.StringSet||(typeof StringSet=="undefined"?nil:StringSet)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($StringSet())._withAll_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asStringSet",{},smalltalk.Collection)})},
+args: [],
+source: "asStringSet\x0a\x09^ StringSet withAll: self",
+messageSends: ["withAll:"],
+referencedClasses: ["StringSet"]
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "collect:",
 protocol: 'enumerating',
 fn: function (aBlock){
@@ -5528,6 +5547,312 @@ messageSends: ["size"],
 referencedClasses: []
 }),
 smalltalk.Set);
+
+
+
+smalltalk.addClass('StringSet', smalltalk.Collection, ['elements'], 'Kernel-Collections');
+smalltalk.StringSet.comment="I represent an unordered set of objects without duplicates.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "=",
+protocol: 'comparing',
+fn: function (aCollection){
+var self=this;
+var array;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$3,$5,$4;
+var $early={};
+try {
+$2=self._class();
+$ctx1.sendIdx["class"]=1;
+$1=_st($2).__eq(_st(aCollection)._class());
+$ctx1.sendIdx["="]=1;
+if(! smalltalk.assert($1)){
+return false;
+};
+array=self._asArray();
+_st(array)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(aCollection)._includes_(each);
+if(! smalltalk.assert($3)){
+throw $early=[false];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+$5=_st(array)._size();
+$ctx1.sendIdx["size"]=1;
+$4=_st($5).__eq(_st(aCollection)._size());
+return $4;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"=",{aCollection:aCollection,array:array},smalltalk.StringSet)})},
+args: ["aCollection"],
+source: "= aCollection\x0a\x09| array |\x0a\x09self class = aCollection class ifFalse: [ ^ false ].\x0a\x09array := self asArray.\x0a\x09array do: [ :each | (aCollection includes: each) ifFalse: [ ^ false ] ].\x0a\x09^ array size = aCollection size",
+messageSends: ["ifFalse:", "=", "class", "asArray", "do:", "includes:", "size"],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "add:",
+protocol: 'adding/removing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self['@elements'][anObject] = true;
+return self}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},smalltalk.StringSet)})},
+args: ["anObject"],
+source: "add: anObject\x0a\x09<self['@elements'][anObject] = true>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asArray",
+protocol: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Object.keys(self['@elements']);
+return self}, function($ctx1) {$ctx1.fill(self,"asArray",{},smalltalk.StringSet)})},
+args: [],
+source: "asArray\x0a\x09<return Object.keys(self['@elements'])>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "bareJSObject",
+protocol: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Object.create(null);
+return self}, function($ctx1) {$ctx1.fill(self,"bareJSObject",{},smalltalk.StringSet)})},
+args: [],
+source: "bareJSObject\x0a\x09<return Object.create(null)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "collect:",
+protocol: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._class())._withAll_(_st(self._asArray())._collect_(aBlock));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock},smalltalk.StringSet)})},
+args: ["aBlock"],
+source: "collect: aBlock\x0a\x09^ self class withAll: (self asArray collect: aBlock)",
+messageSends: ["withAll:", "class", "collect:", "asArray"],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "detect:ifNone:",
+protocol: 'enumerating',
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._asArray())._detect_ifNone_(aBlock,anotherBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"detect:ifNone:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.StringSet)})},
+args: ["aBlock", "anotherBlock"],
+source: "detect: aBlock ifNone: anotherBlock\x0a\x09^ self asArray detect: aBlock ifNone: anotherBlock",
+messageSends: ["detect:ifNone:", "asArray"],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "do:",
+protocol: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._asArray())._do_(aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.StringSet)})},
+args: ["aBlock"],
+source: "do: aBlock\x0a\x09self asArray do: aBlock",
+messageSends: ["do:", "asArray"],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "includes:",
+protocol: 'testing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return !!self['@elements'][anObject];
+return self}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},smalltalk.StringSet)})},
+args: ["anObject"],
+source: "includes: anObject\x0a\x09<return !!self['@elements'][anObject]>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.StringSet.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@elements"]=self._bareJSObject();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.StringSet)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09elements := self bareJSObject",
+messageSends: ["initialize", "bareJSObject"],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "printOn:",
+protocol: 'printing',
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.StringSet.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+$ctx1.sendIdx["printOn:"]=1;
+_st(aStream)._nextPutAll_(" (");
+$ctx1.sendIdx["nextPutAll:"]=1;
+self._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._printOn_(aStream);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aStream)._nextPutAll_(" ");
+$ctx2.sendIdx["nextPutAll:"]=2;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+_st(aStream)._nextPutAll_(")");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.StringSet)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09\x0a\x09aStream nextPutAll: ' ('.\x0a\x09self \x0a\x09\x09do: [ :each | each printOn: aStream ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ' ' ].\x0a\x09aStream nextPutAll: ')'",
+messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:"],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "remove:",
+protocol: 'adding/removing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var key = String(anObject), el = self['@elements'];
+		if (el[key]) { delete el[key]; return anObject; }
+		[]._remove_("");
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"remove:",{anObject:anObject},smalltalk.StringSet)})},
+args: ["anObject"],
+source: "remove: anObject\x0a\x09<\x0a\x09\x09var key = String(anObject), el = self['@elements'];\x0a\x09\x09if (el[key]) { delete el[key]; return anObject; }\x0a\x09\x09[]._remove_(\x22\x22);\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "remove:ifAbsent:",
+protocol: 'adding/removing',
+fn: function (anObject,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var key = String(anObject), el = self['@elements'];
+		if (el[key]) { delete el[key]; return anObject; }
+		return aBlock._value_();
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.StringSet)})},
+args: ["anObject", "aBlock"],
+source: "remove: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09var key = String(anObject), el = self['@elements'];\x0a\x09\x09if (el[key]) { delete el[key]; return anObject; }\x0a\x09\x09return aBlock._value_();\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeAll",
+protocol: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@elements"]=self._bareJSObject();
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.StringSet)})},
+args: [],
+source: "removeAll\x0a\x09elements := self bareJSObject",
+messageSends: ["bareJSObject"],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "select:",
+protocol: 'enumerating',
+fn: function (aBlock){
+var self=this;
+var collection;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+collection=_st(self._class())._new();
+self._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(aBlock)._value_(each);
+if(smalltalk.assert($1)){
+return _st(collection)._add_(each);
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$2=collection;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,collection:collection},smalltalk.StringSet)})},
+args: ["aBlock"],
+source: "select: aBlock\x0a\x09| collection |\x0a\x09collection := self class new.\x0a\x09self do: [ :each |\x0a\x09\x09(aBlock value: each) ifTrue: [\x0a\x09\x09\x09collection add: each ]].\x0a\x09^ collection",
+messageSends: ["new", "class", "do:", "ifTrue:", "value:", "add:"],
+referencedClasses: []
+}),
+smalltalk.StringSet);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "size",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._asArray())._size();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"size",{},smalltalk.StringSet)})},
+args: [],
+source: "size\x0a\x09^ self asArray size",
+messageSends: ["size", "asArray"],
+referencedClasses: []
+}),
+smalltalk.StringSet);
 
 
 

@@ -287,7 +287,7 @@ allMethods
 allSelectors
 	^ (self allMethods 
 		collect: [ :each | each selector ])
-		asSet
+		asStringSet
 !
 
 classReferencesOf: aString
