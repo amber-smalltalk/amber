@@ -816,27 +816,6 @@ smalltalk.HLReferencesModel);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "allSelectors",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self._allMethods())._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each)._selector();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._asSet();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"allSelectors",{},smalltalk.HLReferencesModel)})},
-args: [],
-source: "allSelectors\x0a\x09^ (self allMethods \x0a\x09\x09collect: [ :each | each selector ])\x0a\x09\x09asSet",
-messageSends: ["asSet", "collect:", "allMethods", "selector"],
-referencedClasses: []
-}),
-smalltalk.HLReferencesModel);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "classReferencesOf:",
 protocol: 'accessing',
 fn: function (aString){
