@@ -122,6 +122,10 @@ asOrderedCollection
 
 asSet
 	^ Set withAll: self
+!
+
+asStringSet
+	^ StringSet withAll: self
 ! !
 
 !Collection methodsFor: 'copying'!
@@ -1355,11 +1359,14 @@ size
 
 = aString
 	<
-		if(typeof aString === 'undefined') { return false }
-		if(!!aString._isString || !! aString._isString()) {
-			return false;
+		switch(typeof aString) {
+			case 'string':
+				return String(self) === aString;
+			case 'object':
+				return typeof aString._isString === "function" && aString._isString() && String(self) === String(aString);
+			default:
+				return false;
 		}
-		return String(self) === String(aString)
 	>
 !
 
@@ -1720,9 +1727,10 @@ size
 
 add: anObject
 	<
-		var found;
+		var found, objAsReceiver;
+		objAsReceiver = _st(anObject);
 		for(var i=0; i < self['@elements'].length; i++) {
-			if(_st(anObject).__eq(self['@elements'][i])) {
+			if(objAsReceiver.__eq(self['@elements'][i])) {
 				found = true;
 				break;
 			}
@@ -1804,6 +1812,114 @@ printOn: aStream
 
 includes: anObject
 	^ elements includes: anObject
+! !
+
+Collection subclass: #StringSet
+	instanceVariableNames: 'elements'
+	package: 'Kernel-Collections'!
+!StringSet commentStamp!
+I represent an unordered set of objects without duplicates.!
+
+!StringSet methodsFor: 'accessing'!
+
+size
+	^ self asArray size
+! !
+
+!StringSet methodsFor: 'adding/removing'!
+
+add: anObject
+	<self['@elements'][anObject] = true>
+!
+
+remove: anObject
+	<
+		var key = String(anObject), el = self['@elements'];
+		if (el[key]) { delete el[key]; return anObject; }
+		[]._remove_("");
+	>
+!
+
+remove: anObject ifAbsent: aBlock
+	<
+		var key = String(anObject), el = self['@elements'];
+		if (el[key]) { delete el[key]; return anObject; }
+		return aBlock._value_();
+	>
+!
+
+removeAll
+	elements := self bareJSObject
+! !
+
+!StringSet methodsFor: 'comparing'!
+
+= aCollection
+	| array |
+	self class = aCollection class ifFalse: [ ^ false ].
+	array := self asArray.
+	array do: [ :each | (aCollection includes: each) ifFalse: [ ^ false ] ].
+	^ array size = aCollection size
+! !
+
+!StringSet methodsFor: 'converting'!
+
+asArray
+	<return Object.keys(self['@elements'])>
+! !
+
+!StringSet methodsFor: 'enumerating'!
+
+collect: aBlock
+	^ self class withAll: (self asArray collect: aBlock)
+!
+
+detect: aBlock ifNone: anotherBlock
+	^ self asArray detect: aBlock ifNone: anotherBlock
+!
+
+do: aBlock
+	self asArray do: aBlock
+!
+
+select: aBlock
+	| collection |
+	collection := self class new.
+	self do: [ :each |
+		(aBlock value: each) ifTrue: [
+			collection add: each ]].
+	^ collection
+! !
+
+!StringSet methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	elements := self bareJSObject
+! !
+
+!StringSet methodsFor: 'printing'!
+
+printOn: aStream
+	super printOn: aStream.
+	
+	aStream nextPutAll: ' ('.
+	self 
+		do: [ :each | each printOn: aStream ]
+		separatedBy: [ aStream nextPutAll: ' ' ].
+	aStream nextPutAll: ')'
+! !
+
+!StringSet methodsFor: 'private'!
+
+bareJSObject
+	<return Object.create(null)>
+! !
+
+!StringSet methodsFor: 'testing'!
+
+includes: anObject
+	<return !!!!self['@elements'][anObject]>
 ! !
 
 Object subclass: #Queue
