@@ -553,10 +553,6 @@ asJSON
 
 !HashedCollection methodsFor: 'copying'!
 
-, aCollection
-	self shouldNotImplement
-!
-
 deepCopy
 	| copy |
 	copy := self class new.

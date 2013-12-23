@@ -1305,22 +1305,6 @@ smalltalk.addClass('HashedCollection', smalltalk.IndexableCollection, [], 'Kerne
 smalltalk.HashedCollection.comment="I am a traditional JavaScript object, or a Smalltalk `Dictionary`.\x0a\x0aUnlike a `Dictionary`, I can only have strings as keys.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: ",",
-protocol: 'copying',
-fn: function (aCollection){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._shouldNotImplement();
-return self}, function($ctx1) {$ctx1.fill(self,",",{aCollection:aCollection},smalltalk.HashedCollection)})},
-args: ["aCollection"],
-source: ", aCollection\x0a\x09self shouldNotImplement",
-messageSends: ["shouldNotImplement"],
-referencedClasses: []
-}),
-smalltalk.HashedCollection);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "=",
 protocol: 'comparing',
 fn: function (aHashedCollection){
