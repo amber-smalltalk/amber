@@ -1446,18 +1446,18 @@ CollectionTest subclass: #SetTest
 
 collection
 	^ Set new
-		add: 1;
-		add: 2;
-		add: 3;
+		add: Smalltalk current;
+		add: nil;
+		add: 3@3;
 		add: -4;
 		yourself
 !
 
 collectionOfPrintStrings
 	^ Set new
-		add: '1';
-		add: '2';
-		add: '3';
+		add: 'a Smalltalk';
+		add: 'nil';
+		add: '3@3';
 		add: '-4';
 		yourself
 !
@@ -1473,9 +1473,9 @@ collectionWithDuplicates
 
 collectionWithNewValue
 	^ Set new
-		add: 1;
-		add: 2;
-		add: 3;
+		add: Smalltalk current;
+		add: nil;
+		add: 3@3;
 		add: 'N';
 		add: -4;
 		yourself
