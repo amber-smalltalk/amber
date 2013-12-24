@@ -2377,7 +2377,7 @@ inspectOn: anInspector
 !Set methodsFor: '*IDE'!
 
 inspectOn: anInspector
-	| variables |
+	| variables i |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
 	elements withIndexDo: [ :each :i |

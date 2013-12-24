@@ -5704,13 +5704,13 @@ _st(set)._add_((3));
 $ctx1.sendIdx["add:"]=4;
 $9=_st(set)._printString();
 $ctx1.sendIdx["printString"]=5;
-self._assert_equals_($9,"a Set ('foo' 3)");
+self._assert_equals_($9,"a Set (3 'foo')");
 $ctx1.sendIdx["assert:equals:"]=5;
 _st(set)._add_((3));
-self._assert_equals_(_st(set)._printString(),"a Set ('foo' 3)");
+self._assert_equals_(_st(set)._printString(),"a Set (3 'foo')");
 return self}, function($ctx1) {$ctx1.fill(self,"testPrintString",{set:set},smalltalk.SetTest)})},
 args: [],
-source: "testPrintString\x0a\x09| set |\x0a\x09set := Set new.\x0a\x09self assert: set printString equals: 'a Set ()'.\x0a\x09set add: 1; add: 3.\x0a\x09self assert: set printString equals: 'a Set (1 3)'.\x0a\x09set add: 'foo'.\x0a\x09self assert: set printString equals: 'a Set (1 3 ''foo'')'.\x0a\x09set remove: 1; remove: 3.\x0a\x09self assert: set printString equals: 'a Set (''foo'')'.\x0a\x09set add: 3.\x0a\x09self assert: set printString equals: 'a Set (''foo'' 3)'.\x0a\x09set add: 3.\x0a\x09self assert: set printString equals: 'a Set (''foo'' 3)'",
+source: "testPrintString\x0a\x09| set |\x0a\x09set := Set new.\x0a\x09self assert: set printString equals: 'a Set ()'.\x0a\x09set add: 1; add: 3.\x0a\x09self assert: set printString equals: 'a Set (1 3)'.\x0a\x09set add: 'foo'.\x0a\x09self assert: set printString equals: 'a Set (1 3 ''foo'')'.\x0a\x09set remove: 1; remove: 3.\x0a\x09self assert: set printString equals: 'a Set (''foo'')'.\x0a\x09set add: 3.\x0a\x09self assert: set printString equals: 'a Set (3 ''foo'')'.\x0a\x09set add: 3.\x0a\x09self assert: set printString equals: 'a Set (3 ''foo'')'",
 messageSends: ["new", "assert:equals:", "printString", "add:", "remove:"],
 referencedClasses: ["Set"]
 }),

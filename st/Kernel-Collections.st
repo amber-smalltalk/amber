@@ -1732,7 +1732,7 @@ randomNotIn: aString
 ! !
 
 Collection subclass: #Set
-	instanceVariableNames: 'elements'
+	instanceVariableNames: 'slowBuckets fastBuckets size'
 	package: 'Kernel-Collections'!
 !Set commentStamp!
 I represent an unordered set of objects without duplicates.!
@@ -1740,35 +1740,42 @@ I represent an unordered set of objects without duplicates.!
 !Set methodsFor: 'accessing'!
 
 size
-	^ elements size
+	^ size
 ! !
 
 !Set methodsFor: 'adding/removing'!
 
 add: anObject
-	<
-		var found, objAsReceiver;
-		objAsReceiver = _st(anObject);
-		for(var i=0; i < self['@elements'].length; i++) {
-			if(objAsReceiver.__eq(self['@elements'][i])) {
-				found = true;
-				break;
-			}
-		}
-		if(!!found) {self['@elements'].push(anObject)}
-	>
-!
-
-remove: anObject
-	elements remove: anObject
+	| bucket |
+	bucket := self bucketOfElement: anObject.
+	^bucket second
+		ifNil: [
+			| obj slowBucket |
+			obj := bucket first.
+			slowBucket := bucket third.
+			slowBucket indexOf: obj ifAbsent: [ slowBucket add: obj. size := size + 1 ].
+			obj ]
+		ifNotNil: [ :primitiveBucket | self add: bucket first in: primitiveBucket ]
 !
 
 remove: anObject ifAbsent: aBlock
-	elements remove: anObject ifAbsent: aBlock
+	| bucket |
+	bucket := self bucketOfElement: anObject.
+	^bucket second
+		ifNil: [ bucket third remove: bucket first ifAbsent: [ ^aBlock value ]. size := size - 1 ]
+		ifNotNil: [ :primitiveBucket | self remove: bucket first in: primitiveBucket ]
 !
 
 removeAll
-	elements removeAll
+	<
+		self['@slowBuckets'] = Object.create(null);
+		self['@fastBuckets'] = {
+			'boolean': { store: Object.create(null), fn: Boolean },
+			'number': { store: Object.create(null), fn: Number },
+			'string': { store: Object.create(null) }
+		};
+		self['@size'] = 0;
+	>
 ! !
 
 !Set methodsFor: 'comparing'!
@@ -1780,24 +1787,34 @@ removeAll
 	^ true
 ! !
 
-!Set methodsFor: 'converting'!
-
-asArray
-	^ elements copy
-! !
-
 !Set methodsFor: 'enumerating'!
 
 collect: aBlock
-	^ self class withAll: (elements collect: aBlock)
+	| collection |
+	collection := self class new.
+	self do: [ :each | collection add: (aBlock value: each) ].
+	^ collection
 !
 
 detect: aBlock ifNone: anotherBlock
-	^ elements detect: aBlock ifNone: anotherBlock
+	self do: [ :each | (aBlock value: each) ifTrue: [ ^each ] ].
+	^ anotherBlock value
 !
 
 do: aBlock
-	elements do: aBlock
+	<
+		var el, keys, i;
+		el = self['@fastBuckets'];
+		keys = Object.keys(el);
+		for (i = 0; i < keys.length; ++i) {
+			var fastBucket = el[keys[i]], fn = fastBucket.fn, store = Object.keys(fastBucket.store);
+			if (fn) { for (var j = 0; j < store.length; ++j) { aBlock._value_(fn(store[j])); } }
+			else { store._do_(aBlock); }
+		}
+		el = self['@slowBuckets'];
+		keys = Object.keys(el);
+		for (i = 0; i < keys.length; ++i) { el[keys[i]]._do_(aBlock); }
+	>
 !
 
 select: aBlock
@@ -1813,7 +1830,7 @@ select: aBlock
 
 initialize
 	super initialize.
-	elements := #()
+	self removeAll
 ! !
 
 !Set methodsFor: 'printing'!
@@ -1828,10 +1845,47 @@ printOn: aStream
 	aStream nextPutAll: ')'
 ! !
 
+!Set methodsFor: 'private'!
+
+add: anObject in: anotherObject
+	<
+		if (anotherObject.store[anObject]) { return false; }
+		self['@size']++;
+		return anotherObject.store[anObject] = true;
+	>
+!
+
+bucketOfElement: anObject
+	<
+		var prim = anObject == null ? (anObject = nil) : anObject.valueOf();
+		var el, bucket, type;
+		if ((type = typeof prim) === "object") {
+			el = self['@slowBuckets'];
+			type = anObject.constructor && anObject.constructor.name;
+			bucket = el[type];
+			if (!!bucket) { bucket = el[type] = []; }
+			return [ anObject, null, bucket ];
+		}
+		return [ prim, self['@fastBuckets'][type] ];
+	>
+!
+
+includes: anObject in: anotherObject
+	<return !!!!anotherObject.store[anObject]>
+!
+
+remove: anObject in: anotherObject
+	<if (delete anotherObject.store[anObject]) self['@size']-->
+! !
+
 !Set methodsFor: 'testing'!
 
 includes: anObject
-	^ elements includes: anObject
+	| bucket |
+	bucket := self bucketOfElement: anObject.
+	^bucket second
+		ifNil: [ bucket third includes: bucket first ]
+		ifNotNil: [ :primitiveBucket | self includes: bucket first in: primitiveBucket ]
 ! !
 
 Object subclass: #Queue

@@ -7462,7 +7462,7 @@ selector: "inspectOn:",
 protocol: '*IDE',
 fn: function (anInspector){
 var self=this;
-var variables;
+var variables,i;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
