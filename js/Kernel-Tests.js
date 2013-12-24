@@ -5335,14 +5335,15 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st($Set())._new();
-_st($2)._add_((1));
+_st($2)._add_(_st($Smalltalk())._current());
 $ctx1.sendIdx["add:"]=1;
-_st($2)._add_((2));
+_st($2)._add_(nil);
 $ctx1.sendIdx["add:"]=2;
-_st($2)._add_((3));
+_st($2)._add_((3).__at((3)));
 $ctx1.sendIdx["add:"]=3;
 _st($2)._add_((-4));
 $3=_st($2)._yourself();
@@ -5350,9 +5351,9 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.SetTest)})},
 args: [],
-source: "collection\x0a\x09^ Set new\x0a\x09\x09add: 1;\x0a\x09\x09add: 2;\x0a\x09\x09add: 3;\x0a\x09\x09add: -4;\x0a\x09\x09yourself",
-messageSends: ["add:", "new", "yourself"],
-referencedClasses: ["Set"]
+source: "collection\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk current;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: -4;\x0a\x09\x09yourself",
+messageSends: ["add:", "new", "current", "@", "yourself"],
+referencedClasses: ["Set", "Smalltalk"]
 }),
 smalltalk.SetTest);
 
@@ -5366,11 +5367,11 @@ function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st($Set())._new();
-_st($2)._add_("1");
+_st($2)._add_("a Smalltalk");
 $ctx1.sendIdx["add:"]=1;
-_st($2)._add_("2");
+_st($2)._add_("nil");
 $ctx1.sendIdx["add:"]=2;
-_st($2)._add_("3");
+_st($2)._add_("3@3");
 $ctx1.sendIdx["add:"]=3;
 _st($2)._add_("-4");
 $3=_st($2)._yourself();
@@ -5378,7 +5379,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},smalltalk.SetTest)})},
 args: [],
-source: "collectionOfPrintStrings\x0a\x09^ Set new\x0a\x09\x09add: '1';\x0a\x09\x09add: '2';\x0a\x09\x09add: '3';\x0a\x09\x09add: '-4';\x0a\x09\x09yourself",
+source: "collectionOfPrintStrings\x0a\x09^ Set new\x0a\x09\x09add: 'a Smalltalk';\x0a\x09\x09add: 'nil';\x0a\x09\x09add: '3@3';\x0a\x09\x09add: '-4';\x0a\x09\x09yourself",
 messageSends: ["add:", "new", "yourself"],
 referencedClasses: ["Set"]
 }),
@@ -5428,14 +5429,15 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st($Set())._new();
-_st($2)._add_((1));
+_st($2)._add_(_st($Smalltalk())._current());
 $ctx1.sendIdx["add:"]=1;
-_st($2)._add_((2));
+_st($2)._add_(nil);
 $ctx1.sendIdx["add:"]=2;
-_st($2)._add_((3));
+_st($2)._add_((3).__at((3)));
 $ctx1.sendIdx["add:"]=3;
 _st($2)._add_("N");
 $ctx1.sendIdx["add:"]=4;
@@ -5445,9 +5447,9 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},smalltalk.SetTest)})},
 args: [],
-source: "collectionWithNewValue\x0a\x09^ Set new\x0a\x09\x09add: 1;\x0a\x09\x09add: 2;\x0a\x09\x09add: 3;\x0a\x09\x09add: 'N';\x0a\x09\x09add: -4;\x0a\x09\x09yourself",
-messageSends: ["add:", "new", "yourself"],
-referencedClasses: ["Set"]
+source: "collectionWithNewValue\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk current;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: 'N';\x0a\x09\x09add: -4;\x0a\x09\x09yourself",
+messageSends: ["add:", "new", "current", "@", "yourself"],
+referencedClasses: ["Set", "Smalltalk"]
 }),
 smalltalk.SetTest);
 
