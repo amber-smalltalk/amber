@@ -1526,9 +1526,9 @@ testPrintString
 	set remove: 1; remove: 3.
 	self assert: set printString equals: 'a Set (''foo'')'.
 	set add: 3.
-	self assert: set printString equals: 'a Set (''foo'' 3)'.
+	self assert: set printString equals: 'a Set (3 ''foo'')'.
 	set add: 3.
-	self assert: set printString equals: 'a Set (''foo'' 3)'
+	self assert: set printString equals: 'a Set (3 ''foo'')'
 !
 
 testUnboxedObjects
