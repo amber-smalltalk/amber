@@ -1351,11 +1351,10 @@ size
 
 = aString
 	<
-		if(typeof aString === 'undefined') { return false }
-		if(!!aString._isString || !! aString._isString()) {
-			return false;
-		}
-		return String(self) === String(aString)
+		return aString !!= null &&
+			typeof aString._isString === "function" &&
+			aString._isString() &&
+			String(self) === String(aString)
 	>
 !
 

@@ -440,10 +440,10 @@ I am directly mapped to JavaScript Boolean. The `true` and `false` objects are t
 
 = aBoolean
 	<
-		if(!! aBoolean._isBoolean || !! aBoolean._isBoolean()) {
-			return false;
-		}
-		return Boolean(self == true) == aBoolean
+		return aBoolean !!= null &&
+			typeof aBoolean._isBoolean === "function" &&
+			aBoolean._isBoolean() &&
+			Boolean(self == true) == aBoolean
 	>
 !
 
@@ -839,10 +839,10 @@ negated
 
 = aNumber
 	<
-		if(!! aNumber._isNumber || !! aNumber._isNumber()) {
-			return false;
-		}
-		return Number(self) == aNumber
+		return aNumber !!= null &&
+			typeof aNumber._isNumber === "function" &&
+			aNumber._isNumber() &&
+			Number(self) == aNumber
 	>
 !
 

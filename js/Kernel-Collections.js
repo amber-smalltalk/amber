@@ -3899,15 +3899,14 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		if(typeof aString === 'undefined') { return false }
-		if(!aString._isString || ! aString._isString()) {
-			return false;
-		}
-		return String(self) === String(aString)
+		return aString != null &&
+			typeof aString._isString === "function" &&
+			aString._isString() &&
+			String(self) === String(aString)
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"=",{aString:aString},smalltalk.String)})},
 args: ["aString"],
-source: "= aString\x0a\x09<\x0a\x09\x09if(typeof aString === 'undefined') { return false }\x0a\x09\x09if(!aString._isString || ! aString._isString()) {\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09return String(self) === String(aString)\x0a\x09>",
+source: "= aString\x0a\x09<\x0a\x09\x09return aString != null &&\x0a\x09\x09\x09typeof aString._isString === \x22function\x22 &&\x0a\x09\x09\x09aString._isString() &&\x0a\x09\x09\x09String(self) === String(aString)\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
