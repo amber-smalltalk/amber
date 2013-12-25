@@ -5601,7 +5601,7 @@ return smalltalk.withContext(function($ctx1) {
 
 		self['@slowBuckets'] = Object.create(null);
 		self['@fastBuckets'] = {
-			'boolean': { store: Object.create(null), fn: Boolean },
+			'boolean': { store: Object.create(null), fn: function (x) { return x === 'true'; } },
 			'number': { store: Object.create(null), fn: Number },
 			'string': { store: Object.create(null) }
 		};
@@ -5609,7 +5609,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Set)})},
 args: [],
-source: "removeAll\x0a\x09<\x0a\x09\x09self['@slowBuckets'] = Object.create(null);\x0a\x09\x09self['@fastBuckets'] = {\x0a\x09\x09\x09'boolean': { store: Object.create(null), fn: Boolean },\x0a\x09\x09\x09'number': { store: Object.create(null), fn: Number },\x0a\x09\x09\x09'string': { store: Object.create(null) }\x0a\x09\x09};\x0a\x09\x09self['@size'] = 0;\x0a\x09>",
+source: "removeAll\x0a\x09<\x0a\x09\x09self['@slowBuckets'] = Object.create(null);\x0a\x09\x09self['@fastBuckets'] = {\x0a\x09\x09\x09'boolean': { store: Object.create(null), fn: function (x) { return x === 'true'; } },\x0a\x09\x09\x09'number': { store: Object.create(null), fn: Number },\x0a\x09\x09\x09'string': { store: Object.create(null) }\x0a\x09\x09};\x0a\x09\x09self['@size'] = 0;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

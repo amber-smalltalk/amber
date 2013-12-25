@@ -1746,7 +1746,7 @@ removeAll
 	<
 		self['@slowBuckets'] = Object.create(null);
 		self['@fastBuckets'] = {
-			'boolean': { store: Object.create(null), fn: Boolean },
+			'boolean': { store: Object.create(null), fn: function (x) { return x === 'true'; } },
 			'number': { store: Object.create(null), fn: Number },
 			'string': { store: Object.create(null) }
 		};
