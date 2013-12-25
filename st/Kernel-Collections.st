@@ -802,9 +802,10 @@ values
 !HashedCollection methodsFor: 'adding/removing'!
 
 removeKey: aKey ifAbsent: aBlock
-	^ (self includesKey: aKey)
-		ifFalse: [ aBlock value ]
-		ifTrue: [ self basicDelete: aKey ]
+	^ self
+		at: aKey
+		ifPresent: [ :removed | self basicDelete: aKey. removed ]
+		ifAbsent: [ aBlock value ]
 ! !
 
 !HashedCollection methodsFor: 'enumerating'!

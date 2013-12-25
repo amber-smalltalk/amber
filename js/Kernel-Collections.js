@@ -2390,18 +2390,20 @@ protocol: 'adding/removing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._includesKey_(aKey);
-if(smalltalk.assert($2)){
-$1=self._basicDelete_(aKey);
-} else {
-$1=_st(aBlock)._value();
-};
+var $1;
+$1=self._at_ifPresent_ifAbsent_(aKey,(function(removed){
+return smalltalk.withContext(function($ctx2) {
+self._basicDelete_(aKey);
+return removed;
+}, function($ctx2) {$ctx2.fillBlock({removed:removed},$ctx1,1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aBlock)._value();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"removeKey:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.HashedCollection)})},
 args: ["aKey", "aBlock"],
-source: "removeKey: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifFalse: [ aBlock value ]\x0a\x09\x09ifTrue: [ self basicDelete: aKey ]",
-messageSends: ["ifFalse:ifTrue:", "includesKey:", "value", "basicDelete:"],
+source: "removeKey: aKey ifAbsent: aBlock\x0a\x09^ self\x0a\x09\x09at: aKey\x0a\x09\x09ifPresent: [ :removed | self basicDelete: aKey. removed ]\x0a\x09\x09ifAbsent: [ aBlock value ]",
+messageSends: ["at:ifPresent:ifAbsent:", "basicDelete:", "value"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
