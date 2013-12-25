@@ -3289,20 +3289,22 @@ selector: "remove:ifAbsent:",
 protocol: 'adding/removing',
 fn: function (anObject,aBlock){
 var self=this;
+var index;
 return smalltalk.withContext(function($ctx1) { 
-
-		for(var i=0;i<self.length;i++) {
-			if(_st(self[i]).__eq(anObject)) {
-				self.splice(i,1);
-				return self;
-			}
-		};
-		aBlock._value();
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.Array)})},
+var $2,$1;
+index=self._indexOf_ifAbsent_(anObject,(0));
+$2=_st(index).__eq((0));
+if(smalltalk.assert($2)){
+$1=_st(aBlock)._value();
+} else {
+self._removeIndex_(index);
+$1=anObject;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock,index:index},smalltalk.Array)})},
 args: ["anObject", "aBlock"],
-source: "remove: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(_st(self[i]).__eq(anObject)) {\x0a\x09\x09\x09\x09self.splice(i,1);\x0a\x09\x09\x09\x09return self;\x0a\x09\x09\x09}\x0a\x09\x09};\x0a\x09\x09aBlock._value();\x0a\x09>",
-messageSends: [],
+source: "remove: anObject ifAbsent: aBlock\x0a\x09| index |\x0a\x09index := self indexOf: anObject ifAbsent: 0.\x0a\x09^ index = 0\x0a\x09\x09ifFalse: [ self removeIndex: index. anObject ]\x0a\x09\x09ifTrue: [ aBlock value ]",
+messageSends: ["indexOf:ifAbsent:", "ifFalse:ifTrue:", "=", "removeIndex:", "value"],
 referencedClasses: []
 }),
 smalltalk.Array);
