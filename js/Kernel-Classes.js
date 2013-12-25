@@ -860,22 +860,21 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 methodsByProtocol=_st($HashedCollection())._new();
 $ctx1.sendIdx["new"]=1;
-_st(_st(self._methodDictionary())._values())._do_((function(m){
+_st(self._methodDictionary())._valuesDo_((function(m){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(methodsByProtocol)._at_ifAbsentPut_(_st(m)._protocol(),(function(){
 return smalltalk.withContext(function($ctx3) {
 return _st($Array())._new();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})))._add_(m);
 }, function($ctx2) {$ctx2.fillBlock({m:m},$ctx1,1)})}));
-$ctx1.sendIdx["do:"]=1;
 _st(self._protocols())._do_((function(protocol){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_value_(protocol,_st(methodsByProtocol)._at_(protocol));
 }, function($ctx2) {$ctx2.fillBlock({protocol:protocol},$ctx1,3)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"protocolsDo:",{aBlock:aBlock,methodsByProtocol:methodsByProtocol},smalltalk.Behavior)})},
 args: ["aBlock"],
-source: "protocolsDo: aBlock\x0a\x09\x22Execute aBlock for each method protocol with\x0a\x09its collection of methods in the sort order of protocol name.\x22\x0a\x0a\x09| methodsByProtocol |\x0a\x09methodsByProtocol := HashedCollection new.\x0a\x09self methodDictionary values do: [ :m |\x0a\x09\x09(methodsByProtocol at: m protocol ifAbsentPut: [ Array new ])\x0a\x09\x09\x09add: m ].\x0a\x09self protocols do: [ :protocol |\x0a\x09\x09aBlock value: protocol value: (methodsByProtocol at: protocol) ]",
-messageSends: ["new", "do:", "values", "methodDictionary", "add:", "at:ifAbsentPut:", "protocol", "protocols", "value:value:", "at:"],
+source: "protocolsDo: aBlock\x0a\x09\x22Execute aBlock for each method protocol with\x0a\x09its collection of methods in the sort order of protocol name.\x22\x0a\x0a\x09| methodsByProtocol |\x0a\x09methodsByProtocol := HashedCollection new.\x0a\x09self methodDictionary valuesDo: [ :m |\x0a\x09\x09(methodsByProtocol at: m protocol ifAbsentPut: [ Array new ])\x0a\x09\x09\x09add: m ].\x0a\x09self protocols do: [ :protocol |\x0a\x09\x09aBlock value: protocol value: (methodsByProtocol at: protocol) ]",
+messageSends: ["new", "valuesDo:", "methodDictionary", "add:", "at:ifAbsentPut:", "protocol", "do:", "protocols", "value:value:", "at:"],
 referencedClasses: ["HashedCollection", "Array"]
 }),
 smalltalk.Behavior);
@@ -1744,43 +1743,40 @@ fn: function (aClass,anotherClass){
 var self=this;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$4,$5,$6,$8,$7,$11,$10,$9;
+var $1,$2,$3,$4,$5,$7,$6,$9,$8;
 _st(anotherClass)._comment_(_st(aClass)._comment());
-$2=_st(aClass)._methodDictionary();
+$1=_st(aClass)._methodDictionary();
 $ctx1.sendIdx["methodDictionary"]=1;
-$1=_st($2)._values();
-$ctx1.sendIdx["values"]=1;
-_st($1)._do_((function(each){
+_st($1)._valuesDo_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$3=_st($Compiler())._new();
+$2=_st($Compiler())._new();
 $ctx2.sendIdx["new"]=1;
-$4=_st(each)._source();
+$3=_st(each)._source();
 $ctx2.sendIdx["source"]=1;
-$5=_st(each)._protocol();
+$4=_st(each)._protocol();
 $ctx2.sendIdx["protocol"]=1;
-return _st($3)._install_forClass_protocol_($4,anotherClass,$5);
+return _st($2)._install_forClass_protocol_($3,anotherClass,$4);
 $ctx2.sendIdx["install:forClass:protocol:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$ctx1.sendIdx["do:"]=1;
-$6=_st(anotherClass)._class();
+$ctx1.sendIdx["valuesDo:"]=1;
+$5=_st(anotherClass)._class();
 $ctx1.sendIdx["class"]=1;
-$8=_st(aClass)._class();
+$7=_st(aClass)._class();
 $ctx1.sendIdx["class"]=2;
-$7=_st($8)._instanceVariableNames();
-self._basicClass_instanceVariables_($6,$7);
-$11=_st(aClass)._class();
+$6=_st($7)._instanceVariableNames();
+self._basicClass_instanceVariables_($5,$6);
+$9=_st(aClass)._class();
 $ctx1.sendIdx["class"]=3;
-$10=_st($11)._methodDictionary();
-$9=_st($10)._values();
-_st($9)._do_((function(each){
+$8=_st($9)._methodDictionary();
+_st($8)._valuesDo_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($Compiler())._new())._install_forClass_protocol_(_st(each)._source(),_st(anotherClass)._class(),_st(each)._protocol());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 self._setupClass_(anotherClass);
 return self}, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,anotherClass:anotherClass},smalltalk.ClassBuilder)})},
 args: ["aClass", "anotherClass"],
-source: "copyClass: aClass to: anotherClass\x0a\x0a\x09anotherClass comment: aClass comment.\x0a\x0a\x09aClass methodDictionary values do: [ :each |\x0a\x09\x09Compiler new install: each source forClass: anotherClass protocol: each protocol ].\x0a\x0a\x09self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.\x0a\x0a\x09aClass class methodDictionary values do: [ :each |\x0a\x09\x09Compiler new install: each source forClass: anotherClass class protocol: each protocol ].\x0a\x0a\x09self setupClass: anotherClass",
-messageSends: ["comment:", "comment", "do:", "values", "methodDictionary", "install:forClass:protocol:", "new", "source", "protocol", "basicClass:instanceVariables:", "class", "instanceVariableNames", "setupClass:"],
+source: "copyClass: aClass to: anotherClass\x0a\x0a\x09anotherClass comment: aClass comment.\x0a\x0a\x09aClass methodDictionary valuesDo: [ :each |\x0a\x09\x09Compiler new install: each source forClass: anotherClass protocol: each protocol ].\x0a\x0a\x09self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.\x0a\x0a\x09aClass class methodDictionary valuesDo: [ :each |\x0a\x09\x09Compiler new install: each source forClass: anotherClass class protocol: each protocol ].\x0a\x0a\x09self setupClass: anotherClass",
+messageSends: ["comment:", "comment", "valuesDo:", "methodDictionary", "install:forClass:protocol:", "new", "source", "protocol", "basicClass:instanceVariables:", "class", "instanceVariableNames", "setupClass:"],
 referencedClasses: ["Compiler"]
 }),
 smalltalk.ClassBuilder);

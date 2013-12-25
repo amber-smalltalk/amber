@@ -282,7 +282,7 @@ protocolsDo: aBlock
 
 	| methodsByProtocol |
 	methodsByProtocol := HashedCollection new.
-	self methodDictionary values do: [ :m |
+	self methodDictionary valuesDo: [ :m |
 		(methodsByProtocol at: m protocol ifAbsentPut: [ Array new ])
 			add: m ].
 	self protocols do: [ :protocol |
@@ -658,12 +658,12 @@ copyClass: aClass to: anotherClass
 
 	anotherClass comment: aClass comment.
 
-	aClass methodDictionary values do: [ :each |
+	aClass methodDictionary valuesDo: [ :each |
 		Compiler new install: each source forClass: anotherClass protocol: each protocol ].
 
 	self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.
 
-	aClass class methodDictionary values do: [ :each |
+	aClass class methodDictionary valuesDo: [ :each |
 		Compiler new install: each source forClass: anotherClass class protocol: each protocol ].
 
 	self setupClass: anotherClass
