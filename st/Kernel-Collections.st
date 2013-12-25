@@ -435,27 +435,19 @@ withIndexDo: aBlock
 	self subclassResponsibility
 ! !
 
-IndexableCollection subclass: #HashedCollection
+IndexableCollection subclass: #AssociativeCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
-!HashedCollection commentStamp!
-I am a traditional JavaScript object, or a Smalltalk `Dictionary`.
+!AssociativeCollection commentStamp!
+I am a base class for object-indexed collections (Dictionary et.al.).!
 
-Unlike a `Dictionary`, I can only have strings as keys.!
-
-!HashedCollection methodsFor: 'accessing'!
+!AssociativeCollection methodsFor: 'accessing'!
 
 associations
 	| associations |
 	associations := #().
 	self associationsDo: [ :each | associations add: each ].
 	^ associations
-!
-
-at: aKey ifAbsent: aBlock
-	^ (self includesKey: aKey)
-		ifTrue: [ self basicAt: aKey ]
-		ifFalse: aBlock
 !
 
 at: aKey ifPresent: aBlock ifAbsent: anotherBlock
@@ -467,12 +459,7 @@ at: aKey ifPresent: aBlock ifAbsent: anotherBlock
 		ifFalse: anotherBlock
 !
 
-at: aKey put: aValue
-	^ self basicAt: aKey put: aValue
-!
-
 indexOf: anObject ifAbsent: aBlock
-
 	^ self keys detect: [ :each | (self at: each) = anObject ] ifNone: aBlock
 !
 
@@ -485,7 +472,7 @@ keyAtValue: anObject ifAbsent: aBlock
 !
 
 keys
-	<return Object.keys(self)>
+	self subclassResponsibility
 !
 
 size
@@ -493,22 +480,18 @@ size
 !
 
 values
-	<
-		return self._keys().map(function(key){
-			return self._at_(key);
-		});
-	>
+	self subclassResponsibility
 ! !
 
-!HashedCollection methodsFor: 'adding/removing'!
+!AssociativeCollection methodsFor: 'adding/removing'!
 
 add: anAssociation
 	self at: anAssociation key put: anAssociation value
 !
 
-addAll: aHashedCollection
-	super addAll: aHashedCollection associations.
-	^ aHashedCollection
+addAll: anAssocitativeCollection
+	super addAll: anAssocitativeCollection associations.
+	^ anAssocitativeCollection
 !
 
 remove: aKey ifAbsent: aBlock
@@ -524,34 +507,36 @@ removeKey: aKey
 !
 
 removeKey: aKey ifAbsent: aBlock
-	^ (self includesKey: aKey)
-		ifFalse: [ aBlock value ]
-		ifTrue: [ self basicDelete: aKey ]
+	self subclassResponsibility
 ! !
 
-!HashedCollection methodsFor: 'comparing'!
+!AssociativeCollection methodsFor: 'comparing'!
 
-= aHashedCollection
-	self class = aHashedCollection class ifFalse: [ ^ false ].
-	self size = aHashedCollection size ifFalse: [ ^ false ].
-	^ self associations = aHashedCollection associations
+= anAssocitativeCollection
+	self class = anAssocitativeCollection class ifFalse: [ ^ false ].
+	self size = anAssocitativeCollection size ifFalse: [ ^ false ].
+	^ self associations = anAssocitativeCollection associations
 ! !
 
-!HashedCollection methodsFor: 'converting'!
+!AssociativeCollection methodsFor: 'converting'!
 
 asDictionary
 	^ Dictionary from: self associations
 !
 
+asHashedCollection
+	^ HashedCollection from: self associations
+!
+
 asJSON
 	| c |
-	c := self class new.
+	c := HashedCollection new.
 	self keysAndValuesDo: [ :key :value |
 		c at: key put: value asJSON ].
 	^ c
 ! !
 
-!HashedCollection methodsFor: 'copying'!
+!AssociativeCollection methodsFor: 'copying'!
 
 deepCopy
 	| copy |
@@ -569,7 +554,7 @@ shallowCopy
 	^ copy
 ! !
 
-!HashedCollection methodsFor: 'enumerating'!
+!AssociativeCollection methodsFor: 'enumerating'!
 
 associationsDo: aBlock
 	self keysAndValuesDo: [ :key :value |
@@ -602,7 +587,7 @@ keysAndValuesDo: aBlock
 !
 
 keysDo: aBlock
-	self keys do: aBlock
+	self subclassResponsibility
 !
 
 select: aBlock
@@ -614,14 +599,14 @@ select: aBlock
 !
 
 valuesDo: aBlock
-	self values do: [ :value | aBlock value: value ]
+	self subclassResponsibility
 !
 
 withIndexDo: aBlock
 	self keysAndValuesDo: [ :key :value | aBlock value: value value: key ]
 ! !
 
-!HashedCollection methodsFor: 'printing'!
+!AssociativeCollection methodsFor: 'printing'!
 
 printOn: aStream
 	super printOn: aStream.
@@ -633,13 +618,13 @@ printOn: aStream
 	aStream nextPutAll: ')'
 ! !
 
-!HashedCollection methodsFor: 'testing'!
+!AssociativeCollection methodsFor: 'testing'!
 
 includesKey: aKey
-	<return self.hasOwnProperty(aKey)>
+	self subclassResponsibility
 ! !
 
-!HashedCollection class methodsFor: 'instance creation'!
+!AssociativeCollection class methodsFor: 'instance creation'!
 
 from: aCollection
 	| newCollection |
@@ -669,7 +654,7 @@ newFromPairs: aCollection
 	^ newCollection
 ! !
 
-HashedCollection subclass: #Dictionary
+AssociativeCollection subclass: #Dictionary
 	instanceVariableNames: 'keys values'
 	package: 'Kernel-Collections'!
 !Dictionary commentStamp!
@@ -742,16 +727,6 @@ removeKey: aKey ifAbsent: aBlock
 	>
 ! !
 
-!Dictionary methodsFor: 'converting'!
-
-asHashedCollection
-	^ HashedCollection from: self associations
-!
-
-asJSON
-	^ self asHashedCollection asJSON
-! !
-
 !Dictionary methodsFor: 'enumerating'!
 
 keysAndValuesDo: aBlock
@@ -790,6 +765,62 @@ positionOfKey: anObject
 
 includesKey: aKey
 	< return self._positionOfKey_(aKey) >>= 0; >
+! !
+
+AssociativeCollection subclass: #HashedCollection
+	instanceVariableNames: ''
+	package: 'Kernel-Collections'!
+!HashedCollection commentStamp!
+I am a traditional JavaScript object, or a Smalltalk `Dictionary`.
+
+Unlike a `Dictionary`, I can only have strings as keys.!
+
+!HashedCollection methodsFor: 'accessing'!
+
+at: aKey ifAbsent: aBlock
+	^ (self includesKey: aKey)
+		ifTrue: [ self basicAt: aKey ]
+		ifFalse: aBlock
+!
+
+at: aKey put: aValue
+	^ self basicAt: aKey put: aValue
+!
+
+keys
+	<return Object.keys(self)>
+!
+
+values
+	<
+		return self._keys().map(function(key){
+			return self._at_(key);
+		});
+	>
+! !
+
+!HashedCollection methodsFor: 'adding/removing'!
+
+removeKey: aKey ifAbsent: aBlock
+	^ (self includesKey: aKey)
+		ifFalse: [ aBlock value ]
+		ifTrue: [ self basicDelete: aKey ]
+! !
+
+!HashedCollection methodsFor: 'enumerating'!
+
+keysDo: aBlock
+	self keys do: aBlock
+!
+
+valuesDo: aBlock
+	self values do: aBlock
+! !
+
+!HashedCollection methodsFor: 'testing'!
+
+includesKey: aKey
+	<return self.hasOwnProperty(aKey)>
 ! !
 
 IndexableCollection subclass: #SequenceableCollection
