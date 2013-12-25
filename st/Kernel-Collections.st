@@ -834,7 +834,7 @@ indexOf: anObject ifAbsent: aBlock
 	<
 		self = self._numericallyIndexable();
 		for(var i=0; i < self.length; i++) {
-			if(self[i].__eq(anObject)) {return i+1}
+			if(_st(self[i]).__eq(anObject)) {return i+1}
 		};
 		return aBlock._value();
 	>
@@ -851,7 +851,7 @@ indexOf: anObject startingAt: start ifAbsent: aBlock
 	<
 		self = self._numericallyIndexable();
 		for(var i=start - 1; i < self.length; i++){
-			if(self[i].__eq(anObject)) {return i+1}
+			if(_st(self[i]).__eq(anObject)) {return i+1}
 		}
 		return aBlock._value();
 	>

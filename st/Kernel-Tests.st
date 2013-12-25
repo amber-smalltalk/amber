@@ -725,6 +725,13 @@ testIndexOf
 		self assert: (self collection indexOf: value) equals: index ]
 !
 
+testIndexOfWithNull
+	| jsNull |
+	jsNull := JSON parse: 'null'.
+	self samplesDo: [ :index :value |
+		self assert: (self collection at: index put: jsNull; indexOf: jsNull) equals: index ]
+!
+
 testWithIndexDo
 	| collection |
 	collection := self collection.
@@ -1090,6 +1097,26 @@ testFourth
 	self assert: (self collection fourth) equals: (self collection at: 4)
 !
 
+testIndexOfStartingAt
+	| jsNull |
+	jsNull := JSON parse: 'null'.
+	self samplesDo: [ :index :value |
+		self assert: (self collection indexOf: value startingAt: 1) equals: index.
+		self assert: (self collection indexOf: value startingAt: index) equals: index.
+		self assert: (self collection indexOf: value startingAt: index+1) equals: 0 ]
+!
+
+testIndexOfStartingAtWithNull
+	| jsNull |
+	jsNull := JSON parse: 'null'.
+	self samplesDo: [ :index :value | | collection |
+		collection := self collection.
+		collection at: index put: jsNull.
+		self assert: (collection indexOf: jsNull startingAt: 1) equals: index.
+		self assert: (collection indexOf: jsNull startingAt: index) equals: index.
+		self assert: (collection indexOf: jsNull startingAt: index+1) equals: 0 ]
+!
+
 testLast
 	self assert: self collection last equals: self collectionLast
 !
@@ -1256,7 +1283,7 @@ SequenceableCollectionTest subclass: #StringTest
 !StringTest methodsFor: 'fixture'!
 
 collection
-	^ 'hello'
+	^ 'helLo'
 !
 
 collectionFirst
@@ -1272,11 +1299,11 @@ collectionLast
 !
 
 collectionLastTwo
-	^ 'lo'
+	^ 'Lo'
 !
 
 collectionOfPrintStrings
-	^ '''h''''e''''l''''l''''o'''
+	^ '''h''''e''''l''''L''''o'''
 !
 
 collectionSize
@@ -1288,11 +1315,10 @@ collectionWithDuplicates
 !
 
 collectionWithNewValue
-	^ 'helloN'
+	^ 'helLoN'
 !
 
 sampleNewValueAsCollection
-	
 	^ 'N'
 !
 
@@ -1410,6 +1436,14 @@ testIdentityHash
 testIncludesSubString
 	self assert: ('amber' includesSubString: 'ber').
 	self deny: ('amber' includesSubString: 'zork').
+!
+
+testIndexOfStartingAtWithNull
+	"String cannot hold JS null"
+!
+
+testIndexOfWithNull
+	"String cannot hold JS null"
 !
 
 testIsVowel
