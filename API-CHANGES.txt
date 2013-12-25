@@ -8,7 +8,9 @@
 
 + CompiledMethod >>
   + defaultProtocol
-+ Behavior >> compile:protocol:
++ Behavior >>
+  + compile:protocol:
+  + removeProtocolIfEmpty:
 + Package >>
   + load
   + loadFromNamespace:

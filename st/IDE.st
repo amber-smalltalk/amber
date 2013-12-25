@@ -727,8 +727,7 @@ methods
 		ifNil: [ #() ]
 		ifNotNil: [ klass methodDictionary values ]]
 	ifNotNil: [
-		klass methodDictionary values select: [ :each |
-			each protocol = selectedProtocol ]]) 
+		klass methodsInProtocol: selectedProtocol ]) 
 				sort: [ :a :b | a selector < b selector ]
 !
 

@@ -145,7 +145,7 @@ methodsFor: aString stamp: aStamp
 !
 
 methodsInProtocol: aString
-	^ self methodDictionary values select: [ :each | each protocol = aString ]
+	^ self methods select: [ :each | each protocol = aString ]
 !
 
 name
@@ -178,6 +178,12 @@ protocols
 
 prototype
 	<return self.fn.prototype>
+!
+
+removeProtocolIfEmpty: aString
+	self methods
+		detect: [ :each | each protocol = aString ]
+		ifNone: [ self organization removeElement: aString ]
 !
 
 selectors
@@ -219,9 +225,7 @@ addCompiledMethod: aMethod
 	self basicAddCompiledMethod: aMethod.
 	
 	oldMethod ifNotNil: [
-		(self methods
-			select: [ :each | each protocol = oldMethod protocol ])
-			ifEmpty: [ self organization removeElement: oldMethod protocol ] ].
+		self removeProtocolIfEmpty: oldMethod protocol ].
 	
 	announcement := oldMethod
 		ifNil: [
@@ -257,9 +261,7 @@ recompile
 removeCompiledMethod: aMethod
 	self basicRemoveCompiledMethod: aMethod.
 	
-	self methods
-		detect: [ :each | each protocol = aMethod protocol ]
-		ifNone: [ self organization removeElement: aMethod protocol ].
+	self removeProtocolIfEmpty: aMethod protocol.
 	
 	SystemAnnouncer current
 		announce: (MethodRemoved new

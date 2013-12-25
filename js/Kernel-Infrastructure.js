@@ -710,17 +710,14 @@ protocol: 'actions',
 fn: function (aString,aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(aClass)._methods())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._protocol()).__eq(aString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._do_((function(each){
+_st(_st(aClass)._methodsInProtocol_(aString))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(aClass)._removeCompiledMethod_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"removeProtocol:from:",{aString:aString,aClass:aClass},smalltalk.Environment)})},
 args: ["aString", "aClass"],
-source: "removeProtocol: aString from: aClass\x0a\x09(aClass methods\x0a\x09\x09select: [ :each | each protocol = aString ])\x0a\x09\x09do: [ :each | aClass removeCompiledMethod: each ]",
-messageSends: ["do:", "select:", "methods", "=", "protocol", "removeCompiledMethod:"],
+source: "removeProtocol: aString from: aClass\x0a\x09(aClass methodsInProtocol: aString)\x0a\x09\x09do: [ :each | aClass removeCompiledMethod: each ]",
+messageSends: ["do:", "methodsInProtocol:", "removeCompiledMethod:"],
 referencedClasses: []
 }),
 smalltalk.Environment);
@@ -759,17 +756,14 @@ protocol: 'actions',
 fn: function (aString,anotherString,aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(aClass)._methods())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._protocol()).__eq(aString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._do_((function(each){
+_st(_st(aClass)._methodsInProtocol_(aString))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._protocol_(anotherString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renameProtocol:to:in:",{aString:aString,anotherString:anotherString,aClass:aClass},smalltalk.Environment)})},
 args: ["aString", "anotherString", "aClass"],
-source: "renameProtocol: aString to: anotherString in: aClass\x0a\x09(aClass methods\x0a\x09\x09select: [ :each | each protocol = aString ])\x0a\x09\x09do: [ :each | each protocol: anotherString ]",
-messageSends: ["do:", "select:", "methods", "=", "protocol", "protocol:"],
+source: "renameProtocol: aString to: anotherString in: aClass\x0a\x09(aClass methodsInProtocol: aString)\x0a\x09\x09do: [ :each | each protocol: anotherString ]",
+messageSends: ["do:", "methodsInProtocol:", "protocol:"],
 referencedClasses: []
 }),
 smalltalk.Environment);
