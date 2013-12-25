@@ -1499,7 +1499,7 @@ collection
 		add: Smalltalk current;
 		add: nil;
 		add: 3@3;
-		add: -4;
+		add: false;
 		yourself
 !
 
@@ -1508,7 +1508,7 @@ collectionOfPrintStrings
 		add: 'a Smalltalk';
 		add: 'nil';
 		add: '3@3';
-		add: '-4';
+		add: 'false';
 		yourself
 !
 
@@ -1518,7 +1518,7 @@ collectionSize
 
 collectionWithDuplicates
 	"Set has no duplicates"
-	^ self collection add: 'yet another'; yourself
+	^ self collection add: 0; yourself
 !
 
 collectionWithNewValue
@@ -1527,7 +1527,7 @@ collectionWithNewValue
 		add: nil;
 		add: 3@3;
 		add: 'N';
-		add: -4;
+		add: false;
 		yourself
 ! !
 
