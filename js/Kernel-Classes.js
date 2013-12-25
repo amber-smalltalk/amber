@@ -282,7 +282,7 @@ fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $3,$2,$1;
-$1=_st(_st(_st(self._methodDictionary())._keys())._includes_(_st(aSelector)._asString()))._or_((function(){
+$1=_st(self._includesSelector_(_st(aSelector)._asString()))._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 $3=self._superclass();
 $ctx2.sendIdx["superclass"]=1;
@@ -295,8 +295,8 @@ return _st(self._superclass())._canUnderstand_(aSelector);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"canUnderstand:",{aSelector:aSelector},smalltalk.Behavior)})},
 args: ["aSelector"],
-source: "canUnderstand: aSelector\x0a\x09^ (self methodDictionary keys includes: aSelector asString) or: [\x0a\x09\x09self superclass notNil and: [ self superclass canUnderstand: aSelector ]]",
-messageSends: ["or:", "includes:", "keys", "methodDictionary", "asString", "and:", "notNil", "superclass", "canUnderstand:"],
+source: "canUnderstand: aSelector\x0a\x09^ (self includesSelector: aSelector asString) or: [\x0a\x09\x09self superclass notNil and: [ self superclass canUnderstand: aSelector ]]",
+messageSends: ["or:", "includesSelector:", "asString", "and:", "notNil", "superclass", "canUnderstand:"],
 referencedClasses: []
 }),
 smalltalk.Behavior);

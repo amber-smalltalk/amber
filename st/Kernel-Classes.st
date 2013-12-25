@@ -312,7 +312,7 @@ basicRemoveCompiledMethod: aMethod
 !Behavior methodsFor: 'testing'!
 
 canUnderstand: aSelector
-	^ (self methodDictionary keys includes: aSelector asString) or: [
+	^ (self includesSelector: aSelector asString) or: [
 		self superclass notNil and: [ self superclass canUnderstand: aSelector ]]
 !
 
