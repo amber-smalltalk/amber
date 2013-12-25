@@ -1825,7 +1825,7 @@ printOn: aStream
 
 add: anObject in: anotherObject
 	<
-		if (anotherObject.store[anObject]) { return false; }
+		if (anObject in anotherObject.store) { return false; }
 		self['@size']++;
 		return anotherObject.store[anObject] = true;
 	>
@@ -1847,7 +1847,7 @@ bucketOfElement: anObject
 !
 
 includes: anObject in: anotherObject
-	<return !!!!anotherObject.store[anObject]>
+	<return anObject in anotherObject.store>
 !
 
 remove: anObject in: anotherObject
