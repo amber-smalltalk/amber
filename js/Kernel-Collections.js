@@ -5388,13 +5388,13 @@ fn: function (anObject,anotherObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		if (anotherObject.store[anObject]) { return false; }
+		if (anObject in anotherObject.store) { return false; }
 		self['@size']++;
 		return anotherObject.store[anObject] = true;
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"add:in:",{anObject:anObject,anotherObject:anotherObject},smalltalk.Set)})},
 args: ["anObject", "anotherObject"],
-source: "add: anObject in: anotherObject\x0a\x09<\x0a\x09\x09if (anotherObject.store[anObject]) { return false; }\x0a\x09\x09self['@size']++;\x0a\x09\x09return anotherObject.store[anObject] = true;\x0a\x09>",
+source: "add: anObject in: anotherObject\x0a\x09<\x0a\x09\x09if (anObject in anotherObject.store) { return false; }\x0a\x09\x09self['@size']++;\x0a\x09\x09return anotherObject.store[anObject] = true;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5545,10 +5545,10 @@ protocol: 'private',
 fn: function (anObject,anotherObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return !!anotherObject.store[anObject];
+return anObject in anotherObject.store;
 return self}, function($ctx1) {$ctx1.fill(self,"includes:in:",{anObject:anObject,anotherObject:anotherObject},smalltalk.Set)})},
 args: ["anObject", "anotherObject"],
-source: "includes: anObject in: anotherObject\x0a\x09<return !!anotherObject.store[anObject]>",
+source: "includes: anObject in: anotherObject\x0a\x09<return anObject in anotherObject.store>",
 messageSends: [],
 referencedClasses: []
 }),
