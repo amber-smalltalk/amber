@@ -1720,7 +1720,7 @@ updateValueTextarea
 
 updateVariablesList
 	variablesList contents: [ :html |
-		self variables keys do: [ :each || li |
+		self variables keysDo: [ :each || li |
 			li := html li.
 			li
 				with: each;

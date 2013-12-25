@@ -5336,7 +5336,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 _st(self["@variablesList"])._contents_((function(html){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(self._variables())._keys())._do_((function(each){
+return _st(self._variables())._keysDo_((function(each){
 var li;
 return smalltalk.withContext(function($ctx3) {
 li=_st(html)._li();
@@ -5356,8 +5356,8 @@ return _st(li)._class_("selected");
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateVariablesList",{},smalltalk.Inspector)})},
 args: [],
-source: "updateVariablesList\x0a\x09variablesList contents: [ :html |\x0a\x09\x09self variables keys do: [ :each || li |\x0a\x09\x09\x09li := html li.\x0a\x09\x09\x09li\x0a\x09\x09\x09\x09with: each;\x0a\x09\x09\x09\x09onClick: [ self selectVariable: each ].\x0a\x09\x09\x09self selectedVariable = each ifTrue: [\x0a\x09\x09\x09\x09li class: 'selected' ]] ]",
-messageSends: ["contents:", "do:", "keys", "variables", "li", "with:", "onClick:", "selectVariable:", "ifTrue:", "=", "selectedVariable", "class:"],
+source: "updateVariablesList\x0a\x09variablesList contents: [ :html |\x0a\x09\x09self variables keysDo: [ :each || li |\x0a\x09\x09\x09li := html li.\x0a\x09\x09\x09li\x0a\x09\x09\x09\x09with: each;\x0a\x09\x09\x09\x09onClick: [ self selectVariable: each ].\x0a\x09\x09\x09self selectedVariable = each ifTrue: [\x0a\x09\x09\x09\x09li class: 'selected' ]] ]",
+messageSends: ["contents:", "keysDo:", "variables", "li", "with:", "onClick:", "selectVariable:", "ifTrue:", "=", "selectedVariable", "class:"],
 referencedClasses: []
 }),
 smalltalk.Inspector);
