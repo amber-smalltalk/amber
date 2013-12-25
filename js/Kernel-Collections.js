@@ -1486,15 +1486,16 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._includesKey_(aKey);
-$1=_st($2)._ifTrue_ifFalse_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(aBlock)._value_(self._at_(aKey));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),anotherBlock);
+if(smalltalk.assert($2)){
+$1=_st(aBlock)._value_(self._at_(aKey));
+} else {
+$1=_st(anotherBlock)._value();
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aKey:aKey,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.AssociativeCollection)})},
 args: ["aKey", "aBlock", "anotherBlock"],
-source: "at: aKey ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22Lookup the given key in the receiver.\x0a\x09If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key,\x0a\x09otherwise answer the value of absentBlock.\x22\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ aBlock value: (self at: aKey) ]\x0a\x09\x09ifFalse: anotherBlock",
-messageSends: ["ifTrue:ifFalse:", "includesKey:", "value:", "at:"],
+source: "at: aKey ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22Lookup the given key in the receiver.\x0a\x09If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key,\x0a\x09otherwise answer the value of absentBlock.\x22\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ aBlock value: (self at: aKey) ]\x0a\x09\x09ifFalse: [ anotherBlock value ]",
+messageSends: ["ifTrue:ifFalse:", "includesKey:", "value:", "at:", "value"],
 referencedClasses: []
 }),
 smalltalk.AssociativeCollection);
@@ -2304,15 +2305,16 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._includesKey_(aKey);
-$1=_st($2)._ifTrue_ifFalse_((function(){
-return smalltalk.withContext(function($ctx2) {
-return self._basicAt_(aKey);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),aBlock);
+if(smalltalk.assert($2)){
+$1=self._basicAt_(aKey);
+} else {
+$1=_st(aBlock)._value();
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.HashedCollection)})},
 args: ["aKey", "aBlock"],
-source: "at: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ self basicAt: aKey ]\x0a\x09\x09ifFalse: aBlock",
-messageSends: ["ifTrue:ifFalse:", "includesKey:", "basicAt:"],
+source: "at: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ self basicAt: aKey ]\x0a\x09\x09ifFalse: [ aBlock value ]",
+messageSends: ["ifTrue:ifFalse:", "includesKey:", "basicAt:", "value"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);

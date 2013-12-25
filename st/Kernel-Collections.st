@@ -456,7 +456,7 @@ at: aKey ifPresent: aBlock ifAbsent: anotherBlock
 	otherwise answer the value of absentBlock."
 	^ (self includesKey: aKey)
 		ifTrue: [ aBlock value: (self at: aKey) ]
-		ifFalse: anotherBlock
+		ifFalse: [ anotherBlock value ]
 !
 
 indexOf: anObject ifAbsent: aBlock
@@ -780,7 +780,7 @@ Unlike a `Dictionary`, I can only have strings as keys.!
 at: aKey ifAbsent: aBlock
 	^ (self includesKey: aKey)
 		ifTrue: [ self basicAt: aKey ]
-		ifFalse: aBlock
+		ifFalse: [ aBlock value ]
 !
 
 at: aKey put: aValue
