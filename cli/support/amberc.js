@@ -121,9 +121,7 @@ Combo.prototype = {
 };
 
 var path = require('path'),
-	util = require('util'),
-	fs = require('fs'),
-	exec = require('child_process').exec;
+	fs = require('fs');
 
 /**
  * AmberC constructor function.
