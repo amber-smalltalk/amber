@@ -284,12 +284,6 @@ allMethods
 	^ self methodsCache
 !
 
-allSelectors
-	^ (self allMethods 
-		collect: [ :each | each selector ])
-		asSet
-!
-
 classReferencesOf: aString
 	"Answer all methods referencing the class named aString"
 	

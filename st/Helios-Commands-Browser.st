@@ -171,6 +171,34 @@ label
 	^ 'Generate'
 ! !
 
+HLGenerateCommand subclass: #HLCategorizeUnclassifiedCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+!HLCategorizeUnclassifiedCommand commentStamp!
+I am the command used to categorize unclassified methods!
+
+!HLCategorizeUnclassifiedCommand methodsFor: 'executing'!
+
+execute
+	| targetClass unclassified |
+	targetClass := self model selectedClass.
+
+	unclassified := targetClass methods select:[ :e | e protocol = 'as yet unclassified' ].
+		
+	HLMethodClassifier new
+		classifyAll: unclassified
+! !
+
+!HLCategorizeUnclassifiedCommand class methodsFor: 'accessing'!
+
+key
+	^ 'c'
+!
+
+label
+	^ 'Categorize'
+! !
+
 HLGenerateCommand subclass: #HLGenerateAccessorsCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!

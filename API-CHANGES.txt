@@ -3,6 +3,10 @@
 * Package Import-Export renamed to Kernel-ImportExport
 * A dozen of methods moved from Object to ProtoObject
 
+* HashedCollection >> at:ifAbsentPut: pushed up to SequenceableCollection
+* HashedCollection >> , is now allowed (removed shouldNotImplement)
+* HashedCollection and Dictionary both subclasses of AssociativeCollection
+
 + CompiledMethod >>
   + defaultProtocol
 + Behavior >> compile:protocol:
@@ -16,6 +20,7 @@
 + PackageHandler >> load:
 + AmdPackageHandler >> load:
 + Set >> removeAll
++ AssociativeCollection class
 
 - CompiledMethod >>
   - category: (use #protocol:)

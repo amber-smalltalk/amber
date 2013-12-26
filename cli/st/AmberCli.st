@@ -126,11 +126,12 @@ Adding new commandline parameters to `FileServer` is as easy as adding a new sin
 !FileServer methodsFor: 'accessing'!
 
 basePath
-	^basePath ifNil: ['./']
+	^basePath ifNil: [self class defaultBasePath]
 !
 
 basePath: aString
-	basePath := aString
+	basePath := aString.
+	self validateBasePath.
 !
 
 fallbackPage
@@ -227,6 +228,13 @@ isAuthenticated: aRequest
 require: aModuleString
 	"call to the require function"
 	^require value: aModuleString
+!
+
+validateBasePath
+	"The basePath must be an existing directory. "
+	fs stat: self basePath then: [ :err :stat | err
+		ifNil: [ stat isDirectory ifFalse: [ console warn: 'Warning: --base-path parameter ' , self basePath , ' is not a directory.' ]]
+		ifNotNil: [ console warn: 'Warning: path at --base-path parameter ' , self basePath , ' does not exist.'  ]].
 !
 
 withBasePath: aBaseRelativePath
@@ -397,6 +405,10 @@ commandLineSwitches
 	switches :=switches collect: [ :each |
 		(each allButLast replace: '([A-Z])' with: '-$1') asLowercase replace: '^([a-z])' with: '--$1' ].
 	^switches
+!
+
+defaultBasePath
+	^ './'
 !
 
 defaultHost
