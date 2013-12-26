@@ -1732,7 +1732,7 @@ randomNotIn: aString
 ! !
 
 Collection subclass: #Set
-	instanceVariableNames: 'slowBuckets fastBuckets size'
+	instanceVariableNames: 'defaultBucket slowBuckets fastBuckets size'
 	package: 'Kernel-Collections'!
 !Set commentStamp!
 I represent an unordered set of objects without duplicates.!
@@ -1774,6 +1774,7 @@ removeAll
 			'number': { store: Object.create(null), fn: Number },
 			'string': { store: Object.create(null) }
 		};
+		self['@defaultBucket']._removeAll();
 		self['@size'] = 0;
 	>
 ! !
@@ -1814,6 +1815,7 @@ do: aBlock
 		el = self['@slowBuckets'];
 		keys = Object.keys(el);
 		for (i = 0; i < keys.length; ++i) { el[keys[i]]._do_(aBlock); }
+		self['@defaultBucket']._do_(aBlock);
 	>
 !
 
@@ -1830,6 +1832,7 @@ select: aBlock
 
 initialize
 	super initialize.
+	defaultBucket := #().
 	self removeAll
 ! !
 
@@ -1857,16 +1860,24 @@ add: anObject in: anotherObject
 
 bucketOfElement: anObject
 	<
-		var prim = anObject == null ? (anObject = nil) : anObject.valueOf();
-		var el, bucket, type;
+		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
 		if ((type = typeof prim) === "object") {
-			el = self['@slowBuckets'];
-			type = anObject.constructor && anObject.constructor.name;
-			bucket = el[type];
-			if (!!bucket) { bucket = el[type] = []; }
+			bucket = anObject === nil ? nil : self._hashBucketOfElement_(anObject);
+			if (bucket === nil) bucket = self['@defaultBucket'];
 			return [ anObject, null, bucket ];
 		}
 		return [ prim, self['@fastBuckets'][type] ];
+	>
+!
+
+hashBucketOfElement: anObject
+	<
+		var hash = anObject.constructor ? anObject.constructor.name : nil;
+		if (hash === nil) return nil;
+		var el = self['@slowBuckets'],
+			bucket = el[hash];
+		if (!!bucket) { bucket = el[hash] = []; }
+		return bucket;
 	>
 !
 
