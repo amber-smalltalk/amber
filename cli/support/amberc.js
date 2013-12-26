@@ -195,26 +195,33 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 		console.log = function() {};
 	}
 
-	if (this.check_configuration_ok(configuration)) {
-		this.defaults = configuration;
-		this.defaults.smalltalk = {}; // the evaluated compiler will be stored in this variable (see create_compiler)
-		this.collect_files(this.defaults.stFiles, this.defaults.jsFiles)
-	}
+	var self = this;
+	check_configuration(configuration).then(function(configuration) {
+		self.defaults = configuration;
+		self.defaults.smalltalk = {}; // the evaluated compiler will be stored in this variable (see create_compiler)
+		self.collect_files(self.defaults.stFiles, self.defaults.jsFiles)
+	}, function (error) {
+		console.log(error);
+	});
 };
 
 
 /**
- * Check if the passed in configuration object has sufficient/nonconflicting values
+ * Check if the passed in configuration object has sufficient/nonconflicting values.
+ * Calls reject with an Error object upon failure and resolve(configuration) upon success.
  */
-AmberC.prototype.check_configuration_ok = function(configuration) {
-	if (undefined === configuration) {
-		throw new Error('AmberC.check_configuration_ok(): missing configuration object');
-	}
+function check_configuration(configuration) {
+	return new Promise(function(resolve, reject) {
+		if (undefined === configuration) {
+			reject(Error('AmberC.check_configuration_ok(): missing configuration object'));
+		}
 
-	if (0 === configuration.jsFiles.length && 0 === configuration.stFiles.length) {
-		throw new Error('AmberC.check_configuration_ok(): no files to compile/link specified in configuration object');
-	}
-	return true;
+		if (0 === configuration.jsFiles.length && 0 === configuration.stFiles.length) {
+			reject(Error('AmberC.check_configuration_ok(): no files to compile/link specified in configuration object'));
+		}
+
+		resolve(configuration);
+	});
 };
 
 
