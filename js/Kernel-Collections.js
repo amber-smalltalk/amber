@@ -5454,7 +5454,7 @@ smalltalk.String.klass);
 
 
 smalltalk.addClass('Set', smalltalk.Collection, ['defaultBucket', 'slowBucketStores', 'fastBuckets', 'size'], 'Kernel-Collections');
-smalltalk.Set.comment="I represent an unordered set of objects without duplicates.";
+smalltalk.Set.comment="I represent an unordered set of objects without duplicates.\x0a\x0a## Implementation notes\x0a\x0aI put an element to different stores based on its type.\x0aThe goal is to store some elements into native JS object property names to be fast.\x0a\x0aIf an unboxed element has typeof 'string', 'boolean' or 'number', or an element is nil, null or undefined,\x0aI store it as a property name in an empty (== Object.create(null)) JS object, different for each type\x0a(for simplicity, nil/null/undefined is treated as one and included with the two booleans).\x0a\x0aIf element happen to be an object, I try to store them in ArrayBucketStore. I have two of them by default,\x0aone hashed using Smalltalk class name, other using JS constructor name. It is possible to have more or less\x0aof ArrayBucketStores, see #initializeSlowBucketStores.\x0a\x0aAs a last resort, if none of the ArrayBucketStore can find suitable bucket, the defaultBucket is used,\x0awhich is an Array.\x0a";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
