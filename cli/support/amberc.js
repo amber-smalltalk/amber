@@ -121,7 +121,8 @@ Combo.prototype = {
 };
 
 var path = require('path'),
-	fs = require('fs');
+	fs = require('fs'),
+	Promise = require('es6-promise').Promise;
 
 /**
  * AmberC constructor function.
