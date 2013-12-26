@@ -1770,7 +1770,7 @@ removeAll
 	<
 		self['@slowBuckets'] = Object.create(null);
 		self['@fastBuckets'] = {
-			'boolean': { store: Object.create(null), fn: function (x) { return x === 'true'; } },
+			'boolean': { store: Object.create(null), fn: function (x) { return {'true': true, 'false': false, 'null': null}[x]; } },
 			'number': { store: Object.create(null), fn: Number },
 			'string': { store: Object.create(null) }
 		};
@@ -1862,9 +1862,13 @@ bucketOfElement: anObject
 	<
 		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
 		if ((type = typeof prim) === "object") {
-			bucket = anObject === nil ? nil : self._hashBucketOfElement_(anObject);
-			if (bucket === nil) bucket = self['@defaultBucket'];
-			return [ anObject, null, bucket ];
+			if (anObject !!== nil) {
+				return [ anObject, null, self._hashBucketOfElement_(anObject) || self['@defaultBucket'] ];
+			}
+			
+			// include nil to well-knowns under 'boolean' fastBucket
+			prim = null;
+			type = 'boolean';
 		}
 		return [ prim, self['@fastBuckets'][type] ];
 	>
@@ -1872,8 +1876,9 @@ bucketOfElement: anObject
 
 hashBucketOfElement: anObject
 	<
-		var hash = anObject.constructor ? anObject.constructor.name : nil;
-		if (hash === nil) return nil;
+		var ctr = anObject.constructor,
+			hash = ctr && ctr.name;
+		if (!!hash) return null;
 		var el = self['@slowBuckets'],
 			bucket = el[hash];
 		if (!!bucket) { bucket = el[hash] = []; }

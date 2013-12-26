@@ -5410,15 +5410,19 @@ return smalltalk.withContext(function($ctx1) {
 
 		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
 		if ((type = typeof prim) === "object") {
-			bucket = anObject === nil ? nil : self._hashBucketOfElement_(anObject);
-			if (bucket === nil) bucket = self['@defaultBucket'];
-			return [ anObject, null, bucket ];
+			if (anObject !== nil) {
+				return [ anObject, null, self._hashBucketOfElement_(anObject) || self['@defaultBucket'] ];
+			}
+			
+			// include nil to well-knowns under 'boolean' fastBucket
+			prim = null;
+			type = 'boolean';
 		}
 		return [ prim, self['@fastBuckets'][type] ];
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"bucketOfElement:",{anObject:anObject},smalltalk.Set)})},
 args: ["anObject"],
-source: "bucketOfElement: anObject\x0a\x09<\x0a\x09\x09var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();\x0a\x09\x09if ((type = typeof prim) === \x22object\x22) {\x0a\x09\x09\x09bucket = anObject === nil ? nil : self._hashBucketOfElement_(anObject);\x0a\x09\x09\x09if (bucket === nil) bucket = self['@defaultBucket'];\x0a\x09\x09\x09return [ anObject, null, bucket ];\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][type] ];\x0a\x09>",
+source: "bucketOfElement: anObject\x0a\x09<\x0a\x09\x09var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();\x0a\x09\x09if ((type = typeof prim) === \x22object\x22) {\x0a\x09\x09\x09if (anObject !== nil) {\x0a\x09\x09\x09\x09return [ anObject, null, self._hashBucketOfElement_(anObject) || self['@defaultBucket'] ];\x0a\x09\x09\x09}\x0a\x09\x09\x09\x0a\x09\x09\x09// include nil to well-knowns under 'boolean' fastBucket\x0a\x09\x09\x09prim = null;\x0a\x09\x09\x09type = 'boolean';\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][type] ];\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5514,8 +5518,9 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		var hash = anObject.constructor ? anObject.constructor.name : nil;
-		if (hash === nil) return nil;
+		var ctr = anObject.constructor,
+			hash = ctr && ctr.name;
+		if (!hash) return null;
 		var el = self['@slowBuckets'],
 			bucket = el[hash];
 		if (!bucket) { bucket = el[hash] = []; }
@@ -5523,7 +5528,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"hashBucketOfElement:",{anObject:anObject},smalltalk.Set)})},
 args: ["anObject"],
-source: "hashBucketOfElement: anObject\x0a\x09<\x0a\x09\x09var hash = anObject.constructor ? anObject.constructor.name : nil;\x0a\x09\x09if (hash === nil) return nil;\x0a\x09\x09var el = self['@slowBuckets'],\x0a\x09\x09\x09bucket = el[hash];\x0a\x09\x09if (!bucket) { bucket = el[hash] = []; }\x0a\x09\x09return bucket;\x0a\x09>",
+source: "hashBucketOfElement: anObject\x0a\x09<\x0a\x09\x09var ctr = anObject.constructor,\x0a\x09\x09\x09hash = ctr && ctr.name;\x0a\x09\x09if (!hash) return null;\x0a\x09\x09var el = self['@slowBuckets'],\x0a\x09\x09\x09bucket = el[hash];\x0a\x09\x09if (!bucket) { bucket = el[hash] = []; }\x0a\x09\x09return bucket;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5687,7 +5692,7 @@ return smalltalk.withContext(function($ctx1) {
 
 		self['@slowBuckets'] = Object.create(null);
 		self['@fastBuckets'] = {
-			'boolean': { store: Object.create(null), fn: function (x) { return x === 'true'; } },
+			'boolean': { store: Object.create(null), fn: function (x) { return {'true': true, 'false': false, 'null': null}[x]; } },
 			'number': { store: Object.create(null), fn: Number },
 			'string': { store: Object.create(null) }
 		};
@@ -5696,7 +5701,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Set)})},
 args: [],
-source: "removeAll\x0a\x09<\x0a\x09\x09self['@slowBuckets'] = Object.create(null);\x0a\x09\x09self['@fastBuckets'] = {\x0a\x09\x09\x09'boolean': { store: Object.create(null), fn: function (x) { return x === 'true'; } },\x0a\x09\x09\x09'number': { store: Object.create(null), fn: Number },\x0a\x09\x09\x09'string': { store: Object.create(null) }\x0a\x09\x09};\x0a\x09\x09self['@defaultBucket']._removeAll();\x0a\x09\x09self['@size'] = 0;\x0a\x09>",
+source: "removeAll\x0a\x09<\x0a\x09\x09self['@slowBuckets'] = Object.create(null);\x0a\x09\x09self['@fastBuckets'] = {\x0a\x09\x09\x09'boolean': { store: Object.create(null), fn: function (x) { return {'true': true, 'false': false, 'null': null}[x]; } },\x0a\x09\x09\x09'number': { store: Object.create(null), fn: Number },\x0a\x09\x09\x09'string': { store: Object.create(null) }\x0a\x09\x09};\x0a\x09\x09self['@defaultBucket']._removeAll();\x0a\x09\x09self['@size'] = 0;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
