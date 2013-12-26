@@ -541,7 +541,7 @@ AmberC.prototype.verify = function() {
 					throw(new Error('Compilation failed of: ' + file));
 			});
 		}, function(err, result) {
-			self.compose_js_files();
+			compose_js_files(self.defaults);
 	});
 };
 
@@ -551,82 +551,85 @@ AmberC.prototype.verify = function() {
  * Concatenates compiled JavaScript files into one file in the correct order.
  * The name of the produced file is given by defaults.program (set by the last commandline option).
  */
-AmberC.prototype.compose_js_files = function() {
-	var defaults = this.defaults;
-	var programFile = defaults.program;
-	if (undefined === programFile) {
-		return;
-	}
-	if (undefined !== defaults.output_dir) {
-		programFile = path.join(defaults.output_dir, programFile);
-	}
-
-	var program_files = [];
-	if (0 !== defaults.libraries.length) {
-		console.log('Collecting libraries: ' + defaults.libraries);
-		program_files.push.apply(program_files, defaults.libraries);
-	}
-
-	if (0 !== defaults.compiled.length) {
-		var compiledFiles = defaults.compiled.slice(0);
-
-		console.log('Collecting compiled files: ' + compiledFiles);
-		program_files.push.apply(program_files, compiledFiles);
-	}
-
-	console.ambercLog('Writing program file: %s.js', programFile);
-
-	var fileStream = fs.createWriteStream(programFile + defaults.suffix_used + '.js');
-	fileStream.on('error', function(error) {
-		fileStream.end();
-		console.ambercLog(error);
-	});
-
-	fileStream.on('close', function(){
-		return;
-	});
-
-	var builder = createConcatenator();
-	builder.add('#!/usr/bin/env node');
-	builder.start();
-
-	program_files.forEach(function(file) {
-		if(fs.existsSync(file)) {
-			console.log('Adding : ' + file);
-			var buffer = fs.readFileSync(file);
-			// matches and returns the "module_id" string in the AMD define: define("module_id", ...)
-			var match = buffer.toString().match(/^define\("([^"]*)"/);
-			if (match /*&& match[1].slice(0,9) !== "amber_vm/"*/) {
-				builder.addId(match[1]);
-			}
-			builder.add(buffer);
-		} else {
-			fileStream.end();
-			throw(new Error('Can not find file ' + file));
+function compose_js_files(configuration) {
+	return new Promise(function(resolve, reject) {
+		var defaults = configuration;
+		var programFile = defaults.program;
+		if (undefined === programFile) {
+			return;
 		}
+		if (undefined !== defaults.output_dir) {
+			programFile = path.join(defaults.output_dir, programFile);
+		}
+
+		var program_files = [];
+		if (0 !== defaults.libraries.length) {
+			console.log('Collecting libraries: ' + defaults.libraries);
+			program_files.push.apply(program_files, defaults.libraries);
+		}
+
+		if (0 !== defaults.compiled.length) {
+			var compiledFiles = defaults.compiled.slice(0);
+
+			console.log('Collecting compiled files: ' + compiledFiles);
+			program_files.push.apply(program_files, compiledFiles);
+		}
+
+		console.ambercLog('Writing program file: %s.js', programFile);
+
+		var fileStream = fs.createWriteStream(programFile + defaults.suffix_used + '.js');
+		fileStream.on('error', function(error) {
+			fileStream.end();
+			console.ambercLog(error);
+		});
+
+		fileStream.on('close', function(){
+			return;
+		});
+
+		var builder = createConcatenator();
+		builder.add('#!/usr/bin/env node');
+		builder.start();
+
+		program_files.forEach(function(file) {
+			if(fs.existsSync(file)) {
+				console.log('Adding : ' + file);
+				var buffer = fs.readFileSync(file);
+				// matches and returns the "module_id" string in the AMD define: define("module_id", ...)
+				var match = buffer.toString().match(/^define\("([^"]*)"/);
+				if (match /*&& match[1].slice(0,9) !== "amber_vm/"*/) {
+					builder.addId(match[1]);
+				}
+				builder.add(buffer);
+			} else {
+				fileStream.end();
+				throw(new Error('Can not find file ' + file));
+			}
+		});
+
+		var mainFunctionOrFile = '';
+
+		if (undefined !== defaults.main) {
+			console.log('Adding call to: %s>>main', defaults.main);
+			mainFunctionOrFile += 'smalltalk.' + defaults.main + '._main();';
+		}
+
+		if (undefined !== defaults.mainfile && fs.existsSync(defaults.mainfile)) {
+			console.log('Adding main file: ' + defaults.mainfile);
+			mainFunctionOrFile += '\n' + fs.readFileSync(defaults.mainfile);
+		}
+
+		builder.finish(mainFunctionOrFile);
+
+		console.log('Writing...');
+		builder.forEach(function (element) {
+			fileStream.write(element);
+			fileStream.write('\n');
+		});
+		console.log('Done.');
+		fileStream.end();
+		resolve(true);
 	});
-
-	var mainFunctionOrFile = '';
-
-	if (undefined !== defaults.main) {
-		console.log('Adding call to: %s>>main', defaults.main);
-		mainFunctionOrFile += 'smalltalk.' + defaults.main + '._main();';
-	}
-
-	if (undefined !== defaults.mainfile && fs.existsSync(defaults.mainfile)) {
-		console.log('Adding main file: ' + defaults.mainfile);
-		mainFunctionOrFile += '\n' + fs.readFileSync(defaults.mainfile);
-	}
-
-	builder.finish(mainFunctionOrFile);
-
-	console.log('Writing...');
-	builder.forEach(function (element) {
-		fileStream.write(element);
-		fileStream.write('\n');
-	});
-	console.log('Done.');
-	fileStream.end();
 };
 
 
