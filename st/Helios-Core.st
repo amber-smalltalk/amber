@@ -1371,6 +1371,12 @@ show
 	self appendToJQuery: 'body' asJQuery
 ! !
 
+!HLModalWidget methodsFor: 'private'!
+
+giveFocusToButton: aButton
+	aButton asJQuery focus
+! !
+
 !HLModalWidget methodsFor: 'rendering'!
 
 hasButtons
@@ -1392,7 +1398,7 @@ renderButtonsOn: html
 				with: 'Confirm';
 				onClick: [ self confirm ] ].
 
-	confirmButton asJQuery focus
+	self giveFocusToButton:confirmButton
 !
 
 renderContentOn: html
@@ -1499,12 +1505,19 @@ confirm
 	self actionBlock value: input asJQuery val
 ! !
 
+!HLRequestWidget methodsFor: 'private'!
+
+giveFocusToButton: aButton
+! !
+
 !HLRequestWidget methodsFor: 'rendering'!
 
 renderMainOn: html
 	super renderMainOn: html.
 	input := html textarea.
-	input asJQuery val: self value
+	input asJQuery 
+		val: self value;
+		focus
 ! !
 
 HLModalWidget subclass: #HLProgressWidget

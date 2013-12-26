@@ -2,6 +2,382 @@ define("amber_core/Helios-Helpers", ["amber_vm/smalltalk", "amber_vm/nil", "ambe
 smalltalk.addPackage('Helios-Helpers');
 smalltalk.packages["Helios-Helpers"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
+smalltalk.addClass('HLClassifierLink', smalltalk.Object, ['next', 'method'], 'Helios-Helpers');
+smalltalk.HLClassifierLink.comment="I am an abstract class implementing a link in a `chain of responsibility` pattern.\x0a\x0ay subclasses are in charge of classifying a method according to multiple strategies";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "classify",
+protocol: 'protocol',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2;
+$1=self._next();
+$ctx1.sendIdx["next"]=1;
+if(($receiver = $1) == nil || $receiver == null){
+return false;
+} else {
+$1;
+};
+$3=self._doClassify();
+if(smalltalk.assert($3)){
+$2=true;
+} else {
+$2=_st(self._next())._execute();
+};
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"classify",{},smalltalk.HLClassifierLink)})},
+args: [],
+source: "classify\x0a\x09self next ifNil: [ ^ false ].\x0a\x09\x0a\x09^ self doClassify\x0a\x09\x09ifTrue: [ true ]\x0a\x09\x09ifFalse: [ self next execute ]",
+messageSends: ["ifNil:", "next", "ifTrue:ifFalse:", "doClassify", "execute"],
+referencedClasses: []
+}),
+smalltalk.HLClassifierLink);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doClassify",
+protocol: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"doClassify",{},smalltalk.HLClassifierLink)})},
+args: [],
+source: "doClassify\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.HLClassifierLink);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "method",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@method"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.HLClassifierLink)})},
+args: [],
+source: "method\x0a\x09^ method",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLClassifierLink);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "method:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self["@method"]=anObject;
+$1=self._next();
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+var nextLink;
+nextLink=$receiver;
+_st(nextLink)._method_(anObject);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"method:",{anObject:anObject},smalltalk.HLClassifierLink)})},
+args: ["anObject"],
+source: "method: anObject\x0a\x09method := anObject.\x0a\x09self next\x0a\x09\x09ifNotNil: [ :nextLink | nextLink method: anObject ]",
+messageSends: ["ifNotNil:", "next", "method:"],
+referencedClasses: []
+}),
+smalltalk.HLClassifierLink);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "next",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@next"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"next",{},smalltalk.HLClassifierLink)})},
+args: [],
+source: "next\x0a\x09^ next",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLClassifierLink);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "next:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@next"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"next:",{anObject:anObject},smalltalk.HLClassifierLink)})},
+args: ["anObject"],
+source: "next: anObject\x0a\x09next := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLClassifierLink);
+
+
+
+smalltalk.addClass('HLAccessorClassifierLink', smalltalk.HLClassifierLink, [], 'Helios-Helpers');
+smalltalk.HLAccessorClassifierLink.comment="I am a classifier checking the method selector matches an instance variable name";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doClassify",
+protocol: 'private',
+fn: function (){
+var self=this;
+var names,selector;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+names=_st(_st(self["@method"])._methodClass())._allInstanceVariableNames();
+selector=_st(self["@method"])._selector();
+$1=_st(_st(selector)._last()).__eq(":");
+if(smalltalk.assert($1)){
+selector=_st(selector)._allButLast();
+selector;
+};
+$2=_st(names)._includes_(selector);
+if(! smalltalk.assert($2)){
+return false;
+};
+_st(self["@method"])._protocol_("accessing");
+return true;
+}, function($ctx1) {$ctx1.fill(self,"doClassify",{names:names,selector:selector},smalltalk.HLAccessorClassifierLink)})},
+args: [],
+source: "doClassify\x0a\x09| names selector |\x0a\x09\x0a\x09names := method methodClass allInstanceVariableNames.\x0a\x09selector := method selector.\x0a\x09\x0a\x09(selector last = ':')\x0a\x09\x09ifTrue: [ \x22selector might be a setter\x22\x0a\x09\x09\x09selector := selector allButLast ].\x0a\x09\x0a\x09(names includes: selector)\x0a\x09\x09ifFalse: [ ^ false ].\x0a\x09\x09\x0a\x09method protocol: 'accessing'.\x0a\x09^ true.",
+messageSends: ["allInstanceVariableNames", "methodClass", "selector", "ifTrue:", "=", "last", "allButLast", "ifFalse:", "includes:", "protocol:"],
+referencedClasses: []
+}),
+smalltalk.HLAccessorClassifierLink);
+
+
+
+smalltalk.addClass('HLImplementorClassifierLink', smalltalk.HLClassifierLink, [], 'Helios-Helpers');
+smalltalk.HLImplementorClassifierLink.comment="I am a classifier checking the other implementations of the same selector and choose the protocol the most populated";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doClassify",
+protocol: 'private',
+fn: function (){
+var self=this;
+var currentClass;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$2;
+var $early={};
+try {
+currentClass=_st(self["@method"])._methodClass();
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(currentClass)._superclass();
+$ctx2.sendIdx["superclass"]=1;
+return _st($1)._isNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+currentClass=_st(currentClass)._superclass();
+currentClass;
+$3=currentClass;
+$4=_st(self["@method"])._selector();
+$ctx2.sendIdx["selector"]=1;
+$2=_st($3)._includesSelector_($4);
+if(smalltalk.assert($2)){
+_st(self["@method"])._protocol_(_st(_st(currentClass).__gt_gt(_st(self["@method"])._selector()))._protocol());
+throw $early=[true];
+};
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return false;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"doClassify",{currentClass:currentClass},smalltalk.HLImplementorClassifierLink)})},
+args: [],
+source: "doClassify\x0a\x09| currentClass |\x0a\x09currentClass := method methodClass.\x0a\x09\x0a\x09[ currentClass superclass isNil ] whileFalse: [\x0a\x09\x09currentClass := currentClass superclass.\x0a\x09\x09(currentClass includesSelector: method selector)\x0a\x09\x09\x09ifTrue: [ \x0a\x09\x09\x09\x09method protocol: (currentClass >> method selector) protocol.\x0a\x09\x09\x09\x09^ true ]].\x0a\x09\x0a\x09^ false.",
+messageSends: ["methodClass", "whileFalse:", "isNil", "superclass", "ifTrue:", "includesSelector:", "selector", "protocol:", "protocol", ">>"],
+referencedClasses: []
+}),
+smalltalk.HLImplementorClassifierLink);
+
+
+
+smalltalk.addClass('HLPrefixClassifierLink', smalltalk.HLClassifierLink, ['prefixMapping'], 'Helios-Helpers');
+smalltalk.HLPrefixClassifierLink.comment="I am classifier checking the method selector to know if it begins with a known prefix";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buildPrefixDictionary",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self["@prefixMapping"]=_st($Dictionary())._new();
+$1=self["@prefixMapping"];
+_st($1)._at_put_("test","tests");
+$ctx1.sendIdx["at:put:"]=1;
+_st($1)._at_put_("bench","benchmarking");
+$ctx1.sendIdx["at:put:"]=2;
+_st($1)._at_put_("copy","copying");
+$ctx1.sendIdx["at:put:"]=3;
+_st($1)._at_put_("initialize","initialization");
+$ctx1.sendIdx["at:put:"]=4;
+_st($1)._at_put_("accept","visitor");
+$ctx1.sendIdx["at:put:"]=5;
+_st($1)._at_put_("visit","visitor");
+$ctx1.sendIdx["at:put:"]=6;
+_st($1)._at_put_("signal","signalling");
+$ctx1.sendIdx["at:put:"]=7;
+_st($1)._at_put_("parse","parsing");
+$ctx1.sendIdx["at:put:"]=8;
+_st($1)._at_put_("add","adding");
+$ctx1.sendIdx["at:put:"]=9;
+_st($1)._at_put_("is","testing");
+$ctx1.sendIdx["at:put:"]=10;
+_st($1)._at_put_("as","converting");
+$ctx1.sendIdx["at:put:"]=11;
+$2=_st($1)._at_put_("new","instance creation");
+return self}, function($ctx1) {$ctx1.fill(self,"buildPrefixDictionary",{},smalltalk.HLPrefixClassifierLink)})},
+args: [],
+source: "buildPrefixDictionary\x0a\x09prefixMapping := Dictionary new.\x0a\x09prefixMapping \x0a\x09\x09at: 'test' put: 'tests';\x0a\x09 \x09at: 'bench' put: 'benchmarking';\x0a\x09 \x09at: 'copy' put: 'copying';\x0a\x09\x09at: 'initialize' put: 'initialization';\x0a\x09\x09at: 'accept' put: 'visitor';\x0a\x09\x09at: 'visit' put: 'visitor';\x0a\x09\x09at: 'signal' put: 'signalling';\x0a\x09\x09at: 'parse' put: 'parsing';\x0a\x09\x09at: 'add' put: 'adding';\x0a\x09\x09at: 'is' put: 'testing';\x0a\x09\x09at: 'as' put: 'converting';\x0a\x09\x09at: 'new' put: 'instance creation'.",
+messageSends: ["new", "at:put:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.HLPrefixClassifierLink);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doClassify",
+protocol: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+_st(self["@prefixMapping"])._keysAndValuesDo_((function(prefix,protocol){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(_st(self["@method"])._selector())._beginsWith_(prefix);
+if(smalltalk.assert($1)){
+_st(self["@method"])._protocol_(protocol);
+throw $early=[true];
+};
+}, function($ctx2) {$ctx2.fillBlock({prefix:prefix,protocol:protocol},$ctx1,1)})}));
+return false;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"doClassify",{},smalltalk.HLPrefixClassifierLink)})},
+args: [],
+source: "doClassify\x0a\x09prefixMapping keysAndValuesDo: [ :prefix :protocol |\x0a\x09\x09(method selector beginsWith: prefix)\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09method protocol: protocol.\x0a\x09\x09\x09\x09^ true ]].\x0a\x09^ false.",
+messageSends: ["keysAndValuesDo:", "ifTrue:", "beginsWith:", "selector", "protocol:"],
+referencedClasses: []
+}),
+smalltalk.HLPrefixClassifierLink);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLPrefixClassifierLink.superclass.fn.prototype._initialize.apply(_st(self), []);
+self._buildPrefixDictionary();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLPrefixClassifierLink)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x0a\x09self buildPrefixDictionary",
+messageSends: ["initialize", "buildPrefixDictionary"],
+referencedClasses: []
+}),
+smalltalk.HLPrefixClassifierLink);
+
+
+
+smalltalk.addClass('HLSuperClassClassifierLink', smalltalk.HLClassifierLink, [], 'Helios-Helpers');
+smalltalk.HLSuperClassClassifierLink.comment="I am a classifier checking the superclass chain to find a matching selector";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doClassify",
+protocol: 'private',
+fn: function (){
+var self=this;
+var protocolBag,methods,protocolToUse,counter;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $HLReferencesModel(){return smalltalk.HLReferencesModel||(typeof HLReferencesModel=="undefined"?nil:HLReferencesModel)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$4,$3,$5;
+var $early={};
+try {
+protocolBag=_st($Dictionary())._new();
+$ctx1.sendIdx["new"]=1;
+methods=_st(_st($HLReferencesModel())._new())._implementorsOf_(_st(self["@method"])._selector());
+_st(methods)._ifEmpty_ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+throw $early=[false];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(methods)._do_((function(aMethod){
+var protocol;
+return smalltalk.withContext(function($ctx3) {
+protocol=_st(_st(aMethod)._method())._protocol();
+protocol;
+$2=_st(self["@method"])._methodClass();
+$ctx3.sendIdx["methodClass"]=1;
+$1=_st($2).__eq(_st(aMethod)._methodClass());
+$ctx3.sendIdx["="]=1;
+if(! smalltalk.assert($1)){
+$4=_st(_st(protocol)._first()).__eq("*");
+$ctx3.sendIdx["="]=2;
+$3=_st($4)._or_((function(){
+return smalltalk.withContext(function($ctx4) {
+return _st(protocol).__eq(_st(self["@method"])._defaultProtocol());
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,5)})}));
+if(! smalltalk.assert($3)){
+return _st(protocolBag)._at_put_(protocol,_st(_st(protocolBag)._at_ifAbsent_(protocol,(function(){
+return smalltalk.withContext(function($ctx4) {
+return (0);
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,7)})}))).__plus((1)));
+};
+};
+}, function($ctx3) {$ctx3.fillBlock({aMethod:aMethod,protocol:protocol},$ctx2,3)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+_st(protocolBag)._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+throw $early=[false];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,8)})}));
+protocolToUse=nil;
+counter=(0);
+_st(protocolBag)._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) {
+$5=_st(value).__gt(counter);
+if(smalltalk.assert($5)){
+counter=value;
+counter;
+protocolToUse=key;
+return protocolToUse;
+};
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,9)})}));
+_st(self["@method"])._protocol_(protocolToUse);
+return true;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"doClassify",{protocolBag:protocolBag,methods:methods,protocolToUse:protocolToUse,counter:counter},smalltalk.HLSuperClassClassifierLink)})},
+args: [],
+source: "doClassify\x0a\x09| protocolBag methods protocolToUse counter |\x0a\x09\x0a\x09protocolBag := Dictionary new.\x0a\x09methods := HLReferencesModel new implementorsOf: method selector.\x0a\x09methods\x0a\x09\x09ifEmpty: [ ^ false ]\x0a\x09\x09ifNotEmpty: [\x0a\x09\x09\x09methods \x0a\x09\x09\x09\x09do: [ :aMethod || protocol |\x0a\x09\x09\x09\x09\x09protocol := aMethod method protocol.\x0a\x09\x09\x09\x09\x09(method methodClass = aMethod methodClass)\x0a\x09\x09\x09\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09\x09\x09((protocol first = '*') or: [ protocol = method defaultProtocol ])\x0a\x09\x09\x09\x09\x09\x09\x09ifFalse: [ \x0a\x09\x09\x09\x09\x09\x09\x09\x09protocolBag \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09at: protocol \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09put: (protocolBag at: protocol ifAbsent: [ 0 ]) + 1 ] ] ] ].\x0a\x09\x09\x09\x0a\x09protocolBag ifEmpty: [ ^ false ].\x0a\x09protocolToUse := nil.\x0a\x09counter := 0.\x0a\x09protocolBag keysAndValuesDo: [ :key :value | value > counter \x0a\x09\x09ifTrue: [\x0a\x09\x09\x09counter := value.\x0a\x09\x09\x09protocolToUse := key ] ].\x0a\x09method protocol: protocolToUse.\x0a\x09^ true",
+messageSends: ["new", "implementorsOf:", "selector", "ifEmpty:ifNotEmpty:", "do:", "protocol", "method", "ifFalse:", "=", "methodClass", "or:", "first", "defaultProtocol", "at:put:", "+", "at:ifAbsent:", "ifEmpty:", "keysAndValuesDo:", "ifTrue:", ">", "protocol:"],
+referencedClasses: ["Dictionary", "HLReferencesModel"]
+}),
+smalltalk.HLSuperClassClassifierLink);
+
+
+
 smalltalk.addClass('HLGenerationOutput', smalltalk.Object, ['sourceCodes', 'protocol', 'targetClass'], 'Helios-Helpers');
 smalltalk.HLGenerationOutput.comment="I am a simple data object used to store the result of a generation process";
 smalltalk.addMethod(
@@ -624,6 +1000,115 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLInitializeGenerator);
+
+
+
+smalltalk.addClass('HLMethodClassifier', smalltalk.Object, ['firstLink'], 'Helios-Helpers');
+smalltalk.HLMethodClassifier.comment="I am in charge of categorizing methods following this strategy:\x0a\x0a- is it an accessor?\x0a- is it overriding a superclass method?\x0a- is it starting with a know prefix?\x0a- how are categorized the other implementations?";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addLink:",
+protocol: 'private',
+fn: function (aLink){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aLink)._next_(self["@firstLink"]);
+self["@firstLink"]=aLink;
+return self}, function($ctx1) {$ctx1.fill(self,"addLink:",{aLink:aLink},smalltalk.HLMethodClassifier)})},
+args: ["aLink"],
+source: "addLink: aLink\x0a\x09aLink next: firstLink.\x0a\x09firstLink := aLink",
+messageSends: ["next:"],
+referencedClasses: []
+}),
+smalltalk.HLMethodClassifier);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buildChainOfResponsibility",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+function $HLImplementorClassifierLink(){return smalltalk.HLImplementorClassifierLink||(typeof HLImplementorClassifierLink=="undefined"?nil:HLImplementorClassifierLink)}
+function $HLPrefixClassifierLink(){return smalltalk.HLPrefixClassifierLink||(typeof HLPrefixClassifierLink=="undefined"?nil:HLPrefixClassifierLink)}
+function $HLSuperclassClassifierLink(){return smalltalk.HLSuperclassClassifierLink||(typeof HLSuperclassClassifierLink=="undefined"?nil:HLSuperclassClassifierLink)}
+function $HLAccessorClassifierLink(){return smalltalk.HLAccessorClassifierLink||(typeof HLAccessorClassifierLink=="undefined"?nil:HLAccessorClassifierLink)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st($HLImplementorClassifierLink())._new();
+$ctx1.sendIdx["new"]=1;
+self._addLink_($1);
+$ctx1.sendIdx["addLink:"]=1;
+$2=_st($HLPrefixClassifierLink())._new();
+$ctx1.sendIdx["new"]=2;
+self._addLink_($2);
+$ctx1.sendIdx["addLink:"]=2;
+$3=_st($HLSuperclassClassifierLink())._new();
+$ctx1.sendIdx["new"]=3;
+self._addLink_($3);
+$ctx1.sendIdx["addLink:"]=3;
+self._addLink_(_st($HLAccessorClassifierLink())._new());
+return self}, function($ctx1) {$ctx1.fill(self,"buildChainOfResponsibility",{},smalltalk.HLMethodClassifier)})},
+args: [],
+source: "buildChainOfResponsibility\x0a\x09self addLink: HLImplementorClassifierLink new.\x0a\x09self addLink: HLPrefixClassifierLink new.\x0a\x09self addLink: HLSuperclassClassifierLink new.\x0a\x09self addLink: HLAccessorClassifierLink new",
+messageSends: ["addLink:", "new"],
+referencedClasses: ["HLImplementorClassifierLink", "HLPrefixClassifierLink", "HLSuperclassClassifierLink", "HLAccessorClassifierLink"]
+}),
+smalltalk.HLMethodClassifier);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "classify:",
+protocol: 'protocol',
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self["@firstLink"];
+_st($1)._method_(aMethod);
+$2=_st($1)._classify();
+return self}, function($ctx1) {$ctx1.fill(self,"classify:",{aMethod:aMethod},smalltalk.HLMethodClassifier)})},
+args: ["aMethod"],
+source: "classify: aMethod\x0a\x09firstLink\x0a\x09\x09method: aMethod;\x0a\x09\x09classify",
+messageSends: ["method:", "classify"],
+referencedClasses: []
+}),
+smalltalk.HLMethodClassifier);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "classifyAll:",
+protocol: 'protocol',
+fn: function (aCollectionOfMethods){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aCollectionOfMethods)._do_((function(method){
+return smalltalk.withContext(function($ctx2) {
+return self._classify_(method);
+}, function($ctx2) {$ctx2.fillBlock({method:method},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"classifyAll:",{aCollectionOfMethods:aCollectionOfMethods},smalltalk.HLMethodClassifier)})},
+args: ["aCollectionOfMethods"],
+source: "classifyAll: aCollectionOfMethods\x0a\x09aCollectionOfMethods do: [ :method |\x0a\x09\x09self classify: method ]",
+messageSends: ["do:", "classify:"],
+referencedClasses: []
+}),
+smalltalk.HLMethodClassifier);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLMethodClassifier.superclass.fn.prototype._initialize.apply(_st(self), []);
+self._buildChainOfResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLMethodClassifier)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09\x0a\x09self buildChainOfResponsibility",
+messageSends: ["initialize", "buildChainOfResponsibility"],
+referencedClasses: []
+}),
+smalltalk.HLMethodClassifier);
 
 
 
