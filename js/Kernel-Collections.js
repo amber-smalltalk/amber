@@ -150,6 +150,161 @@ referencedClasses: []
 smalltalk.Association.klass);
 
 
+smalltalk.addClass('BucketStore', smalltalk.Object, ['buckets', 'hashFn'], 'Kernel-Collections');
+smalltalk.BucketStore.comment="I am helper class for hash-based stores.\x0a\x0aI hold buckets which are selected by a hash.\x0aHash is not a number, but any object, and\x0ait is used as a JS property (that is, in ES5\x0aits toString() value counts).\x0a\x0aI maintain the list of buckets. Client code can use this API:\x0a - bucketOfElement: (to ask a bucket for element, I can return JS null if n/a)\x0a - do: (to enumerate all elements of all buckets)\x0a - removeAll (to remove all buckets)\x0a\x0aClient code itself should add/remove elements\x0ain a bucket. The nil should not be put into any bucket.\x0a\x0aTypes of buckets are responsibility of subclasses via newBucket.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "bucketOfElement:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var hash = self['@hashFn'](anObject);
+		if (!hash) return null;
+		var el = self['@buckets'],
+			bucket = el[hash];
+		if (!bucket) { bucket = el[hash] = self._newBucket(); }
+		return bucket;
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"bucketOfElement:",{anObject:anObject},smalltalk.BucketStore)})},
+args: ["anObject"],
+source: "bucketOfElement: anObject\x0a\x09<\x0a\x09\x09var hash = self['@hashFn'](anObject);\x0a\x09\x09if (!hash) return null;\x0a\x09\x09var el = self['@buckets'],\x0a\x09\x09\x09bucket = el[hash];\x0a\x09\x09if (!bucket) { bucket = el[hash] = self._newBucket(); }\x0a\x09\x09return bucket;\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BucketStore);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "do:",
+protocol: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		el = self['@buckets'];
+		keys = Object.keys(el);
+		for (i = 0; i < keys.length; ++i) { el[keys[i]]._do_(aBlock); }
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.BucketStore)})},
+args: ["aBlock"],
+source: "do: aBlock\x0a\x09<\x0a\x09\x09el = self['@buckets'];\x0a\x09\x09keys = Object.keys(el);\x0a\x09\x09for (i = 0; i < keys.length; ++i) { el[keys[i]]._do_(aBlock); }\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BucketStore);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "hashFn:",
+protocol: 'accessing',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@hashFn"]=aBlock;
+return self}, function($ctx1) {$ctx1.fill(self,"hashFn:",{aBlock:aBlock},smalltalk.BucketStore)})},
+args: ["aBlock"],
+source: "hashFn: aBlock\x0a\x09hashFn := aBlock",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BucketStore);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.BucketStore.superclass.fn.prototype._initialize.apply(_st(self), []);
+self._removeAll();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.BucketStore)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09self removeAll",
+messageSends: ["initialize", "removeAll"],
+referencedClasses: []
+}),
+smalltalk.BucketStore);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "newBucket",
+protocol: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"newBucket",{},smalltalk.BucketStore)})},
+args: [],
+source: "newBucket\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.BucketStore);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeAll",
+protocol: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self['@buckets'] = Object.create(null);;
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.BucketStore)})},
+args: [],
+source: "removeAll\x0a\x09<self['@buckets'] = Object.create(null);>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BucketStore);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "new:",
+protocol: 'not yet classified',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._hashFn_(aBlock);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"new:",{aBlock:aBlock},smalltalk.BucketStore.klass)})},
+args: ["aBlock"],
+source: "new: aBlock\x0a\x09^ self new\x0a\x09\x09hashFn: aBlock;\x0a\x09\x09yourself",
+messageSends: ["hashFn:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.BucketStore.klass);
+
+
+smalltalk.addClass('ArrayBucketStore', smalltalk.BucketStore, [], 'Kernel-Collections');
+smalltalk.ArrayBucketStore.comment="I am BucketStore with buckets being instance of Array.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "newBucket",
+protocol: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=[];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newBucket",{},smalltalk.ArrayBucketStore)})},
+args: [],
+source: "newBucket\x0a\x09^ #()",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ArrayBucketStore);
+
+
+
 smalltalk.addClass('Collection', smalltalk.Object, [], 'Kernel-Collections');
 smalltalk.Collection.comment="I am the abstract superclass of all classes that represent a group of elements.\x0a\x0aI provide a set of useful methods to the Collection hierarchy such as enumerating and converting methods.";
 smalltalk.addMethod(
@@ -5298,7 +5453,7 @@ referencedClasses: []
 smalltalk.String.klass);
 
 
-smalltalk.addClass('Set', smalltalk.Collection, ['defaultBucket', 'slowBuckets', 'fastBuckets', 'size'], 'Kernel-Collections');
+smalltalk.addClass('Set', smalltalk.Collection, ['defaultBucket', 'slowBucketStores', 'fastBuckets', 'size'], 'Kernel-Collections');
 smalltalk.Set.comment="I represent an unordered set of objects without duplicates.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -5411,7 +5566,11 @@ return smalltalk.withContext(function($ctx1) {
 		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
 		if ((type = typeof prim) === "object") {
 			if (anObject !== nil) {
-				return [ anObject, null, self._hashBucketOfElement_(anObject) || self['@defaultBucket'] ];
+				bucket = null;
+				self['@slowBucketStores'].some(function (x) {
+					return bucket = x._bucketOfElement_(anObject);
+				});
+				return [ anObject, null, bucket || self['@defaultBucket'] ];
 			}
 			
 			// include nil to well-knowns under 'boolean' fastBucket
@@ -5422,7 +5581,23 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"bucketOfElement:",{anObject:anObject},smalltalk.Set)})},
 args: ["anObject"],
-source: "bucketOfElement: anObject\x0a\x09<\x0a\x09\x09var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();\x0a\x09\x09if ((type = typeof prim) === \x22object\x22) {\x0a\x09\x09\x09if (anObject !== nil) {\x0a\x09\x09\x09\x09return [ anObject, null, self._hashBucketOfElement_(anObject) || self['@defaultBucket'] ];\x0a\x09\x09\x09}\x0a\x09\x09\x09\x0a\x09\x09\x09// include nil to well-knowns under 'boolean' fastBucket\x0a\x09\x09\x09prim = null;\x0a\x09\x09\x09type = 'boolean';\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][type] ];\x0a\x09>",
+source: "bucketOfElement: anObject\x0a\x09<\x0a\x09\x09var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();\x0a\x09\x09if ((type = typeof prim) === \x22object\x22) {\x0a\x09\x09\x09if (anObject !== nil) {\x0a\x09\x09\x09\x09bucket = null;\x0a\x09\x09\x09\x09self['@slowBucketStores'].some(function (x) {\x0a\x09\x09\x09\x09\x09return bucket = x._bucketOfElement_(anObject);\x0a\x09\x09\x09\x09});\x0a\x09\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09\x09}\x0a\x09\x09\x09\x0a\x09\x09\x09// include nil to well-knowns under 'boolean' fastBucket\x0a\x09\x09\x09prim = null;\x0a\x09\x09\x09type = 'boolean';\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][type] ];\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "classNameOf:",
+protocol: 'private',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return anObject.klass && anObject.klass.className;
+return self}, function($ctx1) {$ctx1.fill(self,"classNameOf:",{anObject:anObject},smalltalk.Set)})},
+args: ["anObject"],
+source: "classNameOf: anObject\x0a\x09<return anObject.klass && anObject.klass.className>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5497,38 +5672,13 @@ return smalltalk.withContext(function($ctx1) {
 			if (fn) { for (var j = 0; j < store.length; ++j) { aBlock._value_(fn(store[j])); } }
 			else { store._do_(aBlock); }
 		}
-		el = self['@slowBuckets'];
-		keys = Object.keys(el);
-		for (i = 0; i < keys.length; ++i) { el[keys[i]]._do_(aBlock); }
+		el = self['@slowBucketStores'];
+		for (i = 0; i < el.length; ++i) { el[i]._do_(aBlock); }
 		self['@defaultBucket']._do_(aBlock);
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.Set)})},
 args: ["aBlock"],
-source: "do: aBlock\x0a\x09<\x0a\x09\x09var el, keys, i;\x0a\x09\x09el = self['@fastBuckets'];\x0a\x09\x09keys = Object.keys(el);\x0a\x09\x09for (i = 0; i < keys.length; ++i) {\x0a\x09\x09\x09var fastBucket = el[keys[i]], fn = fastBucket.fn, store = Object.keys(fastBucket.store);\x0a\x09\x09\x09if (fn) { for (var j = 0; j < store.length; ++j) { aBlock._value_(fn(store[j])); } }\x0a\x09\x09\x09else { store._do_(aBlock); }\x0a\x09\x09}\x0a\x09\x09el = self['@slowBuckets'];\x0a\x09\x09keys = Object.keys(el);\x0a\x09\x09for (i = 0; i < keys.length; ++i) { el[keys[i]]._do_(aBlock); }\x0a\x09\x09self['@defaultBucket']._do_(aBlock);\x0a\x09>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Set);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "hashBucketOfElement:",
-protocol: 'private',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		var ctr = anObject.constructor,
-			hash = ctr && ctr.name;
-		if (!hash) return null;
-		var el = self['@slowBuckets'],
-			bucket = el[hash];
-		if (!bucket) { bucket = el[hash] = []; }
-		return bucket;
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"hashBucketOfElement:",{anObject:anObject},smalltalk.Set)})},
-args: ["anObject"],
-source: "hashBucketOfElement: anObject\x0a\x09<\x0a\x09\x09var ctr = anObject.constructor,\x0a\x09\x09\x09hash = ctr && ctr.name;\x0a\x09\x09if (!hash) return null;\x0a\x09\x09var el = self['@slowBuckets'],\x0a\x09\x09\x09bucket = el[hash];\x0a\x09\x09if (!bucket) { bucket = el[hash] = []; }\x0a\x09\x09return bucket;\x0a\x09>",
+source: "do: aBlock\x0a\x09<\x0a\x09\x09var el, keys, i;\x0a\x09\x09el = self['@fastBuckets'];\x0a\x09\x09keys = Object.keys(el);\x0a\x09\x09for (i = 0; i < keys.length; ++i) {\x0a\x09\x09\x09var fastBucket = el[keys[i]], fn = fastBucket.fn, store = Object.keys(fastBucket.store);\x0a\x09\x09\x09if (fn) { for (var j = 0; j < store.length; ++j) { aBlock._value_(fn(store[j])); } }\x0a\x09\x09\x09else { store._do_(aBlock); }\x0a\x09\x09}\x0a\x09\x09el = self['@slowBucketStores'];\x0a\x09\x09for (i = 0; i < el.length; ++i) { el[i]._do_(aBlock); }\x0a\x09\x09self['@defaultBucket']._do_(aBlock);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5587,13 +5737,57 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
 smalltalk.Set.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@defaultBucket"]=[];
-self._removeAll();
+self._initializeSlowBucketStores();
+$1=self._removeAll();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Set)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09defaultBucket := #().\x0a\x09self removeAll",
-messageSends: ["initialize", "removeAll"],
+source: "initialize\x0a\x09super initialize.\x0a\x09defaultBucket := #().\x0a\x09self\x0a\x09\x09initializeSlowBucketStores;\x0a\x09\x09removeAll",
+messageSends: ["initialize", "initializeSlowBucketStores", "removeAll"],
+referencedClasses: []
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeSlowBucketStores",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+function $ArrayBucketStore(){return smalltalk.ArrayBucketStore||(typeof ArrayBucketStore=="undefined"?nil:ArrayBucketStore)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($ArrayBucketStore())._new_((function(x){
+return smalltalk.withContext(function($ctx2) {
+return self._classNameOf_(x);
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,1)})}));
+$ctx1.sendIdx["new:"]=1;
+self["@slowBucketStores"]=[$1,_st($ArrayBucketStore())._new_((function(x){
+return smalltalk.withContext(function($ctx2) {
+return self._jsConstructorNameOf_(x);
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,2)})}))];
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSlowBucketStores",{},smalltalk.Set)})},
+args: [],
+source: "initializeSlowBucketStores\x0a\x09slowBucketStores := {\x0a\x09\x09ArrayBucketStore new: [ :x | self classNameOf: x ].\x0a\x09\x09ArrayBucketStore new: [ :x | self jsConstructorNameOf: x ]\x0a\x09}",
+messageSends: ["new:", "classNameOf:", "jsConstructorNameOf:"],
+referencedClasses: ["ArrayBucketStore"]
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "jsConstructorNameOf:",
+protocol: 'private',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return anObject.constructor && anObject.constructor.name;
+return self}, function($ctx1) {$ctx1.fill(self,"jsConstructorNameOf:",{anObject:anObject},smalltalk.Set)})},
+args: ["anObject"],
+source: "jsConstructorNameOf: anObject\x0a\x09<return anObject.constructor && anObject.constructor.name>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Set);
@@ -5690,18 +5884,18 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		self['@slowBuckets'] = Object.create(null);
 		self['@fastBuckets'] = {
 			'boolean': { store: Object.create(null), fn: function (x) { return {'true': true, 'false': false, 'null': null}[x]; } },
 			'number': { store: Object.create(null), fn: Number },
 			'string': { store: Object.create(null) }
 		};
+		self['@slowBucketStores'].forEach(function (x) { x._removeAll(); });
 		self['@defaultBucket']._removeAll();
 		self['@size'] = 0;
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Set)})},
 args: [],
-source: "removeAll\x0a\x09<\x0a\x09\x09self['@slowBuckets'] = Object.create(null);\x0a\x09\x09self['@fastBuckets'] = {\x0a\x09\x09\x09'boolean': { store: Object.create(null), fn: function (x) { return {'true': true, 'false': false, 'null': null}[x]; } },\x0a\x09\x09\x09'number': { store: Object.create(null), fn: Number },\x0a\x09\x09\x09'string': { store: Object.create(null) }\x0a\x09\x09};\x0a\x09\x09self['@defaultBucket']._removeAll();\x0a\x09\x09self['@size'] = 0;\x0a\x09>",
+source: "removeAll\x0a\x09<\x0a\x09\x09self['@fastBuckets'] = {\x0a\x09\x09\x09'boolean': { store: Object.create(null), fn: function (x) { return {'true': true, 'false': false, 'null': null}[x]; } },\x0a\x09\x09\x09'number': { store: Object.create(null), fn: Number },\x0a\x09\x09\x09'string': { store: Object.create(null) }\x0a\x09\x09};\x0a\x09\x09self['@slowBucketStores'].forEach(function (x) { x._removeAll(); });\x0a\x09\x09self['@defaultBucket']._removeAll();\x0a\x09\x09self['@size'] = 0;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
