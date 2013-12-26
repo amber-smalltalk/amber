@@ -1675,7 +1675,7 @@ renderTopPanelOn: html
 		class: 'top';
 		with: [
 			variablesList := html ul class: 'amber_column variables'.
-			valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'.
+			valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'; yourself.
 			html div class: 'amber_tabs inspector'; with: [
 				html button
 					class: 'amber_button inspector refresh';
