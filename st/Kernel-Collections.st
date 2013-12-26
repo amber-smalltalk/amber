@@ -50,6 +50,93 @@ key: aKey value: aValue
 		yourself
 ! !
 
+Object subclass: #BucketStore
+	instanceVariableNames: 'buckets hashFn'
+	package: 'Kernel-Collections'!
+!BucketStore commentStamp!
+I am helper class for hash-based stores.
+
+I hold buckets which are selected by a hash.
+Hash is not a number, but any object, and
+it is used as a JS property (that is, in ES5
+its toString() value counts).
+
+I maintain the list of buckets. Client code can use this API:
+ - bucketOfElement: (to ask a bucket for element, I can return JS null if n/a)
+ - do: (to enumerate all elements of all buckets)
+ - removeAll (to remove all buckets)
+
+Client code itself should add/remove elements
+in a bucket. The nil should not be put into any bucket.
+
+Types of buckets are responsibility of subclasses via newBucket.!
+
+!BucketStore methodsFor: 'accessing'!
+
+bucketOfElement: anObject
+	<
+		var hash = self['@hashFn'](anObject);
+		if (!!hash) return null;
+		var el = self['@buckets'],
+			bucket = el[hash];
+		if (!!bucket) { bucket = el[hash] = self._newBucket(); }
+		return bucket;
+	>
+!
+
+hashFn: aBlock
+	hashFn := aBlock
+! !
+
+!BucketStore methodsFor: 'adding/removing'!
+
+removeAll
+	<self['@buckets'] = Object.create(null);>
+! !
+
+!BucketStore methodsFor: 'enumerating'!
+
+do: aBlock
+	<
+		el = self['@buckets'];
+		keys = Object.keys(el);
+		for (i = 0; i < keys.length; ++i) { el[keys[i]]._do_(aBlock); }
+	>
+! !
+
+!BucketStore methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	self removeAll
+! !
+
+!BucketStore methodsFor: 'private'!
+
+newBucket
+	self subclassResponsibility
+! !
+
+!BucketStore class methodsFor: 'not yet classified'!
+
+new: aBlock
+	^ self new
+		hashFn: aBlock;
+		yourself
+! !
+
+BucketStore subclass: #ArrayBucketStore
+	instanceVariableNames: ''
+	package: 'Kernel-Collections'!
+!ArrayBucketStore commentStamp!
+I am BucketStore with buckets being instance of Array.!
+
+!ArrayBucketStore methodsFor: 'private'!
+
+newBucket
+	^ #()
+! !
+
 Object subclass: #Collection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
@@ -1732,7 +1819,7 @@ randomNotIn: aString
 ! !
 
 Collection subclass: #Set
-	instanceVariableNames: 'defaultBucket slowBuckets fastBuckets size'
+	instanceVariableNames: 'defaultBucket slowBucketStores fastBuckets size'
 	package: 'Kernel-Collections'!
 !Set commentStamp!
 I represent an unordered set of objects without duplicates.!
@@ -1768,12 +1855,12 @@ remove: anObject ifAbsent: aBlock
 
 removeAll
 	<
-		self['@slowBuckets'] = Object.create(null);
 		self['@fastBuckets'] = {
 			'boolean': { store: Object.create(null), fn: function (x) { return {'true': true, 'false': false, 'null': null}[x]; } },
 			'number': { store: Object.create(null), fn: Number },
 			'string': { store: Object.create(null) }
 		};
+		self['@slowBucketStores'].forEach(function (x) { x._removeAll(); });
 		self['@defaultBucket']._removeAll();
 		self['@size'] = 0;
 	>
@@ -1812,9 +1899,8 @@ do: aBlock
 			if (fn) { for (var j = 0; j < store.length; ++j) { aBlock._value_(fn(store[j])); } }
 			else { store._do_(aBlock); }
 		}
-		el = self['@slowBuckets'];
-		keys = Object.keys(el);
-		for (i = 0; i < keys.length; ++i) { el[keys[i]]._do_(aBlock); }
+		el = self['@slowBucketStores'];
+		for (i = 0; i < el.length; ++i) { el[i]._do_(aBlock); }
 		self['@defaultBucket']._do_(aBlock);
 	>
 !
@@ -1833,7 +1919,16 @@ select: aBlock
 initialize
 	super initialize.
 	defaultBucket := #().
-	self removeAll
+	self
+		initializeSlowBucketStores;
+		removeAll
+!
+
+initializeSlowBucketStores
+	slowBucketStores := {
+		ArrayBucketStore new: [ :x | self classNameOf: x ].
+		ArrayBucketStore new: [ :x | self jsConstructorNameOf: x ]
+	}
 ! !
 
 !Set methodsFor: 'printing'!
@@ -1863,7 +1958,11 @@ bucketOfElement: anObject
 		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
 		if ((type = typeof prim) === "object") {
 			if (anObject !!== nil) {
-				return [ anObject, null, self._hashBucketOfElement_(anObject) || self['@defaultBucket'] ];
+				bucket = null;
+				self['@slowBucketStores'].some(function (x) {
+					return bucket = x._bucketOfElement_(anObject);
+				});
+				return [ anObject, null, bucket || self['@defaultBucket'] ];
 			}
 			
 			// include nil to well-knowns under 'boolean' fastBucket
@@ -1874,20 +1973,16 @@ bucketOfElement: anObject
 	>
 !
 
-hashBucketOfElement: anObject
-	<
-		var ctr = anObject.constructor,
-			hash = ctr && ctr.name;
-		if (!!hash) return null;
-		var el = self['@slowBuckets'],
-			bucket = el[hash];
-		if (!!bucket) { bucket = el[hash] = []; }
-		return bucket;
-	>
+classNameOf: anObject
+	<return anObject.klass && anObject.klass.className>
 !
 
 includes: anObject in: anotherObject
 	<return anObject in anotherObject.store>
+!
+
+jsConstructorNameOf: anObject
+	<return anObject.constructor && anObject.constructor.name>
 !
 
 remove: anObject in: anotherObject
