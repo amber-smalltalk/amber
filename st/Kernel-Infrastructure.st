@@ -787,7 +787,7 @@ at: aString
 at: aKey ifAbsent: aBlock
 	^ (self includesKey: aKey)
 		ifTrue: [ self at: aKey ]
-		ifFalse: aBlock
+		ifFalse: [ aBlock value ]
 !
 
 at: aString put: anObject
