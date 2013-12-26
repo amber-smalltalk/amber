@@ -1822,7 +1822,23 @@ Collection subclass: #Set
 	instanceVariableNames: 'defaultBucket slowBucketStores fastBuckets size'
 	package: 'Kernel-Collections'!
 !Set commentStamp!
-I represent an unordered set of objects without duplicates.!
+I represent an unordered set of objects without duplicates.
+
+## Implementation notes
+
+I put an element to different stores based on its type.
+The goal is to store some elements into native JS object property names to be fast.
+
+If an unboxed element has typeof 'string', 'boolean' or 'number', or an element is nil, null or undefined,
+I store it as a property name in an empty (== Object.create(null)) JS object, different for each type
+(for simplicity, nil/null/undefined is treated as one and included with the two booleans).
+
+If element happen to be an object, I try to store them in ArrayBucketStore. I have two of them by default,
+one hashed using Smalltalk class name, other using JS constructor name. It is possible to have more or less
+of ArrayBucketStores, see #initializeSlowBucketStores.
+
+As a last resort, if none of the ArrayBucketStore can find suitable bucket, the defaultBucket is used,
+which is an Array.!
 
 !Set methodsFor: 'accessing'!
 
