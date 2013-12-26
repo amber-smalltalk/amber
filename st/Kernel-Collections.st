@@ -1090,7 +1090,7 @@ addFirst: anObject
 
 remove: anObject ifAbsent: aBlock
 	| index |
-	index := self indexOf: anObject ifAbsent: 0.
+	index := self indexOf: anObject ifAbsent: [ 0 ].
 	^ index = 0
 		ifFalse: [ self removeIndex: index. anObject ]
 		ifTrue: [ aBlock value ]

@@ -3292,7 +3292,10 @@ var self=this;
 var index;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-index=self._indexOf_ifAbsent_(anObject,(0));
+index=self._indexOf_ifAbsent_(anObject,(function(){
+return smalltalk.withContext(function($ctx2) {
+return (0);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $2=_st(index).__eq((0));
 if(smalltalk.assert($2)){
 $1=_st(aBlock)._value();
@@ -3303,7 +3306,7 @@ $1=anObject;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock,index:index},smalltalk.Array)})},
 args: ["anObject", "aBlock"],
-source: "remove: anObject ifAbsent: aBlock\x0a\x09| index |\x0a\x09index := self indexOf: anObject ifAbsent: 0.\x0a\x09^ index = 0\x0a\x09\x09ifFalse: [ self removeIndex: index. anObject ]\x0a\x09\x09ifTrue: [ aBlock value ]",
+source: "remove: anObject ifAbsent: aBlock\x0a\x09| index |\x0a\x09index := self indexOf: anObject ifAbsent: [ 0 ].\x0a\x09^ index = 0\x0a\x09\x09ifFalse: [ self removeIndex: index. anObject ]\x0a\x09\x09ifTrue: [ aBlock value ]",
 messageSends: ["indexOf:ifAbsent:", "ifFalse:ifTrue:", "=", "removeIndex:", "value"],
 referencedClasses: []
 }),
