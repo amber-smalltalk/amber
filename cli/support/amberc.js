@@ -473,7 +473,17 @@ AmberC.prototype.compile = function() {
                 }
 			}
 		});
-		self.category_export();
+		category_export(self.defaults).then(function(resolve) {
+			return self.defaults;
+		}, function(error) {
+			console.error(error);
+		}).then(verify)
+		.then(function(resolve) {
+			return self.defaults;
+		}, function(error) {
+			console.error(error);
+		}).then(compose_js_files);
+
 	});
 
 	this.defaults.compile.forEach(function(stFile) {
@@ -494,35 +504,34 @@ AmberC.prototype.compile = function() {
 
 /**
  * Export compiled categories to JavaScript files.
- * Followed by verify().
+ * Returns a Promise.all() object.
  */
-AmberC.prototype.category_export = function() {
-	var defaults = this.defaults;
-	var self = this;
-	// export categories as .js
-	async_map(defaults.compile, function(stFile, callback) {
-		var category = path.basename(stFile, '.st');
-		var jsFilePath = defaults.output_dir;
-		if (undefined === jsFilePath) {
-			jsFilePath = path.dirname(stFile);
-		}
-		var jsFile = category + defaults.suffix_used + '.js';
-		jsFile = path.join(jsFilePath, jsFile);
-		defaults.compiled.push(jsFile);
-		var smalltalk = defaults.smalltalk;
-		var packageObject = smalltalk.Package._named_(category);
-		packageObject._transport()._namespace_(defaults.amd_namespace);
-		fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
-			smalltalk.AmdExporter._new()._exportPackage_on_(packageObject, stream); }), function(err) {
-				callback(null, null);
+function category_export(configuration) {
+	return Promise.all(
+		configuration.compile.map(function(stFile) {
+			return new Promise(function(resolve, error) {
+				var category = path.basename(stFile, '.st');
+				var jsFilePath = configuration.output_dir;
+				if (undefined === jsFilePath) {
+					jsFilePath = path.dirname(stFile);
+				}
+				var jsFile = category + configuration.suffix_used + '.js';
+				jsFile = path.join(jsFilePath, jsFile);
+				configuration.compiled.push(jsFile);
+				var smalltalk = configuration.smalltalk;
+				var packageObject = smalltalk.Package._named_(category);
+				packageObject._transport()._namespace_(configuration.amd_namespace);
+				fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
+					smalltalk.AmdExporter._new()._exportPackage_on_(packageObject, stream);
+				}), function(err) {
+					if (err)
+						error(err);
+					else
+						resolve(true);
+				});
 			});
-	}, function(err, result){
-		verify(defaults).then(function(resolve) {
-			return defaults;
-		}, function(error) {
-			console.error(error);
-		}).then(compose_js_files);
-	});
+		})
+	);
 };
 
 
