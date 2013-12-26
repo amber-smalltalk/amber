@@ -5,6 +5,7 @@
 
 * HashedCollection >> at:ifAbsentPut: pushed up to SequenceableCollection
 * HashedCollection >> , is now allowed (removed shouldNotImplement)
+* HashedCollection and Dictionary both subclasses of AssociativeCollection
 
 + CompiledMethod >>
   + defaultProtocol
@@ -21,6 +22,7 @@
 + PackageHandler >> load:
 + AmdPackageHandler >> load:
 + Set >> removeAll
++ AssociativeCollection class
 
 - CompiledMethod >>
   - category: (use #protocol:)

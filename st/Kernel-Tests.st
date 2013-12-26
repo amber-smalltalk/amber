@@ -719,10 +719,26 @@ testAtPut
 	self assert: newCollection equals: self collectionWithNewValue
 !
 
+testEquality
+	self assert: self collectionClass new equals: self collectionClass new.
+	self assert: self collection equals: self collection.
+	self assert: self collectionWithNewValue equals: self collectionWithNewValue.
+	
+	self deny: self collectionClass new = self collection.
+	self deny: self collection = self collectionClass new
+!
+
 testIndexOf
 	self should: [ self collection indexOf: self sampleNewValue ] raise: Error.
 	self samplesDo: [ :index :value |
 		self assert: (self collection indexOf: value) equals: index ]
+!
+
+testIndexOfWithNull
+	| jsNull |
+	jsNull := JSON parse: 'null'.
+	self samplesDo: [ :index :value |
+		self assert: (self collection at: index put: jsNull; indexOf: jsNull) equals: index ]
 !
 
 testWithIndexDo
@@ -733,30 +749,18 @@ testWithIndexDo
 		self assert: (collection at: index) equals: each ]
 ! !
 
-IndexableCollectionTest subclass: #HashedCollectionTest
+IndexableCollectionTest subclass: #AssociativeCollectionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!HashedCollectionTest methodsFor: 'fixture'!
+!AssociativeCollectionTest methodsFor: 'fixture'!
 
-collection
-	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4 }
+collectionKeys
+	self subclassResponsibility
 !
 
-collectionOfPrintStrings
-	^ #{ 'b' -> '1'. 'a' -> '2'. 'c' -> '3'. 'd' -> '-4' }
-!
-
-collectionSize
-	^ 4
-!
-
-collectionWithDuplicates
-	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }
-!
-
-collectionWithNewValue
-	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'new' -> 'N' }
+collectionValues
+	self subclassResponsibility
 !
 
 nonIndexesDo: aBlock
@@ -768,15 +772,11 @@ sampleNewIndex
 	^ 'new'
 !
 
-sampleNewValueAsCollection
-	^ #{ 'new' -> 'N' }
-!
-
 samplesDo: aBlock
 	aBlock value: 'a' value: 2
 ! !
 
-!HashedCollectionTest methodsFor: 'tests'!
+!AssociativeCollectionTest methodsFor: 'tests'!
 
 testAddAll
 	super testAddAll.
@@ -787,6 +787,10 @@ testAddAll
 
 testAsDictionary
 self assert: ( self collectionClass new asDictionary isMemberOf: Dictionary ).
+!
+
+testAsHashedCollection
+self assert: ( self collectionClass new asHashedCollection isMemberOf: HashedCollection ).
 !
 
 testComma
@@ -803,20 +807,67 @@ associations := { 'a' -> 1. 'b' -> 2 }.
 self assertSameContents: ( self class collectionClass from: associations ) as: #{ 'a' -> 1. 'b' -> 2 }.
 !
 
+testKeys
+	self assert:self collectionClass new keys isEmpty.
+	self assertSameContents:self collection keys as: self collectionKeys.
+	self assertSameContents:self collectionWithNewValue keys as: self collectionKeys, { self sampleNewIndex }
+!
+
 testNewFromPairs
 "Accept an array in which all odd indexes are keys and evens are values."
 | flattenedAssociations |
 flattenedAssociations := { 'a'. 1. 'b'. 2 }.
 self assertSameContents: ( self class collectionClass newFromPairs: flattenedAssociations ) as: #{ 'a' -> 1. 'b' -> 2 }.
+!
+
+testPrintString
+	self
+		assert: (self collectionClass new
+							at:'firstname' put: 'James';
+							at:'lastname' put: 'Bond';
+							printString)
+		equals: 'a ', self collectionClass name, ' (''firstname'' -> ''James'' , ''lastname'' -> ''Bond'')'
+!
+
+testRemoveKey
+	self nonIndexesDo: [ :each |
+		| collection |
+		collection := self collection.
+		self should: [ collection removeKey: each ] raise: Error.
+		self assert: collection equals: self collection ].
+	self samplesDo: [ :index :value |
+		| collection |
+		collection := self collection.
+		self assert: (collection removeKey: index) equals: value.
+		self deny: collection = self collection ].
+	self
+		assert: (self collectionWithNewValue removeKey: self sampleNewIndex; yourself)
+		equals: self collection
+!
+
+testRemoveKeyIfAbsent
+	self nonIndexesDo: [ :each |
+		| collection |
+		collection := self collection.
+		self assert: (collection removeKey: each ifAbsent: [ self sampleNewValue ]) equals: self sampleNewValue.
+		self assert: collection equals: self collection ].
+	self samplesDo: [ :index :value |
+		| collection |
+		collection := self collection.
+		self assert: (collection removeKey: index ifAbsent: [ self sampleNewValue ]) equals: value.
+		self deny: collection = self collection ].
+	self
+		assert: (self collectionWithNewValue removeKey: self sampleNewIndex ifAbsent: [ self assert: false ]; yourself)
+		equals: self collection
+!
+
+testValues
+	self assert:self collectionClass new values isEmpty.
+	self assertSameContents:self collection values as: self collectionValues.
+	self assertSameContents:self collectionWithNewValue values as: self collectionValues, { self sampleNewValue }
 ! !
 
-!HashedCollectionTest class methodsFor: 'fixture'!
-
-collectionClass
-	^ HashedCollection
-! !
-
-HashedCollectionTest subclass: #DictionaryTest
+AssociativeCollectionTest subclass: #DictionaryTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
@@ -831,6 +882,10 @@ collection
 		yourself
 !
 
+collectionKeys
+	^ {1. 'a'. true. 1@3}
+!
+
 collectionOfPrintStrings
 	^ Dictionary new
 		at: 1 put: '1';
@@ -842,6 +897,10 @@ collectionOfPrintStrings
 
 collectionSize
 	^ 4
+!
+
+collectionValues
+	^ {1. 2. 3. -4}
 !
 
 collectionWithDuplicates
@@ -903,118 +962,64 @@ testAccessing
 	self deny: (d includesKey: 3@1)
 !
 
-testAsHashedCollection
-self assert: ( self collectionClass new asHashedCollection isMemberOf: HashedCollection ).
-!
-
 testDynamicDictionaries
 	self assert: #{'hello' -> 1} asDictionary equals: (Dictionary with: 'hello' -> 1)
-!
-
-testEquality
-	| d1 d2 |
-
-	self assert: (Dictionary new = Dictionary new).
-		
-	d1 := Dictionary new at: 1 put: 2; yourself.
-	d2 := Dictionary new at: 1 put: 2; yourself.
-	self assert: (d1 = d2).
-
-	d2 := Dictionary new at: 1 put: 3; yourself.
-	self deny: d1 = d2.
-
-	d2 := Dictionary new at: 2 put: 2; yourself.
-	self deny: d1 = d2.
-
-	d2 := Dictionary new at: 1 put: 2; at: 3 put: 4; yourself.
-	self deny: d1 = d2.
-!
-
-testKeys
-	| d |
-
-	d := Dictionary new.
-	d at: 1 put: 2.
-	d at: 2 put: 3.
-	d at: 3 put: 4.
-
-	self assert: d keys equals: #(1 2 3)
-!
-
-testPointKey
-	| d |
-
-	d := Dictionary new.
-	
-	d at: 1@1 put: 'foo'.
-	self assert: (d at: 1@1) equals: 'foo'.
-	d at: 1@1 put: 'bar'.
-	self assert: (d at: 1@1) equals: 'bar'.
-	d removeKey: 1@1.
-	self assert: (d at: 1@1 ifAbsent: [ 'baz' ]) equals: 'baz'.
-	self deny: (d includesKey: 1@1)
-!
-
-testPrintString
-	self
-		assert: (Dictionary new
-							at:'firstname' put: 'James';
-							at:'lastname' put: 'Bond';
-							printString)
-		equals: 'a Dictionary (''firstname'' -> ''James'' , ''lastname'' -> ''Bond'')'
-!
-
-testRemoveKey
-	| d key |
-
-	d := Dictionary new.
-	d at: 1 put: 2.
-	d at: 2 put: 3.
-	d at: 3 put: 4.
-
-	key := 2.
-
-	self assert: d keys equals: #(1 2 3).
-
-	d removeKey: key.
-	self assert: d keys equals: #(1 3).
-	self assert: d values equals: #(2 4).
-	self deny: (d includesKey: 2)
-!
-
-testRemoveKeyIfAbsent
-	| d key |
-
-	d := Dictionary new.
-	d at: 1 put: 2.
-	d at: 2 put: 3.
-	d at: 3 put: 4.
-
-	key := 2.
-	self assert: (d removeKey: key) equals: 3.
-
-	key := 3.
-	self assert: (d removeKey: key ifAbsent: [ 42 ]) equals: 4.
-
-	key := 'why'.
-	self assert: (d removeKey: key ifAbsent: [ 42 ] ) equals: 42.
-!
-
-testValues
-	| d |
-
-	d := Dictionary new.
-	d at: 1 put: 2.
-	d at: 2 put: 3.
-	d at: 3 put: 4.
-
-	self assert: d values equals: #(2 3 4)
 ! !
 
 !DictionaryTest class methodsFor: 'fixture'!
 
 collectionClass
 	^ Dictionary
+! !
+
+AssociativeCollectionTest subclass: #HashedCollectionTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!HashedCollectionTest methodsFor: 'fixture'!
+
+collection
+	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4 }
+!
+
+collectionKeys
+	^ { 'b'. 'a'. 'c'. 'd' }
+!
+
+collectionOfPrintStrings
+	^ #{ 'b' -> '1'. 'a' -> '2'. 'c' -> '3'. 'd' -> '-4' }
+!
+
+collectionSize
+	^ 4
+!
+
+collectionValues
+	^ { 1. 2. 3. -4 }
+!
+
+collectionWithDuplicates
+	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }
+!
+
+collectionWithNewValue
+	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'new' -> 'N' }
+!
+
+sampleNewValueAsCollection
+	^ #{ 'new' -> 'N' }
+! !
+
+!HashedCollectionTest methodsFor: 'tests'!
+
+testDynamicDictionaries
+	self assert: #{'hello' -> 1} asHashedCollection equals: (HashedCollection with: 'hello' -> 1)
+! !
+
+!HashedCollectionTest class methodsFor: 'fixture'!
+
+collectionClass
+	^ HashedCollection
 ! !
 
 IndexableCollectionTest subclass: #SequenceableCollectionTest
@@ -1088,6 +1093,26 @@ testFirstN
 
 testFourth
 	self assert: (self collection fourth) equals: (self collection at: 4)
+!
+
+testIndexOfStartingAt
+	| jsNull |
+	jsNull := JSON parse: 'null'.
+	self samplesDo: [ :index :value |
+		self assert: (self collection indexOf: value startingAt: 1) equals: index.
+		self assert: (self collection indexOf: value startingAt: index) equals: index.
+		self assert: (self collection indexOf: value startingAt: index+1) equals: 0 ]
+!
+
+testIndexOfStartingAtWithNull
+	| jsNull |
+	jsNull := JSON parse: 'null'.
+	self samplesDo: [ :index :value | | collection |
+		collection := self collection.
+		collection at: index put: jsNull.
+		self assert: (collection indexOf: jsNull startingAt: 1) equals: index.
+		self assert: (collection indexOf: jsNull startingAt: index) equals: index.
+		self assert: (collection indexOf: jsNull startingAt: index+1) equals: 0 ]
 !
 
 testLast
@@ -1256,7 +1281,7 @@ SequenceableCollectionTest subclass: #StringTest
 !StringTest methodsFor: 'fixture'!
 
 collection
-	^ 'hello'
+	^ 'helLo'
 !
 
 collectionFirst
@@ -1272,11 +1297,11 @@ collectionLast
 !
 
 collectionLastTwo
-	^ 'lo'
+	^ 'Lo'
 !
 
 collectionOfPrintStrings
-	^ '''h''''e''''l''''l''''o'''
+	^ '''h''''e''''l''''L''''o'''
 !
 
 collectionSize
@@ -1288,11 +1313,10 @@ collectionWithDuplicates
 !
 
 collectionWithNewValue
-	^ 'helloN'
+	^ 'helLoN'
 !
 
 sampleNewValueAsCollection
-	
 	^ 'N'
 !
 
@@ -1410,6 +1434,14 @@ testIdentityHash
 testIncludesSubString
 	self assert: ('amber' includesSubString: 'ber').
 	self deny: ('amber' includesSubString: 'zork').
+!
+
+testIndexOfStartingAtWithNull
+	"String cannot hold JS null"
+!
+
+testIndexOfWithNull
+	"String cannot hold JS null"
 !
 
 testIsVowel

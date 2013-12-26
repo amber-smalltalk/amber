@@ -4096,6 +4096,22 @@ smalltalk.HLModalWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "giveFocusToButton:",
+protocol: 'private',
+fn: function (aButton){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(aButton)._asJQuery())._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"giveFocusToButton:",{aButton:aButton},smalltalk.HLModalWidget)})},
+args: ["aButton"],
+source: "giveFocusToButton: aButton\x0a\x09aButton asJQuery focus",
+messageSends: ["focus", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.HLModalWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "hasButtons",
 protocol: 'rendering',
 fn: function (){
@@ -4174,11 +4190,11 @@ confirmButton=$6;
 return confirmButton;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["with:"]=1;
-_st(_st(confirmButton)._asJQuery())._focus();
+self._giveFocusToButton_(confirmButton);
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html,confirmButton:confirmButton},smalltalk.HLModalWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div \x0a\x09\x09class: 'buttons';\x0a\x09\x09with: [\x0a\x09\x09\x09html button\x0a\x09\x09\x09\x09class: 'button';\x0a\x09\x09\x09\x09with: 'Cancel';\x0a\x09\x09\x09\x09onClick: [ self cancel ].\x0a\x09\x09\x09confirmButton := html button\x0a\x09\x09\x09\x09class: 'button default';\x0a\x09\x09\x09\x09with: 'Confirm';\x0a\x09\x09\x09\x09onClick: [ self confirm ] ].\x0a\x0a\x09confirmButton asJQuery focus",
-messageSends: ["class:", "div", "with:", "button", "onClick:", "cancel", "confirm", "focus", "asJQuery"],
+source: "renderButtonsOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div \x0a\x09\x09class: 'buttons';\x0a\x09\x09with: [\x0a\x09\x09\x09html button\x0a\x09\x09\x09\x09class: 'button';\x0a\x09\x09\x09\x09with: 'Cancel';\x0a\x09\x09\x09\x09onClick: [ self cancel ].\x0a\x09\x09\x09confirmButton := html button\x0a\x09\x09\x09\x09class: 'button default';\x0a\x09\x09\x09\x09with: 'Confirm';\x0a\x09\x09\x09\x09onClick: [ self confirm ] ].\x0a\x0a\x09self giveFocusToButton:confirmButton",
+messageSends: ["class:", "div", "with:", "button", "onClick:", "cancel", "confirm", "giveFocusToButton:"],
 referencedClasses: []
 }),
 smalltalk.HLModalWidget);
@@ -4484,18 +4500,36 @@ smalltalk.HLRequestWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "giveFocusToButton:",
+protocol: 'private',
+fn: function (aButton){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"giveFocusToButton:",{aButton:aButton},smalltalk.HLRequestWidget)})},
+args: ["aButton"],
+source: "giveFocusToButton: aButton",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRequestWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "renderMainOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 smalltalk.HLRequestWidget.superclass.fn.prototype._renderMainOn_.apply(_st(self), [html]);
 self["@input"]=_st(html)._textarea();
-_st(_st(self["@input"])._asJQuery())._val_(self._value());
+$1=_st(self["@input"])._asJQuery();
+_st($1)._val_(self._value());
+$2=_st($1)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},smalltalk.HLRequestWidget)})},
 args: ["html"],
-source: "renderMainOn: html\x0a\x09super renderMainOn: html.\x0a\x09input := html textarea.\x0a\x09input asJQuery val: self value",
-messageSends: ["renderMainOn:", "textarea", "val:", "asJQuery", "value"],
+source: "renderMainOn: html\x0a\x09super renderMainOn: html.\x0a\x09input := html textarea.\x0a\x09input asJQuery \x0a\x09\x09val: self value;\x0a\x09\x09focus",
+messageSends: ["renderMainOn:", "textarea", "val:", "asJQuery", "value", "focus"],
 referencedClasses: []
 }),
 smalltalk.HLRequestWidget);

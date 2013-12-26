@@ -2075,15 +2075,16 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._includesKey_(aKey);
-$1=_st($2)._ifTrue_ifFalse_((function(){
-return smalltalk.withContext(function($ctx2) {
-return self._at_(aKey);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),aBlock);
+if(smalltalk.assert($2)){
+$1=self._at_(aKey);
+} else {
+$1=_st(aBlock)._value();
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.Smalltalk)})},
 args: ["aKey", "aBlock"],
-source: "at: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ self at: aKey ]\x0a\x09\x09ifFalse: aBlock",
-messageSends: ["ifTrue:ifFalse:", "includesKey:", "at:"],
+source: "at: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ self at: aKey ]\x0a\x09\x09ifFalse: [ aBlock value ]",
+messageSends: ["ifTrue:ifFalse:", "includesKey:", "at:", "value"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
