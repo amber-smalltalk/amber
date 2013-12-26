@@ -517,39 +517,42 @@ AmberC.prototype.category_export = function() {
 				callback(null, null);
 			});
 	}, function(err, result){
-		self.verify();
+		verify(defaults).then(function(resolve) {
+			return defaults;
+		}, function(error) {
+			console.error(error);
+		}).then(compose_js_files);
 	});
 };
 
 
 /**
  * Verify if all .st files have been compiled.
- * Followed by compose_js_files().
+ * Returns a Promise.all() object.
  */
-AmberC.prototype.verify = function() {
+function verify(configuration) {
 	console.log('Verifying if all .st files were compiled');
-	var self = this;
-	// copy array
-	var compiledFiles = this.defaults.compiled.slice(0);
 
-	async_map(compiledFiles,
-		function(file, callback) {
-			fs.exists(file, function(exists) {
-				if (exists)
-					callback(null, null);
-				else
-					throw(new Error('Compilation failed of: ' + file));
+	return Promise.all(
+		configuration.compiled.map(function(file) {
+			return new Promise(function(resolve, error) {
+				fs.exists(file, function(exists) {
+					if (exists)
+						resolve(true);
+					else
+						error(Error('Compilation failed of: ' + file));
+				});
 			});
-		}, function(err, result) {
-			compose_js_files(self.defaults);
-	});
+		})
+	);
 };
 
 
 /**
  * Synchronous function.
  * Concatenates compiled JavaScript files into one file in the correct order.
- * The name of the produced file is given by defaults.program (set by the last commandline option).
+ * The name of the produced file is given by configuration.program (set by the last commandline option).
+ * Returns a Promise.
  */
 function compose_js_files(configuration) {
 	return new Promise(function(resolve, reject) {
