@@ -11,30 +11,6 @@
  */
 
 /**
- * Map the async filter function onto array and evaluate callback, once all have finished.
- * Taken from: http://howtonode.org/control-flow-part-iii
- */
-function async_map(array, filter, callback) {
-	if (0 === array.length) {
-		callback(null, null);
-		return;
-	}
-	var counter = array.length;
-	var new_array = [];
-	array.forEach(function (item, index) {
-		filter(item, function (err, result) {
-			if (err) { callback(err); return; }
-			new_array[index] = result;
-			counter--;
-			if (counter === 0) {
-				callback(null, new_array);
-			}
-		});
-	});
-}
-
-
-/**
  * Always evaluates the callback parameter.
  * Used by Combo blocks to always call the next function,
  * even if all of the other functions did not run.
@@ -648,4 +624,3 @@ function compose_js_files(configuration) {
 module.exports.Compiler = AmberC;
 module.exports.createDefaults = createDefaults;
 module.exports.Combo = Combo;
-module.exports.map = async_map;
