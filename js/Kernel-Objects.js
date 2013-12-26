@@ -1302,14 +1302,14 @@ fn: function (aBoolean){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		if(! aBoolean._isBoolean || ! aBoolean._isBoolean()) {
-			return false;
-		}
-		return Boolean(self == true) == aBoolean
+		return aBoolean != null &&
+			typeof aBoolean._isBoolean === "function" &&
+			aBoolean._isBoolean() &&
+			Boolean(self == true) == aBoolean
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"=",{aBoolean:aBoolean},smalltalk.Boolean)})},
 args: ["aBoolean"],
-source: "= aBoolean\x0a\x09<\x0a\x09\x09if(! aBoolean._isBoolean || ! aBoolean._isBoolean()) {\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09return Boolean(self == true) == aBoolean\x0a\x09>",
+source: "= aBoolean\x0a\x09<\x0a\x09\x09return aBoolean != null &&\x0a\x09\x09\x09typeof aBoolean._isBoolean === \x22function\x22 &&\x0a\x09\x09\x09aBoolean._isBoolean() &&\x0a\x09\x09\x09Boolean(self == true) == aBoolean\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2474,14 +2474,14 @@ fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		if(! aNumber._isNumber || ! aNumber._isNumber()) {
-			return false;
-		}
-		return Number(self) == aNumber
+		return aNumber != null &&
+			typeof aNumber._isNumber === "function" &&
+			aNumber._isNumber() &&
+			Number(self) == aNumber
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"=",{aNumber:aNumber},smalltalk.Number)})},
 args: ["aNumber"],
-source: "= aNumber\x0a\x09<\x0a\x09\x09if(! aNumber._isNumber || ! aNumber._isNumber()) {\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09return Number(self) == aNumber\x0a\x09>",
+source: "= aNumber\x0a\x09<\x0a\x09\x09return aNumber != null &&\x0a\x09\x09\x09typeof aNumber._isNumber === \x22function\x22 &&\x0a\x09\x09\x09aNumber._isNumber() &&\x0a\x09\x09\x09Number(self) == aNumber\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

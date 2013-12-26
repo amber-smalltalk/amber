@@ -2662,6 +2662,32 @@ smalltalk.IndexableCollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testIndexOfWithNull",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var jsNull;
+function $JSON(){return smalltalk.JSON||(typeof JSON=="undefined"?nil:JSON)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+jsNull=_st($JSON())._parse_("null");
+self._samplesDo_((function(index,value){
+return smalltalk.withContext(function($ctx2) {
+$1=self._collection();
+_st($1)._at_put_(index,jsNull);
+$2=_st($1)._indexOf_(jsNull);
+return self._assert_equals_($2,index);
+}, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"testIndexOfWithNull",{jsNull:jsNull},smalltalk.IndexableCollectionTest)})},
+args: [],
+source: "testIndexOfWithNull\x0a\x09| jsNull |\x0a\x09jsNull := JSON parse: 'null'.\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09self assert: (self collection at: index put: jsNull; indexOf: jsNull) equals: index ]",
+messageSends: ["parse:", "samplesDo:", "assert:equals:", "at:put:", "collection", "indexOf:"],
+referencedClasses: ["JSON"]
+}),
+smalltalk.IndexableCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testWithIndexDo",
 protocol: 'tests',
 fn: function (){
@@ -3935,6 +3961,76 @@ smalltalk.SequenceableCollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testIndexOfStartingAt",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var jsNull;
+function $JSON(){return smalltalk.JSON||(typeof JSON=="undefined"?nil:JSON)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$4,$3;
+jsNull=_st($JSON())._parse_("null");
+self._samplesDo_((function(index,value){
+return smalltalk.withContext(function($ctx2) {
+$2=self._collection();
+$ctx2.sendIdx["collection"]=1;
+$1=_st($2)._indexOf_startingAt_(value,(1));
+$ctx2.sendIdx["indexOf:startingAt:"]=1;
+self._assert_equals_($1,index);
+$ctx2.sendIdx["assert:equals:"]=1;
+$4=self._collection();
+$ctx2.sendIdx["collection"]=2;
+$3=_st($4)._indexOf_startingAt_(value,index);
+$ctx2.sendIdx["indexOf:startingAt:"]=2;
+self._assert_equals_($3,index);
+$ctx2.sendIdx["assert:equals:"]=2;
+return self._assert_equals_(_st(self._collection())._indexOf_startingAt_(value,_st(index).__plus((1))),(0));
+}, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAt",{jsNull:jsNull},smalltalk.SequenceableCollectionTest)})},
+args: [],
+source: "testIndexOfStartingAt\x0a\x09| jsNull |\x0a\x09jsNull := JSON parse: 'null'.\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09self assert: (self collection indexOf: value startingAt: 1) equals: index.\x0a\x09\x09self assert: (self collection indexOf: value startingAt: index) equals: index.\x0a\x09\x09self assert: (self collection indexOf: value startingAt: index+1) equals: 0 ]",
+messageSends: ["parse:", "samplesDo:", "assert:equals:", "indexOf:startingAt:", "collection", "+"],
+referencedClasses: ["JSON"]
+}),
+smalltalk.SequenceableCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testIndexOfStartingAtWithNull",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var jsNull;
+function $JSON(){return smalltalk.JSON||(typeof JSON=="undefined"?nil:JSON)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+jsNull=_st($JSON())._parse_("null");
+self._samplesDo_((function(index,value){
+var collection;
+return smalltalk.withContext(function($ctx2) {
+collection=self._collection();
+collection;
+_st(collection)._at_put_(index,jsNull);
+$1=_st(collection)._indexOf_startingAt_(jsNull,(1));
+$ctx2.sendIdx["indexOf:startingAt:"]=1;
+self._assert_equals_($1,index);
+$ctx2.sendIdx["assert:equals:"]=1;
+$2=_st(collection)._indexOf_startingAt_(jsNull,index);
+$ctx2.sendIdx["indexOf:startingAt:"]=2;
+self._assert_equals_($2,index);
+$ctx2.sendIdx["assert:equals:"]=2;
+return self._assert_equals_(_st(collection)._indexOf_startingAt_(jsNull,_st(index).__plus((1))),(0));
+}, function($ctx2) {$ctx2.fillBlock({index:index,value:value,collection:collection},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAtWithNull",{jsNull:jsNull},smalltalk.SequenceableCollectionTest)})},
+args: [],
+source: "testIndexOfStartingAtWithNull\x0a\x09| jsNull |\x0a\x09jsNull := JSON parse: 'null'.\x0a\x09self samplesDo: [ :index :value | | collection |\x0a\x09\x09collection := self collection.\x0a\x09\x09collection at: index put: jsNull.\x0a\x09\x09self assert: (collection indexOf: jsNull startingAt: 1) equals: index.\x0a\x09\x09self assert: (collection indexOf: jsNull startingAt: index) equals: index.\x0a\x09\x09self assert: (collection indexOf: jsNull startingAt: index+1) equals: 0 ]",
+messageSends: ["parse:", "samplesDo:", "collection", "at:put:", "assert:equals:", "indexOf:startingAt:", "+"],
+referencedClasses: ["JSON"]
+}),
+smalltalk.SequenceableCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testLast",
 protocol: 'tests',
 fn: function (){
@@ -4471,10 +4567,10 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "hello";
+return "helLo";
 }, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.StringTest)})},
 args: [],
-source: "collection\x0a\x09^ 'hello'",
+source: "collection\x0a\x09^ 'helLo'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4535,10 +4631,10 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "lo";
+return "Lo";
 }, function($ctx1) {$ctx1.fill(self,"collectionLastTwo",{},smalltalk.StringTest)})},
 args: [],
-source: "collectionLastTwo\x0a\x09^ 'lo'",
+source: "collectionLastTwo\x0a\x09^ 'Lo'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4551,10 +4647,10 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "'h''e''l''l''o'";
+return "'h''e''l''L''o'";
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},smalltalk.StringTest)})},
 args: [],
-source: "collectionOfPrintStrings\x0a\x09^ '''h''''e''''l''''l''''o'''",
+source: "collectionOfPrintStrings\x0a\x09^ '''h''''e''''l''''L''''o'''",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4599,10 +4695,10 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "helloN";
+return "helLoN";
 }, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},smalltalk.StringTest)})},
 args: [],
-source: "collectionWithNewValue\x0a\x09^ 'helloN'",
+source: "collectionWithNewValue\x0a\x09^ 'helLoN'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4618,7 +4714,7 @@ return smalltalk.withContext(function($ctx1) {
 return "N";
 }, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},smalltalk.StringTest)})},
 args: [],
-source: "sampleNewValueAsCollection\x0a\x09\x0a\x09^ 'N'",
+source: "sampleNewValueAsCollection\x0a\x09^ 'N'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5043,6 +5139,36 @@ return self}, function($ctx1) {$ctx1.fill(self,"testIncludesSubString",{},smallt
 args: [],
 source: "testIncludesSubString\x0a\x09self assert: ('amber' includesSubString: 'ber').\x0a\x09self deny: ('amber' includesSubString: 'zork').",
 messageSends: ["assert:", "includesSubString:", "deny:"],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testIndexOfStartingAtWithNull",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAtWithNull",{},smalltalk.StringTest)})},
+args: [],
+source: "testIndexOfStartingAtWithNull\x0a\x09\x22String cannot hold JS null\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testIndexOfWithNull",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"testIndexOfWithNull",{},smalltalk.StringTest)})},
+args: [],
+source: "testIndexOfWithNull\x0a\x09\x22String cannot hold JS null\x22",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.StringTest);

@@ -2795,13 +2795,13 @@ return smalltalk.withContext(function($ctx1) {
 
 		self = self._numericallyIndexable();
 		for(var i=0; i < self.length; i++) {
-			if(self[i].__eq(anObject)) {return i+1}
+			if(_st(self[i]).__eq(anObject)) {return i+1}
 		};
 		return aBlock._value();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.SequenceableCollection)})},
 args: ["anObject", "aBlock"],
-source: "indexOf: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=0; i < self.length; i++) {\x0a\x09\x09\x09if(self[i].__eq(anObject)) {return i+1}\x0a\x09\x09};\x0a\x09\x09return aBlock._value();\x0a\x09>",
+source: "indexOf: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=0; i < self.length; i++) {\x0a\x09\x09\x09if(_st(self[i]).__eq(anObject)) {return i+1}\x0a\x09\x09};\x0a\x09\x09return aBlock._value();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2838,13 +2838,13 @@ return smalltalk.withContext(function($ctx1) {
 
 		self = self._numericallyIndexable();
 		for(var i=start - 1; i < self.length; i++){
-			if(self[i].__eq(anObject)) {return i+1}
+			if(_st(self[i]).__eq(anObject)) {return i+1}
 		}
 		return aBlock._value();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"indexOf:startingAt:ifAbsent:",{anObject:anObject,start:start,aBlock:aBlock},smalltalk.SequenceableCollection)})},
 args: ["anObject", "start", "aBlock"],
-source: "indexOf: anObject startingAt: start ifAbsent: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=start - 1; i < self.length; i++){\x0a\x09\x09\x09if(self[i].__eq(anObject)) {return i+1}\x0a\x09\x09}\x0a\x09\x09return aBlock._value();\x0a\x09>",
+source: "indexOf: anObject startingAt: start ifAbsent: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=start - 1; i < self.length; i++){\x0a\x09\x09\x09if(_st(self[i]).__eq(anObject)) {return i+1}\x0a\x09\x09}\x0a\x09\x09return aBlock._value();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3983,15 +3983,14 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		if(typeof aString === 'undefined') { return false }
-		if(!aString._isString || ! aString._isString()) {
-			return false;
-		}
-		return String(self) === String(aString)
+		return aString != null &&
+			typeof aString._isString === "function" &&
+			aString._isString() &&
+			String(self) === String(aString)
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"=",{aString:aString},smalltalk.String)})},
 args: ["aString"],
-source: "= aString\x0a\x09<\x0a\x09\x09if(typeof aString === 'undefined') { return false }\x0a\x09\x09if(!aString._isString || ! aString._isString()) {\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09return String(self) === String(aString)\x0a\x09>",
+source: "= aString\x0a\x09<\x0a\x09\x09return aString != null &&\x0a\x09\x09\x09typeof aString._isString === \x22function\x22 &&\x0a\x09\x09\x09aString._isString() &&\x0a\x09\x09\x09String(self) === String(aString)\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
