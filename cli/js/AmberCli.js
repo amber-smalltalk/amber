@@ -261,11 +261,11 @@ _st(console)._warn_("Warning: project directory does not contain index.html.");
 $ctx1.sendIdx["warn:"]=1;
 _st(console)._warn_("    You can specify the directory containing index.html with --base-path.");
 $ctx1.sendIdx["warn:"]=2;
-};
 _st(console)._warn_("    You can also specify a page to be served by default,");
 $ctx1.sendIdx["warn:"]=3;
 _st(console)._warn_("    for all paths that do not map to a file, with --fallback-page.");
 $ctx1.sendIdx["warn:"]=4;
+};
 $3=self["@fs"];
 $5=self._basePath();
 $ctx1.sendIdx["basePath"]=1;
@@ -283,7 +283,7 @@ _st(console)._warn_("Warning: project directory is missing a \x22js\x22 director
 };
 return self}, function($ctx1) {$ctx1.fill(self,"checkDirectoryLayout",{},smalltalk.FileServer)})},
 args: [],
-source: "checkDirectoryLayout\x0a\x09(fs existsSync:\x09(self withBasePath: 'index.html')) ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.].\x0a\x09\x09console warn: '    You can also specify a page to be served by default,'.\x0a\x09\x09console warn: '    for all paths that do not map to a file, with --fallback-page.'.\x0a\x09(fs existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(fs existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
+source: "checkDirectoryLayout\x0a\x09(fs existsSync:\x09(self withBasePath: 'index.html')) ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.\x0a\x09\x09console warn: '    You can also specify a page to be served by default,'.\x0a\x09\x09console warn: '    for all paths that do not map to a file, with --fallback-page.'].\x0a\x09(fs existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(fs existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
 messageSends: ["ifFalse:", "existsSync:", "withBasePath:", "warn:", ",", "basePath"],
 referencedClasses: []
 }),
