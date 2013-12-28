@@ -11,16 +11,6 @@
  */
 
 /**
- * Always evaluates the callback parameter.
- * Used by Combo blocks to always call the next function,
- * even if all of the other functions did not run.
- */
-function always_resolve(callback) {
-	callback();
-}
-
-
-/**
  * Helper for concatenating Amber generated AMD modules.
  * The produced output can be exported and run as an independent program.
  *
