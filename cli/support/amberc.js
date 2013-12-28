@@ -168,7 +168,7 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 		self.defaults.kernel_libraries = self.kernel_libraries;
 		self.defaults.compiler_libraries = self.compiler_libraries;
 		self.defaults.amber_dir = self.amber_dir;
-		self.collect_files(self.defaults.stFiles, self.defaults.jsFiles)
+		self.collect_files(self.defaults)
 	}, function (error) {
 		console.log(error);
 	});
@@ -233,16 +233,16 @@ function resolve_js(filename, configuration, callback) {
  * both locally and in $AMBER/js and $AMBER/st.
  * Followed by resolve_libraries().
  */
-AmberC.prototype.collect_files = function(stFiles, jsFiles) {
+AmberC.prototype.collect_files = function(configuration) {
 	var self = this;
 	var collected_files = new Combo(function() {
 		self.resolve_libraries();
 	});
-	if (0 !== stFiles.length) {
-		collect_st_files(stFiles, self.defaults).then(collected_files.add());
+	if (0 !== configuration.stFiles.length) {
+		collect_st_files(configuration).then(collected_files.add());
 	}
-	if (0 !== jsFiles.length) {
-		collect_js_files(jsFiles, self.defaults).then(collected_files.add());
+	if (0 !== configuration.jsFiles.length) {
+		collect_js_files(configuration).then(collected_files.add());
 	}
 };
 
@@ -251,10 +251,10 @@ AmberC.prototype.collect_files = function(stFiles, jsFiles) {
  * Resolve st files given by stFiles and add them to defaults.compile.
  * Returns a Promise which resolves to configuration.
  */
-function collect_st_files(stFiles, configuration) {
+function collect_st_files(configuration) {
 	return new Promise(function(resolve, error) {
 		Promise.all(
-			stFiles.map(function(stFile) {
+			configuration.stFiles.map(function(stFile) {
 				return new Promise(function(resolve, error) {
 					console.log('Checking: ' + stFile);
 					var amberStFile = path.join(configuration.amber_dir, 'st', stFile);
@@ -288,10 +288,10 @@ function collect_st_files(stFiles, configuration) {
  * Resolve js files given by jsFiles and add them to configuration.libraries.
  * Returns a Promise which resolves with configuration.
  */
-function collect_js_files(jsFiles, configuration) {
+function collect_js_files(configuration) {
 	return new Promise(function(resolve, error) {
 		Promise.all(
-			jsFiles.map(function(file) {
+			configuration.jsFiles.map(function(file) {
 				return new Promise(function(resolve, error) {
 					resolve_js(file, configuration, resolve);
 				});
