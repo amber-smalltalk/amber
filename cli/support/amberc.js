@@ -58,33 +58,6 @@ function createConcatenator () {
 	};
 }
 
-/**
- * Combine several async functions and evaluate callback once all of them have finished.
- * Taken from: http://howtonode.org/control-flow
- */
-function Combo(callback) {
-	this.callback = callback;
-	this.items = 0;
-	this.results = [];
-}
-
-Combo.prototype = {
-	add: function () {
-		var self = this,
-		id = this.items;
-		this.items++;
-		return function () {
-			self.check(id, arguments);
-		};
-	},
-	check: function (id, theArguments) {
-		this.results[id] = Array.prototype.slice.call(theArguments);
-		this.items--;
-		if (this.items === 0) {
-			this.callback.apply(this, this.results);
-		}
-	}
-};
 
 var path = require('path'),
 	fs = require('fs'),
@@ -624,4 +597,3 @@ function compose_js_files(configuration) {
 
 module.exports.Compiler = AmberC;
 module.exports.createDefaults = createDefaults;
-module.exports.Combo = Combo;
