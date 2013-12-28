@@ -175,6 +175,8 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	check_configuration(configuration).then(function(configuration) {
 		self.defaults = configuration;
 		self.defaults.smalltalk = {}; // the evaluated compiler will be stored in this variable (see create_compiler)
+		self.defaults.kernel_libraries = self.kernel_libraries;
+		self.defaults.compiler_libraries = self.compiler_libraries;
 		self.collect_files(self.defaults.stFiles, self.defaults.jsFiles)
 	}, function (error) {
 		console.log(error);
@@ -313,87 +315,82 @@ AmberC.prototype.collect_js_files = function(jsFiles, callback) {
 
 /**
  * Resolve kernel and compiler files.
- * Followed by resolve_init().
+ * Returns a Promise.
  */
 AmberC.prototype.resolve_libraries = function() {
 	// Resolve libraries listed in this.kernel_libraries
 	var self = this;
-	var all_resolved = new Combo(function(resolved_kernel_files, resolved_compiler_files) {
-		create_compiler(self.defaults)(resolved_compiler_files[0]).then(function(resolve) {
-			return self.defaults;
-		}).then(readFiles)
-		.then(compile(self.defaults)
-		, function(error) {
-			console.error(error);
-		}).then(function() {
-			return self.defaults;
-		}).then(category_export)
-		.then(function(resolve) {
-			return self.defaults;
-		}, function(error) {
-			console.error(error);
-		}).then(verify)
-		.then(function(resolve) {
-			return self.defaults;
-		}, function(error) {
-			console.error(error);
-		}).then(compose_js_files);
-	});
-	this.resolve_kernel(all_resolved.add());
-	this.resolve_compiler(all_resolved.add());
+
+	resolve_kernel(self.defaults)
+	.then(resolve_compiler)
+	.then(create_compiler(self.defaults))
+	.then(function(resolve) {
+		return self.defaults;
+	}).then(readFiles)
+	.then(compile(self.defaults)
+	, function(error) {
+		console.error(error);
+	}).then(function() {
+		return self.defaults;
+	}).then(category_export)
+	.then(function(resolve) {
+		return self.defaults;
+	}, function(error) {
+		console.error(error);
+	}).then(verify)
+	.then(function(resolve) {
+		return self.defaults;
+	}, function(error) {
+		console.error(error);
+	}).then(compose_js_files);
 };
 
 
 /**
- * Resolve .js files needed by kernel
- * callback is evaluated afterwards.
+ * Resolve .js files needed by kernel.
+ * Returns a Promise which resolves with the configuration object.
  */
-AmberC.prototype.resolve_kernel = function(callback) {
-	var self = this;
-	var kernel_files = this.kernel_libraries.concat(this.defaults.load);
-	var kernel_resolved = new Combo(function() {
-		var foundLibraries = [];
-		Array.prototype.slice.call(arguments).forEach(function(file) {
-			if (undefined !== file[0]) {
-				foundLibraries.push(file[0]);
-			}
+function resolve_kernel(configuration) {
+	var kernel_files = configuration.kernel_libraries.concat(configuration.load);
+	return new Promise(function(resolve, error) {
+		Promise.all(
+			kernel_files.map(function(file) {
+				return new Promise(function(resolve, error) {
+					resolve_js(file, configuration, resolve);
+				});
+			})
+		).then(function(data) {
+			// boot.js and Kernel files need to be used first
+			// otherwise the global smalltalk object is undefined
+			configuration.libraries = data.concat(configuration.libraries);
+			resolve(configuration);
+		}, function(error) {
+			error(error);
 		});
-		// boot.js and Kernel files need to be used first
-		// otherwise the global smalltalk object is undefined
-		self.defaults.libraries = foundLibraries.concat(self.defaults.libraries);
-		callback(null);
 	});
-
-	kernel_files.forEach(function(file) {
-		resolve_js(file, self.defaults, kernel_resolved.add());
-	});
-
-	always_resolve(kernel_resolved.add());
 };
 
 
 /**
  * Resolve .js files needed by compiler.
- * callback is evaluated afterwards with resolved files as argument.
+ * Returns a Promise which resolves with an array of all compiler related files.
  */
-AmberC.prototype.resolve_compiler = function(callback) {
+function resolve_compiler(configuration) {
 	// Resolve compiler libraries
-	var compiler_files = this.compiler_libraries.concat(this.defaults.load);
-	var compiler_resolved = new Combo(function() {
-		var compilerFiles = [];
-		Array.prototype.slice.call(arguments).forEach(function(file) {
-			if (undefined !== file[0]) {
-				compilerFiles.push(file[0]);
-			}
+	var compiler_files = configuration.compiler_libraries.concat(configuration.load);
+	return new Promise(function(resolve, error) {
+		Promise.all(
+			compiler_files.map(function(file) {
+				return new Promise(function(resolve, error) {
+					resolve_js(file, configuration, resolve);
+				});
+			})
+		).then(function(compilerFiles) {
+			resolve(compilerFiles);
+		}, function(error) {
+			error(error);
 		});
-		callback(compilerFiles);
 	});
-	var self = this;
-	compiler_files.forEach(function(file) {
-		resolve_js(file, self.defaults, compiler_resolved.add());
-	});
-
-	always_resolve(compiler_resolved.add());
 };
 
 
