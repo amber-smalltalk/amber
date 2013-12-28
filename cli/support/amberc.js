@@ -241,7 +241,7 @@ AmberC.prototype.collect_files = function(stFiles, jsFiles) {
 		self.collect_st_files(stFiles, collected_files.add());
 	}
 	if (0 !== jsFiles.length) {
-		self.collect_js_files(jsFiles, collected_files.add());
+		collect_js_files(jsFiles, self.defaults).then(collected_files.add());
 	}
 };
 
@@ -285,20 +285,23 @@ AmberC.prototype.collect_st_files = function(stFiles, callback) {
 
 
 /**
- * Resolve js files given by jsFiles and add them to defaults.libraries.
- * callback is evaluated afterwards.
+ * Resolve js files given by jsFiles and add them to configuration.libraries.
+ * Returns a Promise which resolves with configuration.
  */
-AmberC.prototype.collect_js_files = function(jsFiles, callback) {
-	var self = this;
-	var collected_js_files = new Combo(function() {
-		Array.prototype.slice.call(arguments).forEach(function(file) {
-			self.defaults.libraries.push(file[0]);
+function collect_js_files(jsFiles, configuration) {
+	return new Promise(function(resolve, error) {
+		Promise.all(
+			jsFiles.map(function(file) {
+				return new Promise(function(resolve, error) {
+					resolve_js(file, configuration, resolve);
+				});
+			})
+		).then(function(data) {
+			configuration.libraries = configuration.libraries.concat(data);
+			resolve(configuration);
+		}, function(error) {
+			error(error);
 		});
-		callback();
-	});
-
-	jsFiles.forEach(function(jsFile) {
-		resolve_js(jsFile, self.defaults, collected_js_files.add());
 	});
 };
 
