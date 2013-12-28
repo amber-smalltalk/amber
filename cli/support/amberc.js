@@ -211,10 +211,9 @@ function check_configuration(configuration) {
  * @param filename name of a file without '.js' prefix
  * @param callback gets called on success with path to .js file as parameter
  */
-AmberC.prototype.resolve_js = function(filename, callback) {
+function resolve_js(filename, configuration, callback) {
 	var baseName = path.basename(filename, '.js');
-	var jsFile = baseName + this.defaults.loadsuffix + '.js';
-	var defaults = this.defaults;
+	var jsFile = baseName + configuration.loadsuffix + '.js';
 	console.log('Resolving: ' + jsFile);
 	fs.exists(jsFile, function(exists) {
 		if (exists) {
@@ -222,7 +221,7 @@ AmberC.prototype.resolve_js = function(filename, callback) {
 		} else {
 			var amberJsFile = '';
 			// check for specified .js file in any of the directories from jsLibraryDirs
-			var found = defaults.jsLibraryDirs.some(function(directory) {
+			var found = configuration.jsLibraryDirs.some(function(directory) {
 				amberJsFile = path.join(directory, jsFile);
 				return fs.existsSync(amberJsFile);
 			});
@@ -307,7 +306,7 @@ AmberC.prototype.collect_js_files = function(jsFiles, callback) {
 	});
 
 	jsFiles.forEach(function(jsFile) {
-		self.resolve_js(jsFile, collected_js_files.add());
+		resolve_js(jsFile, self.defaults, collected_js_files.add());
 	});
 };
 
@@ -366,7 +365,7 @@ AmberC.prototype.resolve_kernel = function(callback) {
 	});
 
 	kernel_files.forEach(function(file) {
-		self.resolve_js(file, kernel_resolved.add());
+		resolve_js(file, self.defaults, kernel_resolved.add());
 	});
 
 	always_resolve(kernel_resolved.add());
@@ -391,7 +390,7 @@ AmberC.prototype.resolve_compiler = function(callback) {
 	});
 	var self = this;
 	compiler_files.forEach(function(file) {
-		self.resolve_js(file, compiler_resolved.add());
+		resolve_js(file, self.defaults, compiler_resolved.add());
 	});
 
 	always_resolve(compiler_resolved.add());
