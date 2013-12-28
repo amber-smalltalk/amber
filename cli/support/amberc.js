@@ -167,6 +167,7 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 		self.defaults.smalltalk = {}; // the evaluated compiler will be stored in this variable (see create_compiler)
 		self.defaults.kernel_libraries = self.kernel_libraries;
 		self.defaults.compiler_libraries = self.compiler_libraries;
+		self.defaults.amber_dir = self.amber_dir;
 		self.collect_files(self.defaults.stFiles, self.defaults.jsFiles)
 	}, function (error) {
 		console.log(error);
@@ -238,7 +239,7 @@ AmberC.prototype.collect_files = function(stFiles, jsFiles) {
 		self.resolve_libraries();
 	});
 	if (0 !== stFiles.length) {
-		self.collect_st_files(stFiles, collected_files.add());
+		collect_st_files(stFiles, self.defaults).then(collected_files.add());
 	}
 	if (0 !== jsFiles.length) {
 		collect_js_files(jsFiles, self.defaults).then(collected_files.add());
@@ -248,37 +249,36 @@ AmberC.prototype.collect_files = function(stFiles, jsFiles) {
 
 /**
  * Resolve st files given by stFiles and add them to defaults.compile.
- * Respective categories get added to defaults.compile_categories.
- * callback is evaluated afterwards.
+ * Returns a Promise which resolves to configuration.
  */
-AmberC.prototype.collect_st_files = function(stFiles, callback) {
-	var defaults = this.defaults;
-	var self = this;
-	var collected_st_files = new Combo(function() {
-		Array.prototype.slice.call(arguments).forEach(function(data) {
-			var stFile = data[0];
-			defaults.compile.push(stFile);
-		});
-		callback();
-	});
-
-	stFiles.forEach(function(stFile) {
-		var _callback = collected_st_files.add();
-		console.log('Checking: ' + stFile);
-		var amberStFile = path.join(self.amber_dir, 'st', stFile);
-		fs.exists(stFile, function(exists) {
-			if (exists) {
-				_callback(stFile);
-			} else {
-				console.log('Checking: ' + amberStFile);
-				fs.exists(amberStFile, function(exists) {
-					if (exists) {
-						_callback(amberStFile);
-					} else {
-						throw(new Error('Smalltalk file not found: ' + amberStFile));
-					}
+function collect_st_files(stFiles, configuration) {
+	return new Promise(function(resolve, error) {
+		Promise.all(
+			stFiles.map(function(stFile) {
+				return new Promise(function(resolve, error) {
+					console.log('Checking: ' + stFile);
+					var amberStFile = path.join(configuration.amber_dir, 'st', stFile);
+					fs.exists(stFile, function(exists) {
+						if (exists) {
+							resolve(stFile);
+						} else {
+							console.log('Checking: ' + amberStFile);
+							fs.exists(amberStFile, function(exists) {
+								if (exists) {
+									resolve(amberStFile);
+								} else {
+									error(Error('Smalltalk file not found: ' + amberStFile));
+								}
+							});
+						}
+					});
 				});
-			}
+			})
+		).then(function(data) {
+			configuration.compile = configuration.compile.concat(data);
+			resolve(configuration);
+		}, function(error) {
+			error(error);
 		});
 	});
 };
