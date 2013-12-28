@@ -234,16 +234,30 @@ function resolve_js(filename, configuration, callback) {
  * Followed by resolve_libraries().
  */
 AmberC.prototype.collect_files = function(configuration) {
-	var self = this;
-	var collected_files = new Combo(function() {
-		self.resolve_libraries();
-	});
-	if (0 !== configuration.stFiles.length) {
-		collect_st_files(configuration).then(collected_files.add());
-	}
-	if (0 !== configuration.jsFiles.length) {
-		collect_js_files(configuration).then(collected_files.add());
-	}
+	collect_st_files(configuration)
+	.then(collect_js_files)
+	.then(resolve_kernel)
+	.then(resolve_compiler)
+	.then(create_compiler(configuration))
+	.then(function(resolve) {
+		return configuration;
+	}).then(readFiles)
+	.then(compile(configuration)
+	, function(error) {
+		console.error(error);
+	}).then(function() {
+		return configuration;
+	}).then(category_export)
+	.then(function(resolve) {
+		return configuration;
+	}, function(error) {
+		console.error(error);
+	}).then(verify)
+	.then(function(resolve) {
+		return configuration;
+	}, function(error) {
+		console.error(error);
+	}).then(compose_js_files);
 };
 
 
@@ -303,39 +317,6 @@ function collect_js_files(configuration) {
 			error(error);
 		});
 	});
-};
-
-
-/**
- * Resolve kernel and compiler files.
- * Returns a Promise.
- */
-AmberC.prototype.resolve_libraries = function() {
-	// Resolve libraries listed in this.kernel_libraries
-	var self = this;
-
-	resolve_kernel(self.defaults)
-	.then(resolve_compiler)
-	.then(create_compiler(self.defaults))
-	.then(function(resolve) {
-		return self.defaults;
-	}).then(readFiles)
-	.then(compile(self.defaults)
-	, function(error) {
-		console.error(error);
-	}).then(function() {
-		return self.defaults;
-	}).then(category_export)
-	.then(function(resolve) {
-		return self.defaults;
-	}, function(error) {
-		console.error(error);
-	}).then(verify)
-	.then(function(resolve) {
-		return self.defaults;
-	}, function(error) {
-		console.error(error);
-	}).then(compose_js_files);
 };
 
 
