@@ -320,7 +320,25 @@ AmberC.prototype.resolve_libraries = function() {
 	// Resolve libraries listed in this.kernel_libraries
 	var self = this;
 	var all_resolved = new Combo(function(resolved_kernel_files, resolved_compiler_files) {
-		self.create_compiler(resolved_compiler_files[0]);
+		create_compiler(self.defaults)(resolved_compiler_files[0]).then(function(resolve) {
+			return self.defaults;
+		}).then(readFiles)
+		.then(compile(self.defaults)
+		, function(error) {
+			console.error(error);
+		}).then(function() {
+			return self.defaults;
+		}).then(category_export)
+		.then(function(resolve) {
+			return self.defaults;
+		}, function(error) {
+			console.error(error);
+		}).then(verify)
+		.then(function(resolve) {
+			return self.defaults;
+		}, function(error) {
+			console.error(error);
+		}).then(compose_js_files);
 	});
 	this.resolve_kernel(all_resolved.add());
 	this.resolve_compiler(all_resolved.add());
@@ -382,60 +400,57 @@ AmberC.prototype.resolve_compiler = function(callback) {
 
 /**
  * Read all .js files needed by compiler and eval() them.
- * The finished Compiler gets stored in defaults.smalltalk.
- * Followed by compile().
+ * The finished Compiler gets stored in configuration.smalltalk.
+ * Returns a Promise object.
  */
-AmberC.prototype.create_compiler = function(compilerFilesArray) {
-	var self = this;
-	var compiler_files = new Combo(function() {
-		var builder = createConcatenator();
-		builder.add('(function() {');
-		builder.start();
+function create_compiler(configuration) {
+	return function(compilerFilesArray) {
+		return new Promise(function(resolve, error) {
+			Promise.all(
+				compilerFilesArray.map(function(file) {
+					return new Promise(function(resolve, error) {
+						console.log('Loading file: ' + file);
+						fs.readFile(file, function(err, data) {
+							if (err)
+								error(err);
+							else
+								resolve(data);
+						});
+					});
+				})
+			).then(function(files) {
+				var builder = createConcatenator();
+				builder.add('(function() {');
+				builder.start();
 
-		Array.prototype.slice.call(arguments).forEach(function(data) {
-			// data is an array where index 0 is the error code and index 1 contains the data
-			builder.add(data[1]);
-			// matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
-			var match = ('' + data[1]).match(/^define\("([^"]*)"/);
-			if (match) {
-				builder.addId(match[1]);
-			}
+				files.forEach(function(data) {
+					// data is an array where index 0 is the error code and index 1 contains the data
+					builder.add(data);
+					// matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
+					var match = ('' + data).match(/^define\("([^"]*)"/);
+					if (match) {
+						builder.addId(match[1]);
+					}
+				});
+				// store the generated smalltalk env in self.defaults.smalltalk
+				builder.finish('configuration.smalltalk = smalltalk;');
+				builder.add('})();');
+
+				eval(builder.toString());
+				console.log('Compiler loaded');
+				configuration.smalltalk.ErrorHandler._setCurrent_(configuration.smalltalk.RethrowErrorHandler._new());
+
+				if(0 !== configuration.jsGlobals.length) {
+					var jsGlobalVariables = configuration.smalltalk.globalJsVariables;
+					jsGlobalVariables.push.apply(jsGlobalVariables, configuration.jsGlobals);
+				}
+
+				resolve(true);
+			}, function(error) {
+				error(Error('Error creating compiler'));
+			});
 		});
-		// store the generated smalltalk env in self.defaults.smalltalk
-		builder.finish('self.defaults.smalltalk = smalltalk;');
-		builder.add('})();');
-		eval(builder.toString());
-		console.log('Compiler loaded');
-		self.defaults.smalltalk.ErrorHandler._setCurrent_(self.defaults.smalltalk.RethrowErrorHandler._new());
-
-		if(0 !== self.defaults.jsGlobals.length) {
-			var jsGlobalVariables = self.defaults.smalltalk.globalJsVariables;
-			jsGlobalVariables.push.apply(jsGlobalVariables, self.defaults.jsGlobals);
-		}
-
-		readFiles(self.defaults).then(compile(self.defaults)
-		, function(error) {
-			console.error(error);
-		}).then(function() {
-			return self.defaults;
-		}).then(category_export)
-		.then(function(resolve) {
-			return self.defaults;
-		}, function(error) {
-			console.error(error);
-		}).then(verify)
-		.then(function(resolve) {
-			return self.defaults;
-		}, function(error) {
-			console.error(error);
-		}).then(compose_js_files);
-
-	});
-
-	compilerFilesArray.forEach(function(file) {
-		console.log('Loading file: ' + file);
-		fs.readFile(file, compiler_files.add());
-	});
+	};
 };
 
 
@@ -447,7 +462,7 @@ AmberC.prototype.create_compiler = function(compilerFilesArray) {
 function compile(configuration) {
 	// return function which does the actual work
 	// and use the compile function to reference the configuration object
-	return function (fileContents) {
+	return function(fileContents) {
 		console.log('Compiling collected .st files');
 		// import/compile content of .st files
 		return Promise.all(
