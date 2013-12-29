@@ -6,8 +6,6 @@
  *     var options = amberc.createDefaults();
  *     // edit options entries
  *     compiler.main(options);
- *
- * Execute 'node compiler.js' without arguments or with -h / --help for help.
  */
 
 /**
@@ -110,8 +108,8 @@ var createDefaults = function(finished_callback){
 
 /**
  * Main function for executing the compiler.
- * If check_configuration_ok() returns successfully the configuration is set on the current compiler
- * instance and all compilation steps get triggered.
+ * If check_configuration_ok() returns successfully
+ * the configuration is used to trigger the following compilation steps.
  */
 AmberC.prototype.main = function(configuration, finished_callback) {
 	console.time('Compile Time');
@@ -164,7 +162,7 @@ function logError(error) {
 
 /**
  * Check if the passed in configuration object has sufficient/nonconflicting values.
- * Calls reject with an Error object upon failure and resolve(configuration) upon success.
+ * Returns a Promise which resolves into the configuration object.
  */
 function check_configuration(configuration) {
 	return new Promise(function(resolve, reject) {
@@ -184,7 +182,7 @@ function check_configuration(configuration) {
 /**
  * Check if the file given as parameter exists in any of the following directories:
  *  1. current local directory
- *  2. defauls.jsLibraryDirs
+ *  2. configuration.jsLibraryDirs
  *  3. $AMBER/js/
  *  3. $AMBER/support/
  *
@@ -219,7 +217,7 @@ function resolve_js(filename, configuration) {
 
 /**
  * Resolve st files given by stFiles and add them to configuration.compile.
- * Returns a Promise which resolves to configuration.
+ * Returns a Promise which resolves into the configuration object.
  */
 function collect_st_files(configuration) {
 	return new Promise(function(resolve, reject) {
@@ -256,7 +254,7 @@ function collect_st_files(configuration) {
 
 /**
  * Resolve js files given by jsFiles and add them to configuration.libraries.
- * Returns a Promise which resolves with configuration.
+ * Returns a Promise which resolves into the configuration object.
  */
 function collect_js_files(configuration) {
 	return new Promise(function(resolve, reject) {
@@ -276,7 +274,7 @@ function collect_js_files(configuration) {
 
 /**
  * Resolve .js files needed by kernel.
- * Returns a Promise which resolves with the configuration object.
+ * Returns a Promise which resolves into the configuration object.
  */
 function resolve_kernel(configuration) {
 	var kernel_files = configuration.kernel_libraries.concat(configuration.load);
@@ -300,7 +298,7 @@ function resolve_kernel(configuration) {
 /**
  * Resolve .js files needed by compiler, read and eval() them.
  * The finished Compiler gets stored in configuration.smalltalk.
- * Returns a Promise object which resolves into configuration.
+ * Returns a Promise object which resolves into the configuration object.
  */
 function create_compiler(configuration) {
 	return new Promise(function(resolve, reject) {
@@ -361,7 +359,7 @@ function create_compiler(configuration) {
 
 /**
  * Compile all given .st files by importing them.
- * Returns a Promise object that resolves into configuration.
+ * Returns a Promise object that resolves into the configuration object.
  */
 function compile(configuration) {
 	// return function which does the actual work
@@ -413,7 +411,7 @@ function compile(configuration) {
 
 /**
  * Export compiled categories to JavaScript files.
- * Returns a Promise() that resolves to configuration.
+ * Returns a Promise() that resolves into the configuration object.
  */
 function category_export(configuration) {
 	return new Promise(function(resolve, reject) {
@@ -450,7 +448,7 @@ function category_export(configuration) {
 
 /**
  * Verify if all .st files have been compiled.
- * Returns a Promise() that resolves to configuration.
+ * Returns a Promise() that resolves into the configuration object.
  */
 function verify(configuration) {
 	console.log('Verifying if all .st files were compiled');
@@ -477,7 +475,7 @@ function verify(configuration) {
  * Synchronous function.
  * Concatenates compiled JavaScript files into one file in the correct order.
  * The name of the produced file is given by configuration.program.
- * Returns a Promise which resolves into configuration.
+ * Returns a Promise which resolves into the configuration object.
  */
 function compose_js_files(configuration) {
 	return new Promise(function(resolve, reject) {
