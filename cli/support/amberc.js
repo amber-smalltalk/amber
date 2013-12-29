@@ -224,10 +224,10 @@ function resolve_js(filename, configuration, callback) {
  * Returns a Promise which resolves to configuration.
  */
 function collect_st_files(configuration) {
-	return new Promise(function(resolve, error) {
+	return new Promise(function(resolve, reject) {
 		Promise.all(
 			configuration.stFiles.map(function(stFile) {
-				return new Promise(function(resolve, error) {
+				return new Promise(function(resolve, reject) {
 					console.log('Checking: ' + stFile);
 					var amberStFile = path.join(configuration.amber_dir, 'st', stFile);
 					fs.exists(stFile, function(exists) {
@@ -239,7 +239,7 @@ function collect_st_files(configuration) {
 								if (exists) {
 									resolve(amberStFile);
 								} else {
-									error(Error('Smalltalk file not found: ' + amberStFile));
+									reject(Error('Smalltalk file not found: ' + amberStFile));
 								}
 							});
 						}
@@ -250,7 +250,7 @@ function collect_st_files(configuration) {
 			configuration.compile = configuration.compile.concat(data);
 			resolve(configuration);
 		}, function(error) {
-			error(error);
+			reject(error);
 		});
 	});
 };
@@ -261,10 +261,10 @@ function collect_st_files(configuration) {
  * Returns a Promise which resolves with configuration.
  */
 function collect_js_files(configuration) {
-	return new Promise(function(resolve, error) {
+	return new Promise(function(resolve, reject) {
 		Promise.all(
 			configuration.jsFiles.map(function(file) {
-				return new Promise(function(resolve, error) {
+				return new Promise(function(resolve, reject) {
 					resolve_js(file, configuration, resolve);
 				});
 			})
@@ -272,7 +272,7 @@ function collect_js_files(configuration) {
 			configuration.libraries = configuration.libraries.concat(data);
 			resolve(configuration);
 		}, function(error) {
-			error(error);
+			reject(error);
 		});
 	});
 };
@@ -284,10 +284,10 @@ function collect_js_files(configuration) {
  */
 function resolve_kernel(configuration) {
 	var kernel_files = configuration.kernel_libraries.concat(configuration.load);
-	return new Promise(function(resolve, error) {
+	return new Promise(function(resolve, reject) {
 		Promise.all(
 			kernel_files.map(function(file) {
-				return new Promise(function(resolve, error) {
+				return new Promise(function(resolve, reject) {
 					resolve_js(file, configuration, resolve);
 				});
 			})
@@ -297,7 +297,7 @@ function resolve_kernel(configuration) {
 			configuration.libraries = data.concat(configuration.libraries);
 			resolve(configuration);
 		}, function(error) {
-			error(error);
+			reject(error);
 		});
 	});
 };
@@ -310,17 +310,17 @@ function resolve_kernel(configuration) {
 function resolve_compiler(configuration) {
 	// Resolve compiler libraries
 	var compiler_files = configuration.compiler_libraries.concat(configuration.load);
-	return new Promise(function(resolve, error) {
+	return new Promise(function(resolve, reject) {
 		Promise.all(
 			compiler_files.map(function(file) {
-				return new Promise(function(resolve, error) {
+				return new Promise(function(resolve, reject) {
 					resolve_js(file, configuration, resolve);
 				});
 			})
 		).then(function(compilerFiles) {
 			resolve(compilerFiles);
 		}, function(error) {
-			error(error);
+			reject(error);
 		});
 	});
 };
@@ -333,14 +333,14 @@ function resolve_compiler(configuration) {
  */
 function create_compiler(configuration) {
 	return function(compilerFilesArray) {
-		return new Promise(function(resolve, error) {
+		return new Promise(function(resolve, reject) {
 			Promise.all(
 				compilerFilesArray.map(function(file) {
-					return new Promise(function(resolve, error) {
+					return new Promise(function(resolve, reject) {
 						console.log('Loading file: ' + file);
 						fs.readFile(file, function(err, data) {
 							if (err)
-								error(err);
+								reject(err);
 							else
 								resolve(data);
 						});
@@ -375,7 +375,7 @@ function create_compiler(configuration) {
 
 				resolve(true);
 			}, function(error) {
-				error(Error('Error creating compiler'));
+				reject(Error('Error creating compiler'));
 			});
 		});
 	};
@@ -395,13 +395,13 @@ function compile(configuration) {
 		// import/compile content of .st files
 		return Promise.all(
 			fileContents.map(function(code) {
-				return new Promise(function(resolve, error) {
+				return new Promise(function(resolve, reject) {
 					var importer = configuration.smalltalk.Importer._new();
 					try {
 						importer._import_(code._stream());
 						resolve(true);
 					} catch (ex) {
-						error(Error("Import error in section:\n" +
+						reject(Error("Import error in section:\n" +
 							importer._lastSection() + "\n\n" +
 							"while processing chunk:\n" +
 							importer._lastChunk() + "\n\n" +
@@ -421,14 +421,14 @@ function compile(configuration) {
 function readFiles(configuration) {
 	return Promise.all(
 		configuration.compile.map(function(stFile) {
-			return new Promise(function(resolve, error) {
+			return new Promise(function(resolve, reject) {
 				if (/\.st/.test(stFile)) {
 					console.ambercLog('Importing: ' + stFile);
 					fs.readFile(stFile, 'utf8', function(err, data) {
 						if (!err)
 							resolve(data);
 						else
-							error(Error('Could not import: ' + stFile));
+							reject(Error('Could not import: ' + stFile));
 					});
 				}
 			});
@@ -442,10 +442,10 @@ function readFiles(configuration) {
  * Returns a Promise() that resolves to configuration.
  */
 function category_export(configuration) {
-	return new Promise(function(resolve, error) {
+	return new Promise(function(resolve, reject) {
 		Promise.all(
 			configuration.compile.map(function(stFile) {
-				return new Promise(function(resolve, error) {
+				return new Promise(function(resolve, reject) {
 					var category = path.basename(stFile, '.st');
 					var jsFilePath = configuration.output_dir;
 					if (undefined === jsFilePath) {
@@ -461,7 +461,7 @@ function category_export(configuration) {
 						smalltalk.AmdExporter._new()._exportPackage_on_(packageObject, stream);
 					}), function(err) {
 						if (err)
-							error(err);
+							reject(err);
 						else
 							resolve(true);
 					});
@@ -480,15 +480,15 @@ function category_export(configuration) {
  */
 function verify(configuration) {
 	console.log('Verifying if all .st files were compiled');
-	return new Promise(function(resolve, error) {
+	return new Promise(function(resolve, reject) {
 		Promise.all(
 			configuration.compiled.map(function(file) {
-				return new Promise(function(resolve, error) {
+				return new Promise(function(resolve, reject) {
 					fs.exists(file, function(exists) {
 						if (exists)
 							resolve(true);
 						else
-							error(Error('Compilation failed of: ' + file));
+							reject(Error('Compilation failed of: ' + file));
 					});
 				});
 			})
@@ -557,7 +557,7 @@ function compose_js_files(configuration) {
 				builder.add(buffer);
 			} else {
 				fileStream.end();
-				throw(new Error('Can not find file ' + file));
+				reject(Error('Can not find file ' + file));
 			}
 		});
 
