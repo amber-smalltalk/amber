@@ -383,6 +383,29 @@ function create_compiler(configuration) {
 
 
 /**
+ * Read the content of all files into memory.
+ * Returns a Promise.all() object.
+ */
+function readFiles(configuration) {
+	return Promise.all(
+		configuration.compile.map(function(stFile) {
+			return new Promise(function(resolve, reject) {
+				if (/\.st/.test(stFile)) {
+					console.ambercLog('Importing: ' + stFile);
+					fs.readFile(stFile, 'utf8', function(err, data) {
+						if (!err)
+							resolve(data);
+						else
+							reject(Error('Could not import: ' + stFile));
+					});
+				}
+			});
+		})
+	);
+};
+
+
+/**
  * Compile all given .st files by importing them.
  * Captures the configuration object in a closure and returns a function that
  * does the actual work and returns a Promise.all() object.
@@ -412,28 +435,6 @@ function compile(configuration) {
 			})
 		);
 	};
-};
-
-/**
- * Read the content of all files into memory.
- * Returns a Promise.all() object.
- */
-function readFiles(configuration) {
-	return Promise.all(
-		configuration.compile.map(function(stFile) {
-			return new Promise(function(resolve, reject) {
-				if (/\.st/.test(stFile)) {
-					console.ambercLog('Importing: ' + stFile);
-					fs.readFile(stFile, 'utf8', function(err, data) {
-						if (!err)
-							resolve(data);
-						else
-							reject(Error('Could not import: ' + stFile));
-					});
-				}
-			});
-		})
-	);
 };
 
 
