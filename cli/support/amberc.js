@@ -82,7 +82,7 @@ function AmberC(amber_dir) {
 /**
  * Default values.
  */
-var createDefaults = function(finished_callback){
+var createDefaultConfiguration = function() {
 	return {
 		'load': [],
 		'main': undefined,
@@ -100,8 +100,7 @@ var createDefaults = function(finished_callback){
 		'compiled': [],
 		'program': undefined,
 		'output_dir': undefined,
-		'verbose': false,
-		'finished_callback': finished_callback
+		'verbose': false
 	};
 };
 
@@ -557,4 +556,4 @@ function compose_js_files(configuration) {
 
 
 module.exports.Compiler = AmberC;
-module.exports.createDefaults = createDefaults;
+module.exports.createDefaultConfiguration = createDefaultConfiguration;

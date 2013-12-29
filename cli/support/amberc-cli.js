@@ -32,7 +32,7 @@ compiler.main(configuration);
 function handle_options(optionsArray) {
 	var programName = [];
 	var currentItem = optionsArray.shift();
-	var defaults = amberc.createDefaults();
+	var defaults = amberc.createDefaultConfiguration();
 
 	while(undefined !== currentItem) {
 		switch(currentItem) {
