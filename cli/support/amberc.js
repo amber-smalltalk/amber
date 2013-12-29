@@ -148,9 +148,7 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	.then(resolve_compiler, logError)
 	.then(create_compiler(configuration), logError)
 	.then(function() {return configuration;})
-	.then(readFiles, logError)
-	.then(compile(configuration), logError)
-	.then(function() {return configuration;})
+	.then(compile, logError)
 	.then(category_export, logError)
 	.then(verify, logError)
 	.then(compose_js_files, logError)
@@ -379,58 +377,54 @@ function create_compiler(configuration) {
 
 
 /**
- * Read the content of all files into memory.
- * Returns a Promise.all() object.
- */
-function readFiles(configuration) {
-	return Promise.all(
-		configuration.compile.map(function(stFile) {
-			return new Promise(function(resolve, reject) {
-				if (/\.st/.test(stFile)) {
-					console.ambercLog('Importing: ' + stFile);
-					fs.readFile(stFile, 'utf8', function(err, data) {
-						if (!err)
-							resolve(data);
-						else
-							reject(Error('Could not import: ' + stFile));
-					});
-				}
-			});
-		})
-	);
-};
-
-
-/**
  * Compile all given .st files by importing them.
- * Captures the configuration object in a closure and returns a function that
- * does the actual work and returns a Promise.all() object.
+ * Returns a Promise object that resolves into configuration.
  */
 function compile(configuration) {
 	// return function which does the actual work
 	// and use the compile function to reference the configuration object
-	return function(fileContents) {
-		console.log('Compiling collected .st files');
-		// import/compile content of .st files
-		return Promise.all(
-			fileContents.map(function(code) {
+	return new Promise(function(resolve, reject) {
+		Promise.all(
+			configuration.compile.map(function(stFile) {
 				return new Promise(function(resolve, reject) {
-					var importer = configuration.smalltalk.Importer._new();
-					try {
-						importer._import_(code._stream());
-						resolve(true);
-					} catch (ex) {
-						reject(Error("Import error in section:\n" +
-							importer._lastSection() + "\n\n" +
-							"while processing chunk:\n" +
-							importer._lastChunk() + "\n\n" +
-							(ex._messageText && ex._messageText() || ex.message || ex))
-						);
+					if (/\.st/.test(stFile)) {
+						console.ambercLog('Importing: ' + stFile);
+						fs.readFile(stFile, 'utf8', function(err, data) {
+							if (!err)
+								resolve(data);
+							else
+								reject(Error('Could not import: ' + stFile));
+						});
 					}
 				});
 			})
-		);
-	};
+		)
+		.then(function(fileContents) {
+			console.log('Compiling collected .st files');
+			// import/compile content of .st files
+			Promise.all(
+				fileContents.map(function(code) {
+					return new Promise(function(resolve, reject) {
+						var importer = configuration.smalltalk.Importer._new();
+						try {
+							importer._import_(code._stream());
+							resolve(true);
+						} catch (ex) {
+							reject(Error("Import error in section:\n" +
+								importer._lastSection() + "\n\n" +
+								"while processing chunk:\n" +
+								importer._lastChunk() + "\n\n" +
+								(ex._messageText && ex._messageText() || ex.message || ex))
+							);
+						}
+					});
+				})
+			);
+		})
+		.then(function() {
+			resolve(configuration);
+		});
+	});
 };
 
 
