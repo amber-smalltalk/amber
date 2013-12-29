@@ -141,10 +141,38 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 		self.defaults.kernel_libraries = self.kernel_libraries;
 		self.defaults.compiler_libraries = self.compiler_libraries;
 		self.defaults.amber_dir = self.amber_dir;
-		self.collect_files(self.defaults)
+		return self.defaults;
 	}, function (error) {
 		console.log(error);
-	});
+	})
+	.then(collect_st_files)
+	.then(collect_js_files)
+	.then(resolve_kernel)
+	.then(resolve_compiler)
+	.then(create_compiler(configuration))
+	.then(function(resolve) {
+		return configuration;
+	})
+	.then(readFiles)
+	.then(compile(configuration), function(error) {
+		console.error(error);
+	})
+	.then(function() {
+		return configuration;
+	})
+	.then(category_export)
+	.then(function(resolve) {
+		return configuration;
+	}, function(error) {
+		console.error(error);
+	})
+	.then(verify)
+	.then(function(resolve) {
+		return configuration;
+	}, function(error) {
+		console.error(error);
+	})
+	.then(compose_js_files);
 };
 
 
@@ -198,39 +226,6 @@ function resolve_js(filename, configuration, callback) {
 			}
 		}
 	});
-};
-
-
-/**
- * Collect libraries and Smalltalk files looking
- * both locally and in $AMBER/js and $AMBER/st.
- * Followed by resolve_libraries().
- */
-AmberC.prototype.collect_files = function(configuration) {
-	collect_st_files(configuration)
-	.then(collect_js_files)
-	.then(resolve_kernel)
-	.then(resolve_compiler)
-	.then(create_compiler(configuration))
-	.then(function(resolve) {
-		return configuration;
-	}).then(readFiles)
-	.then(compile(configuration)
-	, function(error) {
-		console.error(error);
-	}).then(function() {
-		return configuration;
-	}).then(category_export)
-	.then(function(resolve) {
-		return configuration;
-	}, function(error) {
-		console.error(error);
-	}).then(verify)
-	.then(function(resolve) {
-		return configuration;
-	}, function(error) {
-		console.error(error);
-	}).then(compose_js_files);
 };
 
 
