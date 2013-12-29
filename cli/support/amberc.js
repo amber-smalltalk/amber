@@ -220,7 +220,7 @@ function resolve_js(filename, configuration, callback) {
 
 
 /**
- * Resolve st files given by stFiles and add them to defaults.compile.
+ * Resolve st files given by stFiles and add them to configuration.compile.
  * Returns a Promise which resolves to configuration.
  */
 function collect_st_files(configuration) {
@@ -360,7 +360,7 @@ function create_compiler(configuration) {
 						builder.addId(match[1]);
 					}
 				});
-				// store the generated smalltalk env in self.defaults.smalltalk
+				// store the generated smalltalk env in configuration.smalltalk
 				builder.finish('configuration.smalltalk = smalltalk;');
 				builder.add('})();');
 
@@ -507,23 +507,22 @@ function verify(configuration) {
  */
 function compose_js_files(configuration) {
 	return new Promise(function(resolve, reject) {
-		var defaults = configuration;
-		var programFile = defaults.program;
+		var programFile = configuration.program;
 		if (undefined === programFile) {
 			return;
 		}
-		if (undefined !== defaults.output_dir) {
-			programFile = path.join(defaults.output_dir, programFile);
+		if (undefined !== configuration.output_dir) {
+			programFile = path.join(configuration.output_dir, programFile);
 		}
 
 		var program_files = [];
-		if (0 !== defaults.libraries.length) {
-			console.log('Collecting libraries: ' + defaults.libraries);
-			program_files.push.apply(program_files, defaults.libraries);
+		if (0 !== configuration.libraries.length) {
+			console.log('Collecting libraries: ' + configuration.libraries);
+			program_files.push.apply(program_files, configuration.libraries);
 		}
 
-		if (0 !== defaults.compiled.length) {
-			var compiledFiles = defaults.compiled.slice(0);
+		if (0 !== configuration.compiled.length) {
+			var compiledFiles = configuration.compiled.slice(0);
 
 			console.log('Collecting compiled files: ' + compiledFiles);
 			program_files.push.apply(program_files, compiledFiles);
@@ -531,7 +530,7 @@ function compose_js_files(configuration) {
 
 		console.ambercLog('Writing program file: %s.js', programFile);
 
-		var fileStream = fs.createWriteStream(programFile + defaults.suffix_used + '.js');
+		var fileStream = fs.createWriteStream(programFile + configuration.suffix_used + '.js');
 		fileStream.on('error', function(error) {
 			fileStream.end();
 			console.ambercLog(error);
@@ -563,14 +562,14 @@ function compose_js_files(configuration) {
 
 		var mainFunctionOrFile = '';
 
-		if (undefined !== defaults.main) {
-			console.log('Adding call to: %s>>main', defaults.main);
-			mainFunctionOrFile += 'smalltalk.' + defaults.main + '._main();';
+		if (undefined !== configuration.main) {
+			console.log('Adding call to: %s>>main', configuration.main);
+			mainFunctionOrFile += 'smalltalk.' + configuration.main + '._main();';
 		}
 
-		if (undefined !== defaults.mainfile && fs.existsSync(defaults.mainfile)) {
-			console.log('Adding main file: ' + defaults.mainfile);
-			mainFunctionOrFile += '\n' + fs.readFileSync(defaults.mainfile);
+		if (undefined !== configuration.mainfile && fs.existsSync(configuration.mainfile)) {
+			console.log('Adding main file: ' + configuration.mainfile);
+			mainFunctionOrFile += '\n' + fs.readFileSync(configuration.mainfile);
 		}
 
 		builder.finish(mainFunctionOrFile);
