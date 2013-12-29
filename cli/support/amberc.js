@@ -195,26 +195,28 @@ function check_configuration(configuration) {
  * @param filename name of a file without '.js' prefix
  * @param callback gets called on success with path to .js file as parameter
  */
-function resolve_js(filename, configuration, callback) {
-	var baseName = path.basename(filename, '.js');
-	var jsFile = baseName + configuration.loadsuffix + '.js';
-	console.log('Resolving: ' + jsFile);
-	fs.exists(jsFile, function(exists) {
-		if (exists) {
-			callback(jsFile);
-		} else {
-			var amberJsFile = '';
-			// check for specified .js file in any of the directories from jsLibraryDirs
-			var found = configuration.jsLibraryDirs.some(function(directory) {
-				amberJsFile = path.join(directory, jsFile);
-				return fs.existsSync(amberJsFile);
-			});
-			if (found) {
-				callback(amberJsFile);
+function resolve_js(filename, configuration) {
+	return new Promise(function(resolve, reject) {
+		var baseName = path.basename(filename, '.js');
+		var jsFile = baseName + configuration.loadsuffix + '.js';
+		console.log('Resolving: ' + jsFile);
+		fs.exists(jsFile, function(exists) {
+			if (exists) {
+				resolve(jsFile);
 			} else {
-				throw(new Error('JavaScript file not found: ' + jsFile));
+				var amberJsFile = '';
+				// check for specified .js file in any of the directories from jsLibraryDirs
+				var found = configuration.jsLibraryDirs.some(function(directory) {
+					amberJsFile = path.join(directory, jsFile);
+					return fs.existsSync(amberJsFile);
+				});
+				if (found) {
+					resolve(amberJsFile);
+				} else {
+					reject(Error('JavaScript file not found: ' + jsFile));
+				}
 			}
-		}
+		});
 	});
 };
 
@@ -264,9 +266,7 @@ function collect_js_files(configuration) {
 	return new Promise(function(resolve, reject) {
 		Promise.all(
 			configuration.jsFiles.map(function(file) {
-				return new Promise(function(resolve, reject) {
-					resolve_js(file, configuration, resolve);
-				});
+				return resolve_js(file, configuration);
 			})
 		).then(function(data) {
 			configuration.libraries = configuration.libraries.concat(data);
@@ -287,9 +287,7 @@ function resolve_kernel(configuration) {
 	return new Promise(function(resolve, reject) {
 		Promise.all(
 			kernel_files.map(function(file) {
-				return new Promise(function(resolve, reject) {
-					resolve_js(file, configuration, resolve);
-				});
+				return resolve_js(file, configuration, resolve);
 			})
 		).then(function(data) {
 			// boot.js and Kernel files need to be used first
@@ -313,9 +311,7 @@ function resolve_compiler(configuration) {
 	return new Promise(function(resolve, reject) {
 		Promise.all(
 			compiler_files.map(function(file) {
-				return new Promise(function(resolve, reject) {
-					resolve_js(file, configuration, resolve);
-				});
+				return resolve_js(file, configuration, resolve);
 			})
 		).then(function(compilerFiles) {
 			resolve(compilerFiles);
