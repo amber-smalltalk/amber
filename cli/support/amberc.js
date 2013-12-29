@@ -182,27 +182,50 @@ function check_configuration(configuration) {
  *  3. $AMBER/support/
  *
  * @param filename name of a file without '.js' prefix
- * @param callback gets called on success with path to .js file as parameter
+ * @param configuration the main amberc configuration object
  */
 function resolve_js(filename, configuration) {
+	var baseName = path.basename(filename, '.js');
+	var jsFile = baseName + configuration.loadsuffix + '.js';
+	return resolve_file(jsFile, configuration.jsLibraryDirs);
+};
+
+
+/**
+ * Check if the file given as parameter exists in any of the following directories:
+ *  1. current local directory
+ *  2. $AMBER/
+ *
+ * @param filename name of a .st file
+ * @param configuration the main amberc configuration object
+ */
+function resolve_st(filename, configuration) {
+	return resolve_file(filename, [configuration.amber_dir]);
+};
+
+
+/**
+ * Resolve the location of a file given as parameter filename.
+ * First check if the file exists at given location,
+ * then check in each of the directories specified in parameter searchDirectories.
+ */
+function resolve_file(filename, searchDirectories) {
 	return new Promise(function(resolve, reject) {
-		var baseName = path.basename(filename, '.js');
-		var jsFile = baseName + configuration.loadsuffix + '.js';
-		console.log('Resolving: ' + jsFile);
-		fs.exists(jsFile, function(exists) {
+		console.log('Resolving: ' + filename);
+		fs.exists(filename, function(exists) {
 			if (exists) {
-				resolve(jsFile);
+				resolve(filename);
 			} else {
-				var amberJsFile = '';
-				// check for specified .js file in any of the directories from jsLibraryDirs
-				var found = configuration.jsLibraryDirs.some(function(directory) {
-					amberJsFile = path.join(directory, jsFile);
-					return fs.existsSync(amberJsFile);
+				var alternativeFile = '';
+				// check for filename in any of the given searchDirectories
+				var found = searchDirectories.some(function(directory) {
+					alternativeFile = path.join(directory, filename);
+					return fs.existsSync(alternativeFile);
 				});
 				if (found) {
-					resolve(amberJsFile);
+					resolve(alternativeFile);
 				} else {
-					reject(Error('JavaScript file not found: ' + jsFile));
+					reject(Error('File not found: ' + alternativeFile));
 				}
 			}
 		});
@@ -218,24 +241,7 @@ function collect_st_files(configuration) {
 	return new Promise(function(resolve, reject) {
 		Promise.all(
 			configuration.stFiles.map(function(stFile) {
-				return new Promise(function(resolve, reject) {
-					console.log('Checking: ' + stFile);
-					var amberStFile = path.join(configuration.amber_dir, 'st', stFile);
-					fs.exists(stFile, function(exists) {
-						if (exists) {
-							resolve(stFile);
-						} else {
-							console.log('Checking: ' + amberStFile);
-							fs.exists(amberStFile, function(exists) {
-								if (exists) {
-									resolve(amberStFile);
-								} else {
-									reject(Error('Smalltalk file not found: ' + amberStFile));
-								}
-							});
-						}
-					});
-				});
+				return resolve_st(stFile, configuration);
 			})
 		).then(function(data) {
 			configuration.compile = configuration.compile.concat(data);
