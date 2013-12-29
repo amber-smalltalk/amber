@@ -111,8 +111,7 @@ var createDefaults = function(finished_callback){
 /**
  * Main function for executing the compiler.
  * If check_configuration_ok() returns successfully the configuration is set on the current compiler
- * instance and check_for_closure_compiler() gets called.
- * The last step is to call collect_files().
+ * instance and all compilation steps get triggered.
  */
 AmberC.prototype.main = function(configuration, finished_callback) {
 	console.time('Compile Time');
@@ -136,12 +135,11 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 
 	var self = this;
 	check_configuration(configuration).then(function(configuration) {
-		self.defaults = configuration;
-		self.defaults.smalltalk = {}; // the evaluated compiler will be stored in this variable (see create_compiler)
-		self.defaults.kernel_libraries = self.kernel_libraries;
-		self.defaults.compiler_libraries = self.compiler_libraries;
-		self.defaults.amber_dir = self.amber_dir;
-		return self.defaults;
+		configuration.smalltalk = {}; // the evaluated compiler will be stored in this variable (see create_compiler)
+		configuration.kernel_libraries = self.kernel_libraries;
+		configuration.compiler_libraries = self.compiler_libraries;
+		configuration.amber_dir = self.amber_dir;
+		return configuration;
 	}, function (error) {
 		console.log(error);
 	})
