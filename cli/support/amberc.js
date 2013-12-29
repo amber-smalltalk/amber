@@ -476,8 +476,8 @@ function verify(configuration) {
 /**
  * Synchronous function.
  * Concatenates compiled JavaScript files into one file in the correct order.
- * The name of the produced file is given by configuration.program (set by the last commandline option).
- * Returns a Promise.
+ * The name of the produced file is given by configuration.program.
+ * Returns a Promise which resolves into configuration.
  */
 function compose_js_files(configuration) {
 	return new Promise(function(resolve, reject) {
@@ -555,7 +555,7 @@ function compose_js_files(configuration) {
 		});
 		console.log('Done.');
 		fileStream.end();
-		resolve(true);
+		resolve(configuration);
 	});
 };
 
