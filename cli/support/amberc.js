@@ -131,15 +131,13 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 		console.log = function() {};
 	}
 
-	var self = this;
+	// the evaluated compiler will be stored in this variable (see create_compiler)
+	configuration.smalltalk = {};
+	configuration.kernel_libraries = this.kernel_libraries;
+	configuration.compiler_libraries = this.compiler_libraries;
+	configuration.amber_dir = this.amber_dir;
+
 	check_configuration(configuration)
-	.then(function(configuration) {
-		configuration.smalltalk = {}; // the evaluated compiler will be stored in this variable (see create_compiler)
-		configuration.kernel_libraries = self.kernel_libraries;
-		configuration.compiler_libraries = self.compiler_libraries;
-		configuration.amber_dir = self.amber_dir;
-		return configuration;
-	}, logError)
 	.then(collect_st_files, logError)
 	.then(collect_js_files, logError)
 	.then(resolve_kernel, logError)
