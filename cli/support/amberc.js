@@ -112,9 +112,6 @@ var createDefaultConfiguration = function() {
  */
 AmberC.prototype.main = function(configuration, finished_callback) {
 	console.time('Compile Time');
-	if (undefined !== finished_callback) {
-		configuration.finished_callback = finished_callback;
-	}
 
 	if (configuration.amd_namespace.length === 0) {
 		configuration.amd_namespace = 'amber_core';
@@ -136,6 +133,11 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	configuration.compiler_libraries = this.compiler_libraries;
 	configuration.amber_dir = this.amber_dir;
 
+	function logError(error) {
+		console.log(error);
+		finished_callback();
+	};
+
 	check_configuration(configuration)
 	.then(collect_st_files, logError)
 	.then(collect_js_files, logError)
@@ -148,12 +150,8 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	.then(function() {
 		console.log = console.ambercLog;
 		console.timeEnd('Compile Time');
+		finished_callback();
 	});
-};
-
-
-function logError(error) {
-	console.log(error);
 };
 
 
