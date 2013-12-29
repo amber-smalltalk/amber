@@ -145,9 +145,7 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	.then(collect_st_files, logError)
 	.then(collect_js_files, logError)
 	.then(resolve_kernel, logError)
-	.then(resolve_compiler, logError)
-	.then(create_compiler(configuration), logError)
-	.then(function() {return configuration;})
+	.then(create_compiler, logError)
 	.then(compile, logError)
 	.then(category_export, logError)
 	.then(verify, logError)
@@ -300,35 +298,20 @@ function resolve_kernel(configuration) {
 
 
 /**
- * Resolve .js files needed by compiler.
- * Returns a Promise which resolves with an array of all compiler related files.
+ * Resolve .js files needed by compiler, read and eval() them.
+ * The finished Compiler gets stored in configuration.smalltalk.
+ * Returns a Promise object which resolves into configuration.
  */
-function resolve_compiler(configuration) {
-	// Resolve compiler libraries
-	var compiler_files = configuration.compiler_libraries.concat(configuration.load);
+function create_compiler(configuration) {
 	return new Promise(function(resolve, reject) {
+		var compiler_files = configuration.compiler_libraries.concat(configuration.load);
 		Promise.all(
 			compiler_files.map(function(file) {
 				return resolve_js(file, configuration, resolve);
 			})
-		).then(function(compilerFiles) {
-			resolve(compilerFiles);
-		}, function(error) {
-			reject(error);
-		});
-	});
-};
-
-
-/**
- * Read all .js files needed by compiler and eval() them.
- * The finished Compiler gets stored in configuration.smalltalk.
- * Returns a Promise object.
- */
-function create_compiler(configuration) {
-	return function(compilerFilesArray) {
-		return new Promise(function(resolve, reject) {
-			Promise.all(
+		)
+		.then(function(compilerFilesArray) {
+			return Promise.all(
 				compilerFilesArray.map(function(file) {
 					return new Promise(function(resolve, reject) {
 						console.log('Loading file: ' + file);
@@ -340,39 +323,39 @@ function create_compiler(configuration) {
 						});
 					});
 				})
-			).then(function(files) {
-				var builder = createConcatenator();
-				builder.add('(function() {');
-				builder.start();
+			)
+		}).then(function(files) {
+			var builder = createConcatenator();
+			builder.add('(function() {');
+			builder.start();
 
-				files.forEach(function(data) {
-					// data is an array where index 0 is the error code and index 1 contains the data
-					builder.add(data);
-					// matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
-					var match = ('' + data).match(/^define\("([^"]*)"/);
-					if (match) {
-						builder.addId(match[1]);
-					}
-				});
-				// store the generated smalltalk env in configuration.smalltalk
-				builder.finish('configuration.smalltalk = smalltalk;');
-				builder.add('})();');
-
-				eval(builder.toString());
-				console.log('Compiler loaded');
-				configuration.smalltalk.ErrorHandler._setCurrent_(configuration.smalltalk.RethrowErrorHandler._new());
-
-				if(0 !== configuration.jsGlobals.length) {
-					var jsGlobalVariables = configuration.smalltalk.globalJsVariables;
-					jsGlobalVariables.push.apply(jsGlobalVariables, configuration.jsGlobals);
+			files.forEach(function(data) {
+				// data is an array where index 0 is the error code and index 1 contains the data
+				builder.add(data);
+				// matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
+				var match = ('' + data).match(/^define\("([^"]*)"/);
+				if (match) {
+					builder.addId(match[1]);
 				}
-
-				resolve(true);
-			}, function(error) {
-				reject(Error('Error creating compiler'));
 			});
+			// store the generated smalltalk env in configuration.smalltalk
+			builder.finish('configuration.smalltalk = smalltalk;');
+			builder.add('})();');
+
+			eval(builder.toString());
+			console.log('Compiler loaded');
+			configuration.smalltalk.ErrorHandler._setCurrent_(configuration.smalltalk.RethrowErrorHandler._new());
+
+			if(0 !== configuration.jsGlobals.length) {
+				var jsGlobalVariables = configuration.smalltalk.globalJsVariables;
+				jsGlobalVariables.push.apply(jsGlobalVariables, configuration.jsGlobals);
+			}
+
+			resolve(configuration);
+		}, function(error) {
+			reject(Error('Error creating compiler'));
 		});
-	};
+	});
 };
 
 
