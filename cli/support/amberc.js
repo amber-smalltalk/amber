@@ -134,47 +134,35 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	}
 
 	var self = this;
-	check_configuration(configuration).then(function(configuration) {
+	check_configuration(configuration)
+	.then(function(configuration) {
 		configuration.smalltalk = {}; // the evaluated compiler will be stored in this variable (see create_compiler)
 		configuration.kernel_libraries = self.kernel_libraries;
 		configuration.compiler_libraries = self.compiler_libraries;
 		configuration.amber_dir = self.amber_dir;
 		return configuration;
-	}, function (error) {
-		console.log(error);
-	})
-	.then(collect_st_files)
-	.then(collect_js_files)
-	.then(resolve_kernel)
-	.then(resolve_compiler)
-	.then(create_compiler(configuration))
-	.then(function(resolve) {
-		return configuration;
-	})
-	.then(readFiles)
-	.then(compile(configuration), function(error) {
-		console.error(error);
-	})
-	.then(function() {
-		return configuration;
-	})
-	.then(category_export)
-	.then(function(resolve) {
-		return configuration;
-	}, function(error) {
-		console.error(error);
-	})
-	.then(verify)
-	.then(function(resolve) {
-		return configuration;
-	}, function(error) {
-		console.error(error);
-	})
-	.then(compose_js_files)
+	}, logError)
+	.then(collect_st_files, logError)
+	.then(collect_js_files, logError)
+	.then(resolve_kernel, logError)
+	.then(resolve_compiler, logError)
+	.then(create_compiler(configuration), logError)
+	.then(function() {return configuration;})
+	.then(readFiles, logError)
+	.then(compile(configuration), logError)
+	.then(function() {return configuration;})
+	.then(category_export, logError)
+	.then(verify, logError)
+	.then(compose_js_files, logError)
 	.then(function() {
 		console.log = console.ambercLog;
 		console.timeEnd('Compile Time');
 	});
+};
+
+
+function logError(error) {
+	console.log(error);
 };
 
 
@@ -451,56 +439,63 @@ function readFiles(configuration) {
 
 /**
  * Export compiled categories to JavaScript files.
- * Returns a Promise.all() object.
+ * Returns a Promise() that resolves to configuration.
  */
 function category_export(configuration) {
-	return Promise.all(
-		configuration.compile.map(function(stFile) {
-			return new Promise(function(resolve, error) {
-				var category = path.basename(stFile, '.st');
-				var jsFilePath = configuration.output_dir;
-				if (undefined === jsFilePath) {
-					jsFilePath = path.dirname(stFile);
-				}
-				var jsFile = category + configuration.suffix_used + '.js';
-				jsFile = path.join(jsFilePath, jsFile);
-				configuration.compiled.push(jsFile);
-				var smalltalk = configuration.smalltalk;
-				var packageObject = smalltalk.Package._named_(category);
-				packageObject._transport()._namespace_(configuration.amd_namespace);
-				fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
-					smalltalk.AmdExporter._new()._exportPackage_on_(packageObject, stream);
-				}), function(err) {
-					if (err)
-						error(err);
-					else
-						resolve(true);
+	return new Promise(function(resolve, error) {
+		Promise.all(
+			configuration.compile.map(function(stFile) {
+				return new Promise(function(resolve, error) {
+					var category = path.basename(stFile, '.st');
+					var jsFilePath = configuration.output_dir;
+					if (undefined === jsFilePath) {
+						jsFilePath = path.dirname(stFile);
+					}
+					var jsFile = category + configuration.suffix_used + '.js';
+					jsFile = path.join(jsFilePath, jsFile);
+					configuration.compiled.push(jsFile);
+					var smalltalk = configuration.smalltalk;
+					var packageObject = smalltalk.Package._named_(category);
+					packageObject._transport()._namespace_(configuration.amd_namespace);
+					fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
+						smalltalk.AmdExporter._new()._exportPackage_on_(packageObject, stream);
+					}), function(err) {
+						if (err)
+							error(err);
+						else
+							resolve(true);
+					});
 				});
-			});
-		})
-	);
+			})
+		).then(function() {
+			resolve(configuration);
+		});
+	});
 };
 
 
 /**
  * Verify if all .st files have been compiled.
- * Returns a Promise.all() object.
+ * Returns a Promise() that resolves to configuration.
  */
 function verify(configuration) {
 	console.log('Verifying if all .st files were compiled');
-
-	return Promise.all(
-		configuration.compiled.map(function(file) {
-			return new Promise(function(resolve, error) {
-				fs.exists(file, function(exists) {
-					if (exists)
-						resolve(true);
-					else
-						error(Error('Compilation failed of: ' + file));
+	return new Promise(function(resolve, error) {
+		Promise.all(
+			configuration.compiled.map(function(file) {
+				return new Promise(function(resolve, error) {
+					fs.exists(file, function(exists) {
+						if (exists)
+							resolve(true);
+						else
+							error(Error('Compilation failed of: ' + file));
+					});
 				});
-			});
-		})
-	);
+			})
+		).then(function() {
+			resolve(configuration);
+		});
+	});
 };
 
 
