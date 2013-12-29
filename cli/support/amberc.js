@@ -170,7 +170,11 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	}, function(error) {
 		console.error(error);
 	})
-	.then(compose_js_files);
+	.then(compose_js_files)
+	.then(function() {
+		console.log = console.ambercLog;
+		console.timeEnd('Compile Time');
+	});
 };
 
 
