@@ -2609,6 +2609,7 @@ referencedClasses: []
 smalltalk.Smalltalk);
 
 
+smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
@@ -2616,11 +2617,19 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return smalltalk;
-return self}, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.Smalltalk.klass)})},
+var $2,$1;
+$2=self["@current"];
+if(($receiver = $2) == nil || $receiver == null){
+self["@current"]=self._new();
+$1=self["@current"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.Smalltalk.klass)})},
 args: [],
-source: "current\x0a\x09<return smalltalk>",
-messageSends: [],
+source: "current\x0a\x09^ current ifNil: [ current := self new ]",
+messageSends: ["ifNil:", "new"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk.klass);

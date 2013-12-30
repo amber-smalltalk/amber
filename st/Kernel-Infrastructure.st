@@ -985,10 +985,12 @@ isSmalltalkObject: anObject
 	<return typeof anObject.klass !!== 'undefined'>
 ! !
 
+Smalltalk class instanceVariableNames: 'current'!
+
 !Smalltalk class methodsFor: 'accessing'!
 
 current
-	<return smalltalk>
+	^ current ifNil: [ current := self new ]
 ! !
 
 !SequenceableCollection methodsFor: '*Kernel-Infrastructure'!
