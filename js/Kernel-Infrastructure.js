@@ -2061,13 +2061,11 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._basicAt_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.Smalltalk)})},
+return smalltalk[aString];
+return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.Smalltalk)})},
 args: ["aString"],
-source: "at: aString\x0a\x09^ self basicAt: aString",
-messageSends: ["basicAt:"],
+source: "at: aString\x0a\x09<return smalltalk[aString]>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -2102,13 +2100,11 @@ protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._basicAt_put_(aString,anObject);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.Smalltalk)})},
+return smalltalk[aString]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.Smalltalk)})},
 args: ["aString", "anObject"],
-source: "at: aString put: anObject\x0a\x09^ self basicAt: aString put: anObject",
-messageSends: ["basicAt:put:"],
+source: "at: aString put: anObject\x0a\x09<return smalltalk[aString]=anObject>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -2152,10 +2148,10 @@ protocol: 'classes',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.classes();
+return smalltalk.classes();
 return self}, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Smalltalk)})},
 args: [],
-source: "classes\x0a\x09<return self.classes()>",
+source: "classes\x0a\x09<return smalltalk.classes()>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2252,10 +2248,10 @@ protocol: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self.removeClass(aClass);
+smalltalk.removeClass(aClass);
 return self}, function($ctx1) {$ctx1.fill(self,"deleteClass:",{aClass:aClass},smalltalk.Smalltalk)})},
 args: ["aClass"],
-source: "deleteClass: aClass\x0a\x09\x22Deletes a class by deleting its binding only. Use #removeClass instead\x22\x0a\x09\x0a\x09<self.removeClass(aClass)>",
+source: "deleteClass: aClass\x0a\x09\x22Deletes a class by deleting its binding only. Use #removeClass instead\x22\x0a\x09\x0a\x09<smalltalk.removeClass(aClass)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2286,10 +2282,10 @@ protocol: 'private',
 fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-delete self.packages[ packageName];
+delete smalltalk.packages[packageName];
 return self}, function($ctx1) {$ctx1.fill(self,"deletePackage:",{packageName:packageName},smalltalk.Smalltalk)})},
 args: ["packageName"],
-source: "deletePackage: packageName\x0a\x09\x22Deletes a package by deleting its binding, but does not check if it contains classes etc.\x0a\x09To remove a package, use #removePackage instead.\x22\x0a\x0a\x09<delete self.packages[ packageName]>",
+source: "deletePackage: packageName\x0a\x09\x22Deletes a package by deleting its binding, but does not check if it contains classes etc.\x0a\x09To remove a package, use #removePackage instead.\x22\x0a\x0a\x09<delete smalltalk.packages[packageName]>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2302,10 +2298,10 @@ protocol: 'globals',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.globalJsVariables;
+return smalltalk.globalJsVariables;
 return self}, function($ctx1) {$ctx1.fill(self,"globalJsVariables",{},smalltalk.Smalltalk)})},
 args: [],
-source: "globalJsVariables\x0a\x09\x22Array of global JavaScript variables\x22\x0a\x09<return self.globalJsVariables>",
+source: "globalJsVariables\x0a\x09\x22Array of global JavaScript variables\x22\x0a\x09<return smalltalk.globalJsVariables>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2318,10 +2314,10 @@ protocol: 'accessing',
 fn: function (aKey){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.hasOwnProperty(aKey);
+return smalltalk.hasOwnProperty(aKey);
 return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey},smalltalk.Smalltalk)})},
 args: ["aKey"],
-source: "includesKey: aKey\x0a\x09<return self.hasOwnProperty(aKey)>",
+source: "includesKey: aKey\x0a\x09<return smalltalk.hasOwnProperty(aKey)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2350,10 +2346,10 @@ protocol: 'packages',
 fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.packages[ packageName];
+return smalltalk.packages[packageName];
 return self}, function($ctx1) {$ctx1.fill(self,"packageAt:",{packageName:packageName},smalltalk.Smalltalk)})},
 args: ["packageName"],
-source: "packageAt: packageName\x0a\x09<return self.packages[ packageName]>",
+source: "packageAt: packageName\x0a\x09<return smalltalk.packages[packageName]>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2386,13 +2382,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		return Object.keys(self.packages).map(function(k) {
-			return self.packages[k];
+		return Object.keys(smalltalk.packages).map(function(k) {
+			return smalltalk.packages[k];
 		})
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"packages",{},smalltalk.Smalltalk)})},
 args: [],
-source: "packages\x0a\x09\x22Return all Package instances in the system.\x22\x0a\x0a\x09<\x0a\x09\x09return Object.keys(self.packages).map(function(k) {\x0a\x09\x09\x09return self.packages[k];\x0a\x09\x09})\x0a\x09>",
+source: "packages\x0a\x09\x22Return all Package instances in the system.\x22\x0a\x0a\x09<\x0a\x09\x09return Object.keys(smalltalk.packages).map(function(k) {\x0a\x09\x09\x09return smalltalk.packages[k];\x0a\x09\x09})\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2486,10 +2482,10 @@ protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.readJSObject(anObject);
+return smalltalk.readJSObject(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"readJSObject:",{anObject:anObject},smalltalk.Smalltalk)})},
 args: ["anObject"],
-source: "readJSObject: anObject\x0a\x09<return self.readJSObject(anObject)>",
+source: "readJSObject: anObject\x0a\x09<return smalltalk.readJSObject(anObject)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2587,10 +2583,10 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.reservedWords;
+return smalltalk.reservedWords;
 return self}, function($ctx1) {$ctx1.fill(self,"reservedWords",{},smalltalk.Smalltalk)})},
 args: [],
-source: "reservedWords\x0a\x09\x22JavaScript reserved words\x22\x0a\x09<return self.reservedWords>",
+source: "reservedWords\x0a\x09\x22JavaScript reserved words\x22\x0a\x09<return smalltalk.reservedWords>",
 messageSends: [],
 referencedClasses: []
 }),

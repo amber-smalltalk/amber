@@ -781,7 +781,7 @@ It requires the `Compiler` package and the `js/parser.js` parser file in order t
 !Smalltalk methodsFor: 'accessing'!
 
 at: aString
-	^ self basicAt: aString
+	<return smalltalk[aString]>
 !
 
 at: aKey ifAbsent: aBlock
@@ -791,11 +791,11 @@ at: aKey ifAbsent: aBlock
 !
 
 at: aString put: anObject
-	^ self basicAt: aString put: anObject
+	<return smalltalk[aString]=anObject>
 !
 
 includesKey: aKey
-	<return self.hasOwnProperty(aKey)>
+	<return smalltalk.hasOwnProperty(aKey)>
 !
 
 parse: aString
@@ -815,12 +815,12 @@ pseudoVariableNames
 !
 
 readJSObject: anObject
-	<return self.readJSObject(anObject)>
+	<return smalltalk.readJSObject(anObject)>
 !
 
 reservedWords
 	"JavaScript reserved words"
-	<return self.reservedWords>
+	<return smalltalk.reservedWords>
 !
 
 version
@@ -846,7 +846,7 @@ defaultAmdNamespace: aString
 !Smalltalk methodsFor: 'classes'!
 
 classes
-	<return self.classes()>
+	<return smalltalk.classes()>
 !
 
 removeClass: aClass
@@ -887,7 +887,7 @@ deleteGlobalJsVariable: aString
 
 globalJsVariables
 	"Array of global JavaScript variables"
-	<return self.globalJsVariables>
+	<return smalltalk.globalJsVariables>
 ! !
 
 !Smalltalk methodsFor: 'packages'!
@@ -906,7 +906,7 @@ createPackage: packageName
 !
 
 packageAt: packageName
-	<return self.packages[ packageName]>
+	<return smalltalk.packages[packageName]>
 !
 
 packageAt: packageName ifAbsent: aBlock
@@ -917,8 +917,8 @@ packages
 	"Return all Package instances in the system."
 
 	<
-		return Object.keys(self.packages).map(function(k) {
-			return self.packages[k];
+		return Object.keys(smalltalk.packages).map(function(k) {
+			return smalltalk.packages[k];
 		})
 	>
 !
@@ -966,14 +966,14 @@ createPackage: packageName properties: aDict
 deleteClass: aClass
 	"Deletes a class by deleting its binding only. Use #removeClass instead"
 	
-	<self.removeClass(aClass)>
+	<smalltalk.removeClass(aClass)>
 !
 
 deletePackage: packageName
 	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
 	To remove a package, use #removePackage instead."
 
-	<delete self.packages[ packageName]>
+	<delete smalltalk.packages[packageName]>
 ! !
 
 !Smalltalk methodsFor: 'testing'!
