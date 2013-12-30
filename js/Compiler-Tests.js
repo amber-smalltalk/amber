@@ -785,15 +785,16 @@ selector: "testPascalCaseGlobal",
 protocol: 'tests',
 fn: function (){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-self._should_return_("foo ^Object",_st(smalltalk)._at_("Object"));
+self._should_return_("foo ^Object",_st(_st($Smalltalk())._current())._at_("Object"));
 $ctx1.sendIdx["should:return:"]=1;
 self._should_return_("foo ^NonExistent",nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testPascalCaseGlobal",{},smalltalk.CodeGeneratorTest)})},
 args: [],
-source: "testPascalCaseGlobal\x0a\x09self should: 'foo ^Object' return: (smalltalk at: 'Object').\x0a\x09self should: 'foo ^NonExistent' return: nil",
-messageSends: ["should:return:", "at:"],
-referencedClasses: []
+source: "testPascalCaseGlobal\x0a\x09self should: 'foo ^Object' return: (Smalltalk current at: 'Object').\x0a\x09self should: 'foo ^NonExistent' return: nil",
+messageSends: ["should:return:", "at:", "current"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.CodeGeneratorTest);
 

@@ -309,7 +309,7 @@ testNonLocalReturn
 !
 
 testPascalCaseGlobal
-	self should: 'foo ^Object' return: (smalltalk at: 'Object').
+	self should: 'foo ^Object' return: (Smalltalk current at: 'Object').
 	self should: 'foo ^NonExistent' return: nil
 !
 
