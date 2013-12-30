@@ -92,27 +92,24 @@ function inherits(child, parent) {
 	return child;
 }
 
-/* Smalltalk foundational objects */
-
-/* SmalltalkRoot is the hidden root of the Amber hierarchy.
- All objects including `Object` inherit from SmalltalkRoot */
-function SmalltalkRoot() {}
-function SmalltalkProtoObject() {}
-inherits(SmalltalkProtoObject, SmalltalkRoot);
-function SmalltalkObject() {}
-inherits(SmalltalkObject, SmalltalkProtoObject);
-
-function Smalltalk() {}
-inherits(Smalltalk, SmalltalkObject);
-
-var api = new Smalltalk();
+var api = {};
 var brikz = new Brikz(api);
 
 function RootBrik(brikz, st) {
 
+	/* Smalltalk foundational objects */
+
+	/* SmalltalkRoot is the hidden root of the Amber hierarchy.
+	 All objects including `Object` inherit from SmalltalkRoot */
+	function SmalltalkRoot() {}
+	function SmalltalkProtoObject() {}
+	inherits(SmalltalkProtoObject, SmalltalkRoot);
+	function SmalltalkObject() {}
+	inherits(SmalltalkObject, SmalltalkProtoObject);
 	function SmalltalkNil() {}
 	inherits(SmalltalkNil, SmalltalkObject);
 
+	this.Object = SmalltalkObject;
 	this.nil = new SmalltalkNil();
 
 	// Hidden root class of the system.
@@ -123,7 +120,6 @@ function RootBrik(brikz, st) {
 		st.addPackage("Kernel-Infrastructure");
 		st.wrapClassName("ProtoObject", "Kernel-Objects", SmalltalkProtoObject, undefined, false);
 		st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, st.ProtoObject, false);
-		st.wrapClassName("Smalltalk", "Kernel-Infrastructure", Smalltalk, st.Object, false);
 		st.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, st.Object, false);
 	};
 }
@@ -131,7 +127,7 @@ function RootBrik(brikz, st) {
 function OrganizeBrik(brikz, st) {
 
 	brikz.ensure("augments");
-	brikz.ensure("root");
+	var SmalltalkObject = brikz.ensure("root").Object;
 
 	function SmalltalkOrganizer () {}
 	function SmalltalkPackageOrganizer () {
@@ -308,6 +304,7 @@ function ClassesBrik(brikz, st) {
 	var root = brikz.ensure("root");
 	var nil = root.nil;
 	var rootAsClass = root.rootAsClass;
+	var SmalltalkObject = root.Object;
 	rootAsClass.klass = {fn: SmalltalkClass};
 
 	function SmalltalkPackage() {}
@@ -569,6 +566,7 @@ function MethodsBrik(brikz, st) {
 	var org = brikz.ensure("organize");
 	var stInit = brikz.ensure("stInit");
 	var dnu = brikz.ensure("dnu");
+	var SmalltalkObject = brikz.ensure("root").Object;
 	brikz.ensure("selectorConversion");
 	brikz.ensure("classes");
 	brikz.ensure("classInit");
@@ -819,7 +817,9 @@ function PrimitivesBrik(brikz, st) {
 function RuntimeBrik(brikz, st) {
 
 	brikz.ensure("selectorConversion");
-	var nil = brikz.ensure("root").nil;
+	var root = brikz.ensure("root");
+	var nil = root.nil;
+	var SmalltalkObject = root.Object;
 
 	function SmalltalkMethodContext(home, setup) {
 		this.sendIdx     = {};
@@ -902,7 +902,7 @@ function RuntimeBrik(brikz, st) {
 	}
 
 	/* Wrap a JavaScript exception in a Smalltalk Exception. 
-	 
+
 	 In case of a RangeError, stub the stack after 100 contexts to
 	 avoid another RangeError later when the stack is manipulated. */
 	function wrappedError(error) {
