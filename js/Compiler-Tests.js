@@ -1376,19 +1376,20 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $InvalidAssignmentError(){return smalltalk.InvalidAssignmentError||(typeof InvalidAssignmentError=="undefined"?nil:InvalidAssignmentError)}
 return smalltalk.withContext(function($ctx1) { 
 src="foo self := 1";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@analyzer"])._visit_(ast);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$InvalidAssignmentError());
 return self}, function($ctx1) {$ctx1.fill(self,"testAssignment",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testAssignment\x0a\x09| src ast |\x0a\x0a\x09src := 'foo self := 1'.\x0a\x09ast := smalltalk parse: src.\x0a\x09self should: [analyzer visit: ast] raise: InvalidAssignmentError",
-messageSends: ["parse:", "should:raise:", "visit:"],
-referencedClasses: ["InvalidAssignmentError"]
+source: "testAssignment\x0a\x09| src ast |\x0a\x0a\x09src := 'foo self := 1'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x09self should: [analyzer visit: ast] raise: InvalidAssignmentError",
+messageSends: ["parse:", "current", "should:raise:", "visit:"],
+referencedClasses: ["Smalltalk", "InvalidAssignmentError"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1399,16 +1400,17 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 src="foo | a | a + 1. ^ a";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 self._deny_(_st(_st(ast)._scope())._hasNonLocalReturn());
 return self}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testNonLocalReturn\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. ^ a'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self deny: ast scope hasNonLocalReturn",
-messageSends: ["parse:", "visit:", "deny:", "hasNonLocalReturn", "scope"],
-referencedClasses: []
+source: "testNonLocalReturn\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. ^ a'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self deny: ast scope hasNonLocalReturn",
+messageSends: ["parse:", "current", "visit:", "deny:", "hasNonLocalReturn", "scope"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1419,16 +1421,17 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 src="foo | a | a + 1. [ [ ^ a] ]";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 self._assert_(_st(_st(ast)._scope())._hasNonLocalReturn());
 return self}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn2",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testNonLocalReturn2\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ ^ a] ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope hasNonLocalReturn",
-messageSends: ["parse:", "visit:", "assert:", "hasNonLocalReturn", "scope"],
-referencedClasses: []
+source: "testNonLocalReturn2\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ ^ a] ]'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope hasNonLocalReturn",
+messageSends: ["parse:", "current", "visit:", "assert:", "hasNonLocalReturn", "scope"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1439,10 +1442,11 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $4,$3,$2,$1;
 src="foo | a | a + 1. [ | b | b := a ]";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 $4=_st(_st(_st(ast)._nodes())._first())._nodes();
 $ctx1.sendIdx["nodes"]=1;
@@ -1453,9 +1457,9 @@ $1=_st($2).__eq_eq(_st(ast)._scope());
 self._deny_($1);
 return self}, function($ctx1) {$ctx1.fill(self,"testScope",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testScope\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ | b | b := a ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self deny: ast nodes first nodes last scope == ast scope.",
-messageSends: ["parse:", "visit:", "deny:", "==", "scope", "last", "nodes", "first"],
-referencedClasses: []
+source: "testScope\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ | b | b := a ]'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self deny: ast nodes first nodes last scope == ast scope.",
+messageSends: ["parse:", "current", "visit:", "deny:", "==", "scope", "last", "nodes", "first"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1466,10 +1470,11 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $8,$7,$6,$5,$4,$3,$2,$1;
 src="foo | a | a + 1. [ [ | b | b := a ] ]";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 $8=_st(_st(_st(ast)._nodes())._first())._nodes();
 $ctx1.sendIdx["nodes"]=3;
@@ -1488,9 +1493,9 @@ $1=_st($2).__eq_eq(_st(ast)._scope());
 self._deny_($1);
 return self}, function($ctx1) {$ctx1.fill(self,"testScope2",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testScope2\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self deny: ast nodes first nodes last nodes first nodes first scope == ast scope.",
-messageSends: ["parse:", "visit:", "deny:", "==", "scope", "first", "nodes", "last"],
-referencedClasses: []
+source: "testScope2\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self deny: ast nodes first nodes last nodes first nodes first scope == ast scope.",
+messageSends: ["parse:", "current", "visit:", "deny:", "==", "scope", "first", "nodes", "last"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1501,10 +1506,11 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$10,$9,$8,$7,$6,$5,$4,$3;
 src="foo | a | a + 1. [ [ | b | b := a ] ]";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 $2=_st(ast)._scope();
 $ctx1.sendIdx["scope"]=1;
@@ -1528,9 +1534,9 @@ $3=_st($4)._scopeLevel();
 self._assert_equals_($3,(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testScopeLevel",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testScopeLevel\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope scopeLevel equals: 1.\x0a\x09self assert: ast nodes first nodes last nodes first nodes first scope scopeLevel equals: 3",
-messageSends: ["parse:", "visit:", "assert:equals:", "scopeLevel", "scope", "first", "nodes", "last"],
-referencedClasses: []
+source: "testScopeLevel\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope scopeLevel equals: 1.\x0a\x09self assert: ast nodes first nodes last nodes first nodes first scope scopeLevel equals: 3",
+messageSends: ["parse:", "current", "visit:", "assert:equals:", "scopeLevel", "scope", "first", "nodes", "last"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1541,19 +1547,20 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 return smalltalk.withContext(function($ctx1) { 
 src="foo | a | b + a";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@analyzer"])._visit_(ast);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$UnknownVariableError());
 return self}, function($ctx1) {$ctx1.fill(self,"testUnknownVariables",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testUnknownVariables\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | b + a'.\x0a\x09ast := smalltalk parse: src.\x0a\x0a\x09self should: [ analyzer visit: ast ] raise: UnknownVariableError",
-messageSends: ["parse:", "should:raise:", "visit:"],
-referencedClasses: ["UnknownVariableError"]
+source: "testUnknownVariables\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | b + a'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x0a\x09self should: [ analyzer visit: ast ] raise: UnknownVariableError",
+messageSends: ["parse:", "current", "should:raise:", "visit:"],
+referencedClasses: ["Smalltalk", "UnknownVariableError"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1564,19 +1571,20 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 return smalltalk.withContext(function($ctx1) { 
 src="foo | a b | [ c + 1. [ a + 1. d + 1 ]]";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@analyzer"])._visit_(ast);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$UnknownVariableError());
 return self}, function($ctx1) {$ctx1.fill(self,"testUnknownVariablesWithScope",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testUnknownVariablesWithScope\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a b | [ c + 1. [ a + 1. d + 1 ]]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09\x0a\x09self should: [ analyzer visit: ast ] raise: UnknownVariableError",
-messageSends: ["parse:", "should:raise:", "visit:"],
-referencedClasses: ["UnknownVariableError"]
+source: "testUnknownVariablesWithScope\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a b | [ c + 1. [ a + 1. d + 1 ]]'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x09\x0a\x09self should: [ analyzer visit: ast ] raise: UnknownVariableError",
+messageSends: ["parse:", "current", "should:raise:", "visit:"],
+referencedClasses: ["Smalltalk", "UnknownVariableError"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1587,15 +1595,16 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 src="foo | a | a + 1";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testVariableShadowing\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast",
-messageSends: ["parse:", "visit:"],
-referencedClasses: []
+source: "testVariableShadowing\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x09analyzer visit: ast",
+messageSends: ["parse:", "current", "visit:"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1606,19 +1615,20 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ShadowingVariableError(){return smalltalk.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
 return smalltalk.withContext(function($ctx1) { 
 src="foo | a | a + 1. [ | a | a := 2 ]";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@analyzer"])._visit_(ast);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$ShadowingVariableError());
 return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing2",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testVariableShadowing2\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ | a | a := 2 ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09self should: [analyzer visit: ast] raise: ShadowingVariableError",
-messageSends: ["parse:", "should:raise:", "visit:"],
-referencedClasses: ["ShadowingVariableError"]
+source: "testVariableShadowing2\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ | a | a := 2 ]'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x09self should: [analyzer visit: ast] raise: ShadowingVariableError",
+messageSends: ["parse:", "current", "should:raise:", "visit:"],
+referencedClasses: ["Smalltalk", "ShadowingVariableError"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1629,15 +1639,16 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 src="foo | a | a + 1. [ | b | b := 2 ]";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing3",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testVariableShadowing3\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ | b | b := 2 ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast",
-messageSends: ["parse:", "visit:"],
-referencedClasses: []
+source: "testVariableShadowing3\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ | b | b := 2 ]'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x09analyzer visit: ast",
+messageSends: ["parse:", "current", "visit:"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1648,15 +1659,16 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 src="foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing4",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testVariableShadowing4\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast",
-messageSends: ["parse:", "visit:"],
-referencedClasses: []
+source: "testVariableShadowing4\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x09analyzer visit: ast",
+messageSends: ["parse:", "current", "visit:"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1667,19 +1679,20 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ShadowingVariableError(){return smalltalk.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
 return smalltalk.withContext(function($ctx1) { 
 src="foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@analyzer"])._visit_(ast);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$ShadowingVariableError());
 return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing5",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testVariableShadowing5\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09self should: [analyzer visit: ast] raise: ShadowingVariableError",
-messageSends: ["parse:", "should:raise:", "visit:"],
-referencedClasses: ["ShadowingVariableError"]
+source: "testVariableShadowing5\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x09self should: [analyzer visit: ast] raise: ShadowingVariableError",
+messageSends: ["parse:", "current", "should:raise:", "visit:"],
+referencedClasses: ["Smalltalk", "ShadowingVariableError"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1690,10 +1703,11 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $7,$6,$5,$4,$3,$2,$1,$15,$14,$13,$12,$11,$10,$9,$16,$8,$27,$26,$25,$24,$23,$22,$21,$20,$19,$18,$17,$39,$38,$37,$36,$35,$34,$33,$32,$31,$30,$29,$42,$41,$40,$28;
 src="foo | a | a + 1. [ | b | b := a ]";
-ast=_st(smalltalk)._parse_(src);
+ast=_st(_st($Smalltalk())._current())._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 $7=_st(ast)._nodes();
 $ctx1.sendIdx["nodes"]=2;
@@ -1781,9 +1795,9 @@ $28=_st($29).__eq_eq($40);
 self._assert_($28);
 return self}, function($ctx1) {$ctx1.fill(self,"testVariablesLookup",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testVariablesLookup\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ | b | b := a ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09\x22Binding for `a` in the message send\x22\x0a\x09self assert: ast nodes first nodes first receiver binding isTempVar.\x0a\x09self assert: ast nodes first nodes first receiver binding scope == ast scope.\x0a\x0a\x09\x22Binding for `b`\x22\x0a\x09self assert: ast nodes first nodes last nodes first nodes first left binding isTempVar.\x0a\x09self assert: ast nodes first nodes last nodes first nodes first left binding scope == ast nodes first nodes last scope.",
-messageSends: ["parse:", "visit:", "assert:", "isTempVar", "binding", "receiver", "first", "nodes", "==", "scope", "left", "last"],
-referencedClasses: []
+source: "testVariablesLookup\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ | b | b := a ]'.\x0a\x09ast := Smalltalk current parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09\x22Binding for `a` in the message send\x22\x0a\x09self assert: ast nodes first nodes first receiver binding isTempVar.\x0a\x09self assert: ast nodes first nodes first receiver binding scope == ast scope.\x0a\x0a\x09\x22Binding for `b`\x22\x0a\x09self assert: ast nodes first nodes last nodes first nodes first left binding isTempVar.\x0a\x09self assert: ast nodes first nodes last nodes first nodes first left binding scope == ast nodes first nodes last scope.",
+messageSends: ["parse:", "current", "visit:", "assert:", "isTempVar", "binding", "receiver", "first", "nodes", "==", "scope", "left", "last"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
