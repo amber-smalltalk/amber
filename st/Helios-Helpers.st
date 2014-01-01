@@ -225,24 +225,6 @@ compile
 					protocol: protocol ] ]
 ! !
 
-HLGenerationOutput subclass: #HLGenerationOutputWithIndex
-	instanceVariableNames: 'index'
-	package: 'Helios-Helpers'!
-!HLGenerationOutputWithIndex commentStamp!
-I am a simple data object used to store the result of a generation process.
-
-In addition of my super class, I have an index where to put the cursor at the end of the process for the first method created (aka. the first in `sourceCodes`)!
-
-!HLGenerationOutputWithIndex methodsFor: 'accessing'!
-
-index
-	^ index
-!
-
-index: anIndex
-	index := anIndex
-! !
-
 Object subclass: #HLMethodClassifier
 	instanceVariableNames: 'firstLink'
 	package: 'Helios-Helpers'!

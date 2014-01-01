@@ -541,44 +541,6 @@ smalltalk.HLGenerationOutput);
 
 
 
-smalltalk.addClass('HLGenerationOutputWithIndex', smalltalk.HLGenerationOutput, ['index'], 'Helios-Helpers');
-smalltalk.HLGenerationOutputWithIndex.comment="I am a simple data object used to store the result of a generation process.\x0a\x0aIn addition of my super class, I have an index where to put the cursor at the end of the process for the first method created (aka. the first in `sourceCodes`)";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "index",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@index"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"index",{},smalltalk.HLGenerationOutputWithIndex)})},
-args: [],
-source: "index\x0a\x09^ index",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLGenerationOutputWithIndex);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "index:",
-protocol: 'accessing',
-fn: function (anIndex){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@index"]=anIndex;
-return self}, function($ctx1) {$ctx1.fill(self,"index:",{anIndex:anIndex},smalltalk.HLGenerationOutputWithIndex)})},
-args: ["anIndex"],
-source: "index: anIndex\x0a\x09index := anIndex",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLGenerationOutputWithIndex);
-
-
-
 smalltalk.addClass('HLMethodClassifier', smalltalk.Object, ['firstLink'], 'Helios-Helpers');
 smalltalk.HLMethodClassifier.comment="I am in charge of categorizing methods following this strategy:\x0a\x0a- is it an accessor?\x0a- is it overriding a superclass method?\x0a- is it starting with a know prefix?\x0a- how are categorized the other implementations?";
 smalltalk.addMethod(
