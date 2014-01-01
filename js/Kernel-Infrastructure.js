@@ -1984,8 +1984,8 @@ referencedClasses: []
 smalltalk.ProgressHandler.klass);
 
 
-smalltalk.addClass('Smalltalk', smalltalk.Object, [], 'Kernel-Infrastructure');
-smalltalk.Smalltalk.comment="I represent the global JavaScript variable `smalltalk` declared in `js/boot.js`.\x0a\x0a## API\x0a\x0aI have only one instance, accessed with class-side method `#current`.\x0a\x0aThe `smalltalk` object holds all class and packages defined in the system.\x0a\x0a## Classes\x0a\x0aClasses can be accessed using the following methods:\x0a\x0a- `#classes` answers the full list of Smalltalk classes in the system\x0a- `#at:` answers a specific class or `nil`\x0a\x0a## Packages\x0a\x0aPackages can be accessed using the following methods:\x0a\x0a- `#packages` answers the full list of packages\x0a- `#packageAt:` answers a specific package or `nil`\x0a\x0a## Parsing\x0a\x0aThe `#parse:` method is used to parse Amber source code.\x0aIt requires the `Compiler` package and the `js/parser.js` parser file in order to work.";
+smalltalk.addClass('SmalltalkImage', smalltalk.Object, [], 'Kernel-Infrastructure');
+smalltalk.SmalltalkImage.comment="I represent the Smalltalk system, wrapping\x0aoperations of variable `smalltalk` declared in `js/boot.js`.\x0a\x0a## API\x0a\x0aI have only one instance, accessed with global variable `Smalltalk`.\x0a\x0aThe `smalltalk` object holds all class and packages defined in the system.\x0a\x0a## Classes\x0a\x0aClasses can be accessed using the following methods:\x0a\x0a- `#classes` answers the full list of Smalltalk classes in the system\x0a- `#at:` answers a specific class or `nil`\x0a\x0a## Packages\x0a\x0aPackages can be accessed using the following methods:\x0a\x0a- `#packages` answers the full list of packages\x0a- `#packageAt:` answers a specific package or `nil`\x0a\x0a## Parsing\x0a\x0aThe `#parse:` method is used to parse Amber source code.\x0aIt requires the `Compiler` package and the `js/parser.js` parser file in order to work.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addGlobalJsVariable:",
@@ -1994,13 +1994,13 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._globalJsVariables())._add_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"addGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"addGlobalJsVariable:",{aString:aString},smalltalk.SmalltalkImage)})},
 args: ["aString"],
 source: "addGlobalJsVariable: aString\x0a\x09self globalJsVariables add: aString",
 messageSends: ["add:", "globalJsVariables"],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2012,13 +2012,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._at_("amdRequire");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"amdRequire",{},smalltalk.Smalltalk)})},
+}, function($ctx1) {$ctx1.fill(self,"amdRequire",{},smalltalk.SmalltalkImage)})},
 args: [],
 source: "amdRequire\x0a\x09^ self at: 'amdRequire'",
 messageSends: ["at:"],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2040,13 +2040,13 @@ $1=anObject;
 $1=_st($JavaScriptException())._on_(anObject);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSmalltalkException:",{anObject:anObject},smalltalk.Smalltalk)})},
+}, function($ctx1) {$ctx1.fill(self,"asSmalltalkException:",{anObject:anObject},smalltalk.SmalltalkImage)})},
 args: ["anObject"],
 source: "asSmalltalkException: anObject\x0a\x09\x22A JavaScript exception may be thrown.\x0a\x09We then need to convert it back to a Smalltalk object\x22\x0a\x09\x0a\x09^ ((self isSmalltalkObject: anObject) and: [ anObject isKindOf: Error ])\x0a\x09\x09ifTrue: [ anObject ]\x0a\x09\x09ifFalse: [ JavaScriptException on: anObject ]",
 messageSends: ["ifTrue:ifFalse:", "and:", "isSmalltalkObject:", "isKindOf:", "on:"],
 referencedClasses: ["Error", "JavaScriptException"]
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2056,13 +2056,13 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk[aString];
-return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.SmalltalkImage)})},
 args: ["aString"],
 source: "at: aString\x0a\x09<return smalltalk[aString]>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2079,13 +2079,13 @@ $1=self._at_(aKey);
 $1=_st(aBlock)._value();
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.Smalltalk)})},
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.SmalltalkImage)})},
 args: ["aKey", "aBlock"],
 source: "at: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ self at: aKey ]\x0a\x09\x09ifFalse: [ aBlock value ]",
 messageSends: ["ifTrue:ifFalse:", "includesKey:", "at:", "value"],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2095,13 +2095,13 @@ fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk[aString]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.SmalltalkImage)})},
 args: ["aString", "anObject"],
 source: "at: aString put: anObject\x0a\x09<return smalltalk[aString]=anObject>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2111,13 +2111,13 @@ fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.addPackage(packageName);
-return self}, function($ctx1) {$ctx1.fill(self,"basicCreatePackage:",{packageName:packageName},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"basicCreatePackage:",{packageName:packageName},smalltalk.SmalltalkImage)})},
 args: ["packageName"],
 source: "basicCreatePackage: packageName\x0a\x09\x22Create and bind a new bare package with given name and return it.\x22\x0a\x09<return smalltalk.addPackage(packageName)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2127,13 +2127,13 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.parser.parse(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"basicParse:",{aString:aString},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"basicParse:",{aString:aString},smalltalk.SmalltalkImage)})},
 args: ["aString"],
 source: "basicParse: aString\x0a\x09<return smalltalk.parser.parse(aString)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2143,13 +2143,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.classes();
-return self}, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.SmalltalkImage)})},
 args: [],
 source: "classes\x0a\x09<return smalltalk.classes()>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2170,13 +2170,13 @@ announcement=$2;
 _st(_st($SystemAnnouncer())._current())._announce_(announcement);
 $3=package_;
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"createPackage:",{packageName:packageName,package_:package_,announcement:announcement},smalltalk.Smalltalk)})},
+}, function($ctx1) {$ctx1.fill(self,"createPackage:",{packageName:packageName,package_:package_,announcement:announcement},smalltalk.SmalltalkImage)})},
 args: ["packageName"],
 source: "createPackage: packageName\x0a\x09| package announcement |\x0a\x09\x0a\x09package := self basicCreatePackage: packageName.\x0a\x09announcement := PackageAdded new\x0a\x09\x09package: package;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09SystemAnnouncer current announce: announcement.\x0a\x09\x0a\x09^ package",
 messageSends: ["basicCreatePackage:", "package:", "new", "yourself", "announce:", "current"],
 referencedClasses: ["PackageAdded", "SystemAnnouncer"]
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2193,13 +2193,29 @@ self._error_("createPackage:properties: called with nonempty properties");
 };
 $2=self._createPackage_(packageName);
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"createPackage:properties:",{packageName:packageName,aDict:aDict},smalltalk.Smalltalk)})},
+}, function($ctx1) {$ctx1.fill(self,"createPackage:properties:",{packageName:packageName,aDict:aDict},smalltalk.SmalltalkImage)})},
 args: ["packageName", "aDict"],
 source: "createPackage: packageName properties: aDict\x0a\x09\x22Needed to import .st files: they begin with this call.\x22\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].\x0a\x09^ self createPackage: packageName",
 messageSends: ["deprecatedAPI", "ifFalse:", "isEmpty", "error:", "createPackage:"],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "current",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self;
+}, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.SmalltalkImage)})},
+args: [],
+source: "current\x0a\x09\x22Backward compatibility for Smalltalk current ...\x22\x0a\x09^ self",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2211,13 +2227,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._at_("defaultAmdNamespace");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},smalltalk.Smalltalk)})},
+}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},smalltalk.SmalltalkImage)})},
 args: [],
 source: "defaultAmdNamespace\x0a\x09^ self at: 'defaultAmdNamespace'",
 messageSends: ["at:"],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2227,13 +2243,13 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("defaultAmdNamespace",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace:",{aString:aString},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace:",{aString:aString},smalltalk.SmalltalkImage)})},
 args: ["aString"],
 source: "defaultAmdNamespace: aString\x0a\x09self at: 'defaultAmdNamespace' put: aString",
 messageSends: ["at:put:"],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2243,13 +2259,13 @@ fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.removeClass(aClass);
-return self}, function($ctx1) {$ctx1.fill(self,"deleteClass:",{aClass:aClass},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"deleteClass:",{aClass:aClass},smalltalk.SmalltalkImage)})},
 args: ["aClass"],
 source: "deleteClass: aClass\x0a\x09\x22Deletes a class by deleting its binding only. Use #removeClass instead\x22\x0a\x09\x0a\x09<smalltalk.removeClass(aClass)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2261,13 +2277,13 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._globalJsVariables())._remove_ifAbsent_(aString,(function(){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},smalltalk.SmalltalkImage)})},
 args: ["aString"],
 source: "deleteGlobalJsVariable: aString\x0a\x09self globalJsVariables remove: aString ifAbsent:[]",
 messageSends: ["remove:ifAbsent:", "globalJsVariables"],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2277,13 +2293,13 @@ fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 delete smalltalk.packages[packageName];
-return self}, function($ctx1) {$ctx1.fill(self,"deletePackage:",{packageName:packageName},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"deletePackage:",{packageName:packageName},smalltalk.SmalltalkImage)})},
 args: ["packageName"],
 source: "deletePackage: packageName\x0a\x09\x22Deletes a package by deleting its binding, but does not check if it contains classes etc.\x0a\x09To remove a package, use #removePackage instead.\x22\x0a\x0a\x09<delete smalltalk.packages[packageName]>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2293,13 +2309,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.globalJsVariables;
-return self}, function($ctx1) {$ctx1.fill(self,"globalJsVariables",{},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"globalJsVariables",{},smalltalk.SmalltalkImage)})},
 args: [],
 source: "globalJsVariables\x0a\x09\x22Array of global JavaScript variables\x22\x0a\x09<return smalltalk.globalJsVariables>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2309,13 +2325,13 @@ fn: function (aKey){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.hasOwnProperty(aKey);
-return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey},smalltalk.SmalltalkImage)})},
 args: ["aKey"],
 source: "includesKey: aKey\x0a\x09<return smalltalk.hasOwnProperty(aKey)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2325,13 +2341,13 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return typeof anObject.klass !== 'undefined';
-return self}, function($ctx1) {$ctx1.fill(self,"isSmalltalkObject:",{anObject:anObject},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"isSmalltalkObject:",{anObject:anObject},smalltalk.SmalltalkImage)})},
 args: ["anObject"],
 source: "isSmalltalkObject: anObject\x0a\x09\x22Consider anObject a Smalltalk object if it has a 'klass' property.\x0a\x09Note that this may be unaccurate\x22\x0a\x09\x0a\x09<return typeof anObject.klass !== 'undefined'>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2341,13 +2357,13 @@ fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.packages[packageName];
-return self}, function($ctx1) {$ctx1.fill(self,"packageAt:",{packageName:packageName},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"packageAt:",{packageName:packageName},smalltalk.SmalltalkImage)})},
 args: ["packageName"],
 source: "packageAt: packageName\x0a\x09<return smalltalk.packages[packageName]>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2360,13 +2376,13 @@ var $2,$1;
 $2=self._packageAt_(packageName);
 $1=_st($2)._ifNil_(aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"packageAt:ifAbsent:",{packageName:packageName,aBlock:aBlock},smalltalk.Smalltalk)})},
+}, function($ctx1) {$ctx1.fill(self,"packageAt:ifAbsent:",{packageName:packageName,aBlock:aBlock},smalltalk.SmalltalkImage)})},
 args: ["packageName", "aBlock"],
 source: "packageAt: packageName ifAbsent: aBlock\x0a\x09^ (self packageAt: packageName) ifNil: aBlock",
 messageSends: ["ifNil:", "packageAt:"],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2380,13 +2396,13 @@ return smalltalk.withContext(function($ctx1) {
 			return smalltalk.packages[k];
 		})
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"packages",{},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"packages",{},smalltalk.SmalltalkImage)})},
 args: [],
 source: "packages\x0a\x09\x22Return all Package instances in the system.\x22\x0a\x0a\x09<\x0a\x09\x09return Object.keys(smalltalk.packages).map(function(k) {\x0a\x09\x09\x09return smalltalk.packages[k];\x0a\x09\x09})\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2410,13 +2426,13 @@ _st($2)._source_(aString);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString,result:result},smalltalk.Smalltalk)})},
+}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString,result:result},smalltalk.SmalltalkImage)})},
 args: ["aString"],
 source: "parse: aString\x0a\x09| result |\x0a\x09\x0a\x09self \x0a\x09\x09try: [ result := self basicParse: aString ] \x0a\x09\x09catch: [ :ex | (self parseError: ex parsing: aString) signal ].\x0a\x09\x09\x0a\x09^ result\x0a\x09\x09source: aString;\x0a\x09\x09yourself",
 messageSends: ["try:catch:", "basicParse:", "signal", "parseError:parsing:", "source:", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2443,13 +2459,13 @@ $3=_st($4).__comma(_st(anException)._basicAt_("found"));
 $ctx1.sendIdx[","]=1;
 $1=_st($2)._messageText_($3);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parseError:parsing:",{anException:anException,aString:aString},smalltalk.Smalltalk)})},
+}, function($ctx1) {$ctx1.fill(self,"parseError:parsing:",{anException:anException,aString:aString},smalltalk.SmalltalkImage)})},
 args: ["anException", "aString"],
 source: "parseError: anException parsing: aString\x0a\x09^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')",
 messageSends: ["messageText:", "new", ",", "basicAt:"],
 referencedClasses: ["ParseError"]
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2461,13 +2477,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=["self", "super", "nil", "true", "false", "thisContext"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"pseudoVariableNames",{},smalltalk.Smalltalk)})},
+}, function($ctx1) {$ctx1.fill(self,"pseudoVariableNames",{},smalltalk.SmalltalkImage)})},
 args: [],
 source: "pseudoVariableNames\x0a\x09^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2477,13 +2493,13 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.readJSObject(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"readJSObject:",{anObject:anObject},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"readJSObject:",{anObject:anObject},smalltalk.SmalltalkImage)})},
 args: ["anObject"],
 source: "readJSObject: anObject\x0a\x09<return smalltalk.readJSObject(anObject)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2504,13 +2520,13 @@ $2=_st($ClassRemoved())._new();
 _st($2)._theClass_(aClass);
 $3=_st($2)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($3);
-return self}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},smalltalk.SmalltalkImage)})},
 args: ["aClass"],
 source: "removeClass: aClass\x0a\x09aClass isMetaclass ifTrue: [ self error: aClass asString, ' is a Metaclass and cannot be removed!' ].\x0a\x09\x0a\x09self deleteClass: aClass.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassRemoved new\x0a\x09\x09\x09theClass: aClass;\x0a\x09\x09\x09yourself)",
 messageSends: ["ifTrue:", "isMetaclass", "error:", ",", "asString", "deleteClass:", "announce:", "current", "theClass:", "new", "yourself"],
 referencedClasses: ["SystemAnnouncer", "ClassRemoved"]
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2529,13 +2545,13 @@ return smalltalk.withContext(function($ctx2) {
 return self._removeClass_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 self._deletePackage_(packageName);
-return self}, function($ctx1) {$ctx1.fill(self,"removePackage:",{packageName:packageName,pkg:pkg},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"removePackage:",{packageName:packageName,pkg:pkg},smalltalk.SmalltalkImage)})},
 args: ["packageName"],
 source: "removePackage: packageName\x0a\x09\x22Removes a package and all its classes.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [ self error: 'Missing package: ', packageName ].\x0a\x09pkg classes do: [ :each |\x0a\x09\x09\x09self removeClass: each ].\x0a\x09self deletePackage: packageName",
 messageSends: ["packageAt:ifAbsent:", "error:", ",", "do:", "classes", "removeClass:", "deletePackage:"],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2562,13 +2578,13 @@ self._error_("Already exists a package called: ".__comma(newName));
 _st(self._at_("packages"))._at_put_(newName,pkg);
 _st(pkg)._name_(newName);
 self._deletePackage_(packageName);
-return self}, function($ctx1) {$ctx1.fill(self,"renamePackage:to:",{packageName:packageName,newName:newName,pkg:pkg},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renamePackage:to:",{packageName:packageName,newName:newName,pkg:pkg},smalltalk.SmalltalkImage)})},
 args: ["packageName", "newName"],
 source: "renamePackage: packageName to: newName\x0a\x09\x22Rename a package.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [ self error: 'Missing package: ', packageName ].\x0a\x09(self packageAt: newName) ifNotNil: [ self error: 'Already exists a package called: ', newName ].\x0a\x09(self at: 'packages') at: newName put: pkg.\x0a\x09pkg name: newName.\x0a\x09self deletePackage: packageName.",
 messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "at:put:", "at:", "name:", "deletePackage:"],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2578,13 +2594,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.reservedWords;
-return self}, function($ctx1) {$ctx1.fill(self,"reservedWords",{},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"reservedWords",{},smalltalk.SmalltalkImage)})},
 args: [],
 source: "reservedWords\x0a\x09\x22JavaScript reserved words\x22\x0a\x09<return smalltalk.reservedWords>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2594,16 +2610,16 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return "0.13.0-pre";
-}, function($ctx1) {$ctx1.fill(self,"version",{},smalltalk.Smalltalk)})},
+}, function($ctx1) {$ctx1.fill(self,"version",{},smalltalk.SmalltalkImage)})},
 args: [],
 source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.13.0-pre'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Smalltalk);
+smalltalk.SmalltalkImage);
 
 
-smalltalk.Smalltalk.klass.iVarNames = ['current'];
+smalltalk.SmalltalkImage.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
@@ -2614,19 +2630,36 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == null){
-self["@current"]=smalltalk.Smalltalk.klass.superclass.fn.prototype._new.apply(_st(self), []);
+self["@current"]=smalltalk.SmalltalkImage.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.Smalltalk.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.SmalltalkImage.klass)})},
 args: [],
 source: "current\x0a\x09^ current ifNil: [ current := super new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: []
 }),
-smalltalk.Smalltalk.klass);
+smalltalk.SmalltalkImage.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.SmalltalkImage.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+_st(smalltalk)._at_put_("Smalltalk",self._current());
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.SmalltalkImage.klass)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09smalltalk at: 'Smalltalk' put: self current",
+messageSends: ["initialize", "at:put:", "current"],
+referencedClasses: []
+}),
+smalltalk.SmalltalkImage.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2636,13 +2669,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._shouldNotImplement();
-return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.Smalltalk.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.SmalltalkImage.klass)})},
 args: [],
 source: "new\x0a\x09self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
 referencedClasses: []
 }),
-smalltalk.Smalltalk.klass);
+smalltalk.SmalltalkImage.klass);
 
 smalltalk.addMethod(
 smalltalk.method({

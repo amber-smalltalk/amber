@@ -745,15 +745,16 @@ register
 	ProgressHandler setCurrent: self new
 ! !
 
-Object subclass: #Smalltalk
+Object subclass: #SmalltalkImage
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
-!Smalltalk commentStamp!
-I represent the global JavaScript variable `smalltalk` declared in `js/boot.js`.
+!SmalltalkImage commentStamp!
+I represent the Smalltalk system, wrapping
+operations of variable `smalltalk` declared in `js/boot.js`.
 
 ## API
 
-I have only one instance, accessed with class-side method `#current`.
+I have only one instance, accessed with global variable `Smalltalk`.
 
 The `smalltalk` object holds all class and packages defined in the system.
 
@@ -776,7 +777,7 @@ Packages can be accessed using the following methods:
 The `#parse:` method is used to parse Amber source code.
 It requires the `Compiler` package and the `js/parser.js` parser file in order to work.!
 
-!Smalltalk methodsFor: 'accessing'!
+!SmalltalkImage methodsFor: 'accessing'!
 
 at: aString
 	<return smalltalk[aString]>
@@ -790,6 +791,11 @@ at: aKey ifAbsent: aBlock
 
 at: aString put: anObject
 	<return smalltalk[aString]=anObject>
+!
+
+current
+	"Backward compatibility for Smalltalk current ..."
+	^ self
 !
 
 includesKey: aKey
@@ -827,7 +833,7 @@ version
 	^ '0.13.0-pre'
 ! !
 
-!Smalltalk methodsFor: 'accessing amd'!
+!SmalltalkImage methodsFor: 'accessing amd'!
 
 amdRequire
 	^ self at: 'amdRequire'
@@ -841,7 +847,7 @@ defaultAmdNamespace: aString
 	self at: 'defaultAmdNamespace' put: aString
 ! !
 
-!Smalltalk methodsFor: 'classes'!
+!SmalltalkImage methodsFor: 'classes'!
 
 classes
 	<return smalltalk.classes()>
@@ -858,7 +864,7 @@ removeClass: aClass
 			yourself)
 ! !
 
-!Smalltalk methodsFor: 'error handling'!
+!SmalltalkImage methodsFor: 'error handling'!
 
 asSmalltalkException: anObject
 	"A JavaScript exception may be thrown.
@@ -873,7 +879,7 @@ parseError: anException parsing: aString
 	^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')
 ! !
 
-!Smalltalk methodsFor: 'globals'!
+!SmalltalkImage methodsFor: 'globals'!
 
 addGlobalJsVariable: aString
 	self globalJsVariables add: aString
@@ -888,7 +894,7 @@ globalJsVariables
 	<return smalltalk.globalJsVariables>
 ! !
 
-!Smalltalk methodsFor: 'packages'!
+!SmalltalkImage methodsFor: 'packages'!
 
 createPackage: packageName
 	| package announcement |
@@ -942,7 +948,7 @@ renamePackage: packageName to: newName
 	self deletePackage: packageName.
 ! !
 
-!Smalltalk methodsFor: 'private'!
+!SmalltalkImage methodsFor: 'private'!
 
 basicCreatePackage: packageName
 	"Create and bind a new bare package with given name and return it."
@@ -974,7 +980,7 @@ deletePackage: packageName
 	<delete smalltalk.packages[packageName]>
 ! !
 
-!Smalltalk methodsFor: 'testing'!
+!SmalltalkImage methodsFor: 'testing'!
 
 isSmalltalkObject: anObject
 	"Consider anObject a Smalltalk object if it has a 'klass' property.
@@ -983,9 +989,16 @@ isSmalltalkObject: anObject
 	<return typeof anObject.klass !!== 'undefined'>
 ! !
 
-Smalltalk class instanceVariableNames: 'current'!
+SmalltalkImage class instanceVariableNames: 'current'!
 
-!Smalltalk class methodsFor: 'instance creation'!
+!SmalltalkImage class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	smalltalk at: 'Smalltalk' put: self current
+! !
+
+!SmalltalkImage class methodsFor: 'instance creation'!
 
 current
 	^ current ifNil: [ current := super new ]
