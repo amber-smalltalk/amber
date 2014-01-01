@@ -51,41 +51,42 @@ key: aKey value: aValue
 ! !
 
 Object subclass: #BucketStore
-	instanceVariableNames: 'buckets hashFn'
+	instanceVariableNames: 'buckets hashBlock'
 	package: 'Kernel-Collections'!
 !BucketStore commentStamp!
-I am helper class for hash-based stores.
+I am an helper class for hash-based stores.
 
-I hold buckets which are selected by a hash.
-Hash is not a number, but any object, and
+I hold buckets which are selected by a hash, specified using `#hashBlock:`.
+The hash can be any object, and
 it is used as a JS property (that is, in ES5
 its toString() value counts).
 
-I maintain the list of buckets. Client code can use this API:
- - bucketOfElement: (to ask a bucket for element, I can return JS null if n/a)
- - do: (to enumerate all elements of all buckets)
- - removeAll (to remove all buckets)
+## API
+I maintain a list of buckets. Client code can use this API:
+ - `#bucketOfElement:` (to ask a bucket for element, I can return JS null if n/a)
+ - `#do:` (to enumerate all elements of all buckets)
+ - `#removeAll` (to remove all buckets)
 
 Client code itself should add/remove elements
-in a bucket. The nil should not be put into any bucket.
+in a bucket. The `nil` object should not be put into any bucket.
 
-Types of buckets are responsibility of subclasses via newBucket.!
+Types of buckets are the responsibility of subclasses via `#newBucket`.!
 
 !BucketStore methodsFor: 'accessing'!
 
 bucketOfElement: anObject
 	<
-		var hash = self['@hashFn'](anObject);
+		var hash = self['@hashBlock'](anObject);
 		if (!!hash) return null;
-		var el = self['@buckets'],
-			bucket = el[hash];
-		if (!!bucket) { bucket = el[hash] = self._newBucket(); }
+		var buckets = self['@buckets'],
+			bucket = buckets[hash];
+		if (!!bucket) { bucket = buckets[hash] = self._newBucket(); }
 		return bucket;
 	>
 !
 
-hashFn: aBlock
-	hashFn := aBlock
+hashBlock: aBlock
+	hashBlock := aBlock
 ! !
 
 !BucketStore methodsFor: 'adding/removing'!
@@ -98,9 +99,9 @@ removeAll
 
 do: aBlock
 	<
-		el = self['@buckets'];
-		keys = Object.keys(el);
-		for (i = 0; i < keys.length; ++i) { el[keys[i]]._do_(aBlock); }
+		var buckets = self['@buckets'];
+		var keys = Object.keys(buckets);
+		for (i = 0; i < keys.length; ++i) { buckets[keys[i]]._do_(aBlock); }
 	>
 ! !
 
@@ -117,11 +118,11 @@ newBucket
 	self subclassResponsibility
 ! !
 
-!BucketStore class methodsFor: 'not yet classified'!
+!BucketStore class methodsFor: 'instance creation'!
 
-new: aBlock
+hashBlock: aBlock
 	^ self new
-		hashFn: aBlock;
+		hashBlock: aBlock;
 		yourself
 ! !
 
@@ -129,7 +130,7 @@ BucketStore subclass: #ArrayBucketStore
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
 !ArrayBucketStore commentStamp!
-I am BucketStore with buckets being instance of Array.!
+I am a concrete `BucketStore` with buckets being instance of `Array`.!
 
 !ArrayBucketStore methodsFor: 'private'!
 
@@ -1826,19 +1827,19 @@ I represent an unordered set of objects without duplicates.
 
 ## Implementation notes
 
-I put an element to different stores based on its type.
+I put elements into different stores based on their type.
 The goal is to store some elements into native JS object property names to be fast.
 
 If an unboxed element has typeof 'string', 'boolean' or 'number', or an element is nil, null or undefined,
 I store it as a property name in an empty (== Object.create(null)) JS object, different for each type
 (for simplicity, nil/null/undefined is treated as one and included with the two booleans).
 
-If element happen to be an object, I try to store them in ArrayBucketStore. I have two of them by default,
-one hashed using Smalltalk class name, other using JS constructor name. It is possible to have more or less
-of ArrayBucketStores, see #initializeSlowBucketStores.
+If element happen to be an object, I try to store them in `ArrayBucketStore`. I have two of them by default,
+one hashed using the Smalltalk class name, the other one using the JS constructor name. It is possible to have more or less
+instances of `ArrayBucketStores`, see `#initializeSlowBucketStores`.
 
-As a last resort, if none of the ArrayBucketStore can find suitable bucket, the defaultBucket is used,
-which is an Array.!
+As a last resort, if none of the `ArrayBucketStore` instances can find a suitable bucket, the `defaultBucket` is used,
+which is an `Array`.!
 
 !Set methodsFor: 'accessing'!
 
@@ -1851,14 +1852,21 @@ size
 add: anObject
 	| bucket |
 	bucket := self bucketOfElement: anObject.
-	^bucket second
+	^ bucket second
 		ifNil: [
-			| obj slowBucket |
-			obj := bucket first.
+			| object slowBucket |
+			object := bucket first.
 			slowBucket := bucket third.
-			slowBucket indexOf: obj ifAbsent: [ slowBucket add: obj. size := size + 1 ].
-			obj ]
-		ifNotNil: [ :primitiveBucket | self add: bucket first in: primitiveBucket ]
+			slowBucket 
+				indexOf: object 
+				ifAbsent: [ 
+					slowBucket add: object. 
+					size := size + 1 ].
+			object ]
+		ifNotNil: [ :primitiveBucket | 
+			self 
+				add: bucket first 
+				in: primitiveBucket ]
 !
 
 remove: anObject ifAbsent: aBlock
@@ -1934,6 +1942,7 @@ select: aBlock
 
 initialize
 	super initialize.
+	
 	defaultBucket := #().
 	self
 		initializeSlowBucketStores;
@@ -1942,8 +1951,8 @@ initialize
 
 initializeSlowBucketStores
 	slowBucketStores := {
-		ArrayBucketStore new: [ :x | self classNameOf: x ].
-		ArrayBucketStore new: [ :x | self jsConstructorNameOf: x ]
+		ArrayBucketStore hashBlock: [ :x | self classNameOf: x ].
+		ArrayBucketStore hashBlock: [ :x | self jsConstructorNameOf: x ]
 	}
 ! !
 
@@ -1970,6 +1979,8 @@ add: anObject in: anotherObject
 !
 
 bucketOfElement: anObject
+	"Find the appropriate bucket for `anObject`"
+	
 	<
 		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
 		if ((type = typeof prim) === "object") {
@@ -1981,7 +1992,7 @@ bucketOfElement: anObject
 				return [ anObject, null, bucket || self['@defaultBucket'] ];
 			}
 			
-			// include nil to well-knowns under 'boolean' fastBucket
+			// include nil to well-knowns objects under 'boolean' fastBucket
 			prim = null;
 			type = 'boolean';
 		}

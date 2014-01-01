@@ -150,8 +150,8 @@ referencedClasses: []
 smalltalk.Association.klass);
 
 
-smalltalk.addClass('BucketStore', smalltalk.Object, ['buckets', 'hashFn'], 'Kernel-Collections');
-smalltalk.BucketStore.comment="I am helper class for hash-based stores.\x0a\x0aI hold buckets which are selected by a hash.\x0aHash is not a number, but any object, and\x0ait is used as a JS property (that is, in ES5\x0aits toString() value counts).\x0a\x0aI maintain the list of buckets. Client code can use this API:\x0a - bucketOfElement: (to ask a bucket for element, I can return JS null if n/a)\x0a - do: (to enumerate all elements of all buckets)\x0a - removeAll (to remove all buckets)\x0a\x0aClient code itself should add/remove elements\x0ain a bucket. The nil should not be put into any bucket.\x0a\x0aTypes of buckets are responsibility of subclasses via newBucket.";
+smalltalk.addClass('BucketStore', smalltalk.Object, ['buckets', 'hashBlock'], 'Kernel-Collections');
+smalltalk.BucketStore.comment="I am an helper class for hash-based stores.\x0a\x0aI hold buckets which are selected by a hash, specified using `#hashBlock:`.\x0aThe hash can be any object, and\x0ait is used as a JS property (that is, in ES5\x0aits toString() value counts).\x0a\x0a## API\x0aI maintain a list of buckets. Client code can use this API:\x0a - `#bucketOfElement:` (to ask a bucket for element, I can return JS null if n/a)\x0a - `#do:` (to enumerate all elements of all buckets)\x0a - `#removeAll` (to remove all buckets)\x0a\x0aClient code itself should add/remove elements\x0ain a bucket. The `nil` object should not be put into any bucket.\x0a\x0aTypes of buckets are the responsibility of subclasses via `#newBucket`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "bucketOfElement:",
@@ -160,16 +160,16 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		var hash = self['@hashFn'](anObject);
+		var hash = self['@hashBlock'](anObject);
 		if (!hash) return null;
-		var el = self['@buckets'],
-			bucket = el[hash];
-		if (!bucket) { bucket = el[hash] = self._newBucket(); }
+		var buckets = self['@buckets'],
+			bucket = buckets[hash];
+		if (!bucket) { bucket = buckets[hash] = self._newBucket(); }
 		return bucket;
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"bucketOfElement:",{anObject:anObject},smalltalk.BucketStore)})},
 args: ["anObject"],
-source: "bucketOfElement: anObject\x0a\x09<\x0a\x09\x09var hash = self['@hashFn'](anObject);\x0a\x09\x09if (!hash) return null;\x0a\x09\x09var el = self['@buckets'],\x0a\x09\x09\x09bucket = el[hash];\x0a\x09\x09if (!bucket) { bucket = el[hash] = self._newBucket(); }\x0a\x09\x09return bucket;\x0a\x09>",
+source: "bucketOfElement: anObject\x0a\x09<\x0a\x09\x09var hash = self['@hashBlock'](anObject);\x0a\x09\x09if (!hash) return null;\x0a\x09\x09var buckets = self['@buckets'],\x0a\x09\x09\x09bucket = buckets[hash];\x0a\x09\x09if (!bucket) { bucket = buckets[hash] = self._newBucket(); }\x0a\x09\x09return bucket;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -183,13 +183,13 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		el = self['@buckets'];
-		keys = Object.keys(el);
-		for (i = 0; i < keys.length; ++i) { el[keys[i]]._do_(aBlock); }
+		var buckets = self['@buckets'];
+		var keys = Object.keys(buckets);
+		for (i = 0; i < keys.length; ++i) { buckets[keys[i]]._do_(aBlock); }
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.BucketStore)})},
 args: ["aBlock"],
-source: "do: aBlock\x0a\x09<\x0a\x09\x09el = self['@buckets'];\x0a\x09\x09keys = Object.keys(el);\x0a\x09\x09for (i = 0; i < keys.length; ++i) { el[keys[i]]._do_(aBlock); }\x0a\x09>",
+source: "do: aBlock\x0a\x09<\x0a\x09\x09var buckets = self['@buckets'];\x0a\x09\x09var keys = Object.keys(buckets);\x0a\x09\x09for (i = 0; i < keys.length; ++i) { buckets[keys[i]]._do_(aBlock); }\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -197,15 +197,15 @@ smalltalk.BucketStore);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "hashFn:",
+selector: "hashBlock:",
 protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@hashFn"]=aBlock;
-return self}, function($ctx1) {$ctx1.fill(self,"hashFn:",{aBlock:aBlock},smalltalk.BucketStore)})},
+self["@hashBlock"]=aBlock;
+return self}, function($ctx1) {$ctx1.fill(self,"hashBlock:",{aBlock:aBlock},smalltalk.BucketStore)})},
 args: ["aBlock"],
-source: "hashFn: aBlock\x0a\x09hashFn := aBlock",
+source: "hashBlock: aBlock\x0a\x09hashBlock := aBlock",
 messageSends: [],
 referencedClasses: []
 }),
@@ -263,28 +263,28 @@ smalltalk.BucketStore);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "new:",
-protocol: 'not yet classified',
+selector: "hashBlock:",
+protocol: 'instance creation',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=self._new();
-_st($2)._hashFn_(aBlock);
+_st($2)._hashBlock_(aBlock);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"new:",{aBlock:aBlock},smalltalk.BucketStore.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"hashBlock:",{aBlock:aBlock},smalltalk.BucketStore.klass)})},
 args: ["aBlock"],
-source: "new: aBlock\x0a\x09^ self new\x0a\x09\x09hashFn: aBlock;\x0a\x09\x09yourself",
-messageSends: ["hashFn:", "new", "yourself"],
+source: "hashBlock: aBlock\x0a\x09^ self new\x0a\x09\x09hashBlock: aBlock;\x0a\x09\x09yourself",
+messageSends: ["hashBlock:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.BucketStore.klass);
 
 
 smalltalk.addClass('ArrayBucketStore', smalltalk.BucketStore, [], 'Kernel-Collections');
-smalltalk.ArrayBucketStore.comment="I am BucketStore with buckets being instance of Array.";
+smalltalk.ArrayBucketStore.comment="I am a concrete `BucketStore` with buckets being instance of `Array`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "newBucket",
@@ -5454,7 +5454,7 @@ smalltalk.String.klass);
 
 
 smalltalk.addClass('Set', smalltalk.Collection, ['defaultBucket', 'slowBucketStores', 'fastBuckets', 'size'], 'Kernel-Collections');
-smalltalk.Set.comment="I represent an unordered set of objects without duplicates.\x0a\x0a## Implementation notes\x0a\x0aI put an element to different stores based on its type.\x0aThe goal is to store some elements into native JS object property names to be fast.\x0a\x0aIf an unboxed element has typeof 'string', 'boolean' or 'number', or an element is nil, null or undefined,\x0aI store it as a property name in an empty (== Object.create(null)) JS object, different for each type\x0a(for simplicity, nil/null/undefined is treated as one and included with the two booleans).\x0a\x0aIf element happen to be an object, I try to store them in ArrayBucketStore. I have two of them by default,\x0aone hashed using Smalltalk class name, other using JS constructor name. It is possible to have more or less\x0aof ArrayBucketStores, see #initializeSlowBucketStores.\x0a\x0aAs a last resort, if none of the ArrayBucketStore can find suitable bucket, the defaultBucket is used,\x0awhich is an Array.\x0a";
+smalltalk.Set.comment="I represent an unordered set of objects without duplicates.\x0a\x0a## Implementation notes\x0a\x0aI put elements into different stores based on their type.\x0aThe goal is to store some elements into native JS object property names to be fast.\x0a\x0aIf an unboxed element has typeof 'string', 'boolean' or 'number', or an element is nil, null or undefined,\x0aI store it as a property name in an empty (== Object.create(null)) JS object, different for each type\x0a(for simplicity, nil/null/undefined is treated as one and included with the two booleans).\x0a\x0aIf element happen to be an object, I try to store them in `ArrayBucketStore`. I have two of them by default,\x0aone hashed using the Smalltalk class name, the other one using the JS constructor name. It is possible to have more or less\x0ainstances of `ArrayBucketStores`, see `#initializeSlowBucketStores`.\x0a\x0aAs a last resort, if none of the `ArrayBucketStore` instances can find a suitable bucket, the `defaultBucket` is used,\x0awhich is an `Array`.\x0a";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
@@ -5508,19 +5508,19 @@ var $2,$1;
 bucket=self._bucketOfElement_(anObject);
 $2=_st(bucket)._second();
 if(($receiver = $2) == nil || $receiver == null){
-var obj,slowBucket;
-obj=_st(bucket)._first();
+var object,slowBucket;
+object=_st(bucket)._first();
 $ctx1.sendIdx["first"]=1;
-obj;
+object;
 slowBucket=_st(bucket)._third();
 slowBucket;
-_st(slowBucket)._indexOf_ifAbsent_(obj,(function(){
+_st(slowBucket)._indexOf_ifAbsent_(object,(function(){
 return smalltalk.withContext(function($ctx2) {
-_st(slowBucket)._add_(obj);
+_st(slowBucket)._add_(object);
 self["@size"]=_st(self["@size"]).__plus((1));
 return self["@size"];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$1=obj;
+$1=object;
 } else {
 var primitiveBucket;
 primitiveBucket=$receiver;
@@ -5529,7 +5529,7 @@ $1=self._add_in_(_st(bucket)._first(),primitiveBucket);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject,bucket:bucket},smalltalk.Set)})},
 args: ["anObject"],
-source: "add: anObject\x0a\x09| bucket |\x0a\x09bucket := self bucketOfElement: anObject.\x0a\x09^bucket second\x0a\x09\x09ifNil: [\x0a\x09\x09\x09| obj slowBucket |\x0a\x09\x09\x09obj := bucket first.\x0a\x09\x09\x09slowBucket := bucket third.\x0a\x09\x09\x09slowBucket indexOf: obj ifAbsent: [ slowBucket add: obj. size := size + 1 ].\x0a\x09\x09\x09obj ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | self add: bucket first in: primitiveBucket ]",
+source: "add: anObject\x0a\x09| bucket |\x0a\x09bucket := self bucketOfElement: anObject.\x0a\x09^ bucket second\x0a\x09\x09ifNil: [\x0a\x09\x09\x09| object slowBucket |\x0a\x09\x09\x09object := bucket first.\x0a\x09\x09\x09slowBucket := bucket third.\x0a\x09\x09\x09slowBucket \x0a\x09\x09\x09\x09indexOf: object \x0a\x09\x09\x09\x09ifAbsent: [ \x0a\x09\x09\x09\x09\x09slowBucket add: object. \x0a\x09\x09\x09\x09\x09size := size + 1 ].\x0a\x09\x09\x09object ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09add: bucket first \x0a\x09\x09\x09\x09in: primitiveBucket ]",
 messageSends: ["bucketOfElement:", "ifNil:ifNotNil:", "second", "first", "third", "indexOf:ifAbsent:", "add:", "+", "add:in:"],
 referencedClasses: []
 }),
@@ -5573,7 +5573,7 @@ return smalltalk.withContext(function($ctx1) {
 				return [ anObject, null, bucket || self['@defaultBucket'] ];
 			}
 			
-			// include nil to well-knowns under 'boolean' fastBucket
+			// include nil to well-knowns objects under 'boolean' fastBucket
 			prim = null;
 			type = 'boolean';
 		}
@@ -5581,7 +5581,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"bucketOfElement:",{anObject:anObject},smalltalk.Set)})},
 args: ["anObject"],
-source: "bucketOfElement: anObject\x0a\x09<\x0a\x09\x09var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();\x0a\x09\x09if ((type = typeof prim) === \x22object\x22) {\x0a\x09\x09\x09if (anObject !== nil) {\x0a\x09\x09\x09\x09bucket = null;\x0a\x09\x09\x09\x09self['@slowBucketStores'].some(function (x) {\x0a\x09\x09\x09\x09\x09return bucket = x._bucketOfElement_(anObject);\x0a\x09\x09\x09\x09});\x0a\x09\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09\x09}\x0a\x09\x09\x09\x0a\x09\x09\x09// include nil to well-knowns under 'boolean' fastBucket\x0a\x09\x09\x09prim = null;\x0a\x09\x09\x09type = 'boolean';\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][type] ];\x0a\x09>",
+source: "bucketOfElement: anObject\x0a\x09\x22Find the appropriate bucket for `anObject`\x22\x0a\x09\x0a\x09<\x0a\x09\x09var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();\x0a\x09\x09if ((type = typeof prim) === \x22object\x22) {\x0a\x09\x09\x09if (anObject !== nil) {\x0a\x09\x09\x09\x09bucket = null;\x0a\x09\x09\x09\x09self['@slowBucketStores'].some(function (x) {\x0a\x09\x09\x09\x09\x09return bucket = x._bucketOfElement_(anObject);\x0a\x09\x09\x09\x09});\x0a\x09\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09\x09}\x0a\x09\x09\x09\x0a\x09\x09\x09// include nil to well-knowns objects under 'boolean' fastBucket\x0a\x09\x09\x09prim = null;\x0a\x09\x09\x09type = 'boolean';\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][type] ];\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5744,7 +5744,7 @@ self._initializeSlowBucketStores();
 $1=self._removeAll();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Set)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09defaultBucket := #().\x0a\x09self\x0a\x09\x09initializeSlowBucketStores;\x0a\x09\x09removeAll",
+source: "initialize\x0a\x09super initialize.\x0a\x09\x0a\x09defaultBucket := #().\x0a\x09self\x0a\x09\x09initializeSlowBucketStores;\x0a\x09\x09removeAll",
 messageSends: ["initialize", "initializeSlowBucketStores", "removeAll"],
 referencedClasses: []
 }),
@@ -5759,19 +5759,19 @@ var self=this;
 function $ArrayBucketStore(){return smalltalk.ArrayBucketStore||(typeof ArrayBucketStore=="undefined"?nil:ArrayBucketStore)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($ArrayBucketStore())._new_((function(x){
+$1=_st($ArrayBucketStore())._hashBlock_((function(x){
 return smalltalk.withContext(function($ctx2) {
 return self._classNameOf_(x);
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,1)})}));
-$ctx1.sendIdx["new:"]=1;
-self["@slowBucketStores"]=[$1,_st($ArrayBucketStore())._new_((function(x){
+$ctx1.sendIdx["hashBlock:"]=1;
+self["@slowBucketStores"]=[$1,_st($ArrayBucketStore())._hashBlock_((function(x){
 return smalltalk.withContext(function($ctx2) {
 return self._jsConstructorNameOf_(x);
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,2)})}))];
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSlowBucketStores",{},smalltalk.Set)})},
 args: [],
-source: "initializeSlowBucketStores\x0a\x09slowBucketStores := {\x0a\x09\x09ArrayBucketStore new: [ :x | self classNameOf: x ].\x0a\x09\x09ArrayBucketStore new: [ :x | self jsConstructorNameOf: x ]\x0a\x09}",
-messageSends: ["new:", "classNameOf:", "jsConstructorNameOf:"],
+source: "initializeSlowBucketStores\x0a\x09slowBucketStores := {\x0a\x09\x09ArrayBucketStore hashBlock: [ :x | self classNameOf: x ].\x0a\x09\x09ArrayBucketStore hashBlock: [ :x | self jsConstructorNameOf: x ]\x0a\x09}",
+messageSends: ["hashBlock:", "classNameOf:", "jsConstructorNameOf:"],
 referencedClasses: ["ArrayBucketStore"]
 }),
 smalltalk.Set);
