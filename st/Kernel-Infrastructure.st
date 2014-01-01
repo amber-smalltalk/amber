@@ -985,10 +985,14 @@ isSmalltalkObject: anObject
 
 Smalltalk class instanceVariableNames: 'current'!
 
-!Smalltalk class methodsFor: 'accessing'!
+!Smalltalk class methodsFor: 'instance creation'!
 
 current
-	^ current ifNil: [ current := self new ]
+	^ current ifNil: [ current := super new ]
+!
+
+new
+	self shouldNotImplement
 ! !
 
 !SequenceableCollection methodsFor: '*Kernel-Infrastructure'!

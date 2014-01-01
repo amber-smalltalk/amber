@@ -2607,14 +2607,14 @@ smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
-protocol: 'accessing',
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == null){
-self["@current"]=self._new();
+self["@current"]=smalltalk.Smalltalk.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {
 $1=$2;
@@ -2622,8 +2622,24 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.Smalltalk.klass)})},
 args: [],
-source: "current\x0a\x09^ current ifNil: [ current := self new ]",
+source: "current\x0a\x09^ current ifNil: [ current := super new ]",
 messageSends: ["ifNil:", "new"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "new",
+protocol: 'instance creation',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._shouldNotImplement();
+return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.Smalltalk.klass)})},
+args: [],
+source: "new\x0a\x09self shouldNotImplement",
+messageSends: ["shouldNotImplement"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk.klass);
