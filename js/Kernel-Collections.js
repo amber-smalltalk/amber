@@ -5505,7 +5505,7 @@ var self=this;
 var bucket;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-bucket=self._bucketOfElement_(anObject);
+bucket=self._bucketsOfElement_(anObject);
 $2=_st(bucket)._second();
 if(($receiver = $2) == nil || $receiver == null){
 var object,slowBucket;
@@ -5529,8 +5529,8 @@ $1=self._add_in_(_st(bucket)._first(),primitiveBucket);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject,bucket:bucket},smalltalk.Set)})},
 args: ["anObject"],
-source: "add: anObject\x0a\x09| bucket |\x0a\x09bucket := self bucketOfElement: anObject.\x0a\x09^ bucket second\x0a\x09\x09ifNil: [\x0a\x09\x09\x09| object slowBucket |\x0a\x09\x09\x09object := bucket first.\x0a\x09\x09\x09slowBucket := bucket third.\x0a\x09\x09\x09slowBucket \x0a\x09\x09\x09\x09indexOf: object \x0a\x09\x09\x09\x09ifAbsent: [ \x0a\x09\x09\x09\x09\x09slowBucket add: object. \x0a\x09\x09\x09\x09\x09size := size + 1 ].\x0a\x09\x09\x09object ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09add: bucket first \x0a\x09\x09\x09\x09in: primitiveBucket ]",
-messageSends: ["bucketOfElement:", "ifNil:ifNotNil:", "second", "first", "third", "indexOf:ifAbsent:", "add:", "+", "add:in:"],
+source: "add: anObject\x0a\x09| bucket |\x0a\x09bucket := self bucketsOfElement: anObject.\x0a\x09^ bucket second\x0a\x09\x09ifNil: [\x0a\x09\x09\x09| object slowBucket |\x0a\x09\x09\x09object := bucket first.\x0a\x09\x09\x09slowBucket := bucket third.\x0a\x09\x09\x09slowBucket \x0a\x09\x09\x09\x09indexOf: object \x0a\x09\x09\x09\x09ifAbsent: [ \x0a\x09\x09\x09\x09\x09slowBucket add: object. \x0a\x09\x09\x09\x09\x09size := size + 1 ].\x0a\x09\x09\x09object ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09add: bucket first \x0a\x09\x09\x09\x09in: primitiveBucket ]",
+messageSends: ["bucketsOfElement:", "ifNil:ifNotNil:", "second", "first", "third", "indexOf:ifAbsent:", "add:", "+", "add:in:"],
 referencedClasses: []
 }),
 smalltalk.Set);
@@ -5557,7 +5557,7 @@ smalltalk.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "bucketOfElement:",
+selector: "bucketsOfElement:",
 protocol: 'private',
 fn: function (anObject){
 var self=this;
@@ -5579,9 +5579,9 @@ return smalltalk.withContext(function($ctx1) {
 		}
 		return [ prim, self['@fastBuckets'][type] ];
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"bucketOfElement:",{anObject:anObject},smalltalk.Set)})},
+return self}, function($ctx1) {$ctx1.fill(self,"bucketsOfElement:",{anObject:anObject},smalltalk.Set)})},
 args: ["anObject"],
-source: "bucketOfElement: anObject\x0a\x09\x22Find the appropriate bucket for `anObject`.\x0a\x09Answer an array with the object to be store, the primitive bucket, then the slow bucket\x22\x0a\x09\x0a\x09<\x0a\x09\x09var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();\x0a\x09\x09if ((type = typeof prim) === \x22object\x22) {\x0a\x09\x09\x09if (anObject !== nil) {\x0a\x09\x09\x09\x09bucket = null;\x0a\x09\x09\x09\x09self['@slowBucketStores'].some(function (store) {\x0a\x09\x09\x09\x09\x09return bucket = store._bucketOfElement_(anObject);\x0a\x09\x09\x09\x09});\x0a\x09\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09\x09}\x0a\x09\x09\x09\x0a\x09\x09\x09// include nil to well-known objects under 'boolean' fastBucket\x0a\x09\x09\x09prim = null;\x0a\x09\x09\x09type = 'boolean';\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][type] ];\x0a\x09>",
+source: "bucketsOfElement: anObject\x0a\x09\x22Find the appropriate bucket for `anObject`.\x0a\x09For optimization purposes, directly answer an array with: \x0a\x09- the object to be store\x0a\x09- the primitive bucket\x0a\x09- the slow bucket\x22\x0a\x09\x0a\x09<\x0a\x09\x09var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();\x0a\x09\x09if ((type = typeof prim) === \x22object\x22) {\x0a\x09\x09\x09if (anObject !== nil) {\x0a\x09\x09\x09\x09bucket = null;\x0a\x09\x09\x09\x09self['@slowBucketStores'].some(function (store) {\x0a\x09\x09\x09\x09\x09return bucket = store._bucketOfElement_(anObject);\x0a\x09\x09\x09\x09});\x0a\x09\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09\x09}\x0a\x09\x09\x09\x0a\x09\x09\x09// include nil to well-known objects under 'boolean' fastBucket\x0a\x09\x09\x09prim = null;\x0a\x09\x09\x09type = 'boolean';\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][type] ];\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5693,7 +5693,7 @@ var self=this;
 var bucket;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1;
-bucket=self._bucketOfElement_(anObject);
+bucket=self._bucketsOfElement_(anObject);
 $2=_st(bucket)._second();
 if(($receiver = $2) == nil || $receiver == null){
 $3=_st(bucket)._third();
@@ -5708,8 +5708,8 @@ $1=self._includes_in_(_st(bucket)._first(),primitiveBucket);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject,bucket:bucket},smalltalk.Set)})},
 args: ["anObject"],
-source: "includes: anObject\x0a\x09| bucket |\x0a\x09bucket := self bucketOfElement: anObject.\x0a\x09^ bucket second\x0a\x09\x09ifNil: [ bucket third includes: bucket first ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | self includes: bucket first in: primitiveBucket ]",
-messageSends: ["bucketOfElement:", "ifNil:ifNotNil:", "second", "includes:", "third", "first", "includes:in:"],
+source: "includes: anObject\x0a\x09| bucket |\x0a\x09bucket := self bucketsOfElement: anObject.\x0a\x09^ bucket second\x0a\x09\x09ifNil: [ bucket third includes: bucket first ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | self includes: bucket first in: primitiveBucket ]",
+messageSends: ["bucketsOfElement:", "ifNil:ifNotNil:", "second", "includes:", "third", "first", "includes:in:"],
 referencedClasses: []
 }),
 smalltalk.Set);
@@ -5831,7 +5831,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$4,$5,$1;
 var $early={};
 try {
-bucket=self._bucketOfElement_(anObject);
+bucket=self._bucketsOfElement_(anObject);
 $2=_st(bucket)._second();
 if(($receiver = $2) == nil || $receiver == null){
 $3=_st(bucket)._third();
@@ -5854,8 +5854,8 @@ return $1;
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock,bucket:bucket},smalltalk.Set)})},
 args: ["anObject", "aBlock"],
-source: "remove: anObject ifAbsent: aBlock\x0a\x09| bucket |\x0a\x09bucket := self bucketOfElement: anObject.\x0a\x09^ bucket second\x0a\x09\x09ifNil: [ bucket third remove: bucket first ifAbsent: [ ^aBlock value ]. size := size - 1 ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | self remove: bucket first in: primitiveBucket ]",
-messageSends: ["bucketOfElement:", "ifNil:ifNotNil:", "second", "remove:ifAbsent:", "third", "first", "value", "-", "remove:in:"],
+source: "remove: anObject ifAbsent: aBlock\x0a\x09| bucket |\x0a\x09bucket := self bucketsOfElement: anObject.\x0a\x09^ bucket second\x0a\x09\x09ifNil: [ bucket third remove: bucket first ifAbsent: [ ^aBlock value ]. size := size - 1 ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | self remove: bucket first in: primitiveBucket ]",
+messageSends: ["bucketsOfElement:", "ifNil:ifNotNil:", "second", "remove:ifAbsent:", "third", "first", "value", "-", "remove:in:"],
 referencedClasses: []
 }),
 smalltalk.Set);

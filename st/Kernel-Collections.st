@@ -1851,7 +1851,7 @@ size
 
 add: anObject
 	| bucket |
-	bucket := self bucketOfElement: anObject.
+	bucket := self bucketsOfElement: anObject.
 	^ bucket second
 		ifNil: [
 			| object slowBucket |
@@ -1871,7 +1871,7 @@ add: anObject
 
 remove: anObject ifAbsent: aBlock
 	| bucket |
-	bucket := self bucketOfElement: anObject.
+	bucket := self bucketsOfElement: anObject.
 	^ bucket second
 		ifNil: [ bucket third remove: bucket first ifAbsent: [ ^aBlock value ]. size := size - 1 ]
 		ifNotNil: [ :primitiveBucket | self remove: bucket first in: primitiveBucket ]
@@ -1978,9 +1978,12 @@ add: anObject in: anotherObject
 	>
 !
 
-bucketOfElement: anObject
+bucketsOfElement: anObject
 	"Find the appropriate bucket for `anObject`.
-	Answer an array with the object to be store, the primitive bucket, then the slow bucket"
+	For optimization purposes, directly answer an array with: 
+	- the object to be store
+	- the primitive bucket
+	- the slow bucket"
 	
 	<
 		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
@@ -2024,7 +2027,7 @@ remove: anObject in: anotherObject
 
 includes: anObject
 	| bucket |
-	bucket := self bucketOfElement: anObject.
+	bucket := self bucketsOfElement: anObject.
 	^ bucket second
 		ifNil: [ bucket third includes: bucket first ]
 		ifNotNil: [ :primitiveBucket | self includes: bucket first in: primitiveBucket ]
