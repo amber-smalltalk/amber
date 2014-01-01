@@ -243,177 +243,6 @@ index: anIndex
 	index := anIndex
 ! !
 
-Object subclass: #HLGenerator
-	instanceVariableNames: 'output'
-	package: 'Helios-Helpers'!
-!HLGenerator commentStamp!
-I am the abstract super class of the generators.
-
-My main method is `generate` which produce an `output` object!
-
-!HLGenerator methodsFor: 'accessing'!
-
-class: aClass
-	output targetClass: aClass
-!
-
-output
-	^ output
-! !
-
-!HLGenerator methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	
-	output := HLGenerationOutput new
-! !
-
-!HLGenerator methodsFor: 'protocol'!
-
-generate
-	output targetClass ifNil: [ self error: 'class should not be nil'].
-! !
-
-HLGenerator subclass: #HLAccessorsGenerator
-	instanceVariableNames: ''
-	package: 'Helios-Helpers'!
-!HLAccessorsGenerator commentStamp!
-I am a generator used to compile the getters/setters of a class!
-
-!HLAccessorsGenerator methodsFor: 'double-dispatch'!
-
-accessorProtocolForObject
-	output protocol: 'accessing'
-!
-
-accessorsSourceCodesForObject
-	| sources |
-	
-	sources := OrderedCollection new.
-	output targetClass instanceVariableNames sorted do: [ :each | 
-		sources 
-			add: (self getterFor: each);
-			add: (self setterFor: each) ].
-	output sourceCodes: sources
-! !
-
-!HLAccessorsGenerator methodsFor: 'private'!
-
-getterFor: anInstanceVariable
-	^ HLMethodSourceCode new
-		selector:anInstanceVariable;
-		sourceCode: (String streamContents: [ :stream |
-		stream << anInstanceVariable.
-		stream cr tab.
-		stream << '^ ' << anInstanceVariable ])
-!
-
-setterFor: anInstanceVariable
-	^ HLMethodSourceCode new
-		selector: anInstanceVariable, ':';
-		sourceCode: (String streamContents: [ :stream |
-		stream << anInstanceVariable << ': anObject'.
-		stream cr tab.
-		stream << anInstanceVariable << ' := anObject' ])
-! !
-
-!HLAccessorsGenerator methodsFor: 'protocol'!
-
-generate
-	super generate.
-	
-	output targetClass 
-		accessorsSourceCodesWith: self;
-		accessorProtocolWith: self
-! !
-
-HLGenerator subclass: #HLInitializeGenerator
-	instanceVariableNames: ''
-	package: 'Helios-Helpers'!
-!HLInitializeGenerator commentStamp!
-I am used to double-dispatch the `initialize` method(s) generation.
-
-Usage:
-
-    ^ HLInitializeGenerator new
-        class: aClass;
-        generate;
-        output
-
-I am a disposable object!
-
-!HLInitializeGenerator methodsFor: 'double-dispatch'!
-
-initializeForObject
-	output addSourceCode: self initializeCodeForObject
-!
-
-initializeIndexForObject
-	output index: self computeIndexForObject
-!
-
-initializeProtocolForObject
-	output protocol: self retrieveProtocolForObject
-! !
-
-!HLInitializeGenerator methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	
-	output := HLGenerationOutputWithIndex new
-! !
-
-!HLInitializeGenerator methodsFor: 'private'!
-
-computeIndexForObject
-	| instVars headerSize firstInstVarSize |
-	
-	"32 is the size of the `initiliaze super initialize` part"
-	headerSize := 32.
-	instVars := output targetClass instanceVariableNames.
-	firstInstVarSize := instVars sorted
-		ifEmpty: [ 0 ]
-		ifNotEmpty:[ instVars first size + 4 ].
-	^ headerSize + firstInstVarSize
-!
-
-generateInitializeCodeForObject	
-	^ String streamContents: [ :str || instVars size |
-		instVars := output targetClass instanceVariableNames sorted.
-		size := instVars size.
-		str << 'initialize'.
-		str cr tab << 'super initialize.';cr.
-		str cr tab.
-		instVars withIndexDo: [ :name :index |
-			index ~= 1 ifTrue: [ str cr tab ].
-			str << name << ' := nil'.
-			index ~= size ifTrue: [ str << '.' ] ] ].
-!
-
-initializeCodeForObject	
-	^ HLMethodSourceCode new
-		selector: 'initialize';
-		sourceCode: self generateInitializeCodeForObject;
-		yourself
-!
-
-retrieveProtocolForObject
-	^ 'initialization'
-! !
-
-!HLInitializeGenerator methodsFor: 'protocol'!
-
-generate
-	super generate.
-	
-	output targetClass 
-		initializeSourceCodesWith: self;
-		initializeIndexWith: self;
-		initializeProtocolWith: self
-! !
-
 Object subclass: #HLMethodClassifier
 	instanceVariableNames: 'firstLink'
 	package: 'Helios-Helpers'!
@@ -458,6 +287,148 @@ classify: aMethod
 classifyAll: aCollectionOfMethods
 	aCollectionOfMethods do: [ :method |
 		self classify: method ]
+! !
+
+Object subclass: #HLMethodGenerator
+	instanceVariableNames: 'output'
+	package: 'Helios-Helpers'!
+!HLMethodGenerator commentStamp!
+I am the abstract super class of the method generators.
+
+My main method is `generate` which produce an `output` object!
+
+!HLMethodGenerator methodsFor: 'accessing'!
+
+class: aClass
+	output targetClass: aClass
+!
+
+output
+	^ output
+! !
+
+!HLMethodGenerator methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	
+	output := HLGenerationOutput new
+! !
+
+!HLMethodGenerator methodsFor: 'protocol'!
+
+generate
+	output targetClass ifNil: [ self error: 'class should not be nil'].
+! !
+
+HLMethodGenerator subclass: #HLAccessorsGenerator
+	instanceVariableNames: ''
+	package: 'Helios-Helpers'!
+!HLAccessorsGenerator commentStamp!
+I am a generator used to compile the getters/setters of a class!
+
+!HLAccessorsGenerator methodsFor: 'double-dispatch'!
+
+accessorProtocolForObject
+	output protocol: 'accessing'
+!
+
+accessorsForObject
+	| sources |
+	
+	sources := OrderedCollection new.
+	output targetClass instanceVariableNames sorted do: [ :each | 
+		sources 
+			add: (self getterFor: each);
+			add: (self setterFor: each) ].
+	output sourceCodes: sources
+! !
+
+!HLAccessorsGenerator methodsFor: 'private'!
+
+getterFor: anInstanceVariable
+	^ HLMethodSourceCode new
+		selector:anInstanceVariable;
+		sourceCode: (String streamContents: [ :stream |
+		stream << anInstanceVariable.
+		stream cr tab.
+		stream << '^ ' << anInstanceVariable ])
+!
+
+setterFor: anInstanceVariable
+	^ HLMethodSourceCode new
+		selector: anInstanceVariable, ':';
+		sourceCode: (String streamContents: [ :stream |
+		stream << anInstanceVariable << ': anObject'.
+		stream cr tab.
+		stream << anInstanceVariable << ' := anObject' ])
+! !
+
+!HLAccessorsGenerator methodsFor: 'protocol'!
+
+generate
+	super generate.
+	
+	output targetClass 
+		accessorsSourceCodesWith: self;
+		accessorProtocolWith: self
+! !
+
+HLMethodGenerator subclass: #HLInitializeGenerator
+	instanceVariableNames: ''
+	package: 'Helios-Helpers'!
+!HLInitializeGenerator commentStamp!
+I am used to double-dispatch the `initialize` method(s) generation.
+
+Usage:
+
+    ^ HLInitializeGenerator new
+        class: aClass;
+        generate;
+        output
+
+I am a disposable object!
+
+!HLInitializeGenerator methodsFor: 'double-dispatch'!
+
+initializeForObject
+	output addSourceCode: self initializeMethodForObject
+!
+
+initializeProtocolForObject
+	output protocol: 'initialization'
+! !
+
+!HLInitializeGenerator methodsFor: 'private'!
+
+generateInitializeCodeForObject	
+	^ String streamContents: [ :str || instVars size |
+		instVars := output targetClass instanceVariableNames sorted.
+		size := instVars size.
+		str << 'initialize'.
+		str cr tab << 'super initialize.';cr.
+		str cr tab.
+		instVars withIndexDo: [ :name :index |
+			index ~= 1 ifTrue: [ str cr tab ].
+			str << name << ' := nil'.
+			index ~= size ifTrue: [ str << '.' ] ] ].
+!
+
+initializeMethodForObject	
+	^ HLMethodSourceCode new
+		selector: 'initialize';
+		sourceCode: self generateInitializeCodeForObject;
+		yourself
+! !
+
+!HLInitializeGenerator methodsFor: 'protocol'!
+
+generate
+	super generate.
+	
+	output targetClass 
+		initializeSourceCodesWith: self;
+		initializeProtocolWith: self
 ! !
 
 Object subclass: #HLMethodSourceCode

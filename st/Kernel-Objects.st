@@ -394,7 +394,7 @@ accessorProtocolWith: aGenerator
 !
 
 accessorsSourceCodesWith: aGenerator
-	aGenerator accessorsSourceCodesForObject
+	aGenerator accessorsForObject
 !
 
 heliosClass
@@ -402,10 +402,6 @@ heliosClass
 	environments, we can't extend base classes"
 	
 	^ 'class'
-!
-
-initializeIndexWith: aGenerator
-	aGenerator initializeIndexForObject
 !
 
 initializeProtocolWith: aGenerator

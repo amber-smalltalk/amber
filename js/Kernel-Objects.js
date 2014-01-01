@@ -1181,11 +1181,11 @@ protocol: 'helios',
 fn: function (aGenerator){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(aGenerator)._accessorsSourceCodesForObject();
+_st(aGenerator)._accessorsForObject();
 return self}, function($ctx1) {$ctx1.fill(self,"accessorsSourceCodesWith:",{aGenerator:aGenerator},smalltalk.Object.klass)})},
 args: ["aGenerator"],
-source: "accessorsSourceCodesWith: aGenerator\x0a\x09aGenerator accessorsSourceCodesForObject",
-messageSends: ["accessorsSourceCodesForObject"],
+source: "accessorsSourceCodesWith: aGenerator\x0a\x09aGenerator accessorsForObject",
+messageSends: ["accessorsForObject"],
 referencedClasses: []
 }),
 smalltalk.Object.klass);
@@ -1217,22 +1217,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Object.
 args: [],
 source: "initialize\x0a\x09\x22no op\x22",
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Object.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initializeIndexWith:",
-protocol: 'helios',
-fn: function (aGenerator){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(aGenerator)._initializeIndexForObject();
-return self}, function($ctx1) {$ctx1.fill(self,"initializeIndexWith:",{aGenerator:aGenerator},smalltalk.Object.klass)})},
-args: ["aGenerator"],
-source: "initializeIndexWith: aGenerator\x0a\x09aGenerator initializeIndexForObject",
-messageSends: ["initializeIndexForObject"],
 referencedClasses: []
 }),
 smalltalk.Object.klass);
