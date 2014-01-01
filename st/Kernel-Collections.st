@@ -1872,7 +1872,7 @@ add: anObject
 remove: anObject ifAbsent: aBlock
 	| bucket |
 	bucket := self bucketOfElement: anObject.
-	^bucket second
+	^ bucket second
 		ifNil: [ bucket third remove: bucket first ifAbsent: [ ^aBlock value ]. size := size - 1 ]
 		ifNotNil: [ :primitiveBucket | self remove: bucket first in: primitiveBucket ]
 !
@@ -1934,7 +1934,7 @@ select: aBlock
 	collection := self class new.
 	self do: [ :each |
 		(aBlock value: each) ifTrue: [
-			collection add: each ]].
+			collection add: each ] ].
 	^ collection
 ! !
 
@@ -2001,6 +2001,9 @@ bucketOfElement: anObject
 !
 
 classNameOf: anObject
+	"Answer the class name of `anObject`, or `undefined` 
+	if `anObject` is not an Smalltalk object"
+	
 	<return anObject.klass && anObject.klass.className>
 !
 
@@ -2021,7 +2024,7 @@ remove: anObject in: anotherObject
 includes: anObject
 	| bucket |
 	bucket := self bucketOfElement: anObject.
-	^bucket second
+	^ bucket second
 		ifNil: [ bucket third includes: bucket first ]
 		ifNotNil: [ :primitiveBucket | self includes: bucket first in: primitiveBucket ]
 ! !

@@ -5597,7 +5597,7 @@ return smalltalk.withContext(function($ctx1) {
 return anObject.klass && anObject.klass.className;
 return self}, function($ctx1) {$ctx1.fill(self,"classNameOf:",{anObject:anObject},smalltalk.Set)})},
 args: ["anObject"],
-source: "classNameOf: anObject\x0a\x09<return anObject.klass && anObject.klass.className>",
+source: "classNameOf: anObject\x0a\x09\x22Answer the class name of `anObject`, or `undefined` \x0a\x09if `anObject` is not an Smalltalk object\x22\x0a\x09\x0a\x09<return anObject.klass && anObject.klass.className>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5708,7 +5708,7 @@ $1=self._includes_in_(_st(bucket)._first(),primitiveBucket);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject,bucket:bucket},smalltalk.Set)})},
 args: ["anObject"],
-source: "includes: anObject\x0a\x09| bucket |\x0a\x09bucket := self bucketOfElement: anObject.\x0a\x09^bucket second\x0a\x09\x09ifNil: [ bucket third includes: bucket first ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | self includes: bucket first in: primitiveBucket ]",
+source: "includes: anObject\x0a\x09| bucket |\x0a\x09bucket := self bucketOfElement: anObject.\x0a\x09^ bucket second\x0a\x09\x09ifNil: [ bucket third includes: bucket first ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | self includes: bucket first in: primitiveBucket ]",
 messageSends: ["bucketOfElement:", "ifNil:ifNotNil:", "second", "includes:", "third", "first", "includes:in:"],
 referencedClasses: []
 }),
@@ -5854,7 +5854,7 @@ return $1;
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock,bucket:bucket},smalltalk.Set)})},
 args: ["anObject", "aBlock"],
-source: "remove: anObject ifAbsent: aBlock\x0a\x09| bucket |\x0a\x09bucket := self bucketOfElement: anObject.\x0a\x09^bucket second\x0a\x09\x09ifNil: [ bucket third remove: bucket first ifAbsent: [ ^aBlock value ]. size := size - 1 ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | self remove: bucket first in: primitiveBucket ]",
+source: "remove: anObject ifAbsent: aBlock\x0a\x09| bucket |\x0a\x09bucket := self bucketOfElement: anObject.\x0a\x09^ bucket second\x0a\x09\x09ifNil: [ bucket third remove: bucket first ifAbsent: [ ^aBlock value ]. size := size - 1 ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | self remove: bucket first in: primitiveBucket ]",
 messageSends: ["bucketOfElement:", "ifNil:ifNotNil:", "second", "remove:ifAbsent:", "third", "first", "value", "-", "remove:in:"],
 referencedClasses: []
 }),
@@ -5922,7 +5922,7 @@ $2=collection;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,collection:collection},smalltalk.Set)})},
 args: ["aBlock"],
-source: "select: aBlock\x0a\x09| collection |\x0a\x09collection := self class new.\x0a\x09self do: [ :each |\x0a\x09\x09(aBlock value: each) ifTrue: [\x0a\x09\x09\x09collection add: each ]].\x0a\x09^ collection",
+source: "select: aBlock\x0a\x09| collection |\x0a\x09collection := self class new.\x0a\x09self do: [ :each |\x0a\x09\x09(aBlock value: each) ifTrue: [\x0a\x09\x09\x09collection add: each ] ].\x0a\x09^ collection",
 messageSends: ["new", "class", "do:", "ifTrue:", "value:", "add:"],
 referencedClasses: []
 }),
