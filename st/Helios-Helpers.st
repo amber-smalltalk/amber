@@ -1,13 +1,13 @@
 Smalltalk current createPackage: 'Helios-Helpers'!
-Object subclass: #HLClassifierLink
+Object subclass: #HLClassifier
 	instanceVariableNames: 'next method'
 	package: 'Helios-Helpers'!
-!HLClassifierLink commentStamp!
+!HLClassifier commentStamp!
 I am an abstract class implementing a link in a `chain of responsibility` pattern.
 
-y subclasses are in charge of classifying a method according to multiple strategies!
+Subclasses are in charge of classifying a method according to multiple strategies.!
 
-!HLClassifierLink methodsFor: 'accessing'!
+!HLClassifier methodsFor: 'accessing'!
 
 method
 	^ method
@@ -27,29 +27,29 @@ next: anObject
 	next := anObject
 ! !
 
-!HLClassifierLink methodsFor: 'private'!
+!HLClassifier methodsFor: 'private'!
 
 doClassify
 	self subclassResponsibility
 ! !
 
-!HLClassifierLink methodsFor: 'protocol'!
+!HLClassifier methodsFor: 'protocol'!
 
 classify
 	self next ifNil: [ ^ false ].
 	
 	^ self doClassify
 		ifTrue: [ true ]
-		ifFalse: [ self next execute ]
+		ifFalse: [ self next classify ]
 ! !
 
-HLClassifierLink subclass: #HLAccessorClassifierLink
+HLClassifier subclass: #HLAccessorClassifier
 	instanceVariableNames: ''
 	package: 'Helios-Helpers'!
-!HLAccessorClassifierLink commentStamp!
-I am a classifier checking the method selector matches an instance variable name!
+!HLAccessorClassifier commentStamp!
+I am a classifier checking the method selector matches an instance variable name.!
 
-!HLAccessorClassifierLink methodsFor: 'private'!
+!HLAccessorClassifier methodsFor: 'private'!
 
 doClassify
 	| names selector |
@@ -68,13 +68,13 @@ doClassify
 	^ true.
 ! !
 
-HLClassifierLink subclass: #HLImplementorClassifierLink
+HLClassifier subclass: #HLImplementorClassifier
 	instanceVariableNames: ''
 	package: 'Helios-Helpers'!
-!HLImplementorClassifierLink commentStamp!
-I am a classifier checking the other implementations of the same selector and choose the protocol the most populated!
+!HLImplementorClassifier commentStamp!
+I am a classifier checking the other implementations of the same selector and choose the protocol the most populated.!
 
-!HLImplementorClassifierLink methodsFor: 'private'!
+!HLImplementorClassifier methodsFor: 'private'!
 
 doClassify
 	| currentClass |
@@ -90,13 +90,13 @@ doClassify
 	^ false.
 ! !
 
-HLClassifierLink subclass: #HLPrefixClassifierLink
+HLClassifier subclass: #HLPrefixClassifier
 	instanceVariableNames: 'prefixMapping'
 	package: 'Helios-Helpers'!
-!HLPrefixClassifierLink commentStamp!
-I am classifier checking the method selector to know if it begins with a known prefix!
+!HLPrefixClassifier commentStamp!
+I am classifier checking the method selector to know if it begins with a known prefix.!
 
-!HLPrefixClassifierLink methodsFor: 'initialization'!
+!HLPrefixClassifier methodsFor: 'initialization'!
 
 buildPrefixDictionary
 	prefixMapping := Dictionary new.
@@ -121,7 +121,7 @@ initialize
 	self buildPrefixDictionary
 ! !
 
-!HLPrefixClassifierLink methodsFor: 'private'!
+!HLPrefixClassifier methodsFor: 'private'!
 
 doClassify
 	prefixMapping keysAndValuesDo: [ :prefix :protocol |
@@ -132,13 +132,13 @@ doClassify
 	^ false.
 ! !
 
-HLClassifierLink subclass: #HLSuperClassClassifierLink
+HLClassifier subclass: #HLSuperclassClassifier
 	instanceVariableNames: ''
 	package: 'Helios-Helpers'!
-!HLSuperClassClassifierLink commentStamp!
-I am a classifier checking the superclass chain to find a matching selector!
+!HLSuperclassClassifier commentStamp!
+I am a classifier checking the superclass chain to find a matching selector.!
 
-!HLSuperClassClassifierLink methodsFor: 'private'!
+!HLSuperclassClassifier methodsFor: 'private'!
 
 doClassify
 	| protocolBag methods protocolToUse counter |
@@ -174,7 +174,7 @@ Object subclass: #HLGenerationOutput
 	instanceVariableNames: 'sourceCodes protocol targetClass'
 	package: 'Helios-Helpers'!
 !HLGenerationOutput commentStamp!
-I am a simple data object used to store the result of a generation process!
+I am a simple data object used to store the result of a generation process.!
 
 !HLGenerationOutput methodsFor: 'accessing'!
 
@@ -226,7 +226,7 @@ compile
 ! !
 
 Object subclass: #HLMethodClassifier
-	instanceVariableNames: 'firstLink'
+	instanceVariableNames: 'firstClassifier'
 	package: 'Helios-Helpers'!
 !HLMethodClassifier commentStamp!
 I am in charge of categorizing methods following this strategy:
@@ -238,30 +238,30 @@ I am in charge of categorizing methods following this strategy:
 
 !HLMethodClassifier methodsFor: 'initialization'!
 
-buildChainOfResponsibility
-	self addLink: HLImplementorClassifierLink new.
-	self addLink: HLPrefixClassifierLink new.
-	self addLink: HLSuperclassClassifierLink new.
-	self addLink: HLAccessorClassifierLink new
-!
-
 initialize
 	super initialize.
 	
-	self buildChainOfResponsibility
+	self setupClassifiers
+!
+
+setupClassifiers
+	self addClassifier: HLImplementorClassifier new.
+	self addClassifier: HLPrefixClassifier new.
+	self addClassifier: HLSuperclassClassifier new.
+	self addClassifier: HLAccessorClassifier new
 ! !
 
 !HLMethodClassifier methodsFor: 'private'!
 
-addLink: aLink
-	aLink next: firstLink.
-	firstLink := aLink
+addClassifier: aClassifier
+	aClassifier next: firstClassifier.
+	firstClassifier := aClassifier
 ! !
 
 !HLMethodClassifier methodsFor: 'protocol'!
 
 classify: aMethod
-	firstLink
+	firstClassifier
 		method: aMethod;
 		classify
 !
