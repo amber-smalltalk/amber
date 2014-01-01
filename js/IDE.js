@@ -5120,7 +5120,8 @@ self["@variablesList"];
 $3=_st(html)._textarea();
 _st($3)._class_("amber_column value");
 $ctx2.sendIdx["class:"]=3;
-$4=_st($3)._at_put_("readonly","readonly");
+_st($3)._at_put_("readonly","readonly");
+$4=_st($3)._yourself();
 self["@valueTextarea"]=$4;
 self["@valueTextarea"];
 $5=_st(html)._div();
@@ -5161,8 +5162,8 @@ self._updateVariablesList();
 $11=self._updateValueTextarea();
 return self}, function($ctx1) {$ctx1.fill(self,"renderTopPanelOn:",{html:html},smalltalk.Inspector)})},
 args: ["html"],
-source: "renderTopPanelOn: html\x0a\x09html div\x0a\x09\x09class: 'top';\x0a\x09\x09with: [\x0a\x09\x09\x09variablesList := html ul class: 'amber_column variables'.\x0a\x09\x09\x09valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'.\x0a\x09\x09\x09html div class: 'amber_tabs inspector'; with: [\x0a\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09class: 'amber_button inspector refresh';\x0a\x09\x09\x09\x09\x09with: 'Refresh';\x0a\x09\x09\x09\x09\x09onClick: [ self refresh ].\x0a\x09\x09\x09\x09diveButton := html button\x0a\x09\x09\x09\x09\x09class: 'amber_button inspector dive';\x0a\x09\x09\x09\x09\x09with: 'Dive';\x0a\x09\x09\x09\x09\x09onClick: [ self dive ]].\x0a\x09\x09\x09html div class: 'amber_clear' ].\x0a\x09self\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateValueTextarea.",
-messageSends: ["class:", "div", "with:", "ul", "textarea", "at:put:", "button", "onClick:", "refresh", "dive", "updateVariablesList", "updateValueTextarea"],
+source: "renderTopPanelOn: html\x0a\x09html div\x0a\x09\x09class: 'top';\x0a\x09\x09with: [\x0a\x09\x09\x09variablesList := html ul class: 'amber_column variables'.\x0a\x09\x09\x09valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'; yourself.\x0a\x09\x09\x09html div class: 'amber_tabs inspector'; with: [\x0a\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09class: 'amber_button inspector refresh';\x0a\x09\x09\x09\x09\x09with: 'Refresh';\x0a\x09\x09\x09\x09\x09onClick: [ self refresh ].\x0a\x09\x09\x09\x09diveButton := html button\x0a\x09\x09\x09\x09\x09class: 'amber_button inspector dive';\x0a\x09\x09\x09\x09\x09with: 'Dive';\x0a\x09\x09\x09\x09\x09onClick: [ self dive ]].\x0a\x09\x09\x09html div class: 'amber_clear' ].\x0a\x09self\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateValueTextarea.",
+messageSends: ["class:", "div", "with:", "ul", "textarea", "at:put:", "yourself", "button", "onClick:", "refresh", "dive", "updateVariablesList", "updateValueTextarea"],
 referencedClasses: []
 }),
 smalltalk.Inspector);
