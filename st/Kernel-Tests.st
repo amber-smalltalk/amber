@@ -1505,7 +1505,7 @@ collection
 
 collectionOfPrintStrings
 	^ Set new
-		add: 'a Smalltalk';
+		add: 'a SmalltalkImage';
 		add: 'nil';
 		add: '3@3';
 		add: 'false';

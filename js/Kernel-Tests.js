@@ -5367,7 +5367,7 @@ function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st($Set())._new();
-_st($2)._add_("a Smalltalk");
+_st($2)._add_("a SmalltalkImage");
 $ctx1.sendIdx["add:"]=1;
 _st($2)._add_("nil");
 $ctx1.sendIdx["add:"]=2;
@@ -5379,7 +5379,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},smalltalk.SetTest)})},
 args: [],
-source: "collectionOfPrintStrings\x0a\x09^ Set new\x0a\x09\x09add: 'a Smalltalk';\x0a\x09\x09add: 'nil';\x0a\x09\x09add: '3@3';\x0a\x09\x09add: 'false';\x0a\x09\x09yourself",
+source: "collectionOfPrintStrings\x0a\x09^ Set new\x0a\x09\x09add: 'a SmalltalkImage';\x0a\x09\x09add: 'nil';\x0a\x09\x09add: '3@3';\x0a\x09\x09add: 'false';\x0a\x09\x09yourself",
 messageSends: ["add:", "new", "yourself"],
 referencedClasses: ["Set"]
 }),
