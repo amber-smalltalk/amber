@@ -2377,11 +2377,13 @@ inspectOn: anInspector
 !Set methodsFor: '*IDE'!
 
 inspectOn: anInspector
-	| variables |
+	| variables i |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
-	elements withIndexDo: [ :each :i |
-		variables at: i put: each ].
+	i := 1.
+	self do: [ :each |
+		variables at: i put: each.
+		i := i + 1 ].
 	anInspector
 		setLabel: self printString;
 		setVariables: variables

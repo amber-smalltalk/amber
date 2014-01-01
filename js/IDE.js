@@ -7462,23 +7462,26 @@ selector: "inspectOn:",
 protocol: '*IDE',
 fn: function (anInspector){
 var self=this;
-var variables;
+var variables,i;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 $ctx1.sendIdx["at:put:"]=1;
-_st(self["@elements"])._withIndexDo_((function(each,i){
+i=(1);
+self._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(variables)._at_put_(i,each);
-}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,1)})}));
+_st(variables)._at_put_(i,each);
+i=_st(i).__plus((1));
+return i;
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 _st(anInspector)._setLabel_(self._printString());
 $1=_st(anInspector)._setVariables_(variables);
-return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.Set)})},
+return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables,i:i},smalltalk.Set)})},
 args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09elements withIndexDo: [ :each :i |\x0a\x09\x09variables at: i put: each ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-messageSends: ["new", "at:put:", "withIndexDo:", "setLabel:", "printString", "setVariables:"],
+source: "inspectOn: anInspector\x0a\x09| variables i |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09i := 1.\x0a\x09self do: [ :each |\x0a\x09\x09variables at: i put: each.\x0a\x09\x09i := i + 1 ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
+messageSends: ["new", "at:put:", "do:", "+", "setLabel:", "printString", "setVariables:"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.Set);

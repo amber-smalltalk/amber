@@ -1496,19 +1496,19 @@ CollectionTest subclass: #SetTest
 
 collection
 	^ Set new
-		add: 1;
-		add: 2;
-		add: 3;
-		add: -4;
+		add: Smalltalk current;
+		add: nil;
+		add: 3@3;
+		add: false;
 		yourself
 !
 
 collectionOfPrintStrings
 	^ Set new
-		add: '1';
-		add: '2';
-		add: '3';
-		add: '-4';
+		add: 'a Smalltalk';
+		add: 'nil';
+		add: '3@3';
+		add: 'false';
 		yourself
 !
 
@@ -1518,16 +1518,16 @@ collectionSize
 
 collectionWithDuplicates
 	"Set has no duplicates"
-	^ self collection add: 'yet another'; yourself
+	^ self collection add: 0; yourself
 !
 
 collectionWithNewValue
 	^ Set new
-		add: 1;
-		add: 2;
-		add: 3;
+		add: Smalltalk current;
+		add: nil;
+		add: 3@3;
 		add: 'N';
-		add: -4;
+		add: false;
 		yourself
 ! !
 
@@ -1590,9 +1590,9 @@ testPrintString
 	set remove: 1; remove: 3.
 	self assert: set printString equals: 'a Set (''foo'')'.
 	set add: 3.
-	self assert: set printString equals: 'a Set (''foo'' 3)'.
+	self assert: set printString equals: 'a Set (3 ''foo'')'.
 	set add: 3.
-	self assert: set printString equals: 'a Set (''foo'' 3)'
+	self assert: set printString equals: 'a Set (3 ''foo'')'
 !
 
 testUnboxedObjects
