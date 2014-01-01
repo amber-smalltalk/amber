@@ -2319,6 +2319,22 @@ smalltalk.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "globals",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self;
+}, function($ctx1) {$ctx1.fill(self,"globals",{},smalltalk.SmalltalkImage)})},
+args: [],
+source: "globals\x0a\x09\x22Future compatibility to be able to use Smalltalk globals at: ...\x22\x0a\x09^ self",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.SmalltalkImage);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "includesKey:",
 protocol: 'accessing',
 fn: function (aKey){

@@ -798,6 +798,11 @@ current
 	^ self
 !
 
+globals
+	"Future compatibility to be able to use Smalltalk globals at: ..."
+	^ self
+!
+
 includesKey: aKey
 	<return smalltalk.hasOwnProperty(aKey)>
 !
