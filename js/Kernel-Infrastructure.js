@@ -2651,12 +2651,11 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.SmalltalkImage.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
 _st(smalltalk)._at_put_("Smalltalk",self._current());
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.SmalltalkImage.klass)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09smalltalk at: 'Smalltalk' put: self current",
-messageSends: ["initialize", "at:put:", "current"],
+source: "initialize\x0a\x09smalltalk at: 'Smalltalk' put: self current",
+messageSends: ["at:put:", "current"],
 referencedClasses: []
 }),
 smalltalk.SmalltalkImage.klass);

@@ -994,7 +994,6 @@ SmalltalkImage class instanceVariableNames: 'current'!
 !SmalltalkImage class methodsFor: 'initialization'!
 
 initialize
-	super initialize.
 	smalltalk at: 'Smalltalk' put: self current
 ! !
 
