@@ -101,7 +101,7 @@ do: aBlock
 	<
 		var buckets = self['@buckets'];
 		var keys = Object.keys(buckets);
-		for (i = 0; i < keys.length; ++i) { buckets[keys[i]]._do_(aBlock); }
+		for (var i = 0; i < keys.length; ++i) { buckets[keys[i]]._do_(aBlock); }
 	>
 ! !
 

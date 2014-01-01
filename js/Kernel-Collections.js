@@ -185,11 +185,11 @@ return smalltalk.withContext(function($ctx1) {
 
 		var buckets = self['@buckets'];
 		var keys = Object.keys(buckets);
-		for (i = 0; i < keys.length; ++i) { buckets[keys[i]]._do_(aBlock); }
+		for (var i = 0; i < keys.length; ++i) { buckets[keys[i]]._do_(aBlock); }
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.BucketStore)})},
 args: ["aBlock"],
-source: "do: aBlock\x0a\x09<\x0a\x09\x09var buckets = self['@buckets'];\x0a\x09\x09var keys = Object.keys(buckets);\x0a\x09\x09for (i = 0; i < keys.length; ++i) { buckets[keys[i]]._do_(aBlock); }\x0a\x09>",
+source: "do: aBlock\x0a\x09<\x0a\x09\x09var buckets = self['@buckets'];\x0a\x09\x09var keys = Object.keys(buckets);\x0a\x09\x09for (var i = 0; i < keys.length; ++i) { buckets[keys[i]]._do_(aBlock); }\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
