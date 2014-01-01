@@ -35,8 +35,8 @@ CodeMirror.defineMode('smalltalk', function(config, modeConfig) {
 		} else if (aChar === '\'') {
 			token = nextString(stream, new Context(nextString, context));
 
-		} else if (aChar === '#') {
-			stream.eatWhile(/[^ .]/);
+		} else if (aChar === '#' && !/[{(]/.test(stream.peek())) {
+			stream.eatWhile(/[^ .\]})]/);
 			token.name = 'string-2';
 
 		} else if (aChar === '$') {
