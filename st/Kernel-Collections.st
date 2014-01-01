@@ -1979,20 +1979,21 @@ add: anObject in: anotherObject
 !
 
 bucketOfElement: anObject
-	"Find the appropriate bucket for `anObject`"
+	"Find the appropriate bucket for `anObject`.
+	Answer an array with the object to be store, the primitive bucket, then the slow bucket"
 	
 	<
 		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
 		if ((type = typeof prim) === "object") {
 			if (anObject !!== nil) {
 				bucket = null;
-				self['@slowBucketStores'].some(function (x) {
-					return bucket = x._bucketOfElement_(anObject);
+				self['@slowBucketStores'].some(function (store) {
+					return bucket = store._bucketOfElement_(anObject);
 				});
 				return [ anObject, null, bucket || self['@defaultBucket'] ];
 			}
 			
-			// include nil to well-knowns objects under 'boolean' fastBucket
+			// include nil to well-known objects under 'boolean' fastBucket
 			prim = null;
 			type = 'boolean';
 		}

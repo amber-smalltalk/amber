@@ -5567,13 +5567,13 @@ return smalltalk.withContext(function($ctx1) {
 		if ((type = typeof prim) === "object") {
 			if (anObject !== nil) {
 				bucket = null;
-				self['@slowBucketStores'].some(function (x) {
-					return bucket = x._bucketOfElement_(anObject);
+				self['@slowBucketStores'].some(function (store) {
+					return bucket = store._bucketOfElement_(anObject);
 				});
 				return [ anObject, null, bucket || self['@defaultBucket'] ];
 			}
 			
-			// include nil to well-knowns objects under 'boolean' fastBucket
+			// include nil to well-known objects under 'boolean' fastBucket
 			prim = null;
 			type = 'boolean';
 		}
@@ -5581,7 +5581,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"bucketOfElement:",{anObject:anObject},smalltalk.Set)})},
 args: ["anObject"],
-source: "bucketOfElement: anObject\x0a\x09\x22Find the appropriate bucket for `anObject`\x22\x0a\x09\x0a\x09<\x0a\x09\x09var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();\x0a\x09\x09if ((type = typeof prim) === \x22object\x22) {\x0a\x09\x09\x09if (anObject !== nil) {\x0a\x09\x09\x09\x09bucket = null;\x0a\x09\x09\x09\x09self['@slowBucketStores'].some(function (x) {\x0a\x09\x09\x09\x09\x09return bucket = x._bucketOfElement_(anObject);\x0a\x09\x09\x09\x09});\x0a\x09\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09\x09}\x0a\x09\x09\x09\x0a\x09\x09\x09// include nil to well-knowns objects under 'boolean' fastBucket\x0a\x09\x09\x09prim = null;\x0a\x09\x09\x09type = 'boolean';\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][type] ];\x0a\x09>",
+source: "bucketOfElement: anObject\x0a\x09\x22Find the appropriate bucket for `anObject`.\x0a\x09Answer an array with the object to be store, the primitive bucket, then the slow bucket\x22\x0a\x09\x0a\x09<\x0a\x09\x09var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();\x0a\x09\x09if ((type = typeof prim) === \x22object\x22) {\x0a\x09\x09\x09if (anObject !== nil) {\x0a\x09\x09\x09\x09bucket = null;\x0a\x09\x09\x09\x09self['@slowBucketStores'].some(function (store) {\x0a\x09\x09\x09\x09\x09return bucket = store._bucketOfElement_(anObject);\x0a\x09\x09\x09\x09});\x0a\x09\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09\x09}\x0a\x09\x09\x09\x0a\x09\x09\x09// include nil to well-known objects under 'boolean' fastBucket\x0a\x09\x09\x09prim = null;\x0a\x09\x09\x09type = 'boolean';\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][type] ];\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
