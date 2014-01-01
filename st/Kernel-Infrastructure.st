@@ -192,8 +192,7 @@ removeMethod: aMethod
 !
 
 removeProtocol: aString from: aClass
-	(aClass methods
-		select: [ :each | each protocol = aString ])
+	(aClass methodsInProtocol: aString)
 		do: [ :each | aClass removeCompiledMethod: each ]
 !
 
@@ -205,8 +204,7 @@ renameClass: aClass to: aClassName
 !
 
 renameProtocol: aString to: anotherString in: aClass
-	(aClass methods
-		select: [ :each | each protocol = aString ])
+	(aClass methodsInProtocol: aString)
 		do: [ :each | each protocol: anotherString ]
 !
 

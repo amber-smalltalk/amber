@@ -727,8 +727,7 @@ methods
 		ifNil: [ #() ]
 		ifNotNil: [ klass methodDictionary values ]]
 	ifNotNil: [
-		klass methodDictionary values select: [ :each |
-			each protocol = selectedProtocol ]]) 
+		klass methodsInProtocol: selectedProtocol ]) 
 				sort: [ :a :b | a selector < b selector ]
 !
 
@@ -1721,7 +1720,7 @@ updateValueTextarea
 
 updateVariablesList
 	variablesList contents: [ :html |
-		self variables keys do: [ :each || li |
+		self variables keysDo: [ :each || li |
 			li := html li.
 			li
 				with: each;
@@ -1841,14 +1840,14 @@ searchMethodSource
 	| regex |
 	regex := selector allButFirst.
 	self classesAndMetaclasses do: [ :each |
-		each methodDictionary values do: [ :value |
+		each methodDictionary valuesDo: [ :value |
 			(value source match: regex) ifTrue: [
 				self matches add: value ]] ]
 !
 
 searchReferencedClasses
 	self classesAndMetaclasses do: [ :each |
-		each methodDictionary values do: [ :value |
+		each methodDictionary valuesDo: [ :value |
 			(value referencedClasses includes: selector) ifTrue: [
 				self referencedClasses add: value ]] ]
 !

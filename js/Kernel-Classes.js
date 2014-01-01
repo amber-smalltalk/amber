@@ -33,7 +33,7 @@ function $MethodAdded(){return smalltalk.MethodAdded||(typeof MethodAdded=="unde
 function $MethodModified(){return smalltalk.MethodModified||(typeof MethodModified=="undefined"?nil:MethodModified)}
 function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13;
+var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11;
 oldMethod=_st(self._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return nil;
@@ -44,7 +44,6 @@ $ctx1.sendIdx["protocol"]=1;
 $1=_st($2)._includes_($3);
 if(! smalltalk.assert($1)){
 $4=self._organization();
-$ctx1.sendIdx["organization"]=1;
 $5=_st(aMethod)._protocol();
 $ctx1.sendIdx["protocol"]=2;
 _st($4)._addElement_($5);
@@ -54,39 +53,29 @@ $6=oldMethod;
 if(($receiver = $6) == nil || $receiver == null){
 $6;
 } else {
-_st(_st(self._methods())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {
-$7=_st(each)._protocol();
-$ctx2.sendIdx["protocol"]=3;
-$8=_st(oldMethod)._protocol();
-$ctx2.sendIdx["protocol"]=4;
-return _st($7).__eq($8);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})})))._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self._organization())._removeElement_(_st(oldMethod)._protocol());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
+self._removeProtocolIfEmpty_(_st(oldMethod)._protocol());
 };
-$9=oldMethod;
-if(($receiver = $9) == nil || $receiver == null){
-$10=_st($MethodAdded())._new();
+$7=oldMethod;
+if(($receiver = $7) == nil || $receiver == null){
+$8=_st($MethodAdded())._new();
 $ctx1.sendIdx["new"]=1;
-_st($10)._method_(aMethod);
+_st($8)._method_(aMethod);
 $ctx1.sendIdx["method:"]=1;
-$11=_st($10)._yourself();
+$9=_st($8)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-announcement=$11;
+announcement=$9;
 } else {
-$12=_st($MethodModified())._new();
-_st($12)._oldMethod_(oldMethod);
-_st($12)._method_(aMethod);
-$13=_st($12)._yourself();
-announcement=$13;
+$10=_st($MethodModified())._new();
+_st($10)._oldMethod_(oldMethod);
+_st($10)._method_(aMethod);
+$11=_st($10)._yourself();
+announcement=$11;
 };
 _st(_st($SystemAnnouncer())._current())._announce_(announcement);
 return self}, function($ctx1) {$ctx1.fill(self,"addCompiledMethod:",{aMethod:aMethod,oldMethod:oldMethod,announcement:announcement},smalltalk.Behavior)})},
 args: ["aMethod"],
-source: "addCompiledMethod: aMethod\x0a\x09| oldMethod announcement |\x0a\x09\x0a\x09oldMethod := self methodDictionary\x0a\x09\x09at: aMethod selector\x0a\x09\x09ifAbsent: [ nil ].\x0a\x09\x0a\x09(self protocols includes: aMethod protocol)\x0a\x09\x09ifFalse: [ self organization addElement: aMethod protocol ].\x0a\x0a\x09self basicAddCompiledMethod: aMethod.\x0a\x09\x0a\x09oldMethod ifNotNil: [\x0a\x09\x09(self methods\x0a\x09\x09\x09select: [ :each | each protocol = oldMethod protocol ])\x0a\x09\x09\x09ifEmpty: [ self organization removeElement: oldMethod protocol ] ].\x0a\x09\x0a\x09announcement := oldMethod\x0a\x09\x09ifNil: [\x0a\x09\x09\x09MethodAdded new\x0a\x09\x09\x09\x09\x09method: aMethod;\x0a\x09\x09\x09\x09\x09yourself ]\x0a\x09\x09ifNotNil: [\x0a\x09\x09\x09MethodModified new\x0a\x09\x09\x09\x09\x09oldMethod: oldMethod;\x0a\x09\x09\x09\x09\x09method: aMethod;\x0a\x09\x09\x09\x09\x09yourself ].\x0a\x09\x09\x09\x09\x09\x0a\x09\x09\x09\x09\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09\x09\x09announce: announcement",
-messageSends: ["at:ifAbsent:", "methodDictionary", "selector", "ifFalse:", "includes:", "protocols", "protocol", "addElement:", "organization", "basicAddCompiledMethod:", "ifNotNil:", "ifEmpty:", "select:", "methods", "=", "removeElement:", "ifNil:ifNotNil:", "method:", "new", "yourself", "oldMethod:", "announce:", "current"],
+source: "addCompiledMethod: aMethod\x0a\x09| oldMethod announcement |\x0a\x09\x0a\x09oldMethod := self methodDictionary\x0a\x09\x09at: aMethod selector\x0a\x09\x09ifAbsent: [ nil ].\x0a\x09\x0a\x09(self protocols includes: aMethod protocol)\x0a\x09\x09ifFalse: [ self organization addElement: aMethod protocol ].\x0a\x0a\x09self basicAddCompiledMethod: aMethod.\x0a\x09\x0a\x09oldMethod ifNotNil: [\x0a\x09\x09self removeProtocolIfEmpty: oldMethod protocol ].\x0a\x09\x0a\x09announcement := oldMethod\x0a\x09\x09ifNil: [\x0a\x09\x09\x09MethodAdded new\x0a\x09\x09\x09\x09\x09method: aMethod;\x0a\x09\x09\x09\x09\x09yourself ]\x0a\x09\x09ifNotNil: [\x0a\x09\x09\x09MethodModified new\x0a\x09\x09\x09\x09\x09oldMethod: oldMethod;\x0a\x09\x09\x09\x09\x09method: aMethod;\x0a\x09\x09\x09\x09\x09yourself ].\x0a\x09\x09\x09\x09\x09\x0a\x09\x09\x09\x09\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09\x09\x09announce: announcement",
+messageSends: ["at:ifAbsent:", "methodDictionary", "selector", "ifFalse:", "includes:", "protocols", "protocol", "addElement:", "organization", "basicAddCompiledMethod:", "ifNotNil:", "removeProtocolIfEmpty:", "ifNil:ifNotNil:", "method:", "new", "yourself", "oldMethod:", "announce:", "current"],
 referencedClasses: ["MethodAdded", "MethodModified", "SystemAnnouncer"]
 }),
 smalltalk.Behavior);
@@ -282,7 +271,7 @@ fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $3,$2,$1;
-$1=_st(_st(_st(self._methodDictionary())._keys())._includes_(_st(aSelector)._asString()))._or_((function(){
+$1=_st(self._includesSelector_(_st(aSelector)._asString()))._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 $3=self._superclass();
 $ctx2.sendIdx["superclass"]=1;
@@ -295,8 +284,8 @@ return _st(self._superclass())._canUnderstand_(aSelector);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"canUnderstand:",{aSelector:aSelector},smalltalk.Behavior)})},
 args: ["aSelector"],
-source: "canUnderstand: aSelector\x0a\x09^ (self methodDictionary keys includes: aSelector asString) or: [\x0a\x09\x09self superclass notNil and: [ self superclass canUnderstand: aSelector ]]",
-messageSends: ["or:", "includes:", "keys", "methodDictionary", "asString", "and:", "notNil", "superclass", "canUnderstand:"],
+source: "canUnderstand: aSelector\x0a\x09^ (self includesSelector: aSelector asString) or: [\x0a\x09\x09self superclass notNil and: [ self superclass canUnderstand: aSelector ]]",
+messageSends: ["or:", "includesSelector:", "asString", "and:", "notNil", "superclass", "canUnderstand:"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
@@ -717,15 +706,15 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self._methodDictionary())._values())._select_((function(each){
+$1=_st(self._methods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._protocol()).__eq(aString);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodsInProtocol:",{aString:aString},smalltalk.Behavior)})},
 args: ["aString"],
-source: "methodsInProtocol: aString\x0a\x09^ self methodDictionary values select: [ :each | each protocol = aString ]",
-messageSends: ["select:", "values", "methodDictionary", "=", "protocol"],
+source: "methodsInProtocol: aString\x0a\x09^ self methods select: [ :each | each protocol = aString ]",
+messageSends: ["select:", "methods", "=", "protocol"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
@@ -860,22 +849,21 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 methodsByProtocol=_st($HashedCollection())._new();
 $ctx1.sendIdx["new"]=1;
-_st(_st(self._methodDictionary())._values())._do_((function(m){
+_st(self._methodDictionary())._valuesDo_((function(m){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(methodsByProtocol)._at_ifAbsentPut_(_st(m)._protocol(),(function(){
 return smalltalk.withContext(function($ctx3) {
 return _st($Array())._new();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})))._add_(m);
 }, function($ctx2) {$ctx2.fillBlock({m:m},$ctx1,1)})}));
-$ctx1.sendIdx["do:"]=1;
 _st(self._protocols())._do_((function(protocol){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_value_(protocol,_st(methodsByProtocol)._at_(protocol));
 }, function($ctx2) {$ctx2.fillBlock({protocol:protocol},$ctx1,3)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"protocolsDo:",{aBlock:aBlock,methodsByProtocol:methodsByProtocol},smalltalk.Behavior)})},
 args: ["aBlock"],
-source: "protocolsDo: aBlock\x0a\x09\x22Execute aBlock for each method protocol with\x0a\x09its collection of methods in the sort order of protocol name.\x22\x0a\x0a\x09| methodsByProtocol |\x0a\x09methodsByProtocol := HashedCollection new.\x0a\x09self methodDictionary values do: [ :m |\x0a\x09\x09(methodsByProtocol at: m protocol ifAbsentPut: [ Array new ])\x0a\x09\x09\x09add: m ].\x0a\x09self protocols do: [ :protocol |\x0a\x09\x09aBlock value: protocol value: (methodsByProtocol at: protocol) ]",
-messageSends: ["new", "do:", "values", "methodDictionary", "add:", "at:ifAbsentPut:", "protocol", "protocols", "value:value:", "at:"],
+source: "protocolsDo: aBlock\x0a\x09\x22Execute aBlock for each method protocol with\x0a\x09its collection of methods in the sort order of protocol name.\x22\x0a\x0a\x09| methodsByProtocol |\x0a\x09methodsByProtocol := HashedCollection new.\x0a\x09self methodDictionary valuesDo: [ :m |\x0a\x09\x09(methodsByProtocol at: m protocol ifAbsentPut: [ Array new ])\x0a\x09\x09\x09add: m ].\x0a\x09self protocols do: [ :protocol |\x0a\x09\x09aBlock value: protocol value: (methodsByProtocol at: protocol) ]",
+messageSends: ["new", "valuesDo:", "methodDictionary", "add:", "at:ifAbsentPut:", "protocol", "do:", "protocols", "value:value:", "at:"],
 referencedClasses: ["HashedCollection", "Array"]
 }),
 smalltalk.Behavior);
@@ -924,28 +912,40 @@ var self=this;
 function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $MethodRemoved(){return smalltalk.MethodRemoved||(typeof MethodRemoved=="undefined"?nil:MethodRemoved)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2;
 self._basicRemoveCompiledMethod_(aMethod);
-_st(self._methods())._detect_ifNone_((function(each){
-return smalltalk.withContext(function($ctx2) {
-$1=_st(each)._protocol();
-$ctx2.sendIdx["protocol"]=1;
-$2=_st(aMethod)._protocol();
-$ctx2.sendIdx["protocol"]=2;
-return _st($1).__eq($2);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self._organization())._removeElement_(_st(aMethod)._protocol());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$3=_st($MethodRemoved())._new();
-_st($3)._method_(aMethod);
-$4=_st($3)._yourself();
-_st(_st($SystemAnnouncer())._current())._announce_($4);
+self._removeProtocolIfEmpty_(_st(aMethod)._protocol());
+$1=_st($MethodRemoved())._new();
+_st($1)._method_(aMethod);
+$2=_st($1)._yourself();
+_st(_st($SystemAnnouncer())._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"removeCompiledMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
 args: ["aMethod"],
-source: "removeCompiledMethod: aMethod\x0a\x09self basicRemoveCompiledMethod: aMethod.\x0a\x09\x0a\x09self methods\x0a\x09\x09detect: [ :each | each protocol = aMethod protocol ]\x0a\x09\x09ifNone: [ self organization removeElement: aMethod protocol ].\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (MethodRemoved new\x0a\x09\x09\x09method: aMethod;\x0a\x09\x09\x09yourself)",
-messageSends: ["basicRemoveCompiledMethod:", "detect:ifNone:", "methods", "=", "protocol", "removeElement:", "organization", "announce:", "current", "method:", "new", "yourself"],
+source: "removeCompiledMethod: aMethod\x0a\x09self basicRemoveCompiledMethod: aMethod.\x0a\x09\x0a\x09self removeProtocolIfEmpty: aMethod protocol.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (MethodRemoved new\x0a\x09\x09\x09method: aMethod;\x0a\x09\x09\x09yourself)",
+messageSends: ["basicRemoveCompiledMethod:", "removeProtocolIfEmpty:", "protocol", "announce:", "current", "method:", "new", "yourself"],
 referencedClasses: ["SystemAnnouncer", "MethodRemoved"]
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeProtocolIfEmpty:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._methods())._detect_ifNone_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._protocol()).__eq(aString);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._organization())._removeElement_(aString);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"removeProtocolIfEmpty:",{aString:aString},smalltalk.Behavior)})},
+args: ["aString"],
+source: "removeProtocolIfEmpty: aString\x0a\x09self methods\x0a\x09\x09detect: [ :each | each protocol = aString ]\x0a\x09\x09ifNone: [ self organization removeElement: aString ]",
+messageSends: ["detect:ifNone:", "methods", "=", "protocol", "removeElement:", "organization"],
+referencedClasses: []
 }),
 smalltalk.Behavior);
 
@@ -1744,43 +1744,40 @@ fn: function (aClass,anotherClass){
 var self=this;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$4,$5,$6,$8,$7,$11,$10,$9;
+var $1,$2,$3,$4,$5,$7,$6,$9,$8;
 _st(anotherClass)._comment_(_st(aClass)._comment());
-$2=_st(aClass)._methodDictionary();
+$1=_st(aClass)._methodDictionary();
 $ctx1.sendIdx["methodDictionary"]=1;
-$1=_st($2)._values();
-$ctx1.sendIdx["values"]=1;
-_st($1)._do_((function(each){
+_st($1)._valuesDo_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$3=_st($Compiler())._new();
+$2=_st($Compiler())._new();
 $ctx2.sendIdx["new"]=1;
-$4=_st(each)._source();
+$3=_st(each)._source();
 $ctx2.sendIdx["source"]=1;
-$5=_st(each)._protocol();
+$4=_st(each)._protocol();
 $ctx2.sendIdx["protocol"]=1;
-return _st($3)._install_forClass_protocol_($4,anotherClass,$5);
+return _st($2)._install_forClass_protocol_($3,anotherClass,$4);
 $ctx2.sendIdx["install:forClass:protocol:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$ctx1.sendIdx["do:"]=1;
-$6=_st(anotherClass)._class();
+$ctx1.sendIdx["valuesDo:"]=1;
+$5=_st(anotherClass)._class();
 $ctx1.sendIdx["class"]=1;
-$8=_st(aClass)._class();
+$7=_st(aClass)._class();
 $ctx1.sendIdx["class"]=2;
-$7=_st($8)._instanceVariableNames();
-self._basicClass_instanceVariables_($6,$7);
-$11=_st(aClass)._class();
+$6=_st($7)._instanceVariableNames();
+self._basicClass_instanceVariables_($5,$6);
+$9=_st(aClass)._class();
 $ctx1.sendIdx["class"]=3;
-$10=_st($11)._methodDictionary();
-$9=_st($10)._values();
-_st($9)._do_((function(each){
+$8=_st($9)._methodDictionary();
+_st($8)._valuesDo_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($Compiler())._new())._install_forClass_protocol_(_st(each)._source(),_st(anotherClass)._class(),_st(each)._protocol());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 self._setupClass_(anotherClass);
 return self}, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,anotherClass:anotherClass},smalltalk.ClassBuilder)})},
 args: ["aClass", "anotherClass"],
-source: "copyClass: aClass to: anotherClass\x0a\x0a\x09anotherClass comment: aClass comment.\x0a\x0a\x09aClass methodDictionary values do: [ :each |\x0a\x09\x09Compiler new install: each source forClass: anotherClass protocol: each protocol ].\x0a\x0a\x09self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.\x0a\x0a\x09aClass class methodDictionary values do: [ :each |\x0a\x09\x09Compiler new install: each source forClass: anotherClass class protocol: each protocol ].\x0a\x0a\x09self setupClass: anotherClass",
-messageSends: ["comment:", "comment", "do:", "values", "methodDictionary", "install:forClass:protocol:", "new", "source", "protocol", "basicClass:instanceVariables:", "class", "instanceVariableNames", "setupClass:"],
+source: "copyClass: aClass to: anotherClass\x0a\x0a\x09anotherClass comment: aClass comment.\x0a\x0a\x09aClass methodDictionary valuesDo: [ :each |\x0a\x09\x09Compiler new install: each source forClass: anotherClass protocol: each protocol ].\x0a\x0a\x09self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.\x0a\x0a\x09aClass class methodDictionary valuesDo: [ :each |\x0a\x09\x09Compiler new install: each source forClass: anotherClass class protocol: each protocol ].\x0a\x0a\x09self setupClass: anotherClass",
+messageSends: ["comment:", "comment", "valuesDo:", "methodDictionary", "install:forClass:protocol:", "new", "source", "protocol", "basicClass:instanceVariables:", "class", "instanceVariableNames", "setupClass:"],
 referencedClasses: ["Compiler"]
 }),
 smalltalk.ClassBuilder);

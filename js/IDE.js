@@ -2679,7 +2679,7 @@ fn: function (){
 var self=this;
 var klass;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$7,$8,$9,$6,$10,$5;
+var $1,$2,$3,$4,$7,$8,$6,$9,$5;
 $1=_st(self["@selectedTab"]).__eq("comment");
 $ctx1.sendIdx["="]=1;
 if(smalltalk.assert($1)){
@@ -2691,7 +2691,6 @@ if(($receiver = $3) == nil || $receiver == null){
 $3;
 } else {
 $4=_st(self["@selectedTab"]).__eq("instance");
-$ctx1.sendIdx["="]=2;
 if(smalltalk.assert($4)){
 klass=self["@selectedClass"];
 } else {
@@ -2705,28 +2704,22 @@ $8=klass;
 if(($receiver = $8) == nil || $receiver == null){
 $6=[];
 } else {
-$9=_st(klass)._methodDictionary();
-$ctx1.sendIdx["methodDictionary"]=1;
-$6=_st($9)._values();
-$ctx1.sendIdx["values"]=1;
+$6=_st(_st(klass)._methodDictionary())._values();
 };
 } else {
-$6=_st(_st(_st(klass)._methodDictionary())._values())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._protocol()).__eq(self["@selectedProtocol"]);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,9)})}));
+$6=_st(klass)._methodsInProtocol_(self["@selectedProtocol"]);
 };
 $5=_st($6)._sort_((function(a,b){
 return smalltalk.withContext(function($ctx2) {
-$10=_st(a)._selector();
+$9=_st(a)._selector();
 $ctx2.sendIdx["selector"]=1;
-return _st($10).__lt(_st(b)._selector());
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,10)})}));
+return _st($9).__lt(_st(b)._selector());
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,9)})}));
 return $5;
 }, function($ctx1) {$ctx1.fill(self,"methods",{klass:klass},smalltalk.Browser)})},
 args: [],
-source: "methods\x0a\x09| klass |\x0a\x09selectedTab = #comment ifTrue: [ ^ #() ].\x0a\x09selectedClass ifNotNil: [\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [ selectedClass ]\x0a\x09\x09ifFalse: [ selectedClass class ]].\x0a\x09^ (selectedProtocol\x0a\x09ifNil: [\x0a\x09\x09klass\x0a\x09\x09ifNil: [ #() ]\x0a\x09\x09ifNotNil: [ klass methodDictionary values ]]\x0a\x09ifNotNil: [\x0a\x09\x09klass methodDictionary values select: [ :each |\x0a\x09\x09\x09each protocol = selectedProtocol ]]) \x0a\x09\x09\x09\x09sort: [ :a :b | a selector < b selector ]",
-messageSends: ["ifTrue:", "=", "ifNotNil:", "ifTrue:ifFalse:", "class", "sort:", "ifNil:ifNotNil:", "values", "methodDictionary", "select:", "protocol", "<", "selector"],
+source: "methods\x0a\x09| klass |\x0a\x09selectedTab = #comment ifTrue: [ ^ #() ].\x0a\x09selectedClass ifNotNil: [\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [ selectedClass ]\x0a\x09\x09ifFalse: [ selectedClass class ]].\x0a\x09^ (selectedProtocol\x0a\x09ifNil: [\x0a\x09\x09klass\x0a\x09\x09ifNil: [ #() ]\x0a\x09\x09ifNotNil: [ klass methodDictionary values ]]\x0a\x09ifNotNil: [\x0a\x09\x09klass methodsInProtocol: selectedProtocol ]) \x0a\x09\x09\x09\x09sort: [ :a :b | a selector < b selector ]",
+messageSends: ["ifTrue:", "=", "ifNotNil:", "ifTrue:ifFalse:", "class", "sort:", "ifNil:ifNotNil:", "values", "methodDictionary", "methodsInProtocol:", "<", "selector"],
 referencedClasses: []
 }),
 smalltalk.Browser);
@@ -5343,7 +5336,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 _st(self["@variablesList"])._contents_((function(html){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(self._variables())._keys())._do_((function(each){
+return _st(self._variables())._keysDo_((function(each){
 var li;
 return smalltalk.withContext(function($ctx3) {
 li=_st(html)._li();
@@ -5363,8 +5356,8 @@ return _st(li)._class_("selected");
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateVariablesList",{},smalltalk.Inspector)})},
 args: [],
-source: "updateVariablesList\x0a\x09variablesList contents: [ :html |\x0a\x09\x09self variables keys do: [ :each || li |\x0a\x09\x09\x09li := html li.\x0a\x09\x09\x09li\x0a\x09\x09\x09\x09with: each;\x0a\x09\x09\x09\x09onClick: [ self selectVariable: each ].\x0a\x09\x09\x09self selectedVariable = each ifTrue: [\x0a\x09\x09\x09\x09li class: 'selected' ]] ]",
-messageSends: ["contents:", "do:", "keys", "variables", "li", "with:", "onClick:", "selectVariable:", "ifTrue:", "=", "selectedVariable", "class:"],
+source: "updateVariablesList\x0a\x09variablesList contents: [ :html |\x0a\x09\x09self variables keysDo: [ :each || li |\x0a\x09\x09\x09li := html li.\x0a\x09\x09\x09li\x0a\x09\x09\x09\x09with: each;\x0a\x09\x09\x09\x09onClick: [ self selectVariable: each ].\x0a\x09\x09\x09self selectedVariable = each ifTrue: [\x0a\x09\x09\x09\x09li class: 'selected' ]] ]",
+messageSends: ["contents:", "keysDo:", "variables", "li", "with:", "onClick:", "selectVariable:", "ifTrue:", "=", "selectedVariable", "class:"],
 referencedClasses: []
 }),
 smalltalk.Inspector);
@@ -5871,7 +5864,7 @@ var $1;
 regex=_st(self["@selector"])._allButFirst();
 _st(self._classesAndMetaclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(each)._methodDictionary())._values())._do_((function(value){
+return _st(_st(each)._methodDictionary())._valuesDo_((function(value){
 return smalltalk.withContext(function($ctx3) {
 $1=_st(_st(value)._source())._match_(regex);
 if(smalltalk.assert($1)){
@@ -5879,11 +5872,10 @@ return _st(self._matches())._add_(value);
 };
 }, function($ctx3) {$ctx3.fillBlock({value:value},$ctx2,2)})}));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$ctx1.sendIdx["do:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"searchMethodSource",{regex:regex},smalltalk.ReferencesBrowser)})},
 args: [],
-source: "searchMethodSource\x0a\x09| regex |\x0a\x09regex := selector allButFirst.\x0a\x09self classesAndMetaclasses do: [ :each |\x0a\x09\x09each methodDictionary values do: [ :value |\x0a\x09\x09\x09(value source match: regex) ifTrue: [\x0a\x09\x09\x09\x09self matches add: value ]] ]",
-messageSends: ["allButFirst", "do:", "classesAndMetaclasses", "values", "methodDictionary", "ifTrue:", "match:", "source", "add:", "matches"],
+source: "searchMethodSource\x0a\x09| regex |\x0a\x09regex := selector allButFirst.\x0a\x09self classesAndMetaclasses do: [ :each |\x0a\x09\x09each methodDictionary valuesDo: [ :value |\x0a\x09\x09\x09(value source match: regex) ifTrue: [\x0a\x09\x09\x09\x09self matches add: value ]] ]",
+messageSends: ["allButFirst", "do:", "classesAndMetaclasses", "valuesDo:", "methodDictionary", "ifTrue:", "match:", "source", "add:", "matches"],
 referencedClasses: []
 }),
 smalltalk.ReferencesBrowser);
@@ -5898,7 +5890,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 _st(self._classesAndMetaclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(each)._methodDictionary())._values())._do_((function(value){
+return _st(_st(each)._methodDictionary())._valuesDo_((function(value){
 return smalltalk.withContext(function($ctx3) {
 $2=_st(value)._referencedClasses();
 $ctx3.sendIdx["referencedClasses"]=1;
@@ -5908,11 +5900,10 @@ return _st(self._referencedClasses())._add_(value);
 };
 }, function($ctx3) {$ctx3.fillBlock({value:value},$ctx2,2)})}));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$ctx1.sendIdx["do:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"searchReferencedClasses",{},smalltalk.ReferencesBrowser)})},
 args: [],
-source: "searchReferencedClasses\x0a\x09self classesAndMetaclasses do: [ :each |\x0a\x09\x09each methodDictionary values do: [ :value |\x0a\x09\x09\x09(value referencedClasses includes: selector) ifTrue: [\x0a\x09\x09\x09\x09self referencedClasses add: value ]] ]",
-messageSends: ["do:", "classesAndMetaclasses", "values", "methodDictionary", "ifTrue:", "includes:", "referencedClasses", "add:"],
+source: "searchReferencedClasses\x0a\x09self classesAndMetaclasses do: [ :each |\x0a\x09\x09each methodDictionary valuesDo: [ :value |\x0a\x09\x09\x09(value referencedClasses includes: selector) ifTrue: [\x0a\x09\x09\x09\x09self referencedClasses add: value ]] ]",
+messageSends: ["do:", "classesAndMetaclasses", "valuesDo:", "methodDictionary", "ifTrue:", "includes:", "referencedClasses", "add:"],
 referencedClasses: []
 }),
 smalltalk.ReferencesBrowser);

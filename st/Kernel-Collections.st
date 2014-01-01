@@ -1213,15 +1213,11 @@ addFirst: anObject
 !
 
 remove: anObject ifAbsent: aBlock
-	<
-		for(var i=0;i<self.length;i++) {
-			if(_st(self[i]).__eq(anObject)) {
-				self.splice(i,1);
-				return self;
-			}
-		};
-		aBlock._value();
-	>
+	| index |
+	index := self indexOf: anObject ifAbsent: [ 0 ].
+	^ index = 0
+		ifFalse: [ self removeIndex: index. anObject ]
+		ifTrue: [ aBlock value ]
 !
 
 removeAll

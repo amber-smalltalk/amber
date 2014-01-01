@@ -145,7 +145,7 @@ methodsFor: aString stamp: aStamp
 !
 
 methodsInProtocol: aString
-	^ self methodDictionary values select: [ :each | each protocol = aString ]
+	^ self methods select: [ :each | each protocol = aString ]
 !
 
 name
@@ -178,6 +178,12 @@ protocols
 
 prototype
 	<return self.fn.prototype>
+!
+
+removeProtocolIfEmpty: aString
+	self methods
+		detect: [ :each | each protocol = aString ]
+		ifNone: [ self organization removeElement: aString ]
 !
 
 selectors
@@ -219,9 +225,7 @@ addCompiledMethod: aMethod
 	self basicAddCompiledMethod: aMethod.
 	
 	oldMethod ifNotNil: [
-		(self methods
-			select: [ :each | each protocol = oldMethod protocol ])
-			ifEmpty: [ self organization removeElement: oldMethod protocol ] ].
+		self removeProtocolIfEmpty: oldMethod protocol ].
 	
 	announcement := oldMethod
 		ifNil: [
@@ -257,9 +261,7 @@ recompile
 removeCompiledMethod: aMethod
 	self basicRemoveCompiledMethod: aMethod.
 	
-	self methods
-		detect: [ :each | each protocol = aMethod protocol ]
-		ifNone: [ self organization removeElement: aMethod protocol ].
+	self removeProtocolIfEmpty: aMethod protocol.
 	
 	SystemAnnouncer current
 		announce: (MethodRemoved new
@@ -282,7 +284,7 @@ protocolsDo: aBlock
 
 	| methodsByProtocol |
 	methodsByProtocol := HashedCollection new.
-	self methodDictionary values do: [ :m |
+	self methodDictionary valuesDo: [ :m |
 		(methodsByProtocol at: m protocol ifAbsentPut: [ Array new ])
 			add: m ].
 	self protocols do: [ :protocol |
@@ -312,7 +314,7 @@ basicRemoveCompiledMethod: aMethod
 !Behavior methodsFor: 'testing'!
 
 canUnderstand: aSelector
-	^ (self methodDictionary keys includes: aSelector asString) or: [
+	^ (self includesSelector: aSelector asString) or: [
 		self superclass notNil and: [ self superclass canUnderstand: aSelector ]]
 !
 
@@ -658,12 +660,12 @@ copyClass: aClass to: anotherClass
 
 	anotherClass comment: aClass comment.
 
-	aClass methodDictionary values do: [ :each |
+	aClass methodDictionary valuesDo: [ :each |
 		Compiler new install: each source forClass: anotherClass protocol: each protocol ].
 
 	self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.
 
-	aClass class methodDictionary values do: [ :each |
+	aClass class methodDictionary valuesDo: [ :each |
 		Compiler new install: each source forClass: anotherClass class protocol: each protocol ].
 
 	self setupClass: anotherClass

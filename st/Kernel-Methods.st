@@ -252,12 +252,9 @@ protocol: aString
 		oldProtocol: oldProtocol;
 		yourself).
 
-	self methodClass ifNotNil: [
-		self methodClass organization addElement: aString.
-	
-		(self methodClass methods
-			select: [ :each | each protocol = oldProtocol ])
-			ifEmpty: [ self methodClass organization removeElement: oldProtocol ] ]
+	self methodClass ifNotNil: [ :methodClass |
+		methodClass organization addElement: aString.
+		methodClass removeProtocolIfEmpty: oldProtocol ]
 !
 
 referencedClasses

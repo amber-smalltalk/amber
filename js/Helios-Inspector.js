@@ -63,7 +63,7 @@ var selection;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 selection=_st(self["@model"])._selection();
-$2=_st(_st(_st(self["@model"])._variables())._keys())._includes_(selection);
+$2=_st(_st(self["@model"])._variables())._includesKey_(selection);
 if(smalltalk.assert($2)){
 $1=_st(_st(self["@model"])._instVarObjectAt_(selection))._printString();
 } else {
@@ -72,8 +72,8 @@ $1="";
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectionDisplayString",{selection:selection},smalltalk.HLInspectorDisplayWidget)})},
 args: [],
-source: "selectionDisplayString\x0a\x09|selection|\x0a\x09selection := model selection.\x0a    ^ (model variables keys includes: selection)\x0a    \x09ifTrue:[ (model instVarObjectAt: selection) printString ]\x0a      \x09ifFalse:[ '' ]",
-messageSends: ["selection", "ifTrue:ifFalse:", "includes:", "keys", "variables", "printString", "instVarObjectAt:"],
+source: "selectionDisplayString\x0a\x09|selection|\x0a\x09selection := model selection.\x0a    ^ (model variables includesKey: selection)\x0a    \x09ifTrue:[ (model instVarObjectAt: selection) printString ]\x0a      \x09ifFalse:[ '' ]",
+messageSends: ["selection", "ifTrue:ifFalse:", "includesKey:", "variables", "printString", "instVarObjectAt:"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorDisplayWidget);
