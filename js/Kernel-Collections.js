@@ -1512,14 +1512,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "addAll:",
 protocol: 'adding/removing',
-fn: function (anAssocitativeCollection){
+fn: function (anAssociativeCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.AssociativeCollection.superclass.fn.prototype._addAll_.apply(_st(self), [_st(anAssocitativeCollection)._associations()]);
-return anAssocitativeCollection;
-}, function($ctx1) {$ctx1.fill(self,"addAll:",{anAssocitativeCollection:anAssocitativeCollection},smalltalk.AssociativeCollection)})},
-args: ["anAssocitativeCollection"],
-source: "addAll: anAssocitativeCollection\x0a\x09super addAll: anAssocitativeCollection associations.\x0a\x09^ anAssocitativeCollection",
+smalltalk.AssociativeCollection.superclass.fn.prototype._addAll_.apply(_st(self), [_st(anAssociativeCollection)._associations()]);
+return anAssociativeCollection;
+}, function($ctx1) {$ctx1.fill(self,"addAll:",{anAssociativeCollection:anAssociativeCollection},smalltalk.AssociativeCollection)})},
+args: ["anAssociativeCollection"],
+source: "addAll: anAssociativeCollection\x0a\x09super addAll: anAssociativeCollection associations.\x0a\x09^ anAssociativeCollection",
 messageSends: ["addAll:", "associations"],
 referencedClasses: []
 }),
@@ -1569,20 +1569,20 @@ selector: "asJSON",
 protocol: 'converting',
 fn: function (){
 var self=this;
-var c;
+var hash;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-c=_st($HashedCollection())._new();
+hash=_st($HashedCollection())._new();
 self._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
-return _st(c)._at_put_(key,_st(value)._asJSON());
+return _st(hash)._at_put_(key,_st(value)._asJSON());
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
-$1=c;
+$1=hash;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJSON",{c:c},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"asJSON",{hash:hash},smalltalk.AssociativeCollection)})},
 args: [],
-source: "asJSON\x0a\x09| c |\x0a\x09c := HashedCollection new.\x0a\x09self keysAndValuesDo: [ :key :value |\x0a\x09\x09c at: key put: value asJSON ].\x0a\x09^ c",
+source: "asJSON\x0a\x09| hash |\x0a\x09hash := HashedCollection new.\x0a\x09self keysAndValuesDo: [ :key :value |\x0a\x09\x09hash at: key put: value asJSON ].\x0a\x09^ hash",
 messageSends: ["new", "keysAndValuesDo:", "at:put:", "asJSON"],
 referencedClasses: ["HashedCollection"]
 }),
@@ -1649,7 +1649,7 @@ $1=_st(anotherBlock)._value();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aKey:aKey,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.AssociativeCollection)})},
 args: ["aKey", "aBlock", "anotherBlock"],
-source: "at: aKey ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22Lookup the given key in the receiver.\x0a\x09If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key,\x0a\x09otherwise answer the value of absentBlock.\x22\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ aBlock value: (self at: aKey) ]\x0a\x09\x09ifFalse: [ anotherBlock value ]",
+source: "at: aKey ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22Lookup the given key in the receiver.\x0a\x09If it is present, answer the value of evaluating the oneArgBlock \x0a\x09with the value associated with the key, otherwise answer the value \x0a\x09of absentBlock.\x22\x0a\x09\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ aBlock value: (self at: aKey) ]\x0a\x09\x09ifFalse: [ anotherBlock value ]",
 messageSends: ["ifTrue:ifFalse:", "includesKey:", "value:", "at:", "value"],
 referencedClasses: []
 }),
@@ -1786,7 +1786,7 @@ return _st(self._at_(each)).__eq(anObject);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.AssociativeCollection)})},
 args: ["anObject", "aBlock"],
-source: "indexOf: anObject ifAbsent: aBlock\x0a\x09^ self keys detect: [ :each | (self at: each) = anObject ] ifNone: aBlock",
+source: "indexOf: anObject ifAbsent: aBlock\x0a\x09^ self keys \x0a\x09\x09detect: [ :each | (self at: each) = anObject ] \x0a\x09\x09ifNone: aBlock",
 messageSends: ["detect:ifNone:", "keys", "=", "at:"],
 referencedClasses: []
 }),

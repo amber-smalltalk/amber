@@ -540,15 +540,19 @@ associations
 
 at: aKey ifPresent: aBlock ifAbsent: anotherBlock
 	"Lookup the given key in the receiver.
-	If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key,
-	otherwise answer the value of absentBlock."
+	If it is present, answer the value of evaluating the oneArgBlock 
+	with the value associated with the key, otherwise answer the value 
+	of absentBlock."
+	
 	^ (self includesKey: aKey)
 		ifTrue: [ aBlock value: (self at: aKey) ]
 		ifFalse: [ anotherBlock value ]
 !
 
 indexOf: anObject ifAbsent: aBlock
-	^ self keys detect: [ :each | (self at: each) = anObject ] ifNone: aBlock
+	^ self keys 
+		detect: [ :each | (self at: each) = anObject ] 
+		ifNone: aBlock
 !
 
 keyAtValue: anObject
@@ -577,9 +581,9 @@ add: anAssociation
 	self at: anAssociation key put: anAssociation value
 !
 
-addAll: anAssocitativeCollection
-	super addAll: anAssocitativeCollection associations.
-	^ anAssocitativeCollection
+addAll: anAssociativeCollection
+	super addAll: anAssociativeCollection associations.
+	^ anAssociativeCollection
 !
 
 remove: aKey ifAbsent: aBlock
@@ -617,11 +621,11 @@ asHashedCollection
 !
 
 asJSON
-	| c |
-	c := HashedCollection new.
+	| hash |
+	hash := HashedCollection new.
 	self keysAndValuesDo: [ :key :value |
-		c at: key put: value asJSON ].
-	^ c
+		hash at: key put: value asJSON ].
+	^ hash
 ! !
 
 !AssociativeCollection methodsFor: 'copying'!
