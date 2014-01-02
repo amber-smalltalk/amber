@@ -794,6 +794,7 @@ at: aString put: anObject
 
 current
 	"Backward compatibility for Smalltalk current ..."
+	self deprecatedAPI.
 	^ self
 !
 
@@ -1009,7 +1010,7 @@ initialize
 !SmalltalkImage class methodsFor: 'instance creation'!
 
 current
-	^ current ifNil: [ current := super new ]
+	^ current ifNil: [ current := super new ] ifNotNil: [ self deprecatedAPI. current ]
 !
 
 new

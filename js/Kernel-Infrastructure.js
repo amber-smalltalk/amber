@@ -2198,11 +2198,12 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+self._deprecatedAPI();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.SmalltalkImage)})},
 args: [],
-source: "current\x0a\x09\x22Backward compatibility for Smalltalk current ...\x22\x0a\x09^ self",
-messageSends: [],
+source: "current\x0a\x09\x22Backward compatibility for Smalltalk current ...\x22\x0a\x09self deprecatedAPI.\x0a\x09^ self",
+messageSends: ["deprecatedAPI"],
 referencedClasses: []
 }),
 smalltalk.SmalltalkImage);
@@ -2655,13 +2656,14 @@ if(($receiver = $2) == nil || $receiver == null){
 self["@current"]=smalltalk.SmalltalkImage.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {
-$1=$2;
+self._deprecatedAPI();
+$1=self["@current"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.SmalltalkImage.klass)})},
 args: [],
-source: "current\x0a\x09^ current ifNil: [ current := super new ]",
-messageSends: ["ifNil:", "new"],
+source: "current\x0a\x09^ current ifNil: [ current := super new ] ifNotNil: [ self deprecatedAPI. current ]",
+messageSends: ["ifNil:ifNotNil:", "new", "deprecatedAPI"],
 referencedClasses: []
 }),
 smalltalk.SmalltalkImage.klass);
