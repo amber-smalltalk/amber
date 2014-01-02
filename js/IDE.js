@@ -1518,7 +1518,7 @@ function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:B
 function $ReferencesBrowser(){return smalltalk.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-searchedClass=_st(_st($Smalltalk())._current())._at_(aString);
+searchedClass=_st(_st($Smalltalk())._globals())._at_(aString);
 $1=_st(searchedClass)._isClass();
 if(smalltalk.assert($1)){
 _st($Browser())._openOn_(searchedClass);
@@ -1527,8 +1527,8 @@ _st($ReferencesBrowser())._search_(aString);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString,searchedClass:searchedClass},smalltalk.TabManager)})},
 args: ["aString"],
-source: "search: aString\x0a\x09| searchedClass |\x0a\x09searchedClass := Smalltalk current at: aString.\x0a\x09\x09searchedClass isClass\x0a\x09\x09\x09ifTrue: [ Browser openOn: searchedClass ]\x0a\x09\x09\x09ifFalse: [ ReferencesBrowser search: aString ]",
-messageSends: ["at:", "current", "ifTrue:ifFalse:", "isClass", "openOn:", "search:"],
+source: "search: aString\x0a\x09| searchedClass |\x0a\x09searchedClass := Smalltalk globals at: aString.\x0a\x09\x09searchedClass isClass\x0a\x09\x09\x09ifTrue: [ Browser openOn: searchedClass ]\x0a\x09\x09\x09ifFalse: [ ReferencesBrowser search: aString ]",
+messageSends: ["at:", "globals", "ifTrue:ifFalse:", "isClass", "openOn:", "search:"],
 referencedClasses: ["Smalltalk", "Browser", "ReferencesBrowser"]
 }),
 smalltalk.TabManager);
@@ -2016,12 +2016,12 @@ _st($Object())._subclass_instanceVariableNames_package_(className,"",self._selec
 self._resetClassesList();
 $2=self._updateClassesList();
 $2;
-self._selectClass_(_st(_st($Smalltalk())._current())._at_(className));
+self._selectClass_(_st(_st($Smalltalk())._globals())._at_(className));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"addNewClass",{className:className},smalltalk.Browser)})},
 args: [],
-source: "addNewClass\x0a\x09| className |\x0a\x09className := self prompt: 'New class'.\x0a\x09(className notNil and: [ className notEmpty ]) ifTrue: [\x0a\x09\x09Object subclass: className instanceVariableNames: '' package: self selectedPackage.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk current at: className) ]",
-messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "subclass:instanceVariableNames:package:", "selectedPackage", "resetClassesList", "updateClassesList", "selectClass:", "at:", "current"],
+source: "addNewClass\x0a\x09| className |\x0a\x09className := self prompt: 'New class'.\x0a\x09(className notNil and: [ className notEmpty ]) ifTrue: [\x0a\x09\x09Object subclass: className instanceVariableNames: '' package: self selectedPackage.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk globals at: className) ]",
+messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "subclass:instanceVariableNames:package:", "selectedPackage", "resetClassesList", "updateClassesList", "selectClass:", "at:", "globals"],
 referencedClasses: ["Object", "Smalltalk"]
 }),
 smalltalk.Browser);
@@ -2203,7 +2203,7 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$1=_st(_st(_st(_st(_st($Smalltalk())._current())._classes())._select_((function(each){
+$1=_st(_st(_st(_st($Smalltalk())._classes())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._category()).__eq(self["@selectedPackage"]);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._sort_((function(a,b){
@@ -2215,8 +2215,8 @@ return _st($2).__lt(_st(b)._name());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Browser)})},
 args: [],
-source: "classes\x0a\x09^ ((Smalltalk current classes\x0a\x09select: [ :each | each category = selectedPackage ])\x0a\x09sort: [ :a :b | a name < b name ]) asSet",
-messageSends: ["asSet", "sort:", "select:", "classes", "current", "=", "category", "<", "name"],
+source: "classes\x0a\x09^ ((Smalltalk classes\x0a\x09select: [ :each | each category = selectedPackage ])\x0a\x09sort: [ :a :b | a name < b name ]) asSet",
+messageSends: ["asSet", "sort:", "select:", "classes", "=", "category", "<", "name"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Browser);
@@ -2436,12 +2436,12 @@ _st(_st($ClassBuilder())._new())._copyClass_named_(self._selectedClass(),classNa
 self._resetClassesList();
 $2=self._updateClassesList();
 $2;
-self._selectClass_(_st(_st($Smalltalk())._current())._at_(className));
+self._selectClass_(_st(_st($Smalltalk())._globals())._at_(className));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"copyClass",{className:className},smalltalk.Browser)})},
 args: [],
-source: "copyClass\x0a\x09| className |\x0a\x09className := self prompt: 'Copy class'.\x0a\x09(className notNil and: [ className notEmpty ]) ifTrue: [\x0a\x09\x09ClassBuilder new copyClass: self selectedClass named: className.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk current at: className) ]",
-messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "copyClass:named:", "new", "selectedClass", "resetClassesList", "updateClassesList", "selectClass:", "at:", "current"],
+source: "copyClass\x0a\x09| className |\x0a\x09className := self prompt: 'Copy class'.\x0a\x09(className notNil and: [ className notEmpty ]) ifTrue: [\x0a\x09\x09ClassBuilder new copyClass: self selectedClass named: className.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk globals at: className) ]",
+messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "copyClass:named:", "new", "selectedClass", "resetClassesList", "updateClassesList", "selectClass:", "at:", "globals"],
 referencedClasses: ["ClassBuilder", "Smalltalk"]
 }),
 smalltalk.Browser);
@@ -2736,7 +2736,7 @@ function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1,$4;
 packages=_st($Array())._new();
-_st(_st(_st($Smalltalk())._current())._classes())._do_((function(each){
+_st(_st($Smalltalk())._classes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 $2=packages;
 $3=_st(each)._category();
@@ -2750,8 +2750,8 @@ $4=_st(packages)._sort();
 return $4;
 }, function($ctx1) {$ctx1.fill(self,"packages",{packages:packages},smalltalk.Browser)})},
 args: [],
-source: "packages\x0a\x09| packages |\x0a\x09packages := Array new.\x0a\x09Smalltalk current classes do: [ :each |\x0a\x09(packages includes: each category) ifFalse: [\x0a\x09\x09packages add: each category ]].\x0a\x09^ packages sort",
-messageSends: ["new", "do:", "classes", "current", "ifFalse:", "includes:", "category", "add:", "sort"],
+source: "packages\x0a\x09| packages |\x0a\x09packages := Array new.\x0a\x09Smalltalk classes do: [ :each |\x0a\x09(packages includes: each category) ifFalse: [\x0a\x09\x09packages add: each category ]].\x0a\x09^ packages sort",
+messageSends: ["new", "do:", "classes", "ifFalse:", "includes:", "category", "add:", "sort"],
 referencedClasses: ["Array", "Smalltalk"]
 }),
 smalltalk.Browser);
@@ -2814,14 +2814,14 @@ $2=_st("Do you really want to remove ".__comma(_st(self["@selectedClass"])._name
 $ctx1.sendIdx[","]=1;
 $1=self._confirm_($2);
 if(smalltalk.assert($1)){
-_st(_st($Smalltalk())._current())._removeClass_(self["@selectedClass"]);
+_st($Smalltalk())._removeClass_(self["@selectedClass"]);
 self._resetClassesList();
 self._selectClass_(nil);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"removeClass",{},smalltalk.Browser)})},
 args: [],
-source: "removeClass\x0a\x09(self confirm: 'Do you really want to remove ', selectedClass name, '?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk current removeClass: selectedClass.\x0a\x09\x09self resetClassesList.\x0a\x09\x09self selectClass: nil ]",
-messageSends: ["ifTrue:", "confirm:", ",", "name", "removeClass:", "current", "resetClassesList", "selectClass:"],
+source: "removeClass\x0a\x09(self confirm: 'Do you really want to remove ', selectedClass name, '?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk removeClass: selectedClass.\x0a\x09\x09self resetClassesList.\x0a\x09\x09self selectClass: nil ]",
+messageSends: ["ifTrue:", "confirm:", ",", "name", "removeClass:", "resetClassesList", "selectClass:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Browser);
@@ -2871,13 +2871,13 @@ $2=_st("Do you really want to remove the whole package ".__comma(self["@selected
 $ctx1.sendIdx[","]=1;
 $1=self._confirm_($2);
 if(smalltalk.assert($1)){
-_st(_st($Smalltalk())._current())._removePackage_(self["@selectedPackage"]);
+_st($Smalltalk())._removePackage_(self["@selectedPackage"]);
 self._updateCategoriesList();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"removePackage",{},smalltalk.Browser)})},
 args: [],
-source: "removePackage\x0a\x0a\x09(self confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk current removePackage: selectedPackage.\x0a\x09\x09self updateCategoriesList ]",
-messageSends: ["ifTrue:", "confirm:", ",", "removePackage:", "current", "updateCategoriesList"],
+source: "removePackage\x0a\x0a\x09(self confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk removePackage: selectedPackage.\x0a\x09\x09self updateCategoriesList ]",
+messageSends: ["ifTrue:", "confirm:", ",", "removePackage:", "updateCategoriesList"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Browser);
@@ -2927,14 +2927,14 @@ $1;
 } else {
 $2=_st(newName)._notEmpty();
 if(smalltalk.assert($2)){
-_st(_st($Smalltalk())._current())._renamePackage_to_(self["@selectedPackage"],newName);
+_st($Smalltalk())._renamePackage_to_(self["@selectedPackage"],newName);
 self._updateCategoriesList();
 };
 };
 return self}, function($ctx1) {$ctx1.fill(self,"renamePackage",{newName:newName},smalltalk.Browser)})},
 args: [],
-source: "renamePackage\x0a\x0a\x09| newName |\x0a\x09newName := self prompt: 'Rename package ', selectedPackage.\x0a\x09newName ifNotNil: [\x0a\x09newName notEmpty ifTrue: [\x0a\x09Smalltalk current renamePackage: selectedPackage to: newName.\x0a\x09self updateCategoriesList ]]",
-messageSends: ["prompt:", ",", "ifNotNil:", "ifTrue:", "notEmpty", "renamePackage:to:", "current", "updateCategoriesList"],
+source: "renamePackage\x0a\x0a\x09| newName |\x0a\x09newName := self prompt: 'Rename package ', selectedPackage.\x0a\x09newName ifNotNil: [\x0a\x09newName notEmpty ifTrue: [\x0a\x09Smalltalk renamePackage: selectedPackage to: newName.\x0a\x09self updateCategoriesList ]]",
+messageSends: ["prompt:", ",", "ifNotNil:", "ifTrue:", "notEmpty", "renamePackage:to:", "updateCategoriesList"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Browser);
@@ -3187,7 +3187,7 @@ var $1,$2;
 $1=self._cancelChanges();
 if(smalltalk.assert($1)){
 var searchedClass;
-searchedClass=_st(_st($Smalltalk())._current())._at_(aString);
+searchedClass=_st(_st($Smalltalk())._globals())._at_(aString);
 searchedClass;
 $2=_st(searchedClass)._isClass();
 if(smalltalk.assert($2)){
@@ -3198,8 +3198,8 @@ self._searchReferencesOf_(aString);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString},smalltalk.Browser)})},
 args: ["aString"],
-source: "search: aString\x0a\x09self cancelChanges ifTrue: [ | searchedClass |\x0a\x09\x09searchedClass := Smalltalk current at: aString.\x0a\x09\x09searchedClass isClass\x0a\x09\x09\x09ifTrue: [ self class openOn: searchedClass ]\x0a\x09\x09\x09ifFalse: [ self searchReferencesOf: aString ]]",
-messageSends: ["ifTrue:", "cancelChanges", "at:", "current", "ifTrue:ifFalse:", "isClass", "openOn:", "class", "searchReferencesOf:"],
+source: "search: aString\x0a\x09self cancelChanges ifTrue: [ | searchedClass |\x0a\x09\x09searchedClass := Smalltalk globals at: aString.\x0a\x09\x09searchedClass isClass\x0a\x09\x09\x09ifTrue: [ self class openOn: searchedClass ]\x0a\x09\x09\x09ifFalse: [ self searchReferencesOf: aString ]]",
+messageSends: ["ifTrue:", "cancelChanges", "at:", "globals", "ifTrue:ifFalse:", "isClass", "openOn:", "class", "searchReferencesOf:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Browser);
@@ -5557,20 +5557,18 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1;
-$3=_st($Smalltalk())._current();
-$ctx1.sendIdx["current"]=1;
-$2=_st($3)._classes();
+var $2,$1;
+$2=_st($Smalltalk())._classes();
 $ctx1.sendIdx["classes"]=1;
-$1=_st($2).__comma(_st(_st(_st($Smalltalk())._current())._classes())._collect_((function(each){
+$1=_st($2).__comma(_st(_st($Smalltalk())._classes())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._class();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classesAndMetaclasses",{},smalltalk.ReferencesBrowser)})},
 args: [],
-source: "classesAndMetaclasses\x0a\x09^ Smalltalk current classes, (Smalltalk current classes collect: [ :each | each class ])",
-messageSends: [",", "classes", "current", "collect:", "class"],
+source: "classesAndMetaclasses\x0a\x09^ Smalltalk classes, (Smalltalk classes collect: [ :each | each class ])",
+messageSends: [",", "classes", "collect:", "class"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.ReferencesBrowser);

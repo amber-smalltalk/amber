@@ -506,7 +506,7 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$1=_st(_st(_st(_st(_st(_st($Smalltalk())._current())._at_("allSelectors"))._value())._asArray())._select_((function(each){
+$1=_st(_st(_st(_st(_st($Smalltalk())._vm())._allSelectors())._asArray())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 $2=_st(aToken)._string();
 $ctx2.sendIdx["string"]=1;
@@ -518,8 +518,8 @@ return _st(each).__eq(_st(aToken)._string());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageHintFor:token:",{anEditor:anEditor,aToken:aToken},smalltalk.HLCodeWidget)})},
 args: ["anEditor", "aToken"],
-source: "messageHintFor: anEditor token: aToken\x0a\x09^ ((Smalltalk current at: 'allSelectors') value asArray \x0a\x09\x09select: [ :each | each includesSubString: aToken string ])\x0a\x09\x09reject: [ :each | each = aToken string ]",
-messageSends: ["reject:", "select:", "asArray", "value", "at:", "current", "includesSubString:", "string", "="],
+source: "messageHintFor: anEditor token: aToken\x0a\x09^ (Smalltalk vm allSelectors asArray \x0a\x09\x09select: [ :each | each includesSubString: aToken string ])\x0a\x09\x09reject: [ :each | each = aToken string ]",
+messageSends: ["reject:", "select:", "asArray", "allSelectors", "vm", "includesSubString:", "string", "="],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.HLCodeWidget);
@@ -995,7 +995,7 @@ var self=this;
 var variables,classNames,pseudoVariables;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$5,$4,$10,$9,$8,$11,$7,$6;
+var $3,$2,$1,$8,$7,$6,$9,$5,$4;
 $3=_st(_st(_st(anEditor)._display())._wrapper())._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
 $2=_st($3)._find_("span.cm-variable");
@@ -1005,33 +1005,30 @@ return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._asJQuery())._html();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $ctx1.sendIdx["collect:"]=1;
-$5=_st($Smalltalk())._current();
-$ctx1.sendIdx["current"]=1;
-$4=_st($5)._classes();
-classNames=_st($4)._collect_((function(each){
+classNames=_st(_st($Smalltalk())._classes())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._name();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-pseudoVariables=_st(_st($Smalltalk())._current())._pseudoVariableNames();
-$10=_st(_st(variables).__comma(classNames)).__comma(pseudoVariables);
+pseudoVariables=_st($Smalltalk())._pseudoVariableNames();
+$8=_st(_st(variables).__comma(classNames)).__comma(pseudoVariables);
 $ctx1.sendIdx[","]=1;
-$9=_st($10)._asSet();
-$8=_st($9)._asArray();
-$7=_st($8)._select_((function(each){
+$7=_st($8)._asSet();
+$6=_st($7)._asArray();
+$5=_st($6)._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$11=_st(aToken)._string();
+$9=_st(aToken)._string();
 $ctx2.sendIdx["string"]=1;
-return _st(each)._includesSubString_($11);
+return _st(each)._includesSubString_($9);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
-$6=_st($7)._reject_((function(each){
+$4=_st($5)._reject_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each).__eq(_st(aToken)._string());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
-return $6;
+return $4;
 }, function($ctx1) {$ctx1.fill(self,"variableHintFor:token:",{anEditor:anEditor,aToken:aToken,variables:variables,classNames:classNames,pseudoVariables:pseudoVariables},smalltalk.HLCodeWidget)})},
 args: ["anEditor", "aToken"],
-source: "variableHintFor: anEditor token: aToken\x0a\x09| variables classNames pseudoVariables |\x0a\x09\x0a\x09variables := (anEditor display wrapper asJQuery find: 'span.cm-variable') get\x0a\x09\x09collect: [ :each | each asJQuery html ].\x0a\x09\x0a\x09classNames := Smalltalk current classes collect: [ :each | each name ].\x0a\x09pseudoVariables := Smalltalk current pseudoVariableNames.\x0a\x09\x0a\x09^ ((variables, classNames, pseudoVariables) asSet asArray \x0a\x09\x09select: [ :each | each includesSubString: aToken string ])\x0a\x09\x09reject: [ :each | each = aToken string ]",
-messageSends: ["collect:", "get", "find:", "asJQuery", "wrapper", "display", "html", "classes", "current", "name", "pseudoVariableNames", "reject:", "select:", "asArray", "asSet", ",", "includesSubString:", "string", "="],
+source: "variableHintFor: anEditor token: aToken\x0a\x09| variables classNames pseudoVariables |\x0a\x09\x0a\x09variables := (anEditor display wrapper asJQuery find: 'span.cm-variable') get\x0a\x09\x09collect: [ :each | each asJQuery html ].\x0a\x09\x0a\x09classNames := Smalltalk classes collect: [ :each | each name ].\x0a\x09pseudoVariables := Smalltalk pseudoVariableNames.\x0a\x09\x0a\x09^ ((variables, classNames, pseudoVariables) asSet asArray \x0a\x09\x09select: [ :each | each includesSubString: aToken string ])\x0a\x09\x09reject: [ :each | each = aToken string ]",
+messageSends: ["collect:", "get", "find:", "asJQuery", "wrapper", "display", "html", "classes", "name", "pseudoVariableNames", "reject:", "select:", "asArray", "asSet", ",", "includesSubString:", "string", "="],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.HLCodeWidget);
