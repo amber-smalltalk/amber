@@ -299,7 +299,7 @@ setUp
 !
 
 tearDown
-	theClass ifNotNil: [ Smalltalk current removeClass: theClass. theClass := nil ]
+	theClass ifNotNil: [ Smalltalk removeClass: theClass. theClass := nil ]
 ! !
 
 !ClassBuilderTest methodsFor: 'tests'!
@@ -317,10 +317,10 @@ testClassMigration
 	| instance oldClass |
 	
 	oldClass := builder copyClass: ObjectMock named: 'ObjectMock2'.
-	instance := (Smalltalk current at: 'ObjectMock2') new.
+	instance := (Smalltalk globals at: 'ObjectMock2') new.
 	
 	"Change the superclass of ObjectMock2"
-	ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+	ObjectMock subclass: (Smalltalk globals at: 'ObjectMock2')
 		instanceVariableNames: ''
 		package: 'Kernel-Tests'.
 	
@@ -336,9 +336,9 @@ testClassMigration
 	"Commeting this out. Tests implementation detail."
 	"self assert: instance class name equals: 'OldObjectMock2'."
 	
-	self assert: (Smalltalk current at: instance class name) isNil.
+	self assert: (Smalltalk globals at: instance class name) isNil.
 	
-	Smalltalk current removeClass: ObjectMock2
+	Smalltalk removeClass: ObjectMock2
 !
 
 testClassMigrationWithClassInstanceVariables
@@ -347,13 +347,13 @@ testClassMigrationWithClassInstanceVariables
 	ObjectMock2 class instanceVariableNames: 'foo bar'.
 	
 	"Change the superclass of ObjectMock2"
-	ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+	ObjectMock subclass: (Smalltalk globals at: 'ObjectMock2')
 		instanceVariableNames: ''
 		package: 'Kernel-Tests'.
 	
 	self assert: ObjectMock2 class instanceVariableNames equals: #('foo' 'bar').
 	
-	Smalltalk current removeClass: ObjectMock2
+	Smalltalk removeClass: ObjectMock2
 !
 
 testClassMigrationWithSubclasses
@@ -363,7 +363,7 @@ testClassMigrationWithSubclasses
 	ObjectMock3 subclass: 'ObjectMock4' instanceVariableNames: '' package: 'Kernel-Tests'.
 	
 	"Change the superclass of ObjectMock2"
-	ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+	ObjectMock subclass: (Smalltalk globals at: 'ObjectMock2')
 		instanceVariableNames: ''
 		package: 'Kernel-Tests'.
 	
@@ -371,7 +371,7 @@ testClassMigrationWithSubclasses
 	self assert: (ObjectMock2 subclasses includes: ObjectMock3).
 	self assert: (ObjectMock3 subclasses includes: ObjectMock4).
 	
-	ObjectMock allSubclasses do: [ :each | Smalltalk current removeClass: each ]
+	ObjectMock allSubclasses do: [ :each | Smalltalk removeClass: each ]
 !
 
 testInstanceVariableNames
@@ -1496,7 +1496,7 @@ CollectionTest subclass: #SetTest
 
 collection
 	^ Set new
-		add: Smalltalk current;
+		add: Smalltalk;
 		add: nil;
 		add: 3@3;
 		add: false;
@@ -1523,7 +1523,7 @@ collectionWithDuplicates
 
 collectionWithNewValue
 	^ Set new
-		add: Smalltalk current;
+		add: Smalltalk;
 		add: nil;
 		add: 3@3;
 		add: 'N';
