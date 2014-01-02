@@ -836,6 +836,11 @@ version
 	"Answer the version string of Amber"
 	
 	^ '0.13.0-pre'
+!
+
+vm
+	"Future compatibility to be able to use Smalltalk vm ..."
+	<return smalltalk>
 ! !
 
 !SmalltalkImage methodsFor: 'accessing amd'!

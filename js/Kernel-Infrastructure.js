@@ -2634,6 +2634,22 @@ referencedClasses: []
 }),
 smalltalk.SmalltalkImage);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "vm",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return smalltalk;
+return self}, function($ctx1) {$ctx1.fill(self,"vm",{},smalltalk.SmalltalkImage)})},
+args: [],
+source: "vm\x0a\x09\x22Future compatibility to be able to use Smalltalk vm ...\x22\x0a\x09<return smalltalk>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.SmalltalkImage);
+
 
 smalltalk.SmalltalkImage.klass.iVarNames = ['current'];
 smalltalk.addMethod(
