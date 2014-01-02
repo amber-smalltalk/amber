@@ -1143,5 +1143,5 @@ function runnable () {
 	brikz.rebuild();
 };
 
-return { smalltalk: api, nil: brikz.root.nil };
+return { smalltalk: api, nil: brikz.root.nil, globals: api };
 });

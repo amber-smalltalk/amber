@@ -3432,10 +3432,10 @@ selector: "defaultEnvironment",
 protocol: 'defaults',
 fn: function (){
 var self=this;
-var parent,parentSmalltalk;
+var parent,parentSmalltalkGlobals;
 function $Environment(){return smalltalk.Environment||(typeof Environment=="undefined"?nil:Environment)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7;
+var $1,$2,$3,$5,$4,$6,$7,$8;
 $1=_st(window)._opener();
 if(($receiver = $1) == nil || $receiver == null){
 parent=_st(window)._parent();
@@ -3450,23 +3450,31 @@ return $3;
 } else {
 $2;
 };
-$4=_st(parent)._at_("requirejs");
+$5=_st(parent)._at_("requirejs");
 $ctx1.sendIdx["at:"]=1;
-parentSmalltalk=_st($4)._value_("amber_vm/smalltalk");
-$5=parentSmalltalk;
-if(($receiver = $5) == nil || $receiver == null){
-$6=_st($Environment())._new();
-$ctx1.sendIdx["new"]=2;
-return $6;
+$4=_st($5)._value_("amber_vm/boot");
+if(($receiver = $4) == nil || $receiver == null){
+parentSmalltalkGlobals=$4;
 } else {
-$5;
+var boot;
+boot=$receiver;
+parentSmalltalkGlobals=_st(boot)._at_("globals");
+$ctx1.sendIdx["at:"]=2;
 };
-$7=_st(_st(parentSmalltalk)._at_("Environment"))._new();
+$6=parentSmalltalkGlobals;
+if(($receiver = $6) == nil || $receiver == null){
+$7=_st($Environment())._new();
+$ctx1.sendIdx["new"]=2;
 return $7;
-}, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{parent:parent,parentSmalltalk:parentSmalltalk},smalltalk.HLManager)})},
+} else {
+$6;
+};
+$8=_st(_st(parentSmalltalkGlobals)._at_("Environment"))._new();
+return $8;
+}, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{parent:parent,parentSmalltalkGlobals:parentSmalltalkGlobals},smalltalk.HLManager)})},
 args: [],
-source: "defaultEnvironment\x0a\x09\x22If helios is loaded from within a frame, answer the parent window environment\x22\x0a\x09\x0a\x09| parent parentSmalltalk |\x0a\x09\x0a\x09parent := window opener ifNil: [ window parent ].\x0a\x09parent ifNil: [ ^ Environment new ].\x0a\x09\x0a\x09parentSmalltalk := (parent at: 'requirejs') value: 'amber_vm/smalltalk'.\x0a\x09parentSmalltalk ifNil: [ ^ Environment new ].\x0a\x09\x0a\x09^ (parentSmalltalk at: 'Environment') new",
-messageSends: ["ifNil:", "opener", "parent", "new", "value:", "at:"],
+source: "defaultEnvironment\x0a\x09\x22If helios is loaded from within a frame, answer the parent window environment\x22\x0a\x09\x0a\x09| parent parentSmalltalkGlobals |\x0a\x09\x0a\x09parent := window opener ifNil: [ window parent ].\x0a\x09parent ifNil: [ ^ Environment new ].\x0a\x09\x0a\x09parentSmalltalkGlobals := ((parent at: 'requirejs') value: 'amber_vm/boot')\x0a\x09\x09ifNotNil: [ :boot | boot at: 'globals' ].\x0a\x09parentSmalltalkGlobals ifNil: [ ^ Environment new ].\x0a\x09\x0a\x09^ (parentSmalltalkGlobals at: 'Environment') new",
+messageSends: ["ifNil:", "opener", "parent", "new", "ifNotNil:", "value:", "at:"],
 referencedClasses: ["Environment"]
 }),
 smalltalk.HLManager);

@@ -1227,15 +1227,16 @@ request: aString value: valueString do: aBlock
 defaultEnvironment
 	"If helios is loaded from within a frame, answer the parent window environment"
 	
-	| parent parentSmalltalk |
+	| parent parentSmalltalkGlobals |
 	
 	parent := window opener ifNil: [ window parent ].
 	parent ifNil: [ ^ Environment new ].
 	
-	parentSmalltalk := (parent at: 'requirejs') value: 'amber_vm/smalltalk'.
-	parentSmalltalk ifNil: [ ^ Environment new ].
+	parentSmalltalkGlobals := ((parent at: 'requirejs') value: 'amber_vm/boot')
+		ifNotNil: [ :boot | boot at: 'globals' ].
+	parentSmalltalkGlobals ifNil: [ ^ Environment new ].
 	
-	^ (parentSmalltalk at: 'Environment') new
+	^ (parentSmalltalkGlobals at: 'Environment') new
 ! !
 
 !HLManager methodsFor: 'initialization'!
