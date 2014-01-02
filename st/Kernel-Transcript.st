@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Transcript'!
+Smalltalk createPackage: 'Kernel-Transcript'!
 Object subclass: #ConsoleTranscript
 	instanceVariableNames: 'textarea'
 	package: 'Kernel-Transcript'!

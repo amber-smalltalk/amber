@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-IR'!
+Smalltalk createPackage: 'Compiler-IR'!
 NodeVisitor subclass: #IRASTTranslator
 	instanceVariableNames: 'source theClass method sequence nextAlias'
 	package: 'Compiler-IR'!

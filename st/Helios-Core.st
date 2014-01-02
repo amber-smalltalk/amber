@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Core'!
+Smalltalk createPackage: 'Helios-Core'!
 InterfacingObject subclass: #HLModel
 	instanceVariableNames: 'announcer environment'
 	package: 'Helios-Core'!

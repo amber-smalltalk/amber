@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Announcements'!
+Smalltalk createPackage: 'Helios-Announcements'!
 Object subclass: #HLAboutToChange
 	instanceVariableNames: 'actionBlock'
 	package: 'Helios-Announcements'!

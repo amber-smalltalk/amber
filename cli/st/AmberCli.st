@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'AmberCli'!
+Smalltalk createPackage: 'AmberCli'!
 Object subclass: #AmberCli
 	instanceVariableNames: ''
 	package: 'AmberCli'!

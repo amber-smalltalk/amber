@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Classes'!
+Smalltalk createPackage: 'Kernel-Classes'!
 Object subclass: #Behavior
 	instanceVariableNames: ''
 	package: 'Kernel-Classes'!

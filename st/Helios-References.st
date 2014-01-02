@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-References'!
+Smalltalk createPackage: 'Helios-References'!
 Object subclass: #HLMethodReference
 	instanceVariableNames: 'selector methodClass'
 	package: 'Helios-References'!

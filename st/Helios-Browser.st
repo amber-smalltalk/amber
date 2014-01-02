@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Browser'!
+Smalltalk createPackage: 'Helios-Browser'!
 HLWidget subclass: #HLBrowser
 	instanceVariableNames: 'model packagesListWidget classesListWidget protocolsListWidget methodsListWidget sourceWidget bottomDiv'
 	package: 'Helios-Browser'!

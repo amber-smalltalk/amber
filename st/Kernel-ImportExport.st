@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-ImportExport'!
+Smalltalk createPackage: 'Kernel-ImportExport'!
 Object subclass: #AbstractExporter
 	instanceVariableNames: ''
 	package: 'Kernel-ImportExport'!

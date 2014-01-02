@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Tests'!
+Smalltalk createPackage: 'Kernel-Tests'!
 TestCase subclass: #AnnouncementSubscriptionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!

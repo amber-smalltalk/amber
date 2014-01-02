@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Commands-Browser'!
+Smalltalk createPackage: 'Helios-Commands-Browser'!
 HLToolCommand subclass: #HLBrowserCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!

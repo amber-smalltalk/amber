@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Transcript'!
+Smalltalk createPackage: 'Helios-Transcript'!
 HLWidget subclass: #HLTranscript
 	instanceVariableNames: 'textarea'
 	package: 'Helios-Transcript'!

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Workspace'!
+Smalltalk createPackage: 'Helios-Workspace'!
 Object subclass: #HLCodeModel
 	instanceVariableNames: 'announcer environment receiver'
 	package: 'Helios-Workspace'!

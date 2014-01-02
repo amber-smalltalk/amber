@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Infrastructure'!
+Smalltalk createPackage: 'Kernel-Infrastructure'!
 Object subclass: #InspectorHandler
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Interpreter'!
+Smalltalk createPackage: 'Compiler-Interpreter'!
 BlockClosure subclass: #AIBlockClosure
 	instanceVariableNames: 'node outerContext'
 	package: 'Compiler-Interpreter'!

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Semantic'!
+Smalltalk createPackage: 'Compiler-Semantic'!
 Object subclass: #LexicalScope
 	instanceVariableNames: 'node instruction temps args outerScope blockIndex'
 	package: 'Compiler-Semantic'!

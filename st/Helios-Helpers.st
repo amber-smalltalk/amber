@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Helpers'!
+Smalltalk createPackage: 'Helios-Helpers'!
 Object subclass: #HLClassifier
 	instanceVariableNames: 'next method'
 	package: 'Helios-Helpers'!

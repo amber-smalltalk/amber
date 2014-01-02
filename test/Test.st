@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Test'!
+Smalltalk createPackage: 'Test'!
 Object subclass: #NodeTestRunner
 	instanceVariableNames: ''
 	package: 'Test'!

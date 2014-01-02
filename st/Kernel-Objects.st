@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Objects'!
+Smalltalk createPackage: 'Kernel-Objects'!
 nil subclass: #ProtoObject
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!

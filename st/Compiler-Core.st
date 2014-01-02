@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Core'!
+Smalltalk createPackage: 'Compiler-Core'!
 Object subclass: #AbstractCodeGenerator
 	instanceVariableNames: 'currentClass source'
 	package: 'Compiler-Core'!
