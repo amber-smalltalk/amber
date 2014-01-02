@@ -2432,12 +2432,12 @@ _st($1)._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._error_("Method source is empty");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$2=_st(_st($Smalltalk())._current())._parse_(self._source());
+$2=_st($Smalltalk())._parse_(self._source());
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"ast",{},smalltalk.CompiledMethod)})},
 args: [],
-source: "ast\x0a\x09self source ifEmpty: [ self error: 'Method source is empty' ].\x0a\x09\x0a\x09^ Smalltalk current parse: self source",
-messageSends: ["ifEmpty:", "source", "error:", "parse:", "current"],
+source: "ast\x0a\x09self source ifEmpty: [ self error: 'Method source is empty' ].\x0a\x09\x0a\x09^ Smalltalk parse: self source",
+messageSends: ["ifEmpty:", "source", "error:", "parse:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.CompiledMethod);

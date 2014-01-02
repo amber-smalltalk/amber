@@ -1,4 +1,4 @@
-define("amber_core/Compiler-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Compiler-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Core');
 smalltalk.packages["Compiler-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -93,36 +93,12 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($Smalltalk())._current())._pseudoVariableNames();
+$1=_st($Smalltalk())._pseudoVariableNames();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{},smalltalk.AbstractCodeGenerator)})},
 args: [],
-source: "pseudoVariables\x0a\x09^ Smalltalk current pseudoVariableNames",
-messageSends: ["pseudoVariableNames", "current"],
-referencedClasses: ["Smalltalk"]
-}),
-smalltalk.AbstractCodeGenerator);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "safeVariableNameFor:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(_st(_st($Smalltalk())._current())._reservedWords())._includes_(aString);
-if(smalltalk.assert($2)){
-$1=_st(aString).__comma("_");
-} else {
-$1=aString;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"safeVariableNameFor:",{aString:aString},smalltalk.AbstractCodeGenerator)})},
-args: ["aString"],
-source: "safeVariableNameFor: aString\x0a\x09^ (Smalltalk current reservedWords includes: aString)\x0a\x09\x09ifTrue: [ aString, '_' ]\x0a\x09\x09ifFalse: [ aString ]",
-messageSends: ["ifTrue:ifFalse:", "includes:", "reservedWords", "current", ","],
+source: "pseudoVariables\x0a\x09^ Smalltalk pseudoVariableNames",
+messageSends: ["pseudoVariableNames"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AbstractCodeGenerator);
@@ -533,12 +509,12 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($Smalltalk())._current())._parse_(aString);
+$1=_st($Smalltalk())._parse_(aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},smalltalk.Compiler)})},
 args: ["aString"],
-source: "parse: aString\x0a\x09^ Smalltalk current parse: aString",
-messageSends: ["parse:", "current"],
+source: "parse: aString\x0a\x09^ Smalltalk parse: aString",
+messageSends: ["parse:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Compiler);
@@ -595,14 +571,14 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st($Smalltalk())._current())._classes())._do_displayingProgress_((function(each){
+_st(_st($Smalltalk())._classes())._do_displayingProgress_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._recompile_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),"Compiling all classes...");
 return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{},smalltalk.Compiler)})},
 args: [],
-source: "recompileAll\x0a\x09Smalltalk current classes \x0a\x09\x09do: [ :each | self recompile: each ]\x0a\x09\x09displayingProgress: 'Compiling all classes...'",
-messageSends: ["do:displayingProgress:", "classes", "current", "recompile:"],
+source: "recompileAll\x0a\x09Smalltalk classes \x0a\x09\x09do: [ :each | self recompile: each ]\x0a\x09\x09displayingProgress: 'Compiling all classes...'",
+messageSends: ["do:displayingProgress:", "classes", "recompile:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Compiler);
@@ -705,14 +681,14 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st($Smalltalk())._current())._classes())._do_((function(each){
+_st(_st($Smalltalk())._classes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._recompile_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{},smalltalk.Compiler.klass)})},
 args: [],
-source: "recompileAll\x0a\x09Smalltalk current classes do: [ :each |\x0a\x09\x09self recompile: each ]",
-messageSends: ["do:", "classes", "current", "recompile:"],
+source: "recompileAll\x0a\x09Smalltalk classes do: [ :each |\x0a\x09\x09self recompile: each ]",
+messageSends: ["do:", "classes", "recompile:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Compiler.klass);
@@ -1015,5 +991,29 @@ referencedClasses: []
 }),
 smalltalk.NodeVisitor);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asVariableName",
+protocol: '*Compiler-Core',
+fn: function (){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(_st($Smalltalk())._reservedWords())._includes_(self);
+if(smalltalk.assert($2)){
+$1=self.__comma("_");
+} else {
+$1=self;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asVariableName",{},smalltalk.String)})},
+args: [],
+source: "asVariableName\x0a\x09^ (Smalltalk reservedWords includes: self)\x0a\x09\x09ifTrue: [ self, '_' ]\x0a\x09\x09ifFalse: [ self ]",
+messageSends: ["ifTrue:ifFalse:", "includes:", "reservedWords", ","],
+referencedClasses: ["Smalltalk"]
+}),
+smalltalk.String);
 
 });

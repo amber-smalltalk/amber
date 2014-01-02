@@ -103,8 +103,8 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $3,$4,$2,$1;
-$3=_st($Smalltalk())._current();
-$ctx1.sendIdx["current"]=1;
+$3=_st($Smalltalk())._globals();
+$ctx1.sendIdx["globals"]=1;
 $4=_st(self._announcementClass())._name();
 $ctx1.sendIdx["name"]=1;
 $2=_st($3)._at_($4);
@@ -114,13 +114,13 @@ return false;
 } else {
 var class_;
 class_=$receiver;
-$1=_st(_st(_st($Smalltalk())._current())._at_(_st(_st(_st(anAnnouncement)._class())._theNonMetaClass())._name()))._includesBehavior_(class_);
+$1=_st(_st(_st($Smalltalk())._globals())._at_(_st(_st(_st(anAnnouncement)._class())._theNonMetaClass())._name()))._includesBehavior_(class_);
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
 args: ["anAnnouncement"],
-source: "handlesAnnouncement: anAnnouncement\x0a\x09\x22anAnnouncement might be announced from within another Amber environment\x22\x0a\x09\x0a\x09^ (Smalltalk current at: self announcementClass name)\x0a\x09\x09ifNil: [ ^ false ]\x0a\x09\x09ifNotNil: [ :class |\x0a\x09\x09(Smalltalk current at: anAnnouncement class theNonMetaClass name) includesBehavior: class ]",
-messageSends: ["ifNil:ifNotNil:", "at:", "current", "name", "announcementClass", "includesBehavior:", "theNonMetaClass", "class"],
+source: "handlesAnnouncement: anAnnouncement\x0a\x09\x22anAnnouncement might be announced from within another Amber environment\x22\x0a\x09\x0a\x09^ (Smalltalk globals at: self announcementClass name)\x0a\x09\x09ifNil: [ ^ false ]\x0a\x09\x09ifNotNil: [ :class |\x0a\x09\x09(Smalltalk globals at: anAnnouncement class theNonMetaClass name) includesBehavior: class ]",
+messageSends: ["ifNil:ifNotNil:", "at:", "globals", "name", "announcementClass", "includesBehavior:", "theNonMetaClass", "class"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AnnouncementSubscription);

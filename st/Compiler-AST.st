@@ -745,6 +745,6 @@ isNode
 ast
 	self source ifEmpty: [ self error: 'Method source is empty' ].
 	
-	^ Smalltalk current parse: self source
+	^ Smalltalk parse: self source
 ! !
 

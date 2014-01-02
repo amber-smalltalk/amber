@@ -351,7 +351,7 @@ buildAST
 	
 	| ast |
 	
-	ast := Smalltalk current parse: self method source.
+	ast := Smalltalk parse: self method source.
 	(SemanticAnalyzer on: self context receiver class)
 		visit: ast.
 	
@@ -711,7 +711,7 @@ visitVariableNode: aNode
 			ifAbsent: [
 				aNode value isCapitalized
 					ifTrue: [
-						Smalltalk current 
+						Smalltalk globals 
 							at: aNode value 
 							ifAbsent: [ PlatformInterface globals at: aNode value ] ] ] ])
 ! !

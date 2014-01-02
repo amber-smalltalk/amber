@@ -32,7 +32,7 @@ extensionProtocolsOfPackage: aPackage
 	Therefore sorting (dependency resolution) does not matter here.
 	Not sorting improves the speed by a number of magnitude."
 	
-	Smalltalk current classes do: [ :each |
+	Smalltalk classes do: [ :each |
 		{each. each class} do: [ :behavior |
 			(behavior protocols includes: extensionName) ifTrue: [
 				result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].
@@ -79,7 +79,7 @@ extensionCategoriesOfPackage: aPackage
 	| name map result |
 	name := aPackage name.
 	result := OrderedCollection new.
-	(Package sortedClasses: Smalltalk current classes) do: [ :each |
+	(Package sortedClasses: Smalltalk classes) do: [ :each |
 		{each. each class} do: [ :aClass |
 			map := Dictionary new.
 			aClass protocolsDo: [ :category :methods |
@@ -190,7 +190,7 @@ exportPackage: aPackage on: aStream
 
 exportPackageDefinitionOf: aPackage on: aStream
 	aStream
-		nextPutAll: 'Smalltalk current createPackage: ''', aPackage name, '''!!';
+		nextPutAll: 'Smalltalk createPackage: ''', aPackage name, '''!!';
 		lf
 !
 
@@ -660,7 +660,7 @@ namespaceFor: aPackage
 !AmdPackageHandler methodsFor: 'loading'!
 
 load: aPackage
-	Smalltalk current amdRequire
+	Smalltalk amdRequire
 		ifNil: [ self error: 'AMD loader not present' ]
 		ifNotNil: [ :require |
 			require value: (Array new: (self namespaceFor: aPackage), '/', aPackage name ) ]
@@ -669,7 +669,7 @@ load: aPackage
 !AmdPackageHandler methodsFor: 'private'!
 
 toUrl: aString
-	^ Smalltalk current amdRequire
+	^ Smalltalk amdRequire
 		ifNil: [ self error: 'AMD loader not present' ]
 		ifNotNil: [ :require | (require basicAt: 'toUrl') value: aString ]
 ! !
@@ -677,11 +677,11 @@ toUrl: aString
 !AmdPackageHandler class methodsFor: 'commit paths'!
 
 defaultNamespace
-	^ Smalltalk current defaultAmdNamespace
+	^ Smalltalk defaultAmdNamespace
 !
 
 defaultNamespace: aString
-	Smalltalk current defaultAmdNamespace: aString
+	Smalltalk defaultAmdNamespace: aString
 ! !
 
 Object subclass: #PackageTransport
@@ -835,7 +835,7 @@ asJSON
 !AmdPackageTransport methodsFor: 'defaults'!
 
 defaultNamespace
-	^ Smalltalk current defaultAmdNamespace
+	^ Smalltalk defaultAmdNamespace
 ! !
 
 !AmdPackageTransport methodsFor: 'initialization'!

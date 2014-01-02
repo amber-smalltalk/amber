@@ -72,16 +72,16 @@ Typical use cases include IDEs, remote access and restricting browsing.!
 !Environment methodsFor: 'accessing'!
 
 allSelectors
-	^ (Smalltalk current at: 'allSelectors') value
+	^ Smalltalk vm allSelectors
 !
 
 availableClassNames
-	^ Smalltalk current classes 
+	^ Smalltalk classes 
 		collect: [ :each | each name ]
 !
 
 availablePackageNames
-	^ Smalltalk current packages 
+	^ Smalltalk packages 
 		collect: [ :each | each name ]
 !
 
@@ -98,12 +98,12 @@ classBuilder
 !
 
 classNamed: aString
-	^ (Smalltalk current at: aString asSymbol)
+	^ (Smalltalk globals at: aString asSymbol)
 		ifNil: [ self error: 'Invalid class name' ]
 !
 
 classes
-	^ Smalltalk current classes
+	^ Smalltalk classes
 !
 
 doItReceiver
@@ -111,11 +111,11 @@ doItReceiver
 !
 
 packages
-	^ Smalltalk current packages
+	^ Smalltalk packages
 !
 
 systemAnnouncer
-	^ (Smalltalk current at: #SystemAnnouncer) current
+	^ (Smalltalk globals at: #SystemAnnouncer) current
 ! !
 
 !Environment methodsFor: 'actions'!
@@ -125,7 +125,7 @@ commitPackage: aPackage
 !
 
 copyClass: aClass to: aClassName
-	(Smalltalk current at: aClassName)
+	(Smalltalk globals at: aClassName)
 		ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].
 		
 	ClassBuilder new copyClass: aClass named: aClassName
@@ -156,8 +156,7 @@ moveClass: aClass toPackage: aPackageName
 moveMethod: aMethod toClass: aClassName
 	| destinationClass |
 	
-	destinationClass := Smalltalk current at: aClassName asSymbol.
-	destinationClass ifNil: [ self error: 'Invalid class name' ].
+	destinationClass := self classNamed: aClassName.
 	destinationClass == aMethod methodClass ifTrue: [ ^ self ].
 	
 	destinationClass 
@@ -184,7 +183,7 @@ registerProgressHandler: aProgressHandler
 !
 
 removeClass: aClass
-	Smalltalk current removeClass: aClass
+	Smalltalk removeClass: aClass
 !
 
 removeMethod: aMethod
@@ -197,7 +196,7 @@ removeProtocol: aString from: aClass
 !
 
 renameClass: aClass to: aClassName
-	(Smalltalk current at: aClassName)
+	(Smalltalk globals at: aClassName)
 		ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].
 		
 	ClassBuilder new renameClass: aClass to: aClassName
@@ -566,7 +565,7 @@ loadDependencyClasses
 	starCategoryName := '*', self name.
 	^ (self classes collect: [ :each | each superclass ]) asSet
 		remove: nil ifAbsent: [];
-		addAll: (Smalltalk current classes select: [ :each | each protocols, each class protocols includes: starCategoryName ]);
+		addAll: (Smalltalk classes select: [ :each | each protocols, each class protocols includes: starCategoryName ]);
 		yourself
 ! !
 
@@ -591,14 +590,14 @@ Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
 !Package class methodsFor: 'accessing'!
 
 named: aPackageName
-	^ Smalltalk current 
+	^ Smalltalk 
 		packageAt: aPackageName
 		ifAbsent: [ 
-			Smalltalk current createPackage: aPackageName ]
+			Smalltalk createPackage: aPackageName ]
 !
 
 named: aPackageName ifAbsent: aBlock
-	^ Smalltalk current packageAt: aPackageName ifAbsent: aBlock
+	^ Smalltalk packageAt: aPackageName ifAbsent: aBlock
 !
 
 named: aPackageName transport: aTransport

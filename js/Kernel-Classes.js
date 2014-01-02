@@ -1548,10 +1548,11 @@ fn: function (aClass,className,aCollection,packageName){
 var self=this;
 var theClass,thePackage;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
-theClass=_st(_st($Smalltalk())._current())._at_(className);
-thePackage=self._createPackageNamed_(packageName);
+theClass=_st(_st($Smalltalk())._globals())._at_(className);
+thePackage=_st($Package())._named_(packageName);
 $1=theClass;
 if(($receiver = $1) == nil || $receiver == null){
 $1;
@@ -1567,9 +1568,9 @@ $4=self._basicAddSubclassOf_named_instanceVariableNames_package_(aClass,classNam
 return $4;
 }, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,className:className,aCollection:aCollection,packageName:packageName,theClass:theClass,thePackage:thePackage},smalltalk.ClassBuilder)})},
 args: ["aClass", "className", "aCollection", "packageName"],
-source: "addSubclassOf: aClass named: className instanceVariableNames: aCollection package: packageName\x0a\x09| theClass thePackage |\x0a\x09\x0a\x09theClass := Smalltalk current at: className.\x0a\x09thePackage := self createPackageNamed: packageName.\x0a\x09\x0a\x09theClass ifNotNil: [\x0a\x09\x09theClass package: thePackage.\x0a\x09\x09theClass superclass == aClass ifFalse: [\x0a\x09\x09\x09^ self\x0a\x09\x09\x09\x09migrateClassNamed: className\x0a\x09\x09\x09\x09superclass: aClass\x0a\x09\x09\x09\x09instanceVariableNames: aCollection\x0a\x09\x09\x09\x09package: packageName ] ].\x0a\x09\x09\x0a\x09^ self\x0a\x09\x09basicAddSubclassOf: aClass\x0a\x09\x09named: className\x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName",
-messageSends: ["at:", "current", "createPackageNamed:", "ifNotNil:", "package:", "ifFalse:", "==", "superclass", "migrateClassNamed:superclass:instanceVariableNames:package:", "basicAddSubclassOf:named:instanceVariableNames:package:"],
-referencedClasses: ["Smalltalk"]
+source: "addSubclassOf: aClass named: className instanceVariableNames: aCollection package: packageName\x0a\x09| theClass thePackage |\x0a\x09\x0a\x09theClass := Smalltalk globals at: className.\x0a\x09thePackage := Package named: packageName.\x0a\x09\x0a\x09theClass ifNotNil: [\x0a\x09\x09theClass package: thePackage.\x0a\x09\x09theClass superclass == aClass ifFalse: [\x0a\x09\x09\x09^ self\x0a\x09\x09\x09\x09migrateClassNamed: className\x0a\x09\x09\x09\x09superclass: aClass\x0a\x09\x09\x09\x09instanceVariableNames: aCollection\x0a\x09\x09\x09\x09package: packageName ] ].\x0a\x09\x09\x0a\x09^ self\x0a\x09\x09basicAddSubclassOf: aClass\x0a\x09\x09named: className\x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName",
+messageSends: ["at:", "globals", "named:", "ifNotNil:", "package:", "ifFalse:", "==", "superclass", "migrateClassNamed:superclass:instanceVariableNames:package:", "basicAddSubclassOf:named:instanceVariableNames:package:"],
+referencedClasses: ["Smalltalk", "Package"]
 }),
 smalltalk.ClassBuilder);
 
@@ -1784,29 +1785,6 @@ smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "createPackageNamed:",
-protocol: 'private',
-fn: function (aString){
-var self=this;
-function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($Package())._named_ifAbsent_(aString,(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st($Smalltalk())._current())._createPackage_(aString);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"createPackageNamed:",{aString:aString},smalltalk.ClassBuilder)})},
-args: ["aString"],
-source: "createPackageNamed: aString\x0a\x09^ Package named: aString ifAbsent: [\x0a\x09\x09Smalltalk current createPackage: aString ]",
-messageSends: ["named:ifAbsent:", "createPackage:", "current"],
-referencedClasses: ["Package", "Smalltalk"]
-}),
-smalltalk.ClassBuilder);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "installMethod:forClass:protocol:",
 protocol: 'method definition',
 fn: function (aCompiledMethod,aBehavior,aString){
@@ -1877,12 +1855,10 @@ function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassMigrated(){return smalltalk.ClassMigrated||(typeof ClassMigrated=="undefined"?nil:ClassMigrated)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8,$9;
+var $1,$2,$3,$4,$5,$6,$7,$8;
 tmp="new*".__comma(className);
 $ctx1.sendIdx[","]=1;
-$1=_st($Smalltalk())._current();
-$ctx1.sendIdx["current"]=1;
-oldClass=_st($1)._at_(className);
+oldClass=_st(_st($Smalltalk())._globals())._at_(className);
 newClass=self._addSubclassOf_named_instanceVariableNames_package_(aClass,tmp,aCollection,packageName);
 self._basicSwapClassNames_with_(oldClass,newClass);
 $ctx1.sendIdx["basicSwapClassNames:with:"]=1;
@@ -1892,34 +1868,34 @@ return self._copyClass_to_(oldClass,newClass);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(exception){
 return smalltalk.withContext(function($ctx2) {
 self._basicSwapClassNames_with_(oldClass,newClass);
-$2=self._basicRemoveClass_(newClass);
+$1=self._basicRemoveClass_(newClass);
 $ctx2.sendIdx["basicRemoveClass:"]=1;
-$2;
+$1;
 return _st(exception)._signal();
 }, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1,2)})}));
 self._rawRenameClass_to_(oldClass,tmp);
 $ctx1.sendIdx["rawRenameClass:to:"]=1;
-$3=self._rawRenameClass_to_(newClass,className);
-$4=_st(oldClass)._subclasses();
-$5=(function(each){
+$2=self._rawRenameClass_to_(newClass,className);
+$3=_st(oldClass)._subclasses();
+$4=(function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._migrateClass_superclass_(each,newClass);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})});
-$6=_st("Recompiling ".__comma(_st(newClass)._name())).__comma("...");
+$5=_st("Recompiling ".__comma(_st(newClass)._name())).__comma("...");
 $ctx1.sendIdx[","]=2;
-_st($4)._do_displayingProgress_($5,$6);
+_st($3)._do_displayingProgress_($4,$5);
 self._basicRemoveClass_(oldClass);
-$7=_st($ClassMigrated())._new();
-_st($7)._theClass_(newClass);
-_st($7)._oldClass_(oldClass);
-$8=_st($7)._yourself();
-_st(_st($SystemAnnouncer())._current())._announce_($8);
-$9=newClass;
-return $9;
+$6=_st($ClassMigrated())._new();
+_st($6)._theClass_(newClass);
+_st($6)._oldClass_(oldClass);
+$7=_st($6)._yourself();
+_st(_st($SystemAnnouncer())._current())._announce_($7);
+$8=newClass;
+return $8;
 }, function($ctx1) {$ctx1.fill(self,"migrateClassNamed:superclass:instanceVariableNames:package:",{className:className,aClass:aClass,aCollection:aCollection,packageName:packageName,oldClass:oldClass,newClass:newClass,tmp:tmp},smalltalk.ClassBuilder)})},
 args: ["className", "aClass", "aCollection", "packageName"],
-source: "migrateClassNamed: className superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass tmp |\x0a\x09\x0a\x09tmp := 'new*', className.\x0a\x09oldClass := Smalltalk current at: className.\x0a\x09\x0a\x09newClass := self\x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: tmp\x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09self basicSwapClassNames: oldClass with: newClass.\x0a\x0a\x09[ self copyClass: oldClass to: newClass ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :exception |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09basicSwapClassNames: oldClass with: newClass;\x0a\x09\x09\x09\x09basicRemoveClass: newClass.\x0a\x09\x09\x09exception signal ].\x0a\x0a\x09self\x0a\x09\x09rawRenameClass: oldClass to: tmp;\x0a\x09\x09rawRenameClass: newClass to: className.\x0a\x0a\x09oldClass subclasses \x0a\x09\x09do: [ :each | self migrateClass: each superclass: newClass ]\x0a\x09\x09displayingProgress: 'Recompiling ', newClass name, '...'.\x0a\x0a\x09self basicRemoveClass: oldClass.\x0a\x09\x0a\x09SystemAnnouncer current announce: (ClassMigrated new\x0a\x09\x09theClass: newClass;\x0a\x09\x09oldClass: oldClass;\x0a\x09\x09yourself).\x0a\x09\x0a\x09^ newClass",
-messageSends: [",", "at:", "current", "addSubclassOf:named:instanceVariableNames:package:", "basicSwapClassNames:with:", "on:do:", "copyClass:to:", "basicRemoveClass:", "signal", "rawRenameClass:to:", "do:displayingProgress:", "subclasses", "migrateClass:superclass:", "name", "announce:", "theClass:", "new", "oldClass:", "yourself"],
+source: "migrateClassNamed: className superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass tmp |\x0a\x09\x0a\x09tmp := 'new*', className.\x0a\x09oldClass := Smalltalk globals at: className.\x0a\x09\x0a\x09newClass := self\x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: tmp\x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09self basicSwapClassNames: oldClass with: newClass.\x0a\x0a\x09[ self copyClass: oldClass to: newClass ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :exception |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09basicSwapClassNames: oldClass with: newClass;\x0a\x09\x09\x09\x09basicRemoveClass: newClass.\x0a\x09\x09\x09exception signal ].\x0a\x0a\x09self\x0a\x09\x09rawRenameClass: oldClass to: tmp;\x0a\x09\x09rawRenameClass: newClass to: className.\x0a\x0a\x09oldClass subclasses \x0a\x09\x09do: [ :each | self migrateClass: each superclass: newClass ]\x0a\x09\x09displayingProgress: 'Recompiling ', newClass name, '...'.\x0a\x0a\x09self basicRemoveClass: oldClass.\x0a\x09\x0a\x09SystemAnnouncer current announce: (ClassMigrated new\x0a\x09\x09theClass: newClass;\x0a\x09\x09oldClass: oldClass;\x0a\x09\x09yourself).\x0a\x09\x0a\x09^ newClass",
+messageSends: [",", "at:", "globals", "addSubclassOf:named:instanceVariableNames:package:", "basicSwapClassNames:with:", "on:do:", "copyClass:to:", "basicRemoveClass:", "signal", "rawRenameClass:to:", "do:displayingProgress:", "subclasses", "migrateClass:superclass:", "name", "announce:", "current", "theClass:", "new", "oldClass:", "yourself"],
 referencedClasses: ["Smalltalk", "Error", "SystemAnnouncer", "ClassMigrated"]
 }),
 smalltalk.ClassBuilder);
