@@ -120,8 +120,8 @@ function RootBrik(brikz, st) {
 		st.addPackage("Kernel-Objects");
 		st.addPackage("Kernel-Infrastructure");
 		st.wrapClassName("ProtoObject", "Kernel-Objects", SmalltalkProtoObject, undefined, false);
-		st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, st.ProtoObject, false);
-		st.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, st.Object, false);
+		st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, globals.ProtoObject, false);
+		st.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, globals.Object, false);
 	};
 }
 
@@ -143,9 +143,9 @@ function OrganizeBrik(brikz, st) {
 	inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
 	this.__init__ = function () {
-		st.wrapClassName("Organizer", "Kernel-Infrastructure", SmalltalkOrganizer, st.Object, false);
-		st.wrapClassName("PackageOrganizer", "Kernel-Infrastructure", SmalltalkPackageOrganizer, st.Organizer, false);
-		st.wrapClassName("ClassOrganizer", "Kernel-Infrastructure", SmalltalkClassOrganizer, st.Organizer, false);
+		st.wrapClassName("Organizer", "Kernel-Infrastructure", SmalltalkOrganizer, globals.Object, false);
+		st.wrapClassName("PackageOrganizer", "Kernel-Infrastructure", SmalltalkPackageOrganizer, globals.Organizer, false);
+		st.wrapClassName("ClassOrganizer", "Kernel-Infrastructure", SmalltalkClassOrganizer, globals.Organizer, false);
 	};
 
 	this.setupClassOrganization = function (klass) {
@@ -322,15 +322,15 @@ function ClassesBrik(brikz, st) {
 
 	this.__init__ = function () {
 		st.addPackage("Kernel-Classes");
-		st.wrapClassName("Behavior", "Kernel-Classes", SmalltalkBehavior, st.Object, false);
-		st.wrapClassName("Metaclass", "Kernel-Classes", SmalltalkMetaclass, st.Behavior, false);
-		st.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, st.Behavior, false);
+		st.wrapClassName("Behavior", "Kernel-Classes", SmalltalkBehavior, globals.Object, false);
+		st.wrapClassName("Metaclass", "Kernel-Classes", SmalltalkMetaclass, globals.Behavior, false);
+		st.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, globals.Behavior, false);
 
 		// Manually bootstrap the metaclass hierarchy
-		st.ProtoObject.klass.superclass = rootAsClass.klass = st.Class;
-		addSubclass(st.ProtoObject.klass);
+		globals.ProtoObject.klass.superclass = rootAsClass.klass = globals.Class;
+		addSubclass(globals.ProtoObject.klass);
 
-		st.wrapClassName("Package", "Kernel-Infrastructure", SmalltalkPackage, st.Object, false);
+		st.wrapClassName("Package", "Kernel-Infrastructure", SmalltalkPackage, globals.Object, false);
 	};
 
 	/* Smalltalk classes */
@@ -566,7 +566,7 @@ function MethodsBrik(brikz, st) {
 
 	this.__init__ = function () {
 		st.addPackage("Kernel-Methods");
-		st.wrapClassName("CompiledMethod", "Kernel-Methods", SmalltalkMethod, st.Object, false);
+		st.wrapClassName("CompiledMethod", "Kernel-Methods", SmalltalkMethod, globals.Object, false);
 	};
 
 	/* Smalltalk method object. To add a method to a class,
@@ -719,27 +719,27 @@ function SmalltalkInitBrik(brikz, st) {
 
 	this.__init__ = function () {
 		st.addPackage("Kernel-Methods");
-		st.wrapClassName("Number", "Kernel-Objects", Number, st.Object);
-		st.wrapClassName("BlockClosure", "Kernel-Methods", Function, st.Object);
-		st.wrapClassName("Boolean", "Kernel-Objects", Boolean, st.Object);
-		st.wrapClassName("Date", "Kernel-Objects", Date, st.Object);
+		st.wrapClassName("Number", "Kernel-Objects", Number, globals.Object);
+		st.wrapClassName("BlockClosure", "Kernel-Methods", Function, globals.Object);
+		st.wrapClassName("Boolean", "Kernel-Objects", Boolean, globals.Object);
+		st.wrapClassName("Date", "Kernel-Objects", Date, globals.Object);
 
 		st.addPackage("Kernel-Collections");
-		st.addClass("Collection", st.Object, null, "Kernel-Collections");
-		st.addClass("IndexableCollection", st.Collection, null, "Kernel-Collections");
-		st.addClass("SequenceableCollection", st.IndexableCollection, null, "Kernel-Collections");
-		st.addClass("CharacterArray", st.SequenceableCollection, null, "Kernel-Collections");
-		st.wrapClassName("String", "Kernel-Collections", String, st.CharacterArray);
-		st.wrapClassName("Array", "Kernel-Collections", Array, st.SequenceableCollection);
-		st.wrapClassName("RegularExpression", "Kernel-Collections", RegExp, st.Object);
+		st.addClass("Collection", globals.Object, null, "Kernel-Collections");
+		st.addClass("IndexableCollection", globals.Collection, null, "Kernel-Collections");
+		st.addClass("SequenceableCollection", globals.IndexableCollection, null, "Kernel-Collections");
+		st.addClass("CharacterArray", globals.SequenceableCollection, null, "Kernel-Collections");
+		st.wrapClassName("String", "Kernel-Collections", String, globals.CharacterArray);
+		st.wrapClassName("Array", "Kernel-Collections", Array, globals.SequenceableCollection);
+		st.wrapClassName("RegularExpression", "Kernel-Collections", RegExp, globals.Object);
 
 		st.addPackage("Kernel-Exceptions");
-		st.wrapClassName("Error", "Kernel-Exceptions", Error, st.Object);
+		st.wrapClassName("Error", "Kernel-Exceptions", Error, globals.Object);
 
 		/* Alias definitions */
 
-		st.alias(st.Array, "OrderedCollection");
-		st.alias(st.Date, "Time");
+		st.alias(globals.Array, "OrderedCollection");
+		st.alias(globals.Date, "Time");
 
 	};
 }
@@ -761,7 +761,7 @@ function PrimitivesBrik(brikz, st) {
 		var readArray = (js.constructor === Array);
 
 		if(readObject) {
-			object = st.Dictionary._new();
+			object = globals.Dictionary._new();
 		}
 		for(var i in js) {
 			if(readObject) {
@@ -776,10 +776,10 @@ function PrimitivesBrik(brikz, st) {
 
 	/* Boolean assertion */
 	st.assert = function(shouldBeBoolean) {
-		if (undefined !== shouldBeBoolean && shouldBeBoolean.klass === st.Boolean) {
+		if (undefined !== shouldBeBoolean && shouldBeBoolean.klass === globals.Boolean) {
 			return shouldBeBoolean == true;
 		} else {
-			st.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
+			globals.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
 		}
 	};
 
@@ -821,7 +821,7 @@ function RuntimeBrik(brikz, st) {
 
 	this.__init__ = function () {
 		st.addPackage("Kernel-Methods");
-		st.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContext, st.Object, false);
+		st.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContext, globals.Object, false);
 
 		// Fallbacks
 		SmalltalkMethodContext.prototype.locals = {};
@@ -896,7 +896,7 @@ function RuntimeBrik(brikz, st) {
 	 In case of a RangeError, stub the stack after 100 contexts to
 	 avoid another RangeError later when the stack is manipulated. */
 	function wrappedError(error) {
-		var errorWrapper = st.JavaScriptException._on_(error);
+		var errorWrapper = globals.JavaScriptException._on_(error);
 		// Add the error to the context, so it is visible in the stack
 		try { errorWrapper._signal(); } catch (ex) {}
 		var context = st.getThisContext();
@@ -934,7 +934,7 @@ function RuntimeBrik(brikz, st) {
 		if (!error.smalltalkError) {
 			error = wrappedError(error);
 		}
-		st.ErrorHandler._handleError_(error);
+		globals.ErrorHandler._handleError_(error);
 		// Throw the exception anyway, as we want to stop
 		// the execution to avoid infinite loops
 		// Update: do not throw the exception. It's really annoying.
@@ -997,7 +997,7 @@ function MessageSendBrik(brikz, st) {
 		 Object>>doesNotUnderstand: */
 
 		return receiver._doesNotUnderstand_(
-			st.Message._new()
+			globals.Message._new()
 				._selector_(st.convertSelector(selector))
 				._arguments_(args)
 		);
@@ -1030,7 +1030,7 @@ function MessageSendBrik(brikz, st) {
 			}
 		}
 
-		return st.send(st.JSObjectProxy._on_(receiver), selector, args);
+		return st.send(globals.JSObjectProxy._on_(receiver), selector, args);
 	}
 
 	this.messageNotUnderstood = messageNotUnderstood;
