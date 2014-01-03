@@ -685,7 +685,7 @@ installMethod: aCompiledMethod forClass: aBehavior protocol: aString
 basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
 	<
 		smalltalk.addClass(aString, aClass, aCollection, packageName);
-		return smalltalk[aString]
+		return globals[aString]
 	>
 !
 
@@ -705,8 +705,8 @@ basicRemoveClass: aClass
 
 basicRenameClass: aClass to: aString
 	<
-		smalltalk[aString] = aClass;
-		delete smalltalk[aClass.className];
+		globals[aString] = aClass;
+		delete globals[aClass.className];
 		aClass.className = aString;
 	>
 !
@@ -721,7 +721,7 @@ basicSwapClassNames: aClass with: anotherClass
 
 rawRenameClass: aClass to: aString
 	<
-		smalltalk[aString] = aClass;
+		globals[aString] = aClass;
 	>
 ! !
 

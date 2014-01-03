@@ -914,7 +914,8 @@ It requires the `Compiler` package and the `js/parser.js` parser file in order t
 !SmalltalkImage methodsFor: 'accessing'!
 
 at: aString
-	<return smalltalk[aString]>
+	self deprecatedAPI.
+	^ self globals at: aString
 !
 
 at: aKey ifAbsent: aBlock
@@ -924,7 +925,8 @@ at: aKey ifAbsent: aBlock
 !
 
 at: aString put: anObject
-	<return smalltalk[aString]=anObject>
+	self deprecatedAPI.
+	^ self globals at: aString put: anObject
 !
 
 current
@@ -935,7 +937,7 @@ current
 
 globals
 	"Future compatibility to be able to use Smalltalk globals at: ..."
-	^ self
+	<return globals>
 !
 
 includesKey: aKey
@@ -981,15 +983,15 @@ vm
 !SmalltalkImage methodsFor: 'accessing amd'!
 
 amdRequire
-	^ self at: 'amdRequire'
+	^ self vm at: 'amdRequire'
 !
 
 defaultAmdNamespace
-	^ self at: 'defaultAmdNamespace'
+	^ self vm defaultAmdNamespace
 !
 
 defaultAmdNamespace: aString
-	self at: 'defaultAmdNamespace' put: aString
+	self vm defaultAmdNamespace: aString
 ! !
 
 !SmalltalkImage methodsFor: 'classes'!
@@ -1139,7 +1141,7 @@ SmalltalkImage class instanceVariableNames: 'current'!
 !SmalltalkImage class methodsFor: 'initialization'!
 
 initialize
-	smalltalk at: 'Smalltalk' put: self current
+	globals at: 'Smalltalk' put: self current
 ! !
 
 !SmalltalkImage class methodsFor: 'instance creation'!

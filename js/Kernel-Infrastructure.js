@@ -2265,12 +2265,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._at_("amdRequire");
+$1=_st(self._vm())._at_("amdRequire");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"amdRequire",{},globals.SmalltalkImage)})},
 args: [],
-source: "amdRequire\x0a\x09^ self at: 'amdRequire'",
-messageSends: ["at:"],
+source: "amdRequire\x0a\x09^ self vm at: 'amdRequire'",
+messageSends: ["at:", "vm"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
@@ -2309,11 +2309,15 @@ selector: "at:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk[aString];
-return self},
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._deprecatedAPI();
+$1=_st(self._globals())._at_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},globals.SmalltalkImage)})},
 args: ["aString"],
-source: "at: aString\x0a\x09<return smalltalk[aString]>",
-messageSends: [],
+source: "at: aString\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aString",
+messageSends: ["deprecatedAPI", "at:", "globals"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
@@ -2347,11 +2351,15 @@ selector: "at:put:",
 protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
-return smalltalk[aString]=anObject;
-return self},
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._deprecatedAPI();
+$1=_st(self._globals())._at_put_(aString,anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},globals.SmalltalkImage)})},
 args: ["aString", "anObject"],
-source: "at: aString put: anObject\x0a\x09<return smalltalk[aString]=anObject>",
-messageSends: [],
+source: "at: aString put: anObject\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aString put: anObject",
+messageSends: ["deprecatedAPI", "at:put:", "globals"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
@@ -2476,12 +2484,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._at_("defaultAmdNamespace");
+$1=_st(self._vm())._defaultAmdNamespace();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},globals.SmalltalkImage)})},
 args: [],
-source: "defaultAmdNamespace\x0a\x09^ self at: 'defaultAmdNamespace'",
-messageSends: ["at:"],
+source: "defaultAmdNamespace\x0a\x09^ self vm defaultAmdNamespace",
+messageSends: ["defaultAmdNamespace", "vm"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
@@ -2493,11 +2501,11 @@ protocol: 'accessing amd',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._at_put_("defaultAmdNamespace",aString);
+_st(self._vm())._defaultAmdNamespace_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace:",{aString:aString},globals.SmalltalkImage)})},
 args: ["aString"],
-source: "defaultAmdNamespace: aString\x0a\x09self at: 'defaultAmdNamespace' put: aString",
-messageSends: ["at:put:"],
+source: "defaultAmdNamespace: aString\x0a\x09self vm defaultAmdNamespace: aString",
+messageSends: ["defaultAmdNamespace:", "vm"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
@@ -2571,10 +2579,10 @@ selector: "globals",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return self;
-},
+return globals;
+return self},
 args: [],
-source: "globals\x0a\x09\x22Future compatibility to be able to use Smalltalk globals at: ...\x22\x0a\x09^ self",
+source: "globals\x0a\x09\x22Future compatibility to be able to use Smalltalk globals at: ...\x22\x0a\x09<return globals>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2922,10 +2930,10 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(smalltalk)._at_put_("Smalltalk",self._current());
+_st(globals)._at_put_("Smalltalk",self._current());
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.SmalltalkImage.klass)})},
 args: [],
-source: "initialize\x0a\x09smalltalk at: 'Smalltalk' put: self current",
+source: "initialize\x0a\x09globals at: 'Smalltalk' put: self current",
 messageSends: ["at:put:", "current"],
 referencedClasses: []
 }),

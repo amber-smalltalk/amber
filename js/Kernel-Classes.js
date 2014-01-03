@@ -1564,11 +1564,11 @@ fn: function (aClass,aString,aCollection,packageName){
 var self=this;
 
 		smalltalk.addClass(aString, aClass, aCollection, packageName);
-		return smalltalk[aString]
+		return globals[aString]
 	;
 return self},
 args: ["aClass", "aString", "aCollection", "packageName"],
-source: "basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a\x09<\x0a\x09\x09smalltalk.addClass(aString, aClass, aCollection, packageName);\x0a\x09\x09return smalltalk[aString]\x0a\x09>",
+source: "basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a\x09<\x0a\x09\x09smalltalk.addClass(aString, aClass, aCollection, packageName);\x0a\x09\x09return globals[aString]\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1633,13 +1633,13 @@ protocol: 'private',
 fn: function (aClass,aString){
 var self=this;
 
-		smalltalk[aString] = aClass;
-		delete smalltalk[aClass.className];
+		globals[aString] = aClass;
+		delete globals[aClass.className];
 		aClass.className = aString;
 	;
 return self},
 args: ["aClass", "aString"],
-source: "basicRenameClass: aClass to: aString\x0a\x09<\x0a\x09\x09smalltalk[aString] = aClass;\x0a\x09\x09delete smalltalk[aClass.className];\x0a\x09\x09aClass.className = aString;\x0a\x09>",
+source: "basicRenameClass: aClass to: aString\x0a\x09<\x0a\x09\x09globals[aString] = aClass;\x0a\x09\x09delete globals[aClass.className];\x0a\x09\x09aClass.className = aString;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1885,11 +1885,11 @@ protocol: 'private',
 fn: function (aClass,aString){
 var self=this;
 
-		smalltalk[aString] = aClass;
+		globals[aString] = aClass;
 	;
 return self},
 args: ["aClass", "aString"],
-source: "rawRenameClass: aClass to: aString\x0a\x09<\x0a\x09\x09smalltalk[aString] = aClass;\x0a\x09>",
+source: "rawRenameClass: aClass to: aString\x0a\x09<\x0a\x09\x09globals[aString] = aClass;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

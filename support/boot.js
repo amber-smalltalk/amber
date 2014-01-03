@@ -92,7 +92,8 @@ function inherits(child, parent) {
 	return child;
 }
 
-var api = {};
+var globals = {};
+var api = Object.create(globals);
 var brikz = new Brikz(api);
 
 function RootBrik(brikz, st) {
@@ -449,20 +450,20 @@ function ClassesBrik(brikz, st) {
 			throw new Error("Missing package "+pkgName);
 		}
 
-		if(st[className] && st[className].superclass == superclass) {
-//            st[className].superclass = superclass;
-			st[className].iVarNames = iVarNames || [];
-			if (pkg) st[className].pkg = pkg;
+		if(globals[className] && globals[className].superclass == superclass) {
+//            globals[className].superclass = superclass;
+			globals[className].iVarNames = iVarNames || [];
+			if (pkg) globals[className].pkg = pkg;
 			if (fn) {
-				fn.prototype = st[className].fn.prototype;
-				st[className].fn = fn;
+				fn.prototype = globals[className].fn.prototype;
+				globals[className].fn = fn;
 				fn.prototype.constructor = fn;
 			}
 		} else {
-			if(st[className]) {
-				st.removeClass(st[className]);
+			if(globals[className]) {
+				st.removeClass(globals[className]);
 			}
-			st[className] = klass({
+			globals[className] = klass({
 				className: className,
 				superclass: superclass,
 				pkg: pkg,
@@ -471,18 +472,18 @@ function ClassesBrik(brikz, st) {
 				wrapped: wrapped
 			});
 
-			addSubclass(st[className]);
+			addSubclass(globals[className]);
 		}
 
-		classes.addElement(st[className]);
-		org.addOrganizationElement(pkg, st[className]);
+		classes.addElement(globals[className]);
+		org.addOrganizationElement(pkg, globals[className]);
 	}
 
 	st.removeClass = function(klass) {
 		org.removeOrganizationElement(klass.pkg, klass);
 		classes.removeElement(klass);
 		removeSubclass(klass);
-		delete st[klass.className];
+		delete globals[klass.className];
 	};
 
 	function addSubclass(klass) {
@@ -502,9 +503,9 @@ function ClassesBrik(brikz, st) {
 
 	st.wrapClassName = function(className, pkgName, fn, superclass, wrapped) {
 		wrapped = wrapped !== false;
-		rawAddClass(pkgName, className, superclass, st[className] && st[className].iVarNames, wrapped, fn);
+		rawAddClass(pkgName, className, superclass, globals[className] && globals[className].iVarNames, wrapped, fn);
 		if(wrapped) {
-			wrappedClasses.addElement(st[className]);
+			wrappedClasses.addElement(globals[className]);
 		}
 	};
 
@@ -527,7 +528,7 @@ function ClassesBrik(brikz, st) {
 	/* Create an alias for an existing class */
 
 	st.alias = function(klass, alias) {
-		st[alias] = klass;
+		globals[alias] = klass;
 	};
 
 	/* Answer all registered Smalltalk classes */
@@ -1128,5 +1129,5 @@ function runnable () {
 	brikz.rebuild();
 };
 
-return { smalltalk: api, nil: brikz.root.nil, globals: api };
+return { smalltalk: api, nil: brikz.root.nil, globals: globals };
 });
