@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Inspector'!
+Smalltalk createPackage: 'Helios-Inspector'!
 HLNavigationListWidget subclass: #HLInspectorDisplayWidget
 	instanceVariableNames: 'model'
 	package: 'Helios-Inspector'!

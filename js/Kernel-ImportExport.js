@@ -107,7 +107,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 extensionName="*".__comma(_st(aPackage)._name());
 result=_st($OrderedCollection())._new();
-_st(_st(_st($Smalltalk())._current())._classes())._do_((function(each){
+_st(_st($Smalltalk())._classes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st([each,_st(each)._class()])._do_((function(behavior){
 return smalltalk.withContext(function($ctx3) {
@@ -122,8 +122,8 @@ $2=result;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"extensionProtocolsOfPackage:",{aPackage:aPackage,extensionName:extensionName,result:result},smalltalk.AbstractExporter)})},
 args: ["aPackage"],
-source: "extensionProtocolsOfPackage: aPackage\x0a\x09| extensionName result |\x0a\x09\x0a\x09extensionName := '*', aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09\x0a\x09\x22The classes must be loaded since it is extensions only.\x0a\x09Therefore sorting (dependency resolution) does not matter here.\x0a\x09Not sorting improves the speed by a number of magnitude.\x22\x0a\x09\x0a\x09Smalltalk current classes do: [ :each |\x0a\x09\x09{each. each class} do: [ :behavior |\x0a\x09\x09\x09(behavior protocols includes: extensionName) ifTrue: [\x0a\x09\x09\x09\x09result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].\x0a\x0a\x09^ result",
-messageSends: [",", "name", "new", "do:", "classes", "current", "class", "ifTrue:", "includes:", "protocols", "add:", "name:theClass:"],
+source: "extensionProtocolsOfPackage: aPackage\x0a\x09| extensionName result |\x0a\x09\x0a\x09extensionName := '*', aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09\x0a\x09\x22The classes must be loaded since it is extensions only.\x0a\x09Therefore sorting (dependency resolution) does not matter here.\x0a\x09Not sorting improves the speed by a number of magnitude.\x22\x0a\x09\x0a\x09Smalltalk classes do: [ :each |\x0a\x09\x09{each. each class} do: [ :behavior |\x0a\x09\x09\x09(behavior protocols includes: extensionName) ifTrue: [\x0a\x09\x09\x09\x09result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].\x0a\x0a\x09^ result",
+messageSends: [",", "name", "new", "do:", "classes", "class", "ifTrue:", "includes:", "protocols", "add:", "name:theClass:"],
 referencedClasses: ["OrderedCollection", "Smalltalk", "ExportMethodProtocol"]
 }),
 smalltalk.AbstractExporter);
@@ -353,13 +353,13 @@ fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st("Smalltalk current createPackage: '".__comma(_st(aPackage)._name())).__comma("'!");
+$1=_st("Smalltalk createPackage: '".__comma(_st(aPackage)._name())).__comma("'!");
 $ctx1.sendIdx[","]=1;
 _st(aStream)._nextPutAll_($1);
 $2=_st(aStream)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.ChunkExporter)})},
 args: ["aPackage", "aStream"],
-source: "exportPackageDefinitionOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'Smalltalk current createPackage: ''', aPackage name, '''!';\x0a\x09\x09lf",
+source: "exportPackageDefinitionOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'Smalltalk createPackage: ''', aPackage name, '''!';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", ",", "name", "lf"],
 referencedClasses: []
 }),
@@ -465,7 +465,7 @@ var $1,$2;
 name=_st(aPackage)._name();
 result=_st($OrderedCollection())._new();
 $ctx1.sendIdx["new"]=1;
-_st(_st($Package())._sortedClasses_(_st(_st($Smalltalk())._current())._classes()))._do_((function(each){
+_st(_st($Package())._sortedClasses_(_st($Smalltalk())._classes()))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st([each,_st(each)._class()])._do_((function(aClass){
 return smalltalk.withContext(function($ctx3) {
@@ -492,8 +492,8 @@ $2=result;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"extensionCategoriesOfPackage:",{aPackage:aPackage,name:name,map:map,result:result},smalltalk.ChunkExporter)})},
 args: ["aPackage"],
-source: "extensionCategoriesOfPackage: aPackage\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| name map result |\x0a\x09name := aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09(Package sortedClasses: Smalltalk current classes) do: [ :each |\x0a\x09\x09{each. each class} do: [ :aClass |\x0a\x09\x09\x09map := Dictionary new.\x0a\x09\x09\x09aClass protocolsDo: [ :category :methods |\x0a\x09\x09\x09\x09category = ('*', name) ifTrue: [ map at: category put: methods ] ].\x0a\x09\x09\x09result addAll: ((map keys sorted: [ :a :b | a <= b ]) collect: [ :category |\x0a\x09\x09\x09\x09MethodCategory name: category theClass: aClass methods: (map at: category) ]) ] ].\x0a\x09^ result",
-messageSends: ["name", "new", "do:", "sortedClasses:", "classes", "current", "class", "protocolsDo:", "ifTrue:", "=", ",", "at:put:", "addAll:", "collect:", "sorted:", "keys", "<=", "name:theClass:methods:", "at:"],
+source: "extensionCategoriesOfPackage: aPackage\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| name map result |\x0a\x09name := aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09(Package sortedClasses: Smalltalk classes) do: [ :each |\x0a\x09\x09{each. each class} do: [ :aClass |\x0a\x09\x09\x09map := Dictionary new.\x0a\x09\x09\x09aClass protocolsDo: [ :category :methods |\x0a\x09\x09\x09\x09category = ('*', name) ifTrue: [ map at: category put: methods ] ].\x0a\x09\x09\x09result addAll: ((map keys sorted: [ :a :b | a <= b ]) collect: [ :category |\x0a\x09\x09\x09\x09MethodCategory name: category theClass: aClass methods: (map at: category) ]) ] ].\x0a\x09^ result",
+messageSends: ["name", "new", "do:", "sortedClasses:", "classes", "class", "protocolsDo:", "ifTrue:", "=", ",", "at:put:", "addAll:", "collect:", "sorted:", "keys", "<=", "name:theClass:methods:", "at:"],
 referencedClasses: ["OrderedCollection", "Package", "Smalltalk", "Dictionary", "MethodCategory"]
 }),
 smalltalk.ChunkExporter);
@@ -1756,7 +1756,7 @@ function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$3,$2;
-$1=_st(_st($Smalltalk())._current())._amdRequire();
+$1=_st($Smalltalk())._amdRequire();
 if(($receiver = $1) == nil || $receiver == null){
 self._error_("AMD loader not present");
 } else {
@@ -1769,8 +1769,8 @@ _st(require)._value_($2);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},smalltalk.AmdPackageHandler)})},
 args: ["aPackage"],
-source: "load: aPackage\x0a\x09Smalltalk current amdRequire\x0a\x09\x09ifNil: [ self error: 'AMD loader not present' ]\x0a\x09\x09ifNotNil: [ :require |\x0a\x09\x09\x09require value: (Array new: (self namespaceFor: aPackage), '/', aPackage name ) ]",
-messageSends: ["ifNil:ifNotNil:", "amdRequire", "current", "error:", "value:", "new:", ",", "namespaceFor:", "name"],
+source: "load: aPackage\x0a\x09Smalltalk amdRequire\x0a\x09\x09ifNil: [ self error: 'AMD loader not present' ]\x0a\x09\x09ifNotNil: [ :require |\x0a\x09\x09\x09require value: (Array new: (self namespaceFor: aPackage), '/', aPackage name ) ]",
+messageSends: ["ifNil:ifNotNil:", "amdRequire", "error:", "value:", "new:", ",", "namespaceFor:", "name"],
 referencedClasses: ["Smalltalk", "Array"]
 }),
 smalltalk.AmdPackageHandler);
@@ -1802,7 +1802,7 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$2=_st(_st($Smalltalk())._current())._amdRequire();
+$2=_st($Smalltalk())._amdRequire();
 if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("AMD loader not present");
 } else {
@@ -1813,8 +1813,8 @@ $1=_st(_st(require)._basicAt_("toUrl"))._value_(aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"toUrl:",{aString:aString},smalltalk.AmdPackageHandler)})},
 args: ["aString"],
-source: "toUrl: aString\x0a\x09^ Smalltalk current amdRequire\x0a\x09\x09ifNil: [ self error: 'AMD loader not present' ]\x0a\x09\x09ifNotNil: [ :require | (require basicAt: 'toUrl') value: aString ]",
-messageSends: ["ifNil:ifNotNil:", "amdRequire", "current", "error:", "value:", "basicAt:"],
+source: "toUrl: aString\x0a\x09^ Smalltalk amdRequire\x0a\x09\x09ifNil: [ self error: 'AMD loader not present' ]\x0a\x09\x09ifNotNil: [ :require | (require basicAt: 'toUrl') value: aString ]",
+messageSends: ["ifNil:ifNotNil:", "amdRequire", "error:", "value:", "basicAt:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AmdPackageHandler);
@@ -1829,12 +1829,12 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($Smalltalk())._current())._defaultAmdNamespace();
+$1=_st($Smalltalk())._defaultAmdNamespace();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultNamespace",{},smalltalk.AmdPackageHandler.klass)})},
 args: [],
-source: "defaultNamespace\x0a\x09^ Smalltalk current defaultAmdNamespace",
-messageSends: ["defaultAmdNamespace", "current"],
+source: "defaultNamespace\x0a\x09^ Smalltalk defaultAmdNamespace",
+messageSends: ["defaultAmdNamespace"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AmdPackageHandler.klass);
@@ -1847,11 +1847,11 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st($Smalltalk())._current())._defaultAmdNamespace_(aString);
+_st($Smalltalk())._defaultAmdNamespace_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"defaultNamespace:",{aString:aString},smalltalk.AmdPackageHandler.klass)})},
 args: ["aString"],
-source: "defaultNamespace: aString\x0a\x09Smalltalk current defaultAmdNamespace: aString",
-messageSends: ["defaultAmdNamespace:", "current"],
+source: "defaultNamespace: aString\x0a\x09Smalltalk defaultAmdNamespace: aString",
+messageSends: ["defaultAmdNamespace:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AmdPackageHandler.klass);
@@ -2235,12 +2235,12 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($Smalltalk())._current())._defaultAmdNamespace();
+$1=_st($Smalltalk())._defaultAmdNamespace();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultNamespace",{},smalltalk.AmdPackageTransport)})},
 args: [],
-source: "defaultNamespace\x0a\x09^ Smalltalk current defaultAmdNamespace",
-messageSends: ["defaultAmdNamespace", "current"],
+source: "defaultNamespace\x0a\x09^ Smalltalk defaultAmdNamespace",
+messageSends: ["defaultAmdNamespace"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AmdPackageTransport);

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Canvas'!
+Smalltalk createPackage: 'Canvas'!
 Object subclass: #BrowserInterface
 	instanceVariableNames: ''
 	package: 'Canvas'!

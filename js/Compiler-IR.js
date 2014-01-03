@@ -1,4 +1,4 @@
-define("amber_core/Compiler-IR", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function(smalltalk,nil,_st){
+define("amber_core/Compiler-IR", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-IR');
 smalltalk.packages["Compiler-IR"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -4097,29 +4097,5 @@ messageSends: ["appendBlock:"],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "asVariableName",
-protocol: '*Compiler-IR',
-fn: function (){
-var self=this;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(_st(_st($Smalltalk())._current())._reservedWords())._includes_(self);
-if(smalltalk.assert($2)){
-$1=self.__comma("_");
-} else {
-$1=self;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asVariableName",{},smalltalk.String)})},
-args: [],
-source: "asVariableName\x0a\x09^ (Smalltalk current reservedWords includes: self)\x0a\x09\x09ifTrue: [ self, '_' ]\x0a\x09\x09ifFalse: [ self ]",
-messageSends: ["ifTrue:ifFalse:", "includes:", "reservedWords", "current", ","],
-referencedClasses: ["Smalltalk"]
-}),
-smalltalk.String);
 
 });

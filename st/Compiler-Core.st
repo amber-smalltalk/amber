@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Core'!
+Smalltalk createPackage: 'Compiler-Core'!
 Object subclass: #AbstractCodeGenerator
 	instanceVariableNames: 'currentClass source'
 	package: 'Compiler-Core'!
@@ -25,13 +25,7 @@ currentClass: aClass
 !
 
 pseudoVariables
-	^ Smalltalk current pseudoVariableNames
-!
-
-safeVariableNameFor: aString
-	^ (Smalltalk current reservedWords includes: aString)
-		ifTrue: [ aString, '_' ]
-		ifFalse: [ aString ]
+	^ Smalltalk pseudoVariableNames
 !
 
 source
@@ -188,7 +182,7 @@ install: aString forClass: aBehavior protocol: anotherString
 !
 
 parse: aString
-	^ Smalltalk current parse: aString
+	^ Smalltalk parse: aString
 !
 
 parseExpression: aString
@@ -207,7 +201,7 @@ recompile: aClass
 !
 
 recompileAll
-	Smalltalk current classes 
+	Smalltalk classes 
 		do: [ :each | self recompile: each ]
 		displayingProgress: 'Compiling all classes...'
 ! !
@@ -219,7 +213,7 @@ recompile: aClass
 !
 
 recompileAll
-	Smalltalk current classes do: [ :each |
+	Smalltalk classes do: [ :each |
 		self recompile: each ]
 ! !
 
@@ -299,5 +293,13 @@ visitValueNode: aNode
 
 visitVariableNode: aNode
 	^ self visitNode: aNode
+! !
+
+!String methodsFor: '*Compiler-Core'!
+
+asVariableName
+	^ (Smalltalk reservedWords includes: self)
+		ifTrue: [ self, '_' ]
+		ifFalse: [ self ]
 ! !
 

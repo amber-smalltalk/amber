@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-IR'!
+Smalltalk createPackage: 'Compiler-IR'!
 NodeVisitor subclass: #IRASTTranslator
 	instanceVariableNames: 'source theClass method sequence nextAlias'
 	package: 'Compiler-IR'!
@@ -1279,13 +1279,5 @@ nextPutVars: aCollection
 
 appendToInstruction: anIRInstruction
 	anIRInstruction appendBlock: self
-! !
-
-!String methodsFor: '*Compiler-IR'!
-
-asVariableName
-	^ (Smalltalk current reservedWords includes: self)
-		ifTrue: [ self, '_' ]
-		ifFalse: [ self ]
 ! !
 

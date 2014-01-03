@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Exceptions'!
+Smalltalk createPackage: 'Kernel-Exceptions'!
 Object subclass: #Error
 	instanceVariableNames: 'messageText'
 	package: 'Kernel-Exceptions'!

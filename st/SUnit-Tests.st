@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'SUnit-Tests'!
+Smalltalk createPackage: 'SUnit-Tests'!
 TestCase subclass: #ExampleSetTest
 	instanceVariableNames: 'empty full'
 	package: 'SUnit-Tests'!

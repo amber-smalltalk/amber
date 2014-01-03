@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Semantic'!
+Smalltalk createPackage: 'Compiler-Semantic'!
 Object subclass: #LexicalScope
 	instanceVariableNames: 'node instruction temps args outerScope blockIndex'
 	package: 'Compiler-Semantic'!
@@ -163,7 +163,7 @@ nonLocalReturns
 pseudoVars
 	pseudoVars ifNil: [
 		pseudoVars := Dictionary new.
-		Smalltalk current pseudoVariableNames do: [ :each |
+		Smalltalk pseudoVariableNames do: [ :each |
 			pseudoVars at: each put: ((PseudoVar on: each)
 				scope: self methodScope;
 				yourself) ]].
@@ -451,7 +451,7 @@ errorUnknownVariable: aNode
 	| identifier |
 	identifier := aNode value.
 	
-	((Smalltalk current globalJsVariables includes: identifier) not
+	((Smalltalk globalJsVariables includes: identifier) not
 		and: [ self isVariableGloballyUndefined: identifier ])
 			ifTrue: [
 				UnknownVariableError new

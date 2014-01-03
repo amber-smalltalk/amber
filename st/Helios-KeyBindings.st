@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-KeyBindings'!
+Smalltalk createPackage: 'Helios-KeyBindings'!
 Object subclass: #HLBinding
 	instanceVariableNames: 'key label'
 	package: 'Helios-KeyBindings'!

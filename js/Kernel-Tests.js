@@ -1029,14 +1029,14 @@ $1=self["@theClass"];
 if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-_st(_st($Smalltalk())._current())._removeClass_(self["@theClass"]);
+_st($Smalltalk())._removeClass_(self["@theClass"]);
 self["@theClass"]=nil;
 self["@theClass"];
 };
 return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.ClassBuilderTest)})},
 args: [],
-source: "tearDown\x0a\x09theClass ifNotNil: [ Smalltalk current removeClass: theClass. theClass := nil ]",
-messageSends: ["ifNotNil:", "removeClass:", "current"],
+source: "tearDown\x0a\x09theClass ifNotNil: [ Smalltalk removeClass: theClass. theClass := nil ]",
+messageSends: ["ifNotNil:", "removeClass:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.ClassBuilderTest);
@@ -1093,15 +1093,15 @@ function $ObjectMock(){return smalltalk.ObjectMock||(typeof ObjectMock=="undefin
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ObjectMock2(){return smalltalk.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$5,$6,$7,$8,$9,$11,$10,$14,$13,$12;
+var $2,$1,$4,$3,$5,$6,$7,$8,$9,$11,$10;
 oldClass=_st(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
-$2=_st($Smalltalk())._current();
-$ctx1.sendIdx["current"]=1;
+$2=_st($Smalltalk())._globals();
+$ctx1.sendIdx["globals"]=1;
 $1=_st($2)._at_("ObjectMock2");
 $ctx1.sendIdx["at:"]=1;
 instance=_st($1)._new();
-$4=_st($Smalltalk())._current();
-$ctx1.sendIdx["current"]=2;
+$4=_st($Smalltalk())._globals();
+$ctx1.sendIdx["globals"]=2;
 $3=_st($4)._at_("ObjectMock2");
 $ctx1.sendIdx["at:"]=2;
 _st($ObjectMock())._subclass_instanceVariableNames_package_($3,"","Kernel-Tests");
@@ -1130,16 +1130,12 @@ $11=_st(instance)._class();
 $ctx1.sendIdx["class"]=1;
 $10=_st($11).__eq_eq($ObjectMock2());
 self._deny_($10);
-$14=_st($Smalltalk())._current();
-$ctx1.sendIdx["current"]=3;
-$13=_st($14)._at_(_st(_st(instance)._class())._name());
-$12=_st($13)._isNil();
-self._assert_($12);
-_st(_st($Smalltalk())._current())._removeClass_($ObjectMock2());
+self._assert_(_st(_st(_st($Smalltalk())._globals())._at_(_st(_st(instance)._class())._name()))._isNil());
+_st($Smalltalk())._removeClass_($ObjectMock2());
 return self}, function($ctx1) {$ctx1.fill(self,"testClassMigration",{instance:instance,oldClass:oldClass},smalltalk.ClassBuilderTest)})},
 args: [],
-source: "testClassMigration\x0a\x09| instance oldClass |\x0a\x09\x0a\x09oldClass := builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09instance := (Smalltalk current at: 'ObjectMock2') new.\x0a\x09\x0a\x09\x22Change the superclass of ObjectMock2\x22\x0a\x09ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')\x0a\x09\x09instanceVariableNames: ''\x0a\x09\x09package: 'Kernel-Tests'.\x0a\x09\x0a\x09self deny: oldClass == ObjectMock2.\x0a\x09\x0a\x09self assert: ObjectMock2 superclass == ObjectMock.\x0a\x09self assert: ObjectMock2 instanceVariableNames isEmpty.\x0a\x09self assert: ObjectMock2 selectors equals: oldClass selectors.\x0a\x09self assert: ObjectMock2 comment equals: oldClass comment.\x0a\x09self assert: ObjectMock2 package name equals: 'Kernel-Tests'.\x0a\x09\x0a\x09self deny: instance class == ObjectMock2.\x0a\x09\x22Commeting this out. Tests implementation detail.\x22\x0a\x09\x22self assert: instance class name equals: 'OldObjectMock2'.\x22\x0a\x09\x0a\x09self assert: (Smalltalk current at: instance class name) isNil.\x0a\x09\x0a\x09Smalltalk current removeClass: ObjectMock2",
-messageSends: ["copyClass:named:", "new", "at:", "current", "subclass:instanceVariableNames:package:", "deny:", "==", "assert:", "superclass", "isEmpty", "instanceVariableNames", "assert:equals:", "selectors", "comment", "name", "package", "class", "isNil", "removeClass:"],
+source: "testClassMigration\x0a\x09| instance oldClass |\x0a\x09\x0a\x09oldClass := builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09instance := (Smalltalk globals at: 'ObjectMock2') new.\x0a\x09\x0a\x09\x22Change the superclass of ObjectMock2\x22\x0a\x09ObjectMock subclass: (Smalltalk globals at: 'ObjectMock2')\x0a\x09\x09instanceVariableNames: ''\x0a\x09\x09package: 'Kernel-Tests'.\x0a\x09\x0a\x09self deny: oldClass == ObjectMock2.\x0a\x09\x0a\x09self assert: ObjectMock2 superclass == ObjectMock.\x0a\x09self assert: ObjectMock2 instanceVariableNames isEmpty.\x0a\x09self assert: ObjectMock2 selectors equals: oldClass selectors.\x0a\x09self assert: ObjectMock2 comment equals: oldClass comment.\x0a\x09self assert: ObjectMock2 package name equals: 'Kernel-Tests'.\x0a\x09\x0a\x09self deny: instance class == ObjectMock2.\x0a\x09\x22Commeting this out. Tests implementation detail.\x22\x0a\x09\x22self assert: instance class name equals: 'OldObjectMock2'.\x22\x0a\x09\x0a\x09self assert: (Smalltalk globals at: instance class name) isNil.\x0a\x09\x0a\x09Smalltalk removeClass: ObjectMock2",
+messageSends: ["copyClass:named:", "new", "at:", "globals", "subclass:instanceVariableNames:package:", "deny:", "==", "assert:", "superclass", "isEmpty", "instanceVariableNames", "assert:equals:", "selectors", "comment", "name", "package", "class", "isNil", "removeClass:"],
 referencedClasses: ["ObjectMock", "Smalltalk", "ObjectMock2"]
 }),
 smalltalk.ClassBuilderTest);
@@ -1154,21 +1150,18 @@ function $ObjectMock(){return smalltalk.ObjectMock||(typeof ObjectMock=="undefin
 function $ObjectMock2(){return smalltalk.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
+var $1;
 _st(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
 $1=_st($ObjectMock2())._class();
 $ctx1.sendIdx["class"]=1;
 _st($1)._instanceVariableNames_("foo bar");
-$3=_st($Smalltalk())._current();
-$ctx1.sendIdx["current"]=1;
-$2=_st($3)._at_("ObjectMock2");
-_st($ObjectMock())._subclass_instanceVariableNames_package_($2,"","Kernel-Tests");
+_st($ObjectMock())._subclass_instanceVariableNames_package_(_st(_st($Smalltalk())._globals())._at_("ObjectMock2"),"","Kernel-Tests");
 self._assert_equals_(_st(_st($ObjectMock2())._class())._instanceVariableNames(),["foo", "bar"]);
-_st(_st($Smalltalk())._current())._removeClass_($ObjectMock2());
+_st($Smalltalk())._removeClass_($ObjectMock2());
 return self}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithClassInstanceVariables",{},smalltalk.ClassBuilderTest)})},
 args: [],
-source: "testClassMigrationWithClassInstanceVariables\x0a\x09\x0a\x09builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09ObjectMock2 class instanceVariableNames: 'foo bar'.\x0a\x09\x0a\x09\x22Change the superclass of ObjectMock2\x22\x0a\x09ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')\x0a\x09\x09instanceVariableNames: ''\x0a\x09\x09package: 'Kernel-Tests'.\x0a\x09\x0a\x09self assert: ObjectMock2 class instanceVariableNames equals: #('foo' 'bar').\x0a\x09\x0a\x09Smalltalk current removeClass: ObjectMock2",
-messageSends: ["copyClass:named:", "instanceVariableNames:", "class", "subclass:instanceVariableNames:package:", "at:", "current", "assert:equals:", "instanceVariableNames", "removeClass:"],
+source: "testClassMigrationWithClassInstanceVariables\x0a\x09\x0a\x09builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09ObjectMock2 class instanceVariableNames: 'foo bar'.\x0a\x09\x0a\x09\x22Change the superclass of ObjectMock2\x22\x0a\x09ObjectMock subclass: (Smalltalk globals at: 'ObjectMock2')\x0a\x09\x09instanceVariableNames: ''\x0a\x09\x09package: 'Kernel-Tests'.\x0a\x09\x0a\x09self assert: ObjectMock2 class instanceVariableNames equals: #('foo' 'bar').\x0a\x09\x0a\x09Smalltalk removeClass: ObjectMock2",
+messageSends: ["copyClass:named:", "instanceVariableNames:", "class", "subclass:instanceVariableNames:package:", "at:", "globals", "assert:equals:", "instanceVariableNames", "removeClass:"],
 referencedClasses: ["ObjectMock", "ObjectMock2", "Smalltalk"]
 }),
 smalltalk.ClassBuilderTest);
@@ -1185,37 +1178,34 @@ function $ObjectMock3(){return smalltalk.ObjectMock3||(typeof ObjectMock3=="unde
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ObjectMock4(){return smalltalk.ObjectMock4||(typeof ObjectMock4=="undefined"?nil:ObjectMock4)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$6,$5;
+var $2,$1,$4,$3;
 _st(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
 _st($ObjectMock2())._subclass_instanceVariableNames_package_("ObjectMock3","","Kernel-Tests");
 $ctx1.sendIdx["subclass:instanceVariableNames:package:"]=1;
 _st($ObjectMock3())._subclass_instanceVariableNames_package_("ObjectMock4","","Kernel-Tests");
 $ctx1.sendIdx["subclass:instanceVariableNames:package:"]=2;
-$2=_st($Smalltalk())._current();
-$ctx1.sendIdx["current"]=1;
-$1=_st($2)._at_("ObjectMock2");
-_st($ObjectMock())._subclass_instanceVariableNames_package_($1,"","Kernel-Tests");
-$4=_st($ObjectMock())._subclasses();
+_st($ObjectMock())._subclass_instanceVariableNames_package_(_st(_st($Smalltalk())._globals())._at_("ObjectMock2"),"","Kernel-Tests");
+$2=_st($ObjectMock())._subclasses();
 $ctx1.sendIdx["subclasses"]=1;
-$3=_st($4)._includes_($ObjectMock2());
+$1=_st($2)._includes_($ObjectMock2());
 $ctx1.sendIdx["includes:"]=1;
-self._assert_($3);
+self._assert_($1);
 $ctx1.sendIdx["assert:"]=1;
-$6=_st($ObjectMock2())._subclasses();
+$4=_st($ObjectMock2())._subclasses();
 $ctx1.sendIdx["subclasses"]=2;
-$5=_st($6)._includes_($ObjectMock3());
+$3=_st($4)._includes_($ObjectMock3());
 $ctx1.sendIdx["includes:"]=2;
-self._assert_($5);
+self._assert_($3);
 $ctx1.sendIdx["assert:"]=2;
 self._assert_(_st(_st($ObjectMock3())._subclasses())._includes_($ObjectMock4()));
 _st(_st($ObjectMock())._allSubclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($Smalltalk())._current())._removeClass_(each);
+return _st($Smalltalk())._removeClass_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithSubclasses",{},smalltalk.ClassBuilderTest)})},
 args: [],
-source: "testClassMigrationWithSubclasses\x0a\x09\x0a\x09builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09ObjectMock2 subclass: 'ObjectMock3' instanceVariableNames: '' package: 'Kernel-Tests'.\x0a\x09ObjectMock3 subclass: 'ObjectMock4' instanceVariableNames: '' package: 'Kernel-Tests'.\x0a\x09\x0a\x09\x22Change the superclass of ObjectMock2\x22\x0a\x09ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')\x0a\x09\x09instanceVariableNames: ''\x0a\x09\x09package: 'Kernel-Tests'.\x0a\x09\x0a\x09self assert: (ObjectMock subclasses includes: ObjectMock2).\x0a\x09self assert: (ObjectMock2 subclasses includes: ObjectMock3).\x0a\x09self assert: (ObjectMock3 subclasses includes: ObjectMock4).\x0a\x09\x0a\x09ObjectMock allSubclasses do: [ :each | Smalltalk current removeClass: each ]",
-messageSends: ["copyClass:named:", "subclass:instanceVariableNames:package:", "at:", "current", "assert:", "includes:", "subclasses", "do:", "allSubclasses", "removeClass:"],
+source: "testClassMigrationWithSubclasses\x0a\x09\x0a\x09builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09ObjectMock2 subclass: 'ObjectMock3' instanceVariableNames: '' package: 'Kernel-Tests'.\x0a\x09ObjectMock3 subclass: 'ObjectMock4' instanceVariableNames: '' package: 'Kernel-Tests'.\x0a\x09\x0a\x09\x22Change the superclass of ObjectMock2\x22\x0a\x09ObjectMock subclass: (Smalltalk globals at: 'ObjectMock2')\x0a\x09\x09instanceVariableNames: ''\x0a\x09\x09package: 'Kernel-Tests'.\x0a\x09\x0a\x09self assert: (ObjectMock subclasses includes: ObjectMock2).\x0a\x09self assert: (ObjectMock2 subclasses includes: ObjectMock3).\x0a\x09self assert: (ObjectMock3 subclasses includes: ObjectMock4).\x0a\x09\x0a\x09ObjectMock allSubclasses do: [ :each | Smalltalk removeClass: each ]",
+messageSends: ["copyClass:named:", "subclass:instanceVariableNames:package:", "at:", "globals", "assert:", "includes:", "subclasses", "do:", "allSubclasses", "removeClass:"],
 referencedClasses: ["ObjectMock", "ObjectMock2", "ObjectMock3", "Smalltalk", "ObjectMock4"]
 }),
 smalltalk.ClassBuilderTest);
@@ -5339,7 +5329,7 @@ function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st($Set())._new();
-_st($2)._add_(_st($Smalltalk())._current());
+_st($2)._add_($Smalltalk());
 $ctx1.sendIdx["add:"]=1;
 _st($2)._add_(nil);
 $ctx1.sendIdx["add:"]=2;
@@ -5351,8 +5341,8 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.SetTest)})},
 args: [],
-source: "collection\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk current;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: false;\x0a\x09\x09yourself",
-messageSends: ["add:", "new", "current", "@", "yourself"],
+source: "collection\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: false;\x0a\x09\x09yourself",
+messageSends: ["add:", "new", "@", "yourself"],
 referencedClasses: ["Set", "Smalltalk"]
 }),
 smalltalk.SetTest);
@@ -5367,7 +5357,7 @@ function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st($Set())._new();
-_st($2)._add_("a Smalltalk");
+_st($2)._add_("a SmalltalkImage");
 $ctx1.sendIdx["add:"]=1;
 _st($2)._add_("nil");
 $ctx1.sendIdx["add:"]=2;
@@ -5379,7 +5369,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},smalltalk.SetTest)})},
 args: [],
-source: "collectionOfPrintStrings\x0a\x09^ Set new\x0a\x09\x09add: 'a Smalltalk';\x0a\x09\x09add: 'nil';\x0a\x09\x09add: '3@3';\x0a\x09\x09add: 'false';\x0a\x09\x09yourself",
+source: "collectionOfPrintStrings\x0a\x09^ Set new\x0a\x09\x09add: 'a SmalltalkImage';\x0a\x09\x09add: 'nil';\x0a\x09\x09add: '3@3';\x0a\x09\x09add: 'false';\x0a\x09\x09yourself",
 messageSends: ["add:", "new", "yourself"],
 referencedClasses: ["Set"]
 }),
@@ -5433,7 +5423,7 @@ function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st($Set())._new();
-_st($2)._add_(_st($Smalltalk())._current());
+_st($2)._add_($Smalltalk());
 $ctx1.sendIdx["add:"]=1;
 _st($2)._add_(nil);
 $ctx1.sendIdx["add:"]=2;
@@ -5447,8 +5437,8 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},smalltalk.SetTest)})},
 args: [],
-source: "collectionWithNewValue\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk current;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: 'N';\x0a\x09\x09add: false;\x0a\x09\x09yourself",
-messageSends: ["add:", "new", "current", "@", "yourself"],
+source: "collectionWithNewValue\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: 'N';\x0a\x09\x09add: false;\x0a\x09\x09yourself",
+messageSends: ["add:", "new", "@", "yourself"],
 referencedClasses: ["Set", "Smalltalk"]
 }),
 smalltalk.SetTest);

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Commands-Tools'!
+Smalltalk createPackage: 'Helios-Commands-Tools'!
 HLModelCommand subclass: #HLToolCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Tools'!

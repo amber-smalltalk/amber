@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Classes'!
+Smalltalk createPackage: 'Kernel-Classes'!
 Object subclass: #Behavior
 	instanceVariableNames: ''
 	package: 'Kernel-Classes'!
@@ -524,8 +524,8 @@ instanceVariableNamesFor: aString
 addSubclassOf: aClass named: className instanceVariableNames: aCollection package: packageName
 	| theClass thePackage |
 	
-	theClass := Smalltalk current at: className.
-	thePackage := self createPackageNamed: packageName.
+	theClass := Smalltalk globals at: className.
+	thePackage := Package named: packageName.
 	
 	theClass ifNotNil: [
 		theClass package: thePackage.
@@ -587,7 +587,7 @@ migrateClassNamed: className superclass: aClass instanceVariableNames: aCollecti
 	| oldClass newClass tmp |
 	
 	tmp := 'new*', className.
-	oldClass := Smalltalk current at: className.
+	oldClass := Smalltalk globals at: className.
 	
 	newClass := self
 		addSubclassOf: aClass
@@ -717,11 +717,6 @@ basicSwapClassNames: aClass with: anotherClass
 		aClass.className = anotherClass.className;
 		anotherClass.className = tmp;
 	>
-!
-
-createPackageNamed: aString
-	^ Package named: aString ifAbsent: [
-		Smalltalk current createPackage: aString ]
 !
 
 rawRenameClass: aClass to: aString

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Infrastructure'!
+Smalltalk createPackage: 'Kernel-Infrastructure'!
 Object subclass: #InspectorHandler
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
@@ -72,16 +72,16 @@ Typical use cases include IDEs, remote access and restricting browsing.!
 !Environment methodsFor: 'accessing'!
 
 allSelectors
-	^ (Smalltalk current at: 'allSelectors') value
+	^ Smalltalk vm allSelectors
 !
 
 availableClassNames
-	^ Smalltalk current classes 
+	^ Smalltalk classes 
 		collect: [ :each | each name ]
 !
 
 availablePackageNames
-	^ Smalltalk current packages 
+	^ Smalltalk packages 
 		collect: [ :each | each name ]
 !
 
@@ -98,12 +98,12 @@ classBuilder
 !
 
 classNamed: aString
-	^ (Smalltalk current at: aString asSymbol)
+	^ (Smalltalk globals at: aString asSymbol)
 		ifNil: [ self error: 'Invalid class name' ]
 !
 
 classes
-	^ Smalltalk current classes
+	^ Smalltalk classes
 !
 
 doItReceiver
@@ -111,11 +111,11 @@ doItReceiver
 !
 
 packages
-	^ Smalltalk current packages
+	^ Smalltalk packages
 !
 
 systemAnnouncer
-	^ (Smalltalk current at: #SystemAnnouncer) current
+	^ (Smalltalk globals at: #SystemAnnouncer) current
 ! !
 
 !Environment methodsFor: 'actions'!
@@ -125,7 +125,7 @@ commitPackage: aPackage
 !
 
 copyClass: aClass to: aClassName
-	(Smalltalk current at: aClassName)
+	(Smalltalk globals at: aClassName)
 		ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].
 		
 	ClassBuilder new copyClass: aClass named: aClassName
@@ -156,8 +156,7 @@ moveClass: aClass toPackage: aPackageName
 moveMethod: aMethod toClass: aClassName
 	| destinationClass |
 	
-	destinationClass := Smalltalk current at: aClassName asSymbol.
-	destinationClass ifNil: [ self error: 'Invalid class name' ].
+	destinationClass := self classNamed: aClassName.
 	destinationClass == aMethod methodClass ifTrue: [ ^ self ].
 	
 	destinationClass 
@@ -184,7 +183,7 @@ registerProgressHandler: aProgressHandler
 !
 
 removeClass: aClass
-	Smalltalk current removeClass: aClass
+	Smalltalk removeClass: aClass
 !
 
 removeMethod: aMethod
@@ -197,7 +196,7 @@ removeProtocol: aString from: aClass
 !
 
 renameClass: aClass to: aClassName
-	(Smalltalk current at: aClassName)
+	(Smalltalk globals at: aClassName)
 		ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].
 		
 	ClassBuilder new renameClass: aClass to: aClassName
@@ -566,7 +565,7 @@ loadDependencyClasses
 	starCategoryName := '*', self name.
 	^ (self classes collect: [ :each | each superclass ]) asSet
 		remove: nil ifAbsent: [];
-		addAll: (Smalltalk current classes select: [ :each | each protocols, each class protocols includes: starCategoryName ]);
+		addAll: (Smalltalk classes select: [ :each | each protocols, each class protocols includes: starCategoryName ]);
 		yourself
 ! !
 
@@ -591,14 +590,14 @@ Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
 !Package class methodsFor: 'accessing'!
 
 named: aPackageName
-	^ Smalltalk current 
+	^ Smalltalk 
 		packageAt: aPackageName
 		ifAbsent: [ 
-			Smalltalk current createPackage: aPackageName ]
+			Smalltalk createPackage: aPackageName ]
 !
 
 named: aPackageName ifAbsent: aBlock
-	^ Smalltalk current packageAt: aPackageName ifAbsent: aBlock
+	^ Smalltalk packageAt: aPackageName ifAbsent: aBlock
 !
 
 named: aPackageName transport: aTransport
@@ -745,15 +744,16 @@ register
 	ProgressHandler setCurrent: self new
 ! !
 
-Object subclass: #Smalltalk
+Object subclass: #SmalltalkImage
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
-!Smalltalk commentStamp!
-I represent the global JavaScript variable `smalltalk` declared in `js/boot.js`.
+!SmalltalkImage commentStamp!
+I represent the Smalltalk system, wrapping
+operations of variable `smalltalk` declared in `js/boot.js`.
 
 ## API
 
-I have only one instance, accessed with class-side method `#current`.
+I have only one instance, accessed with global variable `Smalltalk`.
 
 The `smalltalk` object holds all class and packages defined in the system.
 
@@ -776,7 +776,7 @@ Packages can be accessed using the following methods:
 The `#parse:` method is used to parse Amber source code.
 It requires the `Compiler` package and the `js/parser.js` parser file in order to work.!
 
-!Smalltalk methodsFor: 'accessing'!
+!SmalltalkImage methodsFor: 'accessing'!
 
 at: aString
 	<return smalltalk[aString]>
@@ -790,6 +790,17 @@ at: aKey ifAbsent: aBlock
 
 at: aString put: anObject
 	<return smalltalk[aString]=anObject>
+!
+
+current
+	"Backward compatibility for Smalltalk current ..."
+	self deprecatedAPI.
+	^ self
+!
+
+globals
+	"Future compatibility to be able to use Smalltalk globals at: ..."
+	^ self
 !
 
 includesKey: aKey
@@ -825,9 +836,14 @@ version
 	"Answer the version string of Amber"
 	
 	^ '0.13.0-pre'
+!
+
+vm
+	"Future compatibility to be able to use Smalltalk vm ..."
+	<return smalltalk>
 ! !
 
-!Smalltalk methodsFor: 'accessing amd'!
+!SmalltalkImage methodsFor: 'accessing amd'!
 
 amdRequire
 	^ self at: 'amdRequire'
@@ -841,7 +857,7 @@ defaultAmdNamespace: aString
 	self at: 'defaultAmdNamespace' put: aString
 ! !
 
-!Smalltalk methodsFor: 'classes'!
+!SmalltalkImage methodsFor: 'classes'!
 
 classes
 	<return smalltalk.classes()>
@@ -858,7 +874,7 @@ removeClass: aClass
 			yourself)
 ! !
 
-!Smalltalk methodsFor: 'error handling'!
+!SmalltalkImage methodsFor: 'error handling'!
 
 asSmalltalkException: anObject
 	"A JavaScript exception may be thrown.
@@ -873,7 +889,7 @@ parseError: anException parsing: aString
 	^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')
 ! !
 
-!Smalltalk methodsFor: 'globals'!
+!SmalltalkImage methodsFor: 'globals'!
 
 addGlobalJsVariable: aString
 	self globalJsVariables add: aString
@@ -888,7 +904,7 @@ globalJsVariables
 	<return smalltalk.globalJsVariables>
 ! !
 
-!Smalltalk methodsFor: 'packages'!
+!SmalltalkImage methodsFor: 'packages'!
 
 createPackage: packageName
 	| package announcement |
@@ -942,7 +958,7 @@ renamePackage: packageName to: newName
 	self deletePackage: packageName.
 ! !
 
-!Smalltalk methodsFor: 'private'!
+!SmalltalkImage methodsFor: 'private'!
 
 basicCreatePackage: packageName
 	"Create and bind a new bare package with given name and return it."
@@ -974,7 +990,7 @@ deletePackage: packageName
 	<delete smalltalk.packages[packageName]>
 ! !
 
-!Smalltalk methodsFor: 'testing'!
+!SmalltalkImage methodsFor: 'testing'!
 
 isSmalltalkObject: anObject
 	"Consider anObject a Smalltalk object if it has a 'klass' property.
@@ -983,12 +999,18 @@ isSmalltalkObject: anObject
 	<return typeof anObject.klass !!== 'undefined'>
 ! !
 
-Smalltalk class instanceVariableNames: 'current'!
+SmalltalkImage class instanceVariableNames: 'current'!
 
-!Smalltalk class methodsFor: 'instance creation'!
+!SmalltalkImage class methodsFor: 'initialization'!
+
+initialize
+	smalltalk at: 'Smalltalk' put: self current
+! !
+
+!SmalltalkImage class methodsFor: 'instance creation'!
 
 current
-	^ current ifNil: [ current := super new ]
+	^ current ifNil: [ current := super new ] ifNotNil: [ self deprecatedAPI. current ]
 !
 
 new

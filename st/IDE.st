@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'IDE'!
+Smalltalk createPackage: 'IDE'!
 Widget subclass: #ClassesList
 	instanceVariableNames: 'browser ul nodes'
 	package: 'IDE'!
@@ -407,7 +407,7 @@ removeBodyMargin
 
 search: aString
 	| searchedClass |
-	searchedClass := Smalltalk current at: aString.
+	searchedClass := Smalltalk globals at: aString.
 		searchedClass isClass
 			ifTrue: [ Browser openOn: searchedClass ]
 			ifFalse: [ ReferencesBrowser search: aString ]
@@ -668,7 +668,7 @@ classDeclarationTemplate
 !
 
 classes
-	^ ((Smalltalk current classes
+	^ ((Smalltalk classes
 	select: [ :each | each category = selectedPackage ])
 	sort: [ :a :b | a name < b name ]) asSet
 !
@@ -734,7 +734,7 @@ methods
 packages
 	| packages |
 	packages := Array new.
-	Smalltalk current classes do: [ :each |
+	Smalltalk classes do: [ :each |
 	(packages includes: each category) ifFalse: [
 		packages add: each category ]].
 	^ packages sort
@@ -789,7 +789,7 @@ addNewClass
 			self
 			resetClassesList;
 			updateClassesList.
-		self selectClass: (Smalltalk current at: className) ]
+		self selectClass: (Smalltalk globals at: className) ]
 !
 
 addNewProtocol
@@ -878,7 +878,7 @@ copyClass
 			self
 			resetClassesList;
 			updateClassesList.
-		self selectClass: (Smalltalk current at: className) ]
+		self selectClass: (Smalltalk globals at: className) ]
 !
 
 disableSaveButton
@@ -909,7 +909,7 @@ hideMethodButtons
 removeClass
 	(self confirm: 'Do you really want to remove ', selectedClass name, '?')
 	ifTrue: [
-		Smalltalk current removeClass: selectedClass.
+		Smalltalk removeClass: selectedClass.
 		self resetClassesList.
 		self selectClass: nil ]
 !
@@ -928,7 +928,7 @@ removePackage
 
 	(self confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')
 	ifTrue: [
-		Smalltalk current removePackage: selectedPackage.
+		Smalltalk removePackage: selectedPackage.
 		self updateCategoriesList ]
 !
 
@@ -948,13 +948,13 @@ renamePackage
 	newName := self prompt: 'Rename package ', selectedPackage.
 	newName ifNotNil: [
 	newName notEmpty ifTrue: [
-	Smalltalk current renamePackage: selectedPackage to: newName.
+	Smalltalk renamePackage: selectedPackage to: newName.
 	self updateCategoriesList ]]
 !
 
 search: aString
 	self cancelChanges ifTrue: [ | searchedClass |
-		searchedClass := Smalltalk current at: aString.
+		searchedClass := Smalltalk globals at: aString.
 		searchedClass isClass
 			ifTrue: [ self class openOn: searchedClass ]
 			ifFalse: [ self searchReferencesOf: aString ]]
@@ -1788,7 +1788,7 @@ TabWidget subclass: #ReferencesBrowser
 !ReferencesBrowser methodsFor: 'accessing'!
 
 classesAndMetaclasses
-	^ Smalltalk current classes, (Smalltalk current classes collect: [ :each | each class ])
+	^ Smalltalk classes, (Smalltalk classes collect: [ :each | each class ])
 !
 
 implementors
@@ -2376,7 +2376,7 @@ inspectOn: anInspector
 !Set methodsFor: '*IDE'!
 
 inspectOn: anInspector
-	| variables i |
+	| variables |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
 	i := 1.

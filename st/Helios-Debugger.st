@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Debugger'!
+Smalltalk createPackage: 'Helios-Debugger'!
 Object subclass: #HLContextInspectorDecorator
 	instanceVariableNames: 'context'
 	package: 'Helios-Debugger'!

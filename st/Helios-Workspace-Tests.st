@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Workspace-Tests'!
+Smalltalk createPackage: 'Helios-Workspace-Tests'!
 TestCase subclass: #HLCodeWidgetTest
 	instanceVariableNames: ''
 	package: 'Helios-Workspace-Tests'!

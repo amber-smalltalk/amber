@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-AST'!
+Smalltalk createPackage: 'Compiler-AST'!
 Object subclass: #Node
 	instanceVariableNames: 'parent position nodes shouldBeInlined shouldBeAliased'
 	package: 'Compiler-AST'!
@@ -745,6 +745,6 @@ isNode
 ast
 	self source ifEmpty: [ self error: 'Method source is empty' ].
 	
-	^ Smalltalk current parse: self source
+	^ Smalltalk parse: self source
 ! !
 
