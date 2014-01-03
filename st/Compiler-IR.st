@@ -962,7 +962,7 @@ visitIRDynamicArray: anIRDynamicArray
 !
 
 visitIRDynamicDictionary: anIRDynamicDictionary
-	self stream nextPutAll: 'smalltalk.HashedCollection._from_(['.
+	self stream nextPutAll: 'globals.HashedCollection._from_(['.
 		anIRDynamicDictionary instructions
 			do: [ :each | self visit: each ]
 			separatedBy: [ self stream nextPutAll: ',' ].
@@ -1135,7 +1135,7 @@ nextPutClassRefFunction: aString
 	stream
 		nextPutAll: 'function $';
 		nextPutAll: aString;
-		nextPutAll: '(){return smalltalk.';
+		nextPutAll: '(){return globals.';
 		nextPutAll: aString;
 		nextPutAll: '||(typeof ';
 		nextPutAll: aString;

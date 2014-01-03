@@ -1,25 +1,25 @@
-define("amber_core/Compiler-Exceptions", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Exceptions"], function(smalltalk,nil,_st){
+define("amber_core/Compiler-Exceptions", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Exceptions"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Compiler-Exceptions');
 smalltalk.packages["Compiler-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('CompilerError', smalltalk.Error, [], 'Compiler-Exceptions');
-smalltalk.CompilerError.comment="I am the common superclass of all compiling errors.";
+smalltalk.addClass('CompilerError', globals.Error, [], 'Compiler-Exceptions');
+globals.CompilerError.comment="I am the common superclass of all compiling errors.";
 
 
-smalltalk.addClass('ParseError', smalltalk.CompilerError, [], 'Compiler-Exceptions');
-smalltalk.ParseError.comment="Instance of ParseError are signaled on any parsing error.\x0aSee `Smalltalk >> #parse:`";
+smalltalk.addClass('ParseError', globals.CompilerError, [], 'Compiler-Exceptions');
+globals.ParseError.comment="Instance of ParseError are signaled on any parsing error.\x0aSee `Smalltalk >> #parse:`";
 
 
-smalltalk.addClass('SemanticError', smalltalk.CompilerError, [], 'Compiler-Exceptions');
-smalltalk.SemanticError.comment="I represent an abstract semantic error thrown by the SemanticAnalyzer.\x0aSemantic errors can be unknown variable errors, etc.\x0aSee my subclasses for concrete errors.\x0a\x0aThe IDE should catch instances of Semantic error to deal with them when compiling";
+smalltalk.addClass('SemanticError', globals.CompilerError, [], 'Compiler-Exceptions');
+globals.SemanticError.comment="I represent an abstract semantic error thrown by the SemanticAnalyzer.\x0aSemantic errors can be unknown variable errors, etc.\x0aSee my subclasses for concrete errors.\x0a\x0aThe IDE should catch instances of Semantic error to deal with them when compiling";
 
 
-smalltalk.addClass('InliningError', smalltalk.SemanticError, [], 'Compiler-Exceptions');
-smalltalk.InliningError.comment="Instances of InliningError are signaled when using an `InliningCodeGenerator`in a `Compiler`.";
+smalltalk.addClass('InliningError', globals.SemanticError, [], 'Compiler-Exceptions');
+globals.InliningError.comment="Instances of InliningError are signaled when using an `InliningCodeGenerator`in a `Compiler`.";
 
 
-smalltalk.addClass('InvalidAssignmentError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
-smalltalk.InvalidAssignmentError.comment="I get signaled when a pseudo variable gets assigned.";
+smalltalk.addClass('InvalidAssignmentError', globals.SemanticError, ['variableName'], 'Compiler-Exceptions');
+globals.InvalidAssignmentError.comment="I get signaled when a pseudo variable gets assigned.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
@@ -30,13 +30,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=" Invalid assignment to variable: ".__comma(self._variableName());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.InvalidAssignmentError)})},
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.InvalidAssignmentError)})},
 args: [],
 source: "messageText\x0a\x09^ ' Invalid assignment to variable: ', self variableName",
 messageSends: [",", "variableName"],
 referencedClasses: []
 }),
-smalltalk.InvalidAssignmentError);
+globals.InvalidAssignmentError);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -53,7 +53,7 @@ source: "variableName\x0a\x09^ variableName",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.InvalidAssignmentError);
+globals.InvalidAssignmentError);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -68,12 +68,12 @@ source: "variableName: aString\x0a\x09variableName := aString",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.InvalidAssignmentError);
+globals.InvalidAssignmentError);
 
 
 
-smalltalk.addClass('ShadowingVariableError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
-smalltalk.ShadowingVariableError.comment="I get signaled when a variable in a block or method scope shadows a variable of the same name in an outer scope.";
+smalltalk.addClass('ShadowingVariableError', globals.SemanticError, ['variableName'], 'Compiler-Exceptions');
+globals.ShadowingVariableError.comment="I get signaled when a variable in a block or method scope shadows a variable of the same name in an outer scope.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
@@ -85,13 +85,13 @@ var $1;
 $1=_st("Variable shadowing error: ".__comma(self._variableName())).__comma(" is already defined");
 $ctx1.sendIdx[","]=1;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.ShadowingVariableError)})},
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.ShadowingVariableError)})},
 args: [],
 source: "messageText\x0a\x09^ 'Variable shadowing error: ', self variableName, ' is already defined'",
 messageSends: [",", "variableName"],
 referencedClasses: []
 }),
-smalltalk.ShadowingVariableError);
+globals.ShadowingVariableError);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -108,7 +108,7 @@ source: "variableName\x0a\x09^ variableName",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.ShadowingVariableError);
+globals.ShadowingVariableError);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -123,12 +123,12 @@ source: "variableName: aString\x0a\x09variableName := aString",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.ShadowingVariableError);
+globals.ShadowingVariableError);
 
 
 
-smalltalk.addClass('UnknownVariableError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
-smalltalk.UnknownVariableError.comment="I get signaled when a variable is not defined.\x0aThe default behavior is to allow it, as this is how Amber currently is able to seamlessly send messages to JavaScript objects.";
+smalltalk.addClass('UnknownVariableError', globals.SemanticError, ['variableName'], 'Compiler-Exceptions');
+globals.UnknownVariableError.comment="I get signaled when a variable is not defined.\x0aThe default behavior is to allow it, as this is how Amber currently is able to seamlessly send messages to JavaScript objects.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
@@ -140,13 +140,13 @@ var $1;
 $1=_st("Unknown Variable error: ".__comma(self._variableName())).__comma(" is not defined");
 $ctx1.sendIdx[","]=1;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.UnknownVariableError)})},
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.UnknownVariableError)})},
 args: [],
 source: "messageText\x0a\x09^ 'Unknown Variable error: ', self variableName, ' is not defined'",
 messageSends: [",", "variableName"],
 referencedClasses: []
 }),
-smalltalk.UnknownVariableError);
+globals.UnknownVariableError);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -163,7 +163,7 @@ source: "variableName\x0a\x09^ variableName",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.UnknownVariableError);
+globals.UnknownVariableError);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -178,7 +178,7 @@ source: "variableName: aString\x0a\x09variableName := aString",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.UnknownVariableError);
+globals.UnknownVariableError);
 
 
 });

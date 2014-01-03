@@ -1,9 +1,9 @@
-define("amber_core/Kernel-Methods", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Kernel-Methods", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Kernel-Methods');
 smalltalk.packages["Kernel-Methods"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel-Methods');
-smalltalk.BlockClosure.comment="I represent a lexical closure.\x0aI am is directly mapped to JavaScript Function.\x0a\x0a## API\x0a\x0a1. Evaluation\x0a\x0a    My instances get evaluated with the `#value*` methods in the 'evaluating' protocol.\x0a\x0a    Example: ` [ :x | x + 1 ] value: 3 \x22Answers 4\x22 `\x0a\x0a2. Control structures\x0a\x0a    Blocks are used (together with `Boolean`) for control structures (methods in the `controlling` protocol).\x0a\x0a    Example: `aBlock whileTrue: [ ... ]`\x0a\x0a3. Error handling\x0a\x0a    I provide the `#on:do:` method for handling exceptions.\x0a\x0a    Example: ` aBlock on: MessageNotUnderstood do: [ :ex | ... ] `";
+smalltalk.addClass('BlockClosure', globals.Object, [], 'Kernel-Methods');
+globals.BlockClosure.comment="I represent a lexical closure.\x0aI am is directly mapped to JavaScript Function.\x0a\x0a## API\x0a\x0a1. Evaluation\x0a\x0a    My instances get evaluated with the `#value*` methods in the 'evaluating' protocol.\x0a\x0a    Example: ` [ :x | x + 1 ] value: 3 \x22Answers 4\x22 `\x0a\x0a2. Control structures\x0a\x0a    Blocks are used (together with `Boolean`) for control structures (methods in the `controlling` protocol).\x0a\x0a    Example: `aBlock whileTrue: [ ... ]`\x0a\x0a3. Error handling\x0a\x0a    I provide the `#on:do:` method for handling exceptions.\x0a\x0a    Example: ` aBlock on: MessageNotUnderstood do: [ :ex | ... ] `";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "applyTo:arguments:",
@@ -17,7 +17,7 @@ source: "applyTo: anObject arguments: aCollection\x0a\x09<return self.apply(anOb
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -32,7 +32,7 @@ source: "asCompiledMethod: aString\x0a\x09<return smalltalk.method({selector:aSt
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -47,7 +47,7 @@ source: "compiledSource\x0a\x09<return self.toString()>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -68,7 +68,7 @@ source: "currySelf\x0a\x09\x22Transforms [ :selfarg :x :y | stcode ] block\x0a\x
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -83,7 +83,7 @@ source: "ensure: aBlock\x0a\x09<try{return self._value()}finally{aBlock._value()
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -91,16 +91,16 @@ selector: "fork",
 protocol: 'timeout/interval',
 fn: function (){
 var self=this;
-function $ForkPool(){return smalltalk.ForkPool||(typeof ForkPool=="undefined"?nil:ForkPool)}
+function $ForkPool(){return globals.ForkPool||(typeof ForkPool=="undefined"?nil:ForkPool)}
 return smalltalk.withContext(function($ctx1) { 
 _st(_st($ForkPool())._default())._fork_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"fork",{},smalltalk.BlockClosure)})},
+return self}, function($ctx1) {$ctx1.fill(self,"fork",{},globals.BlockClosure)})},
 args: [],
 source: "fork\x0a\x09ForkPool default fork: self",
 messageSends: ["fork:", "default"],
 referencedClasses: ["ForkPool"]
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -115,7 +115,7 @@ source: "new\x0a\x09\x22Use the receiver as a JS constructor.\x0a\x09*Do not* us
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -127,13 +127,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._newWithValues_([anObject]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"newValue:",{anObject:anObject},smalltalk.BlockClosure)})},
+}, function($ctx1) {$ctx1.fill(self,"newValue:",{anObject:anObject},globals.BlockClosure)})},
 args: ["anObject"],
 source: "newValue: anObject\x0a\x09^ self newWithValues: { anObject }",
 messageSends: ["newWithValues:"],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -145,13 +145,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._newWithValues_([anObject,anObject2]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"newValue:value:",{anObject:anObject,anObject2:anObject2},smalltalk.BlockClosure)})},
+}, function($ctx1) {$ctx1.fill(self,"newValue:value:",{anObject:anObject,anObject2:anObject2},globals.BlockClosure)})},
 args: ["anObject", "anObject2"],
 source: "newValue: anObject value: anObject2\x0a\x09^ self newWithValues: { anObject. anObject2 }.",
 messageSends: ["newWithValues:"],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -163,13 +163,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._newWithValues_([anObject,anObject2,anObject3]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3},smalltalk.BlockClosure)})},
+}, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3},globals.BlockClosure)})},
 args: ["anObject", "anObject2", "anObject3"],
 source: "newValue: anObject value: anObject2 value: anObject3\x0a\x09^ self newWithValues: { anObject. anObject2. anObject3 }.",
 messageSends: ["newWithValues:"],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -190,7 +190,7 @@ source: "newWithValues: aCollection\x0a\x09\x22Use the receiver as a JavaScript 
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -205,7 +205,7 @@ source: "numArgs\x0a\x09<return self.length>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -213,7 +213,7 @@ selector: "on:do:",
 protocol: 'error handling',
 fn: function (anErrorClass,aBlock){
 var self=this;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $1=self._try_catch_(self,(function(error){
@@ -229,13 +229,13 @@ return _st(smalltalkError)._resignal();
 };
 }, function($ctx2) {$ctx2.fillBlock({error:error,smalltalkError:smalltalkError},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:do:",{anErrorClass:anErrorClass,aBlock:aBlock},smalltalk.BlockClosure)})},
+}, function($ctx1) {$ctx1.fill(self,"on:do:",{anErrorClass:anErrorClass,aBlock:aBlock},globals.BlockClosure)})},
 args: ["anErrorClass", "aBlock"],
 source: "on: anErrorClass do: aBlock\x0a\x09\x22All exceptions thrown in the Smalltalk stack are cought.\x0a\x09Convert all JS exceptions to JavaScriptException instances.\x22\x0a\x09\x0a\x09^ self try: self catch: [ :error | | smalltalkError |\x0a\x09\x09smalltalkError := Smalltalk asSmalltalkException: error.\x0a\x09\x09(smalltalkError isKindOf: anErrorClass)\x0a\x09\x09ifTrue: [ aBlock value: smalltalkError ]\x0a\x09\x09ifFalse: [ smalltalkError resignal ] ]",
 messageSends: ["try:catch:", "asSmalltalkException:", "ifTrue:ifFalse:", "isKindOf:", "value:", "resignal"],
 referencedClasses: ["Smalltalk"]
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -250,7 +250,7 @@ source: "receiver\x0a\x09^ nil",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -258,18 +258,18 @@ selector: "timeToRun",
 protocol: 'evaluating',
 fn: function (){
 var self=this;
-function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
+function $Date(){return globals.Date||(typeof Date=="undefined"?nil:Date)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st($Date())._millisecondsToRun_(self);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"timeToRun",{},smalltalk.BlockClosure)})},
+}, function($ctx1) {$ctx1.fill(self,"timeToRun",{},globals.BlockClosure)})},
 args: [],
 source: "timeToRun\x0a\x09\x22Answer the number of milliseconds taken to execute this block.\x22\x0a\x0a\x09^ Date millisecondsToRun: self",
 messageSends: ["millisecondsToRun:"],
 referencedClasses: ["Date"]
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -284,7 +284,7 @@ source: "value\x0a\x09<return self();>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -299,7 +299,7 @@ source: "value: anArg\x0a\x09<return self(anArg);>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -314,7 +314,7 @@ source: "value: firstArg value: secondArg\x0a\x09<return self(firstArg, secondAr
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -329,7 +329,7 @@ source: "value: firstArg value: secondArg value: thirdArg\x0a\x09<return self(fi
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -339,15 +339,15 @@ fn: function (aNumber){
 var self=this;
 
 		var interval = setInterval(self, aNumber);
-		return smalltalk.Timeout._on_(interval);
+		return globals.Timeout._on_(interval);
 	;
 return self},
 args: ["aNumber"],
-source: "valueWithInterval: aNumber\x0a\x09<\x0a\x09\x09var interval = setInterval(self, aNumber);\x0a\x09\x09return smalltalk.Timeout._on_(interval);\x0a\x09>",
+source: "valueWithInterval: aNumber\x0a\x09<\x0a\x09\x09var interval = setInterval(self, aNumber);\x0a\x09\x09return globals.Timeout._on_(interval);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -362,7 +362,7 @@ source: "valueWithPossibleArguments: aCollection\x0a\x09<return self.apply(null,
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -372,15 +372,15 @@ fn: function (aNumber){
 var self=this;
 
 		var timeout = setTimeout(self, aNumber);
-		return smalltalk.Timeout._on_(timeout);
+		return globals.Timeout._on_(timeout);
 	;
 return self},
 args: ["aNumber"],
-source: "valueWithTimeout: aNumber\x0a\x09<\x0a\x09\x09var timeout = setTimeout(self, aNumber);\x0a\x09\x09return smalltalk.Timeout._on_(timeout);\x0a\x09>",
+source: "valueWithTimeout: aNumber\x0a\x09<\x0a\x09\x09var timeout = setTimeout(self, aNumber);\x0a\x09\x09return globals.Timeout._on_(timeout);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -392,13 +392,13 @@ return smalltalk.withContext(function($ctx1) {
 self._whileFalse_((function(){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"whileFalse",{},smalltalk.BlockClosure)})},
+return self}, function($ctx1) {$ctx1.fill(self,"whileFalse",{},globals.BlockClosure)})},
 args: [],
 source: "whileFalse\x0a\x09self whileFalse: []",
 messageSends: ["whileFalse:"],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -413,7 +413,7 @@ source: "whileFalse: aBlock\x0a\x09<while(!smalltalk.assert(self._value())) {aBl
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -425,13 +425,13 @@ return smalltalk.withContext(function($ctx1) {
 self._whileTrue_((function(){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"whileTrue",{},smalltalk.BlockClosure)})},
+return self}, function($ctx1) {$ctx1.fill(self,"whileTrue",{},globals.BlockClosure)})},
 args: [],
 source: "whileTrue\x0a\x09self whileTrue: []",
 messageSends: ["whileTrue:"],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -446,12 +446,12 @@ source: "whileTrue: aBlock\x0a\x09<while(smalltalk.assert(self._value())) {aBloc
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BlockClosure);
+globals.BlockClosure);
 
 
 
-smalltalk.addClass('CompiledMethod', smalltalk.Object, [], 'Kernel-Methods');
-smalltalk.CompiledMethod.comment="I represent a class method of the system. I hold the source and compiled code of a class method.\x0a\x0a## API\x0aMy instances can be accessed using `Behavior >> #methodAt:`\x0a\x0a    Object methodAt: 'asString'\x0a\x0aSource code access:\x0a\x0a\x09(String methodAt: 'lines') source\x0a\x0aReferenced classes:\x0a\x0a\x09(String methodAt: 'lines') referencedClasses\x0a\x0aMessages sent from an instance:\x0a\x09\x0a\x09(String methodAt: 'lines') messageSends";
+smalltalk.addClass('CompiledMethod', globals.Object, [], 'Kernel-Methods');
+globals.CompiledMethod.comment="I represent a class method of the system. I hold the source and compiled code of a class method.\x0a\x0a## API\x0aMy instances can be accessed using `Behavior >> #methodAt:`\x0a\x0a    Object methodAt: 'asString'\x0a\x0aSource code access:\x0a\x0a\x09(String methodAt: 'lines') source\x0a\x0aReferenced classes:\x0a\x0a\x09(String methodAt: 'lines') referencedClasses\x0a\x0aMessages sent from an instance:\x0a\x09\x0a\x09(String methodAt: 'lines') messageSends";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments",
@@ -465,7 +465,7 @@ source: "arguments\x0a\x09<return self.args || []>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -477,13 +477,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._protocol();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.CompiledMethod)})},
+}, function($ctx1) {$ctx1.fill(self,"category",{},globals.CompiledMethod)})},
 args: [],
 source: "category\x0a\x09^ self protocol",
 messageSends: ["protocol"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -498,7 +498,7 @@ source: "defaultProtocol\x0a\x09^ 'as yet unclassified'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -510,13 +510,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._basicAt_("fn");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"fn",{},smalltalk.CompiledMethod)})},
+}, function($ctx1) {$ctx1.fill(self,"fn",{},globals.CompiledMethod)})},
 args: [],
 source: "fn\x0a\x09^ self basicAt: 'fn'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -526,13 +526,13 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._basicAt_put_("fn",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"fn:",{aBlock:aBlock},smalltalk.CompiledMethod)})},
+return self}, function($ctx1) {$ctx1.fill(self,"fn:",{aBlock:aBlock},globals.CompiledMethod)})},
 args: ["aBlock"],
 source: "fn: aBlock\x0a\x09self basicAt: 'fn' put: aBlock",
 messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -547,7 +547,7 @@ source: "isCompiledMethod\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -571,13 +571,13 @@ throw $early=[true];
 return false;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"isOverridden",{selector:selector},smalltalk.CompiledMethod)})},
+}, function($ctx1) {$ctx1.fill(self,"isOverridden",{selector:selector},globals.CompiledMethod)})},
 args: [],
 source: "isOverridden\x0a\x09| selector |\x0a    \x0a    selector := self selector.\x0a    self methodClass allSubclassesDo: [ :each |\x0a\x09    (each includesSelector: selector)\x0a        \x09ifTrue: [ ^ true ] ].\x0a\x09^ false",
 messageSends: ["selector", "allSubclassesDo:", "methodClass", "ifTrue:", "includesSelector:"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -600,13 +600,13 @@ $2;
 };
 $3=_st(_st(_st(self._methodClass())._superclass())._lookupSelector_(self._selector()))._notNil();
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"isOverride",{superclass:superclass},smalltalk.CompiledMethod)})},
+}, function($ctx1) {$ctx1.fill(self,"isOverride",{superclass:superclass},globals.CompiledMethod)})},
 args: [],
 source: "isOverride\x0a\x09| superclass |\x0a    \x0a    superclass := self methodClass superclass.\x0a\x09superclass ifNil: [ ^ false ].\x0a\x09\x0a    ^ (self methodClass superclass lookupSelector: self selector) notNil",
 messageSends: ["superclass", "methodClass", "ifNil:", "notNil", "lookupSelector:", "selector"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -618,13 +618,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._basicAt_("messageSends");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageSends",{},smalltalk.CompiledMethod)})},
+}, function($ctx1) {$ctx1.fill(self,"messageSends",{},globals.CompiledMethod)})},
 args: [],
 source: "messageSends\x0a\x09^ self basicAt: 'messageSends'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -636,13 +636,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._basicAt_("methodClass");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"methodClass",{},smalltalk.CompiledMethod)})},
+}, function($ctx1) {$ctx1.fill(self,"methodClass",{},globals.CompiledMethod)})},
 args: [],
 source: "methodClass\x0a\x09^ self basicAt: 'methodClass'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -659,13 +659,13 @@ $1=self._defaultProtocol();
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"protocol",{},smalltalk.CompiledMethod)})},
+}, function($ctx1) {$ctx1.fill(self,"protocol",{},globals.CompiledMethod)})},
 args: [],
 source: "protocol\x0a\x09^ (self basicAt: 'protocol') ifNil: [ self defaultProtocol ]",
 messageSends: ["ifNil:", "basicAt:", "defaultProtocol"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -674,8 +674,8 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 var oldProtocol;
-function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
-function $MethodMoved(){return smalltalk.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
+function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+function $MethodMoved(){return globals.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 oldProtocol=self._protocol();
@@ -694,13 +694,13 @@ methodClass=$receiver;
 _st(_st(methodClass)._organization())._addElement_(aString);
 _st(methodClass)._removeProtocolIfEmpty_(oldProtocol);
 };
-return self}, function($ctx1) {$ctx1.fill(self,"protocol:",{aString:aString,oldProtocol:oldProtocol},smalltalk.CompiledMethod)})},
+return self}, function($ctx1) {$ctx1.fill(self,"protocol:",{aString:aString,oldProtocol:oldProtocol},globals.CompiledMethod)})},
 args: ["aString"],
 source: "protocol: aString\x0a\x09| oldProtocol |\x0a\x09oldProtocol := self protocol.\x0a\x09self basicAt: 'protocol' put: aString.\x0a\x0a\x09SystemAnnouncer current announce: (MethodMoved new\x0a\x09\x09method: self;\x0a\x09\x09oldProtocol: oldProtocol;\x0a\x09\x09yourself).\x0a\x0a\x09self methodClass ifNotNil: [ :methodClass |\x0a\x09\x09methodClass organization addElement: aString.\x0a\x09\x09methodClass removeProtocolIfEmpty: oldProtocol ]",
 messageSends: ["protocol", "basicAt:put:", "announce:", "current", "method:", "new", "oldProtocol:", "yourself", "ifNotNil:", "methodClass", "addElement:", "organization", "removeProtocolIfEmpty:"],
 referencedClasses: ["SystemAnnouncer", "MethodMoved"]
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -712,13 +712,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._basicAt_("referencedClasses");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"referencedClasses",{},smalltalk.CompiledMethod)})},
+}, function($ctx1) {$ctx1.fill(self,"referencedClasses",{},globals.CompiledMethod)})},
 args: [],
 source: "referencedClasses\x0a\x09^ self basicAt: 'referencedClasses'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -730,13 +730,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._basicAt_("selector");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.CompiledMethod)})},
+}, function($ctx1) {$ctx1.fill(self,"selector",{},globals.CompiledMethod)})},
 args: [],
 source: "selector\x0a\x09^ self basicAt: 'selector'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -746,13 +746,13 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._basicAt_put_("selector",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},smalltalk.CompiledMethod)})},
+return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},globals.CompiledMethod)})},
 args: ["aString"],
 source: "selector: aString\x0a\x09self basicAt: 'selector' put: aString",
 messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -764,13 +764,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._fn())._applyTo_arguments_(anObject,aCollection);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sendTo:arguments:",{anObject:anObject,aCollection:aCollection},smalltalk.CompiledMethod)})},
+}, function($ctx1) {$ctx1.fill(self,"sendTo:arguments:",{anObject:anObject,aCollection:aCollection},globals.CompiledMethod)})},
 args: ["anObject", "aCollection"],
 source: "sendTo: anObject arguments: aCollection\x0a\x09^ self fn applyTo: anObject arguments: aCollection",
 messageSends: ["applyTo:arguments:", "fn"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -787,13 +787,13 @@ $1="";
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.CompiledMethod)})},
+}, function($ctx1) {$ctx1.fill(self,"source",{},globals.CompiledMethod)})},
 args: [],
 source: "source\x0a\x09^ (self basicAt: 'source') ifNil: [ '' ]",
 messageSends: ["ifNil:", "basicAt:"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -803,18 +803,18 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._basicAt_put_("source",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString},smalltalk.CompiledMethod)})},
+return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString},globals.CompiledMethod)})},
 args: ["aString"],
 source: "source: aString\x0a\x09self basicAt: 'source' put: aString",
 messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
-smalltalk.CompiledMethod);
+globals.CompiledMethod);
 
 
 
-smalltalk.addClass('ForkPool', smalltalk.Object, ['poolSize', 'maxPoolSize', 'queue', 'worker'], 'Kernel-Methods');
-smalltalk.ForkPool.comment="I am responsible for handling forked blocks.\x0aThe pool size sets the maximum concurrent forked blocks.\x0a\x0a## API\x0a\x0aThe default instance is accessed with `#default`.\x0aThe maximum concurrent forked blocks can be set with `#maxPoolSize:`.\x0a\x0aForking is done via `BlockClosure >> #fork`";
+smalltalk.addClass('ForkPool', globals.Object, ['poolSize', 'maxPoolSize', 'queue', 'worker'], 'Kernel-Methods');
+globals.ForkPool.comment="I am responsible for handling forked blocks.\x0aThe pool size sets the maximum concurrent forked blocks.\x0a\x0a## API\x0a\x0aThe default instance is accessed with `#default`.\x0aThe maximum concurrent forked blocks can be set with `#maxPoolSize:`.\x0a\x0aForking is done via `BlockClosure >> #fork`";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addWorker",
@@ -824,13 +824,13 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@worker"])._valueWithTimeout_((0));
 self["@poolSize"]=_st(self["@poolSize"]).__plus((1));
-return self}, function($ctx1) {$ctx1.fill(self,"addWorker",{},smalltalk.ForkPool)})},
+return self}, function($ctx1) {$ctx1.fill(self,"addWorker",{},globals.ForkPool)})},
 args: [],
 source: "addWorker\x0a\x09worker valueWithTimeout: 0.\x0a\x09poolSize := poolSize + 1",
 messageSends: ["valueWithTimeout:", "+"],
 referencedClasses: []
 }),
-smalltalk.ForkPool);
+globals.ForkPool);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -842,13 +842,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._class())._defaultMaxPoolSize();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultMaxPoolSize",{},smalltalk.ForkPool)})},
+}, function($ctx1) {$ctx1.fill(self,"defaultMaxPoolSize",{},globals.ForkPool)})},
 args: [],
 source: "defaultMaxPoolSize\x0a\x09^ self class defaultMaxPoolSize",
 messageSends: ["defaultMaxPoolSize", "class"],
 referencedClasses: []
 }),
-smalltalk.ForkPool);
+globals.ForkPool);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -863,13 +863,13 @@ if(smalltalk.assert($1)){
 self._addWorker();
 };
 _st(self["@queue"])._nextPut_(aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"fork:",{aBlock:aBlock},smalltalk.ForkPool)})},
+return self}, function($ctx1) {$ctx1.fill(self,"fork:",{aBlock:aBlock},globals.ForkPool)})},
 args: ["aBlock"],
 source: "fork: aBlock\x0a\x09poolSize < self maxPoolSize ifTrue: [ self addWorker ].\x0a\x09queue nextPut: aBlock",
 messageSends: ["ifTrue:", "<", "maxPoolSize", "addWorker", "nextPut:"],
 referencedClasses: []
 }),
-smalltalk.ForkPool);
+globals.ForkPool);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -877,19 +877,19 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Queue(){return smalltalk.Queue||(typeof Queue=="undefined"?nil:Queue)}
+function $Queue(){return globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.ForkPool.superclass.fn.prototype._initialize.apply(_st(self), []);
+globals.ForkPool.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@poolSize"]=(0);
 self["@queue"]=_st($Queue())._new();
 self["@worker"]=self._makeWorker();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ForkPool)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ForkPool)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09\x0a\x09poolSize := 0.\x0a\x09queue := Queue new.\x0a\x09worker := self makeWorker",
 messageSends: ["initialize", "new", "makeWorker"],
 referencedClasses: ["Queue"]
 }),
-smalltalk.ForkPool);
+globals.ForkPool);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -898,7 +898,7 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 var sentinel;
-function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 sentinel=_st($Object())._new();
@@ -924,13 +924,13 @@ return self._addWorker();
 };
 }, function($ctx2) {$ctx2.fillBlock({block:block},$ctx1,1)})});
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"makeWorker",{sentinel:sentinel},smalltalk.ForkPool)})},
+}, function($ctx1) {$ctx1.fill(self,"makeWorker",{sentinel:sentinel},globals.ForkPool)})},
 args: [],
 source: "makeWorker\x0a\x09| sentinel |\x0a\x09sentinel := Object new.\x0a\x09^ [ | block |\x0a\x09\x09poolSize := poolSize - 1.\x0a\x09\x09block := queue nextIfAbsent: [ sentinel ].\x0a\x09\x09block == sentinel ifFalse: [\x0a\x09\x09\x09[ block value ] ensure: [ self addWorker ] ]]",
 messageSends: ["new", "-", "nextIfAbsent:", "ifFalse:", "==", "ensure:", "value", "addWorker"],
 referencedClasses: ["Object"]
 }),
-smalltalk.ForkPool);
+globals.ForkPool);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -947,13 +947,13 @@ $1=self._defaultMaxPoolSize();
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"maxPoolSize",{},smalltalk.ForkPool)})},
+}, function($ctx1) {$ctx1.fill(self,"maxPoolSize",{},globals.ForkPool)})},
 args: [],
 source: "maxPoolSize\x0a\x09^ maxPoolSize ifNil: [ self defaultMaxPoolSize ]",
 messageSends: ["ifNil:", "defaultMaxPoolSize"],
 referencedClasses: []
 }),
-smalltalk.ForkPool);
+globals.ForkPool);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -968,10 +968,10 @@ source: "maxPoolSize: anInteger\x0a\x09maxPoolSize := anInteger",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.ForkPool);
+globals.ForkPool);
 
 
-smalltalk.ForkPool.klass.iVarNames = ['default'];
+globals.ForkPool.klass.iVarNames = ['default'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "default",
@@ -988,13 +988,13 @@ $1=self["@default"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"default",{},smalltalk.ForkPool.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"default",{},globals.ForkPool.klass)})},
 args: [],
 source: "default\x0a\x09^ default ifNil: [ default := self new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: []
 }),
-smalltalk.ForkPool.klass);
+globals.ForkPool.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1009,7 +1009,7 @@ source: "defaultMaxPoolSize\x0a\x09^ 100",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.ForkPool.klass);
+globals.ForkPool.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1024,11 +1024,11 @@ source: "resetDefault\x0a\x09default := nil",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.ForkPool.klass);
+globals.ForkPool.klass);
 
 
-smalltalk.addClass('Message', smalltalk.Object, ['selector', 'arguments'], 'Kernel-Methods');
-smalltalk.Message.comment="In general, the system does not use instances of me for efficiency reasons.\x0aHowever, when a message is not understood by its receiver, the interpreter will make up an instance of it in order to capture the information involved in an actual message transmission.\x0aThis instance is sent it as an argument with the message `#doesNotUnderstand:` to the receiver.\x0a\x0aSee boot.js, `messageNotUnderstood` and its counterpart `Object >> #doesNotUnderstand:`\x0a\x0a## API\x0a\x0aBesides accessing methods, `#sendTo:` provides a convenient way to send a message to an object.";
+smalltalk.addClass('Message', globals.Object, ['selector', 'arguments'], 'Kernel-Methods');
+globals.Message.comment="In general, the system does not use instances of me for efficiency reasons.\x0aHowever, when a message is not understood by its receiver, the interpreter will make up an instance of it in order to capture the information involved in an actual message transmission.\x0aThis instance is sent it as an argument with the message `#doesNotUnderstand:` to the receiver.\x0a\x0aSee boot.js, `messageNotUnderstood` and its counterpart `Object >> #doesNotUnderstand:`\x0a\x0a## API\x0a\x0aBesides accessing methods, `#sendTo:` provides a convenient way to send a message to an object.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments",
@@ -1044,7 +1044,7 @@ source: "arguments\x0a\x09^ arguments",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Message);
+globals.Message);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1059,7 +1059,7 @@ source: "arguments: anArray\x0a\x09arguments := anArray",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Message);
+globals.Message);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1069,19 +1069,19 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-smalltalk.Message.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+globals.Message.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 _st(aStream)._nextPutAll_("(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._selector());
 $ctx1.sendIdx["nextPutAll:"]=2;
 $1=_st(aStream)._nextPutAll_(")");
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Message)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.Message)})},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09aStream\x0a\x09\x09nextPutAll: '(';\x0a\x09\x09nextPutAll: self selector;\x0a\x09\x09nextPutAll: ')'",
 messageSends: ["printOn:", "nextPutAll:", "selector"],
 referencedClasses: []
 }),
-smalltalk.Message);
+globals.Message);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1098,7 +1098,7 @@ source: "selector\x0a\x09^ selector",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Message);
+globals.Message);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1113,7 +1113,7 @@ source: "selector: aString\x0a\x09selector := aString",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Message);
+globals.Message);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1125,13 +1125,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(anObject)._perform_withArguments_(self._selector(),self._arguments());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sendTo:",{anObject:anObject},smalltalk.Message)})},
+}, function($ctx1) {$ctx1.fill(self,"sendTo:",{anObject:anObject},globals.Message)})},
 args: ["anObject"],
 source: "sendTo: anObject\x0a\x09^ anObject perform: self selector withArguments: self arguments",
 messageSends: ["perform:withArguments:", "selector", "arguments"],
 referencedClasses: []
 }),
-smalltalk.Message);
+globals.Message);
 
 
 smalltalk.addMethod(
@@ -1148,17 +1148,17 @@ _st($2)._arguments_(anArray);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selector:arguments:",{aString:aString,anArray:anArray},smalltalk.Message.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"selector:arguments:",{aString:aString,anArray:anArray},globals.Message.klass)})},
 args: ["aString", "anArray"],
 source: "selector: aString arguments: anArray\x0a\x09^ self new\x0a\x09\x09selector: aString;\x0a\x09\x09arguments: anArray;\x0a\x09\x09yourself",
 messageSends: ["selector:", "new", "arguments:", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Message.klass);
+globals.Message.klass);
 
 
-smalltalk.addClass('MessageSend', smalltalk.Object, ['receiver', 'message'], 'Kernel-Methods');
-smalltalk.MessageSend.comment="I encapsulate message sends to objects. Arguments can be either predefined or supplied when the message send is performed. \x0a\x0a## API\x0a\x0aUse `#value` to perform a message send with its predefined arguments and `#value:*` if additonal arguments have to supplied.";
+smalltalk.addClass('MessageSend', globals.Object, ['receiver', 'message'], 'Kernel-Methods');
+globals.MessageSend.comment="I encapsulate message sends to objects. Arguments can be either predefined or supplied when the message send is performed. \x0a\x0a## API\x0a\x0aUse `#value` to perform a message send with its predefined arguments and `#value:*` if additonal arguments have to supplied.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments",
@@ -1169,13 +1169,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self["@message"])._arguments();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"arguments",{},smalltalk.MessageSend)})},
+}, function($ctx1) {$ctx1.fill(self,"arguments",{},globals.MessageSend)})},
 args: [],
 source: "arguments\x0a\x09^ message arguments",
 messageSends: ["arguments"],
 referencedClasses: []
 }),
-smalltalk.MessageSend);
+globals.MessageSend);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1185,13 +1185,13 @@ fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@message"])._arguments_(aCollection);
-return self}, function($ctx1) {$ctx1.fill(self,"arguments:",{aCollection:aCollection},smalltalk.MessageSend)})},
+return self}, function($ctx1) {$ctx1.fill(self,"arguments:",{aCollection:aCollection},globals.MessageSend)})},
 args: ["aCollection"],
 source: "arguments: aCollection\x0a\x09message arguments: aCollection",
 messageSends: ["arguments:"],
 referencedClasses: []
 }),
-smalltalk.MessageSend);
+globals.MessageSend);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1199,17 +1199,17 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Message(){return smalltalk.Message||(typeof Message=="undefined"?nil:Message)}
+function $Message(){return globals.Message||(typeof Message=="undefined"?nil:Message)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.MessageSend.superclass.fn.prototype._initialize.apply(_st(self), []);
+globals.MessageSend.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@message"]=_st($Message())._new();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.MessageSend)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.MessageSend)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09message := Message new",
 messageSends: ["initialize", "new"],
 referencedClasses: ["Message"]
 }),
-smalltalk.MessageSend);
+globals.MessageSend);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1219,7 +1219,7 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-smalltalk.MessageSend.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+globals.MessageSend.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 _st(aStream)._nextPutAll_("(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._receiver());
@@ -1229,13 +1229,13 @@ $ctx1.sendIdx["nextPutAll:"]=3;
 _st(aStream)._nextPutAll_(self._selector());
 $ctx1.sendIdx["nextPutAll:"]=4;
 $1=_st(aStream)._nextPutAll_(")");
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.MessageSend)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.MessageSend)})},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09aStream\x0a\x09\x09nextPutAll: '(';\x0a\x09\x09nextPutAll: self receiver;\x0a\x09\x09nextPutAll: ' >> ';\x0a\x09\x09nextPutAll: self selector;\x0a\x09\x09nextPutAll: ')'",
 messageSends: ["printOn:", "nextPutAll:", "receiver", "selector"],
 referencedClasses: []
 }),
-smalltalk.MessageSend);
+globals.MessageSend);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1252,7 +1252,7 @@ source: "receiver\x0a\x09^ receiver",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MessageSend);
+globals.MessageSend);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1267,7 +1267,7 @@ source: "receiver: anObject\x0a\x09receiver := anObject",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MessageSend);
+globals.MessageSend);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1279,13 +1279,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self["@message"])._selector();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.MessageSend)})},
+}, function($ctx1) {$ctx1.fill(self,"selector",{},globals.MessageSend)})},
 args: [],
 source: "selector\x0a\x09^ message selector",
 messageSends: ["selector"],
 referencedClasses: []
 }),
-smalltalk.MessageSend);
+globals.MessageSend);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1295,13 +1295,13 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@message"])._selector_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},smalltalk.MessageSend)})},
+return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},globals.MessageSend)})},
 args: ["aString"],
 source: "selector: aString\x0a\x09message selector: aString",
 messageSends: ["selector:"],
 referencedClasses: []
 }),
-smalltalk.MessageSend);
+globals.MessageSend);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1313,13 +1313,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self["@message"])._sendTo_(self._receiver());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.MessageSend)})},
+}, function($ctx1) {$ctx1.fill(self,"value",{},globals.MessageSend)})},
 args: [],
 source: "value\x0a\x09^ message sendTo: self receiver",
 messageSends: ["sendTo:", "receiver"],
 referencedClasses: []
 }),
-smalltalk.MessageSend);
+globals.MessageSend);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1334,13 +1334,13 @@ _st($2)._arguments_([anObject]);
 $3=_st($2)._sendTo_(self._receiver());
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},smalltalk.MessageSend)})},
+}, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},globals.MessageSend)})},
 args: ["anObject"],
 source: "value: anObject\x0a\x09^ message \x0a\x09\x09arguments: { anObject };\x0a\x09\x09sendTo: self receiver",
 messageSends: ["arguments:", "sendTo:", "receiver"],
 referencedClasses: []
 }),
-smalltalk.MessageSend);
+globals.MessageSend);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1355,13 +1355,13 @@ _st($2)._arguments_([firstArgument,secondArgument]);
 $3=_st($2)._sendTo_(self._receiver());
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArgument:firstArgument,secondArgument:secondArgument},smalltalk.MessageSend)})},
+}, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArgument:firstArgument,secondArgument:secondArgument},globals.MessageSend)})},
 args: ["firstArgument", "secondArgument"],
 source: "value: firstArgument value: secondArgument\x0a\x09^ message \x0a\x09\x09arguments: { firstArgument. secondArgument };\x0a\x09\x09sendTo: self receiver",
 messageSends: ["arguments:", "sendTo:", "receiver"],
 referencedClasses: []
 }),
-smalltalk.MessageSend);
+globals.MessageSend);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1376,13 +1376,13 @@ _st($2)._arguments_([firstArgument,secondArgument,thirdArgument]);
 $3=_st($2)._sendTo_(self._receiver());
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArgument:firstArgument,secondArgument:secondArgument,thirdArgument:thirdArgument},smalltalk.MessageSend)})},
+}, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArgument:firstArgument,secondArgument:secondArgument,thirdArgument:thirdArgument},globals.MessageSend)})},
 args: ["firstArgument", "secondArgument", "thirdArgument"],
 source: "value: firstArgument value: secondArgument value: thirdArgument\x0a\x09^ message \x0a\x09\x09arguments: { firstArgument. secondArgument. thirdArgument };\x0a\x09\x09sendTo: self receiver",
 messageSends: ["arguments:", "sendTo:", "receiver"],
 referencedClasses: []
 }),
-smalltalk.MessageSend);
+globals.MessageSend);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1395,18 +1395,18 @@ var $1;
 self._arguments_(aCollection);
 $1=self._value();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection},smalltalk.MessageSend)})},
+}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection},globals.MessageSend)})},
 args: ["aCollection"],
 source: "valueWithPossibleArguments: aCollection\x0a\x09self arguments: aCollection.\x0a\x09^ self value",
 messageSends: ["arguments:", "value"],
 referencedClasses: []
 }),
-smalltalk.MessageSend);
+globals.MessageSend);
 
 
 
-smalltalk.addClass('MethodContext', smalltalk.Object, [], 'Kernel-Methods');
-smalltalk.MethodContext.comment="I hold all the dynamic state associated with the execution of either a method activation resulting from a message send. I am used to build the call stack while debugging.\x0a\x0aMy instances are JavaScript `SmalltalkMethodContext` objects defined in `boot.js`.";
+smalltalk.addClass('MethodContext', globals.Object, [], 'Kernel-Methods');
+globals.MethodContext.comment="I hold all the dynamic state associated with the execution of either a method activation resulting from a message send. I am used to build the call stack while debugging.\x0a\x0aMy instances are JavaScript `SmalltalkMethodContext` objects defined in `boot.js`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
@@ -1426,13 +1426,13 @@ $1=_st(_st(_st(_st(self._receiver())._class())._name()).__comma(" >> ")).__comma
 $ctx1.sendIdx[","]=3;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.MethodContext)})},
+}, function($ctx1) {$ctx1.fill(self,"asString",{},globals.MethodContext)})},
 args: [],
 source: "asString\x0a\x09^ self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext asString, ')' ]\x0a\x09\x09ifFalse: [ self receiver class name, ' >> ', self selector ]",
 messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "name", "class", "receiver", "selector"],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1447,7 +1447,7 @@ source: "evaluatedSelector\x0a\x09<return self.evaluatedSelector>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1462,7 +1462,7 @@ source: "home\x0a\x09<return self.homeContext>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1477,7 +1477,7 @@ source: "index\x0a\x09<return self.index || 0>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1489,13 +1489,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._selector())._isNil();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isBlockContext",{},smalltalk.MethodContext)})},
+}, function($ctx1) {$ctx1.fill(self,"isBlockContext",{},globals.MethodContext)})},
 args: [],
 source: "isBlockContext\x0a\x09\x22Block context do not have selectors.\x22\x0a\x09\x0a\x09^ self selector isNil",
 messageSends: ["isNil", "selector"],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1510,7 +1510,7 @@ source: "locals\x0a\x09<return self.locals || {}>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1532,13 +1532,13 @@ $3=_st($4)._class();
 $1=_st($3)._lookupSelector_(_st(self._methodContext())._selector());
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.MethodContext)})},
+}, function($ctx1) {$ctx1.fill(self,"method",{},globals.MethodContext)})},
 args: [],
 source: "method\x0a\x09^ self methodContext ifNotNil: [\x0a\x09\x09self methodContext receiver class lookupSelector: self methodContext selector ]",
 messageSends: ["ifNotNil:", "methodContext", "lookupSelector:", "class", "receiver", "selector"],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1561,13 +1561,13 @@ outer=$receiver;
 $2=_st(outer)._methodContext();
 };
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"methodContext",{},smalltalk.MethodContext)})},
+}, function($ctx1) {$ctx1.fill(self,"methodContext",{},globals.MethodContext)})},
 args: [],
 source: "methodContext\x0a\x09self isBlockContext ifFalse: [ ^ self ].\x0a\x09\x0a\x09^ self outerContext ifNotNil: [ :outer |\x0a\x09\x09outer methodContext ]",
 messageSends: ["ifFalse:", "isBlockContext", "ifNotNil:", "outerContext", "methodContext"],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1582,7 +1582,7 @@ source: "outerContext\x0a\x09<return self.outerContext || self.homeContext>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1592,19 +1592,19 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-smalltalk.MethodContext.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+globals.MethodContext.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 _st(aStream)._nextPutAll_("(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._asString());
 $ctx1.sendIdx["nextPutAll:"]=2;
 $1=_st(aStream)._nextPutAll_(")");
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.MethodContext)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.MethodContext)})},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09aStream \x0a\x09\x09nextPutAll: '(';\x0a\x09\x09nextPutAll: self asString;\x0a\x09\x09nextPutAll: ')'",
 messageSends: ["printOn:", "nextPutAll:", "asString"],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1619,7 +1619,7 @@ source: "receiver\x0a\x09<return self.receiver>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1640,7 +1640,7 @@ source: "selector\x0a\x09<\x0a\x09\x09if(self.selector) {\x0a\x09\x09\x09return 
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1655,7 +1655,7 @@ source: "sendIndexAt: aSelector\x0a\x09<return self.sendIdx[aSelector] || 0>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1670,7 +1670,7 @@ source: "sendIndexes\x0a\x09<return self.sendIdx>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1683,18 +1683,18 @@ var $1;
 self._deprecatedAPI();
 $1=self._locals();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"temps",{},smalltalk.MethodContext)})},
+}, function($ctx1) {$ctx1.fill(self,"temps",{},globals.MethodContext)})},
 args: [],
 source: "temps\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09^ self locals",
 messageSends: ["deprecatedAPI", "locals"],
 referencedClasses: []
 }),
-smalltalk.MethodContext);
+globals.MethodContext);
 
 
 
-smalltalk.addClass('NativeFunction', smalltalk.Object, [], 'Kernel-Methods');
-smalltalk.NativeFunction.comment="I am a wrapper around native functions, such as `WebSocket`.\x0aFor 'normal' functions (whose constructor is the JavaScript `Function` object), use `BlockClosure`.\x0a\x0a## API\x0a\x0aSee the class-side `instance creation` methods for instance creation.\x0a\x0aCreated instances will most probably be instance of `JSObjectProxy`.\x0a\x0a## Usage example:\x0a\x0a\x09| ws |\x0a\x09ws := NativeFunction constructor: 'WebSocket' value: 'ws://localhost'.\x0a\x09ws at: 'onopen' put: [ ws send: 'hey there from Amber' ]";
+smalltalk.addClass('NativeFunction', globals.Object, [], 'Kernel-Methods');
+globals.NativeFunction.comment="I am a wrapper around native functions, such as `WebSocket`.\x0aFor 'normal' functions (whose constructor is the JavaScript `Function` object), use `BlockClosure`.\x0a\x0a## API\x0a\x0aSee the class-side `instance creation` methods for instance creation.\x0a\x0aCreated instances will most probably be instance of `JSObjectProxy`.\x0a\x0a## Usage example:\x0a\x0a\x09| ws |\x0a\x09ws := NativeFunction constructor: 'WebSocket' value: 'ws://localhost'.\x0a\x09ws at: 'onopen' put: [ ws send: 'hey there from Amber' ]";
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1712,7 +1712,7 @@ source: "constructor: aString\x0a\x09<\x0a\x09\x09var native=eval(aString);\x0a\
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.NativeFunction.klass);
+globals.NativeFunction.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1730,7 +1730,7 @@ source: "constructor: aString value:anObject\x0a\x09<\x0a\x09\x09var native=eval
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.NativeFunction.klass);
+globals.NativeFunction.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1748,7 +1748,7 @@ source: "constructor: aString value:anObject value: anObject2\x0a\x09<\x0a\x09\x
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.NativeFunction.klass);
+globals.NativeFunction.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1766,7 +1766,7 @@ source: "constructor: aString value:anObject value: anObject2 value:anObject3\x0
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.NativeFunction.klass);
+globals.NativeFunction.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1774,22 +1774,22 @@ selector: "exists:",
 protocol: 'testing',
 fn: function (aString){
 var self=this;
-function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+function $PlatformInterface(){return globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st($PlatformInterface())._existsGlobal_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},smalltalk.NativeFunction.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},globals.NativeFunction.klass)})},
 args: ["aString"],
 source: "exists: aString\x0a\x09^ PlatformInterface existsGlobal: aString",
 messageSends: ["existsGlobal:"],
 referencedClasses: ["PlatformInterface"]
 }),
-smalltalk.NativeFunction.klass);
+globals.NativeFunction.klass);
 
 
-smalltalk.addClass('Timeout', smalltalk.Object, ['rawTimeout'], 'Kernel-Methods');
-smalltalk.Timeout.comment="I am wrapping the returns from `set{Timeout,Interval}`.\x0a\x0a## Motivation\x0a\x0aNumber suffices in browsers, but node.js returns an object.";
+smalltalk.addClass('Timeout', globals.Object, ['rawTimeout'], 'Kernel-Methods');
+globals.Timeout.comment="I am wrapping the returns from `set{Timeout,Interval}`.\x0a\x0a## Motivation\x0a\x0aNumber suffices in browsers, but node.js returns an object.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clearInterval",
@@ -1806,7 +1806,7 @@ source: "clearInterval\x0a\x09<\x0a\x09\x09var interval = self[\x22@rawTimeout\x
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Timeout);
+globals.Timeout);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1824,7 +1824,7 @@ source: "clearTimeout\x0a\x09<\x0a\x09\x09var timeout = self[\x22@rawTimeout\x22
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Timeout);
+globals.Timeout);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1839,7 +1839,7 @@ source: "rawTimeout: anObject\x0a\x09rawTimeout := anObject",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Timeout);
+globals.Timeout);
 
 
 smalltalk.addMethod(
@@ -1855,12 +1855,12 @@ _st($2)._rawTimeout_(anObject);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},smalltalk.Timeout.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},globals.Timeout.klass)})},
 args: ["anObject"],
 source: "on: anObject\x0a\x09^ self new rawTimeout: anObject; yourself",
 messageSends: ["rawTimeout:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Timeout.klass);
+globals.Timeout.klass);
 
 });

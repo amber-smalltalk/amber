@@ -119,7 +119,7 @@ methodAt: aString
 !
 
 methodDictionary
-	<var dict = smalltalk.HashedCollection._new();
+	<var dict = globals.HashedCollection._new();
 	var methods = self.methods;
 	Object.keys(methods).forEach(function(i) {
 		if(methods[i].selector) {
@@ -426,7 +426,7 @@ subclass: aString instanceVariableNames: aString2 package: aString3
 !Class methodsFor: 'converting'!
 
 asJavascript
-	^ 'smalltalk.', self name
+	^ 'globals.', self name
 ! !
 
 !Class methodsFor: 'printing'!
@@ -488,7 +488,7 @@ theNonMetaClass
 !Metaclass methodsFor: 'converting'!
 
 asJavascript
-	^ 'smalltalk.', self instanceClass name, '.klass'
+	^ 'globals.', self instanceClass name, '.klass'
 ! !
 
 !Metaclass methodsFor: 'printing'!
@@ -685,7 +685,7 @@ installMethod: aCompiledMethod forClass: aBehavior protocol: aString
 basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
 	<
 		smalltalk.addClass(aString, aClass, aCollection, packageName);
-		return smalltalk[aString]
+		return globals[aString]
 	>
 !
 
@@ -705,8 +705,8 @@ basicRemoveClass: aClass
 
 basicRenameClass: aClass to: aString
 	<
-		smalltalk[aString] = aClass;
-		delete smalltalk[aClass.className];
+		globals[aString] = aClass;
+		delete globals[aClass.className];
 		aClass.className = aString;
 	>
 !
@@ -721,7 +721,7 @@ basicSwapClassNames: aClass with: anotherClass
 
 rawRenameClass: aClass to: aString
 	<
-		smalltalk[aString] = aClass;
+		globals[aString] = aClass;
 	>
 ! !
 

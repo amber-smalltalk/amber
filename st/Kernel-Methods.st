@@ -178,14 +178,14 @@ fork
 valueWithInterval: aNumber
 	<
 		var interval = setInterval(self, aNumber);
-		return smalltalk.Timeout._on_(interval);
+		return globals.Timeout._on_(interval);
 	>
 !
 
 valueWithTimeout: aNumber
 	<
 		var timeout = setTimeout(self, aNumber);
-		return smalltalk.Timeout._on_(timeout);
+		return globals.Timeout._on_(timeout);
 	>
 ! !
 

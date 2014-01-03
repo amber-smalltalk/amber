@@ -1,9 +1,9 @@
-define("amber_core/Kernel-Exceptions", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Kernel-Exceptions", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Kernel-Exceptions');
 smalltalk.packages["Kernel-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('Error', smalltalk.Object, ['messageText'], 'Kernel-Exceptions');
-smalltalk.Error.comment="From the ANSI standard:\x0a\x0aThis protocol describes the behavior of instances of class `Error`.\x0aThese are used to represent error conditions that prevent the normal continuation of processing.\x0aActual error exceptions used by an application may be subclasses of this class.\x0aAs `Error` is explicitly specified to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.";
+smalltalk.addClass('Error', globals.Object, ['messageText'], 'Kernel-Exceptions');
+globals.Error.comment="From the ANSI standard:\x0a\x0aThis protocol describes the behavior of instances of class `Error`.\x0aThese are used to represent error conditions that prevent the normal continuation of processing.\x0aActual error exceptions used by an application may be subclasses of this class.\x0aAs `Error` is explicitly specified to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
@@ -17,7 +17,7 @@ source: "context\x0a\x09<return self.context>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Error);
+globals.Error);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -27,13 +27,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._messageText_("Errorclass: ".__comma(_st(self._class())._name()));
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Error)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Error)})},
 args: [],
 source: "initialize\x0a\x09self messageText: 'Errorclass: ', (self class name).",
 messageSends: ["messageText:", ",", "name", "class"],
 referencedClasses: []
 }),
-smalltalk.Error);
+globals.Error);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -48,7 +48,7 @@ source: "isSmalltalkError\x0a\x09<return self.smalltalkError === true>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Error);
+globals.Error);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -63,7 +63,7 @@ source: "jsStack\x0a\x09<return self.stack>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Error);
+globals.Error);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -80,7 +80,7 @@ source: "messageText\x0a\x09^ messageText",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Error);
+globals.Error);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -95,7 +95,7 @@ source: "messageText: aString\x0a\x09messageText := aString",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Error);
+globals.Error);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -110,7 +110,7 @@ source: "resignal\x0a\x09\x22Resignal the receiver without changing its exceptio
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Error);
+globals.Error);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -125,7 +125,7 @@ source: "signal\x0a\x09<self.context = smalltalk.getThisContext(); self.smalltal
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Error);
+globals.Error);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -136,13 +136,13 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._messageText_(aString);
 self._signal();
-return self}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},smalltalk.Error)})},
+return self}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},globals.Error)})},
 args: ["aString"],
 source: "signal: aString\x0a\x09self messageText: aString.\x0a\x09self signal",
 messageSends: ["messageText:", "signal"],
 referencedClasses: []
 }),
-smalltalk.Error);
+globals.Error);
 
 
 smalltalk.addMethod(
@@ -158,7 +158,7 @@ source: "heliosClass\x0a\x09^ 'exception'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Error.klass);
+globals.Error.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -170,13 +170,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._new())._signal();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"signal",{},smalltalk.Error.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"signal",{},globals.Error.klass)})},
 args: [],
 source: "signal\x0a\x09^ self new signal",
 messageSends: ["signal", "new"],
 referencedClasses: []
 }),
-smalltalk.Error.klass);
+globals.Error.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -188,17 +188,17 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._new())._signal_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},smalltalk.Error.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},globals.Error.klass)})},
 args: ["aString"],
 source: "signal: aString\x0a\x09^ self new\x0a\x09\x09signal: aString",
 messageSends: ["signal:", "new"],
 referencedClasses: []
 }),
-smalltalk.Error.klass);
+globals.Error.klass);
 
 
-smalltalk.addClass('JavaScriptException', smalltalk.Error, ['exception'], 'Kernel-Exceptions');
-smalltalk.JavaScriptException.comment="A JavaScriptException is thrown when a non-Smalltalk exception occurs while in the Smalltalk stack.\x0aSee `boot.js` `inContext()` and `BlockClosure >> on:do:`";
+smalltalk.addClass('JavaScriptException', globals.Error, ['exception'], 'Kernel-Exceptions');
+globals.JavaScriptException.comment="A JavaScriptException is thrown when a non-Smalltalk exception occurs while in the Smalltalk stack.\x0aSee `boot.js` `inContext()` and `BlockClosure >> on:do:`";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context:",
@@ -212,7 +212,7 @@ source: "context: aMethodContext\x0a\x09\x22Set the context from the outside.\x0
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.JavaScriptException);
+globals.JavaScriptException);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -229,7 +229,7 @@ source: "exception\x0a\x09^ exception",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.JavaScriptException);
+globals.JavaScriptException);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -244,7 +244,7 @@ source: "exception: anException\x0a\x09exception := anException",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.JavaScriptException);
+globals.JavaScriptException);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -259,7 +259,7 @@ source: "messageText\x0a\x09<return 'JavaScript exception: ' + self[\x22@excepti
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.JavaScriptException);
+globals.JavaScriptException);
 
 
 smalltalk.addMethod(
@@ -275,13 +275,13 @@ _st($2)._exception_(anException);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{anException:anException},smalltalk.JavaScriptException.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:",{anException:anException},globals.JavaScriptException.klass)})},
 args: ["anException"],
 source: "on: anException\x0a\x09^ self new\x0a\x09\x09exception: anException;\x0a\x09\x09yourself",
 messageSends: ["exception:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.JavaScriptException.klass);
+globals.JavaScriptException.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -297,17 +297,17 @@ _st($2)._context_(aMethodContext);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:context:",{anException:anException,aMethodContext:aMethodContext},smalltalk.JavaScriptException.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:context:",{anException:anException,aMethodContext:aMethodContext},globals.JavaScriptException.klass)})},
 args: ["anException", "aMethodContext"],
 source: "on: anException context: aMethodContext\x0a\x09^ self new\x0a\x09\x09exception: anException;\x0a\x09\x09context: aMethodContext;\x0a\x09\x09yourself",
 messageSends: ["exception:", "new", "context:", "yourself"],
 referencedClasses: []
 }),
-smalltalk.JavaScriptException.klass);
+globals.JavaScriptException.klass);
 
 
-smalltalk.addClass('MessageNotUnderstood', smalltalk.Error, ['message', 'receiver'], 'Kernel-Exceptions');
-smalltalk.MessageNotUnderstood.comment="This exception is provided to support `Object>>doesNotUnderstand:`.";
+smalltalk.addClass('MessageNotUnderstood', globals.Error, ['message', 'receiver'], 'Kernel-Exceptions');
+globals.MessageNotUnderstood.comment="This exception is provided to support `Object>>doesNotUnderstand:`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "message",
@@ -323,7 +323,7 @@ source: "message\x0a\x09^ message",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MessageNotUnderstood);
+globals.MessageNotUnderstood);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -338,7 +338,7 @@ source: "message: aMessage\x0a\x09message := aMessage",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MessageNotUnderstood);
+globals.MessageNotUnderstood);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -351,13 +351,13 @@ var $1;
 $1=_st(_st(_st(self._receiver())._asString()).__comma(" does not understand #")).__comma(_st(self._message())._selector());
 $ctx1.sendIdx[","]=1;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.MessageNotUnderstood)})},
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.MessageNotUnderstood)})},
 args: [],
 source: "messageText\x0a\x09^ self receiver asString, ' does not understand #', self message selector",
 messageSends: [",", "asString", "receiver", "selector", "message"],
 referencedClasses: []
 }),
-smalltalk.MessageNotUnderstood);
+globals.MessageNotUnderstood);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -374,7 +374,7 @@ source: "receiver\x0a\x09^ receiver",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MessageNotUnderstood);
+globals.MessageNotUnderstood);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -389,12 +389,12 @@ source: "receiver: anObject\x0a\x09receiver := anObject",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MessageNotUnderstood);
+globals.MessageNotUnderstood);
 
 
 
-smalltalk.addClass('NonBooleanReceiver', smalltalk.Error, ['object'], 'Kernel-Exceptions');
-smalltalk.NonBooleanReceiver.comment="NonBooleanReceiver exceptions may be thrown when executing inlined methods such as `#ifTrue:` with a non boolean receiver.";
+smalltalk.addClass('NonBooleanReceiver', globals.Error, ['object'], 'Kernel-Exceptions');
+globals.NonBooleanReceiver.comment="NonBooleanReceiver exceptions may be thrown when executing inlined methods such as `#ifTrue:` with a non boolean receiver.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "object",
@@ -410,7 +410,7 @@ source: "object\x0a\x09^ object",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.NonBooleanReceiver);
+globals.NonBooleanReceiver);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -425,7 +425,7 @@ source: "object: anObject\x0a\x09object := anObject",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.NonBooleanReceiver);
+globals.NonBooleanReceiver);
 
 
 });
