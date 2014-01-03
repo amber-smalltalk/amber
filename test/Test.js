@@ -1,38 +1,38 @@
-define("amber_core/Test", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Test", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Test');
 smalltalk.packages["Test"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('NodeTestRunner', smalltalk.Object, [], 'Test');
+smalltalk.addClass('NodeTestRunner', globals.Object, [], 'Test');
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "main",
-category: 'not yet classified',
+protocol: 'not yet classified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._runTestSuite();
-return self}, function($ctx1) {$ctx1.fill(self,"main",{},smalltalk.NodeTestRunner.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"main",{},globals.NodeTestRunner.klass)})},
 args: [],
 source: "main\x0a\x09self runTestSuite",
 messageSends: ["runTestSuite"],
 referencedClasses: []
 }),
-smalltalk.NodeTestRunner.klass);
+globals.NodeTestRunner.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "runTestSuite",
-category: 'not yet classified',
+protocol: 'not yet classified',
 fn: function (){
 var self=this;
 var suite,worker;
-function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
-function $TestCase(){return smalltalk.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
-function $TestSuiteRunner(){return smalltalk.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
-function $ResultAnnouncement(){return smalltalk.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
+function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
+function $TestSuiteRunner(){return globals.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
+function $ResultAnnouncement(){return globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$10,$9,$8,$13,$12,$11,$7,$6,$16,$15,$14,$5,$4,$18,$17,$20,$19,$27,$26,$25,$24,$23,$30,$29,$28,$22,$21,$32,$31,$34,$33,$41,$40,$39,$38,$37,$44,$43,$42,$36,$35;
+var $2,$1,$3,$9,$8,$12,$11,$10,$7,$6,$15,$14,$13,$5,$4,$17,$16,$19,$18,$26,$25,$24,$23,$22,$28,$27,$21,$20,$30,$29,$32,$31,$39,$38,$37,$36,$35,$34,$33;
 suite=_st($OrderedCollection())._new();
 _st(_st(_st($TestCase())._allSubclasses())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -52,97 +52,92 @@ $ctx2.sendIdx["runs"]=1;
 $1=_st($2).__eq(_st(result)._total());
 if(smalltalk.assert($1)){
 $3=console;
-$10=_st(result)._runs();
-$9=_st($10)._asString();
+$9=_st(_st(result)._runs())._asString();
 $ctx2.sendIdx["asString"]=1;
 $8=_st($9).__comma(" tests run, ");
 $ctx2.sendIdx[","]=5;
-$13=_st(result)._failures();
+$12=_st(result)._failures();
 $ctx2.sendIdx["failures"]=1;
-$12=_st($13)._size();
+$11=_st($12)._size();
 $ctx2.sendIdx["size"]=1;
-$11=_st($12)._asString();
+$10=_st($11)._asString();
 $ctx2.sendIdx["asString"]=2;
-$7=_st($8).__comma($11);
+$7=_st($8).__comma($10);
 $ctx2.sendIdx[","]=4;
 $6=_st($7).__comma(" failures, ");
 $ctx2.sendIdx[","]=3;
-$16=_st(result)._errors();
+$15=_st(result)._errors();
 $ctx2.sendIdx["errors"]=1;
-$15=_st($16)._size();
-$14=_st($15)._asString();
-$5=_st($6).__comma($14);
+$14=_st($15)._size();
+$13=_st($14)._asString();
+$5=_st($6).__comma($13);
 $ctx2.sendIdx[","]=2;
 $4=_st($5).__comma(" errors.");
 $ctx2.sendIdx[","]=1;
 _st($3)._log_($4);
-$18=_st(result)._failures();
+$17=_st(result)._failures();
 $ctx2.sendIdx["failures"]=2;
-$17=_st($18)._isEmpty();
+$16=_st($17)._isEmpty();
 $ctx2.sendIdx["isEmpty"]=1;
-if(! smalltalk.assert($17)){
-$20=_st(result)._failures();
+if(! smalltalk.assert($16)){
+$19=_st(result)._failures();
 $ctx2.sendIdx["failures"]=3;
-$19=_st($20)._first();
+$18=_st($19)._first();
 $ctx2.sendIdx["first"]=1;
-_st($19)._runCase();
+_st($18)._runCase();
 $ctx2.sendIdx["runCase"]=1;
-$27=_st(result)._failures();
+$26=_st(result)._failures();
 $ctx2.sendIdx["failures"]=4;
-$26=_st($27)._first();
+$25=_st($26)._first();
 $ctx2.sendIdx["first"]=2;
-$25=_st($26)._class();
+$24=_st($25)._class();
 $ctx2.sendIdx["class"]=1;
-$24=_st($25)._name();
+$23=_st($24)._name();
 $ctx2.sendIdx["name"]=1;
-$23=_st($24).__comma(" >> ");
+$22=_st($23).__comma(" >> ");
 $ctx2.sendIdx[","]=8;
-$30=_st(result)._failures();
-$29=_st($30)._first();
+$28=_st(_st(result)._failures())._first();
 $ctx2.sendIdx["first"]=3;
-$28=_st($29)._selector();
+$27=_st($28)._selector();
 $ctx2.sendIdx["selector"]=1;
-$22=_st($23).__comma($28);
+$21=_st($22).__comma($27);
 $ctx2.sendIdx[","]=7;
-$21=_st($22).__comma(" is failing!");
+$20=_st($21).__comma(" is failing!");
 $ctx2.sendIdx[","]=6;
-self._throw_($21);
+self._throw_($20);
 $ctx2.sendIdx["throw:"]=1;
 };
-$32=_st(result)._errors();
+$30=_st(result)._errors();
 $ctx2.sendIdx["errors"]=2;
-$31=_st($32)._isEmpty();
-if(! smalltalk.assert($31)){
-$34=_st(result)._errors();
+$29=_st($30)._isEmpty();
+if(! smalltalk.assert($29)){
+$32=_st(result)._errors();
 $ctx2.sendIdx["errors"]=3;
-$33=_st($34)._first();
+$31=_st($32)._first();
 $ctx2.sendIdx["first"]=4;
-_st($33)._runCase();
-$41=_st(result)._errors();
+_st($31)._runCase();
+$39=_st(result)._errors();
 $ctx2.sendIdx["errors"]=4;
-$40=_st($41)._first();
+$38=_st($39)._first();
 $ctx2.sendIdx["first"]=5;
-$39=_st($40)._class();
-$38=_st($39)._name();
-$37=_st($38).__comma(" >> ");
-$44=_st(result)._errors();
-$43=_st($44)._first();
-$42=_st($43)._selector();
-$36=_st($37).__comma($42);
+$37=_st($38)._class();
+$36=_st($37)._name();
+$35=_st($36).__comma(" >> ");
+$34=_st($35).__comma(_st(_st(_st(result)._errors())._first())._selector());
 $ctx2.sendIdx[","]=10;
-$35=_st($36).__comma(" has errors!");
+$33=_st($34).__comma(" has errors!");
 $ctx2.sendIdx[","]=9;
-return self._throw_($35);
+return self._throw_($33);
 };
 };
 }, function($ctx2) {$ctx2.fillBlock({ann:ann,result:result},$ctx1,3)})}));
 _st(worker)._run();
-return self}, function($ctx1) {$ctx1.fill(self,"runTestSuite",{suite:suite,worker:worker},smalltalk.NodeTestRunner.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"runTestSuite",{suite:suite,worker:worker},globals.NodeTestRunner.klass)})},
 args: [],
 source: "runTestSuite\x0a\x09| suite worker |\x0a\x0a\x09suite := OrderedCollection new.\x0a    (TestCase allSubclasses select: [ :each | each isAbstract not ])\x0a\x09do: [ :each | suite addAll: each buildSuite ].\x0a\x0a\x09worker := TestSuiteRunner on: suite.\x0a\x09worker announcer on: ResultAnnouncement do:\x0a\x09[ :ann | | result |\x0a    \x09result := ann result.\x0a        result runs = result total ifTrue: [\x0a\x09        console log: result runs asString, ' tests run, ', result failures size asString, ' failures, ', result errors size asString, ' errors.'.\x0a\x0a            result failures isEmpty ifFalse: [\x0a                result failures first runCase.\x0a                \x22the line above should throw, normally, but just in case I leave the line below\x22\x0a                self throw: result failures first class name, ' >> ', result failures first selector, ' is failing!' ].\x0a            result errors isEmpty ifFalse: [\x0a                result errors first runCase.\x0a                \x22the line above should throw, normally, but just in case I leave the line below\x22\x0a                self throw: result errors first class name, ' >> ', result errors first selector, ' has errors!' ].\x0a    ]].\x0a    worker run",
 messageSends: ["new", "do:", "select:", "allSubclasses", "not", "isAbstract", "addAll:", "buildSuite", "on:", "on:do:", "announcer", "result", "ifTrue:", "=", "runs", "total", "log:", ",", "asString", "size", "failures", "errors", "ifFalse:", "isEmpty", "runCase", "first", "throw:", "name", "class", "selector", "run"],
 referencedClasses: ["OrderedCollection", "TestCase", "TestSuiteRunner", "ResultAnnouncement"]
 }),
-smalltalk.NodeTestRunner.klass);
+globals.NodeTestRunner.klass);
 
 });
