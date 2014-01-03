@@ -38,7 +38,7 @@
  ==================================================================== */
 
 
-define("amber_vm/boot", [ './browser-compatibility' ], function () {
+define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (require) {
 
 	/* Reconfigurable micro composition system, https://github.com/amber-smalltalk/brikz */
 
@@ -1096,7 +1096,7 @@ define("amber_vm/boot", [ './browser-compatibility' ], function () {
 	/* Adds AMD and requirejs related methods to the smalltalk object */
 	function AMDBrik(brikz, st) {
 		this.__init__ = function () {
-			st.amdRequire = st.amdRequire || null;
+			st.amdRequire = require;
 			st.defaultTransportType = st.defaultTransportType || "amd";
 			st.defaultAmdNamespace = st.defaultAmdNamespace || "amber_core";
 		};
