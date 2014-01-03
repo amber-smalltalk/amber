@@ -426,7 +426,7 @@ subclass: aString instanceVariableNames: aString2 package: aString3
 !Class methodsFor: 'converting'!
 
 asJavascript
-	^ 'smalltalk.', self name
+	^ 'globals.', self name
 ! !
 
 !Class methodsFor: 'printing'!
@@ -488,7 +488,7 @@ theNonMetaClass
 !Metaclass methodsFor: 'converting'!
 
 asJavascript
-	^ 'smalltalk.', self instanceClass name, '.klass'
+	^ 'globals.', self instanceClass name, '.klass'
 ! !
 
 !Metaclass methodsFor: 'printing'!

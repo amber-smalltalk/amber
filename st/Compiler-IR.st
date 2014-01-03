@@ -1135,7 +1135,7 @@ nextPutClassRefFunction: aString
 	stream
 		nextPutAll: 'function $';
 		nextPutAll: aString;
-		nextPutAll: '(){return smalltalk.';
+		nextPutAll: '(){return globals.';
 		nextPutAll: aString;
 		nextPutAll: '||(typeof ';
 		nextPutAll: aString;

@@ -1,8 +1,8 @@
-define("amber_core/Helios-Announcements", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Helios-Announcements", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Announcements');
 smalltalk.packages["Helios-Announcements"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('HLAboutToChange', smalltalk.Object, ['actionBlock'], 'Helios-Announcements');
+smalltalk.addClass('HLAboutToChange', globals.Object, ['actionBlock'], 'Helios-Announcements');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "actionBlock",
@@ -18,7 +18,7 @@ source: "actionBlock\x0a\x09^ actionBlock",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLAboutToChange);
+globals.HLAboutToChange);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -33,12 +33,12 @@ source: "actionBlock: aBlock\x0a\x09actionBlock := aBlock",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLAboutToChange);
+globals.HLAboutToChange);
 
 
 
-smalltalk.addClass('HLAnnouncement', smalltalk.Object, [], 'Helios-Announcements');
-smalltalk.HLAnnouncement.comment="I am the root of the announcement class hierarchy used in the Helios UI.";
+smalltalk.addClass('HLAnnouncement', globals.Object, [], 'Helios-Announcements');
+globals.HLAnnouncement.comment="I am the root of the announcement class hierarchy used in the Helios UI.";
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -53,11 +53,11 @@ source: "heliosClass\x0a\x09^ 'announcement'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLAnnouncement.klass);
+globals.HLAnnouncement.klass);
 
 
-smalltalk.addClass('HLCodeHandled', smalltalk.HLAnnouncement, ['code'], 'Helios-Announcements');
-smalltalk.HLCodeHandled.comment="I am the root class of announcements emitted by `HLCodeWidget`s";
+smalltalk.addClass('HLCodeHandled', globals.HLAnnouncement, ['code'], 'Helios-Announcements');
+globals.HLCodeHandled.comment="I am the root class of announcements emitted by `HLCodeWidget`s";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "code",
@@ -73,7 +73,7 @@ source: "code\x0a\x0a\x09^ code",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCodeHandled);
+globals.HLCodeHandled);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -88,7 +88,7 @@ source: "code: aModel\x0a\x0a\x09code := aModel",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCodeHandled);
+globals.HLCodeHandled);
 
 
 smalltalk.addMethod(
@@ -104,32 +104,32 @@ _st($2)._code_(aCodeModel);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{aCodeModel:aCodeModel},smalltalk.HLCodeHandled.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:",{aCodeModel:aCodeModel},globals.HLCodeHandled.klass)})},
 args: ["aCodeModel"],
 source: "on: aCodeModel\x0a\x0a\x09^ self new \x0a    \x09code: aCodeModel;\x0a        yourself",
 messageSends: ["code:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.HLCodeHandled.klass);
+globals.HLCodeHandled.klass);
 
 
-smalltalk.addClass('HLDoItExecuted', smalltalk.HLCodeHandled, [], 'Helios-Announcements');
-smalltalk.HLDoItExecuted.comment="I am emitted by a `HLCodeWidget` after a DoIt has been executed.";
+smalltalk.addClass('HLDoItExecuted', globals.HLCodeHandled, [], 'Helios-Announcements');
+globals.HLDoItExecuted.comment="I am emitted by a `HLCodeWidget` after a DoIt has been executed.";
 
 
-smalltalk.addClass('HLDoItRequested', smalltalk.HLCodeHandled, [], 'Helios-Announcements');
-smalltalk.HLDoItRequested.comment="I am emitted by a `HLCodeWidget` before a DoIt is executed.";
+smalltalk.addClass('HLDoItRequested', globals.HLCodeHandled, [], 'Helios-Announcements');
+globals.HLDoItRequested.comment="I am emitted by a `HLCodeWidget` before a DoIt is executed.";
 
 
-smalltalk.addClass('HLInspectItRequested', smalltalk.HLCodeHandled, [], 'Helios-Announcements');
-smalltalk.HLInspectItRequested.comment="I am emitted by a `HLCodeWidget` before an object is inspected.";
+smalltalk.addClass('HLInspectItRequested', globals.HLCodeHandled, [], 'Helios-Announcements');
+globals.HLInspectItRequested.comment="I am emitted by a `HLCodeWidget` before an object is inspected.";
 
 
-smalltalk.addClass('HLPrintItRequested', smalltalk.HLCodeHandled, [], 'Helios-Announcements');
-smalltalk.HLPrintItRequested.comment="I am emitted by a `HLCodeWidget` before an object is printed.";
+smalltalk.addClass('HLPrintItRequested', globals.HLCodeHandled, [], 'Helios-Announcements');
+globals.HLPrintItRequested.comment="I am emitted by a `HLCodeWidget` before an object is printed.";
 
 
-smalltalk.addClass('HLDebuggerAnnouncement', smalltalk.HLAnnouncement, ['context'], 'Helios-Announcements');
+smalltalk.addClass('HLDebuggerAnnouncement', globals.HLAnnouncement, ['context'], 'Helios-Announcements');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
@@ -145,7 +145,7 @@ source: "context\x0a\x09^ context",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLDebuggerAnnouncement);
+globals.HLDebuggerAnnouncement);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -160,11 +160,11 @@ source: "context: aContext\x0a\x09context := aContext",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLDebuggerAnnouncement);
+globals.HLDebuggerAnnouncement);
 
 
 
-smalltalk.addClass('HLDebuggerContextSelected', smalltalk.HLDebuggerAnnouncement, [], 'Helios-Announcements');
+smalltalk.addClass('HLDebuggerContextSelected', globals.HLDebuggerAnnouncement, [], 'Helios-Announcements');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
@@ -180,7 +180,7 @@ source: "context\x0a\x09^ context",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLDebuggerContextSelected);
+globals.HLDebuggerContextSelected);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -195,23 +195,23 @@ source: "context: aContext\x0a\x09context := aContext",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLDebuggerContextSelected);
+globals.HLDebuggerContextSelected);
 
 
 
-smalltalk.addClass('HLDebuggerStepped', smalltalk.HLDebuggerAnnouncement, [], 'Helios-Announcements');
+smalltalk.addClass('HLDebuggerStepped', globals.HLDebuggerAnnouncement, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLDebuggerWhere', smalltalk.HLDebuggerAnnouncement, [], 'Helios-Announcements');
+smalltalk.addClass('HLDebuggerWhere', globals.HLDebuggerAnnouncement, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLDiveRequested', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
+smalltalk.addClass('HLDiveRequested', globals.HLAnnouncement, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLEditComment', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
+smalltalk.addClass('HLEditComment', globals.HLAnnouncement, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLErrorRaised', smalltalk.HLAnnouncement, ['error'], 'Helios-Announcements');
+smalltalk.addClass('HLErrorRaised', globals.HLAnnouncement, ['error'], 'Helios-Announcements');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "error",
@@ -227,7 +227,7 @@ source: "error\x0a\x09^ error",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLErrorRaised);
+globals.HLErrorRaised);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -242,14 +242,14 @@ source: "error: anError\x0a\x09error := anError",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLErrorRaised);
+globals.HLErrorRaised);
 
 
 
-smalltalk.addClass('HLCompileErrorRaised', smalltalk.HLErrorRaised, [], 'Helios-Announcements');
+smalltalk.addClass('HLCompileErrorRaised', globals.HLErrorRaised, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLParseErrorRaised', smalltalk.HLErrorRaised, ['line', 'column', 'message'], 'Helios-Announcements');
+smalltalk.addClass('HLParseErrorRaised', globals.HLErrorRaised, ['line', 'column', 'message'], 'Helios-Announcements');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "column",
@@ -265,7 +265,7 @@ source: "column\x0a\x09^ column",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLParseErrorRaised);
+globals.HLParseErrorRaised);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -280,7 +280,7 @@ source: "column: anInteger\x0a\x09column := anInteger",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLParseErrorRaised);
+globals.HLParseErrorRaised);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -297,7 +297,7 @@ source: "line\x0a\x09^ line",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLParseErrorRaised);
+globals.HLParseErrorRaised);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -312,7 +312,7 @@ source: "line: anInteger\x0a\x09line := anInteger",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLParseErrorRaised);
+globals.HLParseErrorRaised);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -329,7 +329,7 @@ source: "message\x0a\x09^ message",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLParseErrorRaised);
+globals.HLParseErrorRaised);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -344,32 +344,32 @@ source: "message: aString\x0a\x09message := aString",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLParseErrorRaised);
+globals.HLParseErrorRaised);
 
 
 
-smalltalk.addClass('HLUnknownVariableErrorRaised', smalltalk.HLErrorRaised, [], 'Helios-Announcements');
+smalltalk.addClass('HLUnknownVariableErrorRaised', globals.HLErrorRaised, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLFocusRequested', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
+smalltalk.addClass('HLFocusRequested', globals.HLAnnouncement, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLClassesFocusRequested', smalltalk.HLFocusRequested, [], 'Helios-Announcements');
+smalltalk.addClass('HLClassesFocusRequested', globals.HLFocusRequested, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLMethodsFocusRequested', smalltalk.HLFocusRequested, [], 'Helios-Announcements');
+smalltalk.addClass('HLMethodsFocusRequested', globals.HLFocusRequested, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLPackagesFocusRequested', smalltalk.HLFocusRequested, [], 'Helios-Announcements');
+smalltalk.addClass('HLPackagesFocusRequested', globals.HLFocusRequested, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLProtocolsFocusRequested', smalltalk.HLFocusRequested, [], 'Helios-Announcements');
+smalltalk.addClass('HLProtocolsFocusRequested', globals.HLFocusRequested, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLSourceCodeFocusRequested', smalltalk.HLFocusRequested, [], 'Helios-Announcements');
+smalltalk.addClass('HLSourceCodeFocusRequested', globals.HLFocusRequested, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLInstVarAdded', smalltalk.HLAnnouncement, ['theClass', 'variableName'], 'Helios-Announcements');
+smalltalk.addClass('HLInstVarAdded', globals.HLAnnouncement, ['theClass', 'variableName'], 'Helios-Announcements');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass",
@@ -385,7 +385,7 @@ source: "theClass\x0a\x09^ theClass",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLInstVarAdded);
+globals.HLInstVarAdded);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -400,7 +400,7 @@ source: "theClass: aClass\x0a\x09theClass := aClass",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLInstVarAdded);
+globals.HLInstVarAdded);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -417,7 +417,7 @@ source: "variableName\x0a\x09^ variableName",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLInstVarAdded);
+globals.HLInstVarAdded);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -432,11 +432,11 @@ source: "variableName: aString\x0a\x09variableName := aString",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLInstVarAdded);
+globals.HLInstVarAdded);
 
 
 
-smalltalk.addClass('HLItemSelected', smalltalk.HLAnnouncement, ['item'], 'Helios-Announcements');
+smalltalk.addClass('HLItemSelected', globals.HLAnnouncement, ['item'], 'Helios-Announcements');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "item",
@@ -452,7 +452,7 @@ source: "item\x0a\x09^ item",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLItemSelected);
+globals.HLItemSelected);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -467,7 +467,7 @@ source: "item: anObject\x0a\x09item := anObject",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLItemSelected);
+globals.HLItemSelected);
 
 
 smalltalk.addMethod(
@@ -483,34 +483,34 @@ _st($2)._item_(anItem);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{anItem:anItem},smalltalk.HLItemSelected.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:",{anItem:anItem},globals.HLItemSelected.klass)})},
 args: ["anItem"],
 source: "on: anItem\x0a\x09^ self new\x0a    \x09item: anItem;\x0a        yourself",
 messageSends: ["item:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.HLItemSelected.klass);
+globals.HLItemSelected.klass);
 
 
-smalltalk.addClass('HLClassSelected', smalltalk.HLItemSelected, [], 'Helios-Announcements');
+smalltalk.addClass('HLClassSelected', globals.HLItemSelected, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLInstanceVariableSelected', smalltalk.HLItemSelected, [], 'Helios-Announcements');
+smalltalk.addClass('HLInstanceVariableSelected', globals.HLItemSelected, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLMethodSelected', smalltalk.HLItemSelected, [], 'Helios-Announcements');
+smalltalk.addClass('HLMethodSelected', globals.HLItemSelected, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLPackageSelected', smalltalk.HLItemSelected, [], 'Helios-Announcements');
+smalltalk.addClass('HLPackageSelected', globals.HLItemSelected, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLProtocolSelected', smalltalk.HLItemSelected, [], 'Helios-Announcements');
+smalltalk.addClass('HLProtocolSelected', globals.HLItemSelected, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLSaveSourceCode', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
+smalltalk.addClass('HLSaveSourceCode', globals.HLAnnouncement, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLSearchReferences', smalltalk.HLAnnouncement, ['searchString'], 'Helios-Announcements');
+smalltalk.addClass('HLSearchReferences', globals.HLAnnouncement, ['searchString'], 'Helios-Announcements');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "searchString",
@@ -526,7 +526,7 @@ source: "searchString\x0a\x09^ searchString",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLSearchReferences);
+globals.HLSearchReferences);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -541,16 +541,16 @@ source: "searchString: aString\x0a\x09searchString := aString",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLSearchReferences);
+globals.HLSearchReferences);
 
 
 
-smalltalk.addClass('HLShowCommentToggled', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
+smalltalk.addClass('HLShowCommentToggled', globals.HLAnnouncement, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLShowInstanceToggled', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
+smalltalk.addClass('HLShowInstanceToggled', globals.HLAnnouncement, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLSourceCodeSaved', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
+smalltalk.addClass('HLSourceCodeSaved', globals.HLAnnouncement, [], 'Helios-Announcements');
 
 });

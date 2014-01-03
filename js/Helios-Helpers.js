@@ -1,9 +1,9 @@
-define("amber_core/Helios-Helpers", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Helios-Helpers", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Helpers');
 smalltalk.packages["Helios-Helpers"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('HLClassifier', smalltalk.Object, ['next', 'method'], 'Helios-Helpers');
-smalltalk.HLClassifier.comment="I am an abstract class implementing a link in a `chain of responsibility` pattern.\x0a\x0aSubclasses are in charge of classifying a method according to multiple strategies.";
+smalltalk.addClass('HLClassifier', globals.Object, ['next', 'method'], 'Helios-Helpers');
+globals.HLClassifier.comment="I am an abstract class implementing a link in a `chain of responsibility` pattern.\x0a\x0aSubclasses are in charge of classifying a method according to multiple strategies.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classify",
@@ -26,13 +26,13 @@ $2=true;
 $2=_st(self._next())._classify();
 };
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"classify",{},smalltalk.HLClassifier)})},
+}, function($ctx1) {$ctx1.fill(self,"classify",{},globals.HLClassifier)})},
 args: [],
 source: "classify\x0a\x09self next ifNil: [ ^ false ].\x0a\x09\x0a\x09^ self doClassify\x0a\x09\x09ifTrue: [ true ]\x0a\x09\x09ifFalse: [ self next classify ]",
 messageSends: ["ifNil:", "next", "ifTrue:ifFalse:", "doClassify", "classify"],
 referencedClasses: []
 }),
-smalltalk.HLClassifier);
+globals.HLClassifier);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -42,13 +42,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"doClassify",{},smalltalk.HLClassifier)})},
+return self}, function($ctx1) {$ctx1.fill(self,"doClassify",{},globals.HLClassifier)})},
 args: [],
 source: "doClassify\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.HLClassifier);
+globals.HLClassifier);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -65,7 +65,7 @@ source: "method\x0a\x09^ method",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLClassifier);
+globals.HLClassifier);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -84,13 +84,13 @@ var nextLink;
 nextLink=$receiver;
 _st(nextLink)._method_(anObject);
 };
-return self}, function($ctx1) {$ctx1.fill(self,"method:",{anObject:anObject},smalltalk.HLClassifier)})},
+return self}, function($ctx1) {$ctx1.fill(self,"method:",{anObject:anObject},globals.HLClassifier)})},
 args: ["anObject"],
 source: "method: anObject\x0a\x09method := anObject.\x0a\x09self next\x0a\x09\x09ifNotNil: [ :nextLink | nextLink method: anObject ]",
 messageSends: ["ifNotNil:", "next", "method:"],
 referencedClasses: []
 }),
-smalltalk.HLClassifier);
+globals.HLClassifier);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -107,7 +107,7 @@ source: "next\x0a\x09^ next",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLClassifier);
+globals.HLClassifier);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -122,12 +122,12 @@ source: "next: anObject\x0a\x09next := anObject",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLClassifier);
+globals.HLClassifier);
 
 
 
-smalltalk.addClass('HLAccessorClassifier', smalltalk.HLClassifier, [], 'Helios-Helpers');
-smalltalk.HLAccessorClassifier.comment="I am a classifier checking the method selector matches an instance variable name.";
+smalltalk.addClass('HLAccessorClassifier', globals.HLClassifier, [], 'Helios-Helpers');
+globals.HLAccessorClassifier.comment="I am a classifier checking the method selector matches an instance variable name.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "doClassify",
@@ -150,18 +150,18 @@ return false;
 };
 _st(self["@method"])._protocol_("accessing");
 return true;
-}, function($ctx1) {$ctx1.fill(self,"doClassify",{names:names,selector:selector},smalltalk.HLAccessorClassifier)})},
+}, function($ctx1) {$ctx1.fill(self,"doClassify",{names:names,selector:selector},globals.HLAccessorClassifier)})},
 args: [],
 source: "doClassify\x0a\x09| names selector |\x0a\x09\x0a\x09names := method methodClass allInstanceVariableNames.\x0a\x09selector := method selector.\x0a\x09\x0a\x09(selector last = ':')\x0a\x09\x09ifTrue: [ \x22selector might be a setter\x22\x0a\x09\x09\x09selector := selector allButLast ].\x0a\x09\x0a\x09(names includes: selector)\x0a\x09\x09ifFalse: [ ^ false ].\x0a\x09\x09\x0a\x09method protocol: 'accessing'.\x0a\x09^ true.",
 messageSends: ["allInstanceVariableNames", "methodClass", "selector", "ifTrue:", "=", "last", "allButLast", "ifFalse:", "includes:", "protocol:"],
 referencedClasses: []
 }),
-smalltalk.HLAccessorClassifier);
+globals.HLAccessorClassifier);
 
 
 
-smalltalk.addClass('HLImplementorClassifier', smalltalk.HLClassifier, [], 'Helios-Helpers');
-smalltalk.HLImplementorClassifier.comment="I am a classifier checking the other implementations of the same selector and choose the protocol the most populated.";
+smalltalk.addClass('HLImplementorClassifier', globals.HLClassifier, [], 'Helios-Helpers');
+globals.HLImplementorClassifier.comment="I am a classifier checking the other implementations of the same selector and choose the protocol the most populated.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "doClassify",
@@ -195,25 +195,25 @@ throw $early=[true];
 return false;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"doClassify",{currentClass:currentClass},smalltalk.HLImplementorClassifier)})},
+}, function($ctx1) {$ctx1.fill(self,"doClassify",{currentClass:currentClass},globals.HLImplementorClassifier)})},
 args: [],
 source: "doClassify\x0a\x09| currentClass |\x0a\x09currentClass := method methodClass.\x0a\x09\x0a\x09[ currentClass superclass isNil ] whileFalse: [\x0a\x09\x09currentClass := currentClass superclass.\x0a\x09\x09(currentClass includesSelector: method selector)\x0a\x09\x09\x09ifTrue: [ \x0a\x09\x09\x09\x09method protocol: (currentClass >> method selector) protocol.\x0a\x09\x09\x09\x09^ true ]].\x0a\x09\x0a\x09^ false.",
 messageSends: ["methodClass", "whileFalse:", "isNil", "superclass", "ifTrue:", "includesSelector:", "selector", "protocol:", "protocol", ">>"],
 referencedClasses: []
 }),
-smalltalk.HLImplementorClassifier);
+globals.HLImplementorClassifier);
 
 
 
-smalltalk.addClass('HLPrefixClassifier', smalltalk.HLClassifier, ['prefixMapping'], 'Helios-Helpers');
-smalltalk.HLPrefixClassifier.comment="I am classifier checking the method selector to know if it begins with a known prefix.";
+smalltalk.addClass('HLPrefixClassifier', globals.HLClassifier, ['prefixMapping'], 'Helios-Helpers');
+globals.HLPrefixClassifier.comment="I am classifier checking the method selector to know if it begins with a known prefix.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "buildPrefixDictionary",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 self["@prefixMapping"]=_st($Dictionary())._new();
@@ -241,13 +241,13 @@ $ctx1.sendIdx["at:put:"]=10;
 _st($1)._at_put_("as","converting");
 $ctx1.sendIdx["at:put:"]=11;
 $2=_st($1)._at_put_("new","instance creation");
-return self}, function($ctx1) {$ctx1.fill(self,"buildPrefixDictionary",{},smalltalk.HLPrefixClassifier)})},
+return self}, function($ctx1) {$ctx1.fill(self,"buildPrefixDictionary",{},globals.HLPrefixClassifier)})},
 args: [],
 source: "buildPrefixDictionary\x0a\x09prefixMapping := Dictionary new.\x0a\x09prefixMapping \x0a\x09\x09at: 'test' put: 'tests';\x0a\x09 \x09at: 'bench' put: 'benchmarking';\x0a\x09 \x09at: 'copy' put: 'copying';\x0a\x09\x09at: 'initialize' put: 'initialization';\x0a\x09\x09at: 'accept' put: 'visitor';\x0a\x09\x09at: 'visit' put: 'visitor';\x0a\x09\x09at: 'signal' put: 'signalling';\x0a\x09\x09at: 'parse' put: 'parsing';\x0a\x09\x09at: 'add' put: 'adding';\x0a\x09\x09at: 'is' put: 'testing';\x0a\x09\x09at: 'as' put: 'converting';\x0a\x09\x09at: 'new' put: 'instance creation'.",
 messageSends: ["new", "at:put:"],
 referencedClasses: ["Dictionary"]
 }),
-smalltalk.HLPrefixClassifier);
+globals.HLPrefixClassifier);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -270,13 +270,13 @@ throw $early=[true];
 return false;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"doClassify",{},smalltalk.HLPrefixClassifier)})},
+}, function($ctx1) {$ctx1.fill(self,"doClassify",{},globals.HLPrefixClassifier)})},
 args: [],
 source: "doClassify\x0a\x09prefixMapping keysAndValuesDo: [ :prefix :protocol |\x0a\x09\x09(method selector beginsWith: prefix)\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09method protocol: protocol.\x0a\x09\x09\x09\x09^ true ]].\x0a\x09^ false.",
 messageSends: ["keysAndValuesDo:", "ifTrue:", "beginsWith:", "selector", "protocol:"],
 referencedClasses: []
 }),
-smalltalk.HLPrefixClassifier);
+globals.HLPrefixClassifier);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -285,20 +285,20 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLPrefixClassifier.superclass.fn.prototype._initialize.apply(_st(self), []);
+globals.HLPrefixClassifier.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._buildPrefixDictionary();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLPrefixClassifier)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLPrefixClassifier)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x0a\x09self buildPrefixDictionary",
 messageSends: ["initialize", "buildPrefixDictionary"],
 referencedClasses: []
 }),
-smalltalk.HLPrefixClassifier);
+globals.HLPrefixClassifier);
 
 
 
-smalltalk.addClass('HLSuperclassClassifier', smalltalk.HLClassifier, [], 'Helios-Helpers');
-smalltalk.HLSuperclassClassifier.comment="I am a classifier checking the superclass chain to find a matching selector.";
+smalltalk.addClass('HLSuperclassClassifier', globals.HLClassifier, [], 'Helios-Helpers');
+globals.HLSuperclassClassifier.comment="I am a classifier checking the superclass chain to find a matching selector.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "doClassify",
@@ -306,8 +306,8 @@ protocol: 'private',
 fn: function (){
 var self=this;
 var protocolBag,methods,protocolToUse,counter;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-function $HLReferencesModel(){return smalltalk.HLReferencesModel||(typeof HLReferencesModel=="undefined"?nil:HLReferencesModel)}
+function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $HLReferencesModel(){return globals.HLReferencesModel||(typeof HLReferencesModel=="undefined"?nil:HLReferencesModel)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$4,$3,$5;
 var $early={};
@@ -365,18 +365,18 @@ _st(self["@method"])._protocol_(protocolToUse);
 return true;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"doClassify",{protocolBag:protocolBag,methods:methods,protocolToUse:protocolToUse,counter:counter},smalltalk.HLSuperclassClassifier)})},
+}, function($ctx1) {$ctx1.fill(self,"doClassify",{protocolBag:protocolBag,methods:methods,protocolToUse:protocolToUse,counter:counter},globals.HLSuperclassClassifier)})},
 args: [],
 source: "doClassify\x0a\x09| protocolBag methods protocolToUse counter |\x0a\x09\x0a\x09protocolBag := Dictionary new.\x0a\x09methods := HLReferencesModel new implementorsOf: method selector.\x0a\x09methods\x0a\x09\x09ifEmpty: [ ^ false ]\x0a\x09\x09ifNotEmpty: [\x0a\x09\x09\x09methods \x0a\x09\x09\x09\x09do: [ :aMethod || protocol |\x0a\x09\x09\x09\x09\x09protocol := aMethod method protocol.\x0a\x09\x09\x09\x09\x09(method methodClass = aMethod methodClass)\x0a\x09\x09\x09\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09\x09\x09((protocol first = '*') or: [ protocol = method defaultProtocol ])\x0a\x09\x09\x09\x09\x09\x09\x09ifFalse: [ \x0a\x09\x09\x09\x09\x09\x09\x09\x09protocolBag \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09at: protocol \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09put: (protocolBag at: protocol ifAbsent: [ 0 ]) + 1 ] ] ] ].\x0a\x09\x09\x09\x0a\x09protocolBag ifEmpty: [ ^ false ].\x0a\x09protocolToUse := nil.\x0a\x09counter := 0.\x0a\x09protocolBag keysAndValuesDo: [ :key :value | value > counter \x0a\x09\x09ifTrue: [\x0a\x09\x09\x09counter := value.\x0a\x09\x09\x09protocolToUse := key ] ].\x0a\x09method protocol: protocolToUse.\x0a\x09^ true",
 messageSends: ["new", "implementorsOf:", "selector", "ifEmpty:ifNotEmpty:", "do:", "protocol", "method", "ifFalse:", "=", "methodClass", "or:", "first", "defaultProtocol", "at:put:", "+", "at:ifAbsent:", "ifEmpty:", "keysAndValuesDo:", "ifTrue:", ">", "protocol:"],
 referencedClasses: ["Dictionary", "HLReferencesModel"]
 }),
-smalltalk.HLSuperclassClassifier);
+globals.HLSuperclassClassifier);
 
 
 
-smalltalk.addClass('HLGenerationOutput', smalltalk.Object, ['sourceCodes', 'protocol', 'targetClass'], 'Helios-Helpers');
-smalltalk.HLGenerationOutput.comment="I am a simple data object used to store the result of a generation process.";
+smalltalk.addClass('HLGenerationOutput', globals.Object, ['sourceCodes', 'protocol', 'targetClass'], 'Helios-Helpers');
+globals.HLGenerationOutput.comment="I am a simple data object used to store the result of a generation process.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addSourceCode:",
@@ -385,13 +385,13 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@sourceCodes"])._add_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"addSourceCode:",{aString:aString},smalltalk.HLGenerationOutput)})},
+return self}, function($ctx1) {$ctx1.fill(self,"addSourceCode:",{aString:aString},globals.HLGenerationOutput)})},
 args: ["aString"],
 source: "addSourceCode: aString\x0a\x09sourceCodes add: aString",
 messageSends: ["add:"],
 referencedClasses: []
 }),
-smalltalk.HLGenerationOutput);
+globals.HLGenerationOutput);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -408,13 +408,13 @@ if(! smalltalk.assert($1)){
 return _st(self["@targetClass"])._compile_protocol_(_st(methodSourceCode)._sourceCode(),self["@protocol"]);
 };
 }, function($ctx2) {$ctx2.fillBlock({methodSourceCode:methodSourceCode},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"compile",{},smalltalk.HLGenerationOutput)})},
+return self}, function($ctx1) {$ctx1.fill(self,"compile",{},globals.HLGenerationOutput)})},
 args: [],
 source: "compile\x0a\x09sourceCodes do: [ :methodSourceCode |\x0a\x09\x09(targetClass includesSelector: methodSourceCode selector)\x0a\x09\x09\x09ifFalse: [ \x0a\x09\x09\x09\x09targetClass \x0a\x09\x09\x09\x09\x09compile: methodSourceCode sourceCode\x0a\x09\x09\x09\x09\x09protocol: protocol ] ]",
 messageSends: ["do:", "ifFalse:", "includesSelector:", "selector", "compile:protocol:", "sourceCode"],
 referencedClasses: []
 }),
-smalltalk.HLGenerationOutput);
+globals.HLGenerationOutput);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -422,17 +422,17 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLGenerationOutput.superclass.fn.prototype._initialize.apply(_st(self), []);
+globals.HLGenerationOutput.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@sourceCodes"]=_st($OrderedCollection())._new();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLGenerationOutput)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLGenerationOutput)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09\x0a\x09sourceCodes := OrderedCollection new",
 messageSends: ["initialize", "new"],
 referencedClasses: ["OrderedCollection"]
 }),
-smalltalk.HLGenerationOutput);
+globals.HLGenerationOutput);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -449,7 +449,7 @@ source: "protocol\x0a\x09^ protocol",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLGenerationOutput);
+globals.HLGenerationOutput);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -464,7 +464,7 @@ source: "protocol: aString\x0a\x09protocol := aString",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLGenerationOutput);
+globals.HLGenerationOutput);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -481,7 +481,7 @@ source: "sourceCodes\x0a\x09^ sourceCodes",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLGenerationOutput);
+globals.HLGenerationOutput);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -496,7 +496,7 @@ source: "sourceCodes: aCollection\x0a\x09sourceCodes := aCollection",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLGenerationOutput);
+globals.HLGenerationOutput);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -513,7 +513,7 @@ source: "targetClass\x0a\x09^ targetClass",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLGenerationOutput);
+globals.HLGenerationOutput);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -528,12 +528,12 @@ source: "targetClass: aClass\x0a\x09targetClass := aClass",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLGenerationOutput);
+globals.HLGenerationOutput);
 
 
 
-smalltalk.addClass('HLMethodClassifier', smalltalk.Object, ['firstClassifier'], 'Helios-Helpers');
-smalltalk.HLMethodClassifier.comment="I am in charge of categorizing methods following this strategy:\x0a\x0a- is it an accessor?\x0a- is it overriding a superclass method?\x0a- is it starting with a know prefix?\x0a- how are categorized the other implementations?";
+smalltalk.addClass('HLMethodClassifier', globals.Object, ['firstClassifier'], 'Helios-Helpers');
+globals.HLMethodClassifier.comment="I am in charge of categorizing methods following this strategy:\x0a\x0a- is it an accessor?\x0a- is it overriding a superclass method?\x0a- is it starting with a know prefix?\x0a- how are categorized the other implementations?";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addClassifier:",
@@ -543,13 +543,13 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aClassifier)._next_(self["@firstClassifier"]);
 self["@firstClassifier"]=aClassifier;
-return self}, function($ctx1) {$ctx1.fill(self,"addClassifier:",{aClassifier:aClassifier},smalltalk.HLMethodClassifier)})},
+return self}, function($ctx1) {$ctx1.fill(self,"addClassifier:",{aClassifier:aClassifier},globals.HLMethodClassifier)})},
 args: ["aClassifier"],
 source: "addClassifier: aClassifier\x0a\x09aClassifier next: firstClassifier.\x0a\x09firstClassifier := aClassifier",
 messageSends: ["next:"],
 referencedClasses: []
 }),
-smalltalk.HLMethodClassifier);
+globals.HLMethodClassifier);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -562,13 +562,13 @@ var $1,$2;
 $1=self["@firstClassifier"];
 _st($1)._method_(aMethod);
 $2=_st($1)._classify();
-return self}, function($ctx1) {$ctx1.fill(self,"classify:",{aMethod:aMethod},smalltalk.HLMethodClassifier)})},
+return self}, function($ctx1) {$ctx1.fill(self,"classify:",{aMethod:aMethod},globals.HLMethodClassifier)})},
 args: ["aMethod"],
 source: "classify: aMethod\x0a\x09firstClassifier\x0a\x09\x09method: aMethod;\x0a\x09\x09classify",
 messageSends: ["method:", "classify"],
 referencedClasses: []
 }),
-smalltalk.HLMethodClassifier);
+globals.HLMethodClassifier);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -581,13 +581,13 @@ _st(aCollectionOfMethods)._do_((function(method){
 return smalltalk.withContext(function($ctx2) {
 return self._classify_(method);
 }, function($ctx2) {$ctx2.fillBlock({method:method},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"classifyAll:",{aCollectionOfMethods:aCollectionOfMethods},smalltalk.HLMethodClassifier)})},
+return self}, function($ctx1) {$ctx1.fill(self,"classifyAll:",{aCollectionOfMethods:aCollectionOfMethods},globals.HLMethodClassifier)})},
 args: ["aCollectionOfMethods"],
 source: "classifyAll: aCollectionOfMethods\x0a\x09aCollectionOfMethods do: [ :method |\x0a\x09\x09self classify: method ]",
 messageSends: ["do:", "classify:"],
 referencedClasses: []
 }),
-smalltalk.HLMethodClassifier);
+globals.HLMethodClassifier);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -596,15 +596,15 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLMethodClassifier.superclass.fn.prototype._initialize.apply(_st(self), []);
+globals.HLMethodClassifier.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._setupClassifiers();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLMethodClassifier)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLMethodClassifier)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09\x0a\x09self setupClassifiers",
 messageSends: ["initialize", "setupClassifiers"],
 referencedClasses: []
 }),
-smalltalk.HLMethodClassifier);
+globals.HLMethodClassifier);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -612,10 +612,10 @@ selector: "setupClassifiers",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $HLImplementorClassifier(){return smalltalk.HLImplementorClassifier||(typeof HLImplementorClassifier=="undefined"?nil:HLImplementorClassifier)}
-function $HLPrefixClassifier(){return smalltalk.HLPrefixClassifier||(typeof HLPrefixClassifier=="undefined"?nil:HLPrefixClassifier)}
-function $HLSuperclassClassifier(){return smalltalk.HLSuperclassClassifier||(typeof HLSuperclassClassifier=="undefined"?nil:HLSuperclassClassifier)}
-function $HLAccessorClassifier(){return smalltalk.HLAccessorClassifier||(typeof HLAccessorClassifier=="undefined"?nil:HLAccessorClassifier)}
+function $HLImplementorClassifier(){return globals.HLImplementorClassifier||(typeof HLImplementorClassifier=="undefined"?nil:HLImplementorClassifier)}
+function $HLPrefixClassifier(){return globals.HLPrefixClassifier||(typeof HLPrefixClassifier=="undefined"?nil:HLPrefixClassifier)}
+function $HLSuperclassClassifier(){return globals.HLSuperclassClassifier||(typeof HLSuperclassClassifier=="undefined"?nil:HLSuperclassClassifier)}
+function $HLAccessorClassifier(){return globals.HLAccessorClassifier||(typeof HLAccessorClassifier=="undefined"?nil:HLAccessorClassifier)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 $1=_st($HLImplementorClassifier())._new();
@@ -631,18 +631,18 @@ $ctx1.sendIdx["new"]=3;
 self._addClassifier_($3);
 $ctx1.sendIdx["addClassifier:"]=3;
 self._addClassifier_(_st($HLAccessorClassifier())._new());
-return self}, function($ctx1) {$ctx1.fill(self,"setupClassifiers",{},smalltalk.HLMethodClassifier)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setupClassifiers",{},globals.HLMethodClassifier)})},
 args: [],
 source: "setupClassifiers\x0a\x09self addClassifier: HLImplementorClassifier new.\x0a\x09self addClassifier: HLPrefixClassifier new.\x0a\x09self addClassifier: HLSuperclassClassifier new.\x0a\x09self addClassifier: HLAccessorClassifier new",
 messageSends: ["addClassifier:", "new"],
 referencedClasses: ["HLImplementorClassifier", "HLPrefixClassifier", "HLSuperclassClassifier", "HLAccessorClassifier"]
 }),
-smalltalk.HLMethodClassifier);
+globals.HLMethodClassifier);
 
 
 
-smalltalk.addClass('HLMethodGenerator', smalltalk.Object, ['output'], 'Helios-Helpers');
-smalltalk.HLMethodGenerator.comment="I am the abstract super class of the method generators.\x0a\x0aMy main method is `generate` which produce an `output` object";
+smalltalk.addClass('HLMethodGenerator', globals.Object, ['output'], 'Helios-Helpers');
+globals.HLMethodGenerator.comment="I am the abstract super class of the method generators.\x0a\x0aMy main method is `generate` which produce an `output` object";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "class:",
@@ -651,13 +651,13 @@ fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@output"])._targetClass_(aClass);
-return self}, function($ctx1) {$ctx1.fill(self,"class:",{aClass:aClass},smalltalk.HLMethodGenerator)})},
+return self}, function($ctx1) {$ctx1.fill(self,"class:",{aClass:aClass},globals.HLMethodGenerator)})},
 args: ["aClass"],
 source: "class: aClass\x0a\x09output targetClass: aClass",
 messageSends: ["targetClass:"],
 referencedClasses: []
 }),
-smalltalk.HLMethodGenerator);
+globals.HLMethodGenerator);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -673,13 +673,13 @@ self._error_("class should not be nil");
 } else {
 $1;
 };
-return self}, function($ctx1) {$ctx1.fill(self,"generate",{},smalltalk.HLMethodGenerator)})},
+return self}, function($ctx1) {$ctx1.fill(self,"generate",{},globals.HLMethodGenerator)})},
 args: [],
 source: "generate\x0a\x09output targetClass ifNil: [ self error: 'class should not be nil'].",
 messageSends: ["ifNil:", "targetClass", "error:"],
 referencedClasses: []
 }),
-smalltalk.HLMethodGenerator);
+globals.HLMethodGenerator);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -687,17 +687,17 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $HLGenerationOutput(){return smalltalk.HLGenerationOutput||(typeof HLGenerationOutput=="undefined"?nil:HLGenerationOutput)}
+function $HLGenerationOutput(){return globals.HLGenerationOutput||(typeof HLGenerationOutput=="undefined"?nil:HLGenerationOutput)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLMethodGenerator.superclass.fn.prototype._initialize.apply(_st(self), []);
+globals.HLMethodGenerator.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@output"]=_st($HLGenerationOutput())._new();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLMethodGenerator)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLMethodGenerator)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09\x0a\x09output := HLGenerationOutput new",
 messageSends: ["initialize", "new"],
 referencedClasses: ["HLGenerationOutput"]
 }),
-smalltalk.HLMethodGenerator);
+globals.HLMethodGenerator);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -714,12 +714,12 @@ source: "output\x0a\x09^ output",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMethodGenerator);
+globals.HLMethodGenerator);
 
 
 
-smalltalk.addClass('HLAccessorsGenerator', smalltalk.HLMethodGenerator, [], 'Helios-Helpers');
-smalltalk.HLAccessorsGenerator.comment="I am a generator used to compile the getters/setters of a class";
+smalltalk.addClass('HLAccessorsGenerator', globals.HLMethodGenerator, [], 'Helios-Helpers');
+globals.HLAccessorsGenerator.comment="I am a generator used to compile the getters/setters of a class";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accessorProtocolForObject",
@@ -728,13 +728,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@output"])._protocol_("accessing");
-return self}, function($ctx1) {$ctx1.fill(self,"accessorProtocolForObject",{},smalltalk.HLAccessorsGenerator)})},
+return self}, function($ctx1) {$ctx1.fill(self,"accessorProtocolForObject",{},globals.HLAccessorsGenerator)})},
 args: [],
 source: "accessorProtocolForObject\x0a\x09output protocol: 'accessing'",
 messageSends: ["protocol:"],
 referencedClasses: []
 }),
-smalltalk.HLAccessorsGenerator);
+globals.HLAccessorsGenerator);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -743,7 +743,7 @@ protocol: 'double-dispatch',
 fn: function (){
 var self=this;
 var sources;
-function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 sources=_st($OrderedCollection())._new();
@@ -756,13 +756,13 @@ $2=_st($1)._add_(self._setterFor_(each));
 return $2;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 _st(self["@output"])._sourceCodes_(sources);
-return self}, function($ctx1) {$ctx1.fill(self,"accessorsForObject",{sources:sources},smalltalk.HLAccessorsGenerator)})},
+return self}, function($ctx1) {$ctx1.fill(self,"accessorsForObject",{sources:sources},globals.HLAccessorsGenerator)})},
 args: [],
 source: "accessorsForObject\x0a\x09| sources |\x0a\x09\x0a\x09sources := OrderedCollection new.\x0a\x09output targetClass instanceVariableNames sorted do: [ :each | \x0a\x09\x09sources \x0a\x09\x09\x09add: (self getterFor: each);\x0a\x09\x09\x09add: (self setterFor: each) ].\x0a\x09output sourceCodes: sources",
 messageSends: ["new", "do:", "sorted", "instanceVariableNames", "targetClass", "add:", "getterFor:", "setterFor:", "sourceCodes:"],
 referencedClasses: ["OrderedCollection"]
 }),
-smalltalk.HLAccessorsGenerator);
+globals.HLAccessorsGenerator);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -772,17 +772,17 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.HLAccessorsGenerator.superclass.fn.prototype._generate.apply(_st(self), []);
+globals.HLAccessorsGenerator.superclass.fn.prototype._generate.apply(_st(self), []);
 $1=_st(self["@output"])._targetClass();
 _st($1)._accessorsSourceCodesWith_(self);
 $2=_st($1)._accessorProtocolWith_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"generate",{},smalltalk.HLAccessorsGenerator)})},
+return self}, function($ctx1) {$ctx1.fill(self,"generate",{},globals.HLAccessorsGenerator)})},
 args: [],
 source: "generate\x0a\x09super generate.\x0a\x09\x0a\x09output targetClass \x0a\x09\x09accessorsSourceCodesWith: self;\x0a\x09\x09accessorProtocolWith: self",
 messageSends: ["generate", "accessorsSourceCodesWith:", "targetClass", "accessorProtocolWith:"],
 referencedClasses: []
 }),
-smalltalk.HLAccessorsGenerator);
+globals.HLAccessorsGenerator);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -790,8 +790,8 @@ selector: "getterFor:",
 protocol: 'private',
 fn: function (anInstanceVariable){
 var self=this;
-function $HLMethodSourceCode(){return smalltalk.HLMethodSourceCode||(typeof HLMethodSourceCode=="undefined"?nil:HLMethodSourceCode)}
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $HLMethodSourceCode(){return globals.HLMethodSourceCode||(typeof HLMethodSourceCode=="undefined"?nil:HLMethodSourceCode)}
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st($HLMethodSourceCode())._new();
@@ -806,13 +806,13 @@ $ctx2.sendIdx["<<"]=2;
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})})));
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"getterFor:",{anInstanceVariable:anInstanceVariable},smalltalk.HLAccessorsGenerator)})},
+}, function($ctx1) {$ctx1.fill(self,"getterFor:",{anInstanceVariable:anInstanceVariable},globals.HLAccessorsGenerator)})},
 args: ["anInstanceVariable"],
 source: "getterFor: anInstanceVariable\x0a\x09^ HLMethodSourceCode new\x0a\x09\x09selector:anInstanceVariable;\x0a\x09\x09sourceCode: (String streamContents: [ :stream |\x0a\x09\x09stream << anInstanceVariable.\x0a\x09\x09stream cr tab.\x0a\x09\x09stream << '^ ' << anInstanceVariable ])",
 messageSends: ["selector:", "new", "sourceCode:", "streamContents:", "<<", "tab", "cr"],
 referencedClasses: ["HLMethodSourceCode", "String"]
 }),
-smalltalk.HLAccessorsGenerator);
+globals.HLAccessorsGenerator);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -820,8 +820,8 @@ selector: "setterFor:",
 protocol: 'private',
 fn: function (anInstanceVariable){
 var self=this;
-function $HLMethodSourceCode(){return smalltalk.HLMethodSourceCode||(typeof HLMethodSourceCode=="undefined"?nil:HLMethodSourceCode)}
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $HLMethodSourceCode(){return globals.HLMethodSourceCode||(typeof HLMethodSourceCode=="undefined"?nil:HLMethodSourceCode)}
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$4,$3,$1;
 $2=_st($HLMethodSourceCode())._new();
@@ -838,18 +838,18 @@ $ctx2.sendIdx["<<"]=3;
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})})));
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"setterFor:",{anInstanceVariable:anInstanceVariable},smalltalk.HLAccessorsGenerator)})},
+}, function($ctx1) {$ctx1.fill(self,"setterFor:",{anInstanceVariable:anInstanceVariable},globals.HLAccessorsGenerator)})},
 args: ["anInstanceVariable"],
 source: "setterFor: anInstanceVariable\x0a\x09^ HLMethodSourceCode new\x0a\x09\x09selector: anInstanceVariable, ':';\x0a\x09\x09sourceCode: (String streamContents: [ :stream |\x0a\x09\x09stream << anInstanceVariable << ': anObject'.\x0a\x09\x09stream cr tab.\x0a\x09\x09stream << anInstanceVariable << ' := anObject' ])",
 messageSends: ["selector:", "new", ",", "sourceCode:", "streamContents:", "<<", "tab", "cr"],
 referencedClasses: ["HLMethodSourceCode", "String"]
 }),
-smalltalk.HLAccessorsGenerator);
+globals.HLAccessorsGenerator);
 
 
 
-smalltalk.addClass('HLInitializeGenerator', smalltalk.HLMethodGenerator, [], 'Helios-Helpers');
-smalltalk.HLInitializeGenerator.comment="I am used to double-dispatch the `initialize` method(s) generation.\x0a\x0aUsage:\x0a\x0a    ^ HLInitializeGenerator new\x0a        class: aClass;\x0a        generate;\x0a        output\x0a\x0aI am a disposable object";
+smalltalk.addClass('HLInitializeGenerator', globals.HLMethodGenerator, [], 'Helios-Helpers');
+globals.HLInitializeGenerator.comment="I am used to double-dispatch the `initialize` method(s) generation.\x0a\x0aUsage:\x0a\x0a    ^ HLInitializeGenerator new\x0a        class: aClass;\x0a        generate;\x0a        output\x0a\x0aI am a disposable object";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "generate",
@@ -858,17 +858,17 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.HLInitializeGenerator.superclass.fn.prototype._generate.apply(_st(self), []);
+globals.HLInitializeGenerator.superclass.fn.prototype._generate.apply(_st(self), []);
 $1=_st(self["@output"])._targetClass();
 _st($1)._initializeSourceCodesWith_(self);
 $2=_st($1)._initializeProtocolWith_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"generate",{},smalltalk.HLInitializeGenerator)})},
+return self}, function($ctx1) {$ctx1.fill(self,"generate",{},globals.HLInitializeGenerator)})},
 args: [],
 source: "generate\x0a\x09super generate.\x0a\x09\x0a\x09output targetClass \x0a\x09\x09initializeSourceCodesWith: self;\x0a\x09\x09initializeProtocolWith: self",
 messageSends: ["generate", "initializeSourceCodesWith:", "targetClass", "initializeProtocolWith:"],
 referencedClasses: []
 }),
-smalltalk.HLInitializeGenerator);
+globals.HLInitializeGenerator);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -876,7 +876,7 @@ selector: "generateInitializeCodeForObject",
 protocol: 'private',
 fn: function (){
 var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $3,$2,$4,$5,$6,$7,$8,$1;
 $1=_st($String())._streamContents_((function(str){
@@ -919,13 +919,13 @@ return _st(str).__lt_lt(".");
 }, function($ctx3) {$ctx3.fillBlock({name:name,index:index},$ctx2,2)})}));
 }, function($ctx2) {$ctx2.fillBlock({str:str,instVars:instVars,size:size},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"generateInitializeCodeForObject",{},smalltalk.HLInitializeGenerator)})},
+}, function($ctx1) {$ctx1.fill(self,"generateInitializeCodeForObject",{},globals.HLInitializeGenerator)})},
 args: [],
 source: "generateInitializeCodeForObject\x09\x0a\x09^ String streamContents: [ :str || instVars size |\x0a\x09\x09instVars := output targetClass instanceVariableNames sorted.\x0a\x09\x09size := instVars size.\x0a\x09\x09str << 'initialize'.\x0a\x09\x09str cr tab << 'super initialize.';cr.\x0a\x09\x09str cr tab.\x0a\x09\x09instVars withIndexDo: [ :name :index |\x0a\x09\x09\x09index ~= 1 ifTrue: [ str cr tab ].\x0a\x09\x09\x09str << name << ' := nil'.\x0a\x09\x09\x09index ~= size ifTrue: [ str << '.' ] ] ].",
 messageSends: ["streamContents:", "sorted", "instanceVariableNames", "targetClass", "size", "<<", "tab", "cr", "withIndexDo:", "ifTrue:", "~="],
 referencedClasses: ["String"]
 }),
-smalltalk.HLInitializeGenerator);
+globals.HLInitializeGenerator);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -935,13 +935,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@output"])._addSourceCode_(self._initializeMethodForObject());
-return self}, function($ctx1) {$ctx1.fill(self,"initializeForObject",{},smalltalk.HLInitializeGenerator)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initializeForObject",{},globals.HLInitializeGenerator)})},
 args: [],
 source: "initializeForObject\x0a\x09output addSourceCode: self initializeMethodForObject",
 messageSends: ["addSourceCode:", "initializeMethodForObject"],
 referencedClasses: []
 }),
-smalltalk.HLInitializeGenerator);
+globals.HLInitializeGenerator);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -949,7 +949,7 @@ selector: "initializeMethodForObject",
 protocol: 'private',
 fn: function (){
 var self=this;
-function $HLMethodSourceCode(){return smalltalk.HLMethodSourceCode||(typeof HLMethodSourceCode=="undefined"?nil:HLMethodSourceCode)}
+function $HLMethodSourceCode(){return globals.HLMethodSourceCode||(typeof HLMethodSourceCode=="undefined"?nil:HLMethodSourceCode)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st($HLMethodSourceCode())._new();
@@ -958,13 +958,13 @@ _st($2)._sourceCode_(self._generateInitializeCodeForObject());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"initializeMethodForObject",{},smalltalk.HLInitializeGenerator)})},
+}, function($ctx1) {$ctx1.fill(self,"initializeMethodForObject",{},globals.HLInitializeGenerator)})},
 args: [],
 source: "initializeMethodForObject\x09\x0a\x09^ HLMethodSourceCode new\x0a\x09\x09selector: 'initialize';\x0a\x09\x09sourceCode: self generateInitializeCodeForObject;\x0a\x09\x09yourself",
 messageSends: ["selector:", "new", "sourceCode:", "generateInitializeCodeForObject", "yourself"],
 referencedClasses: ["HLMethodSourceCode"]
 }),
-smalltalk.HLInitializeGenerator);
+globals.HLInitializeGenerator);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -974,18 +974,18 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@output"])._protocol_("initialization");
-return self}, function($ctx1) {$ctx1.fill(self,"initializeProtocolForObject",{},smalltalk.HLInitializeGenerator)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initializeProtocolForObject",{},globals.HLInitializeGenerator)})},
 args: [],
 source: "initializeProtocolForObject\x0a\x09output protocol: 'initialization'",
 messageSends: ["protocol:"],
 referencedClasses: []
 }),
-smalltalk.HLInitializeGenerator);
+globals.HLInitializeGenerator);
 
 
 
-smalltalk.addClass('HLMethodSourceCode', smalltalk.Object, ['selector', 'sourceCode'], 'Helios-Helpers');
-smalltalk.HLMethodSourceCode.comment="I am a simple data object keeping track of the information about a method that will be compiled at the end of the generation process";
+smalltalk.addClass('HLMethodSourceCode', globals.Object, ['selector', 'sourceCode'], 'Helios-Helpers');
+globals.HLMethodSourceCode.comment="I am a simple data object keeping track of the information about a method that will be compiled at the end of the generation process";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector",
@@ -1001,7 +1001,7 @@ source: "selector\x0a\x09^ selector",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMethodSourceCode);
+globals.HLMethodSourceCode);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1016,7 +1016,7 @@ source: "selector: aSelector\x0a\x09selector := aSelector",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMethodSourceCode);
+globals.HLMethodSourceCode);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1033,7 +1033,7 @@ source: "sourceCode\x0a\x09^ sourceCode",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMethodSourceCode);
+globals.HLMethodSourceCode);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1048,7 +1048,7 @@ source: "sourceCode: aString\x0a\x09sourceCode := aString",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMethodSourceCode);
+globals.HLMethodSourceCode);
 
 
 });

@@ -1,9 +1,9 @@
-define("amber_core/Kernel-Collections", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Kernel-Collections", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Kernel-Collections');
 smalltalk.packages["Kernel-Collections"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel-Collections');
-smalltalk.Association.comment="I represent a pair of associated objects, a key and a value. My instances can serve as entries in a dictionary.\x0a\x0aInstances can be created with the class-side method `#key:value:`";
+smalltalk.addClass('Association', globals.Object, ['key', 'value'], 'Kernel-Collections');
+globals.Association.comment="I represent a pair of associated objects, a key and a value. My instances can serve as entries in a dictionary.\x0a\x0aInstances can be created with the class-side method `#key:value:`";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
@@ -31,13 +31,13 @@ return _st($6).__eq(_st(anAssociation)._value());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["and:"]=1;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"=",{anAssociation:anAssociation},smalltalk.Association)})},
+}, function($ctx1) {$ctx1.fill(self,"=",{anAssociation:anAssociation},globals.Association)})},
 args: ["anAssociation"],
 source: "= anAssociation\x0a\x09^ self class = anAssociation class and: [\x0a\x09\x09self key = anAssociation key and: [\x0a\x09\x09self value = anAssociation value ]]",
 messageSends: ["and:", "=", "class", "key", "value"],
 referencedClasses: []
 }),
-smalltalk.Association);
+globals.Association);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -54,7 +54,7 @@ source: "key\x0a\x09^ key",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Association);
+globals.Association);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -69,7 +69,7 @@ source: "key: aKey\x0a\x09key := aKey",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Association);
+globals.Association);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -82,13 +82,13 @@ _st(self._key())._printOn_(aStream);
 $ctx1.sendIdx["printOn:"]=1;
 _st(aStream)._nextPutAll_(" -> ");
 _st(self._value())._printOn_(aStream);
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Association)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.Association)})},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09self key printOn: aStream.\x0a\x09aStream nextPutAll: ' -> '.\x0a\x09self value printOn: aStream",
 messageSends: ["printOn:", "key", "nextPutAll:", "value"],
 referencedClasses: []
 }),
-smalltalk.Association);
+globals.Association);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -105,7 +105,7 @@ source: "value\x0a\x09^ value",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Association);
+globals.Association);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -120,7 +120,7 @@ source: "value: aValue\x0a\x09value := aValue",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Association);
+globals.Association);
 
 
 smalltalk.addMethod(
@@ -137,17 +137,17 @@ _st($2)._value_(aValue);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"key:value:",{aKey:aKey,aValue:aValue},smalltalk.Association.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"key:value:",{aKey:aKey,aValue:aValue},globals.Association.klass)})},
 args: ["aKey", "aValue"],
 source: "key: aKey value: aValue\x0a\x09\x09^ self new\x0a\x09\x09key: aKey;\x0a\x09\x09value: aValue;\x0a\x09\x09yourself",
 messageSends: ["key:", "new", "value:", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Association.klass);
+globals.Association.klass);
 
 
-smalltalk.addClass('BucketStore', smalltalk.Object, ['buckets', 'hashBlock'], 'Kernel-Collections');
-smalltalk.BucketStore.comment="I am an helper class for hash-based stores.\x0a\x0aI hold buckets which are selected by a hash, specified using `#hashBlock:`.\x0aThe hash can be any object, and\x0ait is used as a JS property (that is, in ES5\x0aits toString() value counts).\x0a\x0a## API\x0aI maintain a list of buckets. Client code can use this API:\x0a - `#bucketOfElement:` (to ask a bucket for element, I can return JS null if n/a)\x0a - `#do:` (to enumerate all elements of all buckets)\x0a - `#removeAll` (to remove all buckets)\x0a\x0aClient code itself should add/remove elements\x0ain a bucket. The `nil` object should not be put into any bucket.\x0a\x0aTypes of buckets are the responsibility of subclasses via `#newBucket`.";
+smalltalk.addClass('BucketStore', globals.Object, ['buckets', 'hashBlock'], 'Kernel-Collections');
+globals.BucketStore.comment="I am an helper class for hash-based stores.\x0a\x0aI hold buckets which are selected by a hash, specified using `#hashBlock:`.\x0aThe hash can be any object, and\x0ait is used as a JS property (that is, in ES5\x0aits toString() value counts).\x0a\x0a## API\x0aI maintain a list of buckets. Client code can use this API:\x0a - `#bucketOfElement:` (to ask a bucket for element, I can return JS null if n/a)\x0a - `#do:` (to enumerate all elements of all buckets)\x0a - `#removeAll` (to remove all buckets)\x0a\x0aClient code itself should add/remove elements\x0ain a bucket. The `nil` object should not be put into any bucket.\x0a\x0aTypes of buckets are the responsibility of subclasses via `#newBucket`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "bucketOfElement:",
@@ -168,7 +168,7 @@ source: "bucketOfElement: anObject\x0a\x09<\x0a\x09\x09var hash = self['@hashBlo
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BucketStore);
+globals.BucketStore);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -187,7 +187,7 @@ source: "do: aBlock\x0a\x09<\x0a\x09\x09var buckets = self['@buckets'];\x0a\x09\
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BucketStore);
+globals.BucketStore);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -202,7 +202,7 @@ source: "hashBlock: aBlock\x0a\x09hashBlock := aBlock",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BucketStore);
+globals.BucketStore);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -211,15 +211,15 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.BucketStore.superclass.fn.prototype._initialize.apply(_st(self), []);
+globals.BucketStore.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._removeAll();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.BucketStore)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.BucketStore)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09self removeAll",
 messageSends: ["initialize", "removeAll"],
 referencedClasses: []
 }),
-smalltalk.BucketStore);
+globals.BucketStore);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -229,13 +229,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"newBucket",{},smalltalk.BucketStore)})},
+return self}, function($ctx1) {$ctx1.fill(self,"newBucket",{},globals.BucketStore)})},
 args: [],
 source: "newBucket\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.BucketStore);
+globals.BucketStore);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -250,7 +250,7 @@ source: "removeAll\x0a\x09<self['@buckets'] = Object.create(null);>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.BucketStore);
+globals.BucketStore);
 
 
 smalltalk.addMethod(
@@ -266,17 +266,17 @@ _st($2)._hashBlock_(aBlock);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"hashBlock:",{aBlock:aBlock},smalltalk.BucketStore.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"hashBlock:",{aBlock:aBlock},globals.BucketStore.klass)})},
 args: ["aBlock"],
 source: "hashBlock: aBlock\x0a\x09^ self new\x0a\x09\x09hashBlock: aBlock;\x0a\x09\x09yourself",
 messageSends: ["hashBlock:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.BucketStore.klass);
+globals.BucketStore.klass);
 
 
-smalltalk.addClass('ArrayBucketStore', smalltalk.BucketStore, [], 'Kernel-Collections');
-smalltalk.ArrayBucketStore.comment="I am a concrete `BucketStore` with buckets being instance of `Array`.";
+smalltalk.addClass('ArrayBucketStore', globals.BucketStore, [], 'Kernel-Collections');
+globals.ArrayBucketStore.comment="I am a concrete `BucketStore` with buckets being instance of `Array`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "newBucket",
@@ -292,12 +292,12 @@ source: "newBucket\x0a\x09^ #()",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.ArrayBucketStore);
+globals.ArrayBucketStore);
 
 
 
-smalltalk.addClass('Collection', smalltalk.Object, [], 'Kernel-Collections');
-smalltalk.Collection.comment="I am the abstract superclass of all classes that represent a group of elements.\x0a\x0aI provide a set of useful methods to the Collection hierarchy such as enumerating and converting methods.";
+smalltalk.addClass('Collection', globals.Object, [], 'Kernel-Collections');
+globals.Collection.comment="I am the abstract superclass of all classes that represent a group of elements.\x0a\x0aI provide a set of useful methods to the Collection hierarchy such as enumerating and converting methods.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
@@ -311,13 +311,13 @@ _st($2)._addAll_(aCollection);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,",",{aCollection:aCollection},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,",",{aCollection:aCollection},globals.Collection)})},
 args: ["aCollection"],
 source: ", aCollection\x0a\x09^ self copy\x0a\x09\x09addAll: aCollection;\x0a\x09\x09yourself",
 messageSends: ["addAll:", "copy", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -327,13 +327,13 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},smalltalk.Collection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},globals.Collection)})},
 args: ["anObject"],
 source: "add: anObject\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -347,13 +347,13 @@ return smalltalk.withContext(function($ctx2) {
 return self._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return aCollection;
-}, function($ctx1) {$ctx1.fill(self,"addAll:",{aCollection:aCollection},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"addAll:",{aCollection:aCollection},globals.Collection)})},
 args: ["aCollection"],
 source: "addAll: aCollection\x0a\x09aCollection do: [ :each |\x0a\x09\x09self add: each ].\x0a\x09^ aCollection",
 messageSends: ["do:", "add:"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -375,13 +375,13 @@ throw $early=[false];
 return true;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"allSatisfy:",{aBlock:aBlock},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"allSatisfy:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
 source: "allSatisfy: aBlock\x0a\x09\x22Evaluate aBlock with the elements of the receiver.\x0a\x09If aBlock returns false for any element return false.\x0a\x09Otherwise return true.\x22\x0a\x0a\x09self do: [ :each | (aBlock value: each) ifFalse: [ ^ false ] ].\x0a\x09^ true",
 messageSends: ["do:", "ifFalse:", "value:"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -402,13 +402,13 @@ throw $early=[each];
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"anyOne",{},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"anyOne",{},globals.Collection)})},
 args: [],
 source: "anyOne\x0a\x09\x22Answer a representative sample of the receiver. This method can\x0a\x09be helpful when needing to preinfer the nature of the contents of \x0a\x09semi-homogeneous collections.\x22\x0a\x0a\x09self ifEmpty: [ self error: 'Collection is empty' ].\x0a\x09self do: [ :each | ^ each ]",
 messageSends: ["ifEmpty:", "error:", "do:"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -430,13 +430,13 @@ throw $early=[true];
 return false;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"anySatisfy:",{aBlock:aBlock},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"anySatisfy:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
 source: "anySatisfy: aBlock\x0a\x09\x22Evaluate aBlock with the elements of the receiver.\x0a\x09If aBlock returns true for any element return true.\x0a\x09Otherwise return false.\x22\x0a\x0a\x09self do: [ :each | (aBlock value: each) ifTrue: [ ^ true ] ].\x0a\x09^ false",
 messageSends: ["do:", "ifTrue:", "value:"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -444,18 +444,18 @@ selector: "asArray",
 protocol: 'converting',
 fn: function (){
 var self=this;
-function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st($Array())._withAll_(self);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asArray",{},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"asArray",{},globals.Collection)})},
 args: [],
 source: "asArray\x0a\x09^ Array withAll: self",
 messageSends: ["withAll:"],
 referencedClasses: ["Array"]
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -470,13 +470,13 @@ return smalltalk.withContext(function($ctx2) {
 return _st(each)._asJSON();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"asJSON",{},globals.Collection)})},
 args: [],
 source: "asJSON\x0a\x09^ self asArray collect: [ :each | each asJSON ]",
 messageSends: ["collect:", "asArray", "asJSON"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -488,13 +488,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._asArray();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asOrderedCollection",{},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"asOrderedCollection",{},globals.Collection)})},
 args: [],
 source: "asOrderedCollection\x0a\x09^ self asArray",
 messageSends: ["asArray"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -502,18 +502,18 @@ selector: "asSet",
 protocol: 'converting',
 fn: function (){
 var self=this;
-function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st($Set())._withAll_(self);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSet",{},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"asSet",{},globals.Collection)})},
 args: [],
 source: "asSet\x0a\x09^ Set withAll: self",
 messageSends: ["withAll:"],
 referencedClasses: ["Set"]
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -531,13 +531,13 @@ return _st(stream)._nextPut_(_st(aBlock)._value_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $1=_st(stream)._contents();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock,stream:stream},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock,stream:stream},globals.Collection)})},
 args: ["aBlock"],
 source: "collect: aBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [ :each |\x0a\x09\x09stream nextPut: (aBlock value: each) ].\x0a\x09^ stream contents",
 messageSends: ["writeStream", "new", "class", "do:", "nextPut:", "value:", "contents"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -550,13 +550,13 @@ var $1;
 self._deprecatedAPI();
 $1=self._anySatisfy_(aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"contains:",{aBlock:aBlock},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"contains:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
 source: "contains: aBlock\x0a\x09self deprecatedAPI.\x0a\x0a\x09^ self anySatisfy: aBlock",
 messageSends: ["deprecatedAPI", "anySatisfy:"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -571,13 +571,13 @@ _st($2)._add_(anObject);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"copyWith:",{anObject:anObject},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"copyWith:",{anObject:anObject},globals.Collection)})},
 args: ["anObject"],
 source: "copyWith: anObject\x0a\x09^ self copy add: anObject; yourself",
 messageSends: ["add:", "copy", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -592,13 +592,13 @@ _st($2)._addAll_(aCollection);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"copyWithAll:",{aCollection:aCollection},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"copyWithAll:",{aCollection:aCollection},globals.Collection)})},
 args: ["aCollection"],
 source: "copyWithAll: aCollection\x0a\x09^ self copy addAll: aCollection; yourself",
 messageSends: ["addAll:", "copy", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -613,13 +613,13 @@ return smalltalk.withContext(function($ctx2) {
 return _st(aCollection)._includes_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"copyWithoutAll:",{aCollection:aCollection},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"copyWithoutAll:",{aCollection:aCollection},globals.Collection)})},
 args: ["aCollection"],
 source: "copyWithoutAll: aCollection\x0a\x09\x22Answer a copy of the receiver that does not contain any elements\x0a\x09equal to those in aCollection.\x22\x0a\x0a\x09^ self reject: [ :each | aCollection includes: each ]",
 messageSends: ["reject:", "includes:"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -634,13 +634,13 @@ return smalltalk.withContext(function($ctx2) {
 return self._errorNotFound();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"detect:",{aBlock:aBlock},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"detect:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
 source: "detect: aBlock\x0a\x09^ self detect: aBlock ifNone: [ self errorNotFound ]",
 messageSends: ["detect:ifNone:", "errorNotFound"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -650,13 +650,13 @@ fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"detect:ifNone:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Collection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"detect:ifNone:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Collection)})},
 args: ["aBlock", "anotherBlock"],
 source: "detect: aBlock ifNone: anotherBlock\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -666,13 +666,13 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.Collection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
 source: "do: aBlock\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -692,13 +692,13 @@ return smalltalk.withContext(function($ctx2) {
 _st(actionBeforeElement)._value();
 return _st(aBlock)._value_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"do:separatedBy:",{aBlock:aBlock,anotherBlock:anotherBlock,actionBeforeElement:actionBeforeElement},smalltalk.Collection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"do:separatedBy:",{aBlock:aBlock,anotherBlock:anotherBlock,actionBeforeElement:actionBeforeElement},globals.Collection)})},
 args: ["aBlock", "anotherBlock"],
 source: "do: aBlock separatedBy: anotherBlock\x0a\x09| actionBeforeElement |\x0a\x09actionBeforeElement := [ actionBeforeElement := anotherBlock ].\x0a\x09self do: [ :each |\x0a\x09\x09actionBeforeElement value.\x0a\x09\x09aBlock value: each ]",
 messageSends: ["do:", "value", "value:"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -708,13 +708,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._error_("Object is not in the collection");
-return self}, function($ctx1) {$ctx1.fill(self,"errorNotFound",{},smalltalk.Collection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"errorNotFound",{},globals.Collection)})},
 args: [],
 source: "errorNotFound\x0a\x09self error: 'Object is not in the collection'",
 messageSends: ["error:"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -730,13 +730,13 @@ return smalltalk.withContext(function($ctx2) {
 return self;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ifEmpty:",{aBlock:aBlock},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"ifEmpty:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
 source: "ifEmpty: aBlock\x0a\x09\x22Evaluate the given block with the receiver as argument, answering its value if the receiver is empty, otherwise answer the receiver. \x0a\x09Note that the fact that this method returns its argument in case the receiver is not empty allows one to write expressions like the following ones: \x0a\x09\x09self classifyMethodAs:\x0a\x09\x09\x09(myProtocol ifEmpty: ['As yet unclassified'])\x22\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: [ self ]",
 messageSends: ["ifTrue:ifFalse:", "isEmpty"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -749,13 +749,13 @@ var $2,$1;
 $2=self._isEmpty();
 $1=_st($2)._ifTrue_ifFalse_(aBlock,anotherBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ifEmpty:ifNotEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"ifEmpty:ifNotEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Collection)})},
 args: ["aBlock", "anotherBlock"],
 source: "ifEmpty: aBlock ifNotEmpty: anotherBlock\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: anotherBlock",
 messageSends: ["ifTrue:ifFalse:", "isEmpty"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -771,13 +771,13 @@ return smalltalk.withContext(function($ctx2) {
 return self;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
 source: "ifNotEmpty: aBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: [ self ]",
 messageSends: ["ifTrue:ifFalse:", "notEmpty"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -790,13 +790,13 @@ var $2,$1;
 $2=self._notEmpty();
 $1=_st($2)._ifTrue_ifFalse_(aBlock,anotherBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:ifEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:ifEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Collection)})},
 args: ["aBlock", "anotherBlock"],
 source: "ifNotEmpty: aBlock ifEmpty: anotherBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: anotherBlock",
 messageSends: ["ifTrue:ifFalse:", "notEmpty"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -811,13 +811,13 @@ return smalltalk.withContext(function($ctx2) {
 return _st(each).__eq(anObject);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},globals.Collection)})},
 args: ["anObject"],
 source: "includes: anObject\x0a\x09^ self anySatisfy: [ :each | each = anObject ]",
 messageSends: ["anySatisfy:", "="],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -836,13 +836,13 @@ return result;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $1=result;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"inject:into:",{anObject:anObject,aBlock:aBlock,result:result},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"inject:into:",{anObject:anObject,aBlock:aBlock,result:result},globals.Collection)})},
 args: ["anObject", "aBlock"],
 source: "inject: anObject into: aBlock\x0a\x09| result |\x0a\x09result := anObject.\x0a\x09self do: [ :each |\x0a\x09\x09result := aBlock value: result value: each ].\x0a\x09^ result",
 messageSends: ["do:", "value:value:"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -851,7 +851,7 @@ protocol: 'enumerating',
 fn: function (aCollection){
 var self=this;
 var set,outputSet;
-function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$3;
 set=self._asSet();
@@ -870,13 +870,13 @@ return _st(outputSet)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $3=_st(self._class())._withAll_(_st(outputSet)._asArray());
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"intersection:",{aCollection:aCollection,set:set,outputSet:outputSet},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"intersection:",{aCollection:aCollection,set:set,outputSet:outputSet},globals.Collection)})},
 args: ["aCollection"],
 source: "intersection: aCollection\x0a\x09\x22Answer the set theoretic intersection of two collections.\x22\x0a\x0a\x09| set outputSet |\x0a\x09\x0a\x09set := self asSet.\x0a\x09outputSet := Set new.\x0a\x09\x0a\x09aCollection do: [ :each |\x0a\x09\x09((set includes: each) and: [ (outputSet includes: each) not ])\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09outputSet add: each ]].\x0a\x09\x09\x0a\x09^ self class withAll: outputSet asArray",
 messageSends: ["asSet", "new", "do:", "ifTrue:", "and:", "includes:", "not", "add:", "withAll:", "class", "asArray"],
 referencedClasses: ["Set"]
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -888,13 +888,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._size()).__eq((0));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isEmpty",{},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"isEmpty",{},globals.Collection)})},
 args: [],
 source: "isEmpty\x0a\x09^ self size = 0",
 messageSends: ["=", "size"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -916,13 +916,13 @@ throw $early=[false];
 return true;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"noneSatisfy:",{aBlock:aBlock},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"noneSatisfy:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
 source: "noneSatisfy: aBlock\x0a\x09\x22Evaluate aBlock with the elements of the receiver.\x0a\x09If aBlock returns false for all elements return true.\x0a\x09Otherwise return false\x22\x0a\x0a\x09self do: [ :item | (aBlock value: item) ifTrue: [ ^ false ] ].\x0a\x09^ true",
 messageSends: ["do:", "ifTrue:", "value:"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -934,13 +934,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._isEmpty())._not();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"notEmpty",{},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"notEmpty",{},globals.Collection)})},
 args: [],
 source: "notEmpty\x0a\x09^ self isEmpty not",
 messageSends: ["not", "isEmpty"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -962,13 +962,13 @@ return tally;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $2=tally;
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"occurrencesOf:",{anObject:anObject,tally:tally},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"occurrencesOf:",{anObject:anObject,tally:tally},globals.Collection)})},
 args: ["anObject"],
 source: "occurrencesOf: anObject\x0a\x09\x22Answer how many of the receiver's elements are equal to anObject.\x22\x0a\x0a\x09| tally |\x0a\x09tally := 0.\x0a\x09self do: [ :each | anObject = each ifTrue: [ tally := tally + 1 ]].\x0a\x09^ tally",
 messageSends: ["do:", "ifTrue:", "=", "+"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -981,13 +981,13 @@ self._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._putOn_(aStream);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.Collection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},globals.Collection)})},
 args: ["aStream"],
 source: "putOn: aStream\x0a\x09self do: [ :each | each putOn: aStream ]",
 messageSends: ["do:", "putOn:"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1002,13 +1002,13 @@ return smalltalk.withContext(function($ctx2) {
 return _st(_st(aBlock)._value_(each)).__eq(false);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"reject:",{aBlock:aBlock},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"reject:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
 source: "reject: aBlock\x0a\x09^ self select: [ :each | (aBlock value: each) = false ]",
 messageSends: ["select:", "=", "value:"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1023,13 +1023,13 @@ return smalltalk.withContext(function($ctx2) {
 return self._errorNotFound();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"remove:",{anObject:anObject},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"remove:",{anObject:anObject},globals.Collection)})},
 args: ["anObject"],
 source: "remove: anObject\x0a\x09^ self remove: anObject ifAbsent: [ self errorNotFound ]",
 messageSends: ["remove:ifAbsent:", "errorNotFound"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1039,13 +1039,13 @@ fn: function (anObject,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.Collection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock},globals.Collection)})},
 args: ["anObject", "aBlock"],
 source: "remove: anObject ifAbsent: aBlock\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1055,13 +1055,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Collection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},globals.Collection)})},
 args: [],
 source: "removeAll\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1082,13 +1082,13 @@ return _st(stream)._nextPut_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $2=_st(stream)._contents();
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,stream:stream},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,stream:stream},globals.Collection)})},
 args: ["aBlock"],
 source: "select: aBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [ :each |\x0a\x09\x09(aBlock value: each) ifTrue: [\x0a\x09\x09stream nextPut: each ] ].\x0a\x09^ stream contents",
 messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "value:", "nextPut:", "contents"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1110,13 +1110,13 @@ return _st(stream)._nextPut_(_st(collectBlock)._value_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $2=_st(stream)._contents();
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"select:thenCollect:",{selectBlock:selectBlock,collectBlock:collectBlock,stream:stream},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"select:thenCollect:",{selectBlock:selectBlock,collectBlock:collectBlock,stream:stream},globals.Collection)})},
 args: ["selectBlock", "collectBlock"],
 source: "select: selectBlock thenCollect: collectBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [ :each |\x0a\x09\x09(selectBlock value: each) ifTrue: [\x0a\x09\x09stream nextPut: (collectBlock value: each) ] ].\x0a\x09^ stream contents",
 messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "value:", "nextPut:", "contents"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1126,13 +1126,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"size",{},smalltalk.Collection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"size",{},globals.Collection)})},
 args: [],
 source: "size\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.Collection);
+globals.Collection);
 
 
 smalltalk.addMethod(
@@ -1148,7 +1148,7 @@ source: "heliosClass\x0a\x09^ 'collection'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Collection.klass);
+globals.Collection.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1160,13 +1160,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._new();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"new:",{anInteger:anInteger},smalltalk.Collection.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"new:",{anInteger:anInteger},globals.Collection.klass)})},
 args: ["anInteger"],
 source: "new: anInteger\x0a\x09^ self new",
 messageSends: ["new"],
 referencedClasses: []
 }),
-smalltalk.Collection.klass);
+globals.Collection.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1181,13 +1181,13 @@ _st($2)._add_(anObject);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},smalltalk.Collection.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},globals.Collection.klass)})},
 args: ["anObject"],
 source: "with: anObject\x0a\x09\x09^ self new\x0a\x09\x09add: anObject;\x0a\x09\x09yourself",
 messageSends: ["add:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Collection.klass);
+globals.Collection.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1204,13 +1204,13 @@ _st($2)._add_(anotherObject);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"with:with:",{anObject:anObject,anotherObject:anotherObject},smalltalk.Collection.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"with:with:",{anObject:anObject,anotherObject:anotherObject},globals.Collection.klass)})},
 args: ["anObject", "anotherObject"],
 source: "with: anObject with: anotherObject\x0a\x09\x09^ self new\x0a\x09\x09add: anObject;\x0a\x09\x09add: anotherObject;\x0a\x09\x09yourself",
 messageSends: ["add:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Collection.klass);
+globals.Collection.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1229,13 +1229,13 @@ _st($2)._add_(thirdObject);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"with:with:with:",{firstObject:firstObject,secondObject:secondObject,thirdObject:thirdObject},smalltalk.Collection.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"with:with:with:",{firstObject:firstObject,secondObject:secondObject,thirdObject:thirdObject},globals.Collection.klass)})},
 args: ["firstObject", "secondObject", "thirdObject"],
 source: "with: firstObject with: secondObject with: thirdObject\x0a\x09\x09^ self new\x0a\x09\x09add: firstObject;\x0a\x09\x09add: secondObject;\x0a\x09\x09add: thirdObject;\x0a\x09\x09yourself",
 messageSends: ["add:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Collection.klass);
+globals.Collection.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1250,17 +1250,17 @@ _st($2)._addAll_(aCollection);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"withAll:",{aCollection:aCollection},smalltalk.Collection.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"withAll:",{aCollection:aCollection},globals.Collection.klass)})},
 args: ["aCollection"],
 source: "withAll: aCollection\x0a\x09\x09^ self new\x0a\x09\x09addAll: aCollection;\x0a\x09\x09yourself",
 messageSends: ["addAll:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Collection.klass);
+globals.Collection.klass);
 
 
-smalltalk.addClass('IndexableCollection', smalltalk.Collection, [], 'Kernel-Collections');
-smalltalk.IndexableCollection.comment="I am a key-value store collection, that is,\x0aI store values under indexes.\x0a\x0aAs a rule of thumb, if a collection has `#at:` and `#at:put:`,\x0ait is an IndexableCollection.";
+smalltalk.addClass('IndexableCollection', globals.Collection, [], 'Kernel-Collections');
+globals.IndexableCollection.comment="I am a key-value store collection, that is,\x0aI store values under indexes.\x0a\x0aAs a rule of thumb, if a collection has `#at:` and `#at:put:`,\x0ait is an IndexableCollection.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:",
@@ -1274,13 +1274,13 @@ return smalltalk.withContext(function($ctx2) {
 return self._errorNotFound();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:",{anIndex:anIndex},smalltalk.IndexableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"at:",{anIndex:anIndex},globals.IndexableCollection)})},
 args: ["anIndex"],
 source: "at: anIndex\x0a\x09\x22Lookup the given index in the receiver.\x0a\x09If it is present, answer the value stored at anIndex.\x0a\x09Otherwise, raise an error.\x22\x0a\x0a\x09^ self at: anIndex ifAbsent: [ self errorNotFound ]",
 messageSends: ["at:ifAbsent:", "errorNotFound"],
 referencedClasses: []
 }),
-smalltalk.IndexableCollection);
+globals.IndexableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1290,13 +1290,13 @@ fn: function (anIndex,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},smalltalk.IndexableCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},globals.IndexableCollection)})},
 args: ["anIndex", "aBlock"],
 source: "at: anIndex ifAbsent: aBlock\x0a\x09\x22Lookup the given index in the receiver.\x0a\x09If it is present, answer the value stored at anIndex.\x0a\x09Otherwise, answer the value of aBlock.\x22\x0a\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.IndexableCollection);
+globals.IndexableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1311,13 +1311,13 @@ return smalltalk.withContext(function($ctx2) {
 return self._at_put_(aKey,_st(aBlock)._value());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsentPut:",{aKey:aKey,aBlock:aBlock},smalltalk.IndexableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsentPut:",{aKey:aKey,aBlock:aBlock},globals.IndexableCollection)})},
 args: ["aKey", "aBlock"],
 source: "at: aKey ifAbsentPut: aBlock\x0a\x09^ self at: aKey ifAbsent: [\x0a\x09\x09self at: aKey put: aBlock value ]",
 messageSends: ["at:ifAbsent:", "at:put:", "value"],
 referencedClasses: []
 }),
-smalltalk.IndexableCollection);
+globals.IndexableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1332,13 +1332,13 @@ return smalltalk.withContext(function($ctx2) {
 return nil;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{anIndex:anIndex,aBlock:aBlock},smalltalk.IndexableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{anIndex:anIndex,aBlock:aBlock},globals.IndexableCollection)})},
 args: ["anIndex", "aBlock"],
 source: "at: anIndex ifPresent: aBlock\x0a\x09\x22Lookup the given index in the receiver.\x0a\x09If it is present, answer the value of evaluating aBlock with the value stored at anIndex.\x0a\x09Otherwise, answer nil.\x22\x0a\x0a\x09^ self at: anIndex ifPresent: aBlock ifAbsent: [ nil ]",
 messageSends: ["at:ifPresent:ifAbsent:"],
 referencedClasses: []
 }),
-smalltalk.IndexableCollection);
+globals.IndexableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1348,13 +1348,13 @@ fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.IndexableCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock},globals.IndexableCollection)})},
 args: ["anIndex", "aBlock", "anotherBlock"],
 source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22Lookup the given index in the receiver.\x0a\x09If it is present, answer the value of evaluating aBlock with the value stored at anIndex.\x0a\x09Otherwise, answer the value of anotherBlock.\x22\x0a\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.IndexableCollection);
+globals.IndexableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1364,13 +1364,13 @@ fn: function (anIndex,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{anIndex:anIndex,anObject:anObject},smalltalk.IndexableCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{anIndex:anIndex,anObject:anObject},globals.IndexableCollection)})},
 args: ["anIndex", "anObject"],
 source: "at: anIndex put: anObject\x0a\x09\x22Store anObject under the given index in the receiver.\x22\x0a\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.IndexableCollection);
+globals.IndexableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1385,13 +1385,13 @@ return smalltalk.withContext(function($ctx2) {
 return self._errorNotFound();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"indexOf:",{anObject:anObject},smalltalk.IndexableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"indexOf:",{anObject:anObject},globals.IndexableCollection)})},
 args: ["anObject"],
 source: "indexOf: anObject\x0a\x09\x22Lookup index at which anObject is stored in the receiver.\x0a\x09If not present, raise an error.\x22\x0a\x0a\x09^ self indexOf: anObject ifAbsent: [ self errorNotFound ]",
 messageSends: ["indexOf:ifAbsent:", "errorNotFound"],
 referencedClasses: []
 }),
-smalltalk.IndexableCollection);
+globals.IndexableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1401,13 +1401,13 @@ fn: function (anObject,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.IndexableCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock},globals.IndexableCollection)})},
 args: ["anObject", "aBlock"],
 source: "indexOf: anObject ifAbsent: aBlock\x0a\x09\x22Lookup index at which anObject is stored in the receiver.\x0a\x09If not present, return value of executing aBlock.\x22\x0a\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.IndexableCollection);
+globals.IndexableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1420,13 +1420,13 @@ self._withIndexDo_((function(each,index){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_value_(each,_st(anotherCollection)._at_(index));
 }, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"with:do:",{anotherCollection:anotherCollection,aBlock:aBlock},smalltalk.IndexableCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"with:do:",{anotherCollection:anotherCollection,aBlock:aBlock},globals.IndexableCollection)})},
 args: ["anotherCollection", "aBlock"],
 source: "with: anotherCollection do: aBlock\x0a\x09\x22Calls aBlock with every value from self\x0a\x09and with indetically-indexed value from anotherCollection\x22\x0a\x0a\x09self withIndexDo: [ :each :index |\x0a\x09\x09aBlock value: each value: (anotherCollection at: index) ]",
 messageSends: ["withIndexDo:", "value:value:", "at:"],
 referencedClasses: []
 }),
-smalltalk.IndexableCollection);
+globals.IndexableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1436,18 +1436,18 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.IndexableCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},globals.IndexableCollection)})},
 args: ["aBlock"],
 source: "withIndexDo: aBlock\x0a\x09\x22Calls aBlock with every value from self\x0a\x09and with its index as the second argument\x22\x0a\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.IndexableCollection);
+globals.IndexableCollection);
 
 
 
-smalltalk.addClass('AssociativeCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
-smalltalk.AssociativeCollection.comment="I am a base class for object-indexed collections (Dictionary et.al.).";
+smalltalk.addClass('AssociativeCollection', globals.IndexableCollection, [], 'Kernel-Collections');
+globals.AssociativeCollection.comment="I am a base class for object-indexed collections (Dictionary et.al.).";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
@@ -1474,13 +1474,13 @@ $6=self._associations();
 $ctx1.sendIdx["associations"]=1;
 $5=_st($6).__eq(_st(anAssocitativeCollection)._associations());
 return $5;
-}, function($ctx1) {$ctx1.fill(self,"=",{anAssocitativeCollection:anAssocitativeCollection},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"=",{anAssocitativeCollection:anAssocitativeCollection},globals.AssociativeCollection)})},
 args: ["anAssocitativeCollection"],
 source: "= anAssocitativeCollection\x0a\x09self class = anAssocitativeCollection class ifFalse: [ ^ false ].\x0a\x09self size = anAssocitativeCollection size ifFalse: [ ^ false ].\x0a\x09^ self associations = anAssocitativeCollection associations",
 messageSends: ["ifFalse:", "=", "class", "size", "associations"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1490,13 +1490,13 @@ fn: function (anAssociation){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_(_st(anAssociation)._key(),_st(anAssociation)._value());
-return self}, function($ctx1) {$ctx1.fill(self,"add:",{anAssociation:anAssociation},smalltalk.AssociativeCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"add:",{anAssociation:anAssociation},globals.AssociativeCollection)})},
 args: ["anAssociation"],
 source: "add: anAssociation\x0a\x09self at: anAssociation key put: anAssociation value",
 messageSends: ["at:put:", "key", "value"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1505,15 +1505,15 @@ protocol: 'adding/removing',
 fn: function (anAssociativeCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.AssociativeCollection.superclass.fn.prototype._addAll_.apply(_st(self), [_st(anAssociativeCollection)._associations()]);
+globals.AssociativeCollection.superclass.fn.prototype._addAll_.apply(_st(self), [_st(anAssociativeCollection)._associations()]);
 return anAssociativeCollection;
-}, function($ctx1) {$ctx1.fill(self,"addAll:",{anAssociativeCollection:anAssociativeCollection},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"addAll:",{anAssociativeCollection:anAssociativeCollection},globals.AssociativeCollection)})},
 args: ["anAssociativeCollection"],
 source: "addAll: anAssociativeCollection\x0a\x09super addAll: anAssociativeCollection associations.\x0a\x09^ anAssociativeCollection",
 messageSends: ["addAll:", "associations"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1521,18 +1521,18 @@ selector: "asDictionary",
 protocol: 'converting',
 fn: function (){
 var self=this;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st($Dictionary())._from_(self._associations());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asDictionary",{},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"asDictionary",{},globals.AssociativeCollection)})},
 args: [],
 source: "asDictionary\x0a\x09^ Dictionary from: self associations",
 messageSends: ["from:", "associations"],
 referencedClasses: ["Dictionary"]
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1540,18 +1540,18 @@ selector: "asHashedCollection",
 protocol: 'converting',
 fn: function (){
 var self=this;
-function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st($HashedCollection())._from_(self._associations());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asHashedCollection",{},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"asHashedCollection",{},globals.AssociativeCollection)})},
 args: [],
 source: "asHashedCollection\x0a\x09^ HashedCollection from: self associations",
 messageSends: ["from:", "associations"],
 referencedClasses: ["HashedCollection"]
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1560,7 +1560,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 var hash;
-function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 hash=_st($HashedCollection())._new();
@@ -1570,13 +1570,13 @@ return _st(hash)._at_put_(key,_st(value)._asJSON());
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
 $1=hash;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJSON",{hash:hash},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"asJSON",{hash:hash},globals.AssociativeCollection)})},
 args: [],
 source: "asJSON\x0a\x09| hash |\x0a\x09hash := HashedCollection new.\x0a\x09self keysAndValuesDo: [ :key :value |\x0a\x09\x09hash at: key put: value asJSON ].\x0a\x09^ hash",
 messageSends: ["new", "keysAndValuesDo:", "at:put:", "asJSON"],
 referencedClasses: ["HashedCollection"]
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1594,13 +1594,13 @@ return _st(associations)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $1=associations;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"associations",{associations:associations},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"associations",{associations:associations},globals.AssociativeCollection)})},
 args: [],
 source: "associations\x0a\x09| associations |\x0a\x09associations := #().\x0a\x09self associationsDo: [ :each | associations add: each ].\x0a\x09^ associations",
 messageSends: ["associationsDo:", "add:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1608,19 +1608,19 @@ selector: "associationsDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
-function $Association(){return smalltalk.Association||(typeof Association=="undefined"?nil:Association)}
+function $Association(){return globals.Association||(typeof Association=="undefined"?nil:Association)}
 return smalltalk.withContext(function($ctx1) { 
 self._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_(_st($Association())._key_value_(key,value));
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"associationsDo:",{aBlock:aBlock},smalltalk.AssociativeCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"associationsDo:",{aBlock:aBlock},globals.AssociativeCollection)})},
 args: ["aBlock"],
 source: "associationsDo: aBlock\x0a\x09self keysAndValuesDo: [ :key :value |\x0a\x09\x09aBlock value: (Association key: key value: value) ]",
 messageSends: ["keysAndValuesDo:", "value:", "key:value:"],
 referencedClasses: ["Association"]
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1637,13 +1637,13 @@ $1=_st(aBlock)._value_(self._at_(aKey));
 $1=_st(anotherBlock)._value();
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aKey:aKey,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aKey:aKey,aBlock:aBlock,anotherBlock:anotherBlock},globals.AssociativeCollection)})},
 args: ["aKey", "aBlock", "anotherBlock"],
 source: "at: aKey ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22Lookup the given key in the receiver.\x0a\x09If it is present, answer the value of evaluating the oneArgBlock \x0a\x09with the value associated with the key, otherwise answer the value \x0a\x09of absentBlock.\x22\x0a\x09\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ aBlock value: (self at: aKey) ]\x0a\x09\x09ifFalse: [ anotherBlock value ]",
 messageSends: ["ifTrue:ifFalse:", "includesKey:", "value:", "at:", "value"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1661,13 +1661,13 @@ return _st(newDict)._at_put_(key,_st(aBlock)._value_(value));
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
 $1=newDict;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock,newDict:newDict},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock,newDict:newDict},globals.AssociativeCollection)})},
 args: ["aBlock"],
 source: "collect: aBlock\x0a\x09| newDict |\x0a\x09newDict := self class new.\x0a\x09self keysAndValuesDo: [ :key :value |\x0a\x09\x09newDict at: key put: (aBlock value: value) ].\x0a\x09^ newDict",
 messageSends: ["new", "class", "keysAndValuesDo:", "at:put:", "value:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1685,13 +1685,13 @@ return _st(copy)._at_put_(key,_st(value)._deepCopy());
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
 $1=copy;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"deepCopy",{copy:copy},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"deepCopy",{copy:copy},globals.AssociativeCollection)})},
 args: [],
 source: "deepCopy\x0a\x09| copy |\x0a\x09copy := self class new.\x0a\x09self keysAndValuesDo: [ :key :value |\x0a\x09\x09copy at: key put: value deepCopy ].\x0a\x09^ copy",
 messageSends: ["new", "class", "keysAndValuesDo:", "at:put:", "deepCopy"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1703,13 +1703,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._values())._detect_ifNone_(aBlock,anotherBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"detect:ifNone:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"detect:ifNone:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.AssociativeCollection)})},
 args: ["aBlock", "anotherBlock"],
 source: "detect: aBlock ifNone: anotherBlock\x0a\x09^ self values detect: aBlock ifNone: anotherBlock",
 messageSends: ["detect:ifNone:", "values"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1719,13 +1719,13 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._valuesDo_(aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.AssociativeCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},globals.AssociativeCollection)})},
 args: ["aBlock"],
 source: "do: aBlock\x0a\x09self valuesDo: aBlock",
 messageSends: ["valuesDo:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1737,13 +1737,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._values())._includes_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},globals.AssociativeCollection)})},
 args: ["anObject"],
 source: "includes: anObject\x0a\x09^ self values includes: anObject",
 messageSends: ["includes:", "values"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1753,13 +1753,13 @@ fn: function (aKey){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey},smalltalk.AssociativeCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey},globals.AssociativeCollection)})},
 args: ["aKey"],
 source: "includesKey: aKey\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1774,13 +1774,13 @@ return smalltalk.withContext(function($ctx2) {
 return _st(self._at_(each)).__eq(anObject);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock},globals.AssociativeCollection)})},
 args: ["anObject", "aBlock"],
 source: "indexOf: anObject ifAbsent: aBlock\x0a\x09^ self keys \x0a\x09\x09detect: [ :each | (self at: each) = anObject ] \x0a\x09\x09ifNone: aBlock",
 messageSends: ["detect:ifNone:", "keys", "=", "at:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1795,13 +1795,13 @@ return smalltalk.withContext(function($ctx2) {
 return self._errorNotFound();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"keyAtValue:",{anObject:anObject},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"keyAtValue:",{anObject:anObject},globals.AssociativeCollection)})},
 args: ["anObject"],
 source: "keyAtValue: anObject\x0a\x09^ self keyAtValue: anObject ifAbsent: [ self errorNotFound ]",
 messageSends: ["keyAtValue:ifAbsent:", "errorNotFound"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1813,13 +1813,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._indexOf_ifAbsent_(anObject,aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"keyAtValue:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"keyAtValue:ifAbsent:",{anObject:anObject,aBlock:aBlock},globals.AssociativeCollection)})},
 args: ["anObject", "aBlock"],
 source: "keyAtValue: anObject ifAbsent: aBlock\x0a\x09^ self indexOf: anObject ifAbsent: aBlock",
 messageSends: ["indexOf:ifAbsent:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1829,13 +1829,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"keys",{},smalltalk.AssociativeCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"keys",{},globals.AssociativeCollection)})},
 args: [],
 source: "keys\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1848,13 +1848,13 @@ self._keysDo_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_value_(each,self._at_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},smalltalk.AssociativeCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},globals.AssociativeCollection)})},
 args: ["aBlock"],
 source: "keysAndValuesDo: aBlock\x0a\x09self keysDo: [ :each |\x0a\x09\x09aBlock value: each value: (self at: each) ]",
 messageSends: ["keysDo:", "value:value:", "at:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1864,13 +1864,13 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"keysDo:",{aBlock:aBlock},smalltalk.AssociativeCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"keysDo:",{aBlock:aBlock},globals.AssociativeCollection)})},
 args: ["aBlock"],
 source: "keysDo: aBlock\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1879,7 +1879,7 @@ protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.AssociativeCollection.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+globals.AssociativeCollection.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 $ctx1.sendIdx["printOn:"]=1;
 _st(aStream)._nextPutAll_(" (");
 $ctx1.sendIdx["nextPutAll:"]=1;
@@ -1892,13 +1892,13 @@ return _st(aStream)._nextPutAll_(" , ");
 $ctx2.sendIdx["nextPutAll:"]=2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 _st(aStream)._nextPutAll_(")");
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.AssociativeCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.AssociativeCollection)})},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09\x0a\x09aStream nextPutAll: ' ('.\x0a\x09self associations\x0a\x09\x09do: [ :each | each printOn: aStream ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ' , ' ].\x0a\x09aStream nextPutAll: ')'",
 messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:", "associations"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1910,13 +1910,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._removeKey_ifAbsent_(aKey,aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{aKey:aKey,aBlock:aBlock},globals.AssociativeCollection)})},
 args: ["aKey", "aBlock"],
 source: "remove: aKey ifAbsent: aBlock\x0a\x09^ self removeKey: aKey ifAbsent: aBlock",
 messageSends: ["removeKey:ifAbsent:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1931,13 +1931,13 @@ return smalltalk.withContext(function($ctx2) {
 return self._removeKey_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"removeAll",{},globals.AssociativeCollection)})},
 args: [],
 source: "removeAll\x0a\x09^ self keys do: [ :each | self removeKey: each ]",
 messageSends: ["do:", "keys", "removeKey:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1949,13 +1949,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._remove_(aKey);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"removeKey:",{aKey:aKey},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"removeKey:",{aKey:aKey},globals.AssociativeCollection)})},
 args: ["aKey"],
 source: "removeKey: aKey\x0a\x09^ self remove: aKey",
 messageSends: ["remove:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1965,13 +1965,13 @@ fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"removeKey:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.AssociativeCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"removeKey:ifAbsent:",{aKey:aKey,aBlock:aBlock},globals.AssociativeCollection)})},
 args: ["aKey", "aBlock"],
 source: "removeKey: aKey ifAbsent: aBlock\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1992,13 +1992,13 @@ return _st(newDict)._at_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
 $2=newDict;
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,newDict:newDict},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,newDict:newDict},globals.AssociativeCollection)})},
 args: ["aBlock"],
 source: "select: aBlock\x0a\x09| newDict |\x0a\x09newDict := self class new.\x0a\x09self keysAndValuesDo: [ :key :value |\x0a\x09\x09(aBlock value: value) ifTrue: [ newDict at: key put: value ]].\x0a\x09^ newDict",
 messageSends: ["new", "class", "keysAndValuesDo:", "ifTrue:", "value:", "at:put:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2016,13 +2016,13 @@ return _st(copy)._at_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
 $1=copy;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{copy:copy},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{copy:copy},globals.AssociativeCollection)})},
 args: [],
 source: "shallowCopy\x0a\x09| copy |\x0a\x09copy := self class new.\x0a\x09self keysAndValuesDo: [ :key :value |\x0a\x09\x09copy at: key put: value ].\x0a\x09^ copy",
 messageSends: ["new", "class", "keysAndValuesDo:", "at:put:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2034,13 +2034,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._keys())._size();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"size",{},smalltalk.AssociativeCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"size",{},globals.AssociativeCollection)})},
 args: [],
 source: "size\x0a\x09^ self keys size",
 messageSends: ["size", "keys"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2050,13 +2050,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"values",{},smalltalk.AssociativeCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"values",{},globals.AssociativeCollection)})},
 args: [],
 source: "values\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2066,13 +2066,13 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"valuesDo:",{aBlock:aBlock},smalltalk.AssociativeCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"valuesDo:",{aBlock:aBlock},globals.AssociativeCollection)})},
 args: ["aBlock"],
 source: "valuesDo: aBlock\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2085,13 +2085,13 @@ self._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_value_(value,key);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.AssociativeCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},globals.AssociativeCollection)})},
 args: ["aBlock"],
 source: "withIndexDo: aBlock\x0a\x09self keysAndValuesDo: [ :key :value | aBlock value: value value: key ]",
 messageSends: ["keysAndValuesDo:", "value:value:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection);
+globals.AssociativeCollection);
 
 
 smalltalk.addMethod(
@@ -2110,13 +2110,13 @@ return _st(newCollection)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $1=newCollection;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"from:",{aCollection:aCollection,newCollection:newCollection},smalltalk.AssociativeCollection.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"from:",{aCollection:aCollection,newCollection:newCollection},globals.AssociativeCollection.klass)})},
 args: ["aCollection"],
 source: "from: aCollection\x0a\x09| newCollection |\x0a\x09newCollection := self new.\x0a\x09aCollection do: [ :each | newCollection add: each ].\x0a\x09^ newCollection",
 messageSends: ["new", "do:", "add:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection.klass);
+globals.AssociativeCollection.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2128,13 +2128,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._from_(aCollection);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection},smalltalk.AssociativeCollection.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection},globals.AssociativeCollection.klass)})},
 args: ["aCollection"],
 source: "fromPairs: aCollection\x0a\x09\x22This message is poorly named and has been replaced by #from:\x22\x0a\x09^ self from: aCollection",
 messageSends: ["from:"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection.klass);
+globals.AssociativeCollection.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2161,17 +2161,17 @@ return _st($3)._at_put_($4,_st(aCollection)._at_(_st(each).__plus((1))));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 $5=newCollection;
 return $5;
-}, function($ctx1) {$ctx1.fill(self,"newFromPairs:",{aCollection:aCollection,newCollection:newCollection},smalltalk.AssociativeCollection.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"newFromPairs:",{aCollection:aCollection,newCollection:newCollection},globals.AssociativeCollection.klass)})},
 args: ["aCollection"],
 source: "newFromPairs: aCollection\x0a\x09\x22Accept an array of elements where every two elements form an \x0a\x09association - the odd element being the key, and the even element the value.\x22\x0a\x09\x0a\x09| newCollection |\x0a\x09\x0a\x09aCollection size even ifFalse: [ \x0a\x09\x09self error: '#newFromPairs only accepts arrays of an even length' ].\x0a\x09\x09\x0a\x09newCollection := self new.\x0a\x09( 1 to: aCollection size by: 2 ) do: [ :each | \x0a\x09\x09newCollection at: (aCollection at: each) put: (aCollection at: each + 1) ].\x0a\x09\x09\x0a\x09^ newCollection",
 messageSends: ["ifFalse:", "even", "size", "error:", "new", "do:", "to:by:", "at:put:", "at:", "+"],
 referencedClasses: []
 }),
-smalltalk.AssociativeCollection.klass);
+globals.AssociativeCollection.klass);
 
 
-smalltalk.addClass('Dictionary', smalltalk.AssociativeCollection, ['keys', 'values'], 'Kernel-Collections');
-smalltalk.Dictionary.comment="I represent a set of elements that can be viewed from one of two perspectives: a set of associations,\x0aor a container of values that are externally named where the name can be any object that responds to `=`.\x0a\x0aThe external name is referred to as the key.";
+smalltalk.addClass('Dictionary', globals.AssociativeCollection, ['keys', 'values'], 'Kernel-Collections');
+globals.Dictionary.comment="I represent a set of elements that can be viewed from one of two perspectives: a set of associations,\x0aor a container of values that are externally named where the name can be any object that responds to `=`.\x0a\x0aThe external name is referred to as the key.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsent:",
@@ -2188,7 +2188,7 @@ source: "at: aKey ifAbsent: aBlock\x0a\x09<\x0a\x09\x09var index = self._positio
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Dictionary);
+globals.Dictionary);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2212,7 +2212,7 @@ source: "at: aKey put: aValue\x0a\x09<\x0a\x09\x09var index = self._positionOfKe
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Dictionary);
+globals.Dictionary);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2227,7 +2227,7 @@ source: "includesKey: aKey\x0a\x09< return self._positionOfKey_(aKey) >>= 0; >",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Dictionary);
+globals.Dictionary);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2249,13 +2249,13 @@ $1=_st(aBlock)._value();
 $1=_st(self["@keys"])._at_(index);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock,index:index},smalltalk.Dictionary)})},
+}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock,index:index},globals.Dictionary)})},
 args: ["anObject", "aBlock"],
 source: "indexOf: anObject ifAbsent: aBlock\x0a\x09| index |\x0a\x09index := values \x0a\x09\x09indexOf: anObject \x0a\x09\x09ifAbsent: [ 0 ].\x0a\x09^ index = 0 \x0a\x09\x09ifTrue: [ aBlock value ] \x0a\x09\x09ifFalse: [ keys at: index ]",
 messageSends: ["indexOf:ifAbsent:", "ifTrue:ifFalse:", "=", "value", "at:"],
 referencedClasses: []
 }),
-smalltalk.Dictionary);
+globals.Dictionary);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2264,16 +2264,16 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Dictionary.superclass.fn.prototype._initialize.apply(_st(self), []);
+globals.Dictionary.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@keys"]=[];
 self["@values"]=[];
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Dictionary)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Dictionary)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09keys := #().\x0a\x09values := #()",
 messageSends: ["initialize"],
 referencedClasses: []
 }),
-smalltalk.Dictionary);
+globals.Dictionary);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2285,13 +2285,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self["@keys"])._copy();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"keys",{},smalltalk.Dictionary)})},
+}, function($ctx1) {$ctx1.fill(self,"keys",{},globals.Dictionary)})},
 args: [],
 source: "keys\x0a\x09^ keys copy",
 messageSends: ["copy"],
 referencedClasses: []
 }),
-smalltalk.Dictionary);
+globals.Dictionary);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2303,13 +2303,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self["@keys"])._with_do_(self["@values"],aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},smalltalk.Dictionary)})},
+}, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},globals.Dictionary)})},
 args: ["aBlock"],
 source: "keysAndValuesDo: aBlock\x0a\x09^ keys with: values do: aBlock",
 messageSends: ["with:do:"],
 referencedClasses: []
 }),
-smalltalk.Dictionary);
+globals.Dictionary);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2321,13 +2321,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self["@keys"])._do_(aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"keysDo:",{aBlock:aBlock},smalltalk.Dictionary)})},
+}, function($ctx1) {$ctx1.fill(self,"keysDo:",{aBlock:aBlock},globals.Dictionary)})},
 args: ["aBlock"],
 source: "keysDo: aBlock\x0a\x09^ keys do: aBlock",
 messageSends: ["do:"],
 referencedClasses: []
 }),
-smalltalk.Dictionary);
+globals.Dictionary);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2348,7 +2348,7 @@ source: "positionOfKey: anObject\x0a\x09<\x0a\x09\x09var keys = self['@keys'];\x
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Dictionary);
+globals.Dictionary);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2360,13 +2360,13 @@ return smalltalk.withContext(function($ctx1) {
 _st(self["@keys"])._removeAll();
 $ctx1.sendIdx["removeAll"]=1;
 _st(self["@values"])._removeAll();
-return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Dictionary)})},
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},globals.Dictionary)})},
 args: [],
 source: "removeAll\x0a\x09keys removeAll.\x0a\x09values removeAll",
 messageSends: ["removeAll"],
 referencedClasses: []
 }),
-smalltalk.Dictionary);
+globals.Dictionary);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2394,7 +2394,7 @@ source: "removeKey: aKey ifAbsent: aBlock\x0a\x09<\x0a\x09\x09var index = self._
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Dictionary);
+globals.Dictionary);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2411,7 +2411,7 @@ source: "values\x0a\x09^ values",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Dictionary);
+globals.Dictionary);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2423,18 +2423,18 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self["@values"])._do_(aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"valuesDo:",{aBlock:aBlock},smalltalk.Dictionary)})},
+}, function($ctx1) {$ctx1.fill(self,"valuesDo:",{aBlock:aBlock},globals.Dictionary)})},
 args: ["aBlock"],
 source: "valuesDo: aBlock\x0a\x09^ values do: aBlock",
 messageSends: ["do:"],
 referencedClasses: []
 }),
-smalltalk.Dictionary);
+globals.Dictionary);
 
 
 
-smalltalk.addClass('HashedCollection', smalltalk.AssociativeCollection, [], 'Kernel-Collections');
-smalltalk.HashedCollection.comment="I am a traditional JavaScript object, or a Smalltalk `Dictionary`.\x0a\x0aUnlike a `Dictionary`, I can only have strings as keys.";
+smalltalk.addClass('HashedCollection', globals.AssociativeCollection, [], 'Kernel-Collections');
+globals.HashedCollection.comment="I am a traditional JavaScript object, or a Smalltalk `Dictionary`.\x0a\x0aUnlike a `Dictionary`, I can only have strings as keys.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsent:",
@@ -2450,13 +2450,13 @@ $1=self._basicAt_(aKey);
 $1=_st(aBlock)._value();
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.HashedCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},globals.HashedCollection)})},
 args: ["aKey", "aBlock"],
 source: "at: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ self basicAt: aKey ]\x0a\x09\x09ifFalse: [ aBlock value ]",
 messageSends: ["ifTrue:ifFalse:", "includesKey:", "basicAt:", "value"],
 referencedClasses: []
 }),
-smalltalk.HashedCollection);
+globals.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2468,13 +2468,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._basicAt_put_(aKey,aValue);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:put:",{aKey:aKey,aValue:aValue},smalltalk.HashedCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"at:put:",{aKey:aKey,aValue:aValue},globals.HashedCollection)})},
 args: ["aKey", "aValue"],
 source: "at: aKey put: aValue\x0a\x09^ self basicAt: aKey put: aValue",
 messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
-smalltalk.HashedCollection);
+globals.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2489,7 +2489,7 @@ source: "includesKey: aKey\x0a\x09<return self.hasOwnProperty(aKey)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HashedCollection);
+globals.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2504,7 +2504,7 @@ source: "keys\x0a\x09<return Object.keys(self)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HashedCollection);
+globals.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2514,13 +2514,13 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._keys())._do_(aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"keysDo:",{aBlock:aBlock},smalltalk.HashedCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"keysDo:",{aBlock:aBlock},globals.HashedCollection)})},
 args: ["aBlock"],
 source: "keysDo: aBlock\x0a\x09self keys do: aBlock",
 messageSends: ["do:", "keys"],
 referencedClasses: []
 }),
-smalltalk.HashedCollection);
+globals.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2539,13 +2539,13 @@ return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"removeKey:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.HashedCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"removeKey:ifAbsent:",{aKey:aKey,aBlock:aBlock},globals.HashedCollection)})},
 args: ["aKey", "aBlock"],
 source: "removeKey: aKey ifAbsent: aBlock\x0a\x09^ self\x0a\x09\x09at: aKey\x0a\x09\x09ifPresent: [ :removed | self basicDelete: aKey. removed ]\x0a\x09\x09ifAbsent: [ aBlock value ]",
 messageSends: ["at:ifPresent:ifAbsent:", "basicDelete:", "value"],
 referencedClasses: []
 }),
-smalltalk.HashedCollection);
+globals.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2564,7 +2564,7 @@ source: "values\x0a\x09<\x0a\x09\x09return self._keys().map(function(key){\x0a\x
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HashedCollection);
+globals.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2574,18 +2574,18 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._values())._do_(aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"valuesDo:",{aBlock:aBlock},smalltalk.HashedCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"valuesDo:",{aBlock:aBlock},globals.HashedCollection)})},
 args: ["aBlock"],
 source: "valuesDo: aBlock\x0a\x09self values do: aBlock",
 messageSends: ["do:", "values"],
 referencedClasses: []
 }),
-smalltalk.HashedCollection);
+globals.HashedCollection);
 
 
 
-smalltalk.addClass('SequenceableCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
-smalltalk.SequenceableCollection.comment="I am an IndexableCollection\x0awith numeric indexes starting with 1.";
+smalltalk.addClass('SequenceableCollection', globals.IndexableCollection, [], 'Kernel-Collections');
+globals.SequenceableCollection.comment="I am an IndexableCollection\x0awith numeric indexes starting with 1.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
@@ -2620,13 +2620,13 @@ throw $early=[false];
 return true;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"=",{aCollection:aCollection},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"=",{aCollection:aCollection},globals.SequenceableCollection)})},
 args: ["aCollection"],
 source: "= aCollection\x0a\x09(self class = aCollection class and: [\x0a\x09\x09self size = aCollection size ]) ifFalse: [ ^ false ].\x0a\x09self withIndexDo: [ :each :i |\x0a\x09\x09\x09\x09(aCollection at: i) = each ifFalse: [ ^ false ]].\x0a\x09^ true",
 messageSends: ["ifFalse:", "and:", "=", "class", "size", "withIndexDo:", "at:"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2636,13 +2636,13 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._add_(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"addLast:",{anObject:anObject},smalltalk.SequenceableCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"addLast:",{anObject:anObject},globals.SequenceableCollection)})},
 args: ["anObject"],
 source: "addLast: anObject\x0a\x09self add: anObject",
 messageSends: ["add:"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2654,13 +2654,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._copyFrom_to_((2),self._size());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"allButFirst",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"allButFirst",{},globals.SequenceableCollection)})},
 args: [],
 source: "allButFirst\x0a\x09^ self copyFrom: 2 to: self size",
 messageSends: ["copyFrom:to:", "size"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2672,13 +2672,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._copyFrom_to_((1),_st(self._size()).__minus((1)));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"allButLast",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"allButLast",{},globals.SequenceableCollection)})},
 args: [],
 source: "allButLast\x0a\x09^ self copyFrom: 1 to: self size - 1",
 messageSends: ["copyFrom:to:", "-", "size"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2690,13 +2690,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._at_(_st(self._size())._atRandom());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"atRandom",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"atRandom",{},globals.SequenceableCollection)})},
 args: [],
 source: "atRandom\x0a\x09^ self at: self size atRandom",
 messageSends: ["at:", "atRandom", "size"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2716,13 +2716,13 @@ return false;
 };
 $4=_st(self._first_(_st(prefix)._size())).__eq(prefix);
 return $4;
-}, function($ctx1) {$ctx1.fill(self,"beginsWith:",{prefix:prefix},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"beginsWith:",{prefix:prefix},globals.SequenceableCollection)})},
 args: ["prefix"],
 source: "beginsWith: prefix\x0a\x09self size < prefix size ifTrue: [ ^ false ].\x0a\x09^ (self first: prefix size) = prefix",
 messageSends: ["ifTrue:", "<", "size", "=", "first:"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2741,13 +2741,13 @@ return _st(newCollection)._at_put_(i,self._at_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,1)})}));
 $1=newCollection;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex,range:range,newCollection:newCollection},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex,range:range,newCollection:newCollection},globals.SequenceableCollection)})},
 args: ["anIndex", "anotherIndex"],
 source: "copyFrom: anIndex to: anotherIndex\x0a\x09| range newCollection |\x0a\x09range := anIndex to: anotherIndex.\x0a\x09newCollection := self class new: range size.\x0a\x09range withIndexDo: [ :each :i |\x0a\x09\x09newCollection at: i put: (self at: each) ].\x0a\x09^ newCollection",
 messageSends: ["to:", "new:", "class", "size", "withIndexDo:", "at:put:", "at:"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2765,13 +2765,13 @@ return _st(newCollection)._at_put_(index,_st(each)._deepCopy());
 }, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
 $1=newCollection;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"deepCopy",{newCollection:newCollection},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"deepCopy",{newCollection:newCollection},globals.SequenceableCollection)})},
 args: [],
 source: "deepCopy\x0a\x09| newCollection |\x0a\x09newCollection := self class new: self size.\x0a\x09self withIndexDo: [ :each :index |\x0a\x09\x09newCollection at: index put: each deepCopy ].\x0a\x09^ newCollection",
 messageSends: ["new:", "class", "size", "withIndexDo:", "at:put:", "deepCopy"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2792,7 +2792,7 @@ source: "detect: aBlock ifNone: anotherBlock\x0a\x09<\x0a\x09\x09self = self._nu
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2812,7 +2812,7 @@ source: "do: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2832,13 +2832,13 @@ return false;
 };
 $4=_st(self._last_(_st(suffix)._size())).__eq(suffix);
 return $4;
-}, function($ctx1) {$ctx1.fill(self,"endsWith:",{suffix:suffix},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"endsWith:",{suffix:suffix},globals.SequenceableCollection)})},
 args: ["suffix"],
 source: "endsWith: suffix\x0a\x09self size < suffix size ifTrue: [ ^ false ].\x0a\x09^ (self last: suffix size) = suffix",
 messageSends: ["ifTrue:", "<", "size", "=", "last:"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2850,13 +2850,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._at_((1));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"first",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"first",{},globals.SequenceableCollection)})},
 args: [],
 source: "first\x0a\x09^ self at: 1",
 messageSends: ["at:"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2872,13 +2872,13 @@ self._error_("Invalid number of elements");
 };
 $2=self._copyFrom_to_((1),aNumber);
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"first:",{aNumber:aNumber},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"first:",{aNumber:aNumber},globals.SequenceableCollection)})},
 args: ["aNumber"],
 source: "first: aNumber\x0a\x09\x22Answer the first `aNumber` elements of the receiver.\x0a\x09Raise an error if there are not enough elements in the receiver.\x22\x0a\x0a\x09self size < aNumber ifTrue: [ self error: 'Invalid number of elements' ].\x0a\x0a\x09^ self copyFrom: 1 to: aNumber",
 messageSends: ["ifTrue:", "<", "size", "error:", "copyFrom:to:"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2890,13 +2890,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._at_((4));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"fourth",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"fourth",{},globals.SequenceableCollection)})},
 args: [],
 source: "fourth\x0a\x09^ self at: 4",
 messageSends: ["at:"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2911,13 +2911,13 @@ return smalltalk.withContext(function($ctx2) {
 return nil;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))._notNil();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},globals.SequenceableCollection)})},
 args: ["anObject"],
 source: "includes: anObject\x0a\x09^ (self indexOf: anObject ifAbsent: [ nil ]) notNil",
 messageSends: ["notNil", "indexOf:ifAbsent:"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2938,7 +2938,7 @@ source: "indexOf: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09self = self._num
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2953,13 +2953,13 @@ return smalltalk.withContext(function($ctx2) {
 return (0);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"indexOf:startingAt:",{anObject:anObject,start:start},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"indexOf:startingAt:",{anObject:anObject,start:start},globals.SequenceableCollection)})},
 args: ["anObject", "start"],
 source: "indexOf: anObject startingAt: start\x0a\x09\x22Answer the index of the first occurence of anElement after start\x0a\x09within the receiver. If the receiver does not contain anElement,\x0a\x09answer 0.\x22\x0a\x09^ self indexOf: anObject startingAt: start ifAbsent: [ 0 ]",
 messageSends: ["indexOf:startingAt:ifAbsent:"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2980,7 +2980,7 @@ source: "indexOf: anObject startingAt: start ifAbsent: aBlock\x0a\x09<\x0a\x09\x
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2992,13 +2992,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._at_(self._size());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"last",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"last",{},globals.SequenceableCollection)})},
 args: [],
 source: "last\x0a\x09^ self at: self size",
 messageSends: ["at:", "size"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3020,13 +3020,13 @@ $5=_st($6).__minus(aNumber);
 $4=_st($5).__plus((1));
 $3=self._copyFrom_to_($4,self._size());
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"last:",{aNumber:aNumber},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"last:",{aNumber:aNumber},globals.SequenceableCollection)})},
 args: ["aNumber"],
 source: "last: aNumber\x0a\x09\x22Answer the last aNumber elements of the receiver.\x0a\x09Raise an error if there are not enough elements in the receiver.\x22\x0a\x0a\x09self size < aNumber ifTrue: [ self error: 'Invalid number of elements' ].\x0a\x0a\x09^ self copyFrom: self size - aNumber + 1 to: self size",
 messageSends: ["ifTrue:", "<", "size", "error:", "copyFrom:to:", "+", "-"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3038,13 +3038,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._streamClass())._on_(self);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"newStream",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"newStream",{},globals.SequenceableCollection)})},
 args: [],
 source: "newStream\x0a\x09^ self streamClass on: self",
 messageSends: ["on:", "streamClass"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3054,13 +3054,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"numericallyIndexable",{},smalltalk.SequenceableCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"numericallyIndexable",{},globals.SequenceableCollection)})},
 args: [],
 source: "numericallyIndexable\x0a\x09\x22This is an internal converting message.\x0a\x09It answeres a representation of the receiver\x0a\x09that can use foo[i] in JavaScript code.\x0a\x09\x0a\x09It fixes IE8, where boxed String is unable\x0a\x09to numerically index its characters,\x0a\x09but primitive string can.\x22\x0a\x09\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3072,13 +3072,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._stream();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"readStream",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"readStream",{},globals.SequenceableCollection)})},
 args: [],
 source: "readStream\x0a\x09\x22For Pharo compatibility\x22\x0a\x09\x0a\x09^ self stream",
 messageSends: ["stream"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3090,13 +3090,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._remove_(self._last());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"removeLast",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"removeLast",{},globals.SequenceableCollection)})},
 args: [],
 source: "removeLast\x0a\x09^ self remove: self last",
 messageSends: ["remove:", "last"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3106,13 +3106,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"reversed",{},smalltalk.SequenceableCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"reversed",{},globals.SequenceableCollection)})},
 args: [],
 source: "reversed\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3124,13 +3124,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._at_((2));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"second",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"second",{},globals.SequenceableCollection)})},
 args: [],
 source: "second\x0a\x09^ self at: 2",
 messageSends: ["at:"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3148,13 +3148,13 @@ return _st(newCollection)._at_put_(index,each);
 }, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
 $1=newCollection;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{newCollection:newCollection},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{newCollection:newCollection},globals.SequenceableCollection)})},
 args: [],
 source: "shallowCopy\x0a\x09| newCollection |\x0a\x09newCollection := self class new: self size.\x0a\x09self withIndexDo: [ :each :index |\x0a\x09\x09newCollection at: index put: each ].\x0a\x09^ newCollection",
 messageSends: ["new:", "class", "size", "withIndexDo:", "at:put:"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3166,13 +3166,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._newStream();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"stream",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"stream",{},globals.SequenceableCollection)})},
 args: [],
 source: "stream\x0a\x09^ self newStream",
 messageSends: ["newStream"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3184,13 +3184,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._class())._streamClass();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"streamClass",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"streamClass",{},globals.SequenceableCollection)})},
 args: [],
 source: "streamClass\x0a\x09^ self class streamClass",
 messageSends: ["streamClass", "class"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3202,13 +3202,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._at_((3));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"third",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"third",{},globals.SequenceableCollection)})},
 args: [],
 source: "third\x0a\x09^ self at: 3",
 messageSends: ["at:"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3229,7 +3229,7 @@ source: "with: anotherCollection do: aBlock\x0a\x09<\x0a\x09\x09self = self._num
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3249,7 +3249,7 @@ source: "withIndexDo: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexab
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3261,13 +3261,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._stream();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"writeStream",{},smalltalk.SequenceableCollection)})},
+}, function($ctx1) {$ctx1.fill(self,"writeStream",{},globals.SequenceableCollection)})},
 args: [],
 source: "writeStream\x0a\x09\x22For Pharo compatibility\x22\x0a\x09\x0a\x09^ self stream",
 messageSends: ["stream"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection);
+globals.SequenceableCollection);
 
 
 smalltalk.addMethod(
@@ -3276,7 +3276,7 @@ selector: "streamClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Stream(){return smalltalk.Stream||(typeof Stream=="undefined"?nil:Stream)}
+function $Stream(){return globals.Stream||(typeof Stream=="undefined"?nil:Stream)}
 return $Stream();
 },
 args: [],
@@ -3284,7 +3284,7 @@ source: "streamClass\x0a\x09\x09^ Stream",
 messageSends: [],
 referencedClasses: ["Stream"]
 }),
-smalltalk.SequenceableCollection.klass);
+globals.SequenceableCollection.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3299,17 +3299,17 @@ stream=_st(self._streamClass())._on_(self._new());
 _st(aBlock)._value_(stream);
 $1=_st(stream)._contents();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"streamContents:",{aBlock:aBlock,stream:stream},smalltalk.SequenceableCollection.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"streamContents:",{aBlock:aBlock,stream:stream},globals.SequenceableCollection.klass)})},
 args: ["aBlock"],
 source: "streamContents: aBlock\x0a\x09| stream |\x0a\x09stream := (self streamClass on: self new).\x0a\x09aBlock value: stream.\x0a\x09^ stream contents",
 messageSends: ["on:", "streamClass", "new", "value:", "contents"],
 referencedClasses: []
 }),
-smalltalk.SequenceableCollection.klass);
+globals.SequenceableCollection.klass);
 
 
-smalltalk.addClass('Array', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
-smalltalk.Array.comment="I represent a collection of objects ordered by the collector. The size of arrays is dynamic.\x0a\x0aI am directly mapped to JavaScript Number.\x0a\x0a*Note* In Amber, `OrderedCollection` is an alias for `Array`.";
+smalltalk.addClass('Array', globals.SequenceableCollection, [], 'Kernel-Collections');
+globals.Array.comment="I represent a collection of objects ordered by the collector. The size of arrays is dynamic.\x0a\x0aI am directly mapped to JavaScript Number.\x0a\x0a*Note* In Amber, `OrderedCollection` is an alias for `Array`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
@@ -3323,7 +3323,7 @@ source: "add: anObject\x0a\x09<self.push(anObject); return anObject;>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3338,7 +3338,7 @@ source: "addFirst: anObject\x0a\x09<self.unshift(anObject); return anObject;>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3354,13 +3354,13 @@ return _st(each)._asJavascript();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._join_(", "))).__comma("]");
 $ctx1.sendIdx[","]=1;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJavascript",{},smalltalk.Array)})},
+}, function($ctx1) {$ctx1.fill(self,"asJavascript",{},globals.Array)})},
 args: [],
 source: "asJavascript\x0a\x09^ '[', ((self collect: [:each | each asJavascript ]) join: ', '), ']'",
 messageSends: [",", "join:", "collect:", "asJavascript"],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3379,7 +3379,7 @@ source: "at: anIndex ifAbsent: aBlock\x0a\x09<\x0a\x09\x09return anIndex >>= 1 &
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3398,7 +3398,7 @@ source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09<\x0a\x09\x
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3413,7 +3413,7 @@ source: "at: anIndex put: anObject\x0a\x09<return self[anIndex - 1] = anObject>"
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3428,7 +3428,7 @@ source: "collect: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09\x0a\x09<return
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3443,7 +3443,7 @@ source: "join: aString\x0a\x09<return self.join(aString)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3458,7 +3458,7 @@ source: "numericallyIndexable\x0a\x09^ self",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3467,7 +3467,7 @@ protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Array.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+globals.Array.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 $ctx1.sendIdx["printOn:"]=1;
 _st(aStream)._nextPutAll_(" (");
 $ctx1.sendIdx["nextPutAll:"]=1;
@@ -3480,13 +3480,13 @@ return _st(aStream)._nextPutAll_(" ");
 $ctx2.sendIdx["nextPutAll:"]=2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 _st(aStream)._nextPutAll_(")");
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Array)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.Array)})},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09\x0a\x09aStream nextPutAll: ' ('.\x0a\x09self \x0a\x09\x09do: [ :each | each printOn: aStream ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ' ' ].\x0a\x09aStream nextPutAll: ')'",
 messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:"],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3509,13 +3509,13 @@ self._removeIndex_(index);
 $1=anObject;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock,index:index},smalltalk.Array)})},
+}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock,index:index},globals.Array)})},
 args: ["anObject", "aBlock"],
 source: "remove: anObject ifAbsent: aBlock\x0a\x09| index |\x0a\x09index := self indexOf: anObject ifAbsent: [ 0 ].\x0a\x09^ index = 0\x0a\x09\x09ifFalse: [ self removeIndex: index. anObject ]\x0a\x09\x09ifTrue: [ aBlock value ]",
 messageSends: ["indexOf:ifAbsent:", "ifFalse:ifTrue:", "=", "removeIndex:", "value"],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3530,7 +3530,7 @@ source: "removeAll\x0a\x09<self.length = 0>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3545,7 +3545,7 @@ source: "removeFrom: aNumber to: anotherNumber\x0a\x09<self.splice(aNumber -1, a
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3560,7 +3560,7 @@ source: "removeIndex: anInteger\x0a\x09<self.splice(anInteger - 1, 1)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3575,7 +3575,7 @@ source: "removeLast\x0a\x09<return self.pop();>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3590,7 +3590,7 @@ source: "reversed\x0a\x09<return self._copy().reverse()>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3613,7 +3613,7 @@ source: "select: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09\x0a\x09<\x0a\x0
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3628,7 +3628,7 @@ source: "size\x0a\x09<return self.length>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3640,13 +3640,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._basicPerform_("sort");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sort",{},smalltalk.Array)})},
+}, function($ctx1) {$ctx1.fill(self,"sort",{},globals.Array)})},
 args: [],
 source: "sort\x0a\x09^ self basicPerform: 'sort'",
 messageSends: ["basicPerform:"],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3665,7 +3665,7 @@ source: "sort: aBlock\x0a\x09<\x0a\x09\x09return self.sort(function(a, b) {\x0a\
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3677,13 +3677,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._copy())._sort();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sorted",{},smalltalk.Array)})},
+}, function($ctx1) {$ctx1.fill(self,"sorted",{},globals.Array)})},
 args: [],
 source: "sorted\x0a\x09^ self copy sort",
 messageSends: ["sort", "copy"],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3695,13 +3695,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._copy())._sort_(aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sorted:",{aBlock:aBlock},smalltalk.Array)})},
+}, function($ctx1) {$ctx1.fill(self,"sorted:",{aBlock:aBlock},globals.Array)})},
 args: ["aBlock"],
 source: "sorted: aBlock\x0a\x09^ self copy sort: aBlock",
 messageSends: ["sort:", "copy"],
 referencedClasses: []
 }),
-smalltalk.Array);
+globals.Array);
 
 
 smalltalk.addMethod(
@@ -3717,7 +3717,7 @@ source: "new: anInteger\x0a\x09<return new Array(anInteger)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Array.klass);
+globals.Array.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3732,13 +3732,13 @@ _st($2)._at_put_((1),anObject);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},smalltalk.Array.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},globals.Array.klass)})},
 args: ["anObject"],
 source: "with: anObject\x0a\x09\x09^ (self new: 1)\x0a\x09\x09at: 1 put: anObject;\x0a\x09\x09yourself",
 messageSends: ["at:put:", "new:", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Array.klass);
+globals.Array.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3755,13 +3755,13 @@ _st($2)._at_put_((2),anObject2);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"with:with:",{anObject:anObject,anObject2:anObject2},smalltalk.Array.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"with:with:",{anObject:anObject,anObject2:anObject2},globals.Array.klass)})},
 args: ["anObject", "anObject2"],
 source: "with: anObject with: anObject2\x0a\x09\x09^ (self new: 2)\x0a\x09\x09at: 1 put: anObject;\x0a\x09\x09at: 2 put: anObject2;\x0a\x09\x09yourself",
 messageSends: ["at:put:", "new:", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Array.klass);
+globals.Array.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3780,13 +3780,13 @@ _st($2)._at_put_((3),anObject3);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"with:with:with:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3},smalltalk.Array.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"with:with:with:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3},globals.Array.klass)})},
 args: ["anObject", "anObject2", "anObject3"],
 source: "with: anObject with: anObject2 with: anObject3\x0a\x09\x09^ (self new: 3)\x0a\x09\x09at: 1 put: anObject;\x0a\x09\x09at: 2 put: anObject2;\x0a\x09\x09at: 3 put: anObject3;\x0a\x09\x09yourself",
 messageSends: ["at:put:", "new:", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Array.klass);
+globals.Array.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3807,17 +3807,17 @@ return index;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $1=instance;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"withAll:",{aCollection:aCollection,instance:instance,index:index},smalltalk.Array.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"withAll:",{aCollection:aCollection,instance:instance,index:index},globals.Array.klass)})},
 args: ["aCollection"],
 source: "withAll: aCollection\x0a\x09| instance index |\x0a\x09index := 1.\x0a\x09instance := self new: aCollection size.\x0a\x09aCollection do: [ :each |\x0a\x09\x09instance at: index put: each.\x0a\x09\x09index := index + 1 ].\x0a\x09^ instance",
 messageSends: ["new:", "size", "do:", "at:put:", "+"],
 referencedClasses: []
 }),
-smalltalk.Array.klass);
+globals.Array.klass);
 
 
-smalltalk.addClass('CharacterArray', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
-smalltalk.CharacterArray.comment="I am the abstract superclass of string-like collections.";
+smalltalk.addClass('CharacterArray', globals.SequenceableCollection, [], 'Kernel-Collections');
+globals.CharacterArray.comment="I am the abstract superclass of string-like collections.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
@@ -3830,13 +3830,13 @@ $2=self._asString();
 $ctx1.sendIdx["asString"]=1;
 $1=_st($2).__comma(_st(aString)._asString());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,",",{aString:aString},smalltalk.CharacterArray)})},
+}, function($ctx1) {$ctx1.fill(self,",",{aString:aString},globals.CharacterArray)})},
 args: ["aString"],
 source: ", aString\x0a\x09^ self asString, aString asString",
 messageSends: [",", "asString"],
 referencedClasses: []
 }),
-smalltalk.CharacterArray);
+globals.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3846,13 +3846,13 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._errorReadOnly();
-return self}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},smalltalk.CharacterArray)})},
+return self}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},globals.CharacterArray)})},
 args: ["anObject"],
 source: "add: anObject\x0a\x09self errorReadOnly",
 messageSends: ["errorReadOnly"],
 referencedClasses: []
 }),
-smalltalk.CharacterArray);
+globals.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3864,13 +3864,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._class())._fromString_(_st(self._asString())._asLowercase());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asLowercase",{},smalltalk.CharacterArray)})},
+}, function($ctx1) {$ctx1.fill(self,"asLowercase",{},globals.CharacterArray)})},
 args: [],
 source: "asLowercase\x0a\x09^ self class fromString: self asString asLowercase",
 messageSends: ["fromString:", "class", "asLowercase", "asString"],
 referencedClasses: []
 }),
-smalltalk.CharacterArray);
+globals.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3882,13 +3882,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._asString())._asNumber();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asNumber",{},smalltalk.CharacterArray)})},
+}, function($ctx1) {$ctx1.fill(self,"asNumber",{},globals.CharacterArray)})},
 args: [],
 source: "asNumber\x0a\x09^ self asString asNumber",
 messageSends: ["asNumber", "asString"],
 referencedClasses: []
 }),
-smalltalk.CharacterArray);
+globals.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3900,13 +3900,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._subclassResponsibility();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.CharacterArray)})},
+}, function($ctx1) {$ctx1.fill(self,"asString",{},globals.CharacterArray)})},
 args: [],
 source: "asString\x0a\x09^ self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.CharacterArray);
+globals.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3918,13 +3918,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._asString();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSymbol",{},smalltalk.CharacterArray)})},
+}, function($ctx1) {$ctx1.fill(self,"asSymbol",{},globals.CharacterArray)})},
 args: [],
 source: "asSymbol\x0a\x09^ self asString",
 messageSends: ["asString"],
 referencedClasses: []
 }),
-smalltalk.CharacterArray);
+globals.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3936,13 +3936,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._class())._fromString_(_st(self._asString())._asUppercase());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asUppercase",{},smalltalk.CharacterArray)})},
+}, function($ctx1) {$ctx1.fill(self,"asUppercase",{},globals.CharacterArray)})},
 args: [],
 source: "asUppercase\x0a\x09^ self class fromString: self asString asUppercase",
 messageSends: ["fromString:", "class", "asUppercase", "asString"],
 referencedClasses: []
 }),
-smalltalk.CharacterArray);
+globals.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3952,13 +3952,13 @@ fn: function (anIndex,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._errorReadOnly();
-return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{anIndex:anIndex,anObject:anObject},smalltalk.CharacterArray)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{anIndex:anIndex,anObject:anObject},globals.CharacterArray)})},
 args: ["anIndex", "anObject"],
 source: "at: anIndex put: anObject\x0a\x09self errorReadOnly",
 messageSends: ["errorReadOnly"],
 referencedClasses: []
 }),
-smalltalk.CharacterArray);
+globals.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3968,13 +3968,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._error_("Object is read-only");
-return self}, function($ctx1) {$ctx1.fill(self,"errorReadOnly",{},smalltalk.CharacterArray)})},
+return self}, function($ctx1) {$ctx1.fill(self,"errorReadOnly",{},globals.CharacterArray)})},
 args: [],
 source: "errorReadOnly\x0a\x09self error: 'Object is read-only'",
 messageSends: ["error:"],
 referencedClasses: []
 }),
-smalltalk.CharacterArray);
+globals.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3984,13 +3984,13 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asString())._printOn_(aStream);
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.CharacterArray)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.CharacterArray)})},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09self asString printOn: aStream",
 messageSends: ["printOn:", "asString"],
 referencedClasses: []
 }),
-smalltalk.CharacterArray);
+globals.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4000,13 +4000,13 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aStream)._nextPutString_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.CharacterArray)})},
+return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},globals.CharacterArray)})},
 args: ["aStream"],
 source: "putOn: aStream\x0a\x09aStream nextPutString: self",
 messageSends: ["nextPutString:"],
 referencedClasses: []
 }),
-smalltalk.CharacterArray);
+globals.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4016,13 +4016,13 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._errorReadOnly();
-return self}, function($ctx1) {$ctx1.fill(self,"remove:",{anObject:anObject},smalltalk.CharacterArray)})},
+return self}, function($ctx1) {$ctx1.fill(self,"remove:",{anObject:anObject},globals.CharacterArray)})},
 args: ["anObject"],
 source: "remove: anObject\x0a\x09self errorReadOnly",
 messageSends: ["errorReadOnly"],
 referencedClasses: []
 }),
-smalltalk.CharacterArray);
+globals.CharacterArray);
 
 
 smalltalk.addMethod(
@@ -4033,17 +4033,17 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"fromString:",{aString:aString},smalltalk.CharacterArray.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"fromString:",{aString:aString},globals.CharacterArray.klass)})},
 args: ["aString"],
 source: "fromString: aString\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
-smalltalk.CharacterArray.klass);
+globals.CharacterArray.klass);
 
 
-smalltalk.addClass('String', smalltalk.CharacterArray, [], 'Kernel-Collections');
-smalltalk.String.comment="I am an indexed collection of Characters. Unlike most Smalltalk dialects, Amber doesn't provide the Character class. Instead, elements of a String are single character strings.\x0a\x0aString inherits many useful methods from its hierarchy, such as\x0a\x09`Collection >> #,`";
+smalltalk.addClass('String', globals.CharacterArray, [], 'Kernel-Collections');
+globals.String.comment="I am an indexed collection of Characters. Unlike most Smalltalk dialects, Amber doesn't provide the Character class. Instead, elements of a String are single character strings.\x0a\x0aString inherits many useful methods from its hierarchy, such as\x0a\x09`Collection >> #,`";
 smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
@@ -4057,7 +4057,7 @@ source: ", aString\x0a\x09<return String(self) + aString>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4072,7 +4072,7 @@ source: "< aString\x0a\x09<return String(self) < aString._asString()>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4087,7 +4087,7 @@ source: "<= aString\x0a\x09<return String(self) <= aString._asString()>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4107,7 +4107,7 @@ source: "= aString\x0a\x09<\x0a\x09\x09return aString != null &&\x0a\x09\x09\x09
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4119,13 +4119,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self.__eq(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"==",{aString:aString},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"==",{aString:aString},globals.String)})},
 args: ["aString"],
 source: "== aString\x0a\x09^ self = aString",
 messageSends: ["="],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4140,7 +4140,7 @@ source: "> aString\x0a\x09<return String(self) >> aString._asString()>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4155,7 +4155,7 @@ source: ">= aString\x0a\x09<return String(self) >>= aString._asString()>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4170,7 +4170,7 @@ source: "asJSON\x0a\x09^ self",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4190,7 +4190,7 @@ source: "asJavascript\x0a\x09<\x0a\x09\x09if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) 
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4205,7 +4205,7 @@ source: "asLowercase\x0a\x09<return self.toLowerCase()>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4221,13 +4221,13 @@ $2=self.__comma(":");
 return $2;
 };
 return self;
-}, function($ctx1) {$ctx1.fill(self,"asMutator",{},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"asMutator",{},globals.String)})},
 args: [],
 source: "asMutator\x0a\x09\x22Answer a setter selector. For example,\x0a\x09#name asMutator returns #name:\x22\x0a\x0a\x09self last = ':' ifFalse: [  ^ self, ':' ].\x0a\x09^ self",
 messageSends: ["ifFalse:", "=", "last", ","],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4242,7 +4242,7 @@ source: "asNumber\x0a\x09<return Number(self)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4250,18 +4250,18 @@ selector: "asRegexp",
 protocol: 'converting',
 fn: function (){
 var self=this;
-function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
+function $RegularExpression(){return globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st($RegularExpression())._fromString_(self);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asRegexp",{},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"asRegexp",{},globals.String)})},
 args: [],
 source: "asRegexp\x0a\x09^ RegularExpression fromString: self",
 messageSends: ["fromString:"],
 referencedClasses: ["RegularExpression"]
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4276,7 +4276,7 @@ source: "asSelector\x0a\x09<return smalltalk.selector(self)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4291,7 +4291,7 @@ source: "asString\x0a\x09^ self",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4306,7 +4306,7 @@ source: "asSymbol\x0a\x09^ self",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4321,7 +4321,7 @@ source: "asUppercase\x0a\x09<return self.toUpperCase()>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4336,7 +4336,7 @@ source: "asciiValue\x0a\x09<return self.charCodeAt(0);>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4351,7 +4351,7 @@ source: "at: anIndex ifAbsent: aBlock\x0a\x09<return String(self)[anIndex - 1] |
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4369,7 +4369,7 @@ source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09<\x0a\x09\x
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4386,13 +4386,13 @@ $1=self;
 $1=_st(_st(self._first())._asUppercase()).__comma(self._allButFirst());
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"capitalized",{},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"capitalized",{},globals.String)})},
 args: [],
 source: "capitalized\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: [ self ]\x0a\x09\x09ifFalse: [ self first asUppercase, self allButFirst ]",
 messageSends: ["ifTrue:ifFalse:", "isEmpty", ",", "asUppercase", "first", "allButFirst"],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4407,7 +4407,7 @@ source: "charCodeAt: anInteger\x0a\x09<return self.charCodeAt(anInteger - 1)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4422,7 +4422,7 @@ source: "copyFrom: anIndex to: anotherIndex\x0a\x09<return self.substring(anInde
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4430,18 +4430,18 @@ selector: "crlfSanitized",
 protocol: 'converting',
 fn: function (){
 var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self._lines())._join_(_st($String())._lf());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"crlfSanitized",{},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"crlfSanitized",{},globals.String)})},
 args: [],
 source: "crlfSanitized\x0a\x09^ self lines join: String lf",
 messageSends: ["join:", "lines", "lf"],
 referencedClasses: ["String"]
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4453,13 +4453,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._shallowCopy();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"deepCopy",{},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"deepCopy",{},globals.String)})},
 args: [],
 source: "deepCopy\x0a\x09^ self shallowCopy",
 messageSends: ["shallowCopy"],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4474,7 +4474,7 @@ source: "escaped\x0a\x09<return escape(self)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4486,13 +4486,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self.__comma("s");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"identityHash",{},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"identityHash",{},globals.String)})},
 args: [],
 source: "identityHash\x0a\x09^ self, 's'",
 messageSends: [","],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4507,7 +4507,7 @@ source: "includesSubString: subString\x0a\x09<return self.indexOf(subString) != 
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4522,13 +4522,13 @@ $ctx1.sendIdx["first"]=1;
 $2=_st($3)._asUppercase();
 $1=_st($2).__eq_eq(self._first());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isCapitalized",{},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"isCapitalized",{},globals.String)})},
 args: [],
 source: "isCapitalized\x0a\x09^ self first asUppercase == self first",
 messageSends: ["==", "asUppercase", "first"],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4543,7 +4543,7 @@ source: "isImmutable\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4558,7 +4558,7 @@ source: "isString\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4573,13 +4573,13 @@ return smalltalk.withContext(function($ctx2) {
 return "aeiou"._includes_(self._asLowercase());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isVowel",{},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"isVowel",{},globals.String)})},
 args: [],
 source: "isVowel\x0a\x09\x22Answer true if the receiver is a one character string containing a voyel\x22\x0a\x09\x0a\x09^ self size = 1 and: [ 'aeiou' includes: self asLowercase ]",
 messageSends: ["and:", "=", "size", "includes:", "asLowercase"],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4587,7 +4587,7 @@ selector: "join:",
 protocol: 'split join',
 fn: function (aCollection){
 var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st($String())._streamContents_((function(stream){
@@ -4602,13 +4602,13 @@ return _st(stream)._nextPutAll_(self);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"join:",{aCollection:aCollection},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"join:",{aCollection:aCollection},globals.String)})},
 args: ["aCollection"],
 source: "join: aCollection\x0a\x09^ String\x0a\x09\x09streamContents: [ :stream | aCollection\x0a\x09\x09\x09\x09do: [ :each | stream nextPutAll: each asString ]\x0a\x09\x09\x09\x09separatedBy: [ stream nextPutAll: self ]]",
 messageSends: ["streamContents:", "do:separatedBy:", "nextPutAll:", "asString"],
 referencedClasses: ["String"]
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4617,7 +4617,7 @@ protocol: 'split join',
 fn: function (aBlock){
 var self=this;
 var cr,lf,start,sz,nextLF,nextCR;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$4,$5,$3,$6,$7,$9,$8,$10,$11;
 var $early={};
@@ -4701,13 +4701,13 @@ return nextCR;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"lineIndicesDo:",{aBlock:aBlock,cr:cr,lf:lf,start:start,sz:sz,nextLF:nextLF,nextCR:nextCR},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"lineIndicesDo:",{aBlock:aBlock,cr:cr,lf:lf,start:start,sz:sz,nextLF:nextLF,nextCR:nextCR},globals.String)})},
 args: ["aBlock"],
 source: "lineIndicesDo: aBlock\x0a\x09\x22execute aBlock with 3 arguments for each line:\x0a\x09- start index of line\x0a\x09- end index of line without line delimiter\x0a\x09- end index of line including line delimiter(s) CR, LF or CRLF\x22\x0a\x09\x0a\x09| cr lf start sz nextLF nextCR |\x0a\x09start := 1.\x0a\x09sz := self size.\x0a\x09cr := String cr.\x0a\x09nextCR := self indexOf: cr startingAt: 1.\x0a\x09lf := String lf.\x0a\x09nextLF := self indexOf: lf startingAt: 1.\x0a\x09[ start <= sz ] whileTrue: [ \x0a\x09\x09(nextLF = 0 and: [ nextCR = 0 ])\x0a\x09\x09\x09ifTrue: [ \x22No more CR, nor LF, the string is over\x22\x0a\x09\x09\x09\x09\x09aBlock value: start value: sz value: sz.\x0a\x09\x09\x09\x09\x09^ self ].\x0a\x09\x09(nextCR = 0 or: [ 0 < nextLF and: [ nextLF < nextCR ] ])\x0a\x09\x09\x09ifTrue: [ \x22Found a LF\x22\x0a\x09\x09\x09\x09\x09aBlock value: start value: nextLF - 1 value: nextLF.\x0a\x09\x09\x09\x09\x09start := 1 + nextLF.\x0a\x09\x09\x09\x09\x09nextLF := self indexOf: lf startingAt: start ]\x0a\x09\x09\x09ifFalse: [ 1 + nextCR = nextLF\x0a\x09\x09\x09\x09ifTrue: [ \x22Found a CR-LF pair\x22\x0a\x09\x09\x09\x09\x09aBlock value: start value: nextCR - 1 value: nextLF.\x0a\x09\x09\x09\x09\x09start := 1 + nextLF.\x0a\x09\x09\x09\x09\x09nextCR := self indexOf: cr startingAt: start.\x0a\x09\x09\x09\x09\x09nextLF := self indexOf: lf startingAt: start ]\x0a\x09\x09\x09\x09ifFalse: [ \x22Found a CR\x22\x0a\x09\x09\x09\x09\x09aBlock value: start value: nextCR - 1 value: nextCR.\x0a\x09\x09\x09\x09\x09start := 1 + nextCR.\x0a\x09\x09\x09\x09\x09nextCR := self indexOf: cr startingAt: start ] ]]",
 messageSends: ["size", "cr", "indexOf:startingAt:", "lf", "whileTrue:", "<=", "ifTrue:", "and:", "=", "value:value:value:", "ifTrue:ifFalse:", "or:", "<", "-", "+"],
 referencedClasses: ["String"]
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4734,13 +4734,13 @@ throw $early=[$3];
 return nil;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"lineNumber:",{anIndex:anIndex,lineCount:lineCount},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"lineNumber:",{anIndex:anIndex,lineCount:lineCount},globals.String)})},
 args: ["anIndex"],
 source: "lineNumber: anIndex\x0a\x09\x22Answer a string containing the characters in the given line number.\x22\x0a\x0a\x09| lineCount |\x0a\x09lineCount := 0.\x0a\x09self lineIndicesDo: [ :start :endWithoutDelimiters :end |\x0a\x09\x09(lineCount := lineCount + 1) = anIndex ifTrue: [ ^ self copyFrom: start to: endWithoutDelimiters ]].\x0a\x09^ nil",
 messageSends: ["lineIndicesDo:", "ifTrue:", "=", "+", "copyFrom:to:"],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4749,7 +4749,7 @@ protocol: 'split join',
 fn: function (){
 var self=this;
 var lines;
-function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 lines=_st($Array())._new();
@@ -4759,13 +4759,13 @@ return _st(lines)._add_(aLine);
 }, function($ctx2) {$ctx2.fillBlock({aLine:aLine},$ctx1,1)})}));
 $1=lines;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"lines",{lines:lines},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"lines",{lines:lines},globals.String)})},
 args: [],
 source: "lines\x0a\x09\x22Answer an array of lines composing this receiver without the line ending delimiters.\x22\x0a\x0a\x09| lines |\x0a\x09lines := Array new.\x0a\x09self linesDo: [ :aLine | lines add: aLine ].\x0a\x09^ lines",
 messageSends: ["new", "linesDo:", "add:"],
 referencedClasses: ["Array"]
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4778,13 +4778,13 @@ self._lineIndicesDo_((function(start,endWithoutDelimiters,end){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_(self._copyFrom_to_(start,endWithoutDelimiters));
 }, function($ctx2) {$ctx2.fillBlock({start:start,endWithoutDelimiters:endWithoutDelimiters,end:end},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"linesDo:",{aBlock:aBlock},smalltalk.String)})},
+return self}, function($ctx1) {$ctx1.fill(self,"linesDo:",{aBlock:aBlock},globals.String)})},
 args: ["aBlock"],
 source: "linesDo: aBlock\x0a\x09\x22Execute aBlock with each line in this string. The terminating line\x0a\x09delimiters CR, LF or CRLF pairs are not included in what is passed to aBlock\x22\x0a\x0a\x09self lineIndicesDo: [ :start :endWithoutDelimiters :end |\x0a\x09\x09aBlock value: (self copyFrom: start to: endWithoutDelimiters) ]",
 messageSends: ["lineIndicesDo:", "value:", "copyFrom:to:"],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4799,7 +4799,7 @@ source: "match: aRegexp\x0a\x09<return self.search(aRegexp) != -1>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4814,7 +4814,7 @@ source: "matchesOf: aRegularExpression\x0a\x09<return self.match(aRegularExpress
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4829,7 +4829,7 @@ source: "numericallyIndexable\x0a\x09<return String(self)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4844,7 +4844,7 @@ source: "printNl\x0a\x09<console.log(self)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4859,13 +4859,13 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self);
 $ctx1.sendIdx["nextPutAll:"]=2;
 $1=_st(aStream)._nextPutAll_("'");
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.String)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.String)})},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09aStream \x0a\x09\x09nextPutAll: '''';\x0a\x09\x09nextPutAll: self;\x0a\x09\x09nextPutAll: ''''",
 messageSends: ["nextPutAll:"],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4873,18 +4873,18 @@ selector: "replace:with:",
 protocol: 'regular expressions',
 fn: function (aString,anotherString){
 var self=this;
-function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
+function $RegularExpression(){return globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._replaceRegexp_with_(_st($RegularExpression())._fromString_flag_(aString,"g"),anotherString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"replace:with:",{aString:aString,anotherString:anotherString},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"replace:with:",{aString:aString,anotherString:anotherString},globals.String)})},
 args: ["aString", "anotherString"],
 source: "replace: aString with: anotherString\x0a\x09^ self replaceRegexp: (RegularExpression fromString: aString flag: 'g') with: anotherString",
 messageSends: ["replaceRegexp:with:", "fromString:flag:"],
 referencedClasses: ["RegularExpression"]
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4899,7 +4899,7 @@ source: "replaceRegexp: aRegexp with: aString\x0a\x09<return self.replace(aRegex
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4914,7 +4914,7 @@ source: "reversed\x0a\x09<return self.split(\x22\x22).reverse().join(\x22\x22)>"
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4926,13 +4926,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._class())._fromString_(self);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},globals.String)})},
 args: [],
 source: "shallowCopy\x0a\x09^ self class fromString: self",
 messageSends: ["fromString:", "class"],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4947,7 +4947,7 @@ source: "size\x0a\x09<return self.length>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4959,13 +4959,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tokenize_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"subStrings:",{aString:aString},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"subStrings:",{aString:aString},globals.String)})},
 args: ["aString"],
 source: "subStrings: aString\x0a\x09^ self tokenize: aString",
 messageSends: ["tokenize:"],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4980,7 +4980,7 @@ source: "tokenize: aString\x0a\x09<return self.split(aString)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -4992,13 +4992,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._trimBoth_("\x5cs");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"trimBoth",{},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"trimBoth",{},globals.String)})},
 args: [],
 source: "trimBoth\x0a\x09^ self trimBoth: '\x5cs'",
 messageSends: ["trimBoth:"],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5010,13 +5010,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._trimLeft_(separators))._trimRight_(separators);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"trimBoth:",{separators:separators},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"trimBoth:",{separators:separators},globals.String)})},
 args: ["separators"],
 source: "trimBoth: separators\x0a\x09^ (self trimLeft: separators) trimRight: separators",
 messageSends: ["trimRight:", "trimLeft:"],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5028,13 +5028,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._trimLeft_("\x5cs");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"trimLeft",{},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"trimLeft",{},globals.String)})},
 args: [],
 source: "trimLeft\x0a\x09^ self trimLeft: '\x5cs'",
 messageSends: ["trimLeft:"],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5042,7 +5042,7 @@ selector: "trimLeft:",
 protocol: 'regular expressions',
 fn: function (separators){
 var self=this;
-function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
+function $RegularExpression(){return globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return smalltalk.withContext(function($ctx1) { 
 var $3,$2,$1;
 $3=_st("^[".__comma(separators)).__comma("]+");
@@ -5050,13 +5050,13 @@ $ctx1.sendIdx[","]=1;
 $2=_st($RegularExpression())._fromString_flag_($3,"g");
 $1=self._replaceRegexp_with_($2,"");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"trimLeft:",{separators:separators},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"trimLeft:",{separators:separators},globals.String)})},
 args: ["separators"],
 source: "trimLeft: separators\x0a\x09^ self replaceRegexp: (RegularExpression fromString: '^[', separators, ']+' flag: 'g') with: ''",
 messageSends: ["replaceRegexp:with:", "fromString:flag:", ","],
 referencedClasses: ["RegularExpression"]
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5068,13 +5068,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._trimRight_("\x5cs");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"trimRight",{},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"trimRight",{},globals.String)})},
 args: [],
 source: "trimRight\x0a\x09^ self trimRight: '\x5cs'",
 messageSends: ["trimRight:"],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5082,7 +5082,7 @@ selector: "trimRight:",
 protocol: 'regular expressions',
 fn: function (separators){
 var self=this;
-function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
+function $RegularExpression(){return globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return smalltalk.withContext(function($ctx1) { 
 var $3,$2,$1;
 $3=_st("[".__comma(separators)).__comma("]+$");
@@ -5090,13 +5090,13 @@ $ctx1.sendIdx[","]=1;
 $2=_st($RegularExpression())._fromString_flag_($3,"g");
 $1=self._replaceRegexp_with_($2,"");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"trimRight:",{separators:separators},smalltalk.String)})},
+}, function($ctx1) {$ctx1.fill(self,"trimRight:",{separators:separators},globals.String)})},
 args: ["separators"],
 source: "trimRight: separators\x0a\x09^ self replaceRegexp: (RegularExpression fromString: '[', separators, ']+$' flag: 'g') with: ''",
 messageSends: ["replaceRegexp:with:", "fromString:flag:", ","],
 referencedClasses: ["RegularExpression"]
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5111,7 +5111,7 @@ source: "unescaped\x0a\x09<return unescape(self)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5126,7 +5126,7 @@ source: "uriComponentDecoded\x0a\x09<return decodeURIComponent(self)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5141,7 +5141,7 @@ source: "uriComponentEncoded\x0a\x09<return encodeURIComponent(self)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5156,7 +5156,7 @@ source: "uriDecoded\x0a\x09<return decodeURI(self)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5171,7 +5171,7 @@ source: "uriEncoded\x0a\x09<return encodeURI(self)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String);
+globals.String);
 
 
 smalltalk.addMethod(
@@ -5187,7 +5187,7 @@ source: "cr\x0a\x09<return '\x5cr'>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String.klass);
+globals.String.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5202,7 +5202,7 @@ source: "crlf\x0a\x09<return '\x5cr\x5cn'>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String.klass);
+globals.String.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5214,13 +5214,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._fromCharCode_((27));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"esc",{},smalltalk.String.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"esc",{},globals.String.klass)})},
 args: [],
 source: "esc\x0a\x09^ self fromCharCode: 27",
 messageSends: ["fromCharCode:"],
 referencedClasses: []
 }),
-smalltalk.String.klass);
+globals.String.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5235,7 +5235,7 @@ source: "fromCharCode: anInteger\x0a\x09<return String.fromCharCode(anInteger)>"
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String.klass);
+globals.String.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5250,7 +5250,7 @@ source: "fromString: aString\x0a\x09\x09<return String(aString)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String.klass);
+globals.String.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5265,7 +5265,7 @@ source: "lf\x0a\x09<return '\x5cn'>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String.klass);
+globals.String.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5280,7 +5280,7 @@ source: "random\x0a\x09\x22Returns random alphanumeric string beginning with let
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String.klass);
+globals.String.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5299,13 +5299,13 @@ return _st(aString)._includesSubString_(result);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileTrue();
 $1=result;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"randomNotIn:",{aString:aString,result:result},smalltalk.String.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"randomNotIn:",{aString:aString,result:result},globals.String.klass)})},
 args: ["aString"],
 source: "randomNotIn: aString\x0a\x09| result |\x0a\x09[ result := self random. aString includesSubString: result ] whileTrue.\x0a\x09^ result",
 messageSends: ["whileTrue", "random", "includesSubString:"],
 referencedClasses: []
 }),
-smalltalk.String.klass);
+globals.String.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5320,7 +5320,7 @@ source: "space\x0a\x09<return ' '>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String.klass);
+globals.String.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5328,7 +5328,7 @@ selector: "streamClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $StringStream(){return smalltalk.StringStream||(typeof StringStream=="undefined"?nil:StringStream)}
+function $StringStream(){return globals.StringStream||(typeof StringStream=="undefined"?nil:StringStream)}
 return $StringStream();
 },
 args: [],
@@ -5336,7 +5336,7 @@ source: "streamClass\x0a\x09\x09^ StringStream",
 messageSends: [],
 referencedClasses: ["StringStream"]
 }),
-smalltalk.String.klass);
+globals.String.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5351,7 +5351,7 @@ source: "tab\x0a\x09<return '\x5ct'>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String.klass);
+globals.String.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5366,11 +5366,11 @@ source: "value: aUTFCharCode\x0a\x0a\x09<return String.fromCharCode(aUTFCharCode
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.String.klass);
+globals.String.klass);
 
 
-smalltalk.addClass('Set', smalltalk.Collection, ['defaultBucket', 'slowBucketStores', 'fastBuckets', 'size'], 'Kernel-Collections');
-smalltalk.Set.comment="I represent an unordered set of objects without duplicates.\x0a\x0a## Implementation notes\x0a\x0aI put elements into different stores based on their type.\x0aThe goal is to store some elements into native JS object property names to be fast.\x0a\x0aIf an unboxed element has typeof 'string', 'boolean' or 'number', or an element is nil, null or undefined,\x0aI store it as a property name in an empty (== Object.create(null)) JS object, different for each type\x0a(for simplicity, nil/null/undefined is treated as one and included with the two booleans).\x0a\x0aIf element happen to be an object, I try to store them in `ArrayBucketStore`. I have two of them by default,\x0aone hashed using the Smalltalk class name, the other one using the JS constructor name. It is possible to have more or less\x0ainstances of `ArrayBucketStores`, see `#initializeSlowBucketStores`.\x0a\x0aAs a last resort, if none of the `ArrayBucketStore` instances can find a suitable bucket, the `defaultBucket` is used,\x0awhich is an `Array`.\x0a";
+smalltalk.addClass('Set', globals.Collection, ['defaultBucket', 'slowBucketStores', 'fastBuckets', 'size'], 'Kernel-Collections');
+globals.Set.comment="I represent an unordered set of objects without duplicates.\x0a\x0a## Implementation notes\x0a\x0aI put elements into different stores based on their type.\x0aThe goal is to store some elements into native JS object property names to be fast.\x0a\x0aIf an unboxed element has typeof 'string', 'boolean' or 'number', or an element is nil, null or undefined,\x0aI store it as a property name in an empty (== Object.create(null)) JS object, different for each type\x0a(for simplicity, nil/null/undefined is treated as one and included with the two booleans).\x0a\x0aIf element happen to be an object, I try to store them in `ArrayBucketStore`. I have two of them by default,\x0aone hashed using the Smalltalk class name, the other one using the JS constructor name. It is possible to have more or less\x0ainstances of `ArrayBucketStores`, see `#initializeSlowBucketStores`.\x0a\x0aAs a last resort, if none of the `ArrayBucketStore` instances can find a suitable bucket, the `defaultBucket` is used,\x0awhich is an `Array`.\x0a";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
@@ -5404,13 +5404,13 @@ throw $early=[false];
 return true;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"=",{aCollection:aCollection},smalltalk.Set)})},
+}, function($ctx1) {$ctx1.fill(self,"=",{aCollection:aCollection},globals.Set)})},
 args: ["aCollection"],
 source: "= aCollection\x0a\x09self class = aCollection class ifFalse: [ ^ false ].\x0a\x09self size = aCollection size ifFalse: [ ^ false ].\x0a\x09self do: [ :each | (aCollection includes: each) ifFalse: [ ^ false ] ].\x0a\x09^ true",
 messageSends: ["ifFalse:", "=", "class", "size", "do:", "includes:"],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5443,13 +5443,13 @@ primitiveBucket=$receiver;
 $1=self._add_in_(_st(bucket)._first(),primitiveBucket);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject,bucket:bucket},smalltalk.Set)})},
+}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject,bucket:bucket},globals.Set)})},
 args: ["anObject"],
 source: "add: anObject\x0a\x09| bucket |\x0a\x09bucket := self bucketsOfElement: anObject.\x0a\x09^ bucket second\x0a\x09\x09ifNil: [\x0a\x09\x09\x09| object slowBucket |\x0a\x09\x09\x09object := bucket first.\x0a\x09\x09\x09slowBucket := bucket third.\x0a\x09\x09\x09slowBucket \x0a\x09\x09\x09\x09indexOf: object \x0a\x09\x09\x09\x09ifAbsent: [ \x0a\x09\x09\x09\x09\x09slowBucket add: object. \x0a\x09\x09\x09\x09\x09size := size + 1 ].\x0a\x09\x09\x09object ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09add: bucket first \x0a\x09\x09\x09\x09in: primitiveBucket ]",
 messageSends: ["bucketsOfElement:", "ifNil:ifNotNil:", "second", "first", "third", "indexOf:ifAbsent:", "add:", "+", "add:in:"],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5468,7 +5468,7 @@ source: "add: anObject in: anotherObject\x0a\x09<\x0a\x09\x09if (anObject in ano
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5499,7 +5499,7 @@ source: "bucketsOfElement: anObject\x0a\x09\x22Find the appropriate bucket for `
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5514,7 +5514,7 @@ source: "classNameOf: anObject\x0a\x09\x22Answer the class name of `anObject`, o
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5532,13 +5532,13 @@ return _st(collection)._add_(_st(aBlock)._value_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $1=collection;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock,collection:collection},smalltalk.Set)})},
+}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock,collection:collection},globals.Set)})},
 args: ["aBlock"],
 source: "collect: aBlock\x0a\x09| collection |\x0a\x09collection := self class new.\x0a\x09self do: [ :each | collection add: (aBlock value: each) ].\x0a\x09^ collection",
 messageSends: ["new", "class", "do:", "add:", "value:"],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5561,13 +5561,13 @@ $2=_st(anotherBlock)._value();
 return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"detect:ifNone:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Set)})},
+}, function($ctx1) {$ctx1.fill(self,"detect:ifNone:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Set)})},
 args: ["aBlock", "anotherBlock"],
 source: "detect: aBlock ifNone: anotherBlock\x0a\x09self do: [ :each | (aBlock value: each) ifTrue: [ ^each ] ].\x0a\x09^ anotherBlock value",
 messageSends: ["do:", "ifTrue:", "value:", "value"],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5594,7 +5594,7 @@ source: "do: aBlock\x0a\x09<\x0a\x09\x09var el, keys, i;\x0a\x09\x09el = self['@
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5618,13 +5618,13 @@ primitiveBucket=$receiver;
 $1=self._includes_in_(_st(bucket)._first(),primitiveBucket);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject,bucket:bucket},smalltalk.Set)})},
+}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject,bucket:bucket},globals.Set)})},
 args: ["anObject"],
 source: "includes: anObject\x0a\x09| bucket |\x0a\x09bucket := self bucketsOfElement: anObject.\x0a\x09^ bucket second\x0a\x09\x09ifNil: [ bucket third includes: bucket first ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | self includes: bucket first in: primitiveBucket ]",
 messageSends: ["bucketsOfElement:", "ifNil:ifNotNil:", "second", "includes:", "third", "first", "includes:in:"],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5639,7 +5639,7 @@ source: "includes: anObject in: anotherObject\x0a\x09<return anObject in another
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5649,17 +5649,17 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-smalltalk.Set.superclass.fn.prototype._initialize.apply(_st(self), []);
+globals.Set.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@defaultBucket"]=[];
 self._initializeSlowBucketStores();
 $1=self._removeAll();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Set)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Set)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09\x0a\x09defaultBucket := #().\x0a\x09self\x0a\x09\x09initializeSlowBucketStores;\x0a\x09\x09removeAll",
 messageSends: ["initialize", "initializeSlowBucketStores", "removeAll"],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5667,7 +5667,7 @@ selector: "initializeSlowBucketStores",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $ArrayBucketStore(){return smalltalk.ArrayBucketStore||(typeof ArrayBucketStore=="undefined"?nil:ArrayBucketStore)}
+function $ArrayBucketStore(){return globals.ArrayBucketStore||(typeof ArrayBucketStore=="undefined"?nil:ArrayBucketStore)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st($ArrayBucketStore())._hashBlock_((function(x){
@@ -5679,13 +5679,13 @@ self["@slowBucketStores"]=[$1,_st($ArrayBucketStore())._hashBlock_((function(x){
 return smalltalk.withContext(function($ctx2) {
 return self._jsConstructorNameOf_(x);
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,2)})}))];
-return self}, function($ctx1) {$ctx1.fill(self,"initializeSlowBucketStores",{},smalltalk.Set)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSlowBucketStores",{},globals.Set)})},
 args: [],
 source: "initializeSlowBucketStores\x0a\x09slowBucketStores := {\x0a\x09\x09ArrayBucketStore hashBlock: [ :x | self classNameOf: x ].\x0a\x09\x09ArrayBucketStore hashBlock: [ :x | self jsConstructorNameOf: x ]\x0a\x09}",
 messageSends: ["hashBlock:", "classNameOf:", "jsConstructorNameOf:"],
 referencedClasses: ["ArrayBucketStore"]
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5700,7 +5700,7 @@ source: "jsConstructorNameOf: anObject\x0a\x09<return anObject.constructor && an
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5709,7 +5709,7 @@ protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Set.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+globals.Set.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 $ctx1.sendIdx["printOn:"]=1;
 _st(aStream)._nextPutAll_(" (");
 $ctx1.sendIdx["nextPutAll:"]=1;
@@ -5722,13 +5722,13 @@ return _st(aStream)._nextPutAll_(" ");
 $ctx2.sendIdx["nextPutAll:"]=2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 _st(aStream)._nextPutAll_(")");
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Set)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.Set)})},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09\x0a\x09aStream nextPutAll: ' ('.\x0a\x09self \x0a\x09\x09do: [ :each | each printOn: aStream ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ' ' ].\x0a\x09aStream nextPutAll: ')'",
 messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:"],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5762,13 +5762,13 @@ $1=self._remove_in_(_st(bucket)._first(),primitiveBucket);
 return $1;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock,bucket:bucket},smalltalk.Set)})},
+}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock,bucket:bucket},globals.Set)})},
 args: ["anObject", "aBlock"],
 source: "remove: anObject ifAbsent: aBlock\x0a\x09| bucket |\x0a\x09bucket := self bucketsOfElement: anObject.\x0a\x09^ bucket second\x0a\x09\x09ifNil: [ bucket third remove: bucket first ifAbsent: [ ^aBlock value ]. size := size - 1 ]\x0a\x09\x09ifNotNil: [ :primitiveBucket | self remove: bucket first in: primitiveBucket ]",
 messageSends: ["bucketsOfElement:", "ifNil:ifNotNil:", "second", "remove:ifAbsent:", "third", "first", "value", "-", "remove:in:"],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5783,7 +5783,7 @@ source: "remove: anObject in: anotherObject\x0a\x09<if (delete anotherObject.sto
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5807,7 +5807,7 @@ source: "removeAll\x0a\x09<\x0a\x09\x09self['@fastBuckets'] = {\x0a\x09\x09\x09'
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5828,13 +5828,13 @@ return _st(collection)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $2=collection;
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,collection:collection},smalltalk.Set)})},
+}, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,collection:collection},globals.Set)})},
 args: ["aBlock"],
 source: "select: aBlock\x0a\x09| collection |\x0a\x09collection := self class new.\x0a\x09self do: [ :each |\x0a\x09\x09(aBlock value: each) ifTrue: [\x0a\x09\x09\x09collection add: each ] ].\x0a\x09^ collection",
 messageSends: ["new", "class", "do:", "ifTrue:", "value:", "add:"],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5851,32 +5851,32 @@ source: "size\x0a\x09^ size",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Set);
+globals.Set);
 
 
 
-smalltalk.addClass('Queue', smalltalk.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
-smalltalk.Queue.comment="I am a one-sided queue.\x0a\x0a## Usage\x0a\x0aUse `#nextPut:` to add items to the queue.\x0aUse `#next` or `#nextIfAbsent:` to get (and remove) the next item in the queue.\x0a\x0a## Implementation notes\x0a\x0aA Queue uses two OrderedCollections inside,\x0a`read` is at the front, is not modified and only read using `readIndex`.\x0a`write` is at the back and is appended new items.\x0aWhen `read` is exhausted, `write` is promoted to `read` and new `write` is created.\x0a\x0aAs a consequence, no data moving is done by me, write appending may do data moving\x0awhen growing `write`, but this is left to engine to implement as good as it chooses to.";
+smalltalk.addClass('Queue', globals.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
+globals.Queue.comment="I am a one-sided queue.\x0a\x0a## Usage\x0a\x0aUse `#nextPut:` to add items to the queue.\x0aUse `#next` or `#nextIfAbsent:` to get (and remove) the next item in the queue.\x0a\x0a## Implementation notes\x0a\x0aA Queue uses two OrderedCollections inside,\x0a`read` is at the front, is not modified and only read using `readIndex`.\x0a`write` is at the back and is appended new items.\x0aWhen `read` is exhausted, `write` is promoted to `read` and new `write` is created.\x0a\x0aAs a consequence, no data moving is done by me, write appending may do data moving\x0awhen growing `write`, but this is left to engine to implement as good as it chooses to.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Queue.superclass.fn.prototype._initialize.apply(_st(self), []);
+globals.Queue.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@read"]=_st($OrderedCollection())._new();
 $ctx1.sendIdx["new"]=1;
 self["@write"]=_st($OrderedCollection())._new();
 self["@readIndex"]=(1);
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Queue)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Queue)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09read := OrderedCollection new.\x0a\x09write := OrderedCollection new.\x0a\x09readIndex := 1",
 messageSends: ["initialize", "new"],
 referencedClasses: ["OrderedCollection"]
 }),
-smalltalk.Queue);
+globals.Queue);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5891,13 +5891,13 @@ return smalltalk.withContext(function($ctx2) {
 return self._error_("Cannot read from empty Queue.");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"next",{},smalltalk.Queue)})},
+}, function($ctx1) {$ctx1.fill(self,"next",{},globals.Queue)})},
 args: [],
 source: "next\x0a\x09^ self nextIfAbsent: [ self error: 'Cannot read from empty Queue.' ]",
 messageSends: ["nextIfAbsent:", "error:"],
 referencedClasses: []
 }),
-smalltalk.Queue);
+globals.Queue);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5906,7 +5906,7 @@ protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 var result;
-function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
 var $early={};
@@ -5939,13 +5939,13 @@ $4=result;
 return $4;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"nextIfAbsent:",{aBlock:aBlock,result:result},smalltalk.Queue)})},
+}, function($ctx1) {$ctx1.fill(self,"nextIfAbsent:",{aBlock:aBlock,result:result},globals.Queue)})},
 args: ["aBlock"],
 source: "nextIfAbsent: aBlock\x0a\x09| result |\x0a\x09result := read at: readIndex ifAbsent: [\x0a\x09\x09write isEmpty ifTrue: [\x0a\x09\x09\x09readIndex > 1 ifTrue: [ read := #(). readIndex := 1 ].\x0a\x09\x09\x09^ aBlock value ].\x0a\x09\x09read := write.\x0a\x09\x09readIndex := 1.\x0a\x09\x09write := OrderedCollection new.\x0a\x09\x09read first ].\x0a\x09read at: readIndex put: nil.\x0a\x09readIndex := readIndex + 1.\x0a\x09^ result",
 messageSends: ["at:ifAbsent:", "ifTrue:", "isEmpty", ">", "value", "new", "first", "at:put:", "+"],
 referencedClasses: ["OrderedCollection"]
 }),
-smalltalk.Queue);
+globals.Queue);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5955,18 +5955,18 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@write"])._add_(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"nextPut:",{anObject:anObject},smalltalk.Queue)})},
+return self}, function($ctx1) {$ctx1.fill(self,"nextPut:",{anObject:anObject},globals.Queue)})},
 args: ["anObject"],
 source: "nextPut: anObject\x0a\x09write add: anObject",
 messageSends: ["add:"],
 referencedClasses: []
 }),
-smalltalk.Queue);
+globals.Queue);
 
 
 
-smalltalk.addClass('RegularExpression', smalltalk.Object, [], 'Kernel-Collections');
-smalltalk.RegularExpression.comment="I represent a regular expression object. My instances are JavaScript `RegExp` object.";
+smalltalk.addClass('RegularExpression', globals.Object, [], 'Kernel-Collections');
+globals.RegularExpression.comment="I represent a regular expression object. My instances are JavaScript `RegExp` object.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compile:",
@@ -5980,7 +5980,7 @@ source: "compile: aString\x0a\x09<return self.compile(aString)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.RegularExpression);
+globals.RegularExpression);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5995,7 +5995,7 @@ source: "exec: aString\x0a\x09<return self.exec(aString) || nil>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.RegularExpression);
+globals.RegularExpression);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6010,7 +6010,7 @@ source: "test: aString\x0a\x09<return self.test(aString)>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.RegularExpression);
+globals.RegularExpression);
 
 
 smalltalk.addMethod(
@@ -6023,13 +6023,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._fromString_flag_(aString,"");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"fromString:",{aString:aString},smalltalk.RegularExpression.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"fromString:",{aString:aString},globals.RegularExpression.klass)})},
 args: ["aString"],
 source: "fromString: aString\x0a\x09\x09^ self fromString: aString flag: ''",
 messageSends: ["fromString:flag:"],
 referencedClasses: []
 }),
-smalltalk.RegularExpression.klass);
+globals.RegularExpression.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6044,11 +6044,11 @@ source: "fromString: aString flag: anotherString\x0a\x09<return new RegExp(aStri
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.RegularExpression.klass);
+globals.RegularExpression.klass);
 
 
-smalltalk.addClass('Stream', smalltalk.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
-smalltalk.Stream.comment="I represent an accessor for a sequence of objects. This sequence is referred to as my \x22contents\x22.\x0aMy instances are read/write streams to the contents sequence collection.";
+smalltalk.addClass('Stream', globals.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
+globals.Stream.comment="I represent an accessor for a sequence of objects. This sequence is referred to as my \x22contents\x22.\x0aMy instances are read/write streams to the contents sequence collection.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "<<",
@@ -6057,13 +6057,13 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._write_(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"<<",{anObject:anObject},smalltalk.Stream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"<<",{anObject:anObject},globals.Stream)})},
 args: ["anObject"],
 source: "<< anObject\x0a\x09self write: anObject",
 messageSends: ["write:"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6075,13 +6075,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._position()).__eq(self._size());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"atEnd",{},smalltalk.Stream)})},
+}, function($ctx1) {$ctx1.fill(self,"atEnd",{},globals.Stream)})},
 args: [],
 source: "atEnd\x0a\x09^ self position = self size",
 messageSends: ["=", "position", "size"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6093,13 +6093,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._position()).__eq((0));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"atStart",{},smalltalk.Stream)})},
+}, function($ctx1) {$ctx1.fill(self,"atStart",{},globals.Stream)})},
 args: [],
 source: "atStart\x0a\x09^ self position = 0",
 messageSends: ["=", "position"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6113,7 +6113,7 @@ source: "close",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6130,7 +6130,7 @@ source: "collection\x0a\x09^ collection",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6142,13 +6142,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._collection())._copyFrom_to_((1),self._streamSize());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"contents",{},smalltalk.Stream)})},
+}, function($ctx1) {$ctx1.fill(self,"contents",{},globals.Stream)})},
 args: [],
 source: "contents\x0a\x09^ self collection\x0a\x09\x09copyFrom: 1\x0a\x09\x09to: self streamSize",
 messageSends: ["copyFrom:to:", "collection", "streamSize"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6164,13 +6164,13 @@ return self._atEnd();
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_(self._next());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.Stream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},globals.Stream)})},
 args: ["aBlock"],
 source: "do: aBlock\x0a\x09[ self atEnd ] whileFalse: [ aBlock value: self next ]",
 messageSends: ["whileFalse:", "atEnd", "value:", "next"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6184,7 +6184,7 @@ source: "flush",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6196,13 +6196,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._size()).__eq((0));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isEmpty",{},smalltalk.Stream)})},
+}, function($ctx1) {$ctx1.fill(self,"isEmpty",{},globals.Stream)})},
 args: [],
 source: "isEmpty\x0a\x09^ self size = 0",
 messageSends: ["=", "size"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6223,13 +6223,13 @@ self._position_($3);
 $1=_st(self["@collection"])._at_(self._position());
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"next",{},smalltalk.Stream)})},
+}, function($ctx1) {$ctx1.fill(self,"next",{},globals.Stream)})},
 args: [],
 source: "next\x0a\x09^ self atEnd\x0a\x09\x09ifTrue: [ nil ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09self position: self position + 1.\x0a\x09\x09\x09collection at: self position ]",
 messageSends: ["ifTrue:ifFalse:", "atEnd", "position:", "+", "position", "at:"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6250,13 +6250,13 @@ return _st(tempCollection)._add_(self._next());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $2=tempCollection;
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"next:",{anInteger:anInteger,tempCollection:tempCollection},smalltalk.Stream)})},
+}, function($ctx1) {$ctx1.fill(self,"next:",{anInteger:anInteger,tempCollection:tempCollection},globals.Stream)})},
 args: ["anInteger"],
 source: "next: anInteger\x0a\x09| tempCollection |\x0a\x09tempCollection := self collection class new.\x0a\x09anInteger timesRepeat: [\x0a\x09\x09self atEnd ifFalse: [\x0a\x09\x09tempCollection add: self next ]].\x0a\x09^ tempCollection",
 messageSends: ["new", "class", "collection", "timesRepeat:", "ifFalse:", "atEnd", "add:", "next"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6275,13 +6275,13 @@ $4=self._position();
 $ctx1.sendIdx["position"]=2;
 _st($3)._at_put_($4,anObject);
 self._setStreamSize_(_st(self._streamSize())._max_(self._position()));
-return self}, function($ctx1) {$ctx1.fill(self,"nextPut:",{anObject:anObject},smalltalk.Stream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"nextPut:",{anObject:anObject},globals.Stream)})},
 args: ["anObject"],
 source: "nextPut: anObject\x0a\x09self position: self position + 1.\x0a\x09self collection at: self position put: anObject.\x0a\x09self setStreamSize: (self streamSize max: self position)",
 messageSends: ["position:", "+", "position", "at:put:", "collection", "setStreamSize:", "max:", "streamSize"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6294,13 +6294,13 @@ _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._nextPut_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aCollection:aCollection},smalltalk.Stream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aCollection:aCollection},globals.Stream)})},
 args: ["aCollection"],
 source: "nextPutAll: aCollection\x0a\x09aCollection do: [ :each |\x0a\x09\x09self nextPut: each ]",
 messageSends: ["do:", "nextPut:"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6310,13 +6310,13 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._nextPut_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"nextPutString:",{aString:aString},smalltalk.Stream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutString:",{aString:aString},globals.Stream)})},
 args: ["aString"],
 source: "nextPutString: aString\x0a\x09self nextPut: aString",
 messageSends: ["nextPut:"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6331,13 +6331,13 @@ if(! smalltalk.assert($2)){
 $1=_st(self._collection())._at_(_st(self._position()).__plus((1)));
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"peek",{},smalltalk.Stream)})},
+}, function($ctx1) {$ctx1.fill(self,"peek",{},globals.Stream)})},
 args: [],
 source: "peek\x0a\x09^ self atEnd ifFalse: [\x0a\x09\x09self collection at: self position + 1 ]",
 messageSends: ["ifFalse:", "atEnd", "at:", "collection", "+", "position"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6355,13 +6355,13 @@ $1=self["@position"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"position",{},smalltalk.Stream)})},
+}, function($ctx1) {$ctx1.fill(self,"position",{},globals.Stream)})},
 args: [],
 source: "position\x0a\x09^ position ifNil: [ position := 0 ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6376,7 +6376,7 @@ source: "position: anInteger\x0a\x09position := anInteger",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6386,13 +6386,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._position_((0));
-return self}, function($ctx1) {$ctx1.fill(self,"reset",{},smalltalk.Stream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"reset",{},globals.Stream)})},
 args: [],
 source: "reset\x0a\x09self position: 0",
 messageSends: ["position:"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6403,13 +6403,13 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._reset();
 self._setStreamSize_((0));
-return self}, function($ctx1) {$ctx1.fill(self,"resetContents",{},smalltalk.Stream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"resetContents",{},globals.Stream)})},
 args: [],
 source: "resetContents\x0a\x09self reset.\x0a\x09self setStreamSize: 0",
 messageSends: ["reset", "setStreamSize:"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6424,7 +6424,7 @@ source: "setCollection: aCollection\x0a\x09collection := aCollection",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6439,7 +6439,7 @@ source: "setStreamSize: anInteger\x0a\x09streamSize := anInteger",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6449,13 +6449,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._position_(self._size());
-return self}, function($ctx1) {$ctx1.fill(self,"setToEnd",{},smalltalk.Stream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setToEnd",{},globals.Stream)})},
 args: [],
 source: "setToEnd\x0a\x09self position: self size",
 messageSends: ["position:", "size"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6467,13 +6467,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._streamSize();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"size",{},smalltalk.Stream)})},
+}, function($ctx1) {$ctx1.fill(self,"size",{},globals.Stream)})},
 args: [],
 source: "size\x0a\x09^ self streamSize",
 messageSends: ["streamSize"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6483,13 +6483,13 @@ fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._position_(_st(_st(self._position()).__plus(anInteger))._min_max_(self._size(),(0)));
-return self}, function($ctx1) {$ctx1.fill(self,"skip:",{anInteger:anInteger},smalltalk.Stream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"skip:",{anInteger:anInteger},globals.Stream)})},
 args: ["anInteger"],
 source: "skip: anInteger\x0a\x09self position: ((self position + anInteger) min: self size max: 0)",
 messageSends: ["position:", "min:max:", "+", "position", "size"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6506,7 +6506,7 @@ source: "streamSize\x0a\x09^ streamSize",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6516,13 +6516,13 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(anObject)._putOn_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"write:",{anObject:anObject},smalltalk.Stream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"write:",{anObject:anObject},globals.Stream)})},
 args: ["anObject"],
 source: "write: anObject\x0a\x09anObject putOn: self",
 messageSends: ["putOn:"],
 referencedClasses: []
 }),
-smalltalk.Stream);
+globals.Stream);
 
 
 smalltalk.addMethod(
@@ -6539,35 +6539,35 @@ _st($2)._setStreamSize_(_st(aCollection)._size());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{aCollection:aCollection},smalltalk.Stream.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:",{aCollection:aCollection},globals.Stream.klass)})},
 args: ["aCollection"],
 source: "on: aCollection\x0a\x09\x09^ self new\x0a\x09\x09setCollection: aCollection;\x0a\x09\x09setStreamSize: aCollection size;\x0a\x09\x09yourself",
 messageSends: ["setCollection:", "new", "setStreamSize:", "size", "yourself"],
 referencedClasses: []
 }),
-smalltalk.Stream.klass);
+globals.Stream.klass);
 
 
-smalltalk.addClass('StringStream', smalltalk.Stream, [], 'Kernel-Collections');
-smalltalk.StringStream.comment="I am a Stream specific to `String` objects.";
+smalltalk.addClass('StringStream', globals.Stream, [], 'Kernel-Collections');
+globals.StringStream.comment="I am a Stream specific to `String` objects.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cr",
 protocol: 'writing',
 fn: function (){
 var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._nextPutAll_(_st($String())._cr());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"cr",{},smalltalk.StringStream)})},
+}, function($ctx1) {$ctx1.fill(self,"cr",{},globals.StringStream)})},
 args: [],
 source: "cr\x0a\x09^ self nextPutAll: String cr",
 messageSends: ["nextPutAll:", "cr"],
 referencedClasses: ["String"]
 }),
-smalltalk.StringStream);
+globals.StringStream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6575,18 +6575,18 @@ selector: "crlf",
 protocol: 'writing',
 fn: function (){
 var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._nextPutAll_(_st($String())._crlf());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"crlf",{},smalltalk.StringStream)})},
+}, function($ctx1) {$ctx1.fill(self,"crlf",{},globals.StringStream)})},
 args: [],
 source: "crlf\x0a\x09^ self nextPutAll: String crlf",
 messageSends: ["nextPutAll:", "crlf"],
 referencedClasses: ["String"]
 }),
-smalltalk.StringStream);
+globals.StringStream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6594,18 +6594,18 @@ selector: "lf",
 protocol: 'writing',
 fn: function (){
 var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._nextPutAll_(_st($String())._lf());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"lf",{},smalltalk.StringStream)})},
+}, function($ctx1) {$ctx1.fill(self,"lf",{},globals.StringStream)})},
 args: [],
 source: "lf\x0a\x09^ self nextPutAll: String lf",
 messageSends: ["nextPutAll:", "lf"],
 referencedClasses: ["String"]
 }),
-smalltalk.StringStream);
+globals.StringStream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6627,13 +6627,13 @@ return tempCollection;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $2=tempCollection;
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"next:",{anInteger:anInteger,tempCollection:tempCollection},smalltalk.StringStream)})},
+}, function($ctx1) {$ctx1.fill(self,"next:",{anInteger:anInteger,tempCollection:tempCollection},globals.StringStream)})},
 args: ["anInteger"],
 source: "next: anInteger\x0a\x09| tempCollection |\x0a\x09tempCollection := self collection class new.\x0a\x09anInteger timesRepeat: [\x0a\x09\x09self atEnd ifFalse: [\x0a\x09\x09tempCollection := tempCollection, self next ]].\x0a\x09^ tempCollection",
 messageSends: ["new", "class", "collection", "timesRepeat:", "ifFalse:", "atEnd", ",", "next"],
 referencedClasses: []
 }),
-smalltalk.StringStream);
+globals.StringStream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6643,13 +6643,13 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._nextPutAll_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"nextPut:",{aString:aString},smalltalk.StringStream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"nextPut:",{aString:aString},globals.StringStream)})},
 args: ["aString"],
 source: "nextPut: aString\x0a\x09self nextPutAll: aString",
 messageSends: ["nextPutAll:"],
 referencedClasses: []
 }),
-smalltalk.StringStream);
+globals.StringStream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6699,13 +6699,13 @@ $ctx1.sendIdx["position"]=3;
 $13=_st($14).__plus(_st(aString)._size());
 self._position_($13);
 self._setStreamSize_(_st(self._streamSize())._max_(self._position()));
-return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aString:aString,pre:pre,post:post},smalltalk.StringStream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aString:aString,pre:pre,post:post},globals.StringStream)})},
 args: ["aString"],
 source: "nextPutAll: aString\x0a\x09| pre post |\x0a\x09self atEnd ifTrue: [ self setCollection: self collection, aString ] ifFalse: [\x0a\x09\x09pre := self collection copyFrom: 1 to: self position.\x0a\x09\x09post := self collection copyFrom: (self position + 1 + aString size) to: self collection size.\x0a\x09\x09self setCollection: pre, aString, post\x0a\x09].\x0a\x09self position: self position + aString size.\x0a\x09self setStreamSize: (self streamSize max: self position)",
 messageSends: ["ifTrue:ifFalse:", "atEnd", "setCollection:", ",", "collection", "copyFrom:to:", "position", "+", "size", "position:", "setStreamSize:", "max:", "streamSize"],
 referencedClasses: []
 }),
-smalltalk.StringStream);
+globals.StringStream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6715,13 +6715,13 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._nextPutAll_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"nextPutString:",{aString:aString},smalltalk.StringStream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutString:",{aString:aString},globals.StringStream)})},
 args: ["aString"],
 source: "nextPutString: aString\x0a\x09self nextPutAll: aString",
 messageSends: ["nextPutAll:"],
 referencedClasses: []
 }),
-smalltalk.StringStream);
+globals.StringStream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6731,13 +6731,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._nextPut_(" ");
-return self}, function($ctx1) {$ctx1.fill(self,"space",{},smalltalk.StringStream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"space",{},globals.StringStream)})},
 args: [],
 source: "space\x0a\x09self nextPut: ' '",
 messageSends: ["nextPut:"],
 referencedClasses: []
 }),
-smalltalk.StringStream);
+globals.StringStream);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6745,18 +6745,18 @@ selector: "tab",
 protocol: 'writing',
 fn: function (){
 var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._nextPutAll_(_st($String())._tab());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"tab",{},smalltalk.StringStream)})},
+}, function($ctx1) {$ctx1.fill(self,"tab",{},globals.StringStream)})},
 args: [],
 source: "tab\x0a\x09^ self nextPutAll: String tab",
 messageSends: ["nextPutAll:", "tab"],
 referencedClasses: ["String"]
 }),
-smalltalk.StringStream);
+globals.StringStream);
 
 
 });

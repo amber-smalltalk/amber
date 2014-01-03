@@ -1,15 +1,15 @@
-define("amber_core/Helios-Workspace", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Helios-Core"], function(smalltalk,nil,_st){
+define("amber_core/Helios-Workspace", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "amber_core/Helios-Core"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Workspace');
 smalltalk.packages["Helios-Workspace"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('HLCodeModel', smalltalk.Object, ['announcer', 'environment', 'receiver'], 'Helios-Workspace');
+smalltalk.addClass('HLCodeModel', globals.Object, ['announcer', 'environment', 'receiver'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announcer",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
+function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@announcer"];
@@ -20,13 +20,13 @@ $1=self["@announcer"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"announcer",{},smalltalk.HLCodeModel)})},
+}, function($ctx1) {$ctx1.fill(self,"announcer",{},globals.HLCodeModel)})},
 args: [],
 source: "announcer\x0a\x09^ announcer ifNil: [ announcer := Announcer new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: ["Announcer"]
 }),
-smalltalk.HLCodeModel);
+globals.HLCodeModel);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -38,13 +38,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._environment())._doItReceiver();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultReceiver",{},smalltalk.HLCodeModel)})},
+}, function($ctx1) {$ctx1.fill(self,"defaultReceiver",{},globals.HLCodeModel)})},
 args: [],
 source: "defaultReceiver\x0a\x09^ self environment doItReceiver",
 messageSends: ["doItReceiver", "environment"],
 referencedClasses: []
 }),
-smalltalk.HLCodeModel);
+globals.HLCodeModel);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -56,13 +56,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._environment())._eval_on_(aString,self._receiver());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"doIt:",{aString:aString},smalltalk.HLCodeModel)})},
+}, function($ctx1) {$ctx1.fill(self,"doIt:",{aString:aString},globals.HLCodeModel)})},
 args: ["aString"],
 source: "doIt: aString\x0a\x0a\x09^ self environment eval: aString on: self receiver",
 messageSends: ["eval:on:", "environment", "receiver"],
 referencedClasses: []
 }),
-smalltalk.HLCodeModel);
+globals.HLCodeModel);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -70,7 +70,7 @@ selector: "environment",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
+function $HLManager(){return globals.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@environment"];
@@ -80,13 +80,13 @@ $1=_st(_st($HLManager())._current())._environment();
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"environment",{},smalltalk.HLCodeModel)})},
+}, function($ctx1) {$ctx1.fill(self,"environment",{},globals.HLCodeModel)})},
 args: [],
 source: "environment\x0a\x09^ environment ifNil: [ HLManager current environment ]",
 messageSends: ["ifNil:", "environment", "current"],
 referencedClasses: ["HLManager"]
 }),
-smalltalk.HLCodeModel);
+globals.HLCodeModel);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -101,7 +101,7 @@ source: "environment: anEnvironment\x0a\x09environment := anEnvironment",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCodeModel);
+globals.HLCodeModel);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -111,13 +111,13 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._environment())._inspect_(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.HLCodeModel)})},
+return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},globals.HLCodeModel)})},
 args: ["anObject"],
 source: "inspect: anObject\x0a\x09self environment inspect: anObject",
 messageSends: ["inspect:", "environment"],
 referencedClasses: []
 }),
-smalltalk.HLCodeModel);
+globals.HLCodeModel);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -135,13 +135,13 @@ $1=self["@receiver"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.HLCodeModel)})},
+}, function($ctx1) {$ctx1.fill(self,"receiver",{},globals.HLCodeModel)})},
 args: [],
 source: "receiver\x0a\x09^ receiver ifNil: [ receiver := self defaultReceiver ]",
 messageSends: ["ifNil:", "defaultReceiver"],
 referencedClasses: []
 }),
-smalltalk.HLCodeModel);
+globals.HLCodeModel);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -156,7 +156,7 @@ source: "receiver: anObject\x0a\x09receiver := anObject",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCodeModel);
+globals.HLCodeModel);
 
 
 smalltalk.addMethod(
@@ -172,16 +172,16 @@ _st($2)._environment_(anEnvironment);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{anEnvironment:anEnvironment},smalltalk.HLCodeModel.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:",{anEnvironment:anEnvironment},globals.HLCodeModel.klass)})},
 args: ["anEnvironment"],
 source: "on: anEnvironment\x0a\x0a\x09^ self new\x0a    \x09environment: anEnvironment;\x0a        yourself",
 messageSends: ["environment:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.HLCodeModel.klass);
+globals.HLCodeModel.klass);
 
 
-smalltalk.addClass('HLCodeWidget', smalltalk.HLWidget, ['model', 'wrapper', 'code', 'editor', 'state'], 'Helios-Workspace');
+smalltalk.addClass('HLCodeWidget', globals.HLWidget, ['model', 'wrapper', 'code', 'editor', 'state'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announcer",
@@ -192,13 +192,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._model())._announcer();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"announcer",{},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"announcer",{},globals.HLCodeWidget)})},
 args: [],
 source: "announcer\x0a\x09^ self model announcer",
 messageSends: ["announcer", "model"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -213,7 +213,7 @@ source: "canHaveFocus\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -223,13 +223,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._contents_("");
-return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"clear",{},globals.HLCodeWidget)})},
 args: [],
 source: "clear\x0a\x09self contents: ''",
 messageSends: ["contents:"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -246,13 +246,13 @@ _st(self._editor())._on_do_("change",(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._onChange();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{},globals.HLCodeWidget)})},
 args: [],
 source: "configureEditor\x0a\x09self editor at: 'amberCodeWidget' put: self.\x0a\x09self editor on: 'change' do: [ self onChange ]",
 messageSends: ["at:put:", "editor", "on:do:", "onChange"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -264,13 +264,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self["@editor"])._getValue();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"contents",{},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"contents",{},globals.HLCodeWidget)})},
 args: [],
 source: "contents\x0a\x09^ editor getValue",
 messageSends: ["getValue"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -287,13 +287,13 @@ $1;
 } else {
 self._updateState();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},globals.HLCodeWidget)})},
 args: ["aString"],
 source: "contents: aString\x0a\x09editor setValue: aString.\x0a\x09state ifNotNil: [ self updateState ]",
 messageSends: ["setValue:", "ifNotNil:", "updateState"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -305,13 +305,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self["@editor"])._getLine_(_st(_st(self["@editor"])._getCursor())._line());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"currentLine",{},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"currentLine",{},globals.HLCodeWidget)})},
 args: [],
 source: "currentLine\x0a    ^editor getLine: (editor getCursor line)",
 messageSends: ["getLine:", "line", "getCursor"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -328,13 +328,13 @@ $1=self._selection();
 $1=self._currentLine();
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"currentLineOrSelection",{},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"currentLineOrSelection",{},globals.HLCodeWidget)})},
 args: [],
 source: "currentLineOrSelection\x0a    ^editor somethingSelected\x0a\x09\x09ifFalse: [ self currentLine ]\x0a\x09\x09ifTrue: [ self selection ]",
 messageSends: ["ifFalse:ifTrue:", "somethingSelected", "currentLine", "selection"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -343,8 +343,8 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 var result;
-function $HLDoItRequested(){return smalltalk.HLDoItRequested||(typeof HLDoItRequested=="undefined"?nil:HLDoItRequested)}
-function $HLDoItExecuted(){return smalltalk.HLDoItExecuted||(typeof HLDoItExecuted=="undefined"?nil:HLDoItExecuted)}
+function $HLDoItRequested(){return globals.HLDoItRequested||(typeof HLDoItRequested=="undefined"?nil:HLDoItRequested)}
+function $HLDoItExecuted(){return globals.HLDoItExecuted||(typeof HLDoItExecuted=="undefined"?nil:HLDoItExecuted)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$3,$4;
 $2=self._model();
@@ -359,13 +359,13 @@ result=_st(self["@model"])._doIt_(self._currentLineOrSelection());
 _st(_st(self._model())._announcer())._announce_(_st($HLDoItExecuted())._on_(self["@model"]));
 $4=result;
 return $4;
-}, function($ctx1) {$ctx1.fill(self,"doIt",{result:result},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"doIt",{result:result},globals.HLCodeWidget)})},
 args: [],
 source: "doIt\x0a\x09| result |\x0a\x0a\x09self model announcer announce: (HLDoItRequested on: model).\x0a\x09result := model doIt: self currentLineOrSelection.\x0a\x09self model announcer announce: (HLDoItExecuted on: model).\x0a\x0a\x09^ result",
 messageSends: ["announce:", "announcer", "model", "on:", "doIt:", "currentLineOrSelection"],
 referencedClasses: ["HLDoItRequested", "HLDoItExecuted"]
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -382,7 +382,7 @@ source: "editor\x0a\x09^ editor",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -414,13 +414,13 @@ $11="extraKeys".__minus_gt(smalltalk.HashedCollection._from_(["Shift-Space".__mi
 $ctx1.sendIdx["->"]=10;
 $1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"editorOptions",{},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"editorOptions",{},globals.HLCodeWidget)})},
 args: [],
 source: "editorOptions\x0a\x09^ #{\x0a\x09\x09'theme' -> 'default'.\x0a\x09\x09'mode' -> 'text/x-stsrc'.\x0a        'lineNumbers' -> true.\x0a        'enterMode' -> 'flat'.\x0a        'indentWithTabs' -> true.\x0a\x09\x09'indentUnit' -> 4.\x0a        'matchBrackets' -> true.\x0a        'electricChars' -> false.\x0a\x09\x09'keyMap' -> 'Amber'.\x0a\x09\x09'extraKeys' -> #{'Shift-Space' -> 'autocomplete'}\x0a\x09}",
 messageSends: ["->"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -430,13 +430,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@editor"])._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"focus",{},globals.HLCodeWidget)})},
 args: [],
 source: "focus\x0a\x09editor focus",
 messageSends: ["focus"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -448,13 +448,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self["@code"])._asJQuery())._is_(":active");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"hasFocus",{},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"hasFocus",{},globals.HLCodeWidget)})},
 args: [],
 source: "hasFocus\x0a\x09^ code asJQuery is: ':active'",
 messageSends: ["is:", "asJQuery"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -469,7 +469,7 @@ source: "hasModification\x0a\x09^ false",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -478,7 +478,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 var newInspector;
-function $HLInspectItRequested(){return smalltalk.HLInspectItRequested||(typeof HLInspectItRequested=="undefined"?nil:HLInspectItRequested)}
+function $HLInspectItRequested(){return globals.HLInspectItRequested||(typeof HLInspectItRequested=="undefined"?nil:HLInspectItRequested)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._model();
@@ -486,13 +486,13 @@ $ctx1.sendIdx["model"]=1;
 $1=_st($2)._announcer();
 _st($1)._announce_(_st($HLInspectItRequested())._on_(self["@model"]));
 _st(self._model())._inspect_(self._doIt());
-return self}, function($ctx1) {$ctx1.fill(self,"inspectIt",{newInspector:newInspector},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"inspectIt",{newInspector:newInspector},globals.HLCodeWidget)})},
 args: [],
 source: "inspectIt\x0a\x09| newInspector |\x0a       \x0a\x09self model announcer announce: (HLInspectItRequested on: model).\x0a\x09self model inspect: self doIt",
 messageSends: ["announce:", "announcer", "model", "on:", "inspect:", "doIt"],
 referencedClasses: ["HLInspectItRequested"]
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -500,7 +500,7 @@ selector: "messageHintFor:token:",
 protocol: 'hints',
 fn: function (anEditor,aToken){
 var self=this;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $1=_st(_st(_st(_st(_st($Smalltalk())._vm())._allSelectors())._asArray())._select_((function(each){
@@ -513,13 +513,13 @@ return smalltalk.withContext(function($ctx2) {
 return _st(each).__eq(_st(aToken)._string());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageHintFor:token:",{anEditor:anEditor,aToken:aToken},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"messageHintFor:token:",{anEditor:anEditor,aToken:aToken},globals.HLCodeWidget)})},
 args: ["anEditor", "aToken"],
 source: "messageHintFor: anEditor token: aToken\x0a\x09^ (Smalltalk vm allSelectors asArray \x0a\x09\x09select: [ :each | each includesSubString: aToken string ])\x0a\x09\x09reject: [ :each | each = aToken string ]",
 messageSends: ["reject:", "select:", "asArray", "allSelectors", "vm", "includesSubString:", "string", "="],
 referencedClasses: ["Smalltalk"]
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -527,7 +527,7 @@ selector: "model",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $HLCodeModel(){return smalltalk.HLCodeModel||(typeof HLCodeModel=="undefined"?nil:HLCodeModel)}
+function $HLCodeModel(){return globals.HLCodeModel||(typeof HLCodeModel=="undefined"?nil:HLCodeModel)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@model"];
@@ -538,13 +538,13 @@ $1=self["@model"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"model",{},globals.HLCodeWidget)})},
 args: [],
 source: "model\x0a\x09^ model ifNil: [ model := HLCodeModel new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: ["HLCodeModel"]
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -559,7 +559,7 @@ source: "model: aModel\x0a\x09model := aModel",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -569,13 +569,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._updateState();
-return self}, function($ctx1) {$ctx1.fill(self,"onChange",{},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onChange",{},globals.HLCodeWidget)})},
 args: [],
 source: "onChange\x0a\x09self updateState",
 messageSends: ["updateState"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -585,13 +585,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._doIt();
-return self}, function($ctx1) {$ctx1.fill(self,"onDoIt",{},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onDoIt",{},globals.HLCodeWidget)})},
 args: [],
 source: "onDoIt\x0a\x09\x0a\x09self doIt",
 messageSends: ["doIt"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -601,13 +601,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._inspectIt();
-return self}, function($ctx1) {$ctx1.fill(self,"onInspectIt",{},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onInspectIt",{},globals.HLCodeWidget)})},
 args: [],
 source: "onInspectIt\x0a\x0a\x09self inspectIt",
 messageSends: ["inspectIt"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -617,13 +617,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._printIt();
-return self}, function($ctx1) {$ctx1.fill(self,"onPrintIt",{},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onPrintIt",{},globals.HLCodeWidget)})},
 args: [],
 source: "onPrintIt\x0a\x0a\x09self printIt",
 messageSends: ["printIt"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -637,7 +637,7 @@ source: "onSaveIt\x0a\x09\x22I do not do anything\x22",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -646,7 +646,7 @@ protocol: 'actions',
 fn: function (aString){
 var self=this;
 var start,stop,currentLine;
-function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$4,$3,$5,$6,$7,$8,$10,$9,$11,$12,$13,$15,$14;
 $1=_st(self["@editor"])._getCursor_(false);
@@ -693,13 +693,13 @@ $ctx1.sendIdx[","]=1;
 _st($13)._replaceSelection_($14);
 _st(self["@editor"])._setCursor_(_st(self["@editor"])._getCursor_(true));
 _st(self["@editor"])._setSelection_end_(stop,start);
-return self}, function($ctx1) {$ctx1.fill(self,"print:",{aString:aString,start:start,stop:stop,currentLine:currentLine},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"print:",{aString:aString,start:start,stop:stop,currentLine:currentLine},globals.HLCodeWidget)})},
 args: ["aString"],
 source: "print: aString\x0a\x09| start stop currentLine |\x0a    currentLine := (editor getCursor: false) line.\x0a\x09start := HashedCollection new.\x0a\x09start at: 'line' put: currentLine.\x0a\x09start at: 'ch' put: (editor getCursor: false) ch.\x0a    (editor getSelection) ifEmpty: [\x0a    \x09\x22select current line if selection is empty\x22\x0a    \x09start at: 'ch' put: (editor getLine: currentLine) size.\x0a        editor setSelection: #{'line' -> currentLine. 'ch' -> 0} end: start.\x0a    ].\x0a\x09stop := HashedCollection new.\x0a\x09stop at: 'line' put: currentLine.\x0a\x09stop at: 'ch' put: ((start at: 'ch') + aString size + 2).\x0a\x0a\x09editor replaceSelection: (editor getSelection, ' ', aString, ' ').\x0a\x09editor setCursor: (editor getCursor: true).\x0a\x09editor setSelection: stop end: start",
 messageSends: ["line", "getCursor:", "new", "at:put:", "ch", "ifEmpty:", "getSelection", "size", "getLine:", "setSelection:end:", "->", "+", "at:", "replaceSelection:", ",", "setCursor:"],
 referencedClasses: ["HashedCollection"]
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -708,19 +708,19 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 var result;
-function $HLPrintItRequested(){return smalltalk.HLPrintItRequested||(typeof HLPrintItRequested=="undefined"?nil:HLPrintItRequested)}
+function $HLPrintItRequested(){return globals.HLPrintItRequested||(typeof HLPrintItRequested=="undefined"?nil:HLPrintItRequested)}
 return smalltalk.withContext(function($ctx1) { 
 result=self._doIt();
 _st(_st(self._model())._announcer())._announce_(_st($HLPrintItRequested())._on_(self["@model"]));
 self._print_(_st(result)._printString());
 self._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"printIt",{result:result},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printIt",{result:result},globals.HLCodeWidget)})},
 args: [],
 source: "printIt\x0a\x09| result |\x0a\x0a\x09result := self doIt.       \x0a\x09self model announcer announce: (HLPrintItRequested on: model).\x0a\x09self print: result printString.\x0a\x09\x0a\x09self focus.",
 messageSends: ["doIt", "announce:", "announcer", "model", "on:", "print:", "printString", "focus"],
 referencedClasses: ["HLPrintItRequested"]
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -732,13 +732,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._model())._receiver();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"receiver",{},globals.HLCodeWidget)})},
 args: [],
 source: "receiver\x0a\x09^ self model receiver",
 messageSends: ["receiver", "model"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -748,13 +748,13 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._receiver_(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"receiver:",{anObject:anObject},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"receiver:",{anObject:anObject},globals.HLCodeWidget)})},
 args: ["anObject"],
 source: "receiver: anObject\x0a\x09self model receiver: anObject",
 messageSends: ["receiver:", "model"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -793,13 +793,13 @@ $6=_st($5)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._inspectIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLCodeWidget)})},
 args: ["html"],
 source: "renderButtonsOn: html\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'DoIt';\x0a\x09\x09onClick: [ self doIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'PrintIt';\x0a\x09\x09onClick: [ self printIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'InspectIt';\x0a\x09\x09onClick: [ self inspectIt ]",
 messageSends: ["class:", "button", "with:", "onClick:", "doIt", "printIt", "inspectIt"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -832,13 +832,13 @@ return self._renderButtonsOn_(html);
 self._setEditorOn_(_st(self["@code"])._element());
 self._configureEditor();
 $6=self._updateState();
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLCodeWidget)})},
 args: ["html"],
 source: "renderContentOn: html\x0a\x09html div class: 'editor'; with: [\x0a\x09\x09code := html textarea ].\x0a\x09state := html div class: 'state'.\x0a\x09\x0a\x09html div \x0a\x09\x09class: 'buttons_bar';\x0a\x09\x09with: [ self renderButtonsOn: html ].\x0a\x09\x0a\x09self \x0a\x09\x09setEditorOn: code element;\x0a\x09\x09configureEditor;\x0a\x09\x09updateState",
 messageSends: ["class:", "div", "with:", "textarea", "renderButtonsOn:", "setEditorOn:", "element", "configureEditor", "updateState"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -852,7 +852,7 @@ source: "saveIt\x0a\x09\x22I do not do anything\x22",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -864,13 +864,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self["@editor"])._getSelection();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selection",{},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"selection",{},globals.HLCodeWidget)})},
 args: [],
 source: "selection\x0a\x09^editor getSelection",
 messageSends: ["getSelection"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -882,13 +882,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self["@code"])._element())._selectionEnd();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectionEnd",{},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"selectionEnd",{},globals.HLCodeWidget)})},
 args: [],
 source: "selectionEnd\x0a   ^code element selectionEnd",
 messageSends: ["selectionEnd", "element"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -898,13 +898,13 @@ fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(_st(self["@code"])._element())._selectionEnd_(anInteger);
-return self}, function($ctx1) {$ctx1.fill(self,"selectionEnd:",{anInteger:anInteger},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"selectionEnd:",{anInteger:anInteger},globals.HLCodeWidget)})},
 args: ["anInteger"],
 source: "selectionEnd: anInteger\x0a   code element selectionEnd: anInteger",
 messageSends: ["selectionEnd:", "element"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -916,13 +916,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self["@code"])._element())._selectionStart();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectionStart",{},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"selectionStart",{},globals.HLCodeWidget)})},
 args: [],
 source: "selectionStart\x0a   ^code element selectionStart",
 messageSends: ["selectionStart", "element"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -932,13 +932,13 @@ fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(_st(self["@code"])._element())._selectionStart_(anInteger);
-return self}, function($ctx1) {$ctx1.fill(self,"selectionStart:",{anInteger:anInteger},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"selectionStart:",{anInteger:anInteger},globals.HLCodeWidget)})},
 args: ["anInteger"],
 source: "selectionStart: anInteger\x0a   code element selectionStart: anInteger",
 messageSends: ["selectionStart:", "element"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -953,7 +953,7 @@ source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextAre
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -971,13 +971,13 @@ _st($2)._addClass_("modified");
 } else {
 _st(_st(self["@state"])._asJQuery())._removeClass_("modified");
 };
-return self}, function($ctx1) {$ctx1.fill(self,"updateState",{},smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"updateState",{},globals.HLCodeWidget)})},
 args: [],
 source: "updateState\x0a\x09self hasModification \x0a\x09\x09ifTrue: [ state asJQuery addClass: 'modified' ]\x0a\x09\x09ifFalse: [ state asJQuery removeClass: 'modified' ]",
 messageSends: ["ifTrue:ifFalse:", "hasModification", "addClass:", "asJQuery", "removeClass:"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -986,7 +986,7 @@ protocol: 'hints',
 fn: function (anEditor,aToken){
 var self=this;
 var variables,classNames,pseudoVariables;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $3,$2,$1,$9,$8,$7,$6,$10,$5,$4;
 $3=_st(_st(_st(anEditor)._display())._wrapper())._asJQuery();
@@ -1019,13 +1019,13 @@ return smalltalk.withContext(function($ctx2) {
 return _st(each).__eq(_st(aToken)._string());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
 return $4;
-}, function($ctx1) {$ctx1.fill(self,"variableHintFor:token:",{anEditor:anEditor,aToken:aToken,variables:variables,classNames:classNames,pseudoVariables:pseudoVariables},smalltalk.HLCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"variableHintFor:token:",{anEditor:anEditor,aToken:aToken,variables:variables,classNames:classNames,pseudoVariables:pseudoVariables},globals.HLCodeWidget)})},
 args: ["anEditor", "aToken"],
 source: "variableHintFor: anEditor token: aToken\x0a\x09| variables classNames pseudoVariables |\x0a\x09\x0a\x09variables := (anEditor display wrapper asJQuery find: 'span.cm-variable') get\x0a\x09\x09collect: [ :each | each asJQuery html ].\x0a\x09\x0a\x09classNames := Smalltalk classes collect: [ :each | each name ].\x0a\x09pseudoVariables := Smalltalk pseudoVariableNames.\x0a\x09\x0a\x09^ ((variables, classNames, pseudoVariables) asSet asArray sort\x0a\x09\x09select: [ :each | each includesSubString: aToken string ])\x0a\x09\x09reject: [ :each | each = aToken string ]",
 messageSends: ["collect:", "get", "find:", "asJQuery", "wrapper", "display", "html", "classes", "name", "pseudoVariableNames", "reject:", "select:", "sort", "asArray", "asSet", ",", "includesSubString:", "string", "="],
 referencedClasses: ["Smalltalk"]
 }),
-smalltalk.HLCodeWidget);
+globals.HLCodeWidget);
 
 
 smalltalk.addMethod(
@@ -1035,8 +1035,8 @@ protocol: 'hints',
 fn: function (anEditor,options){
 var self=this;
 var cursor,token,completions;
-function $CodeMirror(){return smalltalk.CodeMirror||(typeof CodeMirror=="undefined"?nil:CodeMirror)}
-function $HLCodeWidget(){return smalltalk.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
+function $CodeMirror(){return globals.CodeMirror||(typeof CodeMirror=="undefined"?nil:CodeMirror)}
+function $HLCodeWidget(){return globals.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$4,$3,$2,$5,$7,$10,$11,$9,$8,$6;
 cursor=_st(anEditor)._getCursor();
@@ -1066,13 +1066,13 @@ $8="from".__minus_gt($9);
 $ctx1.sendIdx["->"]=2;
 $6=smalltalk.HashedCollection._from_([$7,$8,"to".__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._start()))]);
 return $6;
-}, function($ctx1) {$ctx1.fill(self,"hintFor:options:",{anEditor:anEditor,options:options,cursor:cursor,token:token,completions:completions},smalltalk.HLCodeWidget.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"hintFor:options:",{anEditor:anEditor,options:options,cursor:cursor,token:token,completions:completions},globals.HLCodeWidget.klass)})},
 args: ["anEditor", "options"],
 source: "hintFor: anEditor options: options\x0a\x09| cursor token completions |\x0a\x09\x0a\x09cursor := anEditor getCursor.\x0a\x09token := anEditor getTokenAt: cursor.\x0a\x09token at: 'state' put: ((CodeMirror basicAt: 'innerMode')\x0a\x09\x09value: anEditor getMode value: (token at: 'state')) state.\x0a\x09\x0a\x09completions := token type = 'variable' \x0a\x09\x09ifTrue: [ HLCodeWidget variableHintFor: anEditor token: token ]\x0a\x09\x09ifFalse: [ HLCodeWidget messageHintFor: anEditor token: token ].\x0a\x09\x0a\x09^ #{\x0a\x09\x09'list' -> completions.\x0a\x09\x09'from' -> ((CodeMirror basicAt: 'Pos') value: cursor line value: token end).\x0a\x09\x09'to' -> ((CodeMirror basicAt: 'Pos') value: cursor line value: token start)\x0a\x09}",
 messageSends: ["getCursor", "getTokenAt:", "at:put:", "state", "value:value:", "basicAt:", "getMode", "at:", "ifTrue:ifFalse:", "=", "type", "variableHintFor:token:", "messageHintFor:token:", "->", "line", "end", "start"],
 referencedClasses: ["CodeMirror", "HLCodeWidget"]
 }),
-smalltalk.HLCodeWidget.klass);
+globals.HLCodeWidget.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1082,17 +1082,17 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-smalltalk.HLCodeWidget.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+globals.HLCodeWidget.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._setupCodeMirror();
 self._setupCommands();
 $1=self._setupKeyMaps();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLCodeWidget.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLCodeWidget.klass)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09self \x0a\x09\x09setupCodeMirror;\x0a\x09\x09setupCommands;\x0a\x09\x09setupKeyMaps.",
 messageSends: ["initialize", "setupCodeMirror", "setupCommands", "setupKeyMaps"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget.klass);
+globals.HLCodeWidget.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1100,7 +1100,7 @@ selector: "keyMap",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
+function $HLManager(){return globals.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=_st(_st(_st($HLManager())._current())._keyBinder())._systemIsMac();
@@ -1110,13 +1110,13 @@ $1=self._macKeyMap();
 $1=self._pcKeyMap();
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"keyMap",{},smalltalk.HLCodeWidget.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"keyMap",{},globals.HLCodeWidget.klass)})},
 args: [],
 source: "keyMap\x0a\x09^ HLManager current keyBinder systemIsMac\x0a\x09\x09ifTrue: [ self macKeyMap ]\x0a\x09\x09ifFalse: [ self pcKeyMap ]",
 messageSends: ["ifTrue:ifFalse:", "systemIsMac", "keyBinder", "current", "macKeyMap", "pcKeyMap"],
 referencedClasses: ["HLManager"]
 }),
-smalltalk.HLCodeWidget.klass);
+globals.HLCodeWidget.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1178,13 +1178,13 @@ $26="Shift-Cmd-Z".__minus_gt("redo");
 $ctx1.sendIdx["->"]=25;
 $1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,"fallthrough".__minus_gt(["basic","emacsy"])]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"macKeyMap",{},smalltalk.HLCodeWidget.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"macKeyMap",{},globals.HLCodeWidget.klass)})},
 args: [],
 source: "macKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Backspace'\x09\x09-> 'delWordBefore'.\x0a\x09\x09'Alt-Delete'\x09\x09-> 'delWordAfter'. \x0a\x09\x09'Alt-Left'\x09\x09-> 'goWordBoundaryLeft'.\x0a\x09\x09'Alt-Right'\x09\x09-> 'goWordBoundaryRight'. \x0a\x09\x09'Cmd-A'\x09\x09\x09-> 'selectAll'. \x0a\x09\x09'Cmd-Alt-F'\x09\x09-> 'replace'. \x0a\x09\x09'Cmd-D'\x09\x09\x09-> 'doIt'. \x0a\x09\x09'Cmd-Down'\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-End'\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-F'\x09\x09\x09-> 'find'.\x0a\x09\x09'Cmd-G'\x09\x09\x09-> 'findNext'. \x0a\x09\x09'Cmd-I'\x09\x09\x09-> 'inspectIt'. \x0a\x09\x09'Cmd-Left'\x09\x09-> 'goLineStart'. \x0a\x09\x09'Cmd-P'\x09\x09\x09-> 'printIt'. \x0a\x09\x09'Cmd-Right'\x09\x09-> 'goLineEnd'. \x0a\x09\x09'Cmd-S'\x09\x09\x09-> 'saveIt'. \x0a\x09\x09'Cmd-Up'\x09\x09-> 'goDocStart'. \x0a\x09\x09'Cmd-Y'\x09\x09\x09-> 'redo'.\x0a\x09\x09'Cmd-Z'\x09\x09\x09-> 'undo'. \x0a\x09\x09'Cmd-['\x09\x09\x09-> 'indentLess'. \x0a\x09\x09'Cmd-]'\x09\x09\x09-> 'indentMore'.\x0a\x09\x09'Ctrl-Alt-Backspace'\x09-> 'delWordAfter'. \x0a\x09\x09'Shift-Cmd-Alt-F'\x09-> 'replaceAll'.\x0a\x09\x09'Shift-Cmd-G'\x09\x09-> 'findPrev'. \x0a\x09\x09'Shift-Cmd-Z'\x09\x09-> 'redo'. \x0a    \x09'fallthrough' \x09-> { 'basic'. 'emacsy' }\x0a  }",
 messageSends: ["->"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget.klass);
+globals.HLCodeWidget.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1196,13 +1196,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(anEditor)._at_("amberCodeWidget"))._messageHintFor_token_(anEditor,aToken);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageHintFor:token:",{anEditor:anEditor,aToken:aToken},smalltalk.HLCodeWidget.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"messageHintFor:token:",{anEditor:anEditor,aToken:aToken},globals.HLCodeWidget.klass)})},
 args: ["anEditor", "aToken"],
 source: "messageHintFor: anEditor token: aToken\x0a\x09^ (anEditor at: 'amberCodeWidget')\x0a\x09\x09messageHintFor: anEditor token: aToken",
 messageSends: ["messageHintFor:token:", "at:"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget.klass);
+globals.HLCodeWidget.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1264,13 +1264,13 @@ $26="Shift-Ctrl-Z".__minus_gt("redo");
 $ctx1.sendIdx["->"]=25;
 $1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,"fallthrough".__minus_gt(["basic"])]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"pcKeyMap",{},smalltalk.HLCodeWidget.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"pcKeyMap",{},globals.HLCodeWidget.klass)})},
 args: [],
 source: "pcKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Left' -> 'goLineStart'. \x0a\x09\x09'Alt-Right' -> 'goLineEnd'.\x0a\x09\x09'Alt-Up' -> 'goDocStart'. \x0a\x09\x09'Ctrl-A' -> 'selectAll'. \x0a\x09\x09'Ctrl-Backspace' -> 'delWordBefore'. \x0a\x09\x09'Ctrl-D' -> 'doIt'. \x0a\x09\x09'Ctrl-Delete' -> 'delWordAfter'. \x0a\x09\x09'Ctrl-Down' -> 'goDocEnd'.\x0a\x09\x09'Ctrl-End' -> 'goDocEnd'. \x0a\x09\x09'Ctrl-F' -> 'find'.\x0a\x09\x09'Ctrl-G' -> 'findNext'. \x0a\x09\x09'Ctrl-I' -> 'inspectIt'.\x0a\x09\x09'Ctrl-Home' -> 'goDocStart'. \x0a\x09\x09'Ctrl-Left' -> 'goWordBoundaryLeft'. \x0a\x09\x09'Ctrl-P' -> 'printIt'.\x0a\x09\x09'Ctrl-Right' -> 'goWordBoundaryRight'. \x0a\x09\x09'Ctrl-S' -> 'saveIt'. \x0a\x09\x09'Ctrl-Y' -> 'redo'.\x0a\x09\x09'Ctrl-Z' -> 'undo'. \x0a\x09\x09'Ctrl-[' -> 'indentLess'. \x0a\x09\x09'Ctrl-]' -> 'indentMore'.\x0a\x09\x09'Shift-Ctrl-F' -> 'replace'. \x0a\x09\x09'Shift-Ctrl-G' -> 'findPrev'. \x0a\x09\x09'Shift-Ctrl-R' -> 'replaceAll'.\x0a\x09\x09'Shift-Ctrl-Z' -> 'redo'. \x0a\x09\x09'fallthrough' -> #('basic')\x0a}",
 messageSends: ["->"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget.klass);
+globals.HLCodeWidget.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1290,7 +1290,7 @@ source: "setupCodeMirror\x0a\x09< \x0a\x09\x09CodeMirror.keyMap.default.fallthro
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget.klass);
+globals.HLCodeWidget.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1298,7 +1298,7 @@ selector: "setupCommands",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $CodeMirror(){return smalltalk.CodeMirror||(typeof CodeMirror=="undefined"?nil:CodeMirror)}
+function $CodeMirror(){return globals.CodeMirror||(typeof CodeMirror=="undefined"?nil:CodeMirror)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5;
 $1=_st($CodeMirror())._basicAt_("commands");
@@ -1327,13 +1327,13 @@ $5=_st($1)._at_put_("saveIt",(function(cm){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(cm)._amberCodeWidget())._saveIt();
 }, function($ctx2) {$ctx2.fillBlock({cm:cm},$ctx1,4)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"setupCommands",{},smalltalk.HLCodeWidget.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setupCommands",{},globals.HLCodeWidget.klass)})},
 args: [],
 source: "setupCommands\x0a\x09(CodeMirror basicAt: 'commands') \x0a\x09\x09at: 'doIt' put: [ :cm | cm amberCodeWidget doIt ];\x0a\x09\x09at: 'inspectIt' put: [ :cm | cm amberCodeWidget inspectIt ];\x0a\x09\x09at: 'printIt' put: [ :cm | cm amberCodeWidget printIt ];\x0a\x09\x09at: 'saveIt' put: [ :cm | cm amberCodeWidget saveIt ]",
 messageSends: ["at:put:", "basicAt:", "doIt", "amberCodeWidget", "inspectIt", "printIt", "saveIt"],
 referencedClasses: ["CodeMirror"]
 }),
-smalltalk.HLCodeWidget.klass);
+globals.HLCodeWidget.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1348,7 +1348,7 @@ source: "setupKeyMaps\x0a\x09<CodeMirror.keyMap['Amber'] = self._keyMap()>",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget.klass);
+globals.HLCodeWidget.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1360,16 +1360,16 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(anEditor)._at_("amberCodeWidget"))._variableHintFor_token_(anEditor,aToken);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"variableHintFor:token:",{anEditor:anEditor,aToken:aToken},smalltalk.HLCodeWidget.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"variableHintFor:token:",{anEditor:anEditor,aToken:aToken},globals.HLCodeWidget.klass)})},
 args: ["anEditor", "aToken"],
 source: "variableHintFor: anEditor token: aToken\x0a\x09^ (anEditor at: 'amberCodeWidget')\x0a\x09\x09variableHintFor: anEditor token: aToken",
 messageSends: ["variableHintFor:token:", "at:"],
 referencedClasses: []
 }),
-smalltalk.HLCodeWidget.klass);
+globals.HLCodeWidget.klass);
 
 
-smalltalk.addClass('HLNavigationCodeWidget', smalltalk.HLCodeWidget, ['methodContents'], 'Helios-Workspace');
+smalltalk.addClass('HLNavigationCodeWidget', globals.HLCodeWidget, ['methodContents'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "configureEditor",
@@ -1377,15 +1377,15 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLNavigationCodeWidget.superclass.fn.prototype._configureEditor.apply(_st(self), []);
+globals.HLNavigationCodeWidget.superclass.fn.prototype._configureEditor.apply(_st(self), []);
 self._contents_(self._methodContents());
-return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{},smalltalk.HLNavigationCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{},globals.HLNavigationCodeWidget)})},
 args: [],
 source: "configureEditor\x0a\x09super configureEditor.\x0a\x09self contents: self methodContents",
 messageSends: ["configureEditor", "contents:", "methodContents"],
 referencedClasses: []
 }),
-smalltalk.HLNavigationCodeWidget);
+globals.HLNavigationCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1395,14 +1395,14 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._methodContents_(aString);
-smalltalk.HLNavigationCodeWidget.superclass.fn.prototype._contents_.apply(_st(self), [aString]);
-return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},smalltalk.HLNavigationCodeWidget)})},
+globals.HLNavigationCodeWidget.superclass.fn.prototype._contents_.apply(_st(self), [aString]);
+return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},globals.HLNavigationCodeWidget)})},
 args: ["aString"],
 source: "contents: aString\x0a\x09self methodContents: aString.\x0a\x09super contents: aString",
 messageSends: ["methodContents:", "contents:"],
 referencedClasses: []
 }),
-smalltalk.HLNavigationCodeWidget);
+globals.HLNavigationCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1414,13 +1414,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self._methodContents()).__eq(self._contents()))._not();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"hasModification",{},smalltalk.HLNavigationCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"hasModification",{},globals.HLNavigationCodeWidget)})},
 args: [],
 source: "hasModification\x0a\x09^ (self methodContents = self contents) not",
 messageSends: ["not", "=", "methodContents", "contents"],
 referencedClasses: []
 }),
-smalltalk.HLNavigationCodeWidget);
+globals.HLNavigationCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1437,13 +1437,13 @@ $1="";
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"methodContents",{},smalltalk.HLNavigationCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"methodContents",{},globals.HLNavigationCodeWidget)})},
 args: [],
 source: "methodContents\x0a\x09^ methodContents ifNil: [ '' ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
-smalltalk.HLNavigationCodeWidget);
+globals.HLNavigationCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1461,7 +1461,7 @@ source: "methodContents: aString\x0a\x09^ methodContents := aString",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLNavigationCodeWidget);
+globals.HLNavigationCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1475,7 +1475,7 @@ source: "previous\x0a\x09\x22for browser lists widget\x22",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLNavigationCodeWidget);
+globals.HLNavigationCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1489,7 +1489,7 @@ source: "previous: aWidget\x0a\x09\x22for browser lists widget\x22",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLNavigationCodeWidget);
+globals.HLNavigationCodeWidget);
 
 
 smalltalk.addMethod(
@@ -1505,7 +1505,7 @@ source: "canBeOpenAsTab\x0a\x09^ false",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLNavigationCodeWidget.klass);
+globals.HLNavigationCodeWidget.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1520,16 +1520,16 @@ _st($2)._browserModel_(aBrowserModel);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{aBrowserModel:aBrowserModel},smalltalk.HLNavigationCodeWidget.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:",{aBrowserModel:aBrowserModel},globals.HLNavigationCodeWidget.klass)})},
 args: ["aBrowserModel"],
 source: "on: aBrowserModel\x0a\x09^ self new\x0a\x09\x09browserModel: aBrowserModel;\x0a\x09\x09yourself",
 messageSends: ["browserModel:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.HLNavigationCodeWidget.klass);
+globals.HLNavigationCodeWidget.klass);
 
 
-smalltalk.addClass('HLBrowserCodeWidget', smalltalk.HLNavigationCodeWidget, ['browserModel'], 'Helios-Workspace');
+smalltalk.addClass('HLBrowserCodeWidget', globals.HLNavigationCodeWidget, ['browserModel'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "browserModel",
@@ -1545,7 +1545,7 @@ source: "browserModel\x0a\x09^ browserModel",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1558,13 +1558,13 @@ var $1;
 self["@browserModel"]=aBrowserModel;
 self._observeSystem();
 $1=self._observeBrowserModel();
-return self}, function($ctx1) {$ctx1.fill(self,"browserModel:",{aBrowserModel:aBrowserModel},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"browserModel:",{aBrowserModel:aBrowserModel},globals.HLBrowserCodeWidget)})},
 args: ["aBrowserModel"],
 source: "browserModel: aBrowserModel\x0a\x09browserModel := aBrowserModel.\x0a\x09self \x0a\x09\x09observeSystem;\x0a\x09\x09observeBrowserModel",
 messageSends: ["observeSystem", "observeBrowserModel"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1572,19 +1572,19 @@ selector: "observeBrowserModel",
 protocol: 'actions',
 fn: function (){
 var self=this;
-function $HLSaveSourceCode(){return smalltalk.HLSaveSourceCode||(typeof HLSaveSourceCode=="undefined"?nil:HLSaveSourceCode)}
-function $HLShowInstanceToggled(){return smalltalk.HLShowInstanceToggled||(typeof HLShowInstanceToggled=="undefined"?nil:HLShowInstanceToggled)}
-function $HLSourceCodeSaved(){return smalltalk.HLSourceCodeSaved||(typeof HLSourceCodeSaved=="undefined"?nil:HLSourceCodeSaved)}
-function $HLAboutToChange(){return smalltalk.HLAboutToChange||(typeof HLAboutToChange=="undefined"?nil:HLAboutToChange)}
-function $HLParseErrorRaised(){return smalltalk.HLParseErrorRaised||(typeof HLParseErrorRaised=="undefined"?nil:HLParseErrorRaised)}
-function $HLCompileErrorRaised(){return smalltalk.HLCompileErrorRaised||(typeof HLCompileErrorRaised=="undefined"?nil:HLCompileErrorRaised)}
-function $HLUnknownVariableErrorRaised(){return smalltalk.HLUnknownVariableErrorRaised||(typeof HLUnknownVariableErrorRaised=="undefined"?nil:HLUnknownVariableErrorRaised)}
-function $HLInstVarAdded(){return smalltalk.HLInstVarAdded||(typeof HLInstVarAdded=="undefined"?nil:HLInstVarAdded)}
-function $HLMethodSelected(){return smalltalk.HLMethodSelected||(typeof HLMethodSelected=="undefined"?nil:HLMethodSelected)}
-function $HLClassSelected(){return smalltalk.HLClassSelected||(typeof HLClassSelected=="undefined"?nil:HLClassSelected)}
-function $HLPackageSelected(){return smalltalk.HLPackageSelected||(typeof HLPackageSelected=="undefined"?nil:HLPackageSelected)}
-function $HLProtocolSelected(){return smalltalk.HLProtocolSelected||(typeof HLProtocolSelected=="undefined"?nil:HLProtocolSelected)}
-function $HLSourceCodeFocusRequested(){return smalltalk.HLSourceCodeFocusRequested||(typeof HLSourceCodeFocusRequested=="undefined"?nil:HLSourceCodeFocusRequested)}
+function $HLSaveSourceCode(){return globals.HLSaveSourceCode||(typeof HLSaveSourceCode=="undefined"?nil:HLSaveSourceCode)}
+function $HLShowInstanceToggled(){return globals.HLShowInstanceToggled||(typeof HLShowInstanceToggled=="undefined"?nil:HLShowInstanceToggled)}
+function $HLSourceCodeSaved(){return globals.HLSourceCodeSaved||(typeof HLSourceCodeSaved=="undefined"?nil:HLSourceCodeSaved)}
+function $HLAboutToChange(){return globals.HLAboutToChange||(typeof HLAboutToChange=="undefined"?nil:HLAboutToChange)}
+function $HLParseErrorRaised(){return globals.HLParseErrorRaised||(typeof HLParseErrorRaised=="undefined"?nil:HLParseErrorRaised)}
+function $HLCompileErrorRaised(){return globals.HLCompileErrorRaised||(typeof HLCompileErrorRaised=="undefined"?nil:HLCompileErrorRaised)}
+function $HLUnknownVariableErrorRaised(){return globals.HLUnknownVariableErrorRaised||(typeof HLUnknownVariableErrorRaised=="undefined"?nil:HLUnknownVariableErrorRaised)}
+function $HLInstVarAdded(){return globals.HLInstVarAdded||(typeof HLInstVarAdded=="undefined"?nil:HLInstVarAdded)}
+function $HLMethodSelected(){return globals.HLMethodSelected||(typeof HLMethodSelected=="undefined"?nil:HLMethodSelected)}
+function $HLClassSelected(){return globals.HLClassSelected||(typeof HLClassSelected=="undefined"?nil:HLClassSelected)}
+function $HLPackageSelected(){return globals.HLPackageSelected||(typeof HLPackageSelected=="undefined"?nil:HLPackageSelected)}
+function $HLProtocolSelected(){return globals.HLProtocolSelected||(typeof HLProtocolSelected=="undefined"?nil:HLProtocolSelected)}
+function $HLSourceCodeFocusRequested(){return globals.HLSourceCodeFocusRequested||(typeof HLSourceCodeFocusRequested=="undefined"?nil:HLSourceCodeFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st(self._browserModel())._announcer();
@@ -1613,13 +1613,13 @@ $ctx1.sendIdx["on:send:to:"]=11;
 _st($1)._on_send_to_($HLProtocolSelected(),"onProtocolSelected:",self);
 $ctx1.sendIdx["on:send:to:"]=12;
 $2=_st($1)._on_send_to_($HLSourceCodeFocusRequested(),"onSourceCodeFocusRequested",self);
-return self}, function($ctx1) {$ctx1.fill(self,"observeBrowserModel",{},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"observeBrowserModel",{},globals.HLBrowserCodeWidget)})},
 args: [],
 source: "observeBrowserModel\x0a\x09self browserModel announcer\x0a\x09\x09on: HLSaveSourceCode\x0a\x09\x09send: #onSaveIt\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLShowInstanceToggled\x0a\x09\x09send: #onShowInstanceToggled\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLSourceCodeSaved\x0a\x09\x09send: #onSourceCodeSaved\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLAboutToChange\x0a\x09\x09send: #onBrowserAboutToChange:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLParseErrorRaised\x0a\x09\x09send: #onParseError:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLCompileErrorRaised\x0a\x09\x09send: #onCompileError:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLUnknownVariableErrorRaised\x0a\x09\x09send: #onUnknownVariableError:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLInstVarAdded \x0a\x09\x09send: #onInstVarAdded\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLMethodSelected \x0a\x09\x09send: #onMethodSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a    \x09on: HLClassSelected \x0a\x09\x09send: #onClassSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLPackageSelected \x0a\x09\x09send: #onPackageSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a    \x09on: HLProtocolSelected \x0a\x09\x09send: #onProtocolSelected: \x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLSourceCodeFocusRequested \x0a\x09\x09send: #onSourceCodeFocusRequested\x0a\x09\x09to: self",
 messageSends: ["on:send:to:", "announcer", "browserModel"],
 referencedClasses: ["HLSaveSourceCode", "HLShowInstanceToggled", "HLSourceCodeSaved", "HLAboutToChange", "HLParseErrorRaised", "HLCompileErrorRaised", "HLUnknownVariableErrorRaised", "HLInstVarAdded", "HLMethodSelected", "HLClassSelected", "HLPackageSelected", "HLProtocolSelected", "HLSourceCodeFocusRequested"]
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1627,16 +1627,16 @@ selector: "observeSystem",
 protocol: 'actions',
 fn: function (){
 var self=this;
-function $MethodModified(){return smalltalk.MethodModified||(typeof MethodModified=="undefined"?nil:MethodModified)}
+function $MethodModified(){return globals.MethodModified||(typeof MethodModified=="undefined"?nil:MethodModified)}
 return smalltalk.withContext(function($ctx1) { 
 _st(_st(self._browserModel())._systemAnnouncer())._on_send_to_($MethodModified(),"onMethodModified:",self);
-return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},globals.HLBrowserCodeWidget)})},
 args: [],
 source: "observeSystem\x0a\x09self browserModel systemAnnouncer\x0a    \x09on: MethodModified\x0a        send: #onMethodModified:\x0a\x09\x09to: self",
 messageSends: ["on:send:to:", "systemAnnouncer", "browserModel"],
 referencedClasses: ["MethodModified"]
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1645,7 +1645,7 @@ protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 var block;
-function $HLChangeForbidden(){return smalltalk.HLChangeForbidden||(typeof HLChangeForbidden=="undefined"?nil:HLChangeForbidden)}
+function $HLChangeForbidden(){return globals.HLChangeForbidden||(typeof HLChangeForbidden=="undefined"?nil:HLChangeForbidden)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 block=_st(anAnnouncement)._actionBlock();
@@ -1658,13 +1658,13 @@ return _st(block)._value();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 _st($HLChangeForbidden())._signal();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"onBrowserAboutToChange:",{anAnnouncement:anAnnouncement,block:block},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onBrowserAboutToChange:",{anAnnouncement:anAnnouncement,block:block},globals.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
 source: "onBrowserAboutToChange: anAnnouncement\x0a\x09| block |\x0a\x09\x0a\x09block := anAnnouncement actionBlock.\x0a\x09\x0a\x09self hasModification\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self \x0a\x09\x09\x09\x09confirm: 'Changes have not been saved. Do you want to discard these changes?' \x0a\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x22Don't ask twice\x22\x0a\x09\x09\x09\x09\x09self methodContents: self contents.\x0a\x09\x09\x09\x09\x09block value ].\x0a\x09\x09\x09\x0a\x09\x09\x09\x0a\x09\x09\x09HLChangeForbidden signal ]",
 messageSends: ["actionBlock", "ifTrue:", "hasModification", "confirm:ifTrue:", "methodContents:", "contents", "value", "signal"],
 referencedClasses: ["HLChangeForbidden"]
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1685,13 +1685,13 @@ return $2;
 $1;
 };
 self._contents_(_st(class_)._definition());
-return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncement:anAnnouncement,class_:class_},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncement:anAnnouncement,class_:class_},globals.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
 source: "onClassSelected: anAnnouncement\x0a\x09| class |\x0a\x09\x0a\x09class:= anAnnouncement item.\x0a\x09\x0a\x09class ifNil: [ ^ self contents: '' ].\x0a\x09self contents: class definition",
 messageSends: ["item", "ifNil:", "contents:", "definition"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1701,13 +1701,13 @@ fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._alert_(_st(_st(anAnnouncement)._error())._messageText());
-return self}, function($ctx1) {$ctx1.fill(self,"onCompileError:",{anAnnouncement:anAnnouncement},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onCompileError:",{anAnnouncement:anAnnouncement},globals.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
 source: "onCompileError: anAnnouncement\x0a\x09self alert: anAnnouncement error messageText",
 messageSends: ["alert:", "messageText", "error"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1717,13 +1717,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._browserModel())._save_(self._contents());
-return self}, function($ctx1) {$ctx1.fill(self,"onInstVarAdded",{},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onInstVarAdded",{},globals.HLBrowserCodeWidget)})},
 args: [],
 source: "onInstVarAdded\x0a\x09self browserModel save: self contents",
 messageSends: ["save:", "browserModel", "contents"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1759,13 +1759,13 @@ if(! smalltalk.assert($6)){
 return self;
 };
 self._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onMethodModified:",{anAnnouncement:anAnnouncement,method:method},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onMethodModified:",{anAnnouncement:anAnnouncement,method:method},globals.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
 source: "onMethodModified: anAnnouncement\x0a\x09| method |\x0a\x09\x0a\x09method := anAnnouncement method.\x0a\x09\x0a\x09self browserModel selectedClass = method methodClass ifFalse: [ ^ self ].\x0a\x09self browserModel selectedMethod ifNil: [ ^ self ].\x0a\x09self browserModel selectedMethod selector = method selector ifFalse: [ ^ self ].\x0a\x0a\x09self refresh",
 messageSends: ["method", "ifFalse:", "=", "selectedClass", "browserModel", "methodClass", "ifNil:", "selectedMethod", "selector", "refresh"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1786,13 +1786,13 @@ return $2;
 $1;
 };
 self._contents_(_st(method)._source());
-return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{anAnnouncement:anAnnouncement,method:method},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{anAnnouncement:anAnnouncement,method:method},globals.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
 source: "onMethodSelected: anAnnouncement\x0a\x09| method |\x0a\x09\x0a\x09method := anAnnouncement item.\x0a\x09\x0a\x09method ifNil: [ ^ self contents: '' ].\x0a\x09self contents: method source",
 messageSends: ["item", "ifNil:", "contents:", "source"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1813,13 +1813,13 @@ return $2;
 $1;
 };
 self._contents_(_st(package_)._definition());
-return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{anAnnouncement:anAnnouncement,package_:package_},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{anAnnouncement:anAnnouncement,package_:package_},globals.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
 source: "onPackageSelected: anAnnouncement\x0a\x09| package |\x0a\x09\x0a\x09package := anAnnouncement item.\x0a\x09\x0a\x09package ifNil: [ ^ self contents: '' ].\x0a\x09self contents: package definition",
 messageSends: ["item", "ifNil:", "contents:", "definition"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1828,7 +1828,7 @@ protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 var lineIndex,newContents;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$3,$2,$6,$5,$4;
 lineIndex=(1);
@@ -1865,13 +1865,13 @@ lineIndex=_st(lineIndex).__plus((1));
 return lineIndex;
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}));
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})})));
-return self}, function($ctx1) {$ctx1.fill(self,"onParseError:",{anAnnouncement:anAnnouncement,lineIndex:lineIndex,newContents:newContents},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onParseError:",{anAnnouncement:anAnnouncement,lineIndex:lineIndex,newContents:newContents},globals.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
 source: "onParseError: anAnnouncement\x0a\x09| lineIndex newContents |\x0a\x09\x0a\x09lineIndex := 1.\x0a\x09\x0a\x09self contents: (String streamContents: [ :stream |\x0a\x09\x09self contents linesDo: [ :each |\x0a\x09\x09\x09lineIndex = anAnnouncement line \x0a\x09\x09\x09\x09ifTrue: [ \x0a\x09\x09\x09\x09\x09stream \x0a\x09\x09\x09\x09\x09\x09nextPutAll: (each copyFrom: 1 to: anAnnouncement column);\x0a\x09\x09\x09\x09\x09\x09nextPutAll: '<- ';\x0a\x09\x09\x09\x09\x09\x09nextPutAll: anAnnouncement message;\x0a\x09\x09\x09\x09\x09\x09nextPutAll: ' ';\x0a\x09\x09\x09\x09\x09\x09nextPutAll: (each copyFrom: anAnnouncement column + 1 to: each size) ]\x0a\x09\x09\x09\x09ifFalse: [ stream nextPutAll: each ].\x0a\x09\x09\x09stream nextPutAll: String cr.\x0a\x09\x09\x09lineIndex := lineIndex + 1 ] ])",
 messageSends: ["contents:", "streamContents:", "linesDo:", "contents", "ifTrue:ifFalse:", "=", "line", "nextPutAll:", "copyFrom:to:", "column", "message", "+", "size", "cr"],
 referencedClasses: ["String"]
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1893,13 +1893,13 @@ return $3;
 $1;
 };
 self._contents_(_st(_st(self._browserModel())._selectedClass())._definition());
-return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{anAnnouncement:anAnnouncement},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{anAnnouncement:anAnnouncement},globals.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
 source: "onProtocolSelected: anAnnouncement\x0a\x09self browserModel selectedClass ifNil: [ ^ self contents: '' ].\x0a\x09self contents: self browserModel selectedClass definition",
 messageSends: ["ifNil:", "selectedClass", "browserModel", "contents:", "definition"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1909,13 +1909,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._browserModel())._save_(self._contents());
-return self}, function($ctx1) {$ctx1.fill(self,"onSaveIt",{},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onSaveIt",{},globals.HLBrowserCodeWidget)})},
 args: [],
 source: "onSaveIt\x0a\x09self browserModel save: self contents",
 messageSends: ["save:", "browserModel", "contents"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1937,13 +1937,13 @@ return $3;
 $1;
 };
 self._contents_(_st(_st(self._browserModel())._selectedClass())._definition());
-return self}, function($ctx1) {$ctx1.fill(self,"onShowInstanceToggled",{},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onShowInstanceToggled",{},globals.HLBrowserCodeWidget)})},
 args: [],
 source: "onShowInstanceToggled\x0a\x09self browserModel selectedClass ifNil: [ ^ self contents: '' ].\x0a    \x0a\x09self contents: self browserModel selectedClass definition",
 messageSends: ["ifNil:", "selectedClass", "browserModel", "contents:", "definition"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1953,13 +1953,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"onSourceCodeFocusRequested",{},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onSourceCodeFocusRequested",{},globals.HLBrowserCodeWidget)})},
 args: [],
 source: "onSourceCodeFocusRequested\x0a\x09self focus",
 messageSends: ["focus"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1970,13 +1970,13 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._methodContents_(self._contents());
 self._updateState();
-return self}, function($ctx1) {$ctx1.fill(self,"onSourceCodeSaved",{},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onSourceCodeSaved",{},globals.HLBrowserCodeWidget)})},
 args: [],
 source: "onSourceCodeSaved\x0a\x09self methodContents: self contents.\x0a\x09self updateState",
 messageSends: ["methodContents:", "contents", "updateState"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1985,7 +1985,7 @@ protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 var error;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 error=_st(anAnnouncement)._error();
@@ -2001,13 +2001,13 @@ return $1;
 return smalltalk.withContext(function($ctx2) {
 return _st(self._browserModel())._addInstVarNamed_(_st(error)._variableName());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"onUnknownVariableError:",{anAnnouncement:anAnnouncement,error:error},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onUnknownVariableError:",{anAnnouncement:anAnnouncement,error:error},globals.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
 source: "onUnknownVariableError: anAnnouncement\x0a\x09| error |\x0a\x09\x0a\x09error := anAnnouncement error.\x0a\x09\x0a\x09self \x0a\x09\x09confirm: (String streamContents: [ :stream |\x0a\x09\x09\x09stream \x0a\x09\x09\x09\x09nextPutAll: error messageText;\x0a\x09\x09\x09\x09nextPutAll: String cr;\x0a\x09\x09\x09\x09nextPutAll: 'Would you like to define an instance variable?' ])\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self browserModel addInstVarNamed: error variableName ]",
 messageSends: ["error", "confirm:ifTrue:", "streamContents:", "nextPutAll:", "messageText", "cr", "addInstVarNamed:", "browserModel", "variableName"],
 referencedClasses: ["String"]
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2026,13 +2026,13 @@ if(smalltalk.assert($2)){
 return self;
 };
 self._contents_(_st(_st(self._browserModel())._selectedMethod())._source());
-return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},globals.HLBrowserCodeWidget)})},
 args: [],
 source: "refresh\x0a\x09self hasModification ifTrue: [ ^ self ].\x0a    self hasFocus ifTrue: [ ^ self ].\x0a\x0a\x09self contents: self browserModel selectedMethod source",
 messageSends: ["ifTrue:", "hasModification", "hasFocus", "contents:", "source", "selectedMethod", "browserModel"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2049,14 +2049,14 @@ $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._saveIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-smalltalk.HLBrowserCodeWidget.superclass.fn.prototype._renderButtonsOn_.apply(_st(self), [html]);
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLBrowserCodeWidget)})},
+globals.HLBrowserCodeWidget.superclass.fn.prototype._renderButtonsOn_.apply(_st(self), [html]);
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLBrowserCodeWidget)})},
 args: ["html"],
 source: "renderButtonsOn: html\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'SaveIt';\x0a\x09\x09onClick: [ self saveIt ].\x0a\x09super renderButtonsOn: html",
 messageSends: ["class:", "button", "with:", "onClick:", "saveIt", "renderButtonsOn:"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2066,13 +2066,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._browserModel())._saveSourceCode();
-return self}, function($ctx1) {$ctx1.fill(self,"saveIt",{},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"saveIt",{},globals.HLBrowserCodeWidget)})},
 args: [],
 source: "saveIt\x0a\x09self browserModel saveSourceCode",
 messageSends: ["saveSourceCode", "browserModel"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2082,20 +2082,20 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-smalltalk.HLBrowserCodeWidget.superclass.fn.prototype._unregsiter.apply(_st(self), []);
+globals.HLBrowserCodeWidget.superclass.fn.prototype._unregsiter.apply(_st(self), []);
 $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
 $1=_st($2)._announcer();
 _st($1)._unsubscribe_(self);
 $ctx1.sendIdx["unsubscribe:"]=1;
 _st(_st(self._browserModel())._systemAnnouncer())._unsubscribe_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLBrowserCodeWidget)})},
 args: [],
 source: "unregister\x0a\x09super unregsiter.\x0a\x09\x0a\x09self browserModel announcer unsubscribe: self.\x0a\x09self browserModel systemAnnouncer unsubscribe: self",
 messageSends: ["unregsiter", "unsubscribe:", "announcer", "browserModel", "systemAnnouncer"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget);
+globals.HLBrowserCodeWidget);
 
 
 smalltalk.addMethod(
@@ -2111,7 +2111,7 @@ source: "canBeOpenAsTab\x0a\x09^ false",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget.klass);
+globals.HLBrowserCodeWidget.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2126,16 +2126,16 @@ _st($2)._browserModel_(aBrowserModel);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{aBrowserModel:aBrowserModel},smalltalk.HLBrowserCodeWidget.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:",{aBrowserModel:aBrowserModel},globals.HLBrowserCodeWidget.klass)})},
 args: ["aBrowserModel"],
 source: "on: aBrowserModel\x0a\x09^ self new\x0a\x09\x09browserModel: aBrowserModel;\x0a\x09\x09yourself",
 messageSends: ["browserModel:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.HLBrowserCodeWidget.klass);
+globals.HLBrowserCodeWidget.klass);
 
 
-smalltalk.addClass('HLWorkspace', smalltalk.HLWidget, ['codeWidget', 'transcript'], 'Helios-Workspace');
+smalltalk.addClass('HLWorkspace', globals.HLWidget, ['codeWidget', 'transcript'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canHaveFocus",
@@ -2149,7 +2149,7 @@ source: "canHaveFocus\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLWorkspace);
+globals.HLWorkspace);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2157,7 +2157,7 @@ selector: "codeWidget",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $HLCodeWidget(){return smalltalk.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
+function $HLCodeWidget(){return globals.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@codeWidget"];
@@ -2168,13 +2168,13 @@ $1=self["@codeWidget"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"codeWidget",{},smalltalk.HLWorkspace)})},
+}, function($ctx1) {$ctx1.fill(self,"codeWidget",{},globals.HLWorkspace)})},
 args: [],
 source: "codeWidget\x0a\x09^ codeWidget ifNil: [ codeWidget := HLCodeWidget new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: ["HLCodeWidget"]
 }),
-smalltalk.HLWorkspace);
+globals.HLWorkspace);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2186,13 +2186,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._codeWidget())._focus();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.HLWorkspace)})},
+}, function($ctx1) {$ctx1.fill(self,"focus",{},globals.HLWorkspace)})},
 args: [],
 source: "focus\x0a\x09^ self codeWidget focus",
 messageSends: ["focus", "codeWidget"],
 referencedClasses: []
 }),
-smalltalk.HLWorkspace);
+globals.HLWorkspace);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2200,21 +2200,21 @@ selector: "renderContentOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
-function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
-function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
+function $HLContainer(){return globals.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
+function $HLHorizontalSplitter(){return globals.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
 _st(html)._with_(_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(self._codeWidget(),(function(canvas){
 return smalltalk.withContext(function($ctx2) {
 return self._renderTranscriptOn_(canvas);
 }, function($ctx2) {$ctx2.fillBlock({canvas:canvas},$ctx1,1)})}))));
 $ctx1.sendIdx["with:"]=1;
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLWorkspace)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLWorkspace)})},
 args: ["html"],
 source: "renderContentOn: html\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter\x0a\x09\x09with: self codeWidget\x0a\x09\x09with: [ :canvas | self renderTranscriptOn: canvas ]))",
 messageSends: ["with:", "with:with:", "codeWidget", "renderTranscriptOn:"],
 referencedClasses: ["HLContainer", "HLHorizontalSplitter"]
 }),
-smalltalk.HLWorkspace);
+globals.HLWorkspace);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2237,13 +2237,13 @@ $4;
 return _st(self._transcript())._renderOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["with:"]=1;
-return self}, function($ctx1) {$ctx1.fill(self,"renderTranscriptOn:",{html:html},smalltalk.HLWorkspace)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderTranscriptOn:",{html:html},globals.HLWorkspace)})},
 args: ["html"],
 source: "renderTranscriptOn: html\x0a\x09html div \x0a\x09\x09class: 'transcript-container';\x0a\x09\x09with: [\x0a\x09\x09\x09html div\x0a\x09\x09\x09\x09class: 'list-label';\x0a\x09\x09\x09\x09with: 'Transcript'.\x0a\x09\x09\x09self transcript renderOn: html ]",
 messageSends: ["class:", "div", "with:", "renderOn:", "transcript"],
 referencedClasses: []
 }),
-smalltalk.HLWorkspace);
+globals.HLWorkspace);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2251,7 +2251,7 @@ selector: "transcript",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $HLTranscript(){return smalltalk.HLTranscript||(typeof HLTranscript=="undefined"?nil:HLTranscript)}
+function $HLTranscript(){return globals.HLTranscript||(typeof HLTranscript=="undefined"?nil:HLTranscript)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@transcript"];
@@ -2262,13 +2262,13 @@ $1=self["@transcript"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"transcript",{},smalltalk.HLWorkspace)})},
+}, function($ctx1) {$ctx1.fill(self,"transcript",{},globals.HLWorkspace)})},
 args: [],
 source: "transcript\x0a\x09^ transcript ifNil: [ transcript := HLTranscript new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: ["HLTranscript"]
 }),
-smalltalk.HLWorkspace);
+globals.HLWorkspace);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2277,16 +2277,16 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLWorkspace.superclass.fn.prototype._unregister.apply(_st(self), []);
+globals.HLWorkspace.superclass.fn.prototype._unregister.apply(_st(self), []);
 $ctx1.sendIdx["unregister"]=1;
 _st(self._transcript())._unregister();
-return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLWorkspace)})},
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLWorkspace)})},
 args: [],
 source: "unregister\x0a\x09super unregister.\x0a\x09self transcript unregister",
 messageSends: ["unregister", "transcript"],
 referencedClasses: []
 }),
-smalltalk.HLWorkspace);
+globals.HLWorkspace);
 
 
 smalltalk.addMethod(
@@ -2302,7 +2302,7 @@ source: "canBeOpenAsTab\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLWorkspace.klass);
+globals.HLWorkspace.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2317,7 +2317,7 @@ source: "tabClass\x0a\x09^ 'workspace'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLWorkspace.klass);
+globals.HLWorkspace.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2332,7 +2332,7 @@ source: "tabLabel\x0a\x09^ 'Workspace'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLWorkspace.klass);
+globals.HLWorkspace.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2347,6 +2347,6 @@ source: "tabPriority\x0a\x09^ 10",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLWorkspace.klass);
+globals.HLWorkspace.klass);
 
 });

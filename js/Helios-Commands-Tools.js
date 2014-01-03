@@ -1,8 +1,8 @@
-define("amber_core/Helios-Commands-Tools", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Helios-Commands-Core"], function(smalltalk,nil,_st){
+define("amber_core/Helios-Commands-Tools", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Commands-Core"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Commands-Tools');
 smalltalk.packages["Helios-Commands-Tools"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('HLToolCommand', smalltalk.HLModelCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLToolCommand', globals.HLModelCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
@@ -16,7 +16,7 @@ source: "category\x0a\x09^ nil",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLToolCommand);
+globals.HLToolCommand);
 
 
 smalltalk.addMethod(
@@ -32,13 +32,13 @@ _st($2)._model_(aToolModel);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"for:",{aToolModel:aToolModel},smalltalk.HLToolCommand.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"for:",{aToolModel:aToolModel},globals.HLToolCommand.klass)})},
 args: ["aToolModel"],
 source: "for: aToolModel\x0a\x09^ self new\x0a    \x09model: aToolModel;\x0a        yourself",
 messageSends: ["model:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.HLToolCommand.klass);
+globals.HLToolCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -50,16 +50,16 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(aModel)._isToolModel();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{aModel:aModel},smalltalk.HLToolCommand.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{aModel:aModel},globals.HLToolCommand.klass)})},
 args: ["aModel"],
 source: "isValidFor: aModel\x0a\x09^ aModel isToolModel",
 messageSends: ["isToolModel"],
 referencedClasses: []
 }),
-smalltalk.HLToolCommand.klass);
+globals.HLToolCommand.klass);
 
 
-smalltalk.addClass('HLCommitPackageCommand', smalltalk.HLToolCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLCommitPackageCommand', globals.HLToolCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
@@ -73,7 +73,7 @@ source: "category\x0a\x09^ 'Packages'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCommitPackageCommand);
+globals.HLCommitPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -83,13 +83,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._commitPackage();
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCommitPackageCommand)})},
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLCommitPackageCommand)})},
 args: [],
 source: "execute\x0a\x09self model commitPackage",
 messageSends: ["commitPackage", "model"],
 referencedClasses: []
 }),
-smalltalk.HLCommitPackageCommand);
+globals.HLCommitPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -104,7 +104,7 @@ source: "isActive\x0a\x09^ true\x0a\x09\x22 slf model isPackageDirty\x22",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCommitPackageCommand);
+globals.HLCommitPackageCommand);
 
 
 smalltalk.addMethod(
@@ -120,7 +120,7 @@ source: "key\x0a\x09^ 'k'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCommitPackageCommand.klass);
+globals.HLCommitPackageCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -135,10 +135,10 @@ source: "label\x0a\x09^ 'Commit'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCommitPackageCommand.klass);
+globals.HLCommitPackageCommand.klass);
 
 
-smalltalk.addClass('HLCopyCommand', smalltalk.HLToolCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLCopyCommand', globals.HLToolCommand, [], 'Helios-Commands-Tools');
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -153,7 +153,7 @@ source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCopyCommand.klass);
+globals.HLCopyCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -168,10 +168,10 @@ source: "label\x0a\x09^ 'Copy'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCopyCommand.klass);
+globals.HLCopyCommand.klass);
 
 
-smalltalk.addClass('HLCopyClassCommand', smalltalk.HLCopyCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLCopyClassCommand', globals.HLCopyCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
@@ -185,7 +185,7 @@ source: "category\x0a\x09^ 'Classes'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCopyClassCommand);
+globals.HLCopyClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -197,13 +197,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self._model())._selectedClass())._name();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLCopyClassCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},globals.HLCopyClassCommand)})},
 args: [],
 source: "defaultInput\x0a\x09^ self model selectedClass name",
 messageSends: ["name", "selectedClass", "model"],
 referencedClasses: []
 }),
-smalltalk.HLCopyClassCommand);
+globals.HLCopyClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -218,7 +218,7 @@ source: "displayLabel\x0a\x09^ 'New class name:'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCopyClassCommand);
+globals.HLCopyClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -228,13 +228,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._copyClassTo_(self._input());
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCopyClassCommand)})},
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLCopyClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model copyClassTo: self input",
 messageSends: ["copyClassTo:", "model", "input"],
 referencedClasses: []
 }),
-smalltalk.HLCopyClassCommand);
+globals.HLCopyClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -246,13 +246,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self._model())._selectedClass())._notNil();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLCopyClassCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},globals.HLCopyClassCommand)})},
 args: [],
 source: "isActive\x0a\x09^ self model selectedClass notNil",
 messageSends: ["notNil", "selectedClass", "model"],
 referencedClasses: []
 }),
-smalltalk.HLCopyClassCommand);
+globals.HLCopyClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -267,7 +267,7 @@ source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCopyClassCommand);
+globals.HLCopyClassCommand);
 
 
 smalltalk.addMethod(
@@ -283,7 +283,7 @@ source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCopyClassCommand.klass);
+globals.HLCopyClassCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -298,7 +298,7 @@ source: "label\x0a\x09^ 'Class'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCopyClassCommand.klass);
+globals.HLCopyClassCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -313,10 +313,10 @@ source: "menuLabel\x0a\x09^ 'Copy class...'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLCopyClassCommand.klass);
+globals.HLCopyClassCommand.klass);
 
 
-smalltalk.addClass('HLFindCommand', smalltalk.HLToolCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLFindCommand', globals.HLToolCommand, [], 'Helios-Commands-Tools');
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -331,7 +331,7 @@ source: "key\x0a\x09^ 'f'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLFindCommand.klass);
+globals.HLFindCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -346,10 +346,10 @@ source: "label\x0a\x09^ 'Find'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLFindCommand.klass);
+globals.HLFindCommand.klass);
 
 
-smalltalk.addClass('HLFindClassCommand', smalltalk.HLFindCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLFindClassCommand', globals.HLFindCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
@@ -363,7 +363,7 @@ source: "displayLabel\x0a\x09^ 'select a class'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLFindClassCommand);
+globals.HLFindClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -373,13 +373,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._openClassNamed_(self._input());
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLFindClassCommand)})},
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLFindClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model openClassNamed: self input",
 messageSends: ["openClassNamed:", "model", "input"],
 referencedClasses: []
 }),
-smalltalk.HLFindClassCommand);
+globals.HLFindClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -391,13 +391,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._model())._availableClassNames();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLFindClassCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},globals.HLFindClassCommand)})},
 args: [],
 source: "inputCompletion\x0a\x09^ self model availableClassNames",
 messageSends: ["availableClassNames", "model"],
 referencedClasses: []
 }),
-smalltalk.HLFindClassCommand);
+globals.HLFindClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -412,7 +412,7 @@ source: "inputLabel\x0a\x09^ 'Find a class'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLFindClassCommand);
+globals.HLFindClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -427,7 +427,7 @@ source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLFindClassCommand);
+globals.HLFindClassCommand);
 
 
 smalltalk.addMethod(
@@ -440,13 +440,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(aModel)._isBrowserModel();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{aModel:aModel},smalltalk.HLFindClassCommand.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{aModel:aModel},globals.HLFindClassCommand.klass)})},
 args: ["aModel"],
 source: "isValidFor: aModel\x0a\x09^ aModel isBrowserModel",
 messageSends: ["isBrowserModel"],
 referencedClasses: []
 }),
-smalltalk.HLFindClassCommand.klass);
+globals.HLFindClassCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -461,7 +461,7 @@ source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLFindClassCommand.klass);
+globals.HLFindClassCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -476,10 +476,10 @@ source: "label\x0a\x09^ 'Class'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLFindClassCommand.klass);
+globals.HLFindClassCommand.klass);
 
 
-smalltalk.addClass('HLFindReferencesCommand', smalltalk.HLFindCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLFindReferencesCommand', globals.HLFindCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultInput",
@@ -506,13 +506,13 @@ method=$receiver;
 $1=_st(method)._selector();
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLFindReferencesCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},globals.HLFindReferencesCommand)})},
 args: [],
 source: "defaultInput\x0a\x09^ self model selectedMethod \x0a\x09\x09ifNil: [\x0a\x09\x09\x09self model selectedClass\x0a\x09\x09\x09\x09ifNil: [ '' ]\x0a\x09\x09\x09\x09ifNotNil: [ :class | class name ] ]\x0a\x09\x09ifNotNil: [ :method | method selector ]",
 messageSends: ["ifNil:ifNotNil:", "selectedMethod", "model", "selectedClass", "name", "selector"],
 referencedClasses: []
 }),
-smalltalk.HLFindReferencesCommand);
+globals.HLFindReferencesCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -527,7 +527,7 @@ source: "displayLabel\x0a\x09^ 'find references'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLFindReferencesCommand);
+globals.HLFindReferencesCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -535,19 +535,19 @@ selector: "execute",
 protocol: 'executing',
 fn: function (){
 var self=this;
-function $HLReferences(){return smalltalk.HLReferences||(typeof HLReferences=="undefined"?nil:HLReferences)}
+function $HLReferences(){return globals.HLReferences||(typeof HLReferences=="undefined"?nil:HLReferences)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st($HLReferences())._new();
 _st($1)._openAsTab();
 $2=_st($1)._search_(self._input());
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLFindReferencesCommand)})},
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLFindReferencesCommand)})},
 args: [],
 source: "execute\x0a\x09HLReferences new \x0a\x09\x09openAsTab;\x0a\x09\x09search: self input",
 messageSends: ["openAsTab", "new", "search:", "input"],
 referencedClasses: ["HLReferences"]
 }),
-smalltalk.HLFindReferencesCommand);
+globals.HLFindReferencesCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -562,13 +562,13 @@ $ctx1.sendIdx["model"]=1;
 $2=_st($3)._availableClassNames();
 $1=_st($2).__comma(_st(self._model())._allSelectors());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLFindReferencesCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},globals.HLFindReferencesCommand)})},
 args: [],
 source: "inputCompletion\x0a\x09^ self model availableClassNames, self model allSelectors",
 messageSends: [",", "availableClassNames", "model", "allSelectors"],
 referencedClasses: []
 }),
-smalltalk.HLFindReferencesCommand);
+globals.HLFindReferencesCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -583,7 +583,7 @@ source: "inputLabel\x0a\x09^ 'Find references of'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLFindReferencesCommand);
+globals.HLFindReferencesCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -598,7 +598,7 @@ source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLFindReferencesCommand);
+globals.HLFindReferencesCommand);
 
 
 smalltalk.addMethod(
@@ -614,7 +614,7 @@ source: "key\x0a\x09^ 'r'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLFindReferencesCommand.klass);
+globals.HLFindReferencesCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -629,10 +629,10 @@ source: "label\x0a\x09^ 'References'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLFindReferencesCommand.klass);
+globals.HLFindReferencesCommand.klass);
 
 
-smalltalk.addClass('HLMoveToCommand', smalltalk.HLToolCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLMoveToCommand', globals.HLToolCommand, [], 'Helios-Commands-Tools');
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -647,7 +647,7 @@ source: "key\x0a\x09^ 'm'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveToCommand.klass);
+globals.HLMoveToCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -662,10 +662,10 @@ source: "label\x0a\x09^ 'Move'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveToCommand.klass);
+globals.HLMoveToCommand.klass);
 
 
-smalltalk.addClass('HLMoveClassToCommand', smalltalk.HLMoveToCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLMoveClassToCommand', globals.HLMoveToCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
@@ -676,13 +676,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self._model())._selectedClass())._notNil();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLMoveClassToCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},globals.HLMoveClassToCommand)})},
 args: [],
 source: "isActive\x0a\x09^ self model selectedClass notNil",
 messageSends: ["notNil", "selectedClass", "model"],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassToCommand);
+globals.HLMoveClassToCommand);
 
 
 smalltalk.addMethod(
@@ -698,7 +698,7 @@ source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassToCommand.klass);
+globals.HLMoveClassToCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -713,10 +713,10 @@ source: "label\x0a\x09^ 'Class'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassToCommand.klass);
+globals.HLMoveClassToCommand.klass);
 
 
-smalltalk.addClass('HLMoveClassToPackageCommand', smalltalk.HLMoveClassToCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLMoveClassToPackageCommand', globals.HLMoveClassToCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
@@ -730,7 +730,7 @@ source: "category\x0a\x09^ 'Classes'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassToPackageCommand);
+globals.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -745,7 +745,7 @@ source: "displayLabel\x0a\x09^ 'select a package'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassToPackageCommand);
+globals.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -755,13 +755,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._moveClassToPackage_(self._input());
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveClassToPackageCommand)})},
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLMoveClassToPackageCommand)})},
 args: [],
 source: "execute\x0a\x09self model moveClassToPackage: self input",
 messageSends: ["moveClassToPackage:", "model", "input"],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassToPackageCommand);
+globals.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -773,13 +773,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._model())._availablePackageNames();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLMoveClassToPackageCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},globals.HLMoveClassToPackageCommand)})},
 args: [],
 source: "inputCompletion\x0a\x09^ self model availablePackageNames",
 messageSends: ["availablePackageNames", "model"],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassToPackageCommand);
+globals.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -794,7 +794,7 @@ source: "inputLabel\x0a\x09^ 'Move class to package:'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassToPackageCommand);
+globals.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -809,7 +809,7 @@ source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassToPackageCommand);
+globals.HLMoveClassToPackageCommand);
 
 
 smalltalk.addMethod(
@@ -825,7 +825,7 @@ source: "key\x0a\x09^ 'p'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassToPackageCommand.klass);
+globals.HLMoveClassToPackageCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -840,7 +840,7 @@ source: "label\x0a\x09^ 'to package'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassToPackageCommand.klass);
+globals.HLMoveClassToPackageCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -855,10 +855,10 @@ source: "menuLabel\x09\x0a\x09^ 'Move to package...'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassToPackageCommand.klass);
+globals.HLMoveClassToPackageCommand.klass);
 
 
-smalltalk.addClass('HLMoveMethodToCommand', smalltalk.HLMoveToCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLMoveMethodToCommand', globals.HLMoveToCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
@@ -872,7 +872,7 @@ source: "category\x0a\x09^ 'Methods'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToCommand);
+globals.HLMoveMethodToCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -884,13 +884,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self._model())._selectedMethod())._notNil();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLMoveMethodToCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},globals.HLMoveMethodToCommand)})},
 args: [],
 source: "isActive\x0a\x09^ self model selectedMethod notNil",
 messageSends: ["notNil", "selectedMethod", "model"],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToCommand);
+globals.HLMoveMethodToCommand);
 
 
 smalltalk.addMethod(
@@ -906,7 +906,7 @@ source: "key\x0a\x09^ 'm'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToCommand.klass);
+globals.HLMoveMethodToCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -921,10 +921,10 @@ source: "label\x0a\x09^ 'Method'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToCommand.klass);
+globals.HLMoveMethodToCommand.klass);
 
 
-smalltalk.addClass('HLMoveMethodToClassCommand', smalltalk.HLMoveMethodToCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLMoveMethodToClassCommand', globals.HLMoveMethodToCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
@@ -938,7 +938,7 @@ source: "displayLabel\x0a\x09^ 'select a class'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToClassCommand);
+globals.HLMoveMethodToClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -948,13 +948,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._moveMethodToClass_(self._input());
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToClassCommand)})},
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLMoveMethodToClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model moveMethodToClass: self input",
 messageSends: ["moveMethodToClass:", "model", "input"],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToClassCommand);
+globals.HLMoveMethodToClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -966,13 +966,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._model())._availableClassNames();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLMoveMethodToClassCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},globals.HLMoveMethodToClassCommand)})},
 args: [],
 source: "inputCompletion\x0a\x09^ self model availableClassNames",
 messageSends: ["availableClassNames", "model"],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToClassCommand);
+globals.HLMoveMethodToClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -987,7 +987,7 @@ source: "inputLabel\x0a\x09^ 'Move method to class:'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToClassCommand);
+globals.HLMoveMethodToClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1002,7 +1002,7 @@ source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToClassCommand);
+globals.HLMoveMethodToClassCommand);
 
 
 smalltalk.addMethod(
@@ -1018,7 +1018,7 @@ source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToClassCommand.klass);
+globals.HLMoveMethodToClassCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1033,7 +1033,7 @@ source: "label\x09\x0a\x09^ 'to class'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToClassCommand.klass);
+globals.HLMoveMethodToClassCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1048,10 +1048,10 @@ source: "menuLabel\x09\x0a\x09^ 'Move to class...'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToClassCommand.klass);
+globals.HLMoveMethodToClassCommand.klass);
 
 
-smalltalk.addClass('HLMoveMethodToProtocolCommand', smalltalk.HLMoveMethodToCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLMoveMethodToProtocolCommand', globals.HLMoveMethodToCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
@@ -1065,7 +1065,7 @@ source: "displayLabel\x0a\x09^ 'select a protocol'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToProtocolCommand);
+globals.HLMoveMethodToProtocolCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1075,13 +1075,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._moveMethodToProtocol_(self._input());
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLMoveMethodToProtocolCommand)})},
 args: [],
 source: "execute\x0a\x09self model moveMethodToProtocol: self input",
 messageSends: ["moveMethodToProtocol:", "model", "input"],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToProtocolCommand);
+globals.HLMoveMethodToProtocolCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1093,13 +1093,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._model())._availableProtocols();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},globals.HLMoveMethodToProtocolCommand)})},
 args: [],
 source: "inputCompletion\x0a\x09^ self model availableProtocols",
 messageSends: ["availableProtocols", "model"],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToProtocolCommand);
+globals.HLMoveMethodToProtocolCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1114,7 +1114,7 @@ source: "inputLabel\x0a\x09^ 'Move method to a protocol:'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToProtocolCommand);
+globals.HLMoveMethodToProtocolCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1129,7 +1129,7 @@ source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToProtocolCommand);
+globals.HLMoveMethodToProtocolCommand);
 
 
 smalltalk.addMethod(
@@ -1145,7 +1145,7 @@ source: "key\x0a\x09^ 't'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToProtocolCommand.klass);
+globals.HLMoveMethodToProtocolCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1160,7 +1160,7 @@ source: "label\x0a\x09^ 'to protocol'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToProtocolCommand.klass);
+globals.HLMoveMethodToProtocolCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1175,10 +1175,10 @@ source: "menuLabel\x0a\x09^ 'Move to protocol...'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveMethodToProtocolCommand.klass);
+globals.HLMoveMethodToProtocolCommand.klass);
 
 
-smalltalk.addClass('HLRemoveCommand', smalltalk.HLToolCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLRemoveCommand', globals.HLToolCommand, [], 'Helios-Commands-Tools');
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1193,7 +1193,7 @@ source: "key\x0a\x09^ 'x'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveCommand.klass);
+globals.HLRemoveCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1208,10 +1208,10 @@ source: "label\x0a\x09^ 'Remove'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveCommand.klass);
+globals.HLRemoveCommand.klass);
 
 
-smalltalk.addClass('HLRemoveClassCommand', smalltalk.HLRemoveCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLRemoveClassCommand', globals.HLRemoveCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
@@ -1225,7 +1225,7 @@ source: "category\x0a\x09^ 'Classes'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveClassCommand);
+globals.HLRemoveClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1235,13 +1235,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._removeClass();
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRemoveClassCommand)})},
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLRemoveClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model removeClass",
 messageSends: ["removeClass", "model"],
 referencedClasses: []
 }),
-smalltalk.HLRemoveClassCommand);
+globals.HLRemoveClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1253,13 +1253,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self._model())._selectedClass())._notNil();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRemoveClassCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},globals.HLRemoveClassCommand)})},
 args: [],
 source: "isActive\x0a\x09^ self model selectedClass notNil",
 messageSends: ["notNil", "selectedClass", "model"],
 referencedClasses: []
 }),
-smalltalk.HLRemoveClassCommand);
+globals.HLRemoveClassCommand);
 
 
 smalltalk.addMethod(
@@ -1275,7 +1275,7 @@ source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveClassCommand.klass);
+globals.HLRemoveClassCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1290,7 +1290,7 @@ source: "label\x0a\x09^ 'Class'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveClassCommand.klass);
+globals.HLRemoveClassCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1305,10 +1305,10 @@ source: "menuLabel\x0a\x09^ 'Remove class'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveClassCommand.klass);
+globals.HLRemoveClassCommand.klass);
 
 
-smalltalk.addClass('HLRemoveMethodCommand', smalltalk.HLRemoveCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLRemoveMethodCommand', globals.HLRemoveCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
@@ -1322,7 +1322,7 @@ source: "category\x0a\x09^ 'Methods'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveMethodCommand);
+globals.HLRemoveMethodCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1332,13 +1332,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._removeMethod();
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRemoveMethodCommand)})},
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLRemoveMethodCommand)})},
 args: [],
 source: "execute\x0a\x09self model removeMethod",
 messageSends: ["removeMethod", "model"],
 referencedClasses: []
 }),
-smalltalk.HLRemoveMethodCommand);
+globals.HLRemoveMethodCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1350,13 +1350,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self._model())._selectedMethod())._notNil();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRemoveMethodCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},globals.HLRemoveMethodCommand)})},
 args: [],
 source: "isActive\x0a\x09^ self model selectedMethod notNil",
 messageSends: ["notNil", "selectedMethod", "model"],
 referencedClasses: []
 }),
-smalltalk.HLRemoveMethodCommand);
+globals.HLRemoveMethodCommand);
 
 
 smalltalk.addMethod(
@@ -1372,7 +1372,7 @@ source: "key\x0a\x09^ 'm'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveMethodCommand.klass);
+globals.HLRemoveMethodCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1387,7 +1387,7 @@ source: "label\x0a\x09^ 'Method'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveMethodCommand.klass);
+globals.HLRemoveMethodCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1402,10 +1402,10 @@ source: "menuLabel\x0a\x09^ 'Remove method'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveMethodCommand.klass);
+globals.HLRemoveMethodCommand.klass);
 
 
-smalltalk.addClass('HLRemoveProtocolCommand', smalltalk.HLRemoveCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLRemoveProtocolCommand', globals.HLRemoveCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
@@ -1419,7 +1419,7 @@ source: "category\x0a\x09^ 'Protocols'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveProtocolCommand);
+globals.HLRemoveProtocolCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1429,13 +1429,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._removeProtocol();
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRemoveProtocolCommand)})},
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLRemoveProtocolCommand)})},
 args: [],
 source: "execute\x0a\x09self model removeProtocol",
 messageSends: ["removeProtocol", "model"],
 referencedClasses: []
 }),
-smalltalk.HLRemoveProtocolCommand);
+globals.HLRemoveProtocolCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1447,13 +1447,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self._model())._selectedProtocol())._notNil();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRemoveProtocolCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},globals.HLRemoveProtocolCommand)})},
 args: [],
 source: "isActive\x0a\x09^ self model selectedProtocol notNil",
 messageSends: ["notNil", "selectedProtocol", "model"],
 referencedClasses: []
 }),
-smalltalk.HLRemoveProtocolCommand);
+globals.HLRemoveProtocolCommand);
 
 
 smalltalk.addMethod(
@@ -1469,7 +1469,7 @@ source: "key\x0a\x09^ 't'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveProtocolCommand.klass);
+globals.HLRemoveProtocolCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1484,7 +1484,7 @@ source: "label\x0a\x09^ 'Protocol'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveProtocolCommand.klass);
+globals.HLRemoveProtocolCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1499,10 +1499,10 @@ source: "menuLabel\x0a\x09^ 'Remove protocol'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveProtocolCommand.klass);
+globals.HLRemoveProtocolCommand.klass);
 
 
-smalltalk.addClass('HLRenameCommand', smalltalk.HLToolCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLRenameCommand', globals.HLToolCommand, [], 'Helios-Commands-Tools');
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1517,7 +1517,7 @@ source: "key\x0a\x09^ 'r'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameCommand.klass);
+globals.HLRenameCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1532,10 +1532,10 @@ source: "label\x0a\x09^ 'Rename'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameCommand.klass);
+globals.HLRenameCommand.klass);
 
 
-smalltalk.addClass('HLRenameClassCommand', smalltalk.HLRenameCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLRenameClassCommand', globals.HLRenameCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
@@ -1549,7 +1549,7 @@ source: "category\x0a\x09^ 'Classes'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameClassCommand);
+globals.HLRenameClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1561,13 +1561,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(_st(self._model())._selectedClass())._theNonMetaClass())._name();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLRenameClassCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},globals.HLRenameClassCommand)})},
 args: [],
 source: "defaultInput\x0a\x09^ self model selectedClass theNonMetaClass name",
 messageSends: ["name", "theNonMetaClass", "selectedClass", "model"],
 referencedClasses: []
 }),
-smalltalk.HLRenameClassCommand);
+globals.HLRenameClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1582,7 +1582,7 @@ source: "displayLabel\x0a\x09^ 'Rename class to:'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameClassCommand);
+globals.HLRenameClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1592,13 +1592,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._renameClassTo_(self._input());
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRenameClassCommand)})},
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLRenameClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model renameClassTo: self input",
 messageSends: ["renameClassTo:", "model", "input"],
 referencedClasses: []
 }),
-smalltalk.HLRenameClassCommand);
+globals.HLRenameClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1610,13 +1610,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self._model())._selectedClass())._notNil();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRenameClassCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},globals.HLRenameClassCommand)})},
 args: [],
 source: "isActive\x0a\x09^ self model selectedClass notNil",
 messageSends: ["notNil", "selectedClass", "model"],
 referencedClasses: []
 }),
-smalltalk.HLRenameClassCommand);
+globals.HLRenameClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1631,7 +1631,7 @@ source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameClassCommand);
+globals.HLRenameClassCommand);
 
 
 smalltalk.addMethod(
@@ -1647,7 +1647,7 @@ source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameClassCommand.klass);
+globals.HLRenameClassCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1662,7 +1662,7 @@ source: "label\x0a\x09^ 'Class'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameClassCommand.klass);
+globals.HLRenameClassCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1677,10 +1677,10 @@ source: "menuLabel\x0a\x09^ 'Rename class...'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameClassCommand.klass);
+globals.HLRenameClassCommand.klass);
 
 
-smalltalk.addClass('HLRenameProtocolCommand', smalltalk.HLRenameCommand, [], 'Helios-Commands-Tools');
+smalltalk.addClass('HLRenameProtocolCommand', globals.HLRenameCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
@@ -1694,7 +1694,7 @@ source: "category\x0a\x09^ 'Protocols'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameProtocolCommand);
+globals.HLRenameProtocolCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1706,13 +1706,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._model())._selectedProtocol();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLRenameProtocolCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},globals.HLRenameProtocolCommand)})},
 args: [],
 source: "defaultInput\x0a\x09^ self model selectedProtocol",
 messageSends: ["selectedProtocol", "model"],
 referencedClasses: []
 }),
-smalltalk.HLRenameProtocolCommand);
+globals.HLRenameProtocolCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1727,7 +1727,7 @@ source: "displayLabel\x0a\x09^ 'Rename protocol to:'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameProtocolCommand);
+globals.HLRenameProtocolCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1737,13 +1737,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._renameProtocolTo_(self._input());
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRenameProtocolCommand)})},
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLRenameProtocolCommand)})},
 args: [],
 source: "execute\x0a\x09self model renameProtocolTo: self input",
 messageSends: ["renameProtocolTo:", "model", "input"],
 referencedClasses: []
 }),
-smalltalk.HLRenameProtocolCommand);
+globals.HLRenameProtocolCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1755,13 +1755,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self._model())._selectedProtocol())._notNil();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRenameProtocolCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},globals.HLRenameProtocolCommand)})},
 args: [],
 source: "isActive\x0a\x09^ self model selectedProtocol notNil",
 messageSends: ["notNil", "selectedProtocol", "model"],
 referencedClasses: []
 }),
-smalltalk.HLRenameProtocolCommand);
+globals.HLRenameProtocolCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1776,7 +1776,7 @@ source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameProtocolCommand);
+globals.HLRenameProtocolCommand);
 
 
 smalltalk.addMethod(
@@ -1792,7 +1792,7 @@ source: "key\x0a\x09^ 't'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameProtocolCommand.klass);
+globals.HLRenameProtocolCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1807,7 +1807,7 @@ source: "label\x0a\x09^ 'Protocol'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameProtocolCommand.klass);
+globals.HLRenameProtocolCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1822,6 +1822,6 @@ source: "menuLabel\x0a\x09^ 'Rename protocol...'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRenameProtocolCommand.klass);
+globals.HLRenameProtocolCommand.klass);
 
 });

@@ -261,7 +261,7 @@ exportDefinitionOf: aClass on: aStream
 		lf;
 		nextPutAll: 'smalltalk.addClass(';
 		nextPutAll: '''', (self classNameFor: aClass), ''', ';
-		nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
+		nextPutAll: 'globals.', (self classNameFor: aClass superclass);
 		nextPutAll: ', ['.
 	aClass instanceVariableNames
 		do: [ :each | aStream nextPutAll: '''', each, '''' ]
@@ -273,7 +273,7 @@ exportDefinitionOf: aClass on: aStream
 	aClass comment notEmpty ifTrue: [
 		aStream
 			lf;
-		nextPutAll: 'smalltalk.';
+		nextPutAll: 'globals.';
 		nextPutAll: (self classNameFor: aClass);
 		nextPutAll: '.comment=';
 		nextPutAll: aClass comment asJavascript;
@@ -285,7 +285,7 @@ exportMetaDefinitionOf: aClass on: aStream
 	aStream lf.
 	aClass class instanceVariableNames isEmpty ifFalse: [
 		aStream
-		nextPutAll: 'smalltalk.', (self classNameFor: aClass class);
+		nextPutAll: 'globals.', (self classNameFor: aClass class);
 		nextPutAll: '.iVarNames = ['.
 		aClass class instanceVariableNames
 		do: [ :each | aStream nextPutAll: '''', each, '''' ]
@@ -308,7 +308,7 @@ exportMethod: aMethod on: aStream
 	aStream
 		lf;
 		nextPutAll: '}),';lf;
-		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
+		nextPutAll: 'globals.', (self classNameFor: aMethod methodClass);
 		nextPutAll: ');';lf;lf
 !
 
@@ -384,8 +384,8 @@ exportPackagePrologueOf: aPackage on: aStream
 		nextPutAll: '/';
 		nextPutAll: aPackage name;
 		nextPutAll: '", ';
-		nextPutAll: (#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;
-		nextPutAll: ', function(smalltalk,nil,_st){';
+		nextPutAll: (#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st' 'amber_vm/globals'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;
+		nextPutAll: ', function(smalltalk,nil,_st, globals){';
 		lf
 ! !
 

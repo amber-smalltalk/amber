@@ -1,9 +1,9 @@
-define("amber_core/Kernel-Transcript", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Kernel-Transcript", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Kernel-Transcript');
 smalltalk.packages["Kernel-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel-Transcript');
-smalltalk.ConsoleTranscript.comment="I am a specific transcript emitting to the JavaScript console.\x0a\x0aIf no other transcript is registered, I am the default.";
+smalltalk.addClass('ConsoleTranscript', globals.Object, ['textarea'], 'Kernel-Transcript');
+globals.ConsoleTranscript.comment="I am a specific transcript emitting to the JavaScript console.\x0a\x0aIf no other transcript is registered, I am the default.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clear",
@@ -16,7 +16,7 @@ source: "clear\x0a\x09\x22no op\x22",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.ConsoleTranscript);
+globals.ConsoleTranscript);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -30,7 +30,7 @@ source: "cr\x0a\x09\x22no op\x22",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.ConsoleTranscript);
+globals.ConsoleTranscript);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -44,7 +44,7 @@ source: "open",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.ConsoleTranscript);
+globals.ConsoleTranscript);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -59,7 +59,7 @@ source: "show: anObject\x0a\x22Smalltalk objects should have no trouble displayi
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.ConsoleTranscript);
+globals.ConsoleTranscript);
 
 
 smalltalk.addMethod(
@@ -68,15 +68,15 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
 _st($Transcript())._registerIfNone_(self._new());
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ConsoleTranscript.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ConsoleTranscript.klass)})},
 args: [],
 source: "initialize\x0a\x09Transcript registerIfNone: self new",
 messageSends: ["registerIfNone:", "new"],
 referencedClasses: ["Transcript"]
 }),
-smalltalk.ConsoleTranscript.klass);
+globals.ConsoleTranscript.klass);
 
 });
