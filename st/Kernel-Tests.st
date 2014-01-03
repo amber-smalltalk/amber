@@ -1687,6 +1687,13 @@ testAtPut
 	self assert: (testObject at: 'abc') equals: 'xyz'
 !
 
+testComparison
+	self assert: ({ console. 2 } indexOf: console) equals: 1.
+	self assert: console = console.
+	self deny: console = Object new.
+	self deny: console = self jsObject
+!
+
 testDNU
 	self should: [ self jsObject foo ] raise: MessageNotUnderstood
 !

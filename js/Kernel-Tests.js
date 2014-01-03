@@ -6019,6 +6019,32 @@ smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testComparison",
+protocol: 'tests',
+fn: function (){
+var self=this;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self._assert_equals_(_st([console,(2)])._indexOf_(console),(1));
+$1=_st(console).__eq(console);
+$ctx1.sendIdx["="]=1;
+self._assert_($1);
+$2=_st(console).__eq(_st($Object())._new());
+$ctx1.sendIdx["="]=2;
+self._deny_($2);
+$ctx1.sendIdx["deny:"]=1;
+self._deny_(_st(console).__eq(self._jsObject()));
+return self}, function($ctx1) {$ctx1.fill(self,"testComparison",{},smalltalk.JSObjectProxyTest)})},
+args: [],
+source: "testComparison\x0a\x09self assert: ({ console. 2 } indexOf: console) equals: 1.\x0a\x09self assert: console = console.\x0a\x09self deny: console = Object new.\x0a\x09self deny: console = self jsObject",
+messageSends: ["assert:equals:", "indexOf:", "assert:", "=", "deny:", "new", "jsObject"],
+referencedClasses: ["Object"]
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testDNU",
 protocol: 'tests',
 fn: function (){

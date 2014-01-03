@@ -35,6 +35,24 @@ yourself
 	^ self
 ! !
 
+!ProtoObject methodsFor: 'comparing'!
+
+= anObject
+	^ self == anObject
+!
+
+== anObject
+	^ self identityHash = anObject identityHash
+!
+
+~= anObject
+	^ (self = anObject) = false
+!
+
+~~ anObject
+	^ (self == anObject) = false
+! !
+
 !ProtoObject methodsFor: 'converting'!
 
 asString
@@ -162,24 +180,6 @@ size
 
 value
 	<return self.valueOf()>
-! !
-
-!Object methodsFor: 'comparing'!
-
-= anObject
-	^ self == anObject
-!
-
-== anObject
-	^ self identityHash = anObject identityHash
-!
-
-~= anObject
-	^ (self = anObject) = false
-!
-
-~~ anObject
-	^ (self == anObject) = false
 ! !
 
 !Object methodsFor: 'converting'!

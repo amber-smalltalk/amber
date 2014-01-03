@@ -802,6 +802,30 @@ smalltalk.addClass('JSObjectProxy', smalltalk.ProtoObject, ['jsObject'], 'Kernel
 smalltalk.JSObjectProxy.comment="I handle sending messages to JavaScript objects, making  JavaScript object accessing from Amber fully transparent.\x0aMy instances make intensive use of `#doesNotUnderstand:`.\x0a\x0aMy instances are automatically created by Amber whenever a message is sent to a JavaScript object.\x0a\x0a## Usage examples\x0a\x0aJSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.\x0a\x0a\x09window alert: 'hello world'.\x0a\x09window inspect.\x0a\x09(window jQuery: 'body') append: 'hello world'\x0a\x0aAmber messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown.\x0a\x0a## Message conversion rules\x0a\x0a- `someUser name` becomes `someUser.name`\x0a- `someUser name: 'John'` becomes `someUser name = \x22John\x22`\x0a- `console log: 'hello world'` becomes `console.log('hello world')`\x0a- `(window jQuery: 'foo') css: 'background' color: 'red'` becomes `window.jQuery('foo').css('background', 'red')`\x0a\x0a__Note:__ For keyword-based messages, only the first keyword is kept: `window foo: 1 bar: 2` is equivalent to `window foo: 1 baz: 2`.";
 smalltalk.addMethod(
 smalltalk.method({
+selector: "=",
+protocol: 'comparing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$3;
+$2=_st(anObject)._class();
+$ctx1.sendIdx["class"]=1;
+$1=_st($2).__eq_eq(self._class());
+if(! smalltalk.assert($1)){
+return false;
+};
+$3=self._compareJSObjectWith_(_st(anObject)._jsObject());
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"=",{anObject:anObject},smalltalk.JSObjectProxy)})},
+args: ["anObject"],
+source: "= anObject\x0a\x09anObject class == self class ifFalse: [ ^ false ].\x0a\x09^ self compareJSObjectWith: anObject jsObject",
+messageSends: ["ifFalse:", "==", "class", "compareJSObjectWith:", "jsObject"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "addObjectVariablesTo:",
 protocol: 'proxy',
 fn: function (aDictionary){
@@ -922,6 +946,22 @@ return self['@jsObject'][aString] = anObject;
 return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.JSObjectProxy)})},
 args: ["aString", "anObject"],
 source: "at: aString put: anObject\x0a\x09<return self['@jsObject'][aString] = anObject>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compareJSObjectWith:",
+protocol: 'private',
+fn: function (aJSObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self["@jsObject"] === aJSObject;
+return self}, function($ctx1) {$ctx1.fill(self,"compareJSObjectWith:",{aJSObject:aJSObject},smalltalk.JSObjectProxy)})},
+args: ["aJSObject"],
+source: " compareJSObjectWith: aJSObject\x0a \x09<return self[\x22@jsObject\x22] === aJSObject>",
 messageSends: [],
 referencedClasses: []
 }),

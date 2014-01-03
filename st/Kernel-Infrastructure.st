@@ -326,6 +326,13 @@ lookupProperty: aString
 	<return aString in self._jsObject() ? aString : nil>
 ! !
 
+!JSObjectProxy methodsFor: 'comparing'!
+
+= anObject
+	anObject class == self class ifFalse: [ ^ false ].
+	^ self compareJSObjectWith: anObject jsObject
+! !
+
 !JSObjectProxy methodsFor: 'enumerating'!
 
 asJSON
@@ -356,6 +363,12 @@ printString
 			? js.toString()
 			: Object.prototype.toString.call(js)
 	>
+! !
+
+!JSObjectProxy methodsFor: 'private'!
+
+compareJSObjectWith: aJSObject
+ 	<return self["@jsObject"] === aJSObject>
 ! !
 
 !JSObjectProxy methodsFor: 'proxy'!

@@ -6,6 +6,44 @@ smalltalk.addClass('ProtoObject', smalltalk.nil, [], 'Kernel-Objects');
 smalltalk.ProtoObject.comment="I implement the basic behavior required for any object in Amber.\x0a\x0aIn most cases, subclassing `ProtoObject` is wrong and `Object` should be used instead. However subclassing `ProtoObject` can be useful in some special cases like proxy implementations. ";
 smalltalk.addMethod(
 smalltalk.method({
+selector: "=",
+protocol: 'comparing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self.__eq_eq(anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"=",{anObject:anObject},smalltalk.ProtoObject)})},
+args: ["anObject"],
+source: "= anObject\x0a\x09^ self == anObject",
+messageSends: ["=="],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "==",
+protocol: 'comparing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._identityHash();
+$ctx1.sendIdx["identityHash"]=1;
+$1=_st($2).__eq(_st(anObject)._identityHash());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"==",{anObject:anObject},smalltalk.ProtoObject)})},
+args: ["anObject"],
+source: "== anObject\x0a\x09^ self identityHash = anObject identityHash",
+messageSends: ["=", "identityHash"],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asString",
 protocol: 'converting',
 fn: function (){
@@ -262,6 +300,43 @@ referencedClasses: []
 }),
 smalltalk.ProtoObject);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "~=",
+protocol: 'comparing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self.__eq(anObject)).__eq(false);
+$ctx1.sendIdx["="]=1;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"~=",{anObject:anObject},smalltalk.ProtoObject)})},
+args: ["anObject"],
+source: "~= anObject\x0a\x09^ (self = anObject) = false",
+messageSends: ["="],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "~~",
+protocol: 'comparing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self.__eq_eq(anObject)).__eq(false);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"~~",{anObject:anObject},smalltalk.ProtoObject)})},
+args: ["anObject"],
+source: "~~ anObject\x0a\x09^ (self == anObject) = false",
+messageSends: ["=", "=="],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -313,44 +388,6 @@ args: ["anObject"],
 source: "-> anObject\x0a\x09^ Association key: self value: anObject",
 messageSends: ["key:value:"],
 referencedClasses: ["Association"]
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "=",
-protocol: 'comparing',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self.__eq_eq(anObject);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"=",{anObject:anObject},smalltalk.Object)})},
-args: ["anObject"],
-source: "= anObject\x0a\x09^ self == anObject",
-messageSends: ["=="],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "==",
-protocol: 'comparing',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._identityHash();
-$ctx1.sendIdx["identityHash"]=1;
-$1=_st($2).__eq(_st(anObject)._identityHash());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"==",{anObject:anObject},smalltalk.Object)})},
-args: ["anObject"],
-source: "== anObject\x0a\x09^ self identityHash = anObject identityHash",
-messageSends: ["=", "identityHash"],
-referencedClasses: []
 }),
 smalltalk.Object);
 
@@ -1116,43 +1153,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.Object)})},
 args: [],
 source: "value\x0a\x09<return self.valueOf()>",
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "~=",
-protocol: 'comparing',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self.__eq(anObject)).__eq(false);
-$ctx1.sendIdx["="]=1;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"~=",{anObject:anObject},smalltalk.Object)})},
-args: ["anObject"],
-source: "~= anObject\x0a\x09^ (self = anObject) = false",
-messageSends: ["="],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "~~",
-protocol: 'comparing',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self.__eq_eq(anObject)).__eq(false);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"~~",{anObject:anObject},smalltalk.Object)})},
-args: ["anObject"],
-source: "~~ anObject\x0a\x09^ (self == anObject) = false",
-messageSends: ["=", "=="],
 referencedClasses: []
 }),
 smalltalk.Object);
