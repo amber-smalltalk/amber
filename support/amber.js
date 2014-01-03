@@ -61,7 +61,6 @@ require = function (require) {
             'amber_vm': amber_home + '/support',
             'amber_css': amber_home + '/css',
             'amber_lib': library_home,
-            'amber_inc': amber_home + '/support',
             'amber_core': amber_home + '/js',
             'amber_core/_source': amber_home + '/st',
             'amber_helios/html': amber_home,
@@ -85,9 +84,6 @@ require = function (require) {
             },
             'amber_lib/jquery-tabby/jquery.textarea': {
                 deps: [ 'jquery' ]
-            },
-            'amber_inc/CodeMirror/smalltalk': {
-                deps: [ 'amber_lib/codemirror/lib/codemirror' ]
             },
             'amber_lib/codemirror/addon/hint/show-hint': {
                 deps: [ '../../lib/codemirror' ]
