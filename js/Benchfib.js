@@ -114,12 +114,11 @@ selector: "jsbenchFib",
 protocol: '*Benchfib',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 if (this < 2) {
 return 1;
 } else {
 return (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;};
-return self}, function($ctx1) {$ctx1.fill(self,"jsbenchFib",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "jsbenchFib\x0a\x0a\x09<if (this < 2) {\x0areturn 1;\x0a} else {\x0areturn (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;}>",
 messageSends: [],
@@ -133,7 +132,6 @@ selector: "jsbenchmark",
 protocol: '*Benchfib',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 var size = 8190;
 var count;
@@ -156,7 +154,7 @@ for (var z=0;z<this;z++) {
 	}
 }
 return count;
-return self}, function($ctx1) {$ctx1.fill(self,"jsbenchmark",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "jsbenchmark\x0a\x0a<\x0avar size = 8190;\x0avar count;\x0afor (var z=0;z<this;z++) {\x0a\x09count = 0;\x0a\x09var flags = new Array();\x0a\x09for (var p=0; p<size; p++) {\x0a\x09flags[p] = true;\x0a\x09}\x0a\x09for (var i=1;i<=size;i++) {\x0a\x09\x09if (flags[i-1]) {\x0a\x09\x09\x09var prime = i+1;\x0a\x09\x09\x09var k = i + prime;\x0a\x09\x09\x09while (k <= size) {\x0a\x09\x09\x09\x09flags[k-1] = false;\x0a\x09\x09\x09\x09k = k + prime;\x0a\x09\x09\x09}\x0a\x09\x09\x09count = count + 1;\x0a\x09\x09}\x0a\x09}\x0a}\x0areturn count>",
 messageSends: [],

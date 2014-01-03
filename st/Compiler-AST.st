@@ -162,6 +162,18 @@ isVariableNode
 	^ false
 !
 
+requiresSmalltalkContext
+	"Answer true if the receiver requires a smalltalk context.
+	Only send nodes require a context.
+	
+	If no node requires a context, the method will be compiled without one.
+	See `IRJSTranslator` and `JSStream` for context creation"
+	
+	^ (self nodes 
+		detect: [ :each | each requiresSmalltalkContext ]
+		ifNone: [ nil ]) notNil
+!
+
 stopOnStepping
 	^ false
 !
@@ -560,6 +572,10 @@ isCascadeSendNode
 !
 
 isSendNode
+	^ true
+!
+
+requiresSmalltalkContext
 	^ true
 !
 

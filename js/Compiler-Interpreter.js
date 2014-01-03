@@ -26,9 +26,8 @@ selector: "compiledSource",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "[ AST Block closure ]";
-}, function($ctx1) {$ctx1.fill(self,"compiledSource",{},smalltalk.AIBlockClosure)})},
+},
 args: [],
 source: "compiledSource\x0a\x09\x22Unlike blocks, the receiver doesn't represent a JS function\x22\x0a\x09\x0a\x09^ '[ AST Block closure ]'",
 messageSends: [],
@@ -58,10 +57,9 @@ selector: "initializeWithContext:node:",
 protocol: 'initialization',
 fn: function (aContext,aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@node"]=aNode;
 self["@outerContext"]=aContext;
-return self}, function($ctx1) {$ctx1.fill(self,"initializeWithContext:node:",{aContext:aContext,aNode:aNode},smalltalk.AIBlockClosure)})},
+return self},
 args: ["aContext", "aNode"],
 source: "initializeWithContext: aContext node: aNode\x0a\x09node := aNode.\x0a\x09outerContext := aContext",
 messageSends: [],
@@ -302,11 +300,10 @@ selector: "evaluatedSelector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@evaluatedSelector"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"evaluatedSelector",{},smalltalk.AIContext)})},
+},
 args: [],
 source: "evaluatedSelector\x0a\x09^ evaluatedSelector",
 messageSends: [],
@@ -320,9 +317,8 @@ selector: "evaluatedSelector:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@evaluatedSelector"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"evaluatedSelector:",{aString:aString},smalltalk.AIContext)})},
+return self},
 args: ["aString"],
 source: "evaluatedSelector: aString\x0a\x09evaluatedSelector := aString",
 messageSends: [],
@@ -359,9 +355,8 @@ selector: "index:",
 protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@index"]=anInteger;
-return self}, function($ctx1) {$ctx1.fill(self,"index:",{anInteger:anInteger},smalltalk.AIContext)})},
+return self},
 args: ["anInteger"],
 source: "index: anInteger\x0a\x09index := anInteger",
 messageSends: [],
@@ -482,11 +477,10 @@ selector: "innerContext",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@innerContext"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"innerContext",{},smalltalk.AIContext)})},
+},
 args: [],
 source: "innerContext\x0a\x09^ innerContext",
 messageSends: [],
@@ -500,9 +494,8 @@ selector: "innerContext:",
 protocol: 'accessing',
 fn: function (anAIContext){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@innerContext"]=anAIContext;
-return self}, function($ctx1) {$ctx1.fill(self,"innerContext:",{anAIContext:anAIContext},smalltalk.AIContext)})},
+return self},
 args: ["anAIContext"],
 source: "innerContext: anAIContext\x0a\x09innerContext := anAIContext",
 messageSends: [],
@@ -540,9 +533,8 @@ selector: "interpreter:",
 protocol: 'interpreting',
 fn: function (anInterpreter){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@interpreter"]=anInterpreter;
-return self}, function($ctx1) {$ctx1.fill(self,"interpreter:",{anInterpreter:anInterpreter},smalltalk.AIContext)})},
+return self},
 args: ["anInterpreter"],
 source: "interpreter: anInterpreter\x0a\x09interpreter := anInterpreter",
 messageSends: [],
@@ -701,11 +693,10 @@ selector: "outerContext",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@outerContext"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"outerContext",{},smalltalk.AIContext)})},
+},
 args: [],
 source: "outerContext\x0a\x09^ outerContext",
 messageSends: [],
@@ -770,11 +761,10 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@selector"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.AIContext)})},
+},
 args: [],
 source: "selector\x0a\x09^ selector",
 messageSends: [],
@@ -788,9 +778,8 @@ selector: "selector:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@selector"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},smalltalk.AIContext)})},
+return self},
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
 messageSends: [],
@@ -849,9 +838,8 @@ selector: "sendIndexes:",
 protocol: 'accessing',
 fn: function (aDictionary){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@sendIndexes"]=aDictionary;
-return self}, function($ctx1) {$ctx1.fill(self,"sendIndexes:",{aDictionary:aDictionary},smalltalk.AIContext)})},
+return self},
 args: ["aDictionary"],
 source: "sendIndexes: aDictionary\x0a\x09sendIndexes := aDictionary",
 messageSends: [],
@@ -966,11 +954,10 @@ selector: "context",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@context"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"context",{},smalltalk.ASTDebugger)})},
+},
 args: [],
 source: "context\x0a\x09^ context",
 messageSends: [],
@@ -984,9 +971,8 @@ selector: "context:",
 protocol: 'accessing',
 fn: function (aContext){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@context"]=aContext;
-return self}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},smalltalk.ASTDebugger)})},
+return self},
 args: ["aContext"],
 source: "context: aContext\x0a\x09context := aContext",
 messageSends: [],
@@ -1001,9 +987,8 @@ protocol: 'defaults',
 fn: function (){
 var self=this;
 function $ASTInterpreter(){return smalltalk.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
-return smalltalk.withContext(function($ctx1) { 
 return $ASTInterpreter();
-}, function($ctx1) {$ctx1.fill(self,"defaultInterpreterClass",{},smalltalk.ASTDebugger)})},
+},
 args: [],
 source: "defaultInterpreterClass\x0a\x09^ ASTInterpreter",
 messageSends: [],
@@ -1083,9 +1068,8 @@ selector: "interpreter:",
 protocol: 'accessing',
 fn: function (anInterpreter){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@interpreter"]=anInterpreter;
-return self}, function($ctx1) {$ctx1.fill(self,"interpreter:",{anInterpreter:anInterpreter},smalltalk.ASTDebugger)})},
+return self},
 args: ["anInterpreter"],
 source: "interpreter: anInterpreter\x0a\x09interpreter := anInterpreter",
 messageSends: [],
@@ -1288,11 +1272,10 @@ selector: "context",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@context"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"context",{},smalltalk.ASTInterpreter)})},
+},
 args: [],
 source: "context\x0a\x09^ context",
 messageSends: [],
@@ -1306,9 +1289,8 @@ selector: "context:",
 protocol: 'accessing',
 fn: function (aContext){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@context"]=aContext;
-return self}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},smalltalk.ASTInterpreter)})},
+return self},
 args: ["aContext"],
 source: "context: aContext\x0a\x09context := aContext",
 messageSends: [],
@@ -1485,11 +1467,10 @@ selector: "node",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@node"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"node",{},smalltalk.ASTInterpreter)})},
+},
 args: [],
 source: "node\x0a\x09\x22Answer the next node, ie the node to be evaluated in the next step\x22\x0a\x09\x0a\x09^ node",
 messageSends: [],
@@ -1503,9 +1484,8 @@ selector: "node:",
 protocol: 'accessing',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@node"]=aNode;
-return self}, function($ctx1) {$ctx1.fill(self,"node:",{aNode:aNode},smalltalk.ASTInterpreter)})},
+return self},
 args: ["aNode"],
 source: "node: aNode\x0a\x09node := aNode",
 messageSends: [],
@@ -1647,11 +1627,10 @@ selector: "returnValue",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@returnValue"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"returnValue",{},smalltalk.ASTInterpreter)})},
+},
 args: [],
 source: "returnValue\x0a\x09^ returnValue",
 messageSends: [],
@@ -1665,9 +1644,8 @@ selector: "returnValue:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@returnValue"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"returnValue:",{anObject:anObject},smalltalk.ASTInterpreter)})},
+return self},
 args: ["anObject"],
 source: "returnValue: anObject\x0a\x09returnValue := anObject",
 messageSends: [],
@@ -1962,8 +1940,7 @@ selector: "visitNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"visitNode:",{aNode:aNode},smalltalk.ASTInterpreter)})},
+return self},
 args: ["aNode"],
 source: "visitNode: aNode\x0a\x09\x22Do nothing by default. Especially, do not visit children recursively.\x22",
 messageSends: [],
@@ -2118,11 +2095,10 @@ selector: "context",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@context"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"context",{},smalltalk.ASTPCNodeVisitor)})},
+},
 args: [],
 source: "context\x0a\x09^ context",
 messageSends: [],
@@ -2136,9 +2112,8 @@ selector: "context:",
 protocol: 'accessing',
 fn: function (aContext){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@context"]=aContext;
-return self}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},smalltalk.ASTPCNodeVisitor)})},
+return self},
 args: ["aContext"],
 source: "context: aContext\x0a\x09context := aContext",
 messageSends: [],
@@ -2152,11 +2127,10 @@ selector: "currentNode",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@currentNode"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"currentNode",{},smalltalk.ASTPCNodeVisitor)})},
+},
 args: [],
 source: "currentNode\x0a\x09^ currentNode",
 messageSends: [],
@@ -2210,11 +2184,10 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@selector"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.ASTPCNodeVisitor)})},
+},
 args: [],
 source: "selector\x0a\x09^ selector",
 messageSends: [],
@@ -2228,9 +2201,8 @@ selector: "selector:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@selector"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},smalltalk.ASTPCNodeVisitor)})},
+return self},
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
 messageSends: [],
@@ -2244,9 +2216,8 @@ selector: "visitJSStatementNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@currentNode"]=aNode;
-return self}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
+return self},
 args: ["aNode"],
 source: "visitJSStatementNode: aNode\x0a\x09\x22If a JSStatementNode is encountered, it always is the current node.\x0a\x09Stop visiting the AST there\x22\x0a\x09\x0a\x09currentNode := aNode",
 messageSends: [],
@@ -2299,9 +2270,8 @@ selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isSteppingNode",{},smalltalk.Node)})},
+},
 args: [],
 source: "isSteppingNode\x0a\x09^ false",
 messageSends: [],
@@ -2315,9 +2285,8 @@ selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isSteppingNode",{},smalltalk.AssignmentNode)})},
+},
 args: [],
 source: "isSteppingNode\x0a\x09^ true",
 messageSends: [],
@@ -2331,9 +2300,8 @@ selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isSteppingNode",{},smalltalk.BlockNode)})},
+},
 args: [],
 source: "isSteppingNode\x0a\x09^ true",
 messageSends: [],
@@ -2347,9 +2315,8 @@ selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isSteppingNode",{},smalltalk.DynamicArrayNode)})},
+},
 args: [],
 source: "isSteppingNode\x0a\x09^ true",
 messageSends: [],
@@ -2363,9 +2330,8 @@ selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isSteppingNode",{},smalltalk.DynamicDictionaryNode)})},
+},
 args: [],
 source: "isSteppingNode\x0a\x09^ true",
 messageSends: [],
@@ -2379,9 +2345,8 @@ selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isSteppingNode",{},smalltalk.JSStatementNode)})},
+},
 args: [],
 source: "isSteppingNode\x0a\x09^ true",
 messageSends: [],
@@ -2395,9 +2360,8 @@ selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isSteppingNode",{},smalltalk.SendNode)})},
+},
 args: [],
 source: "isSteppingNode\x0a\x09^ true",
 messageSends: [],

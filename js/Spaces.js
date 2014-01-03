@@ -99,11 +99,10 @@ selector: "frame",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@frame"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"frame",{},smalltalk.ObjectSpace)})},
+},
 args: [],
 source: "frame\x0a\x09^ frame",
 messageSends: [],
@@ -152,9 +151,8 @@ selector: "release",
 protocol: 'releasing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@frame"]=nil;
-return self}, function($ctx1) {$ctx1.fill(self,"release",{},smalltalk.ObjectSpace)})},
+return self},
 args: [],
 source: "release\x0a\x09frame := nil",
 messageSends: [],
@@ -208,9 +206,8 @@ selector: "messageText",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "The ObjectSpace is not connected";
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.ObjectSpaceConnectionError)})},
+},
 args: [],
 source: "messageText\x0a\x09^ 'The ObjectSpace is not connected'",
 messageSends: [],

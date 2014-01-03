@@ -94,9 +94,8 @@ selector: "environment:",
 protocol: 'accessing',
 fn: function (anEnvironment){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@environment"]=anEnvironment;
-return self}, function($ctx1) {$ctx1.fill(self,"environment:",{anEnvironment:anEnvironment},smalltalk.HLCodeModel)})},
+return self},
 args: ["anEnvironment"],
 source: "environment: anEnvironment\x0a\x09environment := anEnvironment",
 messageSends: [],
@@ -150,9 +149,8 @@ selector: "receiver:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@receiver"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"receiver:",{anObject:anObject},smalltalk.HLCodeModel)})},
+return self},
 args: ["anObject"],
 source: "receiver: anObject\x0a\x09receiver := anObject",
 messageSends: [],
@@ -208,9 +206,8 @@ selector: "canHaveFocus",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"canHaveFocus",{},smalltalk.HLCodeWidget)})},
+},
 args: [],
 source: "canHaveFocus\x0a\x09^ true",
 messageSends: [],
@@ -376,11 +373,10 @@ selector: "editor",
 protocol: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@editor"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"editor",{},smalltalk.HLCodeWidget)})},
+},
 args: [],
 source: "editor\x0a\x09^ editor",
 messageSends: [],
@@ -466,9 +462,8 @@ selector: "hasModification",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"hasModification",{},smalltalk.HLCodeWidget)})},
+},
 args: [],
 source: "hasModification\x0a\x09^ false",
 messageSends: [],
@@ -557,9 +552,8 @@ selector: "model:",
 protocol: 'accessing',
 fn: function (aModel){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@model"]=aModel;
-return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLCodeWidget)})},
+return self},
 args: ["aModel"],
 source: "model: aModel\x0a\x09model := aModel",
 messageSends: [],
@@ -637,8 +631,7 @@ selector: "onSaveIt",
 protocol: 'reactions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"onSaveIt",{},smalltalk.HLCodeWidget)})},
+return self},
 args: [],
 source: "onSaveIt\x0a\x09\x22I do not do anything\x22",
 messageSends: [],
@@ -853,8 +846,7 @@ selector: "saveIt",
 protocol: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"saveIt",{},smalltalk.HLCodeWidget)})},
+return self},
 args: [],
 source: "saveIt\x0a\x09\x22I do not do anything\x22",
 messageSends: [],
@@ -954,9 +946,8 @@ selector: "setEditorOn:",
 protocol: 'actions',
 fn: function (aTextarea){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self['@editor'] = CodeMirror.fromTextArea(aTextarea, self._editorOptions());
-return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea},smalltalk.HLCodeWidget)})},
+return self},
 args: ["aTextarea"],
 source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, self._editorOptions())>",
 messageSends: [],
@@ -1286,14 +1277,13 @@ selector: "setupCodeMirror",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
  
 		CodeMirror.keyMap.default.fallthrough = ["basic"];
 		CodeMirror.commands.autocomplete = function(cm) {
 			CodeMirror.showHint(cm, self._hintFor_options_);
 		}
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{},smalltalk.HLCodeWidget.klass)})},
+return self},
 args: [],
 source: "setupCodeMirror\x0a\x09< \x0a\x09\x09CodeMirror.keyMap.default.fallthrough = [\x22basic\x22];\x0a\x09\x09CodeMirror.commands.autocomplete = function(cm) {\x0a\x09\x09\x09CodeMirror.showHint(cm, self._hintFor_options_);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -1350,9 +1340,8 @@ selector: "setupKeyMaps",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 CodeMirror.keyMap['Amber'] = self._keyMap();
-return self}, function($ctx1) {$ctx1.fill(self,"setupKeyMaps",{},smalltalk.HLCodeWidget.klass)})},
+return self},
 args: [],
 source: "setupKeyMaps\x0a\x09<CodeMirror.keyMap['Amber'] = self._keyMap()>",
 messageSends: [],
@@ -1461,12 +1450,11 @@ selector: "methodContents:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 self["@methodContents"]=aString;
 $1=self["@methodContents"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"methodContents:",{aString:aString},smalltalk.HLNavigationCodeWidget)})},
+},
 args: ["aString"],
 source: "methodContents: aString\x0a\x09^ methodContents := aString",
 messageSends: [],
@@ -1480,8 +1468,7 @@ selector: "previous",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"previous",{},smalltalk.HLNavigationCodeWidget)})},
+return self},
 args: [],
 source: "previous\x0a\x09\x22for browser lists widget\x22",
 messageSends: [],
@@ -1495,8 +1482,7 @@ selector: "previous:",
 protocol: 'accessing',
 fn: function (aWidget){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"previous:",{aWidget:aWidget},smalltalk.HLNavigationCodeWidget)})},
+return self},
 args: ["aWidget"],
 source: "previous: aWidget\x0a\x09\x22for browser lists widget\x22",
 messageSends: [],
@@ -1511,9 +1497,8 @@ selector: "canBeOpenAsTab",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLNavigationCodeWidget.klass)})},
+},
 args: [],
 source: "canBeOpenAsTab\x0a\x09^ false",
 messageSends: [],
@@ -1550,11 +1535,10 @@ selector: "browserModel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@browserModel"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"browserModel",{},smalltalk.HLBrowserCodeWidget)})},
+},
 args: [],
 source: "browserModel\x0a\x09^ browserModel",
 messageSends: [],
@@ -2119,9 +2103,8 @@ selector: "canBeOpenAsTab",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLBrowserCodeWidget.klass)})},
+},
 args: [],
 source: "canBeOpenAsTab\x0a\x09^ false",
 messageSends: [],
@@ -2158,9 +2141,8 @@ selector: "canHaveFocus",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"canHaveFocus",{},smalltalk.HLWorkspace)})},
+},
 args: [],
 source: "canHaveFocus\x0a\x09^ true",
 messageSends: [],
@@ -2312,9 +2294,8 @@ selector: "canBeOpenAsTab",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLWorkspace.klass)})},
+},
 args: [],
 source: "canBeOpenAsTab\x0a\x09^ true",
 messageSends: [],
@@ -2328,9 +2309,8 @@ selector: "tabClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "workspace";
-}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLWorkspace.klass)})},
+},
 args: [],
 source: "tabClass\x0a\x09^ 'workspace'",
 messageSends: [],
@@ -2344,9 +2324,8 @@ selector: "tabLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Workspace";
-}, function($ctx1) {$ctx1.fill(self,"tabLabel",{},smalltalk.HLWorkspace.klass)})},
+},
 args: [],
 source: "tabLabel\x0a\x09^ 'Workspace'",
 messageSends: [],
@@ -2360,9 +2339,8 @@ selector: "tabPriority",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (10);
-}, function($ctx1) {$ctx1.fill(self,"tabPriority",{},smalltalk.HLWorkspace.klass)})},
+},
 args: [],
 source: "tabPriority\x0a\x09^ 10",
 messageSends: [],

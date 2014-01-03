@@ -10,11 +10,10 @@ selector: "result",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@result"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"result",{},smalltalk.ResultAnnouncement)})},
+},
 args: [],
 source: "result\x0a\x09^ result",
 messageSends: [],
@@ -28,9 +27,8 @@ selector: "result:",
 protocol: 'accessing',
 fn: function (aTestResult){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@result"]=aTestResult;
-return self}, function($ctx1) {$ctx1.fill(self,"result:",{aTestResult:aTestResult},smalltalk.ResultAnnouncement)})},
+return self},
 args: ["aTestResult"],
 source: "result: aTestResult\x0a\x09result := aTestResult",
 messageSends: [],
@@ -135,9 +133,8 @@ selector: "context:",
 protocol: 'accessing',
 fn: function (aRunningTestContext){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@context"]=aRunningTestContext;
-return self}, function($ctx1) {$ctx1.fill(self,"context:",{aRunningTestContext:aRunningTestContext},smalltalk.TestCase)})},
+return self},
 args: ["aRunningTestContext"],
 source: "context: aRunningTestContext\x0a\x09context := aRunningTestContext",
 messageSends: [],
@@ -256,11 +253,10 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@testSelector"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.TestCase)})},
+},
 args: [],
 source: "selector\x0a\x09^ testSelector",
 messageSends: [],
@@ -274,9 +270,8 @@ selector: "setTestSelector:",
 protocol: 'accessing',
 fn: function (aSelector){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@testSelector"]=aSelector;
-return self}, function($ctx1) {$ctx1.fill(self,"setTestSelector:",{aSelector:aSelector},smalltalk.TestCase)})},
+return self},
 args: ["aSelector"],
 source: "setTestSelector: aSelector\x0a\x09testSelector := aSelector",
 messageSends: [],
@@ -290,8 +285,7 @@ selector: "setUp",
 protocol: 'running',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.TestCase)})},
+return self},
 args: [],
 source: "setUp",
 messageSends: [],
@@ -387,8 +381,7 @@ selector: "tearDown",
 protocol: 'running',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.TestCase)})},
+return self},
 args: [],
 source: "tearDown",
 messageSends: [],
@@ -475,9 +468,8 @@ selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "test";
-}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.TestCase.klass)})},
+},
 args: [],
 source: "heliosClass\x0a\x09^ 'test'",
 messageSends: [],
@@ -510,9 +502,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $TestCase(){return smalltalk.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
-return smalltalk.withContext(function($ctx1) { 
 return $TestCase();
-}, function($ctx1) {$ctx1.fill(self,"lookupHierarchyRoot",{},smalltalk.TestCase.klass)})},
+},
 args: [],
 source: "lookupHierarchyRoot\x0a\x09^ TestCase",
 messageSends: [],
@@ -651,9 +642,8 @@ selector: "testCase:",
 protocol: 'accessing',
 fn: function (aTestCase){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@testCase"]=aTestCase;
-return self}, function($ctx1) {$ctx1.fill(self,"testCase:",{aTestCase:aTestCase},smalltalk.TestContext)})},
+return self},
 args: ["aTestCase"],
 source: "testCase: aTestCase\x0a\x09testCase := aTestCase",
 messageSends: [],
@@ -722,9 +712,8 @@ selector: "finished:",
 protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@finished"]=aBlock;
-return self}, function($ctx1) {$ctx1.fill(self,"finished:",{aBlock:aBlock},smalltalk.ReportingTestContext)})},
+return self},
 args: ["aBlock"],
 source: "finished: aBlock\x0a\x09finished := aBlock",
 messageSends: [],
@@ -738,9 +727,8 @@ selector: "result:",
 protocol: 'accessing',
 fn: function (aTestResult){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@result"]=aTestResult;
-return self}, function($ctx1) {$ctx1.fill(self,"result:",{aTestResult:aTestResult},smalltalk.ReportingTestContext)})},
+return self},
 args: ["aTestResult"],
 source: "result: aTestResult\x0a\x09result := aTestResult",
 messageSends: [],
@@ -844,11 +832,10 @@ selector: "errors",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@errors"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"errors",{},smalltalk.TestResult)})},
+},
 args: [],
 source: "errors\x0a\x09^ errors",
 messageSends: [],
@@ -862,11 +849,10 @@ selector: "failures",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@failures"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"failures",{},smalltalk.TestResult)})},
+},
 args: [],
 source: "failures\x0a\x09^ failures",
 messageSends: [],
@@ -975,11 +961,10 @@ selector: "runs",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@runs"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"runs",{},smalltalk.TestResult)})},
+},
 args: [],
 source: "runs\x0a\x09^ runs",
 messageSends: [],
@@ -1022,11 +1007,10 @@ selector: "timestamp",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@timestamp"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"timestamp",{},smalltalk.TestResult)})},
+},
 args: [],
 source: "timestamp\x0a\x09^ timestamp",
 messageSends: [],
@@ -1040,11 +1024,10 @@ selector: "total",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@total"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"total",{},smalltalk.TestResult)})},
+},
 args: [],
 source: "total\x0a\x09^ total",
 messageSends: [],
@@ -1058,9 +1041,8 @@ selector: "total:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@total"]=aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"total:",{aNumber:aNumber},smalltalk.TestResult)})},
+return self},
 args: ["aNumber"],
 source: "total: aNumber\x0a\x09total := aNumber",
 messageSends: [],
@@ -1078,11 +1060,10 @@ selector: "announcer",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@announcer"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"announcer",{},smalltalk.TestSuiteRunner)})},
+},
 args: [],
 source: "announcer\x0a\x09^ announcer",
 messageSends: [],
@@ -1150,11 +1131,10 @@ selector: "result",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@result"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"result",{},smalltalk.TestSuiteRunner)})},
+},
 args: [],
 source: "result\x0a\x09^ result",
 messageSends: [],
@@ -1203,9 +1183,8 @@ selector: "suite:",
 protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@suite"]=aCollection;
-return self}, function($ctx1) {$ctx1.fill(self,"suite:",{aCollection:aCollection},smalltalk.TestSuiteRunner)})},
+return self},
 args: ["aCollection"],
 source: "suite: aCollection\x0a\x09suite := aCollection",
 messageSends: [],

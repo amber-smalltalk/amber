@@ -55,9 +55,8 @@ selector: "register:",
 protocol: 'registration',
 fn: function (anInspector){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@inspector"]=anInspector;
-return self}, function($ctx1) {$ctx1.fill(self,"register:",{anInspector:anInspector},smalltalk.InspectorHandler.klass)})},
+return self},
 args: ["anInspector"],
 source: "register: anInspector\x0a\x09inspector := anInspector",
 messageSends: [],
@@ -830,13 +829,12 @@ selector: "addObjectVariablesTo:",
 protocol: 'proxy',
 fn: function (aDictionary){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		for(var i in self['@jsObject']) {
 			aDictionary._at_put_(i, self['@jsObject'][i]);
 		}
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"addObjectVariablesTo:",{aDictionary:aDictionary},smalltalk.JSObjectProxy)})},
+return self},
 args: ["aDictionary"],
 source: "addObjectVariablesTo: aDictionary\x0a\x09<\x0a\x09\x09for(var i in self['@jsObject']) {\x0a\x09\x09\x09aDictionary._at_put_(i, self['@jsObject'][i]);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -850,11 +848,10 @@ selector: "asJSON",
 protocol: 'enumerating',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@jsObject"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.JSObjectProxy)})},
+},
 args: [],
 source: "asJSON\x0a\x09\x22Answers the receiver in a stringyfy-friendly fashion\x22\x0a\x0a\x09^ jsObject",
 messageSends: [],
@@ -868,9 +865,8 @@ selector: "at:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self['@jsObject'][aString];
-return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.JSObjectProxy)})},
+return self},
 args: ["aString"],
 source: "at: aString\x0a\x09<return self['@jsObject'][aString]>",
 messageSends: [],
@@ -884,12 +880,11 @@ selector: "at:ifAbsent:",
 protocol: 'accessing',
 fn: function (aString,aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		var obj = self['@jsObject'];
 		return aString in obj ? obj[aString] : aBlock._value();
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},smalltalk.JSObjectProxy)})},
+return self},
 args: ["aString", "aBlock"],
 source: "at: aString ifAbsent: aBlock\x0a\x09\x22return the aString property or evaluate aBlock if the property is not defined on the object\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? obj[aString] : aBlock._value();\x0a\x09>",
 messageSends: [],
@@ -903,12 +898,11 @@ selector: "at:ifPresent:",
 protocol: 'accessing',
 fn: function (aString,aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		var obj = self['@jsObject'];
 		return aString in obj ? aBlock._value_(obj[aString]) : nil;
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{aString:aString,aBlock:aBlock},smalltalk.JSObjectProxy)})},
+return self},
 args: ["aString", "aBlock"],
 source: "at: aString ifPresent: aBlock\x0a\x09\x22return the evaluation of aBlock with the value if the property is defined or return nil\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? aBlock._value_(obj[aString]) : nil;\x0a\x09>",
 messageSends: [],
@@ -922,12 +916,11 @@ selector: "at:ifPresent:ifAbsent:",
 protocol: 'accessing',
 fn: function (aString,aBlock,anotherBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		var obj = self['@jsObject'];
 		return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.JSObjectProxy)})},
+return self},
 args: ["aString", "aBlock", "anotherBlock"],
 source: "at: aString ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22return the evaluation of aBlock with the value if the property is defined\x0a\x09or return value of anotherBlock\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();\x0a\x09>",
 messageSends: [],
@@ -941,9 +934,8 @@ selector: "at:put:",
 protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self['@jsObject'][aString] = anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.JSObjectProxy)})},
+return self},
 args: ["aString", "anObject"],
 source: "at: aString put: anObject\x0a\x09<return self['@jsObject'][aString] = anObject>",
 messageSends: [],
@@ -957,9 +949,8 @@ selector: "compareJSObjectWith:",
 protocol: 'private',
 fn: function (aJSObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self["@jsObject"] === aJSObject;
-return self}, function($ctx1) {$ctx1.fill(self,"compareJSObjectWith:",{aJSObject:aJSObject},smalltalk.JSObjectProxy)})},
+return self},
 args: ["aJSObject"],
 source: " compareJSObjectWith: aJSObject\x0a \x09<return self[\x22@jsObject\x22] === aJSObject>",
 messageSends: [],
@@ -998,11 +989,10 @@ selector: "forwardMessage:withArguments:",
 protocol: 'proxy',
 fn: function (aString,anArray){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		return smalltalk.send(self._jsObject(), aString, anArray);
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},smalltalk.JSObjectProxy)})},
+return self},
 args: ["aString", "anArray"],
 source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.send(self._jsObject(), aString, anArray);\x0a\x09>",
 messageSends: [],
@@ -1038,11 +1028,10 @@ selector: "jsObject",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@jsObject"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"jsObject",{},smalltalk.JSObjectProxy)})},
+},
 args: [],
 source: "jsObject\x0a\x09^ jsObject",
 messageSends: [],
@@ -1056,9 +1045,8 @@ selector: "jsObject:",
 protocol: 'accessing',
 fn: function (aJSObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@jsObject"]=aJSObject;
-return self}, function($ctx1) {$ctx1.fill(self,"jsObject:",{aJSObject:aJSObject},smalltalk.JSObjectProxy)})},
+return self},
 args: ["aJSObject"],
 source: "jsObject: aJSObject\x0a\x09jsObject := aJSObject",
 messageSends: [],
@@ -1072,14 +1060,13 @@ selector: "keysAndValuesDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		var o = self['@jsObject'];
 		for(var i in o) {
 			aBlock._value_value_(i, o[i]);
 		}
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},smalltalk.JSObjectProxy)})},
+return self},
 args: ["aBlock"],
 source: "keysAndValuesDo: aBlock\x0a\x09<\x0a\x09\x09var o = self['@jsObject'];\x0a\x09\x09for(var i in o) {\x0a\x09\x09\x09aBlock._value_value_(i, o[i]);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -1093,9 +1080,8 @@ selector: "lookupProperty:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return aString in self._jsObject() ? aString : nil;
-return self}, function($ctx1) {$ctx1.fill(self,"lookupProperty:",{aString:aString},smalltalk.JSObjectProxy)})},
+return self},
 args: ["aString"],
 source: "lookupProperty: aString\x0a\x09\x22Looks up a property in JS object.\x0a\x09Answer the property if it is present, or nil if it is not present.\x22\x0a\x09\x0a\x09<return aString in self._jsObject() ? aString : nil>",
 messageSends: [],
@@ -1125,14 +1111,13 @@ selector: "printString",
 protocol: 'printing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		var js = self['@jsObject'];
 		return js.toString
 			? js.toString()
 			: Object.prototype.toString.call(js)
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.JSObjectProxy)})},
+return self},
 args: [],
 source: "printString\x0a\x09<\x0a\x09\x09var js = self['@jsObject'];\x0a\x09\x09return js.toString\x0a\x09\x09\x09? js.toString()\x0a\x09\x09\x09: Object.prototype.toString.call(js)\x0a\x09>",
 messageSends: [],
@@ -1171,9 +1156,8 @@ selector: "addElement:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self.elements.addElement(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{anObject:anObject},smalltalk.Organizer)})},
+return self},
 args: ["anObject"],
 source: "addElement: anObject\x0a\x09<self.elements.addElement(anObject)>",
 messageSends: [],
@@ -1205,9 +1189,8 @@ selector: "removeElement:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self.elements.removeElement(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{anObject:anObject},smalltalk.Organizer)})},
+return self},
 args: ["anObject"],
 source: "removeElement: anObject\x0a\x09<self.elements.removeElement(anObject)>",
 messageSends: [],
@@ -1273,9 +1256,8 @@ selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
  return self.theClass ;
-return self}, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.ClassOrganizer)})},
+return self},
 args: [],
 source: "theClass\x0a\x09< return self.theClass >",
 messageSends: [],
@@ -1297,9 +1279,8 @@ selector: "basicTransport",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.transport;
-return self}, function($ctx1) {$ctx1.fill(self,"basicTransport",{},smalltalk.Package)})},
+return self},
 args: [],
 source: "basicTransport\x0a\x09\x22Answer the transport literal JavaScript object as setup in the JavaScript file, if any\x22\x0a\x09\x0a\x09<return self.transport>",
 messageSends: [],
@@ -1380,9 +1361,8 @@ selector: "isPackage",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isPackage",{},smalltalk.Package)})},
+},
 args: [],
 source: "isPackage\x0a\x09^ true",
 messageSends: [],
@@ -1464,9 +1444,8 @@ selector: "name",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.pkgName;
-return self}, function($ctx1) {$ctx1.fill(self,"name",{},smalltalk.Package)})},
+return self},
 args: [],
 source: "name\x0a\x09<return self.pkgName>",
 messageSends: [],
@@ -1480,9 +1459,8 @@ selector: "name:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self.pkgName = aString;
-return self}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},smalltalk.Package)})},
+return self},
 args: ["aString"],
 source: "name: aString\x0a\x09<self.pkgName = aString>",
 messageSends: [],
@@ -1840,9 +1818,8 @@ selector: "globals",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (new Function('return this'))();;
-return self}, function($ctx1) {$ctx1.fill(self,"globals",{},smalltalk.PlatformInterface.klass)})},
+return self},
 args: [],
 source: "globals\x0a\x09<return (new Function('return this'))();>",
 messageSends: [],
@@ -1909,9 +1886,8 @@ selector: "setWorker:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@worker"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"setWorker:",{anObject:anObject},smalltalk.PlatformInterface.klass)})},
+return self},
 args: ["anObject"],
 source: "setWorker: anObject\x0a\x09worker := anObject",
 messageSends: [],
@@ -2003,9 +1979,8 @@ selector: "setCurrent:",
 protocol: 'accessing',
 fn: function (anHandler){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@current"]=anHandler;
-return self}, function($ctx1) {$ctx1.fill(self,"setCurrent:",{anHandler:anHandler},smalltalk.ProgressHandler.klass)})},
+return self},
 args: ["anHandler"],
 source: "setCurrent: anHandler\x0a\x09current := anHandler",
 messageSends: [],
@@ -2084,9 +2059,8 @@ selector: "at:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return smalltalk[aString];
-return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.SmalltalkImage)})},
+return self},
 args: ["aString"],
 source: "at: aString\x0a\x09<return smalltalk[aString]>",
 messageSends: [],
@@ -2123,9 +2097,8 @@ selector: "at:put:",
 protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return smalltalk[aString]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.SmalltalkImage)})},
+return self},
 args: ["aString", "anObject"],
 source: "at: aString put: anObject\x0a\x09<return smalltalk[aString]=anObject>",
 messageSends: [],
@@ -2139,9 +2112,8 @@ selector: "basicCreatePackage:",
 protocol: 'private',
 fn: function (packageName){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return smalltalk.addPackage(packageName);
-return self}, function($ctx1) {$ctx1.fill(self,"basicCreatePackage:",{packageName:packageName},smalltalk.SmalltalkImage)})},
+return self},
 args: ["packageName"],
 source: "basicCreatePackage: packageName\x0a\x09\x22Create and bind a new bare package with given name and return it.\x22\x0a\x09<return smalltalk.addPackage(packageName)>",
 messageSends: [],
@@ -2155,9 +2127,8 @@ selector: "basicParse:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return smalltalk.parser.parse(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"basicParse:",{aString:aString},smalltalk.SmalltalkImage)})},
+return self},
 args: ["aString"],
 source: "basicParse: aString\x0a\x09<return smalltalk.parser.parse(aString)>",
 messageSends: [],
@@ -2171,9 +2142,8 @@ selector: "classes",
 protocol: 'classes',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return smalltalk.classes();
-return self}, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.SmalltalkImage)})},
+return self},
 args: [],
 source: "classes\x0a\x09<return smalltalk.classes()>",
 messageSends: [],
@@ -2288,9 +2258,8 @@ selector: "deleteClass:",
 protocol: 'private',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 smalltalk.removeClass(aClass);
-return self}, function($ctx1) {$ctx1.fill(self,"deleteClass:",{aClass:aClass},smalltalk.SmalltalkImage)})},
+return self},
 args: ["aClass"],
 source: "deleteClass: aClass\x0a\x09\x22Deletes a class by deleting its binding only. Use #removeClass instead\x22\x0a\x09\x0a\x09<smalltalk.removeClass(aClass)>",
 messageSends: [],
@@ -2322,9 +2291,8 @@ selector: "deletePackage:",
 protocol: 'private',
 fn: function (packageName){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 delete smalltalk.packages[packageName];
-return self}, function($ctx1) {$ctx1.fill(self,"deletePackage:",{packageName:packageName},smalltalk.SmalltalkImage)})},
+return self},
 args: ["packageName"],
 source: "deletePackage: packageName\x0a\x09\x22Deletes a package by deleting its binding, but does not check if it contains classes etc.\x0a\x09To remove a package, use #removePackage instead.\x22\x0a\x0a\x09<delete smalltalk.packages[packageName]>",
 messageSends: [],
@@ -2338,9 +2306,8 @@ selector: "globalJsVariables",
 protocol: 'globals',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return smalltalk.globalJsVariables;
-return self}, function($ctx1) {$ctx1.fill(self,"globalJsVariables",{},smalltalk.SmalltalkImage)})},
+return self},
 args: [],
 source: "globalJsVariables\x0a\x09\x22Array of global JavaScript variables\x22\x0a\x09<return smalltalk.globalJsVariables>",
 messageSends: [],
@@ -2354,9 +2321,8 @@ selector: "globals",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"globals",{},smalltalk.SmalltalkImage)})},
+},
 args: [],
 source: "globals\x0a\x09\x22Future compatibility to be able to use Smalltalk globals at: ...\x22\x0a\x09^ self",
 messageSends: [],
@@ -2370,9 +2336,8 @@ selector: "includesKey:",
 protocol: 'accessing',
 fn: function (aKey){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return smalltalk.hasOwnProperty(aKey);
-return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey},smalltalk.SmalltalkImage)})},
+return self},
 args: ["aKey"],
 source: "includesKey: aKey\x0a\x09<return smalltalk.hasOwnProperty(aKey)>",
 messageSends: [],
@@ -2386,9 +2351,8 @@ selector: "isSmalltalkObject:",
 protocol: 'testing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return typeof anObject.klass !== 'undefined';
-return self}, function($ctx1) {$ctx1.fill(self,"isSmalltalkObject:",{anObject:anObject},smalltalk.SmalltalkImage)})},
+return self},
 args: ["anObject"],
 source: "isSmalltalkObject: anObject\x0a\x09\x22Consider anObject a Smalltalk object if it has a 'klass' property.\x0a\x09Note that this may be unaccurate\x22\x0a\x09\x0a\x09<return typeof anObject.klass !== 'undefined'>",
 messageSends: [],
@@ -2402,9 +2366,8 @@ selector: "packageAt:",
 protocol: 'packages',
 fn: function (packageName){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return smalltalk.packages[packageName];
-return self}, function($ctx1) {$ctx1.fill(self,"packageAt:",{packageName:packageName},smalltalk.SmalltalkImage)})},
+return self},
 args: ["packageName"],
 source: "packageAt: packageName\x0a\x09<return smalltalk.packages[packageName]>",
 messageSends: [],
@@ -2437,13 +2400,12 @@ selector: "packages",
 protocol: 'packages',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		return Object.keys(smalltalk.packages).map(function(k) {
 			return smalltalk.packages[k];
 		})
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"packages",{},smalltalk.SmalltalkImage)})},
+return self},
 args: [],
 source: "packages\x0a\x09\x22Return all Package instances in the system.\x22\x0a\x0a\x09<\x0a\x09\x09return Object.keys(smalltalk.packages).map(function(k) {\x0a\x09\x09\x09return smalltalk.packages[k];\x0a\x09\x09})\x0a\x09>",
 messageSends: [],
@@ -2520,11 +2482,10 @@ selector: "pseudoVariableNames",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=["self", "super", "nil", "true", "false", "thisContext"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"pseudoVariableNames",{},smalltalk.SmalltalkImage)})},
+},
 args: [],
 source: "pseudoVariableNames\x0a\x09^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')",
 messageSends: [],
@@ -2538,9 +2499,8 @@ selector: "readJSObject:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return smalltalk.readJSObject(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"readJSObject:",{anObject:anObject},smalltalk.SmalltalkImage)})},
+return self},
 args: ["anObject"],
 source: "readJSObject: anObject\x0a\x09<return smalltalk.readJSObject(anObject)>",
 messageSends: [],
@@ -2639,9 +2599,8 @@ selector: "reservedWords",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return smalltalk.reservedWords;
-return self}, function($ctx1) {$ctx1.fill(self,"reservedWords",{},smalltalk.SmalltalkImage)})},
+return self},
 args: [],
 source: "reservedWords\x0a\x09\x22JavaScript reserved words\x22\x0a\x09<return smalltalk.reservedWords>",
 messageSends: [],
@@ -2655,9 +2614,8 @@ selector: "version",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "0.13.0-pre";
-}, function($ctx1) {$ctx1.fill(self,"version",{},smalltalk.SmalltalkImage)})},
+},
 args: [],
 source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.13.0-pre'",
 messageSends: [],
@@ -2671,9 +2629,8 @@ selector: "vm",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return smalltalk;
-return self}, function($ctx1) {$ctx1.fill(self,"vm",{},smalltalk.SmalltalkImage)})},
+return self},
 args: [],
 source: "vm\x0a\x09\x22Future compatibility to be able to use Smalltalk vm ...\x22\x0a\x09<return smalltalk>",
 messageSends: [],

@@ -324,9 +324,8 @@ selector: "setUp",
 protocol: 'running',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@flag"]="ok";
-return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.SUnitAsyncTest)})},
+return self},
 args: [],
 source: "setUp\x0a\x09flag := 'ok'",
 messageSends: [],

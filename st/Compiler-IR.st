@@ -183,6 +183,7 @@ visitMethodNode: aNode
 		selector: aNode selector;
 		sendIndexes: aNode sendIndexes;
 		superSends: aNode superSends;
+		requiresSmalltalkContext: aNode requiresSmalltalkContext;
 		classReferences: aNode classReferences;
 		scope: aNode scope;
 		yourself).
@@ -473,7 +474,7 @@ accept: aVisitor
 ! !
 
 IRClosureInstruction subclass: #IRMethod
-	instanceVariableNames: 'theClass source selector classReferences sendIndexes superSends internalVariables'
+	instanceVariableNames: 'theClass source selector classReferences sendIndexes superSends requiresSmalltalkContext internalVariables'
 	package: 'Compiler-IR'!
 !IRMethod commentStamp!
 I am a method instruction!
@@ -502,6 +503,14 @@ messageSends
 
 method
 	^ self
+!
+
+requiresSmalltalkContext
+	^ requiresSmalltalkContext ifNil: [ false ]
+!
+
+requiresSmalltalkContext: anObject
+	requiresSmalltalkContext := anObject
 !
 
 selector
@@ -1147,6 +1156,8 @@ nextPutClosureWith: aBlock arguments: anArray
 !
 
 nextPutContextFor: aMethod during: aBlock
+	aMethod requiresSmalltalkContext ifFalse: [ ^ aBlock value ].
+	
 	self
 		nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; lf.
 	aBlock value.

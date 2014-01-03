@@ -10,9 +10,8 @@ selector: "canHaveFocus",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"canHaveFocus",{},smalltalk.HLBrowser)})},
+},
 args: [],
 source: "canHaveFocus\x0a\x09^ true",
 messageSends: [],
@@ -139,9 +138,8 @@ selector: "model:",
 protocol: 'accessing',
 fn: function (aModel){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@model"]=aModel;
-return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLBrowser)})},
+return self},
 args: ["aModel"],
 source: "model: aModel\x0a\x09model := aModel",
 messageSends: [],
@@ -306,9 +304,8 @@ selector: "canBeOpenAsTab",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLBrowser.klass)})},
+},
 args: [],
 source: "canBeOpenAsTab\x0a\x09^ true",
 messageSends: [],
@@ -347,9 +344,8 @@ selector: "tabClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "browser";
-}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLBrowser.klass)})},
+},
 args: [],
 source: "tabClass\x0a\x09^ 'browser'",
 messageSends: [],
@@ -363,9 +359,8 @@ selector: "tabLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Browser";
-}, function($ctx1) {$ctx1.fill(self,"tabLabel",{},smalltalk.HLBrowser.klass)})},
+},
 args: [],
 source: "tabLabel\x0a\x09^ 'Browser'",
 messageSends: [],
@@ -379,9 +374,8 @@ selector: "tabPriority",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (0);
-}, function($ctx1) {$ctx1.fill(self,"tabPriority",{},smalltalk.HLBrowser.klass)})},
+},
 args: [],
 source: "tabPriority\x0a\x09^ 0",
 messageSends: [],
@@ -398,9 +392,8 @@ selector: "canHaveFocus",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"canHaveFocus",{},smalltalk.HLBrowserBottomWidget)})},
+},
 args: [],
 source: "canHaveFocus\x0a\x09^ true",
 messageSends: [],
@@ -486,11 +479,10 @@ selector: "model",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@model"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLBrowserBottomWidget)})},
+},
 args: [],
 source: "model\x0a\x09^ model",
 messageSends: [],
@@ -575,8 +567,7 @@ selector: "previous",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"previous",{},smalltalk.HLBrowserBottomWidget)})},
+return self},
 args: [],
 source: "previous\x0a\x09\x22For navigation\x22",
 messageSends: [],
@@ -590,8 +581,7 @@ selector: "previous:",
 protocol: 'accessing',
 fn: function (aWidget){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"previous:",{aWidget:aWidget},smalltalk.HLBrowserBottomWidget)})},
+return self},
 args: ["aWidget"],
 source: "previous: aWidget\x0a\x09\x22For navigation\x22",
 messageSends: [],
@@ -749,9 +739,8 @@ selector: "isBrowserModel",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isBrowserModel",{},smalltalk.HLBrowserModel)})},
+},
 args: [],
 source: "isBrowserModel\x0a\x09^ true",
 messageSends: [],
@@ -1094,11 +1083,10 @@ selector: "selectorsCache",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@selectorsCache"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectorsCache",{},smalltalk.HLClassCache)})},
+},
 args: [],
 source: "selectorsCache\x0a\x09^ selectorsCache",
 messageSends: [],
@@ -1112,9 +1100,8 @@ selector: "selectorsCache:",
 protocol: 'accessing',
 fn: function (aCache){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@selectorsCache"]=aCache;
-return self}, function($ctx1) {$ctx1.fill(self,"selectorsCache:",{aCache:aCache},smalltalk.HLClassCache)})},
+return self},
 args: ["aCache"],
 source: "selectorsCache: aCache\x0a\x09selectorsCache := aCache",
 messageSends: [],
@@ -1128,11 +1115,10 @@ selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@class"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.HLClassCache)})},
+},
 args: [],
 source: "theClass\x0a\x09^ class",
 messageSends: [],
@@ -1146,9 +1132,8 @@ selector: "theClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@class"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.HLClassCache)})},
+return self},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09class := aClass",
 messageSends: [],
@@ -1289,9 +1274,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Classes";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLClassesListWidget)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Classes'",
 messageSends: [],
@@ -2022,9 +2006,8 @@ selector: "defaultDocumentation",
 protocol: 'defaults',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "No documentation available. \x0a**That's bad. Seriously.**";
-}, function($ctx1) {$ctx1.fill(self,"defaultDocumentation",{},smalltalk.HLDocumentationWidget)})},
+},
 args: [],
 source: "defaultDocumentation\x0a\x09^ 'No documentation available. \x0a**That''s bad. Seriously.**'",
 messageSends: [],
@@ -2038,9 +2021,8 @@ selector: "defaultHead",
 protocol: 'defaults',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "No class selected";
-}, function($ctx1) {$ctx1.fill(self,"defaultHead",{},smalltalk.HLDocumentationWidget)})},
+},
 args: [],
 source: "defaultHead\x0a\x09^ 'No class selected'",
 messageSends: [],
@@ -2123,11 +2105,10 @@ selector: "model",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@model"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLDocumentationWidget)})},
+},
 args: [],
 source: "model\x0a\x09^ model",
 messageSends: [],
@@ -2565,9 +2546,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Methods";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMethodsListWidget)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Methods'",
 messageSends: [],
@@ -3168,9 +3148,8 @@ selector: "cssClassForItem:",
 protocol: 'accessing',
 fn: function (anItem){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "package";
-}, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{anItem:anItem},smalltalk.HLPackagesListWidget)})},
+},
 args: ["anItem"],
 source: "cssClassForItem: anItem\x09\x0a\x09^ 'package'",
 messageSends: [],
@@ -3248,9 +3227,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Packages";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLPackagesListWidget)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Packages'",
 messageSends: [],
@@ -3481,9 +3459,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Protocols";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLProtocolsListWidget)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Protocols'",
 messageSends: [],
@@ -4003,9 +3980,8 @@ selector: "flush",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@current"]=nil;
-return self}, function($ctx1) {$ctx1.fill(self,"flush",{},smalltalk.HLSelectorsCache.klass)})},
+return self},
 args: [],
 source: "flush\x0a\x09current := nil",
 messageSends: [],

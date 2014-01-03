@@ -221,9 +221,8 @@ selector: "basicAddCompiledMethod:",
 protocol: 'private',
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 smalltalk.addMethod(aMethod, self);
-return self}, function($ctx1) {$ctx1.fill(self,"basicAddCompiledMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
+return self},
 args: ["aMethod"],
 source: "basicAddCompiledMethod: aMethod\x0a\x09<smalltalk.addMethod(aMethod, self)>",
 messageSends: [],
@@ -237,9 +236,8 @@ selector: "basicNew",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return new self.fn();
-return self}, function($ctx1) {$ctx1.fill(self,"basicNew",{},smalltalk.Behavior)})},
+return self},
 args: [],
 source: "basicNew\x0a\x09<return new self.fn()>",
 messageSends: [],
@@ -253,9 +251,8 @@ selector: "basicRemoveCompiledMethod:",
 protocol: 'private',
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 smalltalk.removeMethod(aMethod,self);
-return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveCompiledMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
+return self},
 args: ["aMethod"],
 source: "basicRemoveCompiledMethod: aMethod\x0a\x09<smalltalk.removeMethod(aMethod,self)>",
 messageSends: [],
@@ -419,9 +416,8 @@ selector: "definition",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "";
-}, function($ctx1) {$ctx1.fill(self,"definition",{},smalltalk.Behavior)})},
+},
 args: [],
 source: "definition\x0a\x09^ ''",
 messageSends: [],
@@ -505,9 +501,8 @@ selector: "instanceVariableNames",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.iVarNames;
-return self}, function($ctx1) {$ctx1.fill(self,"instanceVariableNames",{},smalltalk.Behavior)})},
+return self},
 args: [],
 source: "instanceVariableNames\x0a\x09<return self.iVarNames>",
 messageSends: [],
@@ -521,9 +516,8 @@ selector: "isBehavior",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isBehavior",{},smalltalk.Behavior)})},
+},
 args: [],
 source: "isBehavior\x0a\x09^ true",
 messageSends: [],
@@ -537,9 +531,8 @@ selector: "javascriptConstructor",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.fn;
-return self}, function($ctx1) {$ctx1.fill(self,"javascriptConstructor",{},smalltalk.Behavior)})},
+return self},
 args: [],
 source: "javascriptConstructor\x0a\x09\x22Answer the JS constructor used to instantiate. See boot.js\x22\x0a\x09\x0a\x09<return self.fn>",
 messageSends: [],
@@ -553,9 +546,8 @@ selector: "javascriptConstructor:",
 protocol: 'accessing',
 fn: function (aJavaScriptFunction){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 smalltalk.setClassConstructor(self, aJavaScriptFunction);;
-return self}, function($ctx1) {$ctx1.fill(self,"javascriptConstructor:",{aJavaScriptFunction:aJavaScriptFunction},smalltalk.Behavior)})},
+return self},
 args: ["aJavaScriptFunction"],
 source: "javascriptConstructor: aJavaScriptFunction\x0a\x09\x22Set the JS constructor used to instantiate.\x0a\x09See the JS counter-part in boot.js `smalltalk.setClassConstructor'\x22\x0a\x09\x0a\x09<smalltalk.setClassConstructor(self, aJavaScriptFunction);>",
 messageSends: [],
@@ -623,7 +615,6 @@ selector: "methodDictionary",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var dict = smalltalk.HashedCollection._new();
 	var methods = self.methods;
 	Object.keys(methods).forEach(function(i) {
@@ -632,7 +623,7 @@ var dict = smalltalk.HashedCollection._new();
 		}
 	});
 	return dict;
-return self}, function($ctx1) {$ctx1.fill(self,"methodDictionary",{},smalltalk.Behavior)})},
+return self},
 args: [],
 source: "methodDictionary\x0a\x09<var dict = smalltalk.HashedCollection._new();\x0a\x09var methods = self.methods;\x0a\x09Object.keys(methods).forEach(function(i) {\x0a\x09\x09if(methods[i].selector) {\x0a\x09\x09\x09dict._at_put_(methods[i].selector, methods[i]);\x0a\x09\x09}\x0a\x09});\x0a\x09return dict>",
 messageSends: [],
@@ -725,9 +716,8 @@ selector: "name",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.className || nil;
-return self}, function($ctx1) {$ctx1.fill(self,"name",{},smalltalk.Behavior)})},
+return self},
 args: [],
 source: "name\x0a\x09<return self.className || nil>",
 messageSends: [],
@@ -874,9 +864,8 @@ selector: "prototype",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.fn.prototype;
-return self}, function($ctx1) {$ctx1.fill(self,"prototype",{},smalltalk.Behavior)})},
+return self},
 args: [],
 source: "prototype\x0a\x09<return self.fn.prototype>",
 messageSends: [],
@@ -989,9 +978,8 @@ selector: "superclass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.superclass || nil;
-return self}, function($ctx1) {$ctx1.fill(self,"superclass",{},smalltalk.Behavior)})},
+return self},
 args: [],
 source: "superclass\x0a\x09<return self.superclass || nil>",
 messageSends: [],
@@ -1023,9 +1011,8 @@ selector: "theNonMetaClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"theNonMetaClass",{},smalltalk.Behavior)})},
+},
 args: [],
 source: "theNonMetaClass\x0a\x09^ self",
 messageSends: [],
@@ -1164,9 +1151,8 @@ selector: "isClass",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isClass",{},smalltalk.Class)})},
+},
 args: [],
 source: "isClass\x0a\x09^ true",
 messageSends: [],
@@ -1341,9 +1327,8 @@ selector: "subclasses",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.subclasses._copy();
-return self}, function($ctx1) {$ctx1.fill(self,"subclasses",{},smalltalk.Class)})},
+return self},
 args: [],
 source: "subclasses\x0a\x09<return self.subclasses._copy()>",
 messageSends: [],
@@ -1416,9 +1401,8 @@ selector: "instanceClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.instanceClass;
-return self}, function($ctx1) {$ctx1.fill(self,"instanceClass",{},smalltalk.Metaclass)})},
+return self},
 args: [],
 source: "instanceClass\x0a\x09<return self.instanceClass>",
 messageSends: [],
@@ -1449,9 +1433,8 @@ selector: "isMetaclass",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isMetaclass",{},smalltalk.Metaclass)})},
+},
 args: [],
 source: "isMetaclass\x0a\x09^ true",
 messageSends: [],
@@ -1508,9 +1491,8 @@ selector: "theMetaClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"theMetaClass",{},smalltalk.Metaclass)})},
+},
 args: [],
 source: "theMetaClass\x0a\x09^ self",
 messageSends: [],
@@ -1580,12 +1562,11 @@ selector: "basicAddSubclassOf:named:instanceVariableNames:package:",
 protocol: 'private',
 fn: function (aClass,aString,aCollection,packageName){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		smalltalk.addClass(aString, aClass, aCollection, packageName);
 		return smalltalk[aString]
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"basicAddSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,aString:aString,aCollection:aCollection,packageName:packageName},smalltalk.ClassBuilder)})},
+return self},
 args: ["aClass", "aString", "aCollection", "packageName"],
 source: "basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a\x09<\x0a\x09\x09smalltalk.addClass(aString, aClass, aCollection, packageName);\x0a\x09\x09return smalltalk[aString]\x0a\x09>",
 messageSends: [],
@@ -1636,9 +1617,8 @@ selector: "basicRemoveClass:",
 protocol: 'private',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 smalltalk.removeClass(aClass);
-return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveClass:",{aClass:aClass},smalltalk.ClassBuilder)})},
+return self},
 args: ["aClass"],
 source: "basicRemoveClass: aClass\x0a\x09<smalltalk.removeClass(aClass)>",
 messageSends: [],
@@ -1652,13 +1632,12 @@ selector: "basicRenameClass:to:",
 protocol: 'private',
 fn: function (aClass,aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		smalltalk[aString] = aClass;
 		delete smalltalk[aClass.className];
 		aClass.className = aString;
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"basicRenameClass:to:",{aClass:aClass,aString:aString},smalltalk.ClassBuilder)})},
+return self},
 args: ["aClass", "aString"],
 source: "basicRenameClass: aClass to: aString\x0a\x09<\x0a\x09\x09smalltalk[aString] = aClass;\x0a\x09\x09delete smalltalk[aClass.className];\x0a\x09\x09aClass.className = aString;\x0a\x09>",
 messageSends: [],
@@ -1672,13 +1651,12 @@ selector: "basicSwapClassNames:with:",
 protocol: 'private',
 fn: function (aClass,anotherClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		var tmp = aClass.className;
 		aClass.className = anotherClass.className;
 		anotherClass.className = tmp;
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"basicSwapClassNames:with:",{aClass:aClass,anotherClass:anotherClass},smalltalk.ClassBuilder)})},
+return self},
 args: ["aClass", "anotherClass"],
 source: "basicSwapClassNames: aClass with: anotherClass\x0a\x09<\x0a\x09\x09var tmp = aClass.className;\x0a\x09\x09aClass.className = anotherClass.className;\x0a\x09\x09anotherClass.className = tmp;\x0a\x09>",
 messageSends: [],
@@ -1906,11 +1884,10 @@ selector: "rawRenameClass:to:",
 protocol: 'private',
 fn: function (aClass,aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		smalltalk[aString] = aClass;
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"rawRenameClass:to:",{aClass:aClass,aString:aString},smalltalk.ClassBuilder)})},
+return self},
 args: ["aClass", "aString"],
 source: "rawRenameClass: aClass to: aString\x0a\x09<\x0a\x09\x09smalltalk[aString] = aClass;\x0a\x09>",
 messageSends: [],
@@ -1948,9 +1925,8 @@ selector: "setupClass:",
 protocol: 'public',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 smalltalk.init(aClass);;
-return self}, function($ctx1) {$ctx1.fill(self,"setupClass:",{aClass:aClass},smalltalk.ClassBuilder)})},
+return self},
 args: ["aClass"],
 source: "setupClass: aClass\x0a\x09<smalltalk.init(aClass);>",
 messageSends: [],
@@ -2019,10 +1995,9 @@ selector: "class:category:",
 protocol: 'accessing',
 fn: function (aClass,aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@class"]=aClass;
 self["@category"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"class:category:",{aClass:aClass,aString:aString},smalltalk.ClassCategoryReader)})},
+return self},
 args: ["aClass", "aString"],
 source: "class: aClass category: aString\x0a\x09class := aClass.\x0a\x09category := aString",
 messageSends: [],
@@ -2100,9 +2075,8 @@ selector: "class:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@class"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"class:",{aClass:aClass},smalltalk.ClassCommentReader)})},
+return self},
 args: ["aClass"],
 source: "class: aClass\x0a\x09class := aClass",
 messageSends: [],
@@ -2208,11 +2182,10 @@ selector: "level",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@level"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"level",{},smalltalk.ClassSorterNode)})},
+},
 args: [],
 source: "level\x0a\x09^ level",
 messageSends: [],
@@ -2226,9 +2199,8 @@ selector: "level:",
 protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@level"]=anInteger;
-return self}, function($ctx1) {$ctx1.fill(self,"level:",{anInteger:anInteger},smalltalk.ClassSorterNode)})},
+return self},
 args: ["anInteger"],
 source: "level: anInteger\x0a\x09level := anInteger",
 messageSends: [],
@@ -2242,11 +2214,10 @@ selector: "nodes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@nodes"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"nodes",{},smalltalk.ClassSorterNode)})},
+},
 args: [],
 source: "nodes\x0a\x09^ nodes",
 messageSends: [],
@@ -2260,11 +2231,10 @@ selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@theClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.ClassSorterNode)})},
+},
 args: [],
 source: "theClass\x0a\x09^ theClass",
 messageSends: [],
@@ -2278,9 +2248,8 @@ selector: "theClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@theClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.ClassSorterNode)})},
+return self},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
 messageSends: [],

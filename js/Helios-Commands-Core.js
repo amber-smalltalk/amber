@@ -89,9 +89,8 @@ selector: "defaultInput",
 protocol: 'defaults',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "";
-}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLCommand)})},
+},
 args: [],
 source: "defaultInput\x0a\x09^ ''",
 messageSends: [],
@@ -123,8 +122,7 @@ selector: "execute",
 protocol: 'executing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCommand)})},
+return self},
 args: [],
 source: "execute",
 messageSends: [],
@@ -138,11 +136,10 @@ selector: "input",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@input"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"input",{},smalltalk.HLCommand)})},
+},
 args: [],
 source: "input\x0a\x09^ input",
 messageSends: [],
@@ -156,12 +153,11 @@ selector: "input:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 self["@input"]=aString;
 $1=self["@input"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"input:",{aString:aString},smalltalk.HLCommand)})},
+},
 args: ["aString"],
 source: "input: aString\x0a\x09^ input := aString",
 messageSends: [],
@@ -175,11 +171,10 @@ selector: "inputCompletion",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=[];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLCommand)})},
+},
 args: [],
 source: "inputCompletion\x0a\x09^ #()",
 messageSends: [],
@@ -229,9 +224,8 @@ selector: "isActive",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLCommand)})},
+},
 args: [],
 source: "isActive\x0a\x09^ true",
 messageSends: [],
@@ -263,9 +257,8 @@ selector: "isInputRequired",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLCommand)})},
+},
 args: [],
 source: "isInputRequired\x0a\x09^ false",
 messageSends: [],
@@ -399,9 +392,8 @@ selector: "documentation",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "";
-}, function($ctx1) {$ctx1.fill(self,"documentation",{},smalltalk.HLCommand.klass)})},
+},
 args: [],
 source: "documentation\x0a\x09^ ''",
 messageSends: [],
@@ -433,9 +425,8 @@ selector: "isValidFor:",
 protocol: 'testing',
 fn: function (aModel){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{aModel:aModel},smalltalk.HLCommand.klass)})},
+},
 args: ["aModel"],
 source: "isValidFor: aModel\x0a\x09^ true",
 messageSends: [],
@@ -449,9 +440,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return nil;
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09\x22Answer a single character string or nil if no key\x22\x0a\x09\x0a\x09^ nil",
 messageSends: [],
@@ -465,9 +455,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ ''",
 messageSends: [],
@@ -566,9 +555,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "w";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCloseTabCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'w'",
 messageSends: [],
@@ -582,9 +570,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Close tab";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLCloseTabCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Close tab'",
 messageSends: [],
@@ -600,11 +587,10 @@ selector: "model",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@model"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLModelCommand)})},
+},
 args: [],
 source: "model\x0a\x09^ model",
 messageSends: [],
@@ -618,9 +604,8 @@ selector: "model:",
 protocol: 'accessing',
 fn: function (aModel){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@model"]=aModel;
-return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLModelCommand)})},
+return self},
 args: ["aModel"],
 source: "model: aModel\x0a\x09model := aModel",
 messageSends: [],
@@ -706,9 +691,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "o";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLOpenCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'o'",
 messageSends: [],
@@ -722,9 +706,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Open";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLOpenCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Open'",
 messageSends: [],
@@ -760,9 +743,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "b";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLOpenBrowserCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'b'",
 messageSends: [],
@@ -776,9 +758,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Browser";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLOpenBrowserCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Browser'",
 messageSends: [],
@@ -814,9 +795,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "w";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLOpenWorkspaceCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'w'",
 messageSends: [],
@@ -830,9 +810,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Workspace";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLOpenWorkspaceCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Workspace'",
 messageSends: [],
@@ -926,9 +905,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "s";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLSwitchTabCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 's'",
 messageSends: [],
@@ -942,9 +920,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Switch";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLSwitchTabCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Switch'",
 messageSends: [],
@@ -961,9 +938,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "View";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLViewCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'View'",
 messageSends: [],

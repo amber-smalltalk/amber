@@ -9,9 +9,8 @@ selector: "category",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return nil;
-}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLToolCommand)})},
+},
 args: [],
 source: "category\x0a\x09^ nil",
 messageSends: [],
@@ -67,9 +66,8 @@ selector: "category",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Packages";
-}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLCommitPackageCommand)})},
+},
 args: [],
 source: "category\x0a\x09^ 'Packages'",
 messageSends: [],
@@ -99,9 +97,8 @@ selector: "isActive",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLCommitPackageCommand)})},
+},
 args: [],
 source: "isActive\x0a\x09^ true\x0a\x09\x22 slf model isPackageDirty\x22",
 messageSends: [],
@@ -116,9 +113,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "k";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCommitPackageCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'k'",
 messageSends: [],
@@ -132,9 +128,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Commit";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLCommitPackageCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Commit'",
 messageSends: [],
@@ -151,9 +146,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "c";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCopyCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'c'",
 messageSends: [],
@@ -167,9 +161,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Copy";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLCopyCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Copy'",
 messageSends: [],
@@ -185,9 +178,8 @@ selector: "category",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Classes";
-}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLCopyClassCommand)})},
+},
 args: [],
 source: "category\x0a\x09^ 'Classes'",
 messageSends: [],
@@ -219,9 +211,8 @@ selector: "displayLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "New class name:";
-}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLCopyClassCommand)})},
+},
 args: [],
 source: "displayLabel\x0a\x09^ 'New class name:'",
 messageSends: [],
@@ -269,9 +260,8 @@ selector: "isInputRequired",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLCopyClassCommand)})},
+},
 args: [],
 source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
@@ -286,9 +276,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "c";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCopyClassCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'c'",
 messageSends: [],
@@ -302,9 +291,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Class";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLCopyClassCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Class'",
 messageSends: [],
@@ -318,9 +306,8 @@ selector: "menuLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Copy class...";
-}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLCopyClassCommand.klass)})},
+},
 args: [],
 source: "menuLabel\x0a\x09^ 'Copy class...'",
 messageSends: [],
@@ -337,9 +324,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "f";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLFindCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'f'",
 messageSends: [],
@@ -353,9 +339,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Find";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLFindCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Find'",
 messageSends: [],
@@ -371,9 +356,8 @@ selector: "displayLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "select a class";
-}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLFindClassCommand)})},
+},
 args: [],
 source: "displayLabel\x0a\x09^ 'select a class'",
 messageSends: [],
@@ -421,9 +405,8 @@ selector: "inputLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Find a class";
-}, function($ctx1) {$ctx1.fill(self,"inputLabel",{},smalltalk.HLFindClassCommand)})},
+},
 args: [],
 source: "inputLabel\x0a\x09^ 'Find a class'",
 messageSends: [],
@@ -437,9 +420,8 @@ selector: "isInputRequired",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLFindClassCommand)})},
+},
 args: [],
 source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
@@ -472,9 +454,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "c";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLFindClassCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'c'",
 messageSends: [],
@@ -488,9 +469,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Class";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLFindClassCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Class'",
 messageSends: [],
@@ -540,9 +520,8 @@ selector: "displayLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "find references";
-}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLFindReferencesCommand)})},
+},
 args: [],
 source: "displayLabel\x0a\x09^ 'find references'",
 messageSends: [],
@@ -597,9 +576,8 @@ selector: "inputLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Find references of";
-}, function($ctx1) {$ctx1.fill(self,"inputLabel",{},smalltalk.HLFindReferencesCommand)})},
+},
 args: [],
 source: "inputLabel\x0a\x09^ 'Find references of'",
 messageSends: [],
@@ -613,9 +591,8 @@ selector: "isInputRequired",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLFindReferencesCommand)})},
+},
 args: [],
 source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
@@ -630,9 +607,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "r";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLFindReferencesCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'r'",
 messageSends: [],
@@ -646,9 +622,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "References";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLFindReferencesCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'References'",
 messageSends: [],
@@ -665,9 +640,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "m";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveToCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'm'",
 messageSends: [],
@@ -681,9 +655,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Move";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveToCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Move'",
 messageSends: [],
@@ -718,9 +691,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "c";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveClassToCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'c'",
 messageSends: [],
@@ -734,9 +706,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Class";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveClassToCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Class'",
 messageSends: [],
@@ -752,9 +723,8 @@ selector: "category",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Classes";
-}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLMoveClassToPackageCommand)})},
+},
 args: [],
 source: "category\x0a\x09^ 'Classes'",
 messageSends: [],
@@ -768,9 +738,8 @@ selector: "displayLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "select a package";
-}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLMoveClassToPackageCommand)})},
+},
 args: [],
 source: "displayLabel\x0a\x09^ 'select a package'",
 messageSends: [],
@@ -818,9 +787,8 @@ selector: "inputLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Move class to package:";
-}, function($ctx1) {$ctx1.fill(self,"inputLabel",{},smalltalk.HLMoveClassToPackageCommand)})},
+},
 args: [],
 source: "inputLabel\x0a\x09^ 'Move class to package:'",
 messageSends: [],
@@ -834,9 +802,8 @@ selector: "isInputRequired",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLMoveClassToPackageCommand)})},
+},
 args: [],
 source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
@@ -851,9 +818,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "p";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveClassToPackageCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'p'",
 messageSends: [],
@@ -867,9 +833,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "to package";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveClassToPackageCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'to package'",
 messageSends: [],
@@ -883,9 +848,8 @@ selector: "menuLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Move to package...";
-}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLMoveClassToPackageCommand.klass)})},
+},
 args: [],
 source: "menuLabel\x09\x0a\x09^ 'Move to package...'",
 messageSends: [],
@@ -901,9 +865,8 @@ selector: "category",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Methods";
-}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLMoveMethodToCommand)})},
+},
 args: [],
 source: "category\x0a\x09^ 'Methods'",
 messageSends: [],
@@ -936,9 +899,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "m";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveMethodToCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'm'",
 messageSends: [],
@@ -952,9 +914,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Method";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveMethodToCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Method'",
 messageSends: [],
@@ -970,9 +931,8 @@ selector: "displayLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "select a class";
-}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLMoveMethodToClassCommand)})},
+},
 args: [],
 source: "displayLabel\x0a\x09^ 'select a class'",
 messageSends: [],
@@ -1020,9 +980,8 @@ selector: "inputLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Move method to class:";
-}, function($ctx1) {$ctx1.fill(self,"inputLabel",{},smalltalk.HLMoveMethodToClassCommand)})},
+},
 args: [],
 source: "inputLabel\x0a\x09^ 'Move method to class:'",
 messageSends: [],
@@ -1036,9 +995,8 @@ selector: "isInputRequired",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLMoveMethodToClassCommand)})},
+},
 args: [],
 source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
@@ -1053,9 +1011,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "c";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveMethodToClassCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'c'",
 messageSends: [],
@@ -1069,9 +1026,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "to class";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveMethodToClassCommand.klass)})},
+},
 args: [],
 source: "label\x09\x0a\x09^ 'to class'",
 messageSends: [],
@@ -1085,9 +1041,8 @@ selector: "menuLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Move to class...";
-}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLMoveMethodToClassCommand.klass)})},
+},
 args: [],
 source: "menuLabel\x09\x0a\x09^ 'Move to class...'",
 messageSends: [],
@@ -1103,9 +1058,8 @@ selector: "displayLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "select a protocol";
-}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+},
 args: [],
 source: "displayLabel\x0a\x09^ 'select a protocol'",
 messageSends: [],
@@ -1153,9 +1107,8 @@ selector: "inputLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Move method to a protocol:";
-}, function($ctx1) {$ctx1.fill(self,"inputLabel",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+},
 args: [],
 source: "inputLabel\x0a\x09^ 'Move method to a protocol:'",
 messageSends: [],
@@ -1169,9 +1122,8 @@ selector: "isInputRequired",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+},
 args: [],
 source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
@@ -1186,9 +1138,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "t";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 't'",
 messageSends: [],
@@ -1202,9 +1153,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "to protocol";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'to protocol'",
 messageSends: [],
@@ -1218,9 +1168,8 @@ selector: "menuLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Move to protocol...";
-}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
+},
 args: [],
 source: "menuLabel\x0a\x09^ 'Move to protocol...'",
 messageSends: [],
@@ -1237,9 +1186,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "x";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRemoveCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'x'",
 messageSends: [],
@@ -1253,9 +1201,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Remove";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRemoveCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Remove'",
 messageSends: [],
@@ -1271,9 +1218,8 @@ selector: "category",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Classes";
-}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLRemoveClassCommand)})},
+},
 args: [],
 source: "category\x0a\x09^ 'Classes'",
 messageSends: [],
@@ -1322,9 +1268,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "c";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRemoveClassCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'c'",
 messageSends: [],
@@ -1338,9 +1283,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Class";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRemoveClassCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Class'",
 messageSends: [],
@@ -1354,9 +1298,8 @@ selector: "menuLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Remove class";
-}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLRemoveClassCommand.klass)})},
+},
 args: [],
 source: "menuLabel\x0a\x09^ 'Remove class'",
 messageSends: [],
@@ -1372,9 +1315,8 @@ selector: "category",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Methods";
-}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLRemoveMethodCommand)})},
+},
 args: [],
 source: "category\x0a\x09^ 'Methods'",
 messageSends: [],
@@ -1423,9 +1365,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "m";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRemoveMethodCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'm'",
 messageSends: [],
@@ -1439,9 +1380,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Method";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRemoveMethodCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Method'",
 messageSends: [],
@@ -1455,9 +1395,8 @@ selector: "menuLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Remove method";
-}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLRemoveMethodCommand.klass)})},
+},
 args: [],
 source: "menuLabel\x0a\x09^ 'Remove method'",
 messageSends: [],
@@ -1473,9 +1412,8 @@ selector: "category",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Protocols";
-}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLRemoveProtocolCommand)})},
+},
 args: [],
 source: "category\x0a\x09^ 'Protocols'",
 messageSends: [],
@@ -1524,9 +1462,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "t";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRemoveProtocolCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 't'",
 messageSends: [],
@@ -1540,9 +1477,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Protocol";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRemoveProtocolCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Protocol'",
 messageSends: [],
@@ -1556,9 +1492,8 @@ selector: "menuLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Remove protocol";
-}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLRemoveProtocolCommand.klass)})},
+},
 args: [],
 source: "menuLabel\x0a\x09^ 'Remove protocol'",
 messageSends: [],
@@ -1575,9 +1510,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "r";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRenameCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'r'",
 messageSends: [],
@@ -1591,9 +1525,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Rename";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRenameCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Rename'",
 messageSends: [],
@@ -1609,9 +1542,8 @@ selector: "category",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Classes";
-}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLRenameClassCommand)})},
+},
 args: [],
 source: "category\x0a\x09^ 'Classes'",
 messageSends: [],
@@ -1643,9 +1575,8 @@ selector: "displayLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Rename class to:";
-}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLRenameClassCommand)})},
+},
 args: [],
 source: "displayLabel\x0a\x09^ 'Rename class to:'",
 messageSends: [],
@@ -1693,9 +1624,8 @@ selector: "isInputRequired",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLRenameClassCommand)})},
+},
 args: [],
 source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
@@ -1710,9 +1640,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "c";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRenameClassCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 'c'",
 messageSends: [],
@@ -1726,9 +1655,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Class";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRenameClassCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Class'",
 messageSends: [],
@@ -1742,9 +1670,8 @@ selector: "menuLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Rename class...";
-}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLRenameClassCommand.klass)})},
+},
 args: [],
 source: "menuLabel\x0a\x09^ 'Rename class...'",
 messageSends: [],
@@ -1760,9 +1687,8 @@ selector: "category",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Protocols";
-}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLRenameProtocolCommand)})},
+},
 args: [],
 source: "category\x0a\x09^ 'Protocols'",
 messageSends: [],
@@ -1794,9 +1720,8 @@ selector: "displayLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Rename protocol to:";
-}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLRenameProtocolCommand)})},
+},
 args: [],
 source: "displayLabel\x0a\x09^ 'Rename protocol to:'",
 messageSends: [],
@@ -1844,9 +1769,8 @@ selector: "isInputRequired",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLRenameProtocolCommand)})},
+},
 args: [],
 source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
@@ -1861,9 +1785,8 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "t";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRenameProtocolCommand.klass)})},
+},
 args: [],
 source: "key\x0a\x09^ 't'",
 messageSends: [],
@@ -1877,9 +1800,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Protocol";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRenameProtocolCommand.klass)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Protocol'",
 messageSends: [],
@@ -1893,9 +1815,8 @@ selector: "menuLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Rename protocol...";
-}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLRenameProtocolCommand.klass)})},
+},
 args: [],
 source: "menuLabel\x0a\x09^ 'Rename protocol...'",
 messageSends: [],

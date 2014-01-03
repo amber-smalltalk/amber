@@ -277,9 +277,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $CodeGenerator(){return smalltalk.CodeGenerator||(typeof CodeGenerator=="undefined"?nil:CodeGenerator)}
-return smalltalk.withContext(function($ctx1) { 
 return $CodeGenerator();
-}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{},smalltalk.CodeGeneratorTest)})},
+},
 args: [],
 source: "codeGeneratorClass\x0a\x09^ CodeGenerator",
 messageSends: [],
@@ -375,8 +374,7 @@ selector: "tearDown",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.CodeGeneratorTest)})},
+return self},
 args: [],
 source: "tearDown\x0a\x09\x22receiver := nil\x22",
 messageSends: [],
@@ -1065,9 +1063,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $InliningCodeGenerator(){return smalltalk.InliningCodeGenerator||(typeof InliningCodeGenerator=="undefined"?nil:InliningCodeGenerator)}
-return smalltalk.withContext(function($ctx1) { 
 return $InliningCodeGenerator();
-}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{},smalltalk.InliningCodeGeneratorTest)})},
+},
 args: [],
 source: "codeGeneratorClass\x0a\x09^ InliningCodeGenerator",
 messageSends: [],

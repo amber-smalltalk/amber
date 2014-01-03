@@ -28,11 +28,10 @@ selector: "splitter",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@splitter"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"splitter",{},smalltalk.HLContainer)})},
+},
 args: [],
 source: "splitter\x0a\x09^ splitter",
 messageSends: [],
@@ -46,9 +45,8 @@ selector: "splitter:",
 protocol: 'accessing',
 fn: function (aSplitter){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@splitter"]=aSplitter;
-return self}, function($ctx1) {$ctx1.fill(self,"splitter:",{aSplitter:aSplitter},smalltalk.HLContainer)})},
+return self},
 args: ["aSplitter"],
 source: "splitter: aSplitter\x0a\x09splitter := aSplitter",
 messageSends: [],
@@ -86,9 +84,8 @@ selector: "cssClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "splitter";
-}, function($ctx1) {$ctx1.fill(self,"cssClass",{},smalltalk.HLSplitter)})},
+},
 args: [],
 source: "cssClass\x0a\x09^ 'splitter'",
 messageSends: [],
@@ -102,11 +99,10 @@ selector: "firstWidget",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@firstWidget"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"firstWidget",{},smalltalk.HLSplitter)})},
+},
 args: [],
 source: "firstWidget\x0a\x09^ firstWidget",
 messageSends: [],
@@ -120,9 +116,8 @@ selector: "firstWidget:",
 protocol: 'accessing',
 fn: function (aWidget){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@firstWidget"]=aWidget;
-return self}, function($ctx1) {$ctx1.fill(self,"firstWidget:",{aWidget:aWidget},smalltalk.HLSplitter)})},
+return self},
 args: ["aWidget"],
 source: "firstWidget: aWidget\x0a\x09firstWidget := aWidget",
 messageSends: [],
@@ -136,9 +131,8 @@ selector: "isHeliosSplitter",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isHeliosSplitter",{},smalltalk.HLSplitter)})},
+},
 args: [],
 source: "isHeliosSplitter\x0a\x09^ true",
 messageSends: [],
@@ -152,9 +146,8 @@ selector: "panesCssClass",
 protocol: 'rendering',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "panes";
-}, function($ctx1) {$ctx1.fill(self,"panesCssClass",{},smalltalk.HLSplitter)})},
+},
 args: [],
 source: "panesCssClass\x0a\x09^ 'panes'",
 messageSends: [],
@@ -211,8 +204,7 @@ selector: "resize",
 protocol: 'rendering',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"resize",{},smalltalk.HLSplitter)})},
+return self},
 args: [],
 source: "resize",
 messageSends: [],
@@ -226,11 +218,10 @@ selector: "secondWidget",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@secondWidget"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"secondWidget",{},smalltalk.HLSplitter)})},
+},
 args: [],
 source: "secondWidget\x0a\x09^ secondWidget",
 messageSends: [],
@@ -244,9 +235,8 @@ selector: "secondWidget:",
 protocol: 'accessing',
 fn: function (aWidget){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@secondWidget"]=aWidget;
-return self}, function($ctx1) {$ctx1.fill(self,"secondWidget:",{aWidget:aWidget},smalltalk.HLSplitter)})},
+return self},
 args: ["aWidget"],
 source: "secondWidget: aWidget\x0a\x09secondWidget := aWidget",
 messageSends: [],
@@ -260,8 +250,7 @@ selector: "setupSplitter",
 protocol: 'rendering',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"setupSplitter",{},smalltalk.HLSplitter)})},
+return self},
 args: [],
 source: "setupSplitter",
 messageSends: [],
@@ -612,9 +601,8 @@ selector: "isHeliosSplitter",
 protocol: '*Helios-Layout',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isHeliosSplitter",{},smalltalk.Object)})},
+},
 args: [],
 source: "isHeliosSplitter\x0a\x09^ false",
 messageSends: [],

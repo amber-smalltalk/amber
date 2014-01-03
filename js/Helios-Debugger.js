@@ -9,11 +9,10 @@ selector: "context",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@context"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"context",{},smalltalk.HLContextInspectorDecorator)})},
+},
 args: [],
 source: "context\x0a\x09^ context",
 messageSends: [],
@@ -27,9 +26,8 @@ selector: "initializeFromContext:",
 protocol: 'initialization',
 fn: function (aContext){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@context"]=aContext;
-return self}, function($ctx1) {$ctx1.fill(self,"initializeFromContext:",{aContext:aContext},smalltalk.HLContextInspectorDecorator)})},
+return self},
 args: ["aContext"],
 source: "initializeFromContext: aContext\x0a\x09context := aContext",
 messageSends: [],
@@ -375,9 +373,8 @@ selector: "tabClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "debugger";
-}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLDebugger.klass)})},
+},
 args: [],
 source: "tabClass\x0a\x09^ 'debugger'",
 messageSends: [],
@@ -391,9 +388,8 @@ selector: "tabLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Debugger";
-}, function($ctx1) {$ctx1.fill(self,"tabLabel",{},smalltalk.HLDebugger.klass)})},
+},
 args: [],
 source: "tabLabel\x0a\x09^ 'Debugger'",
 messageSends: [],
@@ -612,11 +608,10 @@ selector: "contexts",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@contexts"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"contexts",{},smalltalk.HLDebuggerModel)})},
+},
 args: [],
 source: "contexts\x0a\x09^ contexts",
 messageSends: [],
@@ -785,11 +780,10 @@ selector: "rootContext",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@rootContext"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"rootContext",{},smalltalk.HLDebuggerModel)})},
+},
 args: [],
 source: "rootContext\x0a\x09^ rootContext",
 messageSends: [],
@@ -979,9 +973,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Call stack";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLStackListWidget)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Call stack'",
 messageSends: [],

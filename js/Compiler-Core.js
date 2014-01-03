@@ -56,11 +56,10 @@ selector: "currentClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@currentClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"currentClass",{},smalltalk.AbstractCodeGenerator)})},
+},
 args: [],
 source: "currentClass\x0a\x09^ currentClass",
 messageSends: [],
@@ -74,9 +73,8 @@ selector: "currentClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@currentClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"currentClass:",{aClass:aClass},smalltalk.AbstractCodeGenerator)})},
+return self},
 args: ["aClass"],
 source: "currentClass: aClass\x0a\x09currentClass := aClass",
 messageSends: [],
@@ -132,9 +130,8 @@ selector: "source:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@source"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString},smalltalk.AbstractCodeGenerator)})},
+return self},
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
 messageSends: [],
@@ -268,9 +265,8 @@ selector: "codeGeneratorClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@codeGeneratorClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass:",{aClass:aClass},smalltalk.Compiler)})},
+return self},
 args: ["aClass"],
 source: "codeGeneratorClass: aClass\x0a\x09codeGeneratorClass := aClass",
 messageSends: [],
@@ -392,11 +388,10 @@ selector: "currentClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@currentClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"currentClass",{},smalltalk.Compiler)})},
+},
 args: [],
 source: "currentClass\x0a\x09^ currentClass",
 messageSends: [],
@@ -410,9 +405,8 @@ selector: "currentClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@currentClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"currentClass:",{aClass:aClass},smalltalk.Compiler)})},
+return self},
 args: ["aClass"],
 source: "currentClass: aClass\x0a\x09currentClass := aClass",
 messageSends: [],
@@ -426,9 +420,8 @@ selector: "eval:",
 protocol: 'compiling',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return eval(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString},smalltalk.Compiler)})},
+return self},
 args: ["aString"],
 source: "eval: aString\x0a\x09<return eval(aString)>",
 messageSends: [],
@@ -612,9 +605,8 @@ selector: "source:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@source"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString},smalltalk.Compiler)})},
+return self},
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
 messageSends: [],
@@ -628,11 +620,10 @@ selector: "unknownVariables",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@unknownVariables"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"unknownVariables",{},smalltalk.Compiler)})},
+},
 args: [],
 source: "unknownVariables\x0a\x09^ unknownVariables",
 messageSends: [],
@@ -646,9 +637,8 @@ selector: "unknownVariables:",
 protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@unknownVariables"]=aCollection;
-return self}, function($ctx1) {$ctx1.fill(self,"unknownVariables:",{aCollection:aCollection},smalltalk.Compiler)})},
+return self},
 args: ["aCollection"],
 source: "unknownVariables: aCollection\x0a\x09unknownVariables := aCollection",
 messageSends: [],

@@ -44,11 +44,10 @@ selector: "variableName",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@variableName"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"variableName",{},smalltalk.InvalidAssignmentError)})},
+},
 args: [],
 source: "variableName\x0a\x09^ variableName",
 messageSends: [],
@@ -62,9 +61,8 @@ selector: "variableName:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@variableName"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"variableName:",{aString:aString},smalltalk.InvalidAssignmentError)})},
+return self},
 args: ["aString"],
 source: "variableName: aString\x0a\x09variableName := aString",
 messageSends: [],
@@ -101,11 +99,10 @@ selector: "variableName",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@variableName"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"variableName",{},smalltalk.ShadowingVariableError)})},
+},
 args: [],
 source: "variableName\x0a\x09^ variableName",
 messageSends: [],
@@ -119,9 +116,8 @@ selector: "variableName:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@variableName"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"variableName:",{aString:aString},smalltalk.ShadowingVariableError)})},
+return self},
 args: ["aString"],
 source: "variableName: aString\x0a\x09variableName := aString",
 messageSends: [],
@@ -158,11 +154,10 @@ selector: "variableName",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@variableName"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"variableName",{},smalltalk.UnknownVariableError)})},
+},
 args: [],
 source: "variableName\x0a\x09^ variableName",
 messageSends: [],
@@ -176,9 +171,8 @@ selector: "variableName:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@variableName"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"variableName:",{aString:aString},smalltalk.UnknownVariableError)})},
+return self},
 args: ["aString"],
 source: "variableName: aString\x0a\x09variableName := aString",
 messageSends: [],
@@ -196,9 +190,8 @@ selector: "basicSignal:",
 protocol: 'error handling',
 fn: function (anError){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 throw anError;
-return self}, function($ctx1) {$ctx1.fill(self,"basicSignal:",{anError:anError},smalltalk.RethrowErrorHandler)})},
+return self},
 args: ["anError"],
 source: "basicSignal: anError\x0a\x09<throw anError>",
 messageSends: [],

@@ -9,11 +9,10 @@ selector: "model",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@model"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLInspectorDisplayWidget)})},
+},
 args: [],
 source: "model\x0a\x0a\x09^ model",
 messageSends: [],
@@ -27,9 +26,8 @@ selector: "model:",
 protocol: 'accessing',
 fn: function (aModel){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@model"]=aModel;
-return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLInspectorDisplayWidget)})},
+return self},
 args: ["aModel"],
 source: "model: aModel\x0a\x0a\x09model := aModel",
 messageSends: [],
@@ -161,9 +159,8 @@ selector: "environment:",
 protocol: 'accessing',
 fn: function (anEnvironment){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@environment"]=anEnvironment;
-return self}, function($ctx1) {$ctx1.fill(self,"environment:",{anEnvironment:anEnvironment},smalltalk.HLInspectorModel)})},
+return self},
 args: ["anEnvironment"],
 source: "environment: anEnvironment\x0a\x09environment := anEnvironment",
 messageSends: [],
@@ -195,11 +192,10 @@ selector: "inspectee",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@inspectee"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"inspectee",{},smalltalk.HLInspectorModel)})},
+},
 args: [],
 source: "inspectee \x0a\x09^ inspectee",
 messageSends: [],
@@ -213,9 +209,8 @@ selector: "inspectee:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@inspectee"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"inspectee:",{anObject:anObject},smalltalk.HLInspectorModel)})},
+return self},
 args: ["anObject"],
 source: "inspectee: anObject \x0a\x09inspectee := anObject",
 messageSends: [],
@@ -270,9 +265,8 @@ selector: "label:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@label"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"label:",{aString:aString},smalltalk.HLInspectorModel)})},
+return self},
 args: ["aString"],
 source: "label: aString\x0a    label := aString",
 messageSends: [],
@@ -286,7 +280,6 @@ selector: "onKeyDown:",
 protocol: 'reactions',
 fn: function (anEvent){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 80) { //ctrl+p
 			self._printIt();
@@ -304,7 +297,7 @@ if(anEvent.ctrlKey) {
 			return false;
 		}
 	};
-return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent},smalltalk.HLInspectorModel)})},
+return self},
 args: ["anEvent"],
 source: "onKeyDown: anEvent\x0a\x0a\x09<if(anEvent.ctrlKey) {\x0a\x09\x09if(anEvent.keyCode === 80) { //ctrl+p\x0a\x09\x09\x09self._printIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 68) { //ctrl+d\x0a\x09\x09\x09self._doIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 73) { //ctrl+i\x0a\x09\x09\x09self._inspectIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09}>",
 messageSends: [],
@@ -433,9 +426,8 @@ selector: "variables:",
 protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@variables"]=aCollection;
-return self}, function($ctx1) {$ctx1.fill(self,"variables:",{aCollection:aCollection},smalltalk.HLInspectorModel)})},
+return self},
 args: ["aCollection"],
 source: "variables: aCollection\x0a\x09variables := aCollection",
 messageSends: [],
@@ -534,11 +526,10 @@ selector: "model",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@model"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLInspectorVariablesWidget)})},
+},
 args: [],
 source: "model\x0a    ^ model",
 messageSends: [],
@@ -552,9 +543,8 @@ selector: "model:",
 protocol: 'accessing',
 fn: function (aModel){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@model"]=aModel;
-return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLInspectorVariablesWidget)})},
+return self},
 args: ["aModel"],
 source: "model: aModel\x0a    model := aModel",
 messageSends: [],
@@ -650,9 +640,8 @@ selector: "resetItems",
 protocol: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@items"]=nil;
-return self}, function($ctx1) {$ctx1.fill(self,"resetItems",{},smalltalk.HLInspectorVariablesWidget)})},
+return self},
 args: [],
 source: "resetItems\x0a\x09items := nil",
 messageSends: [],
@@ -1006,8 +995,7 @@ selector: "onInspectIt",
 protocol: 'reactions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"onInspectIt",{},smalltalk.HLInspectorWidget)})},
+return self},
 args: [],
 source: "onInspectIt",
 messageSends: [],
@@ -1038,8 +1026,7 @@ selector: "onPrintIt",
 protocol: 'reactions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"onPrintIt",{},smalltalk.HLInspectorWidget)})},
+return self},
 args: [],
 source: "onPrintIt",
 messageSends: [],
@@ -1171,9 +1158,8 @@ selector: "tabLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Inspector";
-}, function($ctx1) {$ctx1.fill(self,"tabLabel",{},smalltalk.HLInspectorWidget)})},
+},
 args: [],
 source: "tabLabel\x0a    ^ 'Inspector'",
 messageSends: [],
@@ -1266,9 +1252,8 @@ selector: "canBeOpenAsTab",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLInspector.klass)})},
+},
 args: [],
 source: "canBeOpenAsTab\x0a\x09^ false",
 messageSends: [],
@@ -1359,9 +1344,8 @@ selector: "tabClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "inspector";
-}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLInspector.klass)})},
+},
 args: [],
 source: "tabClass\x0a\x09^ 'inspector'",
 messageSends: [],
@@ -1375,9 +1359,8 @@ selector: "tabLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Inspector";
-}, function($ctx1) {$ctx1.fill(self,"tabLabel",{},smalltalk.HLInspector.klass)})},
+},
 args: [],
 source: "tabLabel\x0a\x09^ 'Inspector'",
 messageSends: [],
@@ -1391,9 +1374,8 @@ selector: "tabPriority",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (10);
-}, function($ctx1) {$ctx1.fill(self,"tabPriority",{},smalltalk.HLInspector.klass)})},
+},
 args: [],
 source: "tabPriority\x0a\x09^ 10",
 messageSends: [],

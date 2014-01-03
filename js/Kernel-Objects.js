@@ -66,9 +66,8 @@ selector: "class",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.klass;
-return self}, function($ctx1) {$ctx1.fill(self,"class",{},smalltalk.ProtoObject)})},
+return self},
 args: [],
 source: "class\x0a\x09<return self.klass>",
 messageSends: [],
@@ -103,7 +102,6 @@ selector: "identityHash",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		var hash=self.identityHash;
 		if (hash) return hash;
@@ -111,7 +109,7 @@ return smalltalk.withContext(function($ctx1) {
 		Object.defineProperty(self, 'identityHash', {value:hash});
 		return hash;
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"identityHash",{},smalltalk.ProtoObject)})},
+return self},
 args: [],
 source: "identityHash\x0a\x09<\x0a\x09\x09var hash=self.identityHash;\x0a\x09\x09if (hash) return hash;\x0a\x09\x09hash=smalltalk.nextId();\x0a\x09\x09Object.defineProperty(self, 'identityHash', {value:hash});\x0a\x09\x09return hash;\x0a\x09>",
 messageSends: [],
@@ -125,8 +123,7 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ProtoObject)})},
+return self},
 args: [],
 source: "initialize",
 messageSends: [],
@@ -157,8 +154,7 @@ selector: "inspectOn:",
 protocol: 'inspecting',
 fn: function (anInspector){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector},smalltalk.ProtoObject)})},
+return self},
 args: ["anInspector"],
 source: "inspectOn: anInspector",
 messageSends: [],
@@ -172,9 +168,8 @@ selector: "instVarAt:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
  return self['@'+aString] ;
-return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:",{aString:aString},smalltalk.ProtoObject)})},
+return self},
 args: ["aString"],
 source: "instVarAt: aString\x0a\x09< return self['@'+aString] >",
 messageSends: [],
@@ -188,9 +183,8 @@ selector: "instVarAt:put:",
 protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
  self['@' + aString] = anObject ;
-return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:put:",{aString:aString,anObject:anObject},smalltalk.ProtoObject)})},
+return self},
 args: ["aString", "anObject"],
 source: "instVarAt: aString put: anObject\x0a\x09< self['@' + aString] = anObject >",
 messageSends: [],
@@ -222,9 +216,8 @@ selector: "perform:withArguments:",
 protocol: 'message handling',
 fn: function (aString,aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return smalltalk.send(self, aString._asSelector(), aCollection);
-return self}, function($ctx1) {$ctx1.fill(self,"perform:withArguments:",{aString:aString,aCollection:aCollection},smalltalk.ProtoObject)})},
+return self},
 args: ["aString", "aCollection"],
 source: "perform: aString withArguments: aCollection\x0a\x09<return smalltalk.send(self, aString._asSelector(), aCollection)>",
 messageSends: [],
@@ -290,9 +283,8 @@ selector: "yourself",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"yourself",{},smalltalk.ProtoObject)})},
+},
 args: [],
 source: "yourself\x0a\x09^ self",
 messageSends: [],
@@ -344,9 +336,8 @@ selector: "heliosClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "class";
-}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.ProtoObject.klass)})},
+},
 args: [],
 source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
 messageSends: [],
@@ -360,8 +351,7 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ProtoObject.klass)})},
+return self},
 args: [],
 source: "initialize",
 messageSends: [],
@@ -459,9 +449,8 @@ selector: "basicAt:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self[aString];
-return self}, function($ctx1) {$ctx1.fill(self,"basicAt:",{aString:aString},smalltalk.Object)})},
+return self},
 args: ["aString"],
 source: "basicAt: aString\x0a\x09<return self[aString]>",
 messageSends: [],
@@ -475,9 +464,8 @@ selector: "basicAt:put:",
 protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self[aString] = anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"basicAt:put:",{aString:aString,anObject:anObject},smalltalk.Object)})},
+return self},
 args: ["aString", "anObject"],
 source: "basicAt: aString put: anObject\x0a\x09<return self[aString] = anObject>",
 messageSends: [],
@@ -491,9 +479,8 @@ selector: "basicDelete:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 delete self[aString]; return aString;
-return self}, function($ctx1) {$ctx1.fill(self,"basicDelete:",{aString:aString},smalltalk.Object)})},
+return self},
 args: ["aString"],
 source: "basicDelete: aString\x0a\x09<delete self[aString]; return aString>",
 messageSends: [],
@@ -525,9 +512,8 @@ selector: "basicPerform:withArguments:",
 protocol: 'message handling',
 fn: function (aString,aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self[aString].apply(self, aCollection);;
-return self}, function($ctx1) {$ctx1.fill(self,"basicPerform:withArguments:",{aString:aString,aCollection:aCollection},smalltalk.Object)})},
+return self},
 args: ["aString", "aCollection"],
 source: "basicPerform: aString withArguments: aCollection\x0a\x09<return self[aString].apply(self, aCollection);>",
 messageSends: [],
@@ -559,7 +545,6 @@ selector: "deepCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		var copy = self.klass._new();
 		Object.keys(self).forEach(function (i) {
@@ -569,7 +554,7 @@ return smalltalk.withContext(function($ctx1) {
 		});
 		return copy;
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"deepCopy",{},smalltalk.Object)})},
+return self},
 args: [],
 source: "deepCopy\x0a\x09<\x0a\x09\x09var copy = self.klass._new();\x0a\x09\x09Object.keys(self).forEach(function (i) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09\x09copy[i] = self[i]._deepCopy();\x0a\x09\x09}\x0a\x09\x09});\x0a\x09\x09return copy;\x0a\x09>",
 messageSends: [],
@@ -646,9 +631,8 @@ selector: "ifNil:",
 protocol: 'testing',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"ifNil:",{aBlock:aBlock},smalltalk.Object)})},
+},
 args: ["aBlock"],
 source: "ifNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ self",
 messageSends: [],
@@ -743,9 +727,8 @@ selector: "isBehavior",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isBehavior",{},smalltalk.Object)})},
+},
 args: [],
 source: "isBehavior\x0a\x09^ false",
 messageSends: [],
@@ -759,9 +742,8 @@ selector: "isBoolean",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isBoolean",{},smalltalk.Object)})},
+},
 args: [],
 source: "isBoolean\x0a\x09^ false",
 messageSends: [],
@@ -775,9 +757,8 @@ selector: "isClass",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isClass",{},smalltalk.Object)})},
+},
 args: [],
 source: "isClass\x0a\x09^ false",
 messageSends: [],
@@ -791,9 +772,8 @@ selector: "isCompiledMethod",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isCompiledMethod",{},smalltalk.Object)})},
+},
 args: [],
 source: "isCompiledMethod\x0a\x09^ false",
 messageSends: [],
@@ -807,9 +787,8 @@ selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.Object)})},
+},
 args: [],
 source: "isImmutable\x0a\x09^ false",
 messageSends: [],
@@ -864,9 +843,8 @@ selector: "isMetaclass",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isMetaclass",{},smalltalk.Object)})},
+},
 args: [],
 source: "isMetaclass\x0a\x09^ false",
 messageSends: [],
@@ -880,9 +858,8 @@ selector: "isNil",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isNil",{},smalltalk.Object)})},
+},
 args: [],
 source: "isNil\x0a\x09^ false",
 messageSends: [],
@@ -896,9 +873,8 @@ selector: "isNumber",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isNumber",{},smalltalk.Object)})},
+},
 args: [],
 source: "isNumber\x0a\x09^ false",
 messageSends: [],
@@ -912,9 +888,8 @@ selector: "isPackage",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isPackage",{},smalltalk.Object)})},
+},
 args: [],
 source: "isPackage\x0a\x09^ false",
 messageSends: [],
@@ -928,9 +903,8 @@ selector: "isParseFailure",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isParseFailure",{},smalltalk.Object)})},
+},
 args: [],
 source: "isParseFailure\x0a\x09^ false",
 messageSends: [],
@@ -944,9 +918,8 @@ selector: "isString",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isString",{},smalltalk.Object)})},
+},
 args: [],
 source: "isString\x0a\x09^ false",
 messageSends: [],
@@ -960,9 +933,8 @@ selector: "isSymbol",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isSymbol",{},smalltalk.Object)})},
+},
 args: [],
 source: "isSymbol\x0a\x09^ false",
 messageSends: [],
@@ -994,8 +966,7 @@ selector: "postCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"postCopy",{},smalltalk.Object)})},
+return self},
 args: [],
 source: "postCopy",
 messageSends: [],
@@ -1043,7 +1014,6 @@ selector: "shallowCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		var copy = self.klass._new();
 		Object.keys(self).forEach(function(i) {
@@ -1053,7 +1023,7 @@ return smalltalk.withContext(function($ctx1) {
 		});
 		return copy;
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},smalltalk.Object)})},
+return self},
 args: [],
 source: "shallowCopy\x0a\x09<\x0a\x09\x09var copy = self.klass._new();\x0a\x09\x09Object.keys(self).forEach(function(i) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09\x09copy[i] = self[i];\x0a\x09\x09}\x0a\x09\x09});\x0a\x09\x09return copy;\x0a\x09>",
 messageSends: [],
@@ -1115,9 +1085,8 @@ selector: "throw:",
 protocol: 'error handling',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
  throw anObject ;
-return self}, function($ctx1) {$ctx1.fill(self,"throw:",{anObject:anObject},smalltalk.Object)})},
+return self},
 args: ["anObject"],
 source: "throw: anObject\x0a\x09< throw anObject >",
 messageSends: [],
@@ -1131,9 +1100,8 @@ selector: "try:catch:",
 protocol: 'error handling',
 fn: function (aBlock,anotherBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)};
-return self}, function($ctx1) {$ctx1.fill(self,"try:catch:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Object)})},
+return self},
 args: ["aBlock", "anotherBlock"],
 source: "try: aBlock catch: anotherBlock\x0a\x09<try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)}>",
 messageSends: [],
@@ -1147,9 +1115,8 @@ selector: "value",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.valueOf();
-return self}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.Object)})},
+return self},
 args: [],
 source: "value\x0a\x09<return self.valueOf()>",
 messageSends: [],
@@ -1196,9 +1163,8 @@ selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "class";
-}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Object.klass)})},
+},
 args: [],
 source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
 messageSends: [],
@@ -1212,8 +1178,7 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Object.klass)})},
+return self},
 args: [],
 source: "initialize\x0a\x09\x22no op\x22",
 messageSends: [],
@@ -1262,7 +1227,6 @@ selector: "&",
 protocol: 'controlling',
 fn: function (aBoolean){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		if(self == true) {
 		return aBoolean;
@@ -1270,7 +1234,7 @@ return smalltalk.withContext(function($ctx1) {
 		return false;
 		}
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"&",{aBoolean:aBoolean},smalltalk.Boolean)})},
+return self},
 args: ["aBoolean"],
 source: "& aBoolean\x0a\x09<\x0a\x09\x09if(self == true) {\x0a\x09\x09return aBoolean;\x0a\x09\x09} else {\x0a\x09\x09return false;\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -1284,14 +1248,13 @@ selector: "=",
 protocol: 'comparing',
 fn: function (aBoolean){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		return aBoolean != null &&
 			typeof aBoolean._isBoolean === "function" &&
 			aBoolean._isBoolean() &&
 			Boolean(self == true) == aBoolean
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"=",{aBoolean:aBoolean},smalltalk.Boolean)})},
+return self},
 args: ["aBoolean"],
 source: "= aBoolean\x0a\x09<\x0a\x09\x09return aBoolean != null &&\x0a\x09\x09\x09typeof aBoolean._isBoolean === \x22function\x22 &&\x0a\x09\x09\x09aBoolean._isBoolean() &&\x0a\x09\x09\x09Boolean(self == true) == aBoolean\x0a\x09>",
 messageSends: [],
@@ -1367,9 +1330,8 @@ selector: "asJSON",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.Boolean)})},
+},
 args: [],
 source: "asJSON\x0a\x09^ self",
 messageSends: [],
@@ -1383,9 +1345,8 @@ selector: "asString",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
  return self.toString() ;
-return self}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.Boolean)})},
+return self},
 args: [],
 source: "asString\x0a\x09< return self.toString() >",
 messageSends: [],
@@ -1399,9 +1360,8 @@ selector: "deepCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"deepCopy",{},smalltalk.Boolean)})},
+},
 args: [],
 source: "deepCopy\x0a\x09^ self",
 messageSends: [],
@@ -1473,7 +1433,6 @@ selector: "ifTrue:ifFalse:",
 protocol: 'controlling',
 fn: function (aBlock,anotherBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		if(self == true) {
 		return aBlock._value();
@@ -1481,7 +1440,7 @@ return smalltalk.withContext(function($ctx1) {
 		return anotherBlock._value();
 		}
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"ifTrue:ifFalse:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Boolean)})},
+return self},
 args: ["aBlock", "anotherBlock"],
 source: "ifTrue: aBlock ifFalse: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<\x0a\x09\x09if(self == true) {\x0a\x09\x09return aBlock._value();\x0a\x09\x09} else {\x0a\x09\x09return anotherBlock._value();\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -1495,9 +1454,8 @@ selector: "isBoolean",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isBoolean",{},smalltalk.Boolean)})},
+},
 args: [],
 source: "isBoolean\x0a\x09^ true",
 messageSends: [],
@@ -1511,9 +1469,8 @@ selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.Boolean)})},
+},
 args: [],
 source: "isImmutable\x0a\x09^ true",
 messageSends: [],
@@ -1583,9 +1540,8 @@ selector: "shallowCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},smalltalk.Boolean)})},
+},
 args: [],
 source: "shallowCopy\x0a\x09^ self",
 messageSends: [],
@@ -1599,7 +1555,6 @@ selector: "|",
 protocol: 'controlling',
 fn: function (aBoolean){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		if(self == true) {
 		return true;
@@ -1607,7 +1562,7 @@ return smalltalk.withContext(function($ctx1) {
 		return aBoolean;
 		}
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"|",{aBoolean:aBoolean},smalltalk.Boolean)})},
+return self},
 args: ["aBoolean"],
 source: "| aBoolean\x0a\x09<\x0a\x09\x09if(self == true) {\x0a\x09\x09return true;\x0a\x09\x09} else {\x0a\x09\x09return aBoolean;\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -1625,9 +1580,8 @@ selector: "+",
 protocol: 'arithmetic',
 fn: function (aDate){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self + aDate;
-return self}, function($ctx1) {$ctx1.fill(self,"+",{aDate:aDate},smalltalk.Date)})},
+return self},
 args: ["aDate"],
 source: "+ aDate\x0a\x09<return self + aDate>",
 messageSends: [],
@@ -1641,9 +1595,8 @@ selector: "-",
 protocol: 'arithmetic',
 fn: function (aDate){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self - aDate;
-return self}, function($ctx1) {$ctx1.fill(self,"-",{aDate:aDate},smalltalk.Date)})},
+return self},
 args: ["aDate"],
 source: "- aDate\x0a\x09<return self - aDate>",
 messageSends: [],
@@ -1657,9 +1610,8 @@ selector: "<",
 protocol: 'comparing',
 fn: function (aDate){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self < aDate;
-return self}, function($ctx1) {$ctx1.fill(self,"<",{aDate:aDate},smalltalk.Date)})},
+return self},
 args: ["aDate"],
 source: "< aDate\x0a\x09<return self < aDate>",
 messageSends: [],
@@ -1673,9 +1625,8 @@ selector: "<=",
 protocol: 'comparing',
 fn: function (aDate){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self <= aDate;
-return self}, function($ctx1) {$ctx1.fill(self,"<=",{aDate:aDate},smalltalk.Date)})},
+return self},
 args: ["aDate"],
 source: "<= aDate\x0a\x09<return self <= aDate>",
 messageSends: [],
@@ -1689,9 +1640,8 @@ selector: ">",
 protocol: 'comparing',
 fn: function (aDate){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self > aDate;
-return self}, function($ctx1) {$ctx1.fill(self,">",{aDate:aDate},smalltalk.Date)})},
+return self},
 args: ["aDate"],
 source: "> aDate\x0a\x09<return self >> aDate>",
 messageSends: [],
@@ -1705,9 +1655,8 @@ selector: ">=",
 protocol: 'comparing',
 fn: function (aDate){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self >= aDate;
-return self}, function($ctx1) {$ctx1.fill(self,">=",{aDate:aDate},smalltalk.Date)})},
+return self},
 args: ["aDate"],
 source: ">= aDate\x0a\x09<return self >>= aDate>",
 messageSends: [],
@@ -1721,9 +1670,8 @@ selector: "asDateString",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.toDateString();
-return self}, function($ctx1) {$ctx1.fill(self,"asDateString",{},smalltalk.Date)})},
+return self},
 args: [],
 source: "asDateString\x0a\x09<return self.toDateString()>",
 messageSends: [],
@@ -1737,9 +1685,8 @@ selector: "asLocaleString",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.toLocaleString();
-return self}, function($ctx1) {$ctx1.fill(self,"asLocaleString",{},smalltalk.Date)})},
+return self},
 args: [],
 source: "asLocaleString\x0a\x09<return self.toLocaleString()>",
 messageSends: [],
@@ -1789,9 +1736,8 @@ selector: "asString",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.toString();
-return self}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.Date)})},
+return self},
 args: [],
 source: "asString\x0a\x09<return self.toString()>",
 messageSends: [],
@@ -1805,9 +1751,8 @@ selector: "asTimeString",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.toTimeString();
-return self}, function($ctx1) {$ctx1.fill(self,"asTimeString",{},smalltalk.Date)})},
+return self},
 args: [],
 source: "asTimeString\x0a\x09<return self.toTimeString()>",
 messageSends: [],
@@ -1855,9 +1800,8 @@ selector: "dayOfMonth",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.getDate();
-return self}, function($ctx1) {$ctx1.fill(self,"dayOfMonth",{},smalltalk.Date)})},
+return self},
 args: [],
 source: "dayOfMonth\x0a\x09<return self.getDate()>",
 messageSends: [],
@@ -1871,9 +1815,8 @@ selector: "dayOfMonth:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self.setDate(aNumber);
-return self}, function($ctx1) {$ctx1.fill(self,"dayOfMonth:",{aNumber:aNumber},smalltalk.Date)})},
+return self},
 args: ["aNumber"],
 source: "dayOfMonth: aNumber\x0a\x09<self.setDate(aNumber)>",
 messageSends: [],
@@ -1887,9 +1830,8 @@ selector: "dayOfWeek",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.getDay() + 1;
-return self}, function($ctx1) {$ctx1.fill(self,"dayOfWeek",{},smalltalk.Date)})},
+return self},
 args: [],
 source: "dayOfWeek\x0a\x09<return self.getDay() + 1>",
 messageSends: [],
@@ -1903,9 +1845,8 @@ selector: "dayOfWeek:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.setDay(aNumber - 1);
-return self}, function($ctx1) {$ctx1.fill(self,"dayOfWeek:",{aNumber:aNumber},smalltalk.Date)})},
+return self},
 args: ["aNumber"],
 source: "dayOfWeek: aNumber\x0a\x09<return self.setDay(aNumber - 1)>",
 messageSends: [],
@@ -1919,9 +1860,8 @@ selector: "hours",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.getHours();
-return self}, function($ctx1) {$ctx1.fill(self,"hours",{},smalltalk.Date)})},
+return self},
 args: [],
 source: "hours\x0a\x09<return self.getHours()>",
 messageSends: [],
@@ -1935,9 +1875,8 @@ selector: "hours:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self.setHours(aNumber);
-return self}, function($ctx1) {$ctx1.fill(self,"hours:",{aNumber:aNumber},smalltalk.Date)})},
+return self},
 args: ["aNumber"],
 source: "hours: aNumber\x0a\x09<self.setHours(aNumber)>",
 messageSends: [],
@@ -1951,9 +1890,8 @@ selector: "milliseconds",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.getMilliseconds();
-return self}, function($ctx1) {$ctx1.fill(self,"milliseconds",{},smalltalk.Date)})},
+return self},
 args: [],
 source: "milliseconds\x0a\x09<return self.getMilliseconds()>",
 messageSends: [],
@@ -1967,9 +1905,8 @@ selector: "milliseconds:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self.setMilliseconds(aNumber);
-return self}, function($ctx1) {$ctx1.fill(self,"milliseconds:",{aNumber:aNumber},smalltalk.Date)})},
+return self},
 args: ["aNumber"],
 source: "milliseconds: aNumber\x0a\x09<self.setMilliseconds(aNumber)>",
 messageSends: [],
@@ -1983,9 +1920,8 @@ selector: "minutes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.getMinutes();
-return self}, function($ctx1) {$ctx1.fill(self,"minutes",{},smalltalk.Date)})},
+return self},
 args: [],
 source: "minutes\x0a\x09<return self.getMinutes()>",
 messageSends: [],
@@ -1999,9 +1935,8 @@ selector: "minutes:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self.setMinutes(aNumber);
-return self}, function($ctx1) {$ctx1.fill(self,"minutes:",{aNumber:aNumber},smalltalk.Date)})},
+return self},
 args: ["aNumber"],
 source: "minutes: aNumber\x0a\x09<self.setMinutes(aNumber)>",
 messageSends: [],
@@ -2015,9 +1950,8 @@ selector: "month",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.getMonth() + 1;
-return self}, function($ctx1) {$ctx1.fill(self,"month",{},smalltalk.Date)})},
+return self},
 args: [],
 source: "month\x0a\x09<return self.getMonth() + 1>",
 messageSends: [],
@@ -2031,9 +1965,8 @@ selector: "month:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self.setMonth(aNumber - 1);
-return self}, function($ctx1) {$ctx1.fill(self,"month:",{aNumber:aNumber},smalltalk.Date)})},
+return self},
 args: ["aNumber"],
 source: "month: aNumber\x0a\x09<self.setMonth(aNumber - 1)>",
 messageSends: [],
@@ -2063,9 +1996,8 @@ selector: "seconds",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.getSeconds();
-return self}, function($ctx1) {$ctx1.fill(self,"seconds",{},smalltalk.Date)})},
+return self},
 args: [],
 source: "seconds\x0a\x09<return self.getSeconds()>",
 messageSends: [],
@@ -2079,9 +2011,8 @@ selector: "seconds:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self.setSeconds(aNumber);
-return self}, function($ctx1) {$ctx1.fill(self,"seconds:",{aNumber:aNumber},smalltalk.Date)})},
+return self},
 args: ["aNumber"],
 source: "seconds: aNumber\x0a\x09<self.setSeconds(aNumber)>",
 messageSends: [],
@@ -2095,9 +2026,8 @@ selector: "time",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.getTime();
-return self}, function($ctx1) {$ctx1.fill(self,"time",{},smalltalk.Date)})},
+return self},
 args: [],
 source: "time\x0a\x09<return self.getTime()>",
 messageSends: [],
@@ -2111,9 +2041,8 @@ selector: "time:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self.setTime(aNumber);
-return self}, function($ctx1) {$ctx1.fill(self,"time:",{aNumber:aNumber},smalltalk.Date)})},
+return self},
 args: ["aNumber"],
 source: "time: aNumber\x0a\x09<self.setTime(aNumber)>",
 messageSends: [],
@@ -2127,9 +2056,8 @@ selector: "year",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.getFullYear();
-return self}, function($ctx1) {$ctx1.fill(self,"year",{},smalltalk.Date)})},
+return self},
 args: [],
 source: "year\x0a\x09<return self.getFullYear()>",
 messageSends: [],
@@ -2143,9 +2071,8 @@ selector: "year:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self.setFullYear(aNumber);
-return self}, function($ctx1) {$ctx1.fill(self,"year:",{aNumber:aNumber},smalltalk.Date)})},
+return self},
 args: ["aNumber"],
 source: "year: aNumber\x0a\x09<self.setFullYear(aNumber)>",
 messageSends: [],
@@ -2214,9 +2141,8 @@ selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "magnitude";
-}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Date.klass)})},
+},
 args: [],
 source: "heliosClass\x0a\x09^ 'magnitude'",
 messageSends: [],
@@ -2253,9 +2179,8 @@ selector: "new:",
 protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return new Date(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"new:",{anObject:anObject},smalltalk.Date.klass)})},
+return self},
 args: ["anObject"],
 source: "new: anObject\x0a\x09<return new Date(anObject)>",
 messageSends: [],
@@ -2308,9 +2233,8 @@ selector: "&",
 protocol: 'converting',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self & aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"&",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "& aNumber\x0a\x09<return self & aNumber>",
 messageSends: [],
@@ -2324,9 +2248,8 @@ selector: "*",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self * aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"*",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "* aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self * aNumber>",
 messageSends: [],
@@ -2358,9 +2281,8 @@ selector: "+",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self + aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"+",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "+ aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self + aNumber>",
 messageSends: [],
@@ -2374,9 +2296,8 @@ selector: "-",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self - aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"-",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "- aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self - aNumber>",
 messageSends: [],
@@ -2390,9 +2311,8 @@ selector: "/",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self / aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"/",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "/ aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self / aNumber>",
 messageSends: [],
@@ -2424,9 +2344,8 @@ selector: "<",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self < aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"<",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "< aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self < aNumber>",
 messageSends: [],
@@ -2440,9 +2359,8 @@ selector: "<=",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self <= aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"<=",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "<= aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self <= aNumber>",
 messageSends: [],
@@ -2456,14 +2374,13 @@ selector: "=",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		return aNumber != null &&
 			typeof aNumber._isNumber === "function" &&
 			aNumber._isNumber() &&
 			Number(self) == aNumber
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"=",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "= aNumber\x0a\x09<\x0a\x09\x09return aNumber != null &&\x0a\x09\x09\x09typeof aNumber._isNumber === \x22function\x22 &&\x0a\x09\x09\x09aNumber._isNumber() &&\x0a\x09\x09\x09Number(self) == aNumber\x0a\x09>",
 messageSends: [],
@@ -2477,9 +2394,8 @@ selector: ">",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self > aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,">",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "> aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self >> aNumber>",
 messageSends: [],
@@ -2493,9 +2409,8 @@ selector: ">=",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self >= aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,">=",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: ">= aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self >>= aNumber>",
 messageSends: [],
@@ -2528,9 +2443,8 @@ selector: "\x5c\x5c",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self % aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"\x5c\x5c",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "\x5c\x5c aNumber\x0a\x09<return self % aNumber>",
 messageSends: [],
@@ -2544,9 +2458,8 @@ selector: "abs",
 protocol: 'arithmetic',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.abs(self);;
-return self}, function($ctx1) {$ctx1.fill(self,"abs",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "abs\x0a\x09<return Math.abs(self);>",
 messageSends: [],
@@ -2560,9 +2473,8 @@ selector: "arcCos",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.acos(self);;
-return self}, function($ctx1) {$ctx1.fill(self,"arcCos",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "arcCos\x0a\x09<return Math.acos(self);>",
 messageSends: [],
@@ -2576,9 +2488,8 @@ selector: "arcSin",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.asin(self);;
-return self}, function($ctx1) {$ctx1.fill(self,"arcSin",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "arcSin\x0a\x09<return Math.asin(self);>",
 messageSends: [],
@@ -2592,9 +2503,8 @@ selector: "arcTan",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.atan(self);;
-return self}, function($ctx1) {$ctx1.fill(self,"arcTan",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "arcTan\x0a\x09<return Math.atan(self);>",
 messageSends: [],
@@ -2608,9 +2518,8 @@ selector: "asJSON",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.Number)})},
+},
 args: [],
 source: "asJSON\x0a\x09^ self",
 messageSends: [],
@@ -2643,9 +2552,8 @@ selector: "asNumber",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"asNumber",{},smalltalk.Number)})},
+},
 args: [],
 source: "asNumber\x0a\x09^ self",
 messageSends: [],
@@ -2678,9 +2586,8 @@ selector: "asString",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
  return String(self) ;
-return self}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "asString\x0a\x09< return String(self) >",
 messageSends: [],
@@ -2713,9 +2620,8 @@ selector: "ceiling",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.ceil(self);;
-return self}, function($ctx1) {$ctx1.fill(self,"ceiling",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "ceiling\x0a\x09<return Math.ceil(self);>",
 messageSends: [],
@@ -2729,9 +2635,8 @@ selector: "copy",
 protocol: 'copying',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"copy",{},smalltalk.Number)})},
+},
 args: [],
 source: "copy\x0a\x09^ self",
 messageSends: [],
@@ -2745,9 +2650,8 @@ selector: "cos",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.cos(self);;
-return self}, function($ctx1) {$ctx1.fill(self,"cos",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "cos\x0a\x09<return Math.cos(self);>",
 messageSends: [],
@@ -2797,9 +2701,8 @@ selector: "floor",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.floor(self);;
-return self}, function($ctx1) {$ctx1.fill(self,"floor",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "floor\x0a\x09<return Math.floor(self);>",
 messageSends: [],
@@ -2831,9 +2734,8 @@ selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.Number)})},
+},
 args: [],
 source: "isImmutable\x0a\x09^ true",
 messageSends: [],
@@ -2847,9 +2749,8 @@ selector: "isNumber",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isNumber",{},smalltalk.Number)})},
+},
 args: [],
 source: "isNumber\x0a\x09^ true",
 messageSends: [],
@@ -2881,9 +2782,8 @@ selector: "ln",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.log(self);;
-return self}, function($ctx1) {$ctx1.fill(self,"ln",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "ln\x0a\x09<return Math.log(self);>",
 messageSends: [],
@@ -2897,9 +2797,8 @@ selector: "log",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.log(self) / Math.LN10;;
-return self}, function($ctx1) {$ctx1.fill(self,"log",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "log\x0a\x09<return Math.log(self) / Math.LN10;>",
 messageSends: [],
@@ -2913,9 +2812,8 @@ selector: "log:",
 protocol: 'mathematical functions',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.log(self) / Math.log(aNumber);;
-return self}, function($ctx1) {$ctx1.fill(self,"log:",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "log: aNumber\x0a\x09<return Math.log(self) / Math.log(aNumber);>",
 messageSends: [],
@@ -2929,9 +2827,8 @@ selector: "max:",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.max(self, aNumber);;
-return self}, function($ctx1) {$ctx1.fill(self,"max:",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "max: aNumber\x0a\x09<return Math.max(self, aNumber);>",
 messageSends: [],
@@ -2945,9 +2842,8 @@ selector: "min:",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.min(self, aNumber);;
-return self}, function($ctx1) {$ctx1.fill(self,"min:",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "min: aNumber\x0a\x09<return Math.min(self, aNumber);>",
 messageSends: [],
@@ -3049,9 +2945,8 @@ selector: "printShowingDecimalPlaces:",
 protocol: 'printing',
 fn: function (placesDesired){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self.toFixed(placesDesired);
-return self}, function($ctx1) {$ctx1.fill(self,"printShowingDecimalPlaces:",{placesDesired:placesDesired},smalltalk.Number)})},
+return self},
 args: ["placesDesired"],
 source: "printShowingDecimalPlaces: placesDesired\x0a\x09<return self.toFixed(placesDesired)>",
 messageSends: [],
@@ -3065,9 +2960,8 @@ selector: "raisedTo:",
 protocol: 'mathematical functions',
 fn: function (exponent){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.pow(self, exponent);;
-return self}, function($ctx1) {$ctx1.fill(self,"raisedTo:",{exponent:exponent},smalltalk.Number)})},
+return self},
 args: ["exponent"],
 source: "raisedTo: exponent\x0a\x09<return Math.pow(self, exponent);>",
 messageSends: [],
@@ -3081,9 +2975,8 @@ selector: "rounded",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.round(self);;
-return self}, function($ctx1) {$ctx1.fill(self,"rounded",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "rounded\x0a\x09<return Math.round(self);>",
 messageSends: [],
@@ -3123,9 +3016,8 @@ selector: "sin",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.sin(self);;
-return self}, function($ctx1) {$ctx1.fill(self,"sin",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "sin\x0a\x09<return Math.sin(self);>",
 messageSends: [],
@@ -3139,9 +3031,8 @@ selector: "sqrt",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.sqrt(self);
-return self}, function($ctx1) {$ctx1.fill(self,"sqrt",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "sqrt\x0a\x09<return Math.sqrt(self)>",
 messageSends: [],
@@ -3173,9 +3064,8 @@ selector: "tan",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.tan(self);;
-return self}, function($ctx1) {$ctx1.fill(self,"tan",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "tan\x0a\x09<return Math.tan(self);>",
 messageSends: [],
@@ -3381,7 +3271,6 @@ selector: "truncated",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 		if(self >= 0) {
 			return Math.floor(self);
@@ -3389,7 +3278,7 @@ return smalltalk.withContext(function($ctx1) {
 			return Math.floor(self * (-1)) * (-1);
 		};
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"truncated",{},smalltalk.Number)})},
+return self},
 args: [],
 source: "truncated\x0a\x09<\x0a\x09\x09if(self >>= 0) {\x0a\x09\x09\x09return Math.floor(self);\x0a\x09\x09} else {\x0a\x09\x09\x09return Math.floor(self * (-1)) * (-1);\x0a\x09\x09};\x0a\x09>",
 messageSends: [],
@@ -3403,9 +3292,8 @@ selector: "|",
 protocol: 'converting',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self | aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"|",{aNumber:aNumber},smalltalk.Number)})},
+return self},
 args: ["aNumber"],
 source: "| aNumber\x0a\x09<return self | aNumber>",
 messageSends: [],
@@ -3420,9 +3308,8 @@ selector: "e",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.E;;
-return self}, function($ctx1) {$ctx1.fill(self,"e",{},smalltalk.Number.klass)})},
+return self},
 args: [],
 source: "e\x0a\x09<return Math.E;>",
 messageSends: [],
@@ -3436,9 +3323,8 @@ selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "magnitude";
-}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Number.klass)})},
+},
 args: [],
 source: "heliosClass\x0a\x09^ 'magnitude'",
 messageSends: [],
@@ -3452,9 +3338,8 @@ selector: "pi",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.PI;
-return self}, function($ctx1) {$ctx1.fill(self,"pi",{},smalltalk.Number.klass)})},
+return self},
 args: [],
 source: "pi\x0a\x09<return Math.PI>",
 messageSends: [],
@@ -3619,9 +3504,8 @@ selector: "asPoint",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"asPoint",{},smalltalk.Point)})},
+},
 args: [],
 source: "asPoint\x0a\x09^ self",
 messageSends: [],
@@ -3682,11 +3566,10 @@ selector: "x",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@x"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"x",{},smalltalk.Point)})},
+},
 args: [],
 source: "x\x0a\x09^ x",
 messageSends: [],
@@ -3700,9 +3583,8 @@ selector: "x:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@x"]=aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"x:",{aNumber:aNumber},smalltalk.Point)})},
+return self},
 args: ["aNumber"],
 source: "x: aNumber\x0a\x09x := aNumber",
 messageSends: [],
@@ -3716,11 +3598,10 @@ selector: "y",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@y"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"y",{},smalltalk.Point)})},
+},
 args: [],
 source: "y\x0a\x09^ y",
 messageSends: [],
@@ -3734,9 +3615,8 @@ selector: "y:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@y"]=aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"y:",{aNumber:aNumber},smalltalk.Point)})},
+return self},
 args: ["aNumber"],
 source: "y: aNumber\x0a\x09y := aNumber",
 messageSends: [],
@@ -3751,9 +3631,8 @@ selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "magnitude";
-}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Point.klass)})},
+},
 args: [],
 source: "heliosClass\x0a\x09^ 'magnitude'",
 messageSends: [],
@@ -3792,9 +3671,8 @@ selector: "next",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return Math.random();
-return self}, function($ctx1) {$ctx1.fill(self,"next",{},smalltalk.Random)})},
+return self},
 args: [],
 source: "next\x0a\x09<return Math.random()>",
 messageSends: [],
@@ -3833,11 +3711,10 @@ selector: "asJSON",
 protocol: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=null;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.UndefinedObject)})},
+},
 args: [],
 source: "asJSON\x0a\x09^ null",
 messageSends: [],
@@ -3851,9 +3728,8 @@ selector: "deepCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"deepCopy",{},smalltalk.UndefinedObject)})},
+},
 args: [],
 source: "deepCopy\x0a\x09^ self",
 messageSends: [],
@@ -3905,9 +3781,8 @@ selector: "ifNotNil:",
 protocol: 'testing',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{aBlock:aBlock},smalltalk.UndefinedObject)})},
+},
 args: ["aBlock"],
 source: "ifNotNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ self",
 messageSends: [],
@@ -3939,9 +3814,8 @@ selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.UndefinedObject)})},
+},
 args: [],
 source: "isImmutable\x0a\x09^ true",
 messageSends: [],
@@ -3955,9 +3829,8 @@ selector: "isNil",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isNil",{},smalltalk.UndefinedObject)})},
+},
 args: [],
 source: "isNil\x0a\x09^ true",
 messageSends: [],
@@ -3971,9 +3844,8 @@ selector: "notNil",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"notNil",{},smalltalk.UndefinedObject)})},
+},
 args: [],
 source: "notNil\x0a\x09^ false",
 messageSends: [],
@@ -4003,9 +3875,8 @@ selector: "shallowCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},smalltalk.UndefinedObject)})},
+},
 args: [],
 source: "shallowCopy\x0a\x09^ self",
 messageSends: [],

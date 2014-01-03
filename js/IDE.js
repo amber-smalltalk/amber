@@ -9,11 +9,10 @@ selector: "browser",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@browser"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"browser",{},smalltalk.ClassesList)})},
+},
 args: [],
 source: "browser\x0a\x09^ browser",
 messageSends: [],
@@ -27,9 +26,8 @@ selector: "browser:",
 protocol: 'accessing',
 fn: function (aBrowser){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@browser"]=aBrowser;
-return self}, function($ctx1) {$ctx1.fill(self,"browser:",{aBrowser:aBrowser},smalltalk.ClassesList)})},
+return self},
 args: ["aBrowser"],
 source: "browser: aBrowser\x0a\x09browser := aBrowser",
 messageSends: [],
@@ -145,9 +143,8 @@ selector: "resetNodes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@nodes"]=nil;
-return self}, function($ctx1) {$ctx1.fill(self,"resetNodes",{},smalltalk.ClassesList)})},
+return self},
 args: [],
 source: "resetNodes\x0a\x09nodes := nil",
 messageSends: [],
@@ -207,11 +204,10 @@ selector: "browser",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@browser"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"browser",{},smalltalk.ClassesListNode)})},
+},
 args: [],
 source: "browser\x0a\x09^ browser",
 messageSends: [],
@@ -225,9 +221,8 @@ selector: "browser:",
 protocol: 'accessing',
 fn: function (aBrowser){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@browser"]=aBrowser;
-return self}, function($ctx1) {$ctx1.fill(self,"browser:",{aBrowser:aBrowser},smalltalk.ClassesListNode)})},
+return self},
 args: ["aBrowser"],
 source: "browser: aBrowser\x0a\x09browser := aBrowser",
 messageSends: [],
@@ -302,11 +297,10 @@ selector: "level",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@level"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"level",{},smalltalk.ClassesListNode)})},
+},
 args: [],
 source: "level\x0a\x09^ level",
 messageSends: [],
@@ -320,9 +314,8 @@ selector: "level:",
 protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@level"]=anInteger;
-return self}, function($ctx1) {$ctx1.fill(self,"level:",{anInteger:anInteger},smalltalk.ClassesListNode)})},
+return self},
 args: ["anInteger"],
 source: "level: anInteger\x0a\x09level := anInteger",
 messageSends: [],
@@ -336,11 +329,10 @@ selector: "nodes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@nodes"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"nodes",{},smalltalk.ClassesListNode)})},
+},
 args: [],
 source: "nodes\x0a\x09^ nodes",
 messageSends: [],
@@ -400,11 +392,10 @@ selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@theClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.ClassesListNode)})},
+},
 args: [],
 source: "theClass\x0a\x09^ theClass",
 messageSends: [],
@@ -418,9 +409,8 @@ selector: "theClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@theClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.ClassesListNode)})},
+return self},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
 messageSends: [],
@@ -601,11 +591,10 @@ selector: "editor",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@editor"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"editor",{},smalltalk.SourceArea)})},
+},
 args: [],
 source: "editor\x0a\x09^ editor",
 messageSends: [],
@@ -686,7 +675,6 @@ selector: "handleKeyDown:",
 protocol: 'actions',
 fn: function (anEvent){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 80) { //ctrl+p
 			self._printIt();
@@ -704,7 +692,7 @@ if(anEvent.ctrlKey) {
 			return false;
 		}
 	};
-return self}, function($ctx1) {$ctx1.fill(self,"handleKeyDown:",{anEvent:anEvent},smalltalk.SourceArea)})},
+return self},
 args: ["anEvent"],
 source: "handleKeyDown: anEvent\x0a\x09<if(anEvent.ctrlKey) {\x0a\x09\x09if(anEvent.keyCode === 80) { //ctrl+p\x0a\x09\x09\x09self._printIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 68) { //ctrl+d\x0a\x09\x09\x09self._doIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 73) { //ctrl+i\x0a\x09\x09\x09self._inspectIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09}>",
 messageSends: [],
@@ -734,11 +722,10 @@ selector: "onDoIt",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@onDoIt"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"onDoIt",{},smalltalk.SourceArea)})},
+},
 args: [],
 source: "onDoIt\x0a\x09^ onDoIt",
 messageSends: [],
@@ -752,9 +739,8 @@ selector: "onDoIt:",
 protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@onDoIt"]=aBlock;
-return self}, function($ctx1) {$ctx1.fill(self,"onDoIt:",{aBlock:aBlock},smalltalk.SourceArea)})},
+return self},
 args: ["aBlock"],
 source: "onDoIt: aBlock\x0a\x09onDoIt := aBlock",
 messageSends: [],
@@ -903,9 +889,8 @@ selector: "receiver:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@receiver"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"receiver:",{anObject:anObject},smalltalk.SourceArea)})},
+return self},
 args: ["anObject"],
 source: "receiver: anObject\x0a\x09receiver := anObject",
 messageSends: [],
@@ -964,7 +949,6 @@ selector: "setEditorOn:",
 protocol: 'accessing',
 fn: function (aTextarea){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 		theme: 'default',
 				lineNumbers: true,
@@ -974,7 +958,7 @@ self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 				matchBrackets: true,
 				electricChars: false
 	});
-return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea},smalltalk.SourceArea)})},
+return self},
 args: ["aTextarea"],
 source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'default',\x0a\x09\x09\x09\x09lineNumbers: true,\x0a\x09\x09\x09\x09enterMode: 'flat',\x0a\x09\x09\x09\x09indentWithTabs: true,\x0a\x09\x09\x09\x09indentUnit: 4,\x0a\x09\x09\x09\x09matchBrackets: true,\x0a\x09\x09\x09\x09electricChars: false\x0a\x09})>",
 messageSends: [],
@@ -1040,9 +1024,8 @@ selector: "setupCodeMirror",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
  CodeMirror.keyMap["default"].fallthrough = ["basic"] ;
-return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{},smalltalk.SourceArea.klass)})},
+return self},
 args: [],
 source: "setupCodeMirror\x0a\x09< CodeMirror.keyMap[\x22default\x22].fallthrough = [\x22basic\x22] >",
 messageSends: [],
@@ -1734,9 +1717,8 @@ selector: "canBeClosed",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"canBeClosed",{},smalltalk.TabWidget)})},
+},
 args: [],
 source: "canBeClosed\x0a\x09^ false",
 messageSends: [],
@@ -1836,8 +1818,7 @@ selector: "renderBoxOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},smalltalk.TabWidget)})},
+return self},
 args: ["html"],
 source: "renderBoxOn: html",
 messageSends: [],
@@ -1851,8 +1832,7 @@ selector: "renderButtonsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.TabWidget)})},
+return self},
 args: ["html"],
 source: "renderButtonsOn: html",
 messageSends: [],
@@ -2058,9 +2038,8 @@ selector: "canBeClosed",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"canBeClosed",{},smalltalk.Browser)})},
+},
 args: [],
 source: "canBeClosed\x0a\x09^ true",
 messageSends: [],
@@ -2498,9 +2477,8 @@ selector: "dummyMethodSource",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "messageSelectorAndArgumentNames\x0a\x09\x22comment stating purpose of message\x22\x0a\x0a\x09| temporary variable names |\x0a\x09statements";
-}, function($ctx1) {$ctx1.fill(self,"dummyMethodSource",{},smalltalk.Browser)})},
+},
 args: [],
 source: "dummyMethodSource\x0a\x09^ 'messageSelectorAndArgumentNames\x0a\x09\x22comment stating purpose of message\x22\x0a\x0a\x09| temporary variable names |\x0a\x09statements'",
 messageSends: [],
@@ -2514,7 +2492,6 @@ selector: "handleSourceAreaKeyDown:",
 protocol: 'actions',
 fn: function (anEvent){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 83) { //ctrl+s
 			self._compile();
@@ -2523,7 +2500,7 @@ if(anEvent.ctrlKey) {
 		}
 	}
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"handleSourceAreaKeyDown:",{anEvent:anEvent},smalltalk.Browser)})},
+return self},
 args: ["anEvent"],
 source: "handleSourceAreaKeyDown: anEvent\x0a\x09<if(anEvent.ctrlKey) {\x0a\x09\x09if(anEvent.keyCode === 83) { //ctrl+s\x0a\x09\x09\x09self._compile();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09}\x0a\x09>",
 messageSends: [],
@@ -3380,11 +3357,10 @@ selector: "selectedClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@selectedClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectedClass",{},smalltalk.Browser)})},
+},
 args: [],
 source: "selectedClass\x0a\x09^ selectedClass",
 messageSends: [],
@@ -3398,11 +3374,10 @@ selector: "selectedPackage",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@selectedPackage"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectedPackage",{},smalltalk.Browser)})},
+},
 args: [],
 source: "selectedPackage\x0a\x09^ selectedPackage",
 messageSends: [],
@@ -4083,9 +4058,8 @@ selector: "canBeClosed",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"canBeClosed",{},smalltalk.Debugger)})},
+},
 args: [],
 source: "canBeClosed\x0a\x09^ true",
 messageSends: [],
@@ -4099,11 +4073,10 @@ selector: "error",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@error"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"error",{},smalltalk.Debugger)})},
+},
 args: [],
 source: "error\x0a\x09^ error",
 messageSends: [],
@@ -4117,9 +4090,8 @@ selector: "error:",
 protocol: 'accessing',
 fn: function (anError){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@error"]=anError;
-return self}, function($ctx1) {$ctx1.fill(self,"error:",{anError:anError},smalltalk.Debugger)})},
+return self},
 args: ["anError"],
 source: "error: anError\x0a\x09error := anError",
 messageSends: [],
@@ -4166,9 +4138,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "[ Debugger ]";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.Debugger)})},
+},
 args: [],
 source: "label\x0a\x09^ '[ Debugger ]'",
 messageSends: [],
@@ -4734,9 +4705,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Transcript";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.IDETranscript)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Transcript'",
 messageSends: [],
@@ -4919,9 +4889,8 @@ selector: "canBeClosed",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"canBeClosed",{},smalltalk.Inspector)})},
+},
 args: [],
 source: "canBeClosed\x0a\x09^ true",
 messageSends: [],
@@ -5194,11 +5163,10 @@ selector: "selectedVariable",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@selectedVariable"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectedVariable",{},smalltalk.Inspector)})},
+},
 args: [],
 source: "selectedVariable\x0a\x09^ selectedVariable",
 messageSends: [],
@@ -5212,9 +5180,8 @@ selector: "selectedVariable:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@selectedVariable"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"selectedVariable:",{aString:aString},smalltalk.Inspector)})},
+return self},
 args: ["aString"],
 source: "selectedVariable: aString\x0a\x09selectedVariable := aString",
 messageSends: [],
@@ -5228,9 +5195,8 @@ selector: "setLabel:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@label"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"setLabel:",{aString:aString},smalltalk.Inspector)})},
+return self},
 args: ["aString"],
 source: "setLabel: aString\x0a\x09label := aString",
 messageSends: [],
@@ -5244,9 +5210,8 @@ selector: "setVariables:",
 protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@variables"]=aCollection;
-return self}, function($ctx1) {$ctx1.fill(self,"setVariables:",{aCollection:aCollection},smalltalk.Inspector)})},
+return self},
 args: ["aCollection"],
 source: "setVariables: aCollection\x0a\x09variables := aCollection",
 messageSends: [],
@@ -5260,11 +5225,10 @@ selector: "sourceArea",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@sourceArea"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sourceArea",{},smalltalk.Inspector)})},
+},
 args: [],
 source: "sourceArea\x0a\x09^ sourceArea",
 messageSends: [],
@@ -5369,11 +5333,10 @@ selector: "variables",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@variables"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"variables",{},smalltalk.Inspector)})},
+},
 args: [],
 source: "variables\x0a\x09^ variables",
 messageSends: [],
@@ -5456,9 +5419,8 @@ selector: "percent:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@percent"]=aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"percent:",{aNumber:aNumber},smalltalk.ProgressBar)})},
+return self},
 args: ["aNumber"],
 source: "percent: aNumber\x0a\x09percent := aNumber",
 messageSends: [],
@@ -5539,9 +5501,8 @@ selector: "canBeClosed",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"canBeClosed",{},smalltalk.ReferencesBrowser)})},
+},
 args: [],
 source: "canBeClosed\x0a\x09^ true",
 messageSends: [],
@@ -5621,9 +5582,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "[ References ]";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.ReferencesBrowser)})},
+},
 args: [],
 source: "label\x0a\x09^ '[ References ]'",
 messageSends: [],
@@ -5976,11 +5936,10 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@selector"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.ReferencesBrowser)})},
+},
 args: [],
 source: "selector\x0a\x09^ selector",
 messageSends: [],
@@ -6381,9 +6340,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "SUnit";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.TestRunner)})},
+},
 args: [],
 source: "label\x0a\x09^ 'SUnit'",
 messageSends: [],
@@ -6708,11 +6666,10 @@ selector: "result",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@result"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"result",{},smalltalk.TestRunner)})},
+},
 args: [],
 source: "result\x0a\x09^ result",
 messageSends: [],
@@ -7159,9 +7116,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Workspace";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.Workspace)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Workspace'",
 messageSends: [],

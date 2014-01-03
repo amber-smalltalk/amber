@@ -297,7 +297,6 @@ selector: "testNewWithValues",
 protocol: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 
 	function theTestPrototype() {this.name = "theTestPrototype";}
 	function theTestConstructor(arg1, arg2, arg3) {}
@@ -310,7 +309,7 @@ return smalltalk.withContext(function($ctx1) {
 	"newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made."
 	function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}
 	self._should_raise_(_st(constructionShouldFail), smalltalk.Error);;
-return self}, function($ctx1) {$ctx1.fill(self,"testNewWithValues",{},smalltalk.BlockClosureTest)})},
+return self},
 args: [],
 source: "testNewWithValues\x0a<\x0a\x09function theTestPrototype() {this.name = \x22theTestPrototype\x22;}\x0a\x09function theTestConstructor(arg1, arg2, arg3) {}\x0a\x09theTestConstructor.prototype = new theTestPrototype;\x0a\x0a\x09var theWrappedConstructor = _st(theTestConstructor);\x0a\x09var theResult = theWrappedConstructor._newWithValues_([1, 2, 3 ]);\x0a\x09self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}\x0a\x09self._should_raise_(_st(constructionShouldFail), smalltalk.Error);\x0a>",
 messageSends: [],
@@ -1362,9 +1361,8 @@ selector: "isCollectionReadOnly",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isCollectionReadOnly",{},smalltalk.CollectionTest)})},
+},
 args: [],
 source: "isCollectionReadOnly\x0a\x09^ false",
 messageSends: [],
@@ -1378,9 +1376,8 @@ selector: "sampleNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "N";
-}, function($ctx1) {$ctx1.fill(self,"sampleNewValue",{},smalltalk.CollectionTest)})},
+},
 args: [],
 source: "sampleNewValue\x0a\x09\x22Answers a value that is not yet there\x0a\x09and can be put into a tested collection\x22\x0a\x09\x0a\x09^ 'N'",
 messageSends: [],
@@ -2234,9 +2231,8 @@ selector: "collectionClass",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return nil;
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.CollectionTest.klass)})},
+},
 args: [],
 source: "collectionClass\x0a\x09\x22Answers class of collection type tested,\x0a\x09or nil if test is abstract\x22\x0a\x0a\x09^ nil",
 messageSends: [],
@@ -2757,9 +2753,8 @@ selector: "sampleNewIndex",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "new";
-}, function($ctx1) {$ctx1.fill(self,"sampleNewIndex",{},smalltalk.AssociativeCollectionTest)})},
+},
 args: [],
 source: "sampleNewIndex\x0a\x09^ 'new'",
 messageSends: [],
@@ -3241,9 +3236,8 @@ selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (4);
-}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},smalltalk.DictionaryTest)})},
+},
 args: [],
 source: "collectionSize\x0a\x09^ 4",
 messageSends: [],
@@ -3257,11 +3251,10 @@ selector: "collectionValues",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=[(1),(2),(3),(-4)];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionValues",{},smalltalk.DictionaryTest)})},
+},
 args: [],
 source: "collectionValues\x0a\x09^ {1. 2. 3. -4}",
 messageSends: [],
@@ -3471,9 +3464,8 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
 return $Dictionary();
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.DictionaryTest.klass)})},
+},
 args: [],
 source: "collectionClass\x0a\x09^ Dictionary",
 messageSends: [],
@@ -3513,11 +3505,10 @@ selector: "collectionKeys",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=["b","a","c","d"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},smalltalk.HashedCollectionTest)})},
+},
 args: [],
 source: "collectionKeys\x0a\x09^ { 'b'. 'a'. 'c'. 'd' }",
 messageSends: [],
@@ -3555,9 +3546,8 @@ selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (4);
-}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},smalltalk.HashedCollectionTest)})},
+},
 args: [],
 source: "collectionSize\x0a\x09^ 4",
 messageSends: [],
@@ -3571,11 +3561,10 @@ selector: "collectionValues",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=[(1),(2),(3),(-4)];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionValues",{},smalltalk.HashedCollectionTest)})},
+},
 args: [],
 source: "collectionValues\x0a\x09^ { 1. 2. 3. -4 }",
 messageSends: [],
@@ -3687,9 +3676,8 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
-return smalltalk.withContext(function($ctx1) { 
 return $HashedCollection();
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.HashedCollectionTest.klass)})},
+},
 args: [],
 source: "collectionClass\x0a\x09^ HashedCollection",
 messageSends: [],
@@ -4124,11 +4112,10 @@ selector: "collection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=[(1), (2), (3), (-4)];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.ArrayTest)})},
+},
 args: [],
 source: "collection\x0a\x09^ #(1 2 3 -4)",
 messageSends: [],
@@ -4142,9 +4129,8 @@ selector: "collectionFirst",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (1);
-}, function($ctx1) {$ctx1.fill(self,"collectionFirst",{},smalltalk.ArrayTest)})},
+},
 args: [],
 source: "collectionFirst\x0a\x09^ 1",
 messageSends: [],
@@ -4158,11 +4144,10 @@ selector: "collectionFirstTwo",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=[(1), (2)];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionFirstTwo",{},smalltalk.ArrayTest)})},
+},
 args: [],
 source: "collectionFirstTwo\x0a\x09^ #(1 2)",
 messageSends: [],
@@ -4176,9 +4161,8 @@ selector: "collectionLast",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (-4);
-}, function($ctx1) {$ctx1.fill(self,"collectionLast",{},smalltalk.ArrayTest)})},
+},
 args: [],
 source: "collectionLast\x0a\x09^ -4",
 messageSends: [],
@@ -4192,11 +4176,10 @@ selector: "collectionLastTwo",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=[(3), (-4)];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionLastTwo",{},smalltalk.ArrayTest)})},
+},
 args: [],
 source: "collectionLastTwo\x0a\x09^ #(3 -4)",
 messageSends: [],
@@ -4210,11 +4193,10 @@ selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=["1", "2", "3", "-4"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},smalltalk.ArrayTest)})},
+},
 args: [],
 source: "collectionOfPrintStrings\x0a\x09^ #('1' '2' '3' '-4')",
 messageSends: [],
@@ -4228,9 +4210,8 @@ selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (4);
-}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},smalltalk.ArrayTest)})},
+},
 args: [],
 source: "collectionSize\x0a\x09^ 4",
 messageSends: [],
@@ -4244,11 +4225,10 @@ selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=["a", "b", "c", (1), (2), (1), "a"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},smalltalk.ArrayTest)})},
+},
 args: [],
 source: "collectionWithDuplicates\x0a\x09^ #('a' 'b' 'c' 1 2 1 'a')",
 messageSends: [],
@@ -4262,11 +4242,10 @@ selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=[(1), (2), (3), (-4), "N"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},smalltalk.ArrayTest)})},
+},
 args: [],
 source: "collectionWithNewValue\x0a\x09^ #(1 2 3 -4 'N')",
 messageSends: [],
@@ -4280,9 +4259,8 @@ selector: "sampleNewIndex",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (5);
-}, function($ctx1) {$ctx1.fill(self,"sampleNewIndex",{},smalltalk.ArrayTest)})},
+},
 args: [],
 source: "sampleNewIndex\x0a\x09^ 5",
 messageSends: [],
@@ -4538,9 +4516,8 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { 
 return $Array();
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.ArrayTest.klass)})},
+},
 args: [],
 source: "collectionClass\x0a\x09^ Array",
 messageSends: [],
@@ -4556,9 +4533,8 @@ selector: "collection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "helLo";
-}, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.StringTest)})},
+},
 args: [],
 source: "collection\x0a\x09^ 'helLo'",
 messageSends: [],
@@ -4572,9 +4548,8 @@ selector: "collectionFirst",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "h";
-}, function($ctx1) {$ctx1.fill(self,"collectionFirst",{},smalltalk.StringTest)})},
+},
 args: [],
 source: "collectionFirst\x0a\x09^ 'h'",
 messageSends: [],
@@ -4588,9 +4563,8 @@ selector: "collectionFirstTwo",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "he";
-}, function($ctx1) {$ctx1.fill(self,"collectionFirstTwo",{},smalltalk.StringTest)})},
+},
 args: [],
 source: "collectionFirstTwo\x0a\x09^ 'he'",
 messageSends: [],
@@ -4604,9 +4578,8 @@ selector: "collectionLast",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "o";
-}, function($ctx1) {$ctx1.fill(self,"collectionLast",{},smalltalk.StringTest)})},
+},
 args: [],
 source: "collectionLast\x0a\x09^ 'o'",
 messageSends: [],
@@ -4620,9 +4593,8 @@ selector: "collectionLastTwo",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Lo";
-}, function($ctx1) {$ctx1.fill(self,"collectionLastTwo",{},smalltalk.StringTest)})},
+},
 args: [],
 source: "collectionLastTwo\x0a\x09^ 'Lo'",
 messageSends: [],
@@ -4636,9 +4608,8 @@ selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "'h''e''l''L''o'";
-}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},smalltalk.StringTest)})},
+},
 args: [],
 source: "collectionOfPrintStrings\x0a\x09^ '''h''''e''''l''''L''''o'''",
 messageSends: [],
@@ -4652,9 +4623,8 @@ selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (5);
-}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},smalltalk.StringTest)})},
+},
 args: [],
 source: "collectionSize\x0a\x09^ 5",
 messageSends: [],
@@ -4668,9 +4638,8 @@ selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "abbaerte";
-}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},smalltalk.StringTest)})},
+},
 args: [],
 source: "collectionWithDuplicates\x0a\x09^ 'abbaerte'",
 messageSends: [],
@@ -4684,9 +4653,8 @@ selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "helLoN";
-}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},smalltalk.StringTest)})},
+},
 args: [],
 source: "collectionWithNewValue\x0a\x09^ 'helLoN'",
 messageSends: [],
@@ -4700,9 +4668,8 @@ selector: "sampleNewValueAsCollection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "N";
-}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},smalltalk.StringTest)})},
+},
 args: [],
 source: "sampleNewValueAsCollection\x0a\x09^ 'N'",
 messageSends: [],
@@ -5139,8 +5106,7 @@ selector: "testIndexOfStartingAtWithNull",
 protocol: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAtWithNull",{},smalltalk.StringTest)})},
+return self},
 args: [],
 source: "testIndexOfStartingAtWithNull\x0a\x09\x22String cannot hold JS null\x22",
 messageSends: [],
@@ -5154,8 +5120,7 @@ selector: "testIndexOfWithNull",
 protocol: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"testIndexOfWithNull",{},smalltalk.StringTest)})},
+return self},
 args: [],
 source: "testIndexOfWithNull\x0a\x09\x22String cannot hold JS null\x22",
 messageSends: [],
@@ -5306,9 +5271,8 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { 
 return $String();
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.StringTest.klass)})},
+},
 args: [],
 source: "collectionClass\x0a\x09^ String",
 messageSends: [],
@@ -5381,9 +5345,8 @@ selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (4);
-}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},smalltalk.SetTest)})},
+},
 args: [],
 source: "collectionSize\x0a\x09^ 4",
 messageSends: [],
@@ -5769,9 +5732,8 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
-return smalltalk.withContext(function($ctx1) { 
 return $Set();
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.SetTest.klass)})},
+},
 args: [],
 source: "collectionClass\x0a\x09^ Set",
 messageSends: [],
@@ -5823,9 +5785,8 @@ selector: "jsObject",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0};
-return self}, function($ctx1) {$ctx1.fill(self,"jsObject",{},smalltalk.JSObjectProxyTest)})},
+return self},
 args: [],
 source: "jsObject\x0a\x09<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0}>",
 messageSends: [],
@@ -6263,9 +6224,8 @@ selector: "throwException",
 protocol: 'helpers',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 throw 'test';
-return self}, function($ctx1) {$ctx1.fill(self,"throwException",{},smalltalk.JavaScriptExceptionTest)})},
+return self},
 args: [],
 source: "throwException\x0a\x09<throw 'test'>",
 messageSends: [],
@@ -6338,9 +6298,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $CodeGenerator(){return smalltalk.CodeGenerator||(typeof CodeGenerator=="undefined"?nil:CodeGenerator)}
-return smalltalk.withContext(function($ctx1) { 
 return $CodeGenerator();
-}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{},smalltalk.MethodInheritanceTest)})},
+},
 args: [],
 source: "codeGeneratorClass\x0a\x09^ CodeGenerator",
 messageSends: [],
@@ -6628,9 +6587,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $JavaScriptException(){return smalltalk.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
-return smalltalk.withContext(function($ctx1) { 
 return $JavaScriptException();
-}, function($ctx1) {$ctx1.fill(self,"targetClassBottom",{},smalltalk.MethodInheritanceTest)})},
+},
 args: [],
 source: "targetClassBottom\x0a\x09^ JavaScriptException",
 messageSends: [],
@@ -6645,9 +6603,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
-return smalltalk.withContext(function($ctx1) { 
 return $Error();
-}, function($ctx1) {$ctx1.fill(self,"targetClassMiddle",{},smalltalk.MethodInheritanceTest)})},
+},
 args: [],
 source: "targetClassMiddle\x0a\x09^ Error",
 messageSends: [],
@@ -6662,9 +6619,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
-return smalltalk.withContext(function($ctx1) { 
 return $Object();
-}, function($ctx1) {$ctx1.fill(self,"targetClassTop",{},smalltalk.MethodInheritanceTest)})},
+},
 args: [],
 source: "targetClassTop\x0a\x09^ Object",
 messageSends: [],
@@ -7722,11 +7678,10 @@ selector: "foo",
 protocol: 'not yet classified',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@foo"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"foo",{},smalltalk.ObjectMock)})},
+},
 args: [],
 source: "foo\x0a\x09^ foo",
 messageSends: [],
@@ -7740,9 +7695,8 @@ selector: "foo:",
 protocol: 'not yet classified',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@foo"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"foo:",{anObject:anObject},smalltalk.ObjectMock)})},
+return self},
 args: ["anObject"],
 source: "foo: anObject\x0a\x09foo := anObject",
 messageSends: [],
@@ -7759,9 +7713,8 @@ selector: "notDefined",
 protocol: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return void 0;;
-return self}, function($ctx1) {$ctx1.fill(self,"notDefined",{},smalltalk.ObjectTest)})},
+return self},
 args: [],
 source: "notDefined\x0a\x09<return void 0;>",
 messageSends: [],
@@ -8676,8 +8629,7 @@ selector: "testStreamContents",
 protocol: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"testStreamContents",{},smalltalk.StreamTest)})},
+return self},
 args: [],
 source: "testStreamContents",
 messageSends: [],
@@ -8746,9 +8698,8 @@ selector: "collectionClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return nil;
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.StreamTest.klass)})},
+},
 args: [],
 source: "collectionClass\x0a\x09^ nil",
 messageSends: [],
@@ -8802,9 +8753,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { 
 return $Array();
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.ArrayStreamTest.klass)})},
+},
 args: [],
 source: "collectionClass\x0a\x09^ Array",
 messageSends: [],
@@ -8820,9 +8770,8 @@ selector: "newCollection",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "hello world";
-}, function($ctx1) {$ctx1.fill(self,"newCollection",{},smalltalk.StringStreamTest)})},
+},
 args: [],
 source: "newCollection\x0a\x09^ 'hello world'",
 messageSends: [],
@@ -8838,9 +8787,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { 
 return $String();
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.StringStreamTest.klass)})},
+},
 args: [],
 source: "collectionClass\x0a\x09^ String",
 messageSends: [],

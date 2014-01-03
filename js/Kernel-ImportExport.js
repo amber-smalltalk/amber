@@ -1113,11 +1113,10 @@ selector: "last",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@last"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"last",{},smalltalk.ChunkParser)})},
+},
 args: [],
 source: "last\x0a\x09^ last",
 messageSends: [],
@@ -1178,9 +1177,8 @@ selector: "stream:",
 protocol: 'accessing',
 fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@stream"]=aStream;
-return self}, function($ctx1) {$ctx1.fill(self,"stream:",{aStream:aStream},smalltalk.ChunkParser)})},
+return self},
 args: ["aStream"],
 source: "stream: aStream\x0a\x09stream := aStream",
 messageSends: [],
@@ -1239,11 +1237,10 @@ selector: "name",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@name"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"name",{},smalltalk.ExportMethodProtocol)})},
+},
 args: [],
 source: "name\x0a\x09^ name",
 messageSends: [],
@@ -1257,9 +1254,8 @@ selector: "name:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@name"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},smalltalk.ExportMethodProtocol)})},
+return self},
 args: ["aString"],
 source: "name: aString\x0a\x09name := aString",
 messageSends: [],
@@ -1273,11 +1269,10 @@ selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@theClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.ExportMethodProtocol)})},
+},
 args: [],
 source: "theClass\x0a\x09^ theClass",
 messageSends: [],
@@ -1291,9 +1286,8 @@ selector: "theClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@theClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.ExportMethodProtocol)})},
+return self},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
 messageSends: [],
@@ -1391,11 +1385,10 @@ selector: "lastChunk",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@lastChunk"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"lastChunk",{},smalltalk.Importer)})},
+},
 args: [],
 source: "lastChunk\x0a\x09^ lastChunk",
 messageSends: [],
@@ -1409,11 +1402,10 @@ selector: "lastSection",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@lastSection"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"lastSection",{},smalltalk.Importer)})},
+},
 args: [],
 source: "lastSection\x0a\x09^ lastSection",
 messageSends: [],
@@ -1507,9 +1499,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $ChunkExporter(){return smalltalk.ChunkExporter||(typeof ChunkExporter=="undefined"?nil:ChunkExporter)}
-return smalltalk.withContext(function($ctx1) { 
 return $ChunkExporter();
-}, function($ctx1) {$ctx1.fill(self,"chunkExporterClass",{},smalltalk.PackageHandler)})},
+},
 args: [],
 source: "chunkExporterClass\x0a\x09^ ChunkExporter",
 messageSends: [],
@@ -1663,9 +1654,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Exporter(){return smalltalk.Exporter||(typeof Exporter=="undefined"?nil:Exporter)}
-return smalltalk.withContext(function($ctx1) { 
 return $Exporter();
-}, function($ctx1) {$ctx1.fill(self,"exporterClass",{},smalltalk.PackageHandler)})},
+},
 args: [],
 source: "exporterClass\x0a\x09^ Exporter",
 messageSends: [],
@@ -1736,9 +1726,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $AmdExporter(){return smalltalk.AmdExporter||(typeof AmdExporter=="undefined"?nil:AmdExporter)}
-return smalltalk.withContext(function($ctx1) { 
 return $AmdExporter();
-}, function($ctx1) {$ctx1.fill(self,"exporterClass",{},smalltalk.AmdPackageHandler)})},
+},
 args: [],
 source: "exporterClass\x0a\x09^ AmdExporter",
 messageSends: [],
@@ -1933,9 +1922,8 @@ selector: "definition",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "";
-}, function($ctx1) {$ctx1.fill(self,"definition",{},smalltalk.PackageTransport)})},
+},
 args: [],
 source: "definition\x0a\x09^ ''",
 messageSends: [],
@@ -1965,11 +1953,10 @@ selector: "package",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@package"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"package",{},smalltalk.PackageTransport)})},
+},
 args: [],
 source: "package\x0a\x09^ package",
 messageSends: [],
@@ -1983,9 +1970,8 @@ selector: "package:",
 protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@package"]=aPackage;
-return self}, function($ctx1) {$ctx1.fill(self,"package:",{aPackage:aPackage},smalltalk.PackageTransport)})},
+return self},
 args: ["aPackage"],
 source: "package: aPackage\x0a\x09package := aPackage",
 messageSends: [],
@@ -1999,8 +1985,7 @@ selector: "setupFromJson:",
 protocol: 'initialization',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"setupFromJson:",{anObject:anObject},smalltalk.PackageTransport)})},
+return self},
 args: ["anObject"],
 source: "setupFromJson: anObject\x0a\x09\x22no op. override if needed in subclasses\x22",
 messageSends: [],
@@ -2175,9 +2160,8 @@ selector: "type",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return nil;
-}, function($ctx1) {$ctx1.fill(self,"type",{},smalltalk.PackageTransport.klass)})},
+},
 args: [],
 source: "type\x0a\x09\x22Override in subclasses\x22\x0a\x09^ nil",
 messageSends: [],
@@ -2216,9 +2200,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $AmdPackageHandler(){return smalltalk.AmdPackageHandler||(typeof AmdPackageHandler=="undefined"?nil:AmdPackageHandler)}
-return smalltalk.withContext(function($ctx1) { 
 return $AmdPackageHandler();
-}, function($ctx1) {$ctx1.fill(self,"commitHandlerClass",{},smalltalk.AmdPackageTransport)})},
+},
 args: [],
 source: "commitHandlerClass\x0a\x09^ AmdPackageHandler",
 messageSends: [],
@@ -2303,9 +2286,8 @@ selector: "namespace:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@namespace"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"namespace:",{aString:aString},smalltalk.AmdPackageTransport)})},
+return self},
 args: ["aString"],
 source: "namespace: aString\x0a\x09namespace := aString",
 messageSends: [],
@@ -2379,9 +2361,8 @@ selector: "type",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "amd";
-}, function($ctx1) {$ctx1.fill(self,"type",{},smalltalk.AmdPackageTransport.klass)})},
+},
 args: [],
 source: "type\x0a\x09^ 'amd'",
 messageSends: [],

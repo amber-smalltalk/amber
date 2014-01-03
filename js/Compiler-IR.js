@@ -101,11 +101,10 @@ selector: "method",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@method"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.IRASTTranslator)})},
+},
 args: [],
 source: "method\x0a\x09^ method",
 messageSends: [],
@@ -119,9 +118,8 @@ selector: "method:",
 protocol: 'accessing',
 fn: function (anIRMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@method"]=anIRMethod;
-return self}, function($ctx1) {$ctx1.fill(self,"method:",{anIRMethod:anIRMethod},smalltalk.IRASTTranslator)})},
+return self},
 args: ["anIRMethod"],
 source: "method: anIRMethod\x0a\x09method := anIRMethod",
 messageSends: [],
@@ -161,11 +159,10 @@ selector: "sequence",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@sequence"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sequence",{},smalltalk.IRASTTranslator)})},
+},
 args: [],
 source: "sequence\x0a\x09^ sequence",
 messageSends: [],
@@ -179,9 +176,8 @@ selector: "sequence:",
 protocol: 'accessing',
 fn: function (anIRSequence){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@sequence"]=anIRSequence;
-return self}, function($ctx1) {$ctx1.fill(self,"sequence:",{anIRSequence:anIRSequence},smalltalk.IRASTTranslator)})},
+return self},
 args: ["anIRSequence"],
 source: "sequence: anIRSequence\x0a\x09sequence := anIRSequence",
 messageSends: [],
@@ -195,11 +191,10 @@ selector: "source",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@source"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.IRASTTranslator)})},
+},
 args: [],
 source: "source\x0a\x09^ source",
 messageSends: [],
@@ -213,9 +208,8 @@ selector: "source:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@source"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString},smalltalk.IRASTTranslator)})},
+return self},
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
 messageSends: [],
@@ -229,11 +223,10 @@ selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@theClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.IRASTTranslator)})},
+},
 args: [],
 source: "theClass\x0a\x09^ theClass",
 messageSends: [],
@@ -247,9 +240,8 @@ selector: "theClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@theClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.IRASTTranslator)})},
+return self},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
 messageSends: [],
@@ -544,6 +536,7 @@ _st($2)._arguments_(_st(aNode)._arguments());
 _st($2)._selector_(_st(aNode)._selector());
 _st($2)._sendIndexes_(_st(aNode)._sendIndexes());
 _st($2)._superSends_(_st(aNode)._superSends());
+_st($2)._requiresSmalltalkContext_(_st(aNode)._requiresSmalltalkContext());
 _st($2)._classReferences_(_st(aNode)._classReferences());
 $3=$2;
 $4=_st(aNode)._scope();
@@ -601,8 +594,8 @@ $22=self._method();
 return $22;
 }, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},smalltalk.IRASTTranslator)})},
 args: ["aNode"],
-source: "visitMethodNode: aNode\x0a\x0a\x09self method: (IRMethod new\x0a\x09\x09source: self source crlfSanitized;\x0a\x09\x09theClass: self theClass;\x0a\x09\x09arguments: aNode arguments;\x0a\x09\x09selector: aNode selector;\x0a\x09\x09sendIndexes: aNode sendIndexes;\x0a\x09\x09superSends: aNode superSends;\x0a\x09\x09classReferences: aNode classReferences;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself).\x0a\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09self method add: (IRTempDeclaration new\x0a\x09\x09\x09name: each name;\x0a\x09\x09\x09scope: aNode scope;\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09aNode nodes do: [ :each | self method add: (self visit: each) ].\x0a\x0a\x09aNode scope hasLocalReturn ifFalse: [\x0a\x09\x09(self method add: IRReturn new) add: (IRVariable new\x0a\x09\x09\x09variable: (aNode scope pseudoVars at: 'self');\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09^ self method",
-messageSends: ["method:", "source:", "new", "crlfSanitized", "source", "theClass:", "theClass", "arguments:", "arguments", "selector:", "selector", "sendIndexes:", "sendIndexes", "superSends:", "superSends", "classReferences:", "classReferences", "scope:", "scope", "yourself", "do:", "temps", "add:", "method", "name:", "name", "nodes", "visit:", "ifFalse:", "hasLocalReturn", "variable:", "at:", "pseudoVars"],
+source: "visitMethodNode: aNode\x0a\x0a\x09self method: (IRMethod new\x0a\x09\x09source: self source crlfSanitized;\x0a\x09\x09theClass: self theClass;\x0a\x09\x09arguments: aNode arguments;\x0a\x09\x09selector: aNode selector;\x0a\x09\x09sendIndexes: aNode sendIndexes;\x0a\x09\x09superSends: aNode superSends;\x0a\x09\x09requiresSmalltalkContext: aNode requiresSmalltalkContext;\x0a\x09\x09classReferences: aNode classReferences;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself).\x0a\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09self method add: (IRTempDeclaration new\x0a\x09\x09\x09name: each name;\x0a\x09\x09\x09scope: aNode scope;\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09aNode nodes do: [ :each | self method add: (self visit: each) ].\x0a\x0a\x09aNode scope hasLocalReturn ifFalse: [\x0a\x09\x09(self method add: IRReturn new) add: (IRVariable new\x0a\x09\x09\x09variable: (aNode scope pseudoVars at: 'self');\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09^ self method",
+messageSends: ["method:", "source:", "new", "crlfSanitized", "source", "theClass:", "theClass", "arguments:", "arguments", "selector:", "selector", "sendIndexes:", "sendIndexes", "superSends:", "superSends", "requiresSmalltalkContext:", "requiresSmalltalkContext", "classReferences:", "classReferences", "scope:", "scope", "yourself", "do:", "temps", "add:", "method", "name:", "name", "nodes", "visit:", "ifFalse:", "hasLocalReturn", "variable:", "at:", "pseudoVars"],
 referencedClasses: ["IRMethod", "IRTempDeclaration", "IRReturn", "IRVariable"]
 }),
 smalltalk.IRASTTranslator);
@@ -844,9 +837,8 @@ selector: "canBeAssigned",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"canBeAssigned",{},smalltalk.IRInstruction)})},
+},
 args: [],
 source: "canBeAssigned\x0a\x09^ true",
 messageSends: [],
@@ -885,9 +877,8 @@ selector: "isClosure",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isClosure",{},smalltalk.IRInstruction)})},
+},
 args: [],
 source: "isClosure\x0a\x09^ false",
 messageSends: [],
@@ -901,9 +892,8 @@ selector: "isInlined",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isInlined",{},smalltalk.IRInstruction)})},
+},
 args: [],
 source: "isInlined\x0a\x09^ false",
 messageSends: [],
@@ -917,9 +907,8 @@ selector: "isLocalReturn",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isLocalReturn",{},smalltalk.IRInstruction)})},
+},
 args: [],
 source: "isLocalReturn\x0a\x09^ false",
 messageSends: [],
@@ -933,9 +922,8 @@ selector: "isMethod",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isMethod",{},smalltalk.IRInstruction)})},
+},
 args: [],
 source: "isMethod\x0a\x09^ false",
 messageSends: [],
@@ -949,9 +937,8 @@ selector: "isReturn",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isReturn",{},smalltalk.IRInstruction)})},
+},
 args: [],
 source: "isReturn\x0a\x09^ false",
 messageSends: [],
@@ -965,9 +952,8 @@ selector: "isSend",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isSend",{},smalltalk.IRInstruction)})},
+},
 args: [],
 source: "isSend\x0a\x09^ false",
 messageSends: [],
@@ -981,9 +967,8 @@ selector: "isSequence",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isSequence",{},smalltalk.IRInstruction)})},
+},
 args: [],
 source: "isSequence\x0a\x09^ false",
 messageSends: [],
@@ -997,9 +982,8 @@ selector: "isTempDeclaration",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isTempDeclaration",{},smalltalk.IRInstruction)})},
+},
 args: [],
 source: "isTempDeclaration\x0a\x09^ false",
 messageSends: [],
@@ -1013,9 +997,8 @@ selector: "isVariable",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isVariable",{},smalltalk.IRInstruction)})},
+},
 args: [],
 source: "isVariable\x0a\x09^ false",
 messageSends: [],
@@ -1047,9 +1030,8 @@ selector: "needsBoxingAsReceiver",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"needsBoxingAsReceiver",{},smalltalk.IRInstruction)})},
+},
 args: [],
 source: "needsBoxingAsReceiver\x0a\x09^ true",
 messageSends: [],
@@ -1063,11 +1045,10 @@ selector: "parent",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@parent"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parent",{},smalltalk.IRInstruction)})},
+},
 args: [],
 source: "parent\x0a\x09^ parent",
 messageSends: [],
@@ -1081,9 +1062,8 @@ selector: "parent:",
 protocol: 'accessing',
 fn: function (anIRInstruction){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@parent"]=anIRInstruction;
-return self}, function($ctx1) {$ctx1.fill(self,"parent:",{anIRInstruction:anIRInstruction},smalltalk.IRInstruction)})},
+return self},
 args: ["anIRInstruction"],
 source: "parent: anIRInstruction\x0a\x09parent := anIRInstruction",
 messageSends: [],
@@ -1277,11 +1257,10 @@ selector: "scope",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@scope"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"scope",{},smalltalk.IRScopedInstruction)})},
+},
 args: [],
 source: "scope\x0a\x09^ scope",
 messageSends: [],
@@ -1295,9 +1274,8 @@ selector: "scope:",
 protocol: 'accessing',
 fn: function (aScope){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@scope"]=aScope;
-return self}, function($ctx1) {$ctx1.fill(self,"scope:",{aScope:aScope},smalltalk.IRScopedInstruction)})},
+return self},
 args: ["aScope"],
 source: "scope: aScope\x0a\x09scope := aScope",
 messageSends: [],
@@ -1337,9 +1315,8 @@ selector: "arguments:",
 protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@arguments"]=aCollection;
-return self}, function($ctx1) {$ctx1.fill(self,"arguments:",{aCollection:aCollection},smalltalk.IRClosureInstruction)})},
+return self},
 args: ["aCollection"],
 source: "arguments: aCollection\x0a\x09arguments := aCollection",
 messageSends: [],
@@ -1436,9 +1413,8 @@ selector: "isClosure",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isClosure",{},smalltalk.IRClosure)})},
+},
 args: [],
 source: "isClosure\x0a\x09^ true",
 messageSends: [],
@@ -1466,7 +1442,7 @@ smalltalk.IRClosure);
 
 
 
-smalltalk.addClass('IRMethod', smalltalk.IRClosureInstruction, ['theClass', 'source', 'selector', 'classReferences', 'sendIndexes', 'superSends', 'internalVariables'], 'Compiler-IR');
+smalltalk.addClass('IRMethod', smalltalk.IRClosureInstruction, ['theClass', 'source', 'selector', 'classReferences', 'sendIndexes', 'superSends', 'requiresSmalltalkContext', 'internalVariables'], 'Compiler-IR');
 smalltalk.IRMethod.comment="I am a method instruction";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1492,11 +1468,10 @@ selector: "classReferences",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@classReferences"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"classReferences",{},smalltalk.IRMethod)})},
+},
 args: [],
 source: "classReferences\x0a\x09^ classReferences",
 messageSends: [],
@@ -1510,9 +1485,8 @@ selector: "classReferences:",
 protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@classReferences"]=aCollection;
-return self}, function($ctx1) {$ctx1.fill(self,"classReferences:",{aCollection:aCollection},smalltalk.IRMethod)})},
+return self},
 args: ["aCollection"],
 source: "classReferences: aCollection\x0a\x09classReferences := aCollection",
 messageSends: [],
@@ -1551,9 +1525,8 @@ selector: "isMethod",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isMethod",{},smalltalk.IRMethod)})},
+},
 args: [],
 source: "isMethod\x0a\x09^ true",
 messageSends: [],
@@ -1585,11 +1558,48 @@ selector: "method",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return self;
-}, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.IRMethod)})},
+},
 args: [],
 source: "method\x0a\x09^ self",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IRMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "requiresSmalltalkContext",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@requiresSmalltalkContext"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=false;
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"requiresSmalltalkContext",{},smalltalk.IRMethod)})},
+args: [],
+source: "requiresSmalltalkContext\x0a\x09^ requiresSmalltalkContext ifNil: [ false ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.IRMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "requiresSmalltalkContext:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@requiresSmalltalkContext"]=anObject;
+return self},
+args: ["anObject"],
+source: "requiresSmalltalkContext: anObject\x0a\x09requiresSmalltalkContext := anObject",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1601,11 +1611,10 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@selector"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.IRMethod)})},
+},
 args: [],
 source: "selector\x0a\x09^ selector",
 messageSends: [],
@@ -1619,9 +1628,8 @@ selector: "selector:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@selector"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},smalltalk.IRMethod)})},
+return self},
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
 messageSends: [],
@@ -1635,11 +1643,10 @@ selector: "sendIndexes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@sendIndexes"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sendIndexes",{},smalltalk.IRMethod)})},
+},
 args: [],
 source: "sendIndexes\x0a\x09^ sendIndexes",
 messageSends: [],
@@ -1653,9 +1660,8 @@ selector: "sendIndexes:",
 protocol: 'accessing',
 fn: function (aDictionary){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@sendIndexes"]=aDictionary;
-return self}, function($ctx1) {$ctx1.fill(self,"sendIndexes:",{aDictionary:aDictionary},smalltalk.IRMethod)})},
+return self},
 args: ["aDictionary"],
 source: "sendIndexes: aDictionary\x0a\x09sendIndexes := aDictionary",
 messageSends: [],
@@ -1669,11 +1675,10 @@ selector: "source",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@source"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.IRMethod)})},
+},
 args: [],
 source: "source\x0a\x09^ source",
 messageSends: [],
@@ -1687,9 +1692,8 @@ selector: "source:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@source"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString},smalltalk.IRMethod)})},
+return self},
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
 messageSends: [],
@@ -1703,11 +1707,10 @@ selector: "superSends",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@superSends"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"superSends",{},smalltalk.IRMethod)})},
+},
 args: [],
 source: "superSends\x0a\x09^ superSends",
 messageSends: [],
@@ -1721,9 +1724,8 @@ selector: "superSends:",
 protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@superSends"]=aCollection;
-return self}, function($ctx1) {$ctx1.fill(self,"superSends:",{aCollection:aCollection},smalltalk.IRMethod)})},
+return self},
 args: ["aCollection"],
 source: "superSends: aCollection\x0a\x09superSends := aCollection",
 messageSends: [],
@@ -1737,11 +1739,10 @@ selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@theClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.IRMethod)})},
+},
 args: [],
 source: "theClass\x0a\x09^ theClass",
 messageSends: [],
@@ -1755,9 +1756,8 @@ selector: "theClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@theClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.IRMethod)})},
+return self},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
 messageSends: [],
@@ -1793,9 +1793,8 @@ selector: "canBeAssigned",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"canBeAssigned",{},smalltalk.IRReturn)})},
+},
 args: [],
 source: "canBeAssigned\x0a\x09^ false",
 messageSends: [],
@@ -1809,9 +1808,8 @@ selector: "isBlockReturn",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isBlockReturn",{},smalltalk.IRReturn)})},
+},
 args: [],
 source: "isBlockReturn\x0a\x09^ false",
 messageSends: [],
@@ -1825,9 +1823,8 @@ selector: "isLocalReturn",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isLocalReturn",{},smalltalk.IRReturn)})},
+},
 args: [],
 source: "isLocalReturn\x0a\x09^ true",
 messageSends: [],
@@ -1859,9 +1856,8 @@ selector: "isReturn",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isReturn",{},smalltalk.IRReturn)})},
+},
 args: [],
 source: "isReturn\x0a\x09^ true",
 messageSends: [],
@@ -1920,9 +1916,8 @@ selector: "isBlockReturn",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isBlockReturn",{},smalltalk.IRBlockReturn)})},
+},
 args: [],
 source: "isBlockReturn\x0a\x09^ true",
 messageSends: [],
@@ -1958,9 +1953,8 @@ selector: "isLocalReturn",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"isLocalReturn",{},smalltalk.IRNonLocalReturn)})},
+},
 args: [],
 source: "isLocalReturn\x0a\x09^ false",
 messageSends: [],
@@ -1995,9 +1989,8 @@ selector: "isTempDeclaration",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isTempDeclaration",{},smalltalk.IRTempDeclaration)})},
+},
 args: [],
 source: "isTempDeclaration\x0a\x09^ true",
 messageSends: [],
@@ -2011,11 +2004,10 @@ selector: "name",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@name"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"name",{},smalltalk.IRTempDeclaration)})},
+},
 args: [],
 source: "name\x0a\x09^ name",
 messageSends: [],
@@ -2029,9 +2021,8 @@ selector: "name:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@name"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},smalltalk.IRTempDeclaration)})},
+return self},
 args: ["aString"],
 source: "name: aString\x0a\x09name := aString",
 messageSends: [],
@@ -2067,11 +2058,10 @@ selector: "classSend",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@classSend"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"classSend",{},smalltalk.IRSend)})},
+},
 args: [],
 source: "classSend\x0a\x09^ classSend",
 messageSends: [],
@@ -2085,9 +2075,8 @@ selector: "classSend:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@classSend"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"classSend:",{aClass:aClass},smalltalk.IRSend)})},
+return self},
 args: ["aClass"],
 source: "classSend: aClass\x0a\x09classSend := aClass",
 messageSends: [],
@@ -2101,11 +2090,10 @@ selector: "index",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@index"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"index",{},smalltalk.IRSend)})},
+},
 args: [],
 source: "index\x0a\x09^ index",
 messageSends: [],
@@ -2119,9 +2107,8 @@ selector: "index:",
 protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@index"]=anInteger;
-return self}, function($ctx1) {$ctx1.fill(self,"index:",{anInteger:anInteger},smalltalk.IRSend)})},
+return self},
 args: ["anInteger"],
 source: "index: anInteger\x0a\x09index := anInteger",
 messageSends: [],
@@ -2135,9 +2122,8 @@ selector: "isSend",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isSend",{},smalltalk.IRSend)})},
+},
 args: [],
 source: "isSend\x0a\x09^ true",
 messageSends: [],
@@ -2151,11 +2137,10 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@selector"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.IRSend)})},
+},
 args: [],
 source: "selector\x0a\x09^ selector",
 messageSends: [],
@@ -2169,9 +2154,8 @@ selector: "selector:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@selector"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},smalltalk.IRSend)})},
+return self},
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
 messageSends: [],
@@ -2206,9 +2190,8 @@ selector: "isSequence",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isSequence",{},smalltalk.IRSequence)})},
+},
 args: [],
 source: "isSequence\x0a\x09^ true",
 messageSends: [],
@@ -2265,9 +2248,8 @@ selector: "needsBoxingAsReceiver",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"needsBoxingAsReceiver",{},smalltalk.IRValue)})},
+},
 args: [],
 source: "needsBoxingAsReceiver\x0a\x09^ false",
 messageSends: [],
@@ -2281,11 +2263,10 @@ selector: "value",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@value"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.IRValue)})},
+},
 args: [],
 source: "value\x0a\x09^ value",
 messageSends: [],
@@ -2299,9 +2280,8 @@ selector: "value:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@value"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"value:",{aString:aString},smalltalk.IRValue)})},
+return self},
 args: ["aString"],
 source: "value: aString\x0a\x09value := aString",
 messageSends: [],
@@ -2337,9 +2317,8 @@ selector: "isVariable",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isVariable",{},smalltalk.IRVariable)})},
+},
 args: [],
 source: "isVariable\x0a\x09^ true",
 messageSends: [],
@@ -2371,11 +2350,10 @@ selector: "variable",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@variable"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"variable",{},smalltalk.IRVariable)})},
+},
 args: [],
 source: "variable\x0a\x09^ variable",
 messageSends: [],
@@ -2389,9 +2367,8 @@ selector: "variable:",
 protocol: 'accessing',
 fn: function (aScopeVariable){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@variable"]=aScopeVariable;
-return self}, function($ctx1) {$ctx1.fill(self,"variable:",{aScopeVariable:aScopeVariable},smalltalk.IRVariable)})},
+return self},
 args: ["aScopeVariable"],
 source: "variable: aScopeVariable\x0a\x09variable := aScopeVariable",
 messageSends: [],
@@ -2426,11 +2403,10 @@ selector: "source",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@source"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.IRVerbatim)})},
+},
 args: [],
 source: "source\x0a\x09^ source",
 messageSends: [],
@@ -2444,9 +2420,8 @@ selector: "source:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@source"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString},smalltalk.IRVerbatim)})},
+return self},
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
 messageSends: [],
@@ -2846,11 +2821,10 @@ selector: "currentClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@currentClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"currentClass",{},smalltalk.IRJSTranslator)})},
+},
 args: [],
 source: "currentClass\x0a\x09^ currentClass",
 messageSends: [],
@@ -2864,9 +2838,8 @@ selector: "currentClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@currentClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"currentClass:",{aClass:aClass},smalltalk.IRJSTranslator)})},
+return self},
 args: ["aClass"],
 source: "currentClass: aClass\x0a\x09currentClass := aClass",
 messageSends: [],
@@ -2898,11 +2871,10 @@ selector: "stream",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@stream"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"stream",{},smalltalk.IRJSTranslator)})},
+},
 args: [],
 source: "stream\x0a\x09^ stream",
 messageSends: [],
@@ -2916,9 +2888,8 @@ selector: "stream:",
 protocol: 'accessing',
 fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@stream"]=aStream;
-return self}, function($ctx1) {$ctx1.fill(self,"stream:",{aStream:aStream},smalltalk.IRJSTranslator)})},
+return self},
 args: ["aStream"],
 source: "stream: aStream\x0a\x09stream := aStream",
 messageSends: [],
@@ -3207,8 +3178,7 @@ selector: "visitIRTempDeclaration:",
 protocol: 'visiting',
 fn: function (anIRTempDeclaration){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"visitIRTempDeclaration:",{anIRTempDeclaration:anIRTempDeclaration},smalltalk.IRJSTranslator)})},
+return self},
 args: ["anIRTempDeclaration"],
 source: "visitIRTempDeclaration: anIRTempDeclaration\x0a\x09\x22self stream\x0a\x09\x09nextPutAll: 'var ', anIRTempDeclaration name asVariableName, ';';\x0a\x09\x09lf\x22",
 messageSends: [],
@@ -3643,63 +3613,69 @@ protocol: 'streaming',
 fn: function (aMethod,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1,$5,$10,$9,$8,$7,$6,$14,$13,$12,$11,$15,$16,$17;
-$4=_st(aMethod)._scope();
+var $1,$2,$6,$5,$4,$3,$7,$12,$11,$10,$9,$8,$16,$15,$14,$13,$17,$18,$19;
+$1=_st(aMethod)._requiresSmalltalkContext();
+if(! smalltalk.assert($1)){
+$2=_st(aBlock)._value();
+$ctx1.sendIdx["value"]=1;
+return $2;
+};
+$6=_st(aMethod)._scope();
 $ctx1.sendIdx["scope"]=1;
-$3=_st($4)._alias();
+$5=_st($6)._alias();
 $ctx1.sendIdx["alias"]=1;
-$2="return smalltalk.withContext(function(".__comma($3);
+$4="return smalltalk.withContext(function(".__comma($5);
 $ctx1.sendIdx[","]=2;
-$1=_st($2).__comma(") { ");
+$3=_st($4).__comma(") { ");
 $ctx1.sendIdx[","]=1;
-self._nextPutAll_($1);
+self._nextPutAll_($3);
 $ctx1.sendIdx["nextPutAll:"]=1;
-$5=self._lf();
+$7=self._lf();
 _st(aBlock)._value();
-$10=_st(aMethod)._scope();
+$12=_st(aMethod)._scope();
 $ctx1.sendIdx["scope"]=2;
-$9=_st($10)._alias();
+$11=_st($12)._alias();
 $ctx1.sendIdx["alias"]=2;
-$8="}, function(".__comma($9);
+$10="}, function(".__comma($11);
 $ctx1.sendIdx[","]=5;
-$7=_st($8).__comma(") {");
+$9=_st($10).__comma(") {");
 $ctx1.sendIdx[","]=4;
-$6=_st($7).__comma(_st(_st(aMethod)._scope())._alias());
+$8=_st($9).__comma(_st(_st(aMethod)._scope())._alias());
 $ctx1.sendIdx[","]=3;
-self._nextPutAll_($6);
+self._nextPutAll_($8);
 $ctx1.sendIdx["nextPutAll:"]=2;
-$14=_st(_st(aMethod)._selector())._asJavascript();
+$16=_st(_st(aMethod)._selector())._asJavascript();
 $ctx1.sendIdx["asJavascript"]=1;
-$13=".fill(self,".__comma($14);
-$12=_st($13).__comma(",{");
+$15=".fill(self,".__comma($16);
+$14=_st($15).__comma(",{");
 $ctx1.sendIdx[","]=6;
-$11=self._nextPutAll_($12);
+$13=self._nextPutAll_($14);
 $ctx1.sendIdx["nextPutAll:"]=3;
 _st(_st(aMethod)._locals())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$15=_st(each)._asVariableName();
+$17=_st(each)._asVariableName();
 $ctx2.sendIdx["asVariableName"]=1;
-self._nextPutAll_($15);
+self._nextPutAll_($17);
 $ctx2.sendIdx["nextPutAll:"]=4;
 self._nextPutAll_(":");
 $ctx2.sendIdx["nextPutAll:"]=5;
-$16=self._nextPutAll_(_st(each)._asVariableName());
+$18=self._nextPutAll_(_st(each)._asVariableName());
 $ctx2.sendIdx["nextPutAll:"]=6;
-return $16;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+return $18;
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._nextPutAll_(",");
 $ctx2.sendIdx["nextPutAll:"]=7;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 self._nextPutAll_("},");
 $ctx1.sendIdx["nextPutAll:"]=8;
 self._nextPutAll_(_st(_st(aMethod)._theClass())._asJavascript());
 $ctx1.sendIdx["nextPutAll:"]=9;
-$17=self._nextPutAll_(")})");
+$19=self._nextPutAll_(")})");
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutContextFor:during:",{aMethod:aMethod,aBlock:aBlock},smalltalk.JSStream)})},
 args: ["aMethod", "aBlock"],
-source: "nextPutContextFor: aMethod during: aBlock\x0a\x09self\x0a\x09\x09nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; lf.\x0a\x09aBlock value.\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias;\x0a\x09\x09nextPutAll: '.fill(self,', aMethod selector asJavascript, ',{'.\x0a\x0a\x09aMethod locals\x0a\x09\x09do: [ :each |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09nextPutAll: each asVariableName;\x0a\x09\x09\x09\x09nextPutAll: ':';\x0a\x09\x09\x09\x09nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '},';\x0a\x09\x09nextPutAll: aMethod theClass asJavascript;\x0a\x09\x09nextPutAll: ')})'",
-messageSends: ["nextPutAll:", ",", "alias", "scope", "lf", "value", "asJavascript", "selector", "do:separatedBy:", "locals", "asVariableName", "theClass"],
+source: "nextPutContextFor: aMethod during: aBlock\x0a\x09aMethod requiresSmalltalkContext ifFalse: [ ^ aBlock value ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; lf.\x0a\x09aBlock value.\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias;\x0a\x09\x09nextPutAll: '.fill(self,', aMethod selector asJavascript, ',{'.\x0a\x0a\x09aMethod locals\x0a\x09\x09do: [ :each |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09nextPutAll: each asVariableName;\x0a\x09\x09\x09\x09nextPutAll: ':';\x0a\x09\x09\x09\x09nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '},';\x0a\x09\x09nextPutAll: aMethod theClass asJavascript;\x0a\x09\x09nextPutAll: ')})'",
+messageSends: ["ifFalse:", "requiresSmalltalkContext", "value", "nextPutAll:", ",", "alias", "scope", "lf", "asJavascript", "selector", "do:separatedBy:", "locals", "asVariableName", "theClass"],
 referencedClasses: []
 }),
 smalltalk.JSStream);

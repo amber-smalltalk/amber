@@ -45,11 +45,10 @@ selector: "methodClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@methodClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"methodClass",{},smalltalk.HLMethodReference)})},
+},
 args: [],
 source: "methodClass\x0a\x09^ methodClass",
 messageSends: [],
@@ -63,9 +62,8 @@ selector: "methodClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@methodClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"methodClass:",{aClass:aClass},smalltalk.HLMethodReference)})},
+return self},
 args: ["aClass"],
 source: "methodClass: aClass\x0a\x09methodClass := aClass",
 messageSends: [],
@@ -79,11 +77,10 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@selector"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.HLMethodReference)})},
+},
 args: [],
 source: "selector\x0a\x09^ selector",
 messageSends: [],
@@ -97,9 +94,8 @@ selector: "selector:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@selector"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},smalltalk.HLMethodReference)})},
+return self},
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
 messageSends: [],
@@ -235,9 +231,8 @@ selector: "model:",
 protocol: 'accessing',
 fn: function (aModel){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@model"]=aModel;
-return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLReferences)})},
+return self},
 args: ["aModel"],
 source: "model: aModel\x0a\x09model := aModel",
 messageSends: [],
@@ -396,9 +391,8 @@ selector: "canBeOpenAsTab",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLReferences.klass)})},
+},
 args: [],
 source: "canBeOpenAsTab\x0a\x09^ false",
 messageSends: [],
@@ -412,9 +406,8 @@ selector: "tabClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "references";
-}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLReferences.klass)})},
+},
 args: [],
 source: "tabClass\x0a\x09^ 'references'",
 messageSends: [],
@@ -428,9 +421,8 @@ selector: "tabLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "References";
-}, function($ctx1) {$ctx1.fill(self,"tabLabel",{},smalltalk.HLReferences.klass)})},
+},
 args: [],
 source: "tabLabel\x0a\x09^ 'References'",
 messageSends: [],
@@ -444,9 +436,8 @@ selector: "tabPriority",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (100);
-}, function($ctx1) {$ctx1.fill(self,"tabPriority",{},smalltalk.HLReferences.klass)})},
+},
 args: [],
 source: "tabPriority\x0a\x09^ 100",
 messageSends: [],
@@ -481,9 +472,8 @@ selector: "commandCategory",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Methods";
-}, function($ctx1) {$ctx1.fill(self,"commandCategory",{},smalltalk.HLReferencesListWidget)})},
+},
 args: [],
 source: "commandCategory\x0a\x09^ 'Methods'",
 messageSends: [],
@@ -497,9 +487,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "List";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLReferencesListWidget)})},
+},
 args: [],
 source: "label\x0a\x09^ 'List'",
 messageSends: [],
@@ -654,9 +643,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Class references";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLClassReferencesListWidget)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Class references'",
 messageSends: [],
@@ -691,9 +679,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Implementors";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLImplementorsListWidget)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Implementors'",
 messageSends: [],
@@ -728,9 +715,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Source search";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRegexpListWidget)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Source search'",
 messageSends: [],
@@ -765,9 +751,8 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "Senders";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLSendersListWidget)})},
+},
 args: [],
 source: "label\x0a\x09^ 'Senders'",
 messageSends: [],
@@ -907,9 +892,8 @@ selector: "isReferencesModel",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isReferencesModel",{},smalltalk.HLReferencesModel)})},
+},
 args: [],
 source: "isReferencesModel\x0a\x09^ true",
 messageSends: [],

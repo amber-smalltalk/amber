@@ -10,8 +10,7 @@ selector: "apply",
 protocol: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"apply",{},smalltalk.HLBinding)})},
+return self},
 args: [],
 source: "apply",
 messageSends: [],
@@ -25,9 +24,8 @@ selector: "atKey:",
 protocol: 'accessing',
 fn: function (aKey){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return nil;
-}, function($ctx1) {$ctx1.fill(self,"atKey:",{aKey:aKey},smalltalk.HLBinding)})},
+},
 args: ["aKey"],
 source: "atKey: aKey\x0a\x09\x22Answer the sub-binding at key aKey.\x0a\x09Always answer nil here. See HLBindingGroup for more.\x22\x0a\x09\x0a\x09^ nil",
 messageSends: [],
@@ -77,11 +75,10 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@key"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLBinding)})},
+},
 args: [],
 source: "key\x0a\x09^ key",
 messageSends: [],
@@ -95,9 +92,8 @@ selector: "key:",
 protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@key"]=anInteger;
-return self}, function($ctx1) {$ctx1.fill(self,"key:",{anInteger:anInteger},smalltalk.HLBinding)})},
+return self},
 args: ["anInteger"],
 source: "key: anInteger\x0a\x09key := anInteger",
 messageSends: [],
@@ -111,11 +107,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@label"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLBinding)})},
+},
 args: [],
 source: "label\x0a\x09^ label",
 messageSends: [],
@@ -129,9 +124,8 @@ selector: "label:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@label"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"label:",{aString:aString},smalltalk.HLBinding)})},
+return self},
 args: ["aString"],
 source: "label: aString\x0a\x09label := aString",
 messageSends: [],
@@ -145,8 +139,7 @@ selector: "release",
 protocol: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"release",{},smalltalk.HLBinding)})},
+return self},
 args: [],
 source: "release",
 messageSends: [],
@@ -160,8 +153,7 @@ selector: "renderOn:html:",
 protocol: 'rendering',
 fn: function (aBindingHelper,html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"renderOn:html:",{aBindingHelper:aBindingHelper,html:html},smalltalk.HLBinding)})},
+return self},
 args: ["aBindingHelper", "html"],
 source: "renderOn: aBindingHelper html: html",
 messageSends: [],
@@ -243,11 +235,10 @@ selector: "command",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@command"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"command",{},smalltalk.HLBindingAction)})},
+},
 args: [],
 source: "command\x0a\x09^ command",
 messageSends: [],
@@ -261,9 +252,8 @@ selector: "command:",
 protocol: 'accessing',
 fn: function (aCommand){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@command"]=aCommand;
-return self}, function($ctx1) {$ctx1.fill(self,"command:",{aCommand:aCommand},smalltalk.HLBindingAction)})},
+return self},
 args: ["aCommand"],
 source: "command: aCommand\x0a\x09command := aCommand",
 messageSends: [],
@@ -699,9 +689,8 @@ selector: "callback:",
 protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@callback"]=aBlock;
-return self}, function($ctx1) {$ctx1.fill(self,"callback:",{aBlock:aBlock},smalltalk.HLBindingActionInputWidget)})},
+return self},
 args: ["aBlock"],
 source: "callback: aBlock\x0a\x09callback := aBlock",
 messageSends: [],
@@ -756,9 +745,8 @@ selector: "defaultValue:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@defaultValue"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"defaultValue:",{aString:aString},smalltalk.HLBindingActionInputWidget)})},
+return self},
 args: ["aString"],
 source: "defaultValue: aString\x0a\x09defaultValue := aString",
 messageSends: [],
@@ -817,11 +805,10 @@ selector: "ghostText",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@ghostText"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ghostText",{},smalltalk.HLBindingActionInputWidget)})},
+},
 args: [],
 source: "ghostText\x0a\x09^ ghostText",
 messageSends: [],
@@ -835,9 +822,8 @@ selector: "ghostText:",
 protocol: 'accessing',
 fn: function (aText){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@ghostText"]=aText;
-return self}, function($ctx1) {$ctx1.fill(self,"ghostText:",{aText:aText},smalltalk.HLBindingActionInputWidget)})},
+return self},
 args: ["aText"],
 source: "ghostText: aText\x0a\x09ghostText := aText",
 messageSends: [],
@@ -851,11 +837,10 @@ selector: "input",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@input"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"input",{},smalltalk.HLBindingActionInputWidget)})},
+},
 args: [],
 source: "input\x0a\x09^ input",
 messageSends: [],
@@ -892,9 +877,8 @@ selector: "inputCompletion:",
 protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@inputCompletion"]=aCollection;
-return self}, function($ctx1) {$ctx1.fill(self,"inputCompletion:",{aCollection:aCollection},smalltalk.HLBindingActionInputWidget)})},
+return self},
 args: ["aCollection"],
 source: "inputCompletion: aCollection\x0a\x09inputCompletion := aCollection",
 messageSends: [],
@@ -932,9 +916,8 @@ selector: "message:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@message"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"message:",{aString:aString},smalltalk.HLBindingActionInputWidget)})},
+return self},
 args: ["aString"],
 source: "message: aString\x0a\x09message := aString",
 messageSends: [],
@@ -1058,9 +1041,8 @@ selector: "status:",
 protocol: 'accessing',
 fn: function (aStatus){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@status"]=aStatus;
-return self}, function($ctx1) {$ctx1.fill(self,"status:",{aStatus:aStatus},smalltalk.HLBindingActionInputWidget)})},
+return self},
 args: ["aStatus"],
 source: "status: aStatus\x0a\x09status := aStatus",
 messageSends: [],
@@ -1094,9 +1076,8 @@ selector: "activationKey",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (32);
-}, function($ctx1) {$ctx1.fill(self,"activationKey",{},smalltalk.HLKeyBinder)})},
+},
 args: [],
 source: "activationKey\x0a\x09\x22SPACE\x22\x0a\x09^ 32",
 messageSends: [],
@@ -1110,9 +1091,8 @@ selector: "activationKeyLabel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "ctrl + space";
-}, function($ctx1) {$ctx1.fill(self,"activationKeyLabel",{},smalltalk.HLKeyBinder)})},
+},
 args: [],
 source: "activationKeyLabel\x0a\x09^ 'ctrl + space'",
 messageSends: [],
@@ -1232,9 +1212,8 @@ selector: "escapeKey",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (27);
-}, function($ctx1) {$ctx1.fill(self,"escapeKey",{},smalltalk.HLKeyBinder)})},
+},
 args: [],
 source: "escapeKey\x0a\x09\x22ESC\x22\x0a\x09^ 27",
 messageSends: [],
@@ -1248,9 +1227,8 @@ selector: "flushBindings",
 protocol: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@bindings"]=nil;
-return self}, function($ctx1) {$ctx1.fill(self,"flushBindings",{},smalltalk.HLKeyBinder)})},
+return self},
 args: [],
 source: "flushBindings\x0a\x09bindings := nil",
 messageSends: [],
@@ -1372,11 +1350,10 @@ selector: "helper",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@helper"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"helper",{},smalltalk.HLKeyBinder)})},
+},
 args: [],
 source: "helper\x0a\x09^ helper",
 messageSends: [],
@@ -1557,9 +1534,8 @@ selector: "cssClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "key_helper";
-}, function($ctx1) {$ctx1.fill(self,"cssClass",{},smalltalk.HLKeyBinderHelperWidget)})},
+},
 args: [],
 source: "cssClass\x0a\x09^ 'key_helper'",
 messageSends: [],
@@ -1606,11 +1582,10 @@ selector: "keyBinder",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@keyBinder"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"keyBinder",{},smalltalk.HLKeyBinderHelperWidget)})},
+},
 args: [],
 source: "keyBinder\x0a\x09^ keyBinder",
 messageSends: [],
@@ -1624,9 +1599,8 @@ selector: "keyBinder:",
 protocol: 'accessing',
 fn: function (aKeyBinder){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@keyBinder"]=aKeyBinder;
-return self}, function($ctx1) {$ctx1.fill(self,"keyBinder:",{aKeyBinder:aKeyBinder},smalltalk.HLKeyBinderHelperWidget)})},
+return self},
 args: ["aKeyBinder"],
 source: "keyBinder: aKeyBinder\x0a\x09keyBinder := aKeyBinder",
 messageSends: [],
@@ -1640,9 +1614,8 @@ selector: "mainId",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return "binding-helper-main";
-}, function($ctx1) {$ctx1.fill(self,"mainId",{},smalltalk.HLKeyBinderHelperWidget)})},
+},
 args: [],
 source: "mainId\x0a\x09^ 'binding-helper-main'",
 messageSends: [],
@@ -2014,9 +1987,8 @@ selector: "defaultRepeatInterval",
 protocol: 'defaults',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return (70);
-}, function($ctx1) {$ctx1.fill(self,"defaultRepeatInterval",{},smalltalk.HLRepeatedKeyDownHandler)})},
+},
 args: [],
 source: "defaultRepeatInterval\x0a\x09^ 70",
 messageSends: [],
@@ -2194,9 +2166,8 @@ selector: "repeatInterval:",
 protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@repeatInterval"]=anInteger;
-return self}, function($ctx1) {$ctx1.fill(self,"repeatInterval:",{anInteger:anInteger},smalltalk.HLRepeatedKeyDownHandler)})},
+return self},
 args: ["anInteger"],
 source: "repeatInterval: anInteger\x0a\x09repeatInterval := anInteger",
 messageSends: [],
@@ -2290,11 +2261,10 @@ selector: "widget",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@widget"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"widget",{},smalltalk.HLRepeatedKeyDownHandler)})},
+},
 args: [],
 source: "widget\x0a\x09^ widget",
 messageSends: [],
@@ -2308,9 +2278,8 @@ selector: "widget:",
 protocol: 'accessing',
 fn: function (aWidget){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@widget"]=aWidget;
-return self}, function($ctx1) {$ctx1.fill(self,"widget:",{aWidget:aWidget},smalltalk.HLRepeatedKeyDownHandler)})},
+return self},
 args: ["aWidget"],
 source: "widget: aWidget\x0a\x09widget := aWidget",
 messageSends: [],

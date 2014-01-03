@@ -56,11 +56,10 @@ selector: "method",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@method"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.HLClassifier)})},
+},
 args: [],
 source: "method\x0a\x09^ method",
 messageSends: [],
@@ -99,11 +98,10 @@ selector: "next",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@next"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"next",{},smalltalk.HLClassifier)})},
+},
 args: [],
 source: "next\x0a\x09^ next",
 messageSends: [],
@@ -117,9 +115,8 @@ selector: "next:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@next"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"next:",{anObject:anObject},smalltalk.HLClassifier)})},
+return self},
 args: ["anObject"],
 source: "next: anObject\x0a\x09next := anObject",
 messageSends: [],
@@ -443,11 +440,10 @@ selector: "protocol",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@protocol"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"protocol",{},smalltalk.HLGenerationOutput)})},
+},
 args: [],
 source: "protocol\x0a\x09^ protocol",
 messageSends: [],
@@ -461,9 +457,8 @@ selector: "protocol:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@protocol"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"protocol:",{aString:aString},smalltalk.HLGenerationOutput)})},
+return self},
 args: ["aString"],
 source: "protocol: aString\x0a\x09protocol := aString",
 messageSends: [],
@@ -477,11 +472,10 @@ selector: "sourceCodes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@sourceCodes"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sourceCodes",{},smalltalk.HLGenerationOutput)})},
+},
 args: [],
 source: "sourceCodes\x0a\x09^ sourceCodes",
 messageSends: [],
@@ -495,9 +489,8 @@ selector: "sourceCodes:",
 protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@sourceCodes"]=aCollection;
-return self}, function($ctx1) {$ctx1.fill(self,"sourceCodes:",{aCollection:aCollection},smalltalk.HLGenerationOutput)})},
+return self},
 args: ["aCollection"],
 source: "sourceCodes: aCollection\x0a\x09sourceCodes := aCollection",
 messageSends: [],
@@ -511,11 +504,10 @@ selector: "targetClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@targetClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"targetClass",{},smalltalk.HLGenerationOutput)})},
+},
 args: [],
 source: "targetClass\x0a\x09^ targetClass",
 messageSends: [],
@@ -529,9 +521,8 @@ selector: "targetClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@targetClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"targetClass:",{aClass:aClass},smalltalk.HLGenerationOutput)})},
+return self},
 args: ["aClass"],
 source: "targetClass: aClass\x0a\x09targetClass := aClass",
 messageSends: [],
@@ -714,11 +705,10 @@ selector: "output",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@output"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"output",{},smalltalk.HLMethodGenerator)})},
+},
 args: [],
 source: "output\x0a\x09^ output",
 messageSends: [],
@@ -1002,11 +992,10 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@selector"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.HLMethodSourceCode)})},
+},
 args: [],
 source: "selector\x0a\x09^ selector",
 messageSends: [],
@@ -1020,9 +1009,8 @@ selector: "selector:",
 protocol: 'accessing',
 fn: function (aSelector){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@selector"]=aSelector;
-return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aSelector:aSelector},smalltalk.HLMethodSourceCode)})},
+return self},
 args: ["aSelector"],
 source: "selector: aSelector\x0a\x09selector := aSelector",
 messageSends: [],
@@ -1036,11 +1024,10 @@ selector: "sourceCode",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@sourceCode"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sourceCode",{},smalltalk.HLMethodSourceCode)})},
+},
 args: [],
 source: "sourceCode\x0a\x09^ sourceCode",
 messageSends: [],
@@ -1054,9 +1041,8 @@ selector: "sourceCode:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@sourceCode"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"sourceCode:",{aString:aString},smalltalk.HLMethodSourceCode)})},
+return self},
 args: ["aString"],
 source: "sourceCode: aString\x0a\x09sourceCode := aString",
 messageSends: [],

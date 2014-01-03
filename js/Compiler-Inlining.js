@@ -28,9 +28,8 @@ selector: "isInlined",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isInlined",{},smalltalk.IRInlinedAssignment)})},
+},
 args: [],
 source: "isInlined\x0a\x09^ true",
 messageSends: [],
@@ -64,9 +63,8 @@ selector: "isInlined",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isInlined",{},smalltalk.IRInlinedClosure)})},
+},
 args: [],
 source: "isInlined\x0a\x09^ true",
 messageSends: [],
@@ -102,9 +100,8 @@ selector: "isInlined",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isInlined",{},smalltalk.IRInlinedReturn)})},
+},
 args: [],
 source: "isInlined\x0a\x09^ true",
 messageSends: [],
@@ -138,9 +135,8 @@ selector: "isInlined",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isInlined",{},smalltalk.IRInlinedSend)})},
+},
 args: [],
 source: "isInlined\x0a\x09^ true",
 messageSends: [],
@@ -254,9 +250,8 @@ selector: "isInlined",
 protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 return true;
-}, function($ctx1) {$ctx1.fill(self,"isInlined",{},smalltalk.IRInlinedSequence)})},
+},
 args: [],
 source: "isInlined\x0a\x09^ true",
 messageSends: [],
@@ -1313,11 +1308,10 @@ selector: "send",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@send"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"send",{},smalltalk.IRSendInliner)})},
+},
 args: [],
 source: "send\x0a\x09^ send",
 messageSends: [],
@@ -1331,9 +1325,8 @@ selector: "send:",
 protocol: 'accessing',
 fn: function (anIRSend){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@send"]=anIRSend;
-return self}, function($ctx1) {$ctx1.fill(self,"send:",{anIRSend:anIRSend},smalltalk.IRSendInliner)})},
+return self},
 args: ["anIRSend"],
 source: "send: anIRSend\x0a\x09send := anIRSend",
 messageSends: [],
@@ -1347,11 +1340,10 @@ selector: "translator",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@translator"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"translator",{},smalltalk.IRSendInliner)})},
+},
 args: [],
 source: "translator\x0a\x09^ translator",
 messageSends: [],
@@ -1365,9 +1357,8 @@ selector: "translator:",
 protocol: 'accessing',
 fn: function (anASTTranslator){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@translator"]=anASTTranslator;
-return self}, function($ctx1) {$ctx1.fill(self,"translator:",{anASTTranslator:anASTTranslator},smalltalk.IRSendInliner)})},
+return self},
 args: ["anASTTranslator"],
 source: "translator: anASTTranslator\x0a\x09translator := anASTTranslator",
 messageSends: [],
@@ -1382,11 +1373,10 @@ selector: "inlinedSelectors",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=["ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:", "ifNil:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"inlinedSelectors",{},smalltalk.IRSendInliner.klass)})},
+},
 args: [],
 source: "inlinedSelectors\x0a\x09^ #('ifTrue:' 'ifFalse:' 'ifTrue:ifFalse:' 'ifFalse:ifTrue:' 'ifNil:' 'ifNotNil:' 'ifNil:ifNotNil:' 'ifNotNil:ifNil:')",
 messageSends: [],
@@ -1435,11 +1425,10 @@ selector: "assignment",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@assignment"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"assignment",{},smalltalk.IRAssignmentInliner)})},
+},
 args: [],
 source: "assignment\x0a\x09^ assignment",
 messageSends: [],
@@ -1453,9 +1442,8 @@ selector: "assignment:",
 protocol: 'accessing',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 self["@assignment"]=aNode;
-return self}, function($ctx1) {$ctx1.fill(self,"assignment:",{aNode:aNode},smalltalk.IRAssignmentInliner)})},
+return self},
 args: ["aNode"],
 source: "assignment: aNode\x0a\x09assignment := aNode",
 messageSends: [],
