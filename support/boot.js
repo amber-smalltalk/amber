@@ -7,10 +7,10 @@
 
  ======================================================================
  |
- | Copyright (c) 2010-2013
+ | Copyright (c) 2010-2014
  | Nicolas Petton <petton.nicolas@gmail.com>
  |
- | Copyright (c) 2012-2013
+ | Copyright (c) 2012-2014
  | The Amber team https://github.com/amber-smalltalk?tab=members
  | Amber contributors https://github.com/amber-smalltalk/amber/graphs/contributors
  |
