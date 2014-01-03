@@ -210,7 +210,7 @@ selection
 
 setEditorOn: aTextarea
 	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-		theme: 'amber',
+		theme: 'default',
 				lineNumbers: true,
 				enterMode: 'flat',
 				indentWithTabs: true,
@@ -2342,23 +2342,6 @@ inspectOn: anInspector
 	anInspector setLabel: label
 ! !
 
-!MethodContext methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#home' put: self home.
-	variables at: '#receiver' put: self receiver.
-	variables at: '#selector' put: self selector.
-	variables at: '#temps' put: self temps.
-	self class instanceVariableNames do: [ :each |
-		variables at: each put: (self instVarAt: each) ].
-	anInspector
-		setLabel: self printString;
-		setVariables: variables
-! !
-
 !AssociativeCollection methodsFor: '*IDE'!
 
 inspectOn: anInspector
@@ -2376,13 +2359,30 @@ inspectOn: anInspector
 !Set methodsFor: '*IDE'!
 
 inspectOn: anInspector
-	| variables |
+	| variables i |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
 	i := 1.
 	self do: [ :each |
 		variables at: i put: each.
 		i := i + 1 ].
+	anInspector
+		setLabel: self printString;
+		setVariables: variables
+! !
+
+!MethodContext methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	variables at: '#home' put: self home.
+	variables at: '#receiver' put: self receiver.
+	variables at: '#selector' put: self selector.
+	variables at: '#temps' put: self temps.
+	self class instanceVariableNames do: [ :each |
+		variables at: each put: (self instVarAt: each) ].
 	anInspector
 		setLabel: self printString;
 		setVariables: variables

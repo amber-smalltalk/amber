@@ -395,30 +395,32 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$6,$7,$8,$9,$10,$1;
-$2="theme".__minus_gt("amber");
+var $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$1;
+$2="theme".__minus_gt("default");
 $ctx1.sendIdx["->"]=1;
-$3="lineNumbers".__minus_gt(true);
+$3="mode".__minus_gt("text/x-stsrc");
 $ctx1.sendIdx["->"]=2;
-$4="enterMode".__minus_gt("flat");
+$4="lineNumbers".__minus_gt(true);
 $ctx1.sendIdx["->"]=3;
-$5="indentWithTabs".__minus_gt(true);
+$5="enterMode".__minus_gt("flat");
 $ctx1.sendIdx["->"]=4;
-$6="indentUnit".__minus_gt((4));
+$6="indentWithTabs".__minus_gt(true);
 $ctx1.sendIdx["->"]=5;
-$7="matchBrackets".__minus_gt(true);
+$7="indentUnit".__minus_gt((4));
 $ctx1.sendIdx["->"]=6;
-$8="electricChars".__minus_gt(false);
+$8="matchBrackets".__minus_gt(true);
 $ctx1.sendIdx["->"]=7;
-$9="keyMap".__minus_gt("Amber");
+$9="electricChars".__minus_gt(false);
 $ctx1.sendIdx["->"]=8;
-$10="extraKeys".__minus_gt(smalltalk.HashedCollection._from_(["Shift-Space".__minus_gt("autocomplete")]));
+$10="keyMap".__minus_gt("Amber");
 $ctx1.sendIdx["->"]=9;
-$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10]);
+$11="extraKeys".__minus_gt(smalltalk.HashedCollection._from_(["Shift-Space".__minus_gt("autocomplete")]));
+$ctx1.sendIdx["->"]=10;
+$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"editorOptions",{},smalltalk.HLCodeWidget)})},
 args: [],
-source: "editorOptions\x0a\x09^ #{\x0a\x09\x09'theme' -> 'amber'.\x0a        'lineNumbers' -> true.\x0a        'enterMode' -> 'flat'.\x0a        'indentWithTabs' -> true.\x0a\x09\x09'indentUnit' -> 4.\x0a        'matchBrackets' -> true.\x0a        'electricChars' -> false.\x0a\x09\x09'keyMap' -> 'Amber'.\x0a\x09\x09'extraKeys' -> #{'Shift-Space' -> 'autocomplete'}\x0a\x09}",
+source: "editorOptions\x0a\x09^ #{\x0a\x09\x09'theme' -> 'default'.\x0a\x09\x09'mode' -> 'text/x-stsrc'.\x0a        'lineNumbers' -> true.\x0a        'enterMode' -> 'flat'.\x0a        'indentWithTabs' -> true.\x0a\x09\x09'indentUnit' -> 4.\x0a        'matchBrackets' -> true.\x0a        'electricChars' -> false.\x0a\x09\x09'keyMap' -> 'Amber'.\x0a\x09\x09'extraKeys' -> #{'Shift-Space' -> 'autocomplete'}\x0a\x09}",
 messageSends: ["->"],
 referencedClasses: []
 }),

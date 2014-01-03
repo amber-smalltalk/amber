@@ -82,7 +82,8 @@ currentLineOrSelection
 
 editorOptions
 	^ #{
-		'theme' -> 'amber'.
+		'theme' -> 'default'.
+		'mode' -> 'text/x-stsrc'.
         'lineNumbers' -> true.
         'enterMode' -> 'flat'.
         'indentWithTabs' -> true.
