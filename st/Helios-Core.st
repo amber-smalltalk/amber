@@ -404,7 +404,7 @@ on: anEnvironment
         yourself
 ! !
 
-ProgressHandler subclass: #HLProgressHandler
+Object subclass: #HLProgressHandler
 	instanceVariableNames: ''
 	package: 'Helios-Core'!
 !HLProgressHandler commentStamp!
@@ -1175,18 +1175,6 @@ confirm: aString ifTrue: aBlock
 		show
 !
 
-registerErrorHandler: anErrorHandler
-	self environment registerErrorHandler: anErrorHandler
-!
-
-registerInspector: anInspector
-	self environment registerInspector: anInspector
-!
-
-registerProgressHandler: aProgressHandler
-	self environment registerProgressHandler: aProgressHandler
-!
-
 removeActiveTab
 	self removeTab: self activeTab
 !
@@ -1241,16 +1229,21 @@ defaultEnvironment
 
 !HLManager methodsFor: 'initialization'!
 
-initialize
-	super initialize.
-	
-	HLErrorHandler register.
-	HLProgressHandler register.
-	
-	self registerInspector: HLInspector.
-	self registerErrorHandler: ErrorHandler current.
-	self registerProgressHandler: ProgressHandler current.
-    self keyBinder setupEvents
+setup
+	self registerServices.
+    self keyBinder 
+		setupEvents;
+		setupHelper
+! !
+
+!HLManager methodsFor: 'private'!
+
+registerServices
+	self
+		registerInspector;
+		registerErrorHandler;
+		registerProgressHandler;
+		registerTranscript
 ! !
 
 !HLManager methodsFor: 'rendering'!
@@ -1315,6 +1308,27 @@ show: aTab
 	aTab show; focus
 ! !
 
+!HLManager methodsFor: 'services'!
+
+registerErrorHandler
+	self environment registerErrorHandler: HLErrorHandler new.
+	ErrorHandler register: HLErrorHandler new
+!
+
+registerInspector
+	self environment registerInspector: HLInspector.
+	Inspector register: HLInspector
+!
+
+registerProgressHandler
+	self environment registerProgressHandler: HLProgressHandler new.
+	ProgressHandler register: HLProgressHandler new
+!
+
+registerTranscript
+	self environment registerTranscript: HLTranscriptHandler
+! !
+
 HLManager class instanceVariableNames: 'current'!
 
 !HLManager class methodsFor: 'accessing'!
@@ -1325,8 +1339,10 @@ current
 
 !HLManager class methodsFor: 'initialization'!
 
-initialize
-	self current appendToJQuery: 'body' asJQuery
+setup
+	self current 
+		setup;
+		appendToJQuery: 'body' asJQuery
 ! !
 
 !HLManager class methodsFor: 'instance creation'!

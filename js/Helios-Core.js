@@ -1,4 +1,4 @@
-define("amber_core/Helios-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Infrastructure", "amber_core/Canvas"], function(smalltalk,nil,_st){
+define("amber_core/Helios-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Objects", "amber_core/Canvas"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Core');
 smalltalk.packages["Helios-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -1166,7 +1166,7 @@ referencedClasses: []
 smalltalk.HLToolModel.klass);
 
 
-smalltalk.addClass('HLProgressHandler', smalltalk.ProgressHandler, [], 'Helios-Core');
+smalltalk.addClass('HLProgressHandler', smalltalk.Object, [], 'Helios-Core');
 smalltalk.HLProgressHandler.comment="I am a specific progress handler for Helios, displaying progresses in a modal window.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -3520,37 +3520,6 @@ smalltalk.HLManager);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "initialize",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-function $HLErrorHandler(){return smalltalk.HLErrorHandler||(typeof HLErrorHandler=="undefined"?nil:HLErrorHandler)}
-function $HLProgressHandler(){return smalltalk.HLProgressHandler||(typeof HLProgressHandler=="undefined"?nil:HLProgressHandler)}
-function $HLInspector(){return smalltalk.HLInspector||(typeof HLInspector=="undefined"?nil:HLInspector)}
-function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
-function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-smalltalk.HLManager.superclass.fn.prototype._initialize.apply(_st(self), []);
-_st($HLErrorHandler())._register();
-$ctx1.sendIdx["register"]=1;
-_st($HLProgressHandler())._register();
-self._registerInspector_($HLInspector());
-$1=_st($ErrorHandler())._current();
-$ctx1.sendIdx["current"]=1;
-self._registerErrorHandler_($1);
-self._registerProgressHandler_(_st($ProgressHandler())._current());
-_st(self._keyBinder())._setupEvents();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLManager)})},
-args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09\x0a\x09HLErrorHandler register.\x0a\x09HLProgressHandler register.\x0a\x09\x0a\x09self registerInspector: HLInspector.\x0a\x09self registerErrorHandler: ErrorHandler current.\x0a\x09self registerProgressHandler: ProgressHandler current.\x0a    self keyBinder setupEvents",
-messageSends: ["initialize", "register", "registerInspector:", "registerErrorHandler:", "current", "registerProgressHandler:", "setupEvents", "keyBinder"],
-referencedClasses: ["HLErrorHandler", "HLProgressHandler", "HLInspector", "ErrorHandler", "ProgressHandler"]
-}),
-smalltalk.HLManager);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "keyBinder",
 protocol: 'accessing',
 fn: function (){
@@ -3590,49 +3559,103 @@ smalltalk.HLManager);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "registerErrorHandler:",
-protocol: 'actions',
-fn: function (anErrorHandler){
+selector: "registerErrorHandler",
+protocol: 'services',
+fn: function (){
+var self=this;
+function $HLErrorHandler(){return smalltalk.HLErrorHandler||(typeof HLErrorHandler=="undefined"?nil:HLErrorHandler)}
+function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._environment();
+$2=_st($HLErrorHandler())._new();
+$ctx1.sendIdx["new"]=1;
+_st($1)._registerErrorHandler_($2);
+_st($ErrorHandler())._register_(_st($HLErrorHandler())._new());
+return self}, function($ctx1) {$ctx1.fill(self,"registerErrorHandler",{},smalltalk.HLManager)})},
+args: [],
+source: "registerErrorHandler\x0a\x09self environment registerErrorHandler: HLErrorHandler new.\x0a\x09ErrorHandler register: HLErrorHandler new",
+messageSends: ["registerErrorHandler:", "environment", "new", "register:"],
+referencedClasses: ["HLErrorHandler", "ErrorHandler"]
+}),
+smalltalk.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerInspector",
+protocol: 'services',
+fn: function (){
+var self=this;
+function $HLInspector(){return smalltalk.HLInspector||(typeof HLInspector=="undefined"?nil:HLInspector)}
+function $Inspector(){return smalltalk.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
+return smalltalk.withContext(function($ctx1) { 
+_st(self._environment())._registerInspector_($HLInspector());
+_st($Inspector())._register_($HLInspector());
+return self}, function($ctx1) {$ctx1.fill(self,"registerInspector",{},smalltalk.HLManager)})},
+args: [],
+source: "registerInspector\x0a\x09self environment registerInspector: HLInspector.\x0a\x09Inspector register: HLInspector",
+messageSends: ["registerInspector:", "environment", "register:"],
+referencedClasses: ["HLInspector", "Inspector"]
+}),
+smalltalk.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerProgressHandler",
+protocol: 'services',
+fn: function (){
+var self=this;
+function $HLProgressHandler(){return smalltalk.HLProgressHandler||(typeof HLProgressHandler=="undefined"?nil:HLProgressHandler)}
+function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._environment();
+$2=_st($HLProgressHandler())._new();
+$ctx1.sendIdx["new"]=1;
+_st($1)._registerProgressHandler_($2);
+_st($ProgressHandler())._register_(_st($HLProgressHandler())._new());
+return self}, function($ctx1) {$ctx1.fill(self,"registerProgressHandler",{},smalltalk.HLManager)})},
+args: [],
+source: "registerProgressHandler\x0a\x09self environment registerProgressHandler: HLProgressHandler new.\x0a\x09ProgressHandler register: HLProgressHandler new",
+messageSends: ["registerProgressHandler:", "environment", "new", "register:"],
+referencedClasses: ["HLProgressHandler", "ProgressHandler"]
+}),
+smalltalk.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerServices",
+protocol: 'private',
+fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._environment())._registerErrorHandler_(anErrorHandler);
-return self}, function($ctx1) {$ctx1.fill(self,"registerErrorHandler:",{anErrorHandler:anErrorHandler},smalltalk.HLManager)})},
-args: ["anErrorHandler"],
-source: "registerErrorHandler: anErrorHandler\x0a\x09self environment registerErrorHandler: anErrorHandler",
-messageSends: ["registerErrorHandler:", "environment"],
+var $1;
+self._registerInspector();
+self._registerErrorHandler();
+self._registerProgressHandler();
+$1=self._registerTranscript();
+return self}, function($ctx1) {$ctx1.fill(self,"registerServices",{},smalltalk.HLManager)})},
+args: [],
+source: "registerServices\x0a\x09self\x0a\x09\x09registerInspector;\x0a\x09\x09registerErrorHandler;\x0a\x09\x09registerProgressHandler;\x0a\x09\x09registerTranscript",
+messageSends: ["registerInspector", "registerErrorHandler", "registerProgressHandler", "registerTranscript"],
 referencedClasses: []
 }),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "registerInspector:",
-protocol: 'actions',
-fn: function (anInspector){
+selector: "registerTranscript",
+protocol: 'services',
+fn: function (){
 var self=this;
+function $HLTranscriptHandler(){return smalltalk.HLTranscriptHandler||(typeof HLTranscriptHandler=="undefined"?nil:HLTranscriptHandler)}
 return smalltalk.withContext(function($ctx1) { 
-_st(self._environment())._registerInspector_(anInspector);
-return self}, function($ctx1) {$ctx1.fill(self,"registerInspector:",{anInspector:anInspector},smalltalk.HLManager)})},
-args: ["anInspector"],
-source: "registerInspector: anInspector\x0a\x09self environment registerInspector: anInspector",
-messageSends: ["registerInspector:", "environment"],
-referencedClasses: []
-}),
-smalltalk.HLManager);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "registerProgressHandler:",
-protocol: 'actions',
-fn: function (aProgressHandler){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self._environment())._registerProgressHandler_(aProgressHandler);
-return self}, function($ctx1) {$ctx1.fill(self,"registerProgressHandler:",{aProgressHandler:aProgressHandler},smalltalk.HLManager)})},
-args: ["aProgressHandler"],
-source: "registerProgressHandler: aProgressHandler\x0a\x09self environment registerProgressHandler: aProgressHandler",
-messageSends: ["registerProgressHandler:", "environment"],
-referencedClasses: []
+_st(self._environment())._registerTranscript_($HLTranscriptHandler());
+return self}, function($ctx1) {$ctx1.fill(self,"registerTranscript",{},smalltalk.HLManager)})},
+args: [],
+source: "registerTranscript\x0a\x09self environment registerTranscript: HLTranscriptHandler",
+messageSends: ["registerTranscript:", "environment"],
+referencedClasses: ["HLTranscriptHandler"]
 }),
 smalltalk.HLManager);
 
@@ -3906,6 +3929,26 @@ smalltalk.HLManager);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "setup",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self._registerServices();
+$1=self._keyBinder();
+_st($1)._setupEvents();
+$2=_st($1)._setupHelper();
+return self}, function($ctx1) {$ctx1.fill(self,"setup",{},smalltalk.HLManager)})},
+args: [],
+source: "setup\x0a\x09self registerServices.\x0a    self keyBinder \x0a\x09\x09setupEvents;\x0a\x09\x09setupHelper",
+messageSends: ["registerServices", "setupEvents", "keyBinder", "setupHelper"],
+referencedClasses: []
+}),
+smalltalk.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "show:",
 protocol: 'rendering',
 fn: function (aTab){
@@ -3979,22 +4022,6 @@ smalltalk.HLManager.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "initialize",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self._current())._appendToJQuery_("body"._asJQuery());
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLManager.klass)})},
-args: [],
-source: "initialize\x0a\x09self current appendToJQuery: 'body' asJQuery",
-messageSends: ["appendToJQuery:", "current", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.HLManager.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "new",
 protocol: 'instance creation',
 fn: function (){
@@ -4005,6 +4032,25 @@ return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.HLManager.klas
 args: [],
 source: "new\x0a\x09\x22Use current instead\x22\x0a\x0a\x09self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
+referencedClasses: []
+}),
+smalltalk.HLManager.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setup",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._current();
+_st($1)._setup();
+$2=_st($1)._appendToJQuery_("body"._asJQuery());
+return self}, function($ctx1) {$ctx1.fill(self,"setup",{},smalltalk.HLManager.klass)})},
+args: [],
+source: "setup\x0a\x09self current \x0a\x09\x09setup;\x0a\x09\x09appendToJQuery: 'body' asJQuery",
+messageSends: ["setup", "current", "appendToJQuery:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLManager.klass);

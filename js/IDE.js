@@ -1,4 +1,4 @@
-define("amber_core/IDE", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Canvas", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections", "amber_core/Kernel-Methods"], function(smalltalk,nil,_st){
+define("amber_core/IDE", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Canvas", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections", "amber_core/Kernel-Methods"], function(smalltalk,nil,_st){
 smalltalk.addPackage('IDE');
 smalltalk.packages["IDE"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -444,7 +444,7 @@ referencedClasses: []
 smalltalk.ClassesListNode.klass);
 
 
-smalltalk.addClass('DebugErrorHandler', smalltalk.ErrorHandler, [], 'IDE');
+smalltalk.addClass('DebugErrorHandler', smalltalk.Object, [], 'IDE');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleError:",
@@ -484,17 +484,11 @@ fn: function (){
 var self=this;
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($ErrorHandler())._current();
-if(($receiver = $1) == nil || $receiver == null){
-self._register();
-} else {
-$1;
-};
+_st($ErrorHandler())._register_(self._new());
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.DebugErrorHandler.klass)})},
 args: [],
-source: "initialize\x0a\x09ErrorHandler current ifNil: [ self register ]",
-messageSends: ["ifNil:", "current", "register"],
+source: "initialize\x0a\x09ErrorHandler register: self new",
+messageSends: ["register:", "new"],
 referencedClasses: ["ErrorHandler"]
 }),
 smalltalk.DebugErrorHandler.klass);
@@ -1110,15 +1104,15 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
 function $Inspector(){return smalltalk.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
+function $IDEInspector(){return smalltalk.IDEInspector||(typeof IDEInspector=="undefined"?nil:IDEInspector)}
 function $IDETranscript(){return smalltalk.IDETranscript||(typeof IDETranscript=="undefined"?nil:IDETranscript)}
 function $Workspace(){return smalltalk.Workspace||(typeof Workspace=="undefined"?nil:Workspace)}
 function $TestRunner(){return smalltalk.TestRunner||(typeof TestRunner=="undefined"?nil:TestRunner)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6,$7;
 smalltalk.TabManager.superclass.fn.prototype._initialize.apply(_st(self), []);
-_st($InspectorHandler())._register_($Inspector());
+_st($Inspector())._register_($IDEInspector());
 self["@opened"]=true;
 $1=(function(html){
 return smalltalk.withContext(function($ctx2) {
@@ -1153,9 +1147,9 @@ return self._updatePosition();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.TabManager)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09InspectorHandler register: Inspector.\x0a\x09opened := true.\x0a\x09[ :html | html div id: 'amber' ] appendToJQuery: 'body' asJQuery.\x0a\x09'body' asJQuery\x0a\x09addClass: 'amberBody'.\x0a\x09self appendToJQuery: '#amber' asJQuery.\x0a\x09self\x0a\x09addTab: IDETranscript current;\x0a\x09addTab: Workspace new;\x0a\x09addTab: TestRunner new.\x0a\x09self selectTab: self tabs last.\x0a\x09self\x0a\x09onResize: [ self updateBodyMargin; updatePosition ];\x0a\x09onWindowResize: [ self updatePosition ]",
+source: "initialize\x0a\x09super initialize.\x0a\x09Inspector register: IDEInspector.\x0a\x09opened := true.\x0a\x09[ :html | html div id: 'amber' ] appendToJQuery: 'body' asJQuery.\x0a\x09'body' asJQuery\x0a\x09addClass: 'amberBody'.\x0a\x09self appendToJQuery: '#amber' asJQuery.\x0a\x09self\x0a\x09addTab: IDETranscript current;\x0a\x09addTab: Workspace new;\x0a\x09addTab: TestRunner new.\x0a\x09self selectTab: self tabs last.\x0a\x09self\x0a\x09onResize: [ self updateBodyMargin; updatePosition ];\x0a\x09onWindowResize: [ self updatePosition ]",
 messageSends: ["initialize", "register:", "appendToJQuery:", "id:", "div", "asJQuery", "addClass:", "addTab:", "current", "new", "selectTab:", "last", "tabs", "onResize:", "updateBodyMargin", "updatePosition", "onWindowResize:"],
-referencedClasses: ["InspectorHandler", "Inspector", "IDETranscript", "Workspace", "TestRunner"]
+referencedClasses: ["Inspector", "IDEInspector", "IDETranscript", "Workspace", "TestRunner"]
 }),
 smalltalk.TabManager);
 
@@ -4662,6 +4656,513 @@ smalltalk.Debugger);
 
 
 
+smalltalk.addClass('IDEInspector', smalltalk.TabWidget, ['label', 'variables', 'object', 'selectedVariable', 'variablesList', 'valueTextarea', 'diveButton', 'sourceArea'], 'IDE');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "canBeClosed",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return true;
+},
+args: [],
+source: "canBeClosed\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "dive",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self._variables())._at_(self._selectedVariable()))._inspect();
+return self}, function($ctx1) {$ctx1.fill(self,"dive",{},smalltalk.IDEInspector)})},
+args: [],
+source: "dive\x0a\x09(self variables at: self selectedVariable) inspect",
+messageSends: ["inspect", "at:", "variables", "selectedVariable"],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspect:",
+protocol: 'actions',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@object"]=anObject;
+self["@variables"]=[];
+_st(self["@object"])._inspectOn_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.IDEInspector)})},
+args: ["anObject"],
+source: "inspect: anObject\x0a\x09object := anObject.\x0a\x09variables := #().\x0a\x09object inspectOn: self",
+messageSends: ["inspectOn:"],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@label"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="Inspector (nil)";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.IDEInspector)})},
+args: [],
+source: "label\x0a\x09^ label ifNil: [ 'Inspector (nil)' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "refresh",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._inspect_(self["@object"]);
+self._updateVariablesList();
+$1=self._updateValueTextarea();
+return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.IDEInspector)})},
+args: [],
+source: "refresh\x0a\x09self\x0a\x09\x09inspect: object;\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateValueTextarea",
+messageSends: ["inspect:", "updateVariablesList", "updateValueTextarea"],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderBottomPanelOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$2;
+$1=_st(html)._div();
+_st($1)._class_("amber_sourceCode");
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$3=_st($SourceArea())._new();
+_st($3)._receiver_(self["@object"]);
+_st($3)._onDoIt_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._refresh();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+$4=_st($3)._yourself();
+self["@sourceArea"]=$4;
+self["@sourceArea"];
+return _st(self["@sourceArea"])._renderOn_(html);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderBottomPanelOn:",{html:html},smalltalk.IDEInspector)})},
+args: ["html"],
+source: "renderBottomPanelOn: html\x0a\x09html div\x0a\x09class: 'amber_sourceCode';\x0a\x09with: [\x0a\x09\x09sourceArea := SourceArea new\x0a\x09\x09receiver: object;\x0a\x09\x09onDoIt: [ self refresh ];\x0a\x09\x09yourself.\x0a\x09\x09\x09sourceArea renderOn: html ]",
+messageSends: ["class:", "div", "with:", "receiver:", "new", "onDoIt:", "refresh", "yourself", "renderOn:"],
+referencedClasses: ["SourceArea"]
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderBoxOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._renderTopPanelOn_(html);
+$1=self._renderBottomPanelOn_(html);
+return self}, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},smalltalk.IDEInspector)})},
+args: ["html"],
+source: "renderBoxOn: html\x0a\x09self\x0a\x09\x09renderTopPanelOn: html;\x0a\x09\x09renderBottomPanelOn: html",
+messageSends: ["renderTopPanelOn:", "renderBottomPanelOn:"],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderButtonsOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2,$4,$6,$5,$7,$8;
+$1=_st(html)._button();
+$ctx1.sendIdx["button"]=1;
+_st($1)._with_("DoIt");
+$ctx1.sendIdx["with:"]=1;
+$2=_st($1)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+$3=self._sourceArea();
+$ctx2.sendIdx["sourceArea"]=1;
+return _st($3)._doIt();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["onClick:"]=1;
+$4=_st(html)._button();
+$ctx1.sendIdx["button"]=2;
+_st($4)._with_("PrintIt");
+$ctx1.sendIdx["with:"]=2;
+$5=_st($4)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+$6=self._sourceArea();
+$ctx2.sendIdx["sourceArea"]=2;
+return _st($6)._printIt();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$ctx1.sendIdx["onClick:"]=2;
+$7=_st(html)._button();
+_st($7)._with_("InspectIt");
+$8=_st($7)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._sourceArea())._inspectIt();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+self._updateButtons();
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.IDEInspector)})},
+args: ["html"],
+source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09with: 'DoIt';\x0a\x09\x09onClick: [ self sourceArea doIt ].\x0a\x09html button\x0a\x09\x09with: 'PrintIt';\x0a\x09\x09onClick: [ self sourceArea printIt ].\x0a\x09html button\x0a\x09\x09with: 'InspectIt';\x0a\x09\x09onClick: [ self sourceArea inspectIt ].\x0a\x09self updateButtons",
+messageSends: ["with:", "button", "onClick:", "doIt", "sourceArea", "printIt", "inspectIt", "updateButtons"],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderTopPanelOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$5,$7,$8,$9,$10,$6,$2,$11;
+$1=_st(html)._div();
+$ctx1.sendIdx["div"]=1;
+_st($1)._class_("top");
+$ctx1.sendIdx["class:"]=1;
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+self["@variablesList"]=_st(_st(html)._ul())._class_("amber_column variables");
+$ctx2.sendIdx["class:"]=2;
+self["@variablesList"];
+$3=_st(html)._textarea();
+_st($3)._class_("amber_column value");
+$ctx2.sendIdx["class:"]=3;
+_st($3)._at_put_("readonly","readonly");
+$4=_st($3)._yourself();
+self["@valueTextarea"]=$4;
+self["@valueTextarea"];
+$5=_st(html)._div();
+$ctx2.sendIdx["div"]=2;
+_st($5)._class_("amber_tabs inspector");
+$ctx2.sendIdx["class:"]=4;
+$6=_st($5)._with_((function(){
+return smalltalk.withContext(function($ctx3) {
+$7=_st(html)._button();
+$ctx3.sendIdx["button"]=1;
+_st($7)._class_("amber_button inspector refresh");
+$ctx3.sendIdx["class:"]=5;
+_st($7)._with_("Refresh");
+$ctx3.sendIdx["with:"]=3;
+$8=_st($7)._onClick_((function(){
+return smalltalk.withContext(function($ctx4) {
+return self._refresh();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})}));
+$ctx3.sendIdx["onClick:"]=1;
+$8;
+$9=_st(html)._button();
+_st($9)._class_("amber_button inspector dive");
+$ctx3.sendIdx["class:"]=6;
+_st($9)._with_("Dive");
+$10=_st($9)._onClick_((function(){
+return smalltalk.withContext(function($ctx4) {
+return self._dive();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,4)})}));
+self["@diveButton"]=$10;
+return self["@diveButton"];
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+$ctx2.sendIdx["with:"]=2;
+$6;
+return _st(_st(html)._div())._class_("amber_clear");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["with:"]=1;
+self._updateVariablesList();
+$11=self._updateValueTextarea();
+return self}, function($ctx1) {$ctx1.fill(self,"renderTopPanelOn:",{html:html},smalltalk.IDEInspector)})},
+args: ["html"],
+source: "renderTopPanelOn: html\x0a\x09html div\x0a\x09\x09class: 'top';\x0a\x09\x09with: [\x0a\x09\x09\x09variablesList := html ul class: 'amber_column variables'.\x0a\x09\x09\x09valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'; yourself.\x0a\x09\x09\x09html div class: 'amber_tabs inspector'; with: [\x0a\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09class: 'amber_button inspector refresh';\x0a\x09\x09\x09\x09\x09with: 'Refresh';\x0a\x09\x09\x09\x09\x09onClick: [ self refresh ].\x0a\x09\x09\x09\x09diveButton := html button\x0a\x09\x09\x09\x09\x09class: 'amber_button inspector dive';\x0a\x09\x09\x09\x09\x09with: 'Dive';\x0a\x09\x09\x09\x09\x09onClick: [ self dive ]].\x0a\x09\x09\x09html div class: 'amber_clear' ].\x0a\x09self\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateValueTextarea.",
+messageSends: ["class:", "div", "with:", "ul", "textarea", "at:put:", "yourself", "button", "onClick:", "refresh", "dive", "updateVariablesList", "updateValueTextarea"],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectVariable:",
+protocol: 'updating',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._selectedVariable_(aString);
+self._updateVariablesList();
+self._updateValueTextarea();
+$1=self._updateButtons();
+return self}, function($ctx1) {$ctx1.fill(self,"selectVariable:",{aString:aString},smalltalk.IDEInspector)})},
+args: ["aString"],
+source: "selectVariable: aString\x0a\x09self selectedVariable: aString.\x0a\x09self\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateValueTextarea;\x0a\x09\x09updateButtons",
+messageSends: ["selectedVariable:", "updateVariablesList", "updateValueTextarea", "updateButtons"],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedVariable",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@selectedVariable"];
+return $1;
+},
+args: [],
+source: "selectedVariable\x0a\x09^ selectedVariable",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedVariable:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@selectedVariable"]=aString;
+return self},
+args: ["aString"],
+source: "selectedVariable: aString\x0a\x09selectedVariable := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setLabel:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@label"]=aString;
+return self},
+args: ["aString"],
+source: "setLabel: aString\x0a\x09label := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setVariables:",
+protocol: 'accessing',
+fn: function (aCollection){
+var self=this;
+self["@variables"]=aCollection;
+return self},
+args: ["aCollection"],
+source: "setVariables: aCollection\x0a\x09variables := aCollection",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sourceArea",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@sourceArea"];
+return $1;
+},
+args: [],
+source: "sourceArea\x0a\x09^ sourceArea",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateButtons",
+protocol: 'updating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$3=self._selectedVariable();
+$ctx1.sendIdx["selectedVariable"]=1;
+$2=_st($3)._notNil();
+$ctx1.sendIdx["notNil"]=1;
+$1=_st($2)._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self._variables())._at_(self._selectedVariable()))._notNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+if(smalltalk.assert($1)){
+_st(self["@diveButton"])._removeAt_("disabled");
+} else {
+_st(self["@diveButton"])._at_put_("disabled",true);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"updateButtons",{},smalltalk.IDEInspector)})},
+args: [],
+source: "updateButtons\x0a\x09(self selectedVariable notNil and: [ (self variables at: self selectedVariable) notNil ])\x0a\x09\x09ifFalse: [ diveButton at: 'disabled' put: true ]\x0a\x09\x09ifTrue: [ diveButton removeAt: 'disabled' ]",
+messageSends: ["ifFalse:ifTrue:", "and:", "notNil", "selectedVariable", "at:", "variables", "at:put:", "removeAt:"],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateValueTextarea",
+protocol: 'updating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$4,$3,$2;
+$1=_st(self["@valueTextarea"])._asJQuery();
+$4=self._selectedVariable();
+$ctx1.sendIdx["selectedVariable"]=1;
+$3=_st($4)._isNil();
+if(smalltalk.assert($3)){
+$2="";
+} else {
+$2=_st(_st(self._variables())._at_(self._selectedVariable()))._printString();
+};
+_st($1)._val_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"updateValueTextarea",{},smalltalk.IDEInspector)})},
+args: [],
+source: "updateValueTextarea\x0a\x09valueTextarea asJQuery val: (self selectedVariable isNil\x0a\x09\x09ifTrue: [ '' ]\x0a\x09\x09ifFalse: [ (self variables at: self selectedVariable) printString ])",
+messageSends: ["val:", "asJQuery", "ifTrue:ifFalse:", "isNil", "selectedVariable", "printString", "at:", "variables"],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateVariablesList",
+protocol: 'updating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+_st(self["@variablesList"])._contents_((function(html){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._variables())._keysDo_((function(each){
+var li;
+return smalltalk.withContext(function($ctx3) {
+li=_st(html)._li();
+li;
+$1=li;
+_st($1)._with_(each);
+$2=_st($1)._onClick_((function(){
+return smalltalk.withContext(function($ctx4) {
+return self._selectVariable_(each);
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})}));
+$2;
+$3=_st(self._selectedVariable()).__eq(each);
+if(smalltalk.assert($3)){
+return _st(li)._class_("selected");
+};
+}, function($ctx3) {$ctx3.fillBlock({each:each,li:li},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"updateVariablesList",{},smalltalk.IDEInspector)})},
+args: [],
+source: "updateVariablesList\x0a\x09variablesList contents: [ :html |\x0a\x09\x09self variables keysDo: [ :each || li |\x0a\x09\x09\x09li := html li.\x0a\x09\x09\x09li\x0a\x09\x09\x09\x09with: each;\x0a\x09\x09\x09\x09onClick: [ self selectVariable: each ].\x0a\x09\x09\x09self selectedVariable = each ifTrue: [\x0a\x09\x09\x09\x09li class: 'selected' ]] ]",
+messageSends: ["contents:", "keysDo:", "variables", "li", "with:", "onClick:", "selectVariable:", "ifTrue:", "=", "selectedVariable", "class:"],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "variables",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@variables"];
+return $1;
+},
+args: [],
+source: "variables\x0a\x09^ variables",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IDEInspector);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspect:",
+protocol: 'instance creation',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._inspect_(anObject);
+_st($2)._open();
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.IDEInspector.klass)})},
+args: ["anObject"],
+source: "inspect: anObject\x0a\x09^ self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09open;\x0a\x09\x09yourself",
+messageSends: ["inspect:", "new", "open", "yourself"],
+referencedClasses: []
+}),
+smalltalk.IDEInspector.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+protocol: 'instance creation',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._inspect_(anObject);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},smalltalk.IDEInspector.klass)})},
+args: ["anObject"],
+source: "on: anObject\x0a\x09^ self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09yourself",
+messageSends: ["inspect:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.IDEInspector.klass);
+
+
 smalltalk.addClass('IDETranscript', smalltalk.TabWidget, ['textarea'], 'IDE');
 smalltalk.addMethod(
 smalltalk.method({
@@ -4875,518 +5376,11 @@ _st($1)._open();
 $2=_st($1)._selectTab_(self._current());
 return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.IDETranscript.klass)})},
 args: [],
-source: "open\x0a\x09TabManager current\x0a\x09open;\x0a\x09selectTab: self current",
+source: "open\x0a\x09TabManager current\x0a\x09\x09open;\x0a\x09\x09selectTab: self current",
 messageSends: ["open", "current", "selectTab:"],
 referencedClasses: ["TabManager"]
 }),
 smalltalk.IDETranscript.klass);
-
-
-smalltalk.addClass('Inspector', smalltalk.TabWidget, ['label', 'variables', 'object', 'selectedVariable', 'variablesList', 'valueTextarea', 'diveButton', 'sourceArea'], 'IDE');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "canBeClosed",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return true;
-},
-args: [],
-source: "canBeClosed\x0a\x09^ true",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "dive",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(self._variables())._at_(self._selectedVariable()))._inspect();
-return self}, function($ctx1) {$ctx1.fill(self,"dive",{},smalltalk.Inspector)})},
-args: [],
-source: "dive\x0a\x09(self variables at: self selectedVariable) inspect",
-messageSends: ["inspect", "at:", "variables", "selectedVariable"],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "inspect:",
-protocol: 'actions',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@object"]=anObject;
-self["@variables"]=[];
-_st(self["@object"])._inspectOn_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.Inspector)})},
-args: ["anObject"],
-source: "inspect: anObject\x0a\x09object := anObject.\x0a\x09variables := #().\x0a\x09object inspectOn: self",
-messageSends: ["inspectOn:"],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "label",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@label"];
-if(($receiver = $2) == nil || $receiver == null){
-$1="Inspector (nil)";
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.Inspector)})},
-args: [],
-source: "label\x0a\x09^ label ifNil: [ 'Inspector (nil)' ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "refresh",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-self._inspect_(self["@object"]);
-self._updateVariablesList();
-$1=self._updateValueTextarea();
-return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.Inspector)})},
-args: [],
-source: "refresh\x0a\x09self\x0a\x09\x09inspect: object;\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateValueTextarea",
-messageSends: ["inspect:", "updateVariablesList", "updateValueTextarea"],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderBottomPanelOn:",
-protocol: 'rendering',
-fn: function (html){
-var self=this;
-function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
-$1=_st(html)._div();
-_st($1)._class_("amber_sourceCode");
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-$3=_st($SourceArea())._new();
-_st($3)._receiver_(self["@object"]);
-_st($3)._onDoIt_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._refresh();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-$4=_st($3)._yourself();
-self["@sourceArea"]=$4;
-self["@sourceArea"];
-return _st(self["@sourceArea"])._renderOn_(html);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderBottomPanelOn:",{html:html},smalltalk.Inspector)})},
-args: ["html"],
-source: "renderBottomPanelOn: html\x0a\x09html div\x0a\x09class: 'amber_sourceCode';\x0a\x09with: [\x0a\x09\x09sourceArea := SourceArea new\x0a\x09\x09receiver: object;\x0a\x09\x09onDoIt: [ self refresh ];\x0a\x09\x09yourself.\x0a\x09\x09\x09sourceArea renderOn: html ]",
-messageSends: ["class:", "div", "with:", "receiver:", "new", "onDoIt:", "refresh", "yourself", "renderOn:"],
-referencedClasses: ["SourceArea"]
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderBoxOn:",
-protocol: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-self._renderTopPanelOn_(html);
-$1=self._renderBottomPanelOn_(html);
-return self}, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},smalltalk.Inspector)})},
-args: ["html"],
-source: "renderBoxOn: html\x0a\x09self\x0a\x09\x09renderTopPanelOn: html;\x0a\x09\x09renderBottomPanelOn: html",
-messageSends: ["renderTopPanelOn:", "renderBottomPanelOn:"],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderButtonsOn:",
-protocol: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4,$6,$5,$7,$8;
-$1=_st(html)._button();
-$ctx1.sendIdx["button"]=1;
-_st($1)._with_("DoIt");
-$ctx1.sendIdx["with:"]=1;
-$2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {
-$3=self._sourceArea();
-$ctx2.sendIdx["sourceArea"]=1;
-return _st($3)._doIt();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["onClick:"]=1;
-$4=_st(html)._button();
-$ctx1.sendIdx["button"]=2;
-_st($4)._with_("PrintIt");
-$ctx1.sendIdx["with:"]=2;
-$5=_st($4)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {
-$6=self._sourceArea();
-$ctx2.sendIdx["sourceArea"]=2;
-return _st($6)._printIt();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$ctx1.sendIdx["onClick:"]=2;
-$7=_st(html)._button();
-_st($7)._with_("InspectIt");
-$8=_st($7)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self._sourceArea())._inspectIt();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
-self._updateButtons();
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.Inspector)})},
-args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09with: 'DoIt';\x0a\x09\x09onClick: [ self sourceArea doIt ].\x0a\x09html button\x0a\x09\x09with: 'PrintIt';\x0a\x09\x09onClick: [ self sourceArea printIt ].\x0a\x09html button\x0a\x09\x09with: 'InspectIt';\x0a\x09\x09onClick: [ self sourceArea inspectIt ].\x0a\x09self updateButtons",
-messageSends: ["with:", "button", "onClick:", "doIt", "sourceArea", "printIt", "inspectIt", "updateButtons"],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderTopPanelOn:",
-protocol: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$7,$8,$9,$10,$6,$2,$11;
-$1=_st(html)._div();
-$ctx1.sendIdx["div"]=1;
-_st($1)._class_("top");
-$ctx1.sendIdx["class:"]=1;
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-self["@variablesList"]=_st(_st(html)._ul())._class_("amber_column variables");
-$ctx2.sendIdx["class:"]=2;
-self["@variablesList"];
-$3=_st(html)._textarea();
-_st($3)._class_("amber_column value");
-$ctx2.sendIdx["class:"]=3;
-_st($3)._at_put_("readonly","readonly");
-$4=_st($3)._yourself();
-self["@valueTextarea"]=$4;
-self["@valueTextarea"];
-$5=_st(html)._div();
-$ctx2.sendIdx["div"]=2;
-_st($5)._class_("amber_tabs inspector");
-$ctx2.sendIdx["class:"]=4;
-$6=_st($5)._with_((function(){
-return smalltalk.withContext(function($ctx3) {
-$7=_st(html)._button();
-$ctx3.sendIdx["button"]=1;
-_st($7)._class_("amber_button inspector refresh");
-$ctx3.sendIdx["class:"]=5;
-_st($7)._with_("Refresh");
-$ctx3.sendIdx["with:"]=3;
-$8=_st($7)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {
-return self._refresh();
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})}));
-$ctx3.sendIdx["onClick:"]=1;
-$8;
-$9=_st(html)._button();
-_st($9)._class_("amber_button inspector dive");
-$ctx3.sendIdx["class:"]=6;
-_st($9)._with_("Dive");
-$10=_st($9)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {
-return self._dive();
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,4)})}));
-self["@diveButton"]=$10;
-return self["@diveButton"];
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-$ctx2.sendIdx["with:"]=2;
-$6;
-return _st(_st(html)._div())._class_("amber_clear");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["with:"]=1;
-self._updateVariablesList();
-$11=self._updateValueTextarea();
-return self}, function($ctx1) {$ctx1.fill(self,"renderTopPanelOn:",{html:html},smalltalk.Inspector)})},
-args: ["html"],
-source: "renderTopPanelOn: html\x0a\x09html div\x0a\x09\x09class: 'top';\x0a\x09\x09with: [\x0a\x09\x09\x09variablesList := html ul class: 'amber_column variables'.\x0a\x09\x09\x09valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'; yourself.\x0a\x09\x09\x09html div class: 'amber_tabs inspector'; with: [\x0a\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09class: 'amber_button inspector refresh';\x0a\x09\x09\x09\x09\x09with: 'Refresh';\x0a\x09\x09\x09\x09\x09onClick: [ self refresh ].\x0a\x09\x09\x09\x09diveButton := html button\x0a\x09\x09\x09\x09\x09class: 'amber_button inspector dive';\x0a\x09\x09\x09\x09\x09with: 'Dive';\x0a\x09\x09\x09\x09\x09onClick: [ self dive ]].\x0a\x09\x09\x09html div class: 'amber_clear' ].\x0a\x09self\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateValueTextarea.",
-messageSends: ["class:", "div", "with:", "ul", "textarea", "at:put:", "yourself", "button", "onClick:", "refresh", "dive", "updateVariablesList", "updateValueTextarea"],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "selectVariable:",
-protocol: 'updating',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-self._selectedVariable_(aString);
-self._updateVariablesList();
-self._updateValueTextarea();
-$1=self._updateButtons();
-return self}, function($ctx1) {$ctx1.fill(self,"selectVariable:",{aString:aString},smalltalk.Inspector)})},
-args: ["aString"],
-source: "selectVariable: aString\x0a\x09self selectedVariable: aString.\x0a\x09self\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateValueTextarea;\x0a\x09\x09updateButtons",
-messageSends: ["selectedVariable:", "updateVariablesList", "updateValueTextarea", "updateButtons"],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "selectedVariable",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@selectedVariable"];
-return $1;
-},
-args: [],
-source: "selectedVariable\x0a\x09^ selectedVariable",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "selectedVariable:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-self["@selectedVariable"]=aString;
-return self},
-args: ["aString"],
-source: "selectedVariable: aString\x0a\x09selectedVariable := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "setLabel:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-self["@label"]=aString;
-return self},
-args: ["aString"],
-source: "setLabel: aString\x0a\x09label := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "setVariables:",
-protocol: 'accessing',
-fn: function (aCollection){
-var self=this;
-self["@variables"]=aCollection;
-return self},
-args: ["aCollection"],
-source: "setVariables: aCollection\x0a\x09variables := aCollection",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "sourceArea",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@sourceArea"];
-return $1;
-},
-args: [],
-source: "sourceArea\x0a\x09^ sourceArea",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateButtons",
-protocol: 'updating',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1;
-$3=self._selectedVariable();
-$ctx1.sendIdx["selectedVariable"]=1;
-$2=_st($3)._notNil();
-$ctx1.sendIdx["notNil"]=1;
-$1=_st($2)._and_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(self._variables())._at_(self._selectedVariable()))._notNil();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-if(smalltalk.assert($1)){
-_st(self["@diveButton"])._removeAt_("disabled");
-} else {
-_st(self["@diveButton"])._at_put_("disabled",true);
-};
-return self}, function($ctx1) {$ctx1.fill(self,"updateButtons",{},smalltalk.Inspector)})},
-args: [],
-source: "updateButtons\x0a\x09(self selectedVariable notNil and: [ (self variables at: self selectedVariable) notNil ])\x0a\x09\x09ifFalse: [ diveButton at: 'disabled' put: true ]\x0a\x09\x09ifTrue: [ diveButton removeAt: 'disabled' ]",
-messageSends: ["ifFalse:ifTrue:", "and:", "notNil", "selectedVariable", "at:", "variables", "at:put:", "removeAt:"],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateValueTextarea",
-protocol: 'updating',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2;
-$1=_st(self["@valueTextarea"])._asJQuery();
-$4=self._selectedVariable();
-$ctx1.sendIdx["selectedVariable"]=1;
-$3=_st($4)._isNil();
-if(smalltalk.assert($3)){
-$2="";
-} else {
-$2=_st(_st(self._variables())._at_(self._selectedVariable()))._printString();
-};
-_st($1)._val_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"updateValueTextarea",{},smalltalk.Inspector)})},
-args: [],
-source: "updateValueTextarea\x0a\x09valueTextarea asJQuery val: (self selectedVariable isNil\x0a\x09\x09ifTrue: [ '' ]\x0a\x09\x09ifFalse: [ (self variables at: self selectedVariable) printString ])",
-messageSends: ["val:", "asJQuery", "ifTrue:ifFalse:", "isNil", "selectedVariable", "printString", "at:", "variables"],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateVariablesList",
-protocol: 'updating',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-_st(self["@variablesList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {
-return _st(self._variables())._keysDo_((function(each){
-var li;
-return smalltalk.withContext(function($ctx3) {
-li=_st(html)._li();
-li;
-$1=li;
-_st($1)._with_(each);
-$2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {
-return self._selectVariable_(each);
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})}));
-$2;
-$3=_st(self._selectedVariable()).__eq(each);
-if(smalltalk.assert($3)){
-return _st(li)._class_("selected");
-};
-}, function($ctx3) {$ctx3.fillBlock({each:each,li:li},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"updateVariablesList",{},smalltalk.Inspector)})},
-args: [],
-source: "updateVariablesList\x0a\x09variablesList contents: [ :html |\x0a\x09\x09self variables keysDo: [ :each || li |\x0a\x09\x09\x09li := html li.\x0a\x09\x09\x09li\x0a\x09\x09\x09\x09with: each;\x0a\x09\x09\x09\x09onClick: [ self selectVariable: each ].\x0a\x09\x09\x09self selectedVariable = each ifTrue: [\x0a\x09\x09\x09\x09li class: 'selected' ]] ]",
-messageSends: ["contents:", "keysDo:", "variables", "li", "with:", "onClick:", "selectVariable:", "ifTrue:", "=", "selectedVariable", "class:"],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "variables",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@variables"];
-return $1;
-},
-args: [],
-source: "variables\x0a\x09^ variables",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Inspector);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "inspect:",
-protocol: 'instance creation',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=self._new();
-_st($2)._inspect_(anObject);
-_st($2)._open();
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.Inspector.klass)})},
-args: ["anObject"],
-source: "inspect: anObject\x0a\x09^ self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09open;\x0a\x09\x09yourself",
-messageSends: ["inspect:", "new", "open", "yourself"],
-referencedClasses: []
-}),
-smalltalk.Inspector.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "on:",
-protocol: 'instance creation',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=self._new();
-_st($2)._inspect_(anObject);
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},smalltalk.Inspector.klass)})},
-args: ["anObject"],
-source: "on: anObject\x0a\x09^ self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09yourself",
-messageSends: ["inspect:", "new", "yourself"],
-referencedClasses: []
-}),
-smalltalk.Inspector.klass);
 
 
 smalltalk.addClass('ProgressBar', smalltalk.TabWidget, ['percent', 'progressDiv', 'div'], 'IDE');

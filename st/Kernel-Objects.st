@@ -76,7 +76,7 @@ initialize
 !ProtoObject methodsFor: 'inspecting'!
 
 inspect
-	InspectorHandler inspect: self
+	Inspector inspect: self
 !
 
 inspectOn: anInspector

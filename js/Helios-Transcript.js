@@ -126,7 +126,7 @@ smalltalk.HLTranscriptHandler.klass.iVarNames = ['transcripts'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clear",
-protocol: 'registration',
+protocol: 'printing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -144,18 +144,20 @@ smalltalk.HLTranscriptHandler.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "initialize",
-protocol: 'initialization',
+selector: "cr",
+protocol: 'printing',
 fn: function (){
 var self=this;
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
-_st($Transcript())._register_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLTranscriptHandler.klass)})},
+_st(self._transcripts())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._cr();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"cr",{},smalltalk.HLTranscriptHandler.klass)})},
 args: [],
-source: "initialize\x0a\x09Transcript register: self",
-messageSends: ["register:"],
-referencedClasses: ["Transcript"]
+source: "cr\x0a\x09self transcripts do: [ :each | each cr ]",
+messageSends: ["do:", "transcripts", "cr"],
+referencedClasses: []
 }),
 smalltalk.HLTranscriptHandler.klass);
 
@@ -178,7 +180,7 @@ smalltalk.HLTranscriptHandler.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "show:",
-protocol: 'registration',
+protocol: 'printing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

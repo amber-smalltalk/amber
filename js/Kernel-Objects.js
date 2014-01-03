@@ -137,14 +137,14 @@ selector: "inspect",
 protocol: 'inspecting',
 fn: function (){
 var self=this;
-function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
+function $Inspector(){return smalltalk.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
 return smalltalk.withContext(function($ctx1) { 
-_st($InspectorHandler())._inspect_(self);
+_st($Inspector())._inspect_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"inspect",{},smalltalk.ProtoObject)})},
 args: [],
-source: "inspect\x0a\x09InspectorHandler inspect: self",
+source: "inspect\x0a\x09Inspector inspect: self",
 messageSends: ["inspect:"],
-referencedClasses: ["InspectorHandler"]
+referencedClasses: ["Inspector"]
 }),
 smalltalk.ProtoObject);
 

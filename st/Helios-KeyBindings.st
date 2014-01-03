@@ -473,7 +473,10 @@ setupEvents
 
 initialize
 	super initialize.
-	helper := HLKeyBinderHelperWidget on: self.
+	helper := HLKeyBinderHelperWidget on: self
+!
+
+setupHelper
 	helper 	
 		renderStart;
 		renderCog

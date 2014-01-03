@@ -71,26 +71,26 @@ transcripts
 	^ transcripts ifNil: [ transcripts := OrderedCollection new ]
 ! !
 
-!HLTranscriptHandler class methodsFor: 'initialization'!
-
-initialize
-	Transcript register: self
-! !
-
-!HLTranscriptHandler class methodsFor: 'registration'!
+!HLTranscriptHandler class methodsFor: 'printing'!
 
 clear
 	self transcripts do: [ :each |
 		each clear ]
 !
 
-register: aTranscript
-	self transcripts add: aTranscript
+cr
+	self transcripts do: [ :each | each cr ]
 !
 
 show: aString
 	self transcripts do: [ :each |
 		each show: aString ]
+! !
+
+!HLTranscriptHandler class methodsFor: 'registration'!
+
+register: aTranscript
+	self transcripts add: aTranscript
 !
 
 unregister: aTranscript

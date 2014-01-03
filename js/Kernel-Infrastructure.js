@@ -2,67 +2,133 @@ define("amber_core/Kernel-Infrastructure", ["amber_vm/smalltalk", "amber_vm/nil"
 smalltalk.addPackage('Kernel-Infrastructure');
 smalltalk.packages["Kernel-Infrastructure"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('InspectorHandler', smalltalk.Object, [], 'Kernel-Infrastructure');
-smalltalk.InspectorHandler.comment="I am responsible for inspecting object.\x0a\x0aMy class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.\x0a\x0aThe default inspector object is the transcript.";
-
-smalltalk.InspectorHandler.klass.iVarNames = ['inspector'];
+smalltalk.addClass('ConsoleErrorHandler', smalltalk.Object, [], 'Kernel-Infrastructure');
+smalltalk.ConsoleErrorHandler.comment="I am manage Smalltalk errors, displaying the stack in the console.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "inspect:",
-protocol: 'registration',
-fn: function (anObject){
+selector: "handleError:",
+protocol: 'error handling',
+fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._inspector())._inspect_(anObject);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.InspectorHandler.klass)})},
-args: ["anObject"],
-source: "inspect: anObject\x0a\x09^ self inspector inspect: anObject",
-messageSends: ["inspect:", "inspector"],
+$1=_st(anError)._context();
+$ctx1.sendIdx["context"]=1;
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+self._logErrorContext_(_st(anError)._context());
+};
+self._logError_(anError);
+return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.ConsoleErrorHandler)})},
+args: ["anError"],
+source: "handleError: anError\x0a\x09anError context ifNotNil: [ self logErrorContext: anError context ].\x0a\x09self logError: anError",
+messageSends: ["ifNotNil:", "context", "logErrorContext:", "logError:"],
 referencedClasses: []
 }),
-smalltalk.InspectorHandler.klass);
+smalltalk.ConsoleErrorHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "inspector",
-protocol: 'accessing',
+selector: "log:",
+protocol: 'private',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(console)._log_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"log:",{aString:aString},smalltalk.ConsoleErrorHandler)})},
+args: ["aString"],
+source: "log: aString\x0a\x09console log: aString",
+messageSends: ["log:"],
+referencedClasses: []
+}),
+smalltalk.ConsoleErrorHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "logContext:",
+protocol: 'private',
+fn: function (aContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aContext)._home();
+$ctx1.sendIdx["home"]=1;
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+self._logContext_(_st(aContext)._home());
+};
+self._log_(_st(aContext)._asString());
+return self}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext},smalltalk.ConsoleErrorHandler)})},
+args: ["aContext"],
+source: "logContext: aContext\x0a\x09aContext home ifNotNil: [\x0a\x09\x09self logContext: aContext home ].\x0a\x09self log: aContext asString",
+messageSends: ["ifNotNil:", "home", "logContext:", "log:", "asString"],
+referencedClasses: []
+}),
+smalltalk.ConsoleErrorHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "logError:",
+protocol: 'private',
+fn: function (anError){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._log_(_st(anError)._messageText());
+return self}, function($ctx1) {$ctx1.fill(self,"logError:",{anError:anError},smalltalk.ConsoleErrorHandler)})},
+args: ["anError"],
+source: "logError: anError\x0a\x09self log: anError messageText",
+messageSends: ["log:", "messageText"],
+referencedClasses: []
+}),
+smalltalk.ConsoleErrorHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "logErrorContext:",
+protocol: 'private',
+fn: function (aContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+if(($receiver = aContext) == nil || $receiver == null){
+aContext;
+} else {
+$1=_st(aContext)._home();
+$ctx1.sendIdx["home"]=1;
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+self._logContext_(_st(aContext)._home());
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext},smalltalk.ConsoleErrorHandler)})},
+args: ["aContext"],
+source: "logErrorContext: aContext\x0a\x09aContext ifNotNil: [\x0a\x09\x09aContext home ifNotNil: [\x0a\x09\x09\x09self logContext: aContext home ]]",
+messageSends: ["ifNotNil:", "home", "logContext:"],
+referencedClasses: []
+}),
+smalltalk.ConsoleErrorHandler);
+
+
+smalltalk.ConsoleErrorHandler.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@inspector"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@inspector"]=$Transcript();
-$1=self["@inspector"];
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"inspector",{},smalltalk.InspectorHandler.klass)})},
+_st($ErrorHandler())._registerIfNone_(self._new());
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ConsoleErrorHandler.klass)})},
 args: [],
-source: "inspector\x0a\x09^ inspector ifNil: [ inspector := Transcript ]",
-messageSends: ["ifNil:"],
-referencedClasses: ["Transcript"]
+source: "initialize\x0a\x09ErrorHandler registerIfNone: self new",
+messageSends: ["registerIfNone:", "new"],
+referencedClasses: ["ErrorHandler"]
 }),
-smalltalk.InspectorHandler.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "register:",
-protocol: 'registration',
-fn: function (anInspector){
-var self=this;
-self["@inspector"]=anInspector;
-return self},
-args: ["anInspector"],
-source: "register: anInspector\x0a\x09inspector := anInspector",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.InspectorHandler.klass);
+smalltalk.ConsoleErrorHandler.klass);
 
 
 smalltalk.addClass('InterfacingObject', smalltalk.Object, [], 'Kernel-Infrastructure');
@@ -508,14 +574,14 @@ selector: "inspect:",
 protocol: 'actions',
 fn: function (anObject){
 var self=this;
-function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
+function $Inspector(){return smalltalk.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st($InspectorHandler())._inspector())._inspect_(anObject);
+_st($Inspector())._inspect_(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.Environment)})},
 args: ["anObject"],
-source: "inspect: anObject\x0a\x09InspectorHandler inspector inspect: anObject",
-messageSends: ["inspect:", "inspector"],
-referencedClasses: ["InspectorHandler"]
+source: "inspect: anObject\x0a\x09Inspector inspect: anObject",
+messageSends: ["inspect:"],
+referencedClasses: ["Inspector"]
 }),
 smalltalk.Environment);
 
@@ -614,16 +680,16 @@ smalltalk.Environment);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "registerErrorHandler:",
-protocol: 'actions',
+protocol: 'services',
 fn: function (anErrorHandler){
 var self=this;
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
-_st($ErrorHandler())._setCurrent_(anErrorHandler);
+_st($ErrorHandler())._register_(anErrorHandler);
 return self}, function($ctx1) {$ctx1.fill(self,"registerErrorHandler:",{anErrorHandler:anErrorHandler},smalltalk.Environment)})},
 args: ["anErrorHandler"],
-source: "registerErrorHandler: anErrorHandler\x0a\x09ErrorHandler setCurrent: anErrorHandler",
-messageSends: ["setCurrent:"],
+source: "registerErrorHandler: anErrorHandler\x0a\x09ErrorHandler register: anErrorHandler",
+messageSends: ["register:"],
 referencedClasses: ["ErrorHandler"]
 }),
 smalltalk.Environment);
@@ -631,34 +697,51 @@ smalltalk.Environment);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "registerInspector:",
-protocol: 'actions',
+protocol: 'services',
 fn: function (anInspector){
 var self=this;
-function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
+function $Inspector(){return smalltalk.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
 return smalltalk.withContext(function($ctx1) { 
-_st($InspectorHandler())._register_(anInspector);
+_st($Inspector())._register_(anInspector);
 return self}, function($ctx1) {$ctx1.fill(self,"registerInspector:",{anInspector:anInspector},smalltalk.Environment)})},
 args: ["anInspector"],
-source: "registerInspector: anInspector\x0a\x09InspectorHandler register: anInspector",
+source: "registerInspector: anInspector\x0a\x09Inspector register: anInspector",
 messageSends: ["register:"],
-referencedClasses: ["InspectorHandler"]
+referencedClasses: ["Inspector"]
 }),
 smalltalk.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "registerProgressHandler:",
-protocol: 'actions',
+protocol: 'services',
 fn: function (aProgressHandler){
 var self=this;
 function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 return smalltalk.withContext(function($ctx1) { 
-_st($ProgressHandler())._setCurrent_(aProgressHandler);
+_st($ProgressHandler())._register_(aProgressHandler);
 return self}, function($ctx1) {$ctx1.fill(self,"registerProgressHandler:",{aProgressHandler:aProgressHandler},smalltalk.Environment)})},
 args: ["aProgressHandler"],
-source: "registerProgressHandler: aProgressHandler\x0a\x09ProgressHandler setCurrent: aProgressHandler",
-messageSends: ["setCurrent:"],
+source: "registerProgressHandler: aProgressHandler\x0a\x09ProgressHandler register: aProgressHandler",
+messageSends: ["register:"],
 referencedClasses: ["ProgressHandler"]
+}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerTranscript:",
+protocol: 'services',
+fn: function (aTranscript){
+var self=this;
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+return smalltalk.withContext(function($ctx1) { 
+_st($Transcript())._register_(aTranscript);
+return self}, function($ctx1) {$ctx1.fill(self,"registerTranscript:",{aTranscript:aTranscript},smalltalk.Environment)})},
+args: ["aTranscript"],
+source: "registerTranscript: aTranscript\x0a\x09Transcript register: aTranscript",
+messageSends: ["register:"],
+referencedClasses: ["Transcript"]
 }),
 smalltalk.Environment);
 
@@ -1146,6 +1229,44 @@ messageSends: ["jsObject:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy.klass);
+
+
+smalltalk.addClass('NullProgressHandler', smalltalk.Object, [], 'Kernel-Infrastructure');
+smalltalk.NullProgressHandler.comment="I am the default progress handler. I do not display any progress, and simply iterate over the collection.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "do:on:displaying:",
+protocol: 'progress handling',
+fn: function (aBlock,aCollection,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aCollection)._do_(aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},smalltalk.NullProgressHandler)})},
+args: ["aBlock", "aCollection", "aString"],
+source: "do: aBlock on: aCollection displaying: aString\x0a\x09aCollection do: aBlock",
+messageSends: ["do:"],
+referencedClasses: []
+}),
+smalltalk.NullProgressHandler);
+
+
+smalltalk.NullProgressHandler.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($ProgressHandler())._registerIfNone_(self._new());
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.NullProgressHandler.klass)})},
+args: [],
+source: "initialize\x0a\x09ProgressHandler registerIfNone: self new",
+messageSends: ["registerIfNone:", "new"],
+referencedClasses: ["ProgressHandler"]
+}),
+smalltalk.NullProgressHandler.klass);
 
 
 smalltalk.addClass('Organizer', smalltalk.Object, [], 'Kernel-Infrastructure');
@@ -1896,8 +2017,126 @@ referencedClasses: []
 smalltalk.PlatformInterface.klass);
 
 
-smalltalk.addClass('ProgressHandler', smalltalk.Object, [], 'Kernel-Infrastructure');
-smalltalk.ProgressHandler.comment="I am used to manage progress in collection iterations, see `SequenceableCollection >> #do:displayingProgress:`.\x0a\x0aSubclasses of can register themselves as the current handler with\x0a`ProgressHandler class >> register`.\x0a\x0aThe default behavior is to simply iterate over the collection.";
+smalltalk.addClass('Service', smalltalk.Object, [], 'Kernel-Infrastructure');
+smalltalk.Service.comment="I implement the basic behavior for class registration to a service.\x0a\x0aSee the `Transcript` class for a concrete service.\x0a\x0a## API\x0a\x0aUse class-side methods `#register:` and `#registerIfNone:` to register classes to a specific service.";
+
+smalltalk.Service.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "current",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@current"];
+return $1;
+},
+args: [],
+source: "current\x0a\x09^ current",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Service.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "new",
+protocol: 'instance creation',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._shouldNotImplement();
+return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.Service.klass)})},
+args: [],
+source: "new\x0a\x09self shouldNotImplement",
+messageSends: ["shouldNotImplement"],
+referencedClasses: []
+}),
+smalltalk.Service.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "register:",
+protocol: 'registration',
+fn: function (anObject){
+var self=this;
+self["@current"]=anObject;
+return self},
+args: ["anObject"],
+source: "register: anObject\x0a\x09current := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Service.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerIfNone:",
+protocol: 'registration',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._current();
+if(($receiver = $1) == nil || $receiver == null){
+self._register_(anObject);
+} else {
+$1;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"registerIfNone:",{anObject:anObject},smalltalk.Service.klass)})},
+args: ["anObject"],
+source: "registerIfNone: anObject\x0a\x09self current ifNil: [ self register: anObject ]",
+messageSends: ["ifNil:", "current", "register:"],
+referencedClasses: []
+}),
+smalltalk.Service.klass);
+
+
+smalltalk.addClass('ErrorHandler', smalltalk.Service, [], 'Kernel-Infrastructure');
+smalltalk.ErrorHandler.comment="I am the service used to handle Smalltalk errors.\x0aSee `boot.js` `handleError()` function.\x0a\x0aRegistered service instances must implement `#handleError:` to perform an action on the thrown exception.";
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleError:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._current())._handleError_(anError);
+return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.ErrorHandler.klass)})},
+args: ["anError"],
+source: "handleError: anError\x0a\x09self current handleError: anError",
+messageSends: ["handleError:", "current"],
+referencedClasses: []
+}),
+smalltalk.ErrorHandler.klass);
+
+
+smalltalk.addClass('Inspector', smalltalk.Service, [], 'Kernel-Infrastructure');
+smalltalk.Inspector.comment="I am the service responsible for inspecting objects.\x0a\x0aThe default inspector object is the transcript.";
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspect:",
+protocol: 'inspecting',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._current())._inspect_(anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.Inspector.klass)})},
+args: ["anObject"],
+source: "inspect: anObject\x0a\x09^ self current inspect: anObject",
+messageSends: ["inspect:", "current"],
+referencedClasses: []
+}),
+smalltalk.Inspector.klass);
+
+
+smalltalk.addClass('ProgressHandler', smalltalk.Service, [], 'Kernel-Infrastructure');
+smalltalk.ProgressHandler.comment="I am used to manage progress in collection iterations, see `SequenceableCollection >> #do:displayingProgress:`.\x0a\x0aRegistered instances must implement `#do:on:displaying:`.\x0a\x0aThe default behavior is to simply iterate over the collection, using `NullProgressHandler`.";
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "do:on:displaying:",
@@ -1905,88 +2144,99 @@ protocol: 'progress handling',
 fn: function (aBlock,aCollection,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(aCollection)._do_(aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},smalltalk.ProgressHandler)})},
+_st(self._current())._do_on_displaying_(aBlock,aCollection,aString);
+return self}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},smalltalk.ProgressHandler.klass)})},
 args: ["aBlock", "aCollection", "aString"],
-source: "do: aBlock on: aCollection displaying: aString\x0a\x09aCollection do: aBlock",
-messageSends: ["do:"],
+source: "do: aBlock on: aCollection displaying: aString\x0a\x09self current do: aBlock on: aCollection displaying: aString",
+messageSends: ["do:on:displaying:", "current"],
 referencedClasses: []
 }),
-smalltalk.ProgressHandler);
+smalltalk.ProgressHandler.klass);
 
 
-smalltalk.ProgressHandler.klass.iVarNames = ['current'];
+smalltalk.addClass('Transcript', smalltalk.Service, [], 'Kernel-Infrastructure');
+smalltalk.Transcript.comment="I am a facade for Transcript actions.\x0a\x0aI delegate actions to the currently registered transcript.\x0a\x0a## API\x0a\x0a    Transcript \x0a        show: 'hello world';\x0a        cr;\x0a        show: anObject.";
+
 smalltalk.addMethod(
 smalltalk.method({
-selector: "current",
-protocol: 'accessing',
+selector: "clear",
+protocol: 'printing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@current"]=self._new();
-$1=self["@current"];
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.ProgressHandler.klass)})},
+_st(self._current())._clear();
+return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.Transcript.klass)})},
 args: [],
-source: "current\x0a\x09^ current ifNil: [ current := self new ]",
-messageSends: ["ifNil:", "new"],
+source: "clear\x0a\x09self current clear",
+messageSends: ["clear", "current"],
 referencedClasses: []
 }),
-smalltalk.ProgressHandler.klass);
+smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "initialize",
-protocol: 'initialization',
+selector: "cr",
+protocol: 'printing',
+fn: function (){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+_st(self._current())._show_(_st($String())._cr());
+return self}, function($ctx1) {$ctx1.fill(self,"cr",{},smalltalk.Transcript.klass)})},
+args: [],
+source: "cr\x0a\x09self current show: String cr",
+messageSends: ["show:", "current", "cr"],
+referencedClasses: ["String"]
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspect:",
+protocol: 'printing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._show_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.Transcript.klass)})},
+args: ["anObject"],
+source: "inspect: anObject\x0a\x09self show: anObject",
+messageSends: ["show:"],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "open",
+protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._register();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ProgressHandler.klass)})},
+_st(self._current())._open();
+return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.Transcript.klass)})},
 args: [],
-source: "initialize\x0a\x09self register",
-messageSends: ["register"],
+source: "open\x0a\x09self current open",
+messageSends: ["open", "current"],
 referencedClasses: []
 }),
-smalltalk.ProgressHandler.klass);
+smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "register",
-protocol: 'initialization',
-fn: function (){
+selector: "show:",
+protocol: 'printing',
+fn: function (anObject){
 var self=this;
-function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 return smalltalk.withContext(function($ctx1) { 
-_st($ProgressHandler())._setCurrent_(self._new());
-return self}, function($ctx1) {$ctx1.fill(self,"register",{},smalltalk.ProgressHandler.klass)})},
-args: [],
-source: "register\x0a\x09ProgressHandler setCurrent: self new",
-messageSends: ["setCurrent:", "new"],
-referencedClasses: ["ProgressHandler"]
-}),
-smalltalk.ProgressHandler.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "setCurrent:",
-protocol: 'accessing',
-fn: function (anHandler){
-var self=this;
-self["@current"]=anHandler;
-return self},
-args: ["anHandler"],
-source: "setCurrent: anHandler\x0a\x09current := anHandler",
-messageSends: [],
+_st(self._current())._show_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},smalltalk.Transcript.klass)})},
+args: ["anObject"],
+source: "show: anObject\x0a\x09self current show: anObject",
+messageSends: ["show:", "current"],
 referencedClasses: []
 }),
-smalltalk.ProgressHandler.klass);
+smalltalk.Transcript.klass);
 
 
 smalltalk.addClass('SmalltalkImage', smalltalk.Object, [], 'Kernel-Infrastructure');
@@ -2705,11 +2955,11 @@ fn: function (aBlock,aString){
 var self=this;
 function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st($ProgressHandler())._current())._do_on_displaying_(aBlock,self,aString);
+_st($ProgressHandler())._do_on_displaying_(aBlock,self,aString);
 return self}, function($ctx1) {$ctx1.fill(self,"do:displayingProgress:",{aBlock:aBlock,aString:aString},smalltalk.SequenceableCollection)})},
 args: ["aBlock", "aString"],
-source: "do: aBlock displayingProgress: aString\x0a\x09ProgressHandler current\x0a\x09\x09do: aBlock on: self displaying: aString",
-messageSends: ["do:on:displaying:", "current"],
+source: "do: aBlock displayingProgress: aString\x0a\x09ProgressHandler \x0a\x09\x09do: aBlock \x0a\x09\x09on: self \x0a\x09\x09displaying: aString",
+messageSends: ["do:on:displaying:"],
 referencedClasses: ["ProgressHandler"]
 }),
 smalltalk.SequenceableCollection);

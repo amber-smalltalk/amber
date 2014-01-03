@@ -933,7 +933,7 @@ function RuntimeBrik(brikz, st) {
 		if (!error.smalltalkError) {
 			error = wrappedError(error);
 		}
-		st.ErrorHandler._current()._handleError_(error);
+		st.ErrorHandler._handleError_(error);
 		// Throw the exception anyway, as we want to stop
 		// the execution to avoid infinite loops
 		// Update: do not throw the exception. It's really annoying.

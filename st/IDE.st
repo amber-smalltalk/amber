@@ -149,7 +149,7 @@ on: aClass browser: aBrowser classes: aCollection level: anInteger
 		yourself
 ! !
 
-ErrorHandler subclass: #DebugErrorHandler
+Object subclass: #DebugErrorHandler
 	instanceVariableNames: ''
 	package: 'IDE'!
 
@@ -165,7 +165,7 @@ handleError: anError
 !DebugErrorHandler class methodsFor: 'initialization'!
 
 initialize
-	ErrorHandler current ifNil: [ self register ]
+	ErrorHandler register: self new
 ! !
 
 Widget subclass: #SourceArea
@@ -454,7 +454,7 @@ removeTab: aWidget
 
 initialize
 	super initialize.
-	InspectorHandler register: Inspector.
+	Inspector register: IDEInspector.
 	opened := true.
 	[ :html | html div id: 'amber' ] appendToJQuery: 'body' asJQuery.
 	'body' asJQuery
@@ -1514,6 +1514,166 @@ updateVariablesList
 		ifNotNil: [ inspectButton removeAt: 'disabled' ]
 ! !
 
+TabWidget subclass: #IDEInspector
+	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea diveButton sourceArea'
+	package: 'IDE'!
+
+!IDEInspector methodsFor: 'accessing'!
+
+label
+	^ label ifNil: [ 'Inspector (nil)' ]
+!
+
+selectedVariable
+	^ selectedVariable
+!
+
+selectedVariable: aString
+	selectedVariable := aString
+!
+
+setLabel: aString
+	label := aString
+!
+
+setVariables: aCollection
+	variables := aCollection
+!
+
+sourceArea
+	^ sourceArea
+!
+
+variables
+	^ variables
+! !
+
+!IDEInspector methodsFor: 'actions'!
+
+dive
+	(self variables at: self selectedVariable) inspect
+!
+
+inspect: anObject
+	object := anObject.
+	variables := #().
+	object inspectOn: self
+!
+
+refresh
+	self
+		inspect: object;
+		updateVariablesList;
+		updateValueTextarea
+! !
+
+!IDEInspector methodsFor: 'rendering'!
+
+renderBottomPanelOn: html
+	html div
+	class: 'amber_sourceCode';
+	with: [
+		sourceArea := SourceArea new
+		receiver: object;
+		onDoIt: [ self refresh ];
+		yourself.
+			sourceArea renderOn: html ]
+!
+
+renderBoxOn: html
+	self
+		renderTopPanelOn: html;
+		renderBottomPanelOn: html
+!
+
+renderButtonsOn: html
+	html button
+		with: 'DoIt';
+		onClick: [ self sourceArea doIt ].
+	html button
+		with: 'PrintIt';
+		onClick: [ self sourceArea printIt ].
+	html button
+		with: 'InspectIt';
+		onClick: [ self sourceArea inspectIt ].
+	self updateButtons
+!
+
+renderTopPanelOn: html
+	html div
+		class: 'top';
+		with: [
+			variablesList := html ul class: 'amber_column variables'.
+			valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'; yourself.
+			html div class: 'amber_tabs inspector'; with: [
+				html button
+					class: 'amber_button inspector refresh';
+					with: 'Refresh';
+					onClick: [ self refresh ].
+				diveButton := html button
+					class: 'amber_button inspector dive';
+					with: 'Dive';
+					onClick: [ self dive ]].
+			html div class: 'amber_clear' ].
+	self
+		updateVariablesList;
+		updateValueTextarea.
+! !
+
+!IDEInspector methodsFor: 'testing'!
+
+canBeClosed
+	^ true
+! !
+
+!IDEInspector methodsFor: 'updating'!
+
+selectVariable: aString
+	self selectedVariable: aString.
+	self
+		updateVariablesList;
+		updateValueTextarea;
+		updateButtons
+!
+
+updateButtons
+	(self selectedVariable notNil and: [ (self variables at: self selectedVariable) notNil ])
+		ifFalse: [ diveButton at: 'disabled' put: true ]
+		ifTrue: [ diveButton removeAt: 'disabled' ]
+!
+
+updateValueTextarea
+	valueTextarea asJQuery val: (self selectedVariable isNil
+		ifTrue: [ '' ]
+		ifFalse: [ (self variables at: self selectedVariable) printString ])
+!
+
+updateVariablesList
+	variablesList contents: [ :html |
+		self variables keysDo: [ :each || li |
+			li := html li.
+			li
+				with: each;
+				onClick: [ self selectVariable: each ].
+			self selectedVariable = each ifTrue: [
+				li class: 'selected' ]] ]
+! !
+
+!IDEInspector class methodsFor: 'instance creation'!
+
+inspect: anObject
+	^ self new
+		inspect: anObject;
+		open;
+		yourself
+!
+
+on: anObject
+	^ self new
+		inspect: anObject;
+		yourself
+! !
+
 TabWidget subclass: #IDETranscript
 	instanceVariableNames: 'textarea'
 	package: 'IDE'!
@@ -1580,168 +1740,8 @@ new
 
 open
 	TabManager current
-	open;
-	selectTab: self current
-! !
-
-TabWidget subclass: #Inspector
-	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea diveButton sourceArea'
-	package: 'IDE'!
-
-!Inspector methodsFor: 'accessing'!
-
-label
-	^ label ifNil: [ 'Inspector (nil)' ]
-!
-
-selectedVariable
-	^ selectedVariable
-!
-
-selectedVariable: aString
-	selectedVariable := aString
-!
-
-setLabel: aString
-	label := aString
-!
-
-setVariables: aCollection
-	variables := aCollection
-!
-
-sourceArea
-	^ sourceArea
-!
-
-variables
-	^ variables
-! !
-
-!Inspector methodsFor: 'actions'!
-
-dive
-	(self variables at: self selectedVariable) inspect
-!
-
-inspect: anObject
-	object := anObject.
-	variables := #().
-	object inspectOn: self
-!
-
-refresh
-	self
-		inspect: object;
-		updateVariablesList;
-		updateValueTextarea
-! !
-
-!Inspector methodsFor: 'rendering'!
-
-renderBottomPanelOn: html
-	html div
-	class: 'amber_sourceCode';
-	with: [
-		sourceArea := SourceArea new
-		receiver: object;
-		onDoIt: [ self refresh ];
-		yourself.
-			sourceArea renderOn: html ]
-!
-
-renderBoxOn: html
-	self
-		renderTopPanelOn: html;
-		renderBottomPanelOn: html
-!
-
-renderButtonsOn: html
-	html button
-		with: 'DoIt';
-		onClick: [ self sourceArea doIt ].
-	html button
-		with: 'PrintIt';
-		onClick: [ self sourceArea printIt ].
-	html button
-		with: 'InspectIt';
-		onClick: [ self sourceArea inspectIt ].
-	self updateButtons
-!
-
-renderTopPanelOn: html
-	html div
-		class: 'top';
-		with: [
-			variablesList := html ul class: 'amber_column variables'.
-			valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'; yourself.
-			html div class: 'amber_tabs inspector'; with: [
-				html button
-					class: 'amber_button inspector refresh';
-					with: 'Refresh';
-					onClick: [ self refresh ].
-				diveButton := html button
-					class: 'amber_button inspector dive';
-					with: 'Dive';
-					onClick: [ self dive ]].
-			html div class: 'amber_clear' ].
-	self
-		updateVariablesList;
-		updateValueTextarea.
-! !
-
-!Inspector methodsFor: 'testing'!
-
-canBeClosed
-	^ true
-! !
-
-!Inspector methodsFor: 'updating'!
-
-selectVariable: aString
-	self selectedVariable: aString.
-	self
-		updateVariablesList;
-		updateValueTextarea;
-		updateButtons
-!
-
-updateButtons
-	(self selectedVariable notNil and: [ (self variables at: self selectedVariable) notNil ])
-		ifFalse: [ diveButton at: 'disabled' put: true ]
-		ifTrue: [ diveButton removeAt: 'disabled' ]
-!
-
-updateValueTextarea
-	valueTextarea asJQuery val: (self selectedVariable isNil
-		ifTrue: [ '' ]
-		ifFalse: [ (self variables at: self selectedVariable) printString ])
-!
-
-updateVariablesList
-	variablesList contents: [ :html |
-		self variables keysDo: [ :each || li |
-			li := html li.
-			li
-				with: each;
-				onClick: [ self selectVariable: each ].
-			self selectedVariable = each ifTrue: [
-				li class: 'selected' ]] ]
-! !
-
-!Inspector class methodsFor: 'instance creation'!
-
-inspect: anObject
-	^ self new
-		inspect: anObject;
 		open;
-		yourself
-!
-
-on: anObject
-	^ self new
-		inspect: anObject;
-		yourself
+		selectTab: self current
 ! !
 
 TabWidget subclass: #ProgressBar

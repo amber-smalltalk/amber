@@ -1,30 +1,45 @@
 Smalltalk createPackage: 'Kernel-Infrastructure'!
-Object subclass: #InspectorHandler
+Object subclass: #ConsoleErrorHandler
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
-!InspectorHandler commentStamp!
-I am responsible for inspecting object.
+!ConsoleErrorHandler commentStamp!
+I am manage Smalltalk errors, displaying the stack in the console.!
 
-My class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.
+!ConsoleErrorHandler methodsFor: 'error handling'!
 
-The default inspector object is the transcript.!
-
-InspectorHandler class instanceVariableNames: 'inspector'!
-
-!InspectorHandler class methodsFor: 'accessing'!
-
-inspector
-	^ inspector ifNil: [ inspector := Transcript ]
+handleError: anError
+	anError context ifNotNil: [ self logErrorContext: anError context ].
+	self logError: anError
 ! !
 
-!InspectorHandler class methodsFor: 'registration'!
+!ConsoleErrorHandler methodsFor: 'private'!
 
-inspect: anObject
-	^ self inspector inspect: anObject
+log: aString
+	console log: aString
 !
 
-register: anInspector
-	inspector := anInspector
+logContext: aContext
+	aContext home ifNotNil: [
+		self logContext: aContext home ].
+	self log: aContext asString
+!
+
+logError: anError
+	self log: anError messageText
+!
+
+logErrorContext: aContext
+	aContext ifNotNil: [
+		aContext home ifNotNil: [
+			self logContext: aContext home ]]
+! !
+
+ConsoleErrorHandler class instanceVariableNames: 'current'!
+
+!ConsoleErrorHandler class methodsFor: 'initialization'!
+
+initialize
+	ErrorHandler registerIfNone: self new
 ! !
 
 Object subclass: #InterfacingObject
@@ -140,7 +155,7 @@ eval: aString on: aReceiver
 !
 
 inspect: anObject
-	InspectorHandler inspector inspect: anObject
+	Inspector inspect: anObject
 !
 
 moveClass: aClass toPackage: aPackageName
@@ -168,18 +183,6 @@ moveMethod: aMethod toClass: aClassName
 
 moveMethod: aMethod toProtocol: aProtocol
 	aMethod protocol: aProtocol
-!
-
-registerErrorHandler: anErrorHandler
-	ErrorHandler setCurrent: anErrorHandler
-!
-
-registerInspector: anInspector
-	InspectorHandler register: anInspector
-!
-
-registerProgressHandler: aProgressHandler
-	ProgressHandler setCurrent: aProgressHandler
 !
 
 removeClass: aClass
@@ -246,6 +249,24 @@ evaluate: aBlock on: anErrorClass do: exceptionBlock
 		(exception isKindOf: (self classNamed: anErrorClass name))
 			ifTrue: [ exceptionBlock value: exception ]
  			ifFalse: [ exception signal ] ]
+! !
+
+!Environment methodsFor: 'services'!
+
+registerErrorHandler: anErrorHandler
+	ErrorHandler register: anErrorHandler
+!
+
+registerInspector: anInspector
+	Inspector register: anInspector
+!
+
+registerProgressHandler: aProgressHandler
+	ProgressHandler register: aProgressHandler
+!
+
+registerTranscript: aTranscript
+	Transcript register: aTranscript
 ! !
 
 ProtoObject subclass: #JSObjectProxy
@@ -411,6 +432,26 @@ on: aJSObject
 	^ self new
 		jsObject: aJSObject;
 		yourself
+! !
+
+Object subclass: #NullProgressHandler
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!NullProgressHandler commentStamp!
+I am the default progress handler. I do not display any progress, and simply iterate over the collection.!
+
+!NullProgressHandler methodsFor: 'progress handling'!
+
+do: aBlock on: aCollection displaying: aString
+	aCollection do: aBlock
+! !
+
+NullProgressHandler class instanceVariableNames: 'current'!
+
+!NullProgressHandler class methodsFor: 'initialization'!
+
+initialize
+	ProgressHandler registerIfNone: self new
 ! !
 
 Object subclass: #Organizer
@@ -718,43 +759,124 @@ initialize
 	]
 ! !
 
-Object subclass: #ProgressHandler
+Object subclass: #Service
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!Service commentStamp!
+I implement the basic behavior for class registration to a service.
+
+See the `Transcript` class for a concrete service.
+
+## API
+
+Use class-side methods `#register:` and `#registerIfNone:` to register classes to a specific service.!
+
+Service class instanceVariableNames: 'current'!
+
+!Service class methodsFor: 'accessing'!
+
+current
+	^ current
+! !
+
+!Service class methodsFor: 'instance creation'!
+
+new
+	self shouldNotImplement
+! !
+
+!Service class methodsFor: 'registration'!
+
+register: anObject
+	current := anObject
+!
+
+registerIfNone: anObject
+	self current ifNil: [ self register: anObject ]
+! !
+
+Service subclass: #ErrorHandler
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!ErrorHandler commentStamp!
+I am the service used to handle Smalltalk errors.
+See `boot.js` `handleError()` function.
+
+Registered service instances must implement `#handleError:` to perform an action on the thrown exception.!
+
+!ErrorHandler class methodsFor: 'error handling'!
+
+handleError: anError
+	self current handleError: anError
+! !
+
+Service subclass: #Inspector
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!Inspector commentStamp!
+I am the service responsible for inspecting objects.
+
+The default inspector object is the transcript.!
+
+!Inspector class methodsFor: 'inspecting'!
+
+inspect: anObject
+	^ self current inspect: anObject
+! !
+
+Service subclass: #ProgressHandler
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
 !ProgressHandler commentStamp!
 I am used to manage progress in collection iterations, see `SequenceableCollection >> #do:displayingProgress:`.
 
-Subclasses of can register themselves as the current handler with
-`ProgressHandler class >> register`.
+Registered instances must implement `#do:on:displaying:`.
 
-The default behavior is to simply iterate over the collection.!
+The default behavior is to simply iterate over the collection, using `NullProgressHandler`.!
 
-!ProgressHandler methodsFor: 'progress handling'!
+!ProgressHandler class methodsFor: 'progress handling'!
 
 do: aBlock on: aCollection displaying: aString
-	aCollection do: aBlock
+	self current do: aBlock on: aCollection displaying: aString
 ! !
 
-ProgressHandler class instanceVariableNames: 'current'!
+Service subclass: #Transcript
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!Transcript commentStamp!
+I am a facade for Transcript actions.
 
-!ProgressHandler class methodsFor: 'accessing'!
+I delegate actions to the currently registered transcript.
 
-current
-	^ current ifNil: [ current := self new ]
-!
+## API
 
-setCurrent: anHandler
-	current := anHandler
+    Transcript 
+        show: 'hello world';
+        cr;
+        show: anObject.!
+
+!Transcript class methodsFor: 'instance creation'!
+
+open
+	self current open
 ! !
 
-!ProgressHandler class methodsFor: 'initialization'!
+!Transcript class methodsFor: 'printing'!
 
-initialize
-	self register
+clear
+	self current clear
 !
 
-register
-	ProgressHandler setCurrent: self new
+cr
+	self current show: String cr
+!
+
+inspect: anObject
+	self show: anObject
+!
+
+show: anObject
+	self current show: anObject
 ! !
 
 Object subclass: #SmalltalkImage
@@ -1033,8 +1155,10 @@ new
 !SequenceableCollection methodsFor: '*Kernel-Infrastructure'!
 
 do: aBlock displayingProgress: aString
-	ProgressHandler current
-		do: aBlock on: self displaying: aString
+	ProgressHandler 
+		do: aBlock 
+		on: self 
+		displaying: aString
 ! !
 
 !String methodsFor: '*Kernel-Infrastructure'!

@@ -1,4 +1,4 @@
-define("amber_core/Helios-Debugger", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Helios-Core", "amber_core/Helios-Workspace", "amber_core/Kernel-Exceptions"], function(smalltalk,nil,_st){
+define("amber_core/Helios-Debugger", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Helios-Core", "amber_core/Helios-Workspace"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Debugger');
 smalltalk.packages["Helios-Debugger"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -875,7 +875,7 @@ referencedClasses: []
 smalltalk.HLDebuggerModel.klass);
 
 
-smalltalk.addClass('HLErrorHandler', smalltalk.ErrorHandler, [], 'Helios-Debugger');
+smalltalk.addClass('HLErrorHandler', smalltalk.Object, [], 'Helios-Debugger');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleError:",
@@ -922,24 +922,6 @@ referencedClasses: ["HLProgressWidget"]
 }),
 smalltalk.HLErrorHandler);
 
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "handleError:",
-protocol: 'error handling',
-fn: function (anError){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._new())._handleError_(anError);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.HLErrorHandler.klass)})},
-args: ["anError"],
-source: "handleError: anError\x0a\x09^ self new handleError: anError",
-messageSends: ["handleError:", "new"],
-referencedClasses: []
-}),
-smalltalk.HLErrorHandler.klass);
 
 
 smalltalk.addClass('HLStackListWidget', smalltalk.HLToolListWidget, [], 'Helios-Debugger');

@@ -1369,16 +1369,12 @@ fn: function (){
 var self=this;
 function $HLKeyBinderHelperWidget(){return smalltalk.HLKeyBinderHelperWidget||(typeof HLKeyBinderHelperWidget=="undefined"?nil:HLKeyBinderHelperWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
 smalltalk.HLKeyBinder.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@helper"]=_st($HLKeyBinderHelperWidget())._on_(self);
-$1=self["@helper"];
-_st($1)._renderStart();
-$2=_st($1)._renderCog();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLKeyBinder)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09helper := HLKeyBinderHelperWidget on: self.\x0a\x09helper \x09\x0a\x09\x09renderStart;\x0a\x09\x09renderCog",
-messageSends: ["initialize", "on:", "renderStart", "renderCog"],
+source: "initialize\x0a\x09super initialize.\x0a\x09helper := HLKeyBinderHelperWidget on: self",
+messageSends: ["initialize", "on:"],
 referencedClasses: ["HLKeyBinderHelperWidget"]
 }),
 smalltalk.HLKeyBinder);
@@ -1461,6 +1457,25 @@ return self}, function($ctx1) {$ctx1.fill(self,"setupEvents",{},smalltalk.HLKeyB
 args: [],
 source: "setupEvents\x0a\x09'body' asJQuery keydown: [ :event | self handleKeyDown: event ]",
 messageSends: ["keydown:", "asJQuery", "handleKeyDown:"],
+referencedClasses: []
+}),
+smalltalk.HLKeyBinder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setupHelper",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self["@helper"];
+_st($1)._renderStart();
+$2=_st($1)._renderCog();
+return self}, function($ctx1) {$ctx1.fill(self,"setupHelper",{},smalltalk.HLKeyBinder)})},
+args: [],
+source: "setupHelper\x0a\x09helper \x09\x0a\x09\x09renderStart;\x0a\x09\x09renderCog",
+messageSends: ["renderStart", "renderCog"],
 referencedClasses: []
 }),
 smalltalk.HLKeyBinder);
