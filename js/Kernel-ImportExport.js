@@ -1433,7 +1433,7 @@ $4="data".__minus_gt(aString);
 $ctx1.sendIdx["->"]=3;
 $5="contentType".__minus_gt("text/plain;charset=UTF-8");
 $ctx1.sendIdx["->"]=4;
-$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,"error".__minus_gt((function(xhr){
+$1=globals.HashedCollection._from_([$2,$3,$4,$5,"error".__minus_gt((function(xhr){
 return smalltalk.withContext(function($ctx2) {
 $8=_st("Commiting ".__comma(aURL)).__comma(" failed with reason: \x22");
 $ctx2.sendIdx[","]=3;
@@ -1856,7 +1856,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=smalltalk.HashedCollection._from_(["type".__minus_gt(self._type())]);
+$1=globals.HashedCollection._from_(["type".__minus_gt(self._type())]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{},globals.PackageTransport)})},
 args: [],
@@ -2104,7 +2104,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 globals.PackageTransport.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@registry"]=smalltalk.HashedCollection._from_([]);
+self["@registry"]=globals.HashedCollection._from_([]);
 self._register();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.PackageTransport.klass)})},
 args: [],

@@ -990,7 +990,7 @@ self["@input"]=$5;
 self["@input"];
 $11=_st(self["@input"])._asJQuery();
 $ctx2.sendIdx["asJQuery"]=2;
-_st($11)._typeahead_(smalltalk.HashedCollection._from_(["source".__minus_gt(self._inputCompletion())]));
+_st($11)._typeahead_(globals.HashedCollection._from_(["source".__minus_gt(self._inputCompletion())]));
 $12=_st(html)._span();
 _st($12)._class_("help-inline");
 _st($12)._with_(self._message());

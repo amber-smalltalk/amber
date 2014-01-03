@@ -119,7 +119,7 @@ methodAt: aString
 !
 
 methodDictionary
-	<var dict = smalltalk.HashedCollection._new();
+	<var dict = globals.HashedCollection._new();
 	var methods = self.methods;
 	Object.keys(methods).forEach(function(i) {
 		if(methods[i].selector) {

@@ -339,11 +339,11 @@ fn: function (aNumber){
 var self=this;
 
 		var interval = setInterval(self, aNumber);
-		return smalltalk.Timeout._on_(interval);
+		return globals.Timeout._on_(interval);
 	;
 return self},
 args: ["aNumber"],
-source: "valueWithInterval: aNumber\x0a\x09<\x0a\x09\x09var interval = setInterval(self, aNumber);\x0a\x09\x09return smalltalk.Timeout._on_(interval);\x0a\x09>",
+source: "valueWithInterval: aNumber\x0a\x09<\x0a\x09\x09var interval = setInterval(self, aNumber);\x0a\x09\x09return globals.Timeout._on_(interval);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -372,11 +372,11 @@ fn: function (aNumber){
 var self=this;
 
 		var timeout = setTimeout(self, aNumber);
-		return smalltalk.Timeout._on_(timeout);
+		return globals.Timeout._on_(timeout);
 	;
 return self},
 args: ["aNumber"],
-source: "valueWithTimeout: aNumber\x0a\x09<\x0a\x09\x09var timeout = setTimeout(self, aNumber);\x0a\x09\x09return smalltalk.Timeout._on_(timeout);\x0a\x09>",
+source: "valueWithTimeout: aNumber\x0a\x09<\x0a\x09\x09var timeout = setTimeout(self, aNumber);\x0a\x09\x09return globals.Timeout._on_(timeout);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

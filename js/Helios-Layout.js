@@ -408,7 +408,7 @@ return smalltalk.withContext(function($ctx2) {
 return self._startResizing_(_st(ui)._helper());
 }, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,1)})}));
 $ctx1.sendIdx["->"]=4;
-$2=smalltalk.HashedCollection._from_([$3,$4,$5,$6,"drag".__minus_gt((function(e,ui){
+$2=globals.HashedCollection._from_([$3,$4,$5,$6,"drag".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._resize_(_st(_st(ui)._offset())._top());
 }, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})}))]);
@@ -565,7 +565,7 @@ return smalltalk.withContext(function($ctx2) {
 return self._startResizing_(_st(ui)._helper());
 }, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,1)})}));
 $ctx1.sendIdx["->"]=4;
-$2=smalltalk.HashedCollection._from_([$3,$4,$5,$6,"drag".__minus_gt((function(e,ui){
+$2=globals.HashedCollection._from_([$3,$4,$5,$6,"drag".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._resize_(_st(_st(ui)._offset())._left());
 }, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})}))]);

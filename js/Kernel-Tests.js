@@ -308,10 +308,10 @@ var self=this;
 
 	"newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made."
 	function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}
-	self._should_raise_(_st(constructionShouldFail), smalltalk.Error);;
+	self._should_raise_(_st(constructionShouldFail), globals.Error);;
 return self},
 args: [],
-source: "testNewWithValues\x0a<\x0a\x09function theTestPrototype() {this.name = \x22theTestPrototype\x22;}\x0a\x09function theTestConstructor(arg1, arg2, arg3) {}\x0a\x09theTestConstructor.prototype = new theTestPrototype;\x0a\x0a\x09var theWrappedConstructor = _st(theTestConstructor);\x0a\x09var theResult = theWrappedConstructor._newWithValues_([1, 2, 3 ]);\x0a\x09self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}\x0a\x09self._should_raise_(_st(constructionShouldFail), smalltalk.Error);\x0a>",
+source: "testNewWithValues\x0a<\x0a\x09function theTestPrototype() {this.name = \x22theTestPrototype\x22;}\x0a\x09function theTestConstructor(arg1, arg2, arg3) {}\x0a\x09theTestConstructor.prototype = new theTestPrototype;\x0a\x0a\x09var theWrappedConstructor = _st(theTestConstructor);\x0a\x09var theResult = theWrappedConstructor._newWithValues_([1, 2, 3 ]);\x0a\x09self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}\x0a\x09self._should_raise_(_st(constructionShouldFail), globals.Error);\x0a>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2921,7 +2921,7 @@ associations=[$1,$2];
 $3=_st(_st(self._class())._collectionClass())._from_(associations);
 $5="a".__minus_gt((1));
 $ctx1.sendIdx["->"]=3;
-$4=smalltalk.HashedCollection._from_([$5,"b".__minus_gt((2))]);
+$4=globals.HashedCollection._from_([$5,"b".__minus_gt((2))]);
 self._assertSameContents_as_($3,$4);
 return self}, function($ctx1) {$ctx1.fill(self,"testFrom",{associations:associations},globals.AssociativeCollectionTest)})},
 args: [],
@@ -2971,7 +2971,7 @@ flattenedAssociations=["a",(1),"b",(2)];
 $1=_st(_st(self._class())._collectionClass())._newFromPairs_(flattenedAssociations);
 $3="a".__minus_gt((1));
 $ctx1.sendIdx["->"]=1;
-$2=smalltalk.HashedCollection._from_([$3,"b".__minus_gt((2))]);
+$2=globals.HashedCollection._from_([$3,"b".__minus_gt((2))]);
 self._assertSameContents_as_($1,$2);
 return self}, function($ctx1) {$ctx1.fill(self,"testNewFromPairs",{flattenedAssociations:flattenedAssociations},globals.AssociativeCollectionTest)})},
 args: [],
@@ -3445,7 +3445,7 @@ return smalltalk.withContext(function($ctx1) {
 var $3,$2,$1;
 $3="hello".__minus_gt((1));
 $ctx1.sendIdx["->"]=1;
-$2=smalltalk.HashedCollection._from_([$3]);
+$2=globals.HashedCollection._from_([$3]);
 $1=_st($2)._asDictionary();
 self._assert_equals_($1,_st($Dictionary())._with_("hello".__minus_gt((1))));
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},globals.DictionaryTest)})},
@@ -3489,7 +3489,7 @@ $3="a".__minus_gt((2));
 $ctx1.sendIdx["->"]=2;
 $4="c".__minus_gt((3));
 $ctx1.sendIdx["->"]=3;
-$1=smalltalk.HashedCollection._from_([$2,$3,$4,"d".__minus_gt((-4))]);
+$1=globals.HashedCollection._from_([$2,$3,$4,"d".__minus_gt((-4))]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collection",{},globals.HashedCollectionTest)})},
 args: [],
@@ -3530,7 +3530,7 @@ $3="a".__minus_gt("2");
 $ctx1.sendIdx["->"]=2;
 $4="c".__minus_gt("3");
 $ctx1.sendIdx["->"]=3;
-$1=smalltalk.HashedCollection._from_([$2,$3,$4,"d".__minus_gt("-4")]);
+$1=globals.HashedCollection._from_([$2,$3,$4,"d".__minus_gt("-4")]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},globals.HashedCollectionTest)})},
 args: [],
@@ -3592,7 +3592,7 @@ $6="e".__minus_gt((1));
 $ctx1.sendIdx["->"]=5;
 $7="f".__minus_gt((2));
 $ctx1.sendIdx["->"]=6;
-$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,"g".__minus_gt((10))]);
+$1=globals.HashedCollection._from_([$2,$3,$4,$5,$6,$7,"g".__minus_gt((10))]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},globals.HashedCollectionTest)})},
 args: [],
@@ -3618,7 +3618,7 @@ $4="c".__minus_gt((3));
 $ctx1.sendIdx["->"]=3;
 $5="d".__minus_gt((-4));
 $ctx1.sendIdx["->"]=4;
-$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,"new".__minus_gt("N")]);
+$1=globals.HashedCollection._from_([$2,$3,$4,$5,"new".__minus_gt("N")]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.HashedCollectionTest)})},
 args: [],
@@ -3636,7 +3636,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=smalltalk.HashedCollection._from_(["new".__minus_gt("N")]);
+$1=globals.HashedCollection._from_(["new".__minus_gt("N")]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},globals.HashedCollectionTest)})},
 args: [],
@@ -3657,7 +3657,7 @@ return smalltalk.withContext(function($ctx1) {
 var $3,$2,$1;
 $3="hello".__minus_gt((1));
 $ctx1.sendIdx["->"]=1;
-$2=smalltalk.HashedCollection._from_([$3]);
+$2=globals.HashedCollection._from_([$3]);
 $1=_st($2)._asHashedCollection();
 self._assert_equals_($1,_st($HashedCollection())._with_("hello".__minus_gt((1))));
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},globals.HashedCollectionTest)})},

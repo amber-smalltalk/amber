@@ -502,7 +502,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2="foo".__minus_gt((1));
 $ctx1.sendIdx["->"]=1;
-$1=smalltalk.HashedCollection._from_([$2,"bar".__minus_gt((2))]);
+$1=globals.HashedCollection._from_([$2,"bar".__minus_gt((2))]);
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := 'foo'->1.\x0a\x09^ #{ x. (true ifTrue: [ x := 'bar'->2 ]) }\x0a",$1);
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaryElementsOrdered",{},globals.CodeGeneratorTest)})},
 args: [],
@@ -572,7 +572,7 @@ self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ { 'foo'->x. 'bar'
 $ctx1.sendIdx["should:return:"]=4;
 $14="foo".__minus_gt((1));
 $ctx1.sendIdx["->"]=9;
-$13=smalltalk.HashedCollection._from_([$14,"bar".__minus_gt((2))]);
+$13=globals.HashedCollection._from_([$14,"bar".__minus_gt((2))]);
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ #{ 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",$13);
 return self}, function($ctx1) {$ctx1.fill(self,"testInnerTemporalDependentElementsOrdered",{},globals.CodeGeneratorTest)})},
 args: [],
@@ -620,7 +620,7 @@ self._should_return_("foo ^ false",false);
 $ctx1.sendIdx["should:return:"]=6;
 $2=(1).__minus_gt((2));
 $ctx1.sendIdx["->"]=1;
-$1=smalltalk.HashedCollection._from_([$2,(3).__minus_gt((4))]);
+$1=globals.HashedCollection._from_([$2,(3).__minus_gt((4))]);
 self._should_return_("foo ^ #{1->2. 3->4}",$1);
 $ctx1.sendIdx["should:return:"]=7;
 self._should_return_("foo ^ #hello","hello");
@@ -1176,7 +1176,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 self["@receiver"]=anObject;
-$1=self._assert_equals_(self._interpret_receiver_withArguments_(aString,self["@receiver"],smalltalk.HashedCollection._from_([])),aResult);
+$1=self._assert_equals_(self._interpret_receiver_withArguments_(aString,self["@receiver"],globals.HashedCollection._from_([])),aResult);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult},globals.InterpreterTest)})},
 args: ["aString", "anObject", "aResult"],

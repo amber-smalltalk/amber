@@ -410,9 +410,9 @@ $9="electricChars".__minus_gt(false);
 $ctx1.sendIdx["->"]=8;
 $10="keyMap".__minus_gt("Amber");
 $ctx1.sendIdx["->"]=9;
-$11="extraKeys".__minus_gt(smalltalk.HashedCollection._from_(["Shift-Space".__minus_gt("autocomplete")]));
+$11="extraKeys".__minus_gt(globals.HashedCollection._from_(["Shift-Space".__minus_gt("autocomplete")]));
 $ctx1.sendIdx["->"]=10;
-$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11]);
+$1=globals.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"editorOptions",{},globals.HLCodeWidget)})},
 args: [],
@@ -674,7 +674,7 @@ $ctx2.sendIdx["at:put:"]=3;
 $8=self["@editor"];
 $10="line".__minus_gt(currentLine);
 $ctx2.sendIdx["->"]=1;
-$9=smalltalk.HashedCollection._from_([$10,"ch".__minus_gt((0))]);
+$9=globals.HashedCollection._from_([$10,"ch".__minus_gt((0))]);
 return _st($8)._setSelection_end_($9,start);
 $ctx2.sendIdx["setSelection:end:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
@@ -1064,7 +1064,7 @@ $9=_st($10)._value_value_($11,_st(token)._end());
 $ctx1.sendIdx["value:value:"]=2;
 $8="from".__minus_gt($9);
 $ctx1.sendIdx["->"]=2;
-$6=smalltalk.HashedCollection._from_([$7,$8,"to".__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._start()))]);
+$6=globals.HashedCollection._from_([$7,$8,"to".__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._start()))]);
 return $6;
 }, function($ctx1) {$ctx1.fill(self,"hintFor:options:",{anEditor:anEditor,options:options,cursor:cursor,token:token,completions:completions},globals.HLCodeWidget.klass)})},
 args: ["anEditor", "options"],
@@ -1176,7 +1176,7 @@ $25="Shift-Cmd-G".__minus_gt("findPrev");
 $ctx1.sendIdx["->"]=24;
 $26="Shift-Cmd-Z".__minus_gt("redo");
 $ctx1.sendIdx["->"]=25;
-$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,"fallthrough".__minus_gt(["basic","emacsy"])]);
+$1=globals.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,"fallthrough".__minus_gt(["basic","emacsy"])]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"macKeyMap",{},globals.HLCodeWidget.klass)})},
 args: [],
@@ -1262,7 +1262,7 @@ $25="Shift-Ctrl-R".__minus_gt("replaceAll");
 $ctx1.sendIdx["->"]=24;
 $26="Shift-Ctrl-Z".__minus_gt("redo");
 $ctx1.sendIdx["->"]=25;
-$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,"fallthrough".__minus_gt(["basic"])]);
+$1=globals.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,"fallthrough".__minus_gt(["basic"])]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"pcKeyMap",{},globals.HLCodeWidget.klass)})},
 args: [],

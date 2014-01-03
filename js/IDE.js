@@ -809,7 +809,7 @@ $ctx2.sendIdx["at:put:"]=3;
 $8=self["@editor"];
 $10="line".__minus_gt(currentLine);
 $ctx2.sendIdx["->"]=1;
-$9=smalltalk.HashedCollection._from_([$10,"ch".__minus_gt((0))]);
+$9=globals.HashedCollection._from_([$10,"ch".__minus_gt((0))]);
 return _st($8)._setSelection_end_($9,start);
 $ctx2.sendIdx["setSelection:end:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
@@ -1216,7 +1216,7 @@ $3="handles".__minus_gt("n");
 $ctx1.sendIdx["->"]=1;
 $4="resize".__minus_gt(aBlock);
 $ctx1.sendIdx["->"]=2;
-$2=smalltalk.HashedCollection._from_([$3,$4,"minHeight".__minus_gt((230))]);
+$2=globals.HashedCollection._from_([$3,$4,"minHeight".__minus_gt((230))]);
 _st($1)._resizable_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"onResize:",{aBlock:aBlock},globals.TabManager)})},
 args: ["aBlock"],
