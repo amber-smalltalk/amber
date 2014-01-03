@@ -528,7 +528,7 @@ transport: aPackageTransport
 !Package methodsFor: 'classes'!
 
 classes
-	^ self organization elements asArray sort
+	^ self organization elements
 !
 
 setupClasses

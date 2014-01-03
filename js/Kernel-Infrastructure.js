@@ -1275,12 +1275,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self._organization())._elements())._asArray())._sort();
+$1=_st(self._organization())._elements();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Package)})},
 args: [],
-source: "classes\x0a\x09^ self organization elements asArray sort",
-messageSends: ["sort", "asArray", "elements", "organization"],
+source: "classes\x0a\x09^ self organization elements",
+messageSends: ["elements", "organization"],
 referencedClasses: []
 }),
 smalltalk.Package);
