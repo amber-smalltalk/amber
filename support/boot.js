@@ -1032,10 +1032,6 @@ function MessageSendBrik(brikz, st) {
 		return st.send(st.JSObjectProxy._on_(receiver), selector, args);
 	}
 
-	if(typeof jQuery !== "undefined") {
-		jQuery.allowJavaScriptCalls = true;
-	}
-
 	this.messageNotUnderstood = messageNotUnderstood;
 }
 

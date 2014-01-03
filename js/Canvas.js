@@ -2182,6 +2182,22 @@ smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(jQuery)._basicAt_put_("allowJavaScriptCalls",true);
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HTMLCanvas.klass)})},
+args: [],
+source: "initialize\x0a\x09\x22Allow JS method calls for the jQuery object.\x0a\x09See boot.js DNU handling.\x22\x0a\x09\x0a\x09jQuery basicAt: 'allowJavaScriptCalls' put: true",
+messageSends: ["basicAt:put:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "onJQuery:",
 protocol: 'instance creation',
 fn: function (aJQuery){

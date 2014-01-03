@@ -545,6 +545,15 @@ video
 	^ self tag: 'video'
 ! !
 
+!HTMLCanvas class methodsFor: 'initialization'!
+
+initialize
+	"Allow JS method calls for the jQuery object.
+	See boot.js DNU handling."
+	
+	jQuery basicAt: 'allowJavaScriptCalls' put: true
+! !
+
 !HTMLCanvas class methodsFor: 'instance creation'!
 
 onJQuery: aJQuery
