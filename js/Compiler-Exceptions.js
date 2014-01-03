@@ -1,4 +1,4 @@
-define("amber_core/Compiler-Exceptions", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Exceptions"], function(smalltalk,nil,_st, globals){
+define("amber_core/Compiler-Exceptions", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Compiler-Exceptions');
 smalltalk.packages["Compiler-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -179,6 +179,42 @@ messageSends: [],
 referencedClasses: []
 }),
 globals.UnknownVariableError);
+
+
+
+smalltalk.addClass('RethrowErrorHandler', globals.Object, [], 'Compiler-Exceptions');
+globals.RethrowErrorHandler.comment="This class is used in the commandline version of the compiler.\x0aIt uses the handleError: message of ErrorHandler for printing the stacktrace and throws the error again as JS exception.\x0aAs a result Smalltalk errors are not swallowd by the Amber runtime and compilation can be aborted.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "basicSignal:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+throw anError;
+return self},
+args: ["anError"],
+source: "basicSignal: anError\x0a        <throw anError>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.RethrowErrorHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleError:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+globals.RethrowErrorHandler.superclass.fn.prototype._handleError_.apply(_st(self), [anError]);
+self._basicSignal_(anError);
+return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.RethrowErrorHandler)})},
+args: ["anError"],
+source: "handleError: anError\x0a        super handleError: anError.\x0a        self basicSignal: anError",
+messageSends: ["handleError:", "basicSignal:"],
+referencedClasses: []
+}),
+globals.RethrowErrorHandler);
 
 
 });
