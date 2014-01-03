@@ -21,7 +21,7 @@ Some highlights:
 Getting Amber
 -------------
 
-Amber is shipped as a [npm](npmjs.org) package for its CLI tools and as a [bower](https://github.com/bower/bower) package for the client-side.
+Amber is shipped as a [npm](http://npmjs.org) package for its CLI tools and as a [bower](https://github.com/bower/bower) package for the client-side.
 
     # Install the CLI tool `amber`
     npm install -g amber
