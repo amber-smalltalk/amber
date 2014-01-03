@@ -1220,8 +1220,7 @@ defaultEnvironment
 	parent := window opener ifNil: [ window parent ].
 	parent ifNil: [ ^ Environment new ].
 	
-	parentSmalltalkGlobals := ((parent at: 'requirejs') value: 'amber_vm/boot')
-		ifNotNil: [ :boot | boot at: 'globals' ].
+	parentSmalltalkGlobals := (parent at: 'requirejs') value: 'amber_vm/globals'.
 	parentSmalltalkGlobals ifNil: [ ^ Environment new ].
 	
 	^ (parentSmalltalkGlobals at: 'Environment') new
