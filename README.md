@@ -30,7 +30,7 @@ Amber is shipped as a [npm](npmjs.org) package for its CLI tools and as a [bower
     bower install amber
     
     # Serve amber on localhost:4000
-    amber serve --base-path ./
+    amber serve
 
 
 Building Amber
