@@ -33,17 +33,18 @@ Amber is shipped as a [npm](npmjs.org) package for its CLI tools and as a [bower
     amber serve --base-path ./
 
 
-License
--------
-
-Amber is released under the MIT license. All contributions made for inclusion are considered to be under MIT.
-
 Building Amber
 --------------
 
 This step is only used by people developing Amber itself.
 Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for further details.
 It explains the Amber development setup and how to contribute.
+
+
+License
+-------
+
+Amber is released under the MIT license. All contributions made for inclusion are considered to be under MIT.
 
 
 More infos
