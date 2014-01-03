@@ -71,7 +71,7 @@ function AmberC(amber_dir) {
 	}
 
 	this.amber_dir = amber_dir;
-	this.kernel_libraries = ['boot', 'smalltalk', 'nil', '_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
+	this.kernel_libraries = ['boot', 'smalltalk', 'globals', 'nil', '_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 							'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Transcript',
 							'Kernel-Announcements'];
 	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Kernel-ImportExport', 'Compiler-Exceptions',
@@ -341,9 +341,15 @@ function create_compiler(configuration) {
 			builder.finish('configuration.smalltalk = smalltalk;');
 			builder.add('})();');
 
-			eval(builder.toString());
+			try {
+				eval(builder.toString());
+			} catch (error){
+				console.error(error);
+			}
+
 			console.log('Compiler loaded');
-			configuration.smalltalk.ErrorHandler._setCurrent_(configuration.smalltalk.RethrowErrorHandler._new());
+
+			configuration.smalltalk.ErrorHandler._register_(configuration.smalltalk.RethrowErrorHandler._new());
 
 			if(0 !== configuration.jsGlobals.length) {
 				var jsGlobalVariables = configuration.smalltalk.globalJsVariables;
