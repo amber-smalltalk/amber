@@ -18,6 +18,20 @@ Some highlights:
 -    Amber can use Javascript libraries and the current IDE is built on [jQuery](http://www.jquery.com)
 -    You can inline Javascript code and there are many ways to interact between Amber and Javascript
 
+Getting Amber
+-------------
+
+Amber is shipped as a [npm](npmjs.org) package for its CLI tools and as a [bower](https://github.com/bower/bower) package for the client-side.
+
+    # Install the CLI tool `amber`
+    npm instal -g amber
+    
+    # Load amber via bower in your project
+    bower install amber
+    
+    # Serve amber on localhost:4000
+    amber serve --base-path ./
+
 
 License
 -------
