@@ -251,12 +251,12 @@ $1;
 } else {
 _st(protocols)._addAll_(self._availableProtocolsFor_(_st(aClass)._superclass()));
 };
-$2=_st(_st(protocols)._asArray())._sort();
+$2=_st(_st(_st(protocols)._asSet())._asArray())._sort();
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"availableProtocolsFor:",{aClass:aClass,protocols:protocols},smalltalk.Environment)})},
 args: ["aClass"],
-source: "availableProtocolsFor: aClass\x0a\x09| protocols |\x0a\x09\x0a\x09protocols := aClass protocols.\x0a\x09aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].\x0a\x09^ protocols asArray sort",
-messageSends: ["protocols", "ifNotNil:", "superclass", "addAll:", "availableProtocolsFor:", "sort", "asArray"],
+source: "availableProtocolsFor: aClass\x0a\x09| protocols |\x0a\x09\x0a\x09protocols := aClass protocols.\x0a\x09aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].\x0a\x09^ protocols asSet asArray sort",
+messageSends: ["protocols", "ifNotNil:", "superclass", "addAll:", "availableProtocolsFor:", "sort", "asArray", "asSet"],
 referencedClasses: []
 }),
 smalltalk.Environment);

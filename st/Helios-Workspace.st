@@ -222,7 +222,7 @@ variableHintFor: anEditor token: aToken
 	classNames := Smalltalk classes collect: [ :each | each name ].
 	pseudoVariables := Smalltalk pseudoVariableNames.
 	
-	^ ((variables, classNames, pseudoVariables) asArray sort
+	^ ((variables, classNames, pseudoVariables) asSet asArray sort
 		select: [ :each | each includesSubString: aToken string ])
 		reject: [ :each | each = aToken string ]
 ! !

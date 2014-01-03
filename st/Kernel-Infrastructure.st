@@ -90,7 +90,7 @@ availableProtocolsFor: aClass
 	
 	protocols := aClass protocols.
 	aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].
-	^ protocols asArray sort
+	^ protocols asSet asArray sort
 !
 
 classBuilder

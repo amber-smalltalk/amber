@@ -1859,10 +1859,10 @@ var $2,$1;
 if(($receiver = aPackage) == nil || $receiver == null){
 $1=[];
 } else {
-$1=_st(_st(_st(_st(_st(aPackage)._classes())._collect_((function(each){
+$1=_st(_st(_st(aPackage)._classes())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._theNonMetaClass();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})})))._asArray())._sort())._sort_((function(a,b){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})})))._sort_((function(a,b){
 return smalltalk.withContext(function($ctx2) {
 $2=_st(a)._name();
 $ctx2.sendIdx["name"]=1;
@@ -1872,8 +1872,8 @@ return _st($2).__lt(_st(b)._name());
 self._items_($1);
 return self}, function($ctx1) {$ctx1.fill(self,"setItemsForPackage:",{aPackage:aPackage},smalltalk.HLClassesListWidget)})},
 args: ["aPackage"],
-source: "setItemsForPackage: aPackage\x0a\x09self items: (aPackage \x0a    \x09ifNil: [ #() ]\x0a  \x09\x09ifNotNil: [ ((aPackage classes \x0a        \x09collect: [ :each | each theNonMetaClass ]) asArray sort) \x0a            \x09sort: [ :a :b | a name < b name ] ]).",
-messageSends: ["items:", "ifNil:ifNotNil:", "sort:", "sort", "asArray", "collect:", "classes", "theNonMetaClass", "<", "name"],
+source: "setItemsForPackage: aPackage\x0a\x09self items: (aPackage \x0a    \x09ifNil: [ #() ]\x0a  \x09\x09ifNotNil: [ (aPackage classes \x0a        \x09collect: [ :each | each theNonMetaClass ]) \x0a            \x09sort: [ :a :b | a name < b name ] ]).",
+messageSends: ["items:", "ifNil:ifNotNil:", "sort:", "collect:", "classes", "theNonMetaClass", "<", "name"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);
