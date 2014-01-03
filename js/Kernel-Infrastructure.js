@@ -252,12 +252,12 @@ $1;
 } else {
 _st(protocols)._addAll_(self._availableProtocolsFor_(_st(aClass)._superclass()));
 };
-$2=_st(_st(protocols)._asSet())._asArray();
+$2=_st(_st(protocols)._asArray())._sort();
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"availableProtocolsFor:",{aClass:aClass,protocols:protocols},smalltalk.Environment)})},
 args: ["aClass"],
-source: "availableProtocolsFor: aClass\x0a\x09| protocols |\x0a\x09\x0a\x09protocols := aClass protocols.\x0a\x09aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].\x0a\x09^ protocols asSet asArray",
-messageSends: ["protocols", "ifNotNil:", "superclass", "addAll:", "availableProtocolsFor:", "asArray", "asSet"],
+source: "availableProtocolsFor: aClass\x0a\x09| protocols |\x0a\x09\x0a\x09protocols := aClass protocols.\x0a\x09aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].\x0a\x09^ protocols asArray sort",
+messageSends: ["protocols", "ifNotNil:", "superclass", "addAll:", "availableProtocolsFor:", "sort", "asArray"],
 referencedClasses: []
 }),
 smalltalk.Environment);
@@ -1275,12 +1275,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self._organization())._elements())._asSet())._asArray();
+$1=_st(_st(_st(self._organization())._elements())._asArray())._sort();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Package)})},
 args: [],
-source: "classes\x0a\x09^ self organization elements asSet asArray",
-messageSends: ["asArray", "asSet", "elements", "organization"],
+source: "classes\x0a\x09^ self organization elements asArray sort",
+messageSends: ["sort", "asArray", "elements", "organization"],
 referencedClasses: []
 }),
 smalltalk.Package);

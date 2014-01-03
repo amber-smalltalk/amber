@@ -1012,8 +1012,8 @@ return _st(each)._name();
 pseudoVariables=_st($Smalltalk())._pseudoVariableNames();
 $8=_st(_st(variables).__comma(classNames)).__comma(pseudoVariables);
 $ctx1.sendIdx[","]=1;
-$7=_st($8)._asSet();
-$6=_st($7)._asArray();
+$7=_st($8)._asArray();
+$6=_st($7)._sort();
 $5=_st($6)._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 $9=_st(aToken)._string();
@@ -1027,8 +1027,8 @@ return _st(each).__eq(_st(aToken)._string());
 return $4;
 }, function($ctx1) {$ctx1.fill(self,"variableHintFor:token:",{anEditor:anEditor,aToken:aToken,variables:variables,classNames:classNames,pseudoVariables:pseudoVariables},smalltalk.HLCodeWidget)})},
 args: ["anEditor", "aToken"],
-source: "variableHintFor: anEditor token: aToken\x0a\x09| variables classNames pseudoVariables |\x0a\x09\x0a\x09variables := (anEditor display wrapper asJQuery find: 'span.cm-variable') get\x0a\x09\x09collect: [ :each | each asJQuery html ].\x0a\x09\x0a\x09classNames := Smalltalk classes collect: [ :each | each name ].\x0a\x09pseudoVariables := Smalltalk pseudoVariableNames.\x0a\x09\x0a\x09^ ((variables, classNames, pseudoVariables) asSet asArray \x0a\x09\x09select: [ :each | each includesSubString: aToken string ])\x0a\x09\x09reject: [ :each | each = aToken string ]",
-messageSends: ["collect:", "get", "find:", "asJQuery", "wrapper", "display", "html", "classes", "name", "pseudoVariableNames", "reject:", "select:", "asArray", "asSet", ",", "includesSubString:", "string", "="],
+source: "variableHintFor: anEditor token: aToken\x0a\x09| variables classNames pseudoVariables |\x0a\x09\x0a\x09variables := (anEditor display wrapper asJQuery find: 'span.cm-variable') get\x0a\x09\x09collect: [ :each | each asJQuery html ].\x0a\x09\x0a\x09classNames := Smalltalk classes collect: [ :each | each name ].\x0a\x09pseudoVariables := Smalltalk pseudoVariableNames.\x0a\x09\x0a\x09^ ((variables, classNames, pseudoVariables) asArray sort\x0a\x09\x09select: [ :each | each includesSubString: aToken string ])\x0a\x09\x09reject: [ :each | each = aToken string ]",
+messageSends: ["collect:", "get", "find:", "asJQuery", "wrapper", "display", "html", "classes", "name", "pseudoVariableNames", "reject:", "select:", "sort", "asArray", ",", "includesSubString:", "string", "="],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.HLCodeWidget);

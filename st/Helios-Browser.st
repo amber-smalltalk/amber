@@ -489,7 +489,7 @@ setItemsForPackage: aPackage
 	self items: (aPackage 
     	ifNil: [ #() ]
   		ifNotNil: [ ((aPackage classes 
-        	collect: [ :each | each theNonMetaClass ]) asSet asArray) 
+        	collect: [ :each | each theNonMetaClass ]) asArray sort) 
             	sort: [ :a :b | a name < b name ] ]).
 !
 

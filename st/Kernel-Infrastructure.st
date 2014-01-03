@@ -90,7 +90,7 @@ availableProtocolsFor: aClass
 	
 	protocols := aClass protocols.
 	aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].
-	^ protocols asSet asArray
+	^ protocols asArray sort
 !
 
 classBuilder
@@ -528,7 +528,7 @@ transport: aPackageTransport
 !Package methodsFor: 'classes'!
 
 classes
-	^ self organization elements asSet asArray
+	^ self organization elements asArray sort
 !
 
 setupClasses
