@@ -6,6 +6,10 @@
 * HashedCollection >> at:ifAbsentPut: pushed up to SequenceableCollection
 * HashedCollection >> , is now allowed (removed shouldNotImplement)
 * HashedCollection and Dictionary both subclasses of AssociativeCollection
+* Smalltalk class moved to SmalltalkImage class, Smalltalk is now global var
+* Smalltalk current deprecated in favour of Smalltalk
+* Smalltalk at:[put:] deprecated in favour of Smalltalk globals at:[put:]
+* <smalltalk.ClassName> deprecated in favour of <globals.ClassName>
 
 + CompiledMethod >>
   + defaultProtocol
@@ -23,6 +27,10 @@
 + AmdPackageHandler >> load:
 + Set >> removeAll
 + AssociativeCollection class
++ BucketStore class
++ SmalltalkImage >> globals
++ SmalltalkImage >> vm
++ Smalltalk global variable
 
 - CompiledMethod >>
   - category: (use #protocol:)
