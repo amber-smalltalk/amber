@@ -143,13 +143,14 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	.then(verify)
 	.then(compose_js_files)
 	.then(function () {
-		console.log = console.ambercLog;
 		console.timeEnd('Compile Time');
 	}, function(error) {
-		console.log = console.ambercLog;
 		console.error(error);
 	})
-	.then(finished_callback);
+	.then(function () {
+        console.log = console.ambercLog;
+        finished_callback && finished_callback();
+    });
 };
 
 
