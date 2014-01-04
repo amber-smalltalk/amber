@@ -148,9 +148,9 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 		console.error(error);
 	})
 	.then(function () {
-        console.log = console.ambercLog;
-        finished_callback && finished_callback();
-    });
+		console.log = console.ambercLog;
+		finished_callback && finished_callback();
+	});
 };
 
 
@@ -467,7 +467,7 @@ function compose_js_files(configuration) {
 	return new Promise(function(resolve, reject) {
 		var programFile = configuration.program;
 		if (undefined === programFile) {
-			resolve(true);
+			resolve(configuration);
 			return;
 		}
 		if (undefined !== configuration.output_dir) {
@@ -493,10 +493,11 @@ function compose_js_files(configuration) {
 		fileStream.on('error', function(error) {
 			fileStream.end();
 			console.ambercLog(error);
+			reject(error);
 		});
 
 		fileStream.on('close', function(){
-			return;
+			resolve(configuration);
 		});
 
 		var builder = createConcatenator();
@@ -540,7 +541,6 @@ function compose_js_files(configuration) {
 		});
 		console.log('Done.');
 		fileStream.end();
-		resolve(configuration);
 	});
 }
 
