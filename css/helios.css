@@ -38,7 +38,7 @@ html[xmlns] .clearfix {
 }
 #helios .CodeMirror-hints {
   border-radius: 0;
-  font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
+  font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", Courier, monospace;
   font-size: 11px;
   line-height: 1em;
   padding: 0;
@@ -49,7 +49,7 @@ html[xmlns] .clearfix {
   padding: 0 10px;
 }
 #helios .CodeMirror pre {
-  font-family: Menlo, Monaco, "Lucida Console", "Ubuntu Mono", Courier, monospace;
+  font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", "Ubuntu Mono", Courier, monospace;
   line-height: 16px;
   font-size: 13px;
 }
@@ -526,7 +526,7 @@ html[xmlns] .clearfix {
 }
 #helios .key_helper .label {
   padding: 1px 4px;
-  font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
+  font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", Courier, monospace;
   background: transparent;
   color: #08C;
   text-shadow: none;
