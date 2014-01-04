@@ -32,7 +32,7 @@ Amber is shipped as a [npm](http://npmjs.org) package for its CLI tools and as a
     # Serve amber on localhost:4000
     amber serve
 
-[Getting started](https://github.com/amber-smalltalk/amber/wiki/Getting-started) page shows more details on ways to obtain Amber and make it work.
+The [Getting started](https://github.com/amber-smalltalk/amber/wiki/Getting-started) page shows more details on ways to obtain Amber and start a project.
 
 Building Amber
 --------------
