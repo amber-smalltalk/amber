@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Moka-Controllers'!
+Smalltalk createPackage: 'Moka-Controllers'!
 MKSingleAspectController subclass: #MKAnyKeyInputController
 	instanceVariableNames: 'lastValue'
 	package: 'Moka-Controllers'!

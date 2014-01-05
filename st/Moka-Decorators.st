@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Moka-Decorators'!
+Smalltalk createPackage: 'Moka-Decorators'!
 MKDecorator subclass: #MKDraggableDecorator
 	instanceVariableNames: ''
 	package: 'Moka-Decorators'!

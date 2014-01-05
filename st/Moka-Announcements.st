@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Moka-Announcements'!
+Smalltalk createPackage: 'Moka-Announcements'!
 Object subclass: #MKAnnouncement
 	instanceVariableNames: ''
 	package: 'Moka-Announcements'!

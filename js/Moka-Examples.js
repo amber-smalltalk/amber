@@ -1,20 +1,20 @@
-define("amber_core/Moka-Examples", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Moka-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Moka-Examples", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Moka-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Moka-Examples');
 smalltalk.packages["Moka-Examples"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('MKClassesListBuilder', smalltalk.MKObservable, [], 'Moka-Examples');
+smalltalk.addClass('MKClassesListBuilder', globals.MKObservable, [], 'Moka-Examples');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "build",
-category: 'as yet unclassified',
+protocol: 'as yet unclassified',
 fn: function (){
 var self=this;
-function $MKPaneView(){return smalltalk.MKPaneView||(typeof MKPaneView=="undefined"?nil:MKPaneView)}
-function $MKScrollDecorator(){return smalltalk.MKScrollDecorator||(typeof MKScrollDecorator=="undefined"?nil:MKScrollDecorator)}
-function $MKListView(){return smalltalk.MKListView||(typeof MKListView=="undefined"?nil:MKListView)}
-function $MKClassesModel(){return smalltalk.MKClassesModel||(typeof MKClassesModel=="undefined"?nil:MKClassesModel)}
-function $MKPanelView(){return smalltalk.MKPanelView||(typeof MKPanelView=="undefined"?nil:MKPanelView)}
-function $MKSourceListView(){return smalltalk.MKSourceListView||(typeof MKSourceListView=="undefined"?nil:MKSourceListView)}
+function $MKPaneView(){return globals.MKPaneView||(typeof MKPaneView=="undefined"?nil:MKPaneView)}
+function $MKScrollDecorator(){return globals.MKScrollDecorator||(typeof MKScrollDecorator=="undefined"?nil:MKScrollDecorator)}
+function $MKListView(){return globals.MKListView||(typeof MKListView=="undefined"?nil:MKListView)}
+function $MKClassesModel(){return globals.MKClassesModel||(typeof MKClassesModel=="undefined"?nil:MKClassesModel)}
+function $MKPanelView(){return globals.MKPanelView||(typeof MKPanelView=="undefined"?nil:MKPanelView)}
+function $MKSourceListView(){return globals.MKSourceListView||(typeof MKSourceListView=="undefined"?nil:MKSourceListView)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$6,$5,$4,$7,$3,$8,$10,$11,$9,$12;
 $1=_st($MKPaneView())._new();
@@ -52,56 +52,56 @@ $9=$11;
 _st($8)._addView_($9);
 $ctx1.sendIdx["addView:"]=2;
 $12=_st($1)._render();
-return self}, function($ctx1) {$ctx1.fill(self,"build",{},smalltalk.MKClassesListBuilder)})},
+return self}, function($ctx1) {$ctx1.fill(self,"build",{},globals.MKClassesListBuilder)})},
 args: [],
 source: "build\x0a\x09MKPaneView new\x0a\x09\x09height: 150;\x0a\x09\x09addView: ((MKScrollDecorator decorate:\x0a\x09\x09\x09(MKListView\x0a\x09\x09\x09\x09model: MKClassesModel new\x0a\x09\x09\x09\x09collectionAspect: #classes\x0a\x09\x09\x09\x09selectionAspect: #selectedClass))\x0a\x09\x09\x09\x09\x09left: 4;\x0a\x09\x09\x09\x09\x09top: 4;\x0a\x09\x09\x09\x09\x09bottom: 4;\x0a\x09\x09\x09\x09\x09right: 0.5;\x0a\x09\x09\x09\x09\x09yourself);\x0a\x09\x09addView: (MKPanelView new\x0a\x09\x09\x09left: 0.5;\x0a\x09\x09\x09top: 4;\x0a\x09\x09\x09right: 4;\x0a\x09\x09\x09bottom: 4;\x0a\x09\x09\x09addView: (MKSourceListView \x09\x0a\x09\x09\x09\x09model: MKClassesModel new\x0a\x09\x09\x09\x09collectionAspect: #classes\x0a\x09\x09\x09\x09selectionAspect: #selectedClass);\x0a\x09\x09\x09yourself);\x0a\x09\x09render",
 messageSends: ["height:", "new", "addView:", "left:", "decorate:", "model:collectionAspect:selectionAspect:", "top:", "bottom:", "right:", "yourself", "render"],
 referencedClasses: ["MKPaneView", "MKScrollDecorator", "MKListView", "MKClassesModel", "MKPanelView", "MKSourceListView"]
 }),
-smalltalk.MKClassesListBuilder);
+globals.MKClassesListBuilder);
 
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'as yet unclassified',
+protocol: 'as yet unclassified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._new())._build();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.MKClassesListBuilder.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.MKClassesListBuilder.klass)})},
 args: [],
 source: "initialize\x0a\x09self new build",
 messageSends: ["build", "new"],
 referencedClasses: []
 }),
-smalltalk.MKClassesListBuilder.klass);
+globals.MKClassesListBuilder.klass);
 
 
-smalltalk.addClass('MKClassesModel', smalltalk.MKObservable, ['classes', 'selectedClass'], 'Moka-Examples');
+smalltalk.addClass('MKClassesModel', globals.MKObservable, ['classes', 'selectedClass'], 'Moka-Examples');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classes",
-category: 'as yet unclassified',
+protocol: 'as yet unclassified',
 fn: function (){
 var self=this;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(_st($Smalltalk())._current())._classes();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.MKClassesModel)})},
+}, function($ctx1) {$ctx1.fill(self,"classes",{},globals.MKClassesModel)})},
 args: [],
 source: "classes\x0a\x09^ Smalltalk current classes",
 messageSends: ["classes", "current"],
 referencedClasses: ["Smalltalk"]
 }),
-smalltalk.MKClassesModel);
+globals.MKClassesModel);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedClass",
-category: 'as yet unclassified',
+protocol: 'as yet unclassified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -113,53 +113,53 @@ $1=_st(self._classes())._first();
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectedClass",{},smalltalk.MKClassesModel)})},
+}, function($ctx1) {$ctx1.fill(self,"selectedClass",{},globals.MKClassesModel)})},
 args: [],
 source: "selectedClass\x0a\x09^ selectedClass ifNil: [ self classes first ]",
 messageSends: ["ifNil:", "first", "classes"],
 referencedClasses: []
 }),
-smalltalk.MKClassesModel);
+globals.MKClassesModel);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedClass:",
-category: 'as yet unclassified',
+protocol: 'as yet unclassified',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@selectedClass"]=aClass;
 self._changed_("selectedClass");
-return self}, function($ctx1) {$ctx1.fill(self,"selectedClass:",{aClass:aClass},smalltalk.MKClassesModel)})},
+return self}, function($ctx1) {$ctx1.fill(self,"selectedClass:",{aClass:aClass},globals.MKClassesModel)})},
 args: ["aClass"],
 source: "selectedClass: aClass\x0a\x09selectedClass := aClass.\x0a\x09self changed: #selectedClass",
 messageSends: ["changed:"],
 referencedClasses: []
 }),
-smalltalk.MKClassesModel);
+globals.MKClassesModel);
 
 
 
-smalltalk.addClass('MKCounterBuilder', smalltalk.Object, ['counter'], 'Moka-Examples');
+smalltalk.addClass('MKCounterBuilder', globals.Object, ['counter'], 'Moka-Examples');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "build",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 var pane,splitter;
-function $MKVerticalSplitView(){return smalltalk.MKVerticalSplitView||(typeof MKVerticalSplitView=="undefined"?nil:MKVerticalSplitView)}
-function $MKPanelView(){return smalltalk.MKPanelView||(typeof MKPanelView=="undefined"?nil:MKPanelView)}
-function $MKHeadingView(){return smalltalk.MKHeadingView||(typeof MKHeadingView=="undefined"?nil:MKHeadingView)}
-function $MKButtonView(){return smalltalk.MKButtonView||(typeof MKButtonView=="undefined"?nil:MKButtonView)}
-function $MKDropdownView(){return smalltalk.MKDropdownView||(typeof MKDropdownView=="undefined"?nil:MKDropdownView)}
-function $MKInputView(){return smalltalk.MKInputView||(typeof MKInputView=="undefined"?nil:MKInputView)}
-function $MKTextAreaView(){return smalltalk.MKTextAreaView||(typeof MKTextAreaView=="undefined"?nil:MKTextAreaView)}
-function $MKCheckboxView(){return smalltalk.MKCheckboxView||(typeof MKCheckboxView=="undefined"?nil:MKCheckboxView)}
-function $MKSwitchView(){return smalltalk.MKSwitchView||(typeof MKSwitchView=="undefined"?nil:MKSwitchView)}
-function $MKHorizontalSplitView(){return smalltalk.MKHorizontalSplitView||(typeof MKHorizontalSplitView=="undefined"?nil:MKHorizontalSplitView)}
-function $MKScrollDecorator(){return smalltalk.MKScrollDecorator||(typeof MKScrollDecorator=="undefined"?nil:MKScrollDecorator)}
-function $MKLayoutView(){return smalltalk.MKLayoutView||(typeof MKLayoutView=="undefined"?nil:MKLayoutView)}
+function $MKVerticalSplitView(){return globals.MKVerticalSplitView||(typeof MKVerticalSplitView=="undefined"?nil:MKVerticalSplitView)}
+function $MKPanelView(){return globals.MKPanelView||(typeof MKPanelView=="undefined"?nil:MKPanelView)}
+function $MKHeadingView(){return globals.MKHeadingView||(typeof MKHeadingView=="undefined"?nil:MKHeadingView)}
+function $MKButtonView(){return globals.MKButtonView||(typeof MKButtonView=="undefined"?nil:MKButtonView)}
+function $MKDropdownView(){return globals.MKDropdownView||(typeof MKDropdownView=="undefined"?nil:MKDropdownView)}
+function $MKInputView(){return globals.MKInputView||(typeof MKInputView=="undefined"?nil:MKInputView)}
+function $MKTextAreaView(){return globals.MKTextAreaView||(typeof MKTextAreaView=="undefined"?nil:MKTextAreaView)}
+function $MKCheckboxView(){return globals.MKCheckboxView||(typeof MKCheckboxView=="undefined"?nil:MKCheckboxView)}
+function $MKSwitchView(){return globals.MKSwitchView||(typeof MKSwitchView=="undefined"?nil:MKSwitchView)}
+function $MKHorizontalSplitView(){return globals.MKHorizontalSplitView||(typeof MKHorizontalSplitView=="undefined"?nil:MKHorizontalSplitView)}
+function $MKScrollDecorator(){return globals.MKScrollDecorator||(typeof MKScrollDecorator=="undefined"?nil:MKScrollDecorator)}
+function $MKLayoutView(){return globals.MKLayoutView||(typeof MKLayoutView=="undefined"?nil:MKLayoutView)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$6,$5,$7,$4,$8,$11,$10,$12,$9,$13,$16,$15,$17,$14,$18,$21,$20,$22,$19,$23,$26,$25,$27,$24,$28,$31,$30,$32,$29,$33,$36,$35,$37,$34,$38,$41,$40,$42,$39,$43,$46,$45,$47,$44,$48,$51,$50,$52,$49,$53,$56,$55,$57,$54,$58,$61,$60,$62,$59,$63,$66,$65,$67,$64,$68,$71,$70,$72,$69,$73,$75,$76,$74,$77,$80,$81,$79,$82,$78;
 $1=_st($MKVerticalSplitView())._new();
@@ -395,21 +395,21 @@ $78=$82;
 _st($77)._firstView_($78);
 _st(splitter)._secondView_(_st($MKLayoutView())._new());
 _st(splitter)._render();
-return self}, function($ctx1) {$ctx1.fill(self,"build",{pane:pane,splitter:splitter},smalltalk.MKCounterBuilder)})},
+return self}, function($ctx1) {$ctx1.fill(self,"build",{pane:pane,splitter:splitter},globals.MKCounterBuilder)})},
 args: [],
 source: "build\x0a\x09| pane splitter |\x0a\x09\x0a\x09splitter := MKVerticalSplitView new\x0a\x09\x09top: 200;\x0a\x09\x09bottomThickness: 50;\x0a\x09\x09bottom: 0;\x0a\x09\x09yourself.\x0a\x09pane := MKPanelView new.\x0a\x09\x0a\x09pane addView: ((MKHeadingView model: self counter aspect: #count)\x0a\x09\x09level: 3;\x0a\x09\x09top: 0;\x0a\x09\x09left: 8;\x0a\x09\x09height: 28;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKButtonView model: self counter aspect: #increase) \x0a\x09\x09label: 'Increase';\x0a\x09\x09top: 50;\x0a\x09\x09left: 8;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKButtonView model: self counter aspect: #decrease) \x0a\x09\x09label: 'Decrease';\x0a\x09\x09default: true;\x0a\x09\x09top: 50;\x0a\x09\x09left: 92;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKDropdownView \x0a\x09\x09model: self counter\x0a\x09\x09collectionAspect: #options\x0a\x09\x09selectionAspect: #selectedOption)\x0a\x09\x09\x09left: 176;\x0a\x09\x09\x09top: 50;\x0a\x09\x09\x09yourself).\x0a\x09pane addView: ((MKInputView model: self counter aspect: #text)\x0a\x09\x09top: 100;\x0a\x09\x09left: 8;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKInputView model: self counter aspect: #text)\x0a\x09\x09top: 150;\x0a\x09\x09left: 8;\x0a\x09\x09triggerChangeOnAnyKey;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKTextAreaView model: self counter aspect: #text)\x0a\x09\x09top: 200;\x0a\x09\x09left: 8;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKCheckboxView model: self counter aspect: #checked)\x0a\x09\x09top: 300;\x0a\x09\x09left: 8;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09top: 350;\x0a\x09\x09centerX: 0;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09top: 380;\x0a\x09\x09centerX: -50;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09top: 410;\x0a\x09\x09centerX: 50;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09right: 4;\x0a\x09\x09centerY: 0;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09right: 4;\x0a\x09\x09centerY: 30;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09right: 4;\x0a\x09\x09centerY: -30;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKDropdownView \x0a\x09\x09\x09model: self counter\x0a\x09\x09\x09collectionAspect: #options\x0a\x09\x09\x09selectionAspect: #selectedOption)\x0a\x09\x09left: 4;\x0a\x09\x09top: 440;\x0a\x09\x09yourself).\x0a\x09\x0a\x09splitter firstView: ((MKHorizontalSplitView \x0a\x09\x09firstView: (MKScrollDecorator decorate: pane)\x0a\x09\x09secondView: MKLayoutView new)\x0a\x09\x09\x09leftThickness: 300;\x0a\x09\x09\x09top: 0;\x0a\x09\x09\x09bottom: 0;\x0a\x09\x09\x09yourself).\x0a\x09\x09\x0a\x09splitter secondView: MKLayoutView new.\x0a\x09splitter render",
 messageSends: ["top:", "new", "bottomThickness:", "bottom:", "yourself", "addView:", "level:", "model:aspect:", "counter", "left:", "height:", "label:", "default:", "model:collectionAspect:selectionAspect:", "triggerChangeOnAnyKey", "centerX:", "right:", "centerY:", "firstView:", "leftThickness:", "firstView:secondView:", "decorate:", "secondView:", "render"],
 referencedClasses: ["MKVerticalSplitView", "MKPanelView", "MKHeadingView", "MKButtonView", "MKDropdownView", "MKInputView", "MKTextAreaView", "MKCheckboxView", "MKSwitchView", "MKHorizontalSplitView", "MKScrollDecorator", "MKLayoutView"]
 }),
-smalltalk.MKCounterBuilder);
+globals.MKCounterBuilder);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "counter",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
-function $MKCounterModel(){return smalltalk.MKCounterModel||(typeof MKCounterModel=="undefined"?nil:MKCounterModel)}
+function $MKCounterModel(){return globals.MKCounterModel||(typeof MKCounterModel=="undefined"?nil:MKCounterModel)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@counter"];
@@ -420,37 +420,37 @@ $1=self["@counter"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"counter",{},smalltalk.MKCounterBuilder)})},
+}, function($ctx1) {$ctx1.fill(self,"counter",{},globals.MKCounterBuilder)})},
 args: [],
 source: "counter\x0a\x09^ counter ifNil: [ counter := MKCounterModel new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: ["MKCounterModel"]
 }),
-smalltalk.MKCounterBuilder);
+globals.MKCounterBuilder);
 
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._new())._build();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.MKCounterBuilder.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.MKCounterBuilder.klass)})},
 args: [],
 source: "initialize\x0a\x09self new build",
 messageSends: ["build", "new"],
 referencedClasses: []
 }),
-smalltalk.MKCounterBuilder.klass);
+globals.MKCounterBuilder.klass);
 
 
-smalltalk.addClass('MKCounterModel', smalltalk.MKObservable, ['count', 'text', 'checked', 'options', 'selectedOption'], 'Moka-Examples');
+smalltalk.addClass('MKCounterModel', globals.MKObservable, ['count', 'text', 'checked', 'options', 'selectedOption'], 'Moka-Examples');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "checked",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -462,122 +462,121 @@ $1=false;
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"checked",{},smalltalk.MKCounterModel)})},
+}, function($ctx1) {$ctx1.fill(self,"checked",{},globals.MKCounterModel)})},
 args: [],
 source: "checked\x0a\x09^ checked ifNil: [ false ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
-smalltalk.MKCounterModel);
+globals.MKCounterModel);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "checked:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aBoolean){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@checked"]=aBoolean;
 self._changed_("checked");
-return self}, function($ctx1) {$ctx1.fill(self,"checked:",{aBoolean:aBoolean},smalltalk.MKCounterModel)})},
+return self}, function($ctx1) {$ctx1.fill(self,"checked:",{aBoolean:aBoolean},globals.MKCounterModel)})},
 args: ["aBoolean"],
 source: "checked: aBoolean\x0a\x09checked := aBoolean.\x0a\x09self changed: 'checked'",
 messageSends: ["changed:"],
 referencedClasses: []
 }),
-smalltalk.MKCounterModel);
+globals.MKCounterModel);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "count",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self["@count"])._asString();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"count",{},smalltalk.MKCounterModel)})},
+}, function($ctx1) {$ctx1.fill(self,"count",{},globals.MKCounterModel)})},
 args: [],
 source: "count\x0a\x09^ count asString",
 messageSends: ["asString"],
 referencedClasses: []
 }),
-smalltalk.MKCounterModel);
+globals.MKCounterModel);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "decrease",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@count"]=_st(self["@count"]).__minus((1));
 self._changed_("count");
-return self}, function($ctx1) {$ctx1.fill(self,"decrease",{},smalltalk.MKCounterModel)})},
+return self}, function($ctx1) {$ctx1.fill(self,"decrease",{},globals.MKCounterModel)})},
 args: [],
 source: "decrease\x0a\x09count := count - 1.\x0a\x09self changed: #count",
 messageSends: ["-", "changed:"],
 referencedClasses: []
 }),
-smalltalk.MKCounterModel);
+globals.MKCounterModel);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "increase",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@count"]=_st(self["@count"]).__plus((1));
 self._changed_("count");
-return self}, function($ctx1) {$ctx1.fill(self,"increase",{},smalltalk.MKCounterModel)})},
+return self}, function($ctx1) {$ctx1.fill(self,"increase",{},globals.MKCounterModel)})},
 args: [],
 source: "increase\x0a\x09count := count + 1.\x0a\x09self changed: #count",
 messageSends: ["+", "changed:"],
 referencedClasses: []
 }),
-smalltalk.MKCounterModel);
+globals.MKCounterModel);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.MKCounterModel.superclass.fn.prototype._initialize.apply(_st(self), []);
+globals.MKCounterModel.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@count"]=(0);
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.MKCounterModel)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.MKCounterModel)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09count := 0",
 messageSends: ["initialize"],
 referencedClasses: []
 }),
-smalltalk.MKCounterModel);
+globals.MKCounterModel);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "options",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=["foo", "bar", "baz"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"options",{},smalltalk.MKCounterModel)})},
+},
 args: [],
 source: "options\x0a\x09^ #('foo' 'bar' 'baz')",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MKCounterModel);
+globals.MKCounterModel);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedOption",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -590,35 +589,35 @@ $1=self["@selectedOption"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectedOption",{},smalltalk.MKCounterModel)})},
+}, function($ctx1) {$ctx1.fill(self,"selectedOption",{},globals.MKCounterModel)})},
 args: [],
 source: "selectedOption\x0a\x09^ selectedOption ifNil: [ selectedOption := self options last ]",
 messageSends: ["ifNil:", "last", "options"],
 referencedClasses: []
 }),
-smalltalk.MKCounterModel);
+globals.MKCounterModel);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedOption:",
-category: 'accessing',
+protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@selectedOption"]=aString;
 self._changed_("selectedOption");
-return self}, function($ctx1) {$ctx1.fill(self,"selectedOption:",{aString:aString},smalltalk.MKCounterModel)})},
+return self}, function($ctx1) {$ctx1.fill(self,"selectedOption:",{aString:aString},globals.MKCounterModel)})},
 args: ["aString"],
 source: "selectedOption: aString\x0a\x09selectedOption := aString.\x0a\x09self changed: #selectedOption",
 messageSends: ["changed:"],
 referencedClasses: []
 }),
-smalltalk.MKCounterModel);
+globals.MKCounterModel);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "text",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -630,30 +629,30 @@ $1="";
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"text",{},smalltalk.MKCounterModel)})},
+}, function($ctx1) {$ctx1.fill(self,"text",{},globals.MKCounterModel)})},
 args: [],
 source: "text\x0a\x09^ text ifNil: [ '' ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
-smalltalk.MKCounterModel);
+globals.MKCounterModel);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "text:",
-category: 'actions',
+protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@text"]=aString;
 self._changed_("text");
-return self}, function($ctx1) {$ctx1.fill(self,"text:",{aString:aString},smalltalk.MKCounterModel)})},
+return self}, function($ctx1) {$ctx1.fill(self,"text:",{aString:aString},globals.MKCounterModel)})},
 args: ["aString"],
 source: "text: aString\x0a\x09text := aString.\x0a\x09self changed: 'text'",
 messageSends: ["changed:"],
 referencedClasses: []
 }),
-smalltalk.MKCounterModel);
+globals.MKCounterModel);
 
 
 });

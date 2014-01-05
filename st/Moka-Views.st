@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Moka-Views'!
+Smalltalk createPackage: 'Moka-Views'!
 MKSingleAspectView subclass: #MKButtonView
 	instanceVariableNames: 'default label icon'
 	package: 'Moka-Views'!

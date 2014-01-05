@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Moka-Layouts'!
+Smalltalk createPackage: 'Moka-Layouts'!
 Object subclass: #MKLayout
 	instanceVariableNames: 'properties'
 	package: 'Moka-Layouts'!

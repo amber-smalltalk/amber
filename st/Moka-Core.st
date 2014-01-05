@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Moka-Core'!
+Smalltalk createPackage: 'Moka-Core'!
 Object subclass: #MKController
 	instanceVariableNames: 'view model'
 	package: 'Moka-Core'!

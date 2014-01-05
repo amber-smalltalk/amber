@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Moka-Examples'!
+Smalltalk createPackage: 'Moka-Examples'!
 MKObservable subclass: #MKClassesListBuilder
 	instanceVariableNames: ''
 	package: 'Moka-Examples'!
