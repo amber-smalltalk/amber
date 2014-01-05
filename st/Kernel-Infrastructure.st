@@ -1103,7 +1103,7 @@ basicCreatePackage: packageName
 !
 
 basicParse: aString
-	<return smalltalk.parser.parse(aString)>
+	^ SmalltalkParser parse: aString
 !
 
 createPackage: packageName properties: aDict
