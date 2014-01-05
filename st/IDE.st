@@ -211,12 +211,13 @@ selection
 setEditorOn: aTextarea
 	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 		theme: 'default',
-				lineNumbers: true,
-				enterMode: 'flat',
-				indentWithTabs: true,
-				indentUnit: 4,
-				matchBrackets: true,
-				electricChars: false
+		mode: 'text/x-stsrc',
+		lineNumbers: true,
+		enterMode: 'flat',
+		indentWithTabs: true,
+		indentUnit: 4,
+		matchBrackets: true,
+		electricChars: false
 	})>
 !
 
