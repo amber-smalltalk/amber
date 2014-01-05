@@ -61,22 +61,6 @@ referencedClasses: ["MKPaneView", "MKScrollDecorator", "MKListView", "MKClassesM
 globals.MKClassesListBuilder);
 
 
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initialize",
-protocol: 'as yet unclassified',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self._new())._build();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.MKClassesListBuilder.klass)})},
-args: [],
-source: "initialize\x0a\x09self new build",
-messageSends: ["build", "new"],
-referencedClasses: []
-}),
-globals.MKClassesListBuilder.klass);
-
 
 smalltalk.addClass('MKClassesModel', globals.MKObservable, ['classes', 'selectedClass'], 'Moka-Examples');
 smalltalk.addMethod(
@@ -428,22 +412,6 @@ referencedClasses: ["MKCounterModel"]
 }),
 globals.MKCounterBuilder);
 
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initialize",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self._new())._build();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.MKCounterBuilder.klass)})},
-args: [],
-source: "initialize\x0a\x09self new build",
-messageSends: ["build", "new"],
-referencedClasses: []
-}),
-globals.MKCounterBuilder.klass);
 
 
 smalltalk.addClass('MKCounterModel', globals.MKObservable, ['count', 'text', 'checked', 'options', 'selectedOption'], 'Moka-Examples');

@@ -17,6 +17,9 @@
         function (smalltalk) {
             smalltalk.defaultAmdNamespace = "amber_core";
             smalltalk.initialize();
+			smalltalk.MKClassesListBuilder._new()._build();
+			smalltalk.MKCounterBuilder._new()._build();
+
 
 	    require('amber/helpers').popupHelios();
         }

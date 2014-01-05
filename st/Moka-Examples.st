@@ -31,12 +31,6 @@ build
 		render
 ! !
 
-!MKClassesListBuilder class methodsFor: 'as yet unclassified'!
-
-initialize
-	self new build
-! !
-
 MKObservable subclass: #MKClassesModel
 	instanceVariableNames: 'classes selectedClass'
 	package: 'Moka-Examples'!
@@ -159,12 +153,6 @@ build
 
 counter
 	^ counter ifNil: [ counter := MKCounterModel new ]
-! !
-
-!MKCounterBuilder class methodsFor: 'initialization'!
-
-initialize
-	self new build
 ! !
 
 MKObservable subclass: #MKCounterModel
