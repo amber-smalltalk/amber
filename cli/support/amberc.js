@@ -133,24 +133,23 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	configuration.compiler_libraries = this.compiler_libraries;
 	configuration.amber_dir = this.amber_dir;
 
-	function logError(error) {
-		console.log(error);
-		finished_callback();
-	};
-
 	check_configuration(configuration)
-	.then(collect_st_files, logError)
-	.then(collect_js_files, logError)
-	.then(resolve_kernel, logError)
-	.then(create_compiler, logError)
-	.then(compile, logError)
-	.then(category_export, logError)
-	.then(verify, logError)
-	.then(compose_js_files, logError)
-	.then(function() {
-		console.log = console.ambercLog;
+	.then(collect_st_files)
+	.then(collect_js_files)
+	.then(resolve_kernel)
+	.then(create_compiler)
+	.then(compile)
+	.then(category_export)
+	.then(verify)
+	.then(compose_js_files)
+	.then(function () {
 		console.timeEnd('Compile Time');
-		finished_callback();
+	}, function(error) {
+		console.error(error);
+	})
+	.then(function () {
+		console.log = console.ambercLog;
+		finished_callback && finished_callback();
 	});
 };
 
@@ -238,19 +237,16 @@ function resolve_file(filename, searchDirectories) {
  * Returns a Promise which resolves into the configuration object.
  */
 function collect_st_files(configuration) {
-	return new Promise(function(resolve, reject) {
-		Promise.all(
-			configuration.stFiles.map(function(stFile) {
-				return resolve_st(stFile, configuration);
-			})
-		).then(function(data) {
-			configuration.compile = configuration.compile.concat(data);
-			resolve(configuration);
-		}, function(error) {
-			reject(error);
-		});
+	return Promise.all(
+		configuration.stFiles.map(function(stFile) {
+			return resolve_st(stFile, configuration);
+		})
+	)
+	.then(function(data) {
+		configuration.compile = configuration.compile.concat(data);
+		return configuration;
 	});
-};
+}
 
 
 /**
@@ -258,19 +254,16 @@ function collect_st_files(configuration) {
  * Returns a Promise which resolves into the configuration object.
  */
 function collect_js_files(configuration) {
-	return new Promise(function(resolve, reject) {
-		Promise.all(
-			configuration.jsFiles.map(function(file) {
-				return resolve_js(file, configuration);
-			})
-		).then(function(data) {
-			configuration.libraries = configuration.libraries.concat(data);
-			resolve(configuration);
-		}, function(error) {
-			reject(error);
-		});
+	return Promise.all(
+		configuration.jsFiles.map(function(file) {
+			return resolve_js(file, configuration);
+		})
+	)
+	.then(function(data) {
+		configuration.libraries = configuration.libraries.concat(data);
+		return configuration;
 	});
-};
+}
 
 
 /**
@@ -279,21 +272,18 @@ function collect_js_files(configuration) {
  */
 function resolve_kernel(configuration) {
 	var kernel_files = configuration.kernel_libraries.concat(configuration.load);
-	return new Promise(function(resolve, reject) {
-		Promise.all(
-			kernel_files.map(function(file) {
-				return resolve_js(file, configuration, resolve);
-			})
-		).then(function(data) {
-			// boot.js and Kernel files need to be used first
-			// otherwise the global smalltalk object is undefined
-			configuration.libraries = data.concat(configuration.libraries);
-			resolve(configuration);
-		}, function(error) {
-			reject(error);
-		});
+	return Promise.all(
+		kernel_files.map(function(file) {
+			return resolve_js(file, configuration);
+		})
+	)
+	.then(function(data) {
+		// boot.js and Kernel files need to be used first
+		// otherwise the global smalltalk object is undefined
+		configuration.libraries = data.concat(configuration.libraries);
+		return configuration;
 	});
-};
+}
 
 
 /**
@@ -302,66 +292,59 @@ function resolve_kernel(configuration) {
  * Returns a Promise object which resolves into the configuration object.
  */
 function create_compiler(configuration) {
-	return new Promise(function(resolve, reject) {
-		var compiler_files = configuration.compiler_libraries.concat(configuration.load);
-		Promise.all(
-			compiler_files.map(function(file) {
-				return resolve_js(file, configuration, resolve);
+	var compiler_files = configuration.compiler_libraries.concat(configuration.load);
+	return Promise.all(
+		compiler_files.map(function(file) {
+			return resolve_js(file, configuration);
+		})
+	)
+	.then(function(compilerFilesArray) {
+		return Promise.all(
+			compilerFilesArray.map(function(file) {
+				return new Promise(function(resolve, reject) {
+					console.log('Loading file: ' + file);
+					fs.readFile(file, function(err, data) {
+						if (err)
+							reject(err);
+						else
+							resolve(data);
+					});
+				});
 			})
 		)
-		.then(function(compilerFilesArray) {
-			return Promise.all(
-				compilerFilesArray.map(function(file) {
-					return new Promise(function(resolve, reject) {
-						console.log('Loading file: ' + file);
-						fs.readFile(file, function(err, data) {
-							if (err)
-								reject(err);
-							else
-								resolve(data);
-						});
-					});
-				})
-			)
-		}).then(function(files) {
-			var builder = createConcatenator();
-			builder.add('(function() {');
-			builder.start();
+	})
+	.then(function(files) {
+		var builder = createConcatenator();
+		builder.add('(function() {');
+		builder.start();
 
-			files.forEach(function(data) {
-				// data is an array where index 0 is the error code and index 1 contains the data
-				builder.add(data);
-				// matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
-				var match = ('' + data).match(/^define\("([^"]*)"/);
-				if (match) {
-					builder.addId(match[1]);
-				}
-			});
-			// store the generated smalltalk env in configuration.smalltalk
-			builder.finish('configuration.smalltalk = smalltalk;');
-			builder.add('})();');
-
-			try {
-				eval(builder.toString());
-			} catch (error){
-				console.error(error);
+		files.forEach(function(data) {
+			// data is an array where index 0 is the error code and index 1 contains the data
+			builder.add(data);
+			// matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
+			var match = ('' + data).match(/^define\("([^"]*)"/);
+			if (match) {
+				builder.addId(match[1]);
 			}
-
-			console.log('Compiler loaded');
-
-			configuration.smalltalk.ErrorHandler._register_(configuration.smalltalk.RethrowErrorHandler._new());
-
-			if(0 !== configuration.jsGlobals.length) {
-				var jsGlobalVariables = configuration.smalltalk.globalJsVariables;
-				jsGlobalVariables.push.apply(jsGlobalVariables, configuration.jsGlobals);
-			}
-
-			resolve(configuration);
-		}, function(error) {
-			reject(Error('Error creating compiler'));
 		});
+		// store the generated smalltalk env in configuration.smalltalk
+		builder.finish('configuration.smalltalk = smalltalk;');
+		builder.add('})();');
+
+		eval(builder.toString());
+
+		console.log('Compiler loaded');
+
+		configuration.smalltalk.ErrorHandler._register_(configuration.smalltalk.RethrowErrorHandler._new());
+
+		if(0 !== configuration.jsGlobals.length) {
+			var jsGlobalVariables = configuration.smalltalk.globalJsVariables;
+			jsGlobalVariables.push.apply(jsGlobalVariables, configuration.jsGlobals);
+		}
+
+		return configuration;
 	});
-};
+}
 
 
 /**
@@ -371,49 +354,47 @@ function create_compiler(configuration) {
 function compile(configuration) {
 	// return function which does the actual work
 	// and use the compile function to reference the configuration object
-	return new Promise(function(resolve, reject) {
-		Promise.all(
-			configuration.compile.map(function(stFile) {
+	return Promise.all(
+		configuration.compile.map(function(stFile) {
+			return new Promise(function(resolve, reject) {
+				if (/\.st/.test(stFile)) {
+					console.ambercLog('Importing: ' + stFile);
+					fs.readFile(stFile, 'utf8', function(err, data) {
+						if (!err)
+							resolve(data);
+						else
+							reject(Error('Could not import: ' + stFile));
+					});
+				}
+			});
+		})
+	)
+	.then(function(fileContents) {
+		console.log('Compiling collected .st files');
+		// import/compile content of .st files
+		return Promise.all(
+			fileContents.map(function(code) {
 				return new Promise(function(resolve, reject) {
-					if (/\.st/.test(stFile)) {
-						console.ambercLog('Importing: ' + stFile);
-						fs.readFile(stFile, 'utf8', function(err, data) {
-							if (!err)
-								resolve(data);
-							else
-								reject(Error('Could not import: ' + stFile));
-						});
+					var importer = configuration.smalltalk.Importer._new();
+					try {
+						importer._import_(code._stream());
+						resolve(true);
+					} catch (ex) {
+						reject(Error("Import error in section:\n" +
+							importer._lastSection() + "\n\n" +
+							"while processing chunk:\n" +
+							importer._lastChunk() + "\n\n" +
+							(ex._messageText && ex._messageText() || ex.message || ex))
+						);
 					}
 				});
 			})
-		)
-		.then(function(fileContents) {
-			console.log('Compiling collected .st files');
-			// import/compile content of .st files
-			Promise.all(
-				fileContents.map(function(code) {
-					return new Promise(function(resolve, reject) {
-						var importer = configuration.smalltalk.Importer._new();
-						try {
-							importer._import_(code._stream());
-							resolve(true);
-						} catch (ex) {
-							reject(Error("Import error in section:\n" +
-								importer._lastSection() + "\n\n" +
-								"while processing chunk:\n" +
-								importer._lastChunk() + "\n\n" +
-								(ex._messageText && ex._messageText() || ex.message || ex))
-							);
-						}
-					});
-				})
-			);
-		})
-		.then(function() {
-			resolve(configuration);
-		});
+		);
+	})
+	.then(function () {
+		return configuration;
 	});
-};
+}
 
 
 /**
@@ -421,36 +402,35 @@ function compile(configuration) {
  * Returns a Promise() that resolves into the configuration object.
  */
 function category_export(configuration) {
-	return new Promise(function(resolve, reject) {
-		Promise.all(
-			configuration.compile.map(function(stFile) {
-				return new Promise(function(resolve, reject) {
-					var category = path.basename(stFile, '.st');
-					var jsFilePath = configuration.output_dir;
-					if (undefined === jsFilePath) {
-						jsFilePath = path.dirname(stFile);
-					}
-					var jsFile = category + configuration.suffix_used + '.js';
-					jsFile = path.join(jsFilePath, jsFile);
-					configuration.compiled.push(jsFile);
-					var smalltalk = configuration.smalltalk;
-					var packageObject = smalltalk.Package._named_(category);
-					packageObject._transport()._namespace_(configuration.amd_namespace);
-					fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
-						smalltalk.AmdExporter._new()._exportPackage_on_(packageObject, stream);
-					}), function(err) {
-						if (err)
-							reject(err);
-						else
-							resolve(true);
-					});
+	return Promise.all(
+		configuration.compile.map(function(stFile) {
+			return new Promise(function(resolve, reject) {
+				var category = path.basename(stFile, '.st');
+				var jsFilePath = configuration.output_dir;
+				if (undefined === jsFilePath) {
+					jsFilePath = path.dirname(stFile);
+				}
+				var jsFile = category + configuration.suffix_used + '.js';
+				jsFile = path.join(jsFilePath, jsFile);
+				configuration.compiled.push(jsFile);
+				var smalltalk = configuration.smalltalk;
+				var packageObject = smalltalk.Package._named_(category);
+				packageObject._transport()._namespace_(configuration.amd_namespace);
+				fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
+					smalltalk.AmdExporter._new()._exportPackage_on_(packageObject, stream);
+				}), function(err) {
+					if (err)
+						reject(err);
+					else
+						resolve(true);
 				});
-			})
-		).then(function() {
-			resolve(configuration);
-		});
+			});
+		})
+	)
+	.then(function() {
+		return configuration;
 	});
-};
+}
 
 
 /**
@@ -459,23 +439,22 @@ function category_export(configuration) {
  */
 function verify(configuration) {
 	console.log('Verifying if all .st files were compiled');
-	return new Promise(function(resolve, reject) {
-		Promise.all(
-			configuration.compiled.map(function(file) {
-				return new Promise(function(resolve, reject) {
-					fs.exists(file, function(exists) {
-						if (exists)
-							resolve(true);
-						else
-							reject(Error('Compilation failed of: ' + file));
-					});
+	return Promise.all(
+		configuration.compiled.map(function(file) {
+			return new Promise(function(resolve, reject) {
+				fs.exists(file, function(exists) {
+					if (exists)
+						resolve(true);
+					else
+						reject(Error('Compilation failed of: ' + file));
 				});
-			})
-		).then(function() {
-			resolve(configuration);
-		});
+			});
+		})
+	)
+	.then(function() {
+		return configuration;
 	});
-};
+}
 
 
 /**
@@ -488,6 +467,7 @@ function compose_js_files(configuration) {
 	return new Promise(function(resolve, reject) {
 		var programFile = configuration.program;
 		if (undefined === programFile) {
+			resolve(configuration);
 			return;
 		}
 		if (undefined !== configuration.output_dir) {
@@ -513,10 +493,11 @@ function compose_js_files(configuration) {
 		fileStream.on('error', function(error) {
 			fileStream.end();
 			console.ambercLog(error);
+			reject(error);
 		});
 
 		fileStream.on('close', function(){
-			return;
+			resolve(configuration);
 		});
 
 		var builder = createConcatenator();
@@ -560,9 +541,8 @@ function compose_js_files(configuration) {
 		});
 		console.log('Done.');
 		fileStream.end();
-		resolve(configuration);
 	});
-};
+}
 
 
 module.exports.Compiler = AmberC;
