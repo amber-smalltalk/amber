@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Workspace'!
+Smalltalk createPackage: 'Helios-Workspace'!
 Object subclass: #HLCodeModel
 	instanceVariableNames: 'announcer environment receiver'
 	package: 'Helios-Workspace'!
@@ -82,7 +82,8 @@ currentLineOrSelection
 
 editorOptions
 	^ #{
-		'theme' -> 'amber'.
+		'theme' -> 'default'.
+		'mode' -> 'text/x-stsrc'.
         'lineNumbers' -> true.
         'enterMode' -> 'flat'.
         'indentWithTabs' -> true.
@@ -207,7 +208,7 @@ setEditorOn: aTextarea
 !HLCodeWidget methodsFor: 'hints'!
 
 messageHintFor: anEditor token: aToken
-	^ ((Smalltalk current at: 'allSelectors') value asArray 
+	^ (Smalltalk vm allSelectors asArray 
 		select: [ :each | each includesSubString: aToken string ])
 		reject: [ :each | each = aToken string ]
 !
@@ -218,10 +219,10 @@ variableHintFor: anEditor token: aToken
 	variables := (anEditor display wrapper asJQuery find: 'span.cm-variable') get
 		collect: [ :each | each asJQuery html ].
 	
-	classNames := Smalltalk current classes collect: [ :each | each name ].
-	pseudoVariables := Smalltalk current pseudoVariableNames.
+	classNames := Smalltalk classes collect: [ :each | each name ].
+	pseudoVariables := Smalltalk pseudoVariableNames.
 	
-	^ ((variables, classNames, pseudoVariables) asSet asArray 
+	^ ((variables, classNames, pseudoVariables) asSet asArray sort
 		select: [ :each | each includesSubString: aToken string ])
 		reject: [ :each | each = aToken string ]
 ! !

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Core'!
+Smalltalk createPackage: 'Helios-Core'!
 InterfacingObject subclass: #HLModel
 	instanceVariableNames: 'announcer environment'
 	package: 'Helios-Core'!
@@ -404,7 +404,7 @@ on: anEnvironment
         yourself
 ! !
 
-ProgressHandler subclass: #HLProgressHandler
+Object subclass: #HLProgressHandler
 	instanceVariableNames: ''
 	package: 'Helios-Core'!
 !HLProgressHandler commentStamp!
@@ -1175,18 +1175,6 @@ confirm: aString ifTrue: aBlock
 		show
 !
 
-registerErrorHandler: anErrorHandler
-	self environment registerErrorHandler: anErrorHandler
-!
-
-registerInspector: anInspector
-	self environment registerInspector: anInspector
-!
-
-registerProgressHandler: aProgressHandler
-	self environment registerProgressHandler: aProgressHandler
-!
-
 removeActiveTab
 	self removeTab: self activeTab
 !
@@ -1227,29 +1215,34 @@ request: aString value: valueString do: aBlock
 defaultEnvironment
 	"If helios is loaded from within a frame, answer the parent window environment"
 	
-	| parent parentSmalltalk |
+	| parent parentSmalltalkGlobals |
 	
 	parent := window opener ifNil: [ window parent ].
 	parent ifNil: [ ^ Environment new ].
 	
-	parentSmalltalk := (parent at: 'requirejs') value: 'amber_vm/smalltalk'.
-	parentSmalltalk ifNil: [ ^ Environment new ].
+	parentSmalltalkGlobals := (parent at: 'requirejs') value: 'amber_vm/globals'.
+	parentSmalltalkGlobals ifNil: [ ^ Environment new ].
 	
-	^ (parentSmalltalk at: 'Environment') new
+	^ (parentSmalltalkGlobals at: 'Environment') new
 ! !
 
 !HLManager methodsFor: 'initialization'!
 
-initialize
-	super initialize.
-	
-	HLErrorHandler register.
-	HLProgressHandler register.
-	
-	self registerInspector: HLInspector.
-	self registerErrorHandler: ErrorHandler current.
-	self registerProgressHandler: ProgressHandler current.
-    self keyBinder setupEvents
+setup
+	self registerServices.
+    self keyBinder 
+		setupEvents;
+		setupHelper
+! !
+
+!HLManager methodsFor: 'private'!
+
+registerServices
+	self
+		registerInspector;
+		registerErrorHandler;
+		registerProgressHandler;
+		registerTranscript
 ! !
 
 !HLManager methodsFor: 'rendering'!
@@ -1314,6 +1307,27 @@ show: aTab
 	aTab show; focus
 ! !
 
+!HLManager methodsFor: 'services'!
+
+registerErrorHandler
+	self environment registerErrorHandler: HLErrorHandler new.
+	ErrorHandler register: HLErrorHandler new
+!
+
+registerInspector
+	self environment registerInspector: HLInspector.
+	Inspector register: HLInspector
+!
+
+registerProgressHandler
+	self environment registerProgressHandler: HLProgressHandler new.
+	ProgressHandler register: HLProgressHandler new
+!
+
+registerTranscript
+	self environment registerTranscript: HLTranscriptHandler
+! !
+
 HLManager class instanceVariableNames: 'current'!
 
 !HLManager class methodsFor: 'accessing'!
@@ -1324,8 +1338,10 @@ current
 
 !HLManager class methodsFor: 'initialization'!
 
-initialize
-	self current appendToJQuery: 'body' asJQuery
+setup
+	self current 
+		setup;
+		appendToJQuery: 'body' asJQuery
 ! !
 
 !HLManager class methodsFor: 'instance creation'!
@@ -1371,6 +1387,12 @@ show
 	self appendToJQuery: 'body' asJQuery
 ! !
 
+!HLModalWidget methodsFor: 'private'!
+
+giveFocusToButton: aButton
+	aButton asJQuery focus
+! !
+
 !HLModalWidget methodsFor: 'rendering'!
 
 hasButtons
@@ -1392,7 +1414,7 @@ renderButtonsOn: html
 				with: 'Confirm';
 				onClick: [ self confirm ] ].
 
-	confirmButton asJQuery focus
+	self giveFocusToButton:confirmButton
 !
 
 renderContentOn: html
@@ -1499,12 +1521,19 @@ confirm
 	self actionBlock value: input asJQuery val
 ! !
 
+!HLRequestWidget methodsFor: 'private'!
+
+giveFocusToButton: aButton
+! !
+
 !HLRequestWidget methodsFor: 'rendering'!
 
 renderMainOn: html
 	super renderMainOn: html.
 	input := html textarea.
-	input asJQuery val: self value
+	input asJQuery 
+		val: self value;
+		focus
 ! !
 
 HLModalWidget subclass: #HLProgressWidget

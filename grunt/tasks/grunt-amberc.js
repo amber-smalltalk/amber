@@ -75,7 +75,7 @@ module.exports = function(grunt) {
 
 
   function generateCompilerConfiguration(data, sourceFiles) {
-    var configuration = amberc.createDefaults();
+    var configuration = amberc.createDefaultConfiguration();
     var parameters = [];
 
     var libraries = data.libraries;

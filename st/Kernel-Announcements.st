@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Announcements'!
+Smalltalk createPackage: 'Kernel-Announcements'!
 Object subclass: #AnnouncementSubscription
 	instanceVariableNames: 'valuable announcementClass'
 	package: 'Kernel-Announcements'!
@@ -52,10 +52,10 @@ deliver: anAnnouncement
 handlesAnnouncement: anAnnouncement
 	"anAnnouncement might be announced from within another Amber environment"
 	
-	^ (Smalltalk current at: self announcementClass name)
+	^ (Smalltalk globals at: self announcementClass name)
 		ifNil: [ ^ false ]
 		ifNotNil: [ :class |
-		(Smalltalk current at: anAnnouncement class theNonMetaClass name) includesBehavior: class ]
+		(Smalltalk globals at: anAnnouncement class theNonMetaClass name) includesBehavior: class ]
 ! !
 
 Object subclass: #Announcer

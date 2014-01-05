@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Exceptions'!
+Smalltalk createPackage: 'Helios-Exceptions'!
 Error subclass: #HLError
 	instanceVariableNames: ''
 	package: 'Helios-Exceptions'!

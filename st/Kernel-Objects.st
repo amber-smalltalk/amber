@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Objects'!
+Smalltalk createPackage: 'Kernel-Objects'!
 nil subclass: #ProtoObject
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
@@ -35,6 +35,24 @@ yourself
 	^ self
 ! !
 
+!ProtoObject methodsFor: 'comparing'!
+
+= anObject
+	^ self == anObject
+!
+
+== anObject
+	^ self identityHash = anObject identityHash
+!
+
+~= anObject
+	^ (self = anObject) = false
+!
+
+~~ anObject
+	^ (self == anObject) = false
+! !
+
 !ProtoObject methodsFor: 'converting'!
 
 asString
@@ -58,7 +76,7 @@ initialize
 !ProtoObject methodsFor: 'inspecting'!
 
 inspect
-	InspectorHandler inspect: self
+	Inspector inspect: self
 !
 
 inspectOn: anInspector
@@ -162,24 +180,6 @@ size
 
 value
 	<return self.valueOf()>
-! !
-
-!Object methodsFor: 'comparing'!
-
-= anObject
-	^ self == anObject
-!
-
-== anObject
-	^ self identityHash = anObject identityHash
-!
-
-~= anObject
-	^ (self = anObject) = false
-!
-
-~~ anObject
-	^ (self == anObject) = false
 ! !
 
 !Object methodsFor: 'converting'!
@@ -389,11 +389,27 @@ respondsTo: aSelector
 
 !Object class methodsFor: 'helios'!
 
+accessorProtocolWith: aGenerator
+	aGenerator accessorProtocolForObject
+!
+
+accessorsSourceCodesWith: aGenerator
+	aGenerator accessorsForObject
+!
+
 heliosClass
 	"Should be an Helios extension. Unfortunately, since helios can browse remote
 	environments, we can't extend base classes"
 	
 	^ 'class'
+!
+
+initializeProtocolWith: aGenerator
+	aGenerator initializeProtocolForObject
+!
+
+initializeSourceCodesWith: aGenerator
+	aGenerator initializeForObject
 ! !
 
 !Object class methodsFor: 'initialization'!
@@ -420,10 +436,10 @@ I am directly mapped to JavaScript Boolean. The `true` and `false` objects are t
 
 = aBoolean
 	<
-		if(!! aBoolean._isBoolean || !! aBoolean._isBoolean()) {
-			return false;
-		}
-		return Boolean(self == true) == aBoolean
+		return aBoolean !!= null &&
+			typeof aBoolean._isBoolean === "function" &&
+			aBoolean._isBoolean() &&
+			Boolean(self == true) == aBoolean
 	>
 !
 
@@ -819,10 +835,10 @@ negated
 
 = aNumber
 	<
-		if(!! aNumber._isNumber || !! aNumber._isNumber()) {
-			return false;
-		}
-		return Number(self) == aNumber
+		return aNumber !!= null &&
+			typeof aNumber._isNumber === "function" &&
+			aNumber._isNumber() &&
+			Number(self) == aNumber
 	>
 !
 

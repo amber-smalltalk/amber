@@ -1,30 +1,45 @@
-Smalltalk current createPackage: 'Kernel-Infrastructure'!
-Object subclass: #InspectorHandler
+Smalltalk createPackage: 'Kernel-Infrastructure'!
+Object subclass: #ConsoleErrorHandler
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
-!InspectorHandler commentStamp!
-I am responsible for inspecting object.
+!ConsoleErrorHandler commentStamp!
+I am manage Smalltalk errors, displaying the stack in the console.!
 
-My class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.
+!ConsoleErrorHandler methodsFor: 'error handling'!
 
-The default inspector object is the transcript.!
-
-InspectorHandler class instanceVariableNames: 'inspector'!
-
-!InspectorHandler class methodsFor: 'accessing'!
-
-inspector
-	^ inspector ifNil: [ inspector := Transcript ]
+handleError: anError
+	anError context ifNotNil: [ self logErrorContext: anError context ].
+	self logError: anError
 ! !
 
-!InspectorHandler class methodsFor: 'registration'!
+!ConsoleErrorHandler methodsFor: 'private'!
 
-inspect: anObject
-	^ self inspector inspect: anObject
+log: aString
+	console log: aString
 !
 
-register: anInspector
-	inspector := anInspector
+logContext: aContext
+	aContext home ifNotNil: [
+		self logContext: aContext home ].
+	self log: aContext asString
+!
+
+logError: anError
+	self log: anError messageText
+!
+
+logErrorContext: aContext
+	aContext ifNotNil: [
+		aContext home ifNotNil: [
+			self logContext: aContext home ]]
+! !
+
+ConsoleErrorHandler class instanceVariableNames: 'current'!
+
+!ConsoleErrorHandler class methodsFor: 'initialization'!
+
+initialize
+	ErrorHandler registerIfNone: self new
 ! !
 
 Object subclass: #InterfacingObject
@@ -72,16 +87,16 @@ Typical use cases include IDEs, remote access and restricting browsing.!
 !Environment methodsFor: 'accessing'!
 
 allSelectors
-	^ (Smalltalk current at: 'allSelectors') value
+	^ Smalltalk vm allSelectors
 !
 
 availableClassNames
-	^ Smalltalk current classes 
+	^ Smalltalk classes 
 		collect: [ :each | each name ]
 !
 
 availablePackageNames
-	^ Smalltalk current packages 
+	^ Smalltalk packages 
 		collect: [ :each | each name ]
 !
 
@@ -90,7 +105,7 @@ availableProtocolsFor: aClass
 	
 	protocols := aClass protocols.
 	aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].
-	^ protocols asSet asArray
+	^ protocols asSet asArray sort
 !
 
 classBuilder
@@ -98,12 +113,12 @@ classBuilder
 !
 
 classNamed: aString
-	^ (Smalltalk current at: aString asSymbol)
+	^ (Smalltalk globals at: aString asSymbol)
 		ifNil: [ self error: 'Invalid class name' ]
 !
 
 classes
-	^ Smalltalk current classes
+	^ Smalltalk classes
 !
 
 doItReceiver
@@ -111,11 +126,11 @@ doItReceiver
 !
 
 packages
-	^ Smalltalk current packages
+	^ Smalltalk packages
 !
 
 systemAnnouncer
-	^ (Smalltalk current at: #SystemAnnouncer) current
+	^ (Smalltalk globals at: #SystemAnnouncer) current
 ! !
 
 !Environment methodsFor: 'actions'!
@@ -125,7 +140,7 @@ commitPackage: aPackage
 !
 
 copyClass: aClass to: aClassName
-	(Smalltalk current at: aClassName)
+	(Smalltalk globals at: aClassName)
 		ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].
 		
 	ClassBuilder new copyClass: aClass named: aClassName
@@ -140,7 +155,7 @@ eval: aString on: aReceiver
 !
 
 inspect: anObject
-	InspectorHandler inspector inspect: anObject
+	Inspector inspect: anObject
 !
 
 moveClass: aClass toPackage: aPackageName
@@ -156,35 +171,22 @@ moveClass: aClass toPackage: aPackageName
 moveMethod: aMethod toClass: aClassName
 	| destinationClass |
 	
-	destinationClass := Smalltalk current at: aClassName asSymbol.
-	destinationClass ifNil: [ self error: 'Invalid class name' ].
+	destinationClass := self classNamed: aClassName.
 	destinationClass == aMethod methodClass ifTrue: [ ^ self ].
 	
 	destinationClass 
 		compile: aMethod source
-		category: aMethod protocol.
+		protocol: aMethod protocol.
 	aMethod methodClass 
 		removeCompiledMethod: aMethod
 !
 
 moveMethod: aMethod toProtocol: aProtocol
-	aMethod category: aProtocol
-!
-
-registerErrorHandler: anErrorHandler
-	ErrorHandler setCurrent: anErrorHandler
-!
-
-registerInspector: anInspector
-	InspectorHandler register: anInspector
-!
-
-registerProgressHandler: aProgressHandler
-	ProgressHandler setCurrent: aProgressHandler
+	aMethod protocol: aProtocol
 !
 
 removeClass: aClass
-	Smalltalk current removeClass: aClass
+	Smalltalk removeClass: aClass
 !
 
 removeMethod: aMethod
@@ -192,21 +194,19 @@ removeMethod: aMethod
 !
 
 removeProtocol: aString from: aClass
-	(aClass methods
-		select: [ :each | each protocol = aString ])
+	(aClass methodsInProtocol: aString)
 		do: [ :each | aClass removeCompiledMethod: each ]
 !
 
 renameClass: aClass to: aClassName
-	(Smalltalk current at: aClassName)
+	(Smalltalk globals at: aClassName)
 		ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].
 		
 	ClassBuilder new renameClass: aClass to: aClassName
 !
 
 renameProtocol: aString to: anotherString in: aClass
-	(aClass methods
-		select: [ :each | each protocol = aString ])
+	(aClass methodsInProtocol: aString)
 		do: [ :each | each protocol: anotherString ]
 !
 
@@ -229,13 +229,15 @@ compileClassComment: aString for: aClass
 !
 
 compileClassDefinition: aString
-	self eval: aString on: DoIt new
+	[ self eval: aString on: DoIt new ]
+		on: Error
+		do: [ :error | self alert: error messageText ]
 !
 
 compileMethod: sourceCode for: class protocol: protocol
 	^ class
 		compile: sourceCode
-		category: protocol
+		protocol: protocol
 ! !
 
 !Environment methodsFor: 'error handling'!
@@ -247,6 +249,24 @@ evaluate: aBlock on: anErrorClass do: exceptionBlock
 		(exception isKindOf: (self classNamed: anErrorClass name))
 			ifTrue: [ exceptionBlock value: exception ]
  			ifFalse: [ exception signal ] ]
+! !
+
+!Environment methodsFor: 'services'!
+
+registerErrorHandler: anErrorHandler
+	ErrorHandler register: anErrorHandler
+!
+
+registerInspector: anInspector
+	Inspector register: anInspector
+!
+
+registerProgressHandler: aProgressHandler
+	ProgressHandler register: aProgressHandler
+!
+
+registerTranscript: aTranscript
+	Transcript register: aTranscript
 ! !
 
 ProtoObject subclass: #JSObjectProxy
@@ -327,6 +347,13 @@ lookupProperty: aString
 	<return aString in self._jsObject() ? aString : nil>
 ! !
 
+!JSObjectProxy methodsFor: 'comparing'!
+
+= anObject
+	anObject class == self class ifFalse: [ ^ false ].
+	^ self compareJSObjectWith: anObject jsObject
+! !
+
 !JSObjectProxy methodsFor: 'enumerating'!
 
 asJSON
@@ -357,6 +384,12 @@ printString
 			? js.toString()
 			: Object.prototype.toString.call(js)
 	>
+! !
+
+!JSObjectProxy methodsFor: 'private'!
+
+compareJSObjectWith: aJSObject
+ 	<return self["@jsObject"] === aJSObject>
 ! !
 
 !JSObjectProxy methodsFor: 'proxy'!
@@ -399,6 +432,26 @@ on: aJSObject
 	^ self new
 		jsObject: aJSObject;
 		yourself
+! !
+
+Object subclass: #NullProgressHandler
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!NullProgressHandler commentStamp!
+I am the default progress handler. I do not display any progress, and simply iterate over the collection.!
+
+!NullProgressHandler methodsFor: 'progress handling'!
+
+do: aBlock on: aCollection displaying: aString
+	aCollection do: aBlock
+! !
+
+NullProgressHandler class instanceVariableNames: 'current'!
+
+!NullProgressHandler class methodsFor: 'initialization'!
+
+initialize
+	ProgressHandler registerIfNone: self new
 ! !
 
 Object subclass: #Organizer
@@ -529,7 +582,7 @@ transport: aPackageTransport
 !Package methodsFor: 'classes'!
 
 classes
-	^ self organization elements asSet asArray
+	^ self organization elements
 !
 
 setupClasses
@@ -566,7 +619,7 @@ loadDependencyClasses
 	starCategoryName := '*', self name.
 	^ (self classes collect: [ :each | each superclass ]) asSet
 		remove: nil ifAbsent: [];
-		addAll: (Smalltalk current classes select: [ :each | each protocols, each class protocols includes: starCategoryName ]);
+		addAll: (Smalltalk classes select: [ :each | each protocols, each class protocols includes: starCategoryName ]);
 		yourself
 ! !
 
@@ -591,14 +644,14 @@ Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
 !Package class methodsFor: 'accessing'!
 
 named: aPackageName
-	^ Smalltalk current 
+	^ Smalltalk 
 		packageAt: aPackageName
 		ifAbsent: [ 
-			Smalltalk current createPackage: aPackageName ]
+			Smalltalk createPackage: aPackageName ]
 !
 
 named: aPackageName ifAbsent: aBlock
-	^ Smalltalk current packageAt: aPackageName ifAbsent: aBlock
+	^ Smalltalk packageAt: aPackageName ifAbsent: aBlock
 !
 
 named: aPackageName transport: aTransport
@@ -706,54 +759,136 @@ initialize
 	]
 ! !
 
-Object subclass: #ProgressHandler
+Object subclass: #Service
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!Service commentStamp!
+I implement the basic behavior for class registration to a service.
+
+See the `Transcript` class for a concrete service.
+
+## API
+
+Use class-side methods `#register:` and `#registerIfNone:` to register classes to a specific service.!
+
+Service class instanceVariableNames: 'current'!
+
+!Service class methodsFor: 'accessing'!
+
+current
+	^ current
+! !
+
+!Service class methodsFor: 'instance creation'!
+
+new
+	self shouldNotImplement
+! !
+
+!Service class methodsFor: 'registration'!
+
+register: anObject
+	current := anObject
+!
+
+registerIfNone: anObject
+	self current ifNil: [ self register: anObject ]
+! !
+
+Service subclass: #ErrorHandler
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!ErrorHandler commentStamp!
+I am the service used to handle Smalltalk errors.
+See `boot.js` `handleError()` function.
+
+Registered service instances must implement `#handleError:` to perform an action on the thrown exception.!
+
+!ErrorHandler class methodsFor: 'error handling'!
+
+handleError: anError
+	self current handleError: anError
+! !
+
+Service subclass: #Inspector
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!Inspector commentStamp!
+I am the service responsible for inspecting objects.
+
+The default inspector object is the transcript.!
+
+!Inspector class methodsFor: 'inspecting'!
+
+inspect: anObject
+	^ self current inspect: anObject
+! !
+
+Service subclass: #ProgressHandler
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
 !ProgressHandler commentStamp!
 I am used to manage progress in collection iterations, see `SequenceableCollection >> #do:displayingProgress:`.
 
-Subclasses of can register themselves as the current handler with
-`ProgressHandler class >> register`.
+Registered instances must implement `#do:on:displaying:`.
 
-The default behavior is to simply iterate over the collection.!
+The default behavior is to simply iterate over the collection, using `NullProgressHandler`.!
 
-!ProgressHandler methodsFor: 'progress handling'!
+!ProgressHandler class methodsFor: 'progress handling'!
 
 do: aBlock on: aCollection displaying: aString
-	aCollection do: aBlock
+	self current do: aBlock on: aCollection displaying: aString
 ! !
 
-ProgressHandler class instanceVariableNames: 'current'!
-
-!ProgressHandler class methodsFor: 'accessing'!
-
-current
-	^ current ifNil: [ current := self new ]
-!
-
-setCurrent: anHandler
-	current := anHandler
-! !
-
-!ProgressHandler class methodsFor: 'initialization'!
-
-initialize
-	self register
-!
-
-register
-	ProgressHandler setCurrent: self new
-! !
-
-Object subclass: #Smalltalk
+Service subclass: #Transcript
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
-!Smalltalk commentStamp!
-I represent the global JavaScript variable `smalltalk` declared in `js/boot.js`.
+!Transcript commentStamp!
+I am a facade for Transcript actions.
+
+I delegate actions to the currently registered transcript.
 
 ## API
 
-I have only one instance, accessed with class-side method `#current`.
+    Transcript 
+        show: 'hello world';
+        cr;
+        show: anObject.!
+
+!Transcript class methodsFor: 'instance creation'!
+
+open
+	self current open
+! !
+
+!Transcript class methodsFor: 'printing'!
+
+clear
+	self current clear
+!
+
+cr
+	self current show: String cr
+!
+
+inspect: anObject
+	self show: anObject
+!
+
+show: anObject
+	self current show: anObject
+! !
+
+Object subclass: #SmalltalkImage
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!SmalltalkImage commentStamp!
+I represent the Smalltalk system, wrapping
+operations of variable `smalltalk` declared in `js/boot.js`.
+
+## API
+
+I have only one instance, accessed with global variable `Smalltalk`.
 
 The `smalltalk` object holds all class and packages defined in the system.
 
@@ -776,24 +911,37 @@ Packages can be accessed using the following methods:
 The `#parse:` method is used to parse Amber source code.
 It requires the `Compiler` package and the `js/parser.js` parser file in order to work.!
 
-!Smalltalk methodsFor: 'accessing'!
+!SmalltalkImage methodsFor: 'accessing'!
 
 at: aString
-	^ self basicAt: aString
+	self deprecatedAPI.
+	^ self globals at: aString
 !
 
 at: aKey ifAbsent: aBlock
 	^ (self includesKey: aKey)
 		ifTrue: [ self at: aKey ]
-		ifFalse: aBlock
+		ifFalse: [ aBlock value ]
 !
 
 at: aString put: anObject
-	^ self basicAt: aString put: anObject
+	self deprecatedAPI.
+	^ self globals at: aString put: anObject
+!
+
+current
+	"Backward compatibility for Smalltalk current ..."
+	self deprecatedAPI.
+	^ self
+!
+
+globals
+	"Future compatibility to be able to use Smalltalk globals at: ..."
+	<return globals>
 !
 
 includesKey: aKey
-	<return self.hasOwnProperty(aKey)>
+	<return smalltalk.hasOwnProperty(aKey)>
 !
 
 parse: aString
@@ -813,38 +961,43 @@ pseudoVariableNames
 !
 
 readJSObject: anObject
-	<return self.readJSObject(anObject)>
+	<return smalltalk.readJSObject(anObject)>
 !
 
 reservedWords
 	"JavaScript reserved words"
-	<return self.reservedWords>
+	<return smalltalk.reservedWords>
 !
 
 version
 	"Answer the version string of Amber"
 	
 	^ '0.13.0-pre'
+!
+
+vm
+	"Future compatibility to be able to use Smalltalk vm ..."
+	<return smalltalk>
 ! !
 
-!Smalltalk methodsFor: 'accessing amd'!
+!SmalltalkImage methodsFor: 'accessing amd'!
 
 amdRequire
-	^ self at: 'amdRequire'
+	^ self vm at: 'amdRequire'
 !
 
 defaultAmdNamespace
-	^ self at: 'defaultAmdNamespace'
+	^ self vm defaultAmdNamespace
 !
 
 defaultAmdNamespace: aString
-	self at: 'defaultAmdNamespace' put: aString
+	self vm defaultAmdNamespace: aString
 ! !
 
-!Smalltalk methodsFor: 'classes'!
+!SmalltalkImage methodsFor: 'classes'!
 
 classes
-	<return self.classes()>
+	<return smalltalk.classes()>
 !
 
 removeClass: aClass
@@ -858,7 +1011,7 @@ removeClass: aClass
 			yourself)
 ! !
 
-!Smalltalk methodsFor: 'error handling'!
+!SmalltalkImage methodsFor: 'error handling'!
 
 asSmalltalkException: anObject
 	"A JavaScript exception may be thrown.
@@ -873,7 +1026,7 @@ parseError: anException parsing: aString
 	^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')
 ! !
 
-!Smalltalk methodsFor: 'globals'!
+!SmalltalkImage methodsFor: 'globals'!
 
 addGlobalJsVariable: aString
 	self globalJsVariables add: aString
@@ -885,10 +1038,10 @@ deleteGlobalJsVariable: aString
 
 globalJsVariables
 	"Array of global JavaScript variables"
-	<return self.globalJsVariables>
+	<return smalltalk.globalJsVariables>
 ! !
 
-!Smalltalk methodsFor: 'packages'!
+!SmalltalkImage methodsFor: 'packages'!
 
 createPackage: packageName
 	| package announcement |
@@ -904,7 +1057,7 @@ createPackage: packageName
 !
 
 packageAt: packageName
-	<return self.packages[ packageName]>
+	<return smalltalk.packages[packageName]>
 !
 
 packageAt: packageName ifAbsent: aBlock
@@ -915,8 +1068,8 @@ packages
 	"Return all Package instances in the system."
 
 	<
-		return Object.keys(self.packages).map(function(k) {
-			return self.packages[k];
+		return Object.keys(smalltalk.packages).map(function(k) {
+			return smalltalk.packages[k];
 		})
 	>
 !
@@ -942,7 +1095,7 @@ renamePackage: packageName to: newName
 	self deletePackage: packageName.
 ! !
 
-!Smalltalk methodsFor: 'private'!
+!SmalltalkImage methodsFor: 'private'!
 
 basicCreatePackage: packageName
 	"Create and bind a new bare package with given name and return it."
@@ -964,17 +1117,17 @@ createPackage: packageName properties: aDict
 deleteClass: aClass
 	"Deletes a class by deleting its binding only. Use #removeClass instead"
 	
-	<self.removeClass(aClass)>
+	<smalltalk.removeClass(aClass)>
 !
 
 deletePackage: packageName
 	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
 	To remove a package, use #removePackage instead."
 
-	<delete self.packages[ packageName]>
+	<delete smalltalk.packages[packageName]>
 ! !
 
-!Smalltalk methodsFor: 'testing'!
+!SmalltalkImage methodsFor: 'testing'!
 
 isSmalltalkObject: anObject
 	"Consider anObject a Smalltalk object if it has a 'klass' property.
@@ -983,17 +1136,31 @@ isSmalltalkObject: anObject
 	<return typeof anObject.klass !!== 'undefined'>
 ! !
 
-!Smalltalk class methodsFor: 'accessing'!
+SmalltalkImage class instanceVariableNames: 'current'!
+
+!SmalltalkImage class methodsFor: 'initialization'!
+
+initialize
+	globals at: 'Smalltalk' put: self current
+! !
+
+!SmalltalkImage class methodsFor: 'instance creation'!
 
 current
-	<return smalltalk>
+	^ current ifNil: [ current := super new ] ifNotNil: [ self deprecatedAPI. current ]
+!
+
+new
+	self shouldNotImplement
 ! !
 
 !SequenceableCollection methodsFor: '*Kernel-Infrastructure'!
 
 do: aBlock displayingProgress: aString
-	ProgressHandler current
-		do: aBlock on: self displaying: aString
+	ProgressHandler 
+		do: aBlock 
+		on: self 
+		displaying: aString
 ! !
 
 !String methodsFor: '*Kernel-Infrastructure'!

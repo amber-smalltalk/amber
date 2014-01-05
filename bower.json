@@ -16,7 +16,7 @@
     "jquery-tabby": "git://github.com/alanhogan/Tabby",
 	"jquery-mousewheel": "git://github.com/brandonaaron/jquery-mousewheel",
     "es5-shim": "~2.1.0",
-    "codemirror": "~3.13.0",
+    "codemirror": "~3.20.0",
     "showdown": "~0.3.1",
     "require-css": "~0.0.8"
   }

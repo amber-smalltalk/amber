@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Canvas'!
+Smalltalk createPackage: 'Canvas'!
 Object subclass: #BrowserInterface
 	instanceVariableNames: ''
 	package: 'Canvas'!
@@ -545,6 +545,15 @@ video
 	^ self tag: 'video'
 ! !
 
+!HTMLCanvas class methodsFor: 'initialization'!
+
+initialize
+	"Allow JS method calls for the jQuery object.
+	See boot.js DNU handling."
+	
+	jQuery basicAt: 'allowJavaScriptCalls' put: true
+! !
+
 !HTMLCanvas class methodsFor: 'instance creation'!
 
 onJQuery: aJQuery
@@ -625,7 +634,7 @@ snippetAt: aString compile: anElement
 		installMethod: ([ :htmlReceiver | htmlReceiver snippet: anElement ]
 			currySelf asCompiledMethod: aString)
 		forClass: HTMLCanvas
-		category: '**snippets'
+		protocol: '**snippets'
 ! !
 
 !HTMLSnippet methodsFor: 'private'!

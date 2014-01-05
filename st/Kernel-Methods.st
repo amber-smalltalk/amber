@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Methods'!
+Smalltalk createPackage: 'Kernel-Methods'!
 Object subclass: #BlockClosure
 	instanceVariableNames: ''
 	package: 'Kernel-Methods'!
@@ -86,7 +86,7 @@ on: anErrorClass do: aBlock
 	Convert all JS exceptions to JavaScriptException instances."
 	
 	^ self try: self catch: [ :error | | smalltalkError |
-		smalltalkError := Smalltalk current asSmalltalkException: error.
+		smalltalkError := Smalltalk asSmalltalkException: error.
 		(smalltalkError isKindOf: anErrorClass)
 		ifTrue: [ aBlock value: smalltalkError ]
 		ifFalse: [ smalltalkError resignal ] ]
@@ -178,14 +178,14 @@ fork
 valueWithInterval: aNumber
 	<
 		var interval = setInterval(self, aNumber);
-		return smalltalk.Timeout._on_(interval);
+		return globals.Timeout._on_(interval);
 	>
 !
 
 valueWithTimeout: aNumber
 	<
 		var timeout = setTimeout(self, aNumber);
-		return smalltalk.Timeout._on_(timeout);
+		return globals.Timeout._on_(timeout);
 	>
 ! !
 
@@ -219,25 +219,7 @@ arguments
 !
 
 category
-	^ (self basicAt: 'category') ifNil: [ self defaultCategory ]
-!
-
-category: aString
-	| oldProtocol |
-	oldProtocol := self protocol.
-	self basicAt: 'category' put: aString.
-
-	SystemAnnouncer current announce: (MethodMoved new
-		method: self;
-		oldProtocol: oldProtocol;
-		yourself).
-
-	self methodClass ifNotNil: [
-		self methodClass organization addElement: aString.
-	
-		(self methodClass methods
-			select: [ :each | each protocol = oldProtocol ])
-			ifEmpty: [ self methodClass organization removeElement: oldProtocol ] ]
+	^ self protocol
 !
 
 fn
@@ -257,11 +239,22 @@ methodClass
 !
 
 protocol
-	^ self category
+	^ (self basicAt: 'protocol') ifNil: [ self defaultProtocol ]
 !
 
 protocol: aString
-	self category: aString
+	| oldProtocol |
+	oldProtocol := self protocol.
+	self basicAt: 'protocol' put: aString.
+
+	SystemAnnouncer current announce: (MethodMoved new
+		method: self;
+		oldProtocol: oldProtocol;
+		yourself).
+
+	self methodClass ifNotNil: [ :methodClass |
+		methodClass organization addElement: aString.
+		methodClass removeProtocolIfEmpty: oldProtocol ]
 !
 
 referencedClasses
@@ -286,7 +279,7 @@ source: aString
 
 !CompiledMethod methodsFor: 'defaults'!
 
-defaultCategory
+defaultProtocol
 	^ 'as yet unclassified'
 ! !
 

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Core'!
+Smalltalk createPackage: 'Compiler-Core'!
 Object subclass: #AbstractCodeGenerator
 	instanceVariableNames: 'currentClass source'
 	package: 'Compiler-Core'!
@@ -25,13 +25,7 @@ currentClass: aClass
 !
 
 pseudoVariables
-	^ Smalltalk current pseudoVariableNames
-!
-
-safeVariableNameFor: aString
-	^ (Smalltalk current reservedWords includes: aString)
-		ifTrue: [ aString, '_' ]
-		ifFalse: [ aString ]
+	^ Smalltalk pseudoVariableNames
 !
 
 source
@@ -173,22 +167,22 @@ evaluateExpression: aString on: anObject
 	"Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object"
 	| result method |
 	method := self eval: (self compileExpression: aString on: anObject).
-	method category: 'xxxDoIt'.
+	method protocol: 'xxxDoIt'.
 	anObject class addCompiledMethod: method.
 	result := anObject xxxDoIt.
 	anObject class removeCompiledMethod: method.
 	^ result
 !
 
-install: aString forClass: aBehavior category: anotherString
+install: aString forClass: aBehavior protocol: anotherString
 	^ ClassBuilder new
 		installMethod: (self eval: (self compile: aString forClass: aBehavior))
 		forClass: aBehavior
-		category: anotherString
+		protocol: anotherString
 !
 
 parse: aString
-	^ Smalltalk current parse: aString
+	^ Smalltalk parse: aString
 !
 
 parseExpression: aString
@@ -197,14 +191,17 @@ parseExpression: aString
 
 recompile: aClass
 	aClass methodDictionary values
-		do: [ :each | self install: each source forClass: aClass category: each category ]
+		do: [ :each | 
+			self 
+				install: each source 
+				forClass: aClass 
+				protocol: each protocol ]
 		displayingProgress: 'Recompiling ', aClass name.
-	"self setupClass: aClass."
 	aClass isMetaclass ifFalse: [ self recompile: aClass class ]
 !
 
 recompileAll
-	Smalltalk current classes 
+	Smalltalk classes 
 		do: [ :each | self recompile: each ]
 		displayingProgress: 'Compiling all classes...'
 ! !
@@ -216,7 +213,7 @@ recompile: aClass
 !
 
 recompileAll
-	Smalltalk current classes do: [ :each |
+	Smalltalk classes do: [ :each |
 		self recompile: each ]
 ! !
 
@@ -225,6 +222,11 @@ Object subclass: #DoIt
 	package: 'Compiler-Core'!
 !DoIt commentStamp!
 `DoIt` is the class used to compile and evaluate expressions. See `Compiler >> evaluateExpression:`.!
+
+!DoIt methodsFor: 'tests'!
+
+foo ^ Array new add: 3; add: 4; yourself
+! !
 
 Object subclass: #NodeVisitor
 	instanceVariableNames: ''
@@ -296,5 +298,13 @@ visitValueNode: aNode
 
 visitVariableNode: aNode
 	^ self visitNode: aNode
+! !
+
+!String methodsFor: '*Compiler-Core'!
+
+asVariableName
+	^ (Smalltalk reservedWords includes: self)
+		ifTrue: [ self, '_' ]
+		ifFalse: [ self ]
 ! !
 

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-KeyBindings'!
+Smalltalk createPackage: 'Helios-KeyBindings'!
 Object subclass: #HLBinding
 	instanceVariableNames: 'key label'
 	package: 'Helios-KeyBindings'!
@@ -473,7 +473,10 @@ setupEvents
 
 initialize
 	super initialize.
-	helper := HLKeyBinderHelperWidget on: self.
+	helper := HLKeyBinderHelperWidget on: self
+!
+
+setupHelper
 	helper 	
 		renderStart;
 		renderCog

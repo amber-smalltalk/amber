@@ -15,8 +15,19 @@
 var require;
 
 require = function (require) {
-    var scripts = document.getElementsByTagName("script");
-    var me = scripts[scripts.length - 1];
+    // To be able to use its path and attrubutes
+    // to map other parts of Amber, this code must find its <script> tag.
+    // It first looks for id 'amber-path-mapper'.
+    // When loading amber.js asynchronously, you must include this id,
+    // or the code can not reliably find its <script>.
+    var me = document.getElementById("amber-path-mapper");
+    if (!me || me.tagName.toLowerCase() !== "script") {
+        // If <script> with 'amber-path-mapper' id is not present,
+        // (this id is not necessary for inline <script> tag in HTML),
+        // it uses the "find the last <script> tag present in the moment" method.
+        var scripts = document.getElementsByTagName("script");
+        me = scripts[scripts.length - 1];
+    }
     var src = me.src;
     // strip the last two elements from the URL
     // e.g. http://app.com/amber/support/amber.js -> http://app.com/amber
@@ -50,7 +61,6 @@ require = function (require) {
             'amber_vm': amber_home + '/support',
             'amber_css': amber_home + '/css',
             'amber_lib': library_home,
-            'amber_inc': amber_home + '/support',
             'amber_core': amber_home + '/js',
             'amber_core/_source': amber_home + '/st',
             'amber_helios/html': amber_home,
@@ -76,8 +86,11 @@ require = function (require) {
             'amber_lib/jquery-tabby/jquery.textarea': {
                 deps: [ 'jquery' ]
             },
-            'amber_inc/CodeMirror/smalltalk': {
-                deps: [ 'amber_lib/codemirror/lib/codemirror' ]
+            'amber_core/IDE': {
+                deps: [ 'amber_lib/codemirror/mode/smalltalk/smalltalk' ]
+            },
+            'amber_lib/codemirror/mode/smalltalk/smalltalk': {
+                deps: [ '../../lib/codemirror' ]
             },
             'amber_lib/codemirror/addon/hint/show-hint': {
                 deps: [ '../../lib/codemirror' ]

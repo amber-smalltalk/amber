@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'IDE'!
+Smalltalk createPackage: 'IDE'!
 Widget subclass: #ClassesList
 	instanceVariableNames: 'browser ul nodes'
 	package: 'IDE'!
@@ -149,7 +149,7 @@ on: aClass browser: aBrowser classes: aCollection level: anInteger
 		yourself
 ! !
 
-ErrorHandler subclass: #DebugErrorHandler
+Object subclass: #DebugErrorHandler
 	instanceVariableNames: ''
 	package: 'IDE'!
 
@@ -165,7 +165,7 @@ handleError: anError
 !DebugErrorHandler class methodsFor: 'initialization'!
 
 initialize
-	ErrorHandler current ifNil: [ self register ]
+	ErrorHandler register: self new
 ! !
 
 Widget subclass: #SourceArea
@@ -210,13 +210,14 @@ selection
 
 setEditorOn: aTextarea
 	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-		theme: 'amber',
-				lineNumbers: true,
-				enterMode: 'flat',
-				indentWithTabs: true,
-				indentUnit: 4,
-				matchBrackets: true,
-				electricChars: false
+		theme: 'default',
+		mode: 'text/x-stsrc',
+		lineNumbers: true,
+		enterMode: 'flat',
+		indentWithTabs: true,
+		indentUnit: 4,
+		matchBrackets: true,
+		electricChars: false
 	})>
 !
 
@@ -407,7 +408,7 @@ removeBodyMargin
 
 search: aString
 	| searchedClass |
-	searchedClass := Smalltalk current at: aString.
+	searchedClass := Smalltalk globals at: aString.
 		searchedClass isClass
 			ifTrue: [ Browser openOn: searchedClass ]
 			ifFalse: [ ReferencesBrowser search: aString ]
@@ -454,7 +455,7 @@ removeTab: aWidget
 
 initialize
 	super initialize.
-	InspectorHandler register: Inspector.
+	Inspector register: IDEInspector.
 	opened := true.
 	[ :html | html div id: 'amber' ] appendToJQuery: 'body' asJQuery.
 	'body' asJQuery
@@ -668,7 +669,7 @@ classDeclarationTemplate
 !
 
 classes
-	^ ((Smalltalk current classes
+	^ ((Smalltalk classes
 	select: [ :each | each category = selectedPackage ])
 	sort: [ :a :b | a name < b name ]) asSet
 !
@@ -727,14 +728,14 @@ methods
 		ifNil: [ #() ]
 		ifNotNil: [ klass methodDictionary values ]]
 	ifNotNil: [
-		klass methodDictionary values select: [ :each |
-		each category = selectedProtocol ]]) sort: [ :a :b | a selector < b selector ]
+		klass methodsInProtocol: selectedProtocol ]) 
+				sort: [ :a :b | a selector < b selector ]
 !
 
 packages
 	| packages |
 	packages := Array new.
-	Smalltalk current classes do: [ :each |
+	Smalltalk classes do: [ :each |
 	(packages includes: each category) ifFalse: [
 		packages add: each category ]].
 	^ packages sort
@@ -789,15 +790,17 @@ addNewClass
 			self
 			resetClassesList;
 			updateClassesList.
-		self selectClass: (Smalltalk current at: className) ]
+		self selectClass: (Smalltalk globals at: className) ]
 !
 
 addNewProtocol
 	| newProtocol |
+	
 	newProtocol := self prompt: 'New method protocol'.
+	
 	(newProtocol notNil and: [ newProtocol notEmpty ]) ifTrue: [
-	selectedMethod category: newProtocol.
-	self setMethodProtocol: newProtocol ]
+		selectedMethod protocol: newProtocol.
+		self setMethodProtocol: newProtocol ]
 !
 
 cancelChanges
@@ -849,7 +852,7 @@ compileMethodDefinition
 compileMethodDefinitionFor: aClass
 	| compiler method source node |
 	source := sourceArea val.
-	selectedProtocol ifNil: [ selectedProtocol := selectedMethod category ].
+	selectedProtocol ifNil: [ selectedProtocol := selectedMethod protocol ].
 	compiler := Compiler new.
 	compiler source: source.
 	node := compiler parse: source.
@@ -863,7 +866,7 @@ compileMethodDefinitionFor: aClass
 		(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
 			self addInstanceVariableNamed: each toClass: aClass.
 			^ self compileMethodDefinitionFor: aClass ]] ].
-	ClassBuilder new installMethod: method forClass: aClass category: selectedProtocol.
+	ClassBuilder new installMethod: method forClass: aClass protocol: selectedProtocol.
 	self updateMethodsList.
 	self selectMethod: method
 !
@@ -876,7 +879,7 @@ copyClass
 			self
 			resetClassesList;
 			updateClassesList.
-		self selectClass: (Smalltalk current at: className) ]
+		self selectClass: (Smalltalk globals at: className) ]
 !
 
 disableSaveButton
@@ -907,7 +910,7 @@ hideMethodButtons
 removeClass
 	(self confirm: 'Do you really want to remove ', selectedClass name, '?')
 	ifTrue: [
-		Smalltalk current removeClass: selectedClass.
+		Smalltalk removeClass: selectedClass.
 		self resetClassesList.
 		self selectClass: nil ]
 !
@@ -926,7 +929,7 @@ removePackage
 
 	(self confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')
 	ifTrue: [
-		Smalltalk current removePackage: selectedPackage.
+		Smalltalk removePackage: selectedPackage.
 		self updateCategoriesList ]
 !
 
@@ -946,13 +949,13 @@ renamePackage
 	newName := self prompt: 'Rename package ', selectedPackage.
 	newName ifNotNil: [
 	newName notEmpty ifTrue: [
-	Smalltalk current renamePackage: selectedPackage to: newName.
+	Smalltalk renamePackage: selectedPackage to: newName.
 	self updateCategoriesList ]]
 !
 
 search: aString
 	self cancelChanges ifTrue: [ | searchedClass |
-		searchedClass := Smalltalk current at: aString.
+		searchedClass := Smalltalk globals at: aString.
 		searchedClass isClass
 			ifTrue: [ self class openOn: searchedClass ]
 			ifFalse: [ self searchReferencesOf: aString ]]
@@ -1021,7 +1024,7 @@ setMethodProtocol: aString
 	(self protocols includes: aString)
 		ifFalse: [ self addNewProtocol ]
 		ifTrue: [
-		selectedMethod category: aString.
+		selectedMethod protocol: aString.
 		selectedProtocol := aString.
 		selectedMethod := selectedMethod.
 		self
@@ -1512,6 +1515,166 @@ updateVariablesList
 		ifNotNil: [ inspectButton removeAt: 'disabled' ]
 ! !
 
+TabWidget subclass: #IDEInspector
+	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea diveButton sourceArea'
+	package: 'IDE'!
+
+!IDEInspector methodsFor: 'accessing'!
+
+label
+	^ label ifNil: [ 'Inspector (nil)' ]
+!
+
+selectedVariable
+	^ selectedVariable
+!
+
+selectedVariable: aString
+	selectedVariable := aString
+!
+
+setLabel: aString
+	label := aString
+!
+
+setVariables: aCollection
+	variables := aCollection
+!
+
+sourceArea
+	^ sourceArea
+!
+
+variables
+	^ variables
+! !
+
+!IDEInspector methodsFor: 'actions'!
+
+dive
+	(self variables at: self selectedVariable) inspect
+!
+
+inspect: anObject
+	object := anObject.
+	variables := #().
+	object inspectOn: self
+!
+
+refresh
+	self
+		inspect: object;
+		updateVariablesList;
+		updateValueTextarea
+! !
+
+!IDEInspector methodsFor: 'rendering'!
+
+renderBottomPanelOn: html
+	html div
+	class: 'amber_sourceCode';
+	with: [
+		sourceArea := SourceArea new
+		receiver: object;
+		onDoIt: [ self refresh ];
+		yourself.
+			sourceArea renderOn: html ]
+!
+
+renderBoxOn: html
+	self
+		renderTopPanelOn: html;
+		renderBottomPanelOn: html
+!
+
+renderButtonsOn: html
+	html button
+		with: 'DoIt';
+		onClick: [ self sourceArea doIt ].
+	html button
+		with: 'PrintIt';
+		onClick: [ self sourceArea printIt ].
+	html button
+		with: 'InspectIt';
+		onClick: [ self sourceArea inspectIt ].
+	self updateButtons
+!
+
+renderTopPanelOn: html
+	html div
+		class: 'top';
+		with: [
+			variablesList := html ul class: 'amber_column variables'.
+			valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'; yourself.
+			html div class: 'amber_tabs inspector'; with: [
+				html button
+					class: 'amber_button inspector refresh';
+					with: 'Refresh';
+					onClick: [ self refresh ].
+				diveButton := html button
+					class: 'amber_button inspector dive';
+					with: 'Dive';
+					onClick: [ self dive ]].
+			html div class: 'amber_clear' ].
+	self
+		updateVariablesList;
+		updateValueTextarea.
+! !
+
+!IDEInspector methodsFor: 'testing'!
+
+canBeClosed
+	^ true
+! !
+
+!IDEInspector methodsFor: 'updating'!
+
+selectVariable: aString
+	self selectedVariable: aString.
+	self
+		updateVariablesList;
+		updateValueTextarea;
+		updateButtons
+!
+
+updateButtons
+	(self selectedVariable notNil and: [ (self variables at: self selectedVariable) notNil ])
+		ifFalse: [ diveButton at: 'disabled' put: true ]
+		ifTrue: [ diveButton removeAt: 'disabled' ]
+!
+
+updateValueTextarea
+	valueTextarea asJQuery val: (self selectedVariable isNil
+		ifTrue: [ '' ]
+		ifFalse: [ (self variables at: self selectedVariable) printString ])
+!
+
+updateVariablesList
+	variablesList contents: [ :html |
+		self variables keysDo: [ :each || li |
+			li := html li.
+			li
+				with: each;
+				onClick: [ self selectVariable: each ].
+			self selectedVariable = each ifTrue: [
+				li class: 'selected' ]] ]
+! !
+
+!IDEInspector class methodsFor: 'instance creation'!
+
+inspect: anObject
+	^ self new
+		inspect: anObject;
+		open;
+		yourself
+!
+
+on: anObject
+	^ self new
+		inspect: anObject;
+		yourself
+! !
+
 TabWidget subclass: #IDETranscript
 	instanceVariableNames: 'textarea'
 	package: 'IDE'!
@@ -1578,168 +1741,8 @@ new
 
 open
 	TabManager current
-	open;
-	selectTab: self current
-! !
-
-TabWidget subclass: #Inspector
-	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea diveButton sourceArea'
-	package: 'IDE'!
-
-!Inspector methodsFor: 'accessing'!
-
-label
-	^ label ifNil: [ 'Inspector (nil)' ]
-!
-
-selectedVariable
-	^ selectedVariable
-!
-
-selectedVariable: aString
-	selectedVariable := aString
-!
-
-setLabel: aString
-	label := aString
-!
-
-setVariables: aCollection
-	variables := aCollection
-!
-
-sourceArea
-	^ sourceArea
-!
-
-variables
-	^ variables
-! !
-
-!Inspector methodsFor: 'actions'!
-
-dive
-	(self variables at: self selectedVariable) inspect
-!
-
-inspect: anObject
-	object := anObject.
-	variables := #().
-	object inspectOn: self
-!
-
-refresh
-	self
-		inspect: object;
-		updateVariablesList;
-		updateValueTextarea
-! !
-
-!Inspector methodsFor: 'rendering'!
-
-renderBottomPanelOn: html
-	html div
-	class: 'amber_sourceCode';
-	with: [
-		sourceArea := SourceArea new
-		receiver: object;
-		onDoIt: [ self refresh ];
-		yourself.
-			sourceArea renderOn: html ]
-!
-
-renderBoxOn: html
-	self
-		renderTopPanelOn: html;
-		renderBottomPanelOn: html
-!
-
-renderButtonsOn: html
-	html button
-		with: 'DoIt';
-		onClick: [ self sourceArea doIt ].
-	html button
-		with: 'PrintIt';
-		onClick: [ self sourceArea printIt ].
-	html button
-		with: 'InspectIt';
-		onClick: [ self sourceArea inspectIt ].
-	self updateButtons
-!
-
-renderTopPanelOn: html
-	html div
-		class: 'top';
-		with: [
-			variablesList := html ul class: 'amber_column variables'.
-			valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'.
-			html div class: 'amber_tabs inspector'; with: [
-				html button
-					class: 'amber_button inspector refresh';
-					with: 'Refresh';
-					onClick: [ self refresh ].
-				diveButton := html button
-					class: 'amber_button inspector dive';
-					with: 'Dive';
-					onClick: [ self dive ]].
-			html div class: 'amber_clear' ].
-	self
-		updateVariablesList;
-		updateValueTextarea.
-! !
-
-!Inspector methodsFor: 'testing'!
-
-canBeClosed
-	^ true
-! !
-
-!Inspector methodsFor: 'updating'!
-
-selectVariable: aString
-	self selectedVariable: aString.
-	self
-		updateVariablesList;
-		updateValueTextarea;
-		updateButtons
-!
-
-updateButtons
-	(self selectedVariable notNil and: [ (self variables at: self selectedVariable) notNil ])
-		ifFalse: [ diveButton at: 'disabled' put: true ]
-		ifTrue: [ diveButton removeAt: 'disabled' ]
-!
-
-updateValueTextarea
-	valueTextarea asJQuery val: (self selectedVariable isNil
-		ifTrue: [ '' ]
-		ifFalse: [ (self variables at: self selectedVariable) printString ])
-!
-
-updateVariablesList
-	variablesList contents: [ :html |
-		self variables keys do: [ :each || li |
-			li := html li.
-			li
-				with: each;
-				onClick: [ self selectVariable: each ].
-			self selectedVariable = each ifTrue: [
-				li class: 'selected' ]] ]
-! !
-
-!Inspector class methodsFor: 'instance creation'!
-
-inspect: anObject
-	^ self new
-		inspect: anObject;
 		open;
-		yourself
-!
-
-on: anObject
-	^ self new
-		inspect: anObject;
-		yourself
+		selectTab: self current
 ! !
 
 TabWidget subclass: #ProgressBar
@@ -1786,7 +1789,7 @@ TabWidget subclass: #ReferencesBrowser
 !ReferencesBrowser methodsFor: 'accessing'!
 
 classesAndMetaclasses
-	^ Smalltalk current classes, (Smalltalk current classes collect: [ :each | each class ])
+	^ Smalltalk classes, (Smalltalk classes collect: [ :each | each class ])
 !
 
 implementors
@@ -1838,14 +1841,14 @@ searchMethodSource
 	| regex |
 	regex := selector allButFirst.
 	self classesAndMetaclasses do: [ :each |
-		each methodDictionary values do: [ :value |
+		each methodDictionary valuesDo: [ :value |
 			(value source match: regex) ifTrue: [
 				self matches add: value ]] ]
 !
 
 searchReferencedClasses
 	self classesAndMetaclasses do: [ :each |
-		each methodDictionary values do: [ :value |
+		each methodDictionary valuesDo: [ :value |
 			(value referencedClasses includes: selector) ifTrue: [
 				self referencedClasses add: value ]] ]
 !
@@ -2340,7 +2343,24 @@ inspectOn: anInspector
 	anInspector setLabel: label
 ! !
 
-!HashedCollection methodsFor: '*IDE'!
+!MethodContext methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	variables at: '#home' put: self home.
+	variables at: '#receiver' put: self receiver.
+	variables at: '#selector' put: self selector.
+	variables at: '#temps' put: self temps.
+	self class instanceVariableNames do: [ :each |
+		variables at: each put: (self instVarAt: each) ].
+	anInspector
+		setLabel: self printString;
+		setVariables: variables
+! !
+
+!AssociativeCollection methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
@@ -2357,28 +2377,13 @@ inspectOn: anInspector
 !Set methodsFor: '*IDE'!
 
 inspectOn: anInspector
-	| variables |
+	| variables i |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
-	elements withIndexDo: [ :each :i |
-		variables at: i put: each ].
-	anInspector
-		setLabel: self printString;
-		setVariables: variables
-! !
-
-!MethodContext methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#home' put: self home.
-	variables at: '#receiver' put: self receiver.
-	variables at: '#selector' put: self selector.
-	variables at: '#temps' put: self temps.
-	self class instanceVariableNames do: [ :each |
-		variables at: each put: (self instVarAt: each) ].
+	i := 1.
+	self do: [ :each |
+		variables at: i put: each.
+		i := i + 1 ].
 	anInspector
 		setLabel: self printString;
 		setVariables: variables

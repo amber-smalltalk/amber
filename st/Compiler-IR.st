@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-IR'!
+Smalltalk createPackage: 'Compiler-IR'!
 NodeVisitor subclass: #IRASTTranslator
 	instanceVariableNames: 'source theClass method sequence nextAlias'
 	package: 'Compiler-IR'!
@@ -183,6 +183,7 @@ visitMethodNode: aNode
 		selector: aNode selector;
 		sendIndexes: aNode sendIndexes;
 		superSends: aNode superSends;
+		requiresSmalltalkContext: aNode requiresSmalltalkContext;
 		classReferences: aNode classReferences;
 		scope: aNode scope;
 		yourself).
@@ -473,7 +474,7 @@ accept: aVisitor
 ! !
 
 IRClosureInstruction subclass: #IRMethod
-	instanceVariableNames: 'theClass source selector classReferences sendIndexes superSends internalVariables'
+	instanceVariableNames: 'theClass source selector classReferences sendIndexes superSends requiresSmalltalkContext internalVariables'
 	package: 'Compiler-IR'!
 !IRMethod commentStamp!
 I am a method instruction!
@@ -502,6 +503,14 @@ messageSends
 
 method
 	^ self
+!
+
+requiresSmalltalkContext
+	^ requiresSmalltalkContext ifNil: [ false ]
+!
+
+requiresSmalltalkContext: anObject
+	requiresSmalltalkContext := anObject
 !
 
 selector
@@ -953,7 +962,7 @@ visitIRDynamicArray: anIRDynamicArray
 !
 
 visitIRDynamicDictionary: anIRDynamicDictionary
-	self stream nextPutAll: 'smalltalk.HashedCollection._from_(['.
+	self stream nextPutAll: 'globals.HashedCollection._from_(['.
 		anIRDynamicDictionary instructions
 			do: [ :each | self visit: each ]
 			separatedBy: [ self stream nextPutAll: ',' ].
@@ -1126,7 +1135,7 @@ nextPutClassRefFunction: aString
 	stream
 		nextPutAll: 'function $';
 		nextPutAll: aString;
-		nextPutAll: '(){return smalltalk.';
+		nextPutAll: '(){return globals.';
 		nextPutAll: aString;
 		nextPutAll: '||(typeof ';
 		nextPutAll: aString;
@@ -1147,6 +1156,8 @@ nextPutClosureWith: aBlock arguments: anArray
 !
 
 nextPutContextFor: aMethod during: aBlock
+	aMethod requiresSmalltalkContext ifFalse: [ ^ aBlock value ].
+	
 	self
 		nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; lf.
 	aBlock value.
@@ -1279,13 +1290,5 @@ nextPutVars: aCollection
 
 appendToInstruction: anIRInstruction
 	anIRInstruction appendBlock: self
-! !
-
-!String methodsFor: '*Compiler-IR'!
-
-asVariableName
-	^ (Smalltalk current reservedWords includes: self)
-		ifTrue: [ self, '_' ]
-		ifFalse: [ self ]
 ! !
 

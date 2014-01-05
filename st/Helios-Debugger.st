@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Debugger'!
+Smalltalk createPackage: 'Helios-Debugger'!
 Object subclass: #HLContextInspectorDecorator
 	instanceVariableNames: 'context'
 	package: 'Helios-Debugger'!
@@ -315,7 +315,7 @@ on: aMethodContext
 		yourself
 ! !
 
-ErrorHandler subclass: #HLErrorHandler
+Object subclass: #HLErrorHandler
 	instanceVariableNames: ''
 	package: 'Helios-Debugger'!
 
@@ -339,12 +339,6 @@ onErrorHandled
 	HLProgressWidget default 
 		flush; 
 		remove
-! !
-
-!HLErrorHandler class methodsFor: 'error handling'!
-
-handleError: anError
-	^ self new handleError: anError
 ! !
 
 HLToolListWidget subclass: #HLStackListWidget

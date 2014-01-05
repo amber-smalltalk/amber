@@ -1,13 +1,13 @@
-define("amber_core/Examples", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Canvas"], function(smalltalk,nil,_st){
+define("amber_core/Examples", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Canvas"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Examples');
 smalltalk.packages["Examples"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
-smalltalk.Counter.comment="This is a trivial Widget example mimicking the classic Counter example in Seaside.\x0aIn order to play with it, just evaluate the doit below in a workspace.\x0aThen take a look in the HTML document above the IDE.\x0a\x0a\x09\x09Counter tryExample";
+smalltalk.addClass('Counter', globals.Widget, ['count', 'header'], 'Examples');
+globals.Counter.comment="This is a trivial Widget example mimicking the classic Counter example in Seaside.\x0aIn order to play with it, just evaluate the doit below in a workspace.\x0aThen take a look in the HTML document above the IDE.\x0a\x0a\x09\x09Counter tryExample";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "decrease",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -16,18 +16,18 @@ _st(self["@header"])._contents_((function(html){
 return smalltalk.withContext(function($ctx2) {
 return _st(html)._with_(_st(self["@count"])._asString());
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"decrease",{},smalltalk.Counter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"decrease",{},globals.Counter)})},
 args: [],
 source: "decrease\x0a\x09count := count - 1.\x0a\x09header contents: [ :html | html with: count asString ]",
 messageSends: ["-", "contents:", "with:", "asString"],
 referencedClasses: []
 }),
-smalltalk.Counter);
+globals.Counter);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "increase",
-category: 'actions',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -36,35 +36,35 @@ _st(self["@header"])._contents_((function(html){
 return smalltalk.withContext(function($ctx2) {
 return _st(html)._with_(_st(self["@count"])._asString());
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"increase",{},smalltalk.Counter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"increase",{},globals.Counter)})},
 args: [],
 source: "increase\x0a\x09count := count + 1.\x0a\x09header contents: [ :html | html with: count asString ]",
 messageSends: ["+", "contents:", "with:", "asString"],
 referencedClasses: []
 }),
-smalltalk.Counter);
+globals.Counter);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
-category: 'initialization',
+protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Counter.superclass.fn.prototype._initialize.apply(_st(self), []);
+globals.Counter.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@count"]=(0);
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Counter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Counter)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09count := 0",
 messageSends: ["initialize"],
 referencedClasses: []
 }),
-smalltalk.Counter);
+globals.Counter);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
-category: 'rendering',
+protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -89,29 +89,29 @@ $6=_st($5)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._decrease();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.Counter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.Counter)})},
 args: ["html"],
 source: "renderOn: html\x0a\x09header := html h1\x0a\x09\x09with: count asString;\x0a\x09\x09yourself.\x0a\x09html button\x0a\x09\x09with: '++';\x0a\x09\x09onClick: [ self increase ].\x0a\x09html button\x0a\x09\x09with: '--';\x0a\x09\x09onClick: [ self decrease ]",
 messageSends: ["with:", "h1", "asString", "yourself", "button", "onClick:", "increase", "decrease"],
 referencedClasses: []
 }),
-smalltalk.Counter);
+globals.Counter);
 
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "tryExample",
-category: 'example',
+protocol: 'example',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._new())._appendToJQuery_("body"._asJQuery());
-return self}, function($ctx1) {$ctx1.fill(self,"tryExample",{},smalltalk.Counter.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"tryExample",{},globals.Counter.klass)})},
 args: [],
 source: "tryExample\x0a\x09\x22In order to play with the Counter, just select the\x0a\x09doit below and press the Do it button. Then take a\x0a\x09look in the HTML document above the IDE.\x22\x0a\x0a\x09\x22Counter tryExample\x22\x0a\x09\x09self new appendToJQuery: 'body' asJQuery",
 messageSends: ["appendToJQuery:", "new", "asJQuery"],
 referencedClasses: []
 }),
-smalltalk.Counter.klass);
+globals.Counter.klass);
 
 });

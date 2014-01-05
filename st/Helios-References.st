@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-References'!
+Smalltalk createPackage: 'Helios-References'!
 Object subclass: #HLMethodReference
 	instanceVariableNames: 'selector methodClass'
 	package: 'Helios-References'!
@@ -282,12 +282,6 @@ HLToolModel subclass: #HLReferencesModel
 
 allMethods
 	^ self methodsCache
-!
-
-allSelectors
-	^ (self allMethods 
-		collect: [ :each | each selector ])
-		asSet
 !
 
 classReferencesOf: aString

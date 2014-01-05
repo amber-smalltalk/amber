@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Exceptions'!
+Smalltalk createPackage: 'Kernel-Exceptions'!
 Object subclass: #Error
 	instanceVariableNames: 'messageText'
 	package: 'Kernel-Exceptions'!
@@ -159,65 +159,5 @@ object
 
 object: anObject
 	object := anObject
-! !
-
-Object subclass: #ErrorHandler
-	instanceVariableNames: ''
-	package: 'Kernel-Exceptions'!
-!ErrorHandler commentStamp!
-I am used to manage Smalltalk errors.
-See `boot.js` `handleError()` function.
-
-Subclasses can register themselves as the current handler with
-`ErrorHandler class >> register`.
-
-Subclasses may override `#handleError:` to perform an action on the thrown exception.
-The default behavior is to log the error and the context stack to the JavaScript console.!
-
-!ErrorHandler methodsFor: 'error handling'!
-
-handleError: anError
-	anError context ifNotNil: [ self logErrorContext: anError context ].
-	self logError: anError
-! !
-
-!ErrorHandler methodsFor: 'private'!
-
-log: aString
-	console log: aString
-!
-
-logContext: aContext
-	aContext home ifNotNil: [
-		self logContext: aContext home ].
-	self log: aContext asString
-!
-
-logError: anError
-	self log: anError messageText
-!
-
-logErrorContext: aContext
-	aContext ifNotNil: [
-		aContext home ifNotNil: [
-			self logContext: aContext home ]]
-! !
-
-ErrorHandler class instanceVariableNames: 'current'!
-
-!ErrorHandler class methodsFor: 'accessing'!
-
-current
-	^ current
-!
-
-setCurrent: anHandler
-	current := anHandler
-! !
-
-!ErrorHandler class methodsFor: 'initialization'!
-
-register
-	ErrorHandler setCurrent: self new
 ! !
 

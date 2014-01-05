@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Inspector'!
+Smalltalk createPackage: 'Helios-Inspector'!
 HLNavigationListWidget subclass: #HLInspectorDisplayWidget
 	instanceVariableNames: 'model'
 	package: 'Helios-Inspector'!
@@ -25,7 +25,7 @@ renderContentOn: html
 selectionDisplayString
 	|selection|
 	selection := model selection.
-    ^ (model variables keys includes: selection)
+    ^ (model variables includesKey: selection)
     	ifTrue:[ (model instVarObjectAt: selection) printString ]
       	ifFalse:[ '' ]
 ! !

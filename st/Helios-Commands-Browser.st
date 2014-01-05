@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Commands-Browser'!
+Smalltalk createPackage: 'Helios-Commands-Browser'!
 HLToolCommand subclass: #HLBrowserCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
@@ -153,6 +153,116 @@ key
 
 label
 	^ 'Edit documentation'
+! !
+
+HLBrowserCommand subclass: #HLGenerateCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+!HLGenerateCommand commentStamp!
+I am a group command used to gather all the commands generating code (`accessors`, `initialize`, etc)!
+
+!HLGenerateCommand class methodsFor: 'accessing'!
+
+key
+	^ 'h'
+!
+
+label
+	^ 'Generate'
+! !
+
+HLGenerateCommand subclass: #HLCategorizeUnclassifiedCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+!HLCategorizeUnclassifiedCommand commentStamp!
+I am the command used to categorize unclassified methods!
+
+!HLCategorizeUnclassifiedCommand methodsFor: 'executing'!
+
+execute
+	| targetClass unclassified |
+	targetClass := self model selectedClass.
+
+	unclassified := targetClass methods select:[ :e | e protocol = 'as yet unclassified' ].
+		
+	HLMethodClassifier new
+		classifyAll: unclassified
+! !
+
+!HLCategorizeUnclassifiedCommand class methodsFor: 'accessing'!
+
+key
+	^ 'c'
+!
+
+label
+	^ 'Categorize'
+! !
+
+HLGenerateCommand subclass: #HLGenerateAccessorsCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+!HLGenerateAccessorsCommand commentStamp!
+I am the command used to generate the `getter` and the `setter` methods depending of the selected class!
+
+!HLGenerateAccessorsCommand methodsFor: 'executing'!
+
+execute
+	| targetClass output first |
+	targetClass := self model selectedClass.
+
+	output := HLInitializeGenerator new
+		class: targetClass;
+		generate;
+		output.
+		
+	output compile.
+	first := output sourceCodes first.
+	self model
+		selectedProtocol: output protocol;
+		selectedMethod:(targetClass>>first selector);
+		focusOnSourceCode
+! !
+
+!HLGenerateAccessorsCommand class methodsFor: 'accessing'!
+
+key
+	^ 'i'
+!
+
+label
+	^ 'Initialize'
+! !
+
+HLGenerateCommand subclass: #HLGenerateInitializeCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+!HLGenerateInitializeCommand commentStamp!
+I am the command used to generate the `initialize` method depending of the selected class!
+
+!HLGenerateInitializeCommand methodsFor: 'executing'!
+
+execute
+	| targetClass output |
+	targetClass := self model selectedClass.
+
+	output := HLAccessorsGenerator new
+		class: targetClass;
+		generate;
+		output.
+		
+	output compile.
+	self model selectedProtocol: output protocol
+! !
+
+!HLGenerateInitializeCommand class methodsFor: 'accessing'!
+
+key
+	^ 'a'
+!
+
+label
+	^ 'Accessors'
 ! !
 
 HLBrowserCommand subclass: #HLToggleCommand

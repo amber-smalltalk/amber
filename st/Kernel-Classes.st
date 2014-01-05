@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Classes'!
+Smalltalk createPackage: 'Kernel-Classes'!
 Object subclass: #Behavior
 	instanceVariableNames: ''
 	package: 'Kernel-Classes'!
@@ -119,7 +119,7 @@ methodAt: aString
 !
 
 methodDictionary
-	<var dict = smalltalk.HashedCollection._new();
+	<var dict = globals.HashedCollection._new();
 	var methods = self.methods;
 	Object.keys(methods).forEach(function(i) {
 		if(methods[i].selector) {
@@ -145,7 +145,7 @@ methodsFor: aString stamp: aStamp
 !
 
 methodsInProtocol: aString
-	^ self methodDictionary values select: [ :each | each protocol = aString ]
+	^ self methods select: [ :each | each protocol = aString ]
 !
 
 name
@@ -178,6 +178,12 @@ protocols
 
 prototype
 	<return self.fn.prototype>
+!
+
+removeProtocolIfEmpty: aString
+	self methods
+		detect: [ :each | each protocol = aString ]
+		ifNone: [ self organization removeElement: aString ]
 !
 
 selectors
@@ -219,10 +225,8 @@ addCompiledMethod: aMethod
 	self basicAddCompiledMethod: aMethod.
 	
 	oldMethod ifNotNil: [
-		(self methods
-			select: [ :each | each protocol = oldMethod protocol ])
-			ifEmpty: [ self organization removeElement: oldMethod protocol ] ].
-
+		self removeProtocolIfEmpty: oldMethod protocol ].
+	
 	announcement := oldMethod
 		ifNil: [
 			MethodAdded new
@@ -240,14 +244,14 @@ addCompiledMethod: aMethod
 !
 
 compile: aString
-	^ self compile: aString category: ''
+	^ self compile: aString protocol: ''
 !
 
-compile: aString category: anotherString
+compile: aString protocol: anotherString
 	^ Compiler new
 		install: aString
 		forClass: self
-		category: anotherString
+		protocol: anotherString
 !
 
 recompile
@@ -257,9 +261,7 @@ recompile
 removeCompiledMethod: aMethod
 	self basicRemoveCompiledMethod: aMethod.
 	
-	self methods
-		detect: [ :each | each protocol = aMethod protocol ]
-		ifNone: [ self organization removeElement: aMethod protocol ].
+	self removeProtocolIfEmpty: aMethod protocol.
 	
 	SystemAnnouncer current
 		announce: (MethodRemoved new
@@ -277,16 +279,16 @@ allSubclassesDo: aBlock
 !
 
 protocolsDo: aBlock
-	"Execute aBlock for each method category with
-	its collection of methods in the sort order of category name."
+	"Execute aBlock for each method protocol with
+	its collection of methods in the sort order of protocol name."
 
-	| methodsByCategory |
-	methodsByCategory := HashedCollection new.
-	self methodDictionary values do: [ :m |
-		(methodsByCategory at: m category ifAbsentPut: [ Array new ])
+	| methodsByProtocol |
+	methodsByProtocol := HashedCollection new.
+	self methodDictionary valuesDo: [ :m |
+		(methodsByProtocol at: m protocol ifAbsentPut: [ Array new ])
 			add: m ].
-	self protocols do: [ :category |
-		aBlock value: category value: (methodsByCategory at: category) ]
+	self protocols do: [ :protocol |
+		aBlock value: protocol value: (methodsByProtocol at: protocol) ]
 ! !
 
 !Behavior methodsFor: 'instance creation'!
@@ -312,7 +314,7 @@ basicRemoveCompiledMethod: aMethod
 !Behavior methodsFor: 'testing'!
 
 canUnderstand: aSelector
-	^ (self methodDictionary keys includes: aSelector asString) or: [
+	^ (self includesSelector: aSelector asString) or: [
 		self superclass notNil and: [ self superclass canUnderstand: aSelector ]]
 !
 
@@ -424,7 +426,7 @@ subclass: aString instanceVariableNames: aString2 package: aString3
 !Class methodsFor: 'converting'!
 
 asJavascript
-	^ 'smalltalk.', self name
+	^ 'globals.', self name
 ! !
 
 !Class methodsFor: 'printing'!
@@ -486,7 +488,7 @@ theNonMetaClass
 !Metaclass methodsFor: 'converting'!
 
 asJavascript
-	^ 'smalltalk.', self instanceClass name, '.klass'
+	^ 'globals.', self instanceClass name, '.klass'
 ! !
 
 !Metaclass methodsFor: 'printing'!
@@ -522,8 +524,8 @@ instanceVariableNamesFor: aString
 addSubclassOf: aClass named: className instanceVariableNames: aCollection package: packageName
 	| theClass thePackage |
 	
-	theClass := Smalltalk current at: className.
-	thePackage := self createPackageNamed: packageName.
+	theClass := Smalltalk globals at: className.
+	thePackage := Package named: packageName.
 	
 	theClass ifNotNil: [
 		theClass package: thePackage.
@@ -585,7 +587,7 @@ migrateClassNamed: className superclass: aClass instanceVariableNames: aCollecti
 	| oldClass newClass tmp |
 	
 	tmp := 'new*', className.
-	oldClass := Smalltalk current at: className.
+	oldClass := Smalltalk globals at: className.
 	
 	newClass := self
 		addSubclassOf: aClass
@@ -658,21 +660,21 @@ copyClass: aClass to: anotherClass
 
 	anotherClass comment: aClass comment.
 
-	aClass methodDictionary values do: [ :each |
-		Compiler new install: each source forClass: anotherClass category: each category ].
+	aClass methodDictionary valuesDo: [ :each |
+		Compiler new install: each source forClass: anotherClass protocol: each protocol ].
 
 	self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.
 
-	aClass class methodDictionary values do: [ :each |
-		Compiler new install: each source forClass: anotherClass class category: each category ].
+	aClass class methodDictionary valuesDo: [ :each |
+		Compiler new install: each source forClass: anotherClass class protocol: each protocol ].
 
 	self setupClass: anotherClass
 ! !
 
 !ClassBuilder methodsFor: 'method definition'!
 
-installMethod: aCompiledMethod forClass: aBehavior category: aString
-	aCompiledMethod category: aString.
+installMethod: aCompiledMethod forClass: aBehavior protocol: aString
+	aCompiledMethod protocol: aString.
 	aBehavior addCompiledMethod: aCompiledMethod.
 	self setupClass: aBehavior.
 	^ aCompiledMethod
@@ -683,7 +685,7 @@ installMethod: aCompiledMethod forClass: aBehavior category: aString
 basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
 	<
 		smalltalk.addClass(aString, aClass, aCollection, packageName);
-		return smalltalk[aString]
+		return globals[aString]
 	>
 !
 
@@ -703,8 +705,8 @@ basicRemoveClass: aClass
 
 basicRenameClass: aClass to: aString
 	<
-		smalltalk[aString] = aClass;
-		delete smalltalk[aClass.className];
+		globals[aString] = aClass;
+		delete globals[aClass.className];
 		aClass.className = aString;
 	>
 !
@@ -717,14 +719,9 @@ basicSwapClassNames: aClass with: anotherClass
 	>
 !
 
-createPackageNamed: aString
-	^ Package named: aString ifAbsent: [
-		Smalltalk current createPackage: aString ]
-!
-
 rawRenameClass: aClass to: aString
 	<
-		smalltalk[aString] = aClass;
+		globals[aString] = aClass;
 	>
 ! !
 
@@ -766,7 +763,7 @@ initialize
 !ClassCategoryReader methodsFor: 'private'!
 
 compileMethod: aString
-	Compiler new install: aString forClass: class category: category
+	Compiler new install: aString forClass: class protocol: category
 ! !
 
 Object subclass: #ClassCommentReader

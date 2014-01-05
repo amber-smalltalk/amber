@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Collections'!
+Smalltalk createPackage: 'Kernel-Collections'!
 Object subclass: #Association
 	instanceVariableNames: 'key value'
 	package: 'Kernel-Collections'!
@@ -48,6 +48,94 @@ key: aKey value: aValue
 		key: aKey;
 		value: aValue;
 		yourself
+! !
+
+Object subclass: #BucketStore
+	instanceVariableNames: 'buckets hashBlock'
+	package: 'Kernel-Collections'!
+!BucketStore commentStamp!
+I am an helper class for hash-based stores.
+
+I hold buckets which are selected by a hash, specified using `#hashBlock:`.
+The hash can be any object, and
+it is used as a JS property (that is, in ES5
+its toString() value counts).
+
+## API
+I maintain a list of buckets. Client code can use this API:
+ - `#bucketOfElement:` (to ask a bucket for element, I can return JS null if n/a)
+ - `#do:` (to enumerate all elements of all buckets)
+ - `#removeAll` (to remove all buckets)
+
+Client code itself should add/remove elements
+in a bucket. The `nil` object should not be put into any bucket.
+
+Types of buckets are the responsibility of subclasses via `#newBucket`.!
+
+!BucketStore methodsFor: 'accessing'!
+
+bucketOfElement: anObject
+	<
+		var hash = self['@hashBlock'](anObject);
+		if (!!hash) return null;
+		var buckets = self['@buckets'],
+			bucket = buckets[hash];
+		if (!!bucket) { bucket = buckets[hash] = self._newBucket(); }
+		return bucket;
+	>
+!
+
+hashBlock: aBlock
+	hashBlock := aBlock
+! !
+
+!BucketStore methodsFor: 'adding/removing'!
+
+removeAll
+	<self['@buckets'] = Object.create(null);>
+! !
+
+!BucketStore methodsFor: 'enumerating'!
+
+do: aBlock
+	<
+		var buckets = self['@buckets'];
+		var keys = Object.keys(buckets);
+		for (var i = 0; i < keys.length; ++i) { buckets[keys[i]]._do_(aBlock); }
+	>
+! !
+
+!BucketStore methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	self removeAll
+! !
+
+!BucketStore methodsFor: 'private'!
+
+newBucket
+	self subclassResponsibility
+! !
+
+!BucketStore class methodsFor: 'instance creation'!
+
+hashBlock: aBlock
+	^ self new
+		hashBlock: aBlock;
+		yourself
+! !
+
+BucketStore subclass: #ArrayBucketStore
+	instanceVariableNames: ''
+	package: 'Kernel-Collections'!
+!ArrayBucketStore commentStamp!
+I am a concrete `BucketStore` with buckets being instance of `Array`.!
+
+!ArrayBucketStore methodsFor: 'private'!
+
+newBucket
+	^ #()
 ! !
 
 Object subclass: #Collection
@@ -374,7 +462,12 @@ at: anIndex ifAbsent: aBlock
 	If it is present, answer the value stored at anIndex.
 	Otherwise, answer the value of aBlock."
 
-	self subclassReponsibility
+	self subclassResponsibility
+!
+
+at: aKey ifAbsentPut: aBlock
+	^ self at: aKey ifAbsent: [
+		self at: aKey put: aBlock value ]
 !
 
 at: anIndex ifPresent: aBlock
@@ -396,7 +489,7 @@ at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
 at: anIndex put: anObject
 	"Store anObject under the given index in the receiver."
 
-	self subclassReponsibility
+	self subclassResponsibility
 !
 
 indexOf: anObject
@@ -427,18 +520,16 @@ withIndexDo: aBlock
 	"Calls aBlock with every value from self
 	and with its index as the second argument"
 
-	self subclassReponsibility
+	self subclassResponsibility
 ! !
 
-IndexableCollection subclass: #HashedCollection
+IndexableCollection subclass: #AssociativeCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
-!HashedCollection commentStamp!
-I am a traditional JavaScript object, or a Smalltalk `Dictionary`.
+!AssociativeCollection commentStamp!
+I am a base class for object-indexed collections (Dictionary et.al.).!
 
-Unlike a `Dictionary`, I can only have strings as keys.!
-
-!HashedCollection methodsFor: 'accessing'!
+!AssociativeCollection methodsFor: 'accessing'!
 
 associations
 	| associations |
@@ -447,33 +538,21 @@ associations
 	^ associations
 !
 
-at: aKey ifAbsent: aBlock
-	^ (self includesKey: aKey)
-		ifTrue: [ self basicAt: aKey ]
-		ifFalse: aBlock
-!
-
-at: aKey ifAbsentPut: aBlock
-	^ self at: aKey ifAbsent: [
-		self at: aKey put: aBlock value ]
-!
-
 at: aKey ifPresent: aBlock ifAbsent: anotherBlock
 	"Lookup the given key in the receiver.
-	If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key,
-	otherwise answer the value of absentBlock."
+	If it is present, answer the value of evaluating the oneArgBlock 
+	with the value associated with the key, otherwise answer the value 
+	of absentBlock."
+	
 	^ (self includesKey: aKey)
 		ifTrue: [ aBlock value: (self at: aKey) ]
-		ifFalse: anotherBlock
-!
-
-at: aKey put: aValue
-	^ self basicAt: aKey put: aValue
+		ifFalse: [ anotherBlock value ]
 !
 
 indexOf: anObject ifAbsent: aBlock
-
-	^ self keys detect: [ :each | (self at: each) = anObject ] ifNone: aBlock
+	^ self keys 
+		detect: [ :each | (self at: each) = anObject ] 
+		ifNone: aBlock
 !
 
 keyAtValue: anObject
@@ -485,7 +564,7 @@ keyAtValue: anObject ifAbsent: aBlock
 !
 
 keys
-	<return Object.keys(self)>
+	self subclassResponsibility
 !
 
 size
@@ -493,22 +572,18 @@ size
 !
 
 values
-	<
-		return self._keys().map(function(key){
-			return self._at_(key);
-		});
-	>
+	self subclassResponsibility
 ! !
 
-!HashedCollection methodsFor: 'adding/removing'!
+!AssociativeCollection methodsFor: 'adding/removing'!
 
 add: anAssociation
 	self at: anAssociation key put: anAssociation value
 !
 
-addAll: aHashedCollection
-	super addAll: aHashedCollection associations.
-	^ aHashedCollection
+addAll: anAssociativeCollection
+	super addAll: anAssociativeCollection associations.
+	^ anAssociativeCollection
 !
 
 remove: aKey ifAbsent: aBlock
@@ -524,38 +599,36 @@ removeKey: aKey
 !
 
 removeKey: aKey ifAbsent: aBlock
-	^ (self includesKey: aKey)
-		ifFalse: [ aBlock value ]
-		ifTrue: [ self basicDelete: aKey ]
+	self subclassResponsibility
 ! !
 
-!HashedCollection methodsFor: 'comparing'!
+!AssociativeCollection methodsFor: 'comparing'!
 
-= aHashedCollection
-	self class = aHashedCollection class ifFalse: [ ^ false ].
-	self size = aHashedCollection size ifFalse: [ ^ false ].
-	^ self associations = aHashedCollection associations
+= anAssocitativeCollection
+	self class = anAssocitativeCollection class ifFalse: [ ^ false ].
+	self size = anAssocitativeCollection size ifFalse: [ ^ false ].
+	^ self associations = anAssocitativeCollection associations
 ! !
 
-!HashedCollection methodsFor: 'converting'!
+!AssociativeCollection methodsFor: 'converting'!
 
 asDictionary
 	^ Dictionary from: self associations
 !
 
+asHashedCollection
+	^ HashedCollection from: self associations
+!
+
 asJSON
-	| c |
-	c := self class new.
+	| hash |
+	hash := HashedCollection new.
 	self keysAndValuesDo: [ :key :value |
-		c at: key put: value asJSON ].
-	^ c
+		hash at: key put: value asJSON ].
+	^ hash
 ! !
 
-!HashedCollection methodsFor: 'copying'!
-
-, aCollection
-	self shouldNotImplement
-!
+!AssociativeCollection methodsFor: 'copying'!
 
 deepCopy
 	| copy |
@@ -573,7 +646,7 @@ shallowCopy
 	^ copy
 ! !
 
-!HashedCollection methodsFor: 'enumerating'!
+!AssociativeCollection methodsFor: 'enumerating'!
 
 associationsDo: aBlock
 	self keysAndValuesDo: [ :key :value |
@@ -606,7 +679,7 @@ keysAndValuesDo: aBlock
 !
 
 keysDo: aBlock
-	self keys do: aBlock
+	self subclassResponsibility
 !
 
 select: aBlock
@@ -618,14 +691,14 @@ select: aBlock
 !
 
 valuesDo: aBlock
-	self values do: [ :value | aBlock value: value ]
+	self subclassResponsibility
 !
 
 withIndexDo: aBlock
 	self keysAndValuesDo: [ :key :value | aBlock value: value value: key ]
 ! !
 
-!HashedCollection methodsFor: 'printing'!
+!AssociativeCollection methodsFor: 'printing'!
 
 printOn: aStream
 	super printOn: aStream.
@@ -637,13 +710,13 @@ printOn: aStream
 	aStream nextPutAll: ')'
 ! !
 
-!HashedCollection methodsFor: 'testing'!
+!AssociativeCollection methodsFor: 'testing'!
 
 includesKey: aKey
-	<return self.hasOwnProperty(aKey)>
+	self subclassResponsibility
 ! !
 
-!HashedCollection class methodsFor: 'instance creation'!
+!AssociativeCollection class methodsFor: 'instance creation'!
 
 from: aCollection
 	| newCollection |
@@ -673,7 +746,7 @@ newFromPairs: aCollection
 	^ newCollection
 ! !
 
-HashedCollection subclass: #Dictionary
+AssociativeCollection subclass: #Dictionary
 	instanceVariableNames: 'keys values'
 	package: 'Kernel-Collections'!
 !Dictionary commentStamp!
@@ -746,16 +819,6 @@ removeKey: aKey ifAbsent: aBlock
 	>
 ! !
 
-!Dictionary methodsFor: 'converting'!
-
-asHashedCollection
-	^ HashedCollection from: self associations
-!
-
-asJSON
-	^ self asHashedCollection asJSON
-! !
-
 !Dictionary methodsFor: 'enumerating'!
 
 keysAndValuesDo: aBlock
@@ -796,6 +859,63 @@ includesKey: aKey
 	< return self._positionOfKey_(aKey) >>= 0; >
 ! !
 
+AssociativeCollection subclass: #HashedCollection
+	instanceVariableNames: ''
+	package: 'Kernel-Collections'!
+!HashedCollection commentStamp!
+I am a traditional JavaScript object, or a Smalltalk `Dictionary`.
+
+Unlike a `Dictionary`, I can only have strings as keys.!
+
+!HashedCollection methodsFor: 'accessing'!
+
+at: aKey ifAbsent: aBlock
+	^ (self includesKey: aKey)
+		ifTrue: [ self basicAt: aKey ]
+		ifFalse: [ aBlock value ]
+!
+
+at: aKey put: aValue
+	^ self basicAt: aKey put: aValue
+!
+
+keys
+	<return Object.keys(self)>
+!
+
+values
+	<
+		return self._keys().map(function(key){
+			return self._at_(key);
+		});
+	>
+! !
+
+!HashedCollection methodsFor: 'adding/removing'!
+
+removeKey: aKey ifAbsent: aBlock
+	^ self
+		at: aKey
+		ifPresent: [ :removed | self basicDelete: aKey. removed ]
+		ifAbsent: [ aBlock value ]
+! !
+
+!HashedCollection methodsFor: 'enumerating'!
+
+keysDo: aBlock
+	self keys do: aBlock
+!
+
+valuesDo: aBlock
+	self values do: aBlock
+! !
+
+!HashedCollection methodsFor: 'testing'!
+
+includesKey: aKey
+	<return self.hasOwnProperty(aKey)>
+! !
+
 IndexableCollection subclass: #SequenceableCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
@@ -821,11 +941,13 @@ first
 	^ self at: 1
 !
 
-first: n
-	"Answer the first n elements of the receiver.
-	Raise an error if there are not enough elements."
+first: aNumber
+	"Answer the first `aNumber` elements of the receiver.
+	Raise an error if there are not enough elements in the receiver."
 
-	^ self copyFrom: 1 to: n
+	self size < aNumber ifTrue: [ self error: 'Invalid number of elements' ].
+
+	^ self copyFrom: 1 to: aNumber
 !
 
 fourth
@@ -836,7 +958,7 @@ indexOf: anObject ifAbsent: aBlock
 	<
 		self = self._numericallyIndexable();
 		for(var i=0; i < self.length; i++) {
-			if(self[i].__eq(anObject)) {return i+1}
+			if(_st(self[i]).__eq(anObject)) {return i+1}
 		};
 		return aBlock._value();
 	>
@@ -853,7 +975,7 @@ indexOf: anObject startingAt: start ifAbsent: aBlock
 	<
 		self = self._numericallyIndexable();
 		for(var i=start - 1; i < self.length; i++){
-			if(self[i].__eq(anObject)) {return i+1}
+			if(_st(self[i]).__eq(anObject)) {return i+1}
 		}
 		return aBlock._value();
 	>
@@ -861,6 +983,15 @@ indexOf: anObject startingAt: start ifAbsent: aBlock
 
 last
 	^ self at: self size
+!
+
+last: aNumber
+	"Answer the last aNumber elements of the receiver.
+	Raise an error if there are not enough elements in the receiver."
+
+	self size < aNumber ifTrue: [ self error: 'Invalid number of elements' ].
+
+	^ self copyFrom: self size - aNumber + 1 to: self size
 !
 
 second
@@ -1006,6 +1137,16 @@ writeStream
 
 !SequenceableCollection methodsFor: 'testing'!
 
+beginsWith: prefix
+	self size < prefix size ifTrue: [ ^ false ].
+	^ (self first: prefix size) = prefix
+!
+
+endsWith: suffix
+	self size < suffix size ifTrue: [ ^ false ].
+	^ (self last: suffix size) = suffix
+!
+
 includes: anObject
 	^ (self indexOf: anObject ifAbsent: [ nil ]) notNil
 ! !
@@ -1039,13 +1180,18 @@ I am directly mapped to JavaScript Number.
 
 at: anIndex ifAbsent: aBlock
 	<
-		if((anIndex < 1) || (self.length < anIndex)) {return aBlock._value()};
-		return self[anIndex - 1];
+		return anIndex >>= 1 && anIndex <= self.length
+			? self[anIndex - 1]
+			: aBlock._value()
 	>
 !
 
 at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
-	<return anIndex < 1 || self.length < anIndex ? anotherBlock._value() : aBlock._value_(self[anIndex - 1]);>
+	<
+		return anIndex >>= 1 && anIndex <= self.length
+			? aBlock._value_(self[anIndex - 1])
+			: anotherBlock._value()
+	>
 !
 
 at: anIndex put: anObject
@@ -1067,15 +1213,11 @@ addFirst: anObject
 !
 
 remove: anObject ifAbsent: aBlock
-	<
-		for(var i=0;i<self.length;i++) {
-			if(_st(self[i]).__eq(anObject)) {
-				self.splice(i,1);
-				return self;
-			}
-		};
-		aBlock._value();
-	>
+	| index |
+	index := self indexOf: anObject ifAbsent: [ 0 ].
+	^ index = 0
+		ifFalse: [ self removeIndex: index. anObject ]
+		ifTrue: [ aBlock value ]
 !
 
 removeAll
@@ -1108,6 +1250,7 @@ reversed
 
 collect: aBlock
 	"Optimized version"
+	
 	<return self.map(function(each) {return aBlock._value_(each)})>
 !
 
@@ -1294,18 +1437,18 @@ asciiValue
 !
 
 at: anIndex ifAbsent: aBlock
-	<return String(self).charAt(anIndex - 1) || aBlock._value()>
+	<return String(self)[anIndex - 1] || aBlock._value()>
 !
 
 at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
 	<
-		var result = String(self).charAt(anIndex - 1);
+		var result = String(self)[anIndex - 1];
 		return result ? aBlock._value_(result) : anotherBlock._value();
 	>
 !
 
 charCodeAt: anInteger
-	< return self.charCodeAt(anInteger - 1) >
+	<return self.charCodeAt(anInteger - 1)>
 !
 
 identityHash
@@ -1328,11 +1471,10 @@ size
 
 = aString
 	<
-		if(typeof aString === 'undefined') { return false }
-		if(!!aString._isString || !! aString._isString()) {
-			return false;
-		}
-		return String(self) === String(aString)
+		return aString !!= null &&
+			typeof aString._isString === "function" &&
+			aString._isString() &&
+			String(self) === String(aString)
 	>
 !
 
@@ -1497,7 +1639,6 @@ trimBoth
 !
 
 trimBoth: separators
-
 	^ (self trimLeft: separators) trimRight: separators
 !
 
@@ -1506,7 +1647,6 @@ trimLeft
 !
 
 trimLeft: separators
-
 	^ self replaceRegexp: (RegularExpression fromString: '^[', separators, ']+' flag: 'g') with: ''
 !
 
@@ -1515,7 +1655,6 @@ trimRight
 !
 
 trimRight: separators
-
 	^ self replaceRegexp: (RegularExpression fromString: '[', separators, ']+$' flag: 'g') with: ''
 ! !
 
@@ -1601,7 +1740,7 @@ tokenize: aString
 !String methodsFor: 'testing'!
 
 includesSubString: subString
-	< return self.indexOf(subString) !!= -1 >
+	<return self.indexOf(subString) !!= -1>
 !
 
 isCapitalized
@@ -1681,38 +1820,74 @@ randomNotIn: aString
 ! !
 
 Collection subclass: #Set
-	instanceVariableNames: 'elements'
+	instanceVariableNames: 'defaultBucket slowBucketStores fastBuckets size'
 	package: 'Kernel-Collections'!
 !Set commentStamp!
-I represent an unordered set of objects without duplicates.!
+I represent an unordered set of objects without duplicates.
+
+## Implementation notes
+
+I put elements into different stores based on their type.
+The goal is to store some elements into native JS object property names to be fast.
+
+If an unboxed element has typeof 'string', 'boolean' or 'number', or an element is nil, null or undefined,
+I store it as a property name in an empty (== Object.create(null)) JS object, different for each type
+(for simplicity, nil/null/undefined is treated as one and included with the two booleans).
+
+If element happen to be an object, I try to store them in `ArrayBucketStore`. I have two of them by default,
+one hashed using the Smalltalk class name, the other one using the JS constructor name. It is possible to have more or less
+instances of `ArrayBucketStores`, see `#initializeSlowBucketStores`.
+
+As a last resort, if none of the `ArrayBucketStore` instances can find a suitable bucket, the `defaultBucket` is used,
+which is an `Array`.!
 
 !Set methodsFor: 'accessing'!
 
 size
-	^ elements size
+	^ size
 ! !
 
 !Set methodsFor: 'adding/removing'!
 
 add: anObject
-	<
-		var found;
-		for(var i=0; i < self['@elements'].length; i++) {
-			if(_st(anObject).__eq(self['@elements'][i])) {
-				found = true;
-				break;
-			}
-		}
-		if(!!found) {self['@elements'].push(anObject)}
-	>
-!
-
-remove: anObject
-	elements remove: anObject
+	| bucket |
+	bucket := self bucketsOfElement: anObject.
+	^ bucket second
+		ifNil: [
+			| object slowBucket |
+			object := bucket first.
+			slowBucket := bucket third.
+			slowBucket 
+				indexOf: object 
+				ifAbsent: [ 
+					slowBucket add: object. 
+					size := size + 1 ].
+			object ]
+		ifNotNil: [ :primitiveBucket | 
+			self 
+				add: bucket first 
+				in: primitiveBucket ]
 !
 
 remove: anObject ifAbsent: aBlock
-	elements remove: anObject ifAbsent: aBlock
+	| bucket |
+	bucket := self bucketsOfElement: anObject.
+	^ bucket second
+		ifNil: [ bucket third remove: bucket first ifAbsent: [ ^aBlock value ]. size := size - 1 ]
+		ifNotNil: [ :primitiveBucket | self remove: bucket first in: primitiveBucket ]
+!
+
+removeAll
+	<
+		self['@fastBuckets'] = {
+			'boolean': { store: Object.create(null), fn: function (x) { return {'true': true, 'false': false, 'null': null}[x]; } },
+			'number': { store: Object.create(null), fn: Number },
+			'string': { store: Object.create(null) }
+		};
+		self['@slowBucketStores'].forEach(function (x) { x._removeAll(); });
+		self['@defaultBucket']._removeAll();
+		self['@size'] = 0;
+	>
 ! !
 
 !Set methodsFor: 'comparing'!
@@ -1724,24 +1899,34 @@ remove: anObject ifAbsent: aBlock
 	^ true
 ! !
 
-!Set methodsFor: 'converting'!
-
-asArray
-	^ elements copy
-! !
-
 !Set methodsFor: 'enumerating'!
 
 collect: aBlock
-	^ self class withAll: (elements collect: aBlock)
+	| collection |
+	collection := self class new.
+	self do: [ :each | collection add: (aBlock value: each) ].
+	^ collection
 !
 
 detect: aBlock ifNone: anotherBlock
-	^ elements detect: aBlock ifNone: anotherBlock
+	self do: [ :each | (aBlock value: each) ifTrue: [ ^each ] ].
+	^ anotherBlock value
 !
 
 do: aBlock
-	elements do: aBlock
+	<
+		var el, keys, i;
+		el = self['@fastBuckets'];
+		keys = Object.keys(el);
+		for (i = 0; i < keys.length; ++i) {
+			var fastBucket = el[keys[i]], fn = fastBucket.fn, store = Object.keys(fastBucket.store);
+			if (fn) { for (var j = 0; j < store.length; ++j) { aBlock._value_(fn(store[j])); } }
+			else { store._do_(aBlock); }
+		}
+		el = self['@slowBucketStores'];
+		for (i = 0; i < el.length; ++i) { el[i]._do_(aBlock); }
+		self['@defaultBucket']._do_(aBlock);
+	>
 !
 
 select: aBlock
@@ -1749,7 +1934,7 @@ select: aBlock
 	collection := self class new.
 	self do: [ :each |
 		(aBlock value: each) ifTrue: [
-			collection add: each ]].
+			collection add: each ] ].
 	^ collection
 ! !
 
@@ -1757,7 +1942,18 @@ select: aBlock
 
 initialize
 	super initialize.
-	elements := #()
+	
+	defaultBucket := #().
+	self
+		initializeSlowBucketStores;
+		removeAll
+!
+
+initializeSlowBucketStores
+	slowBucketStores := {
+		ArrayBucketStore hashBlock: [ :x | self classNameOf: x ].
+		ArrayBucketStore hashBlock: [ :x | self jsConstructorNameOf: x ]
+	}
 ! !
 
 !Set methodsFor: 'printing'!
@@ -1772,10 +1968,69 @@ printOn: aStream
 	aStream nextPutAll: ')'
 ! !
 
+!Set methodsFor: 'private'!
+
+add: anObject in: anotherObject
+	<
+		if (anObject in anotherObject.store) { return false; }
+		self['@size']++;
+		return anotherObject.store[anObject] = true;
+	>
+!
+
+bucketsOfElement: anObject
+	"Find the appropriate bucket for `anObject`.
+	For optimization purposes, directly answer an array with: 
+	- the object to be store
+	- the primitive bucket
+	- the slow bucket"
+	
+	<
+		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
+		if ((type = typeof prim) === "object") {
+			if (anObject !!== nil) {
+				bucket = null;
+				self['@slowBucketStores'].some(function (store) {
+					return bucket = store._bucketOfElement_(anObject);
+				});
+				return [ anObject, null, bucket || self['@defaultBucket'] ];
+			}
+			
+			// include nil to well-known objects under 'boolean' fastBucket
+			prim = null;
+			type = 'boolean';
+		}
+		return [ prim, self['@fastBuckets'][type] ];
+	>
+!
+
+classNameOf: anObject
+	"Answer the class name of `anObject`, or `undefined` 
+	if `anObject` is not an Smalltalk object"
+	
+	<return anObject.klass && anObject.klass.className>
+!
+
+includes: anObject in: anotherObject
+	<return anObject in anotherObject.store>
+!
+
+jsConstructorNameOf: anObject
+	<return anObject.constructor && anObject.constructor.name>
+!
+
+remove: anObject in: anotherObject
+	<if (delete anotherObject.store[anObject]) self['@size']-->
+! !
+
 !Set methodsFor: 'testing'!
 
 includes: anObject
-	^ elements includes: anObject
+	| bucket |
+	bucket := self bucketsOfElement: anObject.
+	^ bucket second
+		ifNil: [ bucket third includes: bucket first ]
+		ifNotNil: [ :primitiveBucket | self includes: bucket first in: primitiveBucket ]
 ! !
 
 Object subclass: #Queue

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-AST'!
+Smalltalk createPackage: 'Compiler-AST'!
 Object subclass: #Node
 	instanceVariableNames: 'parent position nodes shouldBeInlined shouldBeAliased'
 	package: 'Compiler-AST'!
@@ -160,6 +160,18 @@ isValueNode
 
 isVariableNode
 	^ false
+!
+
+requiresSmalltalkContext
+	"Answer true if the receiver requires a smalltalk context.
+	Only send nodes require a context.
+	
+	If no node requires a context, the method will be compiled without one.
+	See `IRJSTranslator` and `JSStream` for context creation"
+	
+	^ (self nodes 
+		detect: [ :each | each requiresSmalltalkContext ]
+		ifNone: [ nil ]) notNil
 !
 
 stopOnStepping
@@ -563,6 +575,10 @@ isSendNode
 	^ true
 !
 
+requiresSmalltalkContext
+	^ true
+!
+
 shouldBeAliased
 	"Because we keep track of send indexes, some send nodes need additional care for aliasing. 
 	See IRJSVisitor >> visitIRSend:"
@@ -745,6 +761,6 @@ isNode
 ast
 	self source ifEmpty: [ self error: 'Method source is empty' ].
 	
-	^ Smalltalk current parse: self source
+	^ Smalltalk parse: self source
 ! !
 

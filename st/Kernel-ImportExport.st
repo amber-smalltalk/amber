@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-ImportExport'!
+Smalltalk createPackage: 'Kernel-ImportExport'!
 Object subclass: #AbstractExporter
 	instanceVariableNames: ''
 	package: 'Kernel-ImportExport'!
@@ -32,7 +32,7 @@ extensionProtocolsOfPackage: aPackage
 	Therefore sorting (dependency resolution) does not matter here.
 	Not sorting improves the speed by a number of magnitude."
 	
-	Smalltalk current classes do: [ :each |
+	Smalltalk classes do: [ :each |
 		{each. each class} do: [ :behavior |
 			(behavior protocols includes: extensionName) ifTrue: [
 				result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].
@@ -79,7 +79,7 @@ extensionCategoriesOfPackage: aPackage
 	| name map result |
 	name := aPackage name.
 	result := OrderedCollection new.
-	(Package sortedClasses: Smalltalk current classes) do: [ :each |
+	(Package sortedClasses: Smalltalk classes) do: [ :each |
 		{each. each class} do: [ :aClass |
 			map := Dictionary new.
 			aClass protocolsDo: [ :category :methods |
@@ -190,7 +190,7 @@ exportPackage: aPackage on: aStream
 
 exportPackageDefinitionOf: aPackage on: aStream
 	aStream
-		nextPutAll: 'Smalltalk current createPackage: ''', aPackage name, '''!!';
+		nextPutAll: 'Smalltalk createPackage: ''', aPackage name, '''!!';
 		lf
 !
 
@@ -234,7 +234,7 @@ ownMethodsOfClass: aClass
 	"Issue #143: sort methods alphabetically"
 
 	^ ((aClass methodDictionary values) sorted: [ :a :b | a selector <= b selector ])
-		reject: [ :each | (each category match: '^\*') ]
+		reject: [ :each | (each protocol match: '^\*') ]
 !
 
 ownMethodsOfMetaClass: aClass
@@ -261,7 +261,7 @@ exportDefinitionOf: aClass on: aStream
 		lf;
 		nextPutAll: 'smalltalk.addClass(';
 		nextPutAll: '''', (self classNameFor: aClass), ''', ';
-		nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
+		nextPutAll: 'globals.', (self classNameFor: aClass superclass);
 		nextPutAll: ', ['.
 	aClass instanceVariableNames
 		do: [ :each | aStream nextPutAll: '''', each, '''' ]
@@ -273,7 +273,7 @@ exportDefinitionOf: aClass on: aStream
 	aClass comment notEmpty ifTrue: [
 		aStream
 			lf;
-		nextPutAll: 'smalltalk.';
+		nextPutAll: 'globals.';
 		nextPutAll: (self classNameFor: aClass);
 		nextPutAll: '.comment=';
 		nextPutAll: aClass comment asJavascript;
@@ -285,7 +285,7 @@ exportMetaDefinitionOf: aClass on: aStream
 	aStream lf.
 	aClass class instanceVariableNames isEmpty ifFalse: [
 		aStream
-		nextPutAll: 'smalltalk.', (self classNameFor: aClass class);
+		nextPutAll: 'globals.', (self classNameFor: aClass class);
 		nextPutAll: '.iVarNames = ['.
 		aClass class instanceVariableNames
 		do: [ :each | aStream nextPutAll: '''', each, '''' ]
@@ -299,7 +299,7 @@ exportMethod: aMethod on: aStream
 		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
 		nextPutAll: 'smalltalk.method({';lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
-		nextPutAll: 'category: ''', aMethod category, ''',';lf;
+		nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
 		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
 		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;
@@ -308,7 +308,7 @@ exportMethod: aMethod on: aStream
 	aStream
 		lf;
 		nextPutAll: '}),';lf;
-		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
+		nextPutAll: 'globals.', (self classNameFor: aMethod methodClass);
 		nextPutAll: ');';lf;lf
 !
 
@@ -384,8 +384,8 @@ exportPackagePrologueOf: aPackage on: aStream
 		nextPutAll: '/';
 		nextPutAll: aPackage name;
 		nextPutAll: '", ';
-		nextPutAll: (#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;
-		nextPutAll: ', function(smalltalk,nil,_st){';
+		nextPutAll: (#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st' 'amber_vm/globals'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;
+		nextPutAll: ', function(smalltalk,nil,_st, globals){';
 		lf
 ! !
 
@@ -404,7 +404,7 @@ amdNamespaceOfPackage: aPackage
 ! !
 
 Object subclass: #ChunkParser
-	instanceVariableNames: 'stream'
+	instanceVariableNames: 'stream last'
 	package: 'Kernel-ImportExport'!
 !ChunkParser commentStamp!
 I am responsible for parsing aStream contents in the chunk format.
@@ -416,6 +416,10 @@ I am responsible for parsing aStream contents in the chunk format.
         nextChunk!
 
 !ChunkParser methodsFor: 'accessing'!
+
+last
+	^ last
+!
 
 stream: aStream
 	stream := aStream
@@ -441,9 +445,9 @@ nextChunk
 				char = '!!' ifTrue: [
 						stream peek = '!!'
 								ifTrue: [ stream next "skipping the escape double" ]
-								ifFalse: [ ^ result contents trimBoth "chunk end marker found" ]].
+								ifFalse: [ ^ last := result contents trimBoth "chunk end marker found" ]].
 				result nextPut: char ].
-	^ nil "a chunk needs to end with !!"
+	^ last := nil "a chunk needs to end with !!"
 ! !
 
 !ChunkParser class methodsFor: 'instance creation'!
@@ -494,7 +498,7 @@ name: aString theClass: aClass
 ! !
 
 Object subclass: #Importer
-	instanceVariableNames: ''
+	instanceVariableNames: 'lastSection lastChunk'
 	package: 'Kernel-ImportExport'!
 !Importer commentStamp!
 I can import Amber code from a string in the chunk format.
@@ -503,22 +507,38 @@ I can import Amber code from a string in the chunk format.
 
     Importer new import: aString!
 
+!Importer methodsFor: 'accessing'!
+
+lastChunk
+	^ lastChunk
+!
+
+lastSection
+	^ lastSection
+! !
+
 !Importer methodsFor: 'fileIn'!
 
 import: aStream
 	| chunk result parser lastEmpty |
 	parser := ChunkParser on: aStream.
 	lastEmpty := false.
+	lastSection := 'n/a, not started'.
+	lastChunk := nil.
+	[
 	[ chunk := parser nextChunk.
 	chunk isNil ] whileFalse: [
 		chunk isEmpty
 			ifTrue: [ lastEmpty := true ]
 			ifFalse: [
+				lastSection := chunk.
 				result := Compiler new evaluateExpression: chunk.
 				lastEmpty
 						ifTrue: [
 									lastEmpty := false.
-									result scanFrom: parser ]] ]
+									result scanFrom: parser ]] ].
+	lastSection := 'n/a, finished'
+	] on: Error do: [:e | lastChunk := parser last. e signal ].
 ! !
 
 InterfacingObject subclass: #PackageHandler
@@ -640,7 +660,7 @@ namespaceFor: aPackage
 !AmdPackageHandler methodsFor: 'loading'!
 
 load: aPackage
-	Smalltalk current amdRequire
+	Smalltalk amdRequire
 		ifNil: [ self error: 'AMD loader not present' ]
 		ifNotNil: [ :require |
 			require value: (Array new: (self namespaceFor: aPackage), '/', aPackage name ) ]
@@ -649,7 +669,7 @@ load: aPackage
 !AmdPackageHandler methodsFor: 'private'!
 
 toUrl: aString
-	^ Smalltalk current amdRequire
+	^ Smalltalk amdRequire
 		ifNil: [ self error: 'AMD loader not present' ]
 		ifNotNil: [ :require | (require basicAt: 'toUrl') value: aString ]
 ! !
@@ -657,11 +677,11 @@ toUrl: aString
 !AmdPackageHandler class methodsFor: 'commit paths'!
 
 defaultNamespace
-	^ Smalltalk current defaultAmdNamespace
+	^ Smalltalk defaultAmdNamespace
 !
 
 defaultNamespace: aString
-	Smalltalk current defaultAmdNamespace: aString
+	Smalltalk defaultAmdNamespace: aString
 ! !
 
 Object subclass: #PackageTransport
@@ -815,7 +835,7 @@ asJSON
 !AmdPackageTransport methodsFor: 'defaults'!
 
 defaultNamespace
-	^ Smalltalk current defaultAmdNamespace
+	^ Smalltalk defaultAmdNamespace
 ! !
 
 !AmdPackageTransport methodsFor: 'initialization'!

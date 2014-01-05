@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Tests'!
+Smalltalk createPackage: 'Compiler-Tests'!
 TestCase subclass: #ASTParsingTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
@@ -13,7 +13,7 @@ analyze: aNode forClass: aClass
 !ASTParsingTest methodsFor: 'parsing'!
 
 parse: aString
-	^ Smalltalk current parse: aString
+	^ Smalltalk parse: aString
 !
 
 parse: aString forClass: aClass
@@ -136,7 +136,7 @@ should: aString receiver: anObject return: aResult
 	| method result |
 
 	receiver := anObject.
-	method := self compiler install: aString forClass: anObject class category: 'tests'.
+	method := self compiler install: aString forClass: anObject class protocol: 'tests'.
 	result := receiver perform: method selector.
 	anObject class removeCompiledMethod: method.
 	self assert: aResult equals: result
@@ -173,6 +173,12 @@ testBlockReturn
 testCascades
 	
 	self should: 'foo ^ Array new add: 3; add: 4; yourself' return: #(3 4)
+!
+
+testCascadesWithInlining
+	
+	self should: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 1.
+	self should: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 2
 !
 
 testDynamicArrayElementsOrdered
@@ -303,7 +309,7 @@ testNonLocalReturn
 !
 
 testPascalCaseGlobal
-	self should: 'foo ^Object' return: (smalltalk at: 'Object').
+	self should: 'foo ^Object' return: (Smalltalk globals at: 'Object').
 	self should: 'foo ^NonExistent' return: nil
 !
 
@@ -431,7 +437,7 @@ analyze: aNode forClass: aClass
 !
 
 parse: aString
-	^ Smalltalk current parse: aString
+	^ Smalltalk parse: aString
 !
 
 parse: aString forClass: aClass
@@ -549,7 +555,7 @@ testAssignment
 	| src ast |
 
 	src := 'foo self := 1'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	self should: [analyzer visit: ast] raise: InvalidAssignmentError
 !
 
@@ -557,7 +563,7 @@ testNonLocalReturn
 	| src ast |
 
 	src := 'foo | a | a + 1. ^ a'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
 	self deny: ast scope hasNonLocalReturn
@@ -567,7 +573,7 @@ testNonLocalReturn2
 	| src ast |
 
 	src := 'foo | a | a + 1. [ [ ^ a] ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
 	self assert: ast scope hasNonLocalReturn
@@ -577,7 +583,7 @@ testScope
 	| src ast |
 
 	src := 'foo | a | a + 1. [ | b | b := a ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
 	self deny: ast nodes first nodes last scope == ast scope.
@@ -587,7 +593,7 @@ testScope2
 	| src ast |
 
 	src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
 	self deny: ast nodes first nodes last nodes first nodes first scope == ast scope.
@@ -597,7 +603,7 @@ testScopeLevel
 	| src ast |
 
 	src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
 	self assert: ast scope scopeLevel equals: 1.
@@ -608,7 +614,7 @@ testUnknownVariables
 	| src ast |
 
 	src := 'foo | a | b + a'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 
 	self should: [ analyzer visit: ast ] raise: UnknownVariableError
 !
@@ -617,7 +623,7 @@ testUnknownVariablesWithScope
 	| src ast |
 
 	src := 'foo | a b | [ c + 1. [ a + 1. d + 1 ]]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	
 	self should: [ analyzer visit: ast ] raise: UnknownVariableError
 !
@@ -625,35 +631,35 @@ testUnknownVariablesWithScope
 testVariableShadowing
 	| src ast |
 	src := 'foo | a | a + 1'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast
 !
 
 testVariableShadowing2
 	| src ast |
 	src := 'foo | a | a + 1. [ | a | a := 2 ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	self should: [analyzer visit: ast] raise: ShadowingVariableError
 !
 
 testVariableShadowing3
 	| src ast |
 	src := 'foo | a | a + 1. [ | b | b := 2 ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast
 !
 
 testVariableShadowing4
 	| src ast |
 	src := 'foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast
 !
 
 testVariableShadowing5
 	| src ast |
 	src := 'foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	self should: [analyzer visit: ast] raise: ShadowingVariableError
 !
 
@@ -661,7 +667,7 @@ testVariablesLookup
 	| src ast |
 
 	src := 'foo | a | a + 1. [ | b | b := a ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
 	"Binding for `a` in the message send"

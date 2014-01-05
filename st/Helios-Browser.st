@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Browser'!
+Smalltalk createPackage: 'Helios-Browser'!
 HLWidget subclass: #HLBrowser
 	instanceVariableNames: 'model packagesListWidget classesListWidget protocolsListWidget methodsListWidget sourceWidget bottomDiv'
 	package: 'Helios-Browser'!
@@ -488,8 +488,8 @@ toggleShowComment
 setItemsForPackage: aPackage
 	self items: (aPackage 
     	ifNil: [ #() ]
-  		ifNotNil: [ ((aPackage classes 
-        	collect: [ :each | each theNonMetaClass ]) asSet asArray) 
+  		ifNotNil: [ (aPackage classes 
+        	collect: [ :each | each theNonMetaClass ]) 
             	sort: [ :a :b | a name < b name ] ]).
 !
 
