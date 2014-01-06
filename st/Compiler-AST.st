@@ -82,6 +82,10 @@ shouldBeInlined: aBoolean
 	shouldBeInlined := aBoolean
 !
 
+size
+	^ self source size
+!
+
 source
 	^ source ifNil: [ '' ]
 !

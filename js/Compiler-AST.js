@@ -610,6 +610,24 @@ globals.Node);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "size",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._source())._size();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"size",{},globals.Node)})},
+args: [],
+source: "size\x0a\x09^ self source size",
+messageSends: ["size", "source"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "source",
 protocol: 'accessing',
 fn: function (){
