@@ -2,7 +2,7 @@ define("amber_core/Compiler-AST", ["amber_vm/smalltalk", "amber_vm/nil", "amber_
 smalltalk.addPackage('Compiler-AST');
 smalltalk.packages["Compiler-AST"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('Node', globals.Object, ['parent', 'position', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
+smalltalk.addClass('Node', globals.Object, ['parent', 'position', 'source', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
 globals.Node.comment="I am the abstract root class of the abstract syntax tree.\x0a\x0aConcrete classes should implement `#accept:` to allow visiting.\x0a\x0a`position` holds a point containing line and column number of the symbol location in the original source file.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -610,6 +610,44 @@ globals.Node);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "source",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@source"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"source",{},globals.Node)})},
+args: [],
+source: "source\x0a\x09^ source ifNil: [ '' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "source:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@source"]=aString;
+return self},
+args: ["aString"],
+source: "source: aString\x0a\x09source := aString",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "stopOnStepping",
 protocol: 'testing',
 fn: function (){
@@ -1071,7 +1109,7 @@ globals.DynamicDictionaryNode);
 
 
 
-smalltalk.addClass('JSStatementNode', globals.Node, ['source'], 'Compiler-AST');
+smalltalk.addClass('JSStatementNode', globals.Node, [], 'Compiler-AST');
 globals.JSStatementNode.comment="I represent an JavaScript statement node.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1101,44 +1139,6 @@ return true;
 },
 args: [],
 source: "isJSStatementNode\x0a\x09^ true",
-messageSends: [],
-referencedClasses: []
-}),
-globals.JSStatementNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "source",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@source"];
-if(($receiver = $2) == nil || $receiver == null){
-$1="";
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"source",{},globals.JSStatementNode)})},
-args: [],
-source: "source\x0a\x09^ source ifNil: [ '' ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-globals.JSStatementNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "source:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-self["@source"]=aString;
-return self},
-args: ["aString"],
-source: "source: aString\x0a\x09source := aString",
 messageSends: [],
 referencedClasses: []
 }),

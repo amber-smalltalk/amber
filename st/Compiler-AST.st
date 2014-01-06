@@ -1,6 +1,6 @@
 Smalltalk createPackage: 'Compiler-AST'!
 Object subclass: #Node
-	instanceVariableNames: 'parent position nodes shouldBeInlined shouldBeAliased'
+	instanceVariableNames: 'parent position source nodes shouldBeInlined shouldBeAliased'
 	package: 'Compiler-AST'!
 !Node commentStamp!
 I am the abstract root class of the abstract syntax tree.
@@ -80,6 +80,14 @@ shouldBeInlined
 
 shouldBeInlined: aBoolean
 	shouldBeInlined := aBoolean
+!
+
+source
+	^ source ifNil: [ '' ]
+!
+
+source: aString
+	source := aString
 ! !
 
 !Node methodsFor: 'building'!
@@ -340,20 +348,10 @@ accept: aVisitor
 ! !
 
 Node subclass: #JSStatementNode
-	instanceVariableNames: 'source'
+	instanceVariableNames: ''
 	package: 'Compiler-AST'!
 !JSStatementNode commentStamp!
 I represent an JavaScript statement node.!
-
-!JSStatementNode methodsFor: 'accessing'!
-
-source
-	^ source ifNil: [ '' ]
-!
-
-source: aString
-	source := aString
-! !
 
 !JSStatementNode methodsFor: 'testing'!
 
