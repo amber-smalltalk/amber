@@ -181,18 +181,13 @@ highlightNode: aNode
 	| token |
 	
 	aNode ifNotNil: [
-		token := self editor getTokenAt: #{ 
-			'line' -> (aNode position x - 1). 
-			'ch' -> aNode position y 
-		}.
-
 		self
 			clearHighlight;
-			addStopAt: aNode position x - 1.
+			addStopAt: aNode positionStart x - 1.
 
 		self editor 
-			setSelection: #{ 'line' -> (aNode position x - 1). 'ch' -> token start }
-			to: #{ 'line' -> (aNode position x - 1). 'ch' -> token end } ]
+			setSelection: #{ 'line' -> (aNode positionStart x - 1). 'ch' -> (aNode positionStart y - 1) }
+			to: #{ 'line' -> (aNode positionEnd x - 1). 'ch' -> (aNode positionEnd y) } ]
 !
 
 observeBrowserModel

@@ -493,58 +493,48 @@ fn: function (aNode){
 var self=this;
 var token;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$6,$5,$4,$3,$9,$8,$7,$2,$13,$12,$11,$10,$14,$19,$18,$17,$16,$20,$15,$22,$21;
+var $4,$3,$2,$1,$5,$10,$9,$8,$7,$13,$12,$11,$6,$18,$17,$16,$15,$14;
 if(($receiver = aNode) == nil || $receiver == null){
 aNode;
 } else {
-$1=self._editor();
-$ctx1.sendIdx["editor"]=1;
-$6=_st(aNode)._position();
-$ctx1.sendIdx["position"]=1;
-$5=_st($6)._x();
-$ctx1.sendIdx["x"]=1;
-$4=_st($5).__minus((1));
-$ctx1.sendIdx["-"]=1;
-$3="line".__minus_gt($4);
-$ctx1.sendIdx["->"]=1;
-$9=_st(aNode)._position();
-$ctx1.sendIdx["position"]=2;
-$8=_st($9)._y();
-$7="ch".__minus_gt($8);
-$ctx1.sendIdx["->"]=2;
-$2=globals.HashedCollection._from_([$3,$7]);
-token=_st($1)._getTokenAt_($2);
-token;
 self._clearHighlight();
-$13=_st(aNode)._position();
-$ctx1.sendIdx["position"]=3;
-$12=_st($13)._x();
+$4=_st(aNode)._positionStart();
+$ctx1.sendIdx["positionStart"]=1;
+$3=_st($4)._x();
+$ctx1.sendIdx["x"]=1;
+$2=_st($3).__minus((1));
+$ctx1.sendIdx["-"]=1;
+$1=self._addStopAt_($2);
+$1;
+$5=self._editor();
+$10=_st(aNode)._positionStart();
+$ctx1.sendIdx["positionStart"]=2;
+$9=_st($10)._x();
 $ctx1.sendIdx["x"]=2;
-$11=_st($12).__minus((1));
+$8=_st($9).__minus((1));
 $ctx1.sendIdx["-"]=2;
-$10=self._addStopAt_($11);
-$10;
-$14=self._editor();
-$19=_st(aNode)._position();
-$ctx1.sendIdx["position"]=4;
-$18=_st($19)._x();
-$ctx1.sendIdx["x"]=3;
-$17=_st($18).__minus((1));
+$7="line".__minus_gt($8);
+$ctx1.sendIdx["->"]=1;
+$13=_st(_st(aNode)._positionStart())._y();
+$ctx1.sendIdx["y"]=1;
+$12=_st($13).__minus((1));
 $ctx1.sendIdx["-"]=3;
-$16="line".__minus_gt($17);
+$11="ch".__minus_gt($12);
+$ctx1.sendIdx["->"]=2;
+$6=globals.HashedCollection._from_([$7,$11]);
+$18=_st(aNode)._positionEnd();
+$ctx1.sendIdx["positionEnd"]=1;
+$17=_st($18)._x();
+$16=_st($17).__minus((1));
+$15="line".__minus_gt($16);
 $ctx1.sendIdx["->"]=3;
-$20="ch".__minus_gt(_st(token)._start());
-$ctx1.sendIdx["->"]=4;
-$15=globals.HashedCollection._from_([$16,$20]);
-$22="line".__minus_gt(_st(_st(_st(aNode)._position())._x()).__minus((1)));
-$ctx1.sendIdx["->"]=5;
-$21=globals.HashedCollection._from_([$22,"ch".__minus_gt(_st(token)._end())]);
-_st($14)._setSelection_to_($15,$21);
+$14=globals.HashedCollection._from_([$15,"ch".__minus_gt(_st(_st(aNode)._positionEnd())._y())]);
+_st($5)._setSelection_to_($6,$14);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"highlightNode:",{aNode:aNode,token:token},globals.HLDebuggerCodeWidget)})},
 args: ["aNode"],
-source: "highlightNode: aNode\x0a\x09| token |\x0a\x09\x0a\x09aNode ifNotNil: [\x0a\x09\x09token := self editor getTokenAt: #{ \x0a\x09\x09\x09'line' -> (aNode position x - 1). \x0a\x09\x09\x09'ch' -> aNode position y \x0a\x09\x09}.\x0a\x0a\x09\x09self\x0a\x09\x09\x09clearHighlight;\x0a\x09\x09\x09addStopAt: aNode position x - 1.\x0a\x0a\x09\x09self editor \x0a\x09\x09\x09setSelection: #{ 'line' -> (aNode position x - 1). 'ch' -> token start }\x0a\x09\x09\x09to: #{ 'line' -> (aNode position x - 1). 'ch' -> token end } ]",
-messageSends: ["ifNotNil:", "getTokenAt:", "editor", "->", "-", "x", "position", "y", "clearHighlight", "addStopAt:", "setSelection:to:", "start", "end"],
+source: "highlightNode: aNode\x0a\x09| token |\x0a\x09\x0a\x09aNode ifNotNil: [\x0a\x09\x09self\x0a\x09\x09\x09clearHighlight;\x0a\x09\x09\x09addStopAt: aNode positionStart x - 1.\x0a\x0a\x09\x09self editor \x0a\x09\x09\x09setSelection: #{ 'line' -> (aNode positionStart x - 1). 'ch' -> (aNode positionStart y - 1) }\x0a\x09\x09\x09to: #{ 'line' -> (aNode positionEnd x - 1). 'ch' -> (aNode positionEnd y) } ]",
+messageSends: ["ifNotNil:", "clearHighlight", "addStopAt:", "-", "x", "positionStart", "setSelection:to:", "editor", "->", "y", "positionEnd"],
 referencedClasses: []
 }),
 globals.HLDebuggerCodeWidget);

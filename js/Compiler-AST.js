@@ -476,7 +476,7 @@ globals.Node);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "position:",
-protocol: 'building',
+protocol: 'accessing',
 fn: function (aPosition){
 var self=this;
 self["@position"]=aPosition;
@@ -484,6 +484,52 @@ return self},
 args: ["aPosition"],
 source: "position: aPosition\x0a\x09position := aPosition",
 messageSends: [],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "positionEnd",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$7,$6,$5,$4,$3,$1;
+$2=self._positionStart();
+$7=self._source();
+$ctx1.sendIdx["source"]=1;
+$6=_st($7)._lines();
+$ctx1.sendIdx["lines"]=1;
+$5=_st($6)._size();
+$ctx1.sendIdx["size"]=1;
+$4=_st($5).__minus((1));
+$ctx1.sendIdx["-"]=1;
+$3=_st($4).__at(_st(_st(_st(_st(self._source())._lines())._last())._size()).__minus((1)));
+$1=_st($2).__plus($3);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"positionEnd",{},globals.Node)})},
+args: [],
+source: "positionEnd\x0a\x09^ self positionStart + ((self source lines size - 1) @ (self source lines last size - 1))",
+messageSends: ["+", "positionStart", "@", "-", "size", "lines", "source", "last"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "positionStart",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._position();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"positionStart",{},globals.Node)})},
+args: [],
+source: "positionStart\x0a\x09^ self position",
+messageSends: ["position"],
 referencedClasses: []
 }),
 globals.Node);

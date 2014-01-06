@@ -66,6 +66,18 @@ position
 		self parent ifNotNil: [ :node | node position ] ]
 !
 
+position: aPosition
+	position := aPosition
+!
+
+positionEnd
+	^ self positionStart + ((self source lines size - 1) @ (self source lines last size - 1))
+!
+
+positionStart
+	^ self position
+!
+
 shouldBeAliased
 	^ shouldBeAliased ifNil: [ false ]
 !
@@ -99,10 +111,6 @@ source: aString
 nodes: aCollection
 	nodes := aCollection.
 	aCollection do: [ :each | each parent: self ]
-!
-
-position: aPosition
-	position := aPosition
 ! !
 
 !Node methodsFor: 'copying'!
