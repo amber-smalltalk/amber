@@ -2385,12 +2385,16 @@ selector: "basicParse:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
-return smalltalk.parser.parse(aString);
-return self},
+function $SmalltalkParser(){return globals.SmalltalkParser||(typeof SmalltalkParser=="undefined"?nil:SmalltalkParser)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($SmalltalkParser())._parse_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"basicParse:",{aString:aString},globals.SmalltalkImage)})},
 args: ["aString"],
-source: "basicParse: aString\x0a\x09<return smalltalk.parser.parse(aString)>",
-messageSends: [],
-referencedClasses: []
+source: "basicParse: aString\x0a\x09^ SmalltalkParser parse: aString",
+messageSends: ["parse:"],
+referencedClasses: ["SmalltalkParser"]
 }),
 globals.SmalltalkImage);
 

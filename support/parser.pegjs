@@ -8,7 +8,7 @@ keyword        = first:identifier last:[:] {return first + last;}
 selector      = first:[a-zA-Z] others:[a-zA-Z0-9\:]* {return first + others.join("");}
 className      = first:[A-Z] others:[a-zA-Z0-9]* {return first + others.join("");}
 string         = ['] val:(("''" {return "'";} / [^'])*) ['] {
-                     return smalltalk.ValueNode._new()
+                     return globals.ValueNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._value_(val.join("").replace(/\"/ig, '"'));
@@ -17,13 +17,13 @@ string         = ['] val:(("''" {return "'";} / [^'])*) ['] {
 symbol         = "#" rest:bareSymbol {return rest;}
 bareSymbol         = val:(selector / binarySelector / node:string {return node._value();})
                   {
-                      return smalltalk.ValueNode._new()
+                      return globals.ValueNode._new()
                              ._position_((line()).__at(column()))
                              ._source_(text())
                              ._value_(val);
                   }
 number         = n:(numberExp / hex / float / integer) {
-                     return smalltalk.ValueNode._new()
+                     return globals.ValueNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._value_(n);
@@ -36,19 +36,19 @@ integer        = neg:[-]?digits:[0-9]+ {return (parseInt((neg || '') +digits.joi
 literalArray   = "#(" rest:literalArrayRest {return rest;}
 bareLiteralArray   = "(" rest:literalArrayRest {return rest;}
 literalArrayRest   = ws lits:(lit:(parseTimeLiteral / bareLiteralArray / bareSymbol) ws {return lit._value();})* ws ")" {
-                     return smalltalk.ValueNode._new()
+                     return globals.ValueNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._value_(lits);
                  }
 dynamicArray   = "{" ws expressions:expressions? ws "."? "}" {
-                     return smalltalk.DynamicArrayNode._new()
+                     return globals.DynamicArrayNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._nodes_(expressions || []);
                  }
 dynamicDictionary = "#{" ws expressions: expressions? ws "}" {
-                        return smalltalk.DynamicDictionaryNode._new()
+                        return globals.DynamicDictionaryNode._new()
                                ._position_((line()).__at(column()))
                                ._source_(text())
                                ._nodes_(expressions || []);
@@ -57,7 +57,7 @@ pseudoVariable = val:(
                    'true' {return true;}
                  / 'false' {return false;}
                  / 'nil' {return nil;}) {
-                       return smalltalk.ValueNode._new()
+                       return globals.ValueNode._new()
                               ._position_((line()).__at(column()))
                               ._source_(text())
                               ._value_(val);
@@ -68,7 +68,7 @@ literal        = runtimeLiteral / parseTimeLiteral
 
 
 variable       = identifier:identifier {
-                     return smalltalk.VariableNode._new()
+                     return globals.VariableNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._value_(identifier);
@@ -108,7 +108,7 @@ expressions    = first:expression others:expressionList* {
                  }
 
 assignment     = variable:variable ws ':=' ws expression:expression {
-                     return smalltalk.AssignmentNode._new()
+                     return globals.AssignmentNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._left_(variable)
@@ -116,7 +116,7 @@ assignment     = variable:variable ws ':=' ws expression:expression {
                  }
 
 ret            = '^' ws expression:expression ws '.'? {
-                     return smalltalk.ReturnNode._new()
+                     return globals.ReturnNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._nodes_([expression]);
@@ -141,7 +141,7 @@ statements     = ret:ret [.]* {return [ret];}
 sequence       = jsSequence / stSequence
 
 stSequence     = temps:temps? ws statements:statements? ws {
-                     return smalltalk.SequenceNode._new()
+                     return globals.SequenceNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._temps_(temps || [])
@@ -151,7 +151,7 @@ stSequence     = temps:temps? ws statements:statements? ws {
 jsSequence     = jsStatement
 
 block          = '[' ws params:blockParamList? ws sequence:sequence? ws ']' {
-                     return smalltalk.BlockNode._new()
+                     return globals.BlockNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._parameters_(params || [])
@@ -163,7 +163,7 @@ operand        = literal / reference / subexpression
 
 
 unaryMessage   = ws selector:unarySelector ![:] {
-                     return smalltalk.SendNode._new()
+                     return globals.SendNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._selector_(selector);
@@ -188,7 +188,7 @@ unarySend      = receiver:operand ws tail:unaryTail? {
                  }
 
 binaryMessage  = ws selector:binarySelector ws arg:(unarySend / operand) {
-                     return smalltalk.SendNode._new()
+                     return globals.SendNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._selector_(selector)
@@ -221,7 +221,7 @@ keywordMessage = ws pairs:(pair:keywordPair ws {return pair;})+ {
                           selector.push(pairs[i].key);
                           args.push(pairs[i].arg);
                       }
-                      return smalltalk.SendNode._new()
+                      return globals.SendNode._new()
                              ._position_((line()).__at(column()))
                              ._source_(text())
                              ._selector_(selector.join(""))
@@ -240,7 +240,7 @@ cascade        = ws send:(keywordSend / binarySend) messages:(ws ";" ws mess:mes
                      for(var i = 0; i < messages.length; i++) {
                          cascade.push(messages[i]);
                      }
-                     return smalltalk.CascadeNode._new()
+                     return globals.CascadeNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._receiver_(send._receiver())
@@ -248,14 +248,14 @@ cascade        = ws send:(keywordSend / binarySend) messages:(ws ";" ws mess:mes
                  }
 
 jsStatement    = "<" val:((">>" {return ">";} / [^>])*) ">" {
-                     return smalltalk.JSStatementNode._new()
+                     return globals.JSStatementNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(val.join(""))
                  }
 
 
 method         = ws pattern:(keywordPattern / binaryPattern / unaryPattern) ws sequence:sequence? ws {
-                      return smalltalk.MethodNode._new()
+                      return globals.MethodNode._new()
                              ._position_((line()).__at(column()))
                              ._source_(text())
                              ._selector_(pattern[0])
