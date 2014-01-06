@@ -2,6 +2,8 @@ Smalltalk createPackage: 'Moka-Layouts'!
 Object subclass: #MKLayout
 	instanceVariableNames: 'properties'
 	package: 'Moka-Layouts'!
+!MKLayout commentStamp!
+I am responsible for the layout of a `MKLayoutView`.!
 
 !MKLayout methodsFor: 'accessing'!
 
@@ -180,6 +182,8 @@ borderTop: aNumber
 Object subclass: #MKLayoutProperty
 	instanceVariableNames: 'layout value'
 	package: 'Moka-Layouts'!
+!MKLayoutProperty commentStamp!
+I represent a single layout property.!
 
 !MKLayoutProperty methodsFor: 'accessing'!
 

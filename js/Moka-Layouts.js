@@ -3,6 +3,7 @@ smalltalk.addPackage('Moka-Layouts');
 smalltalk.packages["Moka-Layouts"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('MKLayout', globals.Object, ['properties'], 'Moka-Layouts');
+globals.MKLayout.comment="I am responsible for the layout of a `MKLayoutView`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asCssString",
@@ -417,6 +418,7 @@ globals.MKPaneLayout);
 
 
 smalltalk.addClass('MKLayoutProperty', globals.Object, ['layout', 'value'], 'Moka-Layouts');
+globals.MKLayoutProperty.comment="I represent a single layout property.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asCssString",
