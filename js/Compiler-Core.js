@@ -420,8 +420,9 @@ selector: "eval:",
 protocol: 'compiling',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return eval(aString);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString},globals.Compiler)})},
 args: ["aString"],
 source: "eval: aString\x0a\x09<return eval(aString)>",
 messageSends: [],

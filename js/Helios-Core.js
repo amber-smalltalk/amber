@@ -2415,10 +2415,11 @@ selector: "positionOf:",
 protocol: 'accessing',
 fn: function (aListItem){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
     	return aListItem.parent().children().get().indexOf(aListItem.get(0)) + 1
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"positionOf:",{aListItem:aListItem},globals.HLListWidget)})},
 args: ["aListItem"],
 source: "positionOf: aListItem\x0a\x09<\x0a    \x09return aListItem.parent().children().get().indexOf(aListItem.get(0)) + 1\x0a\x09>",
 messageSends: [],

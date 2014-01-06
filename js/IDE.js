@@ -669,6 +669,7 @@ selector: "handleKeyDown:",
 protocol: 'actions',
 fn: function (anEvent){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 80) { //ctrl+p
 			self._printIt();
@@ -686,7 +687,7 @@ if(anEvent.ctrlKey) {
 			return false;
 		}
 	};
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"handleKeyDown:",{anEvent:anEvent},globals.SourceArea)})},
 args: ["anEvent"],
 source: "handleKeyDown: anEvent\x0a\x09<if(anEvent.ctrlKey) {\x0a\x09\x09if(anEvent.keyCode === 80) { //ctrl+p\x0a\x09\x09\x09self._printIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 68) { //ctrl+d\x0a\x09\x09\x09self._doIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 73) { //ctrl+i\x0a\x09\x09\x09self._inspectIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09}>",
 messageSends: [],
@@ -943,6 +944,7 @@ selector: "setEditorOn:",
 protocol: 'accessing',
 fn: function (aTextarea){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 		theme: 'default',
 		mode: 'text/x-stsrc',
@@ -953,7 +955,7 @@ self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 		matchBrackets: true,
 		electricChars: false
 	});
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea},globals.SourceArea)})},
 args: ["aTextarea"],
 source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'default',\x0a\x09\x09mode: 'text/x-stsrc',\x0a\x09\x09lineNumbers: true,\x0a\x09\x09enterMode: 'flat',\x0a\x09\x09indentWithTabs: true,\x0a\x09\x09indentUnit: 4,\x0a\x09\x09matchBrackets: true,\x0a\x09\x09electricChars: false\x0a\x09})>",
 messageSends: [],
@@ -1019,8 +1021,9 @@ selector: "setupCodeMirror",
 protocol: 'initialization',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
  CodeMirror.keyMap["default"].fallthrough = ["basic"] ;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{},globals.SourceArea.klass)})},
 args: [],
 source: "setupCodeMirror\x0a\x09< CodeMirror.keyMap[\x22default\x22].fallthrough = [\x22basic\x22] >",
 messageSends: [],
@@ -2487,6 +2490,7 @@ selector: "handleSourceAreaKeyDown:",
 protocol: 'actions',
 fn: function (anEvent){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 83) { //ctrl+s
 			self._compile();
@@ -2495,7 +2499,7 @@ if(anEvent.ctrlKey) {
 		}
 	}
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"handleSourceAreaKeyDown:",{anEvent:anEvent},globals.Browser)})},
 args: ["anEvent"],
 source: "handleSourceAreaKeyDown: anEvent\x0a\x09<if(anEvent.ctrlKey) {\x0a\x09\x09if(anEvent.keyCode === 83) { //ctrl+s\x0a\x09\x09\x09self._compile();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09}\x0a\x09>",
 messageSends: [],
@@ -7346,41 +7350,6 @@ var $1;
 variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 $ctx1.sendIdx["at:put:"]=1;
-_st(variables)._at_put_("#home",self._home());
-$ctx1.sendIdx["at:put:"]=2;
-_st(variables)._at_put_("#receiver",self._receiver());
-$ctx1.sendIdx["at:put:"]=3;
-_st(variables)._at_put_("#selector",self._selector());
-$ctx1.sendIdx["at:put:"]=4;
-_st(variables)._at_put_("#temps",self._temps());
-$ctx1.sendIdx["at:put:"]=5;
-_st(_st(self._class())._instanceVariableNames())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(variables)._at_put_(each,self._instVarAt_(each));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-_st(anInspector)._setLabel_(self._printString());
-$1=_st(anInspector)._setVariables_(variables);
-return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},globals.MethodContext)})},
-args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#home' put: self home.\x0a\x09variables at: '#receiver' put: self receiver.\x0a\x09variables at: '#selector' put: self selector.\x0a\x09variables at: '#temps' put: self temps.\x0a\x09self class instanceVariableNames do: [ :each |\x0a\x09\x09variables at: each put: (self instVarAt: each) ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-messageSends: ["new", "at:put:", "home", "receiver", "selector", "temps", "do:", "instanceVariableNames", "class", "instVarAt:", "setLabel:", "printString", "setVariables:"],
-referencedClasses: ["Dictionary"]
-}),
-globals.MethodContext);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "inspectOn:",
-protocol: '*IDE',
-fn: function (anInspector){
-var self=this;
-var variables;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-variables=_st($Dictionary())._new();
-_st(variables)._at_put_("#self",self);
-$ctx1.sendIdx["at:put:"]=1;
 _st(variables)._at_put_("#keys",self._keys());
 $ctx1.sendIdx["at:put:"]=2;
 self._keysAndValuesDo_((function(key,value){
@@ -7426,5 +7395,40 @@ messageSends: ["new", "at:put:", "do:", "+", "setLabel:", "printString", "setVar
 referencedClasses: ["Dictionary"]
 }),
 globals.Set);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspectOn:",
+protocol: '*IDE',
+fn: function (anInspector){
+var self=this;
+var variables;
+function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+variables=_st($Dictionary())._new();
+_st(variables)._at_put_("#self",self);
+$ctx1.sendIdx["at:put:"]=1;
+_st(variables)._at_put_("#home",self._home());
+$ctx1.sendIdx["at:put:"]=2;
+_st(variables)._at_put_("#receiver",self._receiver());
+$ctx1.sendIdx["at:put:"]=3;
+_st(variables)._at_put_("#selector",self._selector());
+$ctx1.sendIdx["at:put:"]=4;
+_st(variables)._at_put_("#temps",self._temps());
+$ctx1.sendIdx["at:put:"]=5;
+_st(_st(self._class())._instanceVariableNames())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(variables)._at_put_(each,self._instVarAt_(each));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+_st(anInspector)._setLabel_(self._printString());
+$1=_st(anInspector)._setVariables_(variables);
+return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},globals.MethodContext)})},
+args: ["anInspector"],
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#home' put: self home.\x0a\x09variables at: '#receiver' put: self receiver.\x0a\x09variables at: '#selector' put: self selector.\x0a\x09variables at: '#temps' put: self temps.\x0a\x09self class instanceVariableNames do: [ :each |\x0a\x09\x09variables at: each put: (self instVarAt: each) ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
+messageSends: ["new", "at:put:", "home", "receiver", "selector", "temps", "do:", "instanceVariableNames", "class", "instVarAt:", "setLabel:", "printString", "setVariables:"],
+referencedClasses: ["Dictionary"]
+}),
+globals.MethodContext);
 
 });

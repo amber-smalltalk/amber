@@ -221,8 +221,9 @@ selector: "basicAddCompiledMethod:",
 protocol: 'private',
 fn: function (aMethod){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 smalltalk.addMethod(aMethod, self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicAddCompiledMethod:",{aMethod:aMethod},globals.Behavior)})},
 args: ["aMethod"],
 source: "basicAddCompiledMethod: aMethod\x0a\x09<smalltalk.addMethod(aMethod, self)>",
 messageSends: [],
@@ -236,8 +237,9 @@ selector: "basicNew",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return new self.fn();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicNew",{},globals.Behavior)})},
 args: [],
 source: "basicNew\x0a\x09<return new self.fn()>",
 messageSends: [],
@@ -251,8 +253,9 @@ selector: "basicRemoveCompiledMethod:",
 protocol: 'private',
 fn: function (aMethod){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 smalltalk.removeMethod(aMethod,self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveCompiledMethod:",{aMethod:aMethod},globals.Behavior)})},
 args: ["aMethod"],
 source: "basicRemoveCompiledMethod: aMethod\x0a\x09<smalltalk.removeMethod(aMethod,self)>",
 messageSends: [],
@@ -501,8 +504,9 @@ selector: "instanceVariableNames",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.iVarNames;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"instanceVariableNames",{},globals.Behavior)})},
 args: [],
 source: "instanceVariableNames\x0a\x09<return self.iVarNames>",
 messageSends: [],
@@ -531,8 +535,9 @@ selector: "javascriptConstructor",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.fn;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"javascriptConstructor",{},globals.Behavior)})},
 args: [],
 source: "javascriptConstructor\x0a\x09\x22Answer the JS constructor used to instantiate. See boot.js\x22\x0a\x09\x0a\x09<return self.fn>",
 messageSends: [],
@@ -546,8 +551,9 @@ selector: "javascriptConstructor:",
 protocol: 'accessing',
 fn: function (aJavaScriptFunction){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 smalltalk.setClassConstructor(self, aJavaScriptFunction);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"javascriptConstructor:",{aJavaScriptFunction:aJavaScriptFunction},globals.Behavior)})},
 args: ["aJavaScriptFunction"],
 source: "javascriptConstructor: aJavaScriptFunction\x0a\x09\x22Set the JS constructor used to instantiate.\x0a\x09See the JS counter-part in boot.js `smalltalk.setClassConstructor'\x22\x0a\x09\x0a\x09<smalltalk.setClassConstructor(self, aJavaScriptFunction);>",
 messageSends: [],
@@ -615,6 +621,7 @@ selector: "methodDictionary",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 var dict = globals.HashedCollection._new();
 	var methods = self.methods;
 	Object.keys(methods).forEach(function(i) {
@@ -623,7 +630,7 @@ var dict = globals.HashedCollection._new();
 		}
 	});
 	return dict;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"methodDictionary",{},globals.Behavior)})},
 args: [],
 source: "methodDictionary\x0a\x09<var dict = globals.HashedCollection._new();\x0a\x09var methods = self.methods;\x0a\x09Object.keys(methods).forEach(function(i) {\x0a\x09\x09if(methods[i].selector) {\x0a\x09\x09\x09dict._at_put_(methods[i].selector, methods[i]);\x0a\x09\x09}\x0a\x09});\x0a\x09return dict>",
 messageSends: [],
@@ -716,8 +723,9 @@ selector: "name",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.className || nil;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"name",{},globals.Behavior)})},
 args: [],
 source: "name\x0a\x09<return self.className || nil>",
 messageSends: [],
@@ -864,8 +872,9 @@ selector: "prototype",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.fn.prototype;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"prototype",{},globals.Behavior)})},
 args: [],
 source: "prototype\x0a\x09<return self.fn.prototype>",
 messageSends: [],
@@ -978,8 +987,9 @@ selector: "superclass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.superclass || nil;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"superclass",{},globals.Behavior)})},
 args: [],
 source: "superclass\x0a\x09<return self.superclass || nil>",
 messageSends: [],
@@ -1327,8 +1337,9 @@ selector: "subclasses",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.subclasses._copy();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"subclasses",{},globals.Class)})},
 args: [],
 source: "subclasses\x0a\x09<return self.subclasses._copy()>",
 messageSends: [],
@@ -1401,8 +1412,9 @@ selector: "instanceClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.instanceClass;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"instanceClass",{},globals.Metaclass)})},
 args: [],
 source: "instanceClass\x0a\x09<return self.instanceClass>",
 messageSends: [],
@@ -1562,11 +1574,12 @@ selector: "basicAddSubclassOf:named:instanceVariableNames:package:",
 protocol: 'private',
 fn: function (aClass,aString,aCollection,packageName){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		smalltalk.addClass(aString, aClass, aCollection, packageName);
 		return globals[aString]
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicAddSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,aString:aString,aCollection:aCollection,packageName:packageName},globals.ClassBuilder)})},
 args: ["aClass", "aString", "aCollection", "packageName"],
 source: "basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a\x09<\x0a\x09\x09smalltalk.addClass(aString, aClass, aCollection, packageName);\x0a\x09\x09return globals[aString]\x0a\x09>",
 messageSends: [],
@@ -1617,8 +1630,9 @@ selector: "basicRemoveClass:",
 protocol: 'private',
 fn: function (aClass){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 smalltalk.removeClass(aClass);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveClass:",{aClass:aClass},globals.ClassBuilder)})},
 args: ["aClass"],
 source: "basicRemoveClass: aClass\x0a\x09<smalltalk.removeClass(aClass)>",
 messageSends: [],
@@ -1632,12 +1646,13 @@ selector: "basicRenameClass:to:",
 protocol: 'private',
 fn: function (aClass,aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		globals[aString] = aClass;
 		delete globals[aClass.className];
 		aClass.className = aString;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicRenameClass:to:",{aClass:aClass,aString:aString},globals.ClassBuilder)})},
 args: ["aClass", "aString"],
 source: "basicRenameClass: aClass to: aString\x0a\x09<\x0a\x09\x09globals[aString] = aClass;\x0a\x09\x09delete globals[aClass.className];\x0a\x09\x09aClass.className = aString;\x0a\x09>",
 messageSends: [],
@@ -1651,12 +1666,13 @@ selector: "basicSwapClassNames:with:",
 protocol: 'private',
 fn: function (aClass,anotherClass){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var tmp = aClass.className;
 		aClass.className = anotherClass.className;
 		anotherClass.className = tmp;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicSwapClassNames:with:",{aClass:aClass,anotherClass:anotherClass},globals.ClassBuilder)})},
 args: ["aClass", "anotherClass"],
 source: "basicSwapClassNames: aClass with: anotherClass\x0a\x09<\x0a\x09\x09var tmp = aClass.className;\x0a\x09\x09aClass.className = anotherClass.className;\x0a\x09\x09anotherClass.className = tmp;\x0a\x09>",
 messageSends: [],
@@ -1884,10 +1900,11 @@ selector: "rawRenameClass:to:",
 protocol: 'private',
 fn: function (aClass,aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		globals[aString] = aClass;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"rawRenameClass:to:",{aClass:aClass,aString:aString},globals.ClassBuilder)})},
 args: ["aClass", "aString"],
 source: "rawRenameClass: aClass to: aString\x0a\x09<\x0a\x09\x09globals[aString] = aClass;\x0a\x09>",
 messageSends: [],
@@ -1925,8 +1942,9 @@ selector: "setupClass:",
 protocol: 'public',
 fn: function (aClass){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 smalltalk.init(aClass);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"setupClass:",{aClass:aClass},globals.ClassBuilder)})},
 args: ["aClass"],
 source: "setupClass: aClass\x0a\x09<smalltalk.init(aClass);>",
 messageSends: [],

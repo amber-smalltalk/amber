@@ -10,8 +10,9 @@ selector: "context",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.context;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"context",{},globals.Error)})},
 args: [],
 source: "context\x0a\x09<return self.context>",
 messageSends: [],
@@ -41,8 +42,9 @@ selector: "isSmalltalkError",
 protocol: 'testing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.smalltalkError === true;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"isSmalltalkError",{},globals.Error)})},
 args: [],
 source: "isSmalltalkError\x0a\x09<return self.smalltalkError === true>",
 messageSends: [],
@@ -56,8 +58,9 @@ selector: "jsStack",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.stack;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"jsStack",{},globals.Error)})},
 args: [],
 source: "jsStack\x0a\x09<return self.stack>",
 messageSends: [],
@@ -103,8 +106,9 @@ selector: "resignal",
 protocol: 'signaling',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 throw(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"resignal",{},globals.Error)})},
 args: [],
 source: "resignal\x0a\x09\x22Resignal the receiver without changing its exception context\x22\x0a\x09\x0a\x09<throw(self)>",
 messageSends: [],
@@ -118,8 +122,9 @@ selector: "signal",
 protocol: 'signaling',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"signal",{},globals.Error)})},
 args: [],
 source: "signal\x0a\x09<self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self)>",
 messageSends: [],
@@ -205,8 +210,9 @@ selector: "context:",
 protocol: 'accessing',
 fn: function (aMethodContext){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.context = aMethodContext;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"context:",{aMethodContext:aMethodContext},globals.JavaScriptException)})},
 args: ["aMethodContext"],
 source: "context: aMethodContext\x0a\x09\x22Set the context from the outside.\x0a\x09See boot.js `inContext()` exception handling\x22\x0a\x09\x0a\x09<self.context = aMethodContext>",
 messageSends: [],
@@ -252,8 +258,9 @@ selector: "messageText",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return 'JavaScript exception: ' + self["@exception"].toString();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.JavaScriptException)})},
 args: [],
 source: "messageText\x0a\x09<return 'JavaScript exception: ' + self[\x22@exception\x22].toString()>",
 messageSends: [],

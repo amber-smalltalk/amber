@@ -190,8 +190,9 @@ selector: "basicSignal:",
 protocol: 'error handling',
 fn: function (anError){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 throw anError;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicSignal:",{anError:anError},globals.RethrowErrorHandler)})},
 args: ["anError"],
 source: "basicSignal: anError\x0a        <throw anError>",
 messageSends: [],

@@ -280,6 +280,7 @@ selector: "onKeyDown:",
 protocol: 'reactions',
 fn: function (anEvent){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 80) { //ctrl+p
 			self._printIt();
@@ -297,7 +298,7 @@ if(anEvent.ctrlKey) {
 			return false;
 		}
 	};
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent},globals.HLInspectorModel)})},
 args: ["anEvent"],
 source: "onKeyDown: anEvent\x0a\x0a\x09<if(anEvent.ctrlKey) {\x0a\x09\x09if(anEvent.keyCode === 80) { //ctrl+p\x0a\x09\x09\x09self._printIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 68) { //ctrl+d\x0a\x09\x09\x09self._doIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 73) { //ctrl+i\x0a\x09\x09\x09self._inspectIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09}>",
 messageSends: [],
