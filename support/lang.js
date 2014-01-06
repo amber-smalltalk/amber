@@ -1,5 +1,5 @@
 define([
-	'amber_vm/smalltalk', // pre-fetch, dep of ./deploy
+	'./helpers', // pre-fetch, dep of ./deploy
 	'./deploy',
 	'amber_vm/parser',
 	'amber_core/Kernel-ImportExport',
