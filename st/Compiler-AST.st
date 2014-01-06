@@ -369,6 +369,10 @@ I represent an JavaScript statement node.!
 
 isJSStatementNode
 	^ true
+!
+
+requiresSmalltalkContext
+	^ true
 ! !
 
 !JSStatementNode methodsFor: 'visiting'!

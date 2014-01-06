@@ -1208,6 +1208,21 @@ referencedClasses: []
 }),
 globals.JSStatementNode);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "requiresSmalltalkContext",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return true;
+},
+args: [],
+source: "requiresSmalltalkContext\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+globals.JSStatementNode);
+
 
 
 smalltalk.addClass('MethodNode', globals.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'sendIndexes', 'superSends'], 'Compiler-AST');
