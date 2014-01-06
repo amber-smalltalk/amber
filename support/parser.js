@@ -63,6 +63,7 @@ smalltalk.parser = (function() {
         peg$c27 = function(val) {
                              return smalltalk.ValueNode._new()
                                     ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._value_(val.join("").replace(/\"/ig, '"'));
                          },
         peg$c28 = "#",
@@ -72,11 +73,13 @@ smalltalk.parser = (function() {
         peg$c32 = function(val) {
                               return smalltalk.ValueNode._new()
                                      ._position_((line()).__at(column()))
+                                     ._source_(text())
                                      ._value_(val);
                           },
         peg$c33 = function(n) {
                              return smalltalk.ValueNode._new()
                                     ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._value_(n);
                          },
         peg$c34 = "e",
@@ -106,6 +109,7 @@ smalltalk.parser = (function() {
         peg$c58 = function(lits) {
                              return smalltalk.ValueNode._new()
                                     ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._value_(lits);
                          },
         peg$c59 = "{",
@@ -115,6 +119,7 @@ smalltalk.parser = (function() {
         peg$c63 = function(expressions) {
                              return smalltalk.DynamicArrayNode._new()
                                     ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._nodes_(expressions || []);
                          },
         peg$c64 = "#{",
@@ -122,6 +127,7 @@ smalltalk.parser = (function() {
         peg$c66 = function(expressions) {
                                 return smalltalk.DynamicDictionaryNode._new()
                                        ._position_((line()).__at(column()))
+                                       ._source_(text())
                                        ._nodes_(expressions || []);
                             },
         peg$c67 = "true",
@@ -136,11 +142,13 @@ smalltalk.parser = (function() {
         peg$c76 = function(val) {
                                return smalltalk.ValueNode._new()
                                       ._position_((line()).__at(column()))
+                                      ._source_(text())
                                       ._value_(val);
                            },
         peg$c77 = function(identifier) {
                              return smalltalk.VariableNode._new()
                                     ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._value_(identifier);
                          },
         peg$c78 = function(key, arg) {return {key:key, arg: arg};},
@@ -174,6 +182,7 @@ smalltalk.parser = (function() {
         peg$c89 = function(variable, expression) {
                              return smalltalk.AssignmentNode._new()
                                     ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._left_(variable)
                                     ._right_(expression);
                          },
@@ -182,6 +191,7 @@ smalltalk.parser = (function() {
         peg$c92 = function(expression) {
                              return smalltalk.ReturnNode._new()
                                     ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._nodes_([expression]);
                          },
         peg$c93 = "|",
@@ -206,6 +216,7 @@ smalltalk.parser = (function() {
         peg$c106 = function(temps, statements) {
                              return smalltalk.SequenceNode._new()
                                     ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._temps_(temps || [])
                                     ._nodes_(statements || []);
                          },
@@ -216,6 +227,7 @@ smalltalk.parser = (function() {
         peg$c111 = function(params, sequence) {
                              return smalltalk.BlockNode._new()
                                     ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._parameters_(params || [])
                                     ._nodes_([sequence._asBlockSequenceNode()]);
                          },
@@ -223,6 +235,7 @@ smalltalk.parser = (function() {
         peg$c113 = function(selector) {
                              return smalltalk.SendNode._new()
                                     ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._selector_(selector);
                          },
         peg$c114 = function(message, tail) {
@@ -244,6 +257,7 @@ smalltalk.parser = (function() {
         peg$c116 = function(selector, arg) {
                              return smalltalk.SendNode._new()
                                     ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._selector_(selector)
                                     ._arguments_([arg]);
                          },
@@ -265,6 +279,7 @@ smalltalk.parser = (function() {
                               }
                               return smalltalk.SendNode._new()
                                      ._position_((line()).__at(column()))
+                                     ._source_(text())
                                      ._selector_(selector.join(""))
                                      ._arguments_(args);
                          },
@@ -282,6 +297,7 @@ smalltalk.parser = (function() {
                              }
                              return smalltalk.CascadeNode._new()
                                     ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._receiver_(send._receiver())
                                     ._nodes_(cascade);
                          },
@@ -297,11 +313,12 @@ smalltalk.parser = (function() {
         peg$c134 = function(val) {
                              return smalltalk.JSStatementNode._new()
                                     ._position_((line()).__at(column()))
-                                    ._source_(val.join(""));
+                                    ._source_(val.join(""))
                          },
         peg$c135 = function(pattern, sequence) {
                               return smalltalk.MethodNode._new()
                                      ._position_((line()).__at(column()))
+                                     ._source_(text())
                                      ._selector_(pattern[0])
                                      ._arguments_(pattern[1])
                                      ._nodes_([sequence]);

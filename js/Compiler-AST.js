@@ -1915,6 +1915,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$5,$4,$6,$1;
 $2=_st($SendNode())._new();
 _st($2)._position_(self._position());
+_st($2)._source_(self._source());
 $3=$2;
 $5=self._receiver();
 $ctx1.sendIdx["receiver"]=1;
@@ -1931,8 +1932,8 @@ $1=$6;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"valueForReceiver:",{anObject:anObject},globals.SendNode)})},
 args: ["anObject"],
-source: "valueForReceiver: anObject\x0a\x09^ SendNode new\x0a\x09\x09position: self position;\x0a\x09\x09receiver: (self receiver\x0a\x09\x09ifNil: [ anObject ] \x0a\x09\x09ifNotNil: [ self receiver valueForReceiver: anObject ]);\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself",
-messageSends: ["position:", "new", "position", "receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself"],
+source: "valueForReceiver: anObject\x0a\x09^ SendNode new\x0a\x09\x09position: self position;\x0a\x09\x09source: self source;\x0a\x09\x09receiver: (self receiver\x0a\x09\x09ifNil: [ anObject ] \x0a\x09\x09ifNotNil: [ self receiver valueForReceiver: anObject ]);\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself",
+messageSends: ["position:", "new", "position", "source:", "source", "receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself"],
 referencedClasses: ["SendNode"]
 }),
 globals.SendNode);
@@ -1970,6 +1971,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$1;
 $2=_st($BlockSequenceNode())._new();
 _st($2)._position_(self._position());
+_st($2)._source_(self._source());
 _st($2)._nodes_(self._nodes());
 _st($2)._temps_(self._temps());
 $3=_st($2)._yourself();
@@ -1977,8 +1979,8 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asBlockSequenceNode",{},globals.SequenceNode)})},
 args: [],
-source: "asBlockSequenceNode\x0a\x09^ BlockSequenceNode new\x0a\x09\x09position: self position;\x0a\x09\x09nodes: self nodes;\x0a\x09\x09temps: self temps;\x0a\x09\x09yourself",
-messageSends: ["position:", "new", "position", "nodes:", "nodes", "temps:", "temps", "yourself"],
+source: "asBlockSequenceNode\x0a\x09^ BlockSequenceNode new\x0a\x09\x09position: self position;\x0a\x09\x09source: self source;\x0a\x09\x09nodes: self nodes;\x0a\x09\x09temps: self temps;\x0a\x09\x09yourself",
+messageSends: ["position:", "new", "position", "source:", "source", "nodes:", "nodes", "temps:", "temps", "yourself"],
 referencedClasses: ["BlockSequenceNode"]
 }),
 globals.SequenceNode);

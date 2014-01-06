@@ -555,6 +555,7 @@ superSend: aBoolean
 valueForReceiver: anObject
 	^ SendNode new
 		position: self position;
+		source: self source;
 		receiver: (self receiver
 		ifNil: [ anObject ] 
 		ifNotNil: [ self receiver valueForReceiver: anObject ]);
@@ -628,6 +629,7 @@ temps: aCollection
 asBlockSequenceNode
 	^ BlockSequenceNode new
 		position: self position;
+		source: self source;
 		nodes: self nodes;
 		temps: self temps;
 		yourself
