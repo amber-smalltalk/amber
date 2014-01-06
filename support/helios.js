@@ -1,5 +1,5 @@
 define([
-	'amber_vm/smalltalk', // pre-fetch, dep of ./deploy
+	'./helpers', // pre-fetch, dep of ./deploy
 	'./deploy', // pre-fetch, dep of ./lang
 	'./lang',
 	'jquery-ui',
