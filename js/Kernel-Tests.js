@@ -299,20 +299,19 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-	function theTestPrototype() {this.name = "theTestPrototype";}
-	function theTestConstructor(arg1, arg2, arg3) {}
-	theTestConstructor.prototype = new theTestPrototype;
+	function TestConstructor(arg1, arg2, arg3) {}
+	TestConstructor.prototype.name = 'theTestPrototype';
 
-	var theWrappedConstructor = _st(theTestConstructor);
-	var theResult = theWrappedConstructor._newWithValues_([1, 2, 3 ]);
-	self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');
+	var wrappedConstructor = _st(TestConstructor);
+	var result = wrappedConstructor._newWithValues_([1, 2, 3 ]);
+	self._assert_(result instanceof TestConstructor);
+	self._assert_equals_(result.name, 'theTestPrototype');
 
 	"newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made."
-	function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}
-	self._should_raise_(_st(constructionShouldFail), globals.Error);;
+	self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, globals.Error);;
 return self}, function($ctx1) {$ctx1.fill(self,"testNewWithValues",{},globals.BlockClosureTest)})},
 args: [],
-source: "testNewWithValues\x0a<\x0a\x09function theTestPrototype() {this.name = \x22theTestPrototype\x22;}\x0a\x09function theTestConstructor(arg1, arg2, arg3) {}\x0a\x09theTestConstructor.prototype = new theTestPrototype;\x0a\x0a\x09var theWrappedConstructor = _st(theTestConstructor);\x0a\x09var theResult = theWrappedConstructor._newWithValues_([1, 2, 3 ]);\x0a\x09self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}\x0a\x09self._should_raise_(_st(constructionShouldFail), globals.Error);\x0a>",
+source: "testNewWithValues\x0a<\x0a\x09function TestConstructor(arg1, arg2, arg3) {}\x0a\x09TestConstructor.prototype.name = 'theTestPrototype';\x0a\x0a\x09var wrappedConstructor = _st(TestConstructor);\x0a\x09var result = wrappedConstructor._newWithValues_([1, 2, 3 ]);\x0a\x09self._assert_(result instanceof TestConstructor);\x0a\x09self._assert_equals_(result.name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, globals.Error);\x0a>",
 messageSends: [],
 referencedClasses: []
 }),
