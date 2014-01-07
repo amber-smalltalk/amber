@@ -82,7 +82,7 @@ currentLineOrSelection
 
 editorOptions
 	^ #{
-		'theme' -> (Smalltalk vm at: 'codeMirrorTheme' ifAbsent: [ 'default helios' ]).
+		'theme' -> (SmalltalkSettings at: 'helios.codeMirrorTheme' ifAbsent: [ 'default helios' ]).
 		'mode' -> 'text/x-stsrc'.
         'lineNumbers' -> true.
         'enterMode' -> 'flat'.

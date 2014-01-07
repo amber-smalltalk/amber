@@ -946,7 +946,7 @@ fn: function (aTextarea){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-		theme: smalltalk.codeMirrorTheme || 'default',
+		theme: globals.SmalltalkSettings['ide.codeMirrorTheme'] || 'default',
 		mode: 'text/x-stsrc',
 		lineNumbers: true,
 		enterMode: 'flat',
@@ -957,7 +957,7 @@ self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 	});
 return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea},globals.SourceArea)})},
 args: ["aTextarea"],
-source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: smalltalk.codeMirrorTheme || 'default',\x0a\x09\x09mode: 'text/x-stsrc',\x0a\x09\x09lineNumbers: true,\x0a\x09\x09enterMode: 'flat',\x0a\x09\x09indentWithTabs: true,\x0a\x09\x09indentUnit: 4,\x0a\x09\x09matchBrackets: true,\x0a\x09\x09electricChars: false\x0a\x09})>",
+source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: globals.SmalltalkSettings['ide.codeMirrorTheme'] || 'default',\x0a\x09\x09mode: 'text/x-stsrc',\x0a\x09\x09lineNumbers: true,\x0a\x09\x09enterMode: 'flat',\x0a\x09\x09indentWithTabs: true,\x0a\x09\x09indentUnit: 4,\x0a\x09\x09matchBrackets: true,\x0a\x09\x09electricChars: false\x0a\x09})>",
 messageSends: [],
 referencedClasses: []
 }),
