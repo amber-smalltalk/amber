@@ -17,7 +17,7 @@ define("amber/helpers", ["amber_vm/smalltalk", "amber_vm/globals", "require"], f
     exports.initialize = function (options) {
         options = options || {};
         if (exports.defaultAmdNamespace) {
-            console.warn("`smalltalk.defaultAmdNamespace = 'foo';` is deprecated. Please use `smalltalk.initialize({defaultAmdNamespace: 'foo'});` instead.");
+            console.warn("`smalltalk.defaultAmdNamespace = 'namespace';` is deprecated. Please use `smalltalk.initialize({defaultAmdNamespace: 'namespace'});` instead.");
             options.defaultAmdNamespace = options.defaultAmdNamespace || exports.defaultAmdNamespace;
         }
         vm.defaultAmdNamespace = options.defaultAmdNamespace || vm.defaultAmdNamespace;
