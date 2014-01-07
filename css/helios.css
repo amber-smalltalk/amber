@@ -20,6 +20,23 @@ html[xmlns] .clearfix {
 * html .clearfix {
   height: 1%;
 }
+.cm-s-helios.CodeMirror {
+  font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", Courier, monospace;
+  line-height: 16px;
+  font-size: 13px;
+}
+.cm-s-helios .CodeMirror-gutter.stops {
+  width: 20px;
+}
+.cm-s-helios .highlighted.CodeMirror-linebackground {
+  background-color: #ffffaa;
+}
+.cm-s-helios .CodeMirror-gutter-elt .stop {
+  width: 16px;
+  height: 16px;
+  background: url('../images/arrowRight.png');
+  margin-left: 2px;
+}
 #helios a {
   cursor: pointer;
 }
@@ -32,13 +49,12 @@ html[xmlns] .clearfix {
 }
 #helios .CodeMirror {
   position: absolute;
-  overflow: hidden;
   height: 100%;
   width: 100%;
 }
 #helios .CodeMirror-hints {
   border-radius: 0;
-  font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
+  font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", Courier, monospace;
   font-size: 11px;
   line-height: 1em;
   padding: 0;
@@ -47,24 +63,6 @@ html[xmlns] .clearfix {
 #helios .CodeMirror-hint {
   border-radius: 0;
   padding: 0 10px;
-}
-#helios .CodeMirror pre,
-#helios .CodeMirror .CodeMirror-gutter-elt {
-  font-family: Menlo, Monaco, "Lucida Console", "Ubuntu Mono", Courier, monospace;
-  line-height: 16px;
-  font-size: 13px;
-}
-#helios .CodeMirror-gutter.stops {
-  width: 20px;
-}
-#helios .CodeMirror .highlighted.CodeMirror-linebackground {
-  background-color: #ffffaa;
-}
-#helios .CodeMirror .CodeMirror-gutter-elt .stop {
-  width: 16px;
-  height: 16px;
-  background: url('../images/arrowRight.png');
-  margin-left: 2px;
 }
 #helios .state {
   position: absolute;
