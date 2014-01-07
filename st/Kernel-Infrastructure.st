@@ -1003,11 +1003,11 @@ amdRequire
 !
 
 defaultAmdNamespace
-	^ self vm defaultAmdNamespace
+	^ SmalltalkSettings at: 'vm.defaultAmdNamespace'
 !
 
 defaultAmdNamespace: aString
-	self vm defaultAmdNamespace: aString
+	SmalltalkSettings at: 'vm.defaultAmdNamespace' put: aString
 ! !
 
 !SmalltalkImage methodsFor: 'classes'!
