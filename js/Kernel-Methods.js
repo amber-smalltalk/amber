@@ -185,15 +185,13 @@ fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		var constructor = function() {};
-		constructor.prototype = self.prototype;
-		var object = new constructor;
+		var object = Object.create(self.prototype);
 		var result = self.apply(object, aCollection);
 		return typeof result === "object" ? result : object;
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"newWithValues:",{aCollection:aCollection},globals.BlockClosure)})},
 args: ["aCollection"],
-source: "newWithValues: aCollection\x0a\x09\x22Use the receiver as a JavaScript constructor with a variable number of arguments.\x0a\x09Answer the object created using the operator `new`.\x0a\x0a\x09This algorithm was inspired by http://stackoverflow.com/a/6069331.\x0a\x0a\x09Here's a general breakdown of what's going on:\x0a\x091) Create a new, empty constructor function.\x0a\x092) Set it's prototype to the receiver's prototype. Because the receiver is a `BlockClosure`, it is also a JavaScript function.\x0a\x093) Instantiate a new object using the constructor function just created. \x0a\x09\x09This forces the interpreter to set the internal [[prototype]] property to what was set on the function before. \x0a   \x09\x09This has to be done, as we have no access to the [[prototype]] property externally.\x0a\x094) Apply `self` to the object I just instantiated.\x22\x0a\x0a\x09<\x0a\x09\x09var constructor = function() {};\x0a\x09\x09constructor.prototype = self.prototype;\x0a\x09\x09var object = new constructor;\x0a\x09\x09var result = self.apply(object, aCollection);\x0a\x09\x09return typeof result === \x22object\x22 ? result : object;\x0a\x09>",
+source: "newWithValues: aCollection\x0a\x09\x22Simulates JS new operator by combination of Object.create and .apply\x22\x0a\x09<\x0a\x09\x09var object = Object.create(self.prototype);\x0a\x09\x09var result = self.apply(object, aCollection);\x0a\x09\x09return typeof result === \x22object\x22 ? result : object;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
