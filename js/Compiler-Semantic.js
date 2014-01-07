@@ -1402,8 +1402,9 @@ selector: "isVariableGloballyUndefined:",
 protocol: 'testing',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return eval('typeof ' + aString + ' == "undefined"');
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"isVariableGloballyUndefined:",{aString:aString},globals.SemanticAnalyzer)})},
 args: ["aString"],
 source: "isVariableGloballyUndefined: aString\x0a\x09<return eval('typeof ' + aString + ' == \x22undefined\x22')>",
 messageSends: [],

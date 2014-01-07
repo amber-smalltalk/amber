@@ -1,4 +1,4 @@
 define("amber_vm/smalltalk", ["./boot"], function (boot) {
-    return boot.smalltalk;
+    return boot.vm;
 });
 

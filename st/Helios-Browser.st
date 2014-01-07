@@ -25,6 +25,19 @@ focus
 	^ self packagesListWidget focus
 !
 
+openClassNamed: aString
+	self model openClassNamed: aString
+!
+
+openMethod: aCompiledMethod
+	self model 
+			selectedPackage: aCompiledMethod methodClass package;
+			selectedClass: aCompiledMethod methodClass;
+			selectedProtocol: aCompiledMethod protocol;
+			selectedMethod: aCompiledMethod;
+			focusOnSourceCode
+!
+
 unregister
 	super unregister.
 

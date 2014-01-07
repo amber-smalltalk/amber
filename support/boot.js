@@ -1129,5 +1129,5 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 		brikz.rebuild();
 	};
 
-	return { smalltalk: api, nil: brikz.root.nil, globals: globals };
+	return { vm: api, nil: brikz.root.nil, globals: globals };
 });

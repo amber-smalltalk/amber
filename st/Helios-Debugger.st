@@ -53,6 +53,9 @@ I am the main widget for the Helios debugger.!
 
 codeWidget
 	^ codeWidget ifNil: [ codeWidget := HLDebuggerCodeWidget new
+		model: (HLDebuggerCodeModel new
+			debuggerModel: self model;
+			yourself);
 		browserModel: self model;
 		yourself ]
 !
@@ -143,6 +146,26 @@ on: aMethodContext
 		yourself
 ! !
 
+HLCodeModel subclass: #HLDebuggerCodeModel
+	instanceVariableNames: 'debuggerModel'
+	package: 'Helios-Debugger'!
+
+!HLDebuggerCodeModel methodsFor: 'accessing'!
+
+debuggerModel
+	^ debuggerModel
+!
+
+debuggerModel: anObject
+	debuggerModel := anObject
+! !
+
+!HLDebuggerCodeModel methodsFor: 'actions'!
+
+doIt: aString
+	^ self debuggerModel evaluate: aString
+! !
+
 HLBrowserCodeWidget subclass: #HLDebuggerCodeWidget
 	instanceVariableNames: ''
 	package: 'Helios-Debugger'!
@@ -181,18 +204,13 @@ highlightNode: aNode
 	| token |
 	
 	aNode ifNotNil: [
-		token := self editor getTokenAt: #{ 
-			'line' -> (aNode position x - 1). 
-			'ch' -> aNode position y 
-		}.
-
 		self
 			clearHighlight;
-			addStopAt: aNode position x - 1.
+			addStopAt: aNode positionStart x - 1.
 
 		self editor 
-			setSelection: #{ 'line' -> (aNode position x - 1). 'ch' -> token start }
-			to: #{ 'line' -> (aNode position x - 1). 'ch' -> token end } ]
+			setSelection: #{ 'line' -> (aNode positionStart x - 1). 'ch' -> (aNode positionStart y - 1) }
+			to: #{ 'line' -> (aNode positionEnd x - 1). 'ch' -> (aNode positionEnd y) } ]
 !
 
 observeBrowserModel
@@ -224,7 +242,7 @@ HLToolModel subclass: #HLDebuggerModel
 	instanceVariableNames: 'rootContext currentContext contexts'
 	package: 'Helios-Debugger'!
 !HLDebuggerModel commentStamp!
-I am a model for Helios debugging.
+I am a model for debugging Amber code in Helios.
 
 My instances hold a reference to an `AIContext` instance, built from a `MethodContext`. The context should be the root of the context stack.!
 
@@ -264,6 +282,8 @@ rootContext
 
 restart
 	self interpreter restart.
+	self flushInnerContexts.
+	
 	self announcer announce: (HLDebuggerStepped new
 		context: self currentContext;
 		yourself)
@@ -271,6 +291,8 @@ restart
 
 skip
 	self interpreter skip.
+	self flushInnerContexts.
+	
 	self announcer announce: (HLDebuggerStepped new
 		context: self currentContext;
 		yourself)
@@ -278,6 +300,8 @@ skip
 
 stepOver
 	self interpreter stepOver.
+	self flushInnerContexts.
+	
 	self announcer announce: (HLDebuggerStepped new
 		context: self currentContext;
 		yourself)
@@ -285,6 +309,14 @@ stepOver
 
 where
 	self announcer announce: HLDebuggerWhere new
+! !
+
+!HLDebuggerModel methodsFor: 'evaluating'!
+
+evaluate: aString
+	^ self environment 
+		interpret: aString 
+		inContext: self currentContext
 ! !
 
 !HLDebuggerModel methodsFor: 'initialization'!
@@ -303,7 +335,18 @@ initializeContexts
 !
 
 initializeFromContext: aMethodContext
-	rootContext := AIContext fromMethodContext: aMethodContext.
+	rootContext := (AIContext fromMethodContext: aMethodContext).
+	self initializeContexts
+! !
+
+!HLDebuggerModel methodsFor: 'private'!
+
+flushInnerContexts
+	"When stepping, the inner contexts are not relevent anymore,
+	and can be flushed"
+	
+	self currentContext innerContext: nil.
+	rootContext := self currentContext.
 	self initializeContexts
 ! !
 
@@ -357,12 +400,22 @@ label
 
 !HLStackListWidget methodsFor: 'actions'!
 
+observeModel
+	super observeModel.
+	
+	self model announcer 
+		on: HLDebuggerStepped
+		send: #onDebuggerStepped:
+		to: self
+!
+
 restart
 	self model restart
 !
 
 selectItem: aContext
-   	self model currentContext: aContext
+   	self model currentContext: aContext.
+	super selectItem: aContext
 !
 
 skip
@@ -375,6 +428,13 @@ stepOver
 
 where
 	self model where
+! !
+
+!HLStackListWidget methodsFor: 'reactions'!
+
+onDebuggerStepped: anAnnouncement
+	items := nil.
+	self refresh
 ! !
 
 !HLStackListWidget methodsFor: 'rendering'!

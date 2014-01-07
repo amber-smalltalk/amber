@@ -296,6 +296,30 @@ globals.AIContext);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "evaluateNode:",
+protocol: 'evaluating',
+fn: function (aNode){
+var self=this;
+function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st($ASTInterpreter())._new();
+_st($2)._context_(self);
+_st($2)._node_(_st(aNode)._nextChild());
+_st($2)._proceed();
+$3=_st($2)._result();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"evaluateNode:",{aNode:aNode},globals.AIContext)})},
+args: ["aNode"],
+source: "evaluateNode: aNode\x0a\x09^ ASTInterpreter new\x0a\x09\x09context: self;\x0a\x09\x09node: aNode nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
+messageSends: ["context:", "new", "node:", "nextChild", "proceed", "result"],
+referencedClasses: ["ASTInterpreter"]
+}),
+globals.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "evaluatedSelector",
 protocol: 'accessing',
 fn: function (){
@@ -711,12 +735,20 @@ protocol: 'accessing',
 fn: function (anAIContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
 self["@outerContext"]=anAIContext;
-_st(self["@outerContext"])._innerContext_(self);
+$1=self["@outerContext"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+var context;
+context=$receiver;
+_st(context)._innerContext_(self);
+};
 return self}, function($ctx1) {$ctx1.fill(self,"outerContext:",{anAIContext:anAIContext},globals.AIContext)})},
 args: ["anAIContext"],
-source: "outerContext: anAIContext\x0a\x09outerContext := anAIContext.\x0a\x09outerContext innerContext: self",
-messageSends: ["innerContext:"],
+source: "outerContext: anAIContext\x0a\x09outerContext := anAIContext.\x0a\x09outerContext ifNotNil: [ :context | \x0a\x09\x09context innerContext: self ]",
+messageSends: ["ifNotNil:", "innerContext:"],
 referencedClasses: []
 }),
 globals.AIContext);
@@ -927,29 +959,6 @@ globals.ASTDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "buildAST",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-var ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-ast=_st($Smalltalk())._parse_(_st(self._method())._source());
-_st(_st($SemanticAnalyzer())._on_(_st(_st(self._context())._receiver())._class()))._visit_(ast);
-$1=ast;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"buildAST",{ast:ast},globals.ASTDebugger)})},
-args: [],
-source: "buildAST\x0a\x09\x22Build the AST tree from the method source code.\x0a\x09The AST is annotated with a SemanticAnalyzer,\x0a\x09to know the semantics and bindings of each node needed for later debugging\x22\x0a\x09\x0a\x09| ast |\x0a\x09\x0a\x09ast := Smalltalk parse: self method source.\x0a\x09(SemanticAnalyzer on: self context receiver class)\x0a\x09\x09visit: ast.\x0a\x09\x0a\x09^ ast",
-messageSends: ["parse:", "source", "method", "visit:", "on:", "class", "receiver", "context"],
-referencedClasses: ["Smalltalk", "SemanticAnalyzer"]
-}),
-globals.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "context",
 protocol: 'accessing',
 fn: function (){
@@ -982,97 +991,18 @@ globals.ASTDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "defaultInterpreterClass",
-protocol: 'defaults',
-fn: function (){
-var self=this;
-function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
-return $ASTInterpreter();
-},
-args: [],
-source: "defaultInterpreterClass\x0a\x09^ ASTInterpreter",
-messageSends: [],
-referencedClasses: ["ASTInterpreter"]
-}),
-globals.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initializeInterpreter",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-var ast,next;
-function $ASTPCNodeVisitor(){return globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-ast=self._buildAST();
-$1=_st($ASTPCNodeVisitor())._new();
-_st($1)._context_(self._context());
-_st($1)._visit_(ast);
-$2=_st($1)._currentNode();
-next=$2;
-_st(self._interpreter())._node_(next);
-return self}, function($ctx1) {$ctx1.fill(self,"initializeInterpreter",{ast:ast,next:next},globals.ASTDebugger)})},
-args: [],
-source: "initializeInterpreter\x0a\x09| ast next |\x0a\x09ast := self buildAST.\x0a\x09next := ASTPCNodeVisitor new\x0a\x09\x09context: self context;\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode.\x0a\x09self interpreter node: next",
-messageSends: ["buildAST", "context:", "new", "context", "visit:", "currentNode", "node:", "interpreter"],
-referencedClasses: ["ASTPCNodeVisitor"]
-}),
-globals.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initializeWithContext:",
-protocol: 'initialization',
-fn: function (aContext){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._context_(aContext);
-self._initializeInterpreter();
-return self}, function($ctx1) {$ctx1.fill(self,"initializeWithContext:",{aContext:aContext},globals.ASTDebugger)})},
-args: ["aContext"],
-source: "initializeWithContext: aContext\x0a\x09\x22TODO: do we need to handle block contexts?\x22\x0a\x09\x0a\x09self context: aContext.\x0a\x09self initializeInterpreter",
-messageSends: ["context:", "initializeInterpreter"],
-referencedClasses: []
-}),
-globals.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "interpreter",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@interpreter"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@interpreter"]=_st(self._defaultInterpreterClass())._new();
-$1=self["@interpreter"];
-} else {
-$1=$2;
-};
+var $1;
+$1=_st(self._context())._interpreter();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"interpreter",{},globals.ASTDebugger)})},
 args: [],
-source: "interpreter\x0a\x09^ interpreter ifNil: [ interpreter := self defaultInterpreterClass new ]",
-messageSends: ["ifNil:", "new", "defaultInterpreterClass"],
-referencedClasses: []
-}),
-globals.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter:",
-protocol: 'accessing',
-fn: function (anInterpreter){
-var self=this;
-self["@interpreter"]=anInterpreter;
-return self},
-args: ["anInterpreter"],
-source: "interpreter: anInterpreter\x0a\x09interpreter := anInterpreter",
-messageSends: [],
+source: "interpreter\x0a\x09^ self context interpreter",
+messageSends: ["interpreter", "context"],
 referencedClasses: []
 }),
 globals.ASTDebugger);
@@ -1184,11 +1114,12 @@ protocol: 'stepping',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+self._flushOuterContexts();
 _st(self._interpreter())._stepOver();
 return self}, function($ctx1) {$ctx1.fill(self,"stepOver",{},globals.ASTDebugger)})},
 args: [],
-source: "stepOver\x0a\x09self interpreter stepOver",
-messageSends: ["stepOver", "interpreter"],
+source: "stepOver\x0a\x09self flushOuterContexts.\x0a\x09self interpreter stepOver",
+messageSends: ["flushOuterContexts", "stepOver", "interpreter"],
 referencedClasses: []
 }),
 globals.ASTDebugger);
@@ -1203,14 +1134,14 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=self._new();
-_st($2)._initializeWithContext_(aContext);
+_st($2)._context_(aContext);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},globals.ASTDebugger.klass)})},
 args: ["aContext"],
-source: "context: aContext\x0a\x09^ self new\x0a\x09\x09initializeWithContext: aContext;\x0a\x09\x09yourself",
-messageSends: ["initializeWithContext:", "new", "yourself"],
+source: "context: aContext\x0a\x09^ self new\x0a\x09\x09context: aContext;\x0a\x09\x09yourself",
+messageSends: ["context:", "new", "yourself"],
 referencedClasses: []
 }),
 globals.ASTDebugger.klass);

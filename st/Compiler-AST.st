@@ -1,6 +1,6 @@
 Smalltalk createPackage: 'Compiler-AST'!
 Object subclass: #Node
-	instanceVariableNames: 'parent position nodes shouldBeInlined shouldBeAliased'
+	instanceVariableNames: 'parent position source nodes shouldBeInlined shouldBeAliased'
 	package: 'Compiler-AST'!
 !Node commentStamp!
 I am the abstract root class of the abstract syntax tree.
@@ -66,6 +66,18 @@ position
 		self parent ifNotNil: [ :node | node position ] ]
 !
 
+position: aPosition
+	position := aPosition
+!
+
+positionEnd
+	^ self positionStart + ((self source lines size - 1) @ (self source lines last size - 1))
+!
+
+positionStart
+	^ self position
+!
+
 shouldBeAliased
 	^ shouldBeAliased ifNil: [ false ]
 !
@@ -80,6 +92,18 @@ shouldBeInlined
 
 shouldBeInlined: aBoolean
 	shouldBeInlined := aBoolean
+!
+
+size
+	^ self source size
+!
+
+source
+	^ source ifNil: [ '' ]
+!
+
+source: aString
+	source := aString
 ! !
 
 !Node methodsFor: 'building'!
@@ -87,10 +111,6 @@ shouldBeInlined: aBoolean
 nodes: aCollection
 	nodes := aCollection.
 	aCollection do: [ :each | each parent: self ]
-!
-
-position: aPosition
-	position := aPosition
 ! !
 
 !Node methodsFor: 'copying'!
@@ -340,24 +360,18 @@ accept: aVisitor
 ! !
 
 Node subclass: #JSStatementNode
-	instanceVariableNames: 'source'
+	instanceVariableNames: ''
 	package: 'Compiler-AST'!
 !JSStatementNode commentStamp!
 I represent an JavaScript statement node.!
 
-!JSStatementNode methodsFor: 'accessing'!
-
-source
-	^ source ifNil: [ '' ]
-!
-
-source: aString
-	source := aString
-! !
-
 !JSStatementNode methodsFor: 'testing'!
 
 isJSStatementNode
+	^ true
+!
+
+requiresSmalltalkContext
 	^ true
 ! !
 
@@ -391,10 +405,6 @@ classReferences
 
 classReferences: aCollection
 	classReferences := aCollection
-!
-
-extent
-	^ self source lines size @ (self source lines last size + 1)
 !
 
 messageSends
@@ -557,6 +567,7 @@ superSend: aBoolean
 valueForReceiver: anObject
 	^ SendNode new
 		position: self position;
+		source: self source;
 		receiver: (self receiver
 		ifNil: [ anObject ] 
 		ifNotNil: [ self receiver valueForReceiver: anObject ]);
@@ -630,6 +641,7 @@ temps: aCollection
 asBlockSequenceNode
 	^ BlockSequenceNode new
 		position: self position;
+		source: self source;
 		nodes: self nodes;
 		temps: self temps;
 		yourself

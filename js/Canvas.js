@@ -64,8 +64,9 @@ selector: "isAvailable",
 protocol: 'testing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return typeof window !== "undefined" && typeof jQuery !== "undefined";
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"isAvailable",{},globals.BrowserInterface)})},
 args: [],
 source: "isAvailable\x0a<return typeof window !== \x22undefined\x22 && typeof jQuery !== \x22undefined\x22>",
 messageSends: [],
@@ -2437,8 +2438,9 @@ selector: "isDOMAvailable",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
  return typeof document !== 'undefined' ;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"isDOMAvailable",{},globals.HTMLSnippet.klass)})},
 args: [],
 source: "isDOMAvailable\x0a\x09< return typeof document !== 'undefined' >",
 messageSends: [],
@@ -2589,13 +2591,14 @@ selector: "appendChild:",
 protocol: 'adding',
 fn: function (anElement){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 var element=self['@element'];
 	if (null == element.canHaveChildren || element.canHaveChildren) {
 		element.appendChild(anElement);
 	} else {
 		element.text = String(element.text) + anElement.innerHTML;
 	} ;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"appendChild:",{anElement:anElement},globals.TagBrush)})},
 args: ["anElement"],
 source: "appendChild: anElement\x0a\x09\x22In IE7 and IE8 appendChild fails on several node types. So we need to check\x22\x0a\x09<var element=self['@element'];\x0a\x09if (null == element.canHaveChildren || element.canHaveChildren) {\x0a\x09\x09element.appendChild(anElement);\x0a\x09} else {\x0a\x09\x09element.text = String(element.text) + anElement.innerHTML;\x0a\x09} >",
 messageSends: [],
@@ -2609,8 +2612,9 @@ selector: "appendDocumentFragment:",
 protocol: 'private',
 fn: function (anElement){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 var element=self['@element'].appendChild(anElement["@element"]);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"appendDocumentFragment:",{anElement:anElement},globals.TagBrush)})},
 args: ["anElement"],
 source: "appendDocumentFragment: anElement\x0a\x09<var element=self['@element'].appendChild(anElement[\x22@element\x22])>",
 messageSends: [],
@@ -2696,8 +2700,9 @@ selector: "at:ifAbsent:",
 protocol: 'attributes',
 fn: function (aString,aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self['@element'].hasAttribute(aString) ? self['@element'].getAttribute(aString) : aBlock._value();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},globals.TagBrush)})},
 args: ["aString", "aBlock"],
 source: "at: aString ifAbsent: aBlock\x0a\x09<return self['@element'].hasAttribute(aString) ? self['@element'].getAttribute(aString) : aBlock._value()>",
 messageSends: [],
@@ -2711,8 +2716,9 @@ selector: "at:put:",
 protocol: 'attributes',
 fn: function (aString,aValue){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self['@element'].setAttribute(aString, aValue); return aValue;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,aValue:aValue},globals.TagBrush)})},
 args: ["aString", "aValue"],
 source: "at: aString put: aValue\x0a\x09<self['@element'].setAttribute(aString, aValue); return aValue>",
 messageSends: [],
@@ -2726,8 +2732,9 @@ selector: "class:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self['@element'].className = aString;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"class:",{aString:aString},globals.TagBrush)})},
 args: ["aString"],
 source: "class: aString\x0a\x09<self['@element'].className = aString>",
 messageSends: [],
@@ -2807,8 +2814,9 @@ selector: "createElementFor:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return document.createElement(String(aString));
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"createElementFor:",{aString:aString},globals.TagBrush)})},
 args: ["aString"],
 source: "createElementFor: aString\x0a\x09<return document.createElement(String(aString))>",
 messageSends: [],
@@ -2822,8 +2830,9 @@ selector: "createTextNodeFor:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return document.createTextNode(String(aString));
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"createTextNodeFor:",{aString:aString},globals.TagBrush)})},
 args: ["aString"],
 source: "createTextNodeFor: aString\x0a\x09<return document.createTextNode(String(aString))>",
 messageSends: [],
@@ -3416,8 +3425,9 @@ selector: "removeAt:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self['@element'].removeAttribute(aString);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"removeAt:",{aString:aString},globals.TagBrush)})},
 args: ["aString"],
 source: "removeAt: aString\x0a\x09<self['@element'].removeAttribute(aString)>",
 messageSends: [],
@@ -3832,8 +3842,9 @@ selector: "asJQuery",
 protocol: '*Canvas',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return jQuery(String(self));
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},globals.String)})},
 args: [],
 source: "asJQuery\x0a\x09<return jQuery(String(self))>",
 messageSends: [],
@@ -3847,8 +3858,9 @@ selector: "asJQuery",
 protocol: '*Canvas',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return jQuery(self['@jsObject']);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},globals.JSObjectProxy)})},
 args: [],
 source: "asJQuery\x0a\x09<return jQuery(self['@jsObject'])>",
 messageSends: [],

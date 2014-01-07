@@ -2343,23 +2343,6 @@ inspectOn: anInspector
 	anInspector setLabel: label
 ! !
 
-!MethodContext methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#home' put: self home.
-	variables at: '#receiver' put: self receiver.
-	variables at: '#selector' put: self selector.
-	variables at: '#temps' put: self temps.
-	self class instanceVariableNames do: [ :each |
-		variables at: each put: (self instVarAt: each) ].
-	anInspector
-		setLabel: self printString;
-		setVariables: variables
-! !
-
 !AssociativeCollection methodsFor: '*IDE'!
 
 inspectOn: anInspector
@@ -2384,6 +2367,23 @@ inspectOn: anInspector
 	self do: [ :each |
 		variables at: i put: each.
 		i := i + 1 ].
+	anInspector
+		setLabel: self printString;
+		setVariables: variables
+! !
+
+!MethodContext methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	variables at: '#home' put: self home.
+	variables at: '#receiver' put: self receiver.
+	variables at: '#selector' put: self selector.
+	variables at: '#locals' put: self locals.
+	self class instanceVariableNames do: [ :each |
+		variables at: each put: (self instVarAt: each) ].
 	anInspector
 		setLabel: self printString;
 		setVariables: variables

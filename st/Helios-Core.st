@@ -657,7 +657,13 @@ refresh
 !HLWidget class methodsFor: 'accessing'!
 
 openAsTab
-	HLManager current addTab: (HLTabWidget on: self new labelled: self tabLabel)
+	| instance |
+	
+	instance := self new.
+	HLManager current addTab: (HLTabWidget 
+		on: instance 
+		labelled: self tabLabel).
+	^ instance
 !
 
 tabClass

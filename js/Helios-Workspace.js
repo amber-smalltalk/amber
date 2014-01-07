@@ -946,8 +946,9 @@ selector: "setEditorOn:",
 protocol: 'actions',
 fn: function (aTextarea){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self['@editor'] = CodeMirror.fromTextArea(aTextarea, self._editorOptions());
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea},globals.HLCodeWidget)})},
 args: ["aTextarea"],
 source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, self._editorOptions())>",
 messageSends: [],
@@ -1278,13 +1279,14 @@ selector: "setupCodeMirror",
 protocol: 'initialization',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
  
 		CodeMirror.keyMap.default.fallthrough = ["basic"];
 		CodeMirror.commands.autocomplete = function(cm) {
 			CodeMirror.showHint(cm, self._hintFor_options_);
 		}
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{},globals.HLCodeWidget.klass)})},
 args: [],
 source: "setupCodeMirror\x0a\x09< \x0a\x09\x09CodeMirror.keyMap.default.fallthrough = [\x22basic\x22];\x0a\x09\x09CodeMirror.commands.autocomplete = function(cm) {\x0a\x09\x09\x09CodeMirror.showHint(cm, self._hintFor_options_);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -1341,8 +1343,9 @@ selector: "setupKeyMaps",
 protocol: 'initialization',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 CodeMirror.keyMap['Amber'] = self._keyMap();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"setupKeyMaps",{},globals.HLCodeWidget.klass)})},
 args: [],
 source: "setupKeyMaps\x0a\x09<CodeMirror.keyMap['Amber'] = self._keyMap()>",
 messageSends: [],

@@ -946,6 +946,60 @@ globals.HLReferencesModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "openClassNamed:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+var browser;
+function $HLBrowser(){return globals.HLBrowser||(typeof HLBrowser=="undefined"?nil:HLBrowser)}
+return smalltalk.withContext(function($ctx1) { 
+self._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+browser=_st($HLBrowser())._openAsTab();
+browser;
+return _st(browser)._openClassNamed_(aString);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"openClassNamed:",{aString:aString,browser:browser},globals.HLReferencesModel)})},
+args: ["aString"],
+source: "openClassNamed: aString\x0a\x09| browser |\x0a\x09\x0a\x09self withChangesDo: [\x0a\x09\x09browser := HLBrowser openAsTab.\x0a\x09\x09browser openClassNamed: aString ]",
+messageSends: ["withChangesDo:", "openAsTab", "openClassNamed:"],
+referencedClasses: ["HLBrowser"]
+}),
+globals.HLReferencesModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "openMethod",
+protocol: 'actions',
+fn: function (){
+var self=this;
+var browser;
+function $HLBrowser(){return globals.HLBrowser||(typeof HLBrowser=="undefined"?nil:HLBrowser)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._selectedMethod();
+$ctx1.sendIdx["selectedMethod"]=1;
+if(($receiver = $1) == nil || $receiver == null){
+return self;
+} else {
+$1;
+};
+self._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+browser=_st($HLBrowser())._openAsTab();
+browser;
+return _st(browser)._openMethod_(self._selectedMethod());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"openMethod",{browser:browser},globals.HLReferencesModel)})},
+args: [],
+source: "openMethod\x0a\x09| browser |\x0a\x09\x0a\x09self selectedMethod ifNil: [ ^ self ].\x0a\x09\x0a\x09self withChangesDo: [\x0a\x09\x09browser := HLBrowser openAsTab.\x0a\x09\x09browser openMethod: self selectedMethod ]",
+messageSends: ["ifNil:", "selectedMethod", "withChangesDo:", "openAsTab", "openMethod:"],
+referencedClasses: ["HLBrowser"]
+}),
+globals.HLReferencesModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "regexpReferencesOf:",
 protocol: 'accessing',
 fn: function (aString){

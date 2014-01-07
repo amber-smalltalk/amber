@@ -2,7 +2,7 @@ define("amber_core/Compiler-AST", ["amber_vm/smalltalk", "amber_vm/nil", "amber_
 smalltalk.addPackage('Compiler-AST');
 smalltalk.packages["Compiler-AST"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('Node', globals.Object, ['parent', 'position', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
+smalltalk.addClass('Node', globals.Object, ['parent', 'position', 'source', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
 globals.Node.comment="I am the abstract root class of the abstract syntax tree.\x0a\x0aConcrete classes should implement `#accept:` to allow visiting.\x0a\x0a`position` holds a point containing line and column number of the symbol location in the original source file.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -476,7 +476,7 @@ globals.Node);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "position:",
-protocol: 'building',
+protocol: 'accessing',
 fn: function (aPosition){
 var self=this;
 self["@position"]=aPosition;
@@ -484,6 +484,52 @@ return self},
 args: ["aPosition"],
 source: "position: aPosition\x0a\x09position := aPosition",
 messageSends: [],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "positionEnd",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$7,$6,$5,$4,$3,$1;
+$2=self._positionStart();
+$7=self._source();
+$ctx1.sendIdx["source"]=1;
+$6=_st($7)._lines();
+$ctx1.sendIdx["lines"]=1;
+$5=_st($6)._size();
+$ctx1.sendIdx["size"]=1;
+$4=_st($5).__minus((1));
+$ctx1.sendIdx["-"]=1;
+$3=_st($4).__at(_st(_st(_st(_st(self._source())._lines())._last())._size()).__minus((1)));
+$1=_st($2).__plus($3);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"positionEnd",{},globals.Node)})},
+args: [],
+source: "positionEnd\x0a\x09^ self positionStart + ((self source lines size - 1) @ (self source lines last size - 1))",
+messageSends: ["+", "positionStart", "@", "-", "size", "lines", "source", "last"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "positionStart",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._position();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"positionStart",{},globals.Node)})},
+args: [],
+source: "positionStart\x0a\x09^ self position",
+messageSends: ["position"],
 referencedClasses: []
 }),
 globals.Node);
@@ -603,6 +649,62 @@ self["@shouldBeInlined"]=aBoolean;
 return self},
 args: ["aBoolean"],
 source: "shouldBeInlined: aBoolean\x0a\x09shouldBeInlined := aBoolean",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "size",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._source())._size();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"size",{},globals.Node)})},
+args: [],
+source: "size\x0a\x09^ self source size",
+messageSends: ["size", "source"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "source",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@source"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"source",{},globals.Node)})},
+args: [],
+source: "source\x0a\x09^ source ifNil: [ '' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "source:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@source"]=aString;
+return self},
+args: ["aString"],
+source: "source: aString\x0a\x09source := aString",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1071,7 +1173,7 @@ globals.DynamicDictionaryNode);
 
 
 
-smalltalk.addClass('JSStatementNode', globals.Node, ['source'], 'Compiler-AST');
+smalltalk.addClass('JSStatementNode', globals.Node, [], 'Compiler-AST');
 globals.JSStatementNode.comment="I represent an JavaScript statement node.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1108,37 +1210,14 @@ globals.JSStatementNode);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "source",
-protocol: 'accessing',
+selector: "requiresSmalltalkContext",
+protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@source"];
-if(($receiver = $2) == nil || $receiver == null){
-$1="";
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"source",{},globals.JSStatementNode)})},
+return true;
+},
 args: [],
-source: "source\x0a\x09^ source ifNil: [ '' ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-globals.JSStatementNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "source:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-self["@source"]=aString;
-return self},
-args: ["aString"],
-source: "source: aString\x0a\x09source := aString",
+source: "requiresSmalltalkContext\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1232,30 +1311,6 @@ return self},
 args: ["aCollection"],
 source: "classReferences: aCollection\x0a\x09classReferences := aCollection",
 messageSends: [],
-referencedClasses: []
-}),
-globals.MethodNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "extent",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1;
-$4=self._source();
-$ctx1.sendIdx["source"]=1;
-$3=_st($4)._lines();
-$ctx1.sendIdx["lines"]=1;
-$2=_st($3)._size();
-$ctx1.sendIdx["size"]=1;
-$1=_st($2).__at(_st(_st(_st(_st(self._source())._lines())._last())._size()).__plus((1)));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"extent",{},globals.MethodNode)})},
-args: [],
-source: "extent\x0a\x09^ self source lines size @ (self source lines last size + 1)",
-messageSends: ["@", "size", "lines", "source", "+", "last"],
 referencedClasses: []
 }),
 globals.MethodNode);
@@ -1915,6 +1970,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$5,$4,$6,$1;
 $2=_st($SendNode())._new();
 _st($2)._position_(self._position());
+_st($2)._source_(self._source());
 $3=$2;
 $5=self._receiver();
 $ctx1.sendIdx["receiver"]=1;
@@ -1931,8 +1987,8 @@ $1=$6;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"valueForReceiver:",{anObject:anObject},globals.SendNode)})},
 args: ["anObject"],
-source: "valueForReceiver: anObject\x0a\x09^ SendNode new\x0a\x09\x09position: self position;\x0a\x09\x09receiver: (self receiver\x0a\x09\x09ifNil: [ anObject ] \x0a\x09\x09ifNotNil: [ self receiver valueForReceiver: anObject ]);\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself",
-messageSends: ["position:", "new", "position", "receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself"],
+source: "valueForReceiver: anObject\x0a\x09^ SendNode new\x0a\x09\x09position: self position;\x0a\x09\x09source: self source;\x0a\x09\x09receiver: (self receiver\x0a\x09\x09ifNil: [ anObject ] \x0a\x09\x09ifNotNil: [ self receiver valueForReceiver: anObject ]);\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself",
+messageSends: ["position:", "new", "position", "source:", "source", "receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself"],
 referencedClasses: ["SendNode"]
 }),
 globals.SendNode);
@@ -1970,6 +2026,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$1;
 $2=_st($BlockSequenceNode())._new();
 _st($2)._position_(self._position());
+_st($2)._source_(self._source());
 _st($2)._nodes_(self._nodes());
 _st($2)._temps_(self._temps());
 $3=_st($2)._yourself();
@@ -1977,8 +2034,8 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asBlockSequenceNode",{},globals.SequenceNode)})},
 args: [],
-source: "asBlockSequenceNode\x0a\x09^ BlockSequenceNode new\x0a\x09\x09position: self position;\x0a\x09\x09nodes: self nodes;\x0a\x09\x09temps: self temps;\x0a\x09\x09yourself",
-messageSends: ["position:", "new", "position", "nodes:", "nodes", "temps:", "temps", "yourself"],
+source: "asBlockSequenceNode\x0a\x09^ BlockSequenceNode new\x0a\x09\x09position: self position;\x0a\x09\x09source: self source;\x0a\x09\x09nodes: self nodes;\x0a\x09\x09temps: self temps;\x0a\x09\x09yourself",
+messageSends: ["position:", "new", "position", "source:", "source", "nodes:", "nodes", "temps:", "temps", "yourself"],
 referencedClasses: ["BlockSequenceNode"]
 }),
 globals.SequenceNode);

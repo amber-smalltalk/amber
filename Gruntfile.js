@@ -16,9 +16,8 @@ module.exports = function(grunt) {
     peg: {
       amber_parser: {
         options: {
-          trackLineAndColumn: true,
           cache: true,
-          export_var: 'smalltalk.parser'
+          export_var: 'globals.SmalltalkParser'
         },
         src: 'support/parser.pegjs',
         dest: 'support/parser.js',

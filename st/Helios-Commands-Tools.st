@@ -23,6 +23,38 @@ isValidFor: aModel
 	^ aModel isToolModel
 ! !
 
+HLToolCommand subclass: #HLBrowseMethodCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Tools'!
+
+!HLBrowseMethodCommand methodsFor: 'accessing'!
+
+displayLabel
+	^ 'browse method'
+! !
+
+!HLBrowseMethodCommand methodsFor: 'executing'!
+
+execute
+	self model openMethod
+! !
+
+!HLBrowseMethodCommand class methodsFor: 'accessing'!
+
+key
+	^ 'b'
+!
+
+label
+	^ 'browse method'
+! !
+
+!HLBrowseMethodCommand class methodsFor: 'testing'!
+
+isValidFor: aModel
+	^ aModel isReferencesModel
+! !
+
 HLToolCommand subclass: #HLCommitPackageCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Tools'!
@@ -177,7 +209,7 @@ label
 !HLFindClassCommand class methodsFor: 'testing'!
 
 isValidFor: aModel
-	^ aModel isBrowserModel
+	^ true
 ! !
 
 HLFindCommand subclass: #HLFindReferencesCommand
@@ -205,7 +237,7 @@ defaultInput
 		ifNil: [
 			self model selectedClass
 				ifNil: [ '' ]
-				ifNotNil: [ :class | class name ] ]
+				ifNotNil: [ :class | class theNonMetaClass name ] ]
 		ifNotNil: [ :method | method selector ]
 ! !
 
