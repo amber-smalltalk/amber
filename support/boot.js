@@ -93,6 +93,7 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 	}
 
 	var globals = {};
+    globals.SmalltalkSettings = {};
 	var api = Object.create(globals);
 	var brikz = new Brikz(api);
 

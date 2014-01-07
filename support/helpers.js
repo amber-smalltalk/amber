@@ -15,7 +15,7 @@ define("amber/helpers", ["amber_vm/smalltalk", "amber_vm/globals", "require"], f
         enumerable: true, configurable: true, writable: false
     });
     exports.initialize = function (options) {
-        var settings = globals.SmalltalkSettings || {};
+        var settings = globals.SmalltalkSettings;
         settings['vm.defaultAmdNamespace'] = vm.defaultAmdNamespace;
         // TODO load saved contents from localStorage
         if (exports.defaultAmdNamespace) {
