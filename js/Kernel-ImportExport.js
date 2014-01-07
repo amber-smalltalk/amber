@@ -104,26 +104,33 @@ function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedC
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ExportMethodProtocol(){return globals.ExportMethodProtocol||(typeof ExportMethodProtocol=="undefined"?nil:ExportMethodProtocol)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-extensionName="*".__comma(_st(aPackage)._name());
+var $1,$2,$3,$4;
+$1=_st(aPackage)._name();
+$ctx1.sendIdx["name"]=1;
+extensionName="*".__comma($1);
 result=_st($OrderedCollection())._new();
-_st(_st($Smalltalk())._classes())._do_((function(each){
+_st(_st(_st(_st($Smalltalk())._classes())._asArray())._sorted_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+$2=_st(a)._name();
+$ctx2.sendIdx["name"]=2;
+return _st($2).__lt(_st(b)._name());
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})})))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st([each,_st(each)._class()])._do_((function(behavior){
 return smalltalk.withContext(function($ctx3) {
-$1=_st(_st(behavior)._protocols())._includes_(extensionName);
-if(smalltalk.assert($1)){
+$3=_st(_st(behavior)._protocols())._includes_(extensionName);
+if(smalltalk.assert($3)){
 return _st(result)._add_(_st($ExportMethodProtocol())._name_theClass_(extensionName,behavior));
 };
-}, function($ctx3) {$ctx3.fillBlock({behavior:behavior},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx3) {$ctx3.fillBlock({behavior:behavior},$ctx2,3)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 $ctx1.sendIdx["do:"]=1;
-$2=result;
-return $2;
+$4=result;
+return $4;
 }, function($ctx1) {$ctx1.fill(self,"extensionProtocolsOfPackage:",{aPackage:aPackage,extensionName:extensionName,result:result},globals.AbstractExporter)})},
 args: ["aPackage"],
-source: "extensionProtocolsOfPackage: aPackage\x0a\x09| extensionName result |\x0a\x09\x0a\x09extensionName := '*', aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09\x0a\x09\x22The classes must be loaded since it is extensions only.\x0a\x09Therefore sorting (dependency resolution) does not matter here.\x0a\x09Not sorting improves the speed by a number of magnitude.\x22\x0a\x09\x0a\x09Smalltalk classes do: [ :each |\x0a\x09\x09{each. each class} do: [ :behavior |\x0a\x09\x09\x09(behavior protocols includes: extensionName) ifTrue: [\x0a\x09\x09\x09\x09result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].\x0a\x0a\x09^ result",
-messageSends: [",", "name", "new", "do:", "classes", "class", "ifTrue:", "includes:", "protocols", "add:", "name:theClass:"],
+source: "extensionProtocolsOfPackage: aPackage\x0a\x09| extensionName result |\x0a\x09\x0a\x09extensionName := '*', aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09\x0a\x09\x22The classes must be loaded since it is extensions only.\x0a\x09Therefore topological sorting (dependency resolution) does not matter here.\x0a\x09Not sorting topologically improves the speed by a number of magnitude.\x0a\x09\x0a\x09Not to shuffle diffs, classes are sorted by their name.\x22\x0a\x09\x0a\x09(Smalltalk classes asArray sorted: [ :a :b | a name < b name ]) do: [ :each |\x0a\x09\x09{each. each class} do: [ :behavior |\x0a\x09\x09\x09(behavior protocols includes: extensionName) ifTrue: [\x0a\x09\x09\x09\x09result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].\x0a\x0a\x09^ result",
+messageSends: [",", "name", "new", "do:", "sorted:", "asArray", "classes", "<", "class", "ifTrue:", "includes:", "protocols", "add:", "name:theClass:"],
 referencedClasses: ["OrderedCollection", "Smalltalk", "ExportMethodProtocol"]
 }),
 globals.AbstractExporter);
