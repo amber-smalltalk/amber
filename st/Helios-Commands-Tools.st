@@ -237,7 +237,7 @@ defaultInput
 		ifNil: [
 			self model selectedClass
 				ifNil: [ '' ]
-				ifNotNil: [ :class | class name ] ]
+				ifNotNil: [ :class | class theNonMetaClass name ] ]
 		ifNotNil: [ :method | method selector ]
 ! !
 

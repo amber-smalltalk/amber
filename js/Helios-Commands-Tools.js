@@ -577,7 +577,7 @@ $1="";
 } else {
 var class_;
 class_=$receiver;
-$1=_st(class_)._name();
+$1=_st(_st(class_)._theNonMetaClass())._name();
 };
 } else {
 var method;
@@ -587,8 +587,8 @@ $1=_st(method)._selector();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultInput",{},globals.HLFindReferencesCommand)})},
 args: [],
-source: "defaultInput\x0a\x09^ self model selectedMethod \x0a\x09\x09ifNil: [\x0a\x09\x09\x09self model selectedClass\x0a\x09\x09\x09\x09ifNil: [ '' ]\x0a\x09\x09\x09\x09ifNotNil: [ :class | class name ] ]\x0a\x09\x09ifNotNil: [ :method | method selector ]",
-messageSends: ["ifNil:ifNotNil:", "selectedMethod", "model", "selectedClass", "name", "selector"],
+source: "defaultInput\x0a\x09^ self model selectedMethod \x0a\x09\x09ifNil: [\x0a\x09\x09\x09self model selectedClass\x0a\x09\x09\x09\x09ifNil: [ '' ]\x0a\x09\x09\x09\x09ifNotNil: [ :class | class theNonMetaClass name ] ]\x0a\x09\x09ifNotNil: [ :method | method selector ]",
+messageSends: ["ifNil:ifNotNil:", "selectedMethod", "model", "selectedClass", "name", "theNonMetaClass", "selector"],
 referencedClasses: []
 }),
 globals.HLFindReferencesCommand);
