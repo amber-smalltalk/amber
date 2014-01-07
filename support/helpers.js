@@ -1,6 +1,10 @@
 define("amber/helpers", ["amber_vm/smalltalk", "amber_vm/globals", "require"], function (vm, globals, require) {
     var exports = Object.create(globals);
 
+    var storage = (function (global) {
+        return 'localStorage' in global && global.localStorage;
+    })(new Function('return this')());
+
     // API
 
     exports.popupHelios = function () {
@@ -16,15 +20,33 @@ define("amber/helpers", ["amber_vm/smalltalk", "amber_vm/globals", "require"], f
     });
     exports.initialize = function (options) {
         var settings = globals.SmalltalkSettings;
+        function mixinToSettings(source) {
+            Object.keys(source).forEach(function (key) {
+                settings[key] = source[key];
+            });
+        }
         settings['vm.defaultAmdNamespace'] = vm.defaultAmdNamespace;
-        // TODO load saved contents from localStorage
+        if (storage) {
+            var fromStorage;
+            try {
+                fromStorage = JSON.parse(storage.getItem('amber.SmalltalkSettings'));
+            } catch (ex) {
+                // pass
+            }
+            mixinToSettings(fromStorage || {});
+            if (typeof window !== "undefined") {
+                requirejs(['jquery'], function ($) {
+                    $(window).on('beforeunload', function () {
+                       storage.setItem('amber.SmalltalkSettings', JSON.stringify(globals.SmalltalkSettings));
+                    });
+                });
+            }
+        }
         if (exports.defaultAmdNamespace) {
             console.warn("`smalltalk.defaultAmdNamespace = 'namespace';` is deprecated. Please use `smalltalk.initialize({'vm.defaultAmdNamespace': 'namespace'});` instead.");
             settings['vm.defaultAmdNamespace'] = settings['vm.defaultAmdNamespace'] || exports.defaultAmdNamespace;
         }
-        Object.keys(options).forEach(function (key) {
-            settings[key] = options[key];
-        });
+        mixinToSettings(options);
         console.warn("smalltalk.ClassName is deprecated. Please  use smalltalk.globals.ClassName instead.");
         globals.SmalltalkSettings = settings;
         return vm.initialize();
