@@ -7415,7 +7415,7 @@ _st(variables)._at_put_("#receiver",self._receiver());
 $ctx1.sendIdx["at:put:"]=3;
 _st(variables)._at_put_("#selector",self._selector());
 $ctx1.sendIdx["at:put:"]=4;
-_st(variables)._at_put_("#temps",self._temps());
+_st(variables)._at_put_("#locals",self._locals());
 $ctx1.sendIdx["at:put:"]=5;
 _st(_st(self._class())._instanceVariableNames())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -7425,8 +7425,8 @@ _st(anInspector)._setLabel_(self._printString());
 $1=_st(anInspector)._setVariables_(variables);
 return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},globals.MethodContext)})},
 args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#home' put: self home.\x0a\x09variables at: '#receiver' put: self receiver.\x0a\x09variables at: '#selector' put: self selector.\x0a\x09variables at: '#temps' put: self temps.\x0a\x09self class instanceVariableNames do: [ :each |\x0a\x09\x09variables at: each put: (self instVarAt: each) ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-messageSends: ["new", "at:put:", "home", "receiver", "selector", "temps", "do:", "instanceVariableNames", "class", "instVarAt:", "setLabel:", "printString", "setVariables:"],
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#home' put: self home.\x0a\x09variables at: '#receiver' put: self receiver.\x0a\x09variables at: '#selector' put: self selector.\x0a\x09variables at: '#locals' put: self locals.\x0a\x09self class instanceVariableNames do: [ :each |\x0a\x09\x09variables at: each put: (self instVarAt: each) ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
+messageSends: ["new", "at:put:", "home", "receiver", "selector", "locals", "do:", "instanceVariableNames", "class", "instVarAt:", "setLabel:", "printString", "setVariables:"],
 referencedClasses: ["Dictionary"]
 }),
 globals.MethodContext);
