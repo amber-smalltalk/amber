@@ -91,7 +91,7 @@ editorOptions
         'matchBrackets' -> true.
         'electricChars' -> false.
 		'keyMap' -> 'Amber'.
-		'extraKeys' -> #{'Shift-Space' -> 'autocomplete'}
+		'extraKeys' -> (HashedCollection with: (SmalltalkSettings at: 'helios.completionKey' ifAbsent: [ 'Shift-Space' ]) -> 'autocomplete')
 	}
 !
 
