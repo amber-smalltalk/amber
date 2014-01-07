@@ -2430,21 +2430,6 @@ globals.VariableNode);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "isNode",
-protocol: '*Compiler-AST',
-fn: function (){
-var self=this;
-return false;
-},
-args: [],
-source: "isNode\x0a\x09^ false",
-messageSends: [],
-referencedClasses: []
-}),
-globals.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "ast",
 protocol: '*Compiler-AST',
 fn: function (){
@@ -2467,5 +2452,20 @@ messageSends: ["ifEmpty:", "source", "error:", "parse:"],
 referencedClasses: ["Smalltalk"]
 }),
 globals.CompiledMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isNode",
+protocol: '*Compiler-AST',
+fn: function (){
+var self=this;
+return false;
+},
+args: [],
+source: "isNode\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Object);
 
 });

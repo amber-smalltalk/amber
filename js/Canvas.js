@@ -3727,38 +3727,6 @@ protocol: '*Canvas',
 fn: function (aTagBrush){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(aTagBrush)._append_(self._asString());
-return self}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.Object)})},
-args: ["aTagBrush"],
-source: "appendToBrush: aTagBrush\x0a\x09aTagBrush append: self asString",
-messageSends: ["append:", "asString"],
-referencedClasses: []
-}),
-globals.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "appendToJQuery:",
-protocol: '*Canvas',
-fn: function (aJQuery){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(aJQuery)._append_(self._asString());
-return self}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.Object)})},
-args: ["aJQuery"],
-source: "appendToJQuery: aJQuery\x0a\x09aJQuery append: self asString",
-messageSends: ["append:", "asString"],
-referencedClasses: []
-}),
-globals.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "appendToBrush:",
-protocol: '*Canvas',
-fn: function (aTagBrush){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
 _st(aTagBrush)._appendBlock_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.BlockClosure)})},
 args: ["aTagBrush"],
@@ -3803,6 +3771,54 @@ messageSends: ["snippetAt:", "current", "asString"],
 referencedClasses: ["HTMLSnippet"]
 }),
 globals.CharacterArray);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asJQuery",
+protocol: '*Canvas',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return jQuery(self['@jsObject']);
+return self}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},globals.JSObjectProxy)})},
+args: [],
+source: "asJQuery\x0a\x09<return jQuery(self['@jsObject'])>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "appendToBrush:",
+protocol: '*Canvas',
+fn: function (aTagBrush){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aTagBrush)._append_(self._asString());
+return self}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.Object)})},
+args: ["aTagBrush"],
+source: "appendToBrush: aTagBrush\x0a\x09aTagBrush append: self asString",
+messageSends: ["append:", "asString"],
+referencedClasses: []
+}),
+globals.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "appendToJQuery:",
+protocol: '*Canvas',
+fn: function (aJQuery){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aJQuery)._append_(self._asString());
+return self}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.Object)})},
+args: ["aJQuery"],
+source: "appendToJQuery: aJQuery\x0a\x09aJQuery append: self asString",
+messageSends: ["append:", "asString"],
+referencedClasses: []
+}),
+globals.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3851,21 +3867,5 @@ messageSends: [],
 referencedClasses: []
 }),
 globals.String);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "asJQuery",
-protocol: '*Canvas',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return jQuery(self['@jsObject']);
-return self}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},globals.JSObjectProxy)})},
-args: [],
-source: "asJQuery\x0a\x09<return jQuery(self['@jsObject'])>",
-messageSends: [],
-referencedClasses: []
-}),
-globals.JSObjectProxy);
 
 });

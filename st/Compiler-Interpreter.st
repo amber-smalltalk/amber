@@ -754,12 +754,6 @@ visitSendNode: aNode
 		self increaseIndex ]
 ! !
 
-!Node methodsFor: '*Compiler-Interpreter'!
-
-isSteppingNode
-	^ false
-! !
-
 !AssignmentNode methodsFor: '*Compiler-Interpreter'!
 
 isSteppingNode
@@ -788,6 +782,12 @@ isSteppingNode
 
 isSteppingNode
 	^ true
+! !
+
+!Node methodsFor: '*Compiler-Interpreter'!
+
+isSteppingNode
+	^ false
 ! !
 
 !SendNode methodsFor: '*Compiler-Interpreter'!

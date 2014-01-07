@@ -2201,21 +2201,6 @@ selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
-return false;
-},
-args: [],
-source: "isSteppingNode\x0a\x09^ false",
-messageSends: [],
-referencedClasses: []
-}),
-globals.Node);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isSteppingNode",
-protocol: '*Compiler-Interpreter',
-fn: function (){
-var self=this;
 return true;
 },
 args: [],
@@ -2284,6 +2269,21 @@ messageSends: [],
 referencedClasses: []
 }),
 globals.JSStatementNode);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isSteppingNode",
+protocol: '*Compiler-Interpreter',
+fn: function (){
+var self=this;
+return false;
+},
+args: [],
+source: "isSteppingNode\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Node);
 
 smalltalk.addMethod(
 smalltalk.method({

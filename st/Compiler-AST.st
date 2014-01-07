@@ -762,17 +762,17 @@ accept: aVisitor
 	^ aVisitor visitVariableNode: self
 ! !
 
-!Object methodsFor: '*Compiler-AST'!
-
-isNode
-	^ false
-! !
-
 !CompiledMethod methodsFor: '*Compiler-AST'!
 
 ast
 	self source ifEmpty: [ self error: 'Method source is empty' ].
 	
 	^ Smalltalk parse: self source
+! !
+
+!Object methodsFor: '*Compiler-AST'!
+
+isNode
+	^ false
 ! !
 

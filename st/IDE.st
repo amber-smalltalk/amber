@@ -2301,19 +2301,15 @@ renderButtonsOn: html
 	onClick: [ self clearWorkspace ]
 ! !
 
-!Date methodsFor: '*IDE'!
+!AssociativeCollection methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
-	variables at: '#year' put: self year.
-	variables at: '#month' put: self month.
-	variables at: '#day' put: self day.
-	variables at: '#hours' put: self hours.
-	variables at: '#minutes' put: self minutes.
-	variables at: '#seconds' put: self seconds.
-	variables at: '#milliseconds' put: self milliseconds.
+	variables at: '#keys' put: self keys.
+	self keysAndValuesDo: [ :key :value |
+		variables at: key put: value ].
 	anInspector
 		setLabel: self printString;
 		setVariables: variables
@@ -2332,41 +2328,19 @@ inspectOn: anInspector
 		setVariables: variables
 ! !
 
-!String methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| label |
-	super inspectOn: anInspector.
-	self printString size > 30
-		ifTrue: [ label := (self printString copyFrom: 1 to: 30), '...''' ]
-		ifFalse: [ label := self printString ].
-	anInspector setLabel: label
-! !
-
-!AssociativeCollection methodsFor: '*IDE'!
+!Date methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
-	variables at: '#keys' put: self keys.
-	self keysAndValuesDo: [ :key :value |
-		variables at: key put: value ].
-	anInspector
-		setLabel: self printString;
-		setVariables: variables
-! !
-
-!Set methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables i |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	i := 1.
-	self do: [ :each |
-		variables at: i put: each.
-		i := i + 1 ].
+	variables at: '#year' put: self year.
+	variables at: '#month' put: self month.
+	variables at: '#day' put: self day.
+	variables at: '#hours' put: self hours.
+	variables at: '#minutes' put: self minutes.
+	variables at: '#seconds' put: self seconds.
+	variables at: '#milliseconds' put: self milliseconds.
 	anInspector
 		setLabel: self printString;
 		setVariables: variables
@@ -2387,5 +2361,31 @@ inspectOn: anInspector
 	anInspector
 		setLabel: self printString;
 		setVariables: variables
+! !
+
+!Set methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| variables i |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	i := 1.
+	self do: [ :each |
+		variables at: i put: each.
+		i := i + 1 ].
+	anInspector
+		setLabel: self printString;
+		setVariables: variables
+! !
+
+!String methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| label |
+	super inspectOn: anInspector.
+	self printString size > 30
+		ifTrue: [ label := (self printString copyFrom: 1 to: 30), '...''' ]
+		ifFalse: [ label := self printString ].
+	anInspector setLabel: label
 ! !
 
