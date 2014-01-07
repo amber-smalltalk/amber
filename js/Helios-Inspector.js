@@ -757,12 +757,13 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 _st(self._model())._inspect_on_(anObject,self);
+_st(self._codeWidget())._receiver_(anObject);
 self._refreshVariablesWidget();
 $1=self._refreshDisplayWidget();
 return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},globals.HLInspectorWidget)})},
 args: ["anObject"],
-source: "inspect: anObject\x0a\x09self model inspect: anObject on: self.\x0a    \x0a\x09self \x0a    \x09refreshVariablesWidget;\x0a\x09\x09refreshDisplayWidget",
-messageSends: ["inspect:on:", "model", "refreshVariablesWidget", "refreshDisplayWidget"],
+source: "inspect: anObject\x0a\x09self model inspect: anObject on: self.\x0a\x09self codeWidget receiver: anObject.\x0a    \x0a\x09self \x0a    \x09refreshVariablesWidget;\x0a\x09\x09refreshDisplayWidget",
+messageSends: ["inspect:on:", "model", "receiver:", "codeWidget", "refreshVariablesWidget", "refreshDisplayWidget"],
 referencedClasses: []
 }),
 globals.HLInspectorWidget);
@@ -979,12 +980,11 @@ protocol: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._codeWidget())._receiver_(_st(self._model())._selectedInstVarObject());
 self._refreshDisplayWidget();
 return self}, function($ctx1) {$ctx1.fill(self,"onInstanceVariableSelected",{},globals.HLInspectorWidget)})},
 args: [],
-source: "onInstanceVariableSelected\x0a\x09self codeWidget receiver: self model selectedInstVarObject.\x0a\x09self refreshDisplayWidget",
-messageSends: ["receiver:", "codeWidget", "selectedInstVarObject", "model", "refreshDisplayWidget"],
+source: "onInstanceVariableSelected\x0a\x09self refreshDisplayWidget",
+messageSends: ["refreshDisplayWidget"],
 referencedClasses: []
 }),
 globals.HLInspectorWidget);

@@ -264,6 +264,7 @@ variablesWidget
 
 inspect: anObject
 	self model inspect: anObject on: self.
+	self codeWidget receiver: anObject.
     
 	self 
     	refreshVariablesWidget;
@@ -326,7 +327,6 @@ onInspectIt
 !
 
 onInstanceVariableSelected
-	self codeWidget receiver: self model selectedInstVarObject.
 	self refreshDisplayWidget
 !
 
