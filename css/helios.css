@@ -38,7 +38,7 @@ html[xmlns] .clearfix {
 }
 #helios .CodeMirror-hints {
   border-radius: 0;
-  font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", Courier, monospace;
+  font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
   font-size: 11px;
   line-height: 1em;
   padding: 0;
@@ -48,16 +48,14 @@ html[xmlns] .clearfix {
   border-radius: 0;
   padding: 0 10px;
 }
-#helios .CodeMirror pre {
-  font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", "Ubuntu Mono", Courier, monospace;
+#helios .CodeMirror pre,
+#helios .CodeMirror .CodeMirror-gutter-elt {
+  font-family: Menlo, Monaco, "Lucida Console", "Ubuntu Mono", Courier, monospace;
   line-height: 16px;
   font-size: 13px;
 }
 #helios .CodeMirror-gutter.stops {
   width: 20px;
-}
-#helios .CodeMirror .CodeMirror-gutter-elt {
-  line-height: 1.5em;
 }
 #helios .CodeMirror .highlighted.CodeMirror-linebackground {
   background-color: #ffffaa;
@@ -483,7 +481,6 @@ html[xmlns] .clearfix {
   box-shadow: 0 0 0;
   vertical-align: top;
   /* min-width: 50px; */
-
 }
 #helios .tool_container .panes .pane .pane_actions .btn:hover {
   background-color: #bbb;
@@ -526,7 +523,7 @@ html[xmlns] .clearfix {
 }
 #helios .key_helper .label {
   padding: 1px 4px;
-  font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", Courier, monospace;
+  font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
   background: transparent;
   color: #08C;
   text-shadow: none;
