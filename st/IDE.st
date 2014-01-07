@@ -210,7 +210,7 @@ selection
 
 setEditorOn: aTextarea
 	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-		theme: 'default',
+		theme: smalltalk.codeMirrorTheme || 'default',
 		mode: 'text/x-stsrc',
 		lineNumbers: true,
 		enterMode: 'flat',
