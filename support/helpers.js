@@ -14,6 +14,16 @@ define("amber/helpers", ["amber_vm/smalltalk", "amber_vm/globals", "require"], f
         value: globals,
         enumerable: true, configurable: true, writable: false
     });
+    exports.initialize = function (options) {
+        options = options || {};
+        if (exports.defaultAmdNamespace) {
+            console.warn("`smalltalk.defaultAmdNamespace = 'namespace';` is deprecated. Please use `smalltalk.initialize({defaultAmdNamespace: 'namespace'});` instead.");
+            options.defaultAmdNamespace = options.defaultAmdNamespace || exports.defaultAmdNamespace;
+        }
+        vm.defaultAmdNamespace = options.defaultAmdNamespace || vm.defaultAmdNamespace;
+        console.warn("smalltalk.ClassName is deprecated. Please  use smalltalk.globals.ClassName instead.");
+        return vm.initialize();
+    };
 
     // Backward compatibility, deprecated
 
@@ -22,13 +32,6 @@ define("amber/helpers", ["amber_vm/smalltalk", "amber_vm/globals", "require"], f
         enumerable: true, configurable: true, writable: false
     });
     exports.defaultAmdNamespace = null;
-    exports.initialize = function () {
-        console.warn("smalltalk.defaultAmdNamespace is deprecated. Please use smalltalk.vm.defaultAmdNamespace instead.");
-        console.warn("smalltalk.initialize is deprecated. Please  use smalltalk.vm.initialize instead.");
-        console.warn("smalltalk.ClassName is deprecated. Please  use smalltalk.globals.ClassName instead.");
-        vm.defaultAmdNamespace = exports.defaultAmdNamespace || vm.defaultAmdNamespace;
-        return vm.initialize();
-    };
 
     // Exports
 
