@@ -1881,14 +1881,19 @@ selector: "openAsTab",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+var instance;
 function $HLManager(){return globals.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
 function $HLTabWidget(){return globals.HLTabWidget||(typeof HLTabWidget=="undefined"?nil:HLTabWidget)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st($HLManager())._current())._addTab_(_st($HLTabWidget())._on_labelled_(self._new(),self._tabLabel()));
-return self}, function($ctx1) {$ctx1.fill(self,"openAsTab",{},globals.HLWidget.klass)})},
+var $1;
+instance=self._new();
+_st(_st($HLManager())._current())._addTab_(_st($HLTabWidget())._on_labelled_(instance,self._tabLabel()));
+$1=instance;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"openAsTab",{instance:instance},globals.HLWidget.klass)})},
 args: [],
-source: "openAsTab\x0a\x09HLManager current addTab: (HLTabWidget on: self new labelled: self tabLabel)",
-messageSends: ["addTab:", "current", "on:labelled:", "new", "tabLabel"],
+source: "openAsTab\x0a\x09| instance |\x0a\x09\x0a\x09instance := self new.\x0a\x09HLManager current addTab: (HLTabWidget \x0a\x09\x09on: instance \x0a\x09\x09labelled: self tabLabel).\x0a\x09^ instance",
+messageSends: ["new", "addTab:", "current", "on:labelled:", "tabLabel"],
 referencedClasses: ["HLManager", "HLTabWidget"]
 }),
 globals.HLWidget.klass);

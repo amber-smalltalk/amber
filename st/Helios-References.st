@@ -319,6 +319,24 @@ sendersOf: aString
 
 !HLReferencesModel methodsFor: 'actions'!
 
+openClassNamed: aString
+	| browser |
+	
+	self withChangesDo: [
+		browser := HLBrowser openAsTab.
+		browser openClassNamed: aString ]
+!
+
+openMethod
+	| browser |
+	
+	self selectedMethod ifNil: [ ^ self ].
+	
+	self withChangesDo: [
+		browser := HLBrowser openAsTab.
+		browser openMethod: self selectedMethod ]
+!
+
 search: aString
 	self updateCaches.
 	

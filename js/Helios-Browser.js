@@ -149,6 +149,48 @@ globals.HLBrowser);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "openClassNamed:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._openClassNamed_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"openClassNamed:",{aString:aString},globals.HLBrowser)})},
+args: ["aString"],
+source: "openClassNamed: aString\x0a\x09self model openClassNamed: aString",
+messageSends: ["openClassNamed:", "model"],
+referencedClasses: []
+}),
+globals.HLBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "openMethod:",
+protocol: 'actions',
+fn: function (aCompiledMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$3,$5;
+$1=self._model();
+$2=$1;
+$4=_st(aCompiledMethod)._methodClass();
+$ctx1.sendIdx["methodClass"]=1;
+$3=_st($4)._package();
+_st($2)._selectedPackage_($3);
+_st($1)._selectedClass_(_st(aCompiledMethod)._methodClass());
+_st($1)._selectedProtocol_(_st(aCompiledMethod)._protocol());
+_st($1)._selectedMethod_(aCompiledMethod);
+$5=_st($1)._focusOnSourceCode();
+return self}, function($ctx1) {$ctx1.fill(self,"openMethod:",{aCompiledMethod:aCompiledMethod},globals.HLBrowser)})},
+args: ["aCompiledMethod"],
+source: "openMethod: aCompiledMethod\x0a\x09self model \x0a\x09\x09\x09selectedPackage: aCompiledMethod methodClass package;\x0a\x09\x09\x09selectedClass: aCompiledMethod methodClass;\x0a\x09\x09\x09selectedProtocol: aCompiledMethod protocol;\x0a\x09\x09\x09selectedMethod: aCompiledMethod;\x0a\x09\x09\x09focusOnSourceCode",
+messageSends: ["selectedPackage:", "model", "package", "methodClass", "selectedClass:", "selectedProtocol:", "protocol", "selectedMethod:", "focusOnSourceCode"],
+referencedClasses: []
+}),
+globals.HLBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "packagesListWidget",
 protocol: 'widgets',
 fn: function (){

@@ -59,6 +59,88 @@ referencedClasses: []
 globals.HLToolCommand.klass);
 
 
+smalltalk.addClass('HLBrowseMethodCommand', globals.HLToolCommand, [], 'Helios-Commands-Tools');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "displayLabel",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "browse method";
+},
+args: [],
+source: "displayLabel\x0a\x09^ 'browse method'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLBrowseMethodCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "execute",
+protocol: 'executing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._openMethod();
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLBrowseMethodCommand)})},
+args: [],
+source: "execute\x0a\x09self model openMethod",
+messageSends: ["openMethod", "model"],
+referencedClasses: []
+}),
+globals.HLBrowseMethodCommand);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isValidFor:",
+protocol: 'testing',
+fn: function (aModel){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aModel)._isReferencesModel();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{aModel:aModel},globals.HLBrowseMethodCommand.klass)})},
+args: ["aModel"],
+source: "isValidFor: aModel\x0a\x09^ aModel isReferencesModel",
+messageSends: ["isReferencesModel"],
+referencedClasses: []
+}),
+globals.HLBrowseMethodCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "b";
+},
+args: [],
+source: "key\x0a\x09^ 'b'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLBrowseMethodCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "browse method";
+},
+args: [],
+source: "label\x0a\x09^ 'browse method'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLBrowseMethodCommand.klass);
+
+
 smalltalk.addClass('HLCommitPackageCommand', globals.HLToolCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
@@ -436,14 +518,11 @@ selector: "isValidFor:",
 protocol: 'testing',
 fn: function (aModel){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(aModel)._isBrowserModel();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{aModel:aModel},globals.HLFindClassCommand.klass)})},
+return true;
+},
 args: ["aModel"],
-source: "isValidFor: aModel\x0a\x09^ aModel isBrowserModel",
-messageSends: ["isBrowserModel"],
+source: "isValidFor: aModel\x0a\x09^ true",
+messageSends: [],
 referencedClasses: []
 }),
 globals.HLFindClassCommand.klass);
