@@ -1,6 +1,6 @@
 body {
   font-size: 11px;
-  font-family: "Lucida Grande", helvetica, arial, sans;
+  font-family: "Lucida Grande", "Segoe UI", helvetica, arial, sans;
   background: #eee;
 }
 .clearfix:after {
@@ -54,7 +54,7 @@ html[xmlns] .clearfix {
 }
 #helios .CodeMirror-hints {
   border-radius: 0;
-  font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", Courier, monospace;
+  font-family: "Lucida Grande", "Segoe UI", helvetica, arial, sans;
   font-size: 11px;
   line-height: 1em;
   padding: 0;
