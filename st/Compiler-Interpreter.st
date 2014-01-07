@@ -167,7 +167,8 @@ outerContext
 
 outerContext: anAIContext
 	outerContext := anAIContext.
-	outerContext innerContext: self
+	outerContext ifNotNil: [ :context | 
+		context innerContext: self ]
 !
 
 selector
@@ -188,6 +189,16 @@ sendIndexes
 
 sendIndexes: aDictionary
 	sendIndexes := aDictionary
+! !
+
+!AIContext methodsFor: 'evaluating'!
+
+evaluateNode: aNode
+	^ ASTInterpreter new
+		context: self;
+		node: aNode nextChild;
+		proceed;
+		result
 ! !
 
 !AIContext methodsFor: 'factory'!
@@ -321,11 +332,7 @@ context: aContext
 !
 
 interpreter
-	^ interpreter ifNil: [ interpreter := self defaultInterpreterClass new ]
-!
-
-interpreter: anInterpreter
-	interpreter := anInterpreter
+	^ self context interpreter
 !
 
 method
@@ -334,45 +341,6 @@ method
 
 nextNode
 	^ self interpreter nextNode
-! !
-
-!ASTDebugger methodsFor: 'defaults'!
-
-defaultInterpreterClass
-	^ ASTInterpreter
-! !
-
-!ASTDebugger methodsFor: 'initialization'!
-
-buildAST
-	"Build the AST tree from the method source code.
-	The AST is annotated with a SemanticAnalyzer,
-	to know the semantics and bindings of each node needed for later debugging"
-	
-	| ast |
-	
-	ast := Smalltalk parse: self method source.
-	(SemanticAnalyzer on: self context receiver class)
-		visit: ast.
-	
-	^ ast
-!
-
-initializeInterpreter
-	| ast next |
-	ast := self buildAST.
-	next := ASTPCNodeVisitor new
-		context: self context;
-		visit: ast;
-		currentNode.
-	self interpreter node: next
-!
-
-initializeWithContext: aContext
-	"TODO: do we need to handle block contexts?"
-	
-	self context: aContext.
-	self initializeInterpreter
 ! !
 
 !ASTDebugger methodsFor: 'stepping'!
@@ -394,6 +362,7 @@ stepInto
 !
 
 stepOver
+	self flushOuterContexts.
 	self interpreter stepOver
 ! !
 
@@ -407,7 +376,7 @@ atEnd
 
 context: aContext
 	^ self new
-		initializeWithContext: aContext;
+		context: aContext;
 		yourself
 ! !
 

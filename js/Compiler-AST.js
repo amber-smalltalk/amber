@@ -1317,30 +1317,6 @@ globals.MethodNode);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "extent",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1;
-$4=self._source();
-$ctx1.sendIdx["source"]=1;
-$3=_st($4)._lines();
-$ctx1.sendIdx["lines"]=1;
-$2=_st($3)._size();
-$ctx1.sendIdx["size"]=1;
-$1=_st($2).__at(_st(_st(_st(_st(self._source())._lines())._last())._size()).__plus((1)));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"extent",{},globals.MethodNode)})},
-args: [],
-source: "extent\x0a\x09^ self source lines size @ (self source lines last size + 1)",
-messageSends: ["@", "size", "lines", "source", "+", "last"],
-referencedClasses: []
-}),
-globals.MethodNode);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "messageSends",
 protocol: 'accessing',
 fn: function (){

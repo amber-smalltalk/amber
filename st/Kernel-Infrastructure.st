@@ -146,14 +146,6 @@ copyClass: aClass to: aClassName
 	ClassBuilder new copyClass: aClass named: aClassName
 !
 
-eval: aString on: aReceiver
-	| compiler |
-	compiler := Compiler new.
-	[ compiler parseExpression: aString ] on: Error do: [ :ex |
-		^ self alert: ex messageText ].
-	^ compiler evaluateExpression: aString on: aReceiver
-!
-
 inspect: anObject
 	Inspector inspect: anObject
 !
@@ -249,6 +241,30 @@ evaluate: aBlock on: anErrorClass do: exceptionBlock
 		(exception isKindOf: (self classNamed: anErrorClass name))
 			ifTrue: [ exceptionBlock value: exception ]
  			ifFalse: [ exception signal ] ]
+! !
+
+!Environment methodsFor: 'evaluating'!
+
+eval: aString on: aReceiver
+	| compiler |
+	compiler := Compiler new.
+	[ compiler parseExpression: aString ] on: Error do: [ :ex |
+		^ self alert: ex messageText ].
+	^ compiler evaluateExpression: aString on: aReceiver
+!
+
+interpret: aString inContext: anAIContext
+	"Similar to #eval:on:, with the following differences:
+	- instead of compiling and running `aString`, `aString` is interpreted using an `ASTInterpreter`
+	- instead of evaluating against a receiver, evaluate in the context of `anAIContext`"
+
+	| compiler ast |
+	compiler := Compiler new.
+	[ ast := compiler parseExpression: aString ] on: Error do: [ :ex |
+		^ self alert: ex messageText ].
+	(SemanticAnalyzer on: anAIContext receiver class)
+		visit: ast.
+	^ anAIContext evaluateNode: ast
 ! !
 
 !Environment methodsFor: 'services'!

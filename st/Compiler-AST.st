@@ -407,10 +407,6 @@ classReferences: aCollection
 	classReferences := aCollection
 !
 
-extent
-	^ self source lines size @ (self source lines last size + 1)
-!
-
 messageSends
 	^ self sendIndexes keys
 !
