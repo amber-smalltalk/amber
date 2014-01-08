@@ -909,6 +909,63 @@ show: anObject
 	self current show: anObject
 ! !
 
+Object subclass: #Setting
+	instanceVariableNames: 'key value defaultValue'
+	package: 'Kernel-Infrastructure'!
+!Setting commentStamp!
+I represent a setting accessible via `Smalltalk settings`.
+
+You can read the value by `value` and set it by `value:`.
+
+Construct me by: `'key' asSetting` or `'key' asSettingIfAbsent: 'defaultValue'`.!
+
+!Setting methodsFor: 'accessing'!
+
+defaultValue
+	^ defaultValue
+!
+
+defaultValue: anObject
+	defaultValue := anObject
+!
+
+key
+	^ key
+!
+
+key: anObject
+	key := anObject
+!
+
+value
+	^ Smalltalk settings at: self key ifAbsent: [ self defaultValue ]
+!
+
+value: aString
+	^ Smalltalk settings at: self key put: aString
+! !
+
+!Setting methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+
+	value := nil
+! !
+
+!Setting class methodsFor: 'instance creation'!
+
+at: aString ifAbsent: anotherString
+	^ super new
+		key: aString;
+		defaultValue: anotherString;
+		yourself
+!
+
+new
+	self shouldNotImplement
+! !
+
 Object subclass: #SmalltalkImage
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
@@ -1021,11 +1078,11 @@ amdRequire
 !
 
 defaultAmdNamespace
-	^ Smalltalk settings at: 'vm.defaultAmdNamespace'
+	^ 'vm.defaultAmdNamespace' settingValue
 !
 
 defaultAmdNamespace: aString
-	Smalltalk settings at: 'vm.defaultAmdNamespace' put: aString
+	'vm.defaultAmdNamespace' settingValue: aString
 ! !
 
 !SmalltalkImage methodsFor: 'classes'!
@@ -1202,5 +1259,29 @@ do: aBlock displayingProgress: aString
 asJavaScriptSelector
 	"Return first keyword of the selector, without trailing colon."
 	^ self replace: '^([a-zA-Z0-9]*).*$' with: '$1'
+!
+
+asSetting
+	| parts |
+	parts := self tokenize: '|'.
+	parts size = 1
+		ifTrue: [ ^ Setting at: self ifAbsent: nil ]
+		ifFalse: [ ^ parts first asSettingIfAbsent: parts second ]
+!
+
+asSettingIfAbsent: aString
+	^ Setting at: self ifAbsent: aString
+!
+
+settingValue
+	^ self asSetting value
+!
+
+settingValue: aString
+	^ self asSetting value: aString
+!
+
+settingValueIfAbsent: aString
+	^ (self asSettingIfAbsent: aString) value
 ! !
 
