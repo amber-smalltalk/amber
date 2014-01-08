@@ -2543,15 +2543,16 @@ selector: "defaultAmdNamespace",
 protocol: 'accessing amd',
 fn: function (){
 var self=this;
+function $SmalltalkSettings(){return globals.SmalltalkSettings||(typeof SmalltalkSettings=="undefined"?nil:SmalltalkSettings)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._vm())._defaultAmdNamespace();
+$1=_st($SmalltalkSettings())._at_("vm.defaultAmdNamespace");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},globals.SmalltalkImage)})},
 args: [],
-source: "defaultAmdNamespace\x0a\x09^ self vm defaultAmdNamespace",
-messageSends: ["defaultAmdNamespace", "vm"],
-referencedClasses: []
+source: "defaultAmdNamespace\x0a\x09^ SmalltalkSettings at: 'vm.defaultAmdNamespace'",
+messageSends: ["at:"],
+referencedClasses: ["SmalltalkSettings"]
 }),
 globals.SmalltalkImage);
 
@@ -2561,13 +2562,14 @@ selector: "defaultAmdNamespace:",
 protocol: 'accessing amd',
 fn: function (aString){
 var self=this;
+function $SmalltalkSettings(){return globals.SmalltalkSettings||(typeof SmalltalkSettings=="undefined"?nil:SmalltalkSettings)}
 return smalltalk.withContext(function($ctx1) { 
-_st(self._vm())._defaultAmdNamespace_(aString);
+_st($SmalltalkSettings())._at_put_("vm.defaultAmdNamespace",aString);
 return self}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace:",{aString:aString},globals.SmalltalkImage)})},
 args: ["aString"],
-source: "defaultAmdNamespace: aString\x0a\x09self vm defaultAmdNamespace: aString",
-messageSends: ["defaultAmdNamespace:", "vm"],
-referencedClasses: []
+source: "defaultAmdNamespace: aString\x0a\x09SmalltalkSettings at: 'vm.defaultAmdNamespace' put: aString",
+messageSends: ["at:put:"],
+referencedClasses: ["SmalltalkSettings"]
 }),
 globals.SmalltalkImage);
 
