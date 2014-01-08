@@ -2589,16 +2589,16 @@ selector: "defaultAmdNamespace",
 protocol: 'accessing amd',
 fn: function (){
 var self=this;
-function $SmalltalkSettings(){return globals.SmalltalkSettings||(typeof SmalltalkSettings=="undefined"?nil:SmalltalkSettings)}
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($SmalltalkSettings())._at_("vm.defaultAmdNamespace");
+$1=_st(_st($Smalltalk())._settings())._at_("vm.defaultAmdNamespace");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},globals.SmalltalkImage)})},
 args: [],
-source: "defaultAmdNamespace\x0a\x09^ SmalltalkSettings at: 'vm.defaultAmdNamespace'",
-messageSends: ["at:"],
-referencedClasses: ["SmalltalkSettings"]
+source: "defaultAmdNamespace\x0a\x09^ Smalltalk settings at: 'vm.defaultAmdNamespace'",
+messageSends: ["at:", "settings"],
+referencedClasses: ["Smalltalk"]
 }),
 globals.SmalltalkImage);
 
@@ -2608,14 +2608,14 @@ selector: "defaultAmdNamespace:",
 protocol: 'accessing amd',
 fn: function (aString){
 var self=this;
-function $SmalltalkSettings(){return globals.SmalltalkSettings||(typeof SmalltalkSettings=="undefined"?nil:SmalltalkSettings)}
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-_st($SmalltalkSettings())._at_put_("vm.defaultAmdNamespace",aString);
+_st(_st($Smalltalk())._settings())._at_put_("vm.defaultAmdNamespace",aString);
 return self}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace:",{aString:aString},globals.SmalltalkImage)})},
 args: ["aString"],
-source: "defaultAmdNamespace: aString\x0a\x09SmalltalkSettings at: 'vm.defaultAmdNamespace' put: aString",
-messageSends: ["at:put:"],
-referencedClasses: ["SmalltalkSettings"]
+source: "defaultAmdNamespace: aString\x0a\x09Smalltalk settings at: 'vm.defaultAmdNamespace' put: aString",
+messageSends: ["at:put:", "settings"],
+referencedClasses: ["Smalltalk"]
 }),
 globals.SmalltalkImage);
 

@@ -390,45 +390,47 @@ selector: "editorOptions",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $SmalltalkSettings(){return globals.SmalltalkSettings||(typeof SmalltalkSettings=="undefined"?nil:SmalltalkSettings)}
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$4,$5,$6,$7,$8,$9,$10,$11,$12,$1;
-$3=_st($SmalltalkSettings())._at_ifAbsent_("helios.codeMirrorTheme",(function(){
+var $4,$3,$2,$5,$6,$7,$8,$9,$10,$11,$12,$13,$1;
+$4=_st($Smalltalk())._settings();
+$ctx1.sendIdx["settings"]=1;
+$3=_st($4)._at_ifAbsent_("helios.codeMirrorTheme",(function(){
 return smalltalk.withContext(function($ctx2) {
 return "default helios";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["at:ifAbsent:"]=1;
 $2="theme".__minus_gt($3);
 $ctx1.sendIdx["->"]=1;
-$4="mode".__minus_gt("text/x-stsrc");
+$5="mode".__minus_gt("text/x-stsrc");
 $ctx1.sendIdx["->"]=2;
-$5="lineNumbers".__minus_gt(true);
+$6="lineNumbers".__minus_gt(true);
 $ctx1.sendIdx["->"]=3;
-$6="enterMode".__minus_gt("flat");
+$7="enterMode".__minus_gt("flat");
 $ctx1.sendIdx["->"]=4;
-$7="indentWithTabs".__minus_gt(true);
+$8="indentWithTabs".__minus_gt(true);
 $ctx1.sendIdx["->"]=5;
-$8="indentUnit".__minus_gt((4));
+$9="indentUnit".__minus_gt((4));
 $ctx1.sendIdx["->"]=6;
-$9="matchBrackets".__minus_gt(true);
+$10="matchBrackets".__minus_gt(true);
 $ctx1.sendIdx["->"]=7;
-$10="electricChars".__minus_gt(false);
+$11="electricChars".__minus_gt(false);
 $ctx1.sendIdx["->"]=8;
-$11="keyMap".__minus_gt("Amber");
+$12="keyMap".__minus_gt("Amber");
 $ctx1.sendIdx["->"]=9;
-$12="extraKeys".__minus_gt(_st($HashedCollection())._with_(_st(_st($SmalltalkSettings())._at_ifAbsent_("helios.completionKey",(function(){
+$13="extraKeys".__minus_gt(_st($HashedCollection())._with_(_st(_st(_st($Smalltalk())._settings())._at_ifAbsent_("helios.completionKey",(function(){
 return smalltalk.withContext(function($ctx2) {
 return "Shift-Space";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))).__minus_gt("autocomplete")));
 $ctx1.sendIdx["->"]=10;
-$1=globals.HashedCollection._from_([$2,$4,$5,$6,$7,$8,$9,$10,$11,$12]);
+$1=globals.HashedCollection._from_([$2,$5,$6,$7,$8,$9,$10,$11,$12,$13]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"editorOptions",{},globals.HLCodeWidget)})},
 args: [],
-source: "editorOptions\x0a\x09^ #{\x0a\x09\x09'theme' -> (SmalltalkSettings at: 'helios.codeMirrorTheme' ifAbsent: [ 'default helios' ]).\x0a\x09\x09'mode' -> 'text/x-stsrc'.\x0a        'lineNumbers' -> true.\x0a        'enterMode' -> 'flat'.\x0a        'indentWithTabs' -> true.\x0a\x09\x09'indentUnit' -> 4.\x0a        'matchBrackets' -> true.\x0a        'electricChars' -> false.\x0a\x09\x09'keyMap' -> 'Amber'.\x0a\x09\x09'extraKeys' -> (HashedCollection with: (SmalltalkSettings at: 'helios.completionKey' ifAbsent: [ 'Shift-Space' ]) -> 'autocomplete')\x0a\x09}",
-messageSends: ["->", "at:ifAbsent:", "with:"],
-referencedClasses: ["SmalltalkSettings", "HashedCollection"]
+source: "editorOptions\x0a\x09^ #{\x0a\x09\x09'theme' -> (Smalltalk settings at: 'helios.codeMirrorTheme' ifAbsent: [ 'default helios' ]).\x0a\x09\x09'mode' -> 'text/x-stsrc'.\x0a        'lineNumbers' -> true.\x0a        'enterMode' -> 'flat'.\x0a        'indentWithTabs' -> true.\x0a\x09\x09'indentUnit' -> 4.\x0a        'matchBrackets' -> true.\x0a        'electricChars' -> false.\x0a\x09\x09'keyMap' -> 'Amber'.\x0a\x09\x09'extraKeys' -> (HashedCollection with: (Smalltalk settings at: 'helios.completionKey' ifAbsent: [ 'Shift-Space' ]) -> 'autocomplete')\x0a\x09}",
+messageSends: ["->", "at:ifAbsent:", "settings", "with:"],
+referencedClasses: ["Smalltalk", "HashedCollection"]
 }),
 globals.HLCodeWidget);
 

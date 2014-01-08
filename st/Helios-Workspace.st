@@ -82,7 +82,7 @@ currentLineOrSelection
 
 editorOptions
 	^ #{
-		'theme' -> (SmalltalkSettings at: 'helios.codeMirrorTheme' ifAbsent: [ 'default helios' ]).
+		'theme' -> (Smalltalk settings at: 'helios.codeMirrorTheme' ifAbsent: [ 'default helios' ]).
 		'mode' -> 'text/x-stsrc'.
         'lineNumbers' -> true.
         'enterMode' -> 'flat'.
@@ -91,7 +91,7 @@ editorOptions
         'matchBrackets' -> true.
         'electricChars' -> false.
 		'keyMap' -> 'Amber'.
-		'extraKeys' -> (HashedCollection with: (SmalltalkSettings at: 'helios.completionKey' ifAbsent: [ 'Shift-Space' ]) -> 'autocomplete')
+		'extraKeys' -> (HashedCollection with: (Smalltalk settings at: 'helios.completionKey' ifAbsent: [ 'Shift-Space' ]) -> 'autocomplete')
 	}
 !
 
