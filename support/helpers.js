@@ -47,7 +47,7 @@ define("amber/helpers", ["amber_vm/smalltalk", "amber_vm/globals", "require"], f
             settings['vm.defaultAmdNamespace'] = settings['vm.defaultAmdNamespace'] || exports.defaultAmdNamespace;
         }
         mixinToSettings(options);
-        console.warn("smalltalk.ClassName is deprecated. Please  use smalltalk.globals.ClassName instead.");
+        console.warn("smalltalk.ClassName is deprecated. Please use smalltalk.globals.ClassName instead.");
         globals.SmalltalkSettings = settings;
         return vm.initialize();
     };
