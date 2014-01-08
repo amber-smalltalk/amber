@@ -999,6 +999,10 @@ reservedWords
 	<return smalltalk.reservedWords>
 !
 
+settings
+	^ SmalltalkSettings
+!
+
 version
 	"Answer the version string of Amber"
 	

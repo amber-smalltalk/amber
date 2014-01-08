@@ -2987,6 +2987,22 @@ globals.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "settings",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $SmalltalkSettings(){return globals.SmalltalkSettings||(typeof SmalltalkSettings=="undefined"?nil:SmalltalkSettings)}
+return $SmalltalkSettings();
+},
+args: [],
+source: "settings\x0a\x09^ SmalltalkSettings",
+messageSends: [],
+referencedClasses: ["SmalltalkSettings"]
+}),
+globals.SmalltalkImage);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "version",
 protocol: 'accessing',
 fn: function (){
