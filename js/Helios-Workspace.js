@@ -1141,9 +1141,9 @@ $2="Alt-Backspace".__minus_gt("delWordBefore");
 $ctx1.sendIdx["->"]=1;
 $3="Alt-Delete".__minus_gt("delWordAfter");
 $ctx1.sendIdx["->"]=2;
-$4="Alt-Left".__minus_gt("goWordBoundaryLeft");
+$4="Alt-Left".__minus_gt("goWordLeft");
 $ctx1.sendIdx["->"]=3;
-$5="Alt-Right".__minus_gt("goWordBoundaryRight");
+$5="Alt-Right".__minus_gt("goWordRight");
 $ctx1.sendIdx["->"]=4;
 $6="Cmd-A".__minus_gt("selectAll");
 $ctx1.sendIdx["->"]=5;
@@ -1191,7 +1191,7 @@ $1=globals.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"macKeyMap",{},globals.HLCodeWidget.klass)})},
 args: [],
-source: "macKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Backspace'\x09\x09-> 'delWordBefore'.\x0a\x09\x09'Alt-Delete'\x09\x09-> 'delWordAfter'. \x0a\x09\x09'Alt-Left'\x09\x09-> 'goWordBoundaryLeft'.\x0a\x09\x09'Alt-Right'\x09\x09-> 'goWordBoundaryRight'. \x0a\x09\x09'Cmd-A'\x09\x09\x09-> 'selectAll'. \x0a\x09\x09'Cmd-Alt-F'\x09\x09-> 'replace'. \x0a\x09\x09'Cmd-D'\x09\x09\x09-> 'doIt'. \x0a\x09\x09'Cmd-Down'\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-End'\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-F'\x09\x09\x09-> 'find'.\x0a\x09\x09'Cmd-G'\x09\x09\x09-> 'findNext'. \x0a\x09\x09'Cmd-I'\x09\x09\x09-> 'inspectIt'. \x0a\x09\x09'Cmd-Left'\x09\x09-> 'goLineStart'. \x0a\x09\x09'Cmd-P'\x09\x09\x09-> 'printIt'. \x0a\x09\x09'Cmd-Right'\x09\x09-> 'goLineEnd'. \x0a\x09\x09'Cmd-S'\x09\x09\x09-> 'saveIt'. \x0a\x09\x09'Cmd-Up'\x09\x09-> 'goDocStart'. \x0a\x09\x09'Cmd-Y'\x09\x09\x09-> 'redo'.\x0a\x09\x09'Cmd-Z'\x09\x09\x09-> 'undo'. \x0a\x09\x09'Cmd-['\x09\x09\x09-> 'indentLess'. \x0a\x09\x09'Cmd-]'\x09\x09\x09-> 'indentMore'.\x0a\x09\x09'Ctrl-Alt-Backspace'\x09-> 'delWordAfter'. \x0a\x09\x09'Shift-Cmd-Alt-F'\x09-> 'replaceAll'.\x0a\x09\x09'Shift-Cmd-G'\x09\x09-> 'findPrev'. \x0a\x09\x09'Shift-Cmd-Z'\x09\x09-> 'redo'. \x0a    \x09'fallthrough' \x09-> { 'basic'. 'emacsy' }\x0a  }",
+source: "macKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Backspace'\x09\x09\x09-> 'delWordBefore'.\x0a\x09\x09'Alt-Delete'\x09\x09\x09-> 'delWordAfter'. \x0a\x09\x09'Alt-Left'\x09\x09\x09\x09-> 'goWordLeft'.\x0a\x09\x09'Alt-Right'\x09\x09\x09\x09-> 'goWordRight'. \x0a\x09\x09'Cmd-A'\x09\x09\x09\x09\x09-> 'selectAll'. \x0a\x09\x09'Cmd-Alt-F'\x09\x09\x09\x09-> 'replace'. \x0a\x09\x09'Cmd-D'\x09\x09\x09\x09\x09-> 'doIt'. \x0a\x09\x09'Cmd-Down'\x09\x09\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-End'\x09\x09\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-F'\x09\x09\x09\x09\x09-> 'find'.\x0a\x09\x09'Cmd-G'\x09\x09\x09\x09\x09-> 'findNext'. \x0a\x09\x09'Cmd-I'\x09\x09\x09\x09\x09-> 'inspectIt'. \x0a\x09\x09'Cmd-Left'\x09\x09\x09\x09-> 'goLineStart'. \x0a\x09\x09'Cmd-P'\x09\x09\x09\x09\x09-> 'printIt'. \x0a\x09\x09'Cmd-Right'\x09\x09\x09\x09-> 'goLineEnd'. \x0a\x09\x09'Cmd-S'\x09\x09\x09\x09\x09-> 'saveIt'. \x0a\x09\x09'Cmd-Up'\x09\x09\x09\x09-> 'goDocStart'. \x0a\x09\x09'Cmd-Y'\x09\x09\x09\x09\x09-> 'redo'.\x0a\x09\x09'Cmd-Z'\x09\x09\x09\x09\x09-> 'undo'. \x0a\x09\x09'Cmd-['\x09\x09\x09\x09\x09-> 'indentLess'. \x0a\x09\x09'Cmd-]'\x09\x09\x09\x09\x09-> 'indentMore'.\x0a\x09\x09'Ctrl-Alt-Backspace'\x09-> 'delWordAfter'. \x0a\x09\x09'Shift-Cmd-Alt-F'\x09\x09-> 'replaceAll'.\x0a\x09\x09'Shift-Cmd-G'\x09\x09\x09-> 'findPrev'. \x0a\x09\x09'Shift-Cmd-Z'\x09\x09\x09-> 'redo'. \x0a    \x09'fallthrough' \x09\x09\x09-> { 'basic'. 'emacsy' }\x0a  }",
 messageSends: ["->"],
 referencedClasses: []
 }),
@@ -1249,11 +1249,11 @@ $13="Ctrl-I".__minus_gt("inspectIt");
 $ctx1.sendIdx["->"]=12;
 $14="Ctrl-Home".__minus_gt("goDocStart");
 $ctx1.sendIdx["->"]=13;
-$15="Ctrl-Left".__minus_gt("goWordBoundaryLeft");
+$15="Ctrl-Left".__minus_gt("goWordLeft");
 $ctx1.sendIdx["->"]=14;
 $16="Ctrl-P".__minus_gt("printIt");
 $ctx1.sendIdx["->"]=15;
-$17="Ctrl-Right".__minus_gt("goWordBoundaryRight");
+$17="Ctrl-Right".__minus_gt("goWordRight");
 $ctx1.sendIdx["->"]=16;
 $18="Ctrl-S".__minus_gt("saveIt");
 $ctx1.sendIdx["->"]=17;
@@ -1277,7 +1277,7 @@ $1=globals.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"pcKeyMap",{},globals.HLCodeWidget.klass)})},
 args: [],
-source: "pcKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Left' -> 'goLineStart'. \x0a\x09\x09'Alt-Right' -> 'goLineEnd'.\x0a\x09\x09'Alt-Up' -> 'goDocStart'. \x0a\x09\x09'Ctrl-A' -> 'selectAll'. \x0a\x09\x09'Ctrl-Backspace' -> 'delWordBefore'. \x0a\x09\x09'Ctrl-D' -> 'doIt'. \x0a\x09\x09'Ctrl-Delete' -> 'delWordAfter'. \x0a\x09\x09'Ctrl-Down' -> 'goDocEnd'.\x0a\x09\x09'Ctrl-End' -> 'goDocEnd'. \x0a\x09\x09'Ctrl-F' -> 'find'.\x0a\x09\x09'Ctrl-G' -> 'findNext'. \x0a\x09\x09'Ctrl-I' -> 'inspectIt'.\x0a\x09\x09'Ctrl-Home' -> 'goDocStart'. \x0a\x09\x09'Ctrl-Left' -> 'goWordBoundaryLeft'. \x0a\x09\x09'Ctrl-P' -> 'printIt'.\x0a\x09\x09'Ctrl-Right' -> 'goWordBoundaryRight'. \x0a\x09\x09'Ctrl-S' -> 'saveIt'. \x0a\x09\x09'Ctrl-Y' -> 'redo'.\x0a\x09\x09'Ctrl-Z' -> 'undo'. \x0a\x09\x09'Ctrl-[' -> 'indentLess'. \x0a\x09\x09'Ctrl-]' -> 'indentMore'.\x0a\x09\x09'Shift-Ctrl-F' -> 'replace'. \x0a\x09\x09'Shift-Ctrl-G' -> 'findPrev'. \x0a\x09\x09'Shift-Ctrl-R' -> 'replaceAll'.\x0a\x09\x09'Shift-Ctrl-Z' -> 'redo'. \x0a\x09\x09'fallthrough' -> #('basic')\x0a}",
+source: "pcKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Left' -> \x09\x09'goLineStart'. \x0a\x09\x09'Alt-Right' -> \x09\x09'goLineEnd'.\x0a\x09\x09'Alt-Up' -> \x09\x09'goDocStart'. \x0a\x09\x09'Ctrl-A' -> \x09\x09'selectAll'. \x0a\x09\x09'Ctrl-Backspace' -> 'delWordBefore'. \x0a\x09\x09'Ctrl-D' -> \x09\x09'doIt'. \x0a\x09\x09'Ctrl-Delete' -> \x09\x09'delWordAfter'. \x0a\x09\x09'Ctrl-Down' -> \x09\x09'goDocEnd'.\x0a\x09\x09'Ctrl-End' -> \x09\x09'goDocEnd'. \x0a\x09\x09'Ctrl-F' -> \x09\x09'find'.\x0a\x09\x09'Ctrl-G' -> \x09\x09'findNext'. \x0a\x09\x09'Ctrl-I' -> \x09\x09'inspectIt'.\x0a\x09\x09'Ctrl-Home' -> \x09\x09'goDocStart'. \x0a\x09\x09'Ctrl-Left' -> \x09\x09'goWordLeft'. \x0a\x09\x09'Ctrl-P' -> \x09\x09'printIt'.\x0a\x09\x09'Ctrl-Right' -> \x09'goWordRight'. \x0a\x09\x09'Ctrl-S' -> \x09\x09'saveIt'. \x0a\x09\x09'Ctrl-Y' -> \x09\x09'redo'.\x0a\x09\x09'Ctrl-Z' -> \x09\x09'undo'. \x0a\x09\x09'Ctrl-[' -> \x09\x09'indentLess'. \x0a\x09\x09'Ctrl-]' -> \x09\x09'indentMore'.\x0a\x09\x09'Shift-Ctrl-F' -> \x09'replace'. \x0a\x09\x09'Shift-Ctrl-G' -> \x09'findPrev'. \x0a\x09\x09'Shift-Ctrl-R' -> \x09'replaceAll'.\x0a\x09\x09'Shift-Ctrl-Z' -> \x09'redo'. \x0a\x09\x09'fallthrough' -> \x09#('basic')\x0a}",
 messageSends: ["->"],
 referencedClasses: []
 }),
