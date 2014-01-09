@@ -1296,25 +1296,20 @@ selector: "focus",
 protocol: 'actions',
 fn: function (){
 var self=this;
-function $HLClassSelected(){return globals.HLClassSelected||(typeof HLClassSelected=="undefined"?nil:HLClassSelected)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 globals.HLClassesListWidget.superclass.fn.prototype._focus.apply(_st(self), []);
 $1=self._selectedItem();
 if(($receiver = $1) == nil || $receiver == null){
-$2=self._model();
-$ctx1.sendIdx["model"]=1;
-_st($2)._showClassTemplate();
+_st(self._model())._showClassTemplate();
 } else {
-var class_;
-class_=$receiver;
-_st(_st(self._model())._announcer())._announce_(_st($HLClassSelected())._on_(class_));
+$1;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"focus",{},globals.HLClassesListWidget)})},
 args: [],
-source: "focus\x0a\x09super focus.\x0a\x09\x0a\x09self selectedItem \x0a\x09\x09ifNil: [ self model showClassTemplate ]\x0a\x09\x09ifNotNil: [ :class |\x0a\x09\x09\x09self model announcer announce: (HLClassSelected on: class) ]",
-messageSends: ["focus", "ifNil:ifNotNil:", "selectedItem", "showClassTemplate", "model", "announce:", "announcer", "on:"],
-referencedClasses: ["HLClassSelected"]
+source: "focus\x0a\x09super focus.\x0a\x09\x0a\x09self selectedItem \x0a\x09\x09ifNil: [ self model showClassTemplate ]",
+messageSends: ["focus", "ifNil:", "selectedItem", "showClassTemplate", "model"],
+referencedClasses: []
 }),
 globals.HLClassesListWidget);
 
@@ -3304,32 +3299,6 @@ args: ["anItem"],
 source: "cssClassForItem: anItem\x09\x0a\x09^ 'package'",
 messageSends: [],
 referencedClasses: []
-}),
-globals.HLPackagesListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "focus",
-protocol: 'actions',
-fn: function (){
-var self=this;
-function $HLPackageSelected(){return globals.HLPackageSelected||(typeof HLPackageSelected=="undefined"?nil:HLPackageSelected)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-globals.HLPackagesListWidget.superclass.fn.prototype._focus.apply(_st(self), []);
-$1=self._selectedItem();
-if(($receiver = $1) == nil || $receiver == null){
-$1;
-} else {
-var package_;
-package_=$receiver;
-_st(_st(self._model())._announcer())._announce_(_st($HLPackageSelected())._on_(package_));
-};
-return self}, function($ctx1) {$ctx1.fill(self,"focus",{},globals.HLPackagesListWidget)})},
-args: [],
-source: "focus\x0a\x09super focus.\x0a\x09self selectedItem ifNotNil: [ :package |\x0a\x09\x09self model announcer announce: (HLPackageSelected on: package) ]",
-messageSends: ["focus", "ifNotNil:", "selectedItem", "announce:", "announcer", "model", "on:"],
-referencedClasses: ["HLPackageSelected"]
 }),
 globals.HLPackagesListWidget);
 

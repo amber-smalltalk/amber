@@ -441,8 +441,6 @@ focus
 	
 	self selectedItem 
 		ifNil: [ self model showClassTemplate ]
-		ifNotNil: [ :class |
-			self model announcer announce: (HLClassSelected on: class) ]
 !
 
 focusMethodsListWidget
@@ -1154,12 +1152,6 @@ label
 
 commitPackage
 	self model commitPackage
-!
-
-focus
-	super focus.
-	self selectedItem ifNotNil: [ :package |
-		self model announcer announce: (HLPackageSelected on: package) ]
 !
 
 focusClassesListWidget
