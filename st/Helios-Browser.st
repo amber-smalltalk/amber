@@ -416,8 +416,6 @@ I render a list of classes in the selected package.!
 !HLClassesListWidget methodsFor: 'accessing'!
 
 cssClassForItem: aClass
-	aClass theNonMetaClass comment isEmpty 
-		ifTrue: [ ^ 'uncommented' ].
 	^ aClass theNonMetaClass heliosClass
 !
 

@@ -1272,20 +1272,13 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$4;
-$3=_st(aClass)._theNonMetaClass();
-$ctx1.sendIdx["theNonMetaClass"]=1;
-$2=_st($3)._comment();
-$1=_st($2)._isEmpty();
-if(smalltalk.assert($1)){
-return "uncommented";
-};
-$4=_st(_st(aClass)._theNonMetaClass())._heliosClass();
-return $4;
+var $1;
+$1=_st(_st(aClass)._theNonMetaClass())._heliosClass();
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{aClass:aClass},globals.HLClassesListWidget)})},
 args: ["aClass"],
-source: "cssClassForItem: aClass\x0a\x09aClass theNonMetaClass comment isEmpty \x0a\x09\x09ifTrue: [ ^ 'uncommented' ].\x0a\x09^ aClass theNonMetaClass heliosClass",
-messageSends: ["ifTrue:", "isEmpty", "comment", "theNonMetaClass", "heliosClass"],
+source: "cssClassForItem: aClass\x0a\x09^ aClass theNonMetaClass heliosClass",
+messageSends: ["heliosClass", "theNonMetaClass"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
