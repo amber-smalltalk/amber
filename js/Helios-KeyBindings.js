@@ -1817,10 +1817,11 @@ $6;
 return self._renderCloseOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $ctx1.sendIdx["with:"]=1;
+_st(":focus"._asJQuery())._blur();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLKeyBinderHelperWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09id: 'overlay';\x0a\x09\x09onClick: [ self deactivate ].\x0a\x09html div class: self cssClass; with: [\x0a      \x09self renderLabelOn:html.\x0a\x09\x09html div\x0a\x09\x09\x09id: self mainId;\x0a\x09\x09\x09with: [ self renderSelectedBindingOn: html ].\x0a\x09\x09self renderCloseOn: html ]",
-messageSends: ["id:", "div", "onClick:", "deactivate", "class:", "cssClass", "with:", "renderLabelOn:", "mainId", "renderSelectedBindingOn:", "renderCloseOn:"],
+source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09id: 'overlay';\x0a\x09\x09onClick: [ self deactivate ].\x0a\x09\x0a\x09html div class: self cssClass; with: [\x0a      \x09self renderLabelOn: html.\x0a\x09\x09html div\x0a\x09\x09\x09id: self mainId;\x0a\x09\x09\x09with: [ self renderSelectedBindingOn: html ].\x0a\x09\x09self renderCloseOn: html ].\x0a\x09\x09\x0a\x09':focus' asJQuery blur",
+messageSends: ["id:", "div", "onClick:", "deactivate", "class:", "cssClass", "with:", "renderLabelOn:", "mainId", "renderSelectedBindingOn:", "renderCloseOn:", "blur", "asJQuery"],
 referencedClasses: []
 }),
 globals.HLKeyBinderHelperWidget);

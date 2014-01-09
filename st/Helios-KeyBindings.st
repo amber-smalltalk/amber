@@ -608,12 +608,15 @@ renderContentOn: html
 	html div 
 		id: 'overlay';
 		onClick: [ self deactivate ].
+	
 	html div class: self cssClass; with: [
-      	self renderLabelOn:html.
+      	self renderLabelOn: html.
 		html div
 			id: self mainId;
 			with: [ self renderSelectedBindingOn: html ].
-		self renderCloseOn: html ]
+		self renderCloseOn: html ].
+		
+	':focus' asJQuery blur
 !
 
 renderLabelOn: html
