@@ -1617,12 +1617,13 @@ $1=_st(_st(class_)._package()).__eq(_st(self._model())._selectedPackage());
 if(! smalltalk.assert($1)){
 return self;
 };
+self._selectItem_(nil);
 self._setItemsForSelectedPackage();
 self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassRemoved:",{anAnnouncement:anAnnouncement,class_:class_},globals.HLClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassRemoved: anAnnouncement\x0a\x09| class |\x0a\x09class := anAnnouncement theClass.\x0a\x0a\x09class package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
-messageSends: ["theClass", "ifFalse:", "=", "package", "selectedPackage", "model", "setItemsForSelectedPackage", "refresh"],
+source: "onClassRemoved: anAnnouncement\x0a\x09| class |\x0a\x09class := anAnnouncement theClass.\x0a\x0a\x09class package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a\x09self selectItem: nil.\x0a    self setItemsForSelectedPackage.\x0a    self refresh",
+messageSends: ["theClass", "ifFalse:", "=", "package", "selectedPackage", "model", "selectItem:", "setItemsForSelectedPackage", "refresh"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);

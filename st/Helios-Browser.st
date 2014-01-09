@@ -596,6 +596,7 @@ onClassRemoved: anAnnouncement
 
 	class package = self model selectedPackage ifFalse: [ ^ self ].
     
+	self selectItem: nil.
     self setItemsForSelectedPackage.
     self refresh
 !
