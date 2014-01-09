@@ -556,7 +556,7 @@ body[id="helios"] .key_helper .close {
   opacity: 0.6;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 4px;
 }
 body[id="helios"] .key_helper .close:hover {
   opacity: 0.8;
