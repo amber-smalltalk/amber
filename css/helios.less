@@ -572,31 +572,38 @@ body[id="helios"] {
 	}
 
 	.key_helper {
-		z-index: 20;
+		z-index: 2001;
 		position: fixed;
-		bottom: 0px;
-		background: #fff;
-		background-image: linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-		background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-		background-image: -o-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-		background-image: -webkit-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-		width: 100%;
-		border-top: 1px solid #aaa;
+		top: 120px;
+		left: 50%;
+		margin-left: -200px;
+		width: 400px;
+		background: rgba(243, 243, 243, 0.9);
+		box-shadow: 0 0 6px #aaa;
+		border: 1px solid #aaa;
 		font-size: 11px;
-		height: 22px;
+
+		transition: all .5s;
+		-webkit-transition: all .5s;
+		-moz-transition: all .5s;
+		-o-transition: all .5s;
+		-ms-transition: all .5s;
+
 
 		.command {
-			padding: 0 2px;
+			padding: 2px;
+			display: block;
 		}
 
 		#binding-helper-main {
-			display: inline;
+			display: block;
+			padding: 5px;
 		}
 
 		.label {
 			padding: 1px 4px;
 			font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
-			background: transparent;
+			background: #ddd;
 			color: #08C;
 			text-shadow: none;
 			border: 0 none;
@@ -608,23 +615,27 @@ body[id="helios"] {
 		}
 
 		.selected {
-			background-image: linear-gradient(top, #ccc, #aaa);
-			background-image: -moz-linear-gradient(top, #ccc, #aaa);
-			background-image: -o-linear-gradient(top, #ccc, #aaa);
-			background-image: -webkit-linear-gradient(top, #ccc, #aaa);
-			height: 30px;
+			background-image: linear-gradient(top, #ccc, #bbb);
+			background-image: -moz-linear-gradient(top, #ccc, #bbb);
+			background-image: -o-linear-gradient(top, #ccc, #bbb);
+			background-image: -webkit-linear-gradient(top, #ccc, #bbb);
+			height: 28px;
 			padding: 0 8px;
-			color: #333;
 			font-weight: bold;
+			font-size: 18px;
+			line-height: 28px;
 			text-shadow: 0 1px 0 #fff;
-			display: inline-block;
-			border-right: 1px solid #aaa;
+			display: block;
+			border-bottom: 1px solid #aaa;
 		}
 
 		.close {
 			font-size: 14px;
-			line-height: 26px;
+			line-height: 28px;
 			opacity: 0.6;
+			position: absolute;
+			top: 0;
+			right: 0;
 		}
 
 		.close:hover {
@@ -649,11 +660,11 @@ body[id="helios"] {
 			font-weight: bold;
 		}
 
-		.typeahead.dropdown-menu {
-			position: fixed !important;
-			top: auto !important;
-			bottom: 30px !important;
-		}
+		// .typeahead.dropdown-menu {
+		// 	position: fixed !important;
+		// 	top: auto !important;
+		// 	bottom: 30px !important;
+		// }
 
 		#cog-helper {
 			position: fixed;

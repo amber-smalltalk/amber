@@ -500,29 +500,34 @@ body[id="helios"] .tool_container .panes .pane .class_side .nav-pills {
   background: #ffffdd;
 }
 body[id="helios"] .key_helper {
-  z-index: 20;
+  z-index: 2001;
   position: fixed;
-  bottom: 0px;
-  background: #fff;
-  background-image: linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-  background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-  background-image: -o-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-  background-image: -webkit-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-  width: 100%;
-  border-top: 1px solid #aaa;
+  top: 120px;
+  left: 50%;
+  margin-left: -200px;
+  width: 400px;
+  background: rgba(243, 243, 243, 0.9);
+  box-shadow: 0 0 6px #aaa;
+  border: 1px solid #aaa;
   font-size: 11px;
-  height: 22px;
+  transition: all .5s;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  -ms-transition: all .5s;
 }
 body[id="helios"] .key_helper .command {
-  padding: 0 2px;
+  padding: 2px;
+  display: block;
 }
 body[id="helios"] .key_helper #binding-helper-main {
-  display: inline;
+  display: block;
+  padding: 5px;
 }
 body[id="helios"] .key_helper .label {
   padding: 1px 4px;
   font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
-  background: transparent;
+  background: #ddd;
   color: #08C;
   text-shadow: none;
   border: 0 none;
@@ -532,22 +537,26 @@ body[id="helios"] .key_helper .action {
   color: #666;
 }
 body[id="helios"] .key_helper .selected {
-  background-image: linear-gradient(top, #cccccc, #aaaaaa);
-  background-image: -moz-linear-gradient(top, #cccccc, #aaaaaa);
-  background-image: -o-linear-gradient(top, #cccccc, #aaaaaa);
-  background-image: -webkit-linear-gradient(top, #cccccc, #aaaaaa);
-  height: 30px;
+  background-image: linear-gradient(top, #cccccc, #bbbbbb);
+  background-image: -moz-linear-gradient(top, #cccccc, #bbbbbb);
+  background-image: -o-linear-gradient(top, #cccccc, #bbbbbb);
+  background-image: -webkit-linear-gradient(top, #cccccc, #bbbbbb);
+  height: 28px;
   padding: 0 8px;
-  color: #333;
   font-weight: bold;
+  font-size: 18px;
+  line-height: 28px;
   text-shadow: 0 1px 0 #fff;
-  display: inline-block;
-  border-right: 1px solid #aaa;
+  display: block;
+  border-bottom: 1px solid #aaa;
 }
 body[id="helios"] .key_helper .close {
   font-size: 14px;
-  line-height: 26px;
+  line-height: 28px;
   opacity: 0.6;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 body[id="helios"] .key_helper .close:hover {
   opacity: 0.8;
@@ -567,11 +576,6 @@ body[id="helios"] .key_helper .error .help-inline,
 body[id="helios"] .key_helper .error input {
   color: #B91010;
   font-weight: bold;
-}
-body[id="helios"] .key_helper .typeahead.dropdown-menu {
-  position: fixed !important;
-  top: auto !important;
-  bottom: 30px !important;
 }
 body[id="helios"] .key_helper #cog-helper {
   position: fixed;
