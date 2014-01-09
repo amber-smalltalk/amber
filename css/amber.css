@@ -241,7 +241,7 @@ body.amberBody {
 .amberTool textarea,
 .amberTool input {
     border: 0 none;
-    font-family:  "DejaVu Sans", Helvetica, sans;
+    font-family:  "DejaVu Sans", Helvetica, sans-serif;
     line-height: 1.3em;
     font-size: 11px;
     position: relative;
@@ -250,7 +250,7 @@ body.amberBody {
 
 .amberTool .CodeMirror {
     border: 0 none;
-    font-family:  "DejaVu Sans", Helvetica, sans;
+    font-family:  "DejaVu Sans", Helvetica, sans-serif;
     font-size: 11px;
     line-height: 1.3em;
     height: 100%;
@@ -262,7 +262,7 @@ body.amberBody {
 }
 
 .amberTool .CodeMirror-scroll pre {
-    font-family: "DejaVu Sans", Helvetica, sans;
+    font-family: "DejaVu Sans", Helvetica, sans-serif;
 }
 
 .amberTool .amber_clear {
