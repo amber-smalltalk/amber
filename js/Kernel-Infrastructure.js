@@ -1463,6 +1463,52 @@ globals.Package);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "classTemplate",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $3,$4,$2,$5,$6,$7,$1;
+$1=_st($String())._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) {
+_st(stream)._nextPutAll_("Object");
+$ctx2.sendIdx["nextPutAll:"]=1;
+_st(stream)._nextPutAll_(" subclass: #NameOfSubclass");
+$ctx2.sendIdx["nextPutAll:"]=2;
+$3=_st($String())._lf();
+$ctx2.sendIdx["lf"]=1;
+$4=_st($String())._tab();
+$ctx2.sendIdx["tab"]=1;
+$2=_st($3).__comma($4);
+$ctx2.sendIdx[","]=1;
+_st(stream)._nextPutAll_($2);
+$ctx2.sendIdx["nextPutAll:"]=3;
+$5=_st(stream)._nextPutAll_("instanceVariableNames: ''");
+$ctx2.sendIdx["nextPutAll:"]=4;
+$5;
+$6=_st("'".__comma(_st($String())._lf())).__comma(_st($String())._tab());
+$ctx2.sendIdx[","]=2;
+_st(stream)._nextPutAll_($6);
+$ctx2.sendIdx["nextPutAll:"]=5;
+_st(stream)._nextPutAll_("package: '");
+$ctx2.sendIdx["nextPutAll:"]=6;
+_st(stream)._nextPutAll_(self._name());
+$ctx2.sendIdx["nextPutAll:"]=7;
+$7=_st(stream)._nextPutAll_("'");
+return $7;
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classTemplate",{},globals.Package)})},
+args: [],
+source: "classTemplate\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream\x0a\x09\x09\x09nextPutAll: 'Object';\x0a\x09\x09\x09nextPutAll: ' subclass: #NameOfSubclass';\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: 'instanceVariableNames: '''''.\x0a\x09\x09stream\x0a\x09\x09\x09nextPutAll: '''', String lf, String tab;\x0a\x09\x09\x09nextPutAll: 'package: ''';\x0a\x09\x09\x09nextPutAll: self name;\x0a\x09\x09\x09nextPutAll: '''' ]",
+messageSends: ["streamContents:", "nextPutAll:", ",", "lf", "tab", "name"],
+referencedClasses: ["String"]
+}),
+globals.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "classes",
 protocol: 'classes',
 fn: function (){

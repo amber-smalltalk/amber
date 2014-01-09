@@ -283,6 +283,20 @@ setClassComment: aString
 	self environment
 		setClassCommentOf: self selectedClass theNonMetaClass
 		to: aString
+!
+
+showClassTemplate
+	self selectedPackage ifNotNil: [ :package |
+		self announcer announce: (HLShowTemplate new
+			template: package classTemplate;
+			yourself) ]
+!
+
+showMethodTemplate
+	self selectedClass ifNotNil: [ :theClass |
+		self announcer announce: (HLShowTemplate new
+			template: theClass methodTemplate;
+			yourself) ]
 ! !
 
 !HLBrowserModel methodsFor: 'commands actions'!
@@ -421,6 +435,15 @@ label
 ! !
 
 !HLClassesListWidget methodsFor: 'actions'!
+
+focus
+	super focus.
+	
+	self selectedItem 
+		ifNil: [ self model showClassTemplate ]
+		ifNotNil: [ :class |
+			self model announcer announce: (HLClassSelected on: class) ]
+!
 
 focusMethodsListWidget
 	self model announcer announce: HLMethodsListFocus new
@@ -925,6 +948,13 @@ selectorsInProtocol: aString
 
 !HLMethodsListWidget methodsFor: 'actions'!
 
+focus
+	super focus.
+	
+	self selectedItem ifNil: [
+		self model showMethodTemplate ]
+!
+
 observeModel
 	self model announcer 
 		on: HLProtocolSelected 
@@ -1125,6 +1155,12 @@ commitPackage
 	self model commitPackage
 !
 
+focus
+	super focus.
+	self selectedItem ifNotNil: [ :package |
+		self model announcer announce: (HLPackageSelected on: package) ]
+!
+
 focusClassesListWidget
 	self model announcer announce: HLClassesListFocus new
 !
@@ -1153,6 +1189,7 @@ observeSystem
 !
 
 selectItem: aPackage
+	super selectItem: aPackage.
 	self model selectedPackage: aPackage
 ! !
 

@@ -640,6 +640,57 @@ globals.Behavior);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "methodTemplate",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $3,$4,$2,$7,$8,$6,$9,$5,$10,$1;
+$1=_st($String())._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) {
+_st(stream)._nextPutAll_("messageSelectorAndArgumentNames");
+$ctx2.sendIdx["nextPutAll:"]=1;
+$3=_st($String())._lf();
+$ctx2.sendIdx["lf"]=1;
+$4=_st($String())._tab();
+$ctx2.sendIdx["tab"]=1;
+$2=_st($3).__comma($4);
+$ctx2.sendIdx[","]=1;
+_st(stream)._nextPutAll_($2);
+$ctx2.sendIdx["nextPutAll:"]=2;
+_st(stream)._nextPutAll_("\x22comment stating purpose of message\x22");
+$ctx2.sendIdx["nextPutAll:"]=3;
+$7=_st($String())._lf();
+$ctx2.sendIdx["lf"]=2;
+$8=_st($String())._lf();
+$ctx2.sendIdx["lf"]=3;
+$6=_st($7).__comma($8);
+$ctx2.sendIdx[","]=3;
+$9=_st($String())._tab();
+$ctx2.sendIdx["tab"]=2;
+$5=_st($6).__comma($9);
+$ctx2.sendIdx[","]=2;
+_st(stream)._nextPutAll_($5);
+$ctx2.sendIdx["nextPutAll:"]=4;
+_st(stream)._nextPutAll_("| temporary variable names |");
+$ctx2.sendIdx["nextPutAll:"]=5;
+_st(stream)._nextPutAll_(_st(_st($String())._lf()).__comma(_st($String())._tab()));
+$ctx2.sendIdx["nextPutAll:"]=6;
+$10=_st(stream)._nextPutAll_("statements");
+return $10;
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"methodTemplate",{},globals.Behavior)})},
+args: [],
+source: "methodTemplate\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream \x0a\x09\x09\x09nextPutAll: 'messageSelectorAndArgumentNames';\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: '\x22comment stating purpose of message\x22';\x0a\x09\x09\x09nextPutAll: String lf, String lf, String tab;\x0a\x09\x09\x09nextPutAll: '| temporary variable names |';\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: 'statements' ]",
+messageSends: ["streamContents:", "nextPutAll:", ",", "lf", "tab"],
+referencedClasses: ["String"]
+}),
+globals.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "methods",
 protocol: 'accessing',
 fn: function (){

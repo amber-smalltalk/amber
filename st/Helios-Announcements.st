@@ -286,6 +286,20 @@ HLAnnouncement subclass: #HLShowInstanceToggled
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
+HLAnnouncement subclass: #HLShowTemplate
+	instanceVariableNames: 'template'
+	package: 'Helios-Announcements'!
+
+!HLShowTemplate methodsFor: 'accessing'!
+
+template
+	^ template
+!
+
+template: aString
+	template := aString
+! !
+
 HLAnnouncement subclass: #HLSourceCodeSaved
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!

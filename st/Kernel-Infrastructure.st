@@ -559,6 +559,20 @@ basicTransport
 	<return self.transport>
 !
 
+classTemplate
+	^ String streamContents: [ :stream |
+		stream
+			nextPutAll: 'Object';
+			nextPutAll: ' subclass: #NameOfSubclass';
+			nextPutAll: String lf, String tab;
+			nextPutAll: 'instanceVariableNames: '''''.
+		stream
+			nextPutAll: '''', String lf, String tab;
+			nextPutAll: 'package: ''';
+			nextPutAll: self name;
+			nextPutAll: '''' ]
+!
+
 definition
 	^ String streamContents: [ :stream |
 		stream 

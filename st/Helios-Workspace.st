@@ -561,6 +561,10 @@ observeBrowserModel
 		
 		on: HLSourceCodeFocusRequested 
 		send: #onSourceCodeFocusRequested
+		to: self;
+		
+		on: HLShowTemplate
+		send: #onShowTemplate:
 		to: self
 !
 
@@ -697,6 +701,10 @@ onShowInstanceToggled
 	self browserModel selectedClass ifNil: [ ^ self contents: '' ].
     
 	self contents: self browserModel selectedClass definition
+!
+
+onShowTemplate: anAnnouncement
+	self contents: anAnnouncement template
 !
 
 onSourceCodeFocusRequested

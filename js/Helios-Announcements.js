@@ -551,6 +551,41 @@ smalltalk.addClass('HLShowCommentToggled', globals.HLAnnouncement, [], 'Helios-A
 smalltalk.addClass('HLShowInstanceToggled', globals.HLAnnouncement, [], 'Helios-Announcements');
 
 
+smalltalk.addClass('HLShowTemplate', globals.HLAnnouncement, ['template'], 'Helios-Announcements');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "template",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@template"];
+return $1;
+},
+args: [],
+source: "template\x0a\x09^ template",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLShowTemplate);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "template:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@template"]=aString;
+return self},
+args: ["aString"],
+source: "template: aString\x0a\x09template := aString",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLShowTemplate);
+
+
+
 smalltalk.addClass('HLSourceCodeSaved', globals.HLAnnouncement, [], 'Helios-Announcements');
 
 });
