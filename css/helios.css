@@ -657,13 +657,13 @@ body[id="helios"] .dialog .title {
   font-size: 16px;
   margin-bottom: 15px;
 }
-body[id="helios"] .confirmation .large,
-body[id="helios"] .dialog .large {
+body[id="helios"] .confirmation.large,
+body[id="helios"] .dialog.large {
   width: 400px;
   margin-left: -220px;
 }
-body[id="helios"] .confirmation .large textarea,
-body[id="helios"] .dialog .large textarea {
+body[id="helios"] .confirmation.large textarea,
+body[id="helios"] .dialog.large textarea {
   width: 385px;
   height: 200px;
 }
