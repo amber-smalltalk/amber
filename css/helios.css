@@ -743,8 +743,10 @@ body[id="helios"] .button:focus {
 body[id="helios"] .doc {
   background: white;
 }
-body[id="helios"] .doc code .doc pre {
-  font-size: 11px;
+body[id="helios"] .doc code .doc pre,
+body[id="helios"] .doc p,
+body[id="helios"] .doc div {
+  font-size: 13px;
 }
 body[id="helios"] .doc code {
   padding: 1px 4px;

@@ -844,14 +844,14 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@showComment"];
 if(($receiver = $2) == nil || $receiver == null){
-$1=false;
+$1=true;
 } else {
 $1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"showComment",{},globals.HLBrowserModel)})},
 args: [],
-source: "showComment\x0a\x09^ showComment ifNil: [ false ]",
+source: "showComment\x0a\x09^ showComment ifNil: [ true ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
@@ -2128,10 +2128,10 @@ selector: "defaultDocumentation",
 protocol: 'defaults',
 fn: function (){
 var self=this;
-return "No documentation available. \x0a**That's bad. Seriously.**";
+return "No documentation is available for this class.";
 },
 args: [],
-source: "defaultDocumentation\x0a\x09^ 'No documentation available. \x0a**That''s bad. Seriously.**'",
+source: "defaultDocumentation\x0a\x09^ 'No documentation is available for this class.'",
 messageSends: [],
 referencedClasses: []
 }),

@@ -231,7 +231,7 @@ HLToolModel subclass: #HLBrowserModel
 !HLBrowserModel methodsFor: 'accessing'!
 
 showComment
-	^ showComment ifNil: [ false ]
+	^ showComment ifNil: [ true ]
 !
 
 showComment: aBoolean
@@ -799,8 +799,7 @@ unregister
 !HLDocumentationWidget methodsFor: 'defaults'!
 
 defaultDocumentation
-	^ 'No documentation available. 
-**That''s bad. Seriously.**'
+	^ 'No documentation is available for this class.'
 !
 
 defaultHead
