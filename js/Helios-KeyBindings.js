@@ -1673,11 +1673,7 @@ $ctx1.sendIdx["class:"]=1;
 $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 $3=_st(html)._strong();
-<<<<<<< Updated upstream
-_st($3)._class_("pull-right");
-=======
 _st($3)._class_("label");
->>>>>>> Stashed changes
 $ctx2.sendIdx["class:"]=2;
 $4=_st($3)._with_(_st(_st(aBinding)._shortcut())._asLowercase());
 $ctx2.sendIdx["with:"]=2;
@@ -1694,11 +1690,7 @@ return $6;
 $ctx1.sendIdx["with:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"renderBindingActionFor:on:",{aBinding:aBinding,html:html},globals.HLKeyBinderHelperWidget)})},
 args: ["aBinding", "html"],
-<<<<<<< Updated upstream
-source: "renderBindingActionFor: aBinding on: html\x0a\x09html span class: 'command'; with: [\x0a\x09\x09html strong \x0a\x09\x09\x09class: 'pull-right'; \x0a\x09\x09\x09with: aBinding shortcut asLowercase.\x0a  \x09\x09html a \x0a        \x09class: 'action'; \x0a            with: aBinding displayLabel;\x0a  \x09\x09\x09onClick: [ self keyBinder applyBinding: aBinding ] ]",
-=======
 source: "renderBindingActionFor: aBinding on: html\x0a\x09html span class: 'command'; with: [\x0a\x09\x09html strong \x0a\x09\x09\x09class: 'label'; \x0a\x09\x09\x09with: aBinding shortcut asLowercase.\x0a  \x09\x09html a \x0a        \x09class: 'action'; \x0a            with: aBinding displayLabel;\x0a  \x09\x09\x09onClick: [ self keyBinder applyBinding: aBinding ] ]",
->>>>>>> Stashed changes
 messageSends: ["class:", "span", "with:", "strong", "asLowercase", "shortcut", "a", "displayLabel", "onClick:", "applyBinding:", "keyBinder"],
 referencedClasses: []
 }),
