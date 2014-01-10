@@ -310,7 +310,7 @@ key
 !
 
 label
-	^ 'Switch'
+	^ 'Switch tab'
 ! !
 
 HLCommand subclass: #HLViewCommand

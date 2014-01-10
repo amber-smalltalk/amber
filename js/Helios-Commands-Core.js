@@ -920,10 +920,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "Switch";
+return "Switch tab";
 },
 args: [],
-source: "label\x0a\x09^ 'Switch'",
+source: "label\x0a\x09^ 'Switch tab'",
 messageSends: [],
 referencedClasses: []
 }),
