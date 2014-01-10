@@ -503,9 +503,7 @@ body[id="helios"] .key_helper {
   z-index: 2001;
   position: fixed;
   top: 120px;
-  left: 50%;
-  margin-left: -200px;
-  width: 400px;
+  left: 41.67%;
   background: rgba(243, 243, 243, 0.9);
   box-shadow: 0 0 6px #aaa;
   border: 1px solid #aaa;
@@ -520,6 +518,11 @@ body[id="helios"] .key_helper .command {
   padding: 2px;
   display: block;
 }
+body[id="helios"] .key_helper .command strong {
+  display: inline-block;
+  min-width: 1.4em;
+  text-align: left;
+}
 body[id="helios"] .key_helper #binding-helper-main {
   display: block;
   padding: 5px;
@@ -533,8 +536,8 @@ body[id="helios"] .key_helper .label {
   border: 0 none;
 }
 body[id="helios"] .key_helper .action {
-  padding: 0 5px;
-  color: #666;
+  padding: 0 0.5em 0 5px;
+  color: inherit;
 }
 body[id="helios"] .key_helper .selected {
   background-image: linear-gradient(top, #cccccc, #bbbbbb);
@@ -611,7 +614,7 @@ body[id="helios"] #helper {
 }
 body[id="helios"] #overlay {
   z-index: 2000;
-  background: transparent;
+  background: rgba(112, 66, 20, 0.1);
   position: fixed;
   top: 0;
   left: 0;

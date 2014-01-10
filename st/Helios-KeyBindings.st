@@ -571,8 +571,8 @@ showWidget: aWidget
 
 renderBindingActionFor: aBinding on: html
 	html span class: 'command'; with: [
-		html span 
-			class: 'label'; 
+		html strong 
+			class: 'pull-right'; 
 			with: aBinding shortcut asLowercase.
   		html a 
         	class: 'action'; 
