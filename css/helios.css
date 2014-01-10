@@ -530,8 +530,8 @@ body[id="helios"] .key_helper #binding-helper-main {
 body[id="helios"] .key_helper .label {
   padding: 1px 4px;
   font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
-  background: #ddd;
-  color: #08C;
+  background: transparent;
+  color: #0E4561;
   text-shadow: none;
   border: 0 none;
 }
@@ -620,6 +620,9 @@ body[id="helios"] #overlay {
   left: 0;
   right: 0;
   bottom: 0;
+}
+body[id="helios"] #overlay.light {
+  background: rgba(50, 50, 50, 0.1);
 }
 body[id="helios"] .confirmation,
 body[id="helios"] .dialog {

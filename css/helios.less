@@ -607,8 +607,8 @@ body[id="helios"] {
 		.label {
 			padding: 1px 4px;
 			font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
-			background: #ddd;
-			color: #08C;
+			background: transparent;
+			color: #0E4561;
 			text-shadow: none;
 			border: 0 none;
 		}
@@ -715,6 +715,10 @@ body[id="helios"] {
 		left: 0;
 		right: 0;
 		bottom: 0;
+
+		&.light {
+			background: rgba(50, 50, 50, 0.1);
+		}
 	}
 
 	.confirmation, .dialog {
