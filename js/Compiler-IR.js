@@ -295,6 +295,7 @@ var $1,$2,$3,$4,$6,$5,$7,$8,$9;
 $1=_st($IRClosure())._new();
 $ctx1.sendIdx["new"]=1;
 _st($1)._arguments_(_st(aNode)._parameters());
+_st($1)._requiresSmalltalkContext_(_st(aNode)._requiresSmalltalkContext());
 $2=$1;
 $3=_st(aNode)._scope();
 $ctx1.sendIdx["scope"]=1;
@@ -324,8 +325,8 @@ $9=closure;
 return $9;
 }, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode,closure:closure},globals.IRASTTranslator)})},
 args: ["aNode"],
-source: "visitBlockNode: aNode\x0a\x09| closure |\x0a\x09closure := IRClosure new\x0a\x09\x09arguments: aNode parameters;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself.\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09closure add: (IRTempDeclaration new\x0a\x09\x09\x09name: each name;\x0a\x09\x09\x09scope: aNode scope;\x0a\x09\x09\x09yourself) ].\x0a\x09aNode nodes do: [ :each | closure add: (self visit: each) ].\x0a\x09^ closure",
-messageSends: ["arguments:", "new", "parameters", "scope:", "scope", "yourself", "do:", "temps", "add:", "name:", "name", "nodes", "visit:"],
+source: "visitBlockNode: aNode\x0a\x09| closure |\x0a\x09closure := IRClosure new\x0a\x09\x09arguments: aNode parameters;\x0a\x09\x09requiresSmalltalkContext: aNode requiresSmalltalkContext;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself.\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09closure add: (IRTempDeclaration new\x0a\x09\x09\x09name: each name;\x0a\x09\x09\x09scope: aNode scope;\x0a\x09\x09\x09yourself) ].\x0a\x09aNode nodes do: [ :each | closure add: (self visit: each) ].\x0a\x09^ closure",
+messageSends: ["arguments:", "new", "parameters", "requiresSmalltalkContext:", "requiresSmalltalkContext", "scope:", "scope", "yourself", "do:", "temps", "add:", "name:", "name", "nodes", "visit:"],
 referencedClasses: ["IRClosure", "IRTempDeclaration"]
 }),
 globals.IRASTTranslator);
@@ -1285,7 +1286,7 @@ globals.IRScopedInstruction);
 
 
 
-smalltalk.addClass('IRClosureInstruction', globals.IRScopedInstruction, ['arguments'], 'Compiler-IR');
+smalltalk.addClass('IRClosureInstruction', globals.IRScopedInstruction, ['arguments', 'requiresSmalltalkContext'], 'Compiler-IR');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments",
@@ -1344,6 +1345,44 @@ return $1;
 args: [],
 source: "locals\x0a\x09^ self arguments copy\x0a\x09\x09addAll: (self tempDeclarations collect: [ :each | each name ]);\x0a\x09\x09yourself",
 messageSends: ["addAll:", "copy", "arguments", "collect:", "tempDeclarations", "name", "yourself"],
+referencedClasses: []
+}),
+globals.IRClosureInstruction);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "requiresSmalltalkContext",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@requiresSmalltalkContext"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=false;
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"requiresSmalltalkContext",{},globals.IRClosureInstruction)})},
+args: [],
+source: "requiresSmalltalkContext\x0a\x09^ requiresSmalltalkContext ifNil: [ false ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.IRClosureInstruction);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "requiresSmalltalkContext:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@requiresSmalltalkContext"]=anObject;
+return self},
+args: ["anObject"],
+source: "requiresSmalltalkContext: anObject\x0a\x09requiresSmalltalkContext := anObject",
+messageSends: [],
 referencedClasses: []
 }),
 globals.IRClosureInstruction);
@@ -1562,44 +1601,6 @@ return self;
 },
 args: [],
 source: "method\x0a\x09^ self",
-messageSends: [],
-referencedClasses: []
-}),
-globals.IRMethod);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "requiresSmalltalkContext",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@requiresSmalltalkContext"];
-if(($receiver = $2) == nil || $receiver == null){
-$1=false;
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"requiresSmalltalkContext",{},globals.IRMethod)})},
-args: [],
-source: "requiresSmalltalkContext\x0a\x09^ requiresSmalltalkContext ifNil: [ false ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-globals.IRMethod);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "requiresSmalltalkContext:",
-protocol: 'accessing',
-fn: function (anObject){
-var self=this;
-self["@requiresSmalltalkContext"]=anObject;
-return self},
-args: ["anObject"],
-source: "requiresSmalltalkContext: anObject\x0a\x09requiresSmalltalkContext := anObject",
 messageSends: [],
 referencedClasses: []
 }),
