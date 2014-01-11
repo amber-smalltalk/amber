@@ -1161,12 +1161,10 @@ fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._overriddenCache())._removeKey_ifAbsent_(aSelector,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $ctx1.sendIdx["removeKey:ifAbsent:"]=1;
 _st(self._overrideCache())._removeKey_ifAbsent_(aSelector,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"removeSelector:",{aSelector:aSelector},globals.HLClassCache)})},
 args: ["aSelector"],
 source: "removeSelector: aSelector\x0a\x09self overriddenCache \x0a    \x09removeKey: aSelector\x0a        ifAbsent: [ ].\x0a    self overrideCache \x0a    \x09removeKey: aSelector\x0a        ifAbsent: [ ]",
@@ -2883,9 +2881,8 @@ $ctx2.sendIdx["selector"]=1;
 return _st(each).__eq($1);
 $ctx2.sendIdx["="]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 throw $early=[self];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 $2=self._selectedItem();
 $ctx1.sendIdx["selectedItem"]=1;
 if(($receiver = $2) == nil || $receiver == null){

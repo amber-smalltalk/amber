@@ -1604,8 +1604,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(each)._package();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._asSet();
 _st($2)._remove_ifAbsent_(self,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
@@ -1637,8 +1636,7 @@ return _st(each)._superclass();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $2=_st($3)._asSet();
 _st($2)._remove_ifAbsent_(nil,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 _st($2)._addAll_(_st(_st($Smalltalk())._classes())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 $6=_st(each)._protocols();
@@ -2018,12 +2016,10 @@ function $PlatformInterface(){return globals.PlatformInterface||(typeof Platform
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(_st($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
+}),(function(){
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},globals.PlatformInterface.klass)})},
 args: ["aString"],
@@ -2788,8 +2784,7 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._globalJsVariables())._remove_ifAbsent_(aString,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},globals.SmalltalkImage)})},
 args: ["aString"],
 source: "deleteGlobalJsVariable: aString\x0a\x09self globalJsVariables remove: aString ifAbsent:[]",

@@ -492,9 +492,8 @@ $1=_st(self._bindings())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._label()).__eq(aString);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},globals.HLBindingGroup)})},
 args: ["aString"],
@@ -541,9 +540,8 @@ $1=_st(self._bindings())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._key()).__eq(anInteger);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"atKey:",{anInteger:anInteger},globals.HLBindingGroup)})},
 args: ["anInteger"],
@@ -668,8 +666,7 @@ var $2,$1;
 $2=self["@callback"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@callback"]=(function(value){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1,2)})});
+});
 $1=self["@callback"];
 } else {
 $1=$2;

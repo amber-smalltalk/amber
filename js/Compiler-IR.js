@@ -4037,9 +4037,8 @@ var $1,$2;
 var $early={};
 try {
 _st(aCollection)._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 throw $early=[self];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 _st(self["@stream"])._nextPutAll_("var ");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aCollection)._do_separatedBy_((function(each){

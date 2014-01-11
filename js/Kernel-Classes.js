@@ -35,9 +35,8 @@ function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnoun
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11;
 oldMethod=_st(self._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $2=self._protocols();
 $3=_st(aMethod)._protocol();
 $ctx1.sendIdx["protocol"]=1;

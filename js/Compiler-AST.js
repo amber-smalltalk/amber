@@ -351,9 +351,8 @@ try {
 $1=self._nodes();
 $ctx1.sendIdx["nodes"]=1;
 next=_st($1)._at_ifAbsent_(_st(_st(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
-return smalltalk.withContext(function($ctx2) {
 throw $early=[self];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $2=_st(next)._nextChild();
 return $2;
 }
@@ -566,9 +565,8 @@ $1=_st(_st(self._nodes())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._requiresSmalltalkContext();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})))._notNil();
+})))._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"requiresSmalltalkContext",{},globals.Node)})},
 args: [],

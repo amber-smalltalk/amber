@@ -545,9 +545,8 @@ $1=_st(aMethod)._selector();
 $ctx2.sendIdx["selector"]=1;
 return _st(each).__eq($1);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 throw $early=[self];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+}));
 $2=_st(aMethod)._selector();
 $ctx1.sendIdx["selector"]=2;
 self._selectedItem_($2);

@@ -400,9 +400,8 @@ return smalltalk.withContext(function($ctx2) {
 return self._error_("Collection is empty");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 self._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
 throw $early=[each];
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+}));
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"anyOne",{},globals.Collection)})},
@@ -686,10 +685,9 @@ var self=this;
 var actionBeforeElement;
 return smalltalk.withContext(function($ctx1) { 
 actionBeforeElement=(function(){
-return smalltalk.withContext(function($ctx2) {
 actionBeforeElement=anotherBlock;
 return actionBeforeElement;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
+});
 self._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 _st(actionBeforeElement)._value();
@@ -729,9 +727,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self._isEmpty();
 $1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
-return smalltalk.withContext(function($ctx2) {
 return self;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifEmpty:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
@@ -770,9 +767,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self._notEmpty();
 $1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
-return smalltalk.withContext(function($ctx2) {
 return self;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
@@ -1331,9 +1327,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._at_ifPresent_ifAbsent_(anIndex,aBlock,(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{anIndex:anIndex,aBlock:aBlock},globals.IndexableCollection)})},
 args: ["anIndex", "aBlock"],
@@ -2245,9 +2240,8 @@ var index;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 index=_st(self["@values"])._indexOf_ifAbsent_(anObject,(function(){
-return smalltalk.withContext(function($ctx2) {
 return (0);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $2=_st(index).__eq((0));
 if(smalltalk.assert($2)){
 $1=_st(aBlock)._value();
@@ -2920,9 +2914,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self._indexOf_ifAbsent_(anObject,(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))._notNil();
+})))._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},globals.SequenceableCollection)})},
 args: ["anObject"],
@@ -2963,9 +2956,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._indexOf_startingAt_ifAbsent_(anObject,start,(function(){
-return smalltalk.withContext(function($ctx2) {
 return (0);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"indexOf:startingAt:",{anObject:anObject,start:start},globals.SequenceableCollection)})},
 args: ["anObject", "start"],
@@ -3522,9 +3514,8 @@ var index;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 index=self._indexOf_ifAbsent_(anObject,(function(){
-return smalltalk.withContext(function($ctx2) {
 return (0);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $2=_st(index).__eq((0));
 if(smalltalk.assert($2)){
 $1=_st(aBlock)._value();

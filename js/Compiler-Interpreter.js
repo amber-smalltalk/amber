@@ -191,9 +191,8 @@ sequenceNode=$2;
 _st(_st(self["@node"])._parameters())._withIndexDo_((function(each,index){
 return smalltalk.withContext(function($ctx2) {
 return _st(context)._localAt_put_(each,_st(aCollection)._at_ifAbsent_(index,(function(){
-return smalltalk.withContext(function($ctx3) {
 return nil;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})));
+})));
 }, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
 $3=_st(context)._interpreter();
 $ctx1.sendIdx["interpreter"]=1;
@@ -828,9 +827,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self._sendIndexes())._at_ifAbsent_(aString,(function(){
-return smalltalk.withContext(function($ctx2) {
 return (0);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sendIndexAt:",{aString:aString},globals.AIContext)})},
 args: ["aString"],
@@ -1437,9 +1435,8 @@ try {
 $1=self._stack();
 $ctx1.sendIdx["stack"]=1;
 _st($1)._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 throw $early=[nil];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $2=_st(self._stack())._last();
 return $2;
 }

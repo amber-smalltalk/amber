@@ -316,9 +316,8 @@ protocolBag=_st($Dictionary())._new();
 $ctx1.sendIdx["new"]=1;
 methods=_st(_st($HLReferencesModel())._new())._implementorsOf_(_st(self["@method"])._selector());
 _st(methods)._ifEmpty_ifNotEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 throw $early=[false];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(){
+}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(methods)._do_((function(aMethod){
 var protocol;
@@ -338,17 +337,15 @@ return _st(protocol).__eq(_st(self["@method"])._defaultProtocol());
 }, function($ctx4) {$ctx4.fillBlock({},$ctx3,5)})}));
 if(! smalltalk.assert($3)){
 return _st(protocolBag)._at_put_(protocol,_st(_st(protocolBag)._at_ifAbsent_(protocol,(function(){
-return smalltalk.withContext(function($ctx4) {
 return (0);
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,7)})}))).__plus((1)));
+}))).__plus((1)));
 };
 };
 }, function($ctx3) {$ctx3.fillBlock({aMethod:aMethod,protocol:protocol},$ctx2,3)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 _st(protocolBag)._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 throw $early=[false];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,8)})}));
+}));
 protocolToUse=nil;
 counter=(0);
 _st(protocolBag)._keysAndValuesDo_((function(key,value){

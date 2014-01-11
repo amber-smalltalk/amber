@@ -407,16 +407,14 @@ return smalltalk.withContext(function($ctx1) {
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._async_((function(){
-return smalltalk.withContext(function($ctx3) {
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}));
 $ctx2.sendIdx["async:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 self._timeout_((0));
 self._shouldnt_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._async_((function(){
-return smalltalk.withContext(function($ctx3) {
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
+}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}),$Error());
 self._finished();
 return self}, function($ctx1) {$ctx1.fill(self,"testAsyncNeedsTimeout",{},globals.SUnitAsyncTest)})},

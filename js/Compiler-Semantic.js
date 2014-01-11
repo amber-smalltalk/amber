@@ -128,9 +128,8 @@ $ctx2.sendIdx["value"]=2;
 return _st($4)._at_ifAbsent_($5,(function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(self._temps())._at_ifAbsent_(_st(aStringOrNode)._value(),(function(){
-return smalltalk.withContext(function($ctx4) {
 return nil;
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})}));
+}));
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 $ctx2.sendIdx["at:ifAbsent:"]=2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
@@ -559,9 +558,8 @@ var $2,$1;
 $2=globals.MethodLexicalScope.superclass.fn.prototype._bindingFor_.apply(_st(self), [aNode]);
 if(($receiver = $2) == nil || $receiver == null){
 $1=_st(self._iVars())._at_ifAbsent_(_st(aNode)._value(),(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 } else {
 $1=$2;
 };
@@ -786,8 +784,7 @@ fn: function (aScope){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._nonLocalReturns())._remove_ifAbsent_(aScope,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"removeNonLocalReturn:",{aScope:aScope},globals.MethodLexicalScope)})},
 args: ["aScope"],
 source: "removeNonLocalReturn: aScope\x0a\x09self nonLocalReturns remove: aScope ifAbsent: []",

@@ -403,8 +403,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._whileFalse_((function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse",{},globals.BlockClosure)})},
 args: [],
 source: "whileFalse\x0a\x09self whileFalse: []",
@@ -437,8 +436,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._whileTrue_((function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue",{},globals.BlockClosure)})},
 args: [],
 source: "whileTrue\x0a\x09self whileTrue: []",
@@ -924,9 +922,8 @@ return smalltalk.withContext(function($ctx2) {
 self["@poolSize"]=_st(self["@poolSize"]).__minus((1));
 self["@poolSize"];
 block=_st(self["@queue"])._nextIfAbsent_((function(){
-return smalltalk.withContext(function($ctx3) {
 return sentinel;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}));
 block;
 $2=_st(block).__eq_eq(sentinel);
 if(! smalltalk.assert($2)){

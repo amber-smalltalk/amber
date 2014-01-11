@@ -220,12 +220,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._assert_equals_(_st((function(){
-return smalltalk.withContext(function($ctx2) {
 return (3);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._ensure_((function(){
-return smalltalk.withContext(function($ctx2) {
+}))._ensure_((function(){
 return (4);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})),(3));
+})),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testEnsure",{},globals.BlockClosureTest)})},
 args: [],
 source: "testEnsure\x0a\x09self assert: ([ 3 ] ensure: [ 4 ]) equals: 3",
@@ -248,9 +246,8 @@ return _st((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(_st($Error())._new())._signal();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}))._ensure_((function(){
-return smalltalk.withContext(function($ctx3) {
 return true;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testEnsureRaises",{},globals.BlockClosureTest)})},
 args: [],
@@ -326,14 +323,12 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st((function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._numArgs();
+}))._numArgs();
 $ctx1.sendIdx["numArgs"]=1;
 self._assert_equals_($1,(0));
 $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_(_st((function(a,b){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,2)})}))._numArgs(),(2));
+}))._numArgs(),(2));
 return self}, function($ctx1) {$ctx1.fill(self,"testNumArgs",{},globals.BlockClosureTest)})},
 args: [],
 source: "testNumArgs\x0a\x09self assert: [] numArgs equals: 0.\x0a\x09self assert: [ :a :b | ] numArgs equals: 2",
@@ -354,9 +349,8 @@ self._assert_(_st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($Error())._new())._signal();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(ex){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})})));
+})));
 return self}, function($ctx1) {$ctx1.fill(self,"testOnDo",{},globals.BlockClosureTest)})},
 args: [],
 source: "testOnDo\x0a\x09self assert: ([ Error new signal ] on: Error do: [ :ex | true ])",
@@ -392,9 +386,8 @@ return _st(x).__star(y);
 }, function($ctx2) {$ctx2.fillBlock({x:x,y:y},$ctx1,3)})}))._value_value_((2),(4)),(8));
 $ctx1.sendIdx["assert:equals:"]=3;
 self._assert_equals_(_st((function(a,b,c){
-return smalltalk.withContext(function($ctx2) {
 return (1);
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b,c:c},$ctx1,4)})}))._value(),(1));
+}))._value(),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testValue",{},globals.BlockClosureTest)})},
 args: [],
 source: "testValue\x0a\x09self assert: ([ 1+1 ] value) equals: 2.\x0a\x09self assert: ([ :x | x +1 ] value: 2) equals: 3.\x0a\x09self assert: ([ :x :y | x*y ] value: 2 value: 4) equals: 8.\x0a\x0a\x09\x22Arguments are optional in Amber. This isn't ANSI compliant.\x22\x0a\x0a\x09self assert: ([ :a :b :c | 1 ] value) equals: 1",
@@ -412,9 +405,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st((function(){
-return smalltalk.withContext(function($ctx2) {
 return (1);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._valueWithPossibleArguments_([(3), (4)]);
+}))._valueWithPossibleArguments_([(3), (4)]);
 $ctx1.sendIdx["valueWithPossibleArguments:"]=1;
 self._assert_equals_($1,(1));
 $ctx1.sendIdx["assert:equals:"]=1;
@@ -861,58 +853,50 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9,$11,$13,$12,$16,$15,$14,$17,$19,$18,$22,$21,$20;
 $1=true._and_((function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $ctx1.sendIdx["and:"]=1;
 self._assert_($1);
 $ctx1.sendIdx["assert:"]=1;
 $2=true._and_((function(){
-return smalltalk.withContext(function($ctx2) {
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 $ctx1.sendIdx["and:"]=2;
 self._deny_($2);
 $ctx1.sendIdx["deny:"]=1;
 $3=false._and_((function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+}));
 $ctx1.sendIdx["and:"]=3;
 self._deny_($3);
 $ctx1.sendIdx["deny:"]=2;
 $5=false._and_((function(){
-return smalltalk.withContext(function($ctx2) {
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
+}));
 $ctx1.sendIdx["and:"]=4;
 $4=self._deny_($5);
 $ctx1.sendIdx["deny:"]=3;
 $6=true._or_((function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
+}));
 $ctx1.sendIdx["or:"]=1;
 self._assert_($6);
 $ctx1.sendIdx["assert:"]=2;
 $7=true._or_((function(){
-return smalltalk.withContext(function($ctx2) {
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
+}));
 $ctx1.sendIdx["or:"]=2;
 self._assert_($7);
 $ctx1.sendIdx["assert:"]=3;
 $8=false._or_((function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,7)})}));
+}));
 $ctx1.sendIdx["or:"]=3;
 self._assert_($8);
 $ctx1.sendIdx["assert:"]=4;
 $10=false._or_((function(){
-return smalltalk.withContext(function($ctx2) {
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,8)})}));
+}));
 $ctx1.sendIdx["or:"]=4;
 $9=self._deny_($10);
 $ctx1.sendIdx["deny:"]=4;
@@ -927,9 +911,8 @@ $ctx1.sendIdx["assert:"]=5;
 $13=(1).__gt((0));
 $ctx1.sendIdx[">"]=2;
 $12=_st($13)._and_((function(){
-return smalltalk.withContext(function($ctx2) {
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,10)})}));
+}));
 $ctx1.sendIdx["and:"]=6;
 self._deny_($12);
 $ctx1.sendIdx["deny:"]=5;
@@ -952,9 +935,8 @@ $ctx1.sendIdx["assert:"]=6;
 $19=(1).__gt((0));
 $ctx1.sendIdx[">"]=6;
 $18=_st($19)._or_((function(){
-return smalltalk.withContext(function($ctx2) {
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,13)})}));
+}));
 $ctx1.sendIdx["or:"]=6;
 self._assert_($18);
 $ctx1.sendIdx["assert:"]=7;
@@ -1645,9 +1627,8 @@ var $2,$1,$3,$5,$4,$8,$7,$6,$11,$10,$9;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {
 return each;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}));
 $ctx1.sendIdx["collect:"]=1;
 $3=self._collection();
 $ctx1.sendIdx["collection"]=2;
@@ -1656,9 +1637,8 @@ $ctx1.sendIdx["assert:equals:"]=1;
 $5=self._collectionWithNewValue();
 $ctx1.sendIdx["collectionWithNewValue"]=1;
 $4=_st($5)._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {
 return each;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+}));
 $ctx1.sendIdx["collect:"]=2;
 self._assert_equals_($4,self._collectionWithNewValue());
 $ctx1.sendIdx["assert:equals:"]=2;
@@ -1683,9 +1663,8 @@ $ctx2.sendIdx["sampleNewValue"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
 $ctx1.sendIdx["collect:"]=4;
 $9=_st($10)._detect_((function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
+}));
 self._assert_equals_($9,self._sampleNewValue());
 $ctx1.sendIdx["assert:equals:"]=4;
 self._assert_equals_(_st(self._collection())._collect_((function(each){
@@ -1776,9 +1755,8 @@ return smalltalk.withContext(function($ctx2) {
 $1=self._collection();
 $ctx2.sendIdx["collection"]=1;
 return _st($1)._detect_((function(){
-return smalltalk.withContext(function($ctx3) {
 return true;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}));
 $ctx2.sendIdx["detect:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 self._should_raise_((function(){
@@ -1786,16 +1764,14 @@ return smalltalk.withContext(function($ctx2) {
 $2=self._collection();
 $ctx2.sendIdx["collection"]=2;
 return _st($2)._detect_((function(){
-return smalltalk.withContext(function($ctx3) {
 return false;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
+}));
 $ctx2.sendIdx["detect:"]=2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}),$Error());
 $ctx1.sendIdx["should:raise:"]=1;
 $3=_st(self._sampleNewValueAsCollection())._detect_((function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
+}));
 $ctx1.sendIdx["detect:"]=3;
 $4=self._sampleNewValue();
 $ctx1.sendIdx["sampleNewValue"]=1;
@@ -1841,34 +1817,28 @@ sentinel=_st($Object())._new();
 $3=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $2=_st($3)._detect_ifNone_((function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
+}),(function(){
 return sentinel;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 $ctx1.sendIdx["detect:ifNone:"]=1;
 $1=_st($2).__tild_eq(sentinel);
 self._assert_($1);
 $5=self._collection();
 $ctx1.sendIdx["collection"]=2;
 $4=_st($5)._detect_ifNone_((function(){
-return smalltalk.withContext(function($ctx2) {
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
+}),(function(){
 return sentinel;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
+}));
 $ctx1.sendIdx["detect:ifNone:"]=2;
 self._assert_equals_($4,sentinel);
 $ctx1.sendIdx["assert:equals:"]=1;
 $6=_st(self._sampleNewValueAsCollection())._detect_ifNone_((function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
+}),(function(){
 return sentinel;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
+}));
 $ctx1.sendIdx["detect:ifNone:"]=3;
 $7=self._sampleNewValue();
 $ctx1.sendIdx["sampleNewValue"]=1;
@@ -1881,9 +1851,8 @@ $ctx2.sendIdx["sampleNewValue"]=2;
 return _st(each).__eq($9);
 $ctx2.sendIdx["="]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,7)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 return sentinel;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,8)})}));
+}));
 $ctx1.sendIdx["detect:ifNone:"]=4;
 $10=self._sampleNewValue();
 $ctx1.sendIdx["sampleNewValue"]=3;
@@ -1893,9 +1862,8 @@ self._assert_equals_(_st(self._collection())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each).__eq(self._sampleNewValue());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,9)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 return sentinel;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,10)})})),sentinel);
+})),sentinel);
 return self}, function($ctx1) {$ctx1.fill(self,"testDetectIfNone",{sentinel:sentinel},globals.CollectionTest)})},
 args: [],
 source: "testDetectIfNone\x0a\x09| sentinel |\x0a\x09sentinel := Object new.\x0a\x09self assert: (self collection detect: [ true ] ifNone: [ sentinel ]) ~= sentinel.\x0a\x09self assert: (self collection detect: [ false ] ifNone: [ sentinel ]) equals: sentinel.\x0a\x09self assert: (self sampleNewValueAsCollection detect: [ true ] ifNone: [ sentinel ]) equals: self sampleNewValue.\x0a\x09self assert: (self collectionWithNewValue detect: [ :each | each = self sampleNewValue ] ifNone: [ sentinel ]) equals: self sampleNewValue.\x0a\x09self assert: (self collection detect: [ :each | each = self sampleNewValue ] ifNone: [ sentinel ]) equals: sentinel",
@@ -1955,18 +1923,16 @@ $ctx1.sendIdx["collectionClass"]=1;
 $2=_st($3)._new();
 $ctx1.sendIdx["new"]=1;
 $1=_st($2)._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 return (42);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $ctx1.sendIdx["ifEmpty:"]=1;
 self._assert_equals_($1,(42));
 $ctx1.sendIdx["assert:equals:"]=1;
 $5=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $4=_st($5)._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 return (42);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 $6=self._collection();
 $ctx1.sendIdx["collection"]=2;
 self._assert_equals_($4,$6);
@@ -1976,9 +1942,8 @@ $ctx1.sendIdx["collectionClass"]=2;
 $8=_st($9)._new();
 $ctx1.sendIdx["new"]=2;
 $7=_st($8)._ifNotEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 return (42);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+}));
 $ctx1.sendIdx["ifNotEmpty:"]=1;
 $11=self._collectionClass();
 $ctx1.sendIdx["collectionClass"]=3;
@@ -1989,9 +1954,8 @@ $ctx1.sendIdx["assert:equals:"]=3;
 $13=self._collection();
 $ctx1.sendIdx["collection"]=3;
 $12=_st($13)._ifNotEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 return (42);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
+}));
 self._assert_equals_($12,(42));
 $ctx1.sendIdx["assert:equals:"]=4;
 $16=self._collectionClass();
@@ -1999,43 +1963,35 @@ $ctx1.sendIdx["collectionClass"]=4;
 $15=_st($16)._new();
 $ctx1.sendIdx["new"]=4;
 $14=_st($15)._ifEmpty_ifNotEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 return (42);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
+}),(function(){
 return (999);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
+}));
 $ctx1.sendIdx["ifEmpty:ifNotEmpty:"]=1;
 self._assert_equals_($14,(42));
 $ctx1.sendIdx["assert:equals:"]=5;
 $18=self._collection();
 $ctx1.sendIdx["collection"]=4;
 $17=_st($18)._ifEmpty_ifNotEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 return (42);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,7)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
+}),(function(){
 return (999);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,8)})}));
+}));
 self._assert_equals_($17,(999));
 $ctx1.sendIdx["assert:equals:"]=6;
 $19=_st(_st(self._collectionClass())._new())._ifNotEmpty_ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 return (42);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,9)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
+}),(function(){
 return (999);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,10)})}));
+}));
 $ctx1.sendIdx["ifNotEmpty:ifEmpty:"]=1;
 self._assert_equals_($19,(999));
 $ctx1.sendIdx["assert:equals:"]=7;
 self._assert_equals_(_st(self._collection())._ifNotEmpty_ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 return (42);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,11)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
+}),(function(){
 return (999);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,12)})})),(42));
+})),(42));
 return self}, function($ctx1) {$ctx1.fill(self,"testIfEmptyFamily",{},globals.CollectionTest)})},
 args: [],
 source: "testIfEmptyFamily\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.\x0a\x09\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42",
@@ -2129,9 +2085,8 @@ var $2,$1,$4,$3,$6,$5,$7,$9,$10,$8,$12,$13,$11,$14,$16,$17,$15;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._select_((function(){
-return smalltalk.withContext(function($ctx2) {
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $ctx1.sendIdx["select:"]=1;
 $4=self._collectionClass();
 $ctx1.sendIdx["collectionClass"]=1;
@@ -2142,9 +2097,8 @@ $ctx1.sendIdx["assert:equals:"]=1;
 $6=self._collection();
 $ctx1.sendIdx["collection"]=2;
 $5=_st($6)._select_((function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 $ctx1.sendIdx["select:"]=2;
 $7=self._collection();
 $ctx1.sendIdx["collection"]=3;
@@ -2450,11 +2404,10 @@ visited;
 $2=self._collection();
 $ctx2.sendIdx["collection"]=1;
 $1=_st($2)._at_ifPresent_(each,(function(value1){
-return smalltalk.withContext(function($ctx3) {
 visited=value1;
 visited;
 return sentinel;
-}, function($ctx3) {$ctx3.fillBlock({value1:value1},$ctx2,2)})}));
+}));
 $ctx2.sendIdx["at:ifPresent:"]=1;
 self._assert_equals_($1,nil);
 $ctx2.sendIdx["assert:equals:"]=1;
@@ -2467,11 +2420,10 @@ visited;
 $4=self._collection();
 $ctx2.sendIdx["collection"]=2;
 $3=_st($4)._at_ifPresent_(index,(function(value2){
-return smalltalk.withContext(function($ctx3) {
 visited=value2;
 visited;
 return sentinel;
-}, function($ctx3) {$ctx3.fillBlock({value2:value2},$ctx2,4)})}));
+}));
 self._assert_equals_($3,sentinel);
 $ctx2.sendIdx["assert:equals:"]=2;
 return self._assert_equals_(visited,_st(self._collection())._at_(index));
@@ -2502,11 +2454,10 @@ visited;
 $2=self._collection();
 $ctx2.sendIdx["collection"]=1;
 $1=_st($2)._at_ifPresent_ifAbsent_(each,(function(value1){
-return smalltalk.withContext(function($ctx3) {
 visited=value1;
 visited;
 return sentinel;
-}, function($ctx3) {$ctx3.fillBlock({value1:value1},$ctx2,2)})}),(function(){
+}),(function(){
 return smalltalk.withContext(function($ctx3) {
 return self._sampleNewValue();
 $ctx3.sendIdx["sampleNewValue"]=1;
@@ -2525,11 +2476,10 @@ visited;
 $5=self._collection();
 $ctx2.sendIdx["collection"]=2;
 $4=_st($5)._at_ifPresent_ifAbsent_(index,(function(value2){
-return smalltalk.withContext(function($ctx3) {
 visited=value2;
 visited;
 return sentinel;
-}, function($ctx3) {$ctx3.fillBlock({value2:value2},$ctx2,5)})}),(function(){
+}),(function(){
 return smalltalk.withContext(function($ctx3) {
 return self._sampleNewValue();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,6)})}));
@@ -3385,16 +3335,14 @@ $ctx1.sendIdx["at:"]=1;
 self._assert_equals_($1,"world");
 $ctx1.sendIdx["assert:equals:"]=1;
 $2=_st(d)._at_ifAbsent_("hello",(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $ctx1.sendIdx["at:ifAbsent:"]=1;
 self._assert_equals_($2,"world");
 $ctx1.sendIdx["assert:equals:"]=2;
 self._deny_(_st(_st(d)._at_ifAbsent_("foo",(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))).__eq("world"));
+}))).__eq("world"));
 $ctx1.sendIdx["deny:"]=1;
 $3=_st(d)._includesKey_("hello");
 $ctx1.sendIdx["includesKey:"]=1;
@@ -4850,9 +4798,8 @@ return smalltalk.withContext(function($ctx1) {
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return "hello"._at_ifAbsentPut_((6),(function(){
-return smalltalk.withContext(function($ctx3) {
 return "a";
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsentPut",{},globals.StringTest)})},
 args: [],
@@ -5002,8 +4949,7 @@ $ctx1.sendIdx["="]=1;
 self._deny_($1);
 $ctx1.sendIdx["deny:"]=1;
 $2="hello".__eq([]._at_ifAbsent_((1),(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})));
+})));
 $ctx1.sendIdx["="]=2;
 self._deny_($2);
 $ctx1.sendIdx["deny:"]=2;
@@ -5806,30 +5752,26 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 testObject=self._jsObject();
 $1=_st(testObject)._at_ifAbsent_("abc",(function(){
-return smalltalk.withContext(function($ctx2) {
 return "Property does not exist";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $ctx1.sendIdx["at:ifAbsent:"]=1;
 self._assert_equals_($1,"Property does not exist");
 $ctx1.sendIdx["assert:equals:"]=1;
 $2=_st(testObject)._at_ifAbsent_("e",(function(){
-return smalltalk.withContext(function($ctx2) {
 return "Property does not exist";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 $ctx1.sendIdx["at:ifAbsent:"]=2;
 self._assert_equals_($2,nil);
 $ctx1.sendIdx["assert:equals:"]=2;
 $3=_st(testObject)._at_ifAbsent_("a",(function(){
-return smalltalk.withContext(function($ctx2) {
 return "Property does not exist";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+}));
 $ctx1.sendIdx["at:ifAbsent:"]=3;
 self._assert_equals_($3,(1));
 $ctx1.sendIdx["assert:equals:"]=3;
 self._assert_equals_(_st(testObject)._at_ifAbsent_("f",(function(){
-return smalltalk.withContext(function($ctx2) {
 return "Property does not exist";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})})),nil);
+})),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{testObject:testObject},globals.JSObjectProxyTest)})},
 args: [],
 source: "testAtIfAbsent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifAbsent: [ 'Property does not exist' ]) equals: 'Property does not exist'.\x0a\x09self assert: (testObject at: 'e' ifAbsent: [ 'Property does not exist' ]) equals: nil.\x0a\x09self assert: (testObject at: 'a' ifAbsent: [ 'Property does not exist' ]) equals: 1.\x0a\x09self assert: (testObject at: 'f' ifAbsent: [ 'Property does not exist' ]) equals: nil.",
@@ -5907,9 +5849,8 @@ $ctx2.sendIdx["asString"]=1;
 return "hello ".__comma($2);
 $ctx2.sendIdx[","]=1;
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 return "not present";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 $ctx1.sendIdx["at:ifPresent:ifAbsent:"]=1;
 self._assert_equals_($1,"not present");
 $ctx1.sendIdx["assert:equals:"]=1;
@@ -5920,9 +5861,8 @@ $ctx2.sendIdx["asString"]=2;
 return "hello ".__comma($4);
 $ctx2.sendIdx[","]=2;
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,3)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 return "not present";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
+}));
 $ctx1.sendIdx["at:ifPresent:ifAbsent:"]=2;
 self._assert_equals_($3,"hello nil");
 $ctx1.sendIdx["assert:equals:"]=2;
@@ -5933,9 +5873,8 @@ $ctx2.sendIdx["asString"]=3;
 return "hello ".__comma($6);
 $ctx2.sendIdx[","]=3;
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,5)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 return "not present";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
+}));
 $ctx1.sendIdx["at:ifPresent:ifAbsent:"]=3;
 self._assert_equals_($5,"hello 1");
 $ctx1.sendIdx["assert:equals:"]=3;
@@ -5943,9 +5882,8 @@ self._assert_equals_(_st(testObject)._at_ifPresent_ifAbsent_("f",(function(x){
 return smalltalk.withContext(function($ctx2) {
 return "hello ".__comma(_st(x)._asString());
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,7)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 return "not present";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,8)})})),"hello nil");
+})),"hello nil");
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{testObject:testObject},globals.JSObjectProxyTest)})},
 args: [],
 source: "testAtIfPresentIfAbsent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'not present'.\x0a\x09self assert: (testObject at: 'e' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello nil'.\x0a\x09self assert: (testObject at: 'a' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello 1'.\x0a\x09self assert: (testObject at: 'f' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello nil'.",
@@ -6642,22 +6580,19 @@ _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._deinstallTop();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 $ctx1.sendIdx["on:do:"]=1;
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._deinstallMiddle();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}))._on_do_($Error(),(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
+}));
 $ctx1.sendIdx["on:do:"]=2;
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._deinstallBottom();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}))._on_do_($Error(),(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},globals.MethodInheritanceTest)})},
 args: [],
 source: "tearDown\x0a\x09[ self deinstallTop ] on: Error do: [ ].\x0a\x09[ self deinstallMiddle ] on: Error do: [ ].\x0a\x09[ self deinstallBottom ] on: Error do: [ ]",
@@ -7761,9 +7696,8 @@ function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object
 return smalltalk.withContext(function($ctx1) { 
 o=_st($Object())._new();
 _st(o)._basicAt_put_("func",(function(){
-return smalltalk.withContext(function($ctx2) {
 return "hello";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $ctx1.sendIdx["basicAt:put:"]=1;
 _st(o)._basicAt_put_("func2",(function(a){
 return smalltalk.withContext(function($ctx2) {

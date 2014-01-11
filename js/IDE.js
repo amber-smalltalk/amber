@@ -4538,8 +4538,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@inspector"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateInspector",{},globals.Debugger)})},
 args: [],
 source: "updateInspector\x0a\x09inspector contents: [ :html | ]",
