@@ -28,8 +28,17 @@
 + Set >> removeAll
 + AssociativeCollection class
 + BucketStore class
-+ SmalltalkImage >> globals
-+ SmalltalkImage >> vm
++ SmalltalkImage >>
+  + globals
+  + vm
+  + settings
++ Setting class
++ String >>
+  + asSetting
+  + asSettingIfAbsent:
+  + settingValue
+  + settingValueIfAbsent:
+  + settingValue:
 + Smalltalk global variable
 
 - CompiledMethod >>
