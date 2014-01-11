@@ -62,10 +62,10 @@ var path = require('path'),
 	Promise = require('es6-promise').Promise;
 
 /**
- * AmberC constructor function.
+ * AmberCompiler constructor function.
  * amber_dir: points to the location of an amber installation
  */
-function AmberC(amber_dir) {
+function AmberCompiler(amber_dir) {
 	if (undefined === amber_dir || !fs.existsSync(amber_dir)) {
 		throw new Error('amber_dir needs to be a valid directory');
 	}
@@ -110,7 +110,7 @@ var createDefaultConfiguration = function() {
  * If check_configuration_ok() returns successfully
  * the configuration is used to trigger the following compilation steps.
  */
-AmberC.prototype.main = function(configuration, finished_callback) {
+AmberCompiler.prototype.main = function(configuration, finished_callback) {
 	console.time('Compile Time');
 
 	if (configuration.amd_namespace.length === 0) {
@@ -161,11 +161,11 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 function check_configuration(configuration) {
 	return new Promise(function(resolve, reject) {
 		if (undefined === configuration) {
-			reject(Error('AmberC.check_configuration_ok(): missing configuration object'));
+			reject(Error('AmberCompiler.check_configuration_ok(): missing configuration object'));
 		}
 
 		if (0 === configuration.jsFiles.length && 0 === configuration.stFiles.length) {
-			reject(Error('AmberC.check_configuration_ok(): no files to compile/link specified in configuration object'));
+			reject(Error('AmberCompiler.check_configuration_ok(): no files to compile/link specified in configuration object'));
 		}
 
 		resolve(configuration);
@@ -358,12 +358,12 @@ function compile(configuration) {
 		configuration.compile.map(function(stFile) {
 			return new Promise(function(resolve, reject) {
 				if (/\.st/.test(stFile)) {
-					console.ambercLog('Importing: ' + stFile);
+					console.ambercLog('Reading: ' + stFile);
 					fs.readFile(stFile, 'utf8', function(err, data) {
 						if (!err)
 							resolve(data);
 						else
-							reject(Error('Could not import: ' + stFile));
+							reject(Error('Could not read: ' + stFile));
 					});
 				}
 			});
@@ -380,7 +380,7 @@ function compile(configuration) {
 						importer._import_(code._stream());
 						resolve(true);
 					} catch (ex) {
-						reject(Error("Import error in section:\n" +
+						reject(Error("Compiler error in section:\n" +
 							importer._lastSection() + "\n\n" +
 							"while processing chunk:\n" +
 							importer._lastChunk() + "\n\n" +
@@ -467,8 +467,7 @@ function compose_js_files(configuration) {
 	return new Promise(function(resolve, reject) {
 		var programFile = configuration.program;
 		if (undefined === programFile) {
-			resolve(configuration);
-			return;
+			reject(configuration);
 		}
 		if (undefined !== configuration.output_dir) {
 			programFile = path.join(configuration.output_dir, programFile);
@@ -545,5 +544,5 @@ function compose_js_files(configuration) {
 }
 
 
-module.exports.Compiler = AmberC;
+module.exports.Compiler = AmberCompiler;
 module.exports.createDefaultConfiguration = createDefaultConfiguration;
