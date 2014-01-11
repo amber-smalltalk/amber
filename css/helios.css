@@ -508,8 +508,9 @@ body[id="helios"] .key_helper {
   top: 120px;
   left: 50%;
   width: 400px;
+  max-height: 300px;
   margin-left: -200px;
-  background: rgba(243, 243, 243, 0.9);
+  background: white;
   box-shadow: 0 0 6px #aaa;
   border: 1px solid #aaa;
   font-size: 11px;
@@ -520,8 +521,9 @@ body[id="helios"] .key_helper {
   -ms-transition: all .5s;
 }
 body[id="helios"] .key_helper .command {
-  padding: 2px;
-  display: block;
+  padding: 0;
+  display: inline-block;
+  width: 50%;
 }
 body[id="helios"] .key_helper .command strong {
   display: inline-block;
