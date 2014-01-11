@@ -947,14 +947,6 @@ value: aString
 	^ Smalltalk settings at: self key put: aString
 ! !
 
-!Setting methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-
-	value := nil
-! !
-
 !Setting class methodsFor: 'instance creation'!
 
 at: aString ifAbsent: anotherString

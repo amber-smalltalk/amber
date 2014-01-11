@@ -2376,23 +2376,6 @@ globals.Setting);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "initialize",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-globals.Setting.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@value"]=nil;
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Setting)})},
-args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x0a\x09value := nil",
-messageSends: ["initialize"],
-referencedClasses: []
-}),
-globals.Setting);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "key",
 protocol: 'accessing',
 fn: function (){
