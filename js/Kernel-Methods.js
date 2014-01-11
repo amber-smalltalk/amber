@@ -660,6 +660,38 @@ globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "package",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$4,$3,$5;
+$2=self._protocol();
+$ctx1.sendIdx["protocol"]=1;
+$1=_st($2)._beginsWith_("*");
+if(! smalltalk.assert($1)){
+$4=self._methodClass();
+$ctx1.sendIdx["methodClass"]=1;
+$3=_st($4)._package();
+$ctx1.sendIdx["package"]=1;
+return $3;
+};
+$5=_st($Package())._named_ifAbsent_(_st(self._protocol())._allButFirst(),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._methodClass())._package();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return $5;
+}, function($ctx1) {$ctx1.fill(self,"package",{},globals.CompiledMethod)})},
+args: [],
+source: "package\x0a\x09\x22Answer the package the receiver belongs to:\x0a\x09- if it is an extension method, answer the corresponding package\x0a\x09- else answer the `methodClass` package\x22\x0a\x09\x0a\x09(self protocol beginsWith: '*') ifFalse: [\x0a\x09\x09^ self methodClass package ].\x0a\x09\x09\x0a\x09^ Package \x0a\x09\x09named: self protocol allButFirst\x0a\x09\x09ifAbsent: [ self methodClass package ]",
+messageSends: ["ifFalse:", "beginsWith:", "protocol", "package", "methodClass", "named:ifAbsent:", "allButFirst"],
+referencedClasses: ["Package"]
+}),
+globals.CompiledMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "protocol",
 protocol: 'accessing',
 fn: function (){

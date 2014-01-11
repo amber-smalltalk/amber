@@ -92,6 +92,16 @@ availableProtocols
 	^ self environment availableProtocolsFor: self selectedClass
 !
 
+packageToCommit
+	"Answer the package to commit depending on the context:
+	- if a Method is selected, answer its package
+	- else answer the `selectedPackage`"
+	
+	^ self selectedMethod 
+		ifNil: [ self selectedPackage ]
+		ifNotNil: [ :method | method package ]
+!
+
 packages
 	^ self environment packages
 !
@@ -191,7 +201,7 @@ saveSourceCode
 !HLToolModel methodsFor: 'commands actions'!
 
 commitPackage
-	self environment commitPackage: self selectedPackage
+	self environment commitPackage: self packageToCommit
 !
 
 copyClassTo: aClassName

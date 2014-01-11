@@ -224,6 +224,19 @@ methodClass
 	^ self basicAt: 'methodClass'
 !
 
+package
+	"Answer the package the receiver belongs to:
+	- if it is an extension method, answer the corresponding package
+	- else answer the `methodClass` package"
+	
+	(self protocol beginsWith: '*') ifFalse: [
+		^ self methodClass package ].
+		
+	^ Package 
+		named: self protocol allButFirst
+		ifAbsent: [ self methodClass package ]
+!
+
 protocol
 	^ (self basicAt: 'protocol') ifNil: [ self defaultProtocol ]
 !

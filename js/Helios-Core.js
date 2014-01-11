@@ -314,11 +314,11 @@ protocol: 'commands actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._environment())._commitPackage_(self._selectedPackage());
+_st(self._environment())._commitPackage_(self._packageToCommit());
 return self}, function($ctx1) {$ctx1.fill(self,"commitPackage",{},globals.HLToolModel)})},
 args: [],
-source: "commitPackage\x0a\x09self environment commitPackage: self selectedPackage",
-messageSends: ["commitPackage:", "environment", "selectedPackage"],
+source: "commitPackage\x0a\x09self environment commitPackage: self packageToCommit",
+messageSends: ["commitPackage:", "environment", "packageToCommit"],
 referencedClasses: []
 }),
 globals.HLToolModel);
@@ -613,6 +613,31 @@ return self}, function($ctx1) {$ctx1.fill(self,"openClassNamed:",{aString:aStrin
 args: ["aString"],
 source: "openClassNamed: aString\x0a\x09| class |\x0a\x09\x0a\x09self withChangesDo: [\x0a\x09\x09class := self environment classNamed: aString.\x0a\x09\x09self selectedPackage: class package.\x0a\x09\x09self selectedClass: class ]",
 messageSends: ["withChangesDo:", "classNamed:", "environment", "selectedPackage:", "package", "selectedClass:"],
+referencedClasses: []
+}),
+globals.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "packageToCommit",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._selectedMethod();
+if(($receiver = $2) == nil || $receiver == null){
+$1=self._selectedPackage();
+} else {
+var method;
+method=$receiver;
+$1=_st(method)._package();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"packageToCommit",{},globals.HLToolModel)})},
+args: [],
+source: "packageToCommit\x0a\x09\x22Answer the package to commit depending on the context:\x0a\x09- if a Method is selected, answer its package\x0a\x09- else answer the `selectedPackage`\x22\x0a\x09\x0a\x09^ self selectedMethod \x0a\x09\x09ifNil: [ self selectedPackage ]\x0a\x09\x09ifNotNil: [ :method | method package ]",
+messageSends: ["ifNil:ifNotNil:", "selectedMethod", "selectedPackage", "package"],
 referencedClasses: []
 }),
 globals.HLToolModel);
