@@ -1506,6 +1506,24 @@ globals.Metaclass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "package",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._instanceClass())._package();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"package",{},globals.Metaclass)})},
+args: [],
+source: "package\x0a\x09^ self instanceClass package",
+messageSends: ["package", "instanceClass"],
+referencedClasses: []
+}),
+globals.Metaclass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){

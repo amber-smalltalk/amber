@@ -483,6 +483,10 @@ instanceVariableNames: aCollection
 		class: self instanceVariableNames: aCollection
 !
 
+package
+	^ self instanceClass package
+!
+
 subclasses
 	^ (self instanceClass subclasses 
 		select: [ :each | each isMetaclass not ])
