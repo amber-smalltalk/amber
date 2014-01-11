@@ -917,7 +917,7 @@ I represent a setting accessible via `Smalltalk settings`.
 
 ## API
 
-a `Setting` value can be read using `value` and set using `value:`.
+A `Setting` value can be read using `value` and set using `value:`.
 
 Settings are accessed with `'key' asSetting` or `'key' asSettingIfAbsent: 'defaultValue'`.!
 
