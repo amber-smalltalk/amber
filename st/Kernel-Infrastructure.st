@@ -1262,11 +1262,7 @@ asJavaScriptSelector
 !
 
 asSetting
-	| parts |
-	parts := self tokenize: '|'.
-	parts size = 1
-		ifTrue: [ ^ Setting at: self ifAbsent: nil ]
-		ifFalse: [ ^ parts first asSettingIfAbsent: parts second ]
+	^ Setting at: self ifAbsent: nil
 !
 
 asSettingIfAbsent: aString

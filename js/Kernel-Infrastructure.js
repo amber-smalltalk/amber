@@ -3294,23 +3294,15 @@ selector: "asSetting",
 protocol: '*Kernel-Infrastructure',
 fn: function (){
 var self=this;
-var parts;
 function $Setting(){return globals.Setting||(typeof Setting=="undefined"?nil:Setting)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-parts=self._tokenize_("|");
-$1=_st(_st(parts)._size()).__eq((1));
-if(smalltalk.assert($1)){
-$2=_st($Setting())._at_ifAbsent_(self,nil);
-return $2;
-} else {
-$3=_st(_st(parts)._first())._asSettingIfAbsent_(_st(parts)._second());
-return $3;
-};
-return self}, function($ctx1) {$ctx1.fill(self,"asSetting",{parts:parts},globals.String)})},
+var $1;
+$1=_st($Setting())._at_ifAbsent_(self,nil);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asSetting",{},globals.String)})},
 args: [],
-source: "asSetting\x0a\x09| parts |\x0a\x09parts := self tokenize: '|'.\x0a\x09parts size = 1\x0a\x09\x09ifTrue: [ ^ Setting at: self ifAbsent: nil ]\x0a\x09\x09ifFalse: [ ^ parts first asSettingIfAbsent: parts second ]",
-messageSends: ["tokenize:", "ifTrue:ifFalse:", "=", "size", "at:ifAbsent:", "asSettingIfAbsent:", "first", "second"],
+source: "asSetting\x0a\x09^ Setting at: self ifAbsent: nil",
+messageSends: ["at:ifAbsent:"],
 referencedClasses: ["Setting"]
 }),
 globals.String);
