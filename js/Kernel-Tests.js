@@ -4445,12 +4445,12 @@ fn: function (){
 var self=this;
 var array;
 return smalltalk.withContext(function($ctx1) { 
-array=[(3), (1), (4), (5), (2)];
+array=[(10), (1), (5)];
 _st(array)._sort();
-self._assert_equals_(array,[(1), (2), (3), (4), (5)]);
+self._assert_equals_(array,[(1), (5), (10)]);
 return self}, function($ctx1) {$ctx1.fill(self,"testSort",{array:array},globals.ArrayTest)})},
 args: [],
-source: "testSort\x0a\x09| array |\x0a\x09array := #(3 1 4 5 2). \x0a\x09array sort.\x0a\x09self assert: array equals: #(1 2 3 4 5)",
+source: "testSort\x0a\x09| array |\x0a\x09array := #(10 1 5). \x0a\x09array sort.\x0a\x09self assert: array equals: #(1 5 10)",
 messageSends: ["sort", "assert:equals:"],
 referencedClasses: []
 }),

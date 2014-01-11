@@ -1262,9 +1262,9 @@ testReversed
 
 testSort
 	| array |
-	array := #(3 1 4 5 2). 
+	array := #(10 1 5). 
 	array sort.
-	self assert: array equals: #(1 2 3 4 5)
+	self assert: array equals: #(1 5 10)
 ! !
 
 !ArrayTest class methodsFor: 'fixture'!

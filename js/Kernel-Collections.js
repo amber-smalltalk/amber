@@ -3660,12 +3660,15 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._basicPerform_("sort");
+$1=self._sort_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+return _st(a).__lt(b);
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sort",{},globals.Array)})},
 args: [],
-source: "sort\x0a\x09^ self basicPerform: 'sort'",
-messageSends: ["basicPerform:"],
+source: "sort\x0a\x09^ self sort: [ :a :b | a < b ]",
+messageSends: ["sort:", "<"],
 referencedClasses: []
 }),
 globals.Array);
