@@ -545,6 +545,7 @@ body[id="helios"] .key_helper .label {
 body[id="helios"] .key_helper .action {
   padding: 0 0.5em 0 5px;
   color: inherit;
+  font-weight: bold;
 }
 body[id="helios"] .key_helper .selected {
   background-image: linear-gradient(top, #cccccc, #bbbbbb);
