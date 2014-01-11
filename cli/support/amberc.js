@@ -43,7 +43,7 @@ function createConcatenator () {
 		},
 		finish: function (realWork) {
 			this.add(
-				'define("amber_vm/_init", ["amber_vm/smalltalk","' + this.ids.join('","') + '"], function (smalltalk) {',
+				'define("amber_vm/_init", ["amber_vm/smalltalk", "amber_vm/globals", "' + this.ids.join('","') + '"], function (smalltalk, globals) {',
 				'smalltalk.initialize();',
 				realWork,
 				'});',
@@ -129,6 +129,7 @@ AmberCompiler.prototype.main = function(configuration, finished_callback) {
 
 	// the evaluated compiler will be stored in this variable (see create_compiler)
 	configuration.smalltalk = {};
+	configuration.globals = {};
 	configuration.kernel_libraries = this.kernel_libraries;
 	configuration.compiler_libraries = this.compiler_libraries;
 	configuration.amber_dir = this.amber_dir;
@@ -328,17 +329,17 @@ function create_compiler(configuration) {
 			}
 		});
 		// store the generated smalltalk env in configuration.smalltalk
-		builder.finish('configuration.smalltalk = smalltalk;');
+		builder.finish('configuration.smalltalk = smalltalk; configuration.globals = globals;');
 		builder.add('})();');
 
 		eval(builder.toString());
 
 		console.log('Compiler loaded');
 
-		configuration.smalltalk.ErrorHandler._register_(configuration.smalltalk.RethrowErrorHandler._new());
+		configuration.globals.ErrorHandler._register_(configuration.globals.RethrowErrorHandler._new());
 
 		if(0 !== configuration.jsGlobals.length) {
-			var jsGlobalVariables = configuration.smalltalk.globalJsVariables;
+			var jsGlobalVariables = configuration.globals.globalJsVariables;
 			jsGlobalVariables.push.apply(jsGlobalVariables, configuration.jsGlobals);
 		}
 
@@ -375,7 +376,7 @@ function compile(configuration) {
 		return Promise.all(
 			fileContents.map(function(code) {
 				return new Promise(function(resolve, reject) {
-					var importer = configuration.smalltalk.Importer._new();
+					var importer = configuration.globals.Importer._new();
 					try {
 						importer._import_(code._stream());
 						resolve(true);
@@ -413,11 +414,11 @@ function category_export(configuration) {
 				var jsFile = category + configuration.suffix_used + '.js';
 				jsFile = path.join(jsFilePath, jsFile);
 				configuration.compiled.push(jsFile);
-				var smalltalk = configuration.smalltalk;
-				var packageObject = smalltalk.Package._named_(category);
+				var smalltalkGlobals = configuration.globals;
+				var packageObject = smalltalkGlobals.Package._named_(category);
 				packageObject._transport()._namespace_(configuration.amd_namespace);
-				fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
-					smalltalk.AmdExporter._new()._exportPackage_on_(packageObject, stream);
+				fs.writeFile(jsFile, smalltalkGlobals.String._streamContents_(function (stream) {
+					smalltalkGlobals.AmdExporter._new()._exportPackage_on_(packageObject, stream);
 				}), function(err) {
 					if (err)
 						reject(err);
@@ -523,7 +524,7 @@ function compose_js_files(configuration) {
 
 		if (undefined !== configuration.main) {
 			console.log('Adding call to: %s>>main', configuration.main);
-			mainFunctionOrFile += 'smalltalk.' + configuration.main + '._main();';
+			mainFunctionOrFile += 'globals.' + configuration.main + '._main();';
 		}
 
 		if (undefined !== configuration.mainfile && fs.existsSync(configuration.mainfile)) {
