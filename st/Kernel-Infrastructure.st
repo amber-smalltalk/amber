@@ -915,9 +915,11 @@ Object subclass: #Setting
 !Setting commentStamp!
 I represent a setting accessible via `Smalltalk settings`.
 
-You can read the value by `value` and set it by `value:`.
+## API
 
-Construct me by: `'key' asSetting` or `'key' asSettingIfAbsent: 'defaultValue'`.!
+a `Setting` value can be read using `value` and set using `value:`.
+
+Settings are accessed with `'key' asSetting` or `'key' asSettingIfAbsent: 'defaultValue'`.!
 
 !Setting methodsFor: 'accessing'!
 
