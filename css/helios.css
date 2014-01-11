@@ -81,6 +81,9 @@ body[id="helios"] .editor {
   left: 0;
   right: 0;
 }
+body[id="helios"] .hl_widget:focus {
+  outline: 0 none;
+}
 body[id="helios"] .buttons_bar {
   position: absolute;
   bottom: 0;
@@ -645,10 +648,6 @@ body[id="helios"] .dialog {
   -webkit-transition: top .5s;
   -moz-transition: top .5s;
   -o-transition: top .5s;
-}
-body[id="helios"] .confirmation .hl_widget:focus,
-body[id="helios"] .dialog .hl_widget:focus {
-  outline: 0 none;
 }
 body[id="helios"] .confirmation .hl_widget .form-actions,
 body[id="helios"] .dialog .hl_widget .form-actions {
