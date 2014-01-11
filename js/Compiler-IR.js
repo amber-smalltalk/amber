@@ -3473,69 +3473,75 @@ protocol: 'streaming',
 fn: function (anIRClosure,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1,$5,$9,$8,$7,$6,$13,$12,$11,$10,$14,$15,$22,$21,$20,$19,$18,$17,$16;
-$4=_st(anIRClosure)._scope();
+var $1,$2,$6,$5,$4,$3,$7,$11,$10,$9,$8,$15,$14,$13,$12,$16,$17,$24,$23,$22,$21,$20,$19,$18;
+$1=_st(anIRClosure)._requiresSmalltalkContext();
+if(! smalltalk.assert($1)){
+$2=_st(aBlock)._value();
+$ctx1.sendIdx["value"]=1;
+return $2;
+};
+$6=_st(anIRClosure)._scope();
 $ctx1.sendIdx["scope"]=1;
-$3=_st($4)._alias();
+$5=_st($6)._alias();
 $ctx1.sendIdx["alias"]=1;
-$2="return smalltalk.withContext(function(".__comma($3);
+$4="return smalltalk.withContext(function(".__comma($5);
 $ctx1.sendIdx[","]=2;
-$1=_st($2).__comma(") {");
+$3=_st($4).__comma(") {");
 $ctx1.sendIdx[","]=1;
-self._nextPutAll_($1);
+self._nextPutAll_($3);
 $ctx1.sendIdx["nextPutAll:"]=1;
-$5=self._lf();
+$7=self._lf();
 _st(aBlock)._value();
-$9=_st(anIRClosure)._scope();
+$11=_st(anIRClosure)._scope();
 $ctx1.sendIdx["scope"]=2;
-$8=_st($9)._alias();
+$10=_st($11)._alias();
 $ctx1.sendIdx["alias"]=2;
-$7="}, function(".__comma($8);
+$9="}, function(".__comma($10);
 $ctx1.sendIdx[","]=4;
-$6=_st($7).__comma(") {");
+$8=_st($9).__comma(") {");
 $ctx1.sendIdx[","]=3;
-self._nextPutAll_($6);
+self._nextPutAll_($8);
 $ctx1.sendIdx["nextPutAll:"]=2;
-$13=_st(anIRClosure)._scope();
+$15=_st(anIRClosure)._scope();
 $ctx1.sendIdx["scope"]=3;
-$12=_st($13)._alias();
+$14=_st($15)._alias();
 $ctx1.sendIdx["alias"]=3;
-$11=_st($12).__comma(".fillBlock({");
+$13=_st($14).__comma(".fillBlock({");
 $ctx1.sendIdx[","]=5;
-$10=self._nextPutAll_($11);
+$12=self._nextPutAll_($13);
 $ctx1.sendIdx["nextPutAll:"]=3;
 _st(_st(anIRClosure)._locals())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$14=_st(each)._asVariableName();
+$16=_st(each)._asVariableName();
 $ctx2.sendIdx["asVariableName"]=1;
-self._nextPutAll_($14);
+self._nextPutAll_($16);
 $ctx2.sendIdx["nextPutAll:"]=4;
 self._nextPutAll_(":");
 $ctx2.sendIdx["nextPutAll:"]=5;
-$15=self._nextPutAll_(_st(each)._asVariableName());
+$17=self._nextPutAll_(_st(each)._asVariableName());
 $ctx2.sendIdx["nextPutAll:"]=6;
-return $15;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+return $17;
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._nextPutAll_(",");
 $ctx2.sendIdx["nextPutAll:"]=7;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 self._nextPutAll_("},");
 $ctx1.sendIdx["nextPutAll:"]=8;
-$22=_st(anIRClosure)._scope();
+$24=_st(anIRClosure)._scope();
 $ctx1.sendIdx["scope"]=4;
-$21=_st($22)._outerScope();
-$20=_st($21)._alias();
-$19=_st($20).__comma(",");
-$18=_st($19).__comma(_st(_st(_st(anIRClosure)._scope())._blockIndex())._asString());
+$23=_st($24)._outerScope();
+$22=_st($23)._alias();
+$21=_st($22).__comma(",");
+$20=_st($21).__comma(_st(_st(_st(anIRClosure)._scope())._blockIndex())._asString());
 $ctx1.sendIdx[","]=7;
-$17=_st($18).__comma(")})");
+$19=_st($20).__comma(")})");
 $ctx1.sendIdx[","]=6;
-$16=self._nextPutAll_($17);
+$18=self._nextPutAll_($19);
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutBlockContextFor:during:",{anIRClosure:anIRClosure,aBlock:aBlock},globals.JSStream)})},
 args: ["anIRClosure", "aBlock"],
-source: "nextPutBlockContextFor: anIRClosure during: aBlock\x0a\x09self\x0a\x09\x09nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; lf.\x0a\x09\x0a\x09aBlock value.\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '}, function(', anIRClosure scope alias, ') {';\x0a\x09\x09nextPutAll: anIRClosure scope alias, '.fillBlock({'.\x0a\x09\x0a\x09anIRClosure locals\x0a\x09\x09do: [ :each |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09nextPutAll: each asVariableName;\x0a\x09\x09\x09\x09nextPutAll: ':';\x0a\x09\x09\x09\x09nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '},';\x0a\x09\x09nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')})'",
-messageSends: ["nextPutAll:", ",", "alias", "scope", "lf", "value", "do:separatedBy:", "locals", "asVariableName", "outerScope", "asString", "blockIndex"],
+source: "nextPutBlockContextFor: anIRClosure during: aBlock\x0a\x09anIRClosure requiresSmalltalkContext ifFalse: [ ^ aBlock value ].\x0a\x09self\x0a\x09\x09nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; lf.\x0a\x09\x0a\x09aBlock value.\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '}, function(', anIRClosure scope alias, ') {';\x0a\x09\x09nextPutAll: anIRClosure scope alias, '.fillBlock({'.\x0a\x09\x0a\x09anIRClosure locals\x0a\x09\x09do: [ :each |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09nextPutAll: each asVariableName;\x0a\x09\x09\x09\x09nextPutAll: ':';\x0a\x09\x09\x09\x09nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '},';\x0a\x09\x09nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')})'",
+messageSends: ["ifFalse:", "requiresSmalltalkContext", "value", "nextPutAll:", ",", "alias", "scope", "lf", "do:separatedBy:", "locals", "asVariableName", "outerScope", "asString", "blockIndex"],
 referencedClasses: []
 }),
 globals.JSStream);

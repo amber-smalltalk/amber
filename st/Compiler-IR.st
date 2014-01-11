@@ -1107,6 +1107,7 @@ nextPutAssignment
 !
 
 nextPutBlockContextFor: anIRClosure during: aBlock
+	anIRClosure requiresSmalltalkContext ifFalse: [ ^ aBlock value ].
 	self
 		nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; lf.
 	
