@@ -145,7 +145,7 @@ key
 !
 
 label
-	^ 'Class'
+	^ 'Copy class'
 !
 
 menuLabel

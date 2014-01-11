@@ -373,10 +373,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "Class";
+return "Copy class";
 },
 args: [],
-source: "label\x0a\x09^ 'Class'",
+source: "label\x0a\x09^ 'Copy class'",
 messageSends: [],
 referencedClasses: []
 }),
