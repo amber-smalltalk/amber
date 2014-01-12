@@ -99,13 +99,7 @@ unaryPattern   = ws selector:unarySelector {return [selector, []];}
 expression     = assignment / cascade / keywordSend / binarySend
 
 expressionList = ws "." ws expression:expression {return expression;}
-expressions    = first:expression others:expressionList* {
-                     var result = [first];
-                     for(var i = 0; i < others.length; i++) {
-                         result.push(others[i]);
-                     }
-                     return result;
-                 }
+expressions    = first:expression others:expressionList* { return [first].concat(others); }
 
 assignment     = variable:variable ws ':=' ws expression:expression {
                      return globals.AssignmentNode._new()
