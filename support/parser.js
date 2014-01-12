@@ -170,13 +170,7 @@ globals.SmalltalkParser = (function() {
         peg$c83 = function(selector, arg) {return [selector, [arg]];},
         peg$c84 = function(selector) {return [selector, []];},
         peg$c85 = function(expression) {return expression;},
-        peg$c86 = function(first, others) {
-                             var result = [first];
-                             for(var i = 0; i < others.length; i++) {
-                                 result.push(others[i]);
-                             }
-                             return result;
-                         },
+        peg$c86 = function(first, others) { return [first].concat(others); },
         peg$c87 = ":=",
         peg$c88 = { type: "literal", value: ":=", description: "\":=\"" },
         peg$c89 = function(variable, expression) {
