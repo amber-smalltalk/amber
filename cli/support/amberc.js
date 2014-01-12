@@ -339,7 +339,7 @@ function create_compiler(configuration) {
 		configuration.globals.ErrorHandler._register_(configuration.globals.RethrowErrorHandler._new());
 
 		if(0 !== configuration.jsGlobals.length) {
-			var jsGlobalVariables = configuration.globals.globalJsVariables;
+			var jsGlobalVariables = configuration.smalltalk.globalJsVariables;
 			jsGlobalVariables.push.apply(jsGlobalVariables, configuration.jsGlobals);
 		}
 
