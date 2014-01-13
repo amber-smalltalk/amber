@@ -1072,11 +1072,11 @@ amdRequire
 !
 
 defaultAmdNamespace
-	^ 'vm.defaultAmdNamespace' settingValue
+	^ 'transport.defaultAmdNamespace' settingValue
 !
 
 defaultAmdNamespace: aString
-	'vm.defaultAmdNamespace' settingValue: aString
+	'transport.defaultAmdNamespace' settingValue: aString
 ! !
 
 !SmalltalkImage methodsFor: 'classes'!
