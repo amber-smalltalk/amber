@@ -196,8 +196,9 @@ selector: "base64Decode:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return (new Buffer(aString, 'base64').toString());
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"base64Decode:",{aString:aString},globals.FileServer)})},
 args: ["aString"],
 source: "base64Decode: aString\x0a\x09<return (new Buffer(aString, 'base64').toString())>",
 messageSends: [],
@@ -328,20 +329,26 @@ fn: function (aRequest,aResponse){
 var self=this;
 var uri,filename;
 return smalltalk.withContext(function($ctx1) { 
-uri=_st(_st(self["@url"])._parse_(_st(aRequest)._url()))._pathname();
-filename=_st(self["@path"])._join_with_(self._basePath(),uri);
+var $1;
+uri=_st(self["@url"])._parse_(_st(aRequest)._url());
+filename=_st(self["@path"])._join_with_(self._basePath(),_st(uri)._pathname());
 _st(self["@fs"])._exists_do_(filename,(function(aBoolean){
 return smalltalk.withContext(function($ctx2) {
 if(smalltalk.assert(aBoolean)){
+$1=_st(_st(self["@fs"])._statSync_(filename))._isDirectory();
+if(smalltalk.assert($1)){
+return self._respondDirectoryNamed_from_to_(filename,uri,aResponse);
+} else {
 return self._respondFileNamed_to_(filename,aResponse);
+};
 } else {
 return self._respondNotFoundTo_(aResponse);
 };
 }, function($ctx2) {$ctx2.fillBlock({aBoolean:aBoolean},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handleGETRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse,uri:uri,filename:filename},globals.FileServer)})},
 args: ["aRequest", "aResponse"],
-source: "handleGETRequest: aRequest respondTo: aResponse\x0a\x09| uri filename |\x0a\x09uri := (url parse: aRequest url) pathname.\x0a\x09filename := path join: self basePath with: uri.\x0a\x09fs exists: filename do: [:aBoolean |\x0a\x09\x09aBoolean\x0a\x09\x09\x09ifFalse: [self respondNotFoundTo: aResponse]\x0a\x09\x09\x09ifTrue: [self respondFileNamed: filename to: aResponse]]",
-messageSends: ["pathname", "parse:", "url", "join:with:", "basePath", "exists:do:", "ifFalse:ifTrue:", "respondNotFoundTo:", "respondFileNamed:to:"],
+source: "handleGETRequest: aRequest respondTo: aResponse\x0a\x09| uri filename |\x0a\x09uri := url parse: aRequest url.\x0a\x09filename := path join: self basePath with: uri pathname.\x0a\x09fs exists: filename do: [:aBoolean |\x0a\x09\x09aBoolean\x0a\x09\x09\x09ifFalse: [self respondNotFoundTo: aResponse]\x0a\x09\x09\x09ifTrue: [(fs statSync: filename) isDirectory\x0a\x09\x09\x09\x09ifTrue: [self respondDirectoryNamed: filename from: uri to: aResponse]\x0a\x09\x09\x09\x09ifFalse: [self respondFileNamed: filename to: aResponse]]]",
+messageSends: ["parse:", "url", "join:with:", "basePath", "pathname", "exists:do:", "ifFalse:ifTrue:", "respondNotFoundTo:", "ifTrue:ifFalse:", "isDirectory", "statSync:", "respondDirectoryNamed:from:to:", "respondFileNamed:to:"],
 referencedClasses: []
 }),
 globals.FileServer);
@@ -702,47 +709,76 @@ globals.FileServer);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "respondDirectoryNamed:from:to:",
+protocol: 'request handling',
+fn: function (aDirname,aUrl,aResponse){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$3,$5,$7,$6,$4;
+$2=_st(aUrl)._pathname();
+$ctx1.sendIdx["pathname"]=1;
+$1=_st($2)._endsWith_("/");
+if(smalltalk.assert($1)){
+$3=_st(aDirname).__comma("index.html");
+$ctx1.sendIdx[","]=1;
+self._respondFileNamed_to_($3,aResponse);
+} else {
+$5=_st(_st(aUrl)._pathname()).__comma("/");
+$7=_st(aUrl)._search();
+if(($receiver = $7) == nil || $receiver == null){
+$6="";
+} else {
+$6=$7;
+};
+$4=_st($5).__comma($6);
+$ctx1.sendIdx[","]=2;
+self._respondRedirect_to_($4,aResponse);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"respondDirectoryNamed:from:to:",{aDirname:aDirname,aUrl:aUrl,aResponse:aResponse},globals.FileServer)})},
+args: ["aDirname", "aUrl", "aResponse"],
+source: "respondDirectoryNamed: aDirname from: aUrl to: aResponse\x0a\x09(aUrl pathname endsWith: '/')\x0a\x09\x09ifTrue: [self respondFileNamed: aDirname, 'index.html' to: aResponse]\x0a\x09\x09ifFalse: [self respondRedirect: aUrl pathname, '/', (aUrl search ifNil: ['']) to: aResponse]",
+messageSends: ["ifTrue:ifFalse:", "endsWith:", "pathname", "respondFileNamed:to:", ",", "respondRedirect:to:", "ifNil:", "search"],
+referencedClasses: []
+}),
+globals.FileServer);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "respondFileNamed:to:",
 protocol: 'request handling',
 fn: function (aFilename,aResponse){
 var self=this;
 var type,filename;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3,$4,$5;
 filename=aFilename;
-$1=_st(_st(self["@fs"])._statSync_(aFilename))._isDirectory();
-if(smalltalk.assert($1)){
-filename=_st(filename).__comma("index.html");
-$ctx1.sendIdx[","]=1;
-filename;
-};
 _st(self["@fs"])._readFile_do_(filename,(function(ex,file){
 return smalltalk.withContext(function($ctx2) {
-$2=_st(ex)._notNil();
-if(smalltalk.assert($2)){
-$3=console;
-$4=_st(filename).__comma(" does not exist");
-$ctx2.sendIdx[","]=2;
-_st($3)._log_($4);
+$1=_st(ex)._notNil();
+if(smalltalk.assert($1)){
+$2=console;
+$3=_st(filename).__comma(" does not exist");
+$ctx2.sendIdx[","]=1;
+_st($2)._log_($3);
 return self._respondNotFoundTo_(aResponse);
 } else {
 type=_st(self._class())._mimeTypeFor_(filename);
 type;
-$5=_st(type).__eq("application/javascript");
-if(smalltalk.assert($5)){
+$4=_st(type).__eq("application/javascript");
+if(smalltalk.assert($4)){
 type=_st(type).__comma(";charset=utf-8");
 type;
 };
 _st(aResponse)._writeHead_options_((200),globals.HashedCollection._from_(["Content-Type".__minus_gt(type)]));
 _st(aResponse)._write_encoding_(file,"binary");
-$6=_st(aResponse)._end();
-return $6;
+$5=_st(aResponse)._end();
+return $5;
 };
-}, function($ctx2) {$ctx2.fillBlock({ex:ex,file:file},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({ex:ex,file:file},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"respondFileNamed:to:",{aFilename:aFilename,aResponse:aResponse,type:type,filename:filename},globals.FileServer)})},
 args: ["aFilename", "aResponse"],
-source: "respondFileNamed: aFilename to: aResponse\x0a\x09| type filename |\x0a\x0a\x09filename := aFilename.\x0a\x09(fs statSync: aFilename) isDirectory ifTrue: [\x0a\x09\x09filename := filename, 'index.html'].\x0a\x0a\x09fs readFile: filename do: [:ex :file |\x0a\x09\x09ex notNil \x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09console log: filename, ' does not exist'.\x0a\x09\x09\x09\x09self respondNotFoundTo: aResponse]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09type := self class mimeTypeFor: filename.\x0a\x09\x09\x09\x09type = 'application/javascript'\x0a\x09\x09\x09\x09\x09ifTrue: [ type:=type,';charset=utf-8' ].\x0a\x09\x09\x09\x09aResponse \x0a\x09\x09\x09\x09\x09writeHead: 200 options:  #{'Content-Type' -> type};\x0a\x09\x09\x09\x09\x09write: file encoding: 'binary';\x0a\x09\x09\x09\x09\x09end]]",
-messageSends: ["ifTrue:", "isDirectory", "statSync:", ",", "readFile:do:", "ifTrue:ifFalse:", "notNil", "log:", "respondNotFoundTo:", "mimeTypeFor:", "class", "=", "writeHead:options:", "->", "write:encoding:", "end"],
+source: "respondFileNamed: aFilename to: aResponse\x0a\x09| type filename |\x0a\x0a\x09filename := aFilename.\x0a\x0a\x09fs readFile: filename do: [:ex :file |\x0a\x09\x09ex notNil \x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09console log: filename, ' does not exist'.\x0a\x09\x09\x09\x09self respondNotFoundTo: aResponse]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09type := self class mimeTypeFor: filename.\x0a\x09\x09\x09\x09type = 'application/javascript'\x0a\x09\x09\x09\x09\x09ifTrue: [ type:=type,';charset=utf-8' ].\x0a\x09\x09\x09\x09aResponse \x0a\x09\x09\x09\x09\x09writeHead: 200 options:  #{'Content-Type' -> type};\x0a\x09\x09\x09\x09\x09write: file encoding: 'binary';\x0a\x09\x09\x09\x09\x09end]]",
+messageSends: ["readFile:do:", "ifTrue:ifFalse:", "notNil", "log:", ",", "respondNotFoundTo:", "mimeTypeFor:", "class", "ifTrue:", "=", "writeHead:options:", "->", "write:encoding:", "end"],
 referencedClasses: []
 }),
 globals.FileServer);
@@ -837,6 +873,24 @@ $3=_st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondOKTo:",{aResponse:aResponse},globals.FileServer)})},
 args: ["aResponse"],
 source: "respondOKTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};\x0a\x09\x09end.",
+messageSends: ["writeHead:options:", "->", "end"],
+referencedClasses: []
+}),
+globals.FileServer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "respondRedirect:to:",
+protocol: 'request handling',
+fn: function (aString,aResponse){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(aResponse)._writeHead_options_((303),globals.HashedCollection._from_(["Location".__minus_gt(aString)]));
+$1=_st(aResponse)._end();
+return self}, function($ctx1) {$ctx1.fill(self,"respondRedirect:to:",{aString:aString,aResponse:aResponse},globals.FileServer)})},
+args: ["aString", "aResponse"],
+source: "respondRedirect: aString to: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 303 options: #{'Location' -> aString};\x0a\x09\x09end.",
 messageSends: ["writeHead:options:", "->", "end"],
 referencedClasses: []
 }),
@@ -1045,10 +1099,9 @@ try {
 switches=self._commandLineSwitches();
 server=self._new();
 _st(options)._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 $1=server;
 throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $2=_st(_st(options)._size())._even();
 if(! smalltalk.assert($2)){
 _st(console)._log_("Using default parameters.");
@@ -2034,9 +2087,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self._mimeTypes())._at_ifAbsent_(_st(aString)._replace_with_(".*[\x5c.]",""),(function(){
-return smalltalk.withContext(function($ctx2) {
 return "text/plain";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"mimeTypeFor:",{aString:aString},globals.FileServer.klass)})},
 args: ["aString"],
