@@ -372,6 +372,7 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 	}
 
 	var globals = {};
+    globals.SmalltalkSettings = {};
 	var api = Object.create(globals);
 	var brikz = new Brikz(api);
 
@@ -1159,6 +1160,8 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 				} catch(error) {
 					handleError(error);
 					st.thisContext = null;
+					// Rethrow the error in any case.
+					throw error;
 				}
 			}
 		};
@@ -1214,10 +1217,6 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 				error = wrappedError(error);
 			}
 			globals.ErrorHandler._handleError_(error);
-			// Throw the exception anyway, as we want to stop
-			// the execution to avoid infinite loops
-			// Update: do not throw the exception. It's really annoying.
-			// throw error;
 		}
 
 		/* Handle thisContext pseudo variable */
@@ -1408,11 +1407,11 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 		brikz.rebuild();
 	};
 
-	return { smalltalk: api, nil: brikz.root.nil, globals: globals };
+	return { vm: api, nil: brikz.root.nil, globals: globals };
 });
 
 define("amber_vm/smalltalk", ["./boot"], function (boot) {
-    return boot.smalltalk;
+    return boot.vm;
 });
 
 
@@ -1511,8 +1510,9 @@ selector: "class",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.klass;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"class",{},globals.ProtoObject)})},
 args: [],
 source: "class\x0a\x09<return self.klass>",
 messageSends: [],
@@ -1547,6 +1547,7 @@ selector: "identityHash",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var hash=self.identityHash;
 		if (hash) return hash;
@@ -1554,7 +1555,7 @@ var self=this;
 		Object.defineProperty(self, 'identityHash', {value:hash});
 		return hash;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"identityHash",{},globals.ProtoObject)})},
 args: [],
 source: "identityHash\x0a\x09<\x0a\x09\x09var hash=self.identityHash;\x0a\x09\x09if (hash) return hash;\x0a\x09\x09hash=smalltalk.nextId();\x0a\x09\x09Object.defineProperty(self, 'identityHash', {value:hash});\x0a\x09\x09return hash;\x0a\x09>",
 messageSends: [],
@@ -1613,8 +1614,9 @@ selector: "instVarAt:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
  return self['@'+aString] ;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:",{aString:aString},globals.ProtoObject)})},
 args: ["aString"],
 source: "instVarAt: aString\x0a\x09< return self['@'+aString] >",
 messageSends: [],
@@ -1628,8 +1630,9 @@ selector: "instVarAt:put:",
 protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
  self['@' + aString] = anObject ;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:put:",{aString:aString,anObject:anObject},globals.ProtoObject)})},
 args: ["aString", "anObject"],
 source: "instVarAt: aString put: anObject\x0a\x09< self['@' + aString] = anObject >",
 messageSends: [],
@@ -1661,8 +1664,9 @@ selector: "perform:withArguments:",
 protocol: 'message handling',
 fn: function (aString,aCollection){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return smalltalk.send(self, aString._asSelector(), aCollection);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"perform:withArguments:",{aString:aString,aCollection:aCollection},globals.ProtoObject)})},
 args: ["aString", "aCollection"],
 source: "perform: aString withArguments: aCollection\x0a\x09<return smalltalk.send(self, aString._asSelector(), aCollection)>",
 messageSends: [],
@@ -1894,8 +1898,9 @@ selector: "basicAt:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self[aString];
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicAt:",{aString:aString},globals.Object)})},
 args: ["aString"],
 source: "basicAt: aString\x0a\x09<return self[aString]>",
 messageSends: [],
@@ -1909,8 +1914,9 @@ selector: "basicAt:put:",
 protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self[aString] = anObject;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicAt:put:",{aString:aString,anObject:anObject},globals.Object)})},
 args: ["aString", "anObject"],
 source: "basicAt: aString put: anObject\x0a\x09<return self[aString] = anObject>",
 messageSends: [],
@@ -1924,8 +1930,9 @@ selector: "basicDelete:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 delete self[aString]; return aString;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicDelete:",{aString:aString},globals.Object)})},
 args: ["aString"],
 source: "basicDelete: aString\x0a\x09<delete self[aString]; return aString>",
 messageSends: [],
@@ -1957,8 +1964,9 @@ selector: "basicPerform:withArguments:",
 protocol: 'message handling',
 fn: function (aString,aCollection){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self[aString].apply(self, aCollection);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicPerform:withArguments:",{aString:aString,aCollection:aCollection},globals.Object)})},
 args: ["aString", "aCollection"],
 source: "basicPerform: aString withArguments: aCollection\x0a\x09<return self[aString].apply(self, aCollection);>",
 messageSends: [],
@@ -1990,6 +1998,7 @@ selector: "deepCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var copy = self.klass._new();
 		Object.keys(self).forEach(function (i) {
@@ -1999,7 +2008,7 @@ var self=this;
 		});
 		return copy;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"deepCopy",{},globals.Object)})},
 args: [],
 source: "deepCopy\x0a\x09<\x0a\x09\x09var copy = self.klass._new();\x0a\x09\x09Object.keys(self).forEach(function (i) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09\x09copy[i] = self[i]._deepCopy();\x0a\x09\x09}\x0a\x09\x09});\x0a\x09\x09return copy;\x0a\x09>",
 messageSends: [],
@@ -2459,6 +2468,7 @@ selector: "shallowCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var copy = self.klass._new();
 		Object.keys(self).forEach(function(i) {
@@ -2468,7 +2478,7 @@ var self=this;
 		});
 		return copy;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},globals.Object)})},
 args: [],
 source: "shallowCopy\x0a\x09<\x0a\x09\x09var copy = self.klass._new();\x0a\x09\x09Object.keys(self).forEach(function(i) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09\x09copy[i] = self[i];\x0a\x09\x09}\x0a\x09\x09});\x0a\x09\x09return copy;\x0a\x09>",
 messageSends: [],
@@ -2530,8 +2540,9 @@ selector: "throw:",
 protocol: 'error handling',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
  throw anObject ;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"throw:",{anObject:anObject},globals.Object)})},
 args: ["anObject"],
 source: "throw: anObject\x0a\x09< throw anObject >",
 messageSends: [],
@@ -2545,8 +2556,9 @@ selector: "try:catch:",
 protocol: 'error handling',
 fn: function (aBlock,anotherBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)};
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"try:catch:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Object)})},
 args: ["aBlock", "anotherBlock"],
 source: "try: aBlock catch: anotherBlock\x0a\x09<try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)}>",
 messageSends: [],
@@ -2560,8 +2572,9 @@ selector: "value",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.valueOf();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"value",{},globals.Object)})},
 args: [],
 source: "value\x0a\x09<return self.valueOf()>",
 messageSends: [],
@@ -2672,6 +2685,7 @@ selector: "&",
 protocol: 'controlling',
 fn: function (aBoolean){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		if(self == true) {
 		return aBoolean;
@@ -2679,7 +2693,7 @@ var self=this;
 		return false;
 		}
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"&",{aBoolean:aBoolean},globals.Boolean)})},
 args: ["aBoolean"],
 source: "& aBoolean\x0a\x09<\x0a\x09\x09if(self == true) {\x0a\x09\x09return aBoolean;\x0a\x09\x09} else {\x0a\x09\x09return false;\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -2693,13 +2707,14 @@ selector: "=",
 protocol: 'comparing',
 fn: function (aBoolean){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		return aBoolean != null &&
 			typeof aBoolean._isBoolean === "function" &&
 			aBoolean._isBoolean() &&
 			Boolean(self == true) == aBoolean
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"=",{aBoolean:aBoolean},globals.Boolean)})},
 args: ["aBoolean"],
 source: "= aBoolean\x0a\x09<\x0a\x09\x09return aBoolean != null &&\x0a\x09\x09\x09typeof aBoolean._isBoolean === \x22function\x22 &&\x0a\x09\x09\x09aBoolean._isBoolean() &&\x0a\x09\x09\x09Boolean(self == true) == aBoolean\x0a\x09>",
 messageSends: [],
@@ -2735,9 +2750,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self.__eq(true);
 $1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
-return smalltalk.withContext(function($ctx2) {
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"and:",{aBlock:aBlock},globals.Boolean)})},
 args: ["aBlock"],
@@ -2790,8 +2804,9 @@ selector: "asString",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
  return self.toString() ;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asString",{},globals.Boolean)})},
 args: [],
 source: "asString\x0a\x09< return self.toString() >",
 messageSends: [],
@@ -2823,8 +2838,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._ifTrue_ifFalse_((function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),aBlock);
+}),aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifFalse:",{aBlock:aBlock},globals.Boolean)})},
 args: ["aBlock"],
@@ -2861,8 +2875,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._ifTrue_ifFalse_(aBlock,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifTrue:",{aBlock:aBlock},globals.Boolean)})},
 args: ["aBlock"],
@@ -2878,6 +2891,7 @@ selector: "ifTrue:ifFalse:",
 protocol: 'controlling',
 fn: function (aBlock,anotherBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		if(self == true) {
 		return aBlock._value();
@@ -2885,7 +2899,7 @@ var self=this;
 		return anotherBlock._value();
 		}
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"ifTrue:ifFalse:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Boolean)})},
 args: ["aBlock", "anotherBlock"],
 source: "ifTrue: aBlock ifFalse: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<\x0a\x09\x09if(self == true) {\x0a\x09\x09return aBlock._value();\x0a\x09\x09} else {\x0a\x09\x09return anotherBlock._value();\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -2951,9 +2965,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self.__eq(true);
 $1=_st($2)._ifTrue_ifFalse_((function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),aBlock);
+}),aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"or:",{aBlock:aBlock},globals.Boolean)})},
 args: ["aBlock"],
@@ -3000,6 +3013,7 @@ selector: "|",
 protocol: 'controlling',
 fn: function (aBoolean){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		if(self == true) {
 		return true;
@@ -3007,7 +3021,7 @@ var self=this;
 		return aBoolean;
 		}
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"|",{aBoolean:aBoolean},globals.Boolean)})},
 args: ["aBoolean"],
 source: "| aBoolean\x0a\x09<\x0a\x09\x09if(self == true) {\x0a\x09\x09return true;\x0a\x09\x09} else {\x0a\x09\x09return aBoolean;\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -3025,8 +3039,9 @@ selector: "+",
 protocol: 'arithmetic',
 fn: function (aDate){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self + aDate;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"+",{aDate:aDate},globals.Date)})},
 args: ["aDate"],
 source: "+ aDate\x0a\x09<return self + aDate>",
 messageSends: [],
@@ -3040,8 +3055,9 @@ selector: "-",
 protocol: 'arithmetic',
 fn: function (aDate){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self - aDate;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"-",{aDate:aDate},globals.Date)})},
 args: ["aDate"],
 source: "- aDate\x0a\x09<return self - aDate>",
 messageSends: [],
@@ -3055,8 +3071,9 @@ selector: "<",
 protocol: 'comparing',
 fn: function (aDate){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self < aDate;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"<",{aDate:aDate},globals.Date)})},
 args: ["aDate"],
 source: "< aDate\x0a\x09<return self < aDate>",
 messageSends: [],
@@ -3070,8 +3087,9 @@ selector: "<=",
 protocol: 'comparing',
 fn: function (aDate){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self <= aDate;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"<=",{aDate:aDate},globals.Date)})},
 args: ["aDate"],
 source: "<= aDate\x0a\x09<return self <= aDate>",
 messageSends: [],
@@ -3085,8 +3103,9 @@ selector: ">",
 protocol: 'comparing',
 fn: function (aDate){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self > aDate;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,">",{aDate:aDate},globals.Date)})},
 args: ["aDate"],
 source: "> aDate\x0a\x09<return self >> aDate>",
 messageSends: [],
@@ -3100,8 +3119,9 @@ selector: ">=",
 protocol: 'comparing',
 fn: function (aDate){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self >= aDate;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,">=",{aDate:aDate},globals.Date)})},
 args: ["aDate"],
 source: ">= aDate\x0a\x09<return self >>= aDate>",
 messageSends: [],
@@ -3115,8 +3135,9 @@ selector: "asDateString",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.toDateString();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asDateString",{},globals.Date)})},
 args: [],
 source: "asDateString\x0a\x09<return self.toDateString()>",
 messageSends: [],
@@ -3130,8 +3151,9 @@ selector: "asLocaleString",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.toLocaleString();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asLocaleString",{},globals.Date)})},
 args: [],
 source: "asLocaleString\x0a\x09<return self.toLocaleString()>",
 messageSends: [],
@@ -3181,8 +3203,9 @@ selector: "asString",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.toString();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asString",{},globals.Date)})},
 args: [],
 source: "asString\x0a\x09<return self.toString()>",
 messageSends: [],
@@ -3196,8 +3219,9 @@ selector: "asTimeString",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.toTimeString();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asTimeString",{},globals.Date)})},
 args: [],
 source: "asTimeString\x0a\x09<return self.toTimeString()>",
 messageSends: [],
@@ -3245,8 +3269,9 @@ selector: "dayOfMonth",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.getDate();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"dayOfMonth",{},globals.Date)})},
 args: [],
 source: "dayOfMonth\x0a\x09<return self.getDate()>",
 messageSends: [],
@@ -3260,8 +3285,9 @@ selector: "dayOfMonth:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.setDate(aNumber);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"dayOfMonth:",{aNumber:aNumber},globals.Date)})},
 args: ["aNumber"],
 source: "dayOfMonth: aNumber\x0a\x09<self.setDate(aNumber)>",
 messageSends: [],
@@ -3275,8 +3301,9 @@ selector: "dayOfWeek",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.getDay() + 1;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"dayOfWeek",{},globals.Date)})},
 args: [],
 source: "dayOfWeek\x0a\x09<return self.getDay() + 1>",
 messageSends: [],
@@ -3290,8 +3317,9 @@ selector: "dayOfWeek:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.setDay(aNumber - 1);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"dayOfWeek:",{aNumber:aNumber},globals.Date)})},
 args: ["aNumber"],
 source: "dayOfWeek: aNumber\x0a\x09<return self.setDay(aNumber - 1)>",
 messageSends: [],
@@ -3305,8 +3333,9 @@ selector: "hours",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.getHours();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"hours",{},globals.Date)})},
 args: [],
 source: "hours\x0a\x09<return self.getHours()>",
 messageSends: [],
@@ -3320,8 +3349,9 @@ selector: "hours:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.setHours(aNumber);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"hours:",{aNumber:aNumber},globals.Date)})},
 args: ["aNumber"],
 source: "hours: aNumber\x0a\x09<self.setHours(aNumber)>",
 messageSends: [],
@@ -3335,8 +3365,9 @@ selector: "milliseconds",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.getMilliseconds();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"milliseconds",{},globals.Date)})},
 args: [],
 source: "milliseconds\x0a\x09<return self.getMilliseconds()>",
 messageSends: [],
@@ -3350,8 +3381,9 @@ selector: "milliseconds:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.setMilliseconds(aNumber);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"milliseconds:",{aNumber:aNumber},globals.Date)})},
 args: ["aNumber"],
 source: "milliseconds: aNumber\x0a\x09<self.setMilliseconds(aNumber)>",
 messageSends: [],
@@ -3365,8 +3397,9 @@ selector: "minutes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.getMinutes();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"minutes",{},globals.Date)})},
 args: [],
 source: "minutes\x0a\x09<return self.getMinutes()>",
 messageSends: [],
@@ -3380,8 +3413,9 @@ selector: "minutes:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.setMinutes(aNumber);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"minutes:",{aNumber:aNumber},globals.Date)})},
 args: ["aNumber"],
 source: "minutes: aNumber\x0a\x09<self.setMinutes(aNumber)>",
 messageSends: [],
@@ -3395,8 +3429,9 @@ selector: "month",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.getMonth() + 1;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"month",{},globals.Date)})},
 args: [],
 source: "month\x0a\x09<return self.getMonth() + 1>",
 messageSends: [],
@@ -3410,8 +3445,9 @@ selector: "month:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.setMonth(aNumber - 1);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"month:",{aNumber:aNumber},globals.Date)})},
 args: ["aNumber"],
 source: "month: aNumber\x0a\x09<self.setMonth(aNumber - 1)>",
 messageSends: [],
@@ -3441,8 +3477,9 @@ selector: "seconds",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.getSeconds();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"seconds",{},globals.Date)})},
 args: [],
 source: "seconds\x0a\x09<return self.getSeconds()>",
 messageSends: [],
@@ -3456,8 +3493,9 @@ selector: "seconds:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.setSeconds(aNumber);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"seconds:",{aNumber:aNumber},globals.Date)})},
 args: ["aNumber"],
 source: "seconds: aNumber\x0a\x09<self.setSeconds(aNumber)>",
 messageSends: [],
@@ -3471,8 +3509,9 @@ selector: "time",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.getTime();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"time",{},globals.Date)})},
 args: [],
 source: "time\x0a\x09<return self.getTime()>",
 messageSends: [],
@@ -3486,8 +3525,9 @@ selector: "time:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.setTime(aNumber);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"time:",{aNumber:aNumber},globals.Date)})},
 args: ["aNumber"],
 source: "time: aNumber\x0a\x09<self.setTime(aNumber)>",
 messageSends: [],
@@ -3501,8 +3541,9 @@ selector: "year",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.getFullYear();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"year",{},globals.Date)})},
 args: [],
 source: "year\x0a\x09<return self.getFullYear()>",
 messageSends: [],
@@ -3516,8 +3557,9 @@ selector: "year:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.setFullYear(aNumber);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"year:",{aNumber:aNumber},globals.Date)})},
 args: ["aNumber"],
 source: "year: aNumber\x0a\x09<self.setFullYear(aNumber)>",
 messageSends: [],
@@ -3624,8 +3666,9 @@ selector: "new:",
 protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return new Date(anObject);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"new:",{anObject:anObject},globals.Date.klass)})},
 args: ["anObject"],
 source: "new: anObject\x0a\x09<return new Date(anObject)>",
 messageSends: [],
@@ -3678,8 +3721,9 @@ selector: "&",
 protocol: 'converting',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self & aNumber;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"&",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "& aNumber\x0a\x09<return self & aNumber>",
 messageSends: [],
@@ -3693,8 +3737,9 @@ selector: "*",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self * aNumber;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"*",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "* aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self * aNumber>",
 messageSends: [],
@@ -3726,8 +3771,9 @@ selector: "+",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self + aNumber;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"+",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "+ aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self + aNumber>",
 messageSends: [],
@@ -3741,8 +3787,9 @@ selector: "-",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self - aNumber;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"-",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "- aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self - aNumber>",
 messageSends: [],
@@ -3756,8 +3803,9 @@ selector: "/",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self / aNumber;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"/",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "/ aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self / aNumber>",
 messageSends: [],
@@ -3789,8 +3837,9 @@ selector: "<",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self < aNumber;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"<",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "< aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self < aNumber>",
 messageSends: [],
@@ -3804,8 +3853,9 @@ selector: "<=",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self <= aNumber;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"<=",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "<= aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self <= aNumber>",
 messageSends: [],
@@ -3819,13 +3869,14 @@ selector: "=",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		return aNumber != null &&
 			typeof aNumber._isNumber === "function" &&
 			aNumber._isNumber() &&
 			Number(self) == aNumber
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"=",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "= aNumber\x0a\x09<\x0a\x09\x09return aNumber != null &&\x0a\x09\x09\x09typeof aNumber._isNumber === \x22function\x22 &&\x0a\x09\x09\x09aNumber._isNumber() &&\x0a\x09\x09\x09Number(self) == aNumber\x0a\x09>",
 messageSends: [],
@@ -3839,8 +3890,9 @@ selector: ">",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self > aNumber;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,">",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "> aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self >> aNumber>",
 messageSends: [],
@@ -3854,8 +3906,9 @@ selector: ">=",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self >= aNumber;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,">=",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: ">= aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self >>= aNumber>",
 messageSends: [],
@@ -3888,8 +3941,9 @@ selector: "\x5c\x5c",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self % aNumber;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"\x5c\x5c",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "\x5c\x5c aNumber\x0a\x09<return self % aNumber>",
 messageSends: [],
@@ -3903,8 +3957,9 @@ selector: "abs",
 protocol: 'arithmetic',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.abs(self);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"abs",{},globals.Number)})},
 args: [],
 source: "abs\x0a\x09<return Math.abs(self);>",
 messageSends: [],
@@ -3918,8 +3973,9 @@ selector: "arcCos",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.acos(self);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"arcCos",{},globals.Number)})},
 args: [],
 source: "arcCos\x0a\x09<return Math.acos(self);>",
 messageSends: [],
@@ -3933,8 +3989,9 @@ selector: "arcSin",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.asin(self);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"arcSin",{},globals.Number)})},
 args: [],
 source: "arcSin\x0a\x09<return Math.asin(self);>",
 messageSends: [],
@@ -3948,8 +4005,9 @@ selector: "arcTan",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.atan(self);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"arcTan",{},globals.Number)})},
 args: [],
 source: "arcTan\x0a\x09<return Math.atan(self);>",
 messageSends: [],
@@ -4031,8 +4089,9 @@ selector: "asString",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
  return String(self) ;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asString",{},globals.Number)})},
 args: [],
 source: "asString\x0a\x09< return String(self) >",
 messageSends: [],
@@ -4065,8 +4124,9 @@ selector: "ceiling",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.ceil(self);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"ceiling",{},globals.Number)})},
 args: [],
 source: "ceiling\x0a\x09<return Math.ceil(self);>",
 messageSends: [],
@@ -4095,8 +4155,9 @@ selector: "cos",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.cos(self);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"cos",{},globals.Number)})},
 args: [],
 source: "cos\x0a\x09<return Math.cos(self);>",
 messageSends: [],
@@ -4146,8 +4207,9 @@ selector: "floor",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.floor(self);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"floor",{},globals.Number)})},
 args: [],
 source: "floor\x0a\x09<return Math.floor(self);>",
 messageSends: [],
@@ -4227,8 +4289,9 @@ selector: "ln",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.log(self);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"ln",{},globals.Number)})},
 args: [],
 source: "ln\x0a\x09<return Math.log(self);>",
 messageSends: [],
@@ -4242,8 +4305,9 @@ selector: "log",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.log(self) / Math.LN10;;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"log",{},globals.Number)})},
 args: [],
 source: "log\x0a\x09<return Math.log(self) / Math.LN10;>",
 messageSends: [],
@@ -4257,8 +4321,9 @@ selector: "log:",
 protocol: 'mathematical functions',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.log(self) / Math.log(aNumber);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"log:",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "log: aNumber\x0a\x09<return Math.log(self) / Math.log(aNumber);>",
 messageSends: [],
@@ -4272,8 +4337,9 @@ selector: "max:",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.max(self, aNumber);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"max:",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "max: aNumber\x0a\x09<return Math.max(self, aNumber);>",
 messageSends: [],
@@ -4287,8 +4353,9 @@ selector: "min:",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.min(self, aNumber);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"min:",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "min: aNumber\x0a\x09<return Math.min(self, aNumber);>",
 messageSends: [],
@@ -4390,8 +4457,9 @@ selector: "printShowingDecimalPlaces:",
 protocol: 'printing',
 fn: function (placesDesired){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.toFixed(placesDesired);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"printShowingDecimalPlaces:",{placesDesired:placesDesired},globals.Number)})},
 args: ["placesDesired"],
 source: "printShowingDecimalPlaces: placesDesired\x0a\x09<return self.toFixed(placesDesired)>",
 messageSends: [],
@@ -4405,8 +4473,9 @@ selector: "raisedTo:",
 protocol: 'mathematical functions',
 fn: function (exponent){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.pow(self, exponent);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"raisedTo:",{exponent:exponent},globals.Number)})},
 args: ["exponent"],
 source: "raisedTo: exponent\x0a\x09<return Math.pow(self, exponent);>",
 messageSends: [],
@@ -4420,8 +4489,9 @@ selector: "rounded",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.round(self);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"rounded",{},globals.Number)})},
 args: [],
 source: "rounded\x0a\x09<return Math.round(self);>",
 messageSends: [],
@@ -4461,8 +4531,9 @@ selector: "sin",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.sin(self);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"sin",{},globals.Number)})},
 args: [],
 source: "sin\x0a\x09<return Math.sin(self);>",
 messageSends: [],
@@ -4476,8 +4547,9 @@ selector: "sqrt",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.sqrt(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"sqrt",{},globals.Number)})},
 args: [],
 source: "sqrt\x0a\x09<return Math.sqrt(self)>",
 messageSends: [],
@@ -4509,8 +4581,9 @@ selector: "tan",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.tan(self);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"tan",{},globals.Number)})},
 args: [],
 source: "tan\x0a\x09<return Math.tan(self);>",
 messageSends: [],
@@ -4716,6 +4789,7 @@ selector: "truncated",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		if(self >= 0) {
 			return Math.floor(self);
@@ -4723,7 +4797,7 @@ var self=this;
 			return Math.floor(self * (-1)) * (-1);
 		};
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"truncated",{},globals.Number)})},
 args: [],
 source: "truncated\x0a\x09<\x0a\x09\x09if(self >>= 0) {\x0a\x09\x09\x09return Math.floor(self);\x0a\x09\x09} else {\x0a\x09\x09\x09return Math.floor(self * (-1)) * (-1);\x0a\x09\x09};\x0a\x09>",
 messageSends: [],
@@ -4737,8 +4811,9 @@ selector: "|",
 protocol: 'converting',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self | aNumber;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"|",{aNumber:aNumber},globals.Number)})},
 args: ["aNumber"],
 source: "| aNumber\x0a\x09<return self | aNumber>",
 messageSends: [],
@@ -4753,8 +4828,9 @@ selector: "e",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.E;;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"e",{},globals.Number.klass)})},
 args: [],
 source: "e\x0a\x09<return Math.E;>",
 messageSends: [],
@@ -4783,8 +4859,9 @@ selector: "pi",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.PI;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"pi",{},globals.Number.klass)})},
 args: [],
 source: "pi\x0a\x09<return Math.PI>",
 messageSends: [],
@@ -5116,8 +5193,9 @@ selector: "next",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Math.random();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"next",{},globals.Random)})},
 args: [],
 source: "next\x0a\x09<return Math.random()>",
 messageSends: [],
@@ -5191,8 +5269,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._ifNil_ifNotNil_(aBlock,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNil:",{aBlock:aBlock},globals.UndefinedObject)})},
 args: ["aBlock"],
@@ -5441,9 +5518,8 @@ function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnoun
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11;
 oldMethod=_st(self._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $2=self._protocols();
 $3=_st(aMethod)._protocol();
 $ctx1.sendIdx["protocol"]=1;
@@ -5627,8 +5703,9 @@ selector: "basicAddCompiledMethod:",
 protocol: 'private',
 fn: function (aMethod){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 smalltalk.addMethod(aMethod, self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicAddCompiledMethod:",{aMethod:aMethod},globals.Behavior)})},
 args: ["aMethod"],
 source: "basicAddCompiledMethod: aMethod\x0a\x09<smalltalk.addMethod(aMethod, self)>",
 messageSends: [],
@@ -5642,8 +5719,9 @@ selector: "basicNew",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return new self.fn();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicNew",{},globals.Behavior)})},
 args: [],
 source: "basicNew\x0a\x09<return new self.fn()>",
 messageSends: [],
@@ -5657,8 +5735,9 @@ selector: "basicRemoveCompiledMethod:",
 protocol: 'private',
 fn: function (aMethod){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 smalltalk.removeMethod(aMethod,self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveCompiledMethod:",{aMethod:aMethod},globals.Behavior)})},
 args: ["aMethod"],
 source: "basicRemoveCompiledMethod: aMethod\x0a\x09<smalltalk.removeMethod(aMethod,self)>",
 messageSends: [],
@@ -5907,8 +5986,9 @@ selector: "instanceVariableNames",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.iVarNames;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"instanceVariableNames",{},globals.Behavior)})},
 args: [],
 source: "instanceVariableNames\x0a\x09<return self.iVarNames>",
 messageSends: [],
@@ -5937,8 +6017,9 @@ selector: "javascriptConstructor",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.fn;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"javascriptConstructor",{},globals.Behavior)})},
 args: [],
 source: "javascriptConstructor\x0a\x09\x22Answer the JS constructor used to instantiate. See boot.js\x22\x0a\x09\x0a\x09<return self.fn>",
 messageSends: [],
@@ -5952,8 +6033,9 @@ selector: "javascriptConstructor:",
 protocol: 'accessing',
 fn: function (aJavaScriptFunction){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 smalltalk.setClassConstructor(self, aJavaScriptFunction);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"javascriptConstructor:",{aJavaScriptFunction:aJavaScriptFunction},globals.Behavior)})},
 args: ["aJavaScriptFunction"],
 source: "javascriptConstructor: aJavaScriptFunction\x0a\x09\x22Set the JS constructor used to instantiate.\x0a\x09See the JS counter-part in boot.js `smalltalk.setClassConstructor'\x22\x0a\x09\x0a\x09<smalltalk.setClassConstructor(self, aJavaScriptFunction);>",
 messageSends: [],
@@ -6021,6 +6103,7 @@ selector: "methodDictionary",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 var dict = globals.HashedCollection._new();
 	var methods = self.methods;
 	Object.keys(methods).forEach(function(i) {
@@ -6029,11 +6112,62 @@ var dict = globals.HashedCollection._new();
 		}
 	});
 	return dict;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"methodDictionary",{},globals.Behavior)})},
 args: [],
 source: "methodDictionary\x0a\x09<var dict = globals.HashedCollection._new();\x0a\x09var methods = self.methods;\x0a\x09Object.keys(methods).forEach(function(i) {\x0a\x09\x09if(methods[i].selector) {\x0a\x09\x09\x09dict._at_put_(methods[i].selector, methods[i]);\x0a\x09\x09}\x0a\x09});\x0a\x09return dict>",
 messageSends: [],
 referencedClasses: []
+}),
+globals.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methodTemplate",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $3,$4,$2,$7,$8,$6,$9,$5,$10,$1;
+$1=_st($String())._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) {
+_st(stream)._nextPutAll_("messageSelectorAndArgumentNames");
+$ctx2.sendIdx["nextPutAll:"]=1;
+$3=_st($String())._lf();
+$ctx2.sendIdx["lf"]=1;
+$4=_st($String())._tab();
+$ctx2.sendIdx["tab"]=1;
+$2=_st($3).__comma($4);
+$ctx2.sendIdx[","]=1;
+_st(stream)._nextPutAll_($2);
+$ctx2.sendIdx["nextPutAll:"]=2;
+_st(stream)._nextPutAll_("\x22comment stating purpose of message\x22");
+$ctx2.sendIdx["nextPutAll:"]=3;
+$7=_st($String())._lf();
+$ctx2.sendIdx["lf"]=2;
+$8=_st($String())._lf();
+$ctx2.sendIdx["lf"]=3;
+$6=_st($7).__comma($8);
+$ctx2.sendIdx[","]=3;
+$9=_st($String())._tab();
+$ctx2.sendIdx["tab"]=2;
+$5=_st($6).__comma($9);
+$ctx2.sendIdx[","]=2;
+_st(stream)._nextPutAll_($5);
+$ctx2.sendIdx["nextPutAll:"]=4;
+_st(stream)._nextPutAll_("| temporary variable names |");
+$ctx2.sendIdx["nextPutAll:"]=5;
+_st(stream)._nextPutAll_(_st(_st($String())._lf()).__comma(_st($String())._tab()));
+$ctx2.sendIdx["nextPutAll:"]=6;
+$10=_st(stream)._nextPutAll_("statements");
+return $10;
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"methodTemplate",{},globals.Behavior)})},
+args: [],
+source: "methodTemplate\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream \x0a\x09\x09\x09nextPutAll: 'messageSelectorAndArgumentNames';\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: '\x22comment stating purpose of message\x22';\x0a\x09\x09\x09nextPutAll: String lf, String lf, String tab;\x0a\x09\x09\x09nextPutAll: '| temporary variable names |';\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: 'statements' ]",
+messageSends: ["streamContents:", "nextPutAll:", ",", "lf", "tab"],
+referencedClasses: ["String"]
 }),
 globals.Behavior);
 
@@ -6122,8 +6256,9 @@ selector: "name",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.className || nil;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"name",{},globals.Behavior)})},
 args: [],
 source: "name\x0a\x09<return self.className || nil>",
 messageSends: [],
@@ -6270,8 +6405,9 @@ selector: "prototype",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.fn.prototype;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"prototype",{},globals.Behavior)})},
 args: [],
 source: "prototype\x0a\x09<return self.fn.prototype>",
 messageSends: [],
@@ -6384,8 +6520,9 @@ selector: "superclass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.superclass || nil;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"superclass",{},globals.Behavior)})},
 args: [],
 source: "superclass\x0a\x09<return self.superclass || nil>",
 messageSends: [],
@@ -6733,8 +6870,9 @@ selector: "subclasses",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.subclasses._copy();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"subclasses",{},globals.Class)})},
 args: [],
 source: "subclasses\x0a\x09<return self.subclasses._copy()>",
 messageSends: [],
@@ -6807,8 +6945,9 @@ selector: "instanceClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.instanceClass;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"instanceClass",{},globals.Metaclass)})},
 args: [],
 source: "instanceClass\x0a\x09<return self.instanceClass>",
 messageSends: [],
@@ -6844,6 +6983,24 @@ return true;
 args: [],
 source: "isMetaclass\x0a\x09^ true",
 messageSends: [],
+referencedClasses: []
+}),
+globals.Metaclass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "package",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._instanceClass())._package();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"package",{},globals.Metaclass)})},
+args: [],
+source: "package\x0a\x09^ self instanceClass package",
+messageSends: ["package", "instanceClass"],
 referencedClasses: []
 }),
 globals.Metaclass);
@@ -6968,11 +7125,12 @@ selector: "basicAddSubclassOf:named:instanceVariableNames:package:",
 protocol: 'private',
 fn: function (aClass,aString,aCollection,packageName){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		smalltalk.addClass(aString, aClass, aCollection, packageName);
 		return globals[aString]
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicAddSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,aString:aString,aCollection:aCollection,packageName:packageName},globals.ClassBuilder)})},
 args: ["aClass", "aString", "aCollection", "packageName"],
 source: "basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a\x09<\x0a\x09\x09smalltalk.addClass(aString, aClass, aCollection, packageName);\x0a\x09\x09return globals[aString]\x0a\x09>",
 messageSends: [],
@@ -7023,8 +7181,9 @@ selector: "basicRemoveClass:",
 protocol: 'private',
 fn: function (aClass){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 smalltalk.removeClass(aClass);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveClass:",{aClass:aClass},globals.ClassBuilder)})},
 args: ["aClass"],
 source: "basicRemoveClass: aClass\x0a\x09<smalltalk.removeClass(aClass)>",
 messageSends: [],
@@ -7038,12 +7197,13 @@ selector: "basicRenameClass:to:",
 protocol: 'private',
 fn: function (aClass,aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		globals[aString] = aClass;
 		delete globals[aClass.className];
 		aClass.className = aString;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicRenameClass:to:",{aClass:aClass,aString:aString},globals.ClassBuilder)})},
 args: ["aClass", "aString"],
 source: "basicRenameClass: aClass to: aString\x0a\x09<\x0a\x09\x09globals[aString] = aClass;\x0a\x09\x09delete globals[aClass.className];\x0a\x09\x09aClass.className = aString;\x0a\x09>",
 messageSends: [],
@@ -7057,12 +7217,13 @@ selector: "basicSwapClassNames:with:",
 protocol: 'private',
 fn: function (aClass,anotherClass){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var tmp = aClass.className;
 		aClass.className = anotherClass.className;
 		anotherClass.className = tmp;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicSwapClassNames:with:",{aClass:aClass,anotherClass:anotherClass},globals.ClassBuilder)})},
 args: ["aClass", "anotherClass"],
 source: "basicSwapClassNames: aClass with: anotherClass\x0a\x09<\x0a\x09\x09var tmp = aClass.className;\x0a\x09\x09aClass.className = anotherClass.className;\x0a\x09\x09anotherClass.className = tmp;\x0a\x09>",
 messageSends: [],
@@ -7290,10 +7451,11 @@ selector: "rawRenameClass:to:",
 protocol: 'private',
 fn: function (aClass,aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		globals[aString] = aClass;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"rawRenameClass:to:",{aClass:aClass,aString:aString},globals.ClassBuilder)})},
 args: ["aClass", "aString"],
 source: "rawRenameClass: aClass to: aString\x0a\x09<\x0a\x09\x09globals[aString] = aClass;\x0a\x09>",
 messageSends: [],
@@ -7331,8 +7493,9 @@ selector: "setupClass:",
 protocol: 'public',
 fn: function (aClass){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 smalltalk.init(aClass);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"setupClass:",{aClass:aClass},globals.ClassBuilder)})},
 args: ["aClass"],
 source: "setupClass: aClass\x0a\x09<smalltalk.init(aClass);>",
 messageSends: [],
@@ -7731,8 +7894,9 @@ selector: "applyTo:arguments:",
 protocol: 'evaluating',
 fn: function (anObject,aCollection){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.apply(anObject, aCollection);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"applyTo:arguments:",{anObject:anObject,aCollection:aCollection},globals.BlockClosure)})},
 args: ["anObject", "aCollection"],
 source: "applyTo: anObject arguments: aCollection\x0a\x09<return self.apply(anObject, aCollection)>",
 messageSends: [],
@@ -7746,8 +7910,9 @@ selector: "asCompiledMethod:",
 protocol: 'converting',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return smalltalk.method({selector:aString, fn:self});;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asCompiledMethod:",{aString:aString},globals.BlockClosure)})},
 args: ["aString"],
 source: "asCompiledMethod: aString\x0a\x09<return smalltalk.method({selector:aString, fn:self});>",
 messageSends: [],
@@ -7761,8 +7926,9 @@ selector: "compiledSource",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.toString();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"compiledSource",{},globals.BlockClosure)})},
 args: [],
 source: "compiledSource\x0a\x09<return self.toString()>",
 messageSends: [],
@@ -7776,6 +7942,7 @@ selector: "currySelf",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		return function () {
 			var args = [ this ];
@@ -7783,7 +7950,7 @@ var self=this;
 			return self.apply(null, args);
 		}
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"currySelf",{},globals.BlockClosure)})},
 args: [],
 source: "currySelf\x0a\x09\x22Transforms [ :selfarg :x :y | stcode ] block\x0a\x09which represents JS function (selfarg, x, y, ...) {jscode}\x0a\x09into function (x, y, ...) {jscode} that takes selfarg from 'this'.\x0a\x09IOW, it is usable as JS method and first arg takes the receiver.\x22\x0a\x09\x0a\x09<\x0a\x09\x09return function () {\x0a\x09\x09\x09var args = [ this ];\x0a\x09\x09\x09args.push.apply(args, arguments);\x0a\x09\x09\x09return self.apply(null, args);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -7797,8 +7964,9 @@ selector: "ensure:",
 protocol: 'evaluating',
 fn: function (aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 try{return self._value()}finally{aBlock._value()};
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"ensure:",{aBlock:aBlock},globals.BlockClosure)})},
 args: ["aBlock"],
 source: "ensure: aBlock\x0a\x09<try{return self._value()}finally{aBlock._value()}>",
 messageSends: [],
@@ -7829,8 +7997,9 @@ selector: "new",
 protocol: 'evaluating',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return new self();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.BlockClosure)})},
 args: [],
 source: "new\x0a\x09\x22Use the receiver as a JS constructor.\x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self()>",
 messageSends: [],
@@ -7898,16 +8067,15 @@ selector: "newWithValues:",
 protocol: 'evaluating',
 fn: function (aCollection){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
-		var constructor = function() {};
-		constructor.prototype = self.prototype;
-		var object = new constructor;
+		var object = Object.create(self.prototype);
 		var result = self.apply(object, aCollection);
 		return typeof result === "object" ? result : object;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"newWithValues:",{aCollection:aCollection},globals.BlockClosure)})},
 args: ["aCollection"],
-source: "newWithValues: aCollection\x0a\x09\x22Use the receiver as a JavaScript constructor with a variable number of arguments.\x0a\x09Answer the object created using the operator `new`.\x0a\x0a\x09This algorithm was inspired by http://stackoverflow.com/a/6069331.\x0a\x0a\x09Here's a general breakdown of what's going on:\x0a\x091) Create a new, empty constructor function.\x0a\x092) Set it's prototype to the receiver's prototype. Because the receiver is a `BlockClosure`, it is also a JavaScript function.\x0a\x093) Instantiate a new object using the constructor function just created. \x0a\x09\x09This forces the interpreter to set the internal [[prototype]] property to what was set on the function before. \x0a   \x09\x09This has to be done, as we have no access to the [[prototype]] property externally.\x0a\x094) Apply `self` to the object I just instantiated.\x22\x0a\x0a\x09<\x0a\x09\x09var constructor = function() {};\x0a\x09\x09constructor.prototype = self.prototype;\x0a\x09\x09var object = new constructor;\x0a\x09\x09var result = self.apply(object, aCollection);\x0a\x09\x09return typeof result === \x22object\x22 ? result : object;\x0a\x09>",
+source: "newWithValues: aCollection\x0a\x09\x22Simulates JS new operator by combination of Object.create and .apply\x22\x0a\x09<\x0a\x09\x09var object = Object.create(self.prototype);\x0a\x09\x09var result = self.apply(object, aCollection);\x0a\x09\x09return typeof result === \x22object\x22 ? result : object;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -7919,8 +8087,9 @@ selector: "numArgs",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.length;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"numArgs",{},globals.BlockClosure)})},
 args: [],
 source: "numArgs\x0a\x09<return self.length>",
 messageSends: [],
@@ -7998,8 +8167,9 @@ selector: "value",
 protocol: 'evaluating',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self();;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"value",{},globals.BlockClosure)})},
 args: [],
 source: "value\x0a\x09<return self();>",
 messageSends: [],
@@ -8013,8 +8183,9 @@ selector: "value:",
 protocol: 'evaluating',
 fn: function (anArg){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self(anArg);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"value:",{anArg:anArg},globals.BlockClosure)})},
 args: ["anArg"],
 source: "value: anArg\x0a\x09<return self(anArg);>",
 messageSends: [],
@@ -8028,8 +8199,9 @@ selector: "value:value:",
 protocol: 'evaluating',
 fn: function (firstArg,secondArg){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self(firstArg, secondArg);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArg:firstArg,secondArg:secondArg},globals.BlockClosure)})},
 args: ["firstArg", "secondArg"],
 source: "value: firstArg value: secondArg\x0a\x09<return self(firstArg, secondArg);>",
 messageSends: [],
@@ -8043,8 +8215,9 @@ selector: "value:value:value:",
 protocol: 'evaluating',
 fn: function (firstArg,secondArg,thirdArg){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self(firstArg, secondArg, thirdArg);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArg:firstArg,secondArg:secondArg,thirdArg:thirdArg},globals.BlockClosure)})},
 args: ["firstArg", "secondArg", "thirdArg"],
 source: "value: firstArg value: secondArg value: thirdArg\x0a\x09<return self(firstArg, secondArg, thirdArg);>",
 messageSends: [],
@@ -8058,11 +8231,12 @@ selector: "valueWithInterval:",
 protocol: 'timeout/interval',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var interval = setInterval(self, aNumber);
 		return globals.Timeout._on_(interval);
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"valueWithInterval:",{aNumber:aNumber},globals.BlockClosure)})},
 args: ["aNumber"],
 source: "valueWithInterval: aNumber\x0a\x09<\x0a\x09\x09var interval = setInterval(self, aNumber);\x0a\x09\x09return globals.Timeout._on_(interval);\x0a\x09>",
 messageSends: [],
@@ -8076,8 +8250,9 @@ selector: "valueWithPossibleArguments:",
 protocol: 'evaluating',
 fn: function (aCollection){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.apply(null, aCollection);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection},globals.BlockClosure)})},
 args: ["aCollection"],
 source: "valueWithPossibleArguments: aCollection\x0a\x09<return self.apply(null, aCollection);>",
 messageSends: [],
@@ -8091,11 +8266,12 @@ selector: "valueWithTimeout:",
 protocol: 'timeout/interval',
 fn: function (aNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var timeout = setTimeout(self, aNumber);
 		return globals.Timeout._on_(timeout);
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"valueWithTimeout:",{aNumber:aNumber},globals.BlockClosure)})},
 args: ["aNumber"],
 source: "valueWithTimeout: aNumber\x0a\x09<\x0a\x09\x09var timeout = setTimeout(self, aNumber);\x0a\x09\x09return globals.Timeout._on_(timeout);\x0a\x09>",
 messageSends: [],
@@ -8111,8 +8287,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._whileFalse_((function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse",{},globals.BlockClosure)})},
 args: [],
 source: "whileFalse\x0a\x09self whileFalse: []",
@@ -8127,8 +8302,9 @@ selector: "whileFalse:",
 protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 while(!smalltalk.assert(self._value())) {aBlock._value()};
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"whileFalse:",{aBlock:aBlock},globals.BlockClosure)})},
 args: ["aBlock"],
 source: "whileFalse: aBlock\x0a\x09<while(!smalltalk.assert(self._value())) {aBlock._value()}>",
 messageSends: [],
@@ -8144,8 +8320,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._whileTrue_((function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue",{},globals.BlockClosure)})},
 args: [],
 source: "whileTrue\x0a\x09self whileTrue: []",
@@ -8160,8 +8335,9 @@ selector: "whileTrue:",
 protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 while(smalltalk.assert(self._value())) {aBlock._value()};
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"whileTrue:",{aBlock:aBlock},globals.BlockClosure)})},
 args: ["aBlock"],
 source: "whileTrue: aBlock\x0a\x09<while(smalltalk.assert(self._value())) {aBlock._value()}>",
 messageSends: [],
@@ -8179,8 +8355,9 @@ selector: "arguments",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.args || [];
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"arguments",{},globals.CompiledMethod)})},
 args: [],
 source: "arguments\x0a\x09<return self.args || []>",
 messageSends: [],
@@ -8362,6 +8539,38 @@ args: [],
 source: "methodClass\x0a\x09^ self basicAt: 'methodClass'",
 messageSends: ["basicAt:"],
 referencedClasses: []
+}),
+globals.CompiledMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "package",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$4,$3,$5;
+$2=self._protocol();
+$ctx1.sendIdx["protocol"]=1;
+$1=_st($2)._beginsWith_("*");
+if(! smalltalk.assert($1)){
+$4=self._methodClass();
+$ctx1.sendIdx["methodClass"]=1;
+$3=_st($4)._package();
+$ctx1.sendIdx["package"]=1;
+return $3;
+};
+$5=_st($Package())._named_ifAbsent_(_st(self._protocol())._allButFirst(),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._methodClass())._package();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return $5;
+}, function($ctx1) {$ctx1.fill(self,"package",{},globals.CompiledMethod)})},
+args: [],
+source: "package\x0a\x09\x22Answer the package the receiver belongs to:\x0a\x09- if it is an extension method, answer the corresponding package\x0a\x09- else answer the `methodClass` package\x22\x0a\x09\x0a\x09(self protocol beginsWith: '*') ifFalse: [\x0a\x09\x09^ self methodClass package ].\x0a\x09\x09\x0a\x09^ Package \x0a\x09\x09named: self protocol allButFirst\x0a\x09\x09ifAbsent: [ self methodClass package ]",
+messageSends: ["ifFalse:", "beginsWith:", "protocol", "package", "methodClass", "named:ifAbsent:", "allButFirst"],
+referencedClasses: ["Package"]
 }),
 globals.CompiledMethod);
 
@@ -8629,9 +8838,8 @@ return smalltalk.withContext(function($ctx2) {
 self["@poolSize"]=_st(self["@poolSize"]).__minus((1));
 self["@poolSize"];
 block=_st(self["@queue"])._nextIfAbsent_((function(){
-return smalltalk.withContext(function($ctx3) {
 return sentinel;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}));
 block;
 $2=_st(block).__eq_eq(sentinel);
 if(! smalltalk.assert($2)){
@@ -9161,8 +9369,9 @@ selector: "evaluatedSelector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.evaluatedSelector;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"evaluatedSelector",{},globals.MethodContext)})},
 args: [],
 source: "evaluatedSelector\x0a\x09<return self.evaluatedSelector>",
 messageSends: [],
@@ -9176,8 +9385,9 @@ selector: "home",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.homeContext;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"home",{},globals.MethodContext)})},
 args: [],
 source: "home\x0a\x09<return self.homeContext>",
 messageSends: [],
@@ -9191,8 +9401,9 @@ selector: "index",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.index || 0;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"index",{},globals.MethodContext)})},
 args: [],
 source: "index\x0a\x09<return self.index || 0>",
 messageSends: [],
@@ -9224,8 +9435,9 @@ selector: "locals",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.locals || {};
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"locals",{},globals.MethodContext)})},
 args: [],
 source: "locals\x0a\x09<return self.locals || {}>",
 messageSends: [],
@@ -9296,8 +9508,9 @@ selector: "outerContext",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.outerContext || self.homeContext;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"outerContext",{},globals.MethodContext)})},
 args: [],
 source: "outerContext\x0a\x09<return self.outerContext || self.homeContext>",
 messageSends: [],
@@ -9333,8 +9546,9 @@ selector: "receiver",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.receiver;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"receiver",{},globals.MethodContext)})},
 args: [],
 source: "receiver\x0a\x09<return self.receiver>",
 messageSends: [],
@@ -9348,6 +9562,7 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		if(self.selector) {
 			return smalltalk.convertSelector(self.selector);
@@ -9355,7 +9570,7 @@ var self=this;
 			return nil;
 		}
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"selector",{},globals.MethodContext)})},
 args: [],
 source: "selector\x0a\x09<\x0a\x09\x09if(self.selector) {\x0a\x09\x09\x09return smalltalk.convertSelector(self.selector);\x0a\x09\x09} else {\x0a\x09\x09\x09return nil;\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -9369,8 +9584,9 @@ selector: "sendIndexAt:",
 protocol: 'accessing',
 fn: function (aSelector){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.sendIdx[aSelector] || 0;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"sendIndexAt:",{aSelector:aSelector},globals.MethodContext)})},
 args: ["aSelector"],
 source: "sendIndexAt: aSelector\x0a\x09<return self.sendIdx[aSelector] || 0>",
 messageSends: [],
@@ -9384,8 +9600,9 @@ selector: "sendIndexes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.sendIdx;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"sendIndexes",{},globals.MethodContext)})},
 args: [],
 source: "sendIndexes\x0a\x09<return self.sendIdx>",
 messageSends: [],
@@ -9423,11 +9640,12 @@ selector: "constructor:",
 protocol: 'instance creation',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var native=eval(aString);
 		return new native();
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:",{aString:aString},globals.NativeFunction.klass)})},
 args: ["aString"],
 source: "constructor: aString\x0a\x09<\x0a\x09\x09var native=eval(aString);\x0a\x09\x09return new native();\x0a\x09>",
 messageSends: [],
@@ -9441,11 +9659,12 @@ selector: "constructor:value:",
 protocol: 'instance creation',
 fn: function (aString,anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var native=eval(aString);
 		return new native(anObject);
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:",{aString:aString,anObject:anObject},globals.NativeFunction.klass)})},
 args: ["aString", "anObject"],
 source: "constructor: aString value:anObject\x0a\x09<\x0a\x09\x09var native=eval(aString);\x0a\x09\x09return new native(anObject);\x0a\x09>",
 messageSends: [],
@@ -9459,11 +9678,12 @@ selector: "constructor:value:value:",
 protocol: 'instance creation',
 fn: function (aString,anObject,anObject2){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var native=eval(aString);
 		return new native(anObject,anObject2);
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2},globals.NativeFunction.klass)})},
 args: ["aString", "anObject", "anObject2"],
 source: "constructor: aString value:anObject value: anObject2\x0a\x09<\x0a\x09\x09var native=eval(aString);\x0a\x09\x09return new native(anObject,anObject2);\x0a\x09>",
 messageSends: [],
@@ -9477,11 +9697,12 @@ selector: "constructor:value:value:value:",
 protocol: 'instance creation',
 fn: function (aString,anObject,anObject2,anObject3){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var native=eval(aString);
 		return new native(anObject,anObject2, anObject3);
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2,anObject3:anObject3},globals.NativeFunction.klass)})},
 args: ["aString", "anObject", "anObject2", "anObject3"],
 source: "constructor: aString value:anObject value: anObject2 value:anObject3\x0a\x09<\x0a\x09\x09var native=eval(aString);\x0a\x09\x09return new native(anObject,anObject2, anObject3);\x0a\x09>",
 messageSends: [],
@@ -9517,11 +9738,12 @@ selector: "clearInterval",
 protocol: 'timeout/interval',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var interval = self["@rawTimeout"];
 		clearInterval(interval);
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"clearInterval",{},globals.Timeout)})},
 args: [],
 source: "clearInterval\x0a\x09<\x0a\x09\x09var interval = self[\x22@rawTimeout\x22];\x0a\x09\x09clearInterval(interval);\x0a\x09>",
 messageSends: [],
@@ -9535,11 +9757,12 @@ selector: "clearTimeout",
 protocol: 'timeout/interval',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var timeout = self["@rawTimeout"];
 		clearTimeout(timeout);
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"clearTimeout",{},globals.Timeout)})},
 args: [],
 source: "clearTimeout\x0a\x09<\x0a\x09\x09var timeout = self[\x22@rawTimeout\x22];\x0a\x09\x09clearTimeout(timeout);\x0a\x09>",
 messageSends: [],
@@ -9742,6 +9965,7 @@ selector: "bucketOfElement:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var hash = self['@hashBlock'](anObject);
 		if (!hash) return null;
@@ -9750,7 +9974,7 @@ var self=this;
 		if (!bucket) { bucket = buckets[hash] = self._newBucket(); }
 		return bucket;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"bucketOfElement:",{anObject:anObject},globals.BucketStore)})},
 args: ["anObject"],
 source: "bucketOfElement: anObject\x0a\x09<\x0a\x09\x09var hash = self['@hashBlock'](anObject);\x0a\x09\x09if (!hash) return null;\x0a\x09\x09var buckets = self['@buckets'],\x0a\x09\x09\x09bucket = buckets[hash];\x0a\x09\x09if (!bucket) { bucket = buckets[hash] = self._newBucket(); }\x0a\x09\x09return bucket;\x0a\x09>",
 messageSends: [],
@@ -9764,12 +9988,13 @@ selector: "do:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var buckets = self['@buckets'];
 		var keys = Object.keys(buckets);
 		for (var i = 0; i < keys.length; ++i) { buckets[keys[i]]._do_(aBlock); }
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},globals.BucketStore)})},
 args: ["aBlock"],
 source: "do: aBlock\x0a\x09<\x0a\x09\x09var buckets = self['@buckets'];\x0a\x09\x09var keys = Object.keys(buckets);\x0a\x09\x09for (var i = 0; i < keys.length; ++i) { buckets[keys[i]]._do_(aBlock); }\x0a\x09>",
 messageSends: [],
@@ -9831,8 +10056,9 @@ selector: "removeAll",
 protocol: 'adding/removing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self['@buckets'] = Object.create(null);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},globals.BucketStore)})},
 args: [],
 source: "removeAll\x0a\x09<self['@buckets'] = Object.create(null);>",
 messageSends: [],
@@ -9985,9 +10211,8 @@ return smalltalk.withContext(function($ctx2) {
 return self._error_("Collection is empty");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 self._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
 throw $early=[each];
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+}));
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"anyOne",{},globals.Collection)})},
@@ -10271,10 +10496,9 @@ var self=this;
 var actionBeforeElement;
 return smalltalk.withContext(function($ctx1) { 
 actionBeforeElement=(function(){
-return smalltalk.withContext(function($ctx2) {
 actionBeforeElement=anotherBlock;
 return actionBeforeElement;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
+});
 self._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 _st(actionBeforeElement)._value();
@@ -10314,9 +10538,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self._isEmpty();
 $1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
-return smalltalk.withContext(function($ctx2) {
 return self;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifEmpty:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
@@ -10355,9 +10578,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self._notEmpty();
 $1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
-return smalltalk.withContext(function($ctx2) {
 return self;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
@@ -10916,9 +11138,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._at_ifPresent_ifAbsent_(anIndex,aBlock,(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{anIndex:anIndex,aBlock:aBlock},globals.IndexableCollection)})},
 args: ["anIndex", "aBlock"],
@@ -11766,11 +11987,12 @@ selector: "at:ifAbsent:",
 protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var index = self._positionOfKey_(aKey);
 		return index >=0 ? self['@values'][index] : aBlock._value();
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},globals.Dictionary)})},
 args: ["aKey", "aBlock"],
 source: "at: aKey ifAbsent: aBlock\x0a\x09<\x0a\x09\x09var index = self._positionOfKey_(aKey);\x0a\x09\x09return index >>=0 ? self['@values'][index] : aBlock._value();\x0a\x09>",
 messageSends: [],
@@ -11784,6 +12006,7 @@ selector: "at:put:",
 protocol: 'accessing',
 fn: function (aKey,aValue){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var index = self._positionOfKey_(aKey);
 		if(index === -1) {
@@ -11794,7 +12017,7 @@ var self=this;
 
 		return self['@values'][index] = aValue;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aKey:aKey,aValue:aValue},globals.Dictionary)})},
 args: ["aKey", "aValue"],
 source: "at: aKey put: aValue\x0a\x09<\x0a\x09\x09var index = self._positionOfKey_(aKey);\x0a\x09\x09if(index === -1) {\x0a\x09\x09\x09var keys = self['@keys'];\x0a\x09\x09\x09index = keys.length;\x0a\x09\x09\x09keys.push(aKey);\x0a\x09\x09}\x0a\x0a\x09\x09return self['@values'][index] = aValue;\x0a\x09>",
 messageSends: [],
@@ -11808,8 +12031,9 @@ selector: "includesKey:",
 protocol: 'testing',
 fn: function (aKey){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
  return self._positionOfKey_(aKey) >= 0; ;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey},globals.Dictionary)})},
 args: ["aKey"],
 source: "includesKey: aKey\x0a\x09< return self._positionOfKey_(aKey) >>= 0; >",
 messageSends: [],
@@ -11827,9 +12051,8 @@ var index;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 index=_st(self["@values"])._indexOf_ifAbsent_(anObject,(function(){
-return smalltalk.withContext(function($ctx2) {
 return (0);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $2=_st(index).__eq((0));
 if(smalltalk.assert($2)){
 $1=_st(aBlock)._value();
@@ -11923,6 +12146,7 @@ selector: "positionOfKey:",
 protocol: 'private',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var keys = self['@keys'];
 		for(var i=0;i<keys.length;i++){
@@ -11930,7 +12154,7 @@ var self=this;
 		}
 		return -1;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"positionOfKey:",{anObject:anObject},globals.Dictionary)})},
 args: ["anObject"],
 source: "positionOfKey: anObject\x0a\x09<\x0a\x09\x09var keys = self['@keys'];\x0a\x09\x09for(var i=0;i<keys.length;i++){\x0a\x09\x09\x09if(keys[i].__eq(anObject)) { return i;}\x0a\x09\x09}\x0a\x09\x09return -1;\x0a\x09>",
 messageSends: [],
@@ -11962,6 +12186,7 @@ selector: "removeKey:ifAbsent:",
 protocol: 'adding/removing',
 fn: function (aKey,aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var index = self._positionOfKey_(aKey);
 		if(index === -1) {
@@ -11976,7 +12201,7 @@ var self=this;
 			return value;
 		}
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"removeKey:ifAbsent:",{aKey:aKey,aBlock:aBlock},globals.Dictionary)})},
 args: ["aKey", "aBlock"],
 source: "removeKey: aKey ifAbsent: aBlock\x0a\x09<\x0a\x09\x09var index = self._positionOfKey_(aKey);\x0a\x09\x09if(index === -1) {\x0a\x09\x09\x09return aBlock._value()\x0a\x09\x09} else {\x0a\x09\x09\x09var keys = self['@keys'], values = self['@values'];\x0a\x09\x09\x09var value = values[index], l = keys.length;\x0a\x09\x09\x09keys[index] = keys[l-1];\x0a\x09\x09\x09keys.pop();\x0a\x09\x09\x09values[index] = values[l-1];\x0a\x09\x09\x09values.pop();\x0a\x09\x09\x09return value;\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -12070,8 +12295,9 @@ selector: "includesKey:",
 protocol: 'testing',
 fn: function (aKey){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.hasOwnProperty(aKey);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey},globals.HashedCollection)})},
 args: ["aKey"],
 source: "includesKey: aKey\x0a\x09<return self.hasOwnProperty(aKey)>",
 messageSends: [],
@@ -12085,8 +12311,9 @@ selector: "keys",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Object.keys(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"keys",{},globals.HashedCollection)})},
 args: [],
 source: "keys\x0a\x09<return Object.keys(self)>",
 messageSends: [],
@@ -12141,12 +12368,13 @@ selector: "values",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		return self._keys().map(function(key){
 			return self._at_(key);
 		});
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"values",{},globals.HashedCollection)})},
 args: [],
 source: "values\x0a\x09<\x0a\x09\x09return self._keys().map(function(key){\x0a\x09\x09\x09return self._at_(key);\x0a\x09\x09});\x0a\x09>",
 messageSends: [],
@@ -12367,6 +12595,7 @@ selector: "detect:ifNone:",
 protocol: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		self = self._numericallyIndexable();
 		for(var i = 0; i < self.length; i++)
@@ -12374,7 +12603,7 @@ var self=this;
 				return self[i];
 		return anotherBlock._value();
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"detect:ifNone:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.SequenceableCollection)})},
 args: ["aBlock", "anotherBlock"],
 source: "detect: aBlock ifNone: anotherBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i = 0; i < self.length; i++)\x0a\x09\x09\x09if(aBlock._value_(self[i]))\x0a\x09\x09\x09\x09return self[i];\x0a\x09\x09return anotherBlock._value();\x0a\x09>",
 messageSends: [],
@@ -12388,13 +12617,14 @@ selector: "do:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		self = self._numericallyIndexable();
 		for(var i=0; i < self.length; i++) {
 			aBlock._value_(self[i]);
 		}
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},globals.SequenceableCollection)})},
 args: ["aBlock"],
 source: "do: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=0; i < self.length; i++) {\x0a\x09\x09\x09aBlock._value_(self[i]);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -12495,9 +12725,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self._indexOf_ifAbsent_(anObject,(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))._notNil();
+})))._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},globals.SequenceableCollection)})},
 args: ["anObject"],
@@ -12513,6 +12742,7 @@ selector: "indexOf:ifAbsent:",
 protocol: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		self = self._numericallyIndexable();
 		for(var i=0; i < self.length; i++) {
@@ -12520,7 +12750,7 @@ var self=this;
 		};
 		return aBlock._value();
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock},globals.SequenceableCollection)})},
 args: ["anObject", "aBlock"],
 source: "indexOf: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=0; i < self.length; i++) {\x0a\x09\x09\x09if(_st(self[i]).__eq(anObject)) {return i+1}\x0a\x09\x09};\x0a\x09\x09return aBlock._value();\x0a\x09>",
 messageSends: [],
@@ -12537,9 +12767,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._indexOf_startingAt_ifAbsent_(anObject,start,(function(){
-return smalltalk.withContext(function($ctx2) {
 return (0);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"indexOf:startingAt:",{anObject:anObject,start:start},globals.SequenceableCollection)})},
 args: ["anObject", "start"],
@@ -12555,6 +12784,7 @@ selector: "indexOf:startingAt:ifAbsent:",
 protocol: 'accessing',
 fn: function (anObject,start,aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		self = self._numericallyIndexable();
 		for(var i=start - 1; i < self.length; i++){
@@ -12562,7 +12792,7 @@ var self=this;
 		}
 		return aBlock._value();
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"indexOf:startingAt:ifAbsent:",{anObject:anObject,start:start,aBlock:aBlock},globals.SequenceableCollection)})},
 args: ["anObject", "start", "aBlock"],
 source: "indexOf: anObject startingAt: start ifAbsent: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=start - 1; i < self.length; i++){\x0a\x09\x09\x09if(_st(self[i]).__eq(anObject)) {return i+1}\x0a\x09\x09}\x0a\x09\x09return aBlock._value();\x0a\x09>",
 messageSends: [],
@@ -12804,6 +13034,7 @@ selector: "with:do:",
 protocol: 'enumerating',
 fn: function (anotherCollection,aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		self = self._numericallyIndexable();
 		anotherCollection = anotherCollection._numericallyIndexable();
@@ -12811,7 +13042,7 @@ var self=this;
 			aBlock._value_value_(self[i], anotherCollection[i]);
 		}
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"with:do:",{anotherCollection:anotherCollection,aBlock:aBlock},globals.SequenceableCollection)})},
 args: ["anotherCollection", "aBlock"],
 source: "with: anotherCollection do: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09anotherCollection = anotherCollection._numericallyIndexable();\x0a\x09\x09for(var i=0; i<self.length; i++) {\x0a\x09\x09\x09aBlock._value_value_(self[i], anotherCollection[i]);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -12825,13 +13056,14 @@ selector: "withIndexDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		self = self._numericallyIndexable();
 		for(var i=0; i < self.length; i++) {
 			aBlock._value_value_(self[i], i+1);
 		}
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},globals.SequenceableCollection)})},
 args: ["aBlock"],
 source: "withIndexDo: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=0; i < self.length; i++) {\x0a\x09\x09\x09aBlock._value_value_(self[i], i+1);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -12904,8 +13136,9 @@ selector: "add:",
 protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.push(anObject); return anObject;;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},globals.Array)})},
 args: ["anObject"],
 source: "add: anObject\x0a\x09<self.push(anObject); return anObject;>",
 messageSends: [],
@@ -12919,8 +13152,9 @@ selector: "addFirst:",
 protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.unshift(anObject); return anObject;;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"addFirst:",{anObject:anObject},globals.Array)})},
 args: ["anObject"],
 source: "addFirst: anObject\x0a\x09<self.unshift(anObject); return anObject;>",
 messageSends: [],
@@ -12956,12 +13190,13 @@ selector: "at:ifAbsent:",
 protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		return anIndex >= 1 && anIndex <= self.length
 			? self[anIndex - 1]
 			: aBlock._value()
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},globals.Array)})},
 args: ["anIndex", "aBlock"],
 source: "at: anIndex ifAbsent: aBlock\x0a\x09<\x0a\x09\x09return anIndex >>= 1 && anIndex <= self.length\x0a\x09\x09\x09? self[anIndex - 1]\x0a\x09\x09\x09: aBlock._value()\x0a\x09>",
 messageSends: [],
@@ -12975,12 +13210,13 @@ selector: "at:ifPresent:ifAbsent:",
 protocol: 'accessing',
 fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		return anIndex >= 1 && anIndex <= self.length
 			? aBlock._value_(self[anIndex - 1])
 			: anotherBlock._value()
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock},globals.Array)})},
 args: ["anIndex", "aBlock", "anotherBlock"],
 source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09<\x0a\x09\x09return anIndex >>= 1 && anIndex <= self.length\x0a\x09\x09\x09? aBlock._value_(self[anIndex - 1])\x0a\x09\x09\x09: anotherBlock._value()\x0a\x09>",
 messageSends: [],
@@ -12994,8 +13230,9 @@ selector: "at:put:",
 protocol: 'accessing',
 fn: function (anIndex,anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self[anIndex - 1] = anObject;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{anIndex:anIndex,anObject:anObject},globals.Array)})},
 args: ["anIndex", "anObject"],
 source: "at: anIndex put: anObject\x0a\x09<return self[anIndex - 1] = anObject>",
 messageSends: [],
@@ -13009,8 +13246,9 @@ selector: "collect:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.map(function(each) {return aBlock._value_(each)});
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock},globals.Array)})},
 args: ["aBlock"],
 source: "collect: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09\x0a\x09<return self.map(function(each) {return aBlock._value_(each)})>",
 messageSends: [],
@@ -13024,8 +13262,9 @@ selector: "join:",
 protocol: 'enumerating',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.join(aString);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"join:",{aString:aString},globals.Array)})},
 args: ["aString"],
 source: "join: aString\x0a\x09<return self.join(aString)>",
 messageSends: [],
@@ -13086,9 +13325,8 @@ var index;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 index=self._indexOf_ifAbsent_(anObject,(function(){
-return smalltalk.withContext(function($ctx2) {
 return (0);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $2=_st(index).__eq((0));
 if(smalltalk.assert($2)){
 $1=_st(aBlock)._value();
@@ -13111,8 +13349,9 @@ selector: "removeAll",
 protocol: 'adding/removing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.length = 0;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},globals.Array)})},
 args: [],
 source: "removeAll\x0a\x09<self.length = 0>",
 messageSends: [],
@@ -13126,8 +13365,9 @@ selector: "removeFrom:to:",
 protocol: 'adding/removing',
 fn: function (aNumber,anotherNumber){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.splice(aNumber -1, anotherNumber - aNumber + 1);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"removeFrom:to:",{aNumber:aNumber,anotherNumber:anotherNumber},globals.Array)})},
 args: ["aNumber", "anotherNumber"],
 source: "removeFrom: aNumber to: anotherNumber\x0a\x09<self.splice(aNumber -1, anotherNumber - aNumber + 1)>",
 messageSends: [],
@@ -13141,8 +13381,9 @@ selector: "removeIndex:",
 protocol: 'adding/removing',
 fn: function (anInteger){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.splice(anInteger - 1, 1);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"removeIndex:",{anInteger:anInteger},globals.Array)})},
 args: ["anInteger"],
 source: "removeIndex: anInteger\x0a\x09<self.splice(anInteger - 1, 1)>",
 messageSends: [],
@@ -13156,8 +13397,9 @@ selector: "removeLast",
 protocol: 'adding/removing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.pop();;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"removeLast",{},globals.Array)})},
 args: [],
 source: "removeLast\x0a\x09<return self.pop();>",
 messageSends: [],
@@ -13171,8 +13413,9 @@ selector: "reversed",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self._copy().reverse();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"reversed",{},globals.Array)})},
 args: [],
 source: "reversed\x0a\x09<return self._copy().reverse()>",
 messageSends: [],
@@ -13186,6 +13429,7 @@ selector: "select:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var result = self.klass._new();
 		for(var i=0; i<self.length; i++) {
@@ -13195,7 +13439,7 @@ var self=this;
 		}
 		return result;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock},globals.Array)})},
 args: ["aBlock"],
 source: "select: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09\x0a\x09<\x0a\x09\x09var result = self.klass._new();\x0a\x09\x09for(var i=0; i<self.length; i++) {\x0a\x09\x09\x09if(aBlock._value_(self[i])) {\x0a\x09\x09\x09\x09result.push(self[i]);\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09return result;\x0a\x09>",
 messageSends: [],
@@ -13209,8 +13453,9 @@ selector: "size",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.length;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"size",{},globals.Array)})},
 args: [],
 source: "size\x0a\x09<return self.length>",
 messageSends: [],
@@ -13226,12 +13471,15 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._basicPerform_("sort");
+$1=self._sort_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+return _st(a).__lt(b);
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sort",{},globals.Array)})},
 args: [],
-source: "sort\x0a\x09^ self basicPerform: 'sort'",
-messageSends: ["basicPerform:"],
+source: "sort\x0a\x09^ self sort: [ :a :b | a < b ]",
+messageSends: ["sort:", "<"],
 referencedClasses: []
 }),
 globals.Array);
@@ -13242,12 +13490,13 @@ selector: "sort:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		return self.sort(function(a, b) {
 			if(aBlock._value_value_(a,b)) {return -1} else {return 1}
 		})
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"sort:",{aBlock:aBlock},globals.Array)})},
 args: ["aBlock"],
 source: "sort: aBlock\x0a\x09<\x0a\x09\x09return self.sort(function(a, b) {\x0a\x09\x09\x09if(aBlock._value_value_(a,b)) {return -1} else {return 1}\x0a\x09\x09})\x0a\x09>",
 messageSends: [],
@@ -13298,8 +13547,9 @@ selector: "new:",
 protocol: 'instance creation',
 fn: function (anInteger){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return new Array(anInteger);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"new:",{anInteger:anInteger},globals.Array.klass)})},
 args: ["anInteger"],
 source: "new: anInteger\x0a\x09<return new Array(anInteger)>",
 messageSends: [],
@@ -13638,8 +13888,9 @@ selector: ",",
 protocol: 'copying',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return String(self) + aString;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,",",{aString:aString},globals.String)})},
 args: ["aString"],
 source: ", aString\x0a\x09<return String(self) + aString>",
 messageSends: [],
@@ -13653,8 +13904,9 @@ selector: "<",
 protocol: 'comparing',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return String(self) < aString._asString();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"<",{aString:aString},globals.String)})},
 args: ["aString"],
 source: "< aString\x0a\x09<return String(self) < aString._asString()>",
 messageSends: [],
@@ -13668,8 +13920,9 @@ selector: "<=",
 protocol: 'comparing',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return String(self) <= aString._asString();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"<=",{aString:aString},globals.String)})},
 args: ["aString"],
 source: "<= aString\x0a\x09<return String(self) <= aString._asString()>",
 messageSends: [],
@@ -13683,13 +13936,14 @@ selector: "=",
 protocol: 'comparing',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		return aString != null &&
 			typeof aString._isString === "function" &&
 			aString._isString() &&
 			String(self) === String(aString)
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"=",{aString:aString},globals.String)})},
 args: ["aString"],
 source: "= aString\x0a\x09<\x0a\x09\x09return aString != null &&\x0a\x09\x09\x09typeof aString._isString === \x22function\x22 &&\x0a\x09\x09\x09aString._isString() &&\x0a\x09\x09\x09String(self) === String(aString)\x0a\x09>",
 messageSends: [],
@@ -13721,8 +13975,9 @@ selector: ">",
 protocol: 'comparing',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return String(self) > aString._asString();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,">",{aString:aString},globals.String)})},
 args: ["aString"],
 source: "> aString\x0a\x09<return String(self) >> aString._asString()>",
 messageSends: [],
@@ -13736,8 +13991,9 @@ selector: ">=",
 protocol: 'comparing',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return String(self) >= aString._asString();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,">=",{aString:aString},globals.String)})},
 args: ["aString"],
 source: ">= aString\x0a\x09<return String(self) >>= aString._asString()>",
 messageSends: [],
@@ -13766,13 +14022,14 @@ selector: "asJavascript",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)
 			return "\"" + self.replace(/[\x00-\x1f"\\\x7f-\x9f]/g, function(ch){var c=ch.charCodeAt(0);return "\\x"+("0"+c.toString(16)).slice(-2)}) + "\"";
 		else
 			return "\"" + self + "\"";
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asJavascript",{},globals.String)})},
 args: [],
 source: "asJavascript\x0a\x09<\x0a\x09\x09if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)\x0a\x09\x09\x09return \x22\x5c\x22\x22 + self.replace(/[\x5cx00-\x5cx1f\x22\x5c\x5c\x5cx7f-\x5cx9f]/g, function(ch){var c=ch.charCodeAt(0);return \x22\x5c\x5cx\x22+(\x220\x22+c.toString(16)).slice(-2)}) + \x22\x5c\x22\x22;\x0a\x09\x09else\x0a\x09\x09\x09return \x22\x5c\x22\x22 + self + \x22\x5c\x22\x22;\x0a\x09>",
 messageSends: [],
@@ -13786,8 +14043,9 @@ selector: "asLowercase",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.toLowerCase();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asLowercase",{},globals.String)})},
 args: [],
 source: "asLowercase\x0a\x09<return self.toLowerCase()>",
 messageSends: [],
@@ -13823,8 +14081,9 @@ selector: "asNumber",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return Number(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asNumber",{},globals.String)})},
 args: [],
 source: "asNumber\x0a\x09<return Number(self)>",
 messageSends: [],
@@ -13857,8 +14116,9 @@ selector: "asSelector",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return smalltalk.selector(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asSelector",{},globals.String)})},
 args: [],
 source: "asSelector\x0a\x09<return smalltalk.selector(self)>",
 messageSends: [],
@@ -13902,8 +14162,9 @@ selector: "asUppercase",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.toUpperCase();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asUppercase",{},globals.String)})},
 args: [],
 source: "asUppercase\x0a\x09<return self.toUpperCase()>",
 messageSends: [],
@@ -13917,8 +14178,9 @@ selector: "asciiValue",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.charCodeAt(0);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"asciiValue",{},globals.String)})},
 args: [],
 source: "asciiValue\x0a\x09<return self.charCodeAt(0);>",
 messageSends: [],
@@ -13932,8 +14194,9 @@ selector: "at:ifAbsent:",
 protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return String(self)[anIndex - 1] || aBlock._value();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},globals.String)})},
 args: ["anIndex", "aBlock"],
 source: "at: anIndex ifAbsent: aBlock\x0a\x09<return String(self)[anIndex - 1] || aBlock._value()>",
 messageSends: [],
@@ -13947,11 +14210,12 @@ selector: "at:ifPresent:ifAbsent:",
 protocol: 'accessing',
 fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var result = String(self)[anIndex - 1];
 		return result ? aBlock._value_(result) : anotherBlock._value();
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock},globals.String)})},
 args: ["anIndex", "aBlock", "anotherBlock"],
 source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09<\x0a\x09\x09var result = String(self)[anIndex - 1];\x0a\x09\x09return result ? aBlock._value_(result) : anotherBlock._value();\x0a\x09>",
 messageSends: [],
@@ -13988,8 +14252,9 @@ selector: "charCodeAt:",
 protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.charCodeAt(anInteger - 1);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"charCodeAt:",{anInteger:anInteger},globals.String)})},
 args: ["anInteger"],
 source: "charCodeAt: anInteger\x0a\x09<return self.charCodeAt(anInteger - 1)>",
 messageSends: [],
@@ -14003,8 +14268,9 @@ selector: "copyFrom:to:",
 protocol: 'copying',
 fn: function (anIndex,anotherIndex){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.substring(anIndex - 1, anotherIndex);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex},globals.String)})},
 args: ["anIndex", "anotherIndex"],
 source: "copyFrom: anIndex to: anotherIndex\x0a\x09<return self.substring(anIndex - 1, anotherIndex)>",
 messageSends: [],
@@ -14055,8 +14321,9 @@ selector: "escaped",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return escape(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"escaped",{},globals.String)})},
 args: [],
 source: "escaped\x0a\x09<return escape(self)>",
 messageSends: [],
@@ -14088,8 +14355,9 @@ selector: "includesSubString:",
 protocol: 'testing',
 fn: function (subString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.indexOf(subString) != -1;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"includesSubString:",{subString:subString},globals.String)})},
 args: ["subString"],
 source: "includesSubString: subString\x0a\x09<return self.indexOf(subString) != -1>",
 messageSends: [],
@@ -14380,8 +14648,9 @@ selector: "match:",
 protocol: 'regular expressions',
 fn: function (aRegexp){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.search(aRegexp) != -1;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"match:",{aRegexp:aRegexp},globals.String)})},
 args: ["aRegexp"],
 source: "match: aRegexp\x0a\x09<return self.search(aRegexp) != -1>",
 messageSends: [],
@@ -14395,8 +14664,9 @@ selector: "matchesOf:",
 protocol: 'regular expressions',
 fn: function (aRegularExpression){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.match(aRegularExpression);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"matchesOf:",{aRegularExpression:aRegularExpression},globals.String)})},
 args: ["aRegularExpression"],
 source: "matchesOf: aRegularExpression\x0a\x09<return self.match(aRegularExpression)>",
 messageSends: [],
@@ -14410,8 +14680,9 @@ selector: "numericallyIndexable",
 protocol: 'private',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return String(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"numericallyIndexable",{},globals.String)})},
 args: [],
 source: "numericallyIndexable\x0a\x09<return String(self)>",
 messageSends: [],
@@ -14425,8 +14696,9 @@ selector: "printNl",
 protocol: 'printing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 console.log(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"printNl",{},globals.String)})},
 args: [],
 source: "printNl\x0a\x09<console.log(self)>",
 messageSends: [],
@@ -14480,8 +14752,9 @@ selector: "replaceRegexp:with:",
 protocol: 'regular expressions',
 fn: function (aRegexp,aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.replace(aRegexp, aString);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"replaceRegexp:with:",{aRegexp:aRegexp,aString:aString},globals.String)})},
 args: ["aRegexp", "aString"],
 source: "replaceRegexp: aRegexp with: aString\x0a\x09<return self.replace(aRegexp, aString)>",
 messageSends: [],
@@ -14495,8 +14768,9 @@ selector: "reversed",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.split("").reverse().join("");
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"reversed",{},globals.String)})},
 args: [],
 source: "reversed\x0a\x09<return self.split(\x22\x22).reverse().join(\x22\x22)>",
 messageSends: [],
@@ -14528,8 +14802,9 @@ selector: "size",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.length;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"size",{},globals.String)})},
 args: [],
 source: "size\x0a\x09<return self.length>",
 messageSends: [],
@@ -14561,8 +14836,9 @@ selector: "tokenize:",
 protocol: 'split join',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.split(aString);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"tokenize:",{aString:aString},globals.String)})},
 args: ["aString"],
 source: "tokenize: aString\x0a\x09<return self.split(aString)>",
 messageSends: [],
@@ -14692,8 +14968,9 @@ selector: "unescaped",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return unescape(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"unescaped",{},globals.String)})},
 args: [],
 source: "unescaped\x0a\x09<return unescape(self)>",
 messageSends: [],
@@ -14707,8 +14984,9 @@ selector: "uriComponentDecoded",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return decodeURIComponent(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"uriComponentDecoded",{},globals.String)})},
 args: [],
 source: "uriComponentDecoded\x0a\x09<return decodeURIComponent(self)>",
 messageSends: [],
@@ -14722,8 +15000,9 @@ selector: "uriComponentEncoded",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return encodeURIComponent(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"uriComponentEncoded",{},globals.String)})},
 args: [],
 source: "uriComponentEncoded\x0a\x09<return encodeURIComponent(self)>",
 messageSends: [],
@@ -14737,8 +15016,9 @@ selector: "uriDecoded",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return decodeURI(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"uriDecoded",{},globals.String)})},
 args: [],
 source: "uriDecoded\x0a\x09<return decodeURI(self)>",
 messageSends: [],
@@ -14752,8 +15032,9 @@ selector: "uriEncoded",
 protocol: 'converting',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return encodeURI(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"uriEncoded",{},globals.String)})},
 args: [],
 source: "uriEncoded\x0a\x09<return encodeURI(self)>",
 messageSends: [],
@@ -14768,8 +15049,9 @@ selector: "cr",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return '\r';
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"cr",{},globals.String.klass)})},
 args: [],
 source: "cr\x0a\x09<return '\x5cr'>",
 messageSends: [],
@@ -14783,8 +15065,9 @@ selector: "crlf",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return '\r\n';
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"crlf",{},globals.String.klass)})},
 args: [],
 source: "crlf\x0a\x09<return '\x5cr\x5cn'>",
 messageSends: [],
@@ -14816,8 +15099,9 @@ selector: "fromCharCode:",
 protocol: 'instance creation',
 fn: function (anInteger){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return String.fromCharCode(anInteger);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"fromCharCode:",{anInteger:anInteger},globals.String.klass)})},
 args: ["anInteger"],
 source: "fromCharCode: anInteger\x0a\x09<return String.fromCharCode(anInteger)>",
 messageSends: [],
@@ -14831,8 +15115,9 @@ selector: "fromString:",
 protocol: 'instance creation',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return String(aString);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"fromString:",{aString:aString},globals.String.klass)})},
 args: ["aString"],
 source: "fromString: aString\x0a\x09\x09<return String(aString)>",
 messageSends: [],
@@ -14846,8 +15131,9 @@ selector: "lf",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return '\n';
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"lf",{},globals.String.klass)})},
 args: [],
 source: "lf\x0a\x09<return '\x5cn'>",
 messageSends: [],
@@ -14861,8 +15147,9 @@ selector: "random",
 protocol: 'random',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return (Math.random()*(22/32)+(10/32)).toString(32).slice(2);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"random",{},globals.String.klass)})},
 args: [],
 source: "random\x0a\x09\x22Returns random alphanumeric string beginning with letter\x22\x0a\x09<return (Math.random()*(22/32)+(10/32)).toString(32).slice(2);>",
 messageSends: [],
@@ -14901,8 +15188,9 @@ selector: "space",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return ' ';
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"space",{},globals.String.klass)})},
 args: [],
 source: "space\x0a\x09<return ' '>",
 messageSends: [],
@@ -14932,8 +15220,9 @@ selector: "tab",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return '\t';
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"tab",{},globals.String.klass)})},
 args: [],
 source: "tab\x0a\x09<return '\x5ct'>",
 messageSends: [],
@@ -14947,8 +15236,9 @@ selector: "value:",
 protocol: 'instance creation',
 fn: function (aUTFCharCode){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return String.fromCharCode(aUTFCharCode);;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"value:",{aUTFCharCode:aUTFCharCode},globals.String.klass)})},
 args: ["aUTFCharCode"],
 source: "value: aUTFCharCode\x0a\x0a\x09<return String.fromCharCode(aUTFCharCode);>",
 messageSends: [],
@@ -15045,12 +15335,13 @@ selector: "add:in:",
 protocol: 'private',
 fn: function (anObject,anotherObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		if (anObject in anotherObject.store) { return false; }
 		self['@size']++;
 		return anotherObject.store[anObject] = true;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"add:in:",{anObject:anObject,anotherObject:anotherObject},globals.Set)})},
 args: ["anObject", "anotherObject"],
 source: "add: anObject in: anotherObject\x0a\x09<\x0a\x09\x09if (anObject in anotherObject.store) { return false; }\x0a\x09\x09self['@size']++;\x0a\x09\x09return anotherObject.store[anObject] = true;\x0a\x09>",
 messageSends: [],
@@ -15064,6 +15355,7 @@ selector: "bucketsOfElement:",
 protocol: 'private',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
 		if ((type = typeof prim) === "object") {
@@ -15081,7 +15373,7 @@ var self=this;
 		}
 		return [ prim, self['@fastBuckets'][type] ];
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"bucketsOfElement:",{anObject:anObject},globals.Set)})},
 args: ["anObject"],
 source: "bucketsOfElement: anObject\x0a\x09\x22Find the appropriate bucket for `anObject`.\x0a\x09For optimization purposes, directly answer an array with: \x0a\x09- the object to be store\x0a\x09- the primitive bucket\x0a\x09- the slow bucket\x22\x0a\x09\x0a\x09<\x0a\x09\x09var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();\x0a\x09\x09if ((type = typeof prim) === \x22object\x22) {\x0a\x09\x09\x09if (anObject !== nil) {\x0a\x09\x09\x09\x09bucket = null;\x0a\x09\x09\x09\x09self['@slowBucketStores'].some(function (store) {\x0a\x09\x09\x09\x09\x09return bucket = store._bucketOfElement_(anObject);\x0a\x09\x09\x09\x09});\x0a\x09\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09\x09}\x0a\x09\x09\x09\x0a\x09\x09\x09// include nil to well-known objects under 'boolean' fastBucket\x0a\x09\x09\x09prim = null;\x0a\x09\x09\x09type = 'boolean';\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][type] ];\x0a\x09>",
 messageSends: [],
@@ -15095,8 +15387,9 @@ selector: "classNameOf:",
 protocol: 'private',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return anObject.klass && anObject.klass.className;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"classNameOf:",{anObject:anObject},globals.Set)})},
 args: ["anObject"],
 source: "classNameOf: anObject\x0a\x09\x22Answer the class name of `anObject`, or `undefined` \x0a\x09if `anObject` is not an Smalltalk object\x22\x0a\x09\x0a\x09<return anObject.klass && anObject.klass.className>",
 messageSends: [],
@@ -15163,6 +15456,7 @@ selector: "do:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var el, keys, i;
 		el = self['@fastBuckets'];
@@ -15176,7 +15470,7 @@ var self=this;
 		for (i = 0; i < el.length; ++i) { el[i]._do_(aBlock); }
 		self['@defaultBucket']._do_(aBlock);
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},globals.Set)})},
 args: ["aBlock"],
 source: "do: aBlock\x0a\x09<\x0a\x09\x09var el, keys, i;\x0a\x09\x09el = self['@fastBuckets'];\x0a\x09\x09keys = Object.keys(el);\x0a\x09\x09for (i = 0; i < keys.length; ++i) {\x0a\x09\x09\x09var fastBucket = el[keys[i]], fn = fastBucket.fn, store = Object.keys(fastBucket.store);\x0a\x09\x09\x09if (fn) { for (var j = 0; j < store.length; ++j) { aBlock._value_(fn(store[j])); } }\x0a\x09\x09\x09else { store._do_(aBlock); }\x0a\x09\x09}\x0a\x09\x09el = self['@slowBucketStores'];\x0a\x09\x09for (i = 0; i < el.length; ++i) { el[i]._do_(aBlock); }\x0a\x09\x09self['@defaultBucket']._do_(aBlock);\x0a\x09>",
 messageSends: [],
@@ -15220,8 +15514,9 @@ selector: "includes:in:",
 protocol: 'private',
 fn: function (anObject,anotherObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return anObject in anotherObject.store;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"includes:in:",{anObject:anObject,anotherObject:anotherObject},globals.Set)})},
 args: ["anObject", "anotherObject"],
 source: "includes: anObject in: anotherObject\x0a\x09<return anObject in anotherObject.store>",
 messageSends: [],
@@ -15281,8 +15576,9 @@ selector: "jsConstructorNameOf:",
 protocol: 'private',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return anObject.constructor && anObject.constructor.name;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"jsConstructorNameOf:",{anObject:anObject},globals.Set)})},
 args: ["anObject"],
 source: "jsConstructorNameOf: anObject\x0a\x09<return anObject.constructor && anObject.constructor.name>",
 messageSends: [],
@@ -15364,8 +15660,9 @@ selector: "remove:in:",
 protocol: 'private',
 fn: function (anObject,anotherObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 if (delete anotherObject.store[anObject]) self['@size']--;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"remove:in:",{anObject:anObject,anotherObject:anotherObject},globals.Set)})},
 args: ["anObject", "anotherObject"],
 source: "remove: anObject in: anotherObject\x0a\x09<if (delete anotherObject.store[anObject]) self['@size']-->",
 messageSends: [],
@@ -15379,6 +15676,7 @@ selector: "removeAll",
 protocol: 'adding/removing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		self['@fastBuckets'] = {
 			'boolean': { store: Object.create(null), fn: function (x) { return {'true': true, 'false': false, 'null': null}[x]; } },
@@ -15389,7 +15687,7 @@ var self=this;
 		self['@defaultBucket']._removeAll();
 		self['@size'] = 0;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},globals.Set)})},
 args: [],
 source: "removeAll\x0a\x09<\x0a\x09\x09self['@fastBuckets'] = {\x0a\x09\x09\x09'boolean': { store: Object.create(null), fn: function (x) { return {'true': true, 'false': false, 'null': null}[x]; } },\x0a\x09\x09\x09'number': { store: Object.create(null), fn: Number },\x0a\x09\x09\x09'string': { store: Object.create(null) }\x0a\x09\x09};\x0a\x09\x09self['@slowBucketStores'].forEach(function (x) { x._removeAll(); });\x0a\x09\x09self['@defaultBucket']._removeAll();\x0a\x09\x09self['@size'] = 0;\x0a\x09>",
 messageSends: [],
@@ -15561,8 +15859,9 @@ selector: "compile:",
 protocol: 'evaluating',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.compile(aString);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString},globals.RegularExpression)})},
 args: ["aString"],
 source: "compile: aString\x0a\x09<return self.compile(aString)>",
 messageSends: [],
@@ -15576,8 +15875,9 @@ selector: "exec:",
 protocol: 'evaluating',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.exec(aString) || nil;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"exec:",{aString:aString},globals.RegularExpression)})},
 args: ["aString"],
 source: "exec: aString\x0a\x09<return self.exec(aString) || nil>",
 messageSends: [],
@@ -15591,8 +15891,9 @@ selector: "test:",
 protocol: 'evaluating',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.test(aString);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"test:",{aString:aString},globals.RegularExpression)})},
 args: ["aString"],
 source: "test: aString\x0a\x09<return self.test(aString)>",
 messageSends: [],
@@ -15625,8 +15926,9 @@ selector: "fromString:flag:",
 protocol: 'instance creation',
 fn: function (aString,anotherString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return new RegExp(aString, anotherString);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"fromString:flag:",{aString:aString,anotherString:anotherString},globals.RegularExpression.klass)})},
 args: ["aString", "anotherString"],
 source: "fromString: aString flag: anotherString\x0a\x09<return new RegExp(aString, anotherString)>",
 messageSends: [],
@@ -16863,7 +17165,7 @@ globals.Environment);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "eval:on:",
-protocol: 'actions',
+protocol: 'evaluating',
 fn: function (aString,aReceiver){
 var self=this;
 var compiler;
@@ -16933,6 +17235,43 @@ args: ["anObject"],
 source: "inspect: anObject\x0a\x09Inspector inspect: anObject",
 messageSends: ["inspect:"],
 referencedClasses: ["Inspector"]
+}),
+globals.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpret:inContext:",
+protocol: 'evaluating',
+fn: function (aString,anAIContext){
+var self=this;
+var compiler,ast;
+function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+var $early={};
+try {
+compiler=_st($Compiler())._new();
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+ast=_st(compiler)._parseExpression_(aString);
+return ast;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(ex){
+return smalltalk.withContext(function($ctx2) {
+$1=self._alert_(_st(ex)._messageText());
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
+_st(_st($SemanticAnalyzer())._on_(_st(_st(anAIContext)._receiver())._class()))._visit_(ast);
+$2=_st(anAIContext)._evaluateNode_(ast);
+return $2;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"interpret:inContext:",{aString:aString,anAIContext:anAIContext,compiler:compiler,ast:ast},globals.Environment)})},
+args: ["aString", "anAIContext"],
+source: "interpret: aString inContext: anAIContext\x0a\x09\x22Similar to #eval:on:, with the following differences:\x0a\x09- instead of compiling and running `aString`, `aString` is interpreted using an `ASTInterpreter`\x0a\x09- instead of evaluating against a receiver, evaluate in the context of `anAIContext`\x22\x0a\x0a\x09| compiler ast |\x0a\x09compiler := Compiler new.\x0a\x09[ ast := compiler parseExpression: aString ] on: Error do: [ :ex |\x0a\x09\x09^ self alert: ex messageText ].\x0a\x09(SemanticAnalyzer on: anAIContext receiver class)\x0a\x09\x09visit: ast.\x0a\x09^ anAIContext evaluateNode: ast",
+messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "visit:", "on:", "class", "receiver", "evaluateNode:"],
+referencedClasses: ["Compiler", "Error", "SemanticAnalyzer"]
 }),
 globals.Environment);
 
@@ -17263,12 +17602,13 @@ selector: "addObjectVariablesTo:",
 protocol: 'proxy',
 fn: function (aDictionary){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		for(var i in self['@jsObject']) {
 			aDictionary._at_put_(i, self['@jsObject'][i]);
 		}
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"addObjectVariablesTo:",{aDictionary:aDictionary},globals.JSObjectProxy)})},
 args: ["aDictionary"],
 source: "addObjectVariablesTo: aDictionary\x0a\x09<\x0a\x09\x09for(var i in self['@jsObject']) {\x0a\x09\x09\x09aDictionary._at_put_(i, self['@jsObject'][i]);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -17299,8 +17639,9 @@ selector: "at:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self['@jsObject'][aString];
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},globals.JSObjectProxy)})},
 args: ["aString"],
 source: "at: aString\x0a\x09<return self['@jsObject'][aString]>",
 messageSends: [],
@@ -17314,11 +17655,12 @@ selector: "at:ifAbsent:",
 protocol: 'accessing',
 fn: function (aString,aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var obj = self['@jsObject'];
 		return aString in obj ? obj[aString] : aBlock._value();
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},globals.JSObjectProxy)})},
 args: ["aString", "aBlock"],
 source: "at: aString ifAbsent: aBlock\x0a\x09\x22return the aString property or evaluate aBlock if the property is not defined on the object\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? obj[aString] : aBlock._value();\x0a\x09>",
 messageSends: [],
@@ -17332,11 +17674,12 @@ selector: "at:ifPresent:",
 protocol: 'accessing',
 fn: function (aString,aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var obj = self['@jsObject'];
 		return aString in obj ? aBlock._value_(obj[aString]) : nil;
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{aString:aString,aBlock:aBlock},globals.JSObjectProxy)})},
 args: ["aString", "aBlock"],
 source: "at: aString ifPresent: aBlock\x0a\x09\x22return the evaluation of aBlock with the value if the property is defined or return nil\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? aBlock._value_(obj[aString]) : nil;\x0a\x09>",
 messageSends: [],
@@ -17350,11 +17693,12 @@ selector: "at:ifPresent:ifAbsent:",
 protocol: 'accessing',
 fn: function (aString,aBlock,anotherBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var obj = self['@jsObject'];
 		return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},globals.JSObjectProxy)})},
 args: ["aString", "aBlock", "anotherBlock"],
 source: "at: aString ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22return the evaluation of aBlock with the value if the property is defined\x0a\x09or return value of anotherBlock\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();\x0a\x09>",
 messageSends: [],
@@ -17368,8 +17712,9 @@ selector: "at:put:",
 protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self['@jsObject'][aString] = anObject;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},globals.JSObjectProxy)})},
 args: ["aString", "anObject"],
 source: "at: aString put: anObject\x0a\x09<return self['@jsObject'][aString] = anObject>",
 messageSends: [],
@@ -17383,8 +17728,9 @@ selector: "compareJSObjectWith:",
 protocol: 'private',
 fn: function (aJSObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self["@jsObject"] === aJSObject;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"compareJSObjectWith:",{aJSObject:aJSObject},globals.JSObjectProxy)})},
 args: ["aJSObject"],
 source: " compareJSObjectWith: aJSObject\x0a \x09<return self[\x22@jsObject\x22] === aJSObject>",
 messageSends: [],
@@ -17423,10 +17769,11 @@ selector: "forwardMessage:withArguments:",
 protocol: 'proxy',
 fn: function (aString,anArray){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		return smalltalk.send(self._jsObject(), aString, anArray);
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},globals.JSObjectProxy)})},
 args: ["aString", "anArray"],
 source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.send(self._jsObject(), aString, anArray);\x0a\x09>",
 messageSends: [],
@@ -17494,13 +17841,14 @@ selector: "keysAndValuesDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var o = self['@jsObject'];
 		for(var i in o) {
 			aBlock._value_value_(i, o[i]);
 		}
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},globals.JSObjectProxy)})},
 args: ["aBlock"],
 source: "keysAndValuesDo: aBlock\x0a\x09<\x0a\x09\x09var o = self['@jsObject'];\x0a\x09\x09for(var i in o) {\x0a\x09\x09\x09aBlock._value_value_(i, o[i]);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -17514,8 +17862,9 @@ selector: "lookupProperty:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return aString in self._jsObject() ? aString : nil;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"lookupProperty:",{aString:aString},globals.JSObjectProxy)})},
 args: ["aString"],
 source: "lookupProperty: aString\x0a\x09\x22Looks up a property in JS object.\x0a\x09Answer the property if it is present, or nil if it is not present.\x22\x0a\x09\x0a\x09<return aString in self._jsObject() ? aString : nil>",
 messageSends: [],
@@ -17545,13 +17894,14 @@ selector: "printString",
 protocol: 'printing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		var js = self['@jsObject'];
 		return js.toString
 			? js.toString()
 			: Object.prototype.toString.call(js)
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"printString",{},globals.JSObjectProxy)})},
 args: [],
 source: "printString\x0a\x09<\x0a\x09\x09var js = self['@jsObject'];\x0a\x09\x09return js.toString\x0a\x09\x09\x09? js.toString()\x0a\x09\x09\x09: Object.prototype.toString.call(js)\x0a\x09>",
 messageSends: [],
@@ -17628,8 +17978,9 @@ selector: "addElement:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.elements.addElement(anObject);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{anObject:anObject},globals.Organizer)})},
 args: ["anObject"],
 source: "addElement: anObject\x0a\x09<self.elements.addElement(anObject)>",
 messageSends: [],
@@ -17661,8 +18012,9 @@ selector: "removeElement:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.elements.removeElement(anObject);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{anObject:anObject},globals.Organizer)})},
 args: ["anObject"],
 source: "removeElement: anObject\x0a\x09<self.elements.removeElement(anObject)>",
 messageSends: [],
@@ -17728,8 +18080,9 @@ selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
  return self.theClass ;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"theClass",{},globals.ClassOrganizer)})},
 args: [],
 source: "theClass\x0a\x09< return self.theClass >",
 messageSends: [],
@@ -17751,12 +18104,59 @@ selector: "basicTransport",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.transport;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicTransport",{},globals.Package)})},
 args: [],
 source: "basicTransport\x0a\x09\x22Answer the transport literal JavaScript object as setup in the JavaScript file, if any\x22\x0a\x09\x0a\x09<return self.transport>",
 messageSends: [],
 referencedClasses: []
+}),
+globals.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "classTemplate",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $3,$4,$2,$5,$6,$7,$1;
+$1=_st($String())._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) {
+_st(stream)._nextPutAll_("Object");
+$ctx2.sendIdx["nextPutAll:"]=1;
+_st(stream)._nextPutAll_(" subclass: #NameOfSubclass");
+$ctx2.sendIdx["nextPutAll:"]=2;
+$3=_st($String())._lf();
+$ctx2.sendIdx["lf"]=1;
+$4=_st($String())._tab();
+$ctx2.sendIdx["tab"]=1;
+$2=_st($3).__comma($4);
+$ctx2.sendIdx[","]=1;
+_st(stream)._nextPutAll_($2);
+$ctx2.sendIdx["nextPutAll:"]=3;
+$5=_st(stream)._nextPutAll_("instanceVariableNames: ''");
+$ctx2.sendIdx["nextPutAll:"]=4;
+$5;
+$6=_st("'".__comma(_st($String())._lf())).__comma(_st($String())._tab());
+$ctx2.sendIdx[","]=2;
+_st(stream)._nextPutAll_($6);
+$ctx2.sendIdx["nextPutAll:"]=5;
+_st(stream)._nextPutAll_("package: '");
+$ctx2.sendIdx["nextPutAll:"]=6;
+_st(stream)._nextPutAll_(self._name());
+$ctx2.sendIdx["nextPutAll:"]=7;
+$7=_st(stream)._nextPutAll_("'");
+return $7;
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classTemplate",{},globals.Package)})},
+args: [],
+source: "classTemplate\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream\x0a\x09\x09\x09nextPutAll: 'Object';\x0a\x09\x09\x09nextPutAll: ' subclass: #NameOfSubclass';\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: 'instanceVariableNames: '''''.\x0a\x09\x09stream\x0a\x09\x09\x09nextPutAll: '''', String lf, String tab;\x0a\x09\x09\x09nextPutAll: 'package: ''';\x0a\x09\x09\x09nextPutAll: self name;\x0a\x09\x09\x09nextPutAll: '''' ]",
+messageSends: ["streamContents:", "nextPutAll:", ",", "lf", "tab", "name"],
+referencedClasses: ["String"]
 }),
 globals.Package);
 
@@ -17857,8 +18257,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(each)._package();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._asSet();
 _st($2)._remove_ifAbsent_(self,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
@@ -17890,8 +18289,7 @@ return _st(each)._superclass();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $2=_st($3)._asSet();
 _st($2)._remove_ifAbsent_(nil,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 _st($2)._addAll_(_st(_st($Smalltalk())._classes())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 $6=_st(each)._protocols();
@@ -17916,8 +18314,9 @@ selector: "name",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.pkgName;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"name",{},globals.Package)})},
 args: [],
 source: "name\x0a\x09<return self.pkgName>",
 messageSends: [],
@@ -17931,8 +18330,9 @@ selector: "name:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.pkgName = aString;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},globals.Package)})},
 args: ["aString"],
 source: "name: aString\x0a\x09<self.pkgName = aString>",
 messageSends: [],
@@ -18269,12 +18669,10 @@ function $PlatformInterface(){return globals.PlatformInterface||(typeof Platform
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(_st($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
+}),(function(){
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},globals.PlatformInterface.klass)})},
 args: ["aString"],
@@ -18290,8 +18688,9 @@ selector: "globals",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return (new Function('return this'))();;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"globals",{},globals.PlatformInterface.klass)})},
 args: [],
 source: "globals\x0a\x09<return (new Function('return this'))();>",
 messageSends: [],
@@ -18590,6 +18989,153 @@ referencedClasses: []
 globals.Transcript.klass);
 
 
+smalltalk.addClass('Setting', globals.Object, ['key', 'value', 'defaultValue'], 'Kernel-Infrastructure');
+globals.Setting.comment="I represent a setting accessible via `Smalltalk settings`.\x0a\x0a## API\x0a\x0aA `Setting` value can be read using `value` and set using `value:`.\x0a\x0aSettings are accessed with `'key' asSetting` or `'key' asSettingIfAbsent: 'defaultValue'`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultValue",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@defaultValue"];
+return $1;
+},
+args: [],
+source: "defaultValue\x0a\x09^ defaultValue",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Setting);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultValue:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@defaultValue"]=anObject;
+return self},
+args: ["anObject"],
+source: "defaultValue: anObject\x0a\x09defaultValue := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Setting);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@key"];
+return $1;
+},
+args: [],
+source: "key\x0a\x09^ key",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Setting);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@key"]=anObject;
+return self},
+args: ["anObject"],
+source: "key: anObject\x0a\x09key := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Setting);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Smalltalk())._settings())._at_ifAbsent_(self._key(),(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._defaultValue();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value",{},globals.Setting)})},
+args: [],
+source: "value\x0a\x09^ Smalltalk settings at: self key ifAbsent: [ self defaultValue ]",
+messageSends: ["at:ifAbsent:", "settings", "key", "defaultValue"],
+referencedClasses: ["Smalltalk"]
+}),
+globals.Setting);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Smalltalk())._settings())._at_put_(self._key(),aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value:",{aString:aString},globals.Setting)})},
+args: ["aString"],
+source: "value: aString\x0a\x09^ Smalltalk settings at: self key put: aString",
+messageSends: ["at:put:", "settings", "key"],
+referencedClasses: ["Smalltalk"]
+}),
+globals.Setting);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:ifAbsent:",
+protocol: 'instance creation',
+fn: function (aString,anotherString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=globals.Setting.klass.superclass.fn.prototype._new.apply(_st(self), []);
+_st($2)._key_(aString);
+_st($2)._defaultValue_(anotherString);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,anotherString:anotherString},globals.Setting.klass)})},
+args: ["aString", "anotherString"],
+source: "at: aString ifAbsent: anotherString\x0a\x09^ super new\x0a\x09\x09key: aString;\x0a\x09\x09defaultValue: anotherString;\x0a\x09\x09yourself",
+messageSends: ["key:", "new", "defaultValue:", "yourself"],
+referencedClasses: []
+}),
+globals.Setting.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "new",
+protocol: 'instance creation',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._shouldNotImplement();
+return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.Setting.klass)})},
+args: [],
+source: "new\x0a\x09self shouldNotImplement",
+messageSends: ["shouldNotImplement"],
+referencedClasses: []
+}),
+globals.Setting.klass);
+
+
 smalltalk.addClass('SmalltalkImage', globals.Object, [], 'Kernel-Infrastructure');
 globals.SmalltalkImage.comment="I represent the Smalltalk system, wrapping\x0aoperations of variable `smalltalk` declared in `js/boot.js`.\x0a\x0a## API\x0a\x0aI have only one instance, accessed with global variable `Smalltalk`.\x0a\x0aThe `smalltalk` object holds all class and packages defined in the system.\x0a\x0a## Classes\x0a\x0aClasses can be accessed using the following methods:\x0a\x0a- `#classes` answers the full list of Smalltalk classes in the system\x0a- `#at:` answers a specific class or `nil`\x0a\x0a## Packages\x0a\x0aPackages can be accessed using the following methods:\x0a\x0a- `#packages` answers the full list of packages\x0a- `#packageAt:` answers a specific package or `nil`\x0a\x0a## Parsing\x0a\x0aThe `#parse:` method is used to parse Amber source code.\x0aIt requires the `Compiler` package and the `js/parser.js` parser file in order to work.";
 smalltalk.addMethod(
@@ -18721,8 +19267,9 @@ selector: "basicCreatePackage:",
 protocol: 'private',
 fn: function (packageName){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return smalltalk.addPackage(packageName);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicCreatePackage:",{packageName:packageName},globals.SmalltalkImage)})},
 args: ["packageName"],
 source: "basicCreatePackage: packageName\x0a\x09\x22Create and bind a new bare package with given name and return it.\x22\x0a\x09<return smalltalk.addPackage(packageName)>",
 messageSends: [],
@@ -18736,12 +19283,16 @@ selector: "basicParse:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
-return smalltalk.parser.parse(aString);
-return self},
+function $SmalltalkParser(){return globals.SmalltalkParser||(typeof SmalltalkParser=="undefined"?nil:SmalltalkParser)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($SmalltalkParser())._parse_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"basicParse:",{aString:aString},globals.SmalltalkImage)})},
 args: ["aString"],
-source: "basicParse: aString\x0a\x09<return smalltalk.parser.parse(aString)>",
-messageSends: [],
-referencedClasses: []
+source: "basicParse: aString\x0a\x09^ SmalltalkParser parse: aString",
+messageSends: ["parse:"],
+referencedClasses: ["SmalltalkParser"]
 }),
 globals.SmalltalkImage);
 
@@ -18751,8 +19302,9 @@ selector: "classes",
 protocol: 'classes',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return smalltalk.classes();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"classes",{},globals.SmalltalkImage)})},
 args: [],
 source: "classes\x0a\x09<return smalltalk.classes()>",
 messageSends: [],
@@ -18835,12 +19387,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._vm())._defaultAmdNamespace();
+$1="transport.defaultAmdNamespace"._settingValue();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},globals.SmalltalkImage)})},
 args: [],
-source: "defaultAmdNamespace\x0a\x09^ self vm defaultAmdNamespace",
-messageSends: ["defaultAmdNamespace", "vm"],
+source: "defaultAmdNamespace\x0a\x09^ 'transport.defaultAmdNamespace' settingValue",
+messageSends: ["settingValue"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
@@ -18852,11 +19404,11 @@ protocol: 'accessing amd',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._vm())._defaultAmdNamespace_(aString);
+"transport.defaultAmdNamespace"._settingValue_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace:",{aString:aString},globals.SmalltalkImage)})},
 args: ["aString"],
-source: "defaultAmdNamespace: aString\x0a\x09self vm defaultAmdNamespace: aString",
-messageSends: ["defaultAmdNamespace:", "vm"],
+source: "defaultAmdNamespace: aString\x0a\x09'transport.defaultAmdNamespace' settingValue: aString",
+messageSends: ["settingValue:"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
@@ -18867,8 +19419,9 @@ selector: "deleteClass:",
 protocol: 'private',
 fn: function (aClass){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 smalltalk.removeClass(aClass);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"deleteClass:",{aClass:aClass},globals.SmalltalkImage)})},
 args: ["aClass"],
 source: "deleteClass: aClass\x0a\x09\x22Deletes a class by deleting its binding only. Use #removeClass instead\x22\x0a\x09\x0a\x09<smalltalk.removeClass(aClass)>",
 messageSends: [],
@@ -18884,8 +19437,7 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._globalJsVariables())._remove_ifAbsent_(aString,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},globals.SmalltalkImage)})},
 args: ["aString"],
 source: "deleteGlobalJsVariable: aString\x0a\x09self globalJsVariables remove: aString ifAbsent:[]",
@@ -18900,8 +19452,9 @@ selector: "deletePackage:",
 protocol: 'private',
 fn: function (packageName){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 delete smalltalk.packages[packageName];
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"deletePackage:",{packageName:packageName},globals.SmalltalkImage)})},
 args: ["packageName"],
 source: "deletePackage: packageName\x0a\x09\x22Deletes a package by deleting its binding, but does not check if it contains classes etc.\x0a\x09To remove a package, use #removePackage instead.\x22\x0a\x0a\x09<delete smalltalk.packages[packageName]>",
 messageSends: [],
@@ -18915,8 +19468,9 @@ selector: "globalJsVariables",
 protocol: 'globals',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return smalltalk.globalJsVariables;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"globalJsVariables",{},globals.SmalltalkImage)})},
 args: [],
 source: "globalJsVariables\x0a\x09\x22Array of global JavaScript variables\x22\x0a\x09<return smalltalk.globalJsVariables>",
 messageSends: [],
@@ -18930,8 +19484,9 @@ selector: "globals",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return globals;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"globals",{},globals.SmalltalkImage)})},
 args: [],
 source: "globals\x0a\x09\x22Future compatibility to be able to use Smalltalk globals at: ...\x22\x0a\x09<return globals>",
 messageSends: [],
@@ -18945,8 +19500,9 @@ selector: "includesKey:",
 protocol: 'accessing',
 fn: function (aKey){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return smalltalk.hasOwnProperty(aKey);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey},globals.SmalltalkImage)})},
 args: ["aKey"],
 source: "includesKey: aKey\x0a\x09<return smalltalk.hasOwnProperty(aKey)>",
 messageSends: [],
@@ -18960,8 +19516,9 @@ selector: "isSmalltalkObject:",
 protocol: 'testing',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return typeof anObject.klass !== 'undefined';
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"isSmalltalkObject:",{anObject:anObject},globals.SmalltalkImage)})},
 args: ["anObject"],
 source: "isSmalltalkObject: anObject\x0a\x09\x22Consider anObject a Smalltalk object if it has a 'klass' property.\x0a\x09Note that this may be unaccurate\x22\x0a\x09\x0a\x09<return typeof anObject.klass !== 'undefined'>",
 messageSends: [],
@@ -18975,8 +19532,9 @@ selector: "packageAt:",
 protocol: 'packages',
 fn: function (packageName){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return smalltalk.packages[packageName];
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"packageAt:",{packageName:packageName},globals.SmalltalkImage)})},
 args: ["packageName"],
 source: "packageAt: packageName\x0a\x09<return smalltalk.packages[packageName]>",
 messageSends: [],
@@ -19009,12 +19567,13 @@ selector: "packages",
 protocol: 'packages',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 
 		return Object.keys(smalltalk.packages).map(function(k) {
 			return smalltalk.packages[k];
 		})
 	;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"packages",{},globals.SmalltalkImage)})},
 args: [],
 source: "packages\x0a\x09\x22Return all Package instances in the system.\x22\x0a\x0a\x09<\x0a\x09\x09return Object.keys(smalltalk.packages).map(function(k) {\x0a\x09\x09\x09return smalltalk.packages[k];\x0a\x09\x09})\x0a\x09>",
 messageSends: [],
@@ -19108,8 +19667,9 @@ selector: "readJSObject:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return smalltalk.readJSObject(anObject);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"readJSObject:",{anObject:anObject},globals.SmalltalkImage)})},
 args: ["anObject"],
 source: "readJSObject: anObject\x0a\x09<return smalltalk.readJSObject(anObject)>",
 messageSends: [],
@@ -19208,12 +19768,29 @@ selector: "reservedWords",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return smalltalk.reservedWords;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"reservedWords",{},globals.SmalltalkImage)})},
 args: [],
 source: "reservedWords\x0a\x09\x22JavaScript reserved words\x22\x0a\x09<return smalltalk.reservedWords>",
 messageSends: [],
 referencedClasses: []
+}),
+globals.SmalltalkImage);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "settings",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $SmalltalkSettings(){return globals.SmalltalkSettings||(typeof SmalltalkSettings=="undefined"?nil:SmalltalkSettings)}
+return $SmalltalkSettings();
+},
+args: [],
+source: "settings\x0a\x09^ SmalltalkSettings",
+messageSends: [],
+referencedClasses: ["SmalltalkSettings"]
 }),
 globals.SmalltalkImage);
 
@@ -19238,8 +19815,9 @@ selector: "vm",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return smalltalk;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"vm",{},globals.SmalltalkImage)})},
 args: [],
 source: "vm\x0a\x09\x22Future compatibility to be able to use Smalltalk vm ...\x22\x0a\x09<return smalltalk>",
 messageSends: [],
@@ -19341,6 +19919,98 @@ referencedClasses: []
 }),
 globals.String);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asSetting",
+protocol: '*Kernel-Infrastructure',
+fn: function (){
+var self=this;
+function $Setting(){return globals.Setting||(typeof Setting=="undefined"?nil:Setting)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Setting())._at_ifAbsent_(self,nil);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asSetting",{},globals.String)})},
+args: [],
+source: "asSetting\x0a\x09^ Setting at: self ifAbsent: nil",
+messageSends: ["at:ifAbsent:"],
+referencedClasses: ["Setting"]
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asSettingIfAbsent:",
+protocol: '*Kernel-Infrastructure',
+fn: function (aString){
+var self=this;
+function $Setting(){return globals.Setting||(typeof Setting=="undefined"?nil:Setting)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Setting())._at_ifAbsent_(self,aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asSettingIfAbsent:",{aString:aString},globals.String)})},
+args: ["aString"],
+source: "asSettingIfAbsent: aString\x0a\x09^ Setting at: self ifAbsent: aString",
+messageSends: ["at:ifAbsent:"],
+referencedClasses: ["Setting"]
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "settingValue",
+protocol: '*Kernel-Infrastructure',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._asSetting())._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"settingValue",{},globals.String)})},
+args: [],
+source: "settingValue\x0a\x09^ self asSetting value",
+messageSends: ["value", "asSetting"],
+referencedClasses: []
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "settingValue:",
+protocol: '*Kernel-Infrastructure',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._asSetting())._value_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"settingValue:",{aString:aString},globals.String)})},
+args: ["aString"],
+source: "settingValue: aString\x0a\x09^ self asSetting value: aString",
+messageSends: ["value:", "asSetting"],
+referencedClasses: []
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "settingValueIfAbsent:",
+protocol: '*Kernel-Infrastructure',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._asSettingIfAbsent_(aString))._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"settingValueIfAbsent:",{aString:aString},globals.String)})},
+args: ["aString"],
+source: "settingValueIfAbsent: aString\x0a\x09^ (self asSettingIfAbsent: aString) value",
+messageSends: ["value", "asSettingIfAbsent:"],
+referencedClasses: []
+}),
+globals.String);
+
 });
 
 define("amber_core/Kernel-Exceptions", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
@@ -19355,8 +20025,9 @@ selector: "context",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.context;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"context",{},globals.Error)})},
 args: [],
 source: "context\x0a\x09<return self.context>",
 messageSends: [],
@@ -19386,8 +20057,9 @@ selector: "isSmalltalkError",
 protocol: 'testing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.smalltalkError === true;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"isSmalltalkError",{},globals.Error)})},
 args: [],
 source: "isSmalltalkError\x0a\x09<return self.smalltalkError === true>",
 messageSends: [],
@@ -19401,8 +20073,9 @@ selector: "jsStack",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return self.stack;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"jsStack",{},globals.Error)})},
 args: [],
 source: "jsStack\x0a\x09<return self.stack>",
 messageSends: [],
@@ -19448,8 +20121,9 @@ selector: "resignal",
 protocol: 'signaling',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 throw(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"resignal",{},globals.Error)})},
 args: [],
 source: "resignal\x0a\x09\x22Resignal the receiver without changing its exception context\x22\x0a\x09\x0a\x09<throw(self)>",
 messageSends: [],
@@ -19463,8 +20137,9 @@ selector: "signal",
 protocol: 'signaling',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"signal",{},globals.Error)})},
 args: [],
 source: "signal\x0a\x09<self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self)>",
 messageSends: [],
@@ -19550,8 +20225,9 @@ selector: "context:",
 protocol: 'accessing',
 fn: function (aMethodContext){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self.context = aMethodContext;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"context:",{aMethodContext:aMethodContext},globals.JavaScriptException)})},
 args: ["aMethodContext"],
 source: "context: aMethodContext\x0a\x09\x22Set the context from the outside.\x0a\x09See boot.js `inContext()` exception handling\x22\x0a\x09\x0a\x09<self.context = aMethodContext>",
 messageSends: [],
@@ -19597,8 +20273,9 @@ selector: "messageText",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return 'JavaScript exception: ' + self["@exception"].toString();
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.JavaScriptException)})},
 args: [],
 source: "messageText\x0a\x09<return 'JavaScript exception: ' + self[\x22@exception\x22].toString()>",
 messageSends: [],
@@ -19829,8 +20506,9 @@ selector: "show:",
 protocol: 'printing',
 fn: function (anObject){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 console.log(String(_st(anObject)._asString()));
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},globals.ConsoleTranscript)})},
 args: ["anObject"],
 source: "show: anObject\x0a\x22Smalltalk objects should have no trouble displaying themselves on the Transcript; Javascript objects don't know how, so must be wrapped in a JSObectProxy.\x22\x0a<console.log(String(_st(anObject)._asString()))>",
 messageSends: [],
@@ -20799,8 +21477,9 @@ selector: "basicSignal:",
 protocol: 'error handling',
 fn: function (anError){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 throw anError;
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"basicSignal:",{anError:anError},globals.RethrowErrorHandler)})},
 args: ["anError"],
 source: "basicSignal: anError\x0a        <throw anError>",
 messageSends: [],
@@ -21250,8 +21929,9 @@ selector: "eval:",
 protocol: 'compiling',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return eval(aString);
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString},globals.Compiler)})},
 args: ["aString"],
 source: "eval: aString\x0a\x09<return eval(aString)>",
 messageSends: [],
@@ -21866,7 +22546,7 @@ define("amber_core/Compiler-AST", ["amber_vm/smalltalk", "amber_vm/nil", "amber_
 smalltalk.addPackage('Compiler-AST');
 smalltalk.packages["Compiler-AST"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('Node', globals.Object, ['parent', 'position', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
+smalltalk.addClass('Node', globals.Object, ['parent', 'position', 'source', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
 globals.Node.comment="I am the abstract root class of the abstract syntax tree.\x0a\x0aConcrete classes should implement `#accept:` to allow visiting.\x0a\x0a`position` holds a point containing line and column number of the symbol location in the original source file.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -22215,9 +22895,8 @@ try {
 $1=self._nodes();
 $ctx1.sendIdx["nodes"]=1;
 next=_st($1)._at_ifAbsent_(_st(_st(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
-return smalltalk.withContext(function($ctx2) {
 throw $early=[self];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $2=_st(next)._nextChild();
 return $2;
 }
@@ -22340,7 +23019,7 @@ globals.Node);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "position:",
-protocol: 'building',
+protocol: 'accessing',
 fn: function (aPosition){
 var self=this;
 self["@position"]=aPosition;
@@ -22348,6 +23027,52 @@ return self},
 args: ["aPosition"],
 source: "position: aPosition\x0a\x09position := aPosition",
 messageSends: [],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "positionEnd",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$7,$6,$5,$4,$3,$1;
+$2=self._positionStart();
+$7=self._source();
+$ctx1.sendIdx["source"]=1;
+$6=_st($7)._lines();
+$ctx1.sendIdx["lines"]=1;
+$5=_st($6)._size();
+$ctx1.sendIdx["size"]=1;
+$4=_st($5).__minus((1));
+$ctx1.sendIdx["-"]=1;
+$3=_st($4).__at(_st(_st(_st(_st(self._source())._lines())._last())._size()).__minus((1)));
+$1=_st($2).__plus($3);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"positionEnd",{},globals.Node)})},
+args: [],
+source: "positionEnd\x0a\x09^ self positionStart + ((self source lines size - 1) @ (self source lines last size - 1))",
+messageSends: ["+", "positionStart", "@", "-", "size", "lines", "source", "last"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "positionStart",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._position();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"positionStart",{},globals.Node)})},
+args: [],
+source: "positionStart\x0a\x09^ self position",
+messageSends: ["position"],
 referencedClasses: []
 }),
 globals.Node);
@@ -22384,9 +23109,8 @@ $1=_st(_st(self._nodes())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._requiresSmalltalkContext();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})))._notNil();
+})))._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"requiresSmalltalkContext",{},globals.Node)})},
 args: [],
@@ -22467,6 +23191,62 @@ self["@shouldBeInlined"]=aBoolean;
 return self},
 args: ["aBoolean"],
 source: "shouldBeInlined: aBoolean\x0a\x09shouldBeInlined := aBoolean",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "size",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._source())._size();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"size",{},globals.Node)})},
+args: [],
+source: "size\x0a\x09^ self source size",
+messageSends: ["size", "source"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "source",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@source"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"source",{},globals.Node)})},
+args: [],
+source: "source\x0a\x09^ source ifNil: [ '' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "source:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@source"]=aString;
+return self},
+args: ["aString"],
+source: "source: aString\x0a\x09source := aString",
 messageSends: [],
 referencedClasses: []
 }),
@@ -22935,7 +23715,7 @@ globals.DynamicDictionaryNode);
 
 
 
-smalltalk.addClass('JSStatementNode', globals.Node, ['source'], 'Compiler-AST');
+smalltalk.addClass('JSStatementNode', globals.Node, [], 'Compiler-AST');
 globals.JSStatementNode.comment="I represent an JavaScript statement node.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -22972,37 +23752,14 @@ globals.JSStatementNode);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "source",
-protocol: 'accessing',
+selector: "requiresSmalltalkContext",
+protocol: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@source"];
-if(($receiver = $2) == nil || $receiver == null){
-$1="";
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"source",{},globals.JSStatementNode)})},
+return true;
+},
 args: [],
-source: "source\x0a\x09^ source ifNil: [ '' ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-globals.JSStatementNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "source:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-self["@source"]=aString;
-return self},
-args: ["aString"],
-source: "source: aString\x0a\x09source := aString",
+source: "requiresSmalltalkContext\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
@@ -23096,30 +23853,6 @@ return self},
 args: ["aCollection"],
 source: "classReferences: aCollection\x0a\x09classReferences := aCollection",
 messageSends: [],
-referencedClasses: []
-}),
-globals.MethodNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "extent",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1;
-$4=self._source();
-$ctx1.sendIdx["source"]=1;
-$3=_st($4)._lines();
-$ctx1.sendIdx["lines"]=1;
-$2=_st($3)._size();
-$ctx1.sendIdx["size"]=1;
-$1=_st($2).__at(_st(_st(_st(_st(self._source())._lines())._last())._size()).__plus((1)));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"extent",{},globals.MethodNode)})},
-args: [],
-source: "extent\x0a\x09^ self source lines size @ (self source lines last size + 1)",
-messageSends: ["@", "size", "lines", "source", "+", "last"],
 referencedClasses: []
 }),
 globals.MethodNode);
@@ -23779,6 +24512,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$5,$4,$6,$1;
 $2=_st($SendNode())._new();
 _st($2)._position_(self._position());
+_st($2)._source_(self._source());
 $3=$2;
 $5=self._receiver();
 $ctx1.sendIdx["receiver"]=1;
@@ -23795,8 +24529,8 @@ $1=$6;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"valueForReceiver:",{anObject:anObject},globals.SendNode)})},
 args: ["anObject"],
-source: "valueForReceiver: anObject\x0a\x09^ SendNode new\x0a\x09\x09position: self position;\x0a\x09\x09receiver: (self receiver\x0a\x09\x09ifNil: [ anObject ] \x0a\x09\x09ifNotNil: [ self receiver valueForReceiver: anObject ]);\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself",
-messageSends: ["position:", "new", "position", "receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself"],
+source: "valueForReceiver: anObject\x0a\x09^ SendNode new\x0a\x09\x09position: self position;\x0a\x09\x09source: self source;\x0a\x09\x09receiver: (self receiver\x0a\x09\x09ifNil: [ anObject ] \x0a\x09\x09ifNotNil: [ self receiver valueForReceiver: anObject ]);\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself",
+messageSends: ["position:", "new", "position", "source:", "source", "receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself"],
 referencedClasses: ["SendNode"]
 }),
 globals.SendNode);
@@ -23834,6 +24568,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$1;
 $2=_st($BlockSequenceNode())._new();
 _st($2)._position_(self._position());
+_st($2)._source_(self._source());
 _st($2)._nodes_(self._nodes());
 _st($2)._temps_(self._temps());
 $3=_st($2)._yourself();
@@ -23841,8 +24576,8 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asBlockSequenceNode",{},globals.SequenceNode)})},
 args: [],
-source: "asBlockSequenceNode\x0a\x09^ BlockSequenceNode new\x0a\x09\x09position: self position;\x0a\x09\x09nodes: self nodes;\x0a\x09\x09temps: self temps;\x0a\x09\x09yourself",
-messageSends: ["position:", "new", "position", "nodes:", "nodes", "temps:", "temps", "yourself"],
+source: "asBlockSequenceNode\x0a\x09^ BlockSequenceNode new\x0a\x09\x09position: self position;\x0a\x09\x09source: self source;\x0a\x09\x09nodes: self nodes;\x0a\x09\x09temps: self temps;\x0a\x09\x09yourself",
+messageSends: ["position:", "new", "position", "source:", "source", "nodes:", "nodes", "temps:", "temps", "yourself"],
 referencedClasses: ["BlockSequenceNode"]
 }),
 globals.SequenceNode);
@@ -24237,21 +24972,6 @@ globals.VariableNode);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "isNode",
-protocol: '*Compiler-AST',
-fn: function (){
-var self=this;
-return false;
-},
-args: [],
-source: "isNode\x0a\x09^ false",
-messageSends: [],
-referencedClasses: []
-}),
-globals.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "ast",
 protocol: '*Compiler-AST',
 fn: function (){
@@ -24274,6 +24994,21 @@ messageSends: ["ifEmpty:", "source", "error:", "parse:"],
 referencedClasses: ["Smalltalk"]
 }),
 globals.CompiledMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isNode",
+protocol: '*Compiler-AST',
+fn: function (){
+var self=this;
+return false;
+},
+args: [],
+source: "isNode\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Object);
 
 });
 
@@ -24574,6 +25309,7 @@ var $1,$2,$3,$4,$6,$5,$7,$8,$9;
 $1=_st($IRClosure())._new();
 $ctx1.sendIdx["new"]=1;
 _st($1)._arguments_(_st(aNode)._parameters());
+_st($1)._requiresSmalltalkContext_(_st(aNode)._requiresSmalltalkContext());
 $2=$1;
 $3=_st(aNode)._scope();
 $ctx1.sendIdx["scope"]=1;
@@ -24603,8 +25339,8 @@ $9=closure;
 return $9;
 }, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode,closure:closure},globals.IRASTTranslator)})},
 args: ["aNode"],
-source: "visitBlockNode: aNode\x0a\x09| closure |\x0a\x09closure := IRClosure new\x0a\x09\x09arguments: aNode parameters;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself.\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09closure add: (IRTempDeclaration new\x0a\x09\x09\x09name: each name;\x0a\x09\x09\x09scope: aNode scope;\x0a\x09\x09\x09yourself) ].\x0a\x09aNode nodes do: [ :each | closure add: (self visit: each) ].\x0a\x09^ closure",
-messageSends: ["arguments:", "new", "parameters", "scope:", "scope", "yourself", "do:", "temps", "add:", "name:", "name", "nodes", "visit:"],
+source: "visitBlockNode: aNode\x0a\x09| closure |\x0a\x09closure := IRClosure new\x0a\x09\x09arguments: aNode parameters;\x0a\x09\x09requiresSmalltalkContext: aNode requiresSmalltalkContext;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself.\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09closure add: (IRTempDeclaration new\x0a\x09\x09\x09name: each name;\x0a\x09\x09\x09scope: aNode scope;\x0a\x09\x09\x09yourself) ].\x0a\x09aNode nodes do: [ :each | closure add: (self visit: each) ].\x0a\x09^ closure",
+messageSends: ["arguments:", "new", "parameters", "requiresSmalltalkContext:", "requiresSmalltalkContext", "scope:", "scope", "yourself", "do:", "temps", "add:", "name:", "name", "nodes", "visit:"],
 referencedClasses: ["IRClosure", "IRTempDeclaration"]
 }),
 globals.IRASTTranslator);
@@ -25564,7 +26300,7 @@ globals.IRScopedInstruction);
 
 
 
-smalltalk.addClass('IRClosureInstruction', globals.IRScopedInstruction, ['arguments'], 'Compiler-IR');
+smalltalk.addClass('IRClosureInstruction', globals.IRScopedInstruction, ['arguments', 'requiresSmalltalkContext'], 'Compiler-IR');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments",
@@ -25623,6 +26359,44 @@ return $1;
 args: [],
 source: "locals\x0a\x09^ self arguments copy\x0a\x09\x09addAll: (self tempDeclarations collect: [ :each | each name ]);\x0a\x09\x09yourself",
 messageSends: ["addAll:", "copy", "arguments", "collect:", "tempDeclarations", "name", "yourself"],
+referencedClasses: []
+}),
+globals.IRClosureInstruction);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "requiresSmalltalkContext",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@requiresSmalltalkContext"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=false;
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"requiresSmalltalkContext",{},globals.IRClosureInstruction)})},
+args: [],
+source: "requiresSmalltalkContext\x0a\x09^ requiresSmalltalkContext ifNil: [ false ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.IRClosureInstruction);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "requiresSmalltalkContext:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@requiresSmalltalkContext"]=anObject;
+return self},
+args: ["anObject"],
+source: "requiresSmalltalkContext: anObject\x0a\x09requiresSmalltalkContext := anObject",
+messageSends: [],
 referencedClasses: []
 }),
 globals.IRClosureInstruction);
@@ -25841,44 +26615,6 @@ return self;
 },
 args: [],
 source: "method\x0a\x09^ self",
-messageSends: [],
-referencedClasses: []
-}),
-globals.IRMethod);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "requiresSmalltalkContext",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@requiresSmalltalkContext"];
-if(($receiver = $2) == nil || $receiver == null){
-$1=false;
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"requiresSmalltalkContext",{},globals.IRMethod)})},
-args: [],
-source: "requiresSmalltalkContext\x0a\x09^ requiresSmalltalkContext ifNil: [ false ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-globals.IRMethod);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "requiresSmalltalkContext:",
-protocol: 'accessing',
-fn: function (anObject){
-var self=this;
-self["@requiresSmalltalkContext"]=anObject;
-return self},
-args: ["anObject"],
-source: "requiresSmalltalkContext: anObject\x0a\x09requiresSmalltalkContext := anObject",
 messageSends: [],
 referencedClasses: []
 }),
@@ -27751,69 +28487,75 @@ protocol: 'streaming',
 fn: function (anIRClosure,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1,$5,$9,$8,$7,$6,$13,$12,$11,$10,$14,$15,$22,$21,$20,$19,$18,$17,$16;
-$4=_st(anIRClosure)._scope();
+var $1,$2,$6,$5,$4,$3,$7,$11,$10,$9,$8,$15,$14,$13,$12,$16,$17,$24,$23,$22,$21,$20,$19,$18;
+$1=_st(anIRClosure)._requiresSmalltalkContext();
+if(! smalltalk.assert($1)){
+$2=_st(aBlock)._value();
+$ctx1.sendIdx["value"]=1;
+return $2;
+};
+$6=_st(anIRClosure)._scope();
 $ctx1.sendIdx["scope"]=1;
-$3=_st($4)._alias();
+$5=_st($6)._alias();
 $ctx1.sendIdx["alias"]=1;
-$2="return smalltalk.withContext(function(".__comma($3);
+$4="return smalltalk.withContext(function(".__comma($5);
 $ctx1.sendIdx[","]=2;
-$1=_st($2).__comma(") {");
+$3=_st($4).__comma(") {");
 $ctx1.sendIdx[","]=1;
-self._nextPutAll_($1);
+self._nextPutAll_($3);
 $ctx1.sendIdx["nextPutAll:"]=1;
-$5=self._lf();
+$7=self._lf();
 _st(aBlock)._value();
-$9=_st(anIRClosure)._scope();
+$11=_st(anIRClosure)._scope();
 $ctx1.sendIdx["scope"]=2;
-$8=_st($9)._alias();
+$10=_st($11)._alias();
 $ctx1.sendIdx["alias"]=2;
-$7="}, function(".__comma($8);
+$9="}, function(".__comma($10);
 $ctx1.sendIdx[","]=4;
-$6=_st($7).__comma(") {");
+$8=_st($9).__comma(") {");
 $ctx1.sendIdx[","]=3;
-self._nextPutAll_($6);
+self._nextPutAll_($8);
 $ctx1.sendIdx["nextPutAll:"]=2;
-$13=_st(anIRClosure)._scope();
+$15=_st(anIRClosure)._scope();
 $ctx1.sendIdx["scope"]=3;
-$12=_st($13)._alias();
+$14=_st($15)._alias();
 $ctx1.sendIdx["alias"]=3;
-$11=_st($12).__comma(".fillBlock({");
+$13=_st($14).__comma(".fillBlock({");
 $ctx1.sendIdx[","]=5;
-$10=self._nextPutAll_($11);
+$12=self._nextPutAll_($13);
 $ctx1.sendIdx["nextPutAll:"]=3;
 _st(_st(anIRClosure)._locals())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$14=_st(each)._asVariableName();
+$16=_st(each)._asVariableName();
 $ctx2.sendIdx["asVariableName"]=1;
-self._nextPutAll_($14);
+self._nextPutAll_($16);
 $ctx2.sendIdx["nextPutAll:"]=4;
 self._nextPutAll_(":");
 $ctx2.sendIdx["nextPutAll:"]=5;
-$15=self._nextPutAll_(_st(each)._asVariableName());
+$17=self._nextPutAll_(_st(each)._asVariableName());
 $ctx2.sendIdx["nextPutAll:"]=6;
-return $15;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+return $17;
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._nextPutAll_(",");
 $ctx2.sendIdx["nextPutAll:"]=7;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 self._nextPutAll_("},");
 $ctx1.sendIdx["nextPutAll:"]=8;
-$22=_st(anIRClosure)._scope();
+$24=_st(anIRClosure)._scope();
 $ctx1.sendIdx["scope"]=4;
-$21=_st($22)._outerScope();
-$20=_st($21)._alias();
-$19=_st($20).__comma(",");
-$18=_st($19).__comma(_st(_st(_st(anIRClosure)._scope())._blockIndex())._asString());
+$23=_st($24)._outerScope();
+$22=_st($23)._alias();
+$21=_st($22).__comma(",");
+$20=_st($21).__comma(_st(_st(_st(anIRClosure)._scope())._blockIndex())._asString());
 $ctx1.sendIdx[","]=7;
-$17=_st($18).__comma(")})");
+$19=_st($20).__comma(")})");
 $ctx1.sendIdx[","]=6;
-$16=self._nextPutAll_($17);
+$18=self._nextPutAll_($19);
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutBlockContextFor:during:",{anIRClosure:anIRClosure,aBlock:aBlock},globals.JSStream)})},
 args: ["anIRClosure", "aBlock"],
-source: "nextPutBlockContextFor: anIRClosure during: aBlock\x0a\x09self\x0a\x09\x09nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; lf.\x0a\x09\x0a\x09aBlock value.\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '}, function(', anIRClosure scope alias, ') {';\x0a\x09\x09nextPutAll: anIRClosure scope alias, '.fillBlock({'.\x0a\x09\x0a\x09anIRClosure locals\x0a\x09\x09do: [ :each |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09nextPutAll: each asVariableName;\x0a\x09\x09\x09\x09nextPutAll: ':';\x0a\x09\x09\x09\x09nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '},';\x0a\x09\x09nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')})'",
-messageSends: ["nextPutAll:", ",", "alias", "scope", "lf", "value", "do:separatedBy:", "locals", "asVariableName", "outerScope", "asString", "blockIndex"],
+source: "nextPutBlockContextFor: anIRClosure during: aBlock\x0a\x09anIRClosure requiresSmalltalkContext ifFalse: [ ^ aBlock value ].\x0a\x09self\x0a\x09\x09nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; lf.\x0a\x09\x0a\x09aBlock value.\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '}, function(', anIRClosure scope alias, ') {';\x0a\x09\x09nextPutAll: anIRClosure scope alias, '.fillBlock({'.\x0a\x09\x0a\x09anIRClosure locals\x0a\x09\x09do: [ :each |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09nextPutAll: each asVariableName;\x0a\x09\x09\x09\x09nextPutAll: ':';\x0a\x09\x09\x09\x09nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '},';\x0a\x09\x09nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')})'",
+messageSends: ["ifFalse:", "requiresSmalltalkContext", "value", "nextPutAll:", ",", "alias", "scope", "lf", "do:separatedBy:", "locals", "asVariableName", "outerScope", "asString", "blockIndex"],
 referencedClasses: []
 }),
 globals.JSStream);
@@ -28309,9 +29051,8 @@ var $1,$2;
 var $early={};
 try {
 _st(aCollection)._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 throw $early=[self];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 _st(self["@stream"])._nextPutAll_("var ");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aCollection)._do_separatedBy_((function(each){
@@ -29140,8 +29881,7 @@ return smalltalk.withContext(function($ctx2) {
 return self._visit_(_st(_st(anIRInlinedReturn)._instructions())._last());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 _st(self._stream())._nextPutNonLocalReturnWith_((function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedNonLocalReturn:",{anIRInlinedReturn:anIRInlinedReturn},globals.IRInliningJSTranslator)})},
 args: ["anIRInlinedReturn"],
 source: "visitIRInlinedNonLocalReturn: anIRInlinedReturn\x0a\x09self stream nextPutStatementWith: [\x0a\x09\x09self visit: anIRInlinedReturn instructions last ].\x0a\x09self stream nextPutNonLocalReturnWith: [ ]",
@@ -30176,9 +30916,8 @@ $ctx2.sendIdx["value"]=2;
 return _st($4)._at_ifAbsent_($5,(function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(self._temps())._at_ifAbsent_(_st(aStringOrNode)._value(),(function(){
-return smalltalk.withContext(function($ctx4) {
 return nil;
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})}));
+}));
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 $ctx2.sendIdx["at:ifAbsent:"]=2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
@@ -30607,9 +31346,8 @@ var $2,$1;
 $2=globals.MethodLexicalScope.superclass.fn.prototype._bindingFor_.apply(_st(self), [aNode]);
 if(($receiver = $2) == nil || $receiver == null){
 $1=_st(self._iVars())._at_ifAbsent_(_st(aNode)._value(),(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 } else {
 $1=$2;
 };
@@ -30834,8 +31572,7 @@ fn: function (aScope){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._nonLocalReturns())._remove_ifAbsent_(aScope,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"removeNonLocalReturn:",{aScope:aScope},globals.MethodLexicalScope)})},
 args: ["aScope"],
 source: "removeNonLocalReturn: aScope\x0a\x09self nonLocalReturns remove: aScope ifAbsent: []",
@@ -31450,8 +32187,9 @@ selector: "isVariableGloballyUndefined:",
 protocol: 'testing',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return eval('typeof ' + aString + ' == "undefined"');
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"isVariableGloballyUndefined:",{aString:aString},globals.SemanticAnalyzer)})},
 args: ["aString"],
 source: "isVariableGloballyUndefined: aString\x0a\x09<return eval('typeof ' + aString + ' == \x22undefined\x22')>",
 messageSends: [],
@@ -32185,9 +32923,8 @@ sequenceNode=$2;
 _st(_st(self["@node"])._parameters())._withIndexDo_((function(each,index){
 return smalltalk.withContext(function($ctx2) {
 return _st(context)._localAt_put_(each,_st(aCollection)._at_ifAbsent_(index,(function(){
-return smalltalk.withContext(function($ctx3) {
 return nil;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})));
+})));
 }, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
 $3=_st(context)._interpreter();
 $ctx1.sendIdx["interpreter"]=1;
@@ -32285,6 +33022,30 @@ args: [],
 source: "ast\x0a\x09self isBlockContext ifTrue: [ \x0a\x09\x09^ self outerContext ifNotNil: [ :context | context ast ] ].\x0a\x0a\x09ast ifNil: [ self initializeAST ].\x0a\x09^ ast",
 messageSends: ["ifTrue:", "isBlockContext", "ifNotNil:", "outerContext", "ast", "ifNil:", "initializeAST"],
 referencedClasses: []
+}),
+globals.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "evaluateNode:",
+protocol: 'evaluating',
+fn: function (aNode){
+var self=this;
+function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st($ASTInterpreter())._new();
+_st($2)._context_(self);
+_st($2)._node_(_st(aNode)._nextChild());
+_st($2)._proceed();
+$3=_st($2)._result();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"evaluateNode:",{aNode:aNode},globals.AIContext)})},
+args: ["aNode"],
+source: "evaluateNode: aNode\x0a\x09^ ASTInterpreter new\x0a\x09\x09context: self;\x0a\x09\x09node: aNode nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
+messageSends: ["context:", "new", "node:", "nextChild", "proceed", "result"],
+referencedClasses: ["ASTInterpreter"]
 }),
 globals.AIContext);
 
@@ -32705,12 +33466,20 @@ protocol: 'accessing',
 fn: function (anAIContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
 self["@outerContext"]=anAIContext;
-_st(self["@outerContext"])._innerContext_(self);
+$1=self["@outerContext"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+var context;
+context=$receiver;
+_st(context)._innerContext_(self);
+};
 return self}, function($ctx1) {$ctx1.fill(self,"outerContext:",{anAIContext:anAIContext},globals.AIContext)})},
 args: ["anAIContext"],
-source: "outerContext: anAIContext\x0a\x09outerContext := anAIContext.\x0a\x09outerContext innerContext: self",
-messageSends: ["innerContext:"],
+source: "outerContext: anAIContext\x0a\x09outerContext := anAIContext.\x0a\x09outerContext ifNotNil: [ :context | \x0a\x09\x09context innerContext: self ]",
+messageSends: ["ifNotNil:", "innerContext:"],
 referencedClasses: []
 }),
 globals.AIContext);
@@ -32790,9 +33559,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self._sendIndexes())._at_ifAbsent_(aString,(function(){
-return smalltalk.withContext(function($ctx2) {
 return (0);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sendIndexAt:",{aString:aString},globals.AIContext)})},
 args: ["aString"],
@@ -32921,29 +33689,6 @@ globals.ASTDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "buildAST",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-var ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-ast=_st($Smalltalk())._parse_(_st(self._method())._source());
-_st(_st($SemanticAnalyzer())._on_(_st(_st(self._context())._receiver())._class()))._visit_(ast);
-$1=ast;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"buildAST",{ast:ast},globals.ASTDebugger)})},
-args: [],
-source: "buildAST\x0a\x09\x22Build the AST tree from the method source code.\x0a\x09The AST is annotated with a SemanticAnalyzer,\x0a\x09to know the semantics and bindings of each node needed for later debugging\x22\x0a\x09\x0a\x09| ast |\x0a\x09\x0a\x09ast := Smalltalk parse: self method source.\x0a\x09(SemanticAnalyzer on: self context receiver class)\x0a\x09\x09visit: ast.\x0a\x09\x0a\x09^ ast",
-messageSends: ["parse:", "source", "method", "visit:", "on:", "class", "receiver", "context"],
-referencedClasses: ["Smalltalk", "SemanticAnalyzer"]
-}),
-globals.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "context",
 protocol: 'accessing',
 fn: function (){
@@ -32976,97 +33721,18 @@ globals.ASTDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "defaultInterpreterClass",
-protocol: 'defaults',
-fn: function (){
-var self=this;
-function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
-return $ASTInterpreter();
-},
-args: [],
-source: "defaultInterpreterClass\x0a\x09^ ASTInterpreter",
-messageSends: [],
-referencedClasses: ["ASTInterpreter"]
-}),
-globals.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initializeInterpreter",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-var ast,next;
-function $ASTPCNodeVisitor(){return globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-ast=self._buildAST();
-$1=_st($ASTPCNodeVisitor())._new();
-_st($1)._context_(self._context());
-_st($1)._visit_(ast);
-$2=_st($1)._currentNode();
-next=$2;
-_st(self._interpreter())._node_(next);
-return self}, function($ctx1) {$ctx1.fill(self,"initializeInterpreter",{ast:ast,next:next},globals.ASTDebugger)})},
-args: [],
-source: "initializeInterpreter\x0a\x09| ast next |\x0a\x09ast := self buildAST.\x0a\x09next := ASTPCNodeVisitor new\x0a\x09\x09context: self context;\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode.\x0a\x09self interpreter node: next",
-messageSends: ["buildAST", "context:", "new", "context", "visit:", "currentNode", "node:", "interpreter"],
-referencedClasses: ["ASTPCNodeVisitor"]
-}),
-globals.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initializeWithContext:",
-protocol: 'initialization',
-fn: function (aContext){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._context_(aContext);
-self._initializeInterpreter();
-return self}, function($ctx1) {$ctx1.fill(self,"initializeWithContext:",{aContext:aContext},globals.ASTDebugger)})},
-args: ["aContext"],
-source: "initializeWithContext: aContext\x0a\x09\x22TODO: do we need to handle block contexts?\x22\x0a\x09\x0a\x09self context: aContext.\x0a\x09self initializeInterpreter",
-messageSends: ["context:", "initializeInterpreter"],
-referencedClasses: []
-}),
-globals.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "interpreter",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@interpreter"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@interpreter"]=_st(self._defaultInterpreterClass())._new();
-$1=self["@interpreter"];
-} else {
-$1=$2;
-};
+var $1;
+$1=_st(self._context())._interpreter();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"interpreter",{},globals.ASTDebugger)})},
 args: [],
-source: "interpreter\x0a\x09^ interpreter ifNil: [ interpreter := self defaultInterpreterClass new ]",
-messageSends: ["ifNil:", "new", "defaultInterpreterClass"],
-referencedClasses: []
-}),
-globals.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter:",
-protocol: 'accessing',
-fn: function (anInterpreter){
-var self=this;
-self["@interpreter"]=anInterpreter;
-return self},
-args: ["anInterpreter"],
-source: "interpreter: anInterpreter\x0a\x09interpreter := anInterpreter",
-messageSends: [],
+source: "interpreter\x0a\x09^ self context interpreter",
+messageSends: ["interpreter", "context"],
 referencedClasses: []
 }),
 globals.ASTDebugger);
@@ -33178,11 +33844,12 @@ protocol: 'stepping',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+self._flushOuterContexts();
 _st(self._interpreter())._stepOver();
 return self}, function($ctx1) {$ctx1.fill(self,"stepOver",{},globals.ASTDebugger)})},
 args: [],
-source: "stepOver\x0a\x09self interpreter stepOver",
-messageSends: ["stepOver", "interpreter"],
+source: "stepOver\x0a\x09self flushOuterContexts.\x0a\x09self interpreter stepOver",
+messageSends: ["flushOuterContexts", "stepOver", "interpreter"],
 referencedClasses: []
 }),
 globals.ASTDebugger);
@@ -33197,14 +33864,14 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=self._new();
-_st($2)._initializeWithContext_(aContext);
+_st($2)._context_(aContext);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},globals.ASTDebugger.klass)})},
 args: ["aContext"],
-source: "context: aContext\x0a\x09^ self new\x0a\x09\x09initializeWithContext: aContext;\x0a\x09\x09yourself",
-messageSends: ["initializeWithContext:", "new", "yourself"],
+source: "context: aContext\x0a\x09^ self new\x0a\x09\x09context: aContext;\x0a\x09\x09yourself",
+messageSends: ["context:", "new", "yourself"],
 referencedClasses: []
 }),
 globals.ASTDebugger.klass);
@@ -33500,9 +34167,8 @@ try {
 $1=self._stack();
 $ctx1.sendIdx["stack"]=1;
 _st($1)._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 throw $early=[nil];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $2=_st(self._stack())._last();
 return $2;
 }
@@ -34264,21 +34930,6 @@ selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
-return false;
-},
-args: [],
-source: "isSteppingNode\x0a\x09^ false",
-messageSends: [],
-referencedClasses: []
-}),
-globals.Node);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isSteppingNode",
-protocol: '*Compiler-Interpreter',
-fn: function (){
-var self=this;
 return true;
 },
 args: [],
@@ -34354,6 +35005,21 @@ selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
+return false;
+},
+args: [],
+source: "isSteppingNode\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isSteppingNode",
+protocol: '*Compiler-Interpreter',
+fn: function (){
+var self=this;
 return true;
 },
 args: [],
@@ -34365,2023 +35031,164 @@ globals.SendNode);
 
 });
 
-define("amber_vm/parser", ["./smalltalk", "./nil"], function(smalltalk, nil) {
-smalltalk.parser = (function(){
+define("amber_vm/parser", ["./globals", "./nil"], function(globals, nil) {
+globals.SmalltalkParser = (function() {
   /*
-   * Generated by PEG.js 0.7.0.
+   * Generated by PEG.js 0.8.0.
    *
    * http://pegjs.majda.cz/
    */
-  
-  function quote(s) {
-    /*
-     * ECMA-262, 5th ed., 7.8.4: All characters may appear literally in a
-     * string literal except for the closing quote character, backslash,
-     * carriage return, line separator, paragraph separator, and line feed.
-     * Any character may appear in the form of an escape sequence.
-     *
-     * For portability, we also escape escape all control and non-ASCII
-     * characters. Note that "\0" and "\v" escape sequences are not used
-     * because JSHint does not like the first and IE the second.
-     */
-     return '"' + s
-      .replace(/\\/g, '\\\\')  // backslash
-      .replace(/"/g, '\\"')    // closing quote character
-      .replace(/\x08/g, '\\b') // backspace
-      .replace(/\t/g, '\\t')   // horizontal tab
-      .replace(/\n/g, '\\n')   // line feed
-      .replace(/\f/g, '\\f')   // form feed
-      .replace(/\r/g, '\\r')   // carriage return
-      .replace(/[\x00-\x07\x0B\x0E-\x1F\x80-\uFFFF]/g, escape)
-      + '"';
+
+  function peg$subclass(child, parent) {
+    function ctor() { this.constructor = child; }
+    ctor.prototype = parent.prototype;
+    child.prototype = new ctor();
   }
-  
-  var result = {
-    /*
-     * Parses the input with a generated parser. If the parsing is successfull,
-     * returns a value explicitly or implicitly specified by the grammar from
-     * which the parser was generated (see |PEG.buildParser|). If the parsing is
-     * unsuccessful, throws |PEG.parser.SyntaxError| describing the error.
-     */
-    parse: function(input, startRule) {
-      var parseFunctions = {
-        "separator": parse_separator,
-        "comments": parse_comments,
-        "ws": parse_ws,
-        "identifier": parse_identifier,
-        "keyword": parse_keyword,
-        "selector": parse_selector,
-        "className": parse_className,
-        "string": parse_string,
-        "symbol": parse_symbol,
-        "bareSymbol": parse_bareSymbol,
-        "number": parse_number,
-        "numberExp": parse_numberExp,
-        "hex": parse_hex,
-        "float": parse_float,
-        "integer": parse_integer,
-        "literalArray": parse_literalArray,
-        "bareLiteralArray": parse_bareLiteralArray,
-        "literalArrayRest": parse_literalArrayRest,
-        "dynamicArray": parse_dynamicArray,
-        "dynamicDictionary": parse_dynamicDictionary,
-        "pseudoVariable": parse_pseudoVariable,
-        "parseTimeLiteral": parse_parseTimeLiteral,
-        "runtimeLiteral": parse_runtimeLiteral,
-        "literal": parse_literal,
-        "variable": parse_variable,
-        "keywordPair": parse_keywordPair,
-        "binarySelector": parse_binarySelector,
-        "keywordPattern": parse_keywordPattern,
-        "binaryPattern": parse_binaryPattern,
-        "unaryPattern": parse_unaryPattern,
-        "expression": parse_expression,
-        "expressionList": parse_expressionList,
-        "expressions": parse_expressions,
-        "assignment": parse_assignment,
-        "ret": parse_ret,
-        "temps": parse_temps,
-        "blockParamList": parse_blockParamList,
-        "subexpression": parse_subexpression,
-        "statements": parse_statements,
-        "sequence": parse_sequence,
-        "stSequence": parse_stSequence,
-        "block": parse_block,
-        "operand": parse_operand,
-        "unaryMessage": parse_unaryMessage,
-        "unaryTail": parse_unaryTail,
-        "unarySend": parse_unarySend,
-        "binaryMessage": parse_binaryMessage,
-        "binaryTail": parse_binaryTail,
-        "binarySend": parse_binarySend,
-        "keywordMessage": parse_keywordMessage,
-        "keywordSend": parse_keywordSend,
-        "message": parse_message,
-        "cascade": parse_cascade,
-        "jsStatement": parse_jsStatement,
-        "method": parse_method
-      };
-      
-      if (startRule !== undefined) {
-        if (parseFunctions[startRule] === undefined) {
-          throw new Error("Invalid rule name: " + quote(startRule) + ".");
-        }
-      } else {
-        startRule = "method";
-      }
-      
-      var pos = { offset: 0, line: 1, column: 1, seenCR: false };
-      var reportFailures = 0;
-      var rightmostFailuresPos = { offset: 0, line: 1, column: 1, seenCR: false };
-      var rightmostFailuresExpected = [];
-      var cache = {};
-      
-      function padLeft(input, padding, length) {
-        var result = input;
-        
-        var padLength = length - input.length;
-        for (var i = 0; i < padLength; i++) {
-          result = padding + result;
-        }
-        
-        return result;
-      }
-      
-      function escape(ch) {
-        var charCode = ch.charCodeAt(0);
-        var escapeChar;
-        var length;
-        
-        if (charCode <= 0xFF) {
-          escapeChar = 'x';
-          length = 2;
-        } else {
-          escapeChar = 'u';
-          length = 4;
-        }
-        
-        return '\\' + escapeChar + padLeft(charCode.toString(16).toUpperCase(), '0', length);
-      }
-      
-      function clone(object) {
-        var result = {};
-        for (var key in object) {
-          result[key] = object[key];
-        }
-        return result;
-      }
-      
-      function advance(pos, n) {
-        var endOffset = pos.offset + n;
-        
-        for (var offset = pos.offset; offset < endOffset; offset++) {
-          var ch = input.charAt(offset);
-          if (ch === "\n") {
-            if (!pos.seenCR) { pos.line++; }
-            pos.column = 1;
-            pos.seenCR = false;
-          } else if (ch === "\r" || ch === "\u2028" || ch === "\u2029") {
-            pos.line++;
-            pos.column = 1;
-            pos.seenCR = true;
-          } else {
-            pos.column++;
-            pos.seenCR = false;
-          }
-        }
-        
-        pos.offset += n;
-      }
-      
-      function matchFailed(failure) {
-        if (pos.offset < rightmostFailuresPos.offset) {
-          return;
-        }
-        
-        if (pos.offset > rightmostFailuresPos.offset) {
-          rightmostFailuresPos = clone(pos);
-          rightmostFailuresExpected = [];
-        }
-        
-        rightmostFailuresExpected.push(failure);
-      }
-      
-      function parse_separator() {
-        var cacheKey = "separator@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1;
-        
-        if (/^[ \t\x0B\f\xA0\uFEFF\n\r\u2028\u2029]/.test(input.charAt(pos.offset))) {
-          result1 = input.charAt(pos.offset);
-          advance(pos, 1);
-        } else {
-          result1 = null;
-          if (reportFailures === 0) {
-            matchFailed("[ \\t\\x0B\\f\\xA0\\uFEFF\\n\\r\\u2028\\u2029]");
-          }
-        }
-        if (result1 !== null) {
-          result0 = [];
-          while (result1 !== null) {
-            result0.push(result1);
-            if (/^[ \t\x0B\f\xA0\uFEFF\n\r\u2028\u2029]/.test(input.charAt(pos.offset))) {
-              result1 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result1 = null;
-              if (reportFailures === 0) {
-                matchFailed("[ \\t\\x0B\\f\\xA0\\uFEFF\\n\\r\\u2028\\u2029]");
-              }
-            }
-          }
-        } else {
-          result0 = null;
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_comments() {
-        var cacheKey = "comments@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3;
-        var pos0;
-        
-        pos0 = clone(pos);
-        if (/^["]/.test(input.charAt(pos.offset))) {
-          result1 = input.charAt(pos.offset);
-          advance(pos, 1);
-        } else {
-          result1 = null;
-          if (reportFailures === 0) {
-            matchFailed("[\"]");
-          }
-        }
-        if (result1 !== null) {
-          result2 = [];
-          if (/^[^"]/.test(input.charAt(pos.offset))) {
-            result3 = input.charAt(pos.offset);
-            advance(pos, 1);
-          } else {
-            result3 = null;
-            if (reportFailures === 0) {
-              matchFailed("[^\"]");
-            }
-          }
-          while (result3 !== null) {
-            result2.push(result3);
-            if (/^[^"]/.test(input.charAt(pos.offset))) {
-              result3 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result3 = null;
-              if (reportFailures === 0) {
-                matchFailed("[^\"]");
-              }
-            }
-          }
-          if (result2 !== null) {
-            if (/^["]/.test(input.charAt(pos.offset))) {
-              result3 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result3 = null;
-              if (reportFailures === 0) {
-                matchFailed("[\"]");
-              }
-            }
-            if (result3 !== null) {
-              result1 = [result1, result2, result3];
-            } else {
-              result1 = null;
-              pos = clone(pos0);
-            }
-          } else {
-            result1 = null;
-            pos = clone(pos0);
-          }
-        } else {
-          result1 = null;
-          pos = clone(pos0);
-        }
-        if (result1 !== null) {
-          result0 = [];
-          while (result1 !== null) {
-            result0.push(result1);
-            pos0 = clone(pos);
-            if (/^["]/.test(input.charAt(pos.offset))) {
-              result1 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result1 = null;
-              if (reportFailures === 0) {
-                matchFailed("[\"]");
-              }
-            }
-            if (result1 !== null) {
-              result2 = [];
-              if (/^[^"]/.test(input.charAt(pos.offset))) {
-                result3 = input.charAt(pos.offset);
-                advance(pos, 1);
-              } else {
-                result3 = null;
-                if (reportFailures === 0) {
-                  matchFailed("[^\"]");
-                }
-              }
-              while (result3 !== null) {
-                result2.push(result3);
-                if (/^[^"]/.test(input.charAt(pos.offset))) {
-                  result3 = input.charAt(pos.offset);
-                  advance(pos, 1);
-                } else {
-                  result3 = null;
-                  if (reportFailures === 0) {
-                    matchFailed("[^\"]");
-                  }
-                }
-              }
-              if (result2 !== null) {
-                if (/^["]/.test(input.charAt(pos.offset))) {
-                  result3 = input.charAt(pos.offset);
-                  advance(pos, 1);
-                } else {
-                  result3 = null;
-                  if (reportFailures === 0) {
-                    matchFailed("[\"]");
-                  }
-                }
-                if (result3 !== null) {
-                  result1 = [result1, result2, result3];
-                } else {
-                  result1 = null;
-                  pos = clone(pos0);
-                }
-              } else {
-                result1 = null;
-                pos = clone(pos0);
-              }
-            } else {
-              result1 = null;
-              pos = clone(pos0);
-            }
-          }
-        } else {
-          result0 = null;
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_ws() {
-        var cacheKey = "ws@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1;
-        
-        result0 = [];
-        result1 = parse_separator();
-        if (result1 === null) {
-          result1 = parse_comments();
-        }
-        while (result1 !== null) {
-          result0.push(result1);
-          result1 = parse_separator();
-          if (result1 === null) {
-            result1 = parse_comments();
-          }
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_identifier() {
-        var cacheKey = "identifier@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (/^[a-zA-Z]/.test(input.charAt(pos.offset))) {
-          result0 = input.charAt(pos.offset);
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("[a-zA-Z]");
-          }
-        }
-        if (result0 !== null) {
-          result1 = [];
-          if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
-            result2 = input.charAt(pos.offset);
-            advance(pos, 1);
-          } else {
-            result2 = null;
-            if (reportFailures === 0) {
-              matchFailed("[a-zA-Z0-9]");
-            }
-          }
-          while (result2 !== null) {
-            result1.push(result2);
-            if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
-              result2 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("[a-zA-Z0-9]");
-              }
-            }
-          }
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, first, others) {return first + others.join("");})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_keyword() {
-        var cacheKey = "keyword@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_identifier();
-        if (result0 !== null) {
-          if (/^[:]/.test(input.charAt(pos.offset))) {
-            result1 = input.charAt(pos.offset);
-            advance(pos, 1);
-          } else {
-            result1 = null;
-            if (reportFailures === 0) {
-              matchFailed("[:]");
-            }
-          }
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, first, last) {return first + last;})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_selector() {
-        var cacheKey = "selector@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (/^[a-zA-Z]/.test(input.charAt(pos.offset))) {
-          result0 = input.charAt(pos.offset);
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("[a-zA-Z]");
-          }
-        }
-        if (result0 !== null) {
-          result1 = [];
-          if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
-            result2 = input.charAt(pos.offset);
-            advance(pos, 1);
-          } else {
-            result2 = null;
-            if (reportFailures === 0) {
-              matchFailed("[a-zA-Z0-9:]");
-            }
-          }
-          while (result2 !== null) {
-            result1.push(result2);
-            if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
-              result2 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("[a-zA-Z0-9:]");
-              }
-            }
-          }
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, first, others) {return first + others.join("");})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_className() {
-        var cacheKey = "className@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (/^[A-Z]/.test(input.charAt(pos.offset))) {
-          result0 = input.charAt(pos.offset);
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("[A-Z]");
-          }
-        }
-        if (result0 !== null) {
-          result1 = [];
-          if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
-            result2 = input.charAt(pos.offset);
-            advance(pos, 1);
-          } else {
-            result2 = null;
-            if (reportFailures === 0) {
-              matchFailed("[a-zA-Z0-9]");
-            }
-          }
-          while (result2 !== null) {
-            result1.push(result2);
-            if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
-              result2 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("[a-zA-Z0-9]");
-              }
-            }
-          }
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, first, others) {return first + others.join("");})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_string() {
-        var cacheKey = "string@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2;
-        var pos0, pos1, pos2;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (/^[']/.test(input.charAt(pos.offset))) {
-          result0 = input.charAt(pos.offset);
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("[']");
-          }
-        }
-        if (result0 !== null) {
-          result1 = [];
-          pos2 = clone(pos);
-          if (input.substr(pos.offset, 2) === "''") {
-            result2 = "''";
-            advance(pos, 2);
-          } else {
-            result2 = null;
-            if (reportFailures === 0) {
-              matchFailed("\"''\"");
-            }
-          }
-          if (result2 !== null) {
-            result2 = (function(offset, line, column) {return "'";})(pos2.offset, pos2.line, pos2.column);
-          }
-          if (result2 === null) {
-            pos = clone(pos2);
-          }
-          if (result2 === null) {
-            if (/^[^']/.test(input.charAt(pos.offset))) {
-              result2 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("[^']");
-              }
-            }
-          }
-          while (result2 !== null) {
-            result1.push(result2);
-            pos2 = clone(pos);
-            if (input.substr(pos.offset, 2) === "''") {
-              result2 = "''";
-              advance(pos, 2);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("\"''\"");
-              }
-            }
-            if (result2 !== null) {
-              result2 = (function(offset, line, column) {return "'";})(pos2.offset, pos2.line, pos2.column);
-            }
-            if (result2 === null) {
-              pos = clone(pos2);
-            }
-            if (result2 === null) {
-              if (/^[^']/.test(input.charAt(pos.offset))) {
-                result2 = input.charAt(pos.offset);
-                advance(pos, 1);
-              } else {
-                result2 = null;
-                if (reportFailures === 0) {
-                  matchFailed("[^']");
-                }
-              }
-            }
-          }
-          if (result1 !== null) {
-            if (/^[']/.test(input.charAt(pos.offset))) {
-              result2 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("[']");
-              }
-            }
-            if (result2 !== null) {
-              result0 = [result0, result1, result2];
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, val) {
-                             return smalltalk.ValueNode._new()
-                                    ._position_((line).__at(column))
+
+  function SyntaxError(message, expected, found, offset, line, column) {
+    this.message  = message;
+    this.expected = expected;
+    this.found    = found;
+    this.offset   = offset;
+    this.line     = line;
+    this.column   = column;
+
+    this.name     = "SyntaxError";
+  }
+
+  peg$subclass(SyntaxError, Error);
+
+  function parse(input) {
+    var options = arguments.length > 1 ? arguments[1] : {},
+
+        peg$FAILED = {},
+
+        peg$startRuleFunctions = { start: peg$parsestart },
+        peg$startRuleFunction  = peg$parsestart,
+
+        peg$c0 = [],
+        peg$c1 = peg$FAILED,
+        peg$c2 = /^[ \t\x0B\f\xA0\uFEFF\n\r\u2028\u2029]/,
+        peg$c3 = { type: "class", value: "[ \\t\\x0B\\f\\xA0\\uFEFF\\n\\r\\u2028\\u2029]", description: "[ \\t\\x0B\\f\\xA0\\uFEFF\\n\\r\\u2028\\u2029]" },
+        peg$c4 = /^["]/,
+        peg$c5 = { type: "class", value: "[\"]", description: "[\"]" },
+        peg$c6 = /^[^"]/,
+        peg$c7 = { type: "class", value: "[^\"]", description: "[^\"]" },
+        peg$c8 = /^[a-zA-Z]/,
+        peg$c9 = { type: "class", value: "[a-zA-Z]", description: "[a-zA-Z]" },
+        peg$c10 = /^[a-zA-Z0-9]/,
+        peg$c11 = { type: "class", value: "[a-zA-Z0-9]", description: "[a-zA-Z0-9]" },
+        peg$c12 = function(first, others) {return first + others.join("");},
+        peg$c13 = /^[:]/,
+        peg$c14 = { type: "class", value: "[:]", description: "[:]" },
+        peg$c15 = function(first, last) {return first + last;},
+        peg$c16 = /^[a-zA-Z0-9:]/,
+        peg$c17 = { type: "class", value: "[a-zA-Z0-9:]", description: "[a-zA-Z0-9:]" },
+        peg$c18 = /^[A-Z]/,
+        peg$c19 = { type: "class", value: "[A-Z]", description: "[A-Z]" },
+        peg$c20 = /^[']/,
+        peg$c21 = { type: "class", value: "[']", description: "[']" },
+        peg$c22 = "''",
+        peg$c23 = { type: "literal", value: "''", description: "\"''\"" },
+        peg$c24 = function() {return "'";},
+        peg$c25 = /^[^']/,
+        peg$c26 = { type: "class", value: "[^']", description: "[^']" },
+        peg$c27 = function(val) {
+                             return globals.ValueNode._new()
+                                    ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._value_(val.join("").replace(/\"/ig, '"'));
-                         })(pos0.offset, pos0.line, pos0.column, result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_symbol() {
-        var cacheKey = "symbol@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (input.charCodeAt(pos.offset) === 35) {
-          result0 = "#";
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("\"#\"");
-          }
-        }
-        if (result0 !== null) {
-          result1 = parse_bareSymbol();
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, rest) {return rest;})(pos0.offset, pos0.line, pos0.column, result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_bareSymbol() {
-        var cacheKey = "bareSymbol@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        result0 = parse_selector();
-        if (result0 === null) {
-          result0 = parse_binarySelector();
-          if (result0 === null) {
-            pos1 = clone(pos);
-            result0 = parse_string();
-            if (result0 !== null) {
-              result0 = (function(offset, line, column, node) {return node._value();})(pos1.offset, pos1.line, pos1.column, result0);
-            }
-            if (result0 === null) {
-              pos = clone(pos1);
-            }
-          }
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, val) {
-                              return smalltalk.ValueNode._new()
-                                     ._position_((line).__at(column))
+                         },
+        peg$c28 = "#",
+        peg$c29 = { type: "literal", value: "#", description: "\"#\"" },
+        peg$c30 = function(rest) {return rest;},
+        peg$c31 = function(node) {return node._value();},
+        peg$c32 = function(val) {
+                              return globals.ValueNode._new()
+                                     ._position_((line()).__at(column()))
+                                     ._source_(text())
                                      ._value_(val);
-                          })(pos0.offset, pos0.line, pos0.column, result0);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_number() {
-        var cacheKey = "number@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        var pos0;
-        
-        pos0 = clone(pos);
-        result0 = parse_numberExp();
-        if (result0 === null) {
-          result0 = parse_hex();
-          if (result0 === null) {
-            result0 = parse_float();
-            if (result0 === null) {
-              result0 = parse_integer();
-            }
-          }
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, n) {
-                             return smalltalk.ValueNode._new()
-                                    ._position_((line).__at(column))
+                          },
+        peg$c33 = function(n) {
+                             return globals.ValueNode._new()
+                                    ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._value_(n);
-                         })(pos0.offset, pos0.line, pos0.column, result0);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_numberExp() {
-        var cacheKey = "numberExp@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_float();
-        if (result0 === null) {
-          result0 = parse_integer();
-        }
-        if (result0 !== null) {
-          if (input.charCodeAt(pos.offset) === 101) {
-            result1 = "e";
-            advance(pos, 1);
-          } else {
-            result1 = null;
-            if (reportFailures === 0) {
-              matchFailed("\"e\"");
-            }
-          }
-          if (result1 !== null) {
-            result2 = parse_integer();
-            if (result2 !== null) {
-              result0 = [result0, result1, result2];
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, n) {return parseFloat(n.join(""));})(pos0.offset, pos0.line, pos0.column, result0);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_hex() {
-        var cacheKey = "hex@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (/^[\-]/.test(input.charAt(pos.offset))) {
-          result0 = input.charAt(pos.offset);
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("[\\-]");
-          }
-        }
-        result0 = result0 !== null ? result0 : "";
-        if (result0 !== null) {
-          if (input.substr(pos.offset, 3) === "16r") {
-            result1 = "16r";
-            advance(pos, 3);
-          } else {
-            result1 = null;
-            if (reportFailures === 0) {
-              matchFailed("\"16r\"");
-            }
-          }
-          if (result1 !== null) {
-            if (/^[0-9a-fA-F]/.test(input.charAt(pos.offset))) {
-              result3 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result3 = null;
-              if (reportFailures === 0) {
-                matchFailed("[0-9a-fA-F]");
-              }
-            }
-            if (result3 !== null) {
-              result2 = [];
-              while (result3 !== null) {
-                result2.push(result3);
-                if (/^[0-9a-fA-F]/.test(input.charAt(pos.offset))) {
-                  result3 = input.charAt(pos.offset);
-                  advance(pos, 1);
-                } else {
-                  result3 = null;
-                  if (reportFailures === 0) {
-                    matchFailed("[0-9a-fA-F]");
-                  }
-                }
-              }
-            } else {
-              result2 = null;
-            }
-            if (result2 !== null) {
-              result0 = [result0, result1, result2];
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, neg, num) {return parseInt((neg + num.join("")), 16);})(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_float() {
-        var cacheKey = "float@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3, result4;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (/^[\-]/.test(input.charAt(pos.offset))) {
-          result0 = input.charAt(pos.offset);
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("[\\-]");
-          }
-        }
-        result0 = result0 !== null ? result0 : "";
-        if (result0 !== null) {
-          if (/^[0-9]/.test(input.charAt(pos.offset))) {
-            result2 = input.charAt(pos.offset);
-            advance(pos, 1);
-          } else {
-            result2 = null;
-            if (reportFailures === 0) {
-              matchFailed("[0-9]");
-            }
-          }
-          if (result2 !== null) {
-            result1 = [];
-            while (result2 !== null) {
-              result1.push(result2);
-              if (/^[0-9]/.test(input.charAt(pos.offset))) {
-                result2 = input.charAt(pos.offset);
-                advance(pos, 1);
-              } else {
-                result2 = null;
-                if (reportFailures === 0) {
-                  matchFailed("[0-9]");
-                }
-              }
-            }
-          } else {
-            result1 = null;
-          }
-          if (result1 !== null) {
-            if (input.charCodeAt(pos.offset) === 46) {
-              result2 = ".";
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("\".\"");
-              }
-            }
-            if (result2 !== null) {
-              if (/^[0-9]/.test(input.charAt(pos.offset))) {
-                result4 = input.charAt(pos.offset);
-                advance(pos, 1);
-              } else {
-                result4 = null;
-                if (reportFailures === 0) {
-                  matchFailed("[0-9]");
-                }
-              }
-              if (result4 !== null) {
-                result3 = [];
-                while (result4 !== null) {
-                  result3.push(result4);
-                  if (/^[0-9]/.test(input.charAt(pos.offset))) {
-                    result4 = input.charAt(pos.offset);
-                    advance(pos, 1);
-                  } else {
-                    result4 = null;
-                    if (reportFailures === 0) {
-                      matchFailed("[0-9]");
-                    }
-                  }
-                }
-              } else {
-                result3 = null;
-              }
-              if (result3 !== null) {
-                result0 = [result0, result1, result2, result3];
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, neg, digits, dec) {return parseFloat((neg + digits.join("") + "." + dec.join("")), 10);})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1], result0[3]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_integer() {
-        var cacheKey = "integer@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (/^[\-]/.test(input.charAt(pos.offset))) {
-          result0 = input.charAt(pos.offset);
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("[\\-]");
-          }
-        }
-        result0 = result0 !== null ? result0 : "";
-        if (result0 !== null) {
-          if (/^[0-9]/.test(input.charAt(pos.offset))) {
-            result2 = input.charAt(pos.offset);
-            advance(pos, 1);
-          } else {
-            result2 = null;
-            if (reportFailures === 0) {
-              matchFailed("[0-9]");
-            }
-          }
-          if (result2 !== null) {
-            result1 = [];
-            while (result2 !== null) {
-              result1.push(result2);
-              if (/^[0-9]/.test(input.charAt(pos.offset))) {
-                result2 = input.charAt(pos.offset);
-                advance(pos, 1);
-              } else {
-                result2 = null;
-                if (reportFailures === 0) {
-                  matchFailed("[0-9]");
-                }
-              }
-            }
-          } else {
-            result1 = null;
-          }
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, neg, digits) {return (parseInt(neg+digits.join(""), 10));})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_literalArray() {
-        var cacheKey = "literalArray@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (input.substr(pos.offset, 2) === "#(") {
-          result0 = "#(";
-          advance(pos, 2);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("\"#(\"");
-          }
-        }
-        if (result0 !== null) {
-          result1 = parse_literalArrayRest();
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, rest) {return rest;})(pos0.offset, pos0.line, pos0.column, result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_bareLiteralArray() {
-        var cacheKey = "bareLiteralArray@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (input.charCodeAt(pos.offset) === 40) {
-          result0 = "(";
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("\"(\"");
-          }
-        }
-        if (result0 !== null) {
-          result1 = parse_literalArrayRest();
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, rest) {return rest;})(pos0.offset, pos0.line, pos0.column, result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_literalArrayRest() {
-        var cacheKey = "literalArrayRest@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3;
-        var pos0, pos1, pos2, pos3;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_ws();
-        if (result0 !== null) {
-          result1 = [];
-          pos2 = clone(pos);
-          pos3 = clone(pos);
-          result2 = parse_parseTimeLiteral();
-          if (result2 === null) {
-            result2 = parse_bareLiteralArray();
-            if (result2 === null) {
-              result2 = parse_bareSymbol();
-            }
-          }
-          if (result2 !== null) {
-            result3 = parse_ws();
-            if (result3 !== null) {
-              result2 = [result2, result3];
-            } else {
-              result2 = null;
-              pos = clone(pos3);
-            }
-          } else {
-            result2 = null;
-            pos = clone(pos3);
-          }
-          if (result2 !== null) {
-            result2 = (function(offset, line, column, lit) {return lit._value();})(pos2.offset, pos2.line, pos2.column, result2[0]);
-          }
-          if (result2 === null) {
-            pos = clone(pos2);
-          }
-          while (result2 !== null) {
-            result1.push(result2);
-            pos2 = clone(pos);
-            pos3 = clone(pos);
-            result2 = parse_parseTimeLiteral();
-            if (result2 === null) {
-              result2 = parse_bareLiteralArray();
-              if (result2 === null) {
-                result2 = parse_bareSymbol();
-              }
-            }
-            if (result2 !== null) {
-              result3 = parse_ws();
-              if (result3 !== null) {
-                result2 = [result2, result3];
-              } else {
-                result2 = null;
-                pos = clone(pos3);
-              }
-            } else {
-              result2 = null;
-              pos = clone(pos3);
-            }
-            if (result2 !== null) {
-              result2 = (function(offset, line, column, lit) {return lit._value();})(pos2.offset, pos2.line, pos2.column, result2[0]);
-            }
-            if (result2 === null) {
-              pos = clone(pos2);
-            }
-          }
-          if (result1 !== null) {
-            result2 = parse_ws();
-            if (result2 !== null) {
-              if (input.charCodeAt(pos.offset) === 41) {
-                result3 = ")";
-                advance(pos, 1);
-              } else {
-                result3 = null;
-                if (reportFailures === 0) {
-                  matchFailed("\")\"");
-                }
-              }
-              if (result3 !== null) {
-                result0 = [result0, result1, result2, result3];
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, lits) {
-                             return smalltalk.ValueNode._new()
-                                    ._position_((line).__at(column))
+                         },
+        peg$c34 = "e",
+        peg$c35 = { type: "literal", value: "e", description: "\"e\"" },
+        peg$c36 = function(n) {return parseFloat(n.join(""));},
+        peg$c37 = null,
+        peg$c38 = /^[\-]/,
+        peg$c39 = { type: "class", value: "[\\-]", description: "[\\-]" },
+        peg$c40 = "16r",
+        peg$c41 = { type: "literal", value: "16r", description: "\"16r\"" },
+        peg$c42 = /^[0-9a-fA-F]/,
+        peg$c43 = { type: "class", value: "[0-9a-fA-F]", description: "[0-9a-fA-F]" },
+        peg$c44 = function(neg, num) {return parseInt(((neg || '') + num.join("")), 16);},
+        peg$c45 = /^[0-9]/,
+        peg$c46 = { type: "class", value: "[0-9]", description: "[0-9]" },
+        peg$c47 = ".",
+        peg$c48 = { type: "literal", value: ".", description: "\".\"" },
+        peg$c49 = function(neg, digits, dec) {return parseFloat(((neg || '') + digits.join("") + "." + dec.join("")), 10);},
+        peg$c50 = function(neg, digits) {return (parseInt((neg || '') +digits.join(""), 10));},
+        peg$c51 = "#(",
+        peg$c52 = { type: "literal", value: "#(", description: "\"#(\"" },
+        peg$c53 = "(",
+        peg$c54 = { type: "literal", value: "(", description: "\"(\"" },
+        peg$c55 = function(lit) {return lit._value();},
+        peg$c56 = ")",
+        peg$c57 = { type: "literal", value: ")", description: "\")\"" },
+        peg$c58 = function(lits) {
+                             return globals.ValueNode._new()
+                                    ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._value_(lits);
-                         })(pos0.offset, pos0.line, pos0.column, result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_dynamicArray() {
-        var cacheKey = "dynamicArray@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3, result4, result5;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (input.charCodeAt(pos.offset) === 123) {
-          result0 = "{";
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("\"{\"");
-          }
-        }
-        if (result0 !== null) {
-          result1 = parse_ws();
-          if (result1 !== null) {
-            result2 = parse_expressions();
-            result2 = result2 !== null ? result2 : "";
-            if (result2 !== null) {
-              result3 = parse_ws();
-              if (result3 !== null) {
-                if (input.charCodeAt(pos.offset) === 46) {
-                  result4 = ".";
-                  advance(pos, 1);
-                } else {
-                  result4 = null;
-                  if (reportFailures === 0) {
-                    matchFailed("\".\"");
-                  }
-                }
-                result4 = result4 !== null ? result4 : "";
-                if (result4 !== null) {
-                  if (input.charCodeAt(pos.offset) === 125) {
-                    result5 = "}";
-                    advance(pos, 1);
-                  } else {
-                    result5 = null;
-                    if (reportFailures === 0) {
-                      matchFailed("\"}\"");
-                    }
-                  }
-                  if (result5 !== null) {
-                    result0 = [result0, result1, result2, result3, result4, result5];
-                  } else {
-                    result0 = null;
-                    pos = clone(pos1);
-                  }
-                } else {
-                  result0 = null;
-                  pos = clone(pos1);
-                }
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, expressions) {
-                             return smalltalk.DynamicArrayNode._new()
-                                    ._position_((line).__at(column))
-                                    ._nodes_(expressions);
-                         })(pos0.offset, pos0.line, pos0.column, result0[2]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_dynamicDictionary() {
-        var cacheKey = "dynamicDictionary@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3, result4;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (input.substr(pos.offset, 2) === "#{") {
-          result0 = "#{";
-          advance(pos, 2);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("\"#{\"");
-          }
-        }
-        if (result0 !== null) {
-          result1 = parse_ws();
-          if (result1 !== null) {
-            result2 = parse_expressions();
-            result2 = result2 !== null ? result2 : "";
-            if (result2 !== null) {
-              result3 = parse_ws();
-              if (result3 !== null) {
-                if (input.charCodeAt(pos.offset) === 125) {
-                  result4 = "}";
-                  advance(pos, 1);
-                } else {
-                  result4 = null;
-                  if (reportFailures === 0) {
-                    matchFailed("\"}\"");
-                  }
-                }
-                if (result4 !== null) {
-                  result0 = [result0, result1, result2, result3, result4];
-                } else {
-                  result0 = null;
-                  pos = clone(pos1);
-                }
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, expressions) {
-                                return smalltalk.DynamicDictionaryNode._new()
-                                       ._position_((line).__at(column))
-                                       ._nodes_(expressions);
-                            })(pos0.offset, pos0.line, pos0.column, result0[2]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_pseudoVariable() {
-        var cacheKey = "pseudoVariable@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (input.substr(pos.offset, 4) === "true") {
-          result0 = "true";
-          advance(pos, 4);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("\"true\"");
-          }
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column) {return true;})(pos1.offset, pos1.line, pos1.column);
-        }
-        if (result0 === null) {
-          pos = clone(pos1);
-        }
-        if (result0 === null) {
-          pos1 = clone(pos);
-          if (input.substr(pos.offset, 5) === "false") {
-            result0 = "false";
-            advance(pos, 5);
-          } else {
-            result0 = null;
-            if (reportFailures === 0) {
-              matchFailed("\"false\"");
-            }
-          }
-          if (result0 !== null) {
-            result0 = (function(offset, line, column) {return false;})(pos1.offset, pos1.line, pos1.column);
-          }
-          if (result0 === null) {
-            pos = clone(pos1);
-          }
-          if (result0 === null) {
-            pos1 = clone(pos);
-            if (input.substr(pos.offset, 3) === "nil") {
-              result0 = "nil";
-              advance(pos, 3);
-            } else {
-              result0 = null;
-              if (reportFailures === 0) {
-                matchFailed("\"nil\"");
-              }
-            }
-            if (result0 !== null) {
-              result0 = (function(offset, line, column) {return nil;})(pos1.offset, pos1.line, pos1.column);
-            }
-            if (result0 === null) {
-              pos = clone(pos1);
-            }
-          }
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, val) {
-                               return smalltalk.ValueNode._new()
-                                      ._position_((line).__at(column))
+                         },
+        peg$c59 = "{",
+        peg$c60 = { type: "literal", value: "{", description: "\"{\"" },
+        peg$c61 = "}",
+        peg$c62 = { type: "literal", value: "}", description: "\"}\"" },
+        peg$c63 = function(expressions) {
+                             return globals.DynamicArrayNode._new()
+                                    ._position_((line()).__at(column()))
+                                    ._source_(text())
+                                    ._nodes_(expressions || []);
+                         },
+        peg$c64 = "#{",
+        peg$c65 = { type: "literal", value: "#{", description: "\"#{\"" },
+        peg$c66 = function(expressions) {
+                                return globals.DynamicDictionaryNode._new()
+                                       ._position_((line()).__at(column()))
+                                       ._source_(text())
+                                       ._nodes_(expressions || []);
+                            },
+        peg$c67 = "true",
+        peg$c68 = { type: "literal", value: "true", description: "\"true\"" },
+        peg$c69 = function() {return true;},
+        peg$c70 = "false",
+        peg$c71 = { type: "literal", value: "false", description: "\"false\"" },
+        peg$c72 = function() {return false;},
+        peg$c73 = "nil",
+        peg$c74 = { type: "literal", value: "nil", description: "\"nil\"" },
+        peg$c75 = function() {return nil;},
+        peg$c76 = function(val) {
+                               return globals.ValueNode._new()
+                                      ._position_((line()).__at(column()))
+                                      ._source_(text())
                                       ._value_(val);
-                           })(pos0.offset, pos0.line, pos0.column, result0);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_parseTimeLiteral() {
-        var cacheKey = "parseTimeLiteral@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        
-        result0 = parse_pseudoVariable();
-        if (result0 === null) {
-          result0 = parse_number();
-          if (result0 === null) {
-            result0 = parse_literalArray();
-            if (result0 === null) {
-              result0 = parse_string();
-              if (result0 === null) {
-                result0 = parse_symbol();
-              }
-            }
-          }
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_runtimeLiteral() {
-        var cacheKey = "runtimeLiteral@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        
-        result0 = parse_dynamicDictionary();
-        if (result0 === null) {
-          result0 = parse_dynamicArray();
-          if (result0 === null) {
-            result0 = parse_block();
-          }
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_literal() {
-        var cacheKey = "literal@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        
-        result0 = parse_runtimeLiteral();
-        if (result0 === null) {
-          result0 = parse_parseTimeLiteral();
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_variable() {
-        var cacheKey = "variable@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        var pos0;
-        
-        pos0 = clone(pos);
-        result0 = parse_identifier();
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, identifier) {
-                             return smalltalk.VariableNode._new()
-                                    ._position_((line).__at(column))
+                           },
+        peg$c77 = function(identifier) {
+                             return globals.VariableNode._new()
+                                    ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._value_(identifier);
-                         })(pos0.offset, pos0.line, pos0.column, result0);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_keywordPair() {
-        var cacheKey = "keywordPair@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_keyword();
-        if (result0 !== null) {
-          result1 = parse_ws();
-          if (result1 !== null) {
-            result2 = parse_binarySend();
-            if (result2 !== null) {
-              result3 = parse_ws();
-              if (result3 !== null) {
-                result0 = [result0, result1, result2, result3];
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, key, arg) {return {key:key, arg: arg};})(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_binarySelector() {
-        var cacheKey = "binarySelector@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1;
-        var pos0;
-        
-        pos0 = clone(pos);
-        if (/^[\\+*\/=><,@%~|&\-]/.test(input.charAt(pos.offset))) {
-          result1 = input.charAt(pos.offset);
-          advance(pos, 1);
-        } else {
-          result1 = null;
-          if (reportFailures === 0) {
-            matchFailed("[\\\\+*\\/=><,@%~|&\\-]");
-          }
-        }
-        if (result1 !== null) {
-          result0 = [];
-          while (result1 !== null) {
-            result0.push(result1);
-            if (/^[\\+*\/=><,@%~|&\-]/.test(input.charAt(pos.offset))) {
-              result1 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result1 = null;
-              if (reportFailures === 0) {
-                matchFailed("[\\\\+*\\/=><,@%~|&\\-]");
-              }
-            }
-          }
-        } else {
-          result0 = null;
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, bin) {return bin.join("");})(pos0.offset, pos0.line, pos0.column, result0);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_keywordPattern() {
-        var cacheKey = "keywordPattern@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3, result4;
-        var pos0, pos1, pos2;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        pos2 = clone(pos);
-        result1 = parse_ws();
-        if (result1 !== null) {
-          result2 = parse_keyword();
-          if (result2 !== null) {
-            result3 = parse_ws();
-            if (result3 !== null) {
-              result4 = parse_identifier();
-              if (result4 !== null) {
-                result1 = [result1, result2, result3, result4];
-              } else {
-                result1 = null;
-                pos = clone(pos2);
-              }
-            } else {
-              result1 = null;
-              pos = clone(pos2);
-            }
-          } else {
-            result1 = null;
-            pos = clone(pos2);
-          }
-        } else {
-          result1 = null;
-          pos = clone(pos2);
-        }
-        if (result1 !== null) {
-          result1 = (function(offset, line, column, key, arg) {return {key:key, arg: arg};})(pos1.offset, pos1.line, pos1.column, result1[1], result1[3]);
-        }
-        if (result1 === null) {
-          pos = clone(pos1);
-        }
-        if (result1 !== null) {
-          result0 = [];
-          while (result1 !== null) {
-            result0.push(result1);
-            pos1 = clone(pos);
-            pos2 = clone(pos);
-            result1 = parse_ws();
-            if (result1 !== null) {
-              result2 = parse_keyword();
-              if (result2 !== null) {
-                result3 = parse_ws();
-                if (result3 !== null) {
-                  result4 = parse_identifier();
-                  if (result4 !== null) {
-                    result1 = [result1, result2, result3, result4];
-                  } else {
-                    result1 = null;
-                    pos = clone(pos2);
-                  }
-                } else {
-                  result1 = null;
-                  pos = clone(pos2);
-                }
-              } else {
-                result1 = null;
-                pos = clone(pos2);
-              }
-            } else {
-              result1 = null;
-              pos = clone(pos2);
-            }
-            if (result1 !== null) {
-              result1 = (function(offset, line, column, key, arg) {return {key:key, arg: arg};})(pos1.offset, pos1.line, pos1.column, result1[1], result1[3]);
-            }
-            if (result1 === null) {
-              pos = clone(pos1);
-            }
-          }
-        } else {
-          result0 = null;
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, pairs) {
+                         },
+        peg$c78 = function(key, arg) {return {key:key, arg: arg};},
+        peg$c79 = /^[\\+*\/=><,@%~|&\-]/,
+        peg$c80 = { type: "class", value: "[\\\\+*\\/=><,@%~|&\\-]", description: "[\\\\+*\\/=><,@%~|&\\-]" },
+        peg$c81 = function(bin) {return bin.join("");},
+        peg$c82 = function(pairs) {
                              var keywords = [];
                              var params = [];
                              var i = 0;
@@ -36392,2098 +35199,3763 @@ smalltalk.parser = (function(){
                                  params.push(pairs[i].arg);
                              }
                              return [keywords.join(""), params];
-                         })(pos0.offset, pos0.line, pos0.column, result0);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_binaryPattern() {
-        var cacheKey = "binaryPattern@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_ws();
-        if (result0 !== null) {
-          result1 = parse_binarySelector();
-          if (result1 !== null) {
-            result2 = parse_ws();
-            if (result2 !== null) {
-              result3 = parse_identifier();
-              if (result3 !== null) {
-                result0 = [result0, result1, result2, result3];
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, selector, arg) {return [selector, [arg]];})(pos0.offset, pos0.line, pos0.column, result0[1], result0[3]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_unaryPattern() {
-        var cacheKey = "unaryPattern@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_ws();
-        if (result0 !== null) {
-          result1 = parse_identifier();
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, selector) {return [selector, []];})(pos0.offset, pos0.line, pos0.column, result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_expression() {
-        var cacheKey = "expression@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        
-        result0 = parse_assignment();
-        if (result0 === null) {
-          result0 = parse_cascade();
-          if (result0 === null) {
-            result0 = parse_keywordSend();
-            if (result0 === null) {
-              result0 = parse_binarySend();
-            }
-          }
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_expressionList() {
-        var cacheKey = "expressionList@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_ws();
-        if (result0 !== null) {
-          if (input.charCodeAt(pos.offset) === 46) {
-            result1 = ".";
-            advance(pos, 1);
-          } else {
-            result1 = null;
-            if (reportFailures === 0) {
-              matchFailed("\".\"");
-            }
-          }
-          if (result1 !== null) {
-            result2 = parse_ws();
-            if (result2 !== null) {
-              result3 = parse_expression();
-              if (result3 !== null) {
-                result0 = [result0, result1, result2, result3];
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, expression) {return expression;})(pos0.offset, pos0.line, pos0.column, result0[3]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_expressions() {
-        var cacheKey = "expressions@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_expression();
-        if (result0 !== null) {
-          result1 = [];
-          result2 = parse_expressionList();
-          while (result2 !== null) {
-            result1.push(result2);
-            result2 = parse_expressionList();
-          }
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, first, others) {
-                             var result = [first];
-                             for(var i = 0; i < others.length; i++) {
-                                 result.push(others[i]);
-                             }
-                             return result;
-                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_assignment() {
-        var cacheKey = "assignment@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3, result4;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_variable();
-        if (result0 !== null) {
-          result1 = parse_ws();
-          if (result1 !== null) {
-            if (input.substr(pos.offset, 2) === ":=") {
-              result2 = ":=";
-              advance(pos, 2);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("\":=\"");
-              }
-            }
-            if (result2 !== null) {
-              result3 = parse_ws();
-              if (result3 !== null) {
-                result4 = parse_expression();
-                if (result4 !== null) {
-                  result0 = [result0, result1, result2, result3, result4];
-                } else {
-                  result0 = null;
-                  pos = clone(pos1);
-                }
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, variable, expression) {
-                             return smalltalk.AssignmentNode._new()
-                                    ._position_((line).__at(column))
+                         },
+        peg$c83 = function(selector, arg) {return [selector, [arg]];},
+        peg$c84 = function(selector) {return [selector, []];},
+        peg$c85 = function(expression) {return expression;},
+        peg$c86 = function(first, others) { return [first].concat(others); },
+        peg$c87 = ":=",
+        peg$c88 = { type: "literal", value: ":=", description: "\":=\"" },
+        peg$c89 = function(variable, expression) {
+                             return globals.AssignmentNode._new()
+                                    ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._left_(variable)
                                     ._right_(expression);
-                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[4]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_ret() {
-        var cacheKey = "ret@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3, result4;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (input.charCodeAt(pos.offset) === 94) {
-          result0 = "^";
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("\"^\"");
-          }
-        }
-        if (result0 !== null) {
-          result1 = parse_ws();
-          if (result1 !== null) {
-            result2 = parse_expression();
-            if (result2 !== null) {
-              result3 = parse_ws();
-              if (result3 !== null) {
-                if (input.charCodeAt(pos.offset) === 46) {
-                  result4 = ".";
-                  advance(pos, 1);
-                } else {
-                  result4 = null;
-                  if (reportFailures === 0) {
-                    matchFailed("\".\"");
-                  }
-                }
-                result4 = result4 !== null ? result4 : "";
-                if (result4 !== null) {
-                  result0 = [result0, result1, result2, result3, result4];
-                } else {
-                  result0 = null;
-                  pos = clone(pos1);
-                }
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, expression) {
-                             return smalltalk.ReturnNode._new()
-                                    ._position_((line).__at(column))
+                         },
+        peg$c90 = "^",
+        peg$c91 = { type: "literal", value: "^", description: "\"^\"" },
+        peg$c92 = function(expression) {
+                             return globals.ReturnNode._new()
+                                    ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._nodes_([expression]);
-                         })(pos0.offset, pos0.line, pos0.column, result0[2]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_temps() {
-        var cacheKey = "temps@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3, result4;
-        var pos0, pos1, pos2, pos3;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (input.charCodeAt(pos.offset) === 124) {
-          result0 = "|";
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("\"|\"");
-          }
-        }
-        if (result0 !== null) {
-          result1 = [];
-          pos2 = clone(pos);
-          pos3 = clone(pos);
-          result2 = parse_ws();
-          if (result2 !== null) {
-            result3 = parse_identifier();
-            if (result3 !== null) {
-              result4 = parse_ws();
-              if (result4 !== null) {
-                result2 = [result2, result3, result4];
-              } else {
-                result2 = null;
-                pos = clone(pos3);
-              }
-            } else {
-              result2 = null;
-              pos = clone(pos3);
-            }
-          } else {
-            result2 = null;
-            pos = clone(pos3);
-          }
-          if (result2 !== null) {
-            result2 = (function(offset, line, column, variable) {return variable;})(pos2.offset, pos2.line, pos2.column, result2[1]);
-          }
-          if (result2 === null) {
-            pos = clone(pos2);
-          }
-          while (result2 !== null) {
-            result1.push(result2);
-            pos2 = clone(pos);
-            pos3 = clone(pos);
-            result2 = parse_ws();
-            if (result2 !== null) {
-              result3 = parse_identifier();
-              if (result3 !== null) {
-                result4 = parse_ws();
-                if (result4 !== null) {
-                  result2 = [result2, result3, result4];
-                } else {
-                  result2 = null;
-                  pos = clone(pos3);
-                }
-              } else {
-                result2 = null;
-                pos = clone(pos3);
-              }
-            } else {
-              result2 = null;
-              pos = clone(pos3);
-            }
-            if (result2 !== null) {
-              result2 = (function(offset, line, column, variable) {return variable;})(pos2.offset, pos2.line, pos2.column, result2[1]);
-            }
-            if (result2 === null) {
-              pos = clone(pos2);
-            }
-          }
-          if (result1 !== null) {
-            if (input.charCodeAt(pos.offset) === 124) {
-              result2 = "|";
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("\"|\"");
-              }
-            }
-            if (result2 !== null) {
-              result0 = [result0, result1, result2];
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, vars) {return vars;})(pos0.offset, pos0.line, pos0.column, result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_blockParamList() {
-        var cacheKey = "blockParamList@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3, result4;
-        var pos0, pos1, pos2, pos3;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        pos2 = clone(pos);
-        pos3 = clone(pos);
-        result1 = parse_ws();
-        if (result1 !== null) {
-          if (input.charCodeAt(pos.offset) === 58) {
-            result2 = ":";
-            advance(pos, 1);
-          } else {
-            result2 = null;
-            if (reportFailures === 0) {
-              matchFailed("\":\"");
-            }
-          }
-          if (result2 !== null) {
-            result3 = parse_ws();
-            if (result3 !== null) {
-              result4 = parse_identifier();
-              if (result4 !== null) {
-                result1 = [result1, result2, result3, result4];
-              } else {
-                result1 = null;
-                pos = clone(pos3);
-              }
-            } else {
-              result1 = null;
-              pos = clone(pos3);
-            }
-          } else {
-            result1 = null;
-            pos = clone(pos3);
-          }
-        } else {
-          result1 = null;
-          pos = clone(pos3);
-        }
-        if (result1 !== null) {
-          result1 = (function(offset, line, column, param) {return param;})(pos2.offset, pos2.line, pos2.column, result1[3]);
-        }
-        if (result1 === null) {
-          pos = clone(pos2);
-        }
-        if (result1 !== null) {
-          result0 = [];
-          while (result1 !== null) {
-            result0.push(result1);
-            pos2 = clone(pos);
-            pos3 = clone(pos);
-            result1 = parse_ws();
-            if (result1 !== null) {
-              if (input.charCodeAt(pos.offset) === 58) {
-                result2 = ":";
-                advance(pos, 1);
-              } else {
-                result2 = null;
-                if (reportFailures === 0) {
-                  matchFailed("\":\"");
-                }
-              }
-              if (result2 !== null) {
-                result3 = parse_ws();
-                if (result3 !== null) {
-                  result4 = parse_identifier();
-                  if (result4 !== null) {
-                    result1 = [result1, result2, result3, result4];
-                  } else {
-                    result1 = null;
-                    pos = clone(pos3);
-                  }
-                } else {
-                  result1 = null;
-                  pos = clone(pos3);
-                }
-              } else {
-                result1 = null;
-                pos = clone(pos3);
-              }
-            } else {
-              result1 = null;
-              pos = clone(pos3);
-            }
-            if (result1 !== null) {
-              result1 = (function(offset, line, column, param) {return param;})(pos2.offset, pos2.line, pos2.column, result1[3]);
-            }
-            if (result1 === null) {
-              pos = clone(pos2);
-            }
-          }
-        } else {
-          result0 = null;
-        }
-        if (result0 !== null) {
-          result1 = parse_ws();
-          if (result1 !== null) {
-            if (input.charCodeAt(pos.offset) === 124) {
-              result2 = "|";
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("\"|\"");
-              }
-            }
-            if (result2 !== null) {
-              result0 = [result0, result1, result2];
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, params) {return params;})(pos0.offset, pos0.line, pos0.column, result0[0]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_subexpression() {
-        var cacheKey = "subexpression@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3, result4;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (input.charCodeAt(pos.offset) === 40) {
-          result0 = "(";
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("\"(\"");
-          }
-        }
-        if (result0 !== null) {
-          result1 = parse_ws();
-          if (result1 !== null) {
-            result2 = parse_expression();
-            if (result2 !== null) {
-              result3 = parse_ws();
-              if (result3 !== null) {
-                if (input.charCodeAt(pos.offset) === 41) {
-                  result4 = ")";
-                  advance(pos, 1);
-                } else {
-                  result4 = null;
-                  if (reportFailures === 0) {
-                    matchFailed("\")\"");
-                  }
-                }
-                if (result4 !== null) {
-                  result0 = [result0, result1, result2, result3, result4];
-                } else {
-                  result0 = null;
-                  pos = clone(pos1);
-                }
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, expression) {return expression;})(pos0.offset, pos0.line, pos0.column, result0[2]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_statements() {
-        var cacheKey = "statements@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3, result4, result5, result6;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_ret();
-        if (result0 !== null) {
-          result1 = [];
-          if (/^[.]/.test(input.charAt(pos.offset))) {
-            result2 = input.charAt(pos.offset);
-            advance(pos, 1);
-          } else {
-            result2 = null;
-            if (reportFailures === 0) {
-              matchFailed("[.]");
-            }
-          }
-          while (result2 !== null) {
-            result1.push(result2);
-            if (/^[.]/.test(input.charAt(pos.offset))) {
-              result2 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("[.]");
-              }
-            }
-          }
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, ret) {return [ret];})(pos0.offset, pos0.line, pos0.column, result0[0]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        if (result0 === null) {
-          pos0 = clone(pos);
-          pos1 = clone(pos);
-          result0 = parse_expressions();
-          if (result0 !== null) {
-            result1 = parse_ws();
-            if (result1 !== null) {
-              if (/^[.]/.test(input.charAt(pos.offset))) {
-                result3 = input.charAt(pos.offset);
-                advance(pos, 1);
-              } else {
-                result3 = null;
-                if (reportFailures === 0) {
-                  matchFailed("[.]");
-                }
-              }
-              if (result3 !== null) {
-                result2 = [];
-                while (result3 !== null) {
-                  result2.push(result3);
-                  if (/^[.]/.test(input.charAt(pos.offset))) {
-                    result3 = input.charAt(pos.offset);
-                    advance(pos, 1);
-                  } else {
-                    result3 = null;
-                    if (reportFailures === 0) {
-                      matchFailed("[.]");
-                    }
-                  }
-                }
-              } else {
-                result2 = null;
-              }
-              if (result2 !== null) {
-                result3 = parse_ws();
-                if (result3 !== null) {
-                  result4 = parse_ret();
-                  if (result4 !== null) {
-                    result5 = [];
-                    if (/^[.]/.test(input.charAt(pos.offset))) {
-                      result6 = input.charAt(pos.offset);
-                      advance(pos, 1);
-                    } else {
-                      result6 = null;
-                      if (reportFailures === 0) {
-                        matchFailed("[.]");
-                      }
-                    }
-                    while (result6 !== null) {
-                      result5.push(result6);
-                      if (/^[.]/.test(input.charAt(pos.offset))) {
-                        result6 = input.charAt(pos.offset);
-                        advance(pos, 1);
-                      } else {
-                        result6 = null;
-                        if (reportFailures === 0) {
-                          matchFailed("[.]");
-                        }
-                      }
-                    }
-                    if (result5 !== null) {
-                      result0 = [result0, result1, result2, result3, result4, result5];
-                    } else {
-                      result0 = null;
-                      pos = clone(pos1);
-                    }
-                  } else {
-                    result0 = null;
-                    pos = clone(pos1);
-                  }
-                } else {
-                  result0 = null;
-                  pos = clone(pos1);
-                }
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-          if (result0 !== null) {
-            result0 = (function(offset, line, column, exps, ret) {
-                                 var expressions = exps;
-                                 expressions.push(ret);
-                                 return expressions;
-                             })(pos0.offset, pos0.line, pos0.column, result0[0], result0[4]);
-          }
-          if (result0 === null) {
-            pos = clone(pos0);
-          }
-          if (result0 === null) {
-            pos0 = clone(pos);
-            pos1 = clone(pos);
-            result0 = parse_expressions();
-            result0 = result0 !== null ? result0 : "";
-            if (result0 !== null) {
-              result1 = [];
-              if (/^[.]/.test(input.charAt(pos.offset))) {
-                result2 = input.charAt(pos.offset);
-                advance(pos, 1);
-              } else {
-                result2 = null;
-                if (reportFailures === 0) {
-                  matchFailed("[.]");
-                }
-              }
-              while (result2 !== null) {
-                result1.push(result2);
-                if (/^[.]/.test(input.charAt(pos.offset))) {
-                  result2 = input.charAt(pos.offset);
-                  advance(pos, 1);
-                } else {
-                  result2 = null;
-                  if (reportFailures === 0) {
-                    matchFailed("[.]");
-                  }
-                }
-              }
-              if (result1 !== null) {
-                result0 = [result0, result1];
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-            if (result0 !== null) {
-              result0 = (function(offset, line, column, expressions) {
-                                   return expressions || [];
-                               })(pos0.offset, pos0.line, pos0.column, result0[0]);
-            }
-            if (result0 === null) {
-              pos = clone(pos0);
-            }
-          }
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_sequence() {
-        var cacheKey = "sequence@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        
-        result0 = parse_jsStatement();
-        if (result0 === null) {
-          result0 = parse_stSequence();
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_stSequence() {
-        var cacheKey = "stSequence@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_temps();
-        result0 = result0 !== null ? result0 : "";
-        if (result0 !== null) {
-          result1 = parse_ws();
-          if (result1 !== null) {
-            result2 = parse_statements();
-            result2 = result2 !== null ? result2 : "";
-            if (result2 !== null) {
-              result3 = parse_ws();
-              if (result3 !== null) {
-                result0 = [result0, result1, result2, result3];
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, temps, statements) {
-                             return smalltalk.SequenceNode._new()
-                                    ._position_((line).__at(column))
+                         },
+        peg$c93 = "|",
+        peg$c94 = { type: "literal", value: "|", description: "\"|\"" },
+        peg$c95 = function(variable) {return variable;},
+        peg$c96 = function(vars) {return vars;},
+        peg$c97 = ":",
+        peg$c98 = { type: "literal", value: ":", description: "\":\"" },
+        peg$c99 = function(param) {return param;},
+        peg$c100 = function(params) {return params;},
+        peg$c101 = /^[.]/,
+        peg$c102 = { type: "class", value: "[.]", description: "[.]" },
+        peg$c103 = function(ret) {return [ret];},
+        peg$c104 = function(exps, ret) {
+                               var expressions = exps;
+                               expressions.push(ret);
+                               return expressions;
+                           },
+        peg$c105 = function(expressions) {
+                               return expressions || [];
+                           },
+        peg$c106 = function(temps, statements) {
+                             return globals.SequenceNode._new()
+                                    ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._temps_(temps || [])
                                     ._nodes_(statements || []);
-                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_block() {
-        var cacheKey = "block@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3, result4, result5, result6;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (input.charCodeAt(pos.offset) === 91) {
-          result0 = "[";
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("\"[\"");
-          }
-        }
-        if (result0 !== null) {
-          result1 = parse_ws();
-          if (result1 !== null) {
-            result2 = parse_blockParamList();
-            result2 = result2 !== null ? result2 : "";
-            if (result2 !== null) {
-              result3 = parse_ws();
-              if (result3 !== null) {
-                result4 = parse_sequence();
-                result4 = result4 !== null ? result4 : "";
-                if (result4 !== null) {
-                  result5 = parse_ws();
-                  if (result5 !== null) {
-                    if (input.charCodeAt(pos.offset) === 93) {
-                      result6 = "]";
-                      advance(pos, 1);
-                    } else {
-                      result6 = null;
-                      if (reportFailures === 0) {
-                        matchFailed("\"]\"");
-                      }
-                    }
-                    if (result6 !== null) {
-                      result0 = [result0, result1, result2, result3, result4, result5, result6];
-                    } else {
-                      result0 = null;
-                      pos = clone(pos1);
-                    }
-                  } else {
-                    result0 = null;
-                    pos = clone(pos1);
-                  }
-                } else {
-                  result0 = null;
-                  pos = clone(pos1);
-                }
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, params, sequence) {
-                             return smalltalk.BlockNode._new()
-                                    ._position_((line).__at(column))
+                         },
+        peg$c107 = "[",
+        peg$c108 = { type: "literal", value: "[", description: "\"[\"" },
+        peg$c109 = "]",
+        peg$c110 = { type: "literal", value: "]", description: "\"]\"" },
+        peg$c111 = function(params, sequence) {
+                             return globals.BlockNode._new()
+                                    ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._parameters_(params || [])
                                     ._nodes_([sequence._asBlockSequenceNode()]);
-                         })(pos0.offset, pos0.line, pos0.column, result0[2], result0[4]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_operand() {
-        var cacheKey = "operand@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        
-        result0 = parse_literal();
-        if (result0 === null) {
-          result0 = parse_variable();
-          if (result0 === null) {
-            result0 = parse_subexpression();
-          }
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_unaryMessage() {
-        var cacheKey = "unaryMessage@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2;
-        var pos0, pos1, pos2;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_ws();
-        if (result0 !== null) {
-          result1 = parse_identifier();
-          if (result1 !== null) {
-            pos2 = clone(pos);
-            reportFailures++;
-            if (/^[:]/.test(input.charAt(pos.offset))) {
-              result2 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("[:]");
-              }
-            }
-            reportFailures--;
-            if (result2 === null) {
-              result2 = "";
-            } else {
-              result2 = null;
-              pos = clone(pos2);
-            }
-            if (result2 !== null) {
-              result0 = [result0, result1, result2];
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, selector) {
-                             return smalltalk.SendNode._new()
-                                    ._position_((line).__at(column))
+                         },
+        peg$c112 = void 0,
+        peg$c113 = function(selector) {
+                             return globals.SendNode._new()
+                                    ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._selector_(selector);
-                         })(pos0.offset, pos0.line, pos0.column, result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_unaryTail() {
-        var cacheKey = "unaryTail@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_unaryMessage();
-        if (result0 !== null) {
-          result1 = parse_ws();
-          if (result1 !== null) {
-            result2 = parse_unaryTail();
-            result2 = result2 !== null ? result2 : "";
-            if (result2 !== null) {
-              result3 = parse_ws();
-              if (result3 !== null) {
-                result0 = [result0, result1, result2, result3];
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, message, tail) {
+                         },
+        peg$c114 = function(message, tail) {
                              if(tail) {
                                  return tail._valueForReceiver_(message);
                              }
                              else {
                                  return message;
                              }
-                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_unarySend() {
-        var cacheKey = "unarySend@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_operand();
-        if (result0 !== null) {
-          result1 = parse_ws();
-          if (result1 !== null) {
-            result2 = parse_unaryTail();
-            result2 = result2 !== null ? result2 : "";
-            if (result2 !== null) {
-              result0 = [result0, result1, result2];
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, receiver, tail) {
+                         },
+        peg$c115 = function(receiver, tail) {
                              if(tail) {
                                  return tail._valueForReceiver_(receiver);
                              }
                              else {
                                  return receiver;
                              }
-                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_binaryMessage() {
-        var cacheKey = "binaryMessage@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_ws();
-        if (result0 !== null) {
-          result1 = parse_binarySelector();
-          if (result1 !== null) {
-            result2 = parse_ws();
-            if (result2 !== null) {
-              result3 = parse_unarySend();
-              if (result3 === null) {
-                result3 = parse_operand();
-              }
-              if (result3 !== null) {
-                result0 = [result0, result1, result2, result3];
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, selector, arg) {
-                             return smalltalk.SendNode._new()
-                                    ._position_((line).__at(column))
+                         },
+        peg$c116 = function(selector, arg) {
+                             return globals.SendNode._new()
+                                    ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._selector_(selector)
                                     ._arguments_([arg]);
-                         })(pos0.offset, pos0.line, pos0.column, result0[1], result0[3]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_binaryTail() {
-        var cacheKey = "binaryTail@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_binaryMessage();
-        if (result0 !== null) {
-          result1 = parse_binaryTail();
-          result1 = result1 !== null ? result1 : "";
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, message, tail) {
+                         },
+        peg$c117 = function(message, tail) {
                              if(tail) {
                                  return tail._valueForReceiver_(message);
                               }
                              else {
                                  return message;
                              }
-                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_binarySend() {
-        var cacheKey = "binarySend@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_unarySend();
-        if (result0 !== null) {
-          result1 = parse_binaryTail();
-          result1 = result1 !== null ? result1 : "";
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, receiver, tail) {
-                             if(tail) {
-                                 return tail._valueForReceiver_(receiver);
-                             }
-                             else {
-                                 return receiver;
-                             }
-                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_keywordMessage() {
-        var cacheKey = "keywordMessage@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3;
-        var pos0, pos1, pos2, pos3;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_ws();
-        if (result0 !== null) {
-          pos2 = clone(pos);
-          pos3 = clone(pos);
-          result2 = parse_keywordPair();
-          if (result2 !== null) {
-            result3 = parse_ws();
-            if (result3 !== null) {
-              result2 = [result2, result3];
-            } else {
-              result2 = null;
-              pos = clone(pos3);
-            }
-          } else {
-            result2 = null;
-            pos = clone(pos3);
-          }
-          if (result2 !== null) {
-            result2 = (function(offset, line, column, pair) {return pair;})(pos2.offset, pos2.line, pos2.column, result2[0]);
-          }
-          if (result2 === null) {
-            pos = clone(pos2);
-          }
-          if (result2 !== null) {
-            result1 = [];
-            while (result2 !== null) {
-              result1.push(result2);
-              pos2 = clone(pos);
-              pos3 = clone(pos);
-              result2 = parse_keywordPair();
-              if (result2 !== null) {
-                result3 = parse_ws();
-                if (result3 !== null) {
-                  result2 = [result2, result3];
-                } else {
-                  result2 = null;
-                  pos = clone(pos3);
-                }
-              } else {
-                result2 = null;
-                pos = clone(pos3);
-              }
-              if (result2 !== null) {
-                result2 = (function(offset, line, column, pair) {return pair;})(pos2.offset, pos2.line, pos2.column, result2[0]);
-              }
-              if (result2 === null) {
-                pos = clone(pos2);
-              }
-            }
-          } else {
-            result1 = null;
-          }
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, pairs) {
+                         },
+        peg$c118 = function(pair) {return pair;},
+        peg$c119 = function(pairs) {
                              var selector = [];
                              var args = [];
                               for(var i = 0; i < pairs.length; i++) {
                                   selector.push(pairs[i].key);
                                   args.push(pairs[i].arg);
                               }
-                              return smalltalk.SendNode._new()
-                                     ._position_((line).__at(column))
+                              return globals.SendNode._new()
+                                     ._position_((line()).__at(column()))
+                                     ._source_(text())
                                      ._selector_(selector.join(""))
                                      ._arguments_(args);
-                         })(pos0.offset, pos0.line, pos0.column, result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_keywordSend() {
-        var cacheKey = "keywordSend@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_binarySend();
-        if (result0 !== null) {
-          result1 = parse_keywordMessage();
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, receiver, tail) {
+                         },
+        peg$c120 = function(receiver, tail) {
                              return tail._valueForReceiver_(receiver);
-                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_message() {
-        var cacheKey = "message@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        
-        result0 = parse_binaryMessage();
-        if (result0 === null) {
-          result0 = parse_unaryMessage();
-          if (result0 === null) {
-            result0 = parse_keywordMessage();
-          }
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_cascade() {
-        var cacheKey = "cascade@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3, result4, result5, result6, result7;
-        var pos0, pos1, pos2, pos3;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_ws();
-        if (result0 !== null) {
-          result1 = parse_keywordSend();
-          if (result1 === null) {
-            result1 = parse_binarySend();
-          }
-          if (result1 !== null) {
-            pos2 = clone(pos);
-            pos3 = clone(pos);
-            result3 = parse_ws();
-            if (result3 !== null) {
-              if (input.charCodeAt(pos.offset) === 59) {
-                result4 = ";";
-                advance(pos, 1);
-              } else {
-                result4 = null;
-                if (reportFailures === 0) {
-                  matchFailed("\";\"");
-                }
-              }
-              if (result4 !== null) {
-                result5 = parse_ws();
-                if (result5 !== null) {
-                  result6 = parse_message();
-                  if (result6 !== null) {
-                    result7 = parse_ws();
-                    if (result7 !== null) {
-                      result3 = [result3, result4, result5, result6, result7];
-                    } else {
-                      result3 = null;
-                      pos = clone(pos3);
-                    }
-                  } else {
-                    result3 = null;
-                    pos = clone(pos3);
-                  }
-                } else {
-                  result3 = null;
-                  pos = clone(pos3);
-                }
-              } else {
-                result3 = null;
-                pos = clone(pos3);
-              }
-            } else {
-              result3 = null;
-              pos = clone(pos3);
-            }
-            if (result3 !== null) {
-              result3 = (function(offset, line, column, mess) {return mess;})(pos2.offset, pos2.line, pos2.column, result3[3]);
-            }
-            if (result3 === null) {
-              pos = clone(pos2);
-            }
-            if (result3 !== null) {
-              result2 = [];
-              while (result3 !== null) {
-                result2.push(result3);
-                pos2 = clone(pos);
-                pos3 = clone(pos);
-                result3 = parse_ws();
-                if (result3 !== null) {
-                  if (input.charCodeAt(pos.offset) === 59) {
-                    result4 = ";";
-                    advance(pos, 1);
-                  } else {
-                    result4 = null;
-                    if (reportFailures === 0) {
-                      matchFailed("\";\"");
-                    }
-                  }
-                  if (result4 !== null) {
-                    result5 = parse_ws();
-                    if (result5 !== null) {
-                      result6 = parse_message();
-                      if (result6 !== null) {
-                        result7 = parse_ws();
-                        if (result7 !== null) {
-                          result3 = [result3, result4, result5, result6, result7];
-                        } else {
-                          result3 = null;
-                          pos = clone(pos3);
-                        }
-                      } else {
-                        result3 = null;
-                        pos = clone(pos3);
-                      }
-                    } else {
-                      result3 = null;
-                      pos = clone(pos3);
-                    }
-                  } else {
-                    result3 = null;
-                    pos = clone(pos3);
-                  }
-                } else {
-                  result3 = null;
-                  pos = clone(pos3);
-                }
-                if (result3 !== null) {
-                  result3 = (function(offset, line, column, mess) {return mess;})(pos2.offset, pos2.line, pos2.column, result3[3]);
-                }
-                if (result3 === null) {
-                  pos = clone(pos2);
-                }
-              }
-            } else {
-              result2 = null;
-            }
-            if (result2 !== null) {
-              result0 = [result0, result1, result2];
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, send, messages) {
+                         },
+        peg$c121 = ";",
+        peg$c122 = { type: "literal", value: ";", description: "\";\"" },
+        peg$c123 = function(mess) {return mess;},
+        peg$c124 = function(send, messages) {
                              var cascade = [];
                              cascade.push(send);
                              for(var i = 0; i < messages.length; i++) {
                                  cascade.push(messages[i]);
                              }
-                             return smalltalk.CascadeNode._new()
-                                    ._position_((line).__at(column))
+                             return globals.CascadeNode._new()
+                                    ._position_((line()).__at(column()))
+                                    ._source_(text())
                                     ._receiver_(send._receiver())
                                     ._nodes_(cascade);
-                         })(pos0.offset, pos0.line, pos0.column, result0[1], result0[2]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_jsStatement() {
-        var cacheKey = "jsStatement@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2;
-        var pos0, pos1, pos2;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (input.charCodeAt(pos.offset) === 60) {
-          result0 = "<";
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("\"<\"");
-          }
-        }
-        if (result0 !== null) {
-          result1 = [];
-          pos2 = clone(pos);
-          if (input.substr(pos.offset, 2) === ">>") {
-            result2 = ">>";
-            advance(pos, 2);
-          } else {
-            result2 = null;
-            if (reportFailures === 0) {
-              matchFailed("\">>\"");
-            }
-          }
-          if (result2 !== null) {
-            result2 = (function(offset, line, column) {return ">";})(pos2.offset, pos2.line, pos2.column);
-          }
-          if (result2 === null) {
-            pos = clone(pos2);
-          }
-          if (result2 === null) {
-            if (/^[^>]/.test(input.charAt(pos.offset))) {
-              result2 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("[^>]");
-              }
-            }
-          }
-          while (result2 !== null) {
-            result1.push(result2);
-            pos2 = clone(pos);
-            if (input.substr(pos.offset, 2) === ">>") {
-              result2 = ">>";
-              advance(pos, 2);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("\">>\"");
-              }
-            }
-            if (result2 !== null) {
-              result2 = (function(offset, line, column) {return ">";})(pos2.offset, pos2.line, pos2.column);
-            }
-            if (result2 === null) {
-              pos = clone(pos2);
-            }
-            if (result2 === null) {
-              if (/^[^>]/.test(input.charAt(pos.offset))) {
-                result2 = input.charAt(pos.offset);
-                advance(pos, 1);
-              } else {
-                result2 = null;
-                if (reportFailures === 0) {
-                  matchFailed("[^>]");
-                }
-              }
-            }
-          }
-          if (result1 !== null) {
-            if (input.charCodeAt(pos.offset) === 62) {
-              result2 = ">";
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("\">\"");
-              }
-            }
-            if (result2 !== null) {
-              result0 = [result0, result1, result2];
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, val) {
-                             return smalltalk.JSStatementNode._new()
-                                    ._position_((line).__at(column))
-                                    ._source_(val.join(""));
-                         })(pos0.offset, pos0.line, pos0.column, result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_method() {
-        var cacheKey = "method@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2, result3, result4;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        result0 = parse_ws();
-        if (result0 !== null) {
-          result1 = parse_keywordPattern();
-          if (result1 === null) {
-            result1 = parse_binaryPattern();
-            if (result1 === null) {
-              result1 = parse_unaryPattern();
-            }
-          }
-          if (result1 !== null) {
-            result2 = parse_ws();
-            if (result2 !== null) {
-              result3 = parse_sequence();
-              result3 = result3 !== null ? result3 : "";
-              if (result3 !== null) {
-                result4 = parse_ws();
-                if (result4 !== null) {
-                  result0 = [result0, result1, result2, result3, result4];
-                } else {
-                  result0 = null;
-                  pos = clone(pos1);
-                }
-              } else {
-                result0 = null;
-                pos = clone(pos1);
-              }
-            } else {
-              result0 = null;
-              pos = clone(pos1);
-            }
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, pattern, sequence) {
-                              return smalltalk.MethodNode._new()
-                                     ._position_((line).__at(column))
+                         },
+        peg$c125 = "<",
+        peg$c126 = { type: "literal", value: "<", description: "\"<\"" },
+        peg$c127 = ">>",
+        peg$c128 = { type: "literal", value: ">>", description: "\">>\"" },
+        peg$c129 = function() {return ">";},
+        peg$c130 = /^[^>]/,
+        peg$c131 = { type: "class", value: "[^>]", description: "[^>]" },
+        peg$c132 = ">",
+        peg$c133 = { type: "literal", value: ">", description: "\">\"" },
+        peg$c134 = function(val) {
+                             return globals.JSStatementNode._new()
+                                    ._position_((line()).__at(column()))
+                                    ._source_(val.join(""))
+                         },
+        peg$c135 = function(pattern, sequence) {
+                              return globals.MethodNode._new()
+                                     ._position_((line()).__at(column()))
+                                     ._source_(text())
                                      ._selector_(pattern[0])
                                      ._arguments_(pattern[1])
                                      ._nodes_([sequence]);
-                         })(pos0.offset, pos0.line, pos0.column, result0[1], result0[3]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
+                         },
+        peg$c136 = "->",
+        peg$c137 = { type: "literal", value: "->", description: "\"->\"" },
+        peg$c138 = function(message, tail) { return tail._valueForReceiver_(message); },
+        peg$c139 = function(receiver, tail) { return tail._valueForReceiver_(receiver); },
+
+        peg$currPos          = 0,
+        peg$reportedPos      = 0,
+        peg$cachedPos        = 0,
+        peg$cachedPosDetails = { line: 1, column: 1, seenCR: false },
+        peg$maxFailPos       = 0,
+        peg$maxFailExpected  = [],
+        peg$silentFails      = 0,
+
+        peg$cache = {},
+        peg$result;
+
+    if ("startRule" in options) {
+      if (!(options.startRule in peg$startRuleFunctions)) {
+        throw new Error("Can't start parsing from rule \"" + options.startRule + "\".");
       }
-      
-      
-      function cleanupExpected(expected) {
-        expected.sort();
-        
-        var lastExpected = null;
-        var cleanExpected = [];
-        for (var i = 0; i < expected.length; i++) {
-          if (expected[i] !== lastExpected) {
-            cleanExpected.push(expected[i]);
-            lastExpected = expected[i];
+
+      peg$startRuleFunction = peg$startRuleFunctions[options.startRule];
+    }
+
+    function text() {
+      return input.substring(peg$reportedPos, peg$currPos);
+    }
+
+    function offset() {
+      return peg$reportedPos;
+    }
+
+    function line() {
+      return peg$computePosDetails(peg$reportedPos).line;
+    }
+
+    function column() {
+      return peg$computePosDetails(peg$reportedPos).column;
+    }
+
+    function expected(description) {
+      throw peg$buildException(
+        null,
+        [{ type: "other", description: description }],
+        peg$reportedPos
+      );
+    }
+
+    function error(message) {
+      throw peg$buildException(message, null, peg$reportedPos);
+    }
+
+    function peg$computePosDetails(pos) {
+      function advance(details, startPos, endPos) {
+        var p, ch;
+
+        for (p = startPos; p < endPos; p++) {
+          ch = input.charAt(p);
+          if (ch === "\n") {
+            if (!details.seenCR) { details.line++; }
+            details.column = 1;
+            details.seenCR = false;
+          } else if (ch === "\r" || ch === "\u2028" || ch === "\u2029") {
+            details.line++;
+            details.column = 1;
+            details.seenCR = true;
+          } else {
+            details.column++;
+            details.seenCR = false;
           }
         }
-        return cleanExpected;
       }
-      
-      
-      
-      var result = parseFunctions[startRule]();
-      
-      /*
-       * The parser is now in one of the following three states:
-       *
-       * 1. The parser successfully parsed the whole input.
-       *
-       *    - |result !== null|
-       *    - |pos.offset === input.length|
-       *    - |rightmostFailuresExpected| may or may not contain something
-       *
-       * 2. The parser successfully parsed only a part of the input.
-       *
-       *    - |result !== null|
-       *    - |pos.offset < input.length|
-       *    - |rightmostFailuresExpected| may or may not contain something
-       *
-       * 3. The parser did not successfully parse any part of the input.
-       *
-       *   - |result === null|
-       *   - |pos.offset === 0|
-       *   - |rightmostFailuresExpected| contains at least one failure
-       *
-       * All code following this comment (including called functions) must
-       * handle these states.
-       */
-      if (result === null || pos.offset !== input.length) {
-        var offset = Math.max(pos.offset, rightmostFailuresPos.offset);
-        var found = offset < input.length ? input.charAt(offset) : null;
-        var errorPosition = pos.offset > rightmostFailuresPos.offset ? pos : rightmostFailuresPos;
-        
-        throw new this.SyntaxError(
-          cleanupExpected(rightmostFailuresExpected),
-          found,
-          offset,
-          errorPosition.line,
-          errorPosition.column
-        );
+
+      if (peg$cachedPos !== pos) {
+        if (peg$cachedPos > pos) {
+          peg$cachedPos = 0;
+          peg$cachedPosDetails = { line: 1, column: 1, seenCR: false };
+        }
+        advance(peg$cachedPosDetails, peg$cachedPos, pos);
+        peg$cachedPos = pos;
       }
-      
-      return result;
-    },
-    
-    /* Returns the parser source code. */
-    toSource: function() { return this._source; }
-  };
-  
-  /* Thrown when a parser encounters a syntax error. */
-  
-  result.SyntaxError = function(expected, found, offset, line, column) {
-    function buildMessage(expected, found) {
-      var expectedHumanized, foundHumanized;
-      
-      switch (expected.length) {
-        case 0:
-          expectedHumanized = "end of input";
-          break;
-        case 1:
-          expectedHumanized = expected[0];
-          break;
-        default:
-          expectedHumanized = expected.slice(0, expected.length - 1).join(", ")
-            + " or "
-            + expected[expected.length - 1];
-      }
-      
-      foundHumanized = found ? quote(found) : "end of input";
-      
-      return "Expected " + expectedHumanized + " but " + foundHumanized + " found.";
+
+      return peg$cachedPosDetails;
     }
-    
-    this.name = "SyntaxError";
-    this.expected = expected;
-    this.found = found;
-    this.message = buildMessage(expected, found);
-    this.offset = offset;
-    this.line = line;
-    this.column = column;
+
+    function peg$fail(expected) {
+      if (peg$currPos < peg$maxFailPos) { return; }
+
+      if (peg$currPos > peg$maxFailPos) {
+        peg$maxFailPos = peg$currPos;
+        peg$maxFailExpected = [];
+      }
+
+      peg$maxFailExpected.push(expected);
+    }
+
+    function peg$buildException(message, expected, pos) {
+      function cleanupExpected(expected) {
+        var i = 1;
+
+        expected.sort(function(a, b) {
+          if (a.description < b.description) {
+            return -1;
+          } else if (a.description > b.description) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+
+        while (i < expected.length) {
+          if (expected[i - 1] === expected[i]) {
+            expected.splice(i, 1);
+          } else {
+            i++;
+          }
+        }
+      }
+
+      function buildMessage(expected, found) {
+        function stringEscape(s) {
+          function hex(ch) { return ch.charCodeAt(0).toString(16).toUpperCase(); }
+
+          return s
+            .replace(/\\/g,   '\\\\')
+            .replace(/"/g,    '\\"')
+            .replace(/\x08/g, '\\b')
+            .replace(/\t/g,   '\\t')
+            .replace(/\n/g,   '\\n')
+            .replace(/\f/g,   '\\f')
+            .replace(/\r/g,   '\\r')
+            .replace(/[\x00-\x07\x0B\x0E\x0F]/g, function(ch) { return '\\x0' + hex(ch); })
+            .replace(/[\x10-\x1F\x80-\xFF]/g,    function(ch) { return '\\x'  + hex(ch); })
+            .replace(/[\u0180-\u0FFF]/g,         function(ch) { return '\\u0' + hex(ch); })
+            .replace(/[\u1080-\uFFFF]/g,         function(ch) { return '\\u'  + hex(ch); });
+        }
+
+        var expectedDescs = new Array(expected.length),
+            expectedDesc, foundDesc, i;
+
+        for (i = 0; i < expected.length; i++) {
+          expectedDescs[i] = expected[i].description;
+        }
+
+        expectedDesc = expected.length > 1
+          ? expectedDescs.slice(0, -1).join(", ")
+              + " or "
+              + expectedDescs[expected.length - 1]
+          : expectedDescs[0];
+
+        foundDesc = found ? "\"" + stringEscape(found) + "\"" : "end of input";
+
+        return "Expected " + expectedDesc + " but " + foundDesc + " found.";
+      }
+
+      var posDetails = peg$computePosDetails(pos),
+          found      = pos < input.length ? input.charAt(pos) : null;
+
+      if (expected !== null) {
+        cleanupExpected(expected);
+      }
+
+      return new SyntaxError(
+        message !== null ? message : buildMessage(expected, found),
+        expected,
+        found,
+        pos,
+        posDetails.line,
+        posDetails.column
+      );
+    }
+
+    function peg$parsestart() {
+      var s0;
+
+      var key    = peg$currPos * 61 + 0,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$parsemethod();
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseseparator() {
+      var s0, s1;
+
+      var key    = peg$currPos * 61 + 1,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = [];
+      if (peg$c2.test(input.charAt(peg$currPos))) {
+        s1 = input.charAt(peg$currPos);
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c3); }
+      }
+      if (s1 !== peg$FAILED) {
+        while (s1 !== peg$FAILED) {
+          s0.push(s1);
+          if (peg$c2.test(input.charAt(peg$currPos))) {
+            s1 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c3); }
+          }
+        }
+      } else {
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsecomments() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 2,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = [];
+      s1 = peg$currPos;
+      if (peg$c4.test(input.charAt(peg$currPos))) {
+        s2 = input.charAt(peg$currPos);
+        peg$currPos++;
+      } else {
+        s2 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c5); }
+      }
+      if (s2 !== peg$FAILED) {
+        s3 = [];
+        if (peg$c6.test(input.charAt(peg$currPos))) {
+          s4 = input.charAt(peg$currPos);
+          peg$currPos++;
+        } else {
+          s4 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c7); }
+        }
+        while (s4 !== peg$FAILED) {
+          s3.push(s4);
+          if (peg$c6.test(input.charAt(peg$currPos))) {
+            s4 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s4 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c7); }
+          }
+        }
+        if (s3 !== peg$FAILED) {
+          if (peg$c4.test(input.charAt(peg$currPos))) {
+            s4 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s4 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c5); }
+          }
+          if (s4 !== peg$FAILED) {
+            s2 = [s2, s3, s4];
+            s1 = s2;
+          } else {
+            peg$currPos = s1;
+            s1 = peg$c1;
+          }
+        } else {
+          peg$currPos = s1;
+          s1 = peg$c1;
+        }
+      } else {
+        peg$currPos = s1;
+        s1 = peg$c1;
+      }
+      if (s1 !== peg$FAILED) {
+        while (s1 !== peg$FAILED) {
+          s0.push(s1);
+          s1 = peg$currPos;
+          if (peg$c4.test(input.charAt(peg$currPos))) {
+            s2 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s2 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c5); }
+          }
+          if (s2 !== peg$FAILED) {
+            s3 = [];
+            if (peg$c6.test(input.charAt(peg$currPos))) {
+              s4 = input.charAt(peg$currPos);
+              peg$currPos++;
+            } else {
+              s4 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c7); }
+            }
+            while (s4 !== peg$FAILED) {
+              s3.push(s4);
+              if (peg$c6.test(input.charAt(peg$currPos))) {
+                s4 = input.charAt(peg$currPos);
+                peg$currPos++;
+              } else {
+                s4 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c7); }
+              }
+            }
+            if (s3 !== peg$FAILED) {
+              if (peg$c4.test(input.charAt(peg$currPos))) {
+                s4 = input.charAt(peg$currPos);
+                peg$currPos++;
+              } else {
+                s4 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c5); }
+              }
+              if (s4 !== peg$FAILED) {
+                s2 = [s2, s3, s4];
+                s1 = s2;
+              } else {
+                peg$currPos = s1;
+                s1 = peg$c1;
+              }
+            } else {
+              peg$currPos = s1;
+              s1 = peg$c1;
+            }
+          } else {
+            peg$currPos = s1;
+            s1 = peg$c1;
+          }
+        }
+      } else {
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsews() {
+      var s0, s1;
+
+      var key    = peg$currPos * 61 + 3,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = [];
+      s1 = peg$parseseparator();
+      if (s1 === peg$FAILED) {
+        s1 = peg$parsecomments();
+      }
+      while (s1 !== peg$FAILED) {
+        s0.push(s1);
+        s1 = peg$parseseparator();
+        if (s1 === peg$FAILED) {
+          s1 = peg$parsecomments();
+        }
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseidentifier() {
+      var s0, s1, s2, s3;
+
+      var key    = peg$currPos * 61 + 4,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (peg$c8.test(input.charAt(peg$currPos))) {
+        s1 = input.charAt(peg$currPos);
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c9); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = [];
+        if (peg$c10.test(input.charAt(peg$currPos))) {
+          s3 = input.charAt(peg$currPos);
+          peg$currPos++;
+        } else {
+          s3 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c11); }
+        }
+        while (s3 !== peg$FAILED) {
+          s2.push(s3);
+          if (peg$c10.test(input.charAt(peg$currPos))) {
+            s3 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c11); }
+          }
+        }
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c12(s1, s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsekeyword() {
+      var s0, s1, s2;
+
+      var key    = peg$currPos * 61 + 5,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parseidentifier();
+      if (s1 !== peg$FAILED) {
+        if (peg$c13.test(input.charAt(peg$currPos))) {
+          s2 = input.charAt(peg$currPos);
+          peg$currPos++;
+        } else {
+          s2 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c14); }
+        }
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c15(s1, s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseselector() {
+      var s0, s1, s2, s3;
+
+      var key    = peg$currPos * 61 + 6,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (peg$c8.test(input.charAt(peg$currPos))) {
+        s1 = input.charAt(peg$currPos);
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c9); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = [];
+        if (peg$c16.test(input.charAt(peg$currPos))) {
+          s3 = input.charAt(peg$currPos);
+          peg$currPos++;
+        } else {
+          s3 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c17); }
+        }
+        while (s3 !== peg$FAILED) {
+          s2.push(s3);
+          if (peg$c16.test(input.charAt(peg$currPos))) {
+            s3 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c17); }
+          }
+        }
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c12(s1, s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseclassName() {
+      var s0, s1, s2, s3;
+
+      var key    = peg$currPos * 61 + 7,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (peg$c18.test(input.charAt(peg$currPos))) {
+        s1 = input.charAt(peg$currPos);
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c19); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = [];
+        if (peg$c10.test(input.charAt(peg$currPos))) {
+          s3 = input.charAt(peg$currPos);
+          peg$currPos++;
+        } else {
+          s3 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c11); }
+        }
+        while (s3 !== peg$FAILED) {
+          s2.push(s3);
+          if (peg$c10.test(input.charAt(peg$currPos))) {
+            s3 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c11); }
+          }
+        }
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c12(s1, s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsestring() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 8,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (peg$c20.test(input.charAt(peg$currPos))) {
+        s1 = input.charAt(peg$currPos);
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c21); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = [];
+        s3 = peg$currPos;
+        if (input.substr(peg$currPos, 2) === peg$c22) {
+          s4 = peg$c22;
+          peg$currPos += 2;
+        } else {
+          s4 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c23); }
+        }
+        if (s4 !== peg$FAILED) {
+          peg$reportedPos = s3;
+          s4 = peg$c24();
+        }
+        s3 = s4;
+        if (s3 === peg$FAILED) {
+          if (peg$c25.test(input.charAt(peg$currPos))) {
+            s3 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c26); }
+          }
+        }
+        while (s3 !== peg$FAILED) {
+          s2.push(s3);
+          s3 = peg$currPos;
+          if (input.substr(peg$currPos, 2) === peg$c22) {
+            s4 = peg$c22;
+            peg$currPos += 2;
+          } else {
+            s4 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c23); }
+          }
+          if (s4 !== peg$FAILED) {
+            peg$reportedPos = s3;
+            s4 = peg$c24();
+          }
+          s3 = s4;
+          if (s3 === peg$FAILED) {
+            if (peg$c25.test(input.charAt(peg$currPos))) {
+              s3 = input.charAt(peg$currPos);
+              peg$currPos++;
+            } else {
+              s3 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c26); }
+            }
+          }
+        }
+        if (s2 !== peg$FAILED) {
+          if (peg$c20.test(input.charAt(peg$currPos))) {
+            s3 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c21); }
+          }
+          if (s3 !== peg$FAILED) {
+            peg$reportedPos = s0;
+            s1 = peg$c27(s2);
+            s0 = s1;
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsesymbol() {
+      var s0, s1, s2;
+
+      var key    = peg$currPos * 61 + 9,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (input.charCodeAt(peg$currPos) === 35) {
+        s1 = peg$c28;
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c29); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsebareSymbol();
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c30(s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsebareSymbol() {
+      var s0, s1, s2;
+
+      var key    = peg$currPos * 61 + 10,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parseselector();
+      if (s1 === peg$FAILED) {
+        s1 = peg$parsebinarySelector();
+        if (s1 === peg$FAILED) {
+          s1 = peg$currPos;
+          s2 = peg$parsestring();
+          if (s2 !== peg$FAILED) {
+            peg$reportedPos = s1;
+            s2 = peg$c31(s2);
+          }
+          s1 = s2;
+        }
+      }
+      if (s1 !== peg$FAILED) {
+        peg$reportedPos = s0;
+        s1 = peg$c32(s1);
+      }
+      s0 = s1;
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsenumber() {
+      var s0, s1;
+
+      var key    = peg$currPos * 61 + 11,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsenumberExp();
+      if (s1 === peg$FAILED) {
+        s1 = peg$parsehex();
+        if (s1 === peg$FAILED) {
+          s1 = peg$parsefloat();
+          if (s1 === peg$FAILED) {
+            s1 = peg$parseinteger();
+          }
+        }
+      }
+      if (s1 !== peg$FAILED) {
+        peg$reportedPos = s0;
+        s1 = peg$c33(s1);
+      }
+      s0 = s1;
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsenumberExp() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 12,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$currPos;
+      s2 = peg$parsefloat();
+      if (s2 === peg$FAILED) {
+        s2 = peg$parseinteger();
+      }
+      if (s2 !== peg$FAILED) {
+        if (input.charCodeAt(peg$currPos) === 101) {
+          s3 = peg$c34;
+          peg$currPos++;
+        } else {
+          s3 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c35); }
+        }
+        if (s3 !== peg$FAILED) {
+          s4 = peg$parseinteger();
+          if (s4 !== peg$FAILED) {
+            s2 = [s2, s3, s4];
+            s1 = s2;
+          } else {
+            peg$currPos = s1;
+            s1 = peg$c1;
+          }
+        } else {
+          peg$currPos = s1;
+          s1 = peg$c1;
+        }
+      } else {
+        peg$currPos = s1;
+        s1 = peg$c1;
+      }
+      if (s1 !== peg$FAILED) {
+        peg$reportedPos = s0;
+        s1 = peg$c36(s1);
+      }
+      s0 = s1;
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsehex() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 13,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (peg$c38.test(input.charAt(peg$currPos))) {
+        s1 = input.charAt(peg$currPos);
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c39); }
+      }
+      if (s1 === peg$FAILED) {
+        s1 = peg$c37;
+      }
+      if (s1 !== peg$FAILED) {
+        if (input.substr(peg$currPos, 3) === peg$c40) {
+          s2 = peg$c40;
+          peg$currPos += 3;
+        } else {
+          s2 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c41); }
+        }
+        if (s2 !== peg$FAILED) {
+          s3 = [];
+          if (peg$c42.test(input.charAt(peg$currPos))) {
+            s4 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s4 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c43); }
+          }
+          if (s4 !== peg$FAILED) {
+            while (s4 !== peg$FAILED) {
+              s3.push(s4);
+              if (peg$c42.test(input.charAt(peg$currPos))) {
+                s4 = input.charAt(peg$currPos);
+                peg$currPos++;
+              } else {
+                s4 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c43); }
+              }
+            }
+          } else {
+            s3 = peg$c1;
+          }
+          if (s3 !== peg$FAILED) {
+            peg$reportedPos = s0;
+            s1 = peg$c44(s1, s3);
+            s0 = s1;
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsefloat() {
+      var s0, s1, s2, s3, s4, s5;
+
+      var key    = peg$currPos * 61 + 14,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (peg$c38.test(input.charAt(peg$currPos))) {
+        s1 = input.charAt(peg$currPos);
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c39); }
+      }
+      if (s1 === peg$FAILED) {
+        s1 = peg$c37;
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = [];
+        if (peg$c45.test(input.charAt(peg$currPos))) {
+          s3 = input.charAt(peg$currPos);
+          peg$currPos++;
+        } else {
+          s3 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c46); }
+        }
+        if (s3 !== peg$FAILED) {
+          while (s3 !== peg$FAILED) {
+            s2.push(s3);
+            if (peg$c45.test(input.charAt(peg$currPos))) {
+              s3 = input.charAt(peg$currPos);
+              peg$currPos++;
+            } else {
+              s3 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c46); }
+            }
+          }
+        } else {
+          s2 = peg$c1;
+        }
+        if (s2 !== peg$FAILED) {
+          if (input.charCodeAt(peg$currPos) === 46) {
+            s3 = peg$c47;
+            peg$currPos++;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c48); }
+          }
+          if (s3 !== peg$FAILED) {
+            s4 = [];
+            if (peg$c45.test(input.charAt(peg$currPos))) {
+              s5 = input.charAt(peg$currPos);
+              peg$currPos++;
+            } else {
+              s5 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c46); }
+            }
+            if (s5 !== peg$FAILED) {
+              while (s5 !== peg$FAILED) {
+                s4.push(s5);
+                if (peg$c45.test(input.charAt(peg$currPos))) {
+                  s5 = input.charAt(peg$currPos);
+                  peg$currPos++;
+                } else {
+                  s5 = peg$FAILED;
+                  if (peg$silentFails === 0) { peg$fail(peg$c46); }
+                }
+              }
+            } else {
+              s4 = peg$c1;
+            }
+            if (s4 !== peg$FAILED) {
+              peg$reportedPos = s0;
+              s1 = peg$c49(s1, s2, s4);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseinteger() {
+      var s0, s1, s2, s3;
+
+      var key    = peg$currPos * 61 + 15,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (peg$c38.test(input.charAt(peg$currPos))) {
+        s1 = input.charAt(peg$currPos);
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c39); }
+      }
+      if (s1 === peg$FAILED) {
+        s1 = peg$c37;
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = [];
+        if (peg$c45.test(input.charAt(peg$currPos))) {
+          s3 = input.charAt(peg$currPos);
+          peg$currPos++;
+        } else {
+          s3 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c46); }
+        }
+        if (s3 !== peg$FAILED) {
+          while (s3 !== peg$FAILED) {
+            s2.push(s3);
+            if (peg$c45.test(input.charAt(peg$currPos))) {
+              s3 = input.charAt(peg$currPos);
+              peg$currPos++;
+            } else {
+              s3 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c46); }
+            }
+          }
+        } else {
+          s2 = peg$c1;
+        }
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c50(s1, s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseliteralArray() {
+      var s0, s1, s2;
+
+      var key    = peg$currPos * 61 + 16,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (input.substr(peg$currPos, 2) === peg$c51) {
+        s1 = peg$c51;
+        peg$currPos += 2;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c52); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parseliteralArrayRest();
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c30(s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsebareLiteralArray() {
+      var s0, s1, s2;
+
+      var key    = peg$currPos * 61 + 17,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (input.charCodeAt(peg$currPos) === 40) {
+        s1 = peg$c53;
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c54); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parseliteralArrayRest();
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c30(s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseliteralArrayRest() {
+      var s0, s1, s2, s3, s4, s5;
+
+      var key    = peg$currPos * 61 + 18,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsews();
+      if (s1 !== peg$FAILED) {
+        s2 = [];
+        s3 = peg$currPos;
+        s4 = peg$parseparseTimeLiteral();
+        if (s4 === peg$FAILED) {
+          s4 = peg$parsebareLiteralArray();
+          if (s4 === peg$FAILED) {
+            s4 = peg$parsebareSymbol();
+          }
+        }
+        if (s4 !== peg$FAILED) {
+          s5 = peg$parsews();
+          if (s5 !== peg$FAILED) {
+            peg$reportedPos = s3;
+            s4 = peg$c55(s4);
+            s3 = s4;
+          } else {
+            peg$currPos = s3;
+            s3 = peg$c1;
+          }
+        } else {
+          peg$currPos = s3;
+          s3 = peg$c1;
+        }
+        while (s3 !== peg$FAILED) {
+          s2.push(s3);
+          s3 = peg$currPos;
+          s4 = peg$parseparseTimeLiteral();
+          if (s4 === peg$FAILED) {
+            s4 = peg$parsebareLiteralArray();
+            if (s4 === peg$FAILED) {
+              s4 = peg$parsebareSymbol();
+            }
+          }
+          if (s4 !== peg$FAILED) {
+            s5 = peg$parsews();
+            if (s5 !== peg$FAILED) {
+              peg$reportedPos = s3;
+              s4 = peg$c55(s4);
+              s3 = s4;
+            } else {
+              peg$currPos = s3;
+              s3 = peg$c1;
+            }
+          } else {
+            peg$currPos = s3;
+            s3 = peg$c1;
+          }
+        }
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parsews();
+          if (s3 !== peg$FAILED) {
+            if (input.charCodeAt(peg$currPos) === 41) {
+              s4 = peg$c56;
+              peg$currPos++;
+            } else {
+              s4 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c57); }
+            }
+            if (s4 !== peg$FAILED) {
+              peg$reportedPos = s0;
+              s1 = peg$c58(s2);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsedynamicArray() {
+      var s0, s1, s2, s3, s4, s5, s6;
+
+      var key    = peg$currPos * 61 + 19,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (input.charCodeAt(peg$currPos) === 123) {
+        s1 = peg$c59;
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c60); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsews();
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parseexpressions();
+          if (s3 === peg$FAILED) {
+            s3 = peg$c37;
+          }
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parsews();
+            if (s4 !== peg$FAILED) {
+              if (input.charCodeAt(peg$currPos) === 46) {
+                s5 = peg$c47;
+                peg$currPos++;
+              } else {
+                s5 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c48); }
+              }
+              if (s5 === peg$FAILED) {
+                s5 = peg$c37;
+              }
+              if (s5 !== peg$FAILED) {
+                if (input.charCodeAt(peg$currPos) === 125) {
+                  s6 = peg$c61;
+                  peg$currPos++;
+                } else {
+                  s6 = peg$FAILED;
+                  if (peg$silentFails === 0) { peg$fail(peg$c62); }
+                }
+                if (s6 !== peg$FAILED) {
+                  peg$reportedPos = s0;
+                  s1 = peg$c63(s3);
+                  s0 = s1;
+                } else {
+                  peg$currPos = s0;
+                  s0 = peg$c1;
+                }
+              } else {
+                peg$currPos = s0;
+                s0 = peg$c1;
+              }
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsedynamicDictionary() {
+      var s0, s1, s2, s3, s4, s5;
+
+      var key    = peg$currPos * 61 + 20,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (input.substr(peg$currPos, 2) === peg$c64) {
+        s1 = peg$c64;
+        peg$currPos += 2;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c65); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsews();
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parseassociations();
+          if (s3 === peg$FAILED) {
+            s3 = peg$c37;
+          }
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parsews();
+            if (s4 !== peg$FAILED) {
+              if (input.charCodeAt(peg$currPos) === 125) {
+                s5 = peg$c61;
+                peg$currPos++;
+              } else {
+                s5 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c62); }
+              }
+              if (s5 !== peg$FAILED) {
+                peg$reportedPos = s0;
+                s1 = peg$c66(s3);
+                s0 = s1;
+              } else {
+                peg$currPos = s0;
+                s0 = peg$c1;
+              }
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsepseudoVariable() {
+      var s0, s1, s2;
+
+      var key    = peg$currPos * 61 + 21,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$currPos;
+      if (input.substr(peg$currPos, 4) === peg$c67) {
+        s2 = peg$c67;
+        peg$currPos += 4;
+      } else {
+        s2 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c68); }
+      }
+      if (s2 !== peg$FAILED) {
+        peg$reportedPos = s1;
+        s2 = peg$c69();
+      }
+      s1 = s2;
+      if (s1 === peg$FAILED) {
+        s1 = peg$currPos;
+        if (input.substr(peg$currPos, 5) === peg$c70) {
+          s2 = peg$c70;
+          peg$currPos += 5;
+        } else {
+          s2 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c71); }
+        }
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s1;
+          s2 = peg$c72();
+        }
+        s1 = s2;
+        if (s1 === peg$FAILED) {
+          s1 = peg$currPos;
+          if (input.substr(peg$currPos, 3) === peg$c73) {
+            s2 = peg$c73;
+            peg$currPos += 3;
+          } else {
+            s2 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c74); }
+          }
+          if (s2 !== peg$FAILED) {
+            peg$reportedPos = s1;
+            s2 = peg$c75();
+          }
+          s1 = s2;
+        }
+      }
+      if (s1 !== peg$FAILED) {
+        peg$reportedPos = s0;
+        s1 = peg$c76(s1);
+      }
+      s0 = s1;
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseparseTimeLiteral() {
+      var s0;
+
+      var key    = peg$currPos * 61 + 22,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$parsepseudoVariable();
+      if (s0 === peg$FAILED) {
+        s0 = peg$parsenumber();
+        if (s0 === peg$FAILED) {
+          s0 = peg$parseliteralArray();
+          if (s0 === peg$FAILED) {
+            s0 = peg$parsestring();
+            if (s0 === peg$FAILED) {
+              s0 = peg$parsesymbol();
+            }
+          }
+        }
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseruntimeLiteral() {
+      var s0;
+
+      var key    = peg$currPos * 61 + 23,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$parsedynamicDictionary();
+      if (s0 === peg$FAILED) {
+        s0 = peg$parsedynamicArray();
+        if (s0 === peg$FAILED) {
+          s0 = peg$parseblock();
+        }
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseliteral() {
+      var s0;
+
+      var key    = peg$currPos * 61 + 24,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$parseruntimeLiteral();
+      if (s0 === peg$FAILED) {
+        s0 = peg$parseparseTimeLiteral();
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsevariable() {
+      var s0, s1;
+
+      var key    = peg$currPos * 61 + 25,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parseidentifier();
+      if (s1 !== peg$FAILED) {
+        peg$reportedPos = s0;
+        s1 = peg$c77(s1);
+      }
+      s0 = s1;
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsekeywordPair() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 26,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsekeyword();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsews();
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parsebinarySend();
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parsews();
+            if (s4 !== peg$FAILED) {
+              peg$reportedPos = s0;
+              s1 = peg$c78(s1, s3);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsebinarySelector() {
+      var s0, s1, s2;
+
+      var key    = peg$currPos * 61 + 27,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = [];
+      if (peg$c79.test(input.charAt(peg$currPos))) {
+        s2 = input.charAt(peg$currPos);
+        peg$currPos++;
+      } else {
+        s2 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c80); }
+      }
+      if (s2 !== peg$FAILED) {
+        while (s2 !== peg$FAILED) {
+          s1.push(s2);
+          if (peg$c79.test(input.charAt(peg$currPos))) {
+            s2 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s2 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c80); }
+          }
+        }
+      } else {
+        s1 = peg$c1;
+      }
+      if (s1 !== peg$FAILED) {
+        peg$reportedPos = s0;
+        s1 = peg$c81(s1);
+      }
+      s0 = s1;
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsekeywordPattern() {
+      var s0, s1, s2, s3, s4, s5, s6;
+
+      var key    = peg$currPos * 61 + 28,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = [];
+      s2 = peg$currPos;
+      s3 = peg$parsews();
+      if (s3 !== peg$FAILED) {
+        s4 = peg$parsekeyword();
+        if (s4 !== peg$FAILED) {
+          s5 = peg$parsews();
+          if (s5 !== peg$FAILED) {
+            s6 = peg$parseidentifier();
+            if (s6 !== peg$FAILED) {
+              peg$reportedPos = s2;
+              s3 = peg$c78(s4, s6);
+              s2 = s3;
+            } else {
+              peg$currPos = s2;
+              s2 = peg$c1;
+            }
+          } else {
+            peg$currPos = s2;
+            s2 = peg$c1;
+          }
+        } else {
+          peg$currPos = s2;
+          s2 = peg$c1;
+        }
+      } else {
+        peg$currPos = s2;
+        s2 = peg$c1;
+      }
+      if (s2 !== peg$FAILED) {
+        while (s2 !== peg$FAILED) {
+          s1.push(s2);
+          s2 = peg$currPos;
+          s3 = peg$parsews();
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parsekeyword();
+            if (s4 !== peg$FAILED) {
+              s5 = peg$parsews();
+              if (s5 !== peg$FAILED) {
+                s6 = peg$parseidentifier();
+                if (s6 !== peg$FAILED) {
+                  peg$reportedPos = s2;
+                  s3 = peg$c78(s4, s6);
+                  s2 = s3;
+                } else {
+                  peg$currPos = s2;
+                  s2 = peg$c1;
+                }
+              } else {
+                peg$currPos = s2;
+                s2 = peg$c1;
+              }
+            } else {
+              peg$currPos = s2;
+              s2 = peg$c1;
+            }
+          } else {
+            peg$currPos = s2;
+            s2 = peg$c1;
+          }
+        }
+      } else {
+        s1 = peg$c1;
+      }
+      if (s1 !== peg$FAILED) {
+        peg$reportedPos = s0;
+        s1 = peg$c82(s1);
+      }
+      s0 = s1;
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsebinaryPattern() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 29,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsews();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsebinarySelector();
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parsews();
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parseidentifier();
+            if (s4 !== peg$FAILED) {
+              peg$reportedPos = s0;
+              s1 = peg$c83(s2, s4);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseunaryPattern() {
+      var s0, s1, s2;
+
+      var key    = peg$currPos * 61 + 30,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsews();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parseidentifier();
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c84(s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseexpression() {
+      var s0;
+
+      var key    = peg$currPos * 61 + 31,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$parseassignment();
+      if (s0 === peg$FAILED) {
+        s0 = peg$parsecascade();
+        if (s0 === peg$FAILED) {
+          s0 = peg$parsekeywordSend();
+          if (s0 === peg$FAILED) {
+            s0 = peg$parsebinarySend();
+          }
+        }
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseexpressionList() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 32,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsews();
+      if (s1 !== peg$FAILED) {
+        if (input.charCodeAt(peg$currPos) === 46) {
+          s2 = peg$c47;
+          peg$currPos++;
+        } else {
+          s2 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c48); }
+        }
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parsews();
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parseexpression();
+            if (s4 !== peg$FAILED) {
+              peg$reportedPos = s0;
+              s1 = peg$c85(s4);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseexpressions() {
+      var s0, s1, s2, s3;
+
+      var key    = peg$currPos * 61 + 33,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parseexpression();
+      if (s1 !== peg$FAILED) {
+        s2 = [];
+        s3 = peg$parseexpressionList();
+        while (s3 !== peg$FAILED) {
+          s2.push(s3);
+          s3 = peg$parseexpressionList();
+        }
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c86(s1, s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseassignment() {
+      var s0, s1, s2, s3, s4, s5;
+
+      var key    = peg$currPos * 61 + 34,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsevariable();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsews();
+        if (s2 !== peg$FAILED) {
+          if (input.substr(peg$currPos, 2) === peg$c87) {
+            s3 = peg$c87;
+            peg$currPos += 2;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c88); }
+          }
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parsews();
+            if (s4 !== peg$FAILED) {
+              s5 = peg$parseexpression();
+              if (s5 !== peg$FAILED) {
+                peg$reportedPos = s0;
+                s1 = peg$c89(s1, s5);
+                s0 = s1;
+              } else {
+                peg$currPos = s0;
+                s0 = peg$c1;
+              }
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseret() {
+      var s0, s1, s2, s3, s4, s5;
+
+      var key    = peg$currPos * 61 + 35,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (input.charCodeAt(peg$currPos) === 94) {
+        s1 = peg$c90;
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c91); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsews();
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parseexpression();
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parsews();
+            if (s4 !== peg$FAILED) {
+              if (input.charCodeAt(peg$currPos) === 46) {
+                s5 = peg$c47;
+                peg$currPos++;
+              } else {
+                s5 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c48); }
+              }
+              if (s5 === peg$FAILED) {
+                s5 = peg$c37;
+              }
+              if (s5 !== peg$FAILED) {
+                peg$reportedPos = s0;
+                s1 = peg$c92(s3);
+                s0 = s1;
+              } else {
+                peg$currPos = s0;
+                s0 = peg$c1;
+              }
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsetemps() {
+      var s0, s1, s2, s3, s4, s5, s6;
+
+      var key    = peg$currPos * 61 + 36,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (input.charCodeAt(peg$currPos) === 124) {
+        s1 = peg$c93;
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c94); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = [];
+        s3 = peg$currPos;
+        s4 = peg$parsews();
+        if (s4 !== peg$FAILED) {
+          s5 = peg$parseidentifier();
+          if (s5 !== peg$FAILED) {
+            s6 = peg$parsews();
+            if (s6 !== peg$FAILED) {
+              peg$reportedPos = s3;
+              s4 = peg$c95(s5);
+              s3 = s4;
+            } else {
+              peg$currPos = s3;
+              s3 = peg$c1;
+            }
+          } else {
+            peg$currPos = s3;
+            s3 = peg$c1;
+          }
+        } else {
+          peg$currPos = s3;
+          s3 = peg$c1;
+        }
+        while (s3 !== peg$FAILED) {
+          s2.push(s3);
+          s3 = peg$currPos;
+          s4 = peg$parsews();
+          if (s4 !== peg$FAILED) {
+            s5 = peg$parseidentifier();
+            if (s5 !== peg$FAILED) {
+              s6 = peg$parsews();
+              if (s6 !== peg$FAILED) {
+                peg$reportedPos = s3;
+                s4 = peg$c95(s5);
+                s3 = s4;
+              } else {
+                peg$currPos = s3;
+                s3 = peg$c1;
+              }
+            } else {
+              peg$currPos = s3;
+              s3 = peg$c1;
+            }
+          } else {
+            peg$currPos = s3;
+            s3 = peg$c1;
+          }
+        }
+        if (s2 !== peg$FAILED) {
+          if (input.charCodeAt(peg$currPos) === 124) {
+            s3 = peg$c93;
+            peg$currPos++;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c94); }
+          }
+          if (s3 !== peg$FAILED) {
+            peg$reportedPos = s0;
+            s1 = peg$c96(s2);
+            s0 = s1;
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseblockParamList() {
+      var s0, s1, s2, s3, s4, s5, s6;
+
+      var key    = peg$currPos * 61 + 37,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = [];
+      s2 = peg$currPos;
+      s3 = peg$parsews();
+      if (s3 !== peg$FAILED) {
+        if (input.charCodeAt(peg$currPos) === 58) {
+          s4 = peg$c97;
+          peg$currPos++;
+        } else {
+          s4 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c98); }
+        }
+        if (s4 !== peg$FAILED) {
+          s5 = peg$parsews();
+          if (s5 !== peg$FAILED) {
+            s6 = peg$parseidentifier();
+            if (s6 !== peg$FAILED) {
+              peg$reportedPos = s2;
+              s3 = peg$c99(s6);
+              s2 = s3;
+            } else {
+              peg$currPos = s2;
+              s2 = peg$c1;
+            }
+          } else {
+            peg$currPos = s2;
+            s2 = peg$c1;
+          }
+        } else {
+          peg$currPos = s2;
+          s2 = peg$c1;
+        }
+      } else {
+        peg$currPos = s2;
+        s2 = peg$c1;
+      }
+      if (s2 !== peg$FAILED) {
+        while (s2 !== peg$FAILED) {
+          s1.push(s2);
+          s2 = peg$currPos;
+          s3 = peg$parsews();
+          if (s3 !== peg$FAILED) {
+            if (input.charCodeAt(peg$currPos) === 58) {
+              s4 = peg$c97;
+              peg$currPos++;
+            } else {
+              s4 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c98); }
+            }
+            if (s4 !== peg$FAILED) {
+              s5 = peg$parsews();
+              if (s5 !== peg$FAILED) {
+                s6 = peg$parseidentifier();
+                if (s6 !== peg$FAILED) {
+                  peg$reportedPos = s2;
+                  s3 = peg$c99(s6);
+                  s2 = s3;
+                } else {
+                  peg$currPos = s2;
+                  s2 = peg$c1;
+                }
+              } else {
+                peg$currPos = s2;
+                s2 = peg$c1;
+              }
+            } else {
+              peg$currPos = s2;
+              s2 = peg$c1;
+            }
+          } else {
+            peg$currPos = s2;
+            s2 = peg$c1;
+          }
+        }
+      } else {
+        s1 = peg$c1;
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsews();
+        if (s2 !== peg$FAILED) {
+          if (input.charCodeAt(peg$currPos) === 124) {
+            s3 = peg$c93;
+            peg$currPos++;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c94); }
+          }
+          if (s3 !== peg$FAILED) {
+            peg$reportedPos = s0;
+            s1 = peg$c100(s1);
+            s0 = s1;
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsesubexpression() {
+      var s0, s1, s2, s3, s4, s5;
+
+      var key    = peg$currPos * 61 + 38,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (input.charCodeAt(peg$currPos) === 40) {
+        s1 = peg$c53;
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c54); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsews();
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parseexpression();
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parsews();
+            if (s4 !== peg$FAILED) {
+              if (input.charCodeAt(peg$currPos) === 41) {
+                s5 = peg$c56;
+                peg$currPos++;
+              } else {
+                s5 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c57); }
+              }
+              if (s5 !== peg$FAILED) {
+                peg$reportedPos = s0;
+                s1 = peg$c85(s3);
+                s0 = s1;
+              } else {
+                peg$currPos = s0;
+                s0 = peg$c1;
+              }
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsestatements() {
+      var s0, s1, s2, s3, s4, s5, s6, s7;
+
+      var key    = peg$currPos * 61 + 39,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parseret();
+      if (s1 !== peg$FAILED) {
+        s2 = [];
+        if (peg$c101.test(input.charAt(peg$currPos))) {
+          s3 = input.charAt(peg$currPos);
+          peg$currPos++;
+        } else {
+          s3 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c102); }
+        }
+        while (s3 !== peg$FAILED) {
+          s2.push(s3);
+          if (peg$c101.test(input.charAt(peg$currPos))) {
+            s3 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c102); }
+          }
+        }
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c103(s1);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+      if (s0 === peg$FAILED) {
+        s0 = peg$currPos;
+        s1 = peg$parseexpressions();
+        if (s1 !== peg$FAILED) {
+          s2 = peg$parsews();
+          if (s2 !== peg$FAILED) {
+            s3 = [];
+            if (peg$c101.test(input.charAt(peg$currPos))) {
+              s4 = input.charAt(peg$currPos);
+              peg$currPos++;
+            } else {
+              s4 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c102); }
+            }
+            if (s4 !== peg$FAILED) {
+              while (s4 !== peg$FAILED) {
+                s3.push(s4);
+                if (peg$c101.test(input.charAt(peg$currPos))) {
+                  s4 = input.charAt(peg$currPos);
+                  peg$currPos++;
+                } else {
+                  s4 = peg$FAILED;
+                  if (peg$silentFails === 0) { peg$fail(peg$c102); }
+                }
+              }
+            } else {
+              s3 = peg$c1;
+            }
+            if (s3 !== peg$FAILED) {
+              s4 = peg$parsews();
+              if (s4 !== peg$FAILED) {
+                s5 = peg$parseret();
+                if (s5 !== peg$FAILED) {
+                  s6 = [];
+                  if (peg$c101.test(input.charAt(peg$currPos))) {
+                    s7 = input.charAt(peg$currPos);
+                    peg$currPos++;
+                  } else {
+                    s7 = peg$FAILED;
+                    if (peg$silentFails === 0) { peg$fail(peg$c102); }
+                  }
+                  while (s7 !== peg$FAILED) {
+                    s6.push(s7);
+                    if (peg$c101.test(input.charAt(peg$currPos))) {
+                      s7 = input.charAt(peg$currPos);
+                      peg$currPos++;
+                    } else {
+                      s7 = peg$FAILED;
+                      if (peg$silentFails === 0) { peg$fail(peg$c102); }
+                    }
+                  }
+                  if (s6 !== peg$FAILED) {
+                    peg$reportedPos = s0;
+                    s1 = peg$c104(s1, s5);
+                    s0 = s1;
+                  } else {
+                    peg$currPos = s0;
+                    s0 = peg$c1;
+                  }
+                } else {
+                  peg$currPos = s0;
+                  s0 = peg$c1;
+                }
+              } else {
+                peg$currPos = s0;
+                s0 = peg$c1;
+              }
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+        if (s0 === peg$FAILED) {
+          s0 = peg$currPos;
+          s1 = peg$parseexpressions();
+          if (s1 === peg$FAILED) {
+            s1 = peg$c37;
+          }
+          if (s1 !== peg$FAILED) {
+            s2 = [];
+            if (peg$c101.test(input.charAt(peg$currPos))) {
+              s3 = input.charAt(peg$currPos);
+              peg$currPos++;
+            } else {
+              s3 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c102); }
+            }
+            while (s3 !== peg$FAILED) {
+              s2.push(s3);
+              if (peg$c101.test(input.charAt(peg$currPos))) {
+                s3 = input.charAt(peg$currPos);
+                peg$currPos++;
+              } else {
+                s3 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c102); }
+              }
+            }
+            if (s2 !== peg$FAILED) {
+              peg$reportedPos = s0;
+              s1 = peg$c105(s1);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        }
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsesequence() {
+      var s0;
+
+      var key    = peg$currPos * 61 + 40,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$parsejsStatement();
+      if (s0 === peg$FAILED) {
+        s0 = peg$parsestSequence();
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsestSequence() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 41,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsetemps();
+      if (s1 === peg$FAILED) {
+        s1 = peg$c37;
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsews();
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parsestatements();
+          if (s3 === peg$FAILED) {
+            s3 = peg$c37;
+          }
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parsews();
+            if (s4 !== peg$FAILED) {
+              peg$reportedPos = s0;
+              s1 = peg$c106(s1, s3);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseblock() {
+      var s0, s1, s2, s3, s4, s5, s6, s7;
+
+      var key    = peg$currPos * 61 + 42,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (input.charCodeAt(peg$currPos) === 91) {
+        s1 = peg$c107;
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c108); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsews();
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parseblockParamList();
+          if (s3 === peg$FAILED) {
+            s3 = peg$c37;
+          }
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parsews();
+            if (s4 !== peg$FAILED) {
+              s5 = peg$parsesequence();
+              if (s5 === peg$FAILED) {
+                s5 = peg$c37;
+              }
+              if (s5 !== peg$FAILED) {
+                s6 = peg$parsews();
+                if (s6 !== peg$FAILED) {
+                  if (input.charCodeAt(peg$currPos) === 93) {
+                    s7 = peg$c109;
+                    peg$currPos++;
+                  } else {
+                    s7 = peg$FAILED;
+                    if (peg$silentFails === 0) { peg$fail(peg$c110); }
+                  }
+                  if (s7 !== peg$FAILED) {
+                    peg$reportedPos = s0;
+                    s1 = peg$c111(s3, s5);
+                    s0 = s1;
+                  } else {
+                    peg$currPos = s0;
+                    s0 = peg$c1;
+                  }
+                } else {
+                  peg$currPos = s0;
+                  s0 = peg$c1;
+                }
+              } else {
+                peg$currPos = s0;
+                s0 = peg$c1;
+              }
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseoperand() {
+      var s0;
+
+      var key    = peg$currPos * 61 + 43,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$parseliteral();
+      if (s0 === peg$FAILED) {
+        s0 = peg$parsevariable();
+        if (s0 === peg$FAILED) {
+          s0 = peg$parsesubexpression();
+        }
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseunaryMessage() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 44,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsews();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parseidentifier();
+        if (s2 !== peg$FAILED) {
+          s3 = peg$currPos;
+          peg$silentFails++;
+          if (peg$c13.test(input.charAt(peg$currPos))) {
+            s4 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s4 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c14); }
+          }
+          peg$silentFails--;
+          if (s4 === peg$FAILED) {
+            s3 = peg$c112;
+          } else {
+            peg$currPos = s3;
+            s3 = peg$c1;
+          }
+          if (s3 !== peg$FAILED) {
+            peg$reportedPos = s0;
+            s1 = peg$c113(s2);
+            s0 = s1;
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseunaryTail() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 45,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parseunaryMessage();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsews();
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parseunaryTail();
+          if (s3 === peg$FAILED) {
+            s3 = peg$c37;
+          }
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parsews();
+            if (s4 !== peg$FAILED) {
+              peg$reportedPos = s0;
+              s1 = peg$c114(s1, s3);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseunarySend() {
+      var s0, s1, s2, s3;
+
+      var key    = peg$currPos * 61 + 46,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parseoperand();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsews();
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parseunaryTail();
+          if (s3 === peg$FAILED) {
+            s3 = peg$c37;
+          }
+          if (s3 !== peg$FAILED) {
+            peg$reportedPos = s0;
+            s1 = peg$c115(s1, s3);
+            s0 = s1;
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsebinaryMessage() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 47,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsews();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsebinarySelector();
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parsews();
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parseunarySend();
+            if (s4 === peg$FAILED) {
+              s4 = peg$parseoperand();
+            }
+            if (s4 !== peg$FAILED) {
+              peg$reportedPos = s0;
+              s1 = peg$c116(s2, s4);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsebinaryTail() {
+      var s0, s1, s2;
+
+      var key    = peg$currPos * 61 + 48,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsebinaryMessage();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsebinaryTail();
+        if (s2 === peg$FAILED) {
+          s2 = peg$c37;
+        }
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c117(s1, s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsebinarySend() {
+      var s0, s1, s2;
+
+      var key    = peg$currPos * 61 + 49,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parseunarySend();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsebinaryTail();
+        if (s2 === peg$FAILED) {
+          s2 = peg$c37;
+        }
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c115(s1, s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsekeywordMessage() {
+      var s0, s1, s2, s3, s4, s5;
+
+      var key    = peg$currPos * 61 + 50,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsews();
+      if (s1 !== peg$FAILED) {
+        s2 = [];
+        s3 = peg$currPos;
+        s4 = peg$parsekeywordPair();
+        if (s4 !== peg$FAILED) {
+          s5 = peg$parsews();
+          if (s5 !== peg$FAILED) {
+            peg$reportedPos = s3;
+            s4 = peg$c118(s4);
+            s3 = s4;
+          } else {
+            peg$currPos = s3;
+            s3 = peg$c1;
+          }
+        } else {
+          peg$currPos = s3;
+          s3 = peg$c1;
+        }
+        if (s3 !== peg$FAILED) {
+          while (s3 !== peg$FAILED) {
+            s2.push(s3);
+            s3 = peg$currPos;
+            s4 = peg$parsekeywordPair();
+            if (s4 !== peg$FAILED) {
+              s5 = peg$parsews();
+              if (s5 !== peg$FAILED) {
+                peg$reportedPos = s3;
+                s4 = peg$c118(s4);
+                s3 = s4;
+              } else {
+                peg$currPos = s3;
+                s3 = peg$c1;
+              }
+            } else {
+              peg$currPos = s3;
+              s3 = peg$c1;
+            }
+          }
+        } else {
+          s2 = peg$c1;
+        }
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c119(s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsekeywordSend() {
+      var s0, s1, s2;
+
+      var key    = peg$currPos * 61 + 51,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsebinarySend();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsekeywordMessage();
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c120(s1, s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsemessage() {
+      var s0;
+
+      var key    = peg$currPos * 61 + 52,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$parsebinaryMessage();
+      if (s0 === peg$FAILED) {
+        s0 = peg$parseunaryMessage();
+        if (s0 === peg$FAILED) {
+          s0 = peg$parsekeywordMessage();
+        }
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsecascade() {
+      var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9;
+
+      var key    = peg$currPos * 61 + 53,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsews();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsekeywordSend();
+        if (s2 === peg$FAILED) {
+          s2 = peg$parsebinarySend();
+        }
+        if (s2 !== peg$FAILED) {
+          s3 = [];
+          s4 = peg$currPos;
+          s5 = peg$parsews();
+          if (s5 !== peg$FAILED) {
+            if (input.charCodeAt(peg$currPos) === 59) {
+              s6 = peg$c121;
+              peg$currPos++;
+            } else {
+              s6 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c122); }
+            }
+            if (s6 !== peg$FAILED) {
+              s7 = peg$parsews();
+              if (s7 !== peg$FAILED) {
+                s8 = peg$parsemessage();
+                if (s8 !== peg$FAILED) {
+                  s9 = peg$parsews();
+                  if (s9 !== peg$FAILED) {
+                    peg$reportedPos = s4;
+                    s5 = peg$c123(s8);
+                    s4 = s5;
+                  } else {
+                    peg$currPos = s4;
+                    s4 = peg$c1;
+                  }
+                } else {
+                  peg$currPos = s4;
+                  s4 = peg$c1;
+                }
+              } else {
+                peg$currPos = s4;
+                s4 = peg$c1;
+              }
+            } else {
+              peg$currPos = s4;
+              s4 = peg$c1;
+            }
+          } else {
+            peg$currPos = s4;
+            s4 = peg$c1;
+          }
+          if (s4 !== peg$FAILED) {
+            while (s4 !== peg$FAILED) {
+              s3.push(s4);
+              s4 = peg$currPos;
+              s5 = peg$parsews();
+              if (s5 !== peg$FAILED) {
+                if (input.charCodeAt(peg$currPos) === 59) {
+                  s6 = peg$c121;
+                  peg$currPos++;
+                } else {
+                  s6 = peg$FAILED;
+                  if (peg$silentFails === 0) { peg$fail(peg$c122); }
+                }
+                if (s6 !== peg$FAILED) {
+                  s7 = peg$parsews();
+                  if (s7 !== peg$FAILED) {
+                    s8 = peg$parsemessage();
+                    if (s8 !== peg$FAILED) {
+                      s9 = peg$parsews();
+                      if (s9 !== peg$FAILED) {
+                        peg$reportedPos = s4;
+                        s5 = peg$c123(s8);
+                        s4 = s5;
+                      } else {
+                        peg$currPos = s4;
+                        s4 = peg$c1;
+                      }
+                    } else {
+                      peg$currPos = s4;
+                      s4 = peg$c1;
+                    }
+                  } else {
+                    peg$currPos = s4;
+                    s4 = peg$c1;
+                  }
+                } else {
+                  peg$currPos = s4;
+                  s4 = peg$c1;
+                }
+              } else {
+                peg$currPos = s4;
+                s4 = peg$c1;
+              }
+            }
+          } else {
+            s3 = peg$c1;
+          }
+          if (s3 !== peg$FAILED) {
+            peg$reportedPos = s0;
+            s1 = peg$c124(s2, s3);
+            s0 = s1;
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsejsStatement() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 54,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      if (input.charCodeAt(peg$currPos) === 60) {
+        s1 = peg$c125;
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c126); }
+      }
+      if (s1 !== peg$FAILED) {
+        s2 = [];
+        s3 = peg$currPos;
+        if (input.substr(peg$currPos, 2) === peg$c127) {
+          s4 = peg$c127;
+          peg$currPos += 2;
+        } else {
+          s4 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c128); }
+        }
+        if (s4 !== peg$FAILED) {
+          peg$reportedPos = s3;
+          s4 = peg$c129();
+        }
+        s3 = s4;
+        if (s3 === peg$FAILED) {
+          if (peg$c130.test(input.charAt(peg$currPos))) {
+            s3 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c131); }
+          }
+        }
+        while (s3 !== peg$FAILED) {
+          s2.push(s3);
+          s3 = peg$currPos;
+          if (input.substr(peg$currPos, 2) === peg$c127) {
+            s4 = peg$c127;
+            peg$currPos += 2;
+          } else {
+            s4 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c128); }
+          }
+          if (s4 !== peg$FAILED) {
+            peg$reportedPos = s3;
+            s4 = peg$c129();
+          }
+          s3 = s4;
+          if (s3 === peg$FAILED) {
+            if (peg$c130.test(input.charAt(peg$currPos))) {
+              s3 = input.charAt(peg$currPos);
+              peg$currPos++;
+            } else {
+              s3 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c131); }
+            }
+          }
+        }
+        if (s2 !== peg$FAILED) {
+          if (input.charCodeAt(peg$currPos) === 62) {
+            s3 = peg$c132;
+            peg$currPos++;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c133); }
+          }
+          if (s3 !== peg$FAILED) {
+            peg$reportedPos = s0;
+            s1 = peg$c134(s2);
+            s0 = s1;
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsemethod() {
+      var s0, s1, s2, s3, s4, s5;
+
+      var key    = peg$currPos * 61 + 55,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsews();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsekeywordPattern();
+        if (s2 === peg$FAILED) {
+          s2 = peg$parsebinaryPattern();
+          if (s2 === peg$FAILED) {
+            s2 = peg$parseunaryPattern();
+          }
+        }
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parsews();
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parsesequence();
+            if (s4 === peg$FAILED) {
+              s4 = peg$c37;
+            }
+            if (s4 !== peg$FAILED) {
+              s5 = peg$parsews();
+              if (s5 !== peg$FAILED) {
+                peg$reportedPos = s0;
+                s1 = peg$c135(s2, s4);
+                s0 = s1;
+              } else {
+                peg$currPos = s0;
+                s0 = peg$c1;
+              }
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseassociationMessage() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 56,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsews();
+      if (s1 !== peg$FAILED) {
+        if (input.substr(peg$currPos, 2) === peg$c136) {
+          s2 = peg$c136;
+          peg$currPos += 2;
+        } else {
+          s2 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c137); }
+        }
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parsews();
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parseunarySend();
+            if (s4 === peg$FAILED) {
+              s4 = peg$parseoperand();
+            }
+            if (s4 !== peg$FAILED) {
+              peg$reportedPos = s0;
+              s1 = peg$c116(s2, s4);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseassociationTail() {
+      var s0, s1, s2;
+
+      var key    = peg$currPos * 61 + 57,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$parseassociationMessage();
+      if (s0 === peg$FAILED) {
+        s0 = peg$currPos;
+        s1 = peg$parsebinaryMessage();
+        if (s1 !== peg$FAILED) {
+          s2 = peg$parseassociationTail();
+          if (s2 !== peg$FAILED) {
+            peg$reportedPos = s0;
+            s1 = peg$c138(s1, s2);
+            s0 = s1;
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseassociationSend() {
+      var s0, s1, s2;
+
+      var key    = peg$currPos * 61 + 58,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parseunarySend();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parseassociationTail();
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c139(s1, s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseassociationList() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 59,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsews();
+      if (s1 !== peg$FAILED) {
+        if (input.charCodeAt(peg$currPos) === 46) {
+          s2 = peg$c47;
+          peg$currPos++;
+        } else {
+          s2 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c48); }
+        }
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parsews();
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parseassociationSend();
+            if (s4 !== peg$FAILED) {
+              peg$reportedPos = s0;
+              s1 = peg$c85(s4);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$c1;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$c1;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parseassociations() {
+      var s0, s1, s2, s3;
+
+      var key    = peg$currPos * 61 + 60,
+          cached = peg$cache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parseassociationSend();
+      if (s1 !== peg$FAILED) {
+        s2 = [];
+        s3 = peg$parseassociationList();
+        while (s3 !== peg$FAILED) {
+          s2.push(s3);
+          s3 = peg$parseassociationList();
+        }
+        if (s2 !== peg$FAILED) {
+          peg$reportedPos = s0;
+          s1 = peg$c86(s1, s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$c1;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$c1;
+      }
+
+      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    peg$result = peg$startRuleFunction();
+
+    if (peg$result !== peg$FAILED && peg$currPos === input.length) {
+      return peg$result;
+    } else {
+      if (peg$result !== peg$FAILED && peg$currPos < input.length) {
+        peg$fail({ type: "end", description: "end of input" });
+      }
+
+      throw peg$buildException(null, peg$maxFailExpected, peg$maxFailPos);
+    }
+  }
+
+  return {
+    SyntaxError: SyntaxError,
+    parse:       parse
   };
-  
-  result.SyntaxError.prototype = Error.prototype;
-  
-  return result;
 })();
 });
 define("amber_cli/AmberCli", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
@@ -38684,8 +39156,9 @@ selector: "base64Decode:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 return (new Buffer(aString, 'base64').toString());
-return self},
+return self}, function($ctx1) {$ctx1.fill(self,"base64Decode:",{aString:aString},globals.FileServer)})},
 args: ["aString"],
 source: "base64Decode: aString\x0a\x09<return (new Buffer(aString, 'base64').toString())>",
 messageSends: [],
@@ -38816,20 +39289,26 @@ fn: function (aRequest,aResponse){
 var self=this;
 var uri,filename;
 return smalltalk.withContext(function($ctx1) { 
-uri=_st(_st(self["@url"])._parse_(_st(aRequest)._url()))._pathname();
-filename=_st(self["@path"])._join_with_(self._basePath(),uri);
+var $1;
+uri=_st(self["@url"])._parse_(_st(aRequest)._url());
+filename=_st(self["@path"])._join_with_(self._basePath(),_st(uri)._pathname());
 _st(self["@fs"])._exists_do_(filename,(function(aBoolean){
 return smalltalk.withContext(function($ctx2) {
 if(smalltalk.assert(aBoolean)){
+$1=_st(_st(self["@fs"])._statSync_(filename))._isDirectory();
+if(smalltalk.assert($1)){
+return self._respondDirectoryNamed_from_to_(filename,uri,aResponse);
+} else {
 return self._respondFileNamed_to_(filename,aResponse);
+};
 } else {
 return self._respondNotFoundTo_(aResponse);
 };
 }, function($ctx2) {$ctx2.fillBlock({aBoolean:aBoolean},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handleGETRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse,uri:uri,filename:filename},globals.FileServer)})},
 args: ["aRequest", "aResponse"],
-source: "handleGETRequest: aRequest respondTo: aResponse\x0a\x09| uri filename |\x0a\x09uri := (url parse: aRequest url) pathname.\x0a\x09filename := path join: self basePath with: uri.\x0a\x09fs exists: filename do: [:aBoolean |\x0a\x09\x09aBoolean\x0a\x09\x09\x09ifFalse: [self respondNotFoundTo: aResponse]\x0a\x09\x09\x09ifTrue: [self respondFileNamed: filename to: aResponse]]",
-messageSends: ["pathname", "parse:", "url", "join:with:", "basePath", "exists:do:", "ifFalse:ifTrue:", "respondNotFoundTo:", "respondFileNamed:to:"],
+source: "handleGETRequest: aRequest respondTo: aResponse\x0a\x09| uri filename |\x0a\x09uri := url parse: aRequest url.\x0a\x09filename := path join: self basePath with: uri pathname.\x0a\x09fs exists: filename do: [:aBoolean |\x0a\x09\x09aBoolean\x0a\x09\x09\x09ifFalse: [self respondNotFoundTo: aResponse]\x0a\x09\x09\x09ifTrue: [(fs statSync: filename) isDirectory\x0a\x09\x09\x09\x09ifTrue: [self respondDirectoryNamed: filename from: uri to: aResponse]\x0a\x09\x09\x09\x09ifFalse: [self respondFileNamed: filename to: aResponse]]]",
+messageSends: ["parse:", "url", "join:with:", "basePath", "pathname", "exists:do:", "ifFalse:ifTrue:", "respondNotFoundTo:", "ifTrue:ifFalse:", "isDirectory", "statSync:", "respondDirectoryNamed:from:to:", "respondFileNamed:to:"],
 referencedClasses: []
 }),
 globals.FileServer);
@@ -39190,47 +39669,76 @@ globals.FileServer);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "respondDirectoryNamed:from:to:",
+protocol: 'request handling',
+fn: function (aDirname,aUrl,aResponse){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$3,$5,$7,$6,$4;
+$2=_st(aUrl)._pathname();
+$ctx1.sendIdx["pathname"]=1;
+$1=_st($2)._endsWith_("/");
+if(smalltalk.assert($1)){
+$3=_st(aDirname).__comma("index.html");
+$ctx1.sendIdx[","]=1;
+self._respondFileNamed_to_($3,aResponse);
+} else {
+$5=_st(_st(aUrl)._pathname()).__comma("/");
+$7=_st(aUrl)._search();
+if(($receiver = $7) == nil || $receiver == null){
+$6="";
+} else {
+$6=$7;
+};
+$4=_st($5).__comma($6);
+$ctx1.sendIdx[","]=2;
+self._respondRedirect_to_($4,aResponse);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"respondDirectoryNamed:from:to:",{aDirname:aDirname,aUrl:aUrl,aResponse:aResponse},globals.FileServer)})},
+args: ["aDirname", "aUrl", "aResponse"],
+source: "respondDirectoryNamed: aDirname from: aUrl to: aResponse\x0a\x09(aUrl pathname endsWith: '/')\x0a\x09\x09ifTrue: [self respondFileNamed: aDirname, 'index.html' to: aResponse]\x0a\x09\x09ifFalse: [self respondRedirect: aUrl pathname, '/', (aUrl search ifNil: ['']) to: aResponse]",
+messageSends: ["ifTrue:ifFalse:", "endsWith:", "pathname", "respondFileNamed:to:", ",", "respondRedirect:to:", "ifNil:", "search"],
+referencedClasses: []
+}),
+globals.FileServer);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "respondFileNamed:to:",
 protocol: 'request handling',
 fn: function (aFilename,aResponse){
 var self=this;
 var type,filename;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3,$4,$5;
 filename=aFilename;
-$1=_st(_st(self["@fs"])._statSync_(aFilename))._isDirectory();
-if(smalltalk.assert($1)){
-filename=_st(filename).__comma("index.html");
-$ctx1.sendIdx[","]=1;
-filename;
-};
 _st(self["@fs"])._readFile_do_(filename,(function(ex,file){
 return smalltalk.withContext(function($ctx2) {
-$2=_st(ex)._notNil();
-if(smalltalk.assert($2)){
-$3=console;
-$4=_st(filename).__comma(" does not exist");
-$ctx2.sendIdx[","]=2;
-_st($3)._log_($4);
+$1=_st(ex)._notNil();
+if(smalltalk.assert($1)){
+$2=console;
+$3=_st(filename).__comma(" does not exist");
+$ctx2.sendIdx[","]=1;
+_st($2)._log_($3);
 return self._respondNotFoundTo_(aResponse);
 } else {
 type=_st(self._class())._mimeTypeFor_(filename);
 type;
-$5=_st(type).__eq("application/javascript");
-if(smalltalk.assert($5)){
+$4=_st(type).__eq("application/javascript");
+if(smalltalk.assert($4)){
 type=_st(type).__comma(";charset=utf-8");
 type;
 };
 _st(aResponse)._writeHead_options_((200),globals.HashedCollection._from_(["Content-Type".__minus_gt(type)]));
 _st(aResponse)._write_encoding_(file,"binary");
-$6=_st(aResponse)._end();
-return $6;
+$5=_st(aResponse)._end();
+return $5;
 };
-}, function($ctx2) {$ctx2.fillBlock({ex:ex,file:file},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({ex:ex,file:file},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"respondFileNamed:to:",{aFilename:aFilename,aResponse:aResponse,type:type,filename:filename},globals.FileServer)})},
 args: ["aFilename", "aResponse"],
-source: "respondFileNamed: aFilename to: aResponse\x0a\x09| type filename |\x0a\x0a\x09filename := aFilename.\x0a\x09(fs statSync: aFilename) isDirectory ifTrue: [\x0a\x09\x09filename := filename, 'index.html'].\x0a\x0a\x09fs readFile: filename do: [:ex :file |\x0a\x09\x09ex notNil \x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09console log: filename, ' does not exist'.\x0a\x09\x09\x09\x09self respondNotFoundTo: aResponse]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09type := self class mimeTypeFor: filename.\x0a\x09\x09\x09\x09type = 'application/javascript'\x0a\x09\x09\x09\x09\x09ifTrue: [ type:=type,';charset=utf-8' ].\x0a\x09\x09\x09\x09aResponse \x0a\x09\x09\x09\x09\x09writeHead: 200 options:  #{'Content-Type' -> type};\x0a\x09\x09\x09\x09\x09write: file encoding: 'binary';\x0a\x09\x09\x09\x09\x09end]]",
-messageSends: ["ifTrue:", "isDirectory", "statSync:", ",", "readFile:do:", "ifTrue:ifFalse:", "notNil", "log:", "respondNotFoundTo:", "mimeTypeFor:", "class", "=", "writeHead:options:", "->", "write:encoding:", "end"],
+source: "respondFileNamed: aFilename to: aResponse\x0a\x09| type filename |\x0a\x0a\x09filename := aFilename.\x0a\x0a\x09fs readFile: filename do: [:ex :file |\x0a\x09\x09ex notNil \x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09console log: filename, ' does not exist'.\x0a\x09\x09\x09\x09self respondNotFoundTo: aResponse]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09type := self class mimeTypeFor: filename.\x0a\x09\x09\x09\x09type = 'application/javascript'\x0a\x09\x09\x09\x09\x09ifTrue: [ type:=type,';charset=utf-8' ].\x0a\x09\x09\x09\x09aResponse \x0a\x09\x09\x09\x09\x09writeHead: 200 options:  #{'Content-Type' -> type};\x0a\x09\x09\x09\x09\x09write: file encoding: 'binary';\x0a\x09\x09\x09\x09\x09end]]",
+messageSends: ["readFile:do:", "ifTrue:ifFalse:", "notNil", "log:", ",", "respondNotFoundTo:", "mimeTypeFor:", "class", "ifTrue:", "=", "writeHead:options:", "->", "write:encoding:", "end"],
 referencedClasses: []
 }),
 globals.FileServer);
@@ -39325,6 +39833,24 @@ $3=_st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondOKTo:",{aResponse:aResponse},globals.FileServer)})},
 args: ["aResponse"],
 source: "respondOKTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};\x0a\x09\x09end.",
+messageSends: ["writeHead:options:", "->", "end"],
+referencedClasses: []
+}),
+globals.FileServer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "respondRedirect:to:",
+protocol: 'request handling',
+fn: function (aString,aResponse){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(aResponse)._writeHead_options_((303),globals.HashedCollection._from_(["Location".__minus_gt(aString)]));
+$1=_st(aResponse)._end();
+return self}, function($ctx1) {$ctx1.fill(self,"respondRedirect:to:",{aString:aString,aResponse:aResponse},globals.FileServer)})},
+args: ["aString", "aResponse"],
+source: "respondRedirect: aString to: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 303 options: #{'Location' -> aString};\x0a\x09\x09end.",
 messageSends: ["writeHead:options:", "->", "end"],
 referencedClasses: []
 }),
@@ -39533,10 +40059,9 @@ try {
 switches=self._commandLineSwitches();
 server=self._new();
 _st(options)._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 $1=server;
 throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $2=_st(_st(options)._size())._even();
 if(! smalltalk.assert($2)){
 _st(console)._log_("Using default parameters.");
@@ -40522,9 +41047,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self._mimeTypes())._at_ifAbsent_(_st(aString)._replace_with_(".*[\x5c.]",""),(function(){
-return smalltalk.withContext(function($ctx2) {
 return "text/plain";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"mimeTypeFor:",{aString:aString},globals.FileServer.klass)})},
 args: ["aString"],
@@ -41307,8 +41831,8 @@ globals.Repl.klass);
 
 });
 
-define("amber_vm/_init", ["amber_vm/smalltalk","amber_vm/smalltalk","amber_vm/globals","amber_vm/nil","amber_core/Kernel-Objects","amber_core/Kernel-Classes","amber_core/Kernel-Methods","amber_core/Kernel-Collections","amber_core/Kernel-Infrastructure","amber_core/Kernel-Exceptions","amber_core/Kernel-Transcript","amber_core/Kernel-Announcements","amber_core/Compiler-Exceptions","amber_core/Compiler-Core","amber_core/Compiler-AST","amber_core/Compiler-IR","amber_core/Compiler-Inlining","amber_core/Compiler-Semantic","amber_core/Compiler-Interpreter","amber_vm/parser","amber_cli/AmberCli"], function (smalltalk) {
+define("amber_vm/_init", ["amber_vm/smalltalk", "amber_vm/globals", "amber_vm/smalltalk","amber_vm/globals","amber_vm/nil","amber_core/Kernel-Objects","amber_core/Kernel-Classes","amber_core/Kernel-Methods","amber_core/Kernel-Collections","amber_core/Kernel-Infrastructure","amber_core/Kernel-Exceptions","amber_core/Kernel-Transcript","amber_core/Kernel-Announcements","amber_core/Compiler-Exceptions","amber_core/Compiler-Core","amber_core/Compiler-AST","amber_core/Compiler-IR","amber_core/Compiler-Inlining","amber_core/Compiler-Semantic","amber_core/Compiler-Interpreter","amber_vm/parser","amber_cli/AmberCli"], function (smalltalk, globals) {
 smalltalk.initialize();
-smalltalk.AmberCli._main();
+globals.AmberCli._main();
 });
 requirejs("amber_vm/_init");
