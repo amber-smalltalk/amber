@@ -318,7 +318,8 @@ globals.SmalltalkParser = (function() {
                                      ._nodes_([sequence]);
                          },
         peg$c136 = function(send) { return send._selector() === "->" },
-        peg$c137 = function(send) { return send; },
+        peg$c137 = function(send) { return [send._receiver(), send._arguments()[0]]; },
+        peg$c138 = function(first, others) { return first.concat.apply(first, others); },
 
         peg$currPos          = 0,
         peg$reportedPos      = 0,
@@ -3804,7 +3805,7 @@ globals.SmalltalkParser = (function() {
         }
         if (s2 !== peg$FAILED) {
           peg$reportedPos = s0;
-          s1 = peg$c86(s1, s2);
+          s1 = peg$c138(s1, s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
