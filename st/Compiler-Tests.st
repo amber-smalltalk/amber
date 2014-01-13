@@ -203,6 +203,10 @@ testDynamicDictionaryElementsOrdered
 ' return: #{'foo'->1. 'bar'->2}.
 !
 
+testDynamicDictionaryWithMoreArrows
+	self should: 'foo ^ #{1->2->3}' return: (HashedCollection with: 1->2->3)
+!
+
 testGlobalVar
 	self should: 'foo ^ eval class' return: BlockClosure.
 	self should: 'foo ^ Math cos: 0' return: 1.

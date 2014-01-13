@@ -258,17 +258,7 @@ method         = ws pattern:(keywordPattern / binaryPattern / unaryPattern) ws s
                  }
 
 
-associationMessage  = ws selector:"->" ws arg:(unarySend / operand) {
-                     return globals.SendNode._new()
-                            ._position_((line()).__at(column()))
-                            ._source_(text())
-                            ._selector_(selector)
-                            ._arguments_([arg]);
-                 }
-
-associationTail     = message:associationMessage / message:binaryMessage tail:associationTail  { return tail._valueForReceiver_(message); }
-
-associationSend     = receiver:unarySend tail:associationTail { return tail._valueForReceiver_(receiver); }
+associationSend     = send:binarySend & { return send._selector() === "->" } { return send; }
 
 associationList = ws "." ws expression:associationSend {return expression;}
 associations    = first:associationSend others:associationList* { return [first].concat(others); }
