@@ -514,6 +514,27 @@ globals.CodeGeneratorTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testDynamicDictionaryWithMoreArrows",
+protocol: 'tests',
+fn: function (){
+var self=this;
+function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st((1).__minus_gt((2))).__minus_gt((3));
+$ctx1.sendIdx["->"]=1;
+$1=_st($HashedCollection())._with_($2);
+self._should_return_("foo ^ #{1->2->3}",$1);
+return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaryWithMoreArrows",{},globals.CodeGeneratorTest)})},
+args: [],
+source: "testDynamicDictionaryWithMoreArrows\x0a\x09self should: 'foo ^ #{1->2->3}' return: (HashedCollection with: 1->2->3)",
+messageSends: ["should:return:", "with:", "->"],
+referencedClasses: ["HashedCollection"]
+}),
+globals.CodeGeneratorTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testGlobalVar",
 protocol: 'tests',
 fn: function (){
