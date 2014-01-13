@@ -1819,28 +1819,20 @@ selector: "visitDynamicDictionaryNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-var associations,hashedCollection;
+var keyValueList;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-associations=_st($OrderedCollection())._new();
-$ctx1.sendIdx["new"]=1;
-hashedCollection=_st($HashedCollection())._new();
+keyValueList=_st($OrderedCollection())._new();
 _st(_st(aNode)._nodes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(associations)._add_(self._pop());
-$ctx2.sendIdx["add:"]=1;
+return _st(keyValueList)._add_(self._pop());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$ctx1.sendIdx["do:"]=1;
-_st(_st(associations)._reversed())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(hashedCollection)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-self._push_(hashedCollection);
-return self}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,associations:associations,hashedCollection:hashedCollection},globals.ASTInterpreter)})},
+self._push_(_st($HashedCollection())._newFromPairs_(_st(keyValueList)._reversed()));
+return self}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,keyValueList:keyValueList},globals.ASTInterpreter)})},
 args: ["aNode"],
-source: "visitDynamicDictionaryNode: aNode\x0a\x09| associations hashedCollection |\x0a\x09\x0a\x09associations := OrderedCollection new.\x0a\x09hashedCollection := HashedCollection new.\x0a\x09\x0a\x09aNode nodes do: [ :each | \x0a\x09\x09associations add: self pop ].\x0a\x09\x0a\x09associations reversed do: [ :each |\x0a\x09\x09hashedCollection add: each ].\x0a\x09\x0a\x09self push: hashedCollection",
-messageSends: ["new", "do:", "nodes", "add:", "pop", "reversed", "push:"],
+source: "visitDynamicDictionaryNode: aNode\x0a\x09| keyValueList |\x0a\x09\x0a\x09keyValueList := OrderedCollection new.\x0a\x09\x0a\x09aNode nodes do: [ :each | \x0a\x09\x09keyValueList add: self pop ].\x0a\x09\x0a\x09self push: (HashedCollection newFromPairs: keyValueList reversed)",
+messageSends: ["new", "do:", "nodes", "add:", "pop", "push:", "newFromPairs:", "reversed"],
 referencedClasses: ["OrderedCollection", "HashedCollection"]
 }),
 globals.ASTInterpreter);
