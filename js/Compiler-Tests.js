@@ -499,15 +499,11 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2="foo".__minus_gt((1));
-$ctx1.sendIdx["->"]=1;
-$1=globals.HashedCollection._from_([$2,"bar".__minus_gt((2))]);
-self._should_return_("foo\x0a\x09| x |\x0a\x09x := 'foo'.\x0a\x09^ #{ x->1. 'bar'->(true ifTrue: [ 2 ]) }\x0a",$1);
+self._should_return_("foo\x0a\x09| x |\x0a\x09x := 'foo'.\x0a\x09^ #{ x->1. 'bar'->(true ifTrue: [ 2 ]) }\x0a",globals.HashedCollection._newFromPairs_(["foo",(1),"bar",(2)]));
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaryElementsOrdered",{},globals.CodeGeneratorTest)})},
 args: [],
 source: "testDynamicDictionaryElementsOrdered\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := ''foo''.\x0a\x09^ #{ x->1. ''bar''->(true ifTrue: [ 2 ]) }\x0a' return: #{'foo'->1. 'bar'->2}.",
-messageSends: ["should:return:", "->"],
+messageSends: ["should:return:"],
 referencedClasses: []
 }),
 globals.CodeGeneratorTest);
@@ -562,7 +558,7 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$5,$6,$4,$8,$9,$7,$11,$12,$10,$14,$13;
+var $2,$3,$1,$5,$6,$4,$8,$9,$7,$11,$10;
 $2="foo".__minus_gt($Array());
 $ctx1.sendIdx["->"]=1;
 $3="bar".__minus_gt((2));
@@ -586,15 +582,10 @@ self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ Array with: 'foo'
 $ctx1.sendIdx["should:return:"]=3;
 $11="foo".__minus_gt((1));
 $ctx1.sendIdx["->"]=7;
-$12="bar".__minus_gt((2));
-$ctx1.sendIdx["->"]=8;
-$10=[$11,$12];
+$10=[$11,"bar".__minus_gt((2))];
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ { 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",$10);
 $ctx1.sendIdx["should:return:"]=4;
-$14="foo".__minus_gt((1));
-$ctx1.sendIdx["->"]=9;
-$13=globals.HashedCollection._from_([$14,"bar".__minus_gt((2))]);
-self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ #{ 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",$13);
+self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ #{ 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",globals.HashedCollection._newFromPairs_(["foo",(1),"bar",(2)]));
 return self}, function($ctx1) {$ctx1.fill(self,"testInnerTemporalDependentElementsOrdered",{},globals.CodeGeneratorTest)})},
 args: [],
 source: "testInnerTemporalDependentElementsOrdered\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := Array.\x0a\x09^ x with: ''foo''->x with: ''bar''->(x := 2)\x0a' return: {'foo'->Array. 'bar'->2}.\x0a\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := Array.\x0a\x09^ x with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])\x0a' return: {'foo'->Array. 'bar'->2}.\x0a\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ Array with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])\x0a' return: {'foo'->1. 'bar'->2}.\x0a\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ { ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }\x0a' return: {'foo'->1. 'bar'->2}.\x0a\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ #{ ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }\x0a' return: #{'foo'->1. 'bar'->2}.",
@@ -626,7 +617,6 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
 self._should_return_("foo ^ 1",(1));
 $ctx1.sendIdx["should:return:"]=1;
 self._should_return_("foo ^ 'hello'","hello");
@@ -639,10 +629,7 @@ self._should_return_("foo ^ true",true);
 $ctx1.sendIdx["should:return:"]=5;
 self._should_return_("foo ^ false",false);
 $ctx1.sendIdx["should:return:"]=6;
-$2=(1).__minus_gt((2));
-$ctx1.sendIdx["->"]=1;
-$1=globals.HashedCollection._from_([$2,(3).__minus_gt((4))]);
-self._should_return_("foo ^ #{1->2. 3->4}",$1);
+self._should_return_("foo ^ #{1->2. 3->4}",globals.HashedCollection._newFromPairs_([(1),(2),(3),(4)]));
 $ctx1.sendIdx["should:return:"]=7;
 self._should_return_("foo ^ #hello","hello");
 $ctx1.sendIdx["should:return:"]=8;
@@ -652,7 +639,7 @@ self._should_return_("foo ^ -2.5e4",(-25000));
 return self}, function($ctx1) {$ctx1.fill(self,"testLiterals",{},globals.CodeGeneratorTest)})},
 args: [],
 source: "testLiterals\x0a\x09self should: 'foo ^ 1' return: 1.\x0a\x09self should: 'foo ^ ''hello''' return: 'hello'.\x0a\x09self should: 'foo ^ #(1 2 3 4)' return: #(1 2 3 4).\x0a\x09self should: 'foo ^ {1. [:x | x ] value: 2. 3. [4] value}' return: #(1 2 3 4).\x0a\x09self should: 'foo ^ true' return: true.\x0a\x09self should: 'foo ^ false' return: false.\x0a\x09self should: 'foo ^ #{1->2. 3->4}' return: #{1->2. 3->4}.\x0a\x09self should: 'foo ^ #hello' return: #hello.\x0a\x09self should: 'foo ^ -123.456' return: -123.456.\x0a\x09self should: 'foo ^ -2.5e4' return: -25000.",
-messageSends: ["should:return:", "->"],
+messageSends: ["should:return:"],
 referencedClasses: []
 }),
 globals.CodeGeneratorTest);
@@ -1197,7 +1184,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 self["@receiver"]=anObject;
-$1=self._assert_equals_(self._interpret_receiver_withArguments_(aString,self["@receiver"],globals.HashedCollection._from_([])),aResult);
+$1=self._assert_equals_(self._interpret_receiver_withArguments_(aString,self["@receiver"],globals.HashedCollection._newFromPairs_([])),aResult);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult},globals.InterpreterTest)})},
 args: ["aString", "anObject", "aResult"],

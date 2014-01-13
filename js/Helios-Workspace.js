@@ -392,35 +392,15 @@ fn: function (){
 var self=this;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$4,$5,$6,$7,$8,$9,$10,$11,$12,$1;
-$3="helios.codeMirrorTheme"._settingValueIfAbsent_("default helios");
+var $2,$1;
+$2="helios.codeMirrorTheme"._settingValueIfAbsent_("default helios");
 $ctx1.sendIdx["settingValueIfAbsent:"]=1;
-$2="theme".__minus_gt($3);
-$ctx1.sendIdx["->"]=1;
-$4="mode".__minus_gt("text/x-stsrc");
-$ctx1.sendIdx["->"]=2;
-$5="lineNumbers".__minus_gt(true);
-$ctx1.sendIdx["->"]=3;
-$6="enterMode".__minus_gt("flat");
-$ctx1.sendIdx["->"]=4;
-$7="indentWithTabs".__minus_gt(true);
-$ctx1.sendIdx["->"]=5;
-$8="indentUnit".__minus_gt((4));
-$ctx1.sendIdx["->"]=6;
-$9="matchBrackets".__minus_gt(true);
-$ctx1.sendIdx["->"]=7;
-$10="electricChars".__minus_gt(false);
-$ctx1.sendIdx["->"]=8;
-$11="keyMap".__minus_gt("Amber");
-$ctx1.sendIdx["->"]=9;
-$12="extraKeys".__minus_gt(_st($HashedCollection())._with_(_st("helios.completionKey"._settingValueIfAbsent_("Shift-Space")).__minus_gt("autocomplete")));
-$ctx1.sendIdx["->"]=10;
-$1=globals.HashedCollection._from_([$2,$4,$5,$6,$7,$8,$9,$10,$11,$12]);
+$1=globals.HashedCollection._newFromPairs_(["theme",$2,"mode","text/x-stsrc","lineNumbers",true,"enterMode","flat","indentWithTabs",true,"indentUnit",(4),"matchBrackets",true,"electricChars",false,"keyMap","Amber","extraKeys",_st($HashedCollection())._with_(_st("helios.completionKey"._settingValueIfAbsent_("Shift-Space")).__minus_gt("autocomplete"))]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"editorOptions",{},globals.HLCodeWidget)})},
 args: [],
 source: "editorOptions\x0a\x09^ #{\x0a\x09\x09'theme' -> ('helios.codeMirrorTheme' settingValueIfAbsent: 'default helios').\x0a\x09\x09'mode' -> 'text/x-stsrc'.\x0a        'lineNumbers' -> true.\x0a        'enterMode' -> 'flat'.\x0a        'indentWithTabs' -> true.\x0a\x09\x09'indentUnit' -> 4.\x0a        'matchBrackets' -> true.\x0a        'electricChars' -> false.\x0a\x09\x09'keyMap' -> 'Amber'.\x0a\x09\x09'extraKeys' -> (HashedCollection with: ('helios.completionKey' settingValueIfAbsent: 'Shift-Space') -> 'autocomplete')\x0a\x09}",
-messageSends: ["->", "settingValueIfAbsent:", "with:"],
+messageSends: ["settingValueIfAbsent:", "with:", "->"],
 referencedClasses: ["HashedCollection"]
 }),
 globals.HLCodeWidget);
@@ -651,7 +631,7 @@ var self=this;
 var start,stop,currentLine;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3,$5,$6,$7,$8,$10,$9,$11,$12,$13,$15,$14;
+var $1,$2,$4,$3,$5,$6,$7,$8,$9,$10,$12,$11;
 $1=_st(self["@editor"])._getCursor_(false);
 $ctx1.sendIdx["getCursor:"]=1;
 currentLine=_st($1)._line();
@@ -674,32 +654,28 @@ $7=_st(_st(self["@editor"])._getLine_(currentLine))._size();
 $ctx2.sendIdx["size"]=1;
 _st($6)._at_put_("ch",$7);
 $ctx2.sendIdx["at:put:"]=3;
-$8=self["@editor"];
-$10="line".__minus_gt(currentLine);
-$ctx2.sendIdx["->"]=1;
-$9=globals.HashedCollection._from_([$10,"ch".__minus_gt((0))]);
-return _st($8)._setSelection_end_($9,start);
+return _st(self["@editor"])._setSelection_end_(globals.HashedCollection._newFromPairs_(["line",currentLine,"ch",(0)]),start);
 $ctx2.sendIdx["setSelection:end:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 stop=_st($HashedCollection())._new();
 _st(stop)._at_put_("line",currentLine);
 $ctx1.sendIdx["at:put:"]=4;
-$11=stop;
-$12=_st(_st(_st(start)._at_("ch")).__plus(_st(aString)._size())).__plus((2));
+$8=stop;
+$9=_st(_st(_st(start)._at_("ch")).__plus(_st(aString)._size())).__plus((2));
 $ctx1.sendIdx["+"]=1;
-_st($11)._at_put_("ch",$12);
-$13=self["@editor"];
-$15=_st(_st(_st(self["@editor"])._getSelection()).__comma(" ")).__comma(aString);
+_st($8)._at_put_("ch",$9);
+$10=self["@editor"];
+$12=_st(_st(_st(self["@editor"])._getSelection()).__comma(" ")).__comma(aString);
 $ctx1.sendIdx[","]=2;
-$14=_st($15).__comma(" ");
+$11=_st($12).__comma(" ");
 $ctx1.sendIdx[","]=1;
-_st($13)._replaceSelection_($14);
+_st($10)._replaceSelection_($11);
 _st(self["@editor"])._setCursor_(_st(self["@editor"])._getCursor_(true));
 _st(self["@editor"])._setSelection_end_(stop,start);
 return self}, function($ctx1) {$ctx1.fill(self,"print:",{aString:aString,start:start,stop:stop,currentLine:currentLine},globals.HLCodeWidget)})},
 args: ["aString"],
 source: "print: aString\x0a\x09| start stop currentLine |\x0a    currentLine := (editor getCursor: false) line.\x0a\x09start := HashedCollection new.\x0a\x09start at: 'line' put: currentLine.\x0a\x09start at: 'ch' put: (editor getCursor: false) ch.\x0a    (editor getSelection) ifEmpty: [\x0a    \x09\x22select current line if selection is empty\x22\x0a    \x09start at: 'ch' put: (editor getLine: currentLine) size.\x0a        editor setSelection: #{'line' -> currentLine. 'ch' -> 0} end: start.\x0a    ].\x0a\x09stop := HashedCollection new.\x0a\x09stop at: 'line' put: currentLine.\x0a\x09stop at: 'ch' put: ((start at: 'ch') + aString size + 2).\x0a\x0a\x09editor replaceSelection: (editor getSelection, ' ', aString, ' ').\x0a\x09editor setCursor: (editor getCursor: true).\x0a\x09editor setSelection: stop end: start",
-messageSends: ["line", "getCursor:", "new", "at:put:", "ch", "ifEmpty:", "getSelection", "size", "getLine:", "setSelection:end:", "->", "+", "at:", "replaceSelection:", ",", "setCursor:"],
+messageSends: ["line", "getCursor:", "new", "at:put:", "ch", "ifEmpty:", "getSelection", "size", "getLine:", "setSelection:end:", "+", "at:", "replaceSelection:", ",", "setCursor:"],
 referencedClasses: ["HashedCollection"]
 }),
 globals.HLCodeWidget);
@@ -1042,7 +1018,7 @@ var cursor,token,completions;
 function $CodeMirror(){return globals.CodeMirror||(typeof CodeMirror=="undefined"?nil:CodeMirror)}
 function $HLCodeWidget(){return globals.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2,$5,$7,$10,$11,$9,$8,$6;
+var $1,$4,$3,$2,$5,$7,$9,$10,$8,$6;
 cursor=_st(anEditor)._getCursor();
 token=_st(anEditor)._getTokenAt_(cursor);
 $1=token;
@@ -1058,22 +1034,19 @@ completions=_st($HLCodeWidget())._variableHintFor_token_(anEditor,token);
 } else {
 completions=_st($HLCodeWidget())._messageHintFor_token_(anEditor,token);
 };
-$7="list".__minus_gt(completions);
-$ctx1.sendIdx["->"]=1;
-$10=_st($CodeMirror())._basicAt_("Pos");
+$7=completions;
+$9=_st($CodeMirror())._basicAt_("Pos");
 $ctx1.sendIdx["basicAt:"]=2;
-$11=_st(cursor)._line();
+$10=_st(cursor)._line();
 $ctx1.sendIdx["line"]=1;
-$9=_st($10)._value_value_($11,_st(token)._end());
+$8=_st($9)._value_value_($10,_st(token)._end());
 $ctx1.sendIdx["value:value:"]=2;
-$8="from".__minus_gt($9);
-$ctx1.sendIdx["->"]=2;
-$6=globals.HashedCollection._from_([$7,$8,"to".__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._start()))]);
+$6=globals.HashedCollection._newFromPairs_(["list",$7,"from",$8,"to",_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._start())]);
 return $6;
 }, function($ctx1) {$ctx1.fill(self,"hintFor:options:",{anEditor:anEditor,options:options,cursor:cursor,token:token,completions:completions},globals.HLCodeWidget.klass)})},
 args: ["anEditor", "options"],
 source: "hintFor: anEditor options: options\x0a\x09| cursor token completions |\x0a\x09\x0a\x09cursor := anEditor getCursor.\x0a\x09token := anEditor getTokenAt: cursor.\x0a\x09token at: 'state' put: ((CodeMirror basicAt: 'innerMode')\x0a\x09\x09value: anEditor getMode value: (token at: 'state')) state.\x0a\x09\x0a\x09completions := token type = 'variable' \x0a\x09\x09ifTrue: [ HLCodeWidget variableHintFor: anEditor token: token ]\x0a\x09\x09ifFalse: [ HLCodeWidget messageHintFor: anEditor token: token ].\x0a\x09\x0a\x09^ #{\x0a\x09\x09'list' -> completions.\x0a\x09\x09'from' -> ((CodeMirror basicAt: 'Pos') value: cursor line value: token end).\x0a\x09\x09'to' -> ((CodeMirror basicAt: 'Pos') value: cursor line value: token start)\x0a\x09}",
-messageSends: ["getCursor", "getTokenAt:", "at:put:", "state", "value:value:", "basicAt:", "getMode", "at:", "ifTrue:ifFalse:", "=", "type", "variableHintFor:token:", "messageHintFor:token:", "->", "line", "end", "start"],
+messageSends: ["getCursor", "getTokenAt:", "at:put:", "state", "value:value:", "basicAt:", "getMode", "at:", "ifTrue:ifFalse:", "=", "type", "variableHintFor:token:", "messageHintFor:token:", "line", "end", "start"],
 referencedClasses: ["CodeMirror", "HLCodeWidget"]
 }),
 globals.HLCodeWidget.klass);
@@ -1128,64 +1101,13 @@ selector: "macKeyMap",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$1;
-$2="Alt-Backspace".__minus_gt("delWordBefore");
-$ctx1.sendIdx["->"]=1;
-$3="Alt-Delete".__minus_gt("delWordAfter");
-$ctx1.sendIdx["->"]=2;
-$4="Alt-Left".__minus_gt("goWordLeft");
-$ctx1.sendIdx["->"]=3;
-$5="Alt-Right".__minus_gt("goWordRight");
-$ctx1.sendIdx["->"]=4;
-$6="Cmd-A".__minus_gt("selectAll");
-$ctx1.sendIdx["->"]=5;
-$7="Cmd-Alt-F".__minus_gt("replace");
-$ctx1.sendIdx["->"]=6;
-$8="Cmd-D".__minus_gt("doIt");
-$ctx1.sendIdx["->"]=7;
-$9="Cmd-Down".__minus_gt("goDocEnd");
-$ctx1.sendIdx["->"]=8;
-$10="Cmd-End".__minus_gt("goDocEnd");
-$ctx1.sendIdx["->"]=9;
-$11="Cmd-F".__minus_gt("find");
-$ctx1.sendIdx["->"]=10;
-$12="Cmd-G".__minus_gt("findNext");
-$ctx1.sendIdx["->"]=11;
-$13="Cmd-I".__minus_gt("inspectIt");
-$ctx1.sendIdx["->"]=12;
-$14="Cmd-Left".__minus_gt("goLineStart");
-$ctx1.sendIdx["->"]=13;
-$15="Cmd-P".__minus_gt("printIt");
-$ctx1.sendIdx["->"]=14;
-$16="Cmd-Right".__minus_gt("goLineEnd");
-$ctx1.sendIdx["->"]=15;
-$17="Cmd-S".__minus_gt("saveIt");
-$ctx1.sendIdx["->"]=16;
-$18="Cmd-Up".__minus_gt("goDocStart");
-$ctx1.sendIdx["->"]=17;
-$19="Cmd-Y".__minus_gt("redo");
-$ctx1.sendIdx["->"]=18;
-$20="Cmd-Z".__minus_gt("undo");
-$ctx1.sendIdx["->"]=19;
-$21="Cmd-[".__minus_gt("indentLess");
-$ctx1.sendIdx["->"]=20;
-$22="Cmd-]".__minus_gt("indentMore");
-$ctx1.sendIdx["->"]=21;
-$23="Ctrl-Alt-Backspace".__minus_gt("delWordAfter");
-$ctx1.sendIdx["->"]=22;
-$24="Shift-Cmd-Alt-F".__minus_gt("replaceAll");
-$ctx1.sendIdx["->"]=23;
-$25="Shift-Cmd-G".__minus_gt("findPrev");
-$ctx1.sendIdx["->"]=24;
-$26="Shift-Cmd-Z".__minus_gt("redo");
-$ctx1.sendIdx["->"]=25;
-$1=globals.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,"fallthrough".__minus_gt(["basic","emacsy"])]);
+var $1;
+$1=globals.HashedCollection._newFromPairs_(["Alt-Backspace","delWordBefore","Alt-Delete","delWordAfter","Alt-Left","goWordLeft","Alt-Right","goWordRight","Cmd-A","selectAll","Cmd-Alt-F","replace","Cmd-D","doIt","Cmd-Down","goDocEnd","Cmd-End","goDocEnd","Cmd-F","find","Cmd-G","findNext","Cmd-I","inspectIt","Cmd-Left","goLineStart","Cmd-P","printIt","Cmd-Right","goLineEnd","Cmd-S","saveIt","Cmd-Up","goDocStart","Cmd-Y","redo","Cmd-Z","undo","Cmd-[","indentLess","Cmd-]","indentMore","Ctrl-Alt-Backspace","delWordAfter","Shift-Cmd-Alt-F","replaceAll","Shift-Cmd-G","findPrev","Shift-Cmd-Z","redo","fallthrough",["basic","emacsy"]]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"macKeyMap",{},globals.HLCodeWidget.klass)})},
+},
 args: [],
 source: "macKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Backspace'\x09\x09\x09-> 'delWordBefore'.\x0a\x09\x09'Alt-Delete'\x09\x09\x09-> 'delWordAfter'. \x0a\x09\x09'Alt-Left'\x09\x09\x09\x09-> 'goWordLeft'.\x0a\x09\x09'Alt-Right'\x09\x09\x09\x09-> 'goWordRight'. \x0a\x09\x09'Cmd-A'\x09\x09\x09\x09\x09-> 'selectAll'. \x0a\x09\x09'Cmd-Alt-F'\x09\x09\x09\x09-> 'replace'. \x0a\x09\x09'Cmd-D'\x09\x09\x09\x09\x09-> 'doIt'. \x0a\x09\x09'Cmd-Down'\x09\x09\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-End'\x09\x09\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-F'\x09\x09\x09\x09\x09-> 'find'.\x0a\x09\x09'Cmd-G'\x09\x09\x09\x09\x09-> 'findNext'. \x0a\x09\x09'Cmd-I'\x09\x09\x09\x09\x09-> 'inspectIt'. \x0a\x09\x09'Cmd-Left'\x09\x09\x09\x09-> 'goLineStart'. \x0a\x09\x09'Cmd-P'\x09\x09\x09\x09\x09-> 'printIt'. \x0a\x09\x09'Cmd-Right'\x09\x09\x09\x09-> 'goLineEnd'. \x0a\x09\x09'Cmd-S'\x09\x09\x09\x09\x09-> 'saveIt'. \x0a\x09\x09'Cmd-Up'\x09\x09\x09\x09-> 'goDocStart'. \x0a\x09\x09'Cmd-Y'\x09\x09\x09\x09\x09-> 'redo'.\x0a\x09\x09'Cmd-Z'\x09\x09\x09\x09\x09-> 'undo'. \x0a\x09\x09'Cmd-['\x09\x09\x09\x09\x09-> 'indentLess'. \x0a\x09\x09'Cmd-]'\x09\x09\x09\x09\x09-> 'indentMore'.\x0a\x09\x09'Ctrl-Alt-Backspace'\x09-> 'delWordAfter'. \x0a\x09\x09'Shift-Cmd-Alt-F'\x09\x09-> 'replaceAll'.\x0a\x09\x09'Shift-Cmd-G'\x09\x09\x09-> 'findPrev'. \x0a\x09\x09'Shift-Cmd-Z'\x09\x09\x09-> 'redo'. \x0a    \x09'fallthrough' \x09\x09\x09-> { 'basic'. 'emacsy' }\x0a  }",
-messageSends: ["->"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.HLCodeWidget.klass);
@@ -1214,64 +1136,13 @@ selector: "pcKeyMap",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$1;
-$2="Alt-Left".__minus_gt("goLineStart");
-$ctx1.sendIdx["->"]=1;
-$3="Alt-Right".__minus_gt("goLineEnd");
-$ctx1.sendIdx["->"]=2;
-$4="Alt-Up".__minus_gt("goDocStart");
-$ctx1.sendIdx["->"]=3;
-$5="Ctrl-A".__minus_gt("selectAll");
-$ctx1.sendIdx["->"]=4;
-$6="Ctrl-Backspace".__minus_gt("delWordBefore");
-$ctx1.sendIdx["->"]=5;
-$7="Ctrl-D".__minus_gt("doIt");
-$ctx1.sendIdx["->"]=6;
-$8="Ctrl-Delete".__minus_gt("delWordAfter");
-$ctx1.sendIdx["->"]=7;
-$9="Ctrl-Down".__minus_gt("goDocEnd");
-$ctx1.sendIdx["->"]=8;
-$10="Ctrl-End".__minus_gt("goDocEnd");
-$ctx1.sendIdx["->"]=9;
-$11="Ctrl-F".__minus_gt("find");
-$ctx1.sendIdx["->"]=10;
-$12="Ctrl-G".__minus_gt("findNext");
-$ctx1.sendIdx["->"]=11;
-$13="Ctrl-I".__minus_gt("inspectIt");
-$ctx1.sendIdx["->"]=12;
-$14="Ctrl-Home".__minus_gt("goDocStart");
-$ctx1.sendIdx["->"]=13;
-$15="Ctrl-Left".__minus_gt("goWordLeft");
-$ctx1.sendIdx["->"]=14;
-$16="Ctrl-P".__minus_gt("printIt");
-$ctx1.sendIdx["->"]=15;
-$17="Ctrl-Right".__minus_gt("goWordRight");
-$ctx1.sendIdx["->"]=16;
-$18="Ctrl-S".__minus_gt("saveIt");
-$ctx1.sendIdx["->"]=17;
-$19="Ctrl-Y".__minus_gt("redo");
-$ctx1.sendIdx["->"]=18;
-$20="Ctrl-Z".__minus_gt("undo");
-$ctx1.sendIdx["->"]=19;
-$21="Ctrl-[".__minus_gt("indentLess");
-$ctx1.sendIdx["->"]=20;
-$22="Ctrl-]".__minus_gt("indentMore");
-$ctx1.sendIdx["->"]=21;
-$23="Shift-Ctrl-F".__minus_gt("replace");
-$ctx1.sendIdx["->"]=22;
-$24="Shift-Ctrl-G".__minus_gt("findPrev");
-$ctx1.sendIdx["->"]=23;
-$25="Shift-Ctrl-R".__minus_gt("replaceAll");
-$ctx1.sendIdx["->"]=24;
-$26="Shift-Ctrl-Z".__minus_gt("redo");
-$ctx1.sendIdx["->"]=25;
-$1=globals.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,"fallthrough".__minus_gt(["basic"])]);
+var $1;
+$1=globals.HashedCollection._newFromPairs_(["Alt-Left","goLineStart","Alt-Right","goLineEnd","Alt-Up","goDocStart","Ctrl-A","selectAll","Ctrl-Backspace","delWordBefore","Ctrl-D","doIt","Ctrl-Delete","delWordAfter","Ctrl-Down","goDocEnd","Ctrl-End","goDocEnd","Ctrl-F","find","Ctrl-G","findNext","Ctrl-I","inspectIt","Ctrl-Home","goDocStart","Ctrl-Left","goWordLeft","Ctrl-P","printIt","Ctrl-Right","goWordRight","Ctrl-S","saveIt","Ctrl-Y","redo","Ctrl-Z","undo","Ctrl-[","indentLess","Ctrl-]","indentMore","Shift-Ctrl-F","replace","Shift-Ctrl-G","findPrev","Shift-Ctrl-R","replaceAll","Shift-Ctrl-Z","redo","fallthrough",["basic"]]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"pcKeyMap",{},globals.HLCodeWidget.klass)})},
+},
 args: [],
 source: "pcKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Left' -> \x09\x09'goLineStart'. \x0a\x09\x09'Alt-Right' -> \x09\x09'goLineEnd'.\x0a\x09\x09'Alt-Up' -> \x09\x09'goDocStart'. \x0a\x09\x09'Ctrl-A' -> \x09\x09'selectAll'. \x0a\x09\x09'Ctrl-Backspace' -> 'delWordBefore'. \x0a\x09\x09'Ctrl-D' -> \x09\x09'doIt'. \x0a\x09\x09'Ctrl-Delete' -> \x09\x09'delWordAfter'. \x0a\x09\x09'Ctrl-Down' -> \x09\x09'goDocEnd'.\x0a\x09\x09'Ctrl-End' -> \x09\x09'goDocEnd'. \x0a\x09\x09'Ctrl-F' -> \x09\x09'find'.\x0a\x09\x09'Ctrl-G' -> \x09\x09'findNext'. \x0a\x09\x09'Ctrl-I' -> \x09\x09'inspectIt'.\x0a\x09\x09'Ctrl-Home' -> \x09\x09'goDocStart'. \x0a\x09\x09'Ctrl-Left' -> \x09\x09'goWordLeft'. \x0a\x09\x09'Ctrl-P' -> \x09\x09'printIt'.\x0a\x09\x09'Ctrl-Right' -> \x09'goWordRight'. \x0a\x09\x09'Ctrl-S' -> \x09\x09'saveIt'. \x0a\x09\x09'Ctrl-Y' -> \x09\x09'redo'.\x0a\x09\x09'Ctrl-Z' -> \x09\x09'undo'. \x0a\x09\x09'Ctrl-[' -> \x09\x09'indentLess'. \x0a\x09\x09'Ctrl-]' -> \x09\x09'indentMore'.\x0a\x09\x09'Shift-Ctrl-F' -> \x09'replace'. \x0a\x09\x09'Shift-Ctrl-G' -> \x09'findPrev'. \x0a\x09\x09'Shift-Ctrl-R' -> \x09'replaceAll'.\x0a\x09\x09'Shift-Ctrl-Z' -> \x09'redo'. \x0a\x09\x09'fallthrough' -> \x09#('basic')\x0a}",
-messageSends: ["->"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.HLCodeWidget.klass);

@@ -1431,30 +1431,21 @@ protocol: 'private',
 fn: function (aURL,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$8,$7,$6,$1;
-$2="url".__minus_gt(aURL);
-$ctx1.sendIdx["->"]=1;
-$3="type".__minus_gt("PUT");
-$ctx1.sendIdx["->"]=2;
-$4="data".__minus_gt(aString);
-$ctx1.sendIdx["->"]=3;
-$5="contentType".__minus_gt("text/plain;charset=UTF-8");
-$ctx1.sendIdx["->"]=4;
-$1=globals.HashedCollection._from_([$2,$3,$4,$5,"error".__minus_gt((function(xhr){
+var $3,$2,$1;
+self._ajax_(globals.HashedCollection._newFromPairs_(["url",aURL,"type","PUT","data",aString,"contentType","text/plain;charset=UTF-8","error",(function(xhr){
 return smalltalk.withContext(function($ctx2) {
-$8=_st("Commiting ".__comma(aURL)).__comma(" failed with reason: \x22");
+$3=_st("Commiting ".__comma(aURL)).__comma(" failed with reason: \x22");
 $ctx2.sendIdx[","]=3;
-$7=_st($8).__comma(_st(xhr)._responseText());
+$2=_st($3).__comma(_st(xhr)._responseText());
 $ctx2.sendIdx[","]=2;
-$6=_st($7).__comma("\x22");
+$1=_st($2).__comma("\x22");
 $ctx2.sendIdx[","]=1;
-return self._alert_($6);
-}, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1,1)})}))]);
-self._ajax_($1);
+return self._alert_($1);
+}, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1,1)})})]));
 return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:",{aURL:aURL,aString:aString},globals.PackageHandler)})},
 args: ["aURL", "aString"],
 source: "ajaxPutAt: aURL data: aString\x0a\x09self\x0a\x09\x09ajax: #{\x0a\x09\x09\x09'url' -> aURL.\x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'error' -> [ :xhr | self alert: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22' ] }",
-messageSends: ["ajax:", "->", "alert:", ",", "responseText"],
+messageSends: ["ajax:", "alert:", ",", "responseText"],
 referencedClasses: []
 }),
 globals.PackageHandler);
@@ -1863,12 +1854,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=globals.HashedCollection._from_(["type".__minus_gt(self._type())]);
+$1=globals.HashedCollection._newFromPairs_(["type",self._type()]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{},globals.PackageTransport)})},
 args: [],
 source: "asJSON\x0a\x09^ #{ 'type' -> self type }",
-messageSends: ["->", "type"],
+messageSends: ["type"],
 referencedClasses: []
 }),
 globals.PackageTransport);
@@ -2111,7 +2102,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 globals.PackageTransport.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@registry"]=globals.HashedCollection._from_([]);
+self["@registry"]=globals.HashedCollection._newFromPairs_([]);
 self._register();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.PackageTransport.klass)})},
 args: [],
