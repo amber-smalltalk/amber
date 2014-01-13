@@ -2734,11 +2734,11 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1="vm.defaultAmdNamespace"._settingValue();
+$1="transport.defaultAmdNamespace"._settingValue();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},globals.SmalltalkImage)})},
 args: [],
-source: "defaultAmdNamespace\x0a\x09^ 'vm.defaultAmdNamespace' settingValue",
+source: "defaultAmdNamespace\x0a\x09^ 'transport.defaultAmdNamespace' settingValue",
 messageSends: ["settingValue"],
 referencedClasses: []
 }),
@@ -2751,10 +2751,10 @@ protocol: 'accessing amd',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-"vm.defaultAmdNamespace"._settingValue_(aString);
+"transport.defaultAmdNamespace"._settingValue_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace:",{aString:aString},globals.SmalltalkImage)})},
 args: ["aString"],
-source: "defaultAmdNamespace: aString\x0a\x09'vm.defaultAmdNamespace' settingValue: aString",
+source: "defaultAmdNamespace: aString\x0a\x09'transport.defaultAmdNamespace' settingValue: aString",
 messageSends: ["settingValue:"],
 referencedClasses: []
 }),
