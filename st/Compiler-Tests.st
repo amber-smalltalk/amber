@@ -198,8 +198,8 @@ testDynamicArrayElementsOrdered
 testDynamicDictionaryElementsOrdered
 	self should: 'foo
 	| x |
-	x := ''foo''->1.
-	^ #{ x. (true ifTrue: [ x := ''bar''->2 ]) }
+	x := ''foo''.
+	^ #{ x->1. ''bar''->(true ifTrue: [ 2 ]) }
 ' return: #{'foo'->1. 'bar'->2}.
 !
 
