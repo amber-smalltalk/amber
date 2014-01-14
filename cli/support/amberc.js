@@ -43,8 +43,8 @@ function createConcatenator () {
 		},
 		finish: function (realWork) {
 			this.add(
-				'define("amber_vm/_init", ["amber_vm/smalltalk", "amber_vm/globals", "' + this.ids.join('","') + '"], function (smalltalk, globals) {',
-				'smalltalk.initialize();',
+				'define("amber_vm/_init", ["amber_vm/smalltalk", "amber_vm/globals", "' + this.ids.join('","') + '"], function (vm, globals) {',
+				'vm.initialize();',
 				realWork,
 				'});',
 				'requirejs("amber_vm/_init");'
@@ -128,7 +128,7 @@ AmberCompiler.prototype.main = function(configuration, finished_callback) {
 	}
 
 	// the evaluated compiler will be stored in this variable (see create_compiler)
-	configuration.smalltalk = {};
+	configuration.vm = {};
 	configuration.globals = {};
 	configuration.kernel_libraries = this.kernel_libraries;
 	configuration.compiler_libraries = this.compiler_libraries;
@@ -280,7 +280,7 @@ function resolve_kernel(configuration) {
 	)
 	.then(function(data) {
 		// boot.js and Kernel files need to be used first
-		// otherwise the global smalltalk object is undefined
+		// otherwise the global objects 'vm' and 'globals' are undefined
 		configuration.libraries = data.concat(configuration.libraries);
 		return configuration;
 	});
@@ -289,7 +289,7 @@ function resolve_kernel(configuration) {
 
 /**
  * Resolve .js files needed by compiler, read and eval() them.
- * The finished Compiler gets stored in configuration.smalltalk.
+ * The finished Compiler gets stored in configuration.{vm,globals}.
  * Returns a Promise object which resolves into the configuration object.
  */
 function create_compiler(configuration) {
@@ -328,8 +328,8 @@ function create_compiler(configuration) {
 				builder.addId(match[1]);
 			}
 		});
-		// store the generated smalltalk env in configuration.smalltalk
-		builder.finish('configuration.smalltalk = smalltalk; configuration.globals = globals;');
+		// store the generated smalltalk env in configuration.{vm,globals}
+		builder.finish('configuration.vm = vm; configuration.globals = globals;');
 		builder.add('})();');
 
 		eval(builder.toString());
@@ -339,7 +339,7 @@ function create_compiler(configuration) {
 		configuration.globals.ErrorHandler._register_(configuration.globals.RethrowErrorHandler._new());
 
 		if(0 !== configuration.jsGlobals.length) {
-			var jsGlobalVariables = configuration.smalltalk.globalJsVariables;
+			var jsGlobalVariables = configuration.vm.globalJsVariables;
 			jsGlobalVariables.push.apply(jsGlobalVariables, configuration.jsGlobals);
 		}
 
@@ -529,7 +529,7 @@ function compose_js_files(configuration) {
 
 		if (undefined !== configuration.mainfile && fs.existsSync(configuration.mainfile)) {
 			console.log('Adding main file: ' + configuration.mainfile);
-			mainFunctionOrFile += '\n' + fs.readFileSync(configuration.mainfile);
+			mainFunctionOrFile += '\nvar smalltalk = vm; // backward compatibility\n' + fs.readFileSync(configuration.mainfile);
 		}
 
 		builder.finish(mainFunctionOrFile);
