@@ -394,29 +394,20 @@ protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$2;
+var $1;
 $1=_st(self["@splitter"])._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
-$3="axis".__minus_gt("y");
-$ctx1.sendIdx["->"]=1;
-$4="containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent());
-$ctx1.sendIdx["->"]=2;
-$5="helper".__minus_gt("clone");
-$ctx1.sendIdx["->"]=3;
-$6="start".__minus_gt((function(e,ui){
+_st($1)._draggable_(globals.HashedCollection._newFromPairs_(["axis","y","containment",_st(_st(self["@splitter"])._asJQuery())._parent(),"helper","clone","start",(function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._startResizing_(_st(ui)._helper());
-}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,1)})}));
-$ctx1.sendIdx["->"]=4;
-$2=globals.HashedCollection._from_([$3,$4,$5,$6,"drag".__minus_gt((function(e,ui){
+}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,1)})}),"drag",(function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._resize_(_st(_st(ui)._offset())._top());
-}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})}))]);
-_st($1)._draggable_($2);
+}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})})]));
 return self}, function($ctx1) {$ctx1.fill(self,"setupSplitter",{},globals.HLHorizontalSplitter)})},
 args: [],
 source: "setupSplitter\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'y'. \x0a        'containment' -> splitter asJQuery parent.\x0a        'helper' -> 'clone'.\x0a        'start' -> [ :e :ui | self startResizing: ui helper ].\x0a        'drag' -> [ :e :ui | self resize: ui offset top ] }",
-messageSends: ["draggable:", "asJQuery", "->", "parent", "startResizing:", "helper", "resize:", "top", "offset"],
+messageSends: ["draggable:", "asJQuery", "parent", "startResizing:", "helper", "resize:", "top", "offset"],
 referencedClasses: []
 }),
 globals.HLHorizontalSplitter);
@@ -551,29 +542,20 @@ protocol: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$2;
+var $1;
 $1=_st(self["@splitter"])._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
-$3="axis".__minus_gt("x");
-$ctx1.sendIdx["->"]=1;
-$4="containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent());
-$ctx1.sendIdx["->"]=2;
-$5="helper".__minus_gt("clone");
-$ctx1.sendIdx["->"]=3;
-$6="start".__minus_gt((function(e,ui){
+_st($1)._draggable_(globals.HashedCollection._newFromPairs_(["axis","x","containment",_st(_st(self["@splitter"])._asJQuery())._parent(),"helper","clone","start",(function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._startResizing_(_st(ui)._helper());
-}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,1)})}));
-$ctx1.sendIdx["->"]=4;
-$2=globals.HashedCollection._from_([$3,$4,$5,$6,"drag".__minus_gt((function(e,ui){
+}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,1)})}),"drag",(function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._resize_(_st(_st(ui)._offset())._left());
-}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})}))]);
-_st($1)._draggable_($2);
+}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})})]));
 return self}, function($ctx1) {$ctx1.fill(self,"setupSplitter",{},globals.HLVerticalSplitter)})},
 args: [],
 source: "setupSplitter\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'x'. \x0a        'containment' -> splitter asJQuery parent.\x0a        'helper' -> 'clone'.\x0a        'start' -> [ :e :ui | self startResizing: ui helper ].\x0a        'drag' -> [ :e :ui | self resize: (ui offset left) ] }",
-messageSends: ["draggable:", "asJQuery", "->", "parent", "startResizing:", "helper", "resize:", "left", "offset"],
+messageSends: ["draggable:", "asJQuery", "parent", "startResizing:", "helper", "resize:", "left", "offset"],
 referencedClasses: []
 }),
 globals.HLVerticalSplitter);

@@ -987,7 +987,7 @@ self["@input"]=$5;
 self["@input"];
 $11=_st(self["@input"])._asJQuery();
 $ctx2.sendIdx["asJQuery"]=2;
-_st($11)._typeahead_(globals.HashedCollection._from_(["source".__minus_gt(self._inputCompletion())]));
+_st($11)._typeahead_(globals.HashedCollection._newFromPairs_(["source",self._inputCompletion()]));
 $12=_st(html)._span();
 _st($12)._class_("help-inline");
 _st($12)._with_(self._message());
@@ -1003,7 +1003,7 @@ return _st(_st(self["@input"])._asJQuery())._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.HLBindingActionInputWidget)})},
 args: ["html"],
 source: "renderOn: html\x0a\x09wrapper ifNil: [ wrapper := html span ].\x0a\x0a\x09wrapper \x0a\x09\x09class: self status;\x0a\x09\x09with: [\x0a\x09\x09\x09input := html input\x0a\x09\x09\x09\x09placeholder: self ghostText;\x0a\x09\x09\x09\x09value: self defaultValue;\x0a\x09\x09\x09\x09onKeyDown: [ :event | \x0a\x09\x09\x09\x09\x09event which = 13 ifTrue: [\x0a\x09\x09\x09\x09\x09\x09self evaluate: input asJQuery val ] ]\x0a\x09\x09\x09\x09yourself.\x0a\x09\x09\x09input asJQuery \x0a\x09\x09\x09\x09typeahead: #{ 'source' -> self inputCompletion }.\x0a\x09\x09\x09messageTag := (html span\x0a\x09\x09\x09\x09class: 'help-inline';\x0a\x09\x09\x09\x09with: self message;\x0a\x09\x09\x09\x09yourself) ].\x0a\x09\x0a\x09\x22Evaluate with a timeout to ensure focus.\x0a\x09Commands can be executed from a menu, clicking on the menu to\x0a\x09evaluate the command would give it the focus otherwise\x22\x0a\x09\x0a\x09[ input asJQuery focus ] valueWithTimeout: 10",
-messageSends: ["ifNil:", "span", "class:", "status", "with:", "placeholder:", "input", "ghostText", "value:", "defaultValue", "onKeyDown:", "yourself", "ifTrue:", "=", "which", "evaluate:", "val", "asJQuery", "typeahead:", "->", "inputCompletion", "message", "valueWithTimeout:", "focus"],
+messageSends: ["ifNil:", "span", "class:", "status", "with:", "placeholder:", "input", "ghostText", "value:", "defaultValue", "onKeyDown:", "yourself", "ifTrue:", "=", "which", "evaluate:", "val", "asJQuery", "typeahead:", "inputCompletion", "message", "valueWithTimeout:", "focus"],
 referencedClasses: []
 }),
 globals.HLBindingActionInputWidget);

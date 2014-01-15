@@ -258,8 +258,8 @@ method         = ws pattern:(keywordPattern / binaryPattern / unaryPattern) ws s
                  }
 
 
-associationSend     = send:binarySend & { return send._selector() === "->" } { return send; }
+associationSend     = send:binarySend & { return send._selector() === "->" } { return [send._receiver(), send._arguments()[0]]; }
 
 associationList = ws "." ws expression:associationSend {return expression;}
-associations    = first:associationSend others:associationList* { return [first].concat(others); }
+associations    = first:associationSend others:associationList* { return first.concat.apply(first, others); }
 

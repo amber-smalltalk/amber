@@ -2334,7 +2334,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@snippets"];
 if(($receiver = $2) == nil || $receiver == null){
-self["@snippets"]=globals.HashedCollection._from_([]);
+self["@snippets"]=globals.HashedCollection._newFromPairs_([]);
 $1=self["@snippets"];
 } else {
 $1=$2;

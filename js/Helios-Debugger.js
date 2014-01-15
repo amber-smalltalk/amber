@@ -558,7 +558,7 @@ fn: function (aNode){
 var self=this;
 var token;
 return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1,$5,$10,$9,$8,$7,$13,$12,$11,$6,$18,$17,$16,$15,$14;
+var $4,$3,$2,$1,$5,$9,$8,$7,$11,$10,$6,$15,$14,$13,$12;
 if(($receiver = aNode) == nil || $receiver == null){
 aNode;
 } else {
@@ -572,34 +572,28 @@ $ctx1.sendIdx["-"]=1;
 $1=self._addStopAt_($2);
 $1;
 $5=self._editor();
-$10=_st(aNode)._positionStart();
+$9=_st(aNode)._positionStart();
 $ctx1.sendIdx["positionStart"]=2;
-$9=_st($10)._x();
+$8=_st($9)._x();
 $ctx1.sendIdx["x"]=2;
-$8=_st($9).__minus((1));
+$7=_st($8).__minus((1));
 $ctx1.sendIdx["-"]=2;
-$7="line".__minus_gt($8);
-$ctx1.sendIdx["->"]=1;
-$13=_st(_st(aNode)._positionStart())._y();
+$11=_st(_st(aNode)._positionStart())._y();
 $ctx1.sendIdx["y"]=1;
-$12=_st($13).__minus((1));
+$10=_st($11).__minus((1));
 $ctx1.sendIdx["-"]=3;
-$11="ch".__minus_gt($12);
-$ctx1.sendIdx["->"]=2;
-$6=globals.HashedCollection._from_([$7,$11]);
-$18=_st(aNode)._positionEnd();
+$6=globals.HashedCollection._newFromPairs_(["line",$7,"ch",$10]);
+$15=_st(aNode)._positionEnd();
 $ctx1.sendIdx["positionEnd"]=1;
-$17=_st($18)._x();
-$16=_st($17).__minus((1));
-$15="line".__minus_gt($16);
-$ctx1.sendIdx["->"]=3;
-$14=globals.HashedCollection._from_([$15,"ch".__minus_gt(_st(_st(aNode)._positionEnd())._y())]);
-_st($5)._setSelection_to_($6,$14);
+$14=_st($15)._x();
+$13=_st($14).__minus((1));
+$12=globals.HashedCollection._newFromPairs_(["line",$13,"ch",_st(_st(aNode)._positionEnd())._y()]);
+_st($5)._setSelection_to_($6,$12);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"highlightNode:",{aNode:aNode,token:token},globals.HLDebuggerCodeWidget)})},
 args: ["aNode"],
 source: "highlightNode: aNode\x0a\x09| token |\x0a\x09\x0a\x09aNode ifNotNil: [\x0a\x09\x09self\x0a\x09\x09\x09clearHighlight;\x0a\x09\x09\x09addStopAt: aNode positionStart x - 1.\x0a\x0a\x09\x09self editor \x0a\x09\x09\x09setSelection: #{ 'line' -> (aNode positionStart x - 1). 'ch' -> (aNode positionStart y - 1) }\x0a\x09\x09\x09to: #{ 'line' -> (aNode positionEnd x - 1). 'ch' -> (aNode positionEnd y) } ]",
-messageSends: ["ifNotNil:", "clearHighlight", "addStopAt:", "-", "x", "positionStart", "setSelection:to:", "editor", "->", "y", "positionEnd"],
+messageSends: ["ifNotNil:", "clearHighlight", "addStopAt:", "-", "x", "positionStart", "setSelection:to:", "editor", "y", "positionEnd"],
 referencedClasses: []
 }),
 globals.HLDebuggerCodeWidget);
