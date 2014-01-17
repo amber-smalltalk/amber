@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Interpreter'!
+Smalltalk createPackage: 'Compiler-Interpreter'!
 BlockClosure subclass: #AIBlockClosure
 	instanceVariableNames: 'node outerContext'
 	package: 'Compiler-Interpreter'!
@@ -95,7 +95,7 @@ forContext: aContext node: aNode
 ! !
 
 MethodContext subclass: #AIContext
-	instanceVariableNames: 'outerContext innerContext pc locals selector index ast interpreter'
+	instanceVariableNames: 'outerContext innerContext pc locals selector index sendIndexes evaluatedSelector ast interpreter'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -104,6 +104,14 @@ Unlike a `MethodContext`, my instances are not read-only.
 When debugging, my instances are created by copying the current `MethodContext` (thisContext)!
 
 !AIContext methodsFor: 'accessing'!
+
+evaluatedSelector
+	^ evaluatedSelector
+!
+
+evaluatedSelector: aString
+	evaluatedSelector := aString
+!
 
 index
 	^ index ifNil: [ 0 ]
@@ -135,7 +143,7 @@ localAt: aString ifAbsent: aBlock
 	^ self locals at: aString ifAbsent: [ 
 		self outerContext 
 			ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]
-			ifNil: [aBlock value] ]
+			ifNil: [ aBlock value ] ]
 !
 
 localAt: aString put: anObject
@@ -159,7 +167,8 @@ outerContext
 
 outerContext: anAIContext
 	outerContext := anAIContext.
-	outerContext innerContext: self
+	outerContext ifNotNil: [ :context | 
+		context innerContext: self ]
 !
 
 selector
@@ -168,6 +177,28 @@ selector
 
 selector: aString
 	selector := aString
+!
+
+sendIndexAt: aString
+	^ self sendIndexes at: aString ifAbsent: [ 0 ]
+!
+
+sendIndexes
+	^ sendIndexes ifNil: [ Dictionary new ]
+!
+
+sendIndexes: aDictionary
+	sendIndexes := aDictionary
+! !
+
+!AIContext methodsFor: 'evaluating'!
+
+evaluateNode: aNode
+	^ ASTInterpreter new
+		context: self;
+		node: aNode nextChild;
+		proceed;
+		result
 ! !
 
 !AIContext methodsFor: 'factory'!
@@ -188,9 +219,10 @@ initializeAST
 
 initializeFromMethodContext: aMethodContext
 
-	self 
-		pc: aMethodContext pc;
+	self
+		evaluatedSelector: aMethodContext evaluatedSelector;
 		index: aMethodContext index;
+		sendIndexes: aMethodContext sendIndexes;
 		receiver: aMethodContext receiver;
 		selector: aMethodContext selector.
 		
@@ -205,12 +237,10 @@ initializeFromMethodContext: aMethodContext
 initializeInterpreter
 	interpreter := ASTInterpreter new
 		context: self;
-		node: self retrieveNode;
 		yourself.
 	
-	(self innerContext notNil and: [ 
-		self innerContext isBlockContext not ]) ifTrue: [
-			self setupInterpreter: interpreter ]
+	self innerContext ifNotNil: [
+		self setupInterpreter: interpreter ]
 !
 
 initializeLocals
@@ -242,14 +272,6 @@ interpreter: anInterpreter
 	interpreter := anInterpreter
 !
 
-pc
-	^ pc ifNil: [ pc := 0 ]
-!
-
-pc: anInteger
-	pc := anInteger
-!
-
 receiver
 	^ self localAt: 'self'
 !
@@ -258,17 +280,19 @@ receiver: anObject
 	self localAt: 'self' put: anObject
 !
 
-retrieveNode
-	^ self ast ifNotNil: [
-		ASTPCNodeVisitor new
+setupInterpreter: anInterpreter
+	| currentNode |
+	
+	"Retrieve the current node"
+	currentNode := ASTPCNodeVisitor new
+			selector: self evaluatedSelector;
 			context: self;
 			visit: self ast;
-			currentNode ]
-!
-
-setupInterpreter: anInterpreter
-	"Push the send args and receiver to the interpreter stack"
+			currentNode.
 	
+	anInterpreter node: currentNode.
+
+	"Push the send args and receiver to the interpreter stack"	
 	self innerContext arguments reversed do: [ :each | 
 		anInterpreter push: each ].
 		
@@ -288,9 +312,9 @@ Object subclass: #ASTDebugger
 	package: 'Compiler-Interpreter'!
 !ASTDebugger commentStamp!
 I am a stepping debugger interface for Amber code.
-I internally use an instance of `ASTSteppingInterpreter` to actually step through node and interpret them.
+I internally use an instance of `ASTInterpreter` to actually step through node and interpret them.
 
-My instances are created from a `MethodContext` with `ASTDebugger class >> context:`.
+My instances are created from an `AIContext` with `ASTDebugger class >> context:`.
 They hold an `AIContext` instance internally, recursive copy of the `MethodContext`.
 
 ## API
@@ -308,11 +332,7 @@ context: aContext
 !
 
 interpreter
-	^ interpreter ifNil: [ interpreter := self defaultInterpreterClass new ]
-!
-
-interpreter: anInterpreter
-	interpreter := anInterpreter
+	^ self context interpreter
 !
 
 method
@@ -321,45 +341,6 @@ method
 
 nextNode
 	^ self interpreter nextNode
-! !
-
-!ASTDebugger methodsFor: 'defaults'!
-
-defaultInterpreterClass
-	^ ASTInterpreter
-! !
-
-!ASTDebugger methodsFor: 'initialization'!
-
-buildAST
-	"Build the AST tree from the method source code.
-	The AST is annotated with a SemanticAnalyzer,
-	to know the semantics and bindings of each node needed for later debugging"
-	
-	| ast |
-	
-	ast := Smalltalk current parse: self method source.
-	(SemanticAnalyzer on: self context receiver class)
-		visit: ast.
-	
-	^ ast
-!
-
-initializeInterpreter
-	| ast next |
-	ast := self buildAST.
-	next := ASTPCNodeVisitor new
-		context: self context;
-		visit: ast;
-		currentNode.
-	self interpreter node: next
-!
-
-initializeWithContext: aContext
-	"TODO: do we need to handle block contexts?"
-	
-	self context: aContext.
-	self initializeInterpreter
 ! !
 
 !ASTDebugger methodsFor: 'stepping'!
@@ -372,11 +353,16 @@ restart
 	self interpreter restart
 !
 
+skip
+	self interpreter skip
+!
+
 stepInto
 	self shouldBeImplemented
 !
 
 stepOver
+	self flushOuterContexts.
 	self interpreter stepOver
 ! !
 
@@ -390,7 +376,7 @@ atEnd
 
 context: aContext
 	^ self new
-		initializeWithContext: aContext;
+		context: aContext;
 		yourself
 ! !
 
@@ -469,8 +455,8 @@ next
 proceed
 	"Eagerly evaluate the ast"
 	
-	[ self atEnd ] whileFalse: [ 
-		self step ]
+	[ self atEnd ] 
+		whileFalse: [ self step ]
 !
 
 restart
@@ -633,18 +619,14 @@ visitDynamicArrayNode: aNode
 !
 
 visitDynamicDictionaryNode: aNode
-	| associations hashedCollection |
+	| keyValueList |
 	
-	associations := OrderedCollection new.
-	hashedCollection := HashedCollection new.
+	keyValueList := OrderedCollection new.
 	
 	aNode nodes do: [ :each | 
-		associations add: self pop ].
+		keyValueList add: self pop ].
 	
-	associations reversed do: [ :each |
-		hashedCollection add: each ].
-	
-	self push: hashedCollection
+	self push: (HashedCollection newFromPairs: keyValueList reversed)
 !
 
 visitJSStatementNode: aNode
@@ -673,8 +655,6 @@ visitSendNode: aNode
 	
 	result := self sendMessage: message to: receiver superSend: aNode superSend.
 	
-	self context pc: self context pc + 1.
-	
 	"For cascade sends, push the reciever if the send is not the last one"
 	(aNode isCascadeSendNode and: [ aNode isLastChild not ])
 		ifTrue: [ self push: receiver ]
@@ -696,9 +676,9 @@ visitVariableNode: aNode
 			ifAbsent: [
 				aNode value isCapitalized
 					ifTrue: [
-						Smalltalk current 
+						Smalltalk globals 
 							at: aNode value 
-							ifAbsent: [ PlatformInterface globals at: aNode value ]]]])
+							ifAbsent: [ PlatformInterface globals at: aNode value ] ] ] ])
 ! !
 
 Error subclass: #ASTInterpreterError
@@ -708,22 +688,18 @@ Error subclass: #ASTInterpreterError
 I get signaled when an AST interpreter is unable to interpret a node.!
 
 NodeVisitor subclass: #ASTPCNodeVisitor
-	instanceVariableNames: 'useInlinings pc context blockIndex currentNode'
+	instanceVariableNames: 'context index selector currentNode'
 	package: 'Compiler-Interpreter'!
 !ASTPCNodeVisitor commentStamp!
-I visit an AST until I get to the current pc node and answer it.
+I visit an AST until I get to the current node for the `context` and answer it.
 
 ## API
 
 My instances must be filled with a context object using `#context:`.
 
-After visiting the AST the current node corresponding to the `pc` is answered by `#currentNode`!
+After visiting the AST the current node is answered by `#currentNode`!
 
 !ASTPCNodeVisitor methodsFor: 'accessing'!
-
-blockIndex
-	^ blockIndex ifNil: [ blockIndex := 0 ]
-!
 
 context
 	^ context
@@ -737,56 +713,41 @@ currentNode
 	^ currentNode
 !
 
-increaseBlockIndex
-	blockIndex := self blockIndex + 1
+increaseIndex
+	index := self index + 1
 !
 
-pc
-	^ pc ifNil: [ 0 ]
+index
+	^ index ifNil: [ index := 0 ]
 !
 
-pc: anInteger
-	pc := anInteger
+selector
+	^ selector
 !
 
-useInlinings
-	^ useInlinings ifNil: [ true ]
-!
-
-useInlinings: aBoolean
-	useInlinings := aBoolean
+selector: aString
+	selector := aString
 ! !
 
 !ASTPCNodeVisitor methodsFor: 'visiting'!
 
-visitBlockNode: aNode
-	"Inlined send node. Assume that the block is inlined"
-	(aNode parent isSendNode and: [ aNode parent shouldBeInlined ])
-		ifFalse: [
-			self blockIndex >= self context index ifFalse: [
-				self increaseBlockIndex.
-				super visitBlockNode: aNode ] ]
-		ifTrue: [ super visitBlockNode: aNode ]
-!
-
 visitJSStatementNode: aNode
+	"If a JSStatementNode is encountered, it always is the current node.
+	Stop visiting the AST there"
+	
 	currentNode := aNode
 !
 
 visitSendNode: aNode
+	| sendIndex |
+	sendIndex := self context sendIndexAt: self selector.
+	
 	super visitSendNode: aNode.
 	
-	self pc = self context pc ifFalse: [
-		aNode shouldBeInlined ifFalse: [
-			self blockIndex = self context index ifTrue: [
-				self pc: self pc + 1.
-				currentNode := aNode ] ] ]
-! !
-
-!Node methodsFor: '*Compiler-Interpreter'!
-
-isSteppingNode
-	^ false
+	self selector = aNode selector ifTrue: [
+		self index < sendIndex ifFalse: [ 
+			self index > sendIndex ifFalse: [ currentNode := aNode ] ].
+		self increaseIndex ]
 ! !
 
 !AssignmentNode methodsFor: '*Compiler-Interpreter'!
@@ -817,6 +778,12 @@ isSteppingNode
 
 isSteppingNode
 	^ true
+! !
+
+!Node methodsFor: '*Compiler-Interpreter'!
+
+isSteppingNode
+	^ false
 ! !
 
 !SendNode methodsFor: '*Compiler-Interpreter'!

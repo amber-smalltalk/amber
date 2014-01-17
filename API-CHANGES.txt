@@ -1,3 +1,146 @@
+0.12.3 (wip):
+
+* Package Import-Export renamed to Kernel-ImportExport
+* A dozen of methods moved from Object to ProtoObject
+
+* HashedCollection >> at:ifAbsentPut: pushed up to SequenceableCollection
+* HashedCollection >> , is now allowed (removed shouldNotImplement)
+* HashedCollection and Dictionary both subclasses of AssociativeCollection
+* Smalltalk class moved to SmalltalkImage class, Smalltalk is now global var
+* Smalltalk current deprecated in favour of Smalltalk
+* Smalltalk at:[put:] deprecated in favour of Smalltalk globals at:[put:]
+* <smalltalk.ClassName> deprecated in favour of <globals.ClassName>
+
++ CompiledMethod >>
+  + defaultProtocol
++ Behavior >>
+  + compile:protocol:
+  + removeProtocolIfEmpty:
++ Package >>
+  + load
+  + loadFromNamespace:
++ Package class >>
+  + load:
+  + load:fromNamespace:
++ PackageTransport >> load
++ PackageHandler >> load:
++ AmdPackageHandler >> load:
++ Set >> removeAll
++ AssociativeCollection class
++ BucketStore class
++ SmalltalkImage >>
+  + globals
+  + vm
+  + settings
++ Setting class
++ String >>
+  + asSetting
+  + asSettingIfAbsent:
+  + settingValue
+  + settingValueIfAbsent:
+  + settingValue:
++ Smalltalk global variable
+
+- CompiledMethod >>
+  - category: (use #protocol:)
+  - defaultCategory
+- Behavior >> compile:category:
+- HTMLCanvas class >>
+  - browserVersion
+  - isMSIE
+  - isMozilla
+  - isOpera
+  - isWebkit
+
+
+0.12.2:
+
+* Collection >> contains: is deprecated in favor of anySatisfy:
+
+
++ Announcer >> on:doOnce:
++ String >>
+  + uriEncoded
+  + uriDecoded
+  + uriComponentEncoded
+  + uriComponentDecoded
++ Collection >>
+  + removeAll
+  + ifEmpty:ifNotEmpty:
+  + ifNotEmpty:ifEmpty:
+  + anyOne
+  + noneSatisfy:
+  + anySatisfy:
+  + allSatisfy:
+
+
+0.12.0:
+
+* SmalltalkMethodContext.prototype.fillBlock() takes a third 'index' parameter
+* Existing classes moved to new KernelInfrastructure package
+* ImporterExporter
+  * are now StreamExporters
+  * aware of AMD namespaces
+  * support transport types and commit channels
+
+
++ Node >>
+  + nextChild
+  + method
+  + postCopy
+  + isCascadeNode
+  + isLastChild
++ BlockNode >>
+  + nextNode:
+  + nextChild
++ SendNode >>
+  + isCascadeSendNode
+  + shouldBeAliased
++ CompiledMethod >> sendTo:arguments:
++ Array >>
+  + addFirst:
+  + removeLast
++ Number >>
+  + ceiling
+  + floor
+  + asNumber
+  + //
+  + cos
+  + sin
+  + tan
+  + arcCos
+  + arcSin
+  + arcTan
+  + log
+  + log:
+  + raisedTo:
+  + sign
+  + **
+  + ln
+  + e
++ String class >> esc
++ String >>
+  + asMutator
+  + capitalized
+  + isCapitalized
++ JSProxy >> printString
++ Behavior >>
+  + ownProtocols
+  + ownMethods
++ JSStream >> nextPutSendIndexFor:
++ InterfacingObject class
++ Interpreter class
++ DocumentFragmentTag class
++ AbstractExporter class
++ PlatformInterface class
+
+
+- Node >> extent
+- JSStream >> nextPutStatement:with:
+- Smalltalk.installSuperclass()
+- ClassReferenceNode class (now handled via VariableNode)
+
+
 0.11.0:
 
 * AnnouncementSubscription use #valuable: instead of #block: (deprecated)

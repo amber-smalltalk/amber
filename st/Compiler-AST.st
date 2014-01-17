@@ -1,6 +1,6 @@
-Smalltalk current createPackage: 'Compiler-AST'!
+Smalltalk createPackage: 'Compiler-AST'!
 Object subclass: #Node
-	instanceVariableNames: 'parent position nodes shouldBeInlined shouldBeAliased'
+	instanceVariableNames: 'parent position source nodes shouldBeInlined shouldBeAliased'
 	package: 'Compiler-AST'!
 !Node commentStamp!
 I am the abstract root class of the abstract syntax tree.
@@ -14,6 +14,10 @@ Concrete classes should implement `#accept:` to allow visiting.
 addNode: aNode
 	self nodes add: aNode.
 	aNode parent: self
+!
+
+method
+	^ self parent ifNotNil: [ :node | node method ]
 !
 
 nextChild
@@ -44,7 +48,7 @@ nextNode: aNode
 !
 
 nodes
-	^nodes ifNil: [nodes := Array new]
+	^ nodes ifNil: [ nodes := Array new ]
 !
 
 parent
@@ -62,6 +66,18 @@ position
 		self parent ifNotNil: [ :node | node position ] ]
 !
 
+position: aPosition
+	position := aPosition
+!
+
+positionEnd
+	^ self positionStart + ((self source lines size - 1) @ (self source lines last size - 1))
+!
+
+positionStart
+	^ self position
+!
+
 shouldBeAliased
 	^ shouldBeAliased ifNil: [ false ]
 !
@@ -76,6 +92,18 @@ shouldBeInlined
 
 shouldBeInlined: aBoolean
 	shouldBeInlined := aBoolean
+!
+
+size
+	^ self source size
+!
+
+source
+	^ source ifNil: [ '' ]
+!
+
+source: aString
+	source := aString
 ! !
 
 !Node methodsFor: 'building'!
@@ -83,10 +111,6 @@ shouldBeInlined: aBoolean
 nodes: aCollection
 	nodes := aCollection.
 	aCollection do: [ :each | each parent: self ]
-!
-
-position: aPosition
-	position := aPosition
 ! !
 
 !Node methodsFor: 'copying'!
@@ -103,11 +127,11 @@ isAssignmentNode
 !
 
 isBlockNode
-	^false
+	^ false
 !
 
 isBlockSequenceNode
-	^false
+	^ false
 !
 
 isCascadeNode
@@ -115,7 +139,7 @@ isCascadeNode
 !
 
 isImmutable
-	^false
+	^ false
 !
 
 isJSStatementNode
@@ -130,16 +154,44 @@ isNode
 	^ true
 !
 
+isReferenced
+	"Answer true if the receiver is referenced by other nodes.
+	Do not take sequences or assignments into account"
+	
+	^ (self parent isSequenceNode or: [
+		self parent isAssignmentNode ]) not
+!
+
 isReturnNode
-	^false
+	^ false
 !
 
 isSendNode
-	^false
+	^ false
+!
+
+isSequenceNode
+	^ false
 !
 
 isValueNode
-	^false
+	^ false
+!
+
+isVariableNode
+	^ false
+!
+
+requiresSmalltalkContext
+	"Answer true if the receiver requires a smalltalk context.
+	Only send nodes require a context.
+	
+	If no node requires a context, the method will be compiled without one.
+	See `IRJSTranslator` and `JSStream` for context creation"
+	
+	^ (self nodes 
+		detect: [ :each | each requiresSmalltalkContext ]
+		ifNone: [ nil ]) notNil
 !
 
 stopOnStepping
@@ -147,8 +199,8 @@ stopOnStepping
 !
 
 subtreeNeedsAliasing
-	^(self shouldBeAliased or: [ self shouldBeInlined ]) or: [
-		(self nodes detect: [ :each | each subtreeNeedsAliasing ] ifNone: [ false ]) ~= false ]
+	^ (self shouldBeAliased or: [ self shouldBeInlined ]) or: [
+		self nodes anySatisfy: [ :each | each subtreeNeedsAliasing ] ]
 ! !
 
 !Node methodsFor: 'visiting'!
@@ -166,7 +218,7 @@ I represent an assignment node.!
 !AssignmentNode methodsFor: 'accessing'!
 
 left
-	^left
+	^ left
 !
 
 left: aNode
@@ -179,7 +231,7 @@ nodes
 !
 
 right
-	^right
+	^ right
 !
 
 right: aNode
@@ -191,6 +243,10 @@ right: aNode
 
 isAssignmentNode
 	^ true
+!
+
+shouldBeAliased
+	^ super shouldBeAliased or: [ self isReferenced ]
 ! !
 
 !AssignmentNode methodsFor: 'visiting'!
@@ -220,7 +276,7 @@ nextNode: aNode
 !
 
 parameters
-	^parameters ifNil: [parameters := Array new]
+	^ parameters ifNil: [ parameters := Array new ]
 !
 
 parameters: aCollection
@@ -238,7 +294,7 @@ scope: aLexicalScope
 !BlockNode methodsFor: 'testing'!
 
 isBlockNode
-	^true
+	^ true
 !
 
 subtreeNeedsAliasing
@@ -260,7 +316,7 @@ I represent an cascade node.!
 !CascadeNode methodsFor: 'accessing'!
 
 receiver
-	^receiver
+	^ receiver
 !
 
 receiver: aNode
@@ -304,24 +360,18 @@ accept: aVisitor
 ! !
 
 Node subclass: #JSStatementNode
-	instanceVariableNames: 'source'
+	instanceVariableNames: ''
 	package: 'Compiler-AST'!
 !JSStatementNode commentStamp!
 I represent an JavaScript statement node.!
 
-!JSStatementNode methodsFor: 'accessing'!
-
-source
-	^source ifNil: ['']
-!
-
-source: aString
-	source := aString
-! !
-
 !JSStatementNode methodsFor: 'testing'!
 
 isJSStatementNode
+	^ true
+!
+
+requiresSmalltalkContext
 	^ true
 ! !
 
@@ -332,7 +382,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #MethodNode
-	instanceVariableNames: 'selector arguments source scope classReferences messageSends superSends'
+	instanceVariableNames: 'selector arguments source scope classReferences sendIndexes superSends'
 	package: 'Compiler-AST'!
 !MethodNode commentStamp!
 I represent an method node.
@@ -342,7 +392,7 @@ A method node must be the root and only method node of a valid AST.!
 !MethodNode methodsFor: 'accessing'!
 
 arguments
-	^arguments ifNil: [#()]
+	^ arguments ifNil: [ #() ]
 !
 
 arguments: aCollection
@@ -357,16 +407,12 @@ classReferences: aCollection
 	classReferences := aCollection
 !
 
-extent
-	^ self source lines size @ (self source lines last size + 1)
-!
-
 messageSends
-	^ messageSends
+	^ self sendIndexes keys
 !
 
-messageSends: aCollection
-	messageSends := aCollection
+method
+	^ self
 !
 
 scope
@@ -378,15 +424,23 @@ scope: aMethodScope
 !
 
 selector
-	^selector
+	^ selector
 !
 
 selector: aString
 	selector := aString
 !
 
+sendIndexes
+	^ sendIndexes
+!
+
+sendIndexes: aDictionary
+	sendIndexes := aDictionary
+!
+
 source
-	^source
+	^ source
 !
 
 source: aString
@@ -448,7 +502,7 @@ I represent an message send node.!
 !SendNode methodsFor: 'accessing'!
 
 arguments
-	^arguments ifNil: [arguments := #()]
+	^ arguments ifNil: [ arguments := #() ]
 !
 
 arguments: aCollection
@@ -462,7 +516,7 @@ cascadeNodeWithMessages: aCollection
 		selector: self selector;
 		arguments: self arguments;
 		yourself.
-	^CascadeNode new
+	^ CascadeNode new
 		receiver: self receiver;
 		nodes: (Array with: first), aCollection;
 		yourself
@@ -485,7 +539,7 @@ nodes
 !
 
 receiver
-	^receiver
+	^ receiver
 !
 
 receiver: aNode
@@ -495,7 +549,7 @@ receiver: aNode
 !
 
 selector
-	^selector
+	^ selector
 !
 
 selector: aString
@@ -511,11 +565,12 @@ superSend: aBoolean
 !
 
 valueForReceiver: anObject
-	^SendNode new
+	^ SendNode new
 		position: self position;
+		source: self source;
 		receiver: (self receiver
-		ifNil: [anObject]
-		ifNotNil: [self receiver valueForReceiver: anObject]);
+		ifNil: [ anObject ] 
+		ifNotNil: [ self receiver valueForReceiver: anObject ]);
 		selector: self selector;
 		arguments: self arguments;
 		yourself
@@ -529,6 +584,22 @@ isCascadeSendNode
 
 isSendNode
 	^ true
+!
+
+requiresSmalltalkContext
+	^ true
+!
+
+shouldBeAliased
+	"Because we keep track of send indexes, some send nodes need additional care for aliasing. 
+	See IRJSVisitor >> visitIRSend:"
+	
+	| sends |
+	
+	sends := (self method sendIndexes at: self selector) size.
+	
+	^ super shouldBeAliased or: [
+		(sends > 1 and: [ self index < sends ]) and: [ self isReferenced ] ]
 !
 
 stopOnStepping
@@ -558,21 +629,28 @@ scope: aLexicalScope
 !
 
 temps
-	^temps ifNil: [#()]
+	^ temps ifNil: [ #() ]
 !
 
 temps: aCollection
 	temps := aCollection
 ! !
 
-!SequenceNode methodsFor: 'testing'!
+!SequenceNode methodsFor: 'converting'!
 
 asBlockSequenceNode
-	^BlockSequenceNode new
+	^ BlockSequenceNode new
 		position: self position;
+		source: self source;
 		nodes: self nodes;
 		temps: self temps;
 		yourself
+! !
+
+!SequenceNode methodsFor: 'testing'!
+
+isSequenceNode
+	^ true
 ! !
 
 !SequenceNode methodsFor: 'visiting'!
@@ -590,7 +668,7 @@ I represent an special sequence node for block scopes.!
 !BlockSequenceNode methodsFor: 'testing'!
 
 isBlockSequenceNode
-	^true
+	^ true
 ! !
 
 !BlockSequenceNode methodsFor: 'visiting'!
@@ -608,7 +686,7 @@ I represent a value node.!
 !ValueNode methodsFor: 'accessing'!
 
 value
-	^value
+	^ value
 !
 
 value: anObject
@@ -622,18 +700,13 @@ isImmutable
 !
 
 isValueNode
-	^true
+	^ true
 ! !
 
 !ValueNode methodsFor: 'visiting'!
 
 accept: aVisitor
 	^ aVisitor visitValueNode: self
-! !
-
-!ValueNode methodsFor: 'xxxDoIt'!
-
-xxxDoIt ^[self stack] value
 ! !
 
 ValueNode subclass: #VariableNode
@@ -649,7 +722,7 @@ alias
 !
 
 assigned
-	^assigned ifNil: [false]
+	^ assigned ifNil: [ false ]
 !
 
 assigned: aBoolean
@@ -671,8 +744,16 @@ binding: aScopeVar
 
 !VariableNode methodsFor: 'testing'!
 
+isArgument
+	^ self binding isArgVar
+!
+
 isImmutable
-	^false
+	^ self binding isImmutable
+!
+
+isVariableNode
+	^ true
 ! !
 
 !VariableNode methodsFor: 'visiting'!
@@ -681,17 +762,17 @@ accept: aVisitor
 	^ aVisitor visitVariableNode: self
 ! !
 
-!Object methodsFor: '*Compiler-AST'!
-
-isNode
-	^ false
-! !
-
 !CompiledMethod methodsFor: '*Compiler-AST'!
 
 ast
 	self source ifEmpty: [ self error: 'Method source is empty' ].
 	
-	^ Smalltalk current parse: self source
+	^ Smalltalk parse: self source
+! !
+
+!Object methodsFor: '*Compiler-AST'!
+
+isNode
+	^ false
 ! !
 

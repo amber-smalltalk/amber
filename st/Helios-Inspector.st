@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Inspector'!
+Smalltalk createPackage: 'Helios-Inspector'!
 HLNavigationListWidget subclass: #HLInspectorDisplayWidget
 	instanceVariableNames: 'model'
 	package: 'Helios-Inspector'!
@@ -25,9 +25,9 @@ renderContentOn: html
 selectionDisplayString
 	|selection|
 	selection := model selection.
-    ^ (model variables keys includes: selection)
-    	ifTrue:[(model instVarObjectAt: selection) printString]
-      	ifFalse:['']
+    ^ (model variables includesKey: selection)
+    	ifTrue:[ (model instVarObjectAt: selection) printString ]
+      	ifFalse:[ '' ]
 ! !
 
 Object subclass: #HLInspectorModel
@@ -37,7 +37,7 @@ Object subclass: #HLInspectorModel
 !HLInspectorModel methodsFor: 'accessing'!
 
 announcer
-	^ announcer ifNil: [announcer := Announcer new ]
+	^ announcer ifNil: [ announcer := Announcer new ]
 !
 
 code
@@ -109,29 +109,6 @@ selectedInstVar: anInstVarName
 
 subscribe: aWidget
 	aWidget subscribeTo: self announcer
-! !
-
-!HLInspectorModel methodsFor: 'reactions'!
-
-onKeyDown: anEvent
-
-	<if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 80) { //ctrl+p
-			self._printIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 68) { //ctrl+d
-			self._doIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 73) { //ctrl+i
-			self._inspectIt();
-			anEvent.preventDefault();
-			return false;
-		}
-	}>
 ! !
 
 !HLInspectorModel class methodsFor: 'actions'!
@@ -287,6 +264,7 @@ variablesWidget
 
 inspect: anObject
 	self model inspect: anObject on: self.
+	self codeWidget receiver: anObject.
     
 	self 
     	refreshVariablesWidget;
@@ -349,7 +327,6 @@ onInspectIt
 !
 
 onInstanceVariableSelected
-	self codeWidget receiver: self model selectedInstVarObject.
 	self refreshDisplayWidget
 !
 
@@ -417,8 +394,8 @@ tabPriority
 
 inspect: anObject
 	self new
-		inspect: anObject;
-		openAsTab
+		openAsTab;
+		inspect: anObject
 ! !
 
 !HLInspector class methodsFor: 'initialization'!

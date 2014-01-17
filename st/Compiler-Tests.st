@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Tests'!
+Smalltalk createPackage: 'Compiler-Tests'!
 TestCase subclass: #ASTParsingTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
@@ -13,7 +13,7 @@ analyze: aNode forClass: aClass
 !ASTParsingTest methodsFor: 'parsing'!
 
 parse: aString
-	^ Smalltalk current parse: aString
+	^ Smalltalk parse: aString
 !
 
 parse: aString forClass: aClass
@@ -27,14 +27,16 @@ ASTParsingTest subclass: #ASTPCNodeVisitorTest
 !ASTPCNodeVisitorTest methodsFor: 'factory'!
 
 astPCNodeVisitor
-	^ self astPCNodeVisitorForPC: 0
+	^ ASTPCNodeVisitor new
+		context: (AIContext new
+			yourself);
+		yourself
 !
 
-astPCNodeVisitorForPC: anInteger
+astPCNodeVisitorForSelector: aString
 	^ ASTPCNodeVisitor new
-		pc: 0;
-		context: (AIContext new 
-			pc: anInteger; 
+		selector: aString;
+		context: (AIContext new
 			yourself);
 		yourself
 ! !
@@ -54,7 +56,16 @@ testMessageSend
 	| ast |
 	
 	ast := self parse: 'foo self asString yourself. ^ self asBoolean' forClass: Object.
-	self assert: ((self astPCNodeVisitorForPC: 2)
+	self assert: ((self astPCNodeVisitorForSelector: 'yourself')
+		visit: ast;
+		currentNode) selector equals: 'yourself'
+!
+
+testMessageSendWithBlocks
+	| ast |
+	
+	ast := self parse: 'foo true ifTrue: [ [ self asString yourself ] value.  ]. ^ self asBoolean' forClass: Object.
+	self assert: ((self astPCNodeVisitorForSelector: 'yourself')
 		visit: ast;
 		currentNode) selector equals: 'yourself'
 !
@@ -63,12 +74,12 @@ testMessageSendWithInlining
 	| ast |
 	
 	ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.
-	self assert: ((self astPCNodeVisitorForPC: 2)
+	self assert: ((self astPCNodeVisitorForSelector: 'yourself')
 		visit: ast;
 		currentNode) selector equals: 'yourself'.
 		
 	ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.
-	self assert: ((self astPCNodeVisitorForPC: 3)
+	self assert: ((self astPCNodeVisitorForSelector: 'asBoolean')
 		visit: ast;
 		currentNode) selector equals: 'asBoolean'
 !
@@ -125,7 +136,7 @@ should: aString receiver: anObject return: aResult
 	| method result |
 
 	receiver := anObject.
-	method := self compiler install: aString forClass: anObject class category: 'tests'.
+	method := self compiler install: aString forClass: anObject class protocol: 'tests'.
 	result := receiver perform: method selector.
 	anObject class removeCompiledMethod: method.
 	self assert: aResult equals: result
@@ -164,7 +175,19 @@ testCascades
 	self should: 'foo ^ Array new add: 3; add: 4; yourself' return: #(3 4)
 !
 
+testCascadesWithInlining
+	
+	self should: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 1.
+	self should: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 2
+!
+
 testDynamicArrayElementsOrdered
+	self should: 'foo
+	| x |
+	x := 1.
+	^ { x. x := 2 }
+' return: #(1 2).
+
 	self should: 'foo
 	| x |
 	x := 1.
@@ -175,9 +198,13 @@ testDynamicArrayElementsOrdered
 testDynamicDictionaryElementsOrdered
 	self should: 'foo
 	| x |
-	x := ''foo''->1.
-	^ #{ x. (true ifTrue: [ x := ''bar''->2 ]) }
+	x := ''foo''.
+	^ #{ x->1. ''bar''->(true ifTrue: [ 2 ]) }
 ' return: #{'foo'->1. 'bar'->2}.
+!
+
+testDynamicDictionaryWithMoreArrows
+	self should: 'foo ^ #{1->2->3}' return: (HashedCollection with: 1->2->3)
 !
 
 testGlobalVar
@@ -190,18 +217,27 @@ testInnerTemporalDependentElementsOrdered
 	self should: 'foo
 	| x |
 	x := Array.
+	^ x with: ''foo''->x with: ''bar''->(x := 2)
+' return: {'foo'->Array. 'bar'->2}.
+
+	self should: 'foo
+	| x |
+	x := Array.
 	^ x with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])
 ' return: {'foo'->Array. 'bar'->2}.
+
 	self should: 'foo
 	| x |
 	x := 1.
 	^ Array with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])
 ' return: {'foo'->1. 'bar'->2}.
+
 	self should: 'foo
 	| x |
 	x := 1.
 	^ { ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }
 ' return: {'foo'->1. 'bar'->2}.
+
 	self should: 'foo
 	| x |
 	x := 1.
@@ -277,7 +313,7 @@ testNonLocalReturn
 !
 
 testPascalCaseGlobal
-	self should: 'foo ^Object' return: (smalltalk at: 'Object').
+	self should: 'foo ^Object' return: (Smalltalk globals at: 'Object').
 	self should: 'foo ^NonExistent' return: nil
 !
 
@@ -405,7 +441,7 @@ analyze: aNode forClass: aClass
 !
 
 parse: aString
-	^ Smalltalk current parse: aString
+	^ Smalltalk parse: aString
 !
 
 parse: aString forClass: aClass
@@ -523,7 +559,7 @@ testAssignment
 	| src ast |
 
 	src := 'foo self := 1'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	self should: [analyzer visit: ast] raise: InvalidAssignmentError
 !
 
@@ -531,7 +567,7 @@ testNonLocalReturn
 	| src ast |
 
 	src := 'foo | a | a + 1. ^ a'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
 	self deny: ast scope hasNonLocalReturn
@@ -541,7 +577,7 @@ testNonLocalReturn2
 	| src ast |
 
 	src := 'foo | a | a + 1. [ [ ^ a] ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
 	self assert: ast scope hasNonLocalReturn
@@ -551,7 +587,7 @@ testScope
 	| src ast |
 
 	src := 'foo | a | a + 1. [ | b | b := a ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
 	self deny: ast nodes first nodes last scope == ast scope.
@@ -561,7 +597,7 @@ testScope2
 	| src ast |
 
 	src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
 	self deny: ast nodes first nodes last nodes first nodes first scope == ast scope.
@@ -571,7 +607,7 @@ testScopeLevel
 	| src ast |
 
 	src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
 	self assert: ast scope scopeLevel equals: 1.
@@ -582,7 +618,7 @@ testUnknownVariables
 	| src ast |
 
 	src := 'foo | a | b + a'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 
 	self should: [ analyzer visit: ast ] raise: UnknownVariableError
 !
@@ -591,7 +627,7 @@ testUnknownVariablesWithScope
 	| src ast |
 
 	src := 'foo | a b | [ c + 1. [ a + 1. d + 1 ]]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	
 	self should: [ analyzer visit: ast ] raise: UnknownVariableError
 !
@@ -599,35 +635,35 @@ testUnknownVariablesWithScope
 testVariableShadowing
 	| src ast |
 	src := 'foo | a | a + 1'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast
 !
 
 testVariableShadowing2
 	| src ast |
 	src := 'foo | a | a + 1. [ | a | a := 2 ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	self should: [analyzer visit: ast] raise: ShadowingVariableError
 !
 
 testVariableShadowing3
 	| src ast |
 	src := 'foo | a | a + 1. [ | b | b := 2 ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast
 !
 
 testVariableShadowing4
 	| src ast |
 	src := 'foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast
 !
 
 testVariableShadowing5
 	| src ast |
 	src := 'foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	self should: [analyzer visit: ast] raise: ShadowingVariableError
 !
 
@@ -635,7 +671,7 @@ testVariablesLookup
 	| src ast |
 
 	src := 'foo | a | a + 1. [ | b | b := a ]'.
-	ast := smalltalk parse: src.
+	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
 	"Binding for `a` in the message send"

@@ -1,5 +1,5 @@
 define("amber_vm/browser-compatibility", [
     './ensure-console',
-    './es5-shim-2.0.2/es5-shim.min',
-    './es5-shim-2.0.2/es5-sham.min'
+    'amber_lib/es5-shim/es5-shim.min',
+    'amber_lib/es5-shim/es5-sham.min'
 ], {});

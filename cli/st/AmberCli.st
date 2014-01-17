@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'AmberCli'!
+Smalltalk createPackage: 'AmberCli'!
 Object subclass: #AmberCli
 	instanceVariableNames: ''
 	package: 'AmberCli'!
@@ -126,11 +126,12 @@ Adding new commandline parameters to `FileServer` is as easy as adding a new sin
 !FileServer methodsFor: 'accessing'!
 
 basePath
-	^basePath ifNil: ['./']
+	^basePath ifNil: [self class defaultBasePath]
 !
 
 basePath: aString
-	basePath := aString
+	basePath := aString.
+	self validateBasePath.
 !
 
 fallbackPage
@@ -168,8 +169,11 @@ username: aUsername
 !FileServer methodsFor: 'initialization'!
 
 checkDirectoryLayout
-	(fs existsSync: self basePath, 'index.html') ifFalse: [
-		console warn: 'Warning: project directory does not contain index.html'].
+	(fs existsSync:	(self withBasePath: 'index.html')) ifFalse: [
+		console warn: 'Warning: project directory does not contain index.html.'.
+		console warn: '    You can specify the directory containing index.html with --base-path.'.
+		console warn: '    You can also specify a page to be served by default,'.
+		console warn: '    for all paths that do not map to a file, with --fallback-page.'].
 	(fs existsSync: self basePath, 'st') ifFalse: [
 		console warn: 'Warning: project directory is missing an "st" directory'].
 	(fs existsSync: self basePath, 'js') ifFalse: [
@@ -226,6 +230,18 @@ require: aModuleString
 	^require value: aModuleString
 !
 
+validateBasePath
+	"The basePath must be an existing directory. "
+	fs stat: self basePath then: [ :err :stat | err
+		ifNil: [ stat isDirectory ifFalse: [ console warn: 'Warning: --base-path parameter ' , self basePath , ' is not a directory.' ]]
+		ifNotNil: [ console warn: 'Warning: path at --base-path parameter ' , self basePath , ' does not exist.'  ]].
+!
+
+withBasePath: aBaseRelativePath
+	"return a file path which is relative to the basePath."
+	^	path join: self basePath with: aBaseRelativePath
+!
+
 writeData: data toFileNamed: aFilename
 	console log: aFilename
 ! !
@@ -234,12 +250,14 @@ writeData: data toFileNamed: aFilename
 
 handleGETRequest: aRequest respondTo: aResponse
 	| uri filename |
-	uri := (url parse: aRequest url) pathname.
-	filename := path join: self basePath with: uri.
+	uri := url parse: aRequest url.
+	filename := path join: self basePath with: uri pathname.
 	fs exists: filename do: [:aBoolean |
 		aBoolean
 			ifFalse: [self respondNotFoundTo: aResponse]
-			ifTrue: [self respondFileNamed: filename to: aResponse]]
+			ifTrue: [(fs statSync: filename) isDirectory
+				ifTrue: [self respondDirectoryNamed: filename from: uri to: aResponse]
+				ifFalse: [self respondFileNamed: filename to: aResponse]]]
 !
 
 handleOPTIONSRequest: aRequest respondTo: aResponse
@@ -298,18 +316,22 @@ respondCreatedTo: aResponse
 		end.
 !
 
+respondDirectoryNamed: aDirname from: aUrl to: aResponse
+	(aUrl pathname endsWith: '/')
+		ifTrue: [self respondFileNamed: aDirname, 'index.html' to: aResponse]
+		ifFalse: [self respondRedirect: aUrl pathname, '/', (aUrl search ifNil: ['']) to: aResponse]
+!
+
 respondFileNamed: aFilename to: aResponse
 	| type filename |
 
 	filename := aFilename.
-	(fs statSync: aFilename) isDirectory ifTrue: [
-		filename := filename, 'index.html'].
 
 	fs readFile: filename do: [:ex :file |
 		ex notNil 
 			ifTrue: [
 				console log: filename, ' does not exist'.
-				self respondInternalErrorTo: aResponse]
+				self respondNotFoundTo: aResponse]
 			ifFalse: [
 				type := self class mimeTypeFor: filename.
 				type = 'application/javascript'
@@ -337,14 +359,25 @@ respondNotCreatedTo: aResponse
 respondNotFoundTo: aResponse
 	self fallbackPage isNil ifFalse: [^self respondFileNamed: self fallbackPage to: aResponse].
 	aResponse 
-		writeHead: 404 options: #{'Content-Type' -> 'text/plain'};
-		write: '404 Not found';
+		writeHead: 404 options: #{'Content-Type' -> 'text/html'};
+		write: '<html><body><p>404 Not found</p>';
+		write: '<p>Did you forget to put an index.html file into the directory which is served by "bin/amber serve"? To solve this you can:<ul>';
+		write: '<li>create an index.html in the served directory.</li>';
+		write: '<li>can also specify the location of a page to be served whenever path does not resolve to a file with the "--fallback-page" option.</li>';
+		write: '<li>change the directory to be served with the "--base-path" option.</li>';
+		write: '</ul></p></body></html>';
 		end
 !
 
 respondOKTo: aResponse
 	aResponse
 		writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};
+		end.
+!
+
+respondRedirect: aString to: aResponse
+	aResponse
+		writeHead: 303 options: #{'Location' -> aString};
 		end.
 ! !
 
@@ -384,6 +417,10 @@ commandLineSwitches
 	switches :=switches collect: [ :each |
 		(each allButLast replace: '([A-Z])' with: '-$1') asLowercase replace: '^([a-z])' with: '--$1' ].
 	^switches
+!
+
+defaultBasePath
+	^ './'
 !
 
 defaultHost
@@ -913,6 +950,14 @@ prompt
 
 !Repl methodsFor: 'actions'!
 
+clearScreen
+	| esc cls |
+	esc := String fromCharCode: 27.
+	cls := esc, '[2J', esc, '[0;0f'.
+	process stdout write: cls.
+	interface prompt
+!
+
 close
 	process stdin destroy
 !
@@ -936,9 +981,14 @@ eval: buffer on: anObject
 			result := Compiler new evaluateExpression: buffer on: anObject]
 		catch: [:e |
 			e isSmalltalkError
-			    ifTrue: [ErrorHandler new handleError: e]
-			    ifFalse: [process stdout write: e jsStack]]].
+			    ifTrue: [ e resignal ]
+			    ifFalse: [ process stdout write: e jsStack ]]].
 	^ result
+!
+
+printWelcome
+	Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.
+	Transcript show: 'Type :q to exit.'; cr.
 !
 
 setPrompt
@@ -983,16 +1033,10 @@ assignNewVariable: buffer do: aBlock
 	^ self parseAssignment: buffer do: [ :name :expr || varName value |
 		varName := name ifNil: [self nextResultName].
 		session := self addVariableNamed: varName to: session.
-		value := self eval: varName, ' := ', (expr ifNil: [buffer]) on: session.
+		[ value := self eval: varName, ' := ', (expr ifNil: [buffer]) on: session ]
+			on: Error
+			do: [ :e | ErrorHandler new logError: e. value := nil].
 		aBlock value: varName value: value]
-!
-
-clearScreen
-	| esc cls |
-	esc := String fromCharCode: 27.
-	cls := esc, '[2J', esc, '[0;0f'.
-	process stdout write: cls.
-	interface prompt
 !
 
 encapsulateVariable: aString withValue: anObject in: aClass
@@ -1022,7 +1066,7 @@ instanceVariableNamesFor: aClass
 !
 
 isIdentifier: aString
-	^ aString match: '^[a-z_]\w+$' asRegexp
+	^ aString match: '^[a-z_]\w*$' asRegexp
 !
 
 isVariableDefined: aString
@@ -1047,18 +1091,13 @@ parseAssignment: aString do: aBlock
 	| assignment |
 	assignment := (aString tokenize: ':=') collect: [:s | s trimBoth].
 	^ (assignment size = 2 and: [self isIdentifier: assignment first])
-		ifTrue: [aBlock value: assignment first value: assignment last]
-		ifFalse: [aBlock value: nil value: nil]
+		ifTrue: [ aBlock value: assignment first value: assignment last ]
+		ifFalse: [ aBlock value: nil value: nil ]
 !
 
 presentResultNamed: varName withValue: value
 	Transcript show: varName, ': ', value class name, ' = ', value asString; cr.
 	interface prompt
-!
-
-printWelcome
-	Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.
-	Transcript show: 'Type :q to exit.'; cr.
 !
 
 processLine: buffer

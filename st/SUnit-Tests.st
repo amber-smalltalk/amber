@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'SUnit-Tests'!
+Smalltalk createPackage: 'SUnit-Tests'!
 TestCase subclass: #ExampleSetTest
 	instanceVariableNames: 'empty full'
 	package: 'SUnit-Tests'!
@@ -28,10 +28,10 @@ testGrow
 
 testIllegal
 	self
-		should: [empty at: 5]
+		should: [ empty at: 5 ]
 		raise: Error.
 	self
-		should: [empty at: 5 put: #abc]
+		should: [ empty at: 5 put: #abc ]
 		raise: Error
 !
 
@@ -79,7 +79,7 @@ fakeFailure
 
 fakeMultipleTimeoutFailing
 	self timeout: 100.
-	(self async: [
+	(self async: [ 
 		self timeout: 20.
 		(self async: [ self finished ]) valueWithTimeout: 30
 	]) valueWithTimeout: 20
@@ -101,7 +101,7 @@ fakeTimeout
 !SUnitAsyncTest methodsFor: 'private'!
 
 selectorSetOf: aCollection
-	^(aCollection collect: [:each | each selector]) asSet
+	^ (aCollection collect: [ :each | each selector ]) asSet
 ! !
 
 !SUnitAsyncTest methodsFor: 'running'!
@@ -127,8 +127,8 @@ testAsyncErrorsAndFailures
 		self assert: (self selectorSetOf: result failures) equals: #('fakeErrorFailingInTearDown' 'fakeFailure') asSet.
 		self finished
 	].
-	runner announcer on: ResultAnnouncement do: [:ann |
-		ann result == result ifTrue: [ result runs = result total ifTrue: assertBlock ]].
+	runner announcer on: ResultAnnouncement do: [ :ann |
+		ann result == result ifTrue: [ result runs = result total ifTrue: assertBlock ] ].
 	runner run
 !
 
@@ -170,8 +170,8 @@ testTimeouts
 		self assert: (self selectorSetOf: result failures) equals: #('fakeMultipleTimeoutFailing' 'fakeTimeout') asSet.
 		self finished
 	].
-	runner announcer on: ResultAnnouncement do: [:ann |
-		ann result == result ifTrue: [ result runs = result total ifTrue: assertBlock ]].
+	runner announcer on: ResultAnnouncement do: [ :ann |
+		ann result == result ifTrue: [ result runs = result total ifTrue: assertBlock ] ].
 	runner run
 !
 

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Methods'!
+Smalltalk createPackage: 'Kernel-Methods'!
 Object subclass: #BlockClosure
 	instanceVariableNames: ''
 	package: 'Kernel-Methods'!
@@ -85,8 +85,8 @@ on: anErrorClass do: aBlock
 	"All exceptions thrown in the Smalltalk stack are cought.
 	Convert all JS exceptions to JavaScriptException instances."
 	
-	^self try: self catch: [ :error | | smalltalkError |
-		smalltalkError := Smalltalk current asSmalltalkException: error.
+	^ self try: self catch: [ :error | | smalltalkError |
+		smalltalkError := Smalltalk asSmalltalkException: error.
 		(smalltalkError isKindOf: anErrorClass)
 		ifTrue: [ aBlock value: smalltalkError ]
 		ifFalse: [ smalltalkError resignal ] ]
@@ -121,23 +121,9 @@ newValue: anObject value: anObject2 value: anObject3
 !
 
 newWithValues: aCollection
-	"Use the receiver as a JavaScript constructor with a variable number of arguments.
-	Answer the object created using the operator `new`.
-
-	This algorithm was inspired by http://stackoverflow.com/a/6069331.
-
-	Here's a general breakdown of what's going on:
-	1) Create a new, empty constructor function.
-	2) Set it's prototype to the receiver's prototype. Because the receiver is a `BlockClosure`, it is also a JavaScript function.
-	3) Instantiate a new object using the constructor function just created. 
-		This forces the interpreter to set the internal [[prototype]] property to what was set on the function before. 
-   		This has to be done, as we have no access to the [[prototype]] property externally.
-	4) Apply `self` to the object I just instantiated."
-
+	"Simulates JS new operator by combination of Object.create and .apply"
 	<
-		var constructor = function() {};
-		constructor.prototype = self.prototype;
-		var object = new constructor;
+		var object = Object.create(self.prototype);
 		var result = self.apply(object, aCollection);
 		return typeof result === "object" ? result : object;
 	>
@@ -178,14 +164,14 @@ fork
 valueWithInterval: aNumber
 	<
 		var interval = setInterval(self, aNumber);
-		return smalltalk.Timeout._on_(interval);
+		return globals.Timeout._on_(interval);
 	>
 !
 
 valueWithTimeout: aNumber
 	<
 		var timeout = setTimeout(self, aNumber);
-		return smalltalk.Timeout._on_(timeout);
+		return globals.Timeout._on_(timeout);
 	>
 ! !
 
@@ -219,29 +205,11 @@ arguments
 !
 
 category
-	^(self basicAt: 'category') ifNil: [ self defaultCategory ]
-!
-
-category: aString
-	| oldProtocol |
-	oldProtocol := self protocol.
-	self basicAt: 'category' put: aString.
-
-	SystemAnnouncer current announce: (MethodMoved new
-		method: self;
-		oldProtocol: oldProtocol;
-		yourself).
-
-	self methodClass ifNotNil: [
-		self methodClass organization addElement: aString.
-	
-		(self methodClass methods
-			select: [ :each | each protocol = oldProtocol ])
-			ifEmpty: [ self methodClass organization removeElement: oldProtocol ] ]
+	^ self protocol
 !
 
 fn
-	^self basicAt: 'fn'
+	^ self basicAt: 'fn'
 !
 
 fn: aBlock
@@ -249,27 +217,51 @@ fn: aBlock
 !
 
 messageSends
-	^self basicAt: 'messageSends'
+	^ self basicAt: 'messageSends'
 !
 
 methodClass
-	^self basicAt: 'methodClass'
+	^ self basicAt: 'methodClass'
+!
+
+package
+	"Answer the package the receiver belongs to:
+	- if it is an extension method, answer the corresponding package
+	- else answer the `methodClass` package"
+	
+	(self protocol beginsWith: '*') ifFalse: [
+		^ self methodClass package ].
+		
+	^ Package 
+		named: self protocol allButFirst
+		ifAbsent: [ self methodClass package ]
 !
 
 protocol
-	^ self category
+	^ (self basicAt: 'protocol') ifNil: [ self defaultProtocol ]
 !
 
 protocol: aString
-	self category: aString
+	| oldProtocol |
+	oldProtocol := self protocol.
+	self basicAt: 'protocol' put: aString.
+
+	SystemAnnouncer current announce: (MethodMoved new
+		method: self;
+		oldProtocol: oldProtocol;
+		yourself).
+
+	self methodClass ifNotNil: [ :methodClass |
+		methodClass organization addElement: aString.
+		methodClass removeProtocolIfEmpty: oldProtocol ]
 !
 
 referencedClasses
-	^self basicAt: 'referencedClasses'
+	^ self basicAt: 'referencedClasses'
 !
 
 selector
-	^self basicAt: 'selector'
+	^ self basicAt: 'selector'
 !
 
 selector: aString
@@ -277,7 +269,7 @@ selector: aString
 !
 
 source
-	^(self basicAt: 'source') ifNil: ['']
+	^ (self basicAt: 'source') ifNil: [ '' ]
 !
 
 source: aString
@@ -286,7 +278,7 @@ source: aString
 
 !CompiledMethod methodsFor: 'defaults'!
 
-defaultCategory
+defaultProtocol
 	^ 'as yet unclassified'
 ! !
 
@@ -371,11 +363,11 @@ initialize
 makeWorker
 	| sentinel |
 	sentinel := Object new.
-	^[ | block |
+	^ [ | block |
 		poolSize := poolSize - 1.
 		block := queue nextIfAbsent: [ sentinel ].
 		block == sentinel ifFalse: [
-			[ block value ] ensure: [ self addWorker ]]]
+			[ block value ] ensure: [ self addWorker ] ]]
 ! !
 
 !ForkPool methodsFor: 'private'!
@@ -390,11 +382,11 @@ ForkPool class instanceVariableNames: 'default'!
 !ForkPool class methodsFor: 'accessing'!
 
 default
-	^default ifNil: [ default := self new ]
+	^ default ifNil: [ default := self new ]
 !
 
 defaultMaxPoolSize
-	^100
+	^ 100
 !
 
 resetDefault
@@ -418,7 +410,7 @@ Besides accessing methods, `#sendTo:` provides a convenient way to send a messag
 !Message methodsFor: 'accessing'!
 
 arguments
-	^arguments
+	^ arguments
 !
 
 arguments: anArray
@@ -426,7 +418,7 @@ arguments: anArray
 !
 
 selector
-	^selector
+	^ selector
 !
 
 selector: aString
@@ -452,7 +444,7 @@ printOn: aStream
 !Message class methodsFor: 'instance creation'!
 
 selector: aString arguments: anArray
-	^self new
+	^ self new
 		selector: aString;
 		arguments: anArray;
 		yourself
@@ -552,6 +544,10 @@ My instances are JavaScript `SmalltalkMethodContext` objects defined in `boot.js
 
 !MethodContext methodsFor: 'accessing'!
 
+evaluatedSelector
+	<return self.evaluatedSelector>
+!
+
 home
 	<return self.homeContext>
 !
@@ -580,10 +576,6 @@ outerContext
 	<return self.outerContext || self.homeContext>
 !
 
-pc
-	<return self.pc>
-!
-
 receiver
 	<return self.receiver>
 !
@@ -598,6 +590,14 @@ selector
 	>
 !
 
+sendIndexAt: aSelector
+	<return self.sendIdx[aSelector] || 0>
+!
+
+sendIndexes
+	<return self.sendIdx>
+!
+
 temps
 	self deprecatedAPI.
 	
@@ -607,7 +607,7 @@ temps
 !MethodContext methodsFor: 'converting'!
 
 asString
-	^self isBlockContext
+	^ self isBlockContext
 		ifTrue: [ 'a block (in ', self methodContext asString, ')' ]
 		ifFalse: [ self receiver class name, ' >> ', self selector ]
 ! !
@@ -682,7 +682,7 @@ constructor: aString value:anObject value: anObject2 value:anObject3
 !NativeFunction class methodsFor: 'testing'!
 
 exists: aString
-	^PlatformInterface existsGlobal: aString
+	^ PlatformInterface existsGlobal: aString
 ! !
 
 Object subclass: #Timeout
@@ -720,6 +720,6 @@ clearTimeout
 !Timeout class methodsFor: 'instance creation'!
 
 on: anObject
-	^self new rawTimeout: anObject; yourself
+	^ self new rawTimeout: anObject; yourself
 ! !
 

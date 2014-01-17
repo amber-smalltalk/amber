@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Tests'!
+Smalltalk createPackage: 'Kernel-Tests'!
 TestCase subclass: #AnnouncementSubscriptionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
@@ -22,6 +22,40 @@ testHandlesAnnouncement
 	classBuilder basicRemoveClass: announcementClass1.
 ! !
 
+TestCase subclass: #AnnouncerTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!AnnouncerTest methodsFor: 'not yet classified'!
+
+testOnDo
+	| counter announcer |
+	
+	counter := 0.
+	announcer := Announcer new.
+	announcer on: SystemAnnouncement do: [ counter := counter + 1 ].
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 1.
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 2.
+!
+
+testOnDoOnce
+	| counter announcer |
+	
+	counter := 0.
+	announcer := Announcer new.
+	announcer on: SystemAnnouncement doOnce: [ counter := counter + 1 ].
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 1.
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 1.
+! !
+
 TestCase subclass: #BlockClosureTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
@@ -29,32 +63,32 @@ TestCase subclass: #BlockClosureTest
 !BlockClosureTest methodsFor: 'tests'!
 
 testCanClearInterval
-	self shouldnt: [([Error new signal] valueWithInterval: 0) clearInterval] raise: Error
+	self shouldnt: [ ([ Error new signal ] valueWithInterval: 0) clearInterval ] raise: Error
 !
 
 testCanClearTimeout
-	self shouldnt: [([Error new signal] valueWithTimeout: 0) clearTimeout] raise: Error
+	self shouldnt: [ ([ Error new signal ] valueWithTimeout: 0) clearTimeout ] raise: Error
 !
 
 testCompiledSource
-	self assert: ([1+1] compiledSource includesSubString: 'function')
+	self assert: ([ 1+1 ] compiledSource includesSubString: 'function')
 !
 
 testCurrySelf
 	| curriedMethod array |
 	curriedMethod := [ :selfarg :x | selfarg at: x ] currySelf asCompiledMethod: 'foo:'.
 	array := #(3 1 4).
-	ClassBuilder new installMethod: curriedMethod forClass: Array category: '**test helper'.
+	ClassBuilder new installMethod: curriedMethod forClass: Array protocol: '**test helper'.
 	[ self assert: (array foo: 2) equals: 1 ]
 	ensure: [ Array removeCompiledMethod: curriedMethod ]
 !
 
 testEnsure
-	self assert: ([3] ensure: [4]) equals: 3
+	self assert: ([ 3 ] ensure: [ 4 ]) equals: 3
 !
 
 testEnsureRaises
-	self should: [[Error new signal] ensure: [true]] raise: Error
+	self should: [ [Error new signal ] ensure: [ true ]] raise: Error
 !
 
 testExceptionSemantics
@@ -74,64 +108,63 @@ testExceptionSemantics
 
 testNewWithValues
 <
-	function theTestPrototype() {this.name = "theTestPrototype";}
-	function theTestConstructor(arg1, arg2, arg3) {}
-	theTestConstructor.prototype = new theTestPrototype;
+	function TestConstructor(arg1, arg2, arg3) {}
+	TestConstructor.prototype.name = 'theTestPrototype';
 
-	var theWrappedConstructor = _st(theTestConstructor);
-	var theResult = theWrappedConstructor._newWithValues_([1, 2, 3]);
-	self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');
+	var wrappedConstructor = _st(TestConstructor);
+	var result = wrappedConstructor._newWithValues_([1, 2, 3 ]);
+	self._assert_(result instanceof TestConstructor);
+	self._assert_equals_(result.name, 'theTestPrototype');
 
 	"newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made."
-	function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}
-	self._should_raise_(_st(constructionShouldFail), smalltalk.Error);
+	self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, globals.Error);
 >
 !
 
 testNumArgs
 	self assert: [] numArgs equals: 0.
-	self assert: [:a :b | ] numArgs equals: 2
+	self assert: [ :a :b | ] numArgs equals: 2
 !
 
 testOnDo
-	self assert: ([Error new signal] on: Error do: [:ex | true])
+	self assert: ([ Error new signal ] on: Error do: [ :ex | true ])
 !
 
 testValue
-	self assert: ([1+1] value) equals: 2.
-	self assert: ([:x | x +1] value: 2) equals: 3.
-	self assert: ([:x :y | x*y] value: 2 value: 4) equals: 8.
+	self assert: ([ 1+1 ] value) equals: 2.
+	self assert: ([ :x | x +1 ] value: 2) equals: 3.
+	self assert: ([ :x :y | x*y ] value: 2 value: 4) equals: 8.
 
 	"Arguments are optional in Amber. This isn't ANSI compliant."
 
-	self assert: ([:a :b :c | 1] value) equals: 1
+	self assert: ([ :a :b :c | 1 ] value) equals: 1
 !
 
 testValueWithPossibleArguments
-	self assert: ([1] valueWithPossibleArguments: #(3 4)) equals: 1.
-	self assert: ([:a | a + 4] valueWithPossibleArguments: #(3 4)) equals: 7.
-	self assert: ([:a :b | a + b] valueWithPossibleArguments: #(3 4 5)) equals: 7.
+	self assert: ([ 1 ] valueWithPossibleArguments: #(3 4)) equals: 1.
+	self assert: ([ :a | a + 4 ] valueWithPossibleArguments: #(3 4)) equals: 7.
+	self assert: ([ :a :b | a + b ] valueWithPossibleArguments: #(3 4 5)) equals: 7.
 !
 
 testWhileFalse
 	| i |
 	i := 0.
-	[i > 5] whileFalse: [i := i + 1].
+	[ i > 5 ] whileFalse: [ i := i + 1 ].
 	self assert: i equals: 6.
 
 	i := 0.
-	[i := i + 1. i > 5] whileFalse.
+	[ i := i + 1. i > 5 ] whileFalse.
 	self assert: i equals: 6
 !
 
 testWhileTrue
 	| i |
 	i := 0.
-	[i < 5] whileTrue: [i := i + 1].
+	[ i < 5 ] whileTrue: [ i := i + 1 ].
 	self assert: i equals: 5.
 
 	i := 0.
-	[i := i + 1. i < 5] whileTrue.
+	[ i := i + 1. i < 5 ] whileTrue.
 	self assert: i equals: 5
 ! !
 
@@ -179,32 +212,32 @@ testIdentity
 
 testIfTrueIfFalse
 
-	self assert: (true ifTrue: ['alternative block']) equals: 'alternative block'.
-	self assert: (true ifFalse: ['alternative block']) equals: nil.
+	self assert: (true ifTrue: [ 'alternative block' ]) equals: 'alternative block'.
+	self assert: (true ifFalse: [ 'alternative block' ]) equals: nil.
 
-	self assert: (false ifTrue: ['alternative block']) equals: nil.
-	self assert: (false ifFalse: ['alternative block']) equals: 'alternative block'.
+	self assert: (false ifTrue: [ 'alternative block' ]) equals: nil.
+	self assert: (false ifFalse: [ 'alternative block' ]) equals: 'alternative block'.
 
-	self assert: (false ifTrue: ['alternative block'] ifFalse: ['alternative block2']) equals: 'alternative block2'.
-	self assert: (false ifFalse: ['alternative block'] ifTrue: ['alternative block2']) equals: 'alternative block'.
+	self assert: (false ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block2'.
+	self assert: (false ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block'.
 
-	self assert: (true ifTrue: ['alternative block'] ifFalse: ['alternative block2']) equals: 'alternative block'.
-	self assert: (true ifFalse: ['alternative block'] ifTrue: ['alternative block2']) equals: 'alternative block2'.
+	self assert: (true ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block'.
+	self assert: (true ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block2'.
 !
 
 testIfTrueIfFalseWithBoxing
 
-	self assert: (true yourself ifTrue: ['alternative block']) equals: 'alternative block'.
-	self assert: (true yourself ifFalse: ['alternative block']) equals: nil.
+	self assert: (true yourself ifTrue: [ 'alternative block' ]) equals: 'alternative block'.
+	self assert: (true yourself ifFalse: [ 'alternative block' ]) equals: nil.
 
-	self assert: (false yourself ifTrue: ['alternative block']) equals: nil.
-	self assert: (false yourself ifFalse: ['alternative block']) equals: 'alternative block'.
+	self assert: (false yourself ifTrue: [ 'alternative block' ]) equals: nil.
+	self assert: (false yourself ifFalse: [ 'alternative block' ]) equals: 'alternative block'.
 
-	self assert: (false yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) equals: 'alternative block2'.
-	self assert: (false yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) equals: 'alternative block'.
+	self assert: (false yourself ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block2'.
+	self assert: (false yourself ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block'.
 
-	self assert: (true yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) equals: 'alternative block'.
-	self assert: (true yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) equals: 'alternative block2'.
+	self assert: (true yourself ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block'.
+	self assert: (true yourself ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block2'.
 !
 
 testLogic
@@ -229,7 +262,7 @@ testLogic
 testLogicKeywords
 	"Trivial logic table"
 	self
-		assert: (true and: [ true]);
+		assert: (true and: [ true ]);
 		deny: (true and: [ false ]);
 		deny: (false and: [ true ]);
 		deny: (false and: [ false ]).
@@ -265,7 +298,7 @@ setUp
 !
 
 tearDown
-	theClass ifNotNil: [Smalltalk current removeClass: theClass. theClass := nil]
+	theClass ifNotNil: [ Smalltalk removeClass: theClass. theClass := nil ]
 ! !
 
 !ClassBuilderTest methodsFor: 'tests'!
@@ -283,10 +316,10 @@ testClassMigration
 	| instance oldClass |
 	
 	oldClass := builder copyClass: ObjectMock named: 'ObjectMock2'.
-	instance := (Smalltalk current at: 'ObjectMock2') new.
+	instance := (Smalltalk globals at: 'ObjectMock2') new.
 	
 	"Change the superclass of ObjectMock2"
-	ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+	ObjectMock subclass: (Smalltalk globals at: 'ObjectMock2')
 		instanceVariableNames: ''
 		package: 'Kernel-Tests'.
 	
@@ -302,9 +335,9 @@ testClassMigration
 	"Commeting this out. Tests implementation detail."
 	"self assert: instance class name equals: 'OldObjectMock2'."
 	
-	self assert: (Smalltalk current at: instance class name) isNil.
+	self assert: (Smalltalk globals at: instance class name) isNil.
 	
-	Smalltalk current removeClass: ObjectMock2
+	Smalltalk removeClass: ObjectMock2
 !
 
 testClassMigrationWithClassInstanceVariables
@@ -313,13 +346,13 @@ testClassMigrationWithClassInstanceVariables
 	ObjectMock2 class instanceVariableNames: 'foo bar'.
 	
 	"Change the superclass of ObjectMock2"
-	ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+	ObjectMock subclass: (Smalltalk globals at: 'ObjectMock2')
 		instanceVariableNames: ''
 		package: 'Kernel-Tests'.
 	
 	self assert: ObjectMock2 class instanceVariableNames equals: #('foo' 'bar').
 	
-	Smalltalk current removeClass: ObjectMock2
+	Smalltalk removeClass: ObjectMock2
 !
 
 testClassMigrationWithSubclasses
@@ -329,7 +362,7 @@ testClassMigrationWithSubclasses
 	ObjectMock3 subclass: 'ObjectMock4' instanceVariableNames: '' package: 'Kernel-Tests'.
 	
 	"Change the superclass of ObjectMock2"
-	ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+	ObjectMock subclass: (Smalltalk globals at: 'ObjectMock2')
 		instanceVariableNames: ''
 		package: 'Kernel-Tests'.
 	
@@ -337,7 +370,7 @@ testClassMigrationWithSubclasses
 	self assert: (ObjectMock2 subclasses includes: ObjectMock3).
 	self assert: (ObjectMock3 subclasses includes: ObjectMock4).
 	
-	ObjectMock allSubclasses do: [ :each | Smalltalk current removeClass: each ]
+	ObjectMock allSubclasses do: [ :each | Smalltalk removeClass: each ]
 !
 
 testInstanceVariableNames
@@ -348,30 +381,70 @@ TestCase subclass: #CollectionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!CollectionTest methodsFor: 'accessing'!
-
-collection
-	^ self collectionClass withAll: self defaultValues
-!
-
-collectionClass
-	^ self class collectionClass
-!
-
-collectionWithDuplicates
-	^ self collectionClass withAll: #('a' 'b' 'c' 1 2 1 'a')
-!
-
-defaultValues
-	^ #(1 2 3 -4)
-! !
-
 !CollectionTest methodsFor: 'convenience'!
 
 assertSameContents: aCollection as: anotherCollection
 	self assert: (aCollection size = anotherCollection size).
 	aCollection do: [ :each |
 		self assert: ((aCollection occurrencesOf: each) = (anotherCollection occurrencesOf: each)) ]
+! !
+
+!CollectionTest methodsFor: 'fixture'!
+
+collection
+	"Answers pre-filled collection of type tested."
+
+	self subclassResponsibility
+!
+
+collectionClass
+	"Answers class of collection type tested"
+
+	^ self class collectionClass
+!
+
+collectionOfPrintStrings
+	"Answers self collection but with values
+	changed to their printStrings"
+
+	self subclassResponsibility
+!
+
+collectionSize
+	"Answers size of self collection."
+
+	self subclassResponsibility
+!
+
+collectionWithDuplicates
+	"Answers pre-filled collection of type tested,
+	with exactly five distinct elements,
+	some of them appearing multiple times, if possible."
+
+	self subclassResponsibility
+!
+
+collectionWithNewValue
+	"Answers a collection which shows how
+	self collection would look after adding
+	self sampleNewValue"
+	
+	self subclassResponsibility
+!
+
+sampleNewValue
+	"Answers a value that is not yet there
+	and can be put into a tested collection"
+	
+	^ 'N'
+!
+
+sampleNewValueAsCollection
+	"Answers self sampleNewValue
+	wrapped in single element collection
+	of tested type"
+	
+	^ self collectionClass with: self sampleNewValue
 ! !
 
 !CollectionTest methodsFor: 'testing'!
@@ -381,6 +454,34 @@ isCollectionReadOnly
 ! !
 
 !CollectionTest methodsFor: 'tests'!
+
+testAddAll
+	self assert: (self collection addAll: self collectionClass new; yourself) equals: self collection.
+	self assert: (self collectionClass new addAll: self collection; yourself) equals: self collection.
+	self assert: (self collectionClass new addAll: self collectionClass new; yourself) equals: self collectionClass new.
+	self assert: (self collection addAll: self sampleNewValueAsCollection; yourself) equals: self collectionWithNewValue.
+	self assertSameContents: (self sampleNewValueAsCollection addAll: self collection; yourself) as: self collectionWithNewValue
+!
+
+testAllSatisfy
+	| collection anyOne |
+	collection := self collection.
+	anyOne := collection anyOne.
+	self assert: (collection allSatisfy: [ :each | collection includes: each ]).
+	self deny: (collection allSatisfy: [ :each | each ~= anyOne ])
+!
+
+testAnyOne
+	self should: [ self collectionClass new anyOne ] raise: Error.
+	self assert: (self collection includes: self collection anyOne)
+!
+
+testAnySatisfy
+	| anyOne |
+	anyOne := self collection anyOne.
+	self assert: (self collection anySatisfy: [ :each | each = anyOne ]).
+	self deny: (self collection anySatisfy: [ :each | each = Object new ])
+!
 
 testAsArray
 	self
@@ -404,19 +505,43 @@ testAsSet
 !
 
 testCollect
-	| newCollection |
-	newCollection := #(1 2 3 4).
-	self
-		assertSameContents: (self collection collect: [ :each |
-			each abs ])
-		as: newCollection
+	self assert: (self collection collect: [ :each | each ]) equals: self collection.
+	self assert: (self collectionWithNewValue collect: [ :each | each ]) equals: self collectionWithNewValue.
+	self assert: (self collectionClass new collect: [ :each | each printString ]) equals: self collectionClass new.
+	self assert: ((self collection collect: [ self sampleNewValue ]) detect: [ true ]) equals: self sampleNewValue.
+	self assert: (self collection collect: [ :each | each printString ]) equals: self collectionOfPrintStrings
+!
+
+testComma
+	self assert: self collection, self collectionClass new equals: self collection.
+	self assert: self collectionClass new, self collection equals: self collection.
+	self assert: self collectionClass new, self collectionClass new equals: self collectionClass new.
+	self assert: self collection, self sampleNewValueAsCollection equals: self collectionWithNewValue.
+	self assertSameContents: self sampleNewValueAsCollection, self collection as: self collectionWithNewValue
 !
 
 testDetect
-	self assert: (self collection detect: [ :each | each < 0 ]) equals: -4.
 	self
-		should: [ self collection detect: [ :each | each = 6 ] ]
+		shouldnt: [ self collection detect: [ true ] ]
+		raise: Error.
+	self
+		should: [ self collection detect: [ false ] ]
+		raise: Error.
+	self assert: (self sampleNewValueAsCollection detect: [ true ]) equals: self sampleNewValue.
+	self assert: (self collectionWithNewValue detect: [ :each | each = self sampleNewValue ]) equals: self sampleNewValue.
+	self
+		should: [ self collection detect: [ :each | each = self sampleNewValue ] ]
 		raise: Error
+!
+
+testDetectIfNone
+	| sentinel |
+	sentinel := Object new.
+	self assert: (self collection detect: [ true ] ifNone: [ sentinel ]) ~= sentinel.
+	self assert: (self collection detect: [ false ] ifNone: [ sentinel ]) equals: sentinel.
+	self assert: (self sampleNewValueAsCollection detect: [ true ] ifNone: [ sentinel ]) equals: self sampleNewValue.
+	self assert: (self collectionWithNewValue detect: [ :each | each = self sampleNewValue ] ifNone: [ sentinel ]) equals: self sampleNewValue.
+	self assert: (self collection detect: [ :each | each = self sampleNewValue ] ifNone: [ sentinel ]) equals: sentinel
 !
 
 testDo
@@ -426,7 +551,27 @@ testDo
 		newCollection add: each ].
 	self
 		assertSameContents: self collection
+		as: newCollection.
+	newCollection := OrderedCollection new.
+	self collectionWithDuplicates do: [ :each |
+		newCollection add: each ].
+	self
+		assertSameContents: self collectionWithDuplicates
 		as: newCollection
+!
+
+testIfEmptyFamily
+	self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.
+	self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.
+
+	self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.
+	self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.
+	
+	self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.
+	self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.
+
+	self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.
+	self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42
 !
 
 testIsEmpty
@@ -434,23 +579,38 @@ testIsEmpty
 	self deny: self collection isEmpty
 !
 
+testNoneSatisfy
+	| anyOne |
+	anyOne := self collection anyOne.
+	self deny: (self collection noneSatisfy: [ :each | each = anyOne ]).
+	self assert: (self collection noneSatisfy: [ :each | each = Object new ])
+!
+
+testRemoveAll
+	self assert: (self collection removeAll; yourself) equals: self collectionClass new
+!
+
 testSelect
-	| newCollection |
-	newCollection := #(2 -4).
-	self
-		assertSameContents: (self collection select: [ :each |
-			each even ])
-		as: newCollection
+	self assert: (self collection select: [ false ]) equals: self collectionClass new.
+	self assert: (self collection select: [ true ]) equals: self collection.
+	self assert: (self collectionWithNewValue select: [ :each | each = self sampleNewValue ]) equals: self sampleNewValueAsCollection.
+	self assert: (self collectionWithNewValue select: [ :each | each ~= self sampleNewValue ]) equals: self collection.
+	self assert: (self collection select: [ :each | each = self sampleNewValue ]) equals: self collectionClass new.
+	self assert: (self collectionWithNewValue select: [ :each | each ~= self sampleNewValue ]) equals: self collection
 !
 
 testSize
 	self assert: self collectionClass new size equals: 0.
-	self assert: self collection size equals: 4
+	self assert: self sampleNewValueAsCollection size equals: 1.
+	self assert: self collection size equals: self collectionSize
 ! !
 
-!CollectionTest class methodsFor: 'accessing'!
+!CollectionTest class methodsFor: 'fixture'!
 
 collectionClass
+	"Answers class of collection type tested,
+	or nil if test is abstract"
+
 	^ nil
 ! !
 
@@ -464,29 +624,120 @@ CollectionTest subclass: #IndexableCollectionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
+!IndexableCollectionTest methodsFor: 'fixture'!
+
+collectionWithNewValue
+	"Answers a collection which shows how
+	self collection would look after adding
+	self sampleNewValue at self sampleNewIndex"
+	
+	self subclassResponsibility
+!
+
+sampleNewIndex
+	"Answers a value that can be used as index in at:put: or at:ifAbsentPut:"
+	
+	self subclassResponsibility
+!
+
+sampleNonIndexesDo: aBlock
+	"Executes block a few times,
+	each time passing value that is known
+	not to be an index, as the first parameter"
+	
+	self subclassResponsibility
+!
+
+samplesDo: aBlock
+	"Executes block a few times,
+	each time passing known index and value stored
+	under that index as the parameters"
+	
+	self subclassResponsibility
+! !
+
 !IndexableCollectionTest methodsFor: 'tests'!
 
 testAt
-	self assert: (self collection at: 4) equals: -4.
-	self should: [ self collection at: 5 ] raise: Error
+	self nonIndexesDo: [ :each |
+		self should: [ self collection at: each ] raise: Error ].
+	self samplesDo: [ :index :value |
+		self assert: (self collection at: index) equals: value ]
 !
 
 testAtIfAbsent
-	self assert: (self collection at: (self collection size + 1) ifAbsent: [ 'none' ]) equals: 'none'
+	self nonIndexesDo: [ :each |
+		self assert: (self collection at: each ifAbsent: [ self sampleNewValue ]) equals: self sampleNewValue ].
+	self samplesDo: [ :index :value |
+		self assert: (self collection at: index ifAbsent: [ self sampleNewValue ]) equals: value ].
 !
 
-testContains
-	| collection |
-	collection := self collection.
+testAtIfAbsentPut
+	| newCollection |
+	newCollection := self collection.
+	self samplesDo: [ :index :value |
+		self assert: (newCollection at: index ifAbsentPut: [ self sampleNewValue ]) equals: value ].
+	self assert: newCollection equals: self collection.
+	self assert: (newCollection at: self sampleNewIndex ifAbsentPut: [ self sampleNewValue ]) equals: self sampleNewValue.
+	self assert: newCollection equals: self collectionWithNewValue
+!
+
+testAtIfPresent
+	| visited sentinel |
+	sentinel := Object new.
+	self nonIndexesDo: [ :each |
+		visited := nil.
+		self assert: (self collection at: each ifPresent: [ :value1 | visited := value1. sentinel ]) equals: nil.
+		self assert: visited isNil ].
+	self samplesDo: [ :index :value |
+		visited := nil.
+		self assert: (self collection at: index ifPresent: [ :value2 | visited := value2. sentinel ]) equals: sentinel.
+		self assert: visited equals: (self collection at: index) ]
+!
+
+testAtIfPresentIfAbsent
+	| visited sentinel |
+	sentinel := Object new.
+	self nonIndexesDo: [ :each |
+		visited := nil.
+		self assert: (self collection at: each ifPresent: [ :value1 | visited := value1. sentinel ] ifAbsent: [ self sampleNewValue ] ) equals: self sampleNewValue.
+		self assert: visited isNil ].
+	self samplesDo: [ :index :value |
+		visited := nil.
+		self assert: (self collection at: index ifPresent: [ :value2 | visited := value2. sentinel ] ifAbsent: [ self sampleNewValue ]) equals: sentinel.
+		self assert: visited equals: (self collection at: index) ]
+!
+
+testAtPut
+	| newCollection |
+	newCollection := self collection.
+	self samplesDo: [ :index :value |
+		newCollection at: index put: value ].
+	self assert: newCollection equals: self collection.
+	newCollection at: self sampleNewIndex put: self sampleNewValue.
+	self assert: newCollection equals: self collectionWithNewValue
+!
+
+testEquality
+	self assert: self collectionClass new equals: self collectionClass new.
+	self assert: self collection equals: self collection.
+	self assert: self collectionWithNewValue equals: self collectionWithNewValue.
 	
-	self assert: (self collection contains: [ :each | each = self collection first ]).
-	self deny: (self collection contains: [ :each | each = Object new ])
+	self deny: self collectionClass new = self collection.
+	self deny: self collection = self collectionClass new
 !
 
 testIndexOf
-	self assert: (self collection indexOf: 2) equals: 2.
-	self should: [ self collection indexOf: 999 ] raise: Error.
-	self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'
+	self should: [ self collection indexOf: self sampleNewValue ] raise: Error.
+	self samplesDo: [ :index :value |
+		self assert: (self collection indexOf: value) equals: index ]
+!
+
+testIndexOfWithNull
+	| jsNull |
+	jsNull := JSON parse: 'null'.
+	self samplesDo: [ :index :value |
+		self assert: (self collection at: index put: jsNull; indexOf: jsNull) equals: index ]
 !
 
 testWithIndexDo
@@ -497,37 +748,55 @@ testWithIndexDo
 		self assert: (collection at: index) equals: each ]
 ! !
 
-IndexableCollectionTest subclass: #HashedCollectionTest
+IndexableCollectionTest subclass: #AssociativeCollectionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!HashedCollectionTest methodsFor: 'accessing'!
+!AssociativeCollectionTest methodsFor: 'fixture'!
 
-collection
-	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4 }
+collectionKeys
+	self subclassResponsibility
 !
 
-collectionWithDuplicates
-	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }
+collectionValues
+	self subclassResponsibility
+!
+
+nonIndexesDo: aBlock
+	aBlock value: 5.
+	aBlock value: 'z'
+!
+
+sampleNewIndex
+	^ 'new'
+!
+
+samplesDo: aBlock
+	aBlock value: 'a' value: 2
 ! !
 
-!HashedCollectionTest methodsFor: 'tests'!
+!AssociativeCollectionTest methodsFor: 'tests'!
+
+testAddAll
+	super testAddAll.
+	self assert: (self collection addAll: self collection; yourself) equals: self collection.
+	self assert: (self collection addAll: self collectionWithNewValue; yourself) equals: self collectionWithNewValue.
+	self assert: (self collectionWithNewValue addAll: self collection; yourself) equals: self collectionWithNewValue
+!
 
 testAsDictionary
 self assert: ( self collectionClass new asDictionary isMemberOf: Dictionary ).
 !
 
-testAt
-	self assert: (self collection at: 'a') equals: 2.
-	self should: [ self collection at: 5 ] raise: Error
+testAsHashedCollection
+self assert: ( self collectionClass new asHashedCollection isMemberOf: HashedCollection ).
 !
 
-testContains
-	| collection |
-	collection := self collection.
-	
-	self assert: (self collection contains: [ :each | each = self collection values first ]).
-	self deny: (self collection contains: [ :each | each = Object new ])
+testComma
+	super testComma.
+	self assert: self collection, self collection equals: self collection.
+	self assert: self collection, self collectionWithNewValue equals: self collectionWithNewValue.
+	self assert: self collectionWithNewValue, self collection equals: self collectionWithNewValue
 !
 
 testFrom
@@ -537,10 +806,10 @@ associations := { 'a' -> 1. 'b' -> 2 }.
 self assertSameContents: ( self class collectionClass from: associations ) as: #{ 'a' -> 1. 'b' -> 2 }.
 !
 
-testIndexOf
-	self assert: (self collection indexOf: 2) equals: 'a'.
-	self should: [ self collection indexOf: 999 ] raise: Error.
-	self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'
+testKeys
+	self assert:self collectionClass new keys isEmpty.
+	self assertSameContents:self collection keys as: self collectionKeys.
+	self assertSameContents:self collectionWithNewValue keys as: self collectionKeys, { self sampleNewIndex }
 !
 
 testNewFromPairs
@@ -548,27 +817,89 @@ testNewFromPairs
 | flattenedAssociations |
 flattenedAssociations := { 'a'. 1. 'b'. 2 }.
 self assertSameContents: ( self class collectionClass newFromPairs: flattenedAssociations ) as: #{ 'a' -> 1. 'b' -> 2 }.
+!
+
+testPrintString
+	self
+		assert: (self collectionClass new
+							at:'firstname' put: 'James';
+							at:'lastname' put: 'Bond';
+							printString)
+		equals: 'a ', self collectionClass name, ' (''firstname'' -> ''James'' , ''lastname'' -> ''Bond'')'
+!
+
+testRemoveKey
+	self nonIndexesDo: [ :each |
+		| collection |
+		collection := self collection.
+		self should: [ collection removeKey: each ] raise: Error.
+		self assert: collection equals: self collection ].
+	self samplesDo: [ :index :value |
+		| collection |
+		collection := self collection.
+		self assert: (collection removeKey: index) equals: value.
+		self deny: collection = self collection ].
+	self
+		assert: (self collectionWithNewValue removeKey: self sampleNewIndex; yourself)
+		equals: self collection
+!
+
+testRemoveKeyIfAbsent
+	self nonIndexesDo: [ :each |
+		| collection |
+		collection := self collection.
+		self assert: (collection removeKey: each ifAbsent: [ self sampleNewValue ]) equals: self sampleNewValue.
+		self assert: collection equals: self collection ].
+	self samplesDo: [ :index :value |
+		| collection |
+		collection := self collection.
+		self assert: (collection removeKey: index ifAbsent: [ self sampleNewValue ]) equals: value.
+		self deny: collection = self collection ].
+	self
+		assert: (self collectionWithNewValue removeKey: self sampleNewIndex ifAbsent: [ self assert: false ]; yourself)
+		equals: self collection
+!
+
+testValues
+	self assert:self collectionClass new values isEmpty.
+	self assertSameContents:self collection values as: self collectionValues.
+	self assertSameContents:self collectionWithNewValue values as: self collectionValues, { self sampleNewValue }
 ! !
 
-!HashedCollectionTest class methodsFor: 'accessing'!
-
-collectionClass
-	^ HashedCollection
-! !
-
-HashedCollectionTest subclass: #DictionaryTest
+AssociativeCollectionTest subclass: #DictionaryTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!DictionaryTest methodsFor: 'accessing'!
+!DictionaryTest methodsFor: 'fixture'!
 
 collection
 	^ Dictionary new
 		at: 1 put: 1;
 		at: 'a' put: 2;
 		at: true put: 3;
-		at: 4 put: -4;
+		at: 1@3 put: -4;
 		yourself
+!
+
+collectionKeys
+	^ {1. 'a'. true. 1@3}
+!
+
+collectionOfPrintStrings
+	^ Dictionary new
+		at: 1 put: '1';
+		at: 'a' put: '2';
+		at: true put: '3';
+		at: 1@3 put: '-4';
+		yourself
+!
+
+collectionSize
+	^ 4
+!
+
+collectionValues
+	^ {1. 2. 3. -4}
 !
 
 collectionWithDuplicates
@@ -581,6 +912,28 @@ collectionWithDuplicates
 		at: 3 put: 3;
 		at: false put: 12;
 		yourself
+!
+
+collectionWithNewValue
+	^ Dictionary new
+		at: 1 put: 1;
+		at: 'a' put: 2;
+		at: true put: 3;
+		at: 1@3 put: -4;
+		at: 'new' put: 'N';
+		yourself
+!
+
+sampleNewValueAsCollection
+	^ Dictionary new
+		at: 'new' put: 'N';
+		yourself
+!
+
+samplesDo: aBlock
+	super samplesDo: aBlock.
+	aBlock value: true value: 3.
+	aBlock value: 1@3 value: -4
 ! !
 
 !DictionaryTest methodsFor: 'tests'!
@@ -592,8 +945,8 @@ testAccessing
 
 	d at: 'hello' put: 'world'.
 	self assert: (d at: 'hello') equals: 'world'.
-	self assert: (d at: 'hello' ifAbsent: [nil]) equals: 'world'.
-	self deny: (d at: 'foo' ifAbsent: [nil]) = 'world'.
+	self assert: (d at: 'hello' ifAbsent: [ nil ]) equals: 'world'.
+	self deny: (d at: 'foo' ifAbsent: [ nil ]) = 'world'.
 
 	self assert: (d includesKey: 'hello').
 	self deny: (d includesKey: 'foo').
@@ -608,202 +961,250 @@ testAccessing
 	self deny: (d includesKey: 3@1)
 !
 
-testAsHashedCollection
-self assert: ( self collectionClass new asHashedCollection isMemberOf: HashedCollection ).
-!
-
 testDynamicDictionaries
 	self assert: #{'hello' -> 1} asDictionary equals: (Dictionary with: 'hello' -> 1)
-!
-
-testEquality
-	| d1 d2 |
-
-	self assert: (Dictionary new = Dictionary new).
-		
-	d1 := Dictionary new at: 1 put: 2; yourself.
-	d2 := Dictionary new at: 1 put: 2; yourself.
-	self assert: (d1 = d2).
-
-	d2 := Dictionary new at: 1 put: 3; yourself.
-	self deny: d1 = d2.
-
-	d2 := Dictionary new at: 2 put: 2; yourself.
-	self deny: d1 = d2.
-
-	d2 := Dictionary new at: 1 put: 2; at: 3 put: 4; yourself.
-	self deny: d1 = d2.
-!
-
-testIfAbsent
-
-	| d visited |
-	visited := false.
-	d := Dictionary new.
-
-	d at: 'hello' ifAbsent: [ visited := true ].
-	self assert: visited.
-!
-
-testIfPresent
-
-	| d visited absent |
-	visited := false.
-	d := Dictionary new.
-	d at: 'hello' put: 'world'.
-
-	d at: 'hello' ifPresent: [ :value | visited := value ].
-	self assert: visited equals: 'world'.
-
-	absent := d at: 'bye' ifPresent: [ :value | visited := value ].
-	self assert: absent isNil.
-!
-
-testIfPresentIfAbsent
-
-	| d visited |
-	visited := false.
-	d := Dictionary new.
-	d at: 'hello' put: 'world'.
-
-	d at: 'hello' ifPresent: [ :value | visited := value ] ifAbsent: [ visited := true ].
-	self assert: visited equals: 'world'.
-
-	d at: 'buy' ifPresent: [ :value | visited := value ] ifAbsent: [ visited := true ].
-	self assert: visited.
-!
-
-testKeys
-	| d |
-
-	d := Dictionary new.
-	d at: 1 put: 2.
-	d at: 2 put: 3.
-	d at: 3 put: 4.
-
-	self assert: d keys equals: #(1 2 3)
-!
-
-testPointKey
-	| d |
-
-	d := Dictionary new.
-	
-	d at: 1@1 put: 'foo'.
-	self assert: (d at: 1@1) equals: 'foo'.
-	d at: 1@1 put: 'bar'.
-	self assert: (d at: 1@1) equals: 'bar'.
-	d removeKey: 1@1.
-	self assert: (d at: 1@1 ifAbsent: [ 'baz' ]) equals: 'baz'.
-	self deny: (d includesKey: 1@1)
-!
-
-testPrintString
-	self
-		assert: (Dictionary new
-							at:'firstname' put: 'James';
-							at:'lastname' put: 'Bond';
-							printString)
-		equals: 'a Dictionary (''firstname'' -> ''James'' , ''lastname'' -> ''Bond'')'
-!
-
-testRemoveKey
-	| d key |
-
-	d := Dictionary new.
-	d at: 1 put: 2.
-	d at: 2 put: 3.
-	d at: 3 put: 4.
-
-	key := 2.
-
-	self assert: d keys equals: #(1 2 3).
-
-	d removeKey: key.
-	self assert: d keys equals: #(1 3).
-	self assert: d values equals: #(2 4).
-	self deny: (d includesKey: 2)
-!
-
-testRemoveKeyIfAbsent
-	| d key |
-
-	d := Dictionary new.
-	d at: 1 put: 2.
-	d at: 2 put: 3.
-	d at: 3 put: 4.
-
-	key := 2.
-	self assert: (d removeKey: key) equals: 3.
-
-	key := 3.
-	self assert: (d removeKey: key ifAbsent: [42]) equals: 4.
-
-	key := 'why'.
-	self assert: (d removeKey: key ifAbsent: [42] ) equals: 42.
-!
-
-testSize
-	| d |
-
-	d := Dictionary new.
-	self assert: d size equals: 0.
-
-	d at: 1 put: 2.
-	self assert: d size equals: 1.
-
-	d at: 2 put: 3.
-	self assert: d size equals: 2.
-!
-
-testValues
-	| d |
-
-	d := Dictionary new.
-	d at: 1 put: 2.
-	d at: 2 put: 3.
-	d at: 3 put: 4.
-
-	self assert: d values equals: #(2 3 4)
 ! !
 
-!DictionaryTest class methodsFor: 'accessing'!
+!DictionaryTest class methodsFor: 'fixture'!
 
 collectionClass
 	^ Dictionary
+! !
+
+AssociativeCollectionTest subclass: #HashedCollectionTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!HashedCollectionTest methodsFor: 'fixture'!
+
+collection
+	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4 }
+!
+
+collectionKeys
+	^ { 'b'. 'a'. 'c'. 'd' }
+!
+
+collectionOfPrintStrings
+	^ #{ 'b' -> '1'. 'a' -> '2'. 'c' -> '3'. 'd' -> '-4' }
+!
+
+collectionSize
+	^ 4
+!
+
+collectionValues
+	^ { 1. 2. 3. -4 }
+!
+
+collectionWithDuplicates
+	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }
+!
+
+collectionWithNewValue
+	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'new' -> 'N' }
+!
+
+sampleNewValueAsCollection
+	^ #{ 'new' -> 'N' }
+! !
+
+!HashedCollectionTest methodsFor: 'tests'!
+
+testDynamicDictionaries
+	self assert: #{'hello' -> 1} asHashedCollection equals: (HashedCollection with: 'hello' -> 1)
+! !
+
+!HashedCollectionTest class methodsFor: 'fixture'!
+
+collectionClass
+	^ HashedCollection
 ! !
 
 IndexableCollectionTest subclass: #SequenceableCollectionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
+!SequenceableCollectionTest methodsFor: 'fixture'!
+
+collectionFirst
+	self subclassResponsibility
+!
+
+collectionFirstTwo
+	self subclassResponsibility
+!
+
+collectionLast
+	self subclassResponsibility
+!
+
+collectionLastTwo
+	self subclassResponsibility
+!
+
+nonIndexesDo: aBlock
+	aBlock value: 0.
+	aBlock value: self collectionSize + 1.
+	aBlock value: 'z'
+!
+
+samplesDo: aBlock
+	aBlock value: 1 value: self collectionFirst.
+	aBlock value: self collectionSize value: self collectionLast
+! !
+
+!SequenceableCollectionTest methodsFor: 'tests'!
+
+testBeginsWith
+	self assert: (self collection beginsWith: self collectionClass new).
+	self assert: (self collection beginsWith: self collection).
+	self assert: (self collection beginsWith: self collectionFirstTwo).
+	self deny: (self collection beginsWith: self collectionLastTwo)
+!
+
+testEndsWith
+	self assert: (self collection endsWith: self collectionClass new).
+	self assert: (self collection endsWith: self collection).
+	self assert: (self collection endsWith: self collectionLastTwo).
+	self deny: (self collection endsWith: self collectionFirstTwo)
+!
+
+testFirst
+	self assert: self collection first equals: self collectionFirst
+!
+
+testFirstN
+	self 
+		assert: (self collection first: 2)
+		equals: self collectionFirstTwo.
+		
+	self
+		assert: (self collection first: 0)
+		equals: self collectionClass new.
+		
+	self
+		assert: (self collection first: self collectionSize)
+		equals: self collection.
+		
+	self should: [ self collection first: 33 ] raise: Error
+!
+
+testFourth
+	self assert: (self collection fourth) equals: (self collection at: 4)
+!
+
+testIndexOfStartingAt
+	| jsNull |
+	jsNull := JSON parse: 'null'.
+	self samplesDo: [ :index :value |
+		self assert: (self collection indexOf: value startingAt: 1) equals: index.
+		self assert: (self collection indexOf: value startingAt: index) equals: index.
+		self assert: (self collection indexOf: value startingAt: index+1) equals: 0 ]
+!
+
+testIndexOfStartingAtWithNull
+	| jsNull |
+	jsNull := JSON parse: 'null'.
+	self samplesDo: [ :index :value | | collection |
+		collection := self collection.
+		collection at: index put: jsNull.
+		self assert: (collection indexOf: jsNull startingAt: 1) equals: index.
+		self assert: (collection indexOf: jsNull startingAt: index) equals: index.
+		self assert: (collection indexOf: jsNull startingAt: index+1) equals: 0 ]
+!
+
+testLast
+	self assert: self collection last equals: self collectionLast
+!
+
+testLastN
+	self 
+		assert: (self collection last: 2) 
+		equals: self collectionLastTwo.
+		
+	self
+		assert: (self collection last: 0)
+		equals: self collectionClass new.
+
+	self
+		assert: (self collection last: self collectionSize)
+		equals: self collection.
+
+	self should: [ self collection last: 33 ] raise: Error
+!
+
+testSecond
+	self assert: (self collection second) equals: (self collection at: 2)
+!
+
+testThird
+	self assert: (self collection third) equals: (self collection at: 3)
+! !
+
 SequenceableCollectionTest subclass: #ArrayTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
+!ArrayTest methodsFor: 'fixture'!
+
+collection
+	^ #(1 2 3 -4)
+!
+
+collectionFirst
+	^ 1
+!
+
+collectionFirstTwo
+	^ #(1 2)
+!
+
+collectionLast
+	^ -4
+!
+
+collectionLastTwo
+	^ #(3 -4)
+!
+
+collectionOfPrintStrings
+	^ #('1' '2' '3' '-4')
+!
+
+collectionSize
+	^ 4
+!
+
+collectionWithDuplicates
+	^ #('a' 'b' 'c' 1 2 1 'a')
+!
+
+collectionWithNewValue
+	^ #(1 2 3 -4 'N')
+!
+
+sampleNewIndex
+	^ 5
+!
+
+samplesDo: aBlock
+	super samplesDo: aBlock.
+	aBlock value: 3 value: 3.
+! !
+
 !ArrayTest methodsFor: 'tests'!
 
+testAdd 
+	| array | 
+	array := self collection. 
+	array add: 6.
+	
+	self assert: array last equals: 6
+!
+
 testAddFirst
-	self assert: (#(2 3 4 5) addFirst: 1; yourself) equals: #(1 2 3 4 5)
-!
-
-testAtIfAbsent
-	| array |
-	array := #('hello' 'world').
-	self assert: (array at: 1) equals: 'hello'.
-	self assert: (array at: 2) equals: 'world'.
-	self assert: (array at: 2 ifAbsent: ['not found']) equals: 'world'.
-	self assert: (array at: 0 ifAbsent: ['not found']) equals: 'not found'.
-	self assert: (array at: -10 ifAbsent: ['not found']) equals: 'not found'.
-	self assert: (array at: 3 ifAbsent: ['not found']) equals: 'not found'.
-!
-
-testFirstN
-	self assert: ({1. 2. 3. 4. 5} first: 3) equals: {1. 2. 3}
-!
-
-testIfEmpty
-	self assert: ( '' ifEmpty: ['zork'] ) equals: 'zork'
+	self assert: (self collection addFirst: 0; yourself) first equals: 0
 !
 
 testPrintString
@@ -822,6 +1223,15 @@ testPrintString
 	self assert: array printString equals: 'an Array (''foo'' 3 3)'.
 !
 
+testRemove 
+	| array |
+	array := #(1 2 3 4 5). 
+	array remove: 3.
+
+	self assert: array equals: #(1 2 4 5).
+	self should: [ array remove: 3 ] raise: Error
+!
+
 testRemoveFromTo
 	
 	self assert: (#(1 2 3 4) removeFrom: 1 to: 3) equals: #(4).
@@ -834,9 +1244,30 @@ testRemoveIndex
 	self assert: (#(1 2 3 4) removeIndex: 2) equals: #(1 3 4).
 	self assert: (#(1 2 3 4) removeIndex: 1) equals: #(2 3 4).
 	self assert: (#('hello') removeIndex: 1) equals: #()
+!
+
+testRemoveLast 
+	| array |
+	array := #(1 2). 
+	array removeLast.
+	
+	self assert: array last equals: 1
+!
+
+testReversed
+	|array|
+	array := #(5 4 3 2 1). 
+	self assert: (array reversed) equals: #(1 2 3 4 5)
+!
+
+testSort
+	| array |
+	array := #(10 1 5). 
+	array sort.
+	self assert: array equals: #(1 5 10)
 ! !
 
-!ArrayTest class methodsFor: 'accessing'!
+!ArrayTest class methodsFor: 'fixture'!
 
 collectionClass
 	^ Array
@@ -846,25 +1277,71 @@ SequenceableCollectionTest subclass: #StringTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!StringTest methodsFor: 'accessing'!
+!StringTest methodsFor: 'fixture'!
 
 collection
-	^'hello'
+	^ 'helLo'
+!
+
+collectionFirst
+	^ 'h'
+!
+
+collectionFirstTwo
+	^ 'he'
+!
+
+collectionLast
+	^ 'o'
+!
+
+collectionLastTwo
+	^ 'Lo'
+!
+
+collectionOfPrintStrings
+	^ '''h''''e''''l''''L''''o'''
+!
+
+collectionSize
+	^ 5
 !
 
 collectionWithDuplicates
 	^ 'abbaerte'
+!
+
+collectionWithNewValue
+	^ 'helLoN'
+!
+
+sampleNewValueAsCollection
+	^ 'N'
+!
+
+samplesDo: aBlock
+	super samplesDo: aBlock.
+	aBlock value: 3 value: 'l'
 ! !
 
 !StringTest methodsFor: 'tests'!
 
+testAddAll
+	"String instances are read-only"
+	self should: [ self collection addAll: self collection ] raise: Error
+!
+
 testAddRemove
-	self should: ['hello' add: 'a'] raise: Error.
-	self should: ['hello' remove: 'h'] raise: Error
+	self should: [ 'hello' add: 'a' ] raise: Error.
+	self should: [ 'hello' remove: 'h' ] raise: Error
 !
 
 testAsArray
 	self assert: 'hello' asArray equals: #('h' 'e' 'l' 'l' 'o').
+!
+
+testAsLowerCase
+	self assert: 'JACKIE' asLowercase equals: 'jackie'.
 !
 
 testAsNumber
@@ -873,37 +1350,54 @@ testAsNumber
 	self assert: '-1.5' asNumber equals: -1.5.
 !
 
-testAt
-	self assert: ('hello' at: 1) equals: 'h'.
-	self assert: ('hello' at: 5) equals: 'o'.
-	self assert: ('hello' at: 6 ifAbsent: [nil]) equals: nil
+testAsUpperCase
+	self assert: 'jackie' asUppercase equals: 'JACKIE'.
+!
+
+testAsciiValue
+    | characterA characterU |
+    characterA := 'A'.
+    characterU := 'U'.
+    self assert: (characterA asciiValue) equals:65.
+    self assert: (characterU asciiValue) equals:85
+!
+
+testAtIfAbsentPut
+	"String instances are read-only"
+	self should: [ 'hello' at: 6 ifAbsentPut: [ 'a' ] ] raise: Error
 !
 
 testAtPut
 	"String instances are read-only"
-	self should: ['hello' at: 1 put: 'a'] raise: Error
+	self should: [ 'hello' at: 1 put: 'a' ] raise: Error
 !
 
-testCollect
-	| newCollection |
-	newCollection := 'hheelllloo'.
-	self
-		assertSameContents: (self collection collect: [ :each |
-			each, each ])
-		as: newCollection
+testCapitalized
+	self assert: 'test' capitalized equals: 'Test'.
+	self assert: 'Test' capitalized equals: 'Test'.
+	self assert: '' capitalized equals: ''.
+	self assert: 'Test' isCapitalized equals: true.
+	self assert: 'test' isCapitalized equals: false.
+!
+
+testCharCodeAt
+	self assert: ('jackie' charCodeAt:1) equals: 106.
+	self assert: ('jackie' charCodeAt:2) equals: 97.
+	self assert: ('jackie' charCodeAt:3) equals: 99.
+	self assert: ('jackie' charCodeAt:4) equals: 107.
+	self assert: ('jackie' charCodeAt:5) equals: 105.
+	self assert: ('jackie' charCodeAt:6) equals: 101
+!
+
+testCopyFromTo
+	self assert: ('jackie' copyFrom: 1 to: 3) equals: 'jac'.
+	self assert: ('jackie' copyFrom: 4 to: 6) equals: 'kie'.
 !
 
 testCopyWithoutAll
 	self
 		assert: ('*hello* *world*' copyWithoutAll: '*')
 		equals: 'hello world'
-!
-
-testDetect
-	self assert: (self collection detect: [ :each | each = 'h' ]) equals: 'h'.
-	self
-		should: [ self collection detect: [ :each | each = 6 ] ]
-		raise: Error
 !
 
 testEquality
@@ -931,33 +1425,42 @@ testIdentity
 	self deny: '' == 0
 !
 
+testIdentityHash
+	self assert: 'foo' identityHash equals: 'foo' identityHash.
+	self deny: ('foo' identityHash = 'bar' identityHash)
+!
+
 testIncludesSubString
 	self assert: ('amber' includesSubString: 'ber').
 	self deny: ('amber' includesSubString: 'zork').
 !
 
-testIndexOf
-	self assert: (self collection indexOf: 'e') equals: 2.
-	self should: [ self collection indexOf: 999 ] raise: Error.
-	self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'
+testIndexOfStartingAtWithNull
+	"String cannot hold JS null"
+!
+
+testIndexOfWithNull
+	"String cannot hold JS null"
+!
+
+testIsVowel
+    |vowel consonant|
+    vowel := 'u'.
+    consonant := 'z'.
+    self assert: vowel isVowel equals: true.
+    self assert: consonant isVowel equals: false
 !
 
 testJoin
 	self assert: (',' join: #('hello' 'world')) equals: 'hello,world'
 !
 
-testSelect
-	| newCollection |
-	newCollection := 'o'.
-	self
-		assertSameContents: (self collection select: [ :each |
-			each = 'o' ])
-		as: newCollection
+testRemoveAll
+	self should: [ self collection removeAll ] raise: Error
 !
 
-testSize
-	self assert: 'smalltalk' size equals: 9.
-	self assert: '' size equals: 0
+testReversed
+	self assert: 'jackiechan' reversed equals: 'nahceikcaj'.
 !
 
 testStreamContents
@@ -969,18 +1472,151 @@ testStreamContents
 		equals: 'hello world'
 !
 
-testCapitalized
-	self assert: 'test' capitalized equals: 'Test'.
-	self assert: 'Test' capitalized equals: 'Test'.
-	self assert: '' capitalized equals: ''.
-	self assert: 'Test' isCapitalized equals: true.
-	self assert: 'test' isCapitalized equals: false.
+testSubStrings
+	self assert: ('jackiechan' subStrings: 'ie') equals: #( 'jack' 'chan' ).
+!
+
+testTrim
+	self assert: '       jackie' trimLeft equals: 'jackie'.
+	self assert: 'jackie               ' trimRight equals: 'jackie'.
 ! !
 
-!StringTest class methodsFor: 'accessing'!
+!StringTest class methodsFor: 'fixture'!
 
 collectionClass
 	^ String
+! !
+
+CollectionTest subclass: #SetTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!SetTest methodsFor: 'fixture'!
+
+collection
+	^ Set new
+		add: Smalltalk;
+		add: nil;
+		add: 3@3;
+		add: false;
+		yourself
+!
+
+collectionOfPrintStrings
+	^ Set new
+		add: 'a SmalltalkImage';
+		add: 'nil';
+		add: '3@3';
+		add: 'false';
+		yourself
+!
+
+collectionSize
+	^ 4
+!
+
+collectionWithDuplicates
+	"Set has no duplicates"
+	^ self collection add: 0; yourself
+!
+
+collectionWithNewValue
+	^ Set new
+		add: Smalltalk;
+		add: nil;
+		add: 3@3;
+		add: 'N';
+		add: false;
+		yourself
+! !
+
+!SetTest methodsFor: 'tests'!
+
+testAddAll
+	super testAddAll.
+	self assert: (self collection addAll: self collection; yourself) equals: self collection.
+	self assert: (self collection addAll: self collectionWithNewValue; yourself) equals: self collectionWithNewValue.
+	self assert: (self collectionWithNewValue addAll: self collection; yourself) equals: self collectionWithNewValue
+!
+
+testAddRemove
+	| set |
+	set := Set new.
+	
+	self assert: set isEmpty.
+
+	set add: 3.
+	self assert: (set includes: 3).
+
+	set add: 5.
+	self assert: (set includes: 5).
+
+	set remove: 3.
+	self deny: (set includes: 3)
+!
+
+testAt
+	self should: [ Set new at: 1 put: 2 ] raise: Error
+!
+
+testCollect
+	super testCollect.
+	self assert: (#(5 6 8) asSet collect: [ :x | x \\ 3 ]) equals: #(0 2) asSet
+!
+
+testComma
+	super testComma.
+	self assert: self collection, self collection equals: self collection.
+	self assert: self collection, self collectionWithNewValue equals: self collectionWithNewValue.
+	self assert: self collectionWithNewValue, self collection equals: self collectionWithNewValue
+!
+
+testComparing
+	self assert: #(0 2) asSet equals: #(0 2) asSet.
+	self assert: #(2 0) asSet equals: #(0 2) asSet.
+	self deny: #(0 2 3) asSet = #(0 2) asSet.
+	self deny: #(1 2) asSet = #(0 2) asSet
+!
+
+testPrintString
+	| set |
+	set := Set new.
+	self assert: set printString equals: 'a Set ()'.
+	set add: 1; add: 3.
+	self assert: set printString equals: 'a Set (1 3)'.
+	set add: 'foo'.
+	self assert: set printString equals: 'a Set (1 3 ''foo'')'.
+	set remove: 1; remove: 3.
+	self assert: set printString equals: 'a Set (''foo'')'.
+	set add: 3.
+	self assert: set printString equals: 'a Set (3 ''foo'')'.
+	set add: 3.
+	self assert: set printString equals: 'a Set (3 ''foo'')'
+!
+
+testUnboxedObjects
+	self assert: {'foo' yourself. 'foo' yourself} asSet asArray equals: #('foo')
+!
+
+testUnicity
+	| set |
+	set := Set new.
+	set add: 21.
+	set add: 'hello'.
+
+	set add: 21.
+	self assert: set size equals: 2.
+	
+	set add: 'hello'.
+	self assert: set size equals: 2.
+
+	self assert: set asArray equals: #(21 'hello')
+! !
+
+!SetTest class methodsFor: 'fixture'!
+
+collectionClass
+	^ Set
 ! !
 
 TestCase subclass: #ConsoleTranscriptTest
@@ -1015,10 +1651,10 @@ jsObject
 testAtIfAbsent
 	| testObject |
 	testObject := self jsObject.
-	self assert: (testObject at: 'abc' ifAbsent: ['Property does not exist']) equals: 'Property does not exist'.
-	self assert: (testObject at: 'e' ifAbsent: ['Property does not exist']) equals: nil.
-	self assert: (testObject at: 'a' ifAbsent: ['Property does not exist']) equals: 1.
-	self assert: (testObject at: 'f' ifAbsent: ['Property does not exist']) equals: nil.
+	self assert: (testObject at: 'abc' ifAbsent: [ 'Property does not exist' ]) equals: 'Property does not exist'.
+	self assert: (testObject at: 'e' ifAbsent: [ 'Property does not exist' ]) equals: nil.
+	self assert: (testObject at: 'a' ifAbsent: [ 'Property does not exist' ]) equals: 1.
+	self assert: (testObject at: 'f' ifAbsent: [ 'Property does not exist' ]) equals: nil.
 !
 
 testAtIfPresent
@@ -1027,22 +1663,38 @@ testAtIfPresent
 	testObject := self jsObject.
 	
 	self assert: (testObject at: 'abc' ifPresent: [ :x | 'hello ',x asString ]) equals: nil.
-	self assert: (testObject at: 'e' ifPresent: [:x | 'hello ',x asString ]) equals: 'hello nil'.
-	self assert: (testObject at: 'a' ifPresent: [:x | 'hello ',x asString ]) equals: 'hello 1'.
-	self assert: (testObject at: 'f' ifPresent: [:x | 'hello ',x asString ]) equals: 'hello nil'.
+	self assert: (testObject at: 'e' ifPresent: [ :x | 'hello ',x asString ]) equals: 'hello nil'.
+	self assert: (testObject at: 'a' ifPresent: [ :x | 'hello ',x asString ]) equals: 'hello 1'.
+	self assert: (testObject at: 'f' ifPresent: [ :x | 'hello ',x asString ]) equals: 'hello nil'.
 !
 
 testAtIfPresentIfAbsent
 	| testObject |
 	testObject := self jsObject.
-	self assert: (testObject at: 'abc' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'not present'.
-	self assert: (testObject at: 'e' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello nil'.
-	self assert: (testObject at: 'a' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello 1'.
-	self assert: (testObject at: 'f' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello nil'.
+	self assert: (testObject at: 'abc' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'not present'.
+	self assert: (testObject at: 'e' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello nil'.
+	self assert: (testObject at: 'a' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello 1'.
+	self assert: (testObject at: 'f' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello nil'.
+!
+
+testAtPut
+	| testObject |
+	testObject := self jsObject.
+	
+	self assert: (testObject at: 'abc') ~= 'xyz'.
+	self assert: (testObject at: 'abc' put: 'xyz') equals: 'xyz'.
+	self assert: (testObject at: 'abc') equals: 'xyz'
+!
+
+testComparison
+	self assert: ({ console. 2 } indexOf: console) equals: 1.
+	self assert: console = console.
+	self deny: console = Object new.
+	self deny: console = self jsObject
 !
 
 testDNU
-	self should: [self jsObject foo] raise: MessageNotUnderstood
+	self should: [ self jsObject foo ] raise: MessageNotUnderstood
 !
 
 testMessageSend
@@ -1081,7 +1733,6 @@ testPropertyThatReturnsUndefined
 testValue
 	| testObject |
 	testObject := self jsObject.
-	self assert: testObject value printString equals: '[object Object]'.
 	testObject at: 'value' put: 'aValue'.
 	self assert: testObject value equals: 'aValue'
 !
@@ -1189,9 +1840,9 @@ setUp
 !
 
 tearDown
-	[ self deinstallTop ] on: Error do: [].
-	[ self deinstallMiddle ] on: Error do: [].
-	[ self deinstallBottom ] on: Error do: []
+	[ self deinstallTop ] on: Error do: [ ].
+	[ self deinstallMiddle ] on: Error do: [ ].
+	[ self deinstallBottom ] on: Error do: [ ]
 ! !
 
 !MethodInheritanceTest methodsFor: 'testing'!
@@ -1209,15 +1860,15 @@ deinstallTop
 !
 
 installBottom: aString
-	method := self compiler install: aString forClass: self targetClassBottom category: 'tests'
+	method := self compiler install: aString forClass: self targetClassBottom protocol: 'tests'
 !
 
 installMiddle: aString
-	method := self compiler install: aString forClass: self targetClassMiddle category: 'tests'
+	method := self compiler install: aString forClass: self targetClassMiddle protocol: 'tests'
 !
 
 installTop: aString
-	method := self compiler install: aString forClass: self targetClassTop category: 'tests'
+	method := self compiler install: aString forClass: self targetClassTop protocol: 'tests'
 !
 
 shouldMNU
@@ -1392,47 +2043,53 @@ testIdentity
 
 testInvalidHexNumbers
 
-	self should: [16rG] raise: MessageNotUnderstood.
-	self should: [16rg] raise: MessageNotUnderstood.
-	self should: [16rH] raise: MessageNotUnderstood.
-	self should: [16rh] raise: MessageNotUnderstood.
-	self should: [16rI] raise: MessageNotUnderstood.
-	self should: [16ri] raise: MessageNotUnderstood.
-	self should: [16rJ] raise: MessageNotUnderstood.
-	self should: [16rj] raise: MessageNotUnderstood.
-	self should: [16rK] raise: MessageNotUnderstood.
-	self should: [16rk] raise: MessageNotUnderstood.
-	self should: [16rL] raise: MessageNotUnderstood.
-	self should: [16rl] raise: MessageNotUnderstood.
-	self should: [16rM] raise: MessageNotUnderstood.
-	self should: [16rm] raise: MessageNotUnderstood.
-	self should: [16rN] raise: MessageNotUnderstood.
-	self should: [16rn] raise: MessageNotUnderstood.
-	self should: [16rO] raise: MessageNotUnderstood.
-	self should: [16ro] raise: MessageNotUnderstood.
-	self should: [16rP] raise: MessageNotUnderstood.
-	self should: [16rp] raise: MessageNotUnderstood.
-	self should: [16rQ] raise: MessageNotUnderstood.
-	self should: [16rq] raise: MessageNotUnderstood.
-	self should: [16rR] raise: MessageNotUnderstood.
-	self should: [16rr] raise: MessageNotUnderstood.
-	self should: [16rS] raise: MessageNotUnderstood.
-	self should: [16rs] raise: MessageNotUnderstood.
-	self should: [16rT] raise: MessageNotUnderstood.
-	self should: [16rt] raise: MessageNotUnderstood.
-	self should: [16rU] raise: MessageNotUnderstood.
-	self should: [16ru] raise: MessageNotUnderstood.
-	self should: [16rV] raise: MessageNotUnderstood.
-	self should: [16rv] raise: MessageNotUnderstood.
-	self should: [16rW] raise: MessageNotUnderstood.
-	self should: [16rw] raise: MessageNotUnderstood.
-	self should: [16rX] raise: MessageNotUnderstood.
-	self should: [16rx] raise: MessageNotUnderstood.
-	self should: [16rY] raise: MessageNotUnderstood.
-	self should: [16ry] raise: MessageNotUnderstood.
-	self should: [16rZ] raise: MessageNotUnderstood.
-	self should: [16rz] raise: MessageNotUnderstood.
-	self should: [16rABcdEfZ] raise: MessageNotUnderstood.
+	self should: [ 16rG ] raise: MessageNotUnderstood.
+	self should: [ 16rg ] raise: MessageNotUnderstood.
+	self should: [ 16rH ] raise: MessageNotUnderstood.
+	self should: [ 16rh ] raise: MessageNotUnderstood.
+	self should: [ 16rI ] raise: MessageNotUnderstood.
+	self should: [ 16ri ] raise: MessageNotUnderstood.
+	self should: [ 16rJ ] raise: MessageNotUnderstood.
+	self should: [ 16rj ] raise: MessageNotUnderstood.
+	self should: [ 16rK ] raise: MessageNotUnderstood.
+	self should: [ 16rk ] raise: MessageNotUnderstood.
+	self should: [ 16rL ] raise: MessageNotUnderstood.
+	self should: [ 16rl ] raise: MessageNotUnderstood.
+	self should: [ 16rM ] raise: MessageNotUnderstood.
+	self should: [ 16rm ] raise: MessageNotUnderstood.
+	self should: [ 16rN ] raise: MessageNotUnderstood.
+	self should: [ 16rn ] raise: MessageNotUnderstood.
+	self should: [ 16rO ] raise: MessageNotUnderstood.
+	self should: [ 16ro ] raise: MessageNotUnderstood.
+	self should: [ 16rP ] raise: MessageNotUnderstood.
+	self should: [ 16rp ] raise: MessageNotUnderstood.
+	self should: [ 16rQ ] raise: MessageNotUnderstood.
+	self should: [ 16rq ] raise: MessageNotUnderstood.
+	self should: [ 16rR ] raise: MessageNotUnderstood.
+	self should: [ 16rr ] raise: MessageNotUnderstood.
+	self should: [ 16rS ] raise: MessageNotUnderstood.
+	self should: [ 16rs ] raise: MessageNotUnderstood.
+	self should: [ 16rT ] raise: MessageNotUnderstood.
+	self should: [ 16rt ] raise: MessageNotUnderstood.
+	self should: [ 16rU ] raise: MessageNotUnderstood.
+	self should: [ 16ru ] raise: MessageNotUnderstood.
+	self should: [ 16rV ] raise: MessageNotUnderstood.
+	self should: [ 16rv ] raise: MessageNotUnderstood.
+	self should: [ 16rW ] raise: MessageNotUnderstood.
+	self should: [ 16rw ] raise: MessageNotUnderstood.
+	self should: [ 16rX ] raise: MessageNotUnderstood.
+	self should: [ 16rx ] raise: MessageNotUnderstood.
+	self should: [ 16rY ] raise: MessageNotUnderstood.
+	self should: [ 16ry ] raise: MessageNotUnderstood.
+	self should: [ 16rZ ] raise: MessageNotUnderstood.
+	self should: [ 16rz ] raise: MessageNotUnderstood.
+	self should: [ 16rABcdEfZ ] raise: MessageNotUnderstood.
+!
+
+testLog
+	self assert: 10000 log equals: 4.
+	self assert: (512 log: 2) equals: 9.
+	self assert: Number e ln equals: 1.
 !
 
 testMinMax
@@ -1462,11 +2119,26 @@ testPrintShowingDecimalPlaces
 	self assert: (0 printShowingDecimalPlaces: 2) equals: '0.00'.
 !
 
+testRaisedTo
+	self assert: (2 raisedTo: 4) equals: 16.
+	self assert: (2 raisedTo: 0) equals: 1.
+	self assert: (2 raisedTo: -3) equals: 0.125.
+	self assert: (4 raisedTo: 0.5) equals: 2.
+	
+	self assert: 2 ** 4 equals: 16.
+!
+
 testRounded
 	
 	self assert: 3 rounded equals: 3.
 	self assert: 3.212 rounded equals: 3.
 	self assert: 3.51 rounded equals: 4
+!
+
+testSign
+	self assert: 5 sign equals: 1.
+	self assert: 0 sign equals: 0.
+	self assert: -1.4 sign equals: -1.
 !
 
 testSqrt
@@ -1484,10 +2156,10 @@ testTimesRepeat
 	| i |
 
 	i := 0.
-	0 timesRepeat: [i := i + 1].
+	0 timesRepeat: [ i := i + 1 ].
 	self assert: i equals: 0.
 
-	5 timesRepeat: [i := i + 1].
+	5 timesRepeat: [ i := i + 1 ].
 	self assert: i equals: 5
 !
 
@@ -1498,14 +2170,7 @@ testTo
 testToBy
 	self assert: (0 to: 6 by: 2) equals: #(0 2 4 6).
 
-	self should: [1 to: 4 by: 0] raise: Error
-!
-
-testTruncated
-	
-	self assert: 3 truncated equals: 3.
-	self assert: 3.212 truncated equals: 3.
-	self assert: 3.51 truncated equals: 3
+	self should: [ 1 to: 4 by: 0 ] raise: Error
 !
 
 testTrigonometry
@@ -1517,25 +2182,11 @@ testTrigonometry
 	self assert: 0 arcTan equals: 0.
 !
 
-testLog
-	self assert: 10000 log equals: 4.
-	self assert: (512 log: 2) equals: 9.
-	self assert: Number e ln equals: 1.
-!
-
-testRaisedTo
-	self assert: (2 raisedTo: 4) equals: 16.
-	self assert: (2 raisedTo: 0) equals: 1.
-	self assert: (2 raisedTo: -3) equals: 0.125.
-	self assert: (4 raisedTo: 0.5) equals: 2.
+testTruncated
 	
-	self assert: 2 ** 4 equals: 16.
-!
-
-testSign
-	self assert: 5 sign equals: 1.
-	self assert: 0 sign equals: 0.
-	self assert: -1.4 sign equals: -1.
+	self assert: 3 truncated equals: 3.
+	self assert: 3.212 truncated equals: 3.
+	self assert: 3.51 truncated equals: 3
 ! !
 
 Object subclass: #ObjectMock
@@ -1547,7 +2198,7 @@ ObjectMock is there only to perform tests on classes.!
 !ObjectMock methodsFor: 'not yet classified'!
 
 foo
-	^foo
+	^ foo
 !
 
 foo: anObject
@@ -1575,15 +2226,15 @@ testBasicAccess
 testBasicPerform
 	| o |
 	o := Object new.
-	o basicAt: 'func' put: ['hello'].
-	o basicAt: 'func2' put: [:a | a + 1].
+	o basicAt: 'func' put: [ 'hello' ].
+	o basicAt: 'func2' put: [ :a | a + 1 ].
 
 	self assert: (o basicPerform: 'func') equals: 'hello'.
 	self assert: (o basicPerform: 'func2' withArguments: #(3)) equals: 4
 !
 
 testDNU
-	self should: [Object new foo] raise: MessageNotUnderstood
+	self should: [ Object new foo ] raise: MessageNotUnderstood
 !
 
 testEquality
@@ -1596,7 +2247,7 @@ testEquality
 !
 
 testHalt
-	self should: [Object new halt] raise: Error
+	self should: [ Object new halt ] raise: Error
 !
 
 testIdentity
@@ -1610,11 +2261,11 @@ testIdentity
 
 testIfNil
 	self deny: Object new isNil.
-	self deny: (Object new ifNil: [true]) = true.
-	self assert: (Object new ifNotNil: [true]) equals: true.
+	self deny: (Object new ifNil: [ true ]) = true.
+	self assert: (Object new ifNotNil: [ true ]) equals: true.
 
-	self assert: (Object new ifNil: [false] ifNotNil: [true]) equals: true.
-	self assert: (Object new ifNotNil: [true] ifNil: [false]) equals: true
+	self assert: (Object new ifNil: [ false ] ifNotNil: [ true ]) equals: true.
+	self assert: (Object new ifNotNil: [ true ] ifNil: [ false ]) equals: true
 !
 
 testInstVars
@@ -1678,6 +2329,14 @@ testEgality
 	self deny: 3@5 = (3@6)
 !
 
+testNew
+
+	self assert: (Point new x: 3) y equals: nil.
+	self deny: (Point new x: 3) x = 0.
+	self assert: (Point new y: 4) x equals: nil.
+	self deny: (Point new y: 4) y = 0
+!
+
 testTranslateBy
 	self assert: (3@3 translateBy: 0@1) equals: 3@4.
 	self assert: (3@3 translateBy: 0@1 negated) equals: 3@2.
@@ -1685,11 +2344,57 @@ testTranslateBy
 	self assert: (3@3 translateBy: 3 negated @0) equals: 0@3.
 ! !
 
+TestCase subclass: #QueueTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!QueueTest methodsFor: 'tests'!
+
+testNextIfAbsent
+	| queue |
+	queue := Queue new.
+	queue nextPut: 'index1'. 
+
+	self assert: (queue  nextIfAbsent: 'empty') = 'index1'.
+	self deny: (queue  nextIfAbsent: 'empty') = 'index1'
+!
+
+testQueueNext
+	| queue |               
+	queue := Queue new.
+	queue 
+		nextPut: 'index1';
+		nextPut: 'index2'.
+
+	self assert: queue next = 'index1'.
+	self deny: queue next = 'index'.
+	self should: [ queue next ] raise: Error
+! !
+
 TestCase subclass: #RandomTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
 !RandomTest methodsFor: 'tests'!
+
+testAtRandomNumber
+	|val|	
+
+	100 timesRepeat: [
+		val := 10 atRandom.	
+		self assert: (val > 0).
+		self assert: (val <11)
+	]
+!
+
+testAtRandomSequenceableCollection
+	|val|
+	
+	100 timesRepeat: [
+		val := 'abc' atRandom.
+		self assert: ((val = 'a') | (val = 'b') | (val = 'c' )).
+	].
+!
 
 textNext
 
@@ -1699,85 +2404,7 @@ textNext
 			self assert: (next >= 0).
 			self assert: (next < 1).
 			self deny: current = next.
-			next = current]
-! !
-
-TestCase subclass: #SetTest
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
-
-!SetTest methodsFor: 'tests'!
-
-testAddRemove
-	| set |
-	set := Set new.
-	
-	self assert: set isEmpty.
-
-	set add: 3.
-	self assert: (set includes: 3).
-
-	set add: 5.
-	self assert: (set includes: 5).
-
-	set remove: 3.
-	self deny: (set includes: 3)
-!
-
-testAt
-	self should: [Set new at: 1 put: 2] raise: Error
-!
-
-testCollect
-	self assert: (#(5 6 8) asSet collect: [ :x | x \\ 3 ]) equals: #(0 2) asSet
-!
-
-testComparing
-	self assert: #(0 2) asSet equals: #(0 2) asSet.
-	self assert: #(2 0) asSet equals: #(0 2) asSet.
-	self deny: #(0 2 3) asSet = #(0 2) asSet.
-	self deny: #(1 2) asSet = #(0 2) asSet
-!
-
-testPrintString
-	| set |
-	set := Set new.
-	self assert: set printString equals: 'a Set ()'.
-	set add: 1; add: 3.
-	self assert: set printString equals: 'a Set (1 3)'.
-	set add: 'foo'.
-	self assert: set printString equals: 'a Set (1 3 ''foo'')'.
-	set remove: 1; remove: 3.
-	self assert: set printString equals: 'a Set (''foo'')'.
-	set add: 3.
-	self assert: set printString equals: 'a Set (''foo'' 3)'.
-	set add: 3.
-	self assert: set printString equals: 'a Set (''foo'' 3)'
-!
-
-testSize
-	self assert: Set new size equals: 0.
-	self assert: (Set withAll: #(1 2 3 4)) size equals: 4.
-	self assert: (Set withAll: #(1 1 1 1)) size equals: 1
-!
-
-testUnboxedObjects
-	self assert: {'foo' yourself. 'foo' yourself} asSet asArray equals: #('foo')
-!
-
-testUnicity
-	| set |
-	set := Set new.
-	set add: 21.
-	set add: 'hello'.
-
-	set add: 21.
-	self assert: set size equals: 2.
-	
-	set add: 'hello'.
-	self assert: set size equals: 2.
-
-	self assert: set asArray equals: #(21 'hello')
+			next = current ]
 ! !
 
 TestCase subclass: #StreamTest
@@ -1956,10 +2583,10 @@ testDeepCopy
 !
 
 testIfNil
-	self assert: (nil ifNil: [true]) equals: true.
-	self deny: (nil ifNotNil: [true]) = true.
-	self assert: (nil ifNil: [true] ifNotNil: [false]) equals: true.
-	self deny: (nil ifNotNil: [true] ifNil: [false]) = true
+	self assert: (nil ifNil: [ true ]) equals: true.
+	self deny: (nil ifNotNil: [ true ]) = true.
+	self assert: (nil ifNil: [ true ] ifNotNil: [ false ]) equals: true.
+	self deny: (nil ifNotNil: [ true ] ifNil: [ false ]) = true
 !
 
 testIsNil

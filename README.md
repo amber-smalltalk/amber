@@ -18,34 +18,34 @@ Some highlights:
 -    Amber can use Javascript libraries and the current IDE is built on [jQuery](http://www.jquery.com)
 -    You can inline Javascript code and there are many ways to interact between Amber and Javascript
 
+Getting Amber
+-------------
+
+Amber is shipped as a [npm](http://npmjs.org) package for its CLI tools and as a [bower](https://github.com/bower/bower) package for the client-side.
+
+    # Install the CLI tool `amber`
+    npm install -g amber
+    
+    # Load amber via bower in your project
+    bower install amber
+    
+    # Serve amber on localhost:4000
+    amber serve
+
+The [Getting started](https://github.com/amber-smalltalk/amber/wiki/Getting-started) page shows more details on ways to obtain Amber and start a project.
+
+Building Amber
+--------------
+
+This step is only used by people developing Amber itself.
+Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for further details.
+It explains the Amber development setup and how to contribute.
+
 
 License
 -------
 
 Amber is released under the MIT license. All contributions made for inclusion are considered to be under MIT.
-
-Building Amber
---------------
-
-Amber uses [Grunt.js](http://gruntjs.com/) as build system since version `0.10.0`.
-
-If you already have Grunt.js v0.3.x installed locally run the following (otherwise ignore these lines):
-
-    cd ${Amber_DIR}
-    npm uninstall grunt
-
-To install Grunt.js v0.4.x on the commandline execute the following commands:
-    
-    npm install -g grunt-cli grunt-init
-    cd ${Amber_DIR}
-    npm install
-
-And finally, compile Amber using the following command:
-
-    cd ${Amber_DIR}
-    grunt
-
-For Windows support check the [Grunt.js on Windows](http://gruntjs.com/frequently-asked-questions#does-grunt-work-on-windows) page.
 
 
 More infos

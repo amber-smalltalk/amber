@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'SUnit'!
+Smalltalk createPackage: 'SUnit'!
 Object subclass: #ResultAnnouncement
 	instanceVariableNames: 'result'
 	package: 'SUnit'!
@@ -10,7 +10,7 @@ My instances hold the result (instance of `TestResult`) of the test run.!
 !ResultAnnouncement methodsFor: 'accessing'!
 
 result
-	^result
+	^ result
 !
 
 result: aTestResult
@@ -40,7 +40,7 @@ context: aRunningTestContext
 !
 
 selector
-	^testSelector
+	^ testSelector
 !
 
 setTestSelector: aSelector
@@ -115,7 +115,7 @@ assert: aBoolean
 !
 
 assert: aBoolean description: aString
-	aBoolean ifFalse: [self signalFailure: aString]
+	aBoolean ifFalse: [ self signalFailure: aString ]
 !
 
 assert: actual equals: expected
@@ -127,7 +127,7 @@ deny: aBoolean
 !
 
 isAsync
-	^asyncTimeout notNil
+	^ asyncTimeout notNil
 !
 
 should: aBlock
@@ -135,15 +135,15 @@ should: aBlock
 !
 
 should: aBlock raise: anExceptionClass
-	self assert: ([aBlock value. false]
+	self assert: ([ aBlock value. false ]
 		on: anExceptionClass
-		do: [:ex | true])
+		do: [ :ex | true ])
 !
 
 shouldnt: aBlock raise: anExceptionClass
-	self assert: ([aBlock value. true]
+	self assert: ([ aBlock value. true ]
 		on: anExceptionClass
-		do: [:ex | false])
+		do: [ :ex | false ])
 ! !
 
 !TestCase class methodsFor: 'accessing'!
@@ -152,26 +152,26 @@ allTestSelectors
 	| selectors |
 	selectors := self testSelectors.
 	self shouldInheritSelectors ifTrue: [
-		selectors addAll: self superclass allTestSelectors].
-	^selectors
+		selectors addAll: self superclass allTestSelectors ].
+	^ selectors
 !
 
 buildSuite
-	^self allTestSelectors collect: [:each | self selector: each]
+	^ self allTestSelectors collect: [ :each | self selector: each ]
 !
 
 lookupHierarchyRoot
-	^TestCase
+	^ TestCase
 !
 
 selector: aSelector
-	^self new
+	^ self new
 		setTestSelector: aSelector;
 		yourself
 !
 
 testSelectors
-	^self methodDictionary keys select: [:each | each match: '^test']
+	^ self methodDictionary keys select: [ :each | each match: '^test' ]
 ! !
 
 !TestCase class methodsFor: 'helios'!
@@ -187,7 +187,7 @@ isAbstract
 !
 
 shouldInheritSelectors
-	^self ~= self lookupHierarchyRoot
+	^ self ~= self lookupHierarchyRoot
 ! !
 
 Object subclass: #TestContext
@@ -233,7 +233,7 @@ start
 !TestContext class methodsFor: 'instance creation'!
 
 testCase: aTestCase
-	^self new
+	^ self new
 		testCase: aTestCase;
 		yourself
 ! !
@@ -282,7 +282,7 @@ execute: aBlock
 !ReportingTestContext class methodsFor: 'instance creation'!
 
 testCase: aTestCase result: aTestResult finished: aBlock
-	^(super testCase: aTestCase)
+	^ (super testCase: aTestCase)
 		result: aTestResult;
 		finished: aBlock;
 		yourself
@@ -319,11 +319,11 @@ addFailure: aFailure
 !
 
 errors
-	^errors
+	^ errors
 !
 
 failures
-	^failures
+	^ failures
 !
 
 increaseRuns
@@ -331,24 +331,24 @@ increaseRuns
 !
 
 runs
-	^runs
+	^ runs
 !
 
 status
-	^self errors isEmpty
+	^ self errors isEmpty
 		ifTrue: [
 			self failures isEmpty
-				ifTrue: ['success']
-				ifFalse: ['failure']]
-		ifFalse: ['error']
+				ifTrue: [ 'success' ]
+				ifFalse: [ 'failure' ]]
+		ifFalse: [ 'error' ]
 !
 
 timestamp
-	^timestamp
+	^ timestamp
 !
 
 total
-	^total
+	^ total
 !
 
 total: aNumber
@@ -369,17 +369,16 @@ initialize
 !TestResult methodsFor: 'running'!
 
 nextRunDo: aBlock
-"Runs aBlock with index of next run
-or does nothing if no more runs"
-^self runs == self total
-	ifFalse: [ aBlock value: self runs + 1 ]
+	"Runs aBlock with index of next run or does nothing if no more runs"
+	^ self runs == self total
+		ifFalse: [ aBlock value: self runs + 1 ]
 !
 
 runCase: aTestCase
-	[[ self increaseRuns.
-		aTestCase runCase]
-	on: TestFailure do: [:ex | self addFailure: aTestCase]]
-	on: Error do: [:ex | self addError: aTestCase]
+	[ [ self increaseRuns.
+		aTestCase runCase ]
+	on: TestFailure do: [ :ex | self addFailure: aTestCase ]]
+	on: Error do: [ :ex | self addError: aTestCase ]
 ! !
 
 Object subclass: #TestSuiteRunner
@@ -396,11 +395,11 @@ To run the test suite, use `#run`.!
 !TestSuiteRunner methodsFor: 'accessing'!
 
 announcer
-	^announcer
+	^ announcer
 !
 
 result
-	^result
+	^ result
 !
 
 suite: aCollection
@@ -425,13 +424,13 @@ initialize
 	super initialize.
 	announcer := Announcer new.
 	result := TestResult new.
-	runNextTest := [ | runs | runs := result runs. runs < result total ifTrue: [ (self contextOf: runs + 1) start ]].
+	runNextTest := [ | runs | runs := result runs. runs < result total ifTrue: [ (self contextOf: runs + 1) start ] ].
 ! !
 
 !TestSuiteRunner methodsFor: 'private'!
 
 contextOf: anInteger
-	^ReportingTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]
+	^ ReportingTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]
 ! !
 
 !TestSuiteRunner class methodsFor: 'instance creation'!
@@ -441,6 +440,6 @@ new
 !
 
 on: aCollection
-	^super new suite: aCollection
+	^ super new suite: aCollection
 ! !
 

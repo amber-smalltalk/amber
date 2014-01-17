@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Announcements'!
+Smalltalk createPackage: 'Helios-Announcements'!
 Object subclass: #HLAboutToChange
 	instanceVariableNames: 'actionBlock'
 	package: 'Helios-Announcements'!
@@ -285,6 +285,20 @@ HLAnnouncement subclass: #HLShowCommentToggled
 HLAnnouncement subclass: #HLShowInstanceToggled
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
+
+HLAnnouncement subclass: #HLShowTemplate
+	instanceVariableNames: 'template'
+	package: 'Helios-Announcements'!
+
+!HLShowTemplate methodsFor: 'accessing'!
+
+template
+	^ template
+!
+
+template: aString
+	template := aString
+! !
 
 HLAnnouncement subclass: #HLSourceCodeSaved
 	instanceVariableNames: ''

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Exceptions'!
+Smalltalk createPackage: 'Compiler-Exceptions'!
 Error subclass: #CompilerError
 	instanceVariableNames: ''
 	package: 'Compiler-Exceptions'!
@@ -89,7 +89,7 @@ variableName: aString
 	variableName := aString
 ! !
 
-ErrorHandler subclass: #RethrowErrorHandler
+Object subclass: #RethrowErrorHandler
 	instanceVariableNames: ''
 	package: 'Compiler-Exceptions'!
 !RethrowErrorHandler commentStamp!
@@ -100,11 +100,11 @@ As a result Smalltalk errors are not swallowd by the Amber runtime and compilati
 !RethrowErrorHandler methodsFor: 'error handling'!
 
 basicSignal: anError
-	<throw anError>
+        <throw anError>
 !
 
 handleError: anError
-	super handleError: anError.
-	self basicSignal: anError
+        super handleError: anError.
+        self basicSignal: anError
 ! !
 

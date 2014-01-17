@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Workspace'!
+Smalltalk createPackage: 'Helios-Workspace'!
 Object subclass: #HLCodeModel
 	instanceVariableNames: 'announcer environment receiver'
 	package: 'Helios-Workspace'!
@@ -39,7 +39,7 @@ inspect: anObject
 !HLCodeModel methodsFor: 'defaults'!
 
 defaultReceiver
-	^ DoIt new
+	^ self environment doItReceiver
 ! !
 
 !HLCodeModel class methodsFor: 'actions'!
@@ -82,7 +82,8 @@ currentLineOrSelection
 
 editorOptions
 	^ #{
-		'theme' -> 'amber'.
+		'theme' -> ('helios.codeMirrorTheme' settingValueIfAbsent: 'default helios').
+		'mode' -> 'text/x-stsrc'.
         'lineNumbers' -> true.
         'enterMode' -> 'flat'.
         'indentWithTabs' -> true.
@@ -90,7 +91,7 @@ editorOptions
         'matchBrackets' -> true.
         'electricChars' -> false.
 		'keyMap' -> 'Amber'.
-		'extraKeys' -> #{'Shift-Space' -> 'autocomplete'}
+		'extraKeys' -> (HashedCollection with: ('helios.completionKey' settingValueIfAbsent: 'Shift-Space') -> 'autocomplete')
 	}
 !
 
@@ -189,9 +190,9 @@ print: aString
 printIt
 	| result |
 
-	result:=  self doIt.       
+	result := self doIt.       
 	self model announcer announce: (HLPrintItRequested on: model).
-    self print: result printString.
+	self print: result printString.
 	
 	self focus.
 !
@@ -207,7 +208,7 @@ setEditorOn: aTextarea
 !HLCodeWidget methodsFor: 'hints'!
 
 messageHintFor: anEditor token: aToken
-	^ ((Smalltalk current at: 'allSelectors') value asSet asArray 
+	^ (Smalltalk vm allSelectors asArray 
 		select: [ :each | each includesSubString: aToken string ])
 		reject: [ :each | each = aToken string ]
 !
@@ -218,10 +219,10 @@ variableHintFor: anEditor token: aToken
 	variables := (anEditor display wrapper asJQuery find: 'span.cm-variable') get
 		collect: [ :each | each asJQuery html ].
 	
-	classNames := Smalltalk current classes collect: [ :each | each name ].
-	pseudoVariables := Smalltalk current pseudoVariableNames.
+	classNames := Smalltalk classes collect: [ :each | each name ].
+	pseudoVariables := Smalltalk pseudoVariableNames.
 	
-	^ ((variables, classNames, pseudoVariables) asSet asArray 
+	^ ((variables, classNames, pseudoVariables) asSet asArray sort
 		select: [ :each | each includesSubString: aToken string ])
 		reject: [ :each | each = aToken string ]
 ! !
@@ -234,7 +235,7 @@ onChange
 
 onDoIt
 	
-    self doIt
+	self doIt
 !
 
 onInspectIt
@@ -315,63 +316,63 @@ keyMap
 
 macKeyMap
 	^ #{
-		'Alt-Backspace'		-> 'delWordBefore'.
-		'Alt-Delete'		-> 'delWordAfter'. 
-		'Alt-Left'		-> 'goWordBoundaryLeft'.
-		'Alt-Right'		-> 'goWordBoundaryRight'. 
-		'Cmd-A'			-> 'selectAll'. 
-		'Cmd-Alt-F'		-> 'replace'. 
-		'Cmd-D'			-> 'doIt'. 
-		'Cmd-Down'		-> 'goDocEnd'. 
-		'Cmd-End'		-> 'goDocEnd'. 
-		'Cmd-F'			-> 'find'.
-		'Cmd-G'			-> 'findNext'. 
-		'Cmd-I'			-> 'inspectIt'. 
-		'Cmd-Left'		-> 'goLineStart'. 
-		'Cmd-P'			-> 'printIt'. 
-		'Cmd-Right'		-> 'goLineEnd'. 
-		'Cmd-S'			-> 'saveIt'. 
-		'Cmd-Up'		-> 'goDocStart'. 
-		'Cmd-Y'			-> 'redo'.
-		'Cmd-Z'			-> 'undo'. 
-		'Cmd-['			-> 'indentLess'. 
-		'Cmd-]'			-> 'indentMore'.
+		'Alt-Backspace'			-> 'delWordBefore'.
+		'Alt-Delete'			-> 'delWordAfter'. 
+		'Alt-Left'				-> 'goWordLeft'.
+		'Alt-Right'				-> 'goWordRight'. 
+		'Cmd-A'					-> 'selectAll'. 
+		'Cmd-Alt-F'				-> 'replace'. 
+		'Cmd-D'					-> 'doIt'. 
+		'Cmd-Down'				-> 'goDocEnd'. 
+		'Cmd-End'				-> 'goDocEnd'. 
+		'Cmd-F'					-> 'find'.
+		'Cmd-G'					-> 'findNext'. 
+		'Cmd-I'					-> 'inspectIt'. 
+		'Cmd-Left'				-> 'goLineStart'. 
+		'Cmd-P'					-> 'printIt'. 
+		'Cmd-Right'				-> 'goLineEnd'. 
+		'Cmd-S'					-> 'saveIt'. 
+		'Cmd-Up'				-> 'goDocStart'. 
+		'Cmd-Y'					-> 'redo'.
+		'Cmd-Z'					-> 'undo'. 
+		'Cmd-['					-> 'indentLess'. 
+		'Cmd-]'					-> 'indentMore'.
 		'Ctrl-Alt-Backspace'	-> 'delWordAfter'. 
-		'Shift-Cmd-Alt-F'	-> 'replaceAll'.
-		'Shift-Cmd-G'		-> 'findPrev'. 
-		'Shift-Cmd-Z'		-> 'redo'. 
-    	'fallthrough' 	-> { 'basic'. 'emacsy' }
+		'Shift-Cmd-Alt-F'		-> 'replaceAll'.
+		'Shift-Cmd-G'			-> 'findPrev'. 
+		'Shift-Cmd-Z'			-> 'redo'. 
+    	'fallthrough' 			-> { 'basic'. 'emacsy' }
   }
 !
 
 pcKeyMap
 	^ #{
-		'Alt-Left' -> 'goLineStart'. 
-		'Alt-Right' -> 'goLineEnd'.
-		'Alt-Up' -> 'goDocStart'. 
-		'Ctrl-A' -> 'selectAll'. 
+		'Alt-Left' -> 		'goLineStart'. 
+		'Alt-Right' -> 		'goLineEnd'.
+		'Alt-Up' -> 		'goDocStart'. 
+		'Ctrl-A' -> 		'selectAll'. 
 		'Ctrl-Backspace' -> 'delWordBefore'. 
-		'Ctrl-D' -> 'doIt'. 
-		'Ctrl-Delete' -> 'delWordAfter'. 
-		'Ctrl-Down' -> 'goDocEnd'.
-		'Ctrl-End' -> 'goDocEnd'. 
-		'Ctrl-F' -> 'find'.
-		'Ctrl-G' -> 'findNext'. 
-		'Ctrl-I' -> 'inspectIt'.
-		'Ctrl-Home' -> 'goDocStart'. 
-		'Ctrl-Left' -> 'goWordBoundaryLeft'. 
-		'Ctrl-P' -> 'printIt'.
-		'Ctrl-Right' -> 'goWordBoundaryRight'. 
-		'Ctrl-S' -> 'saveIt'. 
-		'Ctrl-Y' -> 'redo'.
-		'Ctrl-Z' -> 'undo'. 
-		'Ctrl-[' -> 'indentLess'. 
-		'Ctrl-]' -> 'indentMore'.
-		'Shift-Ctrl-F' -> 'replace'. 
-		'Shift-Ctrl-G' -> 'findPrev'. 
-		'Shift-Ctrl-R' -> 'replaceAll'.
-		'Shift-Ctrl-Z' -> 'redo'. 
-		'fallthrough' -> #('basic')
+		'Ctrl-D' -> 		'doIt'. 
+		'Ctrl-Delete' -> 		'delWordAfter'. 
+		'Ctrl-Down' -> 		'goDocEnd'.
+		'Ctrl-End' -> 		'goDocEnd'. 
+		'Ctrl-F' -> 		'find'.
+		'Ctrl-G' -> 		'findNext'. 
+		'Ctrl-I' -> 		'inspectIt'.
+		'Ctrl-Home' -> 		'goDocStart'. 
+		'Ctrl-Left' -> 		'goWordLeft'. 
+		'Ctrl-P' -> 		'printIt'.
+		'Ctrl-Right' -> 	'goWordRight'. 
+		'Ctrl-S' -> 		'saveIt'. 
+		'Ctrl-Y' -> 		'redo'.
+		'Ctrl-Z' -> 		'undo'. 
+		'Ctrl-[' -> 		'indentLess'. 
+		'Ctrl-]' -> 		'indentMore'.
+		'Shift-Ctrl-F' -> 	'replace'. 
+		'Shift-Ctrl-G' -> 	'findPrev'. 
+		'Shift-Ctrl-R' -> 	'replaceAll'.
+		'Shift-Ctrl-Z' -> 	'redo'. 
+		'fallthrough' -> 	#('basic')
 }
 ! !
 
@@ -420,8 +421,8 @@ setupCodeMirror
 	< 
 		CodeMirror.keyMap.default.fallthrough = ["basic"];
 		CodeMirror.commands.autocomplete = function(cm) {
-        	CodeMirror.showHint(cm, self._hintFor_options_);
-      	}
+			CodeMirror.showHint(cm, self._hintFor_options_);
+		}
 	>
 !
 
@@ -550,12 +551,20 @@ observeBrowserModel
 		send: #onClassSelected:
 		to: self;
 		
+		on: HLPackageSelected 
+		send: #onPackageSelected:
+		to: self;
+		
     	on: HLProtocolSelected 
 		send: #onProtocolSelected: 
 		to: self;
 		
 		on: HLSourceCodeFocusRequested 
 		send: #onSourceCodeFocusRequested
+		to: self;
+		
+		on: HLShowTemplate
+		send: #onShowTemplate:
 		to: self
 !
 
@@ -618,7 +627,7 @@ onClassSelected: anAnnouncement
 	class:= anAnnouncement item.
 	
 	class ifNil: [ ^ self contents: '' ].
-    self contents: class definition
+	self contents: class definition
 !
 
 onCompileError: anAnnouncement
@@ -636,7 +645,7 @@ onMethodModified: anAnnouncement
 	
 	self browserModel selectedClass = method methodClass ifFalse: [ ^ self ].
 	self browserModel selectedMethod ifNil: [ ^ self ].
-    self browserModel selectedMethod selector = method selector ifFalse: [ ^ self ].
+	self browserModel selectedMethod selector = method selector ifFalse: [ ^ self ].
 
 	self refresh
 !
@@ -647,7 +656,16 @@ onMethodSelected: anAnnouncement
 	method := anAnnouncement item.
 	
 	method ifNil: [ ^ self contents: '' ].
-    self contents: method source
+	self contents: method source
+!
+
+onPackageSelected: anAnnouncement
+	| package |
+	
+	package := anAnnouncement item.
+	
+	package ifNil: [ ^ self contents: '' ].
+	self contents: package definition
 !
 
 onParseError: anAnnouncement
@@ -672,7 +690,7 @@ onParseError: anAnnouncement
 
 onProtocolSelected: anAnnouncement
 	self browserModel selectedClass ifNil: [ ^ self contents: '' ].
-    self contents: self browserModel selectedClass definition
+	self contents: self browserModel selectedClass definition
 !
 
 onSaveIt
@@ -682,7 +700,11 @@ onSaveIt
 onShowInstanceToggled
 	self browserModel selectedClass ifNil: [ ^ self contents: '' ].
     
-    self contents: self browserModel selectedClass definition
+	self contents: self browserModel selectedClass definition
+!
+
+onShowTemplate: anAnnouncement
+	self contents: anAnnouncement template
 !
 
 onSourceCodeFocusRequested

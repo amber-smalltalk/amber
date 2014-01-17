@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Browser'!
+Smalltalk createPackage: 'Helios-Browser'!
 HLWidget subclass: #HLBrowser
 	instanceVariableNames: 'model packagesListWidget classesListWidget protocolsListWidget methodsListWidget sourceWidget bottomDiv'
 	package: 'Helios-Browser'!
@@ -23,6 +23,19 @@ model: aModel
 
 focus
 	^ self packagesListWidget focus
+!
+
+openClassNamed: aString
+	self model openClassNamed: aString
+!
+
+openMethod: aCompiledMethod
+	self model 
+			selectedPackage: aCompiledMethod methodClass package;
+			selectedClass: aCompiledMethod methodClass;
+			selectedProtocol: aCompiledMethod protocol;
+			selectedMethod: aCompiledMethod;
+			focusOnSourceCode
 !
 
 unregister
@@ -218,7 +231,7 @@ HLToolModel subclass: #HLBrowserModel
 !HLBrowserModel methodsFor: 'accessing'!
 
 showComment
-	^ showComment ifNil: [ false ]
+	^ showComment ifNil: [ true ]
 !
 
 showComment: aBoolean
@@ -238,7 +251,7 @@ showInstance: aBoolean
 
     	self selectedClass ifNotNil: [
     		self selectedClass: (aBoolean
-    			ifTrue: [self selectedClass theNonMetaClass ]
+    			ifTrue: [ self selectedClass theNonMetaClass ]
 	    	  	ifFalse: [ self selectedClass theMetaClass ]) ].
     
 		self announcer announce: HLShowInstanceToggled new ]
@@ -270,6 +283,20 @@ setClassComment: aString
 	self environment
 		setClassCommentOf: self selectedClass theNonMetaClass
 		to: aString
+!
+
+showClassTemplate
+	self selectedPackage ifNotNil: [ :package |
+		self announcer announce: (HLShowTemplate new
+			template: package classTemplate;
+			yourself) ]
+!
+
+showMethodTemplate
+	self selectedClass ifNotNil: [ :theClass |
+		self announcer announce: (HLShowTemplate new
+			template: theClass methodTemplate;
+			yourself) ]
 ! !
 
 !HLBrowserModel methodsFor: 'commands actions'!
@@ -389,8 +416,6 @@ I render a list of classes in the selected package.!
 !HLClassesListWidget methodsFor: 'accessing'!
 
 cssClassForItem: aClass
-	aClass theNonMetaClass comment isEmpty 
-		ifTrue: [ ^ 'uncommented' ].
 	^ aClass theNonMetaClass heliosClass
 !
 
@@ -408,6 +433,13 @@ label
 ! !
 
 !HLClassesListWidget methodsFor: 'actions'!
+
+focus
+	super focus.
+	
+	self selectedItem 
+		ifNil: [ self model showClassTemplate ]
+!
 
 focusMethodsListWidget
 	self model announcer announce: HLMethodsListFocus new
@@ -488,9 +520,9 @@ toggleShowComment
 setItemsForPackage: aPackage
 	self items: (aPackage 
     	ifNil: [ #() ]
-  		ifNotNil: [ ((aPackage classes 
-        	collect: [ :each | each theNonMetaClass ]) asSet asArray) 
-            	sort: [:a :b | a name < b name ] ]).
+  		ifNotNil: [ (aPackage classes 
+        	collect: [ :each | each theNonMetaClass ]) 
+            	sort: [ :a :b | a name < b name ] ]).
 !
 
 setItemsForSelectedPackage
@@ -560,6 +592,7 @@ onClassRemoved: anAnnouncement
 
 	class package = self model selectedPackage ifFalse: [ ^ self ].
     
+	self selectItem: nil.
     self setItemsForSelectedPackage.
     self refresh
 !
@@ -642,10 +675,8 @@ renderItem: aClass level: anInteger on: html
 	| li |
     
 	li := html li.
-	self registerMappingFrom: aClass to: li.
-	
+	li asJQuery data: 'item' put: aClass.
     li
-    	at: 'list-data' put: (self items indexOf: aClass);
 		class: (self listCssClassForItem: aClass);
 		with: [ 
         	html a
@@ -668,7 +699,7 @@ renderItem: aClass on: html
 renderItemLabel: aClass level: anInteger on: html
 	html span asJQuery html: (String streamContents: [ :str |
 		anInteger timesRepeat: [
-			str nextPutAll: '&nbsp;&nbsp;&nbsp;&nbsp;'].
+			str nextPutAll: '&nbsp;&nbsp;&nbsp;&nbsp;' ].
 			str nextPutAll: aClass name ])
 !
 
@@ -766,8 +797,7 @@ unregister
 !HLDocumentationWidget methodsFor: 'defaults'!
 
 defaultDocumentation
-	^ 'No documentation available. 
-**That''s bad. Seriously.**'
+	^ 'No documentation is available for this class.'
 !
 
 defaultHead
@@ -913,6 +943,13 @@ selectorsInProtocol: aString
 ! !
 
 !HLMethodsListWidget methodsFor: 'actions'!
+
+focus
+	super focus.
+	
+	self selectedItem ifNil: [
+		self model showMethodTemplate ]
+!
 
 observeModel
 	self model announcer 
@@ -1133,10 +1170,16 @@ observeSystem
     self model systemAnnouncer 
 		on: ClassAdded 
 		send: #onClassAdded:
+		to: self.
+		
+	self model systemAnnouncer
+		on: PackageAdded
+		send: #onPackageAdded:
 		to: self
 !
 
 selectItem: aPackage
+	super selectItem: aPackage.
 	self model selectedPackage: aPackage
 ! !
 
@@ -1156,6 +1199,12 @@ onClassAdded: anAnnouncement
 		self 
 			initializeItems;
 			refresh ]
+!
+
+onPackageAdded: anAnnouncement
+	self 
+		initializeItems;
+		refresh
 !
 
 onPackageSelected: anAnnouncement

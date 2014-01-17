@@ -1,11 +1,132 @@
-Smalltalk current createPackage: 'Kernel-Objects'!
-nil subclass: #Object
+Smalltalk createPackage: 'Kernel-Objects'!
+nil subclass: #ProtoObject
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+!ProtoObject commentStamp!
+I implement the basic behavior required for any object in Amber.
+
+In most cases, subclassing `ProtoObject` is wrong and `Object` should be used instead. However subclassing `ProtoObject` can be useful in some special cases like proxy implementations.!
+
+!ProtoObject methodsFor: 'accessing'!
+
+class
+	<return self.klass>
+!
+
+identityHash
+	<
+		var hash=self.identityHash;
+		if (hash) return hash;
+		hash=smalltalk.nextId();
+		Object.defineProperty(self, 'identityHash', {value:hash});
+		return hash;
+	>
+!
+
+instVarAt: aString
+	< return self['@'+aString] >
+!
+
+instVarAt: aString put: anObject
+	< self['@' + aString] = anObject >
+!
+
+yourself
+	^ self
+! !
+
+!ProtoObject methodsFor: 'comparing'!
+
+= anObject
+	^ self == anObject
+!
+
+== anObject
+	^ self identityHash = anObject identityHash
+!
+
+~= anObject
+	^ (self = anObject) = false
+!
+
+~~ anObject
+	^ (self == anObject) = false
+! !
+
+!ProtoObject methodsFor: 'converting'!
+
+asString
+	^ self printString
+! !
+
+!ProtoObject methodsFor: 'error handling'!
+
+doesNotUnderstand: aMessage
+	MessageNotUnderstood new
+		receiver: self;
+		message: aMessage;
+		signal
+! !
+
+!ProtoObject methodsFor: 'initialization'!
+
+initialize
+! !
+
+!ProtoObject methodsFor: 'inspecting'!
+
+inspect
+	Inspector inspect: self
+!
+
+inspectOn: anInspector
+! !
+
+!ProtoObject methodsFor: 'message handling'!
+
+perform: aString
+	^ self perform: aString withArguments: #()
+!
+
+perform: aString withArguments: aCollection
+	<return smalltalk.send(self, aString._asSelector(), aCollection)>
+! !
+
+!ProtoObject methodsFor: 'printing'!
+
+printOn: aStream
+	aStream nextPutAll: (self class name first isVowel
+		ifTrue: [ 'an ' ]
+		ifFalse: [ 'a ' ]).
+	aStream nextPutAll: self class name
+!
+
+printString
+	^ String streamContents: [ :str | 
+		self printOn: str ]
+! !
+
+!ProtoObject class methodsFor: 'accessing'!
+
+heliosClass
+	"Should be an Helios extension. Unfortunately, since helios can browse remote
+	environments, we can't extend base classes"
+	
+	^ 'class'
+! !
+
+!ProtoObject class methodsFor: 'initialization'!
+
+initialize
+! !
+
+ProtoObject subclass: #Object
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Object commentStamp!
-**I am the root of the Smalltalk class system**. All classes in the system are subclasses of me.
+**I am the root of the Smalltalk class system**. With the exception of unual subclasses of `ProtoObject`, all other classes in the system are subclasses of me.
 
-I provide default behavior common to all normal objects, such as:
+I provide default behavior common to all normal objects (some of it inherited from `ProtoObject`), such as:
 
 - accessing
 - copying
@@ -53,104 +174,50 @@ basicDelete: aString
 	<delete self[aString]; return aString>
 !
 
-class
-	<return self.klass>
-!
-
-identityHash
-	<
-	var hash=self.identityHash;
-	if (hash) return hash;
-	hash=smalltalk.nextId();
-	Object.defineProperty(self, 'identityHash', {value:hash});
-	return hash;
-	>
-!
-
-instVarAt: aString
-	< return self['@'+aString] >
-!
-
-instVarAt: aString put: anObject
-	< self['@' + aString] = anObject >
-!
-
 size
 	self error: 'Object not indexable'
 !
 
 value
 	<return self.valueOf()>
-!
-
-yourself
-	^self
-! !
-
-!Object methodsFor: 'comparing'!
-
-= anObject
-	^self == anObject
-!
-
-== anObject
-	^self identityHash = anObject identityHash
-!
-
-~= anObject
-	^(self = anObject) = false
-!
-
-~~ anObject
-	^(self == anObject) = false
 ! !
 
 !Object methodsFor: 'converting'!
 
 -> anObject
-	^Association key: self value: anObject
+	^ Association key: self value: anObject
 !
 
 asJSON
 	| variables |
 	variables := HashedCollection new.
-	self class allInstanceVariableNames do: [:each |
-		variables at: each put: (self instVarAt: each) asJSON].
-	^variables
+	self class allInstanceVariableNames do: [ :each |
+		variables at: each put: (self instVarAt: each) asJSON ].
+	^ variables
 !
 
 asJSONString
-	^JSON stringify: self asJSON
+	^ JSON stringify: self asJSON
 !
 
 asJavascript
-	^self asString
-!
-
-asString
-	^self printString
-!
-
-test
-	| a |
-	a := 1.
-	self halt
+	^ self asString
 ! !
 
 !Object methodsFor: 'copying'!
 
 copy
-	^self shallowCopy postCopy
+	^ self shallowCopy postCopy
 !
 
 deepCopy
 	<
 		var copy = self.klass._new();
-		for(var i in self) {
+		Object.keys(self).forEach(function (i) {
 		if(/^@.+/.test(i)) {
 			copy[i] = self[i]._deepCopy();
 		}
-		}
+		});
 		return copy;
 	>
 !
@@ -161,11 +228,11 @@ postCopy
 shallowCopy
 	<
 		var copy = self.klass._new();
-		for(var i in self) {
+		Object.keys(self).forEach(function(i) {
 		if(/^@.+/.test(i)) {
 			copy[i] = self[i];
 		}
-		}
+		});
 		return copy;
 	>
 ! !
@@ -177,13 +244,6 @@ deprecatedAPI
 	#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,
 	but it could in the future."
 	console warn: thisContext home asString, ' is deprecated!! (in ', thisContext home home asString, ')'
-!
-
-doesNotUnderstand: aMessage
-	MessageNotUnderstood new
-		receiver: self;
-		message: aMessage;
-		signal
 !
 
 error: aString
@@ -210,23 +270,14 @@ try: aBlock catch: anotherBlock
 	<try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)}>
 ! !
 
-!Object methodsFor: 'initialization'!
-
-initialize
-! !
-
 !Object methodsFor: 'inspecting'!
-
-inspect
-	InspectorHandler inspect: self
-!
 
 inspectOn: anInspector
 	| variables |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
-	self class allInstanceVariableNames do: [:each |
-		variables at: each put: (self instVarAt: each)].
+	self class allInstanceVariableNames do: [ :each |
+		variables at: each put: (self instVarAt: each) ].
 	anInspector
 		setLabel: self printString;
 		setVariables: variables
@@ -235,36 +286,11 @@ inspectOn: anInspector
 !Object methodsFor: 'message handling'!
 
 basicPerform: aString
-	^self basicPerform: aString withArguments: #()
+	^ self basicPerform: aString withArguments: #()
 !
 
 basicPerform: aString withArguments: aCollection
 	<return self[aString].apply(self, aCollection);>
-!
-
-perform: aString
-	^self perform: aString withArguments: #()
-!
-
-perform: aString withArguments: aCollection
-	<return smalltalk.send(self, aString._asSelector(), aCollection)>
-! !
-
-!Object methodsFor: 'printing'!
-
-printOn: aStream
-	"Append to the aStream, a string representing the receiver."
-	
-	aStream nextPutAll: (self class name first isVowel
-		ifTrue: [ 'an ' ]
-		ifFalse: [ 'a ' ]).
-	aStream nextPutAll: self class name
-!
-
-printString
-	"Answer a String representation of the receiver."
-
-	^ String streamContents: [ :stream | self printOn: stream ]
 ! !
 
 !Object methodsFor: 'streaming'!
@@ -277,22 +303,22 @@ putOn: aStream
 
 ifNil: aBlock
 	"inlined in the Compiler"
-	^self
+	^ self
 !
 
 ifNil: aBlock ifNotNil: anotherBlock
 	"inlined in the Compiler"
-	^anotherBlock value: self
+	^ anotherBlock value: self
 !
 
 ifNotNil: aBlock
 	"inlined in the Compiler"
-	^aBlock value: self
+	^ aBlock value: self
 !
 
 ifNotNil: aBlock ifNil: anotherBlock
 	"inlined in the Compiler"
-	^aBlock value: self
+	^ aBlock value: self
 !
 
 isBehavior
@@ -304,7 +330,7 @@ isBoolean
 !
 
 isClass
-	^false
+	^ false
 !
 
 isCompiledMethod
@@ -316,25 +342,25 @@ isImmutable
 !
 
 isKindOf: aClass
-	^(self isMemberOf: aClass)
-		ifTrue: [true]
-		ifFalse: [self class inheritsFrom: aClass]
+	^ (self isMemberOf: aClass)
+		ifTrue: [ true ]
+		ifFalse: [ self class inheritsFrom: aClass ]
 !
 
 isMemberOf: aClass
-	^self class = aClass
+	^ self class = aClass
 !
 
 isMetaclass
-	^false
+	^ false
 !
 
 isNil
-	^false
+	^ false
 !
 
 isNumber
-	^false
+	^ false
 !
 
 isPackage
@@ -342,32 +368,48 @@ isPackage
 !
 
 isParseFailure
-	^false
+	^ false
 !
 
 isString
-	^false
+	^ false
 !
 
 isSymbol
-	^false
+	^ false
 !
 
 notNil
-	^self isNil not
+	^ self isNil not
 !
 
 respondsTo: aSelector
-	^self class canUnderstand: aSelector
+	^ self class canUnderstand: aSelector
 ! !
 
 !Object class methodsFor: 'helios'!
+
+accessorProtocolWith: aGenerator
+	aGenerator accessorProtocolForObject
+!
+
+accessorsSourceCodesWith: aGenerator
+	aGenerator accessorsForObject
+!
 
 heliosClass
 	"Should be an Helios extension. Unfortunately, since helios can browse remote
 	environments, we can't extend base classes"
 	
 	^ 'class'
+!
+
+initializeProtocolWith: aGenerator
+	aGenerator initializeProtocolForObject
+!
+
+initializeSourceCodesWith: aGenerator
+	aGenerator initializeForObject
 ! !
 
 !Object class methodsFor: 'initialization'!
@@ -394,15 +436,15 @@ I am directly mapped to JavaScript Boolean. The `true` and `false` objects are t
 
 = aBoolean
 	<
-		if(!! aBoolean._isBoolean || !! aBoolean._isBoolean()) {
-			return false;
-		}
-		return Boolean(self == true) == aBoolean
+		return aBoolean !!= null &&
+			typeof aBoolean._isBoolean === "function" &&
+			aBoolean._isBoolean() &&
+			Boolean(self == true) == aBoolean
 	>
 !
 
 == aBoolean
-	^self = aBoolean
+	^ self = aBoolean
 ! !
 
 !Boolean methodsFor: 'controlling'!
@@ -418,24 +460,24 @@ I am directly mapped to JavaScript Boolean. The `true` and `false` objects are t
 !
 
 and: aBlock
-	^self = true
+	^ self = true
 		ifTrue: aBlock
-		ifFalse: [false]
+		ifFalse: [ false ]
 !
 
 ifFalse: aBlock
 	"inlined in the Compiler"
-	^self ifTrue: [] ifFalse: aBlock
+	^ self ifTrue: [] ifFalse: aBlock
 !
 
 ifFalse: aBlock ifTrue: anotherBlock
 	"inlined in the Compiler"
-	^self ifTrue: anotherBlock ifFalse: aBlock
+	^ self ifTrue: anotherBlock ifFalse: aBlock
 !
 
 ifTrue: aBlock
 	"inlined in the Compiler"
-	^self ifTrue: aBlock ifFalse: []
+	^ self ifTrue: aBlock ifFalse: []
 !
 
 ifTrue: aBlock ifFalse: anotherBlock
@@ -450,12 +492,12 @@ ifTrue: aBlock ifFalse: anotherBlock
 !
 
 not
-	^self = false
+	^ self = false
 !
 
 or: aBlock
-	^self = true
-		ifTrue: [true]
+	^ self = true
+		ifTrue: [ true ]
 		ifFalse: aBlock
 !
 
@@ -476,7 +518,7 @@ asBit
 !
 
 asJSON
-	^self
+	^ self
 !
 
 asString
@@ -486,11 +528,11 @@ asString
 !Boolean methodsFor: 'copying'!
 
 deepCopy
-	^self
+	^ self
 !
 
 shallowCopy
-	^self
+	^ self
 ! !
 
 !Boolean methodsFor: 'printing'!
@@ -529,7 +571,7 @@ The `converting` protocol provides convenience methods for various convertions (
 !Date methodsFor: 'accessing'!
 
 day
-	^self dayOfWeek
+	^ self dayOfWeek
 !
 
 day: aNumber
@@ -647,11 +689,11 @@ asLocaleString
 !
 
 asMilliseconds
-	^self time
+	^ self time
 !
 
 asNumber
-	^self asMilliseconds
+	^ self asMilliseconds
 !
 
 asString
@@ -677,23 +719,23 @@ heliosClass
 !Date class methodsFor: 'instance creation'!
 
 fromMilliseconds: aNumber
-	^self new: aNumber
+	^ self new: aNumber
 !
 
 fromSeconds: aNumber
-	^self fromMilliseconds: aNumber * 1000
+	^ self fromMilliseconds: aNumber * 1000
 !
 
 fromString: aString
 	"Example: Date fromString('2011/04/15 00:00:00')"
-	^self new: aString
+	^ self new: aString
 !
 
 millisecondsToRun: aBlock
 	| t |
 	t := Date now.
 	aBlock value.
-	^Date now - t
+	^ Date now - t
 !
 
 new: anObject
@@ -701,11 +743,11 @@ new: anObject
 !
 
 now
-	^self today
+	^ self today
 !
 
 today
-	^self new
+	^ self new
 ! !
 
 Object subclass: #Number
@@ -721,16 +763,16 @@ I provide all necessary methods for arithmetic operations, comparison, conversio
 
 My instances can also be used to evaluate a block a fixed number of times:
 
-	5 timesRepeat: [Transcript show: 'This will be printed 5 times'; cr].
+	5 timesRepeat: [ Transcript show: 'This will be printed 5 times'; cr ].
 	
-	1 to: 5 do: [:aNumber| Transcript show: aNumber asString; cr].
+	1 to: 5 do: [ :aNumber| Transcript show: aNumber asString; cr ].
 	
-	1 to: 10 by: 2 do: [:aNumber| Transcript show: aNumber asString; cr].!
+	1 to: 10 by: 2 do: [ :aNumber| Transcript show: aNumber asString; cr ].!
 
 !Number methodsFor: 'accessing'!
 
 identityHash
-	^self asString, 'n'
+	^ self asString, 'n'
 ! !
 
 !Number methodsFor: 'arithmetic'!
@@ -755,6 +797,10 @@ identityHash
 	<return self / aNumber>
 !
 
+// aNumber
+	^ (self / aNumber) floor
+!
+
 \\ aNumber
 	<return self % aNumber>
 !
@@ -772,11 +818,7 @@ min: aNumber
 !
 
 negated
-	^0 - self
-!
-
-// aNumber
-	^(self / aNumber) floor
+	^ 0 - self
 ! !
 
 !Number methodsFor: 'comparing'!
@@ -793,10 +835,10 @@ negated
 
 = aNumber
 	<
-		if(!! aNumber._isNumber || !! aNumber._isNumber()) {
-			return false;
-		}
-		return Number(self) == aNumber
+		return aNumber !!= null &&
+			typeof aNumber._isNumber === "function" &&
+			aNumber._isNumber() &&
+			Number(self) == aNumber
 	>
 !
 
@@ -817,15 +859,15 @@ negated
 !
 
 @ aNumber
-	^Point x: self y: aNumber
+	^ Point x: self y: aNumber
 !
 
 asJSON
-	^self
+	^ self
 !
 
 asJavascript
-	^'(', self printString, ')'
+	^ '(', self printString, ')'
 !
 
 asNumber
@@ -833,7 +875,7 @@ asNumber
 !
 
 asPoint
-	^Point x: self y: self
+	^ Point x: self y: self
 !
 
 asString
@@ -841,7 +883,7 @@ asString
 !
 
 atRandom
-	^(Random new next * self) truncated + 1
+	^ (Random new next * self) truncated + 1
 !
 
 ceiling
@@ -865,8 +907,8 @@ to: aNumber
 	(last - first) timesRepeat: [
 		array at: count put: first.
 		count := count + 1.
-		first := first + 1].
-	^array
+		first := first + 1 ].
+	^ array
 !
 
 to: stop by: step
@@ -874,17 +916,17 @@ to: stop by: step
 	value := self.
 	array := Array new.
 	pos := 1.
-	step = 0 ifTrue: [self error: 'step must be non-zero'].
+	step = 0 ifTrue: [ self error: 'step must be non-zero' ].
 	step < 0
-		ifTrue: [[ value >= stop ] whileTrue: [
+		ifTrue: [ [ value >= stop ] whileTrue: [
 					array at: pos put: value.
 					pos := pos + 1.
-					value := value + step]]
-		ifFalse: [[ value <= stop ] whileTrue: [
+					value := value + step ]]
+		ifFalse: [ [ value <= stop ] whileTrue: [
 					array at: pos put: value.
 				pos := pos + 1.
-					value := value + step]].
-	^array
+					value := value + step ]].
+	^ array
 !
 
 truncated
@@ -904,11 +946,11 @@ truncated
 !Number methodsFor: 'copying'!
 
 copy
-	^self
+	^ self
 !
 
 deepCopy
-	^self copy
+	^ self copy
 ! !
 
 !Number methodsFor: 'enumerating'!
@@ -916,54 +958,38 @@ deepCopy
 timesRepeat: aBlock
 	| count |
 	count := 1.
-	[count > self] whileFalse: [
+	[ count > self ] whileFalse: [
 		aBlock value.
-		count := count + 1]
+		count := count + 1 ]
 !
 
 to: stop by: step do: aBlock
 	| value |
 	value := self.
-	step = 0 ifTrue: [self error: 'step must be non-zero'].
+	step = 0 ifTrue: [ self error: 'step must be non-zero' ].
 	step < 0
-		ifTrue: [[ value >= stop ] whileTrue: [
+		ifTrue: [ [ value >= stop ] whileTrue: [
 					aBlock value: value.
-					value := value + step]]
-		ifFalse: [[ value <= stop ] whileTrue: [
+					value := value + step ]]
+		ifFalse: [ [ value <= stop ] whileTrue: [
 					aBlock value: value.
-					value := value + step]]
+					value := value + step ]]
 !
 
 to: stop do: aBlock
 	"Evaluate aBlock for each number from self to aNumber."
 	| nextValue |
 	nextValue := self.
-	[nextValue <= stop]
+	[ nextValue <= stop ]
 		whileTrue:
-			[aBlock value: nextValue.
-			nextValue := nextValue + 1]
+			[ aBlock value: nextValue.
+			nextValue := nextValue + 1 ]
 ! !
 
 !Number methodsFor: 'mathematical functions'!
 
-sqrt
-	<return Math.sqrt(self)>
-!
-
-squared
-	^self * self
-!
-
-cos
-	<return Math.cos(self);>
-!
-
-sin
-	<return Math.sin(self);>
-!
-
-tan
-	<return Math.tan(self);>
+** exponent
+	^ self raisedTo: exponent
 !
 
 arcCos
@@ -976,6 +1002,14 @@ arcSin
 
 arcTan
 	<return Math.atan(self);>
+!
+
+cos
+	<return Math.cos(self);>
+!
+
+ln
+	<return Math.log(self);>
 !
 
 log
@@ -998,12 +1032,20 @@ sign
 		ifFalse: [ ^ -1 ].
 !
 
-** exponent
-	^self raisedTo: exponent
+sin
+	<return Math.sin(self);>
 !
 
-ln
-	<return Math.log(self);>
+sqrt
+	<return Math.sqrt(self)>
+!
+
+squared
+	^ self * self
+!
+
+tan
+	<return Math.tan(self);>
 ! !
 
 !Number methodsFor: 'printing'!
@@ -1027,11 +1069,11 @@ isImmutable
 !
 
 isNumber
-	^true
+	^ true
 !
 
 isZero
-	^self = 0
+	^ self = 0
 !
 
 negative
@@ -1058,12 +1100,12 @@ heliosClass
 
 !Number class methodsFor: 'instance creation'!
 
-pi
-	<return Math.PI>
-!
-
 e
 	<return Math.E;>
+!
+
+pi
+	<return Math.PI>
 ! !
 
 Object subclass: #Point
@@ -1093,7 +1135,7 @@ Points can then be arithmetically manipulated:
 !Point methodsFor: 'accessing'!
 
 x
-	^x
+	^ x
 !
 
 x: aNumber
@@ -1101,7 +1143,7 @@ x: aNumber
 !
 
 y
-	^y
+	^ y
 !
 
 y: aNumber
@@ -1111,30 +1153,30 @@ y: aNumber
 !Point methodsFor: 'arithmetic'!
 
 * aPoint
-	^Point x: self x * aPoint asPoint x y: self y * aPoint asPoint y
+	^ Point x: self x * aPoint asPoint x y: self y * aPoint asPoint y
 !
 
 + aPoint
-	^Point x: self x + aPoint asPoint x y: self y + aPoint asPoint y
+	^ Point x: self x + aPoint asPoint x y: self y + aPoint asPoint y
 !
 
 - aPoint
-	^Point x: self x - aPoint asPoint x y: self y - aPoint asPoint y
+	^ Point x: self x - aPoint asPoint x y: self y - aPoint asPoint y
 !
 
 / aPoint
-	^Point x: self x / aPoint asPoint x y: self y / aPoint asPoint y
+	^ Point x: self x / aPoint asPoint x y: self y / aPoint asPoint y
 !
 
 = aPoint
-	^aPoint class = self class and: [
-		(aPoint x = self x) & (aPoint y = self y)]
+	^ aPoint class = self class and: [
+		(aPoint x = self x) & (aPoint y = self y) ]
 ! !
 
 !Point methodsFor: 'converting'!
 
 asPoint
-	^self
+	^ self
 ! !
 
 !Point methodsFor: 'printing'!
@@ -1145,7 +1187,7 @@ printOn: aStream
 	x printOn: aStream.
 	
 	aStream nextPutAll: '@'.
-	(y notNil and: [y negative]) ifTrue: [
+	(y notNil and: [ y negative ]) ifTrue: [
 			"Avoid ambiguous @- construct"
 			aStream space ].
 	
@@ -1156,7 +1198,7 @@ printOn: aStream
 
 translateBy: delta
 	"Answer a Point translated by delta (an instance of Point)."
-	^(delta x + x) @ (delta y + y)
+	^ (delta x + x) @ (delta y + y)
 ! !
 
 !Point class methodsFor: 'helios'!
@@ -1168,7 +1210,7 @@ heliosClass
 !Point class methodsFor: 'instance creation'!
 
 x: aNumber y: anotherNumber
-	^self new
+	^ self new
 		x: aNumber;
 		y: anotherNumber;
 		yourself
@@ -1215,7 +1257,7 @@ next
 !
 
 next: anInteger
-	^(1 to: anInteger) collect: [:each | self next]
+	^ (1 to: anInteger) collect: [ :each | self next ]
 ! !
 
 Object subclass: #UndefinedObject
@@ -1231,34 +1273,34 @@ __note:__ When sending messages to the `undefined` JavaScript object, it will be
 !UndefinedObject methodsFor: 'class creation'!
 
 subclass: aString instanceVariableNames: anotherString
-	^self subclass: aString instanceVariableNames: anotherString package: nil
+	^ self subclass: aString instanceVariableNames: anotherString package: nil
 !
 
 subclass: aString instanceVariableNames: aString2 category: aString3
 	"Kept for compatibility."
 	self deprecatedAPI.
-	^self subclass: aString instanceVariableNames: aString2 package: aString3
+	^ self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
 subclass: aString instanceVariableNames: aString2 package: aString3
-	^ClassBuilder new
+	^ ClassBuilder new
 		superclass: self subclass: aString asString instanceVariableNames: aString2 package: aString3
 ! !
 
 !UndefinedObject methodsFor: 'converting'!
 
 asJSON
-	^null
+	^ null
 ! !
 
 !UndefinedObject methodsFor: 'copying'!
 
 deepCopy
-	^self
+	^ self
 !
 
 shallowCopy
-	^self
+	^ self
 ! !
 
 !UndefinedObject methodsFor: 'printing'!
@@ -1271,22 +1313,22 @@ printOn: aStream
 
 ifNil: aBlock
 	"inlined in the Compiler"
-	^self ifNil: aBlock ifNotNil: []
+	^ self ifNil: aBlock ifNotNil: []
 !
 
 ifNil: aBlock ifNotNil: anotherBlock
 	"inlined in the Compiler"
-	^aBlock value
+	^ aBlock value
 !
 
 ifNotNil: aBlock
 	"inlined in the Compiler"
-	^self
+	^ self
 !
 
 ifNotNil: aBlock ifNil: anotherBlock
 	"inlined in the Compiler"
-	^anotherBlock value
+	^ anotherBlock value
 !
 
 isImmutable
@@ -1294,11 +1336,11 @@ isImmutable
 !
 
 isNil
-	^true
+	^ true
 !
 
 notNil
-	^false
+	^ false
 ! !
 
 !UndefinedObject class methodsFor: 'instance creation'!

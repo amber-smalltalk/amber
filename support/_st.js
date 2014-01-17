@@ -9,10 +9,10 @@
  * otherwise unchanged
  */
 
-define("amber_vm/_st", ["./smalltalk", "./nil"], function (smalltalk, nil) {
+define("amber_vm/_st", ["./globals", "./nil"], function (globals, nil) {
     return function (o) {
         if (o == null) { return nil; }
         if (o.klass) { return o; }
-        return smalltalk.JSObjectProxy._on_(o);
+        return globals.JSObjectProxy._on_(o);
     };
 });

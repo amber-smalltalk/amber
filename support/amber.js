@@ -15,9 +15,39 @@
 var require;
 
 require = function (require) {
-    var scripts = document.getElementsByTagName("script");
-    var src = scripts[ scripts.length - 1 ].src;
-    var home = resolveViaDOM(src).replace(/\/[^\/]+\/[^\/]+$/, "");
+    // To be able to use its path and attrubutes
+    // to map other parts of Amber, this code must find its <script> tag.
+    // It first looks for id 'amber-path-mapper'.
+    // When loading amber.js asynchronously, you must include this id,
+    // or the code can not reliably find its <script>.
+    var me = document.getElementById("amber-path-mapper");
+    if (!me || me.tagName.toLowerCase() !== "script") {
+        // If <script> with 'amber-path-mapper' id is not present,
+        // (this id is not necessary for inline <script> tag in HTML),
+        // it uses the "find the last <script> tag present in the moment" method.
+        var scripts = document.getElementsByTagName("script");
+        me = scripts[scripts.length - 1];
+    }
+    var src = me.src;
+    // strip the last two elements from the URL
+    // e.g. http://app.com/amber/support/amber.js -> http://app.com/amber
+    var amber_home = resolveViaDOM(src).replace(/\/[^\/]+\/[^\/]+$/, "");
+    // In case of nonstandard deployment, you can specify libraries placement directly ...
+    var library_home = me.hasAttribute('data-libs') && me.getAttribute('data-libs');
+
+    // ... otherwise, this heuristics is used:
+    if (!library_home) {
+        // At the present moment, bower tries to have flat hierarchy,
+        // which leads to two possible scenarios:
+        // 1. amber itself was deployed via bower,
+        //    its libraries are at the same bower dir
+        //    where amber itself is placed
+        // 2. amber was deployed in different fashion,
+        //    its libraries are included by bower locally, inside amber
+        // The detection is done by looking for '/bower_components/' in amber path.
+        var match = amber_home.match(/^(.*\/bower_components)\//);
+        library_home = match ? match[1] : amber_home + '/bower_components';
+    }
 
     function resolveViaDOM(url) {
         var a = document.createElement("a");
@@ -27,19 +57,19 @@ require = function (require) {
 
     var config = {
         paths: {
-            'amber': home+'/support',
-            'amber_vm': home+'/support',
-            'amber_css': home+'/css',
-            'amber_lib': home+'/support',
-            'amber_core': home+'/js',
-            'amber_core/_source': home+'/st',
-            'amber_html': home,
-            'jquery': home+'/support/jQuery/jquery-1.8.2.min',
-            'jquery-ui': home+'/support/jQuery/jquery-ui-1.8.24.custom.min'
+            'amber': amber_home + '/support',
+            'amber_vm': amber_home + '/support',
+            'amber_css': amber_home + '/css',
+            'amber_lib': library_home,
+            'amber_core': amber_home + '/js',
+            'amber_core/_source': amber_home + '/st',
+            'amber_helios/html': amber_home,
+            'jquery': library_home + '/jquery/jquery.min',
+            'jquery-ui': library_home + '/jquery-ui/ui/minified/jquery-ui.min'
         },
         map: {
             '*': {
-                'css': 'amber_lib/requirejs/require-css-0.0.6/css'
+                'css': 'amber_lib/require-css/css'
             }
         },
         shim: {
@@ -47,19 +77,22 @@ require = function (require) {
                 deps: [ 'jquery' ]
             },
             'amber_lib/bootstrap/js/bootstrap': {
-                deps: [ 'css!amber_lib/bootstrap/css/bootstrap' ]
+                deps: [ 'jquery', 'css!amber_lib/bootstrap/css/bootstrap' ]
             },
-            'amber_lib/CodeMirror/codemirror': {
-                deps: [ 'css!amber_lib/CodeMirror/codemirror' ]
+            'amber_lib/codemirror/lib/codemirror': {
+                deps: [ 'css!amber_lib/codemirror/lib/codemirror' ]
             },
-            'amber_lib/jQuery/jquery.textarea': {
-                deps: [ 'jquery', 'jquery-ui' ]
+            'amber_lib/jquery-tabby/jquery.textarea': {
+                deps: [ 'jquery' ]
             },
-            'amber_lib/CodeMirror/smalltalk': {
-                deps: [ './codemirror' ]
+            'amber_core/IDE': {
+                deps: [ 'amber_lib/codemirror/mode/smalltalk/smalltalk' ]
             },
-            'amber_lib/CodeMirror/addon/hint/show-hint': {
-                deps: [ '../../codemirror' ]
+            'amber_lib/codemirror/mode/smalltalk/smalltalk': {
+                deps: [ '../../lib/codemirror' ]
+            },
+            'amber_lib/codemirror/addon/hint/show-hint': {
+                deps: [ '../../lib/codemirror' ]
             },
             'ensure-console': {
                 exports: 'console'

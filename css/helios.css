@@ -15,76 +15,76 @@ html[xmlns] .clearfix {
 * html .clearfix {
   height: 1%;
 }
-#helios {
-    font-size: 11px;
-    font-family: "Lucida Grande", helvetica, arial, sans;
-    background: #eee;
-}
-#helios a {
-  cursor: pointer;
-}
-#helios i {
-  opacity: 1;
-}
-#helios [class^="icon-"],
-#helios [class*=" icon-"] {
-  margin-top: 0;
-}
-#helios .CodeMirror {
-  position: absolute;
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-}
-#helios .CodeMirror-hints {
-  border-radius: 0;
-  font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
-  font-size: 11px;
-  line-height: 1em;
-  padding: 0;
-  max-height: 120px;
-}
-#helios .CodeMirror-hint {
-  border-radius: 0;
-  padding: 0 10px;
-}
-#helios .CodeMirror pre {
-  font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
+.cm-s-helios.CodeMirror {
+  font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", Courier, monospace;
   line-height: 16px;
+  font-size: 13px;
 }
-#helios .CodeMirror-gutter.stops {
+.cm-s-helios .CodeMirror-gutter.stops {
   width: 20px;
 }
-#helios .CodeMirror .CodeMirror-gutter-elt {
-  line-height: 1.5em;
-}
-#helios .CodeMirror .highlighted.CodeMirror-linebackground {
+.cm-s-helios .highlighted.CodeMirror-linebackground {
   background-color: #ffffaa;
 }
-#helios .CodeMirror .CodeMirror-gutter-elt .stop {
+.cm-s-helios .CodeMirror-gutter-elt .stop {
   width: 16px;
   height: 16px;
   background: url('../images/arrowRight.png');
   margin-left: 2px;
 }
-#helios .state {
+body[id="helios"] {
+  font-size: 11px;
+  font-family: "Lucida Grande", "Segoe UI", helvetica, arial, sans-serif;
+  background: #eee;
+}
+body[id="helios"] a {
+  cursor: pointer;
+}
+body[id="helios"] i {
+  opacity: 1;
+}
+body[id="helios"] [class^="icon-"],
+body[id="helios"] [class*=" icon-"] {
+  margin-top: 0;
+}
+body[id="helios"] .CodeMirror {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+body[id="helios"] .CodeMirror-hints {
+  border-radius: 0;
+  font-family: "Lucida Grande", "Segoe UI", helvetica, arial, sans-serif;
+  font-size: 11px;
+  line-height: 1em;
+  padding: 0;
+  max-height: 120px;
+}
+body[id="helios"] .CodeMirror-hint {
+  border-radius: 0;
+  padding: 0 10px;
+}
+body[id="helios"] .state {
   position: absolute;
   right: 15px;
   top: 10px;
   width: 16px;
   height: 16px;
 }
-#helios .state.modified {
+body[id="helios"] .state.modified {
   background: transparent url('../images/modified.png') 50% 50% no-repeat;
 }
-#helios .editor {
+body[id="helios"] .editor {
   position: absolute;
   top: 0;
   bottom: 23px;
   left: 0;
   right: 0;
 }
-#helios .buttons_bar {
+body[id="helios"] .hl_widget:focus {
+  outline: 0 none;
+}
+body[id="helios"] .buttons_bar {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -96,29 +96,29 @@ html[xmlns] .clearfix {
   border-top: 1px solid #999;
   text-align: right;
 }
-#helios .buttons_bar .button {
+body[id="helios"] .buttons_bar .button {
   height: 17px;
   font-size: 12px;
   min-width: 0;
 }
-#helios .btn,
-#helios .btn-group > .btn,
-#helios .btn-group > .dropdown-menu {
+body[id="helios"] .btn,
+body[id="helios"] .btn-group > .btn,
+body[id="helios"] .btn-group > .dropdown-menu {
   padding: 2px 8px;
 }
-#helios .navbar-fixed-top {
+body[id="helios"] .navbar-fixed-top {
   font-size: 11px;
   line-height: 16px;
 }
-#helios .navbar-fixed-top a span,
-#helios .dialog .nav a span {
+body[id="helios"] .navbar-fixed-top a span,
+body[id="helios"] .dialog .nav a span {
   padding: 1px;
   padding-left: 18px;
   background-position: center left;
   background-repeat: no-repeat;
   background-position: 0px -1px;
 }
-#helios .navbar-fixed-top i.close {
+body[id="helios"] .navbar-fixed-top i.close {
   width: 14px;
   height: 16px;
   margin-left: 4px;
@@ -127,31 +127,31 @@ html[xmlns] .clearfix {
   background-position: center left;
   margin-top: 2px;
 }
-#helios .navbar-fixed-top a span.references,
-#helios .dialog .nav a span.references {
+body[id="helios"] .navbar-fixed-top a span.references,
+body[id="helios"] .dialog .nav a span.references {
   background-image: url('../images/references.png');
 }
-#helios .navbar-fixed-top a span.browser,
-#helios .dialog .nav a span.browser {
+body[id="helios"] .navbar-fixed-top a span.browser,
+body[id="helios"] .dialog .nav a span.browser {
   background-image: url('../images/browser.png');
 }
-#helios .navbar-fixed-top a span.sunit,
-#helios .dialog .nav a span.sunit {
+body[id="helios"] .navbar-fixed-top a span.sunit,
+body[id="helios"] .dialog .nav a span.sunit {
   background-image: url('../images/sunit.png');
 }
-#helios .navbar-fixed-top a span.workspace,
-#helios .dialog .nav a span.workspace {
+body[id="helios"] .navbar-fixed-top a span.workspace,
+body[id="helios"] .dialog .nav a span.workspace {
   background-image: url('../images/workspace.png');
 }
-#helios .navbar-fixed-top a span.debugger,
-#helios .dialog .nav a span.debugger {
+body[id="helios"] .navbar-fixed-top a span.debugger,
+body[id="helios"] .dialog .nav a span.debugger {
   background-image: url('../images/debugger.png');
 }
-#helios .navbar-fixed-top a span.inspector,
-#helios .dialog .nav a span.inspector {
+body[id="helios"] .navbar-fixed-top a span.inspector,
+body[id="helios"] .dialog .nav a span.inspector {
   background-image: url('../images/inspector.png');
 }
-#helios .navbar-fixed-top .navbar-inner {
+body[id="helios"] .navbar-fixed-top .navbar-inner {
   min-height: 20px;
   background-color: #dbdbdb;
   border-bottom: 1px solid #666;
@@ -161,22 +161,22 @@ html[xmlns] .clearfix {
   background-image: -owebkit-linear-gradient(top, #dfdfdf, #d0d0d0);
   box-shadow: 0 0 0;
 }
-#helios .navbar .nav > li {
+body[id="helios"] .navbar .nav > li {
   line-height: 16px;
 }
-#helios .navbar .nav > li > a {
+body[id="helios"] .navbar .nav > li > a {
   line-height: 22px;
   padding: 0px 8px;
   font-size: 11px;
   color: #444;
   text-shadow: 0 1px 0 #ddd;
 }
-#helios .nav > li > a:hover {
+body[id="helios"] .nav > li > a:hover {
   background: transparent;
 }
-#helios .navbar .nav > .active > a,
-#helios .navbar .nav > .active > a:hover,
-#helios .navbar .nav > .active > a:focus {
+body[id="helios"] .navbar .nav > .active > a,
+body[id="helios"] .navbar .nav > .active > a:hover,
+body[id="helios"] .navbar .nav > .active > a:focus {
   background-color: #bababa;
   background-image: linear-gradient(left, #777777 0%, #bababa 2px, transparent 2px), linear-gradient(right, #777777 0%, #bababa 2px, transparent 2px);
   background-image: -webkit-linear-gradient(left, #777777 0%, #bababa 2px, transparent 2px), -webkit-linear-gradient(right, #777777 0%, #bababa 2px, transparent 2px);
@@ -185,16 +185,16 @@ html[xmlns] .clearfix {
   text-shadow: #ddd 0px 1px 0px;
   color: #222;
 }
-#helios .navbar-fixed-top i {
+body[id="helios"] .navbar-fixed-top i {
   opacity: 0.4;
   margin-right: 5px;
   height: 12px;
   margin-top: 0;
 }
-#helios .navbar-fixed-top .active i {
+body[id="helios"] .navbar-fixed-top .active i {
   opacity: 0.6;
 }
-#helios .nav-pills.nav-stacked > li > a {
+body[id="helios"] .nav-pills.nav-stacked > li > a {
   border-radius: 0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -204,56 +204,56 @@ html[xmlns] .clearfix {
   color: #111;
   white-space: nowrap;
 }
-#helios [class^="icon-"],
-#helios [class*=" icon-"] {
+body[id="helios"] [class^="icon-"],
+body[id="helios"] [class*=" icon-"] {
   margin-right: 2px;
 }
-#helios .dropdown-menu {
+body[id="helios"] .dropdown-menu {
   border-radius: 0;
   padding: 0;
   margin: 3px;
 }
-#helios .nav-pills > .active > a {
+body[id="helios"] .nav-pills > .active > a {
   background-color: #ddd;
   color: #fff;
   text-shadow: 0 0 0;
 }
-#helios .focused .nav-pills {
+body[id="helios"] .focused .nav-pills {
   background-color: #f3f7fb;
 }
-#helios .focused .nav-pills > .active > a,
-#helios .nav-pills > .active > a:hover,
-#helios .dropdown-menu li > a:hover,
-#helios .dropdown-menu li > a:focus,
-#helios .dropdown-submenu:hover > a,
-#helios .dropdown-menu .active > a,
-#helios .dropdown-menu .active > a:hover,
-#helios .CodeMirror-hint-active {
+body[id="helios"] .focused .nav-pills > .active > a,
+body[id="helios"] .nav-pills > .active > a:hover,
+body[id="helios"] .dropdown-menu li > a:hover,
+body[id="helios"] .dropdown-menu li > a:focus,
+body[id="helios"] .dropdown-submenu:hover > a,
+body[id="helios"] .dropdown-menu .active > a,
+body[id="helios"] .dropdown-menu .active > a:hover,
+body[id="helios"] .CodeMirror-hint-active {
   background: rgba(95, 159, 228, 0.62);
   color: #fff;
   text-shadow: 0 0 0;
 }
-#helios .tool_container {
+body[id="helios"] .tool_container {
   position: absolute;
   top: 23px;
   bottom: 0;
   left: 0;
   right: 0;
 }
-#helios .transcript textarea {
+body[id="helios"] .transcript textarea {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
   border: 0;
 }
-#helios .tool_container .panes {
+body[id="helios"] .tool_container .panes {
   position: relative;
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
-#helios .tool_container .panes .pane {
+body[id="helios"] .tool_container .panes .pane {
   position: absolute;
   overflow: auto;
   top: 0;
@@ -262,44 +262,44 @@ html[xmlns] .clearfix {
   bottom: 0;
   background: #fefefe;
 }
-#helios .tool_container .multi_pane {
+body[id="helios"] .tool_container .multi_pane {
   position: relative;
   height: 100%;
   width: auto;
   overflow-x: auto;
 }
-#helios .tool_container .multi_pane .pane {
+body[id="helios"] .tool_container .multi_pane .pane {
   height: 100%;
   max-width: 300px;
   border-right: 1px solid #888;
 }
-#helios .tool_container .panes .pane > div {
+body[id="helios"] .tool_container .panes .pane > div {
   height: 100%;
   position: relative;
 }
-#helios .tool_container .panes.horizontal > .pane {
+body[id="helios"] .tool_container .panes.horizontal > .pane {
   min-height: 50px;
 }
-#helios .tool_container .panes.horizontal > .pane {
+body[id="helios"] .tool_container .panes.horizontal > .pane {
   top: 50%;
 }
-#helios .tool_container .panes.horizontal > .pane:first-child {
+body[id="helios"] .tool_container .panes.horizontal > .pane:first-child {
   top: 0;
   bottom: 50%;
 }
-#helios .tool_container .panes.vertical > .pane {
+body[id="helios"] .tool_container .panes.vertical > .pane {
   left: 50%;
 }
-#helios .tool_container .panes.vertical > .pane:first-child {
+body[id="helios"] .tool_container .panes.vertical > .pane:first-child {
   left: 0;
   right: 50%;
 }
-#helios .tool_container .splitter {
+body[id="helios"] .tool_container .splitter {
   position: absolute;
   border-width: 0;
   z-index: 10;
 }
-#helios .tool_container .splitter.vertical {
+body[id="helios"] .tool_container .splitter.vertical {
   width: 5px;
   left: 50%;
   margin-left: -1px;
@@ -308,7 +308,7 @@ html[xmlns] .clearfix {
   float: left;
   cursor: ew-resize;
 }
-#helios .tool_container .splitter.horizontal {
+body[id="helios"] .tool_container .splitter.horizontal {
   top: 50%;
   height: 5px;
   margin-top: -1px;
@@ -316,7 +316,7 @@ html[xmlns] .clearfix {
   border-top: 1px solid #888;
   cursor: ns-resize;
 }
-#helios .tool_container .panes .pane .nav-pills {
+body[id="helios"] .tool_container .panes .pane .nav-pills {
   position: absolute;
   overflow-y: auto;
   top: 17px;
@@ -324,7 +324,7 @@ html[xmlns] .clearfix {
   width: 100%;
   margin: 0;
 }
-#helios .tool_container .pane .nav-pills i {
+body[id="helios"] .tool_container .pane .nav-pills i {
   display: inline-block;
   width: 16px;
   height: 16px;
@@ -334,58 +334,58 @@ html[xmlns] .clearfix {
   line-height: 14px;
   vertical-align: text-top;
 }
-#helios .tool_container .pane .nav-pills i.announcement {
+body[id="helios"] .tool_container .pane .nav-pills i.announcement {
   background-image: url('../images/announcement.png');
 }
-#helios .tool_container .pane .nav-pills i.class {
+body[id="helios"] .tool_container .pane .nav-pills i.class {
   background-image: url('../images/class.png');
 }
-#helios .tool_container .pane .nav-pills i.collection {
+body[id="helios"] .tool_container .pane .nav-pills i.collection {
   background-image: url('../images/collection.png');
 }
-#helios .tool_container .pane .nav-pills i.test {
+body[id="helios"] .tool_container .pane .nav-pills i.test {
   background-image: url('../images/test.png');
 }
-#helios .tool_container .pane .nav-pills i.exception {
+body[id="helios"] .tool_container .pane .nav-pills i.exception {
   background-image: url('../images/exception.png');
 }
-#helios .tool_container .pane .nav-pills i.widget {
+body[id="helios"] .tool_container .pane .nav-pills i.widget {
   background-image: url('../images/widget.png');
 }
-#helios .tool_container .pane .nav-pills i.magnitude {
+body[id="helios"] .tool_container .pane .nav-pills i.magnitude {
   background-image: url('../images/magnitude.png');
 }
-#helios .tool_container .pane .nav-pills i.package {
+body[id="helios"] .tool_container .pane .nav-pills i.package {
   background-image: url('../images/package.png');
 }
-#helios .tool_container .pane .nav-pills i.private {
+body[id="helios"] .tool_container .pane .nav-pills i.private {
   background-image: url('../images/private.png');
 }
-#helios .tool_container .pane .nav-pills i.extension {
+body[id="helios"] .tool_container .pane .nav-pills i.extension {
   background-image: url('../images/extension.png');
 }
-#helios .tool_container .pane .nav-pills i.initialization {
+body[id="helios"] .tool_container .pane .nav-pills i.initialization {
   background-image: url('../images/initialization.png');
 }
-#helios .tool_container .pane .nav-pills i.package {
+body[id="helios"] .tool_container .pane .nav-pills i.package {
   background-image: url('../images/package.png');
 }
-#helios .tool_container .pane .nav-pills i.override {
+body[id="helios"] .tool_container .pane .nav-pills i.override {
   background-image: url('../images/override.png ');
 }
-#helios .tool_container .pane .nav-pills i.overridden {
+body[id="helios"] .tool_container .pane .nav-pills i.overridden {
   background-image: url('../images/overridden.png');
 }
-#helios .tool_container .pane .nav-pills i.override-overridden {
+body[id="helios"] .tool_container .pane .nav-pills i.override-overridden {
   background-image: url('../images/override-overridden.png');
 }
-#helios .tool_container .pane .nav-pills i.warning {
+body[id="helios"] .tool_container .pane .nav-pills i.warning {
   background-image: url('../images/warning.gif');
 }
-#helios .tool_container .pane .nav-pills i.uncommented {
+body[id="helios"] .tool_container .pane .nav-pills i.uncommented {
   background-image: url('../images/uncommented.png');
 }
-#helios .tool_container .list-label {
+body[id="helios"] .tool_container .list-label {
   font-size: 11px;
   border-radius: 0;
   border-bottom: 1px solid #999;
@@ -403,32 +403,32 @@ html[xmlns] .clearfix {
   height: 15px;
   text-shadow: 0 1px 0 #eee;
 }
-#helios .tool_container .list-label .btn-group.cog {
+body[id="helios"] .tool_container .list-label .btn-group.cog {
   position: absolute;
   top: 0;
   right: 0;
   padding: 0;
   margin: 0;
 }
-#helios .tool_container .list-label .btn-group.open .dropdown-toggle {
+body[id="helios"] .tool_container .list-label .btn-group.open .dropdown-toggle {
   box-shadow: 0 0 0;
   border: 0;
 }
-#helios .tool_container .list-label .btn-group > .dropdown-menu {
+body[id="helios"] .tool_container .list-label .btn-group > .dropdown-menu {
   padding: 0;
   font-size: 11px;
 }
-#helios .tool_container .list-label .btn-group.cog i {
+body[id="helios"] .tool_container .list-label .btn-group.cog i {
   margin-top: 1px;
 }
-#helios .tool_container .list-label .cog .btn.dropdown-toggle {
+body[id="helios"] .tool_container .list-label .cog .btn.dropdown-toggle {
   padding: 0;
   margin: 0;
   line-height: 12px;
   border: 0;
   background: transparent;
 }
-#helios .tool_container .panes .pane .pane_actions {
+body[id="helios"] .tool_container .panes .pane .pane_actions {
   position: absolute;
   overflow: hidden;
   width: 100%;
@@ -437,8 +437,8 @@ html[xmlns] .clearfix {
   padding: 0;
   margin: 0;
 }
-#helios .tool_container .pane_actions,
-#helios .tool_container .buttons_bar {
+body[id="helios"] .tool_container .pane_actions,
+body[id="helios"] .tool_container .buttons_bar {
   background: #dadada;
   border-top: 1px solid #666;
   background-image: -webkit-linear-gradient(top, #dadada, #bdbdbd);
@@ -446,17 +446,17 @@ html[xmlns] .clearfix {
   background-image: -o-linear-gradient(top, #dadada, #bdbdbd);
   background-image: linear-gradient(top, #dadada, #bdbdbd);
 }
-#helios .tool_container .panes .pane .pane_actions .info {
+body[id="helios"] .tool_container .panes .pane .pane_actions .info {
   padding: 10px 5px 5px;
   font-weight: bold;
   color: #666;
   line-height: 20px;
 }
-#helios .tool_container .panes .pane .pane_actions .btn-group {
+body[id="helios"] .tool_container .panes .pane .pane_actions .btn-group {
   display: inline;
   margin-left: 5px;
 }
-#helios .tool_container .panes .pane .pane_actions label {
+body[id="helios"] .tool_container .panes .pane .pane_actions label {
   display: inline-block;
   padding-left: 30px;
   font-size: 11px;
@@ -465,13 +465,13 @@ html[xmlns] .clearfix {
   text-shadow: #ddd 0px 1px 0px;
   color: #222;
 }
-#helios .tool_container .panes .pane .pane_actions label input {
+body[id="helios"] .tool_container .panes .pane .pane_actions label input {
   float: none;
   vertical-align: top;
   margin-top: 2px;
   margin-right: 5px;
 }
-#helios .tool_container .panes .pane .pane_actions .btn {
+body[id="helios"] .tool_container .panes .pane .pane_actions .btn {
   background: transparent;
   border: 0;
   font-size: 11px;
@@ -482,15 +482,14 @@ html[xmlns] .clearfix {
   box-shadow: 0 0 0;
   vertical-align: top;
   /* min-width: 50px; */
-
 }
-#helios .tool_container .panes .pane .pane_actions .btn:hover {
+body[id="helios"] .tool_container .panes .pane .pane_actions .btn:hover {
   background-color: #bbb;
 }
-#helios .tool_container .panes .pane .pane_actions .btn-group .btn:hover {
+body[id="helios"] .tool_container .panes .pane .pane_actions .btn-group .btn:hover {
   background-color: transparent;
 }
-#helios .tool_container .panes .pane .pane_actions .btn-group .btn.active {
+body[id="helios"] .tool_container .panes .pane .pane_actions .btn-group .btn.active {
   text-shadow: #ddd 0px 1px 0px;
   color: #222;
   background: #bbb;
@@ -499,64 +498,81 @@ html[xmlns] .clearfix {
   background-image: -moz-linear-gradient(left, #777777 0%, #bababa 2px, transparent 2px), -moz-linear-gradient(right, #777777 0%, #bababa 2px, transparent 2px);
   background-image: -o-linear-gradient(left, #777777 0%, #bababa 2px, transparent 2px), -o-linear-gradient(right, #777777 0%, #bababa 2px, transparent 2px);
 }
-#helios .tool_container .panes .pane .class_side .nav-pills {
+body[id="helios"] .tool_container .panes .pane .class_side .nav-pills {
   font-weight: bold;
   background: #ffffdd;
 }
-#helios .key_helper {
-  z-index: 20;
+body[id="helios"] .key_helper {
+  z-index: 2001;
   position: fixed;
-  bottom: 0px;
-  background: #fff;
-  background-image: linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-  background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-  background-image: -o-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-  background-image: -webkit-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-  width: 100%;
-  border-top: 1px solid #aaa;
+  top: 120px;
+  left: 50%;
+  width: 400px;
+  max-height: 300px;
+  margin-left: -200px;
+  background: white;
+  box-shadow: 0 0 6px #aaa;
+  border: 1px solid #aaa;
   font-size: 11px;
-  height: 22px;
+  transition: all .5s;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  -ms-transition: all .5s;
 }
-#helios .key_helper .command {
-  padding: 0 2px;
+body[id="helios"] .key_helper .command {
+  padding: 0;
+  display: inline-block;
+  width: 50%;
 }
-#helios .key_helper #binding-helper-main {
-  display: inline;
+body[id="helios"] .key_helper .command strong {
+  display: inline-block;
+  min-width: 1.4em;
+  text-align: left;
 }
-#helios .key_helper .label {
+body[id="helios"] .key_helper #binding-helper-main {
+  display: block;
+  padding: 5px;
+}
+body[id="helios"] .key_helper .label {
   padding: 1px 4px;
   font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
   background: transparent;
-  color: #08C;
+  color: #0E4561;
   text-shadow: none;
   border: 0 none;
 }
-#helios .key_helper .action {
-  padding: 0 5px;
-  color: #666;
-}
-#helios .key_helper .selected {
-  background-image: linear-gradient(top, #cccccc, #aaaaaa);
-  background-image: -moz-linear-gradient(top, #cccccc, #aaaaaa);
-  background-image: -o-linear-gradient(top, #cccccc, #aaaaaa);
-  background-image: -webkit-linear-gradient(top, #cccccc, #aaaaaa);
-  height: 30px;
-  padding: 0 8px;
-  color: #333;
+body[id="helios"] .key_helper .action {
+  padding: 0 0.5em 0 5px;
+  color: inherit;
   font-weight: bold;
+}
+body[id="helios"] .key_helper .selected {
+  background-image: linear-gradient(top, #cccccc, #bbbbbb);
+  background-image: -moz-linear-gradient(top, #cccccc, #bbbbbb);
+  background-image: -o-linear-gradient(top, #cccccc, #bbbbbb);
+  background-image: -webkit-linear-gradient(top, #cccccc, #bbbbbb);
+  height: 28px;
+  padding: 0 8px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 28px;
   text-shadow: 0 1px 0 #fff;
-  display: inline-block;
-  border-right: 1px solid #aaa;
+  display: block;
+  border-bottom: 1px solid #aaa;
 }
-#helios .key_helper .close {
+body[id="helios"] .key_helper .close {
   font-size: 14px;
-  line-height: 26px;
+  line-height: 28px;
   opacity: 0.6;
+  position: absolute;
+  top: 0;
+  right: 4px;
 }
-#helios .key_helper .close:hover {
+body[id="helios"] .key_helper .close:hover {
   opacity: 0.8;
 }
-#helios .key_helper input {
+body[id="helios"] .key_helper input {
   outline: none;
   font-size: 11px;
   padding: 2px 8px;
@@ -567,17 +583,12 @@ html[xmlns] .clearfix {
   margin: 2px 4px;
   line-height: 1em;
 }
-#helios .key_helper .error .help-inline,
-#helios .key_helper .error input {
+body[id="helios"] .key_helper .error .help-inline,
+body[id="helios"] .key_helper .error input {
   color: #B91010;
   font-weight: bold;
 }
-#helios .key_helper .typeahead.dropdown-menu {
-  position: fixed !important;
-  top: auto !important;
-  bottom: 30px !important;
-}
-#helios .key_helper #cog-helper {
+body[id="helios"] .key_helper #cog-helper {
   position: fixed;
   bottom: 2px;
   right: 2px;
@@ -589,10 +600,10 @@ html[xmlns] .clearfix {
   -o-transition: all .5s;
   -ms-transition: all .5s;
 }
-#helios .key_helper #cog-helper:hover {
+body[id="helios"] .key_helper #cog-helper:hover {
   opacity: 1;
 }
-#helios #helper {
+body[id="helios"] #helper {
   z-index: 300;
   top: 50%;
   position: absolute;
@@ -609,17 +620,20 @@ html[xmlns] .clearfix {
   background: rgba(0, 0, 0, 0.6);
   border-radius: 40px;
 }
-#helios #overlay {
+body[id="helios"] #overlay {
   z-index: 2000;
-  background: transparent;
+  background: rgba(112, 66, 20, 0.1);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
 }
-#helios .confirmation,
-#helios .dialog {
+body[id="helios"] #overlay.light {
+  background: rgba(50, 50, 50, 0.1);
+}
+body[id="helios"] .confirmation,
+body[id="helios"] .dialog {
   z-index: 2001;
   background: rgba(243, 243, 243, 0.9);
   background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 5px, transparent 6px);
@@ -638,71 +652,67 @@ html[xmlns] .clearfix {
   -moz-transition: top .5s;
   -o-transition: top .5s;
 }
-#helios .confirmation .hl_widget:focus,
-#helios .dialog .hl_widget:focus {
-  outline: 0 none;
-}
-#helios .confirmation .hl_widget .form-actions,
-#helios .dialog .hl_widget .form-actions {
+body[id="helios"] .confirmation .hl_widget .form-actions,
+body[id="helios"] .dialog .hl_widget .form-actions {
   padding: 0;
   border: 0;
 }
-#helios .confirmation .nav,
-#helios .dialog .nav {
+body[id="helios"] .confirmation .nav,
+body[id="helios"] .dialog .nav {
   border: 1px solid #999;
 }
-#helios .confirmation .nav span,
-#helios .dialog .nav span {
+body[id="helios"] .confirmation .nav span,
+body[id="helios"] .dialog .nav span {
   font-size: 11px;
   font-weight: normal;
 }
-#helios .confirmation .title,
-#helios .dialog .title {
+body[id="helios"] .confirmation .title,
+body[id="helios"] .dialog .title {
   font-size: 16px;
   margin-bottom: 15px;
 }
-#helios .confirmation .large,
-#helios .dialog .large {
+body[id="helios"] .confirmation.large,
+body[id="helios"] .dialog.large {
   width: 400px;
   margin-left: -220px;
 }
-#helios .confirmation .large textarea,
-#helios .dialog .large textarea {
+body[id="helios"] .confirmation.large textarea,
+body[id="helios"] .dialog.large textarea {
   width: 385px;
   height: 200px;
 }
-#helios .confirmation textarea,
-#helios .dialog textarea {
+body[id="helios"] .confirmation textarea,
+body[id="helios"] .dialog textarea {
   display: block;
   width: 235px;
 }
-#helios .confirmation .progress,
-#helios .dialog .progress {
+body[id="helios"] .confirmation .progress,
+body[id="helios"] .dialog .progress {
   height: 5px;
 }
-#helios .confirmation .progress .bar,
-#helios .dialog .progress .bar {
+body[id="helios"] .confirmation .progress .bar,
+body[id="helios"] .dialog .progress .bar {
   background-color: #e9eaf5;
   background-image: -webkit-linear-gradient(top, #b1bdd5, #8999b8);
   background-image: -moz-linear-gradient(top, #b1bdd5, #8999b8);
   background-image: -o-linear-gradient(top, #b1bdd5, #8999b8);
   background-image: linear-gradient(top, #b1bdd5, #8999b8);
 }
-#helios .confirmation span,
-#helios .dialog span {
+body[id="helios"] .confirmation span,
+body[id="helios"] .dialog span {
   font-size: 13px;
   font-weight: bold;
 }
-#helios .confirmation .buttons,
-#helios .dialog .buttons {
+body[id="helios"] .confirmation .buttons,
+body[id="helios"] .dialog .buttons {
   text-align: right;
   margin-top: 20px;
 }
-#helios .confirmation.active,
-#helios .dialog.active {
+body[id="helios"] .confirmation.active,
+body[id="helios"] .dialog.active {
   top: 0;
 }
-#helios .button {
+body[id="helios"] .button {
   border-radius: 3px !important;
   background: #ccc;
   border: 1px solid #9B9B9B;
@@ -716,7 +726,7 @@ html[xmlns] .clearfix {
   background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
   font: 13px "Lucida Grande", Lucida, Verdana, sans-serif;
 }
-#helios .button.default {
+body[id="helios"] .button.default {
   border-top: 1px solid #535273;
   border: 1px solid #4F4D67;
   border-bottom: 1px solid #4B4B58;
@@ -726,63 +736,67 @@ html[xmlns] .clearfix {
   -webkit-box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
   box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
 }
-#helios .button:hover {
+body[id="helios"] .button:hover {
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
-#helios .button:active {
+body[id="helios"] .button:active {
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
 }
-#helios .button:focus {
+body[id="helios"] .button:focus {
   outline: 0;
+  border-color: #08C;
+  box-shadow: 0 0 5px #08C;
 }
-#helios .doc {
+body[id="helios"] .doc {
   background: white;
 }
-#helios .doc code .doc pre {
-  font-size: 11px;
+body[id="helios"] .doc code .doc pre,
+body[id="helios"] .doc p,
+body[id="helios"] .doc div {
+  font-size: 13px;
 }
-#helios .doc code {
+body[id="helios"] .doc code {
   padding: 1px 4px;
 }
-#helios .doc .head {
+body[id="helios"] .doc .head {
   background: #08C;
   padding: 10px;
   font-size: 22px;
   color: white;
 }
-#helios .doc .button {
+body[id="helios"] .doc .button {
   float: right;
 }
-#helios .doc .markdown,
-#helios .doc .inheritance {
+body[id="helios"] .doc .markdown,
+body[id="helios"] .doc .inheritance {
   padding: 10px;
 }
-#helios .doc h1 {
+body[id="helios"] .doc h1 {
   font-size: 22px;
   margin: 0 10px;
   border-bottom: 1px solid #666;
 }
-#helios .doc h2 {
+body[id="helios"] .doc h2 {
   font-size: 16px;
 }
-#helios .transcript_container .list-label {
+body[id="helios"] .transcript_container .list-label {
   height: 16px;
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
 }
-#helios .transcript {
+body[id="helios"] .transcript {
   position: absolute;
   top: 17px;
   bottom: 0;
   left: 0;
   right: 0;
 }
-#helios .transcript textarea {
+body[id="helios"] .transcript textarea {
   width: 100%;
   height: 100%;
   margin: 0;

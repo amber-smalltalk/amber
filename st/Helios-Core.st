@@ -1,5 +1,5 @@
-Smalltalk current createPackage: 'Helios-Core'!
-Object subclass: #HLModel
+Smalltalk createPackage: 'Helios-Core'!
+InterfacingObject subclass: #HLModel
 	instanceVariableNames: 'announcer environment'
 	package: 'Helios-Core'!
 !HLModel commentStamp!
@@ -90,6 +90,16 @@ availablePackages
 
 availableProtocols
 	^ self environment availableProtocolsFor: self selectedClass
+!
+
+packageToCommit
+	"Answer the package to commit depending on the context:
+	- if a Method is selected, answer its package
+	- else answer the `selectedPackage`"
+	
+	^ self selectedMethod 
+		ifNil: [ self selectedPackage ]
+		ifNotNil: [ :method | method package ]
 !
 
 packages
@@ -191,9 +201,7 @@ saveSourceCode
 !HLToolModel methodsFor: 'commands actions'!
 
 commitPackage
-	"self 
-		withHelperLabelled: 'Committing package ', self selectedPackage name, '...'
-		do: [ "self environment commitPackage: self selectedPackage" ]"
+	self environment commitPackage: self packageToCommit
 !
 
 copyClassTo: aClassName
@@ -348,7 +356,7 @@ withCompileErrorHandling: aBlock
 				self environment 
 					evaluate: aBlock
 					on: ParseError
-					do: [:ex | self handleParseError: ex ] ]
+					do: [ :ex | self handleParseError: ex ] ]
 			on: UnknownVariableError
 			do: [ :ex | self handleUnkownVariableError: ex ] ]
 		on: CompilerError
@@ -394,7 +402,7 @@ isToolModel
 
 shouldCompileClassDefinition: aString
 	^ self selectedClass isNil or: [
-		aString match: '^[A-Z]' ]
+		aString match: '^\s*[A-Z]' ]
 ! !
 
 !HLToolModel class methodsFor: 'actions'!
@@ -406,7 +414,7 @@ on: anEnvironment
         yourself
 ! !
 
-ProgressHandler subclass: #HLProgressHandler
+Object subclass: #HLProgressHandler
 	instanceVariableNames: ''
 	package: 'Helios-Core'!
 !HLProgressHandler commentStamp!
@@ -659,7 +667,13 @@ refresh
 !HLWidget class methodsFor: 'accessing'!
 
 openAsTab
-	HLManager current addTab: (HLTabWidget on: self new labelled: self tabLabel)
+	| instance |
+	
+	instance := self new.
+	HLManager current addTab: (HLTabWidget 
+		on: instance 
+		labelled: self tabLabel).
+	^ instance
 !
 
 tabClass
@@ -737,13 +751,18 @@ hasFocus
 ! !
 
 HLFocusableWidget subclass: #HLListWidget
-	instanceVariableNames: 'items selectedItem mapping'
+	instanceVariableNames: 'items selectedItem'
 	package: 'Helios-Core'!
 
 !HLListWidget methodsFor: 'accessing'!
 
 cssClassForItem: anObject
 	^ ''
+!
+
+findListItemFor: anObject
+	^ (((wrapper asJQuery find: 'li') 
+		filter: [ :thisArg :otherArg | (thisArg asJQuery data: 'item') = anObject ] currySelf) eq: 0)
 !
 
 items
@@ -781,22 +800,20 @@ activateFirstListItem
 !
 
 activateItem: anObject
-	self activateListItem: (mapping 
-		at: anObject
-		ifAbsent: [ ^ self ]) asJQuery
+	self activateListItem: (self findListItemFor: anObject)
 !
 
 activateListItem: aListItem
 	| item |
 	
-	(aListItem get: 0) ifNil: [ ^self ].
+	(aListItem get: 0) ifNil: [ ^ self ].
 	aListItem parent children removeClass: 'active'.
 	aListItem addClass: 'active'.
     
 	self ensureVisible: aListItem.
     
    "Activate the corresponding item"
-   item := (self items at: (aListItem attr: 'list-data') asNumber).
+   item := aListItem data: 'item'.
    self selectedItem == item ifFalse: [
 	   self selectItem: item ]
 !
@@ -817,7 +834,7 @@ ensureVisible: aListItem
 	"Move the scrollbar to show the active element"
 	
 	| parent position |
-	
+	(aListItem get: 0) ifNil: [ ^ self ].
 	position := self positionOf: aListItem.
 	parent := aListItem parent.
 	
@@ -835,10 +852,7 @@ focus
 
 refresh
 	super refresh.
-	
-	self ensureVisible: (mapping 
-		at: self selectedItem
-		ifAbsent: [ ^ self ]) asJQuery
+	self selectedItem ifNotNil: [self ensureVisible: (self findListItemFor: self selectedItem)].
 !
 
 selectItem: anObject
@@ -860,20 +874,6 @@ setupKeyBindings
 		rebindKeys
 ! !
 
-!HLListWidget methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	
-	mapping := Dictionary new.
-! !
-
-!HLListWidget methodsFor: 'private'!
-
-registerMappingFrom: anObject to: aTag
-	mapping at: anObject put: aTag
-! !
-
 !HLListWidget methodsFor: 'rendering'!
 
 renderButtonsOn: html
@@ -893,10 +893,8 @@ renderItem: anObject on: html
 	| li |
     
 	li := html li.
-	self registerMappingFrom: anObject to: li.
-	
+	li asJQuery data: 'item' put: anObject.
     li
-        at: 'list-data' put: (self items indexOf: anObject) asString;
 		class: (self listCssClassForItem: anObject);
         with: [ 
         	html a
@@ -912,10 +910,8 @@ renderItemLabel: anObject on: html
 !
 
 renderListOn: html
-	mapping := Dictionary new.
-	
-	self items do: [ :each | 
-    	self renderItem: each on: html ]
+	self items do: [ :each  | 
+    	self renderItem: each  on: html ]
 ! !
 
 HLListWidget subclass: #HLNavigationListWidget
@@ -1195,18 +1191,6 @@ confirm: aString ifTrue: aBlock
 		show
 !
 
-registerErrorHandler: anErrorHandler
-	self environment registerErrorHandler: anErrorHandler
-!
-
-registerInspector: anInspector
-	self environment registerInspector: anInspector
-!
-
-registerProgressHandler: aProgressHandler
-	self environment registerProgressHandler: aProgressHandler
-!
-
 removeActiveTab
 	self removeTab: self activeTab
 !
@@ -1247,29 +1231,34 @@ request: aString value: valueString do: aBlock
 defaultEnvironment
 	"If helios is loaded from within a frame, answer the parent window environment"
 	
-	| parent parentSmalltalk |
+	| parent parentSmalltalkGlobals |
 	
 	parent := window opener ifNil: [ window parent ].
 	parent ifNil: [ ^ Environment new ].
 	
-	parentSmalltalk := (parent at: 'requirejs') value: 'amber_vm/smalltalk'.
-	parentSmalltalk ifNil: [ ^ Environment new ].
+	parentSmalltalkGlobals := (parent at: 'requirejs') value: 'amber_vm/globals'.
+	parentSmalltalkGlobals ifNil: [ ^ Environment new ].
 	
-	^ (parentSmalltalk at: 'Environment') new
+	^ (parentSmalltalkGlobals at: 'Environment') new
 ! !
 
 !HLManager methodsFor: 'initialization'!
 
-initialize
-	super initialize.
-	
-	HLErrorHandler register.
-	HLProgressHandler register.
-	
-	self registerInspector: HLInspector.
-	self registerErrorHandler: ErrorHandler current.
-	self registerProgressHandler: ProgressHandler current.
-    self keyBinder setupEvents
+setup
+	self registerServices.
+    self keyBinder 
+		setupEvents;
+		setupHelper
+! !
+
+!HLManager methodsFor: 'private'!
+
+registerServices
+	self
+		registerInspector;
+		registerErrorHandler;
+		registerProgressHandler;
+		registerTranscript
 ! !
 
 !HLManager methodsFor: 'rendering'!
@@ -1334,6 +1323,27 @@ show: aTab
 	aTab show; focus
 ! !
 
+!HLManager methodsFor: 'services'!
+
+registerErrorHandler
+	self environment registerErrorHandler: HLErrorHandler new.
+	ErrorHandler register: HLErrorHandler new
+!
+
+registerInspector
+	self environment registerInspector: HLInspector.
+	Inspector register: HLInspector
+!
+
+registerProgressHandler
+	self environment registerProgressHandler: HLProgressHandler new.
+	ProgressHandler register: HLProgressHandler new
+!
+
+registerTranscript
+	self environment registerTranscript: HLTranscriptHandler
+! !
+
 HLManager class instanceVariableNames: 'current'!
 
 !HLManager class methodsFor: 'accessing'!
@@ -1344,8 +1354,10 @@ current
 
 !HLManager class methodsFor: 'initialization'!
 
-initialize
-	self current appendToJQuery: 'body' asJQuery
+setup
+	self current 
+		setup;
+		appendToJQuery: 'body' asJQuery
 ! !
 
 !HLManager class methodsFor: 'instance creation'!
@@ -1391,6 +1403,12 @@ show
 	self appendToJQuery: 'body' asJQuery
 ! !
 
+!HLModalWidget methodsFor: 'private'!
+
+giveFocusToButton: aButton
+	aButton asJQuery focus
+! !
+
 !HLModalWidget methodsFor: 'rendering'!
 
 hasButtons
@@ -1412,7 +1430,7 @@ renderButtonsOn: html
 				with: 'Confirm';
 				onClick: [ self confirm ] ].
 
-	confirmButton asJQuery focus
+	self giveFocusToButton:confirmButton
 !
 
 renderContentOn: html
@@ -1519,12 +1537,19 @@ confirm
 	self actionBlock value: input asJQuery val
 ! !
 
+!HLRequestWidget methodsFor: 'private'!
+
+giveFocusToButton: aButton
+! !
+
 !HLRequestWidget methodsFor: 'rendering'!
 
 renderMainOn: html
 	super renderMainOn: html.
 	input := html textarea.
-	input asJQuery val: self value
+	input asJQuery 
+		val: self value;
+		focus
 ! !
 
 HLModalWidget subclass: #HLProgressWidget

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Commands-Tools'!
+Smalltalk createPackage: 'Helios-Commands-Tools'!
 HLModelCommand subclass: #HLToolCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Tools'!
@@ -21,6 +21,38 @@ for: aToolModel
 
 isValidFor: aModel
 	^ aModel isToolModel
+! !
+
+HLToolCommand subclass: #HLBrowseMethodCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Tools'!
+
+!HLBrowseMethodCommand methodsFor: 'accessing'!
+
+displayLabel
+	^ 'browse method'
+! !
+
+!HLBrowseMethodCommand methodsFor: 'executing'!
+
+execute
+	self model openMethod
+! !
+
+!HLBrowseMethodCommand class methodsFor: 'accessing'!
+
+key
+	^ 'b'
+!
+
+label
+	^ 'browse method'
+! !
+
+!HLBrowseMethodCommand class methodsFor: 'testing'!
+
+isValidFor: aModel
+	^ aModel isReferencesModel
 ! !
 
 HLToolCommand subclass: #HLCommitPackageCommand
@@ -53,7 +85,7 @@ key
 !
 
 label
-	^ 'Commit'
+	^ 'Commit package'
 ! !
 
 HLToolCommand subclass: #HLCopyCommand
@@ -113,7 +145,7 @@ key
 !
 
 label
-	^ 'Class'
+	^ 'Copy class'
 !
 
 menuLabel
@@ -171,13 +203,13 @@ key
 !
 
 label
-	^ 'Class'
+	^ 'Find class'
 ! !
 
 !HLFindClassCommand class methodsFor: 'testing'!
 
 isValidFor: aModel
-	^ aModel isBrowserModel
+	^ true
 ! !
 
 HLFindCommand subclass: #HLFindReferencesCommand
@@ -205,7 +237,7 @@ defaultInput
 		ifNil: [
 			self model selectedClass
 				ifNil: [ '' ]
-				ifNotNil: [ :class | class name ] ]
+				ifNotNil: [ :class | class theNonMetaClass name ] ]
 		ifNotNil: [ :method | method selector ]
 ! !
 
@@ -230,7 +262,7 @@ key
 !
 
 label
-	^ 'References'
+	^ 'Find references'
 ! !
 
 HLToolCommand subclass: #HLMoveToCommand
@@ -264,7 +296,7 @@ key
 !
 
 label
-	^ 'Class'
+	^ 'Move class'
 ! !
 
 HLMoveClassToCommand subclass: #HLMoveClassToPackageCommand
@@ -308,7 +340,7 @@ key
 !
 
 label
-	^ 'to package'
+	^ 'Move class to package'
 !
 
 menuLabel	
@@ -338,7 +370,7 @@ key
 !
 
 label
-	^ 'Method'
+	^ 'Move method'
 ! !
 
 HLMoveMethodToCommand subclass: #HLMoveMethodToClassCommand
@@ -378,7 +410,7 @@ key
 !
 
 label	
-	^ 'to class'
+	^ 'Move method to class'
 !
 
 menuLabel	
@@ -422,7 +454,7 @@ key
 !
 
 label
-	^ 'to protocol'
+	^ 'Move method to protocol'
 !
 
 menuLabel
@@ -472,7 +504,7 @@ key
 !
 
 label
-	^ 'Class'
+	^ 'Remove class'
 !
 
 menuLabel
@@ -508,7 +540,7 @@ key
 !
 
 label
-	^ 'Method'
+	^ 'Remove method'
 !
 
 menuLabel
@@ -544,7 +576,7 @@ key
 !
 
 label
-	^ 'Protocol'
+	^ 'Remove protocol'
 !
 
 menuLabel
@@ -582,7 +614,7 @@ displayLabel
 !HLRenameClassCommand methodsFor: 'defaults'!
 
 defaultInput
-	^ self model selectedClass name
+	^ self model selectedClass theNonMetaClass name
 ! !
 
 !HLRenameClassCommand methodsFor: 'executing'!
@@ -608,7 +640,7 @@ key
 !
 
 label
-	^ 'Class'
+	^ 'Rename class'
 !
 
 menuLabel
@@ -658,7 +690,7 @@ key
 !
 
 label
-	^ 'Protocol'
+	^ 'Rename protocol'
 !
 
 menuLabel

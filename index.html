@@ -14,10 +14,9 @@
     require(
         ["amber/devel"],
         function (smalltalk) {
-            smalltalk.defaultAmdNamespace = "amber_core";
-            smalltalk.initialize();
+            smalltalk.initialize({'transport.defaultAmdNamespace': "amber_core"});
 
-            smalltalk.Browser._open()
+            smalltalk.globals.Browser._open();
         }
     );
 </script>

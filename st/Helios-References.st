@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-References'!
+Smalltalk createPackage: 'Helios-References'!
 Object subclass: #HLMethodReference
 	instanceVariableNames: 'selector methodClass'
 	package: 'Helios-References'!
@@ -284,25 +284,11 @@ allMethods
 	^ self methodsCache
 !
 
-allSelectors
-	^ (self allMethods 
-		collect: [ :each | each selector ])
-		asSet
-!
-
 classReferencesOf: aString
 	"Answer all methods referencing the class named aString"
 	
-	| references |
-	
-	references := OrderedCollection new.
-	
-	self classesAndMetaclasses do: [ :each |
-		each methodDictionary values do: [ :method |
-			(method referencedClasses includes: aString) ifTrue: [
-				references add: method ] ] ].
-				
-	^ references
+	^self allMethods select: [ :each |
+			(each referencedClasses includes: aString) ].
 !
 
 classesAndMetaclasses
@@ -333,6 +319,24 @@ sendersOf: aString
 
 !HLReferencesModel methodsFor: 'actions'!
 
+openClassNamed: aString
+	| browser |
+	
+	self withChangesDo: [
+		browser := HLBrowser openAsTab.
+		browser openClassNamed: aString ]
+!
+
+openMethod
+	| browser |
+	
+	self selectedMethod ifNil: [ ^ self ].
+	
+	self withChangesDo: [
+		browser := HLBrowser openAsTab.
+		browser openMethod: self selectedMethod ]
+!
+
 search: aString
 	self updateCaches.
 	
@@ -345,13 +349,11 @@ search: aString
 
 classesAndMetaclassesCache
 	classesAndMetaclassesCache ifNil: [ self updateClassesAndMetaclassesCache ].
-	
 	^ classesAndMetaclassesCache
 !
 
 methodsCache
 	methodsCache ifNil: [ self updateMethodsCache ].
-	
 	^ methodsCache
 !
 
@@ -362,20 +364,19 @@ updateCaches
 !
 
 updateClassesAndMetaclassesCache
-	classesAndMetaclassesCache := self environment classes 
-		inject: OrderedCollection new 
-		into: [ :acc :each |
-			acc 
+	classesAndMetaclassesCache := OrderedCollection new.
+	
+	self environment classes do: [ :each |
+		classesAndMetaclassesCache
 				add: each; 
-				add: each class;
-				yourself ]
+				add: each class ]
 !
 
 updateMethodsCache
-	methodsCache := self classesAndMetaclasses
-		inject: OrderedCollection new
-		into: [ :acc :each |
-			acc, each methods ]
+	methodsCache := OrderedCollection new.
+	
+	self classesAndMetaclasses
+		do: [ :each | methodsCache addAll: each methods ]
 ! !
 
 !HLReferencesModel methodsFor: 'testing'!

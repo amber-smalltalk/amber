@@ -1,11 +1,11 @@
-Smalltalk current createPackage: 'Test'!
+Smalltalk createPackage: 'Test'!
 Object subclass: #NodeTestRunner
 	instanceVariableNames: ''
 	package: 'Test'!
 
 !NodeTestRunner class methodsFor: 'not yet classified'!
 
-initialize
+main
 	self runTestSuite
 !
 

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Commands-Core'!
+Smalltalk createPackage: 'Helios-Commands-Core'!
 Object subclass: #HLCommand
 	instanceVariableNames: 'input'
 	package: 'Helios-Commands-Core'!
@@ -310,7 +310,7 @@ key
 !
 
 label
-	^ 'Switch'
+	^ 'Switch tab'
 ! !
 
 HLCommand subclass: #HLViewCommand

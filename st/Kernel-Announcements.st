@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Announcements'!
+Smalltalk createPackage: 'Kernel-Announcements'!
 Object subclass: #AnnouncementSubscription
 	instanceVariableNames: 'valuable announcementClass'
 	package: 'Kernel-Announcements'!
@@ -46,16 +46,16 @@ valuable: aValuable
 
 deliver: anAnnouncement
 	(self handlesAnnouncement: anAnnouncement)
-		ifTrue: [self valuable value: anAnnouncement]
+		ifTrue: [ self valuable value: anAnnouncement ]
 !
 
 handlesAnnouncement: anAnnouncement
 	"anAnnouncement might be announced from within another Amber environment"
 	
-	^ (Smalltalk current at: self announcementClass name)
+	^ (Smalltalk globals at: self announcementClass name)
 		ifNil: [ ^ false ]
 		ifNotNil: [ :class |
-		(Smalltalk current at: anAnnouncement class theNonMetaClass name) includesBehavior: class ]
+		(Smalltalk globals at: anAnnouncement class theNonMetaClass name) includesBehavior: class ]
 ! !
 
 Object subclass: #Announcer
@@ -104,6 +104,19 @@ on: aClass do: aBlock
 		yourself)
 !
 
+on: aClass doOnce: aBlock
+	| subscription |
+	
+	subscription := AnnouncementSubscription new
+		announcementClass: aClass;
+		yourself.
+	subscription valuable: [ :ann |
+		subscriptions remove: subscription.
+		aBlock value: ann ].
+
+	subscriptions add: subscription
+!
+
 on: aClass send: aSelector to: anObject
 	subscriptions add: (AnnouncementSubscription new
 		valuable: (MessageSend new
@@ -144,20 +157,10 @@ new
 ! !
 
 Object subclass: #SystemAnnouncement
-	instanceVariableNames: 'theClass'
+	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
 !SystemAnnouncement commentStamp!
 I am the superclass of all system announcements!
-
-!SystemAnnouncement methodsFor: 'accessing'!
-
-theClass
-	^ theClass
-!
-
-theClass: aClass
-	theClass := aClass
-! !
 
 !SystemAnnouncement class methodsFor: 'helios'!
 

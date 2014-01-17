@@ -22,9 +22,8 @@
         ["amber/devel",
             "amber_cli/AmberCli" ],
         function (smalltalk) {
-            smalltalk.defaultAmdNamespace = 'amber_cli';
-            smalltalk.initialize();
-            smalltalk.Browser._openOn_(smalltalk.AmberCli);
+            smalltalk.initialize({'transport.defaultAmdNamespace': 'amber_cli'});
+            smalltalk.globals.Browser._openOn_(smalltalk.AmberCli);
         }
     );
     </script> 
