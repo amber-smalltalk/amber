@@ -2,6 +2,10 @@ Smalltalk createPackage: 'Helios-Announcements'!
 Object subclass: #HLAboutToChange
 	instanceVariableNames: 'actionBlock'
 	package: 'Helios-Announcements'!
+!HLAboutToChange commentStamp!
+I am announced whenever a change of context is about to be made, and unsaved changes could be lost.
+
+I am used within `HLModel` to handle such user actions. See `HLModel >> withChangesDo:`.!
 
 !HLAboutToChange methodsFor: 'accessing'!
 
@@ -79,6 +83,8 @@ I am emitted by a `HLCodeWidget` before an object is printed.!
 HLAnnouncement subclass: #HLDebuggerAnnouncement
 	instanceVariableNames: 'context'
 	package: 'Helios-Announcements'!
+!HLDebuggerAnnouncement commentStamp!
+I am the root class of debugger announcements, and hold onto the debugged `context`.!
 
 !HLDebuggerAnnouncement methodsFor: 'accessing'!
 
@@ -93,6 +99,8 @@ context: aContext
 HLDebuggerAnnouncement subclass: #HLDebuggerContextSelected
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
+!HLDebuggerContextSelected commentStamp!
+I am announced when a new context is selected in a debugger, to update the user interface.!
 
 !HLDebuggerContextSelected methodsFor: 'accessing'!
 

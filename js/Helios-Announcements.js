@@ -3,6 +3,7 @@ smalltalk.addPackage('Helios-Announcements');
 smalltalk.packages["Helios-Announcements"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLAboutToChange', globals.Object, ['actionBlock'], 'Helios-Announcements');
+globals.HLAboutToChange.comment="I am announced whenever a change of context is about to be made, and unsaved changes could be lost.\x0a\x0aI am used within `HLModel` to handle such user actions. See `HLModel >> withChangesDo:`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "actionBlock",
@@ -130,6 +131,7 @@ globals.HLPrintItRequested.comment="I am emitted by a `HLCodeWidget` before an o
 
 
 smalltalk.addClass('HLDebuggerAnnouncement', globals.HLAnnouncement, ['context'], 'Helios-Announcements');
+globals.HLDebuggerAnnouncement.comment="I am the root class of debugger announcements, and hold onto the debugged `context`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
@@ -165,6 +167,7 @@ globals.HLDebuggerAnnouncement);
 
 
 smalltalk.addClass('HLDebuggerContextSelected', globals.HLDebuggerAnnouncement, [], 'Helios-Announcements');
+globals.HLDebuggerContextSelected.comment="I am announced when a new context is selected in a debugger, to update the user interface.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
