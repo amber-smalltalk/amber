@@ -27,7 +27,9 @@ Amber is shipped as a [npm](http://npmjs.org) package for its CLI tools and as a
     npm install -g amber
     
     # Load amber via bower in your project
-    bower install amber
+    cd /path/to/myproject
+    bower init
+    bower install amber --save
     
     # Serve amber on localhost:4000
     amber serve
