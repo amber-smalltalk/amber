@@ -929,8 +929,8 @@ asJQuery
 	^ self element asJQuery
 !
 
-asJQueryWithContext: aContext
-	^ self element asJQueryWithContext: aContext
+asJQueryInContext: aContext
+	^ self element asJQueryInContext: aContext
 ! !
 
 !TagBrush methodsFor: 'events'!
@@ -1119,7 +1119,7 @@ asJQuery
 	<return jQuery(self['@jsObject'])>
 !
 
-asJQueryWithContext: aContext
+asJQueryInContext: aContext
 	<return jQuery(self['@jsObject'], aContext)>
 ! !
 
@@ -1147,7 +1147,7 @@ asJQuery
 	<return jQuery(String(self))>
 !
 
-asJQueryWithContext: aContext
+asJQueryInContext: aContext
 	<return jQuery(String(self), aContext)>
 ! !
 

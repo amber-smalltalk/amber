@@ -2674,18 +2674,18 @@ globals.TagBrush);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "asJQueryWithContext:",
+selector: "asJQueryInContext:",
 protocol: 'converting',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._element())._asJQueryWithContext_(aContext);
+$1=_st(self._element())._asJQueryInContext_(aContext);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJQueryWithContext:",{aContext:aContext},globals.TagBrush)})},
+}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},globals.TagBrush)})},
 args: ["aContext"],
-source: "asJQueryWithContext: aContext\x0a\x09^ self element asJQueryWithContext: aContext",
-messageSends: ["asJQueryWithContext:", "element"],
+source: "asJQueryInContext: aContext\x0a\x09^ self element asJQueryInContext: aContext",
+messageSends: ["asJQueryInContext:", "element"],
 referencedClasses: []
 }),
 globals.TagBrush);
@@ -3808,15 +3808,15 @@ globals.JSObjectProxy);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "asJQueryWithContext:",
+selector: "asJQueryInContext:",
 protocol: '*Canvas',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return jQuery(self['@jsObject'], aContext);
-return self}, function($ctx1) {$ctx1.fill(self,"asJQueryWithContext:",{aContext:aContext},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},globals.JSObjectProxy)})},
 args: ["aContext"],
-source: "asJQueryWithContext: aContext\x0a\x09<return jQuery(self['@jsObject'], aContext)>",
+source: "asJQueryInContext: aContext\x0a\x09<return jQuery(self['@jsObject'], aContext)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3904,15 +3904,15 @@ globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "asJQueryWithContext:",
+selector: "asJQueryInContext:",
 protocol: '*Canvas',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return jQuery(String(self), aContext);
-return self}, function($ctx1) {$ctx1.fill(self,"asJQueryWithContext:",{aContext:aContext},globals.String)})},
+return self}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},globals.String)})},
 args: ["aContext"],
-source: "asJQueryWithContext: aContext\x0a\x09<return jQuery(String(self), aContext)>",
+source: "asJQueryInContext: aContext\x0a\x09<return jQuery(String(self), aContext)>",
 messageSends: [],
 referencedClasses: []
 }),
