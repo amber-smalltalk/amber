@@ -1079,7 +1079,7 @@ return smalltalk.withContext(function($ctx1) {
 return self["@jsObject"] === aJSObject;
 return self}, function($ctx1) {$ctx1.fill(self,"compareJSObjectWith:",{aJSObject:aJSObject},globals.JSObjectProxy)})},
 args: ["aJSObject"],
-source: " compareJSObjectWith: aJSObject\x0a \x09<return self[\x22@jsObject\x22] === aJSObject>",
+source: "compareJSObjectWith: aJSObject\x0a \x09<return self[\x22@jsObject\x22] === aJSObject>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3147,10 +3147,10 @@ selector: "version",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "0.13.0-pre";
+return "0.12.3";
 },
 args: [],
-source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.13.0-pre'",
+source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.12.3'",
 messageSends: [],
 referencedClasses: []
 }),
