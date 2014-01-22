@@ -927,6 +927,10 @@ width: aString
 
 asJQuery
 	^ self element asJQuery
+!
+
+asJQueryInContext: aContext
+	^ self element asJQueryInContext: aContext
 ! !
 
 !TagBrush methodsFor: 'events'!
@@ -1113,6 +1117,10 @@ asSnippet
 
 asJQuery
 	<return jQuery(self['@jsObject'])>
+!
+
+asJQueryInContext: aContext
+	<return jQuery(self['@jsObject'], aContext)>
 ! !
 
 !Object methodsFor: '*Canvas'!
@@ -1137,5 +1145,9 @@ appendToJQuery: aJQuery
 
 asJQuery
 	<return jQuery(String(self))>
+!
+
+asJQueryInContext: aContext
+	<return jQuery(String(self), aContext)>
 ! !
 
