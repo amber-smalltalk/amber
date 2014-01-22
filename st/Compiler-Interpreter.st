@@ -619,18 +619,14 @@ visitDynamicArrayNode: aNode
 !
 
 visitDynamicDictionaryNode: aNode
-	| associations hashedCollection |
+	| keyValueList |
 	
-	associations := OrderedCollection new.
-	hashedCollection := HashedCollection new.
+	keyValueList := OrderedCollection new.
 	
 	aNode nodes do: [ :each | 
-		associations add: self pop ].
+		keyValueList add: self pop ].
 	
-	associations reversed do: [ :each |
-		hashedCollection add: each ].
-	
-	self push: hashedCollection
+	self push: (HashedCollection newFromPairs: keyValueList reversed)
 !
 
 visitJSStatementNode: aNode

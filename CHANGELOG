@@ -1,13 +1,13 @@
-??th ??? 20?? - Release 0.12.3
+22nd Jan 2014 - Release 0.12.3
 ===================================
 
 Highlights:
 
 * JQuery updated to ~1.10.2; jquery-ui updated to match
-* You can create subclasses of `nil`
-* Amber loads in IE8
-* You can load amber.js asynchronously (it must
-  have id 'amber-path-mapper' in that case)
+* Subclasses of `nil` can be created
+* Several fixes for IE8
+* amber.js can be loaded asynchronously (it must
+  have an id 'amber-path-mapper' in that case)
 * CodeMirror updated to ~3.20.0
 
 Commits: https://github.com/amber-smalltalk/amber/compare/0.12.2...0.12.3

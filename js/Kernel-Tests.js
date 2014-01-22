@@ -2862,17 +2862,11 @@ fn: function (){
 var self=this;
 var associations;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4;
+var $1;
 $1="a".__minus_gt((1));
 $ctx1.sendIdx["->"]=1;
-$2="b".__minus_gt((2));
-$ctx1.sendIdx["->"]=2;
-associations=[$1,$2];
-$3=_st(_st(self._class())._collectionClass())._from_(associations);
-$5="a".__minus_gt((1));
-$ctx1.sendIdx["->"]=3;
-$4=globals.HashedCollection._from_([$5,"b".__minus_gt((2))]);
-self._assertSameContents_as_($3,$4);
+associations=[$1,"b".__minus_gt((2))];
+self._assertSameContents_as_(_st(_st(self._class())._collectionClass())._from_(associations),globals.HashedCollection._newFromPairs_(["a",(1),"b",(2)]));
 return self}, function($ctx1) {$ctx1.fill(self,"testFrom",{associations:associations},globals.AssociativeCollectionTest)})},
 args: [],
 source: "testFrom\x0a\x22Accept a collection of associations.\x22\x0a| associations |\x0aassociations := { 'a' -> 1. 'b' -> 2 }.\x0aself assertSameContents: ( self class collectionClass from: associations ) as: #{ 'a' -> 1. 'b' -> 2 }.",
@@ -2916,17 +2910,12 @@ fn: function (){
 var self=this;
 var flattenedAssociations;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
 flattenedAssociations=["a",(1),"b",(2)];
-$1=_st(_st(self._class())._collectionClass())._newFromPairs_(flattenedAssociations);
-$3="a".__minus_gt((1));
-$ctx1.sendIdx["->"]=1;
-$2=globals.HashedCollection._from_([$3,"b".__minus_gt((2))]);
-self._assertSameContents_as_($1,$2);
+self._assertSameContents_as_(_st(_st(self._class())._collectionClass())._newFromPairs_(flattenedAssociations),globals.HashedCollection._newFromPairs_(["a",(1),"b",(2)]));
 return self}, function($ctx1) {$ctx1.fill(self,"testNewFromPairs",{flattenedAssociations:flattenedAssociations},globals.AssociativeCollectionTest)})},
 args: [],
 source: "testNewFromPairs\x0a\x22Accept an array in which all odd indexes are keys and evens are values.\x22\x0a| flattenedAssociations |\x0aflattenedAssociations := { 'a'. 1. 'b'. 2 }.\x0aself assertSameContents: ( self class collectionClass newFromPairs: flattenedAssociations ) as: #{ 'a' -> 1. 'b' -> 2 }.",
-messageSends: ["assertSameContents:as:", "newFromPairs:", "collectionClass", "class", "->"],
+messageSends: ["assertSameContents:as:", "newFromPairs:", "collectionClass", "class"],
 referencedClasses: []
 }),
 globals.AssociativeCollectionTest);
@@ -3390,16 +3379,11 @@ fn: function (){
 var self=this;
 function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1;
-$3="hello".__minus_gt((1));
-$ctx1.sendIdx["->"]=1;
-$2=globals.HashedCollection._from_([$3]);
-$1=_st($2)._asDictionary();
-self._assert_equals_($1,_st($Dictionary())._with_("hello".__minus_gt((1))));
+self._assert_equals_(_st(globals.HashedCollection._newFromPairs_(["hello",(1)]))._asDictionary(),_st($Dictionary())._with_("hello".__minus_gt((1))));
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},globals.DictionaryTest)})},
 args: [],
 source: "testDynamicDictionaries\x0a\x09self assert: #{'hello' -> 1} asDictionary equals: (Dictionary with: 'hello' -> 1)",
-messageSends: ["assert:equals:", "asDictionary", "->", "with:"],
+messageSends: ["assert:equals:", "asDictionary", "with:", "->"],
 referencedClasses: ["Dictionary"]
 }),
 globals.DictionaryTest);
@@ -3429,20 +3413,13 @@ selector: "collection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
-$2="b".__minus_gt((1));
-$ctx1.sendIdx["->"]=1;
-$3="a".__minus_gt((2));
-$ctx1.sendIdx["->"]=2;
-$4="c".__minus_gt((3));
-$ctx1.sendIdx["->"]=3;
-$1=globals.HashedCollection._from_([$2,$3,$4,"d".__minus_gt((-4))]);
+var $1;
+$1=globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4)]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collection",{},globals.HashedCollectionTest)})},
+},
 args: [],
 source: "collection\x0a\x09^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4 }",
-messageSends: ["->"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.HashedCollectionTest);
@@ -3470,20 +3447,13 @@ selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
-$2="b".__minus_gt("1");
-$ctx1.sendIdx["->"]=1;
-$3="a".__minus_gt("2");
-$ctx1.sendIdx["->"]=2;
-$4="c".__minus_gt("3");
-$ctx1.sendIdx["->"]=3;
-$1=globals.HashedCollection._from_([$2,$3,$4,"d".__minus_gt("-4")]);
+var $1;
+$1=globals.HashedCollection._newFromPairs_(["b","1","a","2","c","3","d","-4"]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},globals.HashedCollectionTest)})},
+},
 args: [],
 source: "collectionOfPrintStrings\x0a\x09^ #{ 'b' -> '1'. 'a' -> '2'. 'c' -> '3'. 'd' -> '-4' }",
-messageSends: ["->"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.HashedCollectionTest);
@@ -3526,26 +3496,13 @@ selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$6,$7,$1;
-$2="b".__minus_gt((1));
-$ctx1.sendIdx["->"]=1;
-$3="a".__minus_gt((2));
-$ctx1.sendIdx["->"]=2;
-$4="c".__minus_gt((3));
-$ctx1.sendIdx["->"]=3;
-$5="d".__minus_gt((-4));
-$ctx1.sendIdx["->"]=4;
-$6="e".__minus_gt((1));
-$ctx1.sendIdx["->"]=5;
-$7="f".__minus_gt((2));
-$ctx1.sendIdx["->"]=6;
-$1=globals.HashedCollection._from_([$2,$3,$4,$5,$6,$7,"g".__minus_gt((10))]);
+var $1;
+$1=globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"e",(1),"f",(2),"g",(10)]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},globals.HashedCollectionTest)})},
+},
 args: [],
 source: "collectionWithDuplicates\x0a\x09^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }",
-messageSends: ["->"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.HashedCollectionTest);
@@ -3556,22 +3513,13 @@ selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$1;
-$2="b".__minus_gt((1));
-$ctx1.sendIdx["->"]=1;
-$3="a".__minus_gt((2));
-$ctx1.sendIdx["->"]=2;
-$4="c".__minus_gt((3));
-$ctx1.sendIdx["->"]=3;
-$5="d".__minus_gt((-4));
-$ctx1.sendIdx["->"]=4;
-$1=globals.HashedCollection._from_([$2,$3,$4,$5,"new".__minus_gt("N")]);
+var $1;
+$1=globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"new","N"]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.HashedCollectionTest)})},
+},
 args: [],
 source: "collectionWithNewValue\x0a\x09^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'new' -> 'N' }",
-messageSends: ["->"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.HashedCollectionTest);
@@ -3582,14 +3530,13 @@ selector: "sampleNewValueAsCollection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=globals.HashedCollection._from_(["new".__minus_gt("N")]);
+$1=globals.HashedCollection._newFromPairs_(["new","N"]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},globals.HashedCollectionTest)})},
+},
 args: [],
 source: "sampleNewValueAsCollection\x0a\x09^ #{ 'new' -> 'N' }",
-messageSends: ["->"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.HashedCollectionTest);
@@ -3602,16 +3549,11 @@ fn: function (){
 var self=this;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1;
-$3="hello".__minus_gt((1));
-$ctx1.sendIdx["->"]=1;
-$2=globals.HashedCollection._from_([$3]);
-$1=_st($2)._asHashedCollection();
-self._assert_equals_($1,_st($HashedCollection())._with_("hello".__minus_gt((1))));
+self._assert_equals_(_st(globals.HashedCollection._newFromPairs_(["hello",(1)]))._asHashedCollection(),_st($HashedCollection())._with_("hello".__minus_gt((1))));
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},globals.HashedCollectionTest)})},
 args: [],
 source: "testDynamicDictionaries\x0a\x09self assert: #{'hello' -> 1} asHashedCollection equals: (HashedCollection with: 'hello' -> 1)",
-messageSends: ["assert:equals:", "asHashedCollection", "->", "with:"],
+messageSends: ["assert:equals:", "asHashedCollection", "with:", "->"],
 referencedClasses: ["HashedCollection"]
 }),
 globals.HashedCollectionTest);

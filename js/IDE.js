@@ -784,7 +784,7 @@ var self=this;
 var start,stop,currentLine;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3,$5,$6,$7,$8,$10,$9,$11,$12,$13,$15,$14;
+var $1,$2,$4,$3,$5,$6,$7,$8,$9,$10,$12,$11;
 $1=_st(self["@editor"])._getCursor_(false);
 $ctx1.sendIdx["getCursor:"]=1;
 currentLine=_st($1)._line();
@@ -807,32 +807,28 @@ $7=_st(_st(self["@editor"])._getLine_(currentLine))._size();
 $ctx2.sendIdx["size"]=1;
 _st($6)._at_put_("ch",$7);
 $ctx2.sendIdx["at:put:"]=3;
-$8=self["@editor"];
-$10="line".__minus_gt(currentLine);
-$ctx2.sendIdx["->"]=1;
-$9=globals.HashedCollection._from_([$10,"ch".__minus_gt((0))]);
-return _st($8)._setSelection_end_($9,start);
+return _st(self["@editor"])._setSelection_end_(globals.HashedCollection._newFromPairs_(["line",currentLine,"ch",(0)]),start);
 $ctx2.sendIdx["setSelection:end:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 stop=_st($HashedCollection())._new();
 _st(stop)._at_put_("line",currentLine);
 $ctx1.sendIdx["at:put:"]=4;
-$11=stop;
-$12=_st(_st(_st(start)._at_("ch")).__plus(_st(aString)._size())).__plus((2));
+$8=stop;
+$9=_st(_st(_st(start)._at_("ch")).__plus(_st(aString)._size())).__plus((2));
 $ctx1.sendIdx["+"]=1;
-_st($11)._at_put_("ch",$12);
-$13=self["@editor"];
-$15=_st(_st(_st(self["@editor"])._getSelection()).__comma(" ")).__comma(aString);
+_st($8)._at_put_("ch",$9);
+$10=self["@editor"];
+$12=_st(_st(_st(self["@editor"])._getSelection()).__comma(" ")).__comma(aString);
 $ctx1.sendIdx[","]=2;
-$14=_st($15).__comma(" ");
+$11=_st($12).__comma(" ");
 $ctx1.sendIdx[","]=1;
-_st($13)._replaceSelection_($14);
+_st($10)._replaceSelection_($11);
 _st(self["@editor"])._setCursor_(_st(self["@editor"])._getCursor_(true));
 _st(self["@editor"])._setSelection_end_(stop,start);
 return self}, function($ctx1) {$ctx1.fill(self,"print:",{aString:aString,start:start,stop:stop,currentLine:currentLine},globals.SourceArea)})},
 args: ["aString"],
 source: "print: aString\x0a\x09| start stop currentLine |\x0a\x09currentLine := (editor getCursor: false) line.\x0a\x09start := HashedCollection new.\x0a\x09start at: 'line' put: currentLine.\x0a\x09start at: 'ch' put: (editor getCursor: false) ch.\x0a\x09(editor getSelection) ifEmpty: [\x0a\x09\x09\x22select current line if selection is empty\x22\x0a\x09\x09start at: 'ch' put: (editor getLine: currentLine) size.\x0a\x09\x09editor setSelection: #{'line' -> currentLine. 'ch' -> 0} end: start.\x0a\x09].\x0a\x09stop := HashedCollection new.\x0a\x09stop at: 'line' put: currentLine.\x0a\x09stop at: 'ch' put: ((start at: 'ch') + aString size + 2).\x0a\x0a\x09editor replaceSelection: (editor getSelection, ' ', aString, ' ').\x0a\x09editor setCursor: (editor getCursor: true).\x0a\x09editor setSelection: stop end: start",
-messageSends: ["line", "getCursor:", "new", "at:put:", "ch", "ifEmpty:", "getSelection", "size", "getLine:", "setSelection:end:", "->", "+", "at:", "replaceSelection:", ",", "setCursor:"],
+messageSends: ["line", "getCursor:", "new", "at:put:", "ch", "ifEmpty:", "getSelection", "size", "getLine:", "setSelection:end:", "+", "at:", "replaceSelection:", ",", "setCursor:"],
 referencedClasses: ["HashedCollection"]
 }),
 globals.SourceArea);
@@ -1214,18 +1210,11 @@ protocol: 'actions',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
-$1="#amber"._asJQuery();
-$3="handles".__minus_gt("n");
-$ctx1.sendIdx["->"]=1;
-$4="resize".__minus_gt(aBlock);
-$ctx1.sendIdx["->"]=2;
-$2=globals.HashedCollection._from_([$3,$4,"minHeight".__minus_gt((230))]);
-_st($1)._resizable_($2);
+_st("#amber"._asJQuery())._resizable_(globals.HashedCollection._newFromPairs_(["handles","n","resize",aBlock,"minHeight",(230)]));
 return self}, function($ctx1) {$ctx1.fill(self,"onResize:",{aBlock:aBlock},globals.TabManager)})},
 args: ["aBlock"],
 source: "onResize: aBlock\x0a\x09'#amber' asJQuery resizable: #{\x0a\x09\x09'handles' -> 'n'.\x0a\x09\x09'resize' -> aBlock.\x0a\x09\x09'minHeight' -> 230\x0a\x09}",
-messageSends: ["resizable:", "asJQuery", "->"],
+messageSends: ["resizable:", "asJQuery"],
 referencedClasses: []
 }),
 globals.TabManager);
