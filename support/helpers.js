@@ -46,7 +46,7 @@ define("amber/helpers", ["amber_vm/smalltalk", "amber_vm/globals", "require"], f
             console.warn("`smalltalk.defaultAmdNamespace = 'namespace';` is deprecated. Please use `smalltalk.initialize({'transport.defaultAmdNamespace': 'namespace'});` instead.");
             settings['transport.defaultAmdNamespace'] = settings['transport.defaultAmdNamespace'] || exports.defaultAmdNamespace;
         }
-        mixinToSettings(options);
+        mixinToSettings(options || {});
         console.warn("smalltalk.ClassName is deprecated. Please use smalltalk.globals.ClassName instead.");
         globals.SmalltalkSettings = settings;
         return vm.initialize();
