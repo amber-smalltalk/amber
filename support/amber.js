@@ -4,7 +4,7 @@
     or calls require.config, if loaded post require.js).
   Usage example:
     require(['amber/devel'], function(smalltalk) {
-        smallralk.initialize();
+        smalltalk.initialize();
 
         smalltalk.Browser._open();
     });
