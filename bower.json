@@ -17,6 +17,7 @@
     "es5-shim": "~2.1.0",
     "codemirror": "~3.20.0",
     "showdown": "~0.3.1",
-    "require-css": "~0.0.8"
+    "require-css": "~0.0.8",
+    "es6-promise": "~0.1.1"
   }
 }
