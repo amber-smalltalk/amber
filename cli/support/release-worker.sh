@@ -33,5 +33,8 @@ cp package.json package.json.bak
 sed -e 's@/amber.git.*"@/amber.git"@' package.json.bak >package.json
 rm package.json.bak
 git add package.json
+bin/amberc -m AmberCli -n amber_cli -l Compiler-Exceptions,Compiler-Core,Compiler-AST,Compiler-IR,Compiler-Inlining,Compiler-Semantic,Compiler-Interpreter,parser cli/st/AmberCli.st cli/support/amber-cli
+rm cli/st/*.js
+git add cli/support/amber-cli.js
 git commit -a -m "Working on $VERF"
 git push --tags
