@@ -1705,14 +1705,24 @@ selector: "commitPathStFor:",
 protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
+var path,pathWithout;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._toUrl_(_st(self._namespaceFor_(aPackage)).__comma("/_source"));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage},globals.AmdPackageHandler)})},
+var $1,$3,$2;
+$1=_st(self._namespaceFor_(aPackage)).__comma("/_source");
+$ctx1.sendIdx[","]=1;
+path=self._toUrl_($1);
+pathWithout=self._commitPathJsFor_(aPackage);
+$3=_st(path).__eq(_st(pathWithout).__comma("/_source"));
+if(smalltalk.assert($3)){
+$2=pathWithout;
+} else {
+$2=path;
+};
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage,path:path,pathWithout:pathWithout},globals.AmdPackageHandler)})},
 args: ["aPackage"],
-source: "commitPathStFor: aPackage\x0a\x09\x22if _source is not mapped, .st commit will likely fail\x22\x0a\x09^ self toUrl: (self namespaceFor: aPackage), '/_source'.",
-messageSends: ["toUrl:", ",", "namespaceFor:"],
+source: "commitPathStFor: aPackage\x0a\x09\x22If _source is not mapped, .st will be committed to .js path.\x0a\x09It is recommended not to use _source as it can be deprecated.\x22\x0a\x09\x0a\x09| path pathWithout |\x0a\x09path := self toUrl: (self namespaceFor: aPackage), '/_source'.\x0a\x09pathWithout := self commitPathJsFor: aPackage.\x0a\x09^ path = (pathWithout, '/_source') ifTrue: [ pathWithout ] ifFalse: [ path ]",
+messageSends: ["toUrl:", ",", "namespaceFor:", "commitPathJsFor:", "ifTrue:ifFalse:", "="],
 referencedClasses: []
 }),
 globals.AmdPackageHandler);
