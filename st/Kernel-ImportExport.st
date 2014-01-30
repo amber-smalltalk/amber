@@ -645,8 +645,13 @@ commitPathJsFor: aPackage
 !
 
 commitPathStFor: aPackage
-	"if _source is not mapped, .st commit will likely fail"
-	^ self toUrl: (self namespaceFor: aPackage), '/_source'.
+	"If _source is not mapped, .st will be committed to .js path.
+	It is recommended not to use _source as it can be deprecated."
+	
+	| path pathWithout |
+	path := self toUrl: (self namespaceFor: aPackage), '/_source'.
+	pathWithout := self commitPathJsFor: aPackage.
+	^ path = (pathWithout, '/_source') ifTrue: [ pathWithout ] ifFalse: [ path ]
 !
 
 exporterClass
