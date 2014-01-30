@@ -1,33 +1,53 @@
-body {
-    font-size: 11px;
-    font-family: "Lucida Grande", helvetica, arial, sans;
-    background: #eee;
-}
-
 .clearfix:after {
-    content: ".";
-    display: block;
-    clear: both;
-    visibility: hidden;
-    line-height: 0;
-    height: 0;
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
 }
 
 .clearfix {
-    display: inline-block;
+	display: inline-block;
 }
 
 html[xmlns] .clearfix {
-    display: block;
+	display: block;
 }
 
 * html .clearfix {
-    height: 1%;
+	height: 1%;
 }
 
-#helios {
+.cm-s-helios {
+	&.CodeMirror {
+		font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", Courier, monospace;
+		line-height: 16px;
+		font-size: 13px;
+	}
 
-    a {
+	.CodeMirror-gutter.stops {
+		width: 20px;
+	}
+
+	.highlighted.CodeMirror-linebackground {
+		background-color: #ffffaa;
+	}
+
+	.CodeMirror-gutter-elt .stop {
+		width: 16px;
+		height: 16px;
+		background: url('../images/arrowRight.png');
+		margin-left: 2px;
+	}
+}
+
+body[id="helios"] {
+	font-size: 11px;
+	font-family: "Lucida Grande", "Segoe UI", helvetica, arial, sans-serif;
+	background: #eee;
+
+	a {
 		cursor: pointer;
 	}
 
@@ -41,14 +61,13 @@ html[xmlns] .clearfix {
 
 	.CodeMirror {
 		position: absolute;
-		overflow: hidden;
 		height: 100%;
 		width: 100%;
 	}
 
 	.CodeMirror-hints {
 		border-radius: 0;
-		font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
+		font-family: "Lucida Grande", "Segoe UI", helvetica, arial, sans-serif;
 		font-size: 11px;
 		line-height: 1em;
 		padding: 0;
@@ -58,27 +77,6 @@ html[xmlns] .clearfix {
 	.CodeMirror-hint {
 		border-radius: 0;
 		padding: 0 10px;
-	}
-
-	.CodeMirror pre, .CodeMirror .CodeMirror-gutter-elt {
-		font-family: Menlo, Monaco, "Lucida Console",  "Ubuntu Mono", Courier, monospace;
-		line-height: 16px;
-		font-size: 13px;
-	}
-
-	.CodeMirror-gutter.stops {
-		width: 20px;
-	}
-
-	.CodeMirror .highlighted.CodeMirror-linebackground {
-		background-color: #ffffaa;
-	}
-
-	.CodeMirror .CodeMirror-gutter-elt .stop {
-		width: 16px;
-		height: 16px;
-		background: url('../images/arrowRight.png');
-		margin-left: 2px;
 	}
 
 	.state {
@@ -99,6 +97,13 @@ html[xmlns] .clearfix {
 		bottom: 23px;
 		left: 0;
 		right: 0;
+	}
+
+	.hl_widget {
+
+		&:focus {
+			outline: 0 none;
+		}
 	}
 
 	.buttons_bar {
@@ -175,7 +180,6 @@ html[xmlns] .clearfix {
 		}
 	}
 
-
 	.navbar-fixed-top .navbar-inner {
 		min-height: 20px;
 		background-color: #dbdbdb;
@@ -187,11 +191,9 @@ html[xmlns] .clearfix {
 		box-shadow: 0 0 0;
 	}
 
-
 	.navbar .nav > li {
 		line-height: 16px;
 	}
-
 
 	.navbar .nav > li > a {
 		line-height: 22px;
@@ -205,15 +207,15 @@ html[xmlns] .clearfix {
 		background: transparent;
 	}
 
-	.navbar .nav > .active > a, 
-	.navbar .nav > .active > a:hover, 
+	.navbar .nav > .active > a,
+	.navbar .nav > .active > a:hover,
 	.navbar .nav > .active > a:focus {
 		background-color: #bababa;
 		background-image: linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
 		background-image: -webkit-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -webkit-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
 		background-image: -moz-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -moz-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
 		background-image: -o-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -o-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
-		text-shadow: #ddd 0px 1px 0px; 
+		text-shadow: #ddd 0px 1px 0px;
 		color: #222;
 	}
 
@@ -259,19 +261,18 @@ html[xmlns] .clearfix {
 		background-color: #f3f7fb;
 	}
 
-	.focused .nav-pills > .active > a, 
+	.focused .nav-pills > .active > a,
 	.nav-pills > .active > a:hover,
-	.dropdown-menu li > a:hover, 
-	.dropdown-menu li > a:focus, 
+	.dropdown-menu li > a:hover,
+	.dropdown-menu li > a:focus,
 	.dropdown-submenu:hover > a,
-	.dropdown-menu .active > a, 
+	.dropdown-menu .active > a,
 	.dropdown-menu .active > a:hover,
 	.CodeMirror-hint-active {
 		background: rgba(95, 159, 228, 0.62);
 		color: #fff;
 		text-shadow: 0 0 0;
 	}
-
 
 	.tool_container {
 		position: absolute;
@@ -346,7 +347,6 @@ html[xmlns] .clearfix {
 		right: 50%;
 	}
 
-
 	.tool_container .splitter {
 		position: absolute;
 		border-width: 0;
@@ -371,8 +371,6 @@ html[xmlns] .clearfix {
 		border-top: 1px solid #888;
 		cursor: ns-resize;
 	}
-
-
 
 	.tool_container .panes .pane .nav-pills {
 		position: absolute;
@@ -446,8 +444,6 @@ html[xmlns] .clearfix {
 		background-image: url('../images/uncommented.png');
 	}
 
-
-
 	.tool_container .list-label {
 		font-size: 11px;
 		border-radius: 0;
@@ -497,7 +493,6 @@ html[xmlns] .clearfix {
 		background: transparent;
 	}
 
-
 	.tool_container .panes .pane .pane_actions {
 		position: absolute;
 		overflow: hidden;
@@ -535,7 +530,7 @@ html[xmlns] .clearfix {
 		font-size: 11px;
 		line-height: 16px;
 		vertical-align: top;
-		text-shadow: #ddd 0px 1px 0px; 
+		text-shadow: #ddd 0px 1px 0px;
 		color: #222;
 
 	}
@@ -557,7 +552,7 @@ html[xmlns] .clearfix {
 		border-radius: 0;
 		box-shadow: 0 0 0;
 		vertical-align: top;
-	/* min-width: 50px; */
+		/* min-width: 50px; */
 	}
 
 	.tool_container .panes .pane .pane_actions .btn:hover {
@@ -569,7 +564,7 @@ html[xmlns] .clearfix {
 	}
 
 	.tool_container .panes .pane .pane_actions .btn-group .btn.active {
-		text-shadow: #ddd 0px 1px 0px; 
+		text-shadow: #ddd 0px 1px 0px;
 		color: #222;
 		background: #bbb;
 		background-image: linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
@@ -584,59 +579,79 @@ html[xmlns] .clearfix {
 	}
 
 	.key_helper {
-		z-index: 20;
+		z-index: 2001;
 		position: fixed;
-		bottom: 0px;
-		background: #fff;
-		background-image: linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-		background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-		background-image: -o-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-		background-image: -webkit-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
-		width: 100%;
-		border-top: 1px solid #aaa;
+		top: 120px;
+		left: 50%;
+		width: 400px;
+		max-height: 300px;
+		margin-left: -200px;
+		background: white;
+		box-shadow: 0 0 6px #aaa;
+		border: 1px solid #aaa;
 		font-size: 11px;
-		height: 22px;
+
+		transition: all .5s;
+		-webkit-transition: all .5s;
+		-moz-transition: all .5s;
+		-o-transition: all .5s;
+		-ms-transition: all .5s;
+
 
 		.command {
-			padding: 0 2px;
+			padding: 0;
+			display: inline-block;
+			width: 50%;
+
+			strong {
+				display: inline-block;
+				min-width: 1.4em;
+				text-align: left;
+			}
 		}
 
 		#binding-helper-main {
-			display: inline;
+			display: block;
+			padding: 5px;
 		}
 
 		.label {
 			padding: 1px 4px;
 			font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
 			background: transparent;
-			color: #08C;
+			color: #0E4561;
 			text-shadow: none;
 			border: 0 none;
 		}
 
 		.action {
-			padding: 0 5px;
-			color: #666;
+			padding: 0 0.5em 0 5px;
+			color: inherit;
+			font-weight: bold;
 		}
 
 		.selected {
-			background-image: linear-gradient(top, #ccc, #aaa);
-			background-image: -moz-linear-gradient(top, #ccc, #aaa);
-			background-image: -o-linear-gradient(top, #ccc, #aaa);
-			background-image: -webkit-linear-gradient(top, #ccc, #aaa);
-			height: 30px;
+			background-image: linear-gradient(top, #ccc, #bbb);
+			background-image: -moz-linear-gradient(top, #ccc, #bbb);
+			background-image: -o-linear-gradient(top, #ccc, #bbb);
+			background-image: -webkit-linear-gradient(top, #ccc, #bbb);
+			height: 28px;
 			padding: 0 8px;
-			color: #333;
 			font-weight: bold;
+			font-size: 18px;
+			line-height: 28px;
 			text-shadow: 0 1px 0 #fff;
-			display: inline-block;
-			border-right: 1px solid #aaa;
+			display: block;
+			border-bottom: 1px solid #aaa;
 		}
 
 		.close {
 			font-size: 14px;
-			line-height: 26px;
+			line-height: 28px;
 			opacity: 0.6;
+			position: absolute;
+			top: 0;
+			right: 4px;
 		}
 
 		.close:hover {
@@ -661,11 +676,11 @@ html[xmlns] .clearfix {
 			font-weight: bold;
 		}
 
-		.typeahead.dropdown-menu {
-			position: fixed !important;
-			top: auto !important;
-			bottom: 30px !important;
-		}
+		// .typeahead.dropdown-menu {
+		// 	position: fixed !important;
+		// 	top: auto !important;
+		// 	bottom: 30px !important;
+		// }
 
 		#cog-helper {
 			position: fixed;
@@ -700,27 +715,31 @@ html[xmlns] .clearfix {
 		font-weight: bold;
 		text-shadow: 0 -1px 0 #111;
 		padding: 20px;
-		background: rgba(0,0,0, 0.6);
+		background: rgba(0, 0, 0, 0.6);
 		border-radius: 40px;
 	}
 
 	#overlay {
 		z-index: 2000;
-		background: transparent;
+		background: rgba(112, 66, 20, 0.1);
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
+
+		&.light {
+			background: rgba(50, 50, 50, 0.1);
+		}
 	}
 
 	.confirmation, .dialog {
 		z-index: 2001;
-		background: rgba(243,243,243,0.9);
-		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 5px, transparent 6px);
-		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 5px, transparent 6px);
-		background-image: -o-linear-gradient(top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 5px, transparent 6px);
-		background-image: linear-gradient(top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 5px, transparent 6px);
+		background: rgba(243, 243, 243, 0.9);
+		background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 5px, transparent 6px);
+		background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 5px, transparent 6px);
+		background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 5px, transparent 6px);
+		background-image: linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 5px, transparent 6px);
 		padding: 20px;
 		width: 250px;
 		position: fixed;
@@ -734,10 +753,6 @@ html[xmlns] .clearfix {
 		-o-transition: top .5s;
 
 		.hl_widget {
-			
-			&:focus {
-				outline: 0 none;
-			}
 
 			.form-actions {
 				padding: 0;
@@ -759,7 +774,7 @@ html[xmlns] .clearfix {
 			margin-bottom: 15px;
 		}
 
-		.large {
+		&.large {
 			width: 400px;
 			margin-left: -220px;
 
@@ -812,43 +827,44 @@ html[xmlns] .clearfix {
 		text-align: center;
 		margin: 0;
 		margin-left: 10px;
-		background: -webkit-linear-gradient(bottom, rgba(0,0,0,.09) 0%, rgba(0,0,0, 0.02) 50%, rgba(0,0,0,.04) 50.5%, rgba(0,0,0,.04) 100%) #fff;
+		background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, .09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, .04) 50.5%, rgba(0, 0, 0, .04) 100%) #fff;
 		font: 13px "Lucida Grande", Lucida, Verdana, sans-serif;
 	}
 
-	.button.default { 
+	.button.default {
 		border-top: 1px solid #535273;
 		border: 1px solid #4F4D67;
-		border-bottom: 1px solid #4B4B58;	 
-		background: -webkit-linear-gradient(bottom, rgba(255,255,255,.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255,255,255,.3) 50.5%, rgba(255,255,255,.45) 95%, rgba(255,255,255,.8) 100%) #b1bdd5;
-		background: -moz-linear-gradient(bottom, rgba(255,255,255,.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255,255,255,.3) 50.5%, rgba(255,255,255,.45) 95%, rgba(255,255,255,.8) 100%) #b1bdd5;
+		border-bottom: 1px solid #4B4B58;
+		background: -webkit-linear-gradient(bottom, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, .3) 50.5%, rgba(255, 255, 255, .45) 95%, rgba(255, 255, 255, .8) 100%) #b1bdd5;
+		background: -moz-linear-gradient(bottom, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, .3) 50.5%, rgba(255, 255, 255, .45) 95%, rgba(255, 255, 255, .8) 100%) #b1bdd5;
 		-moz-box-shadow: 0 0 3px rgba(69, 113, 184, 0.8);
 		-webkit-box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
 		box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
 	}
 
-
 	.button:hover {
 		cursor: pointer;
-		border: 1px solid rgba(0,0,0,.6);
+		border: 1px solid rgba(0, 0, 0, .6);
 	}
 
 	.button:active {
-		-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,.5);
-		-moz-box-shadow: inset 0 0 5px rgba(0,0,0,.5);
-		box-shadow: inset 0 0 5px rgba(0,0,0,.5);
+		-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .5);
+		-moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, .5);
+		box-shadow: inset 0 0 5px rgba(0, 0, 0, .5);
 	}
 
 	.button:focus {
 		outline: 0;
+		border-color: #08C;
+		box-shadow: 0 0 5px #08C;
 	}
 
 	.doc {
 		background: white;
 	}
 
-	.doc code .doc pre {
-		font-size: 11px;
+	.doc code .doc pre, .doc p, .doc div {
+		font-size: 13px;
 	}
 
 	.doc code {

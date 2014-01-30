@@ -163,8 +163,7 @@ return smalltalk.withContext(function($ctx2) {
 _st(self._announcer())._announce_(_st(_st($HLAboutToChange())._new())._actionBlock_(aBlock));
 return _st(aBlock)._value();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($HLChangeForbidden(),(function(ex){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"withChangesDo:",{aBlock:aBlock},globals.HLModel)})},
 args: ["aBlock"],
 source: "withChangesDo: aBlock\x0a\x09[ \x0a\x09\x09self announcer announce: (HLAboutToChange new\x0a\x09\x09\x09actionBlock: aBlock).\x0a\x09\x09aBlock value.\x0a\x09]\x0a\x09\x09on: HLChangeForbidden \x0a\x09\x09do: [ :ex | ]",
@@ -315,11 +314,11 @@ protocol: 'commands actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._environment())._commitPackage_(self._selectedPackage());
+_st(self._environment())._commitPackage_(self._packageToCommit());
 return self}, function($ctx1) {$ctx1.fill(self,"commitPackage",{},globals.HLToolModel)})},
 args: [],
-source: "commitPackage\x0a\x09self environment commitPackage: self selectedPackage",
-messageSends: ["commitPackage:", "environment", "selectedPackage"],
+source: "commitPackage\x0a\x09self environment commitPackage: self packageToCommit",
+messageSends: ["commitPackage:", "environment", "packageToCommit"],
 referencedClasses: []
 }),
 globals.HLToolModel);
@@ -620,6 +619,31 @@ globals.HLToolModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "packageToCommit",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._selectedMethod();
+if(($receiver = $2) == nil || $receiver == null){
+$1=self._selectedPackage();
+} else {
+var method;
+method=$receiver;
+$1=_st(method)._package();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"packageToCommit",{},globals.HLToolModel)})},
+args: [],
+source: "packageToCommit\x0a\x09\x22Answer the package to commit depending on the context:\x0a\x09- if a Method is selected, answer its package\x0a\x09- else answer the `selectedPackage`\x22\x0a\x09\x0a\x09^ self selectedMethod \x0a\x09\x09ifNil: [ self selectedPackage ]\x0a\x09\x09ifNotNil: [ :method | method package ]",
+messageSends: ["ifNil:ifNotNil:", "selectedMethod", "selectedPackage", "package"],
+referencedClasses: []
+}),
+globals.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "packages",
 protocol: 'accessing',
 fn: function (){
@@ -892,9 +916,8 @@ if(($receiver = $2) == nil || $receiver == null){
 $1=$2;
 } else {
 $1=_st(_st(self._selectedClass())._methodDictionary())._at_ifAbsent_(self["@selectedSelector"],(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedMethod",{},globals.HLToolModel)})},
@@ -3209,8 +3232,7 @@ var $2,$1;
 $2=self["@callback"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})});
+});
 } else {
 $1=$2;
 };
@@ -4308,8 +4330,7 @@ var $2,$1;
 $2=self["@actionBlock"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})});
+});
 } else {
 $1=$2;
 };
@@ -4365,8 +4386,7 @@ var $2,$1;
 $2=self["@cancelBlock"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})});
+});
 } else {
 $1=$2;
 };
@@ -4738,8 +4758,7 @@ var $1;
 $1=self._progressBars();
 $ctx1.sendIdx["progressBars"]=1;
 _st($1)._remove_ifAbsent_(aProgressBar,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 _st(_st(_st(aProgressBar)._wrapper())._asJQuery())._remove();
 $ctx1.sendIdx["remove"]=1;
 _st(self._progressBars())._ifEmpty_((function(){
@@ -4852,8 +4871,7 @@ var $2,$1;
 $2=self["@cancelCallback"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})});
+});
 } else {
 $1=$2;
 };
@@ -4909,8 +4927,7 @@ var $2,$1;
 $2=self["@confirmCallback"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})});
+});
 } else {
 $1=$2;
 };
@@ -5039,8 +5056,7 @@ var $2,$1;
 $2=self["@selectCallback"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})});
+});
 } else {
 $1=$2;
 };

@@ -47,7 +47,7 @@ dynamicArray   = "{" ws expressions:expressions? ws "."? "}" {
                             ._source_(text())
                             ._nodes_(expressions || []);
                  }
-dynamicDictionary = "#{" ws expressions: expressions? ws "}" {
+dynamicDictionary = "#{" ws expressions: associations? ws "}" {
                         return globals.DynamicDictionaryNode._new()
                                ._position_((line()).__at(column()))
                                ._source_(text())
@@ -99,13 +99,7 @@ unaryPattern   = ws selector:unarySelector {return [selector, []];}
 expression     = assignment / cascade / keywordSend / binarySend
 
 expressionList = ws "." ws expression:expression {return expression;}
-expressions    = first:expression others:expressionList* {
-                     var result = [first];
-                     for(var i = 0; i < others.length; i++) {
-                         result.push(others[i]);
-                     }
-                     return result;
-                 }
+expressions    = first:expression others:expressionList* { return [first].concat(others); }
 
 assignment     = variable:variable ws ':=' ws expression:expression {
                      return globals.AssignmentNode._new()
@@ -262,4 +256,10 @@ method         = ws pattern:(keywordPattern / binaryPattern / unaryPattern) ws s
                              ._arguments_(pattern[1])
                              ._nodes_([sequence]);
                  }
+
+
+associationSend     = send:binarySend & { return send._selector() === "->" } { return [send._receiver(), send._arguments()[0]]; }
+
+associationList = ws "." ws expression:associationSend {return expression;}
+associations    = first:associationSend others:associationList* { return first.concat.apply(first, others); }
 

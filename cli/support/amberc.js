@@ -43,8 +43,8 @@ function createConcatenator () {
 		},
 		finish: function (realWork) {
 			this.add(
-				'define("amber_vm/_init", ["amber_vm/smalltalk","' + this.ids.join('","') + '"], function (smalltalk) {',
-				'smalltalk.initialize();',
+				'define("amber_vm/_init", ["amber_vm/smalltalk", "amber_vm/globals", "' + this.ids.join('","') + '"], function (vm, globals) {',
+				'vm.initialize();',
 				realWork,
 				'});',
 				'requirejs("amber_vm/_init");'
@@ -62,10 +62,10 @@ var path = require('path'),
 	Promise = require('es6-promise').Promise;
 
 /**
- * AmberC constructor function.
+ * AmberCompiler constructor function.
  * amber_dir: points to the location of an amber installation
  */
-function AmberC(amber_dir) {
+function AmberCompiler(amber_dir) {
 	if (undefined === amber_dir || !fs.existsSync(amber_dir)) {
 		throw new Error('amber_dir needs to be a valid directory');
 	}
@@ -110,7 +110,7 @@ var createDefaultConfiguration = function() {
  * If check_configuration_ok() returns successfully
  * the configuration is used to trigger the following compilation steps.
  */
-AmberC.prototype.main = function(configuration, finished_callback) {
+AmberCompiler.prototype.main = function(configuration, finished_callback) {
 	console.time('Compile Time');
 
 	if (configuration.amd_namespace.length === 0) {
@@ -128,7 +128,8 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	}
 
 	// the evaluated compiler will be stored in this variable (see create_compiler)
-	configuration.smalltalk = {};
+	configuration.vm = {};
+	configuration.globals = {};
 	configuration.kernel_libraries = this.kernel_libraries;
 	configuration.compiler_libraries = this.compiler_libraries;
 	configuration.amber_dir = this.amber_dir;
@@ -161,11 +162,11 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 function check_configuration(configuration) {
 	return new Promise(function(resolve, reject) {
 		if (undefined === configuration) {
-			reject(Error('AmberC.check_configuration_ok(): missing configuration object'));
+			reject(Error('AmberCompiler.check_configuration_ok(): missing configuration object'));
 		}
 
 		if (0 === configuration.jsFiles.length && 0 === configuration.stFiles.length) {
-			reject(Error('AmberC.check_configuration_ok(): no files to compile/link specified in configuration object'));
+			reject(Error('AmberCompiler.check_configuration_ok(): no files to compile/link specified in configuration object'));
 		}
 
 		resolve(configuration);
@@ -279,7 +280,7 @@ function resolve_kernel(configuration) {
 	)
 	.then(function(data) {
 		// boot.js and Kernel files need to be used first
-		// otherwise the global smalltalk object is undefined
+		// otherwise the global objects 'vm' and 'globals' are undefined
 		configuration.libraries = data.concat(configuration.libraries);
 		return configuration;
 	});
@@ -288,7 +289,7 @@ function resolve_kernel(configuration) {
 
 /**
  * Resolve .js files needed by compiler, read and eval() them.
- * The finished Compiler gets stored in configuration.smalltalk.
+ * The finished Compiler gets stored in configuration.{vm,globals}.
  * Returns a Promise object which resolves into the configuration object.
  */
 function create_compiler(configuration) {
@@ -327,18 +328,18 @@ function create_compiler(configuration) {
 				builder.addId(match[1]);
 			}
 		});
-		// store the generated smalltalk env in configuration.smalltalk
-		builder.finish('configuration.smalltalk = smalltalk;');
+		// store the generated smalltalk env in configuration.{vm,globals}
+		builder.finish('configuration.vm = vm; configuration.globals = globals;');
 		builder.add('})();');
 
 		eval(builder.toString());
 
 		console.log('Compiler loaded');
 
-		configuration.smalltalk.ErrorHandler._register_(configuration.smalltalk.RethrowErrorHandler._new());
+		configuration.globals.ErrorHandler._register_(configuration.globals.RethrowErrorHandler._new());
 
 		if(0 !== configuration.jsGlobals.length) {
-			var jsGlobalVariables = configuration.smalltalk.globalJsVariables;
+			var jsGlobalVariables = configuration.vm.globalJsVariables;
 			jsGlobalVariables.push.apply(jsGlobalVariables, configuration.jsGlobals);
 		}
 
@@ -358,12 +359,12 @@ function compile(configuration) {
 		configuration.compile.map(function(stFile) {
 			return new Promise(function(resolve, reject) {
 				if (/\.st/.test(stFile)) {
-					console.ambercLog('Importing: ' + stFile);
+					console.ambercLog('Reading: ' + stFile);
 					fs.readFile(stFile, 'utf8', function(err, data) {
 						if (!err)
 							resolve(data);
 						else
-							reject(Error('Could not import: ' + stFile));
+							reject(Error('Could not read: ' + stFile));
 					});
 				}
 			});
@@ -375,12 +376,12 @@ function compile(configuration) {
 		return Promise.all(
 			fileContents.map(function(code) {
 				return new Promise(function(resolve, reject) {
-					var importer = configuration.smalltalk.Importer._new();
+					var importer = configuration.globals.Importer._new();
 					try {
 						importer._import_(code._stream());
 						resolve(true);
 					} catch (ex) {
-						reject(Error("Import error in section:\n" +
+						reject(Error("Compiler error in section:\n" +
 							importer._lastSection() + "\n\n" +
 							"while processing chunk:\n" +
 							importer._lastChunk() + "\n\n" +
@@ -413,11 +414,11 @@ function category_export(configuration) {
 				var jsFile = category + configuration.suffix_used + '.js';
 				jsFile = path.join(jsFilePath, jsFile);
 				configuration.compiled.push(jsFile);
-				var smalltalk = configuration.smalltalk;
-				var packageObject = smalltalk.Package._named_(category);
+				var smalltalkGlobals = configuration.globals;
+				var packageObject = smalltalkGlobals.Package._named_(category);
 				packageObject._transport()._namespace_(configuration.amd_namespace);
-				fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
-					smalltalk.AmdExporter._new()._exportPackage_on_(packageObject, stream);
+				fs.writeFile(jsFile, smalltalkGlobals.String._streamContents_(function (stream) {
+					smalltalkGlobals.AmdExporter._new()._exportPackage_on_(packageObject, stream);
 				}), function(err) {
 					if (err)
 						reject(err);
@@ -467,8 +468,7 @@ function compose_js_files(configuration) {
 	return new Promise(function(resolve, reject) {
 		var programFile = configuration.program;
 		if (undefined === programFile) {
-			resolve(configuration);
-			return;
+			reject(configuration);
 		}
 		if (undefined !== configuration.output_dir) {
 			programFile = path.join(configuration.output_dir, programFile);
@@ -524,12 +524,12 @@ function compose_js_files(configuration) {
 
 		if (undefined !== configuration.main) {
 			console.log('Adding call to: %s>>main', configuration.main);
-			mainFunctionOrFile += 'smalltalk.' + configuration.main + '._main();';
+			mainFunctionOrFile += 'globals.' + configuration.main + '._main();';
 		}
 
 		if (undefined !== configuration.mainfile && fs.existsSync(configuration.mainfile)) {
 			console.log('Adding main file: ' + configuration.mainfile);
-			mainFunctionOrFile += '\n' + fs.readFileSync(configuration.mainfile);
+			mainFunctionOrFile += '\nvar smalltalk = vm; // backward compatibility\n' + fs.readFileSync(configuration.mainfile);
 		}
 
 		builder.finish(mainFunctionOrFile);
@@ -545,5 +545,5 @@ function compose_js_files(configuration) {
 }
 
 
-module.exports.Compiler = AmberC;
+module.exports.Compiler = AmberCompiler;
 module.exports.createDefaultConfiguration = createDefaultConfiguration;

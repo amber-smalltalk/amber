@@ -250,12 +250,14 @@ writeData: data toFileNamed: aFilename
 
 handleGETRequest: aRequest respondTo: aResponse
 	| uri filename |
-	uri := (url parse: aRequest url) pathname.
-	filename := path join: self basePath with: uri.
+	uri := url parse: aRequest url.
+	filename := path join: self basePath with: uri pathname.
 	fs exists: filename do: [:aBoolean |
 		aBoolean
 			ifFalse: [self respondNotFoundTo: aResponse]
-			ifTrue: [self respondFileNamed: filename to: aResponse]]
+			ifTrue: [(fs statSync: filename) isDirectory
+				ifTrue: [self respondDirectoryNamed: filename from: uri to: aResponse]
+				ifFalse: [self respondFileNamed: filename to: aResponse]]]
 !
 
 handleOPTIONSRequest: aRequest respondTo: aResponse
@@ -314,12 +316,16 @@ respondCreatedTo: aResponse
 		end.
 !
 
+respondDirectoryNamed: aDirname from: aUrl to: aResponse
+	(aUrl pathname endsWith: '/')
+		ifTrue: [self respondFileNamed: aDirname, 'index.html' to: aResponse]
+		ifFalse: [self respondRedirect: aUrl pathname, '/', (aUrl search ifNil: ['']) to: aResponse]
+!
+
 respondFileNamed: aFilename to: aResponse
 	| type filename |
 
 	filename := aFilename.
-	(fs statSync: aFilename) isDirectory ifTrue: [
-		filename := filename, 'index.html'].
 
 	fs readFile: filename do: [:ex :file |
 		ex notNil 
@@ -366,6 +372,12 @@ respondNotFoundTo: aResponse
 respondOKTo: aResponse
 	aResponse
 		writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};
+		end.
+!
+
+respondRedirect: aString to: aResponse
+	aResponse
+		writeHead: 303 options: #{'Location' -> aString};
 		end.
 ! !
 

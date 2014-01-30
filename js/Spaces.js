@@ -264,8 +264,7 @@ self._deny_(_st(self["@space"])._isConnected());
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@space"])._do_((function(){
-return smalltalk.withContext(function($ctx3) {
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$ObjectSpaceConnectionError());
 return self}, function($ctx1) {$ctx1.fill(self,"testConnection",{},globals.ObjectSpaceTest)})},
 args: [],
@@ -306,9 +305,8 @@ var $2,$1;
 _st(self["@space"])._whenReadyDo_((function(){
 return smalltalk.withContext(function($ctx2) {
 result=_st(self["@space"])._do_((function(){
-return smalltalk.withContext(function($ctx3) {
 return smalltalk;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}));
 result;
 $2=_st(result)._class();
 $ctx2.sendIdx["class"]=1;

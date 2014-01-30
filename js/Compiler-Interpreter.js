@@ -191,9 +191,8 @@ sequenceNode=$2;
 _st(_st(self["@node"])._parameters())._withIndexDo_((function(each,index){
 return smalltalk.withContext(function($ctx2) {
 return _st(context)._localAt_put_(each,_st(aCollection)._at_ifAbsent_(index,(function(){
-return smalltalk.withContext(function($ctx3) {
 return nil;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})));
+})));
 }, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
 $3=_st(context)._interpreter();
 $ctx1.sendIdx["interpreter"]=1;
@@ -828,9 +827,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self._sendIndexes())._at_ifAbsent_(aString,(function(){
-return smalltalk.withContext(function($ctx2) {
 return (0);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sendIndexAt:",{aString:aString},globals.AIContext)})},
 args: ["aString"],
@@ -1437,9 +1435,8 @@ try {
 $1=self._stack();
 $ctx1.sendIdx["stack"]=1;
 _st($1)._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
 throw $early=[nil];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 $2=_st(self._stack())._last();
 return $2;
 }
@@ -1822,28 +1819,20 @@ selector: "visitDynamicDictionaryNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-var associations,hashedCollection;
+var keyValueList;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-associations=_st($OrderedCollection())._new();
-$ctx1.sendIdx["new"]=1;
-hashedCollection=_st($HashedCollection())._new();
+keyValueList=_st($OrderedCollection())._new();
 _st(_st(aNode)._nodes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(associations)._add_(self._pop());
-$ctx2.sendIdx["add:"]=1;
+return _st(keyValueList)._add_(self._pop());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$ctx1.sendIdx["do:"]=1;
-_st(_st(associations)._reversed())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(hashedCollection)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-self._push_(hashedCollection);
-return self}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,associations:associations,hashedCollection:hashedCollection},globals.ASTInterpreter)})},
+self._push_(_st($HashedCollection())._newFromPairs_(_st(keyValueList)._reversed()));
+return self}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,keyValueList:keyValueList},globals.ASTInterpreter)})},
 args: ["aNode"],
-source: "visitDynamicDictionaryNode: aNode\x0a\x09| associations hashedCollection |\x0a\x09\x0a\x09associations := OrderedCollection new.\x0a\x09hashedCollection := HashedCollection new.\x0a\x09\x0a\x09aNode nodes do: [ :each | \x0a\x09\x09associations add: self pop ].\x0a\x09\x0a\x09associations reversed do: [ :each |\x0a\x09\x09hashedCollection add: each ].\x0a\x09\x0a\x09self push: hashedCollection",
-messageSends: ["new", "do:", "nodes", "add:", "pop", "reversed", "push:"],
+source: "visitDynamicDictionaryNode: aNode\x0a\x09| keyValueList |\x0a\x09\x0a\x09keyValueList := OrderedCollection new.\x0a\x09\x0a\x09aNode nodes do: [ :each | \x0a\x09\x09keyValueList add: self pop ].\x0a\x09\x0a\x09self push: (HashedCollection newFromPairs: keyValueList reversed)",
+messageSends: ["new", "do:", "nodes", "add:", "pop", "push:", "newFromPairs:", "reversed"],
 referencedClasses: ["OrderedCollection", "HashedCollection"]
 }),
 globals.ASTInterpreter);
@@ -2201,21 +2190,6 @@ selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
 var self=this;
-return false;
-},
-args: [],
-source: "isSteppingNode\x0a\x09^ false",
-messageSends: [],
-referencedClasses: []
-}),
-globals.Node);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isSteppingNode",
-protocol: '*Compiler-Interpreter',
-fn: function (){
-var self=this;
 return true;
 },
 args: [],
@@ -2284,6 +2258,21 @@ messageSends: [],
 referencedClasses: []
 }),
 globals.JSStatementNode);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isSteppingNode",
+protocol: '*Compiler-Interpreter',
+fn: function (){
+var self=this;
+return false;
+},
+args: [],
+source: "isSteppingNode\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Node);
 
 smalltalk.addMethod(
 smalltalk.method({

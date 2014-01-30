@@ -82,7 +82,7 @@ currentLineOrSelection
 
 editorOptions
 	^ #{
-		'theme' -> 'default'.
+		'theme' -> ('helios.codeMirrorTheme' settingValueIfAbsent: 'default helios').
 		'mode' -> 'text/x-stsrc'.
         'lineNumbers' -> true.
         'enterMode' -> 'flat'.
@@ -91,7 +91,7 @@ editorOptions
         'matchBrackets' -> true.
         'electricChars' -> false.
 		'keyMap' -> 'Amber'.
-		'extraKeys' -> #{'Shift-Space' -> 'autocomplete'}
+		'extraKeys' -> (HashedCollection with: ('helios.completionKey' settingValueIfAbsent: 'Shift-Space') -> 'autocomplete')
 	}
 !
 
@@ -316,63 +316,63 @@ keyMap
 
 macKeyMap
 	^ #{
-		'Alt-Backspace'		-> 'delWordBefore'.
-		'Alt-Delete'		-> 'delWordAfter'. 
-		'Alt-Left'		-> 'goWordBoundaryLeft'.
-		'Alt-Right'		-> 'goWordBoundaryRight'. 
-		'Cmd-A'			-> 'selectAll'. 
-		'Cmd-Alt-F'		-> 'replace'. 
-		'Cmd-D'			-> 'doIt'. 
-		'Cmd-Down'		-> 'goDocEnd'. 
-		'Cmd-End'		-> 'goDocEnd'. 
-		'Cmd-F'			-> 'find'.
-		'Cmd-G'			-> 'findNext'. 
-		'Cmd-I'			-> 'inspectIt'. 
-		'Cmd-Left'		-> 'goLineStart'. 
-		'Cmd-P'			-> 'printIt'. 
-		'Cmd-Right'		-> 'goLineEnd'. 
-		'Cmd-S'			-> 'saveIt'. 
-		'Cmd-Up'		-> 'goDocStart'. 
-		'Cmd-Y'			-> 'redo'.
-		'Cmd-Z'			-> 'undo'. 
-		'Cmd-['			-> 'indentLess'. 
-		'Cmd-]'			-> 'indentMore'.
+		'Alt-Backspace'			-> 'delWordBefore'.
+		'Alt-Delete'			-> 'delWordAfter'. 
+		'Alt-Left'				-> 'goWordLeft'.
+		'Alt-Right'				-> 'goWordRight'. 
+		'Cmd-A'					-> 'selectAll'. 
+		'Cmd-Alt-F'				-> 'replace'. 
+		'Cmd-D'					-> 'doIt'. 
+		'Cmd-Down'				-> 'goDocEnd'. 
+		'Cmd-End'				-> 'goDocEnd'. 
+		'Cmd-F'					-> 'find'.
+		'Cmd-G'					-> 'findNext'. 
+		'Cmd-I'					-> 'inspectIt'. 
+		'Cmd-Left'				-> 'goLineStart'. 
+		'Cmd-P'					-> 'printIt'. 
+		'Cmd-Right'				-> 'goLineEnd'. 
+		'Cmd-S'					-> 'saveIt'. 
+		'Cmd-Up'				-> 'goDocStart'. 
+		'Cmd-Y'					-> 'redo'.
+		'Cmd-Z'					-> 'undo'. 
+		'Cmd-['					-> 'indentLess'. 
+		'Cmd-]'					-> 'indentMore'.
 		'Ctrl-Alt-Backspace'	-> 'delWordAfter'. 
-		'Shift-Cmd-Alt-F'	-> 'replaceAll'.
-		'Shift-Cmd-G'		-> 'findPrev'. 
-		'Shift-Cmd-Z'		-> 'redo'. 
-    	'fallthrough' 	-> { 'basic'. 'emacsy' }
+		'Shift-Cmd-Alt-F'		-> 'replaceAll'.
+		'Shift-Cmd-G'			-> 'findPrev'. 
+		'Shift-Cmd-Z'			-> 'redo'. 
+    	'fallthrough' 			-> { 'basic'. 'emacsy' }
   }
 !
 
 pcKeyMap
 	^ #{
-		'Alt-Left' -> 'goLineStart'. 
-		'Alt-Right' -> 'goLineEnd'.
-		'Alt-Up' -> 'goDocStart'. 
-		'Ctrl-A' -> 'selectAll'. 
+		'Alt-Left' -> 		'goLineStart'. 
+		'Alt-Right' -> 		'goLineEnd'.
+		'Alt-Up' -> 		'goDocStart'. 
+		'Ctrl-A' -> 		'selectAll'. 
 		'Ctrl-Backspace' -> 'delWordBefore'. 
-		'Ctrl-D' -> 'doIt'. 
-		'Ctrl-Delete' -> 'delWordAfter'. 
-		'Ctrl-Down' -> 'goDocEnd'.
-		'Ctrl-End' -> 'goDocEnd'. 
-		'Ctrl-F' -> 'find'.
-		'Ctrl-G' -> 'findNext'. 
-		'Ctrl-I' -> 'inspectIt'.
-		'Ctrl-Home' -> 'goDocStart'. 
-		'Ctrl-Left' -> 'goWordBoundaryLeft'. 
-		'Ctrl-P' -> 'printIt'.
-		'Ctrl-Right' -> 'goWordBoundaryRight'. 
-		'Ctrl-S' -> 'saveIt'. 
-		'Ctrl-Y' -> 'redo'.
-		'Ctrl-Z' -> 'undo'. 
-		'Ctrl-[' -> 'indentLess'. 
-		'Ctrl-]' -> 'indentMore'.
-		'Shift-Ctrl-F' -> 'replace'. 
-		'Shift-Ctrl-G' -> 'findPrev'. 
-		'Shift-Ctrl-R' -> 'replaceAll'.
-		'Shift-Ctrl-Z' -> 'redo'. 
-		'fallthrough' -> #('basic')
+		'Ctrl-D' -> 		'doIt'. 
+		'Ctrl-Delete' -> 		'delWordAfter'. 
+		'Ctrl-Down' -> 		'goDocEnd'.
+		'Ctrl-End' -> 		'goDocEnd'. 
+		'Ctrl-F' -> 		'find'.
+		'Ctrl-G' -> 		'findNext'. 
+		'Ctrl-I' -> 		'inspectIt'.
+		'Ctrl-Home' -> 		'goDocStart'. 
+		'Ctrl-Left' -> 		'goWordLeft'. 
+		'Ctrl-P' -> 		'printIt'.
+		'Ctrl-Right' -> 	'goWordRight'. 
+		'Ctrl-S' -> 		'saveIt'. 
+		'Ctrl-Y' -> 		'redo'.
+		'Ctrl-Z' -> 		'undo'. 
+		'Ctrl-[' -> 		'indentLess'. 
+		'Ctrl-]' -> 		'indentMore'.
+		'Shift-Ctrl-F' -> 	'replace'. 
+		'Shift-Ctrl-G' -> 	'findPrev'. 
+		'Shift-Ctrl-R' -> 	'replaceAll'.
+		'Shift-Ctrl-Z' -> 	'redo'. 
+		'fallthrough' -> 	#('basic')
 }
 ! !
 
@@ -561,6 +561,10 @@ observeBrowserModel
 		
 		on: HLSourceCodeFocusRequested 
 		send: #onSourceCodeFocusRequested
+		to: self;
+		
+		on: HLShowTemplate
+		send: #onShowTemplate:
 		to: self
 !
 
@@ -697,6 +701,10 @@ onShowInstanceToggled
 	self browserModel selectedClass ifNil: [ ^ self contents: '' ].
     
 	self contents: self browserModel selectedClass definition
+!
+
+onShowTemplate: anAnnouncement
+	self contents: anAnnouncement template
 !
 
 onSourceCodeFocusRequested

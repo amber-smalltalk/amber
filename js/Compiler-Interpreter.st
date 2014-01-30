@@ -619,18 +619,14 @@ visitDynamicArrayNode: aNode
 !
 
 visitDynamicDictionaryNode: aNode
-	| associations hashedCollection |
+	| keyValueList |
 	
-	associations := OrderedCollection new.
-	hashedCollection := HashedCollection new.
+	keyValueList := OrderedCollection new.
 	
 	aNode nodes do: [ :each | 
-		associations add: self pop ].
+		keyValueList add: self pop ].
 	
-	associations reversed do: [ :each |
-		hashedCollection add: each ].
-	
-	self push: hashedCollection
+	self push: (HashedCollection newFromPairs: keyValueList reversed)
 !
 
 visitJSStatementNode: aNode
@@ -754,12 +750,6 @@ visitSendNode: aNode
 		self increaseIndex ]
 ! !
 
-!Node methodsFor: '*Compiler-Interpreter'!
-
-isSteppingNode
-	^ false
-! !
-
 !AssignmentNode methodsFor: '*Compiler-Interpreter'!
 
 isSteppingNode
@@ -788,6 +778,12 @@ isSteppingNode
 
 isSteppingNode
 	^ true
+! !
+
+!Node methodsFor: '*Compiler-Interpreter'!
+
+isSteppingNode
+	^ false
 ! !
 
 !SendNode methodsFor: '*Compiler-Interpreter'!

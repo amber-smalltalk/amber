@@ -492,9 +492,8 @@ $1=_st(self._bindings())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._label()).__eq(aString);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},globals.HLBindingGroup)})},
 args: ["aString"],
@@ -541,9 +540,8 @@ $1=_st(self._bindings())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._key()).__eq(anInteger);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"atKey:",{anInteger:anInteger},globals.HLBindingGroup)})},
 args: ["anInteger"],
@@ -668,8 +666,7 @@ var $2,$1;
 $2=self["@callback"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@callback"]=(function(value){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1,2)})});
+});
 $1=self["@callback"];
 } else {
 $1=$2;
@@ -990,7 +987,7 @@ self["@input"]=$5;
 self["@input"];
 $11=_st(self["@input"])._asJQuery();
 $ctx2.sendIdx["asJQuery"]=2;
-_st($11)._typeahead_(globals.HashedCollection._from_(["source".__minus_gt(self._inputCompletion())]));
+_st($11)._typeahead_(globals.HashedCollection._newFromPairs_(["source",self._inputCompletion()]));
 $12=_st(html)._span();
 _st($12)._class_("help-inline");
 _st($12)._with_(self._message());
@@ -1006,7 +1003,7 @@ return _st(_st(self["@input"])._asJQuery())._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.HLBindingActionInputWidget)})},
 args: ["html"],
 source: "renderOn: html\x0a\x09wrapper ifNil: [ wrapper := html span ].\x0a\x0a\x09wrapper \x0a\x09\x09class: self status;\x0a\x09\x09with: [\x0a\x09\x09\x09input := html input\x0a\x09\x09\x09\x09placeholder: self ghostText;\x0a\x09\x09\x09\x09value: self defaultValue;\x0a\x09\x09\x09\x09onKeyDown: [ :event | \x0a\x09\x09\x09\x09\x09event which = 13 ifTrue: [\x0a\x09\x09\x09\x09\x09\x09self evaluate: input asJQuery val ] ]\x0a\x09\x09\x09\x09yourself.\x0a\x09\x09\x09input asJQuery \x0a\x09\x09\x09\x09typeahead: #{ 'source' -> self inputCompletion }.\x0a\x09\x09\x09messageTag := (html span\x0a\x09\x09\x09\x09class: 'help-inline';\x0a\x09\x09\x09\x09with: self message;\x0a\x09\x09\x09\x09yourself) ].\x0a\x09\x0a\x09\x22Evaluate with a timeout to ensure focus.\x0a\x09Commands can be executed from a menu, clicking on the menu to\x0a\x09evaluate the command would give it the focus otherwise\x22\x0a\x09\x0a\x09[ input asJQuery focus ] valueWithTimeout: 10",
-messageSends: ["ifNil:", "span", "class:", "status", "with:", "placeholder:", "input", "ghostText", "value:", "defaultValue", "onKeyDown:", "yourself", "ifTrue:", "=", "which", "evaluate:", "val", "asJQuery", "typeahead:", "->", "inputCompletion", "message", "valueWithTimeout:", "focus"],
+messageSends: ["ifNil:", "span", "class:", "status", "with:", "placeholder:", "input", "ghostText", "value:", "defaultValue", "onKeyDown:", "yourself", "ifTrue:", "=", "which", "evaluate:", "val", "asJQuery", "typeahead:", "inputCompletion", "message", "valueWithTimeout:", "focus"],
 referencedClasses: []
 }),
 globals.HLBindingActionInputWidget);
@@ -1560,16 +1557,37 @@ globals.HLKeyBinderHelperWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "deactivate",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._keyBinder())._deactivate();
+return self}, function($ctx1) {$ctx1.fill(self,"deactivate",{},globals.HLKeyBinderHelperWidget)})},
+args: [],
+source: "deactivate\x0a\x09self keyBinder deactivate",
+messageSends: ["deactivate", "keyBinder"],
+referencedClasses: []
+}),
+globals.HLKeyBinderHelperWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "hide",
 protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(".".__comma(self._cssClass()))._asJQuery())._remove();
+var $1;
+$1=_st(".".__comma(self._cssClass()))._asJQuery();
+$ctx1.sendIdx["asJQuery"]=1;
+_st($1)._remove();
+$ctx1.sendIdx["remove"]=1;
+_st("#overlay"._asJQuery())._remove();
 self._showCog();
 return self}, function($ctx1) {$ctx1.fill(self,"hide",{},globals.HLKeyBinderHelperWidget)})},
 args: [],
-source: "hide\x0a\x09('.', self cssClass) asJQuery remove.\x0a\x09self showCog",
+source: "hide\x0a\x09('.', self cssClass) asJQuery remove.\x0a\x09'#overlay' asJQuery remove.\x0a\x09self showCog",
 messageSends: ["remove", "asJQuery", ",", "cssClass", "showCog"],
 referencedClasses: []
 }),
@@ -1647,12 +1665,11 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$3,$4,$5,$6,$2;
 $1=_st(html)._span();
-$ctx1.sendIdx["span"]=1;
 _st($1)._class_("command");
 $ctx1.sendIdx["class:"]=1;
 $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
-$3=_st(html)._span();
+$3=_st(html)._strong();
 _st($3)._class_("label");
 $ctx2.sendIdx["class:"]=2;
 $4=_st($3)._with_(_st(_st(aBinding)._shortcut())._asLowercase());
@@ -1670,8 +1687,8 @@ return $6;
 $ctx1.sendIdx["with:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"renderBindingActionFor:on:",{aBinding:aBinding,html:html},globals.HLKeyBinderHelperWidget)})},
 args: ["aBinding", "html"],
-source: "renderBindingActionFor: aBinding on: html\x0a\x09html span class: 'command'; with: [\x0a\x09\x09html span \x0a\x09\x09\x09class: 'label'; \x0a\x09\x09\x09with: aBinding shortcut asLowercase.\x0a  \x09\x09html a \x0a        \x09class: 'action'; \x0a            with: aBinding displayLabel;\x0a  \x09\x09\x09onClick: [ self keyBinder applyBinding: aBinding ] ]",
-messageSends: ["class:", "span", "with:", "asLowercase", "shortcut", "a", "displayLabel", "onClick:", "applyBinding:", "keyBinder"],
+source: "renderBindingActionFor: aBinding on: html\x0a\x09html span class: 'command'; with: [\x0a\x09\x09html strong \x0a\x09\x09\x09class: 'label'; \x0a\x09\x09\x09with: aBinding shortcut asLowercase.\x0a  \x09\x09html a \x0a        \x09class: 'action'; \x0a            with: aBinding displayLabel;\x0a  \x09\x09\x09onClick: [ self keyBinder applyBinding: aBinding ] ]",
+messageSends: ["class:", "span", "with:", "strong", "asLowercase", "shortcut", "a", "displayLabel", "onClick:", "applyBinding:", "keyBinder"],
 referencedClasses: []
 }),
 globals.HLKeyBinderHelperWidget);
@@ -1771,27 +1788,38 @@ protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
+var $1,$2,$3,$5,$6,$4;
 $1=_st(html)._div();
 $ctx1.sendIdx["div"]=1;
-_st($1)._class_(self._cssClass());
-$2=_st($1)._with_((function(){
+_st($1)._id_("overlay");
+$ctx1.sendIdx["id:"]=1;
+_st($1)._class_("light");
+$ctx1.sendIdx["class:"]=1;
+$2=_st($1)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._deactivate();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$3=_st(html)._div();
+$ctx1.sendIdx["div"]=2;
+_st($3)._class_(self._cssClass());
+$4=_st($3)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 self._renderLabelOn_(html);
-$3=_st(html)._div();
-_st($3)._id_(self._mainId());
-$4=_st($3)._with_((function(){
+$5=_st(html)._div();
+_st($5)._id_(self._mainId());
+$6=_st($5)._with_((function(){
 return smalltalk.withContext(function($ctx3) {
 return self._renderSelectedBindingOn_(html);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-$4;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+$6;
 return self._renderCloseOn_(html);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $ctx1.sendIdx["with:"]=1;
+_st(":focus"._asJQuery())._blur();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLKeyBinderHelperWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html div class: self cssClass; with: [\x0a      \x09self renderLabelOn:html.\x0a\x09\x09html div\x0a\x09\x09\x09id: self mainId;\x0a\x09\x09\x09with: [ self renderSelectedBindingOn: html ].\x0a\x09\x09self renderCloseOn: html ]",
-messageSends: ["class:", "div", "cssClass", "with:", "renderLabelOn:", "id:", "mainId", "renderSelectedBindingOn:", "renderCloseOn:"],
+source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09id: 'overlay';\x0a\x09\x09class: 'light';\x0a\x09\x09onClick: [ self deactivate ].\x0a\x09\x0a\x09html div class: self cssClass; with: [\x0a      \x09self renderLabelOn: html.\x0a\x09\x09html div\x0a\x09\x09\x09id: self mainId;\x0a\x09\x09\x09with: [ self renderSelectedBindingOn: html ].\x0a\x09\x09self renderCloseOn: html ].\x0a\x09\x09\x0a\x09':focus' asJQuery blur",
+messageSends: ["id:", "div", "class:", "onClick:", "deactivate", "cssClass", "with:", "renderLabelOn:", "mainId", "renderSelectedBindingOn:", "renderCloseOn:", "blur", "asJQuery"],
 referencedClasses: []
 }),
 globals.HLKeyBinderHelperWidget);

@@ -1273,7 +1273,7 @@ select: aBlock
 !
 
 sort
-	^ self basicPerform: 'sort'
+	^ self sort: [ :a :b | a < b ]
 !
 
 sort: aBlock

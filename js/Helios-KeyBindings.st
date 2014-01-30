@@ -536,8 +536,13 @@ selectedBinding
 
 !HLKeyBinderHelperWidget methodsFor: 'actions'!
 
+deactivate
+	self keyBinder deactivate
+!
+
 hide
 	('.', self cssClass) asJQuery remove.
+	'#overlay' asJQuery remove.
 	self showCog
 !
 
@@ -566,7 +571,7 @@ showWidget: aWidget
 
 renderBindingActionFor: aBinding on: html
 	html span class: 'command'; with: [
-		html span 
+		html strong 
 			class: 'label'; 
 			with: aBinding shortcut asLowercase.
   		html a 
@@ -600,12 +605,19 @@ renderCog
 !
 
 renderContentOn: html
+	html div 
+		id: 'overlay';
+		class: 'light';
+		onClick: [ self deactivate ].
+	
 	html div class: self cssClass; with: [
-      	self renderLabelOn:html.
+      	self renderLabelOn: html.
 		html div
 			id: self mainId;
 			with: [ self renderSelectedBindingOn: html ].
-		self renderCloseOn: html ]
+		self renderCloseOn: html ].
+		
+	':focus' asJQuery blur
 !
 
 renderLabelOn: html

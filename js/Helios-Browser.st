@@ -231,7 +231,7 @@ HLToolModel subclass: #HLBrowserModel
 !HLBrowserModel methodsFor: 'accessing'!
 
 showComment
-	^ showComment ifNil: [ false ]
+	^ showComment ifNil: [ true ]
 !
 
 showComment: aBoolean
@@ -283,6 +283,20 @@ setClassComment: aString
 	self environment
 		setClassCommentOf: self selectedClass theNonMetaClass
 		to: aString
+!
+
+showClassTemplate
+	self selectedPackage ifNotNil: [ :package |
+		self announcer announce: (HLShowTemplate new
+			template: package classTemplate;
+			yourself) ]
+!
+
+showMethodTemplate
+	self selectedClass ifNotNil: [ :theClass |
+		self announcer announce: (HLShowTemplate new
+			template: theClass methodTemplate;
+			yourself) ]
 ! !
 
 !HLBrowserModel methodsFor: 'commands actions'!
@@ -402,8 +416,6 @@ I render a list of classes in the selected package.!
 !HLClassesListWidget methodsFor: 'accessing'!
 
 cssClassForItem: aClass
-	aClass theNonMetaClass comment isEmpty 
-		ifTrue: [ ^ 'uncommented' ].
 	^ aClass theNonMetaClass heliosClass
 !
 
@@ -421,6 +433,13 @@ label
 ! !
 
 !HLClassesListWidget methodsFor: 'actions'!
+
+focus
+	super focus.
+	
+	self selectedItem 
+		ifNil: [ self model showClassTemplate ]
+!
 
 focusMethodsListWidget
 	self model announcer announce: HLMethodsListFocus new
@@ -573,6 +592,7 @@ onClassRemoved: anAnnouncement
 
 	class package = self model selectedPackage ifFalse: [ ^ self ].
     
+	self selectItem: nil.
     self setItemsForSelectedPackage.
     self refresh
 !
@@ -777,8 +797,7 @@ unregister
 !HLDocumentationWidget methodsFor: 'defaults'!
 
 defaultDocumentation
-	^ 'No documentation available. 
-**That''s bad. Seriously.**'
+	^ 'No documentation is available for this class.'
 !
 
 defaultHead
@@ -924,6 +943,13 @@ selectorsInProtocol: aString
 ! !
 
 !HLMethodsListWidget methodsFor: 'actions'!
+
+focus
+	super focus.
+	
+	self selectedItem ifNil: [
+		self model showMethodTemplate ]
+!
 
 observeModel
 	self model announcer 
@@ -1153,6 +1179,7 @@ observeSystem
 !
 
 selectItem: aPackage
+	super selectItem: aPackage.
 	self model selectedPackage: aPackage
 ! !
 

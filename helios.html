@@ -20,8 +20,7 @@
                           return 'Do you want to close Amber? All uncommitted changes will be lost.';
                       };
 
-                      smalltalk.vm.defaultAmdNamespace = "amber_core";
-                      smalltalk.vm.initialize();
+                      smalltalk.initialize({'transport.defaultAmdNamespace': "amber_core"});
 					  smalltalk.globals.HLManager._setup();
                   }
           );

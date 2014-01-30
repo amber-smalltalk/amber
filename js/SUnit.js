@@ -321,9 +321,8 @@ return smalltalk.withContext(function($ctx2) {
 _st(aBlock)._value();
 return false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_(anExceptionClass,(function(ex){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})})));
+})));
 return self}, function($ctx1) {$ctx1.fill(self,"should:raise:",{aBlock:aBlock,anExceptionClass:anExceptionClass},globals.TestCase)})},
 args: ["aBlock", "anExceptionClass"],
 source: "should: aBlock raise: anExceptionClass\x0a\x09self assert: ([ aBlock value. false ]\x0a\x09\x09on: anExceptionClass\x0a\x09\x09do: [ :ex | true ])",
@@ -344,9 +343,8 @@ return smalltalk.withContext(function($ctx2) {
 _st(aBlock)._value();
 return true;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_(anExceptionClass,(function(ex){
-return smalltalk.withContext(function($ctx2) {
 return false;
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})})));
+})));
 return self}, function($ctx1) {$ctx1.fill(self,"shouldnt:raise:",{aBlock:aBlock,anExceptionClass:anExceptionClass},globals.TestCase)})},
 args: ["aBlock", "anExceptionClass"],
 source: "shouldnt: aBlock raise: anExceptionClass\x0a\x09self assert: ([ aBlock value. true ]\x0a\x09\x09on: anExceptionClass\x0a\x09\x09do: [ :ex | false ])",

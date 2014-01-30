@@ -93,6 +93,7 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 	}
 
 	var globals = {};
+    globals.SmalltalkSettings = {};
 	var api = Object.create(globals);
 	var brikz = new Brikz(api);
 
@@ -880,6 +881,8 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 				} catch(error) {
 					handleError(error);
 					st.thisContext = null;
+					// Rethrow the error in any case.
+					throw error;
 				}
 			}
 		};
@@ -935,10 +938,6 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 				error = wrappedError(error);
 			}
 			globals.ErrorHandler._handleError_(error);
-			// Throw the exception anyway, as we want to stop
-			// the execution to avoid infinite loops
-			// Update: do not throw the exception. It's really annoying.
-			// throw error;
 		}
 
 		/* Handle thisContext pseudo variable */

@@ -1079,7 +1079,7 @@ return smalltalk.withContext(function($ctx1) {
 return self["@jsObject"] === aJSObject;
 return self}, function($ctx1) {$ctx1.fill(self,"compareJSObjectWith:",{aJSObject:aJSObject},globals.JSObjectProxy)})},
 args: ["aJSObject"],
-source: " compareJSObjectWith: aJSObject\x0a \x09<return self[\x22@jsObject\x22] === aJSObject>",
+source: "compareJSObjectWith: aJSObject\x0a \x09<return self[\x22@jsObject\x22] === aJSObject>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1463,6 +1463,52 @@ globals.Package);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "classTemplate",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $3,$4,$2,$5,$6,$7,$1;
+$1=_st($String())._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) {
+_st(stream)._nextPutAll_("Object");
+$ctx2.sendIdx["nextPutAll:"]=1;
+_st(stream)._nextPutAll_(" subclass: #NameOfSubclass");
+$ctx2.sendIdx["nextPutAll:"]=2;
+$3=_st($String())._lf();
+$ctx2.sendIdx["lf"]=1;
+$4=_st($String())._tab();
+$ctx2.sendIdx["tab"]=1;
+$2=_st($3).__comma($4);
+$ctx2.sendIdx[","]=1;
+_st(stream)._nextPutAll_($2);
+$ctx2.sendIdx["nextPutAll:"]=3;
+$5=_st(stream)._nextPutAll_("instanceVariableNames: ''");
+$ctx2.sendIdx["nextPutAll:"]=4;
+$5;
+$6=_st("'".__comma(_st($String())._lf())).__comma(_st($String())._tab());
+$ctx2.sendIdx[","]=2;
+_st(stream)._nextPutAll_($6);
+$ctx2.sendIdx["nextPutAll:"]=5;
+_st(stream)._nextPutAll_("package: '");
+$ctx2.sendIdx["nextPutAll:"]=6;
+_st(stream)._nextPutAll_(self._name());
+$ctx2.sendIdx["nextPutAll:"]=7;
+$7=_st(stream)._nextPutAll_("'");
+return $7;
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classTemplate",{},globals.Package)})},
+args: [],
+source: "classTemplate\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream\x0a\x09\x09\x09nextPutAll: 'Object';\x0a\x09\x09\x09nextPutAll: ' subclass: #NameOfSubclass';\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: 'instanceVariableNames: '''''.\x0a\x09\x09stream\x0a\x09\x09\x09nextPutAll: '''', String lf, String tab;\x0a\x09\x09\x09nextPutAll: 'package: ''';\x0a\x09\x09\x09nextPutAll: self name;\x0a\x09\x09\x09nextPutAll: '''' ]",
+messageSends: ["streamContents:", "nextPutAll:", ",", "lf", "tab", "name"],
+referencedClasses: ["String"]
+}),
+globals.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "classes",
 protocol: 'classes',
 fn: function (){
@@ -1558,8 +1604,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(each)._package();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._asSet();
 _st($2)._remove_ifAbsent_(self,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
@@ -1591,8 +1636,7 @@ return _st(each)._superclass();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $2=_st($3)._asSet();
 _st($2)._remove_ifAbsent_(nil,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 _st($2)._addAll_(_st(_st($Smalltalk())._classes())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 $6=_st(each)._protocols();
@@ -1972,12 +2016,10 @@ function $PlatformInterface(){return globals.PlatformInterface||(typeof Platform
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(_st($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
+}),(function(){
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},globals.PlatformInterface.klass)})},
 args: ["aString"],
@@ -2294,6 +2336,153 @@ referencedClasses: []
 globals.Transcript.klass);
 
 
+smalltalk.addClass('Setting', globals.Object, ['key', 'value', 'defaultValue'], 'Kernel-Infrastructure');
+globals.Setting.comment="I represent a setting accessible via `Smalltalk settings`.\x0a\x0a## API\x0a\x0aA `Setting` value can be read using `value` and set using `value:`.\x0a\x0aSettings are accessed with `'key' asSetting` or `'key' asSettingIfAbsent: 'defaultValue'`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultValue",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@defaultValue"];
+return $1;
+},
+args: [],
+source: "defaultValue\x0a\x09^ defaultValue",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Setting);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultValue:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@defaultValue"]=anObject;
+return self},
+args: ["anObject"],
+source: "defaultValue: anObject\x0a\x09defaultValue := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Setting);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@key"];
+return $1;
+},
+args: [],
+source: "key\x0a\x09^ key",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Setting);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@key"]=anObject;
+return self},
+args: ["anObject"],
+source: "key: anObject\x0a\x09key := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Setting);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Smalltalk())._settings())._at_ifAbsent_(self._key(),(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._defaultValue();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value",{},globals.Setting)})},
+args: [],
+source: "value\x0a\x09^ Smalltalk settings at: self key ifAbsent: [ self defaultValue ]",
+messageSends: ["at:ifAbsent:", "settings", "key", "defaultValue"],
+referencedClasses: ["Smalltalk"]
+}),
+globals.Setting);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Smalltalk())._settings())._at_put_(self._key(),aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value:",{aString:aString},globals.Setting)})},
+args: ["aString"],
+source: "value: aString\x0a\x09^ Smalltalk settings at: self key put: aString",
+messageSends: ["at:put:", "settings", "key"],
+referencedClasses: ["Smalltalk"]
+}),
+globals.Setting);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:ifAbsent:",
+protocol: 'instance creation',
+fn: function (aString,anotherString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=globals.Setting.klass.superclass.fn.prototype._new.apply(_st(self), []);
+_st($2)._key_(aString);
+_st($2)._defaultValue_(anotherString);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,anotherString:anotherString},globals.Setting.klass)})},
+args: ["aString", "anotherString"],
+source: "at: aString ifAbsent: anotherString\x0a\x09^ super new\x0a\x09\x09key: aString;\x0a\x09\x09defaultValue: anotherString;\x0a\x09\x09yourself",
+messageSends: ["key:", "new", "defaultValue:", "yourself"],
+referencedClasses: []
+}),
+globals.Setting.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "new",
+protocol: 'instance creation',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._shouldNotImplement();
+return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.Setting.klass)})},
+args: [],
+source: "new\x0a\x09self shouldNotImplement",
+messageSends: ["shouldNotImplement"],
+referencedClasses: []
+}),
+globals.Setting.klass);
+
+
 smalltalk.addClass('SmalltalkImage', globals.Object, [], 'Kernel-Infrastructure');
 globals.SmalltalkImage.comment="I represent the Smalltalk system, wrapping\x0aoperations of variable `smalltalk` declared in `js/boot.js`.\x0a\x0a## API\x0a\x0aI have only one instance, accessed with global variable `Smalltalk`.\x0a\x0aThe `smalltalk` object holds all class and packages defined in the system.\x0a\x0a## Classes\x0a\x0aClasses can be accessed using the following methods:\x0a\x0a- `#classes` answers the full list of Smalltalk classes in the system\x0a- `#at:` answers a specific class or `nil`\x0a\x0a## Packages\x0a\x0aPackages can be accessed using the following methods:\x0a\x0a- `#packages` answers the full list of packages\x0a- `#packageAt:` answers a specific package or `nil`\x0a\x0a## Parsing\x0a\x0aThe `#parse:` method is used to parse Amber source code.\x0aIt requires the `Compiler` package and the `js/parser.js` parser file in order to work.";
 smalltalk.addMethod(
@@ -2545,12 +2734,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._vm())._defaultAmdNamespace();
+$1="transport.defaultAmdNamespace"._settingValue();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},globals.SmalltalkImage)})},
 args: [],
-source: "defaultAmdNamespace\x0a\x09^ self vm defaultAmdNamespace",
-messageSends: ["defaultAmdNamespace", "vm"],
+source: "defaultAmdNamespace\x0a\x09^ 'transport.defaultAmdNamespace' settingValue",
+messageSends: ["settingValue"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
@@ -2562,11 +2751,11 @@ protocol: 'accessing amd',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._vm())._defaultAmdNamespace_(aString);
+"transport.defaultAmdNamespace"._settingValue_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace:",{aString:aString},globals.SmalltalkImage)})},
 args: ["aString"],
-source: "defaultAmdNamespace: aString\x0a\x09self vm defaultAmdNamespace: aString",
-messageSends: ["defaultAmdNamespace:", "vm"],
+source: "defaultAmdNamespace: aString\x0a\x09'transport.defaultAmdNamespace' settingValue: aString",
+messageSends: ["settingValue:"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
@@ -2595,8 +2784,7 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._globalJsVariables())._remove_ifAbsent_(aString,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},globals.SmalltalkImage)})},
 args: ["aString"],
 source: "deleteGlobalJsVariable: aString\x0a\x09self globalJsVariables remove: aString ifAbsent:[]",
@@ -2939,6 +3127,22 @@ globals.SmalltalkImage);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "settings",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $SmalltalkSettings(){return globals.SmalltalkSettings||(typeof SmalltalkSettings=="undefined"?nil:SmalltalkSettings)}
+return $SmalltalkSettings();
+},
+args: [],
+source: "settings\x0a\x09^ SmalltalkSettings",
+messageSends: [],
+referencedClasses: ["SmalltalkSettings"]
+}),
+globals.SmalltalkImage);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "version",
 protocol: 'accessing',
 fn: function (){
@@ -3058,6 +3262,98 @@ return $1;
 args: [],
 source: "asJavaScriptSelector\x0a\x09\x22Return first keyword of the selector, without trailing colon.\x22\x0a\x09^ self replace: '^([a-zA-Z0-9]*).*$' with: '$1'",
 messageSends: ["replace:with:"],
+referencedClasses: []
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asSetting",
+protocol: '*Kernel-Infrastructure',
+fn: function (){
+var self=this;
+function $Setting(){return globals.Setting||(typeof Setting=="undefined"?nil:Setting)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Setting())._at_ifAbsent_(self,nil);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asSetting",{},globals.String)})},
+args: [],
+source: "asSetting\x0a\x09^ Setting at: self ifAbsent: nil",
+messageSends: ["at:ifAbsent:"],
+referencedClasses: ["Setting"]
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asSettingIfAbsent:",
+protocol: '*Kernel-Infrastructure',
+fn: function (aString){
+var self=this;
+function $Setting(){return globals.Setting||(typeof Setting=="undefined"?nil:Setting)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Setting())._at_ifAbsent_(self,aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asSettingIfAbsent:",{aString:aString},globals.String)})},
+args: ["aString"],
+source: "asSettingIfAbsent: aString\x0a\x09^ Setting at: self ifAbsent: aString",
+messageSends: ["at:ifAbsent:"],
+referencedClasses: ["Setting"]
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "settingValue",
+protocol: '*Kernel-Infrastructure',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._asSetting())._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"settingValue",{},globals.String)})},
+args: [],
+source: "settingValue\x0a\x09^ self asSetting value",
+messageSends: ["value", "asSetting"],
+referencedClasses: []
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "settingValue:",
+protocol: '*Kernel-Infrastructure',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._asSetting())._value_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"settingValue:",{aString:aString},globals.String)})},
+args: ["aString"],
+source: "settingValue: aString\x0a\x09^ self asSetting value: aString",
+messageSends: ["value:", "asSetting"],
+referencedClasses: []
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "settingValueIfAbsent:",
+protocol: '*Kernel-Infrastructure',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._asSettingIfAbsent_(aString))._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"settingValueIfAbsent:",{aString:aString},globals.String)})},
+args: ["aString"],
+source: "settingValueIfAbsent: aString\x0a\x09^ (self asSettingIfAbsent: aString) value",
+messageSends: ["value", "asSettingIfAbsent:"],
 referencedClasses: []
 }),
 globals.String);

@@ -185,15 +185,13 @@ fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		var constructor = function() {};
-		constructor.prototype = self.prototype;
-		var object = new constructor;
+		var object = Object.create(self.prototype);
 		var result = self.apply(object, aCollection);
 		return typeof result === "object" ? result : object;
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"newWithValues:",{aCollection:aCollection},globals.BlockClosure)})},
 args: ["aCollection"],
-source: "newWithValues: aCollection\x0a\x09\x22Use the receiver as a JavaScript constructor with a variable number of arguments.\x0a\x09Answer the object created using the operator `new`.\x0a\x0a\x09This algorithm was inspired by http://stackoverflow.com/a/6069331.\x0a\x0a\x09Here's a general breakdown of what's going on:\x0a\x091) Create a new, empty constructor function.\x0a\x092) Set it's prototype to the receiver's prototype. Because the receiver is a `BlockClosure`, it is also a JavaScript function.\x0a\x093) Instantiate a new object using the constructor function just created. \x0a\x09\x09This forces the interpreter to set the internal [[prototype]] property to what was set on the function before. \x0a   \x09\x09This has to be done, as we have no access to the [[prototype]] property externally.\x0a\x094) Apply `self` to the object I just instantiated.\x22\x0a\x0a\x09<\x0a\x09\x09var constructor = function() {};\x0a\x09\x09constructor.prototype = self.prototype;\x0a\x09\x09var object = new constructor;\x0a\x09\x09var result = self.apply(object, aCollection);\x0a\x09\x09return typeof result === \x22object\x22 ? result : object;\x0a\x09>",
+source: "newWithValues: aCollection\x0a\x09\x22Simulates JS new operator by combination of Object.create and .apply\x22\x0a\x09<\x0a\x09\x09var object = Object.create(self.prototype);\x0a\x09\x09var result = self.apply(object, aCollection);\x0a\x09\x09return typeof result === \x22object\x22 ? result : object;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -405,8 +403,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._whileFalse_((function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse",{},globals.BlockClosure)})},
 args: [],
 source: "whileFalse\x0a\x09self whileFalse: []",
@@ -439,8 +436,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._whileTrue_((function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue",{},globals.BlockClosure)})},
 args: [],
 source: "whileTrue\x0a\x09self whileTrue: []",
@@ -659,6 +655,38 @@ args: [],
 source: "methodClass\x0a\x09^ self basicAt: 'methodClass'",
 messageSends: ["basicAt:"],
 referencedClasses: []
+}),
+globals.CompiledMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "package",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$4,$3,$5;
+$2=self._protocol();
+$ctx1.sendIdx["protocol"]=1;
+$1=_st($2)._beginsWith_("*");
+if(! smalltalk.assert($1)){
+$4=self._methodClass();
+$ctx1.sendIdx["methodClass"]=1;
+$3=_st($4)._package();
+$ctx1.sendIdx["package"]=1;
+return $3;
+};
+$5=_st($Package())._named_ifAbsent_(_st(self._protocol())._allButFirst(),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._methodClass())._package();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return $5;
+}, function($ctx1) {$ctx1.fill(self,"package",{},globals.CompiledMethod)})},
+args: [],
+source: "package\x0a\x09\x22Answer the package the receiver belongs to:\x0a\x09- if it is an extension method, answer the corresponding package\x0a\x09- else answer the `methodClass` package\x22\x0a\x09\x0a\x09(self protocol beginsWith: '*') ifFalse: [\x0a\x09\x09^ self methodClass package ].\x0a\x09\x09\x0a\x09^ Package \x0a\x09\x09named: self protocol allButFirst\x0a\x09\x09ifAbsent: [ self methodClass package ]",
+messageSends: ["ifFalse:", "beginsWith:", "protocol", "package", "methodClass", "named:ifAbsent:", "allButFirst"],
+referencedClasses: ["Package"]
 }),
 globals.CompiledMethod);
 
@@ -926,9 +954,8 @@ return smalltalk.withContext(function($ctx2) {
 self["@poolSize"]=_st(self["@poolSize"]).__minus((1));
 self["@poolSize"];
 block=_st(self["@queue"])._nextIfAbsent_((function(){
-return smalltalk.withContext(function($ctx3) {
 return sentinel;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}));
 block;
 $2=_st(block).__eq_eq(sentinel);
 if(! smalltalk.assert($2)){

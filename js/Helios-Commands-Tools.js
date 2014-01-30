@@ -210,10 +210,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "Commit";
+return "Commit package";
 },
 args: [],
-source: "label\x0a\x09^ 'Commit'",
+source: "label\x0a\x09^ 'Commit package'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -373,10 +373,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "Class";
+return "Copy class";
 },
 args: [],
-source: "label\x0a\x09^ 'Class'",
+source: "label\x0a\x09^ 'Copy class'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -548,10 +548,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "Class";
+return "Find class";
 },
 args: [],
-source: "label\x0a\x09^ 'Class'",
+source: "label\x0a\x09^ 'Find class'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -701,10 +701,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "References";
+return "Find references";
 },
 args: [],
-source: "label\x0a\x09^ 'References'",
+source: "label\x0a\x09^ 'Find references'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -785,10 +785,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "Class";
+return "Move class";
 },
 args: [],
-source: "label\x0a\x09^ 'Class'",
+source: "label\x0a\x09^ 'Move class'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -912,10 +912,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "to package";
+return "Move class to package";
 },
 args: [],
-source: "label\x0a\x09^ 'to package'",
+source: "label\x0a\x09^ 'Move class to package'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -993,10 +993,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "Method";
+return "Move method";
 },
 args: [],
-source: "label\x0a\x09^ 'Method'",
+source: "label\x0a\x09^ 'Move method'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1105,10 +1105,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "to class";
+return "Move method to class";
 },
 args: [],
-source: "label\x09\x0a\x09^ 'to class'",
+source: "label\x09\x0a\x09^ 'Move method to class'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1232,10 +1232,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "to protocol";
+return "Move method to protocol";
 },
 args: [],
-source: "label\x0a\x09^ 'to protocol'",
+source: "label\x0a\x09^ 'Move method to protocol'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1362,10 +1362,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "Class";
+return "Remove class";
 },
 args: [],
-source: "label\x0a\x09^ 'Class'",
+source: "label\x0a\x09^ 'Remove class'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1459,10 +1459,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "Method";
+return "Remove method";
 },
 args: [],
-source: "label\x0a\x09^ 'Method'",
+source: "label\x0a\x09^ 'Remove method'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1556,10 +1556,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "Protocol";
+return "Remove protocol";
 },
 args: [],
-source: "label\x0a\x09^ 'Protocol'",
+source: "label\x0a\x09^ 'Remove protocol'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1734,10 +1734,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "Class";
+return "Rename class";
 },
 args: [],
-source: "label\x0a\x09^ 'Class'",
+source: "label\x0a\x09^ 'Rename class'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1879,10 +1879,10 @@ selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "Protocol";
+return "Rename protocol";
 },
 args: [],
-source: "label\x0a\x09^ 'Protocol'",
+source: "label\x0a\x09^ 'Rename protocol'",
 messageSends: [],
 referencedClasses: []
 }),

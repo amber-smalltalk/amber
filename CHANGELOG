@@ -1,17 +1,32 @@
-??th ??? 20?? - Release 0.12.3
+??nd ??? 2014 - Release 0.12.4
+===================================
+
+Highlights:
+
+* Fixed backward compatibility for pre-0.12.3 loader syntax.
+* `namespace/_source` is not needed to map and is recommended
+  not to use; `.st` files are by default committed to the `.js` location.
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.12.3...0.12.4
+Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=12&state=closed
+
+For the most important API related changes see the file API-CHANGES.txt.
+
+
+22nd Jan 2014 - Release 0.12.3
 ===================================
 
 Highlights:
 
 * JQuery updated to ~1.10.2; jquery-ui updated to match
-* You can create subclasses of `nil`
-* Amber loads in IE8
-* You can load amber.js asynchronously (it must
-  have id 'amber-path-mapper' in that case)
+* Subclasses of `nil` can be created
+* Several fixes for IE8
+* amber.js can be loaded asynchronously (it must
+  have an id 'amber-path-mapper' in that case)
 * CodeMirror updated to ~3.20.0
 
 Commits: https://github.com/amber-smalltalk/amber/compare/0.12.2...0.12.3
-Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=__&state=closed
+Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=11&state=closed
 
 For the most important API related changes see the file API-CHANGES.txt.
 

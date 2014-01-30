@@ -104,26 +104,33 @@ function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedC
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ExportMethodProtocol(){return globals.ExportMethodProtocol||(typeof ExportMethodProtocol=="undefined"?nil:ExportMethodProtocol)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-extensionName="*".__comma(_st(aPackage)._name());
+var $1,$2,$3,$4;
+$1=_st(aPackage)._name();
+$ctx1.sendIdx["name"]=1;
+extensionName="*".__comma($1);
 result=_st($OrderedCollection())._new();
-_st(_st($Smalltalk())._classes())._do_((function(each){
+_st(_st(_st(_st($Smalltalk())._classes())._asArray())._sorted_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+$2=_st(a)._name();
+$ctx2.sendIdx["name"]=2;
+return _st($2).__lt(_st(b)._name());
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})})))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st([each,_st(each)._class()])._do_((function(behavior){
 return smalltalk.withContext(function($ctx3) {
-$1=_st(_st(behavior)._protocols())._includes_(extensionName);
-if(smalltalk.assert($1)){
+$3=_st(_st(behavior)._protocols())._includes_(extensionName);
+if(smalltalk.assert($3)){
 return _st(result)._add_(_st($ExportMethodProtocol())._name_theClass_(extensionName,behavior));
 };
-}, function($ctx3) {$ctx3.fillBlock({behavior:behavior},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx3) {$ctx3.fillBlock({behavior:behavior},$ctx2,3)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 $ctx1.sendIdx["do:"]=1;
-$2=result;
-return $2;
+$4=result;
+return $4;
 }, function($ctx1) {$ctx1.fill(self,"extensionProtocolsOfPackage:",{aPackage:aPackage,extensionName:extensionName,result:result},globals.AbstractExporter)})},
 args: ["aPackage"],
-source: "extensionProtocolsOfPackage: aPackage\x0a\x09| extensionName result |\x0a\x09\x0a\x09extensionName := '*', aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09\x0a\x09\x22The classes must be loaded since it is extensions only.\x0a\x09Therefore sorting (dependency resolution) does not matter here.\x0a\x09Not sorting improves the speed by a number of magnitude.\x22\x0a\x09\x0a\x09Smalltalk classes do: [ :each |\x0a\x09\x09{each. each class} do: [ :behavior |\x0a\x09\x09\x09(behavior protocols includes: extensionName) ifTrue: [\x0a\x09\x09\x09\x09result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].\x0a\x0a\x09^ result",
-messageSends: [",", "name", "new", "do:", "classes", "class", "ifTrue:", "includes:", "protocols", "add:", "name:theClass:"],
+source: "extensionProtocolsOfPackage: aPackage\x0a\x09| extensionName result |\x0a\x09\x0a\x09extensionName := '*', aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09\x0a\x09\x22The classes must be loaded since it is extensions only.\x0a\x09Therefore topological sorting (dependency resolution) does not matter here.\x0a\x09Not sorting topologically improves the speed by a number of magnitude.\x0a\x09\x0a\x09Not to shuffle diffs, classes are sorted by their name.\x22\x0a\x09\x0a\x09(Smalltalk classes asArray sorted: [ :a :b | a name < b name ]) do: [ :each |\x0a\x09\x09{each. each class} do: [ :behavior |\x0a\x09\x09\x09(behavior protocols includes: extensionName) ifTrue: [\x0a\x09\x09\x09\x09result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].\x0a\x0a\x09^ result",
+messageSends: [",", "name", "new", "do:", "sorted:", "asArray", "classes", "<", "class", "ifTrue:", "includes:", "protocols", "add:", "name:theClass:"],
 referencedClasses: ["OrderedCollection", "Smalltalk", "ExportMethodProtocol"]
 }),
 globals.AbstractExporter);
@@ -1424,30 +1431,21 @@ protocol: 'private',
 fn: function (aURL,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$8,$7,$6,$1;
-$2="url".__minus_gt(aURL);
-$ctx1.sendIdx["->"]=1;
-$3="type".__minus_gt("PUT");
-$ctx1.sendIdx["->"]=2;
-$4="data".__minus_gt(aString);
-$ctx1.sendIdx["->"]=3;
-$5="contentType".__minus_gt("text/plain;charset=UTF-8");
-$ctx1.sendIdx["->"]=4;
-$1=globals.HashedCollection._from_([$2,$3,$4,$5,"error".__minus_gt((function(xhr){
+var $3,$2,$1;
+self._ajax_(globals.HashedCollection._newFromPairs_(["url",aURL,"type","PUT","data",aString,"contentType","text/plain;charset=UTF-8","error",(function(xhr){
 return smalltalk.withContext(function($ctx2) {
-$8=_st("Commiting ".__comma(aURL)).__comma(" failed with reason: \x22");
+$3=_st("Commiting ".__comma(aURL)).__comma(" failed with reason: \x22");
 $ctx2.sendIdx[","]=3;
-$7=_st($8).__comma(_st(xhr)._responseText());
+$2=_st($3).__comma(_st(xhr)._responseText());
 $ctx2.sendIdx[","]=2;
-$6=_st($7).__comma("\x22");
+$1=_st($2).__comma("\x22");
 $ctx2.sendIdx[","]=1;
-return self._alert_($6);
-}, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1,1)})}))]);
-self._ajax_($1);
+return self._alert_($1);
+}, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1,1)})})]));
 return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:",{aURL:aURL,aString:aString},globals.PackageHandler)})},
 args: ["aURL", "aString"],
 source: "ajaxPutAt: aURL data: aString\x0a\x09self\x0a\x09\x09ajax: #{\x0a\x09\x09\x09'url' -> aURL.\x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'error' -> [ :xhr | self alert: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22' ] }",
-messageSends: ["ajax:", "->", "alert:", ",", "responseText"],
+messageSends: ["ajax:", "alert:", ",", "responseText"],
 referencedClasses: []
 }),
 globals.PackageHandler);
@@ -1707,14 +1705,24 @@ selector: "commitPathStFor:",
 protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
+var path,pathWithout;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._toUrl_(_st(self._namespaceFor_(aPackage)).__comma("/_source"));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage},globals.AmdPackageHandler)})},
+var $1,$3,$2;
+$1=_st(self._namespaceFor_(aPackage)).__comma("/_source");
+$ctx1.sendIdx[","]=1;
+path=self._toUrl_($1);
+pathWithout=self._commitPathJsFor_(aPackage);
+$3=_st(path).__eq(_st(pathWithout).__comma("/_source"));
+if(smalltalk.assert($3)){
+$2=pathWithout;
+} else {
+$2=path;
+};
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage,path:path,pathWithout:pathWithout},globals.AmdPackageHandler)})},
 args: ["aPackage"],
-source: "commitPathStFor: aPackage\x0a\x09\x22if _source is not mapped, .st commit will likely fail\x22\x0a\x09^ self toUrl: (self namespaceFor: aPackage), '/_source'.",
-messageSends: ["toUrl:", ",", "namespaceFor:"],
+source: "commitPathStFor: aPackage\x0a\x09\x22If _source is not mapped, .st will be committed to .js path.\x0a\x09It is recommended not to use _source as it can be deprecated.\x22\x0a\x09\x0a\x09| path pathWithout |\x0a\x09path := self toUrl: (self namespaceFor: aPackage), '/_source'.\x0a\x09pathWithout := self commitPathJsFor: aPackage.\x0a\x09^ path = (pathWithout, '/_source') ifTrue: [ pathWithout ] ifFalse: [ path ]",
+messageSends: ["toUrl:", ",", "namespaceFor:", "commitPathJsFor:", "ifTrue:ifFalse:", "="],
 referencedClasses: []
 }),
 globals.AmdPackageHandler);
@@ -1856,12 +1864,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=globals.HashedCollection._from_(["type".__minus_gt(self._type())]);
+$1=globals.HashedCollection._newFromPairs_(["type",self._type()]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{},globals.PackageTransport)})},
 args: [],
 source: "asJSON\x0a\x09^ #{ 'type' -> self type }",
-messageSends: ["->", "type"],
+messageSends: ["type"],
 referencedClasses: []
 }),
 globals.PackageTransport);
@@ -2104,7 +2112,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 globals.PackageTransport.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@registry"]=globals.HashedCollection._from_([]);
+self["@registry"]=globals.HashedCollection._newFromPairs_([]);
 self._register();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.PackageTransport.klass)})},
 args: [],

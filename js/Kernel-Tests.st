@@ -108,17 +108,16 @@ testExceptionSemantics
 
 testNewWithValues
 <
-	function theTestPrototype() {this.name = "theTestPrototype";}
-	function theTestConstructor(arg1, arg2, arg3) {}
-	theTestConstructor.prototype = new theTestPrototype;
+	function TestConstructor(arg1, arg2, arg3) {}
+	TestConstructor.prototype.name = 'theTestPrototype';
 
-	var theWrappedConstructor = _st(theTestConstructor);
-	var theResult = theWrappedConstructor._newWithValues_([1, 2, 3 ]);
-	self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');
+	var wrappedConstructor = _st(TestConstructor);
+	var result = wrappedConstructor._newWithValues_([1, 2, 3 ]);
+	self._assert_(result instanceof TestConstructor);
+	self._assert_equals_(result.name, 'theTestPrototype');
 
 	"newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made."
-	function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}
-	self._should_raise_(_st(constructionShouldFail), globals.Error);
+	self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, globals.Error);
 >
 !
 
@@ -1263,9 +1262,9 @@ testReversed
 
 testSort
 	| array |
-	array := #(3 1 4 5 2). 
+	array := #(10 1 5). 
 	array sort.
-	self assert: array equals: #(1 2 3 4 5)
+	self assert: array equals: #(1 5 10)
 ! !
 
 !ArrayTest class methodsFor: 'fixture'!

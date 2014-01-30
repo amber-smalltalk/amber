@@ -113,6 +113,7 @@ visitBlockNode: aNode
 	| closure |
 	closure := IRClosure new
 		arguments: aNode parameters;
+		requiresSmalltalkContext: aNode requiresSmalltalkContext;
 		scope: aNode scope;
 		yourself.
 	aNode scope temps do: [ :each |
@@ -422,7 +423,7 @@ scope: aScope
 ! !
 
 IRScopedInstruction subclass: #IRClosureInstruction
-	instanceVariableNames: 'arguments'
+	instanceVariableNames: 'arguments requiresSmalltalkContext'
 	package: 'Compiler-IR'!
 
 !IRClosureInstruction methodsFor: 'accessing'!
@@ -439,6 +440,14 @@ locals
 	^ self arguments copy
 		addAll: (self tempDeclarations collect: [ :each | each name ]);
 		yourself
+!
+
+requiresSmalltalkContext
+	^ requiresSmalltalkContext ifNil: [ false ]
+!
+
+requiresSmalltalkContext: anObject
+	requiresSmalltalkContext := anObject
 !
 
 scope: aScope
@@ -503,14 +512,6 @@ messageSends
 
 method
 	^ self
-!
-
-requiresSmalltalkContext
-	^ requiresSmalltalkContext ifNil: [ false ]
-!
-
-requiresSmalltalkContext: anObject
-	requiresSmalltalkContext := anObject
 !
 
 selector
@@ -962,7 +963,7 @@ visitIRDynamicArray: anIRDynamicArray
 !
 
 visitIRDynamicDictionary: anIRDynamicDictionary
-	self stream nextPutAll: 'globals.HashedCollection._from_(['.
+	self stream nextPutAll: 'globals.HashedCollection._newFromPairs_(['.
 		anIRDynamicDictionary instructions
 			do: [ :each | self visit: each ]
 			separatedBy: [ self stream nextPutAll: ',' ].
@@ -1106,6 +1107,7 @@ nextPutAssignment
 !
 
 nextPutBlockContextFor: anIRClosure during: aBlock
+	anIRClosure requiresSmalltalkContext ifFalse: [ ^ aBlock value ].
 	self
 		nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; lf.
 	

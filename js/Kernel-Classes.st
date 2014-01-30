@@ -129,6 +129,18 @@ methodDictionary
 	return dict>
 !
 
+methodTemplate
+	^ String streamContents: [ :stream |
+		stream 
+			nextPutAll: 'messageSelectorAndArgumentNames';
+			nextPutAll: String lf, String tab;
+			nextPutAll: '"comment stating purpose of message"';
+			nextPutAll: String lf, String lf, String tab;
+			nextPutAll: '| temporary variable names |';
+			nextPutAll: String lf, String tab;
+			nextPutAll: 'statements' ]
+!
+
 methods
 	^ self methodDictionary values
 !
@@ -469,6 +481,10 @@ instanceClass
 instanceVariableNames: aCollection
 	ClassBuilder new
 		class: self instanceVariableNames: aCollection
+!
+
+package
+	^ self instanceClass package
 !
 
 subclasses

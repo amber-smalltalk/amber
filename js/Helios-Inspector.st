@@ -111,29 +111,6 @@ subscribe: aWidget
 	aWidget subscribeTo: self announcer
 ! !
 
-!HLInspectorModel methodsFor: 'reactions'!
-
-onKeyDown: anEvent
-
-	<if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 80) { //ctrl+p
-			self._printIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 68) { //ctrl+d
-			self._doIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 73) { //ctrl+i
-			self._inspectIt();
-			anEvent.preventDefault();
-			return false;
-		}
-	}>
-! !
-
 !HLInspectorModel class methodsFor: 'actions'!
 
 on: anEnvironment
@@ -287,6 +264,7 @@ variablesWidget
 
 inspect: anObject
 	self model inspect: anObject on: self.
+	self codeWidget receiver: anObject.
     
 	self 
     	refreshVariablesWidget;
@@ -349,7 +327,6 @@ onInspectIt
 !
 
 onInstanceVariableSelected
-	self codeWidget receiver: self model selectedInstVarObject.
 	self refreshDisplayWidget
 !
 

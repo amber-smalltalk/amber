@@ -121,23 +121,9 @@ newValue: anObject value: anObject2 value: anObject3
 !
 
 newWithValues: aCollection
-	"Use the receiver as a JavaScript constructor with a variable number of arguments.
-	Answer the object created using the operator `new`.
-
-	This algorithm was inspired by http://stackoverflow.com/a/6069331.
-
-	Here's a general breakdown of what's going on:
-	1) Create a new, empty constructor function.
-	2) Set it's prototype to the receiver's prototype. Because the receiver is a `BlockClosure`, it is also a JavaScript function.
-	3) Instantiate a new object using the constructor function just created. 
-		This forces the interpreter to set the internal [[prototype]] property to what was set on the function before. 
-   		This has to be done, as we have no access to the [[prototype]] property externally.
-	4) Apply `self` to the object I just instantiated."
-
+	"Simulates JS new operator by combination of Object.create and .apply"
 	<
-		var constructor = function() {};
-		constructor.prototype = self.prototype;
-		var object = new constructor;
+		var object = Object.create(self.prototype);
 		var result = self.apply(object, aCollection);
 		return typeof result === "object" ? result : object;
 	>
@@ -236,6 +222,19 @@ messageSends
 
 methodClass
 	^ self basicAt: 'methodClass'
+!
+
+package
+	"Answer the package the receiver belongs to:
+	- if it is an extension method, answer the corresponding package
+	- else answer the `methodClass` package"
+	
+	(self protocol beginsWith: '*') ifFalse: [
+		^ self methodClass package ].
+		
+	^ Package 
+		named: self protocol allButFirst
+		ifAbsent: [ self methodClass package ]
 !
 
 protocol

@@ -29,10 +29,12 @@ extensionProtocolsOfPackage: aPackage
 	result := OrderedCollection new.
 	
 	"The classes must be loaded since it is extensions only.
-	Therefore sorting (dependency resolution) does not matter here.
-	Not sorting improves the speed by a number of magnitude."
+	Therefore topological sorting (dependency resolution) does not matter here.
+	Not sorting topologically improves the speed by a number of magnitude.
 	
-	Smalltalk classes do: [ :each |
+	Not to shuffle diffs, classes are sorted by their name."
+	
+	(Smalltalk classes asArray sorted: [ :a :b | a name < b name ]) do: [ :each |
 		{each. each class} do: [ :behavior |
 			(behavior protocols includes: extensionName) ifTrue: [
 				result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].
@@ -643,8 +645,13 @@ commitPathJsFor: aPackage
 !
 
 commitPathStFor: aPackage
-	"if _source is not mapped, .st commit will likely fail"
-	^ self toUrl: (self namespaceFor: aPackage), '/_source'.
+	"If _source is not mapped, .st will be committed to .js path.
+	It is recommended not to use _source as it can be deprecated."
+	
+	| path pathWithout |
+	path := self toUrl: (self namespaceFor: aPackage), '/_source'.
+	pathWithout := self commitPathJsFor: aPackage.
+	^ path = (pathWithout, '/_source') ifTrue: [ pathWithout ] ifFalse: [ path ]
 !
 
 exporterClass

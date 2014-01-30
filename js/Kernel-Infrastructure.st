@@ -559,6 +559,20 @@ basicTransport
 	<return self.transport>
 !
 
+classTemplate
+	^ String streamContents: [ :stream |
+		stream
+			nextPutAll: 'Object';
+			nextPutAll: ' subclass: #NameOfSubclass';
+			nextPutAll: String lf, String tab;
+			nextPutAll: 'instanceVariableNames: '''''.
+		stream
+			nextPutAll: '''', String lf, String tab;
+			nextPutAll: 'package: ''';
+			nextPutAll: self name;
+			nextPutAll: '''' ]
+!
+
 definition
 	^ String streamContents: [ :stream |
 		stream 
@@ -895,6 +909,57 @@ show: anObject
 	self current show: anObject
 ! !
 
+Object subclass: #Setting
+	instanceVariableNames: 'key value defaultValue'
+	package: 'Kernel-Infrastructure'!
+!Setting commentStamp!
+I represent a setting accessible via `Smalltalk settings`.
+
+## API
+
+A `Setting` value can be read using `value` and set using `value:`.
+
+Settings are accessed with `'key' asSetting` or `'key' asSettingIfAbsent: 'defaultValue'`.!
+
+!Setting methodsFor: 'accessing'!
+
+defaultValue
+	^ defaultValue
+!
+
+defaultValue: anObject
+	defaultValue := anObject
+!
+
+key
+	^ key
+!
+
+key: anObject
+	key := anObject
+!
+
+value
+	^ Smalltalk settings at: self key ifAbsent: [ self defaultValue ]
+!
+
+value: aString
+	^ Smalltalk settings at: self key put: aString
+! !
+
+!Setting class methodsFor: 'instance creation'!
+
+at: aString ifAbsent: anotherString
+	^ super new
+		key: aString;
+		defaultValue: anotherString;
+		yourself
+!
+
+new
+	self shouldNotImplement
+! !
+
 Object subclass: #SmalltalkImage
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
@@ -985,6 +1050,10 @@ reservedWords
 	<return smalltalk.reservedWords>
 !
 
+settings
+	^ SmalltalkSettings
+!
+
 version
 	"Answer the version string of Amber"
 	
@@ -1003,11 +1072,11 @@ amdRequire
 !
 
 defaultAmdNamespace
-	^ self vm defaultAmdNamespace
+	^ 'transport.defaultAmdNamespace' settingValue
 !
 
 defaultAmdNamespace: aString
-	self vm defaultAmdNamespace: aString
+	'transport.defaultAmdNamespace' settingValue: aString
 ! !
 
 !SmalltalkImage methodsFor: 'classes'!
@@ -1184,5 +1253,25 @@ do: aBlock displayingProgress: aString
 asJavaScriptSelector
 	"Return first keyword of the selector, without trailing colon."
 	^ self replace: '^([a-zA-Z0-9]*).*$' with: '$1'
+!
+
+asSetting
+	^ Setting at: self ifAbsent: nil
+!
+
+asSettingIfAbsent: aString
+	^ Setting at: self ifAbsent: aString
+!
+
+settingValue
+	^ self asSetting value
+!
+
+settingValue: aString
+	^ self asSetting value: aString
+!
+
+settingValueIfAbsent: aString
+	^ (self asSettingIfAbsent: aString) value
 ! !
 

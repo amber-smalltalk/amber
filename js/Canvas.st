@@ -927,6 +927,10 @@ width: aString
 
 asJQuery
 	^ self element asJQuery
+!
+
+asJQueryInContext: aContext
+	^ self element asJQueryInContext: aContext
 ! !
 
 !TagBrush methodsFor: 'events'!
@@ -1093,16 +1097,6 @@ heliosClass
 	^ 'widget'
 ! !
 
-!Object methodsFor: '*Canvas'!
-
-appendToBrush: aTagBrush
-	aTagBrush append: self asString
-!
-
-appendToJQuery: aJQuery
-	aJQuery append: self asString
-! !
-
 !BlockClosure methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush
@@ -1119,6 +1113,26 @@ asSnippet
 	^ HTMLSnippet current snippetAt: self asString
 ! !
 
+!JSObjectProxy methodsFor: '*Canvas'!
+
+asJQuery
+	<return jQuery(self['@jsObject'])>
+!
+
+asJQueryInContext: aContext
+	<return jQuery(self['@jsObject'], aContext)>
+! !
+
+!Object methodsFor: '*Canvas'!
+
+appendToBrush: aTagBrush
+	aTagBrush append: self asString
+!
+
+appendToJQuery: aJQuery
+	aJQuery append: self asString
+! !
+
 !String methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush
@@ -1131,11 +1145,9 @@ appendToJQuery: aJQuery
 
 asJQuery
 	<return jQuery(String(self))>
-! !
+!
 
-!JSObjectProxy methodsFor: '*Canvas'!
-
-asJQuery
-	<return jQuery(self['@jsObject'])>
+asJQueryInContext: aContext
+	<return jQuery(String(self), aContext)>
 ! !
 

@@ -1306,9 +1306,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self.__eq(true);
 $1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
-return smalltalk.withContext(function($ctx2) {
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"and:",{aBlock:aBlock},globals.Boolean)})},
 args: ["aBlock"],
@@ -1395,8 +1394,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._ifTrue_ifFalse_((function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),aBlock);
+}),aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifFalse:",{aBlock:aBlock},globals.Boolean)})},
 args: ["aBlock"],
@@ -1433,8 +1431,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._ifTrue_ifFalse_(aBlock,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifTrue:",{aBlock:aBlock},globals.Boolean)})},
 args: ["aBlock"],
@@ -1524,9 +1521,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self.__eq(true);
 $1=_st($2)._ifTrue_ifFalse_((function(){
-return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),aBlock);
+}),aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"or:",{aBlock:aBlock},globals.Boolean)})},
 args: ["aBlock"],
@@ -3844,8 +3840,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self._ifNil_ifNotNil_(aBlock,(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNil:",{aBlock:aBlock},globals.UndefinedObject)})},
 args: ["aBlock"],

@@ -1,4 +1,4 @@
-0.12.3 (wip):
+0.12.3:
 
 * Package Import-Export renamed to Kernel-ImportExport
 * A dozen of methods moved from Object to ProtoObject
@@ -28,8 +28,17 @@
 + Set >> removeAll
 + AssociativeCollection class
 + BucketStore class
-+ SmalltalkImage >> globals
-+ SmalltalkImage >> vm
++ SmalltalkImage >>
+  + globals
+  + vm
+  + settings
++ Setting class
++ String >>
+  + asSetting
+  + asSettingIfAbsent:
+  + settingValue
+  + settingValueIfAbsent:
+  + settingValue:
 + Smalltalk global variable
 
 - CompiledMethod >>

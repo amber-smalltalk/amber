@@ -85,7 +85,7 @@ key
 !
 
 label
-	^ 'Commit'
+	^ 'Commit package'
 ! !
 
 HLToolCommand subclass: #HLCopyCommand
@@ -145,7 +145,7 @@ key
 !
 
 label
-	^ 'Class'
+	^ 'Copy class'
 !
 
 menuLabel
@@ -203,7 +203,7 @@ key
 !
 
 label
-	^ 'Class'
+	^ 'Find class'
 ! !
 
 !HLFindClassCommand class methodsFor: 'testing'!
@@ -262,7 +262,7 @@ key
 !
 
 label
-	^ 'References'
+	^ 'Find references'
 ! !
 
 HLToolCommand subclass: #HLMoveToCommand
@@ -296,7 +296,7 @@ key
 !
 
 label
-	^ 'Class'
+	^ 'Move class'
 ! !
 
 HLMoveClassToCommand subclass: #HLMoveClassToPackageCommand
@@ -340,7 +340,7 @@ key
 !
 
 label
-	^ 'to package'
+	^ 'Move class to package'
 !
 
 menuLabel	
@@ -370,7 +370,7 @@ key
 !
 
 label
-	^ 'Method'
+	^ 'Move method'
 ! !
 
 HLMoveMethodToCommand subclass: #HLMoveMethodToClassCommand
@@ -410,7 +410,7 @@ key
 !
 
 label	
-	^ 'to class'
+	^ 'Move method to class'
 !
 
 menuLabel	
@@ -454,7 +454,7 @@ key
 !
 
 label
-	^ 'to protocol'
+	^ 'Move method to protocol'
 !
 
 menuLabel
@@ -504,7 +504,7 @@ key
 !
 
 label
-	^ 'Class'
+	^ 'Remove class'
 !
 
 menuLabel
@@ -540,7 +540,7 @@ key
 !
 
 label
-	^ 'Method'
+	^ 'Remove method'
 !
 
 menuLabel
@@ -576,7 +576,7 @@ key
 !
 
 label
-	^ 'Protocol'
+	^ 'Remove protocol'
 !
 
 menuLabel
@@ -640,7 +640,7 @@ key
 !
 
 label
-	^ 'Class'
+	^ 'Rename class'
 !
 
 menuLabel
@@ -690,7 +690,7 @@ key
 !
 
 label
-	^ 'Protocol'
+	^ 'Rename protocol'
 !
 
 menuLabel
