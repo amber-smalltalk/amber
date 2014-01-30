@@ -174,10 +174,6 @@ checkDirectoryLayout
 		console warn: '    You can specify the directory containing index.html with --base-path.'.
 		console warn: '    You can also specify a page to be served by default,'.
 		console warn: '    for all paths that do not map to a file, with --fallback-page.'].
-	(fs existsSync: self basePath, 'st') ifFalse: [
-		console warn: 'Warning: project directory is missing an "st" directory'].
-	(fs existsSync: self basePath, 'js') ifFalse: [
-		console warn: 'Warning: project directory is missing a "js" directory'].
 !
 
 initialize
@@ -279,7 +275,7 @@ handlePUTRequest: aRequest respondTo: aResponse
 
 	stream on: 'error' do: [:error |
 		console warn: 'Error creating WriteStream for file ', file.
-		console warn: '    Did you forget to create the necessary js/ or st/ directory in your project?'.
+		console warn: '    Did you forget to create the necessary directory in your project (often /src)?'.
 		console warn: '    The exact error is: ', error.
 		self respondNotCreatedTo: aResponse].
 
@@ -352,7 +348,7 @@ respondInternalErrorTo: aResponse
 respondNotCreatedTo: aResponse
 	aResponse
 		writeHead: 400 options: #{'Content-Type' -> 'text/plain'};
-		write: 'File could not be created. Did you forget to create the st/js directories on the server?';
+		write: 'File could not be created. Did you forget to create the src directory on the server?';
 		end.
 !
 

@@ -253,9 +253,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$5,$4,$2,$6;
+var $1;
 $1=_st(self["@fs"])._existsSync_(self._withBasePath_("index.html"));
-$ctx1.sendIdx["existsSync:"]=1;
 if(! smalltalk.assert($1)){
 _st(console)._warn_("Warning: project directory does not contain index.html.");
 $ctx1.sendIdx["warn:"]=1;
@@ -264,27 +263,11 @@ $ctx1.sendIdx["warn:"]=2;
 _st(console)._warn_("    You can also specify a page to be served by default,");
 $ctx1.sendIdx["warn:"]=3;
 _st(console)._warn_("    for all paths that do not map to a file, with --fallback-page.");
-$ctx1.sendIdx["warn:"]=4;
-};
-$3=self["@fs"];
-$5=self._basePath();
-$ctx1.sendIdx["basePath"]=1;
-$4=_st($5).__comma("st");
-$ctx1.sendIdx[","]=1;
-$2=_st($3)._existsSync_($4);
-$ctx1.sendIdx["existsSync:"]=2;
-if(! smalltalk.assert($2)){
-_st(console)._warn_("Warning: project directory is missing an \x22st\x22 directory");
-$ctx1.sendIdx["warn:"]=5;
-};
-$6=_st(self["@fs"])._existsSync_(_st(self._basePath()).__comma("js"));
-if(! smalltalk.assert($6)){
-_st(console)._warn_("Warning: project directory is missing a \x22js\x22 directory");
 };
 return self}, function($ctx1) {$ctx1.fill(self,"checkDirectoryLayout",{},globals.FileServer)})},
 args: [],
-source: "checkDirectoryLayout\x0a\x09(fs existsSync:\x09(self withBasePath: 'index.html')) ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.\x0a\x09\x09console warn: '    You can also specify a page to be served by default,'.\x0a\x09\x09console warn: '    for all paths that do not map to a file, with --fallback-page.'].\x0a\x09(fs existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(fs existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
-messageSends: ["ifFalse:", "existsSync:", "withBasePath:", "warn:", ",", "basePath"],
+source: "checkDirectoryLayout\x0a\x09(fs existsSync:\x09(self withBasePath: 'index.html')) ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.\x0a\x09\x09console warn: '    You can also specify a page to be served by default,'.\x0a\x09\x09console warn: '    for all paths that do not map to a file, with --fallback-page.'].",
+messageSends: ["ifFalse:", "existsSync:", "withBasePath:", "warn:"],
 referencedClasses: []
 }),
 globals.FileServer);
@@ -394,7 +377,7 @@ $3="Error creating WriteStream for file ".__comma(file);
 $ctx2.sendIdx[","]=2;
 _st($2)._warn_($3);
 $ctx2.sendIdx["warn:"]=1;
-_st(console)._warn_("    Did you forget to create the necessary js/ or st/ directory in your project?");
+_st(console)._warn_("    Did you forget to create the necessary directory in your project (often /src)?");
 $ctx2.sendIdx["warn:"]=2;
 _st(console)._warn_("    The exact error is: ".__comma(error));
 return self._respondNotCreatedTo_(aResponse);
@@ -420,7 +403,7 @@ return _st(stream)._end();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handlePUTRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse,file:file,stream:stream},globals.FileServer)})},
 args: ["aRequest", "aResponse"],
-source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09| file stream |\x0a\x09(self isAuthenticated: aRequest)\x0a\x09\x09ifFalse: [self respondAuthenticationRequiredTo: aResponse. ^nil].\x0a\x0a\x09file := '.', aRequest url.\x0a\x09stream := fs createWriteStream: file.\x0a\x0a\x09stream on: 'error' do: [:error |\x0a\x09\x09console warn: 'Error creating WriteStream for file ', file.\x0a\x09\x09console warn: '    Did you forget to create the necessary js/ or st/ directory in your project?'.\x0a\x09\x09console warn: '    The exact error is: ', error.\x0a\x09\x09self respondNotCreatedTo: aResponse].\x0a\x0a\x09stream on: 'close' do: [\x0a\x09\x09self respondCreatedTo: aResponse].\x0a\x0a\x09aRequest setEncoding: 'utf8'.\x0a\x09aRequest on: 'data' do: [:data |\x0a\x09\x09stream write: data].\x0a\x0a\x09aRequest on: 'end' do: [\x0a\x09\x09stream writable ifTrue: [stream end]]",
+source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09| file stream |\x0a\x09(self isAuthenticated: aRequest)\x0a\x09\x09ifFalse: [self respondAuthenticationRequiredTo: aResponse. ^nil].\x0a\x0a\x09file := '.', aRequest url.\x0a\x09stream := fs createWriteStream: file.\x0a\x0a\x09stream on: 'error' do: [:error |\x0a\x09\x09console warn: 'Error creating WriteStream for file ', file.\x0a\x09\x09console warn: '    Did you forget to create the necessary directory in your project (often /src)?'.\x0a\x09\x09console warn: '    The exact error is: ', error.\x0a\x09\x09self respondNotCreatedTo: aResponse].\x0a\x0a\x09stream on: 'close' do: [\x0a\x09\x09self respondCreatedTo: aResponse].\x0a\x0a\x09aRequest setEncoding: 'utf8'.\x0a\x09aRequest on: 'data' do: [:data |\x0a\x09\x09stream write: data].\x0a\x0a\x09aRequest on: 'end' do: [\x0a\x09\x09stream writable ifTrue: [stream end]]",
 messageSends: ["ifFalse:", "isAuthenticated:", "respondAuthenticationRequiredTo:", ",", "url", "createWriteStream:", "on:do:", "warn:", "respondNotCreatedTo:", "respondCreatedTo:", "setEncoding:", "write:", "ifTrue:", "writable", "end"],
 referencedClasses: []
 }),
@@ -798,11 +781,11 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 _st(aResponse)._writeHead_options_((400),globals.HashedCollection._newFromPairs_(["Content-Type","text/plain"]));
-_st(aResponse)._write_("File could not be created. Did you forget to create the st/js directories on the server?");
+_st(aResponse)._write_("File could not be created. Did you forget to create the src directory on the server?");
 $1=_st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondNotCreatedTo:",{aResponse:aResponse},globals.FileServer)})},
 args: ["aResponse"],
-source: "respondNotCreatedTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 400 options: #{'Content-Type' -> 'text/plain'};\x0a\x09\x09write: 'File could not be created. Did you forget to create the st/js directories on the server?';\x0a\x09\x09end.",
+source: "respondNotCreatedTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 400 options: #{'Content-Type' -> 'text/plain'};\x0a\x09\x09write: 'File could not be created. Did you forget to create the src directory on the server?';\x0a\x09\x09end.",
 messageSends: ["writeHead:options:", "write:", "end"],
 referencedClasses: []
 }),
