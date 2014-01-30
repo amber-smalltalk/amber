@@ -468,7 +468,8 @@ function compose_js_files(configuration) {
 	return new Promise(function(resolve, reject) {
 		var programFile = configuration.program;
 		if (undefined === programFile) {
-			reject(configuration);
+			resolve(configuration);
+            return;
 		}
 		if (undefined !== configuration.output_dir) {
 			programFile = path.join(configuration.output_dir, programFile);
