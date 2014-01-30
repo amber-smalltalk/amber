@@ -4,9 +4,6 @@ server/FileServer*.js
 # Ignoring Mac Finder files
 .DS_Store
 
-# Ignoring compiled files in st
-st/*.js
-
 # Ignoring run.js in test/
 test/amber_test_runner.js
 test/run.js
