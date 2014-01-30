@@ -118,7 +118,7 @@ AmberCompiler.prototype.main = function(configuration, finished_callback) {
 	}
 
 	if (undefined !== configuration.jsLibraryDirs) {
-		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'js'));
+		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'src'));
 		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'support'));
 	}
 

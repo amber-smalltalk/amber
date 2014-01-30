@@ -3,7 +3,7 @@ smalltalk.addPackage('Kernel-Objects');
 smalltalk.packages["Kernel-Objects"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('ProtoObject', globals.nil, [], 'Kernel-Objects');
-globals.ProtoObject.comment="I implement the basic behavior required for any object in Amber.\x0a\x0aIn most cases, subclassing `ProtoObject` is wrong and `Object` should be used instead. However subclassing `ProtoObject` can be useful in some special cases like proxy implementations. ";
+globals.ProtoObject.comment="I implement the basic behavior required for any object in Amber.\x0a\x0aIn most cases, subclassing `ProtoObject` is wrong and `Object` should be used instead. However subclassing `ProtoObject` can be useful in some special cases like proxy implementations.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",

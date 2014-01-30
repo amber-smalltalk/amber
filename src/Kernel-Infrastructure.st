@@ -965,7 +965,7 @@ Object subclass: #SmalltalkImage
 	package: 'Kernel-Infrastructure'!
 !SmalltalkImage commentStamp!
 I represent the Smalltalk system, wrapping
-operations of variable `smalltalk` declared in `js/boot.js`.
+operations of variable `smalltalk` declared in `support/boot.js`.
 
 ## API
 
@@ -990,7 +990,7 @@ Packages can be accessed using the following methods:
 ## Parsing
 
 The `#parse:` method is used to parse Amber source code.
-It requires the `Compiler` package and the `js/parser.js` parser file in order to work.!
+It requires the `Compiler` package and the `support/parser.js` parser file in order to work.!
 
 !SmalltalkImage methodsFor: 'accessing'!
 
