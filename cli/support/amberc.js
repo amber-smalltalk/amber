@@ -469,6 +469,7 @@ function compose_js_files(configuration) {
 		var programFile = configuration.program;
 		if (undefined === programFile) {
 			resolve(configuration);
+            return;
 		}
 		if (undefined !== configuration.output_dir) {
 			programFile = path.join(configuration.output_dir, programFile);
