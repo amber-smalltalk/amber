@@ -77,7 +77,7 @@ module.exports = function(grunt) {
         output_name: 'test/amber_test_runner'
       },
       amber_cli: {
-        output_dir: 'cli/js',
+        output_dir: 'cli/src',
         src: ['cli/src/AmberCli.st'],
         libraries: [
             'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',

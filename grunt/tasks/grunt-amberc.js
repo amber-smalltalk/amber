@@ -26,8 +26,8 @@ module.exports = function(grunt) {
            library_dirs: ['dir1', '/usr/local/js'], // optional
            verbose: true
          },
-         src: ['projects/HelloWorld/st/HelloWorld.st'], // REQUIRED
-         output_dir: 'projects/HelloWorld/js',  // optional
+         src: ['projects/HelloWorld/src/HelloWorld.st'], // REQUIRED
+         output_dir: 'projects/HelloWorld/src',  // optional
          libraries: 'Canvas',                   // optional
          jsGlobals: ['global1', 'global2'],     // optional
          main_class: 'HelloWorld',              // optional

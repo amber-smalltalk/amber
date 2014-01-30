@@ -1447,7 +1447,7 @@ smalltalk.addPackage('Kernel-Objects');
 smalltalk.packages["Kernel-Objects"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('ProtoObject', globals.nil, [], 'Kernel-Objects');
-globals.ProtoObject.comment="I implement the basic behavior required for any object in Amber.\x0a\x0aIn most cases, subclassing `ProtoObject` is wrong and `Object` should be used instead. However subclassing `ProtoObject` can be useful in some special cases like proxy implementations. ";
+globals.ProtoObject.comment="I implement the basic behavior required for any object in Amber.\x0a\x0aIn most cases, subclassing `ProtoObject` is wrong and `Object` should be used instead. However subclassing `ProtoObject` can be useful in some special cases like proxy implementations.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
@@ -15248,7 +15248,7 @@ globals.String.klass);
 
 
 smalltalk.addClass('Set', globals.Collection, ['defaultBucket', 'slowBucketStores', 'fastBuckets', 'size'], 'Kernel-Collections');
-globals.Set.comment="I represent an unordered set of objects without duplicates.\x0a\x0a## Implementation notes\x0a\x0aI put elements into different stores based on their type.\x0aThe goal is to store some elements into native JS object property names to be fast.\x0a\x0aIf an unboxed element has typeof 'string', 'boolean' or 'number', or an element is nil, null or undefined,\x0aI store it as a property name in an empty (== Object.create(null)) JS object, different for each type\x0a(for simplicity, nil/null/undefined is treated as one and included with the two booleans).\x0a\x0aIf element happen to be an object, I try to store them in `ArrayBucketStore`. I have two of them by default,\x0aone hashed using the Smalltalk class name, the other one using the JS constructor name. It is possible to have more or less\x0ainstances of `ArrayBucketStores`, see `#initializeSlowBucketStores`.\x0a\x0aAs a last resort, if none of the `ArrayBucketStore` instances can find a suitable bucket, the `defaultBucket` is used,\x0awhich is an `Array`.\x0a";
+globals.Set.comment="I represent an unordered set of objects without duplicates.\x0a\x0a## Implementation notes\x0a\x0aI put elements into different stores based on their type.\x0aThe goal is to store some elements into native JS object property names to be fast.\x0a\x0aIf an unboxed element has typeof 'string', 'boolean' or 'number', or an element is nil, null or undefined,\x0aI store it as a property name in an empty (== Object.create(null)) JS object, different for each type\x0a(for simplicity, nil/null/undefined is treated as one and included with the two booleans).\x0a\x0aIf element happen to be an object, I try to store them in `ArrayBucketStore`. I have two of them by default,\x0aone hashed using the Smalltalk class name, the other one using the JS constructor name. It is possible to have more or less\x0ainstances of `ArrayBucketStores`, see `#initializeSlowBucketStores`.\x0a\x0aAs a last resort, if none of the `ArrayBucketStore` instances can find a suitable bucket, the `defaultBucket` is used,\x0awhich is an `Array`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
@@ -17732,7 +17732,7 @@ return smalltalk.withContext(function($ctx1) {
 return self["@jsObject"] === aJSObject;
 return self}, function($ctx1) {$ctx1.fill(self,"compareJSObjectWith:",{aJSObject:aJSObject},globals.JSObjectProxy)})},
 args: ["aJSObject"],
-source: " compareJSObjectWith: aJSObject\x0a \x09<return self[\x22@jsObject\x22] === aJSObject>",
+source: "compareJSObjectWith: aJSObject\x0a \x09<return self[\x22@jsObject\x22] === aJSObject>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -19137,7 +19137,7 @@ globals.Setting.klass);
 
 
 smalltalk.addClass('SmalltalkImage', globals.Object, [], 'Kernel-Infrastructure');
-globals.SmalltalkImage.comment="I represent the Smalltalk system, wrapping\x0aoperations of variable `smalltalk` declared in `js/boot.js`.\x0a\x0a## API\x0a\x0aI have only one instance, accessed with global variable `Smalltalk`.\x0a\x0aThe `smalltalk` object holds all class and packages defined in the system.\x0a\x0a## Classes\x0a\x0aClasses can be accessed using the following methods:\x0a\x0a- `#classes` answers the full list of Smalltalk classes in the system\x0a- `#at:` answers a specific class or `nil`\x0a\x0a## Packages\x0a\x0aPackages can be accessed using the following methods:\x0a\x0a- `#packages` answers the full list of packages\x0a- `#packageAt:` answers a specific package or `nil`\x0a\x0a## Parsing\x0a\x0aThe `#parse:` method is used to parse Amber source code.\x0aIt requires the `Compiler` package and the `js/parser.js` parser file in order to work.";
+globals.SmalltalkImage.comment="I represent the Smalltalk system, wrapping\x0aoperations of variable `smalltalk` declared in `support/boot.js`.\x0a\x0a## API\x0a\x0aI have only one instance, accessed with global variable `Smalltalk`.\x0a\x0aThe `smalltalk` object holds all class and packages defined in the system.\x0a\x0a## Classes\x0a\x0aClasses can be accessed using the following methods:\x0a\x0a- `#classes` answers the full list of Smalltalk classes in the system\x0a- `#at:` answers a specific class or `nil`\x0a\x0a## Packages\x0a\x0aPackages can be accessed using the following methods:\x0a\x0a- `#packages` answers the full list of packages\x0a- `#packageAt:` answers a specific package or `nil`\x0a\x0a## Parsing\x0a\x0aThe `#parse:` method is used to parse Amber source code.\x0aIt requires the `Compiler` package and the `support/parser.js` parser file in order to work.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addGlobalJsVariable:",
@@ -34551,28 +34551,20 @@ selector: "visitDynamicDictionaryNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-var associations,hashedCollection;
+var keyValueList;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-associations=_st($OrderedCollection())._new();
-$ctx1.sendIdx["new"]=1;
-hashedCollection=_st($HashedCollection())._new();
+keyValueList=_st($OrderedCollection())._new();
 _st(_st(aNode)._nodes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(associations)._add_(self._pop());
-$ctx2.sendIdx["add:"]=1;
+return _st(keyValueList)._add_(self._pop());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$ctx1.sendIdx["do:"]=1;
-_st(_st(associations)._reversed())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(hashedCollection)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-self._push_(hashedCollection);
-return self}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,associations:associations,hashedCollection:hashedCollection},globals.ASTInterpreter)})},
+self._push_(_st($HashedCollection())._newFromPairs_(_st(keyValueList)._reversed()));
+return self}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,keyValueList:keyValueList},globals.ASTInterpreter)})},
 args: ["aNode"],
-source: "visitDynamicDictionaryNode: aNode\x0a\x09| associations hashedCollection |\x0a\x09\x0a\x09associations := OrderedCollection new.\x0a\x09hashedCollection := HashedCollection new.\x0a\x09\x0a\x09aNode nodes do: [ :each | \x0a\x09\x09associations add: self pop ].\x0a\x09\x0a\x09associations reversed do: [ :each |\x0a\x09\x09hashedCollection add: each ].\x0a\x09\x0a\x09self push: hashedCollection",
-messageSends: ["new", "do:", "nodes", "add:", "pop", "reversed", "push:"],
+source: "visitDynamicDictionaryNode: aNode\x0a\x09| keyValueList |\x0a\x09\x0a\x09keyValueList := OrderedCollection new.\x0a\x09\x0a\x09aNode nodes do: [ :each | \x0a\x09\x09keyValueList add: self pop ].\x0a\x09\x0a\x09self push: (HashedCollection newFromPairs: keyValueList reversed)",
+messageSends: ["new", "do:", "nodes", "add:", "pop", "push:", "newFromPairs:", "reversed"],
 referencedClasses: ["OrderedCollection", "HashedCollection"]
 }),
 globals.ASTInterpreter);
@@ -38878,7 +38870,7 @@ smalltalk.addPackage('AmberCli');
 smalltalk.packages["AmberCli"].transport = {"type":"amd","amdNamespace":"amber_cli"};
 
 smalltalk.addClass('AmberCli', globals.Object, [], 'AmberCli');
-globals.AmberCli.comment="I am the Amber CLI (CommandLine Interface) tool which runs on Node.js.\x0d\x0a\x0d\x0aMy responsibility is to start different Amber programs like the FileServer or the Repl.\x0d\x0aWhich program to start is determined by the first commandline parameters passed to the AmberCli executable.\x0d\x0aUse `help` to get a list of all available options.\x0d\x0aAny further commandline parameters are passed to the specific program.\x0d\x0a\x0d\x0a## Commands\x0d\x0a\x0d\x0aNew commands can be added by creating a class side method in the `commands` protocol which takes one parameter.\x0d\x0aThis parameter is an array of all commandline options + values passed on to the program.\x0d\x0aAny `camelCaseCommand` is transformed into a commandline parameter of the form `camel-case-command` and vice versa.";
+globals.AmberCli.comment="I am the Amber CLI (CommandLine Interface) tool which runs on Node.js.\x0a\x0aMy responsibility is to start different Amber programs like the FileServer or the Repl.\x0aWhich program to start is determined by the first commandline parameters passed to the AmberCli executable.\x0aUse `help` to get a list of all available options.\x0aAny further commandline parameters are passed to the specific program.\x0a\x0a## Commands\x0a\x0aNew commands can be added by creating a class side method in the `commands` protocol which takes one parameter.\x0aThis parameter is an array of all commandline options + values passed on to the program.\x0aAny `camelCaseCommand` is transformed into a commandline parameter of the form `camel-case-command` and vice versa.";
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -39064,7 +39056,7 @@ globals.AmberCli.klass);
 
 
 smalltalk.addClass('FileServer', globals.Object, ['path', 'http', 'fs', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'AmberCli');
-globals.FileServer.comment="I am the Amber Smalltalk FileServer.\x0d\x0aMy runtime requirement is a functional Node.js executable.\x0d\x0a\x0d\x0aTo start a FileServer instance on port `4000` use the following code:\x0d\x0a\x0d\x0a    FileServer new start\x0d\x0a\x0d\x0aA parameterized instance can be created with the following code:\x0d\x0a\x0d\x0a    FileServer createServerWithArguments: options\x0d\x0a\x0d\x0aHere, `options` is an array of commandline style strings each followed by a value e.g. `#('--port', '6000', '--host', '0.0.0.0')`.\x0d\x0aA list of all available parameters can be printed to the commandline by passing `--help` as parameter.\x0d\x0aSee the `Options` section for further details on how options are mapped to instance methods.\x0d\x0a\x0d\x0aAfter startup FileServer checks if the directory layout required by Amber is present and logs a warning on absence.\x0d\x0a\x0d\x0a\x0d\x0a## Options\x0d\x0a\x0d\x0aEach option is of the form `--some-option-string` which is transformed into a selector of the format `someOptionString:`.\x0d\x0aThe trailing `--` gets removed, each `-[a-z]` gets transformed into the according uppercase letter, and a `:` is appended to create a selector which takes a single argument.\x0d\x0aAfterwards, the selector gets executed on the `FileServer` instance with the value following in the options array as parameter.\x0d\x0a\x0d\x0a## Adding new commandline parameters\x0d\x0a\x0d\x0aAdding new commandline parameters to `FileServer` is as easy as adding a new single parameter method to the `accessing` protocol.";
+globals.FileServer.comment="I am the Amber Smalltalk FileServer.\x0aMy runtime requirement is a functional Node.js executable.\x0a\x0aTo start a FileServer instance on port `4000` use the following code:\x0a\x0a    FileServer new start\x0a\x0aA parameterized instance can be created with the following code:\x0a\x0a    FileServer createServerWithArguments: options\x0a\x0aHere, `options` is an array of commandline style strings each followed by a value e.g. `#('--port', '6000', '--host', '0.0.0.0')`.\x0aA list of all available parameters can be printed to the commandline by passing `--help` as parameter.\x0aSee the `Options` section for further details on how options are mapped to instance methods.\x0a\x0aAfter startup FileServer checks if the directory layout required by Amber is present and logs a warning on absence.\x0a\x0a\x0a## Options\x0a\x0aEach option is of the form `--some-option-string` which is transformed into a selector of the format `someOptionString:`.\x0aThe trailing `--` gets removed, each `-[a-z]` gets transformed into the according uppercase letter, and a `:` is appended to create a selector which takes a single argument.\x0aAfterwards, the selector gets executed on the `FileServer` instance with the value following in the options array as parameter.\x0a\x0a## Adding new commandline parameters\x0a\x0aAdding new commandline parameters to `FileServer` is as easy as adding a new single parameter method to the `accessing` protocol.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "base64Decode:",
@@ -39128,9 +39120,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$5,$4,$2,$6;
+var $1;
 $1=_st(self["@fs"])._existsSync_(self._withBasePath_("index.html"));
-$ctx1.sendIdx["existsSync:"]=1;
 if(! smalltalk.assert($1)){
 _st(console)._warn_("Warning: project directory does not contain index.html.");
 $ctx1.sendIdx["warn:"]=1;
@@ -39139,27 +39130,11 @@ $ctx1.sendIdx["warn:"]=2;
 _st(console)._warn_("    You can also specify a page to be served by default,");
 $ctx1.sendIdx["warn:"]=3;
 _st(console)._warn_("    for all paths that do not map to a file, with --fallback-page.");
-$ctx1.sendIdx["warn:"]=4;
-};
-$3=self["@fs"];
-$5=self._basePath();
-$ctx1.sendIdx["basePath"]=1;
-$4=_st($5).__comma("st");
-$ctx1.sendIdx[","]=1;
-$2=_st($3)._existsSync_($4);
-$ctx1.sendIdx["existsSync:"]=2;
-if(! smalltalk.assert($2)){
-_st(console)._warn_("Warning: project directory is missing an \x22st\x22 directory");
-$ctx1.sendIdx["warn:"]=5;
-};
-$6=_st(self["@fs"])._existsSync_(_st(self._basePath()).__comma("js"));
-if(! smalltalk.assert($6)){
-_st(console)._warn_("Warning: project directory is missing a \x22js\x22 directory");
 };
 return self}, function($ctx1) {$ctx1.fill(self,"checkDirectoryLayout",{},globals.FileServer)})},
 args: [],
-source: "checkDirectoryLayout\x0a\x09(fs existsSync:\x09(self withBasePath: 'index.html')) ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.\x0a\x09\x09console warn: '    You can also specify a page to be served by default,'.\x0a\x09\x09console warn: '    for all paths that do not map to a file, with --fallback-page.'].\x0a\x09(fs existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(fs existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
-messageSends: ["ifFalse:", "existsSync:", "withBasePath:", "warn:", ",", "basePath"],
+source: "checkDirectoryLayout\x0a\x09(fs existsSync:\x09(self withBasePath: 'index.html')) ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.\x0a\x09\x09console warn: '    You can also specify a page to be served by default,'.\x0a\x09\x09console warn: '    for all paths that do not map to a file, with --fallback-page.'].",
+messageSends: ["ifFalse:", "existsSync:", "withBasePath:", "warn:"],
 referencedClasses: []
 }),
 globals.FileServer);
@@ -39269,7 +39244,7 @@ $3="Error creating WriteStream for file ".__comma(file);
 $ctx2.sendIdx[","]=2;
 _st($2)._warn_($3);
 $ctx2.sendIdx["warn:"]=1;
-_st(console)._warn_("    Did you forget to create the necessary js/ or st/ directory in your project?");
+_st(console)._warn_("    Did you forget to create the necessary directory in your project (often /src)?");
 $ctx2.sendIdx["warn:"]=2;
 _st(console)._warn_("    The exact error is: ".__comma(error));
 return self._respondNotCreatedTo_(aResponse);
@@ -39295,7 +39270,7 @@ return _st(stream)._end();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handlePUTRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse,file:file,stream:stream},globals.FileServer)})},
 args: ["aRequest", "aResponse"],
-source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09| file stream |\x0a\x09(self isAuthenticated: aRequest)\x0a\x09\x09ifFalse: [self respondAuthenticationRequiredTo: aResponse. ^nil].\x0a\x0a\x09file := '.', aRequest url.\x0a\x09stream := fs createWriteStream: file.\x0a\x0a\x09stream on: 'error' do: [:error |\x0a\x09\x09console warn: 'Error creating WriteStream for file ', file.\x0a\x09\x09console warn: '    Did you forget to create the necessary js/ or st/ directory in your project?'.\x0a\x09\x09console warn: '    The exact error is: ', error.\x0a\x09\x09self respondNotCreatedTo: aResponse].\x0a\x0a\x09stream on: 'close' do: [\x0a\x09\x09self respondCreatedTo: aResponse].\x0a\x0a\x09aRequest setEncoding: 'utf8'.\x0a\x09aRequest on: 'data' do: [:data |\x0a\x09\x09stream write: data].\x0a\x0a\x09aRequest on: 'end' do: [\x0a\x09\x09stream writable ifTrue: [stream end]]",
+source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09| file stream |\x0a\x09(self isAuthenticated: aRequest)\x0a\x09\x09ifFalse: [self respondAuthenticationRequiredTo: aResponse. ^nil].\x0a\x0a\x09file := '.', aRequest url.\x0a\x09stream := fs createWriteStream: file.\x0a\x0a\x09stream on: 'error' do: [:error |\x0a\x09\x09console warn: 'Error creating WriteStream for file ', file.\x0a\x09\x09console warn: '    Did you forget to create the necessary directory in your project (often /src)?'.\x0a\x09\x09console warn: '    The exact error is: ', error.\x0a\x09\x09self respondNotCreatedTo: aResponse].\x0a\x0a\x09stream on: 'close' do: [\x0a\x09\x09self respondCreatedTo: aResponse].\x0a\x0a\x09aRequest setEncoding: 'utf8'.\x0a\x09aRequest on: 'data' do: [:data |\x0a\x09\x09stream write: data].\x0a\x0a\x09aRequest on: 'end' do: [\x0a\x09\x09stream writable ifTrue: [stream end]]",
 messageSends: ["ifFalse:", "isAuthenticated:", "respondAuthenticationRequiredTo:", ",", "url", "createWriteStream:", "on:do:", "warn:", "respondNotCreatedTo:", "respondCreatedTo:", "setEncoding:", "write:", "ifTrue:", "writable", "end"],
 referencedClasses: []
 }),
@@ -39673,11 +39648,11 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 _st(aResponse)._writeHead_options_((400),globals.HashedCollection._newFromPairs_(["Content-Type","text/plain"]));
-_st(aResponse)._write_("File could not be created. Did you forget to create the st/js directories on the server?");
+_st(aResponse)._write_("File could not be created. Did you forget to create the src directory on the server?");
 $1=_st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondNotCreatedTo:",{aResponse:aResponse},globals.FileServer)})},
 args: ["aResponse"],
-source: "respondNotCreatedTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 400 options: #{'Content-Type' -> 'text/plain'};\x0a\x09\x09write: 'File could not be created. Did you forget to create the st/js directories on the server?';\x0a\x09\x09end.",
+source: "respondNotCreatedTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 400 options: #{'Content-Type' -> 'text/plain'};\x0a\x09\x09write: 'File could not be created. Did you forget to create the src directory on the server?';\x0a\x09\x09end.",
 messageSends: ["writeHead:options:", "write:", "end"],
 referencedClasses: []
 }),
@@ -40212,7 +40187,7 @@ globals.FileServer.klass);
 
 
 smalltalk.addClass('Repl', globals.Object, ['readline', 'interface', 'util', 'session', 'resultCount', 'commands'], 'AmberCli');
-globals.Repl.comment="I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.\x0d\x0aOn the prompt you can type Amber statements which will be evaluated after pressing <Enter>.\x0d\x0aThe evaluation is comparable with executing a 'DoIt' in a workspace.\x0d\x0a\x0d\x0aMy runtime requirement is a functional Node.js executable with working Readline support.";
+globals.Repl.comment="I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.\x0aOn the prompt you can type Amber statements which will be evaluated after pressing <Enter>.\x0aThe evaluation is comparable with executing a 'DoIt' in a workspace.\x0a\x0aMy runtime requirement is a functional Node.js executable with working Readline support.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addVariableNamed:to:",
@@ -40913,8 +40888,8 @@ globals.Repl.klass);
 
 });
 
-define("amber_vm/_init", ["amber_vm/smalltalk", "amber_vm/globals", "amber_vm/smalltalk","amber_vm/globals","amber_vm/nil","amber_core/Kernel-Objects","amber_core/Kernel-Classes","amber_core/Kernel-Methods","amber_core/Kernel-Collections","amber_core/Kernel-Infrastructure","amber_core/Kernel-Exceptions","amber_core/Kernel-Transcript","amber_core/Kernel-Announcements","amber_core/Compiler-Exceptions","amber_core/Compiler-Core","amber_core/Compiler-AST","amber_core/Compiler-IR","amber_core/Compiler-Inlining","amber_core/Compiler-Semantic","amber_core/Compiler-Interpreter","amber_vm/parser","amber_cli/AmberCli"], function (smalltalk, globals) {
-smalltalk.initialize();
+define("amber_vm/_init", ["amber_vm/smalltalk", "amber_vm/globals", "amber_vm/smalltalk","amber_vm/globals","amber_vm/nil","amber_core/Kernel-Objects","amber_core/Kernel-Classes","amber_core/Kernel-Methods","amber_core/Kernel-Collections","amber_core/Kernel-Infrastructure","amber_core/Kernel-Exceptions","amber_core/Kernel-Transcript","amber_core/Kernel-Announcements","amber_core/Compiler-Exceptions","amber_core/Compiler-Core","amber_core/Compiler-AST","amber_core/Compiler-IR","amber_core/Compiler-Inlining","amber_core/Compiler-Semantic","amber_core/Compiler-Interpreter","amber_vm/parser","amber_cli/AmberCli"], function (vm, globals) {
+vm.initialize();
 globals.AmberCli._main();
 });
 requirejs("amber_vm/_init");

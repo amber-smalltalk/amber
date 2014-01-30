@@ -178,7 +178,7 @@ function check_configuration(configuration) {
  * Check if the file given as parameter exists in any of the following directories:
  *  1. current local directory
  *  2. configuration.jsLibraryDirs
- *  3. $AMBER/js/
+ *  3. $AMBER/src/
  *  3. $AMBER/support/
  *
  * @param filename name of a file without '.js' prefix
