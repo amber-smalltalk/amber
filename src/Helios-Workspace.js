@@ -52,15 +52,23 @@ selector: "doIt:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
+function $ErrorHandler(){return globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._environment())._eval_on_(aString,self._receiver());
+$1=self._try_catch_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._environment())._eval_on_(aString,self._receiver());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(e){
+return smalltalk.withContext(function($ctx2) {
+_st($ErrorHandler())._handleError_(e);
+return nil;
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,2)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doIt:",{aString:aString},globals.HLCodeModel)})},
 args: ["aString"],
-source: "doIt: aString\x0a\x0a\x09^ self environment eval: aString on: self receiver",
-messageSends: ["eval:on:", "environment", "receiver"],
-referencedClasses: []
+source: "doIt: aString\x0a\x09\x22Evaluate aString in the receiver's `environment`.\x0a\x09\x0a\x09Note: Catch any error and handle it manually, bypassing\x0a\x09boot.js behavior to avoid the browser default action on\x0a\x09ctrl+d/ctrl+p.\x0a\x09\x0a\x09See https://github.com/amber-smalltalk/amber/issues/882\x22\x0a\x0a\x09^ self \x0a\x09\x09try: [ self environment eval: aString on: self receiver ]\x0a\x09\x09catch: [ :e | \x0a\x09\x09\x09ErrorHandler handleError: e.\x0a\x09\x09\x09nil ]",
+messageSends: ["try:catch:", "eval:on:", "environment", "receiver", "handleError:"],
+referencedClasses: ["ErrorHandler"]
 }),
 globals.HLCodeModel);
 

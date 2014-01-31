@@ -28,8 +28,19 @@ receiver: anObject
 !HLCodeModel methodsFor: 'actions'!
 
 doIt: aString
+	"Evaluate aString in the receiver's `environment`.
+	
+	Note: Catch any error and handle it manually, bypassing
+	boot.js behavior to avoid the browser default action on
+	ctrl+d/ctrl+p.
+	
+	See https://github.com/amber-smalltalk/amber/issues/882"
 
-	^ self environment eval: aString on: self receiver
+	^ self 
+		try: [ self environment eval: aString on: self receiver ]
+		catch: [ :e | 
+			ErrorHandler handleError: e.
+			nil ]
 !
 
 inspect: anObject
