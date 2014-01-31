@@ -16,7 +16,7 @@ html[xmlns] .clearfix {
   height: 1%;
 }
 .cm-s-helios.CodeMirror {
-  font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", Courier, monospace;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
   line-height: 16px;
   font-size: 13px;
 }
