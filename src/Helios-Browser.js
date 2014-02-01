@@ -2294,15 +2294,24 @@ protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(anAnnouncement)._theClass()).__eq(_st(_st(self._model())._selectedClass())._theNonMetaClass());
-if(smalltalk.assert($1)){
+var $2,$1,$3;
+$2=self._model();
+$ctx1.sendIdx["model"]=1;
+$1=_st($2)._selectedClass();
+$ctx1.sendIdx["selectedClass"]=1;
+if(($receiver = $1) == nil || $receiver == null){
+return self;
+} else {
+$1;
+};
+$3=_st(_st(anAnnouncement)._theClass()).__eq(_st(_st(self._model())._selectedClass())._theNonMetaClass());
+if(smalltalk.assert($3)){
 self._refresh();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"onClassCommentChanged:",{anAnnouncement:anAnnouncement},globals.HLDocumentationWidget)})},
 args: ["anAnnouncement"],
-source: "onClassCommentChanged: anAnnouncement\x0a\x09anAnnouncement theClass = self model selectedClass theNonMetaClass\x0a\x09\x09ifTrue: [ self refresh ]",
-messageSends: ["ifTrue:", "=", "theClass", "theNonMetaClass", "selectedClass", "model", "refresh"],
+source: "onClassCommentChanged: anAnnouncement\x0a\x09self model selectedClass ifNil: [ ^ self ].\x0a\x09\x0a\x09anAnnouncement theClass = self model selectedClass theNonMetaClass\x0a\x09\x09ifTrue: [ self refresh ]",
+messageSends: ["ifNil:", "selectedClass", "model", "ifTrue:", "=", "theClass", "theNonMetaClass", "refresh"],
 referencedClasses: []
 }),
 globals.HLDocumentationWidget);

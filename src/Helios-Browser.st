@@ -807,6 +807,8 @@ defaultHead
 !HLDocumentationWidget methodsFor: 'reactions'!
 
 onClassCommentChanged: anAnnouncement
+	self model selectedClass ifNil: [ ^ self ].
+	
 	anAnnouncement theClass = self model selectedClass theNonMetaClass
 		ifTrue: [ self refresh ]
 !
