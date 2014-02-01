@@ -149,7 +149,12 @@ selectionStart: anInteger
 !HLCodeWidget methodsFor: 'actions'!
 
 browseIt
-	self model browse: self doIt
+	| result |
+	
+	result := [ self dotIt ] on: Error do: [ :exception | 
+		^ self ].
+		
+	self model browse: result
 !
 
 clear

@@ -230,13 +230,25 @@ selector: "browseIt",
 protocol: 'actions',
 fn: function (){
 var self=this;
+var result;
+function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-_st(self._model())._browse_(self._doIt());
-return self}, function($ctx1) {$ctx1.fill(self,"browseIt",{},globals.HLCodeWidget)})},
+var $early={};
+try {
+result=_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._dotIt();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(exception){
+throw $early=[self];
+}));
+_st(self._model())._browse_(result);
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"browseIt",{result:result},globals.HLCodeWidget)})},
 args: [],
-source: "browseIt\x0a\x09self model browse: self doIt",
-messageSends: ["browse:", "model", "doIt"],
-referencedClasses: []
+source: "browseIt\x0a\x09| result |\x0a\x09\x0a\x09result := [ self dotIt ] on: Error do: [ :exception | \x0a\x09\x09^ self ].\x0a\x09\x09\x0a\x09self model browse: result",
+messageSends: ["on:do:", "dotIt", "browse:", "model"],
+referencedClasses: ["Error"]
 }),
 globals.HLCodeWidget);
 
