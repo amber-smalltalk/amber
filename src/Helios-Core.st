@@ -1058,7 +1058,7 @@ renderMenuOn: html
 			html a
 				class: 'btn dropdown-toggle';
 				at: 'data-toggle' put: 'dropdown';
-				with: [ (html tag: 'i') class: 'icon-cog' ].
+				with: [ (html tag: 'i') class: 'icon-chevron-down' ].
 		html ul 
 			class: 'dropdown-menu pull-right';
 			with: [ 
