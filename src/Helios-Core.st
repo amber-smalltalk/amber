@@ -1838,27 +1838,3 @@ default
 	^ default ifNil: [ default := self new ]
 ! !
 
-HLWidget subclass: #HLSUnit
-	instanceVariableNames: ''
-	package: 'Helios-Core'!
-
-!HLSUnit class methodsFor: 'accessing'!
-
-tabClass
-	^ 'sunit'
-!
-
-tabLabel
-	^ 'SUnit'
-!
-
-tabPriority
-	^ 1000
-! !
-
-!HLSUnit class methodsFor: 'testing'!
-
-canBeOpenAsTab
-	^ true
-! !
-
