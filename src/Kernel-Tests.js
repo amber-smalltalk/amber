@@ -8022,6 +8022,78 @@ globals.PointTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testComparison",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1,$5,$6,$4,$8,$9,$7,$11,$12,$10,$14,$15,$13,$17,$18,$16,$20,$21,$19,$23,$22;
+$2=(3).__at((4));
+$ctx1.sendIdx["@"]=1;
+$3=(4).__at((5));
+$ctx1.sendIdx["@"]=2;
+$1=_st($2).__lt($3);
+$ctx1.sendIdx["<"]=1;
+self._assert_($1);
+$ctx1.sendIdx["assert:"]=1;
+$5=(3).__at((4));
+$ctx1.sendIdx["@"]=3;
+$6=(4).__at((4));
+$ctx1.sendIdx["@"]=4;
+$4=_st($5).__lt($6);
+self._deny_($4);
+$ctx1.sendIdx["deny:"]=1;
+$8=(4).__at((5));
+$ctx1.sendIdx["@"]=5;
+$9=(4).__at((5));
+$ctx1.sendIdx["@"]=6;
+$7=_st($8).__lt_eq($9);
+$ctx1.sendIdx["<="]=1;
+self._assert_($7);
+$ctx1.sendIdx["assert:"]=2;
+$11=(4).__at((5));
+$ctx1.sendIdx["@"]=7;
+$12=(3).__at((5));
+$ctx1.sendIdx["@"]=8;
+$10=_st($11).__lt_eq($12);
+self._deny_($10);
+$ctx1.sendIdx["deny:"]=2;
+$14=(5).__at((6));
+$ctx1.sendIdx["@"]=9;
+$15=(4).__at((5));
+$ctx1.sendIdx["@"]=10;
+$13=_st($14).__gt($15);
+$ctx1.sendIdx[">"]=1;
+self._assert_($13);
+$ctx1.sendIdx["assert:"]=3;
+$17=(5).__at((6));
+$ctx1.sendIdx["@"]=11;
+$18=(6).__at((6));
+$ctx1.sendIdx["@"]=12;
+$16=_st($17).__gt($18);
+self._deny_($16);
+$ctx1.sendIdx["deny:"]=3;
+$20=(4).__at((5));
+$ctx1.sendIdx["@"]=13;
+$21=(4).__at((5));
+$ctx1.sendIdx["@"]=14;
+$19=_st($20).__gt_eq($21);
+$ctx1.sendIdx[">="]=1;
+self._assert_($19);
+$23=(4).__at((5));
+$ctx1.sendIdx["@"]=15;
+$22=_st($23).__gt_eq((5).__at((5)));
+self._deny_($22);
+return self}, function($ctx1) {$ctx1.fill(self,"testComparison",{},globals.PointTest)})},
+args: [],
+source: "testComparison\x0a\x09self assert: 3@4 < (4@5).\x0a\x09self deny: 3@4 < (4@4).\x0a\x09\x0a\x09self assert: 4@5 <= (4@5).\x0a\x09self deny: 4@5 <= (3@5).\x0a\x09\x0a\x09self assert: 5@6 > (4@5).\x0a\x09self deny: 5@6 > (6@6).\x0a\x09\x0a\x09self assert: 4@5 >= (4@5).\x0a\x09self deny: 4@5 >= (5@5)",
+messageSends: ["assert:", "<", "@", "deny:", "<=", ">", ">="],
+referencedClasses: []
+}),
+globals.PointTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testEgality",
 protocol: 'tests',
 fn: function (){

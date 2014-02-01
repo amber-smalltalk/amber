@@ -2324,6 +2324,20 @@ testAt
 	self assert: 3@4 equals: (Point x: 3 y: 4)
 !
 
+testComparison
+	self assert: 3@4 < (4@5).
+	self deny: 3@4 < (4@4).
+	
+	self assert: 4@5 <= (4@5).
+	self deny: 4@5 <= (3@5).
+	
+	self assert: 5@6 > (4@5).
+	self deny: 5@6 > (6@6).
+	
+	self assert: 4@5 >= (4@5).
+	self deny: 4@5 >= (5@5)
+!
+
 testEgality
 	self assert: (3@4 = (3@4)).
 	self deny: 3@5 = (3@6)

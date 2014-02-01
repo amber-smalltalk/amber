@@ -1166,11 +1166,33 @@ y: aNumber
 
 / aPoint
 	^ Point x: self x / aPoint asPoint x y: self y / aPoint asPoint y
+! !
+
+!Point methodsFor: 'comparing'!
+
+< aPoint
+	^ self x < aPoint x and: [
+		self y < aPoint y ]
+!
+
+<= aPoint
+	^ self x <= aPoint x and: [
+		self y <= aPoint y ]
 !
 
 = aPoint
 	^ aPoint class = self class and: [
 		(aPoint x = self x) & (aPoint y = self y) ]
+!
+
+> aPoint
+	^ self x > aPoint x and: [
+		self y > aPoint y ]
+!
+
+>= aPoint
+	^ self x >= aPoint x and: [
+		self y >= aPoint y ]
 ! !
 
 !Point methodsFor: 'converting'!

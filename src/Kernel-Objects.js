@@ -3546,8 +3546,62 @@ globals.Point);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "<",
+protocol: 'comparing',
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$4,$1;
+$3=self._x();
+$ctx1.sendIdx["x"]=1;
+$2=_st($3).__lt(_st(aPoint)._x());
+$ctx1.sendIdx["<"]=1;
+$1=_st($2)._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+$4=self._y();
+$ctx2.sendIdx["y"]=1;
+return _st($4).__lt(_st(aPoint)._y());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"<",{aPoint:aPoint},globals.Point)})},
+args: ["aPoint"],
+source: "< aPoint\x0a\x09^ self x < aPoint x and: [\x0a\x09\x09self y < aPoint y ]",
+messageSends: ["and:", "<", "x", "y"],
+referencedClasses: []
+}),
+globals.Point);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "<=",
+protocol: 'comparing',
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$4,$1;
+$3=self._x();
+$ctx1.sendIdx["x"]=1;
+$2=_st($3).__lt_eq(_st(aPoint)._x());
+$ctx1.sendIdx["<="]=1;
+$1=_st($2)._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+$4=self._y();
+$ctx2.sendIdx["y"]=1;
+return _st($4).__lt_eq(_st(aPoint)._y());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"<=",{aPoint:aPoint},globals.Point)})},
+args: ["aPoint"],
+source: "<= aPoint\x0a\x09^ self x <= aPoint x and: [\x0a\x09\x09self y <= aPoint y ]",
+messageSends: ["and:", "<=", "x", "y"],
+referencedClasses: []
+}),
+globals.Point);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "=",
-protocol: 'arithmetic',
+protocol: 'comparing',
 fn: function (aPoint){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3572,6 +3626,60 @@ return $1;
 args: ["aPoint"],
 source: "= aPoint\x0a\x09^ aPoint class = self class and: [\x0a\x09\x09(aPoint x = self x) & (aPoint y = self y) ]",
 messageSends: ["and:", "=", "class", "&", "x", "y"],
+referencedClasses: []
+}),
+globals.Point);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: ">",
+protocol: 'comparing',
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$4,$1;
+$3=self._x();
+$ctx1.sendIdx["x"]=1;
+$2=_st($3).__gt(_st(aPoint)._x());
+$ctx1.sendIdx[">"]=1;
+$1=_st($2)._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+$4=self._y();
+$ctx2.sendIdx["y"]=1;
+return _st($4).__gt(_st(aPoint)._y());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,">",{aPoint:aPoint},globals.Point)})},
+args: ["aPoint"],
+source: "> aPoint\x0a\x09^ self x > aPoint x and: [\x0a\x09\x09self y > aPoint y ]",
+messageSends: ["and:", ">", "x", "y"],
+referencedClasses: []
+}),
+globals.Point);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: ">=",
+protocol: 'comparing',
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$4,$1;
+$3=self._x();
+$ctx1.sendIdx["x"]=1;
+$2=_st($3).__gt_eq(_st(aPoint)._x());
+$ctx1.sendIdx[">="]=1;
+$1=_st($2)._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+$4=self._y();
+$ctx2.sendIdx["y"]=1;
+return _st($4).__gt_eq(_st(aPoint)._y());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,">=",{aPoint:aPoint},globals.Point)})},
+args: ["aPoint"],
+source: ">= aPoint\x0a\x09^ self x >= aPoint x and: [\x0a\x09\x09self y >= aPoint y ]",
+messageSends: ["and:", ">=", "x", "y"],
 referencedClasses: []
 }),
 globals.Point);
