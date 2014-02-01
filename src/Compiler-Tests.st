@@ -102,6 +102,26 @@ testPC
 		currentNode) isJSStatementNode
 ! !
 
+ASTParsingTest subclass: #ASTPositionTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!ASTPositionTest methodsFor: 'tests'!
+
+testAtPosition
+	| node |
+	
+	node := self parse: 'yourself
+	^ self'.
+	
+	self assert: (node atPosition: 2@4) source equals: 'self'.
+	
+	node := self parse: 'foo
+	true ifTrue: [ 1 ]'.
+	
+	self assert: (node atPosition: 2@7) selector equals: 'ifTrue:'
+! !
+
 ASTParsingTest subclass: #CodeGeneratorTest
 	instanceVariableNames: 'receiver'
 	package: 'Compiler-Tests'!

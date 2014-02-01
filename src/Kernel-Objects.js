@@ -3701,6 +3701,31 @@ globals.Point);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "dist:",
+protocol: 'transforming',
+fn: function (aPoint){
+var self=this;
+var dx,dy;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+dx=_st(_st(aPoint)._x()).__minus(self["@x"]);
+$ctx1.sendIdx["-"]=1;
+dy=_st(_st(aPoint)._y()).__minus(self["@y"]);
+$3=_st(dx).__star(dx);
+$ctx1.sendIdx["*"]=1;
+$2=_st($3).__plus(_st(dy).__star(dy));
+$1=_st($2)._sqrt();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"dist:",{aPoint:aPoint,dx:dx,dy:dy},globals.Point)})},
+args: ["aPoint"],
+source: "dist: aPoint \x0a\x09\x22Answer the distance between aPoint and the receiver.\x22\x0a\x09| dx dy |\x0a\x09dx := aPoint x - x.\x0a\x09dy := aPoint y - y.\x0a\x09^ (dx * dx + (dy * dy)) sqrt",
+messageSends: ["-", "x", "y", "sqrt", "+", "*"],
+referencedClasses: []
+}),
+globals.Point);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){

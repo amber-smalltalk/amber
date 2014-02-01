@@ -16,6 +16,33 @@ addNode: aNode
 	aNode parent: self
 !
 
+allNodes
+	| allNodes |
+	
+	allNodes := self nodes asSet.
+	self nodes do: [ :each | 
+		allNodes addAll: each allNodes ].
+	
+	^ allNodes
+!
+
+atPosition: aPoint
+	"Answer the node in the receiver's tree at aPoint"
+	
+	| children |
+	
+	children := self allNodes select: [ :each | 
+		each inPosition: aPoint ].
+	
+	console log: children asArray.
+	
+	children ifEmpty: [ ^ nil ].
+	
+	^ (children asArray sort: [ :a :b | 
+		(a positionStart dist: aPoint) <= 
+		(b positionStart dist: aPoint) ]) first
+!
+
 method
 	^ self parent ifNotNil: [ :node | node method ]
 !
@@ -122,6 +149,11 @@ postCopy
 
 !Node methodsFor: 'testing'!
 
+inPosition: aPoint
+	^ (self positionStart <= aPoint and: [
+		self positionEnd >= aPoint ])
+!
+
 isAssignmentNode
 	^ false
 !
@@ -148,6 +180,12 @@ isJSStatementNode
 
 isLastChild
 	^ self parent nodes last = self
+!
+
+isNavigationNode
+	"Answer true if the node can be navigated to"
+	
+	^ false
 !
 
 isNode
@@ -530,6 +568,10 @@ index: anInteger
 	index := anInteger
 !
 
+navigationLink
+	^ self selector
+!
+
 nodes
 	self receiver ifNil: [ ^ self arguments copy ].
 	
@@ -580,6 +622,10 @@ valueForReceiver: anObject
 
 isCascadeSendNode
 	^ self parent isCascadeNode
+!
+
+isNavigationNode
+	^ true
 !
 
 isSendNode
@@ -740,6 +786,10 @@ binding
 
 binding: aScopeVar
 	binding := aScopeVar
+!
+
+navigationLink
+	^ self value
 ! !
 
 !VariableNode methodsFor: 'testing'!
@@ -750,6 +800,10 @@ isArgument
 
 isImmutable
 	^ self binding isImmutable
+!
+
+isNavigationNode
+	^ true
 !
 
 isVariableNode

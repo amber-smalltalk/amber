@@ -41,6 +41,94 @@ globals.Node);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "allNodes",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var allNodes;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._nodes();
+$ctx1.sendIdx["nodes"]=1;
+allNodes=_st($1)._asSet();
+_st(self._nodes())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(allNodes)._addAll_(_st(each)._allNodes());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$2=allNodes;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"allNodes",{allNodes:allNodes},globals.Node)})},
+args: [],
+source: "allNodes\x0a\x09| allNodes |\x0a\x09\x0a\x09allNodes := self nodes asSet.\x0a\x09self nodes do: [ :each | \x0a\x09\x09allNodes addAll: each allNodes ].\x0a\x09\x0a\x09^ allNodes",
+messageSends: ["asSet", "nodes", "do:", "addAll:", "allNodes"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "atPosition:",
+protocol: 'accessing',
+fn: function (aPoint){
+var self=this;
+var children;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$5,$4,$3;
+var $early={};
+try {
+children=_st(self._allNodes())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._inPosition_(aPoint);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$1=console;
+$2=_st(children)._asArray();
+$ctx1.sendIdx["asArray"]=1;
+_st($1)._log_($2);
+_st(children)._ifEmpty_((function(){
+throw $early=[nil];
+}));
+$3=_st(_st(_st(children)._asArray())._sort_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+$5=_st(a)._positionStart();
+$ctx2.sendIdx["positionStart"]=1;
+$4=_st($5)._dist_(aPoint);
+$ctx2.sendIdx["dist:"]=1;
+return _st($4).__lt_eq(_st(_st(b)._positionStart())._dist_(aPoint));
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,3)})})))._first();
+return $3;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"atPosition:",{aPoint:aPoint,children:children},globals.Node)})},
+args: ["aPoint"],
+source: "atPosition: aPoint\x0a\x09\x22Answer the node in the receiver's tree at aPoint\x22\x0a\x09\x0a\x09| children |\x0a\x09\x0a\x09children := self allNodes select: [ :each | \x0a\x09\x09each inPosition: aPoint ].\x0a\x09\x0a\x09console log: children asArray.\x0a\x09\x0a\x09children ifEmpty: [ ^ nil ].\x0a\x09\x0a\x09^ (children asArray sort: [ :a :b | \x0a\x09\x09(a positionStart dist: aPoint) <= \x0a\x09\x09(b positionStart dist: aPoint) ]) first",
+messageSends: ["select:", "allNodes", "inPosition:", "log:", "asArray", "ifEmpty:", "first", "sort:", "<=", "dist:", "positionStart"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inPosition:",
+protocol: 'testing',
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self._positionStart()).__lt_eq(aPoint))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._positionEnd()).__gt_eq(aPoint);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"inPosition:",{aPoint:aPoint},globals.Node)})},
+args: ["aPoint"],
+source: "inPosition: aPoint\x0a\x09^ (self positionStart <= aPoint and: [\x0a\x09\x09self positionEnd >= aPoint ])",
+messageSends: ["and:", "<=", "positionStart", ">=", "positionEnd"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isAssignmentNode",
 protocol: 'testing',
 fn: function (){
@@ -143,6 +231,21 @@ return $1;
 args: [],
 source: "isLastChild\x0a\x09^ self parent nodes last = self",
 messageSends: ["=", "last", "nodes", "parent"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isNavigationNode",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return false;
+},
+args: [],
+source: "isNavigationNode\x0a\x09\x22Answer true if the node can be navigated to\x22\x0a\x09\x0a\x09^ false",
+messageSends: [],
 referencedClasses: []
 }),
 globals.Node);
@@ -1744,6 +1847,21 @@ globals.SendNode);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isNavigationNode",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return true;
+},
+args: [],
+source: "isNavigationNode\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+globals.SendNode);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isSendNode",
 protocol: 'testing',
 fn: function (){
@@ -1753,6 +1871,24 @@ return true;
 args: [],
 source: "isSendNode\x0a\x09^ true",
 messageSends: [],
+referencedClasses: []
+}),
+globals.SendNode);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "navigationLink",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._selector();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"navigationLink",{},globals.SendNode)})},
+args: [],
+source: "navigationLink\x0a\x09^ self selector",
+messageSends: ["selector"],
 referencedClasses: []
 }),
 globals.SendNode);
@@ -2412,6 +2548,21 @@ globals.VariableNode);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isNavigationNode",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return true;
+},
+args: [],
+source: "isNavigationNode\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+globals.VariableNode);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isVariableNode",
 protocol: 'testing',
 fn: function (){
@@ -2421,6 +2572,24 @@ return true;
 args: [],
 source: "isVariableNode\x0a\x09^ true",
 messageSends: [],
+referencedClasses: []
+}),
+globals.VariableNode);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "navigationLink",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"navigationLink",{},globals.VariableNode)})},
+args: [],
+source: "navigationLink\x0a\x09^ self value",
+messageSends: ["value"],
 referencedClasses: []
 }),
 globals.VariableNode);

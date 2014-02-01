@@ -1218,6 +1218,14 @@ printOn: aStream
 
 !Point methodsFor: 'transforming'!
 
+dist: aPoint 
+	"Answer the distance between aPoint and the receiver."
+	| dx dy |
+	dx := aPoint x - x.
+	dy := aPoint y - y.
+	^ (dx * dx + (dy * dy)) sqrt
+!
+
 translateBy: delta
 	"Answer a Point translated by delta (an instance of Point)."
 	^ (delta x + x) @ (delta y + y)

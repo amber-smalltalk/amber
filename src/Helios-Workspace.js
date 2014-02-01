@@ -246,18 +246,34 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2,$3,$4;
 $1=self._editor();
 $ctx1.sendIdx["editor"]=1;
 _st($1)._at_put_("amberCodeWidget",self);
-_st(self._editor())._on_do_("change",(function(){
+$2=self._editor();
+$ctx1.sendIdx["editor"]=2;
+_st($2)._on_do_("change",(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._onChange();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["on:do:"]=1;
+$3=self._editor();
+$ctx1.sendIdx["editor"]=3;
+_st($3)._on_do_("mousedown",(function(cm,event){
+var position,node;
+return smalltalk.withContext(function($ctx2) {
+$4=_st(event)._at_("ctrlKey");
+if(smalltalk.assert($4)){
+position=_st(self._editor())._coordsChar_(globals.HashedCollection._newFromPairs_(["left",_st(event)._clientX(),"top",_st(event)._clientY()]));
+position;
+self._onCtrlClickAt_(_st(_st(_st(position)._line()).__at(_st(position)._ch())).__plus((1)));
+return _st(event)._preventDefault();
+};
+}, function($ctx2) {$ctx2.fillBlock({cm:cm,event:event,position:position,node:node},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{},globals.HLCodeWidget)})},
 args: [],
-source: "configureEditor\x0a\x09self editor at: 'amberCodeWidget' put: self.\x0a\x09self editor on: 'change' do: [ self onChange ]",
-messageSends: ["at:put:", "editor", "on:do:", "onChange"],
+source: "configureEditor\x0a\x09self editor at: 'amberCodeWidget' put: self.\x0a\x09self editor on: 'change' do: [ self onChange ].\x0a\x09self editor on: 'mousedown' do: [ :cm :event | | position node |\x0a\x09\x09(event at: 'ctrlKey') ifTrue: [\x0a\x09\x09\x09position := self editor coordsChar: #{ \x0a\x09\x09\x09\x09'left' -> event clientX.\x0a\x09\x09\x09\x09'top' -> event clientY\x0a\x09\x09\x09}.\x0a\x09\x09\x09self onCtrlClickAt: (position line @ position ch) + 1.\x0a\x09\x09\x09event preventDefault ] ]",
+messageSends: ["at:put:", "editor", "on:do:", "onChange", "ifTrue:", "at:", "coordsChar:", "clientX", "clientY", "onCtrlClickAt:", "+", "@", "line", "ch", "preventDefault"],
 referencedClasses: []
 }),
 globals.HLCodeWidget);
@@ -554,6 +570,69 @@ globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "navigateTo:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+var navigationClass;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+navigationClass=_st(_st(_st(self._model())._environment())._classes())._detect_ifNone_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._name()).__eq(aString);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+return nil;
+}));
+$1=navigationClass;
+if(($receiver = $1) == nil || $receiver == null){
+self._navigateToReference_(aString);
+} else {
+self._navigateToClass_(navigationClass);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"navigateTo:",{aString:aString,navigationClass:navigationClass},globals.HLCodeWidget)})},
+args: ["aString"],
+source: "navigateTo: aString\x0a\x09| navigationClass |\x0a\x09\x0a\x09navigationClass := self model environment classes \x0a\x09\x09detect: [ :each | each name = aString ]\x0a\x09\x09ifNone: [ nil ].\x0a\x09\x09\x0a\x09navigationClass \x0a\x09\x09ifNil: [ self navigateToReference: aString ]\x0a\x09\x09ifNotNil: [ self navigateToClass: navigationClass ]",
+messageSends: ["detect:ifNone:", "classes", "environment", "model", "=", "name", "ifNil:ifNotNil:", "navigateToReference:", "navigateToClass:"],
+referencedClasses: []
+}),
+globals.HLCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "navigateToClass:",
+protocol: 'actions',
+fn: function (aClass){
+var self=this;
+function $HLBrowser(){return globals.HLBrowser||(typeof HLBrowser=="undefined"?nil:HLBrowser)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($HLBrowser())._openAsTab())._browseClass_(aClass);
+return self}, function($ctx1) {$ctx1.fill(self,"navigateToClass:",{aClass:aClass},globals.HLCodeWidget)})},
+args: ["aClass"],
+source: "navigateToClass: aClass\x0a\x09(HLBrowser openAsTab)\x0a\x09\x09browseClass: aClass",
+messageSends: ["browseClass:", "openAsTab"],
+referencedClasses: ["HLBrowser"]
+}),
+globals.HLCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "navigateToReference:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+function $HLReferences(){return globals.HLReferences||(typeof HLReferences=="undefined"?nil:HLReferences)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($HLReferences())._openAsTab())._search_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"navigateToReference:",{aString:aString},globals.HLCodeWidget)})},
+args: ["aString"],
+source: "navigateToReference: aString\x0a\x09(HLReferences openAsTab)\x0a\x09\x09search: aString",
+messageSends: ["search:", "openAsTab"],
+referencedClasses: ["HLReferences"]
+}),
+globals.HLCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "onChange",
 protocol: 'reactions',
 fn: function (){
@@ -565,6 +644,47 @@ args: [],
 source: "onChange\x0a\x09self updateState",
 messageSends: ["updateState"],
 referencedClasses: []
+}),
+globals.HLCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onCtrlClickAt:",
+protocol: 'reactions',
+fn: function (aPosition){
+var self=this;
+var ast,node;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+var $early={};
+try {
+ast=_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st($Smalltalk())._parse_(_st(self._editor())._getValue());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(error){
+throw $early=[self];
+}));
+node=_st(ast)._atPosition_(aPosition);
+_st(console)._log_(node);
+$1=node;
+if(($receiver = $1) == nil || $receiver == null){
+return self;
+} else {
+$1;
+};
+$2=_st(node)._isNavigationNode();
+if(smalltalk.assert($2)){
+self._navigateTo_(_st(node)._navigationLink());
+};
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"onCtrlClickAt:",{aPosition:aPosition,ast:ast,node:node},globals.HLCodeWidget)})},
+args: ["aPosition"],
+source: "onCtrlClickAt: aPosition\x0a\x09| ast node |\x0a\x09\x0a\x09ast := [ Smalltalk parse: self editor getValue ] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :error | ^ self ].\x0a\x09\x0a\x09node := (ast atPosition: aPosition).\x0a\x09console log: node.\x0a\x09node ifNil: [ ^ self ].\x0a\x09\x0a\x09node isNavigationNode ifTrue: [ \x0a\x09\x09self navigateTo: node navigationLink ]",
+messageSends: ["on:do:", "parse:", "getValue", "editor", "atPosition:", "log:", "ifNil:", "ifTrue:", "isNavigationNode", "navigateTo:", "navigationLink"],
+referencedClasses: ["Smalltalk", "Error"]
 }),
 globals.HLCodeWidget);
 
@@ -1447,6 +1567,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"browserModel:",{aBrowserModel:aB
 args: ["aBrowserModel"],
 source: "browserModel: aBrowserModel\x0a\x09browserModel := aBrowserModel.\x0a\x09self \x0a\x09\x09observeSystem;\x0a\x09\x09observeBrowserModel",
 messageSends: ["observeSystem", "observeBrowserModel"],
+referencedClasses: []
+}),
+globals.HLBrowserCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "navigateToClass:",
+protocol: 'actions',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._browserModel())._openClassNamed_(_st(aClass)._name());
+return self}, function($ctx1) {$ctx1.fill(self,"navigateToClass:",{aClass:aClass},globals.HLBrowserCodeWidget)})},
+args: ["aClass"],
+source: "navigateToClass: aClass\x0a\x09self browserModel openClassNamed: aClass name",
+messageSends: ["openClassNamed:", "browserModel", "name"],
 referencedClasses: []
 }),
 globals.HLBrowserCodeWidget);

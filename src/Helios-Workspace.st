@@ -150,7 +150,15 @@ clear
 
 configureEditor
 	self editor at: 'amberCodeWidget' put: self.
-	self editor on: 'change' do: [ self onChange ]
+	self editor on: 'change' do: [ self onChange ].
+	self editor on: 'mousedown' do: [ :cm :event | | position node |
+		(event at: 'ctrlKey') ifTrue: [
+			position := self editor coordsChar: #{ 
+				'left' -> event clientX.
+				'top' -> event clientY
+			}.
+			self onCtrlClickAt: (position line @ position ch) + 1.
+			event preventDefault ] ]
 !
 
 doIt
@@ -176,6 +184,28 @@ inspectIt
        
 	self model announcer announce: (HLInspectItRequested on: model).
 	self model inspect: self doIt
+!
+
+navigateTo: aString
+	| navigationClass |
+	
+	navigationClass := self model environment classes 
+		detect: [ :each | each name = aString ]
+		ifNone: [ nil ].
+		
+	navigationClass 
+		ifNil: [ self navigateToReference: aString ]
+		ifNotNil: [ self navigateToClass: navigationClass ]
+!
+
+navigateToClass: aClass
+	(HLBrowser openAsTab)
+		browseClass: aClass
+!
+
+navigateToReference: aString
+	(HLReferences openAsTab)
+		search: aString
 !
 
 print: aString
@@ -242,6 +272,21 @@ variableHintFor: anEditor token: aToken
 
 onChange
 	self updateState
+!
+
+onCtrlClickAt: aPosition
+	| ast node |
+	
+	ast := [ Smalltalk parse: self editor getValue ] 
+		on: Error 
+		do: [ :error | ^ self ].
+	
+	node := (ast atPosition: aPosition).
+	console log: node.
+	node ifNil: [ ^ self ].
+	
+	node isNavigationNode ifTrue: [ 
+		self navigateTo: node navigationLink ]
 !
 
 onDoIt
@@ -519,6 +564,10 @@ browserModel: aBrowserModel
 ! !
 
 !HLBrowserCodeWidget methodsFor: 'actions'!
+
+navigateToClass: aClass
+	self browserModel openClassNamed: aClass name
+!
 
 observeBrowserModel
 	self browserModel announcer
