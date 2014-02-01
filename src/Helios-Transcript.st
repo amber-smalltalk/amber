@@ -14,7 +14,7 @@ I am a widget responsible for displaying transcript contents.
 
     Transcript clear.
 
-See the `Transcript` class.!
+See the `Transcript` service class.!
 
 !HLTranscript methodsFor: 'actions'!
 
@@ -61,7 +61,7 @@ I handle transcript events, dispatching them to all instances of `HLTranscript`.
 
 ## API
 
-On class initialization I am automatically registered as the current transcript.!
+Use the class-side method `#register:` to add transcript instances.!
 
 HLTranscriptHandler class instanceVariableNames: 'transcripts'!
 

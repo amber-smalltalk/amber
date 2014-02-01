@@ -3,7 +3,7 @@ smalltalk.addPackage('Helios-Transcript');
 smalltalk.packages["Helios-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLTranscript', globals.HLWidget, ['textarea'], 'Helios-Transcript');
-globals.HLTranscript.comment="I am a widget responsible for displaying transcript contents.\x0a\x0a## Transcript API\x0a\x0a    Transcript \x0a        show: 'hello world';\x0a        cr;\x0a        show: anObject.\x0a\x0a    Transcript clear.\x0a\x0aSee the `Transcript` class.";
+globals.HLTranscript.comment="I am a widget responsible for displaying transcript contents.\x0a\x0a## Transcript API\x0a\x0a    Transcript \x0a        show: 'hello world';\x0a        cr;\x0a        show: anObject.\x0a\x0a    Transcript clear.\x0a\x0aSee the `Transcript` service class.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clear",
@@ -120,7 +120,7 @@ globals.HLTranscript);
 
 
 smalltalk.addClass('HLTranscriptHandler', globals.Object, [], 'Helios-Transcript');
-globals.HLTranscriptHandler.comment="I handle transcript events, dispatching them to all instances of `HLTranscript`.\x0a\x0a## API\x0a\x0aOn class initialization I am automatically registered as the current transcript.";
+globals.HLTranscriptHandler.comment="I handle transcript events, dispatching them to all instances of `HLTranscript`.\x0a\x0a## API\x0a\x0aUse the class-side method `#register:` to add transcript instances.";
 
 globals.HLTranscriptHandler.klass.iVarNames = ['transcripts'];
 smalltalk.addMethod(
