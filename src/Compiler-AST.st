@@ -34,8 +34,6 @@ atPosition: aPoint
 	children := self allNodes select: [ :each | 
 		each inPosition: aPoint ].
 	
-	console log: children asArray.
-	
 	children ifEmpty: [ ^ nil ].
 	
 	^ (children asArray sort: [ :a :b | 

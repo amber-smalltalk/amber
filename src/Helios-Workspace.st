@@ -274,7 +274,6 @@ onCtrlClickAt: aPosition
 		do: [ :error | ^ self ].
 	
 	node := (ast atPosition: aPosition).
-	console log: node.
 	node ifNil: [ ^ self ].
 	
 	node isNavigationNode ifTrue: [ 

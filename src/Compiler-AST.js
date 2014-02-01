@@ -73,35 +73,31 @@ fn: function (aPoint){
 var self=this;
 var children;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$5,$4,$3;
+var $3,$2,$1;
 var $early={};
 try {
 children=_st(self._allNodes())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._inPosition_(aPoint);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$1=console;
-$2=_st(children)._asArray();
-$ctx1.sendIdx["asArray"]=1;
-_st($1)._log_($2);
 _st(children)._ifEmpty_((function(){
 throw $early=[nil];
 }));
-$3=_st(_st(_st(children)._asArray())._sort_((function(a,b){
+$1=_st(_st(_st(children)._asArray())._sort_((function(a,b){
 return smalltalk.withContext(function($ctx2) {
-$5=_st(a)._positionStart();
+$3=_st(a)._positionStart();
 $ctx2.sendIdx["positionStart"]=1;
-$4=_st($5)._dist_(aPoint);
+$2=_st($3)._dist_(aPoint);
 $ctx2.sendIdx["dist:"]=1;
-return _st($4).__lt_eq(_st(_st(b)._positionStart())._dist_(aPoint));
+return _st($2).__lt_eq(_st(_st(b)._positionStart())._dist_(aPoint));
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,3)})})))._first();
-return $3;
+return $1;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"atPosition:",{aPoint:aPoint,children:children},globals.Node)})},
 args: ["aPoint"],
-source: "atPosition: aPoint\x0a\x09\x22Answer the node in the receiver's tree at aPoint\x22\x0a\x09\x0a\x09| children |\x0a\x09\x0a\x09children := self allNodes select: [ :each | \x0a\x09\x09each inPosition: aPoint ].\x0a\x09\x0a\x09console log: children asArray.\x0a\x09\x0a\x09children ifEmpty: [ ^ nil ].\x0a\x09\x0a\x09^ (children asArray sort: [ :a :b | \x0a\x09\x09(a positionStart dist: aPoint) <= \x0a\x09\x09(b positionStart dist: aPoint) ]) first",
-messageSends: ["select:", "allNodes", "inPosition:", "log:", "asArray", "ifEmpty:", "first", "sort:", "<=", "dist:", "positionStart"],
+source: "atPosition: aPoint\x0a\x09\x22Answer the node in the receiver's tree at aPoint\x22\x0a\x09\x0a\x09| children |\x0a\x09\x0a\x09children := self allNodes select: [ :each | \x0a\x09\x09each inPosition: aPoint ].\x0a\x09\x0a\x09children ifEmpty: [ ^ nil ].\x0a\x09\x0a\x09^ (children asArray sort: [ :a :b | \x0a\x09\x09(a positionStart dist: aPoint) <= \x0a\x09\x09(b positionStart dist: aPoint) ]) first",
+messageSends: ["select:", "allNodes", "inPosition:", "ifEmpty:", "first", "sort:", "asArray", "<=", "dist:", "positionStart"],
 referencedClasses: []
 }),
 globals.Node);

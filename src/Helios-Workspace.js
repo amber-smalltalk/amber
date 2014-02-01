@@ -672,7 +672,6 @@ return _st($Smalltalk())._parse_(_st(self._editor())._getValue());
 throw $early=[self];
 }));
 node=_st(ast)._atPosition_(aPosition);
-_st(console)._log_(node);
 $1=node;
 if(($receiver = $1) == nil || $receiver == null){
 return self;
@@ -687,8 +686,8 @@ return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"onCtrlClickAt:",{aPosition:aPosition,ast:ast,node:node},globals.HLCodeWidget)})},
 args: ["aPosition"],
-source: "onCtrlClickAt: aPosition\x0a\x09| ast node |\x0a\x09\x0a\x09ast := [ Smalltalk parse: self editor getValue ] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :error | ^ self ].\x0a\x09\x0a\x09node := (ast atPosition: aPosition).\x0a\x09console log: node.\x0a\x09node ifNil: [ ^ self ].\x0a\x09\x0a\x09node isNavigationNode ifTrue: [ \x0a\x09\x09self navigateTo: node navigationLink ]",
-messageSends: ["on:do:", "parse:", "getValue", "editor", "atPosition:", "log:", "ifNil:", "ifTrue:", "isNavigationNode", "navigateTo:", "navigationLink"],
+source: "onCtrlClickAt: aPosition\x0a\x09| ast node |\x0a\x09\x0a\x09ast := [ Smalltalk parse: self editor getValue ] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :error | ^ self ].\x0a\x09\x0a\x09node := (ast atPosition: aPosition).\x0a\x09node ifNil: [ ^ self ].\x0a\x09\x0a\x09node isNavigationNode ifTrue: [ \x0a\x09\x09self navigateTo: node navigationLink ]",
+messageSends: ["on:do:", "parse:", "getValue", "editor", "atPosition:", "ifNil:", "ifTrue:", "isNavigationNode", "navigateTo:", "navigationLink"],
 referencedClasses: ["Smalltalk", "Error"]
 }),
 globals.HLCodeWidget);
