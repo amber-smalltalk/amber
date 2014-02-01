@@ -174,6 +174,74 @@ globals.HLModel);
 
 
 
+smalltalk.addClass('HLFinder', globals.HLModel, [], 'Helios-Core');
+globals.HLFinder.comment="I am the `Finder` service handler of Helios.\x0a\x0aFinding a class will open a new class browser, while finding a method will open a references browser.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "findClass:",
+protocol: 'finding',
+fn: function (aClass){
+var self=this;
+function $HLBrowser(){return globals.HLBrowser||(typeof HLBrowser=="undefined"?nil:HLBrowser)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($HLBrowser())._openAsTab())._openClassNamed_(_st(aClass)._name());
+return self}, function($ctx1) {$ctx1.fill(self,"findClass:",{aClass:aClass},globals.HLFinder)})},
+args: ["aClass"],
+source: "findClass: aClass\x0a\x09HLBrowser openAsTab openClassNamed: aClass name",
+messageSends: ["openClassNamed:", "openAsTab", "name"],
+referencedClasses: ["HLBrowser"]
+}),
+globals.HLFinder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "findMethod:",
+protocol: 'finding',
+fn: function (aCompiledMethod){
+var self=this;
+function $HLBrowser(){return globals.HLBrowser||(typeof HLBrowser=="undefined"?nil:HLBrowser)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($HLBrowser())._openAsTab())._openMethod_(aCompiledMethod);
+return self}, function($ctx1) {$ctx1.fill(self,"findMethod:",{aCompiledMethod:aCompiledMethod},globals.HLFinder)})},
+args: ["aCompiledMethod"],
+source: "findMethod: aCompiledMethod\x0a\x09HLBrowser openAsTab openMethod: aCompiledMethod",
+messageSends: ["openMethod:", "openAsTab"],
+referencedClasses: ["HLBrowser"]
+}),
+globals.HLFinder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "findString:",
+protocol: 'finding',
+fn: function (aString){
+var self=this;
+var foundClass;
+function $HLReferences(){return globals.HLReferences||(typeof HLReferences=="undefined"?nil:HLReferences)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+foundClass=_st(_st(self._environment())._classes())._detect_ifNone_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._name()).__eq(aString);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+return nil;
+}));
+$1=foundClass;
+if(($receiver = $1) == nil || $receiver == null){
+_st(_st($HLReferences())._openAsTab())._search_(aString);
+} else {
+self._findClass_(foundClass);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"findString:",{aString:aString,foundClass:foundClass},globals.HLFinder)})},
+args: ["aString"],
+source: "findString: aString\x0a\x09| foundClass |\x0a\x09\x0a\x09foundClass := self environment classes \x0a\x09\x09detect: [ :each | each name = aString ]\x0a\x09\x09ifNone: [ nil ].\x0a\x09\x0a\x09foundClass \x0a\x09\x09ifNil: [ HLReferences openAsTab search: aString ]\x0a\x09\x09ifNotNil: [ self findClass: foundClass ]",
+messageSends: ["detect:ifNone:", "classes", "environment", "=", "name", "ifNil:ifNotNil:", "search:", "openAsTab", "findClass:"],
+referencedClasses: ["HLReferences"]
+}),
+globals.HLFinder);
+
+
+
 smalltalk.addClass('HLToolModel', globals.HLModel, ['selectedClass', 'selectedPackage', 'selectedProtocol', 'selectedSelector'], 'Helios-Core');
 globals.HLToolModel.comment="I am a model specific to package and class manipulation. All browsers should either use me or a subclass as their model.\x0a\x0aI provide methods for package, class, protocol and method manipulation and access, forwarding to my environment.\x0a\x0aI also handle compilation of classes and methods as well as compilation and parsing errors.";
 smalltalk.addMethod(
@@ -3602,6 +3670,29 @@ globals.HLManager);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "registerFinder",
+protocol: 'services',
+fn: function (){
+var self=this;
+function $HLFinder(){return globals.HLFinder||(typeof HLFinder=="undefined"?nil:HLFinder)}
+function $Finder(){return globals.Finder||(typeof Finder=="undefined"?nil:Finder)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._environment();
+$2=_st($HLFinder())._new();
+$ctx1.sendIdx["new"]=1;
+_st($1)._registerFinder_($2);
+_st($Finder())._register_(_st($HLFinder())._new());
+return self}, function($ctx1) {$ctx1.fill(self,"registerFinder",{},globals.HLManager)})},
+args: [],
+source: "registerFinder\x0a\x09self environment registerFinder: HLFinder new.\x0a\x09Finder register: HLFinder new",
+messageSends: ["registerFinder:", "environment", "new", "register:"],
+referencedClasses: ["HLFinder", "Finder"]
+}),
+globals.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "registerInspector",
 protocol: 'services',
 fn: function (){
@@ -3653,11 +3744,12 @@ var $1;
 self._registerInspector();
 self._registerErrorHandler();
 self._registerProgressHandler();
-$1=self._registerTranscript();
+self._registerTranscript();
+$1=self._registerFinder();
 return self}, function($ctx1) {$ctx1.fill(self,"registerServices",{},globals.HLManager)})},
 args: [],
-source: "registerServices\x0a\x09self\x0a\x09\x09registerInspector;\x0a\x09\x09registerErrorHandler;\x0a\x09\x09registerProgressHandler;\x0a\x09\x09registerTranscript",
-messageSends: ["registerInspector", "registerErrorHandler", "registerProgressHandler", "registerTranscript"],
+source: "registerServices\x0a\x09self\x0a\x09\x09registerInspector;\x0a\x09\x09registerErrorHandler;\x0a\x09\x09registerProgressHandler;\x0a\x09\x09registerTranscript;\x0a\x09\x09registrFinder",
+messageSends: ["registerInspector", "registerErrorHandler", "registerProgressHandler", "registerTranscript", "registrFinder"],
 referencedClasses: []
 }),
 globals.HLManager);

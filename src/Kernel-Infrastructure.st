@@ -273,6 +273,10 @@ registerErrorHandler: anErrorHandler
 	ErrorHandler register: anErrorHandler
 !
 
+registerFinder: aFinder
+	Finder register: aFinder
+!
+
 registerInspector: anInspector
 	Inspector register: anInspector
 !
@@ -838,6 +842,31 @@ Registered service instances must implement `#handleError:` to perform an action
 
 handleError: anError
 	self current handleError: anError
+! !
+
+Service subclass: #Finder
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!Finder commentStamp!
+I am the service responsible for finding classes/methods.
+__There is no default finder.__
+
+## API
+
+Use `#browse` on an object to find it.!
+
+!Finder class methodsFor: 'finding'!
+
+findClass: aClass
+	^ self current findClass: aClass
+!
+
+findMethod: aCompiledMethod
+	^ self current findMethod: aCompiledMethod
+!
+
+findString: aString
+	^ self current findString: aString
 ! !
 
 Service subclass: #Inspector

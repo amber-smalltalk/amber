@@ -118,18 +118,6 @@ smalltalk.addClass('HLDoItExecuted', globals.HLCodeHandled, [], 'Helios-Announce
 globals.HLDoItExecuted.comment="I am emitted by a `HLCodeWidget` after a DoIt has been executed.";
 
 
-smalltalk.addClass('HLDoItRequested', globals.HLCodeHandled, [], 'Helios-Announcements');
-globals.HLDoItRequested.comment="I am emitted by a `HLCodeWidget` before a DoIt is executed.";
-
-
-smalltalk.addClass('HLInspectItRequested', globals.HLCodeHandled, [], 'Helios-Announcements');
-globals.HLInspectItRequested.comment="I am emitted by a `HLCodeWidget` before an object is inspected.";
-
-
-smalltalk.addClass('HLPrintItRequested', globals.HLCodeHandled, [], 'Helios-Announcements');
-globals.HLPrintItRequested.comment="I am emitted by a `HLCodeWidget` before an object is printed.";
-
-
 smalltalk.addClass('HLDebuggerAnnouncement', globals.HLAnnouncement, ['context'], 'Helios-Announcements');
 globals.HLDebuggerAnnouncement.comment="I am the root class of debugger announcements, and hold onto the debugged `context`.";
 smalltalk.addMethod(

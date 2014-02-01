@@ -62,24 +62,6 @@ HLCodeHandled subclass: #HLDoItExecuted
 !HLDoItExecuted commentStamp!
 I am emitted by a `HLCodeWidget` after a DoIt has been executed.!
 
-HLCodeHandled subclass: #HLDoItRequested
-	instanceVariableNames: ''
-	package: 'Helios-Announcements'!
-!HLDoItRequested commentStamp!
-I am emitted by a `HLCodeWidget` before a DoIt is executed.!
-
-HLCodeHandled subclass: #HLInspectItRequested
-	instanceVariableNames: ''
-	package: 'Helios-Announcements'!
-!HLInspectItRequested commentStamp!
-I am emitted by a `HLCodeWidget` before an object is inspected.!
-
-HLCodeHandled subclass: #HLPrintItRequested
-	instanceVariableNames: ''
-	package: 'Helios-Announcements'!
-!HLPrintItRequested commentStamp!
-I am emitted by a `HLCodeWidget` before an object is printed.!
-
 HLAnnouncement subclass: #HLDebuggerAnnouncement
 	instanceVariableNames: 'context'
 	package: 'Helios-Announcements'!

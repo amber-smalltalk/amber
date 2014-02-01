@@ -27,6 +27,10 @@ receiver: anObject
 
 !HLCodeModel methodsFor: 'actions'!
 
+browse: anObject
+	anObject browse
+!
+
 doIt: aString
 	"Evaluate aString in the receiver's `environment`.
 	
@@ -144,6 +148,10 @@ selectionStart: anInteger
 
 !HLCodeWidget methodsFor: 'actions'!
 
+browseIt
+	self model browse: self doIt
+!
+
 clear
 	self contents: ''
 !
@@ -151,6 +159,7 @@ clear
 configureEditor
 	self editor at: 'amberCodeWidget' put: self.
 	self editor on: 'change' do: [ self onChange ].
+
 	self editor on: 'mousedown' do: [ :cm :event | | position node |
 		(event at: 'ctrlKey') ifTrue: [
 			position := self editor coordsChar: #{ 
@@ -164,8 +173,7 @@ configureEditor
 doIt
 	| result |
 
-	self model announcer announce: (HLDoItRequested on: model).
-	result := model doIt: self currentLineOrSelection.
+	result := self model doIt: self currentLineOrSelection.
 	self model announcer announce: (HLDoItExecuted on: model).
 
 	^ result
@@ -180,27 +188,11 @@ focus
 !
 
 inspectIt
-	| newInspector |
-       
-	self model announcer announce: (HLInspectItRequested on: model).
 	self model inspect: self doIt
 !
 
 navigateTo: aString
-	| navigationClass |
-	
-	navigationClass := self model environment classes 
-		detect: [ :each | each name = aString ]
-		ifNone: [ nil ].
-		
-	navigationClass 
-		ifNil: [ self navigateToReference: aString ]
-		ifNotNil: [ self navigateToClass: navigationClass ]
-!
-
-navigateToClass: aClass
-	(HLBrowser openAsTab)
-		browseClass: aClass
+	Finder findString: aString
 !
 
 navigateToReference: aString
@@ -229,12 +221,7 @@ print: aString
 !
 
 printIt
-	| result |
-
-	result := self doIt.       
-	self model announcer announce: (HLPrintItRequested on: model).
-	self print: result printString.
-	
+	self print: self doIt printString.
 	self focus.
 !
 
@@ -289,11 +276,6 @@ onCtrlClickAt: aPosition
 		self navigateTo: node navigationLink ]
 !
 
-onDoIt
-	
-	self doIt
-!
-
 onInspectIt
 
 	self inspectIt
@@ -322,7 +304,11 @@ renderButtonsOn: html
 	html button 
 		class: 'button';
 		with: 'InspectIt';
-		onClick: [ self inspectIt ]
+		onClick: [ self inspectIt ].
+	html button 
+		class: 'button';
+		with: 'BrowseIt';
+		onClick: [ self browseIt ]
 !
 
 renderContentOn: html
@@ -379,6 +365,7 @@ macKeyMap
 		'Cmd-A'					-> 'selectAll'. 
 		'Cmd-Alt-F'				-> 'replace'. 
 		'Cmd-D'					-> 'doIt'. 
+		'Cmd-B'					-> 'browseIt'. 
 		'Cmd-Down'				-> 'goDocEnd'. 
 		'Cmd-End'				-> 'goDocEnd'. 
 		'Cmd-F'					-> 'find'.
@@ -409,6 +396,7 @@ pcKeyMap
 		'Ctrl-A' -> 		'selectAll'. 
 		'Ctrl-Backspace' -> 'delWordBefore'. 
 		'Ctrl-D' -> 		'doIt'. 
+		'Ctrl-B' -> 		'browseIt'. 
 		'Ctrl-Delete' -> 		'delWordAfter'. 
 		'Ctrl-Down' -> 		'goDocEnd'.
 		'Ctrl-End' -> 		'goDocEnd'. 
@@ -487,7 +475,8 @@ setupCommands
 		at: 'doIt' put: [ :cm | cm amberCodeWidget doIt ];
 		at: 'inspectIt' put: [ :cm | cm amberCodeWidget inspectIt ];
 		at: 'printIt' put: [ :cm | cm amberCodeWidget printIt ];
-		at: 'saveIt' put: [ :cm | cm amberCodeWidget saveIt ]
+		at: 'saveIt' put: [ :cm | cm amberCodeWidget saveIt ];
+		at: 'browseIt' put: [ :cm | cm amberCodeWidget browseIt ]
 !
 
 setupKeyMaps
@@ -564,10 +553,6 @@ browserModel: aBrowserModel
 ! !
 
 !HLBrowserCodeWidget methodsFor: 'actions'!
-
-navigateToClass: aClass
-	self browserModel openClassNamed: aClass name
-!
 
 observeBrowserModel
 	self browserModel announcer

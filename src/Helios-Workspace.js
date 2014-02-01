@@ -30,6 +30,22 @@ globals.HLCodeModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "browse:",
+protocol: 'actions',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(anObject)._browse();
+return self}, function($ctx1) {$ctx1.fill(self,"browse:",{anObject:anObject},globals.HLCodeModel)})},
+args: ["anObject"],
+source: "browse: anObject\x0a\x09anObject browse",
+messageSends: ["browse"],
+referencedClasses: []
+}),
+globals.HLCodeModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "defaultReceiver",
 protocol: 'defaults',
 fn: function (){
@@ -210,6 +226,22 @@ globals.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "browseIt",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._browse_(self._doIt());
+return self}, function($ctx1) {$ctx1.fill(self,"browseIt",{},globals.HLCodeWidget)})},
+args: [],
+source: "browseIt\x0a\x09self model browse: self doIt",
+messageSends: ["browse:", "model", "doIt"],
+referencedClasses: []
+}),
+globals.HLCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "canHaveFocus",
 protocol: 'testing',
 fn: function (){
@@ -272,7 +304,7 @@ return _st(event)._preventDefault();
 }, function($ctx2) {$ctx2.fillBlock({cm:cm,event:event,position:position,node:node},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{},globals.HLCodeWidget)})},
 args: [],
-source: "configureEditor\x0a\x09self editor at: 'amberCodeWidget' put: self.\x0a\x09self editor on: 'change' do: [ self onChange ].\x0a\x09self editor on: 'mousedown' do: [ :cm :event | | position node |\x0a\x09\x09(event at: 'ctrlKey') ifTrue: [\x0a\x09\x09\x09position := self editor coordsChar: #{ \x0a\x09\x09\x09\x09'left' -> event clientX.\x0a\x09\x09\x09\x09'top' -> event clientY\x0a\x09\x09\x09}.\x0a\x09\x09\x09self onCtrlClickAt: (position line @ position ch) + 1.\x0a\x09\x09\x09event preventDefault ] ]",
+source: "configureEditor\x0a\x09self editor at: 'amberCodeWidget' put: self.\x0a\x09self editor on: 'change' do: [ self onChange ].\x0a\x0a\x09self editor on: 'mousedown' do: [ :cm :event | | position node |\x0a\x09\x09(event at: 'ctrlKey') ifTrue: [\x0a\x09\x09\x09position := self editor coordsChar: #{ \x0a\x09\x09\x09\x09'left' -> event clientX.\x0a\x09\x09\x09\x09'top' -> event clientY\x0a\x09\x09\x09}.\x0a\x09\x09\x09self onCtrlClickAt: (position line @ position ch) + 1.\x0a\x09\x09\x09event preventDefault ] ]",
 messageSends: ["at:put:", "editor", "on:do:", "onChange", "ifTrue:", "at:", "coordsChar:", "clientX", "clientY", "onCtrlClickAt:", "+", "@", "line", "ch", "preventDefault"],
 referencedClasses: []
 }),
@@ -367,27 +399,20 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 var result;
-function $HLDoItRequested(){return globals.HLDoItRequested||(typeof HLDoItRequested=="undefined"?nil:HLDoItRequested)}
 function $HLDoItExecuted(){return globals.HLDoItExecuted||(typeof HLDoItExecuted=="undefined"?nil:HLDoItExecuted)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$4;
-$2=self._model();
+var $1,$2;
+$1=self._model();
 $ctx1.sendIdx["model"]=1;
-$1=_st($2)._announcer();
-$ctx1.sendIdx["announcer"]=1;
-$3=_st($HLDoItRequested())._on_(self["@model"]);
-$ctx1.sendIdx["on:"]=1;
-_st($1)._announce_($3);
-$ctx1.sendIdx["announce:"]=1;
-result=_st(self["@model"])._doIt_(self._currentLineOrSelection());
+result=_st($1)._doIt_(self._currentLineOrSelection());
 _st(_st(self._model())._announcer())._announce_(_st($HLDoItExecuted())._on_(self["@model"]));
-$4=result;
-return $4;
+$2=result;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"doIt",{result:result},globals.HLCodeWidget)})},
 args: [],
-source: "doIt\x0a\x09| result |\x0a\x0a\x09self model announcer announce: (HLDoItRequested on: model).\x0a\x09result := model doIt: self currentLineOrSelection.\x0a\x09self model announcer announce: (HLDoItExecuted on: model).\x0a\x0a\x09^ result",
-messageSends: ["announce:", "announcer", "model", "on:", "doIt:", "currentLineOrSelection"],
-referencedClasses: ["HLDoItRequested", "HLDoItExecuted"]
+source: "doIt\x0a\x09| result |\x0a\x0a\x09result := self model doIt: self currentLineOrSelection.\x0a\x09self model announcer announce: (HLDoItExecuted on: model).\x0a\x0a\x09^ result",
+messageSends: ["doIt:", "model", "currentLineOrSelection", "announce:", "announcer", "on:"],
+referencedClasses: ["HLDoItExecuted"]
 }),
 globals.HLCodeWidget);
 
@@ -484,20 +509,13 @@ selector: "inspectIt",
 protocol: 'actions',
 fn: function (){
 var self=this;
-var newInspector;
-function $HLInspectItRequested(){return globals.HLInspectItRequested||(typeof HLInspectItRequested=="undefined"?nil:HLInspectItRequested)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._model();
-$ctx1.sendIdx["model"]=1;
-$1=_st($2)._announcer();
-_st($1)._announce_(_st($HLInspectItRequested())._on_(self["@model"]));
 _st(self._model())._inspect_(self._doIt());
-return self}, function($ctx1) {$ctx1.fill(self,"inspectIt",{newInspector:newInspector},globals.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"inspectIt",{},globals.HLCodeWidget)})},
 args: [],
-source: "inspectIt\x0a\x09| newInspector |\x0a       \x0a\x09self model announcer announce: (HLInspectItRequested on: model).\x0a\x09self model inspect: self doIt",
-messageSends: ["announce:", "announcer", "model", "on:", "inspect:", "doIt"],
-referencedClasses: ["HLInspectItRequested"]
+source: "inspectIt\x0a\x09self model inspect: self doIt",
+messageSends: ["inspect:", "model", "doIt"],
+referencedClasses: []
 }),
 globals.HLCodeWidget);
 
@@ -574,43 +592,14 @@ selector: "navigateTo:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
-var navigationClass;
+function $Finder(){return globals.Finder||(typeof Finder=="undefined"?nil:Finder)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-navigationClass=_st(_st(_st(self._model())._environment())._classes())._detect_ifNone_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._name()).__eq(aString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return nil;
-}));
-$1=navigationClass;
-if(($receiver = $1) == nil || $receiver == null){
-self._navigateToReference_(aString);
-} else {
-self._navigateToClass_(navigationClass);
-};
-return self}, function($ctx1) {$ctx1.fill(self,"navigateTo:",{aString:aString,navigationClass:navigationClass},globals.HLCodeWidget)})},
+_st($Finder())._findString_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"navigateTo:",{aString:aString},globals.HLCodeWidget)})},
 args: ["aString"],
-source: "navigateTo: aString\x0a\x09| navigationClass |\x0a\x09\x0a\x09navigationClass := self model environment classes \x0a\x09\x09detect: [ :each | each name = aString ]\x0a\x09\x09ifNone: [ nil ].\x0a\x09\x09\x0a\x09navigationClass \x0a\x09\x09ifNil: [ self navigateToReference: aString ]\x0a\x09\x09ifNotNil: [ self navigateToClass: navigationClass ]",
-messageSends: ["detect:ifNone:", "classes", "environment", "model", "=", "name", "ifNil:ifNotNil:", "navigateToReference:", "navigateToClass:"],
-referencedClasses: []
-}),
-globals.HLCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "navigateToClass:",
-protocol: 'actions',
-fn: function (aClass){
-var self=this;
-function $HLBrowser(){return globals.HLBrowser||(typeof HLBrowser=="undefined"?nil:HLBrowser)}
-return smalltalk.withContext(function($ctx1) { 
-_st(_st($HLBrowser())._openAsTab())._browseClass_(aClass);
-return self}, function($ctx1) {$ctx1.fill(self,"navigateToClass:",{aClass:aClass},globals.HLCodeWidget)})},
-args: ["aClass"],
-source: "navigateToClass: aClass\x0a\x09(HLBrowser openAsTab)\x0a\x09\x09browseClass: aClass",
-messageSends: ["browseClass:", "openAsTab"],
-referencedClasses: ["HLBrowser"]
+source: "navigateTo: aString\x0a\x09Finder findString: aString",
+messageSends: ["findString:"],
+referencedClasses: ["Finder"]
 }),
 globals.HLCodeWidget);
 
@@ -685,22 +674,6 @@ args: ["aPosition"],
 source: "onCtrlClickAt: aPosition\x0a\x09| ast node |\x0a\x09\x0a\x09ast := [ Smalltalk parse: self editor getValue ] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :error | ^ self ].\x0a\x09\x0a\x09node := (ast atPosition: aPosition).\x0a\x09console log: node.\x0a\x09node ifNil: [ ^ self ].\x0a\x09\x0a\x09node isNavigationNode ifTrue: [ \x0a\x09\x09self navigateTo: node navigationLink ]",
 messageSends: ["on:do:", "parse:", "getValue", "editor", "atPosition:", "log:", "ifNil:", "ifTrue:", "isNavigationNode", "navigateTo:", "navigationLink"],
 referencedClasses: ["Smalltalk", "Error"]
-}),
-globals.HLCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onDoIt",
-protocol: 'reactions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._doIt();
-return self}, function($ctx1) {$ctx1.fill(self,"onDoIt",{},globals.HLCodeWidget)})},
-args: [],
-source: "onDoIt\x0a\x09\x0a\x09self doIt",
-messageSends: ["doIt"],
-referencedClasses: []
 }),
 globals.HLCodeWidget);
 
@@ -814,18 +787,14 @@ selector: "printIt",
 protocol: 'actions',
 fn: function (){
 var self=this;
-var result;
-function $HLPrintItRequested(){return globals.HLPrintItRequested||(typeof HLPrintItRequested=="undefined"?nil:HLPrintItRequested)}
 return smalltalk.withContext(function($ctx1) { 
-result=self._doIt();
-_st(_st(self._model())._announcer())._announce_(_st($HLPrintItRequested())._on_(self["@model"]));
-self._print_(_st(result)._printString());
+self._print_(_st(self._doIt())._printString());
 self._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"printIt",{result:result},globals.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printIt",{},globals.HLCodeWidget)})},
 args: [],
-source: "printIt\x0a\x09| result |\x0a\x0a\x09result := self doIt.       \x0a\x09self model announcer announce: (HLPrintItRequested on: model).\x0a\x09self print: result printString.\x0a\x09\x0a\x09self focus.",
-messageSends: ["doIt", "announce:", "announcer", "model", "on:", "print:", "printString", "focus"],
-referencedClasses: ["HLPrintItRequested"]
+source: "printIt\x0a\x09self print: self doIt printString.\x0a\x09self focus.",
+messageSends: ["print:", "printString", "doIt", "focus"],
+referencedClasses: []
 }),
 globals.HLCodeWidget);
 
@@ -870,7 +839,7 @@ protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=_st(html)._button();
 $ctx1.sendIdx["button"]=1;
 _st($1)._class_("button");
@@ -894,16 +863,27 @@ return self._printIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $ctx1.sendIdx["onClick:"]=2;
 $5=_st(html)._button();
+$ctx1.sendIdx["button"]=3;
 _st($5)._class_("button");
+$ctx1.sendIdx["class:"]=3;
 _st($5)._with_("InspectIt");
+$ctx1.sendIdx["with:"]=3;
 $6=_st($5)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._inspectIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+$ctx1.sendIdx["onClick:"]=3;
+$7=_st(html)._button();
+_st($7)._class_("button");
+_st($7)._with_("BrowseIt");
+$8=_st($7)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._browseIt();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLCodeWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'DoIt';\x0a\x09\x09onClick: [ self doIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'PrintIt';\x0a\x09\x09onClick: [ self printIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'InspectIt';\x0a\x09\x09onClick: [ self inspectIt ]",
-messageSends: ["class:", "button", "with:", "onClick:", "doIt", "printIt", "inspectIt"],
+source: "renderButtonsOn: html\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'DoIt';\x0a\x09\x09onClick: [ self doIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'PrintIt';\x0a\x09\x09onClick: [ self printIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'InspectIt';\x0a\x09\x09onClick: [ self inspectIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'BrowseIt';\x0a\x09\x09onClick: [ self browseIt ]",
+messageSends: ["class:", "button", "with:", "onClick:", "doIt", "printIt", "inspectIt", "browseIt"],
 referencedClasses: []
 }),
 globals.HLCodeWidget);
@@ -1230,11 +1210,11 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 var $1;
-$1=globals.HashedCollection._newFromPairs_(["Alt-Backspace","delWordBefore","Alt-Delete","delWordAfter","Alt-Left","goWordLeft","Alt-Right","goWordRight","Cmd-A","selectAll","Cmd-Alt-F","replace","Cmd-D","doIt","Cmd-Down","goDocEnd","Cmd-End","goDocEnd","Cmd-F","find","Cmd-G","findNext","Cmd-I","inspectIt","Cmd-Left","goLineStart","Cmd-P","printIt","Cmd-Right","goLineEnd","Cmd-S","saveIt","Cmd-Up","goDocStart","Cmd-Y","redo","Cmd-Z","undo","Cmd-[","indentLess","Cmd-]","indentMore","Ctrl-Alt-Backspace","delWordAfter","Shift-Cmd-Alt-F","replaceAll","Shift-Cmd-G","findPrev","Shift-Cmd-Z","redo","fallthrough",["basic","emacsy"]]);
+$1=globals.HashedCollection._newFromPairs_(["Alt-Backspace","delWordBefore","Alt-Delete","delWordAfter","Alt-Left","goWordLeft","Alt-Right","goWordRight","Cmd-A","selectAll","Cmd-Alt-F","replace","Cmd-D","doIt","Cmd-B","browseIt","Cmd-Down","goDocEnd","Cmd-End","goDocEnd","Cmd-F","find","Cmd-G","findNext","Cmd-I","inspectIt","Cmd-Left","goLineStart","Cmd-P","printIt","Cmd-Right","goLineEnd","Cmd-S","saveIt","Cmd-Up","goDocStart","Cmd-Y","redo","Cmd-Z","undo","Cmd-[","indentLess","Cmd-]","indentMore","Ctrl-Alt-Backspace","delWordAfter","Shift-Cmd-Alt-F","replaceAll","Shift-Cmd-G","findPrev","Shift-Cmd-Z","redo","fallthrough",["basic","emacsy"]]);
 return $1;
 },
 args: [],
-source: "macKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Backspace'\x09\x09\x09-> 'delWordBefore'.\x0a\x09\x09'Alt-Delete'\x09\x09\x09-> 'delWordAfter'. \x0a\x09\x09'Alt-Left'\x09\x09\x09\x09-> 'goWordLeft'.\x0a\x09\x09'Alt-Right'\x09\x09\x09\x09-> 'goWordRight'. \x0a\x09\x09'Cmd-A'\x09\x09\x09\x09\x09-> 'selectAll'. \x0a\x09\x09'Cmd-Alt-F'\x09\x09\x09\x09-> 'replace'. \x0a\x09\x09'Cmd-D'\x09\x09\x09\x09\x09-> 'doIt'. \x0a\x09\x09'Cmd-Down'\x09\x09\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-End'\x09\x09\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-F'\x09\x09\x09\x09\x09-> 'find'.\x0a\x09\x09'Cmd-G'\x09\x09\x09\x09\x09-> 'findNext'. \x0a\x09\x09'Cmd-I'\x09\x09\x09\x09\x09-> 'inspectIt'. \x0a\x09\x09'Cmd-Left'\x09\x09\x09\x09-> 'goLineStart'. \x0a\x09\x09'Cmd-P'\x09\x09\x09\x09\x09-> 'printIt'. \x0a\x09\x09'Cmd-Right'\x09\x09\x09\x09-> 'goLineEnd'. \x0a\x09\x09'Cmd-S'\x09\x09\x09\x09\x09-> 'saveIt'. \x0a\x09\x09'Cmd-Up'\x09\x09\x09\x09-> 'goDocStart'. \x0a\x09\x09'Cmd-Y'\x09\x09\x09\x09\x09-> 'redo'.\x0a\x09\x09'Cmd-Z'\x09\x09\x09\x09\x09-> 'undo'. \x0a\x09\x09'Cmd-['\x09\x09\x09\x09\x09-> 'indentLess'. \x0a\x09\x09'Cmd-]'\x09\x09\x09\x09\x09-> 'indentMore'.\x0a\x09\x09'Ctrl-Alt-Backspace'\x09-> 'delWordAfter'. \x0a\x09\x09'Shift-Cmd-Alt-F'\x09\x09-> 'replaceAll'.\x0a\x09\x09'Shift-Cmd-G'\x09\x09\x09-> 'findPrev'. \x0a\x09\x09'Shift-Cmd-Z'\x09\x09\x09-> 'redo'. \x0a    \x09'fallthrough' \x09\x09\x09-> { 'basic'. 'emacsy' }\x0a  }",
+source: "macKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Backspace'\x09\x09\x09-> 'delWordBefore'.\x0a\x09\x09'Alt-Delete'\x09\x09\x09-> 'delWordAfter'. \x0a\x09\x09'Alt-Left'\x09\x09\x09\x09-> 'goWordLeft'.\x0a\x09\x09'Alt-Right'\x09\x09\x09\x09-> 'goWordRight'. \x0a\x09\x09'Cmd-A'\x09\x09\x09\x09\x09-> 'selectAll'. \x0a\x09\x09'Cmd-Alt-F'\x09\x09\x09\x09-> 'replace'. \x0a\x09\x09'Cmd-D'\x09\x09\x09\x09\x09-> 'doIt'. \x0a\x09\x09'Cmd-B'\x09\x09\x09\x09\x09-> 'browseIt'. \x0a\x09\x09'Cmd-Down'\x09\x09\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-End'\x09\x09\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-F'\x09\x09\x09\x09\x09-> 'find'.\x0a\x09\x09'Cmd-G'\x09\x09\x09\x09\x09-> 'findNext'. \x0a\x09\x09'Cmd-I'\x09\x09\x09\x09\x09-> 'inspectIt'. \x0a\x09\x09'Cmd-Left'\x09\x09\x09\x09-> 'goLineStart'. \x0a\x09\x09'Cmd-P'\x09\x09\x09\x09\x09-> 'printIt'. \x0a\x09\x09'Cmd-Right'\x09\x09\x09\x09-> 'goLineEnd'. \x0a\x09\x09'Cmd-S'\x09\x09\x09\x09\x09-> 'saveIt'. \x0a\x09\x09'Cmd-Up'\x09\x09\x09\x09-> 'goDocStart'. \x0a\x09\x09'Cmd-Y'\x09\x09\x09\x09\x09-> 'redo'.\x0a\x09\x09'Cmd-Z'\x09\x09\x09\x09\x09-> 'undo'. \x0a\x09\x09'Cmd-['\x09\x09\x09\x09\x09-> 'indentLess'. \x0a\x09\x09'Cmd-]'\x09\x09\x09\x09\x09-> 'indentMore'.\x0a\x09\x09'Ctrl-Alt-Backspace'\x09-> 'delWordAfter'. \x0a\x09\x09'Shift-Cmd-Alt-F'\x09\x09-> 'replaceAll'.\x0a\x09\x09'Shift-Cmd-G'\x09\x09\x09-> 'findPrev'. \x0a\x09\x09'Shift-Cmd-Z'\x09\x09\x09-> 'redo'. \x0a    \x09'fallthrough' \x09\x09\x09-> { 'basic'. 'emacsy' }\x0a  }",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1265,11 +1245,11 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 var $1;
-$1=globals.HashedCollection._newFromPairs_(["Alt-Left","goLineStart","Alt-Right","goLineEnd","Alt-Up","goDocStart","Ctrl-A","selectAll","Ctrl-Backspace","delWordBefore","Ctrl-D","doIt","Ctrl-Delete","delWordAfter","Ctrl-Down","goDocEnd","Ctrl-End","goDocEnd","Ctrl-F","find","Ctrl-G","findNext","Ctrl-I","inspectIt","Ctrl-Home","goDocStart","Ctrl-Left","goWordLeft","Ctrl-P","printIt","Ctrl-Right","goWordRight","Ctrl-S","saveIt","Ctrl-Y","redo","Ctrl-Z","undo","Ctrl-[","indentLess","Ctrl-]","indentMore","Shift-Ctrl-F","replace","Shift-Ctrl-G","findPrev","Shift-Ctrl-R","replaceAll","Shift-Ctrl-Z","redo","fallthrough",["basic"]]);
+$1=globals.HashedCollection._newFromPairs_(["Alt-Left","goLineStart","Alt-Right","goLineEnd","Alt-Up","goDocStart","Ctrl-A","selectAll","Ctrl-Backspace","delWordBefore","Ctrl-D","doIt","Ctrl-B","browseIt","Ctrl-Delete","delWordAfter","Ctrl-Down","goDocEnd","Ctrl-End","goDocEnd","Ctrl-F","find","Ctrl-G","findNext","Ctrl-I","inspectIt","Ctrl-Home","goDocStart","Ctrl-Left","goWordLeft","Ctrl-P","printIt","Ctrl-Right","goWordRight","Ctrl-S","saveIt","Ctrl-Y","redo","Ctrl-Z","undo","Ctrl-[","indentLess","Ctrl-]","indentMore","Shift-Ctrl-F","replace","Shift-Ctrl-G","findPrev","Shift-Ctrl-R","replaceAll","Shift-Ctrl-Z","redo","fallthrough",["basic"]]);
 return $1;
 },
 args: [],
-source: "pcKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Left' -> \x09\x09'goLineStart'. \x0a\x09\x09'Alt-Right' -> \x09\x09'goLineEnd'.\x0a\x09\x09'Alt-Up' -> \x09\x09'goDocStart'. \x0a\x09\x09'Ctrl-A' -> \x09\x09'selectAll'. \x0a\x09\x09'Ctrl-Backspace' -> 'delWordBefore'. \x0a\x09\x09'Ctrl-D' -> \x09\x09'doIt'. \x0a\x09\x09'Ctrl-Delete' -> \x09\x09'delWordAfter'. \x0a\x09\x09'Ctrl-Down' -> \x09\x09'goDocEnd'.\x0a\x09\x09'Ctrl-End' -> \x09\x09'goDocEnd'. \x0a\x09\x09'Ctrl-F' -> \x09\x09'find'.\x0a\x09\x09'Ctrl-G' -> \x09\x09'findNext'. \x0a\x09\x09'Ctrl-I' -> \x09\x09'inspectIt'.\x0a\x09\x09'Ctrl-Home' -> \x09\x09'goDocStart'. \x0a\x09\x09'Ctrl-Left' -> \x09\x09'goWordLeft'. \x0a\x09\x09'Ctrl-P' -> \x09\x09'printIt'.\x0a\x09\x09'Ctrl-Right' -> \x09'goWordRight'. \x0a\x09\x09'Ctrl-S' -> \x09\x09'saveIt'. \x0a\x09\x09'Ctrl-Y' -> \x09\x09'redo'.\x0a\x09\x09'Ctrl-Z' -> \x09\x09'undo'. \x0a\x09\x09'Ctrl-[' -> \x09\x09'indentLess'. \x0a\x09\x09'Ctrl-]' -> \x09\x09'indentMore'.\x0a\x09\x09'Shift-Ctrl-F' -> \x09'replace'. \x0a\x09\x09'Shift-Ctrl-G' -> \x09'findPrev'. \x0a\x09\x09'Shift-Ctrl-R' -> \x09'replaceAll'.\x0a\x09\x09'Shift-Ctrl-Z' -> \x09'redo'. \x0a\x09\x09'fallthrough' -> \x09#('basic')\x0a}",
+source: "pcKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Left' -> \x09\x09'goLineStart'. \x0a\x09\x09'Alt-Right' -> \x09\x09'goLineEnd'.\x0a\x09\x09'Alt-Up' -> \x09\x09'goDocStart'. \x0a\x09\x09'Ctrl-A' -> \x09\x09'selectAll'. \x0a\x09\x09'Ctrl-Backspace' -> 'delWordBefore'. \x0a\x09\x09'Ctrl-D' -> \x09\x09'doIt'. \x0a\x09\x09'Ctrl-B' -> \x09\x09'browseIt'. \x0a\x09\x09'Ctrl-Delete' -> \x09\x09'delWordAfter'. \x0a\x09\x09'Ctrl-Down' -> \x09\x09'goDocEnd'.\x0a\x09\x09'Ctrl-End' -> \x09\x09'goDocEnd'. \x0a\x09\x09'Ctrl-F' -> \x09\x09'find'.\x0a\x09\x09'Ctrl-G' -> \x09\x09'findNext'. \x0a\x09\x09'Ctrl-I' -> \x09\x09'inspectIt'.\x0a\x09\x09'Ctrl-Home' -> \x09\x09'goDocStart'. \x0a\x09\x09'Ctrl-Left' -> \x09\x09'goWordLeft'. \x0a\x09\x09'Ctrl-P' -> \x09\x09'printIt'.\x0a\x09\x09'Ctrl-Right' -> \x09'goWordRight'. \x0a\x09\x09'Ctrl-S' -> \x09\x09'saveIt'. \x0a\x09\x09'Ctrl-Y' -> \x09\x09'redo'.\x0a\x09\x09'Ctrl-Z' -> \x09\x09'undo'. \x0a\x09\x09'Ctrl-[' -> \x09\x09'indentLess'. \x0a\x09\x09'Ctrl-]' -> \x09\x09'indentMore'.\x0a\x09\x09'Shift-Ctrl-F' -> \x09'replace'. \x0a\x09\x09'Shift-Ctrl-G' -> \x09'findPrev'. \x0a\x09\x09'Shift-Ctrl-R' -> \x09'replaceAll'.\x0a\x09\x09'Shift-Ctrl-Z' -> \x09'redo'. \x0a\x09\x09'fallthrough' -> \x09#('basic')\x0a}",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1304,7 +1284,7 @@ fn: function (){
 var self=this;
 function $CodeMirror(){return globals.CodeMirror||(typeof CodeMirror=="undefined"?nil:CodeMirror)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
+var $1,$2,$3,$4,$5,$6;
 $1=_st($CodeMirror())._basicAt_("commands");
 _st($1)._at_put_("doIt",(function(cm){
 return smalltalk.withContext(function($ctx2) {
@@ -1327,14 +1307,21 @@ $ctx2.sendIdx["amberCodeWidget"]=3;
 return _st($4)._printIt();
 }, function($ctx2) {$ctx2.fillBlock({cm:cm},$ctx1,3)})}));
 $ctx1.sendIdx["at:put:"]=3;
-$5=_st($1)._at_put_("saveIt",(function(cm){
+_st($1)._at_put_("saveIt",(function(cm){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(cm)._amberCodeWidget())._saveIt();
+$5=_st(cm)._amberCodeWidget();
+$ctx2.sendIdx["amberCodeWidget"]=4;
+return _st($5)._saveIt();
 }, function($ctx2) {$ctx2.fillBlock({cm:cm},$ctx1,4)})}));
+$ctx1.sendIdx["at:put:"]=4;
+$6=_st($1)._at_put_("browseIt",(function(cm){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(cm)._amberCodeWidget())._browseIt();
+}, function($ctx2) {$ctx2.fillBlock({cm:cm},$ctx1,5)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupCommands",{},globals.HLCodeWidget.klass)})},
 args: [],
-source: "setupCommands\x0a\x09(CodeMirror basicAt: 'commands') \x0a\x09\x09at: 'doIt' put: [ :cm | cm amberCodeWidget doIt ];\x0a\x09\x09at: 'inspectIt' put: [ :cm | cm amberCodeWidget inspectIt ];\x0a\x09\x09at: 'printIt' put: [ :cm | cm amberCodeWidget printIt ];\x0a\x09\x09at: 'saveIt' put: [ :cm | cm amberCodeWidget saveIt ]",
-messageSends: ["at:put:", "basicAt:", "doIt", "amberCodeWidget", "inspectIt", "printIt", "saveIt"],
+source: "setupCommands\x0a\x09(CodeMirror basicAt: 'commands') \x0a\x09\x09at: 'doIt' put: [ :cm | cm amberCodeWidget doIt ];\x0a\x09\x09at: 'inspectIt' put: [ :cm | cm amberCodeWidget inspectIt ];\x0a\x09\x09at: 'printIt' put: [ :cm | cm amberCodeWidget printIt ];\x0a\x09\x09at: 'saveIt' put: [ :cm | cm amberCodeWidget saveIt ];\x0a\x09\x09at: 'browseIt' put: [ :cm | cm amberCodeWidget browseIt ]",
+messageSends: ["at:put:", "basicAt:", "doIt", "amberCodeWidget", "inspectIt", "printIt", "saveIt", "browseIt"],
 referencedClasses: ["CodeMirror"]
 }),
 globals.HLCodeWidget.klass);
@@ -1567,22 +1554,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"browserModel:",{aBrowserModel:aB
 args: ["aBrowserModel"],
 source: "browserModel: aBrowserModel\x0a\x09browserModel := aBrowserModel.\x0a\x09self \x0a\x09\x09observeSystem;\x0a\x09\x09observeBrowserModel",
 messageSends: ["observeSystem", "observeBrowserModel"],
-referencedClasses: []
-}),
-globals.HLBrowserCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "navigateToClass:",
-protocol: 'actions',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self._browserModel())._openClassNamed_(_st(aClass)._name());
-return self}, function($ctx1) {$ctx1.fill(self,"navigateToClass:",{aClass:aClass},globals.HLBrowserCodeWidget)})},
-args: ["aClass"],
-source: "navigateToClass: aClass\x0a\x09self browserModel openClassNamed: aClass name",
-messageSends: ["openClassNamed:", "browserModel", "name"],
 referencedClasses: []
 }),
 globals.HLBrowserCodeWidget);

@@ -182,6 +182,12 @@ value
 	<return self.valueOf()>
 ! !
 
+!Object methodsFor: 'browsing'!
+
+browse
+	Finder findClass: self class
+! !
+
 !Object methodsFor: 'converting'!
 
 -> anObject

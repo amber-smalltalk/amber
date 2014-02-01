@@ -412,6 +412,12 @@ subclasses
 	<return self.subclasses._copy()>
 ! !
 
+!Class methodsFor: 'browsing'!
+
+browse
+	Finder findClass: self
+! !
+
 !Class methodsFor: 'class creation'!
 
 subclass: aString instanceVariableNames: anotherString

@@ -733,6 +733,23 @@ globals.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "registerFinder:",
+protocol: 'services',
+fn: function (aFinder){
+var self=this;
+function $Finder(){return globals.Finder||(typeof Finder=="undefined"?nil:Finder)}
+return smalltalk.withContext(function($ctx1) { 
+_st($Finder())._register_(aFinder);
+return self}, function($ctx1) {$ctx1.fill(self,"registerFinder:",{aFinder:aFinder},globals.Environment)})},
+args: ["aFinder"],
+source: "registerFinder: aFinder\x0a\x09Finder register: aFinder",
+messageSends: ["register:"],
+referencedClasses: ["Finder"]
+}),
+globals.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "registerInspector:",
 protocol: 'services',
 fn: function (anInspector){
@@ -2207,6 +2224,64 @@ messageSends: ["handleError:", "current"],
 referencedClasses: []
 }),
 globals.ErrorHandler.klass);
+
+
+smalltalk.addClass('Finder', globals.Service, [], 'Kernel-Infrastructure');
+globals.Finder.comment="I am the service responsible for finding classes/methods.\x0a__There is no default finder.__\x0a\x0a## API\x0a\x0aUse `#browse` on an object to find it.";
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "findClass:",
+protocol: 'finding',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._current())._findClass_(aClass);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"findClass:",{aClass:aClass},globals.Finder.klass)})},
+args: ["aClass"],
+source: "findClass: aClass\x0a\x09^ self current findClass: aClass",
+messageSends: ["findClass:", "current"],
+referencedClasses: []
+}),
+globals.Finder.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "findMethod:",
+protocol: 'finding',
+fn: function (aCompiledMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._current())._findMethod_(aCompiledMethod);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"findMethod:",{aCompiledMethod:aCompiledMethod},globals.Finder.klass)})},
+args: ["aCompiledMethod"],
+source: "findMethod: aCompiledMethod\x0a\x09^ self current findMethod: aCompiledMethod",
+messageSends: ["findMethod:", "current"],
+referencedClasses: []
+}),
+globals.Finder.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "findString:",
+protocol: 'finding',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._current())._findString_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"findString:",{aString:aString},globals.Finder.klass)})},
+args: ["aString"],
+source: "findString: aString\x0a\x09^ self current findString: aString",
+messageSends: ["findString:", "current"],
+referencedClasses: []
+}),
+globals.Finder.klass);
 
 
 smalltalk.addClass('Inspector', globals.Service, [], 'Kernel-Infrastructure');

@@ -60,6 +60,36 @@ isToolModel
 	^ false
 ! !
 
+HLModel subclass: #HLFinder
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+!HLFinder commentStamp!
+I am the `Finder` service handler of Helios.
+
+Finding a class will open a new class browser, while finding a method will open a references browser.!
+
+!HLFinder methodsFor: 'finding'!
+
+findClass: aClass
+	HLBrowser openAsTab openClassNamed: aClass name
+!
+
+findMethod: aCompiledMethod
+	HLBrowser openAsTab openMethod: aCompiledMethod
+!
+
+findString: aString
+	| foundClass |
+	
+	foundClass := self environment classes 
+		detect: [ :each | each name = aString ]
+		ifNone: [ nil ].
+	
+	foundClass 
+		ifNil: [ HLReferences openAsTab search: aString ]
+		ifNotNil: [ self findClass: foundClass ]
+! !
+
 HLModel subclass: #HLToolModel
 	instanceVariableNames: 'selectedClass selectedPackage selectedProtocol selectedSelector'
 	package: 'Helios-Core'!
@@ -1260,7 +1290,8 @@ registerServices
 		registerInspector;
 		registerErrorHandler;
 		registerProgressHandler;
-		registerTranscript
+		registerTranscript;
+		registrFinder
 !
 
 setupEvents
@@ -1342,6 +1373,11 @@ show: aTab
 registerErrorHandler
 	self environment registerErrorHandler: HLErrorHandler new.
 	ErrorHandler register: HLErrorHandler new
+!
+
+registerFinder
+	self environment registerFinder: HLFinder new.
+	Finder register: HLFinder new
 !
 
 registerInspector

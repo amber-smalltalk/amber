@@ -532,6 +532,23 @@ globals.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "browse",
+protocol: 'browsing',
+fn: function (){
+var self=this;
+function $Finder(){return globals.Finder||(typeof Finder=="undefined"?nil:Finder)}
+return smalltalk.withContext(function($ctx1) { 
+_st($Finder())._findClass_(self._class());
+return self}, function($ctx1) {$ctx1.fill(self,"browse",{},globals.Object)})},
+args: [],
+source: "browse\x0a\x09Finder findClass: self class",
+messageSends: ["findClass:", "class"],
+referencedClasses: ["Finder"]
+}),
+globals.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "copy",
 protocol: 'copying',
 fn: function (){

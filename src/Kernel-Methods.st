@@ -276,6 +276,12 @@ source: aString
 	self basicAt: 'source' put: aString
 ! !
 
+!CompiledMethod methodsFor: 'browsing'!
+
+browse
+	Finder findMethod: self
+! !
+
 !CompiledMethod methodsFor: 'defaults'!
 
 defaultProtocol

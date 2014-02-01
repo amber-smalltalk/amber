@@ -483,6 +483,23 @@ globals.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "browse",
+protocol: 'browsing',
+fn: function (){
+var self=this;
+function $Finder(){return globals.Finder||(typeof Finder=="undefined"?nil:Finder)}
+return smalltalk.withContext(function($ctx1) { 
+_st($Finder())._findMethod_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"browse",{},globals.CompiledMethod)})},
+args: [],
+source: "browse\x0a\x09Finder findMethod: self",
+messageSends: ["findMethod:"],
+referencedClasses: ["Finder"]
+}),
+globals.CompiledMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "category",
 protocol: 'accessing',
 fn: function (){
