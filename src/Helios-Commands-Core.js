@@ -768,6 +768,58 @@ referencedClasses: []
 globals.HLOpenBrowserCommand.klass);
 
 
+smalltalk.addClass('HLOpenSUnitCommand', globals.HLOpenCommand, [], 'Helios-Commands-Core');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "execute",
+protocol: 'executing',
+fn: function (){
+var self=this;
+function $HLSUnit(){return globals.HLSUnit||(typeof HLSUnit=="undefined"?nil:HLSUnit)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($HLSUnit())._openAsTab();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLOpenSUnitCommand)})},
+args: [],
+source: "execute\x0a\x09^ HLSUnit openAsTab",
+messageSends: ["openAsTab"],
+referencedClasses: ["HLSUnit"]
+}),
+globals.HLOpenSUnitCommand);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "s";
+},
+args: [],
+source: "key\x0a\x09^ 's'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLOpenSUnitCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "SUnit";
+},
+args: [],
+source: "label\x0a\x09^ 'SUnit'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLOpenSUnitCommand.klass);
+
+
 smalltalk.addClass('HLOpenWorkspaceCommand', globals.HLOpenCommand, [], 'Helios-Commands-Core');
 smalltalk.addMethod(
 smalltalk.method({

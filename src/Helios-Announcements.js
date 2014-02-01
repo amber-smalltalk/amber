@@ -360,6 +360,9 @@ smalltalk.addClass('HLFocusRequested', globals.HLAnnouncement, [], 'Helios-Annou
 smalltalk.addClass('HLClassesFocusRequested', globals.HLFocusRequested, [], 'Helios-Announcements');
 
 
+smalltalk.addClass('HLDocumentationFocusRequested', globals.HLFocusRequested, [], 'Helios-Announcements');
+
+
 smalltalk.addClass('HLMethodsFocusRequested', globals.HLFocusRequested, [], 'Helios-Announcements');
 
 

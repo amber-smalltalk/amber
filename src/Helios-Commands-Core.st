@@ -253,6 +253,26 @@ label
 	^ 'Browser'
 ! !
 
+HLOpenCommand subclass: #HLOpenSUnitCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Core'!
+
+!HLOpenSUnitCommand methodsFor: 'executing'!
+
+execute
+	^ HLSUnit openAsTab
+! !
+
+!HLOpenSUnitCommand class methodsFor: 'accessing'!
+
+key
+	^ 's'
+!
+
+label
+	^ 'SUnit'
+! !
+
 HLOpenCommand subclass: #HLOpenWorkspaceCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Core'!

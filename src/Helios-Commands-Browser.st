@@ -49,6 +49,26 @@ label
 	^ 'Classes'
 ! !
 
+HLBrowserGoToCommand subclass: #HLGoToDocumentationCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLGoToDocumentationCommand methodsFor: 'executing'!
+
+execute
+	self model focusOnDocumentation
+! !
+
+!HLGoToDocumentationCommand class methodsFor: 'accessing'!
+
+key
+	^ 'd'
+!
+
+label
+	^ 'Documentation'
+! !
+
 HLBrowserGoToCommand subclass: #HLGoToMethodsCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!

@@ -188,6 +188,10 @@ HLFocusRequested subclass: #HLClassesFocusRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
+HLFocusRequested subclass: #HLDocumentationFocusRequested
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 HLFocusRequested subclass: #HLMethodsFocusRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!

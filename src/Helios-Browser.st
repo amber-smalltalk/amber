@@ -263,6 +263,10 @@ focusOnClasses
 	self announcer announce: HLClassesFocusRequested new
 !
 
+focusOnDocumentation
+	self announcer announce: HLDocumentationFocusRequested new
+!
+
 focusOnMethods
 	self announcer announce: HLMethodsFocusRequested new
 !
@@ -775,6 +779,10 @@ observeModel
 		
 		on: HLEditComment
 		send: #onEditDocumentation
+		to: self;
+		
+		on: HLDocumentationFocusRequested
+		send: #onDocumentationFocusRequested
 		to: self
 !
 
@@ -815,6 +823,10 @@ onClassCommentChanged: anAnnouncement
 
 onClassSelected: anAnnouncement
 	self refresh
+!
+
+onDocumentationFocusRequested
+	self focus
 !
 
 onEditDocumentation

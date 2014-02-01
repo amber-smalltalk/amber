@@ -709,6 +709,23 @@ globals.HLBrowserModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "focusOnDocumentation",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $HLDocumentationFocusRequested(){return globals.HLDocumentationFocusRequested||(typeof HLDocumentationFocusRequested=="undefined"?nil:HLDocumentationFocusRequested)}
+return smalltalk.withContext(function($ctx1) { 
+_st(self._announcer())._announce_(_st($HLDocumentationFocusRequested())._new());
+return self}, function($ctx1) {$ctx1.fill(self,"focusOnDocumentation",{},globals.HLBrowserModel)})},
+args: [],
+source: "focusOnDocumentation\x0a\x09self announcer announce: HLDocumentationFocusRequested new",
+messageSends: ["announce:", "announcer", "new"],
+referencedClasses: ["HLDocumentationFocusRequested"]
+}),
+globals.HLBrowserModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "focusOnMethods",
 protocol: 'actions',
 fn: function (){
@@ -2256,17 +2273,20 @@ fn: function (){
 var self=this;
 function $HLClassSelected(){return globals.HLClassSelected||(typeof HLClassSelected=="undefined"?nil:HLClassSelected)}
 function $HLEditComment(){return globals.HLEditComment||(typeof HLEditComment=="undefined"?nil:HLEditComment)}
+function $HLDocumentationFocusRequested(){return globals.HLDocumentationFocusRequested||(typeof HLDocumentationFocusRequested=="undefined"?nil:HLDocumentationFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st(self._model())._announcer();
 _st($1)._on_send_to_($HLClassSelected(),"onClassSelected:",self);
 $ctx1.sendIdx["on:send:to:"]=1;
-$2=_st($1)._on_send_to_($HLEditComment(),"onEditDocumentation",self);
+_st($1)._on_send_to_($HLEditComment(),"onEditDocumentation",self);
+$ctx1.sendIdx["on:send:to:"]=2;
+$2=_st($1)._on_send_to_($HLDocumentationFocusRequested(),"onDocumentationFocusRequested",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},globals.HLDocumentationWidget)})},
 args: [],
-source: "observeModel\x0a\x09self model announcer \x0a\x09\x09on: HLClassSelected\x0a\x09\x09send: #onClassSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLEditComment\x0a\x09\x09send: #onEditDocumentation\x0a\x09\x09to: self",
+source: "observeModel\x0a\x09self model announcer \x0a\x09\x09on: HLClassSelected\x0a\x09\x09send: #onClassSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLEditComment\x0a\x09\x09send: #onEditDocumentation\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLDocumentationFocusRequested\x0a\x09\x09send: #onDocumentationFocusRequested\x0a\x09\x09to: self",
 messageSends: ["on:send:to:", "announcer", "model"],
-referencedClasses: ["HLClassSelected", "HLEditComment"]
+referencedClasses: ["HLClassSelected", "HLEditComment", "HLDocumentationFocusRequested"]
 }),
 globals.HLDocumentationWidget);
 
@@ -2328,6 +2348,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncemen
 args: ["anAnnouncement"],
 source: "onClassSelected: anAnnouncement\x0a\x09self refresh",
 messageSends: ["refresh"],
+referencedClasses: []
+}),
+globals.HLDocumentationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onDocumentationFocusRequested",
+protocol: 'reactions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onDocumentationFocusRequested",{},globals.HLDocumentationWidget)})},
+args: [],
+source: "onDocumentationFocusRequested\x0a\x09self focus",
+messageSends: ["focus"],
 referencedClasses: []
 }),
 globals.HLDocumentationWidget);

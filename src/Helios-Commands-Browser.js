@@ -123,6 +123,55 @@ referencedClasses: []
 globals.HLGoToClassesCommand.klass);
 
 
+smalltalk.addClass('HLGoToDocumentationCommand', globals.HLBrowserGoToCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "execute",
+protocol: 'executing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._focusOnDocumentation();
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLGoToDocumentationCommand)})},
+args: [],
+source: "execute\x0a\x09self model focusOnDocumentation",
+messageSends: ["focusOnDocumentation", "model"],
+referencedClasses: []
+}),
+globals.HLGoToDocumentationCommand);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "d";
+},
+args: [],
+source: "key\x0a\x09^ 'd'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLGoToDocumentationCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "Documentation";
+},
+args: [],
+source: "label\x0a\x09^ 'Documentation'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLGoToDocumentationCommand.klass);
+
+
 smalltalk.addClass('HLGoToMethodsCommand', globals.HLBrowserGoToCommand, [], 'Helios-Commands-Browser');
 smalltalk.addMethod(
 smalltalk.method({
