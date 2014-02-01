@@ -79,6 +79,7 @@ globals.HLInspectorDisplayWidget);
 
 
 smalltalk.addClass('HLInspectorModel', globals.HLModel, ['inspectee', 'code', 'variables', 'label', 'selection'], 'Helios-Inspector');
+globals.HLInspectorModel.comment="I am the model of the Helios inspector `HLInspectorWidget`.\x0a\x0a## API\x0a\x0aUse the method `inspect:on:` to inspect an object on an inspector.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "code",

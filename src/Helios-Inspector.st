@@ -33,6 +33,12 @@ selectionDisplayString
 HLModel subclass: #HLInspectorModel
 	instanceVariableNames: 'inspectee code variables label selection'
 	package: 'Helios-Inspector'!
+!HLInspectorModel commentStamp!
+I am the model of the Helios inspector `HLInspectorWidget`.
+
+## API
+
+Use the method `inspect:on:` to inspect an object on an inspector.!
 
 !HLInspectorModel methodsFor: 'accessing'!
 
