@@ -17,7 +17,7 @@ tearDown
 testOpenOn
 	"IDEBrowser should accept an instance or class.
 	When accepting an instance, IDEBrowser should browse its class.
-	When accepting a class, IDEBrowser should inspect it."
+	When accepting a class, IDEBrowser should just browse it."
 	self shouldnt: [ (Browser openOn: 3) close ] raise: Error.
 	self shouldnt: [ (Browser openOn: Number) close ] raise: Error.
 ! !

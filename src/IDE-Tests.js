@@ -64,7 +64,7 @@ return _st(_st($Browser())._openOn_($Number()))._close();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testOpenOn",{},globals.IDEBrowserTest)})},
 args: [],
-source: "testOpenOn\x0a\x09\x22IDEBrowser should accept an instance or class.\x0a\x09When accepting an instance, IDEBrowser should browse its class.\x0a\x09When accepting a class, IDEBrowser should inspect it.\x22\x0a\x09self shouldnt: [ (Browser openOn: 3) close ] raise: Error.\x0a\x09self shouldnt: [ (Browser openOn: Number) close ] raise: Error.",
+source: "testOpenOn\x0a\x09\x22IDEBrowser should accept an instance or class.\x0a\x09When accepting an instance, IDEBrowser should browse its class.\x0a\x09When accepting a class, IDEBrowser should just browse it.\x22\x0a\x09self shouldnt: [ (Browser openOn: 3) close ] raise: Error.\x0a\x09self shouldnt: [ (Browser openOn: Number) close ] raise: Error.",
 messageSends: ["shouldnt:raise:", "close", "openOn:"],
 referencedClasses: ["Browser", "Error", "Number"]
 }),
