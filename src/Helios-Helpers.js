@@ -639,7 +639,7 @@ globals.HLMethodClassifier);
 
 
 smalltalk.addClass('HLMethodGenerator', globals.Object, ['output'], 'Helios-Helpers');
-globals.HLMethodGenerator.comment="I am the abstract super class of the method generators.\x0a\x0aMy main method is `generate` which produce an `output` object";
+globals.HLMethodGenerator.comment="I am the abstract super class of the method generators.\x0a\x0aMy main method is `generate` which produces an `output` object accessed with `#output`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "class:",
@@ -716,7 +716,7 @@ globals.HLMethodGenerator);
 
 
 smalltalk.addClass('HLAccessorsGenerator', globals.HLMethodGenerator, [], 'Helios-Helpers');
-globals.HLAccessorsGenerator.comment="I am a generator used to compile the getters/setters of a class";
+globals.HLAccessorsGenerator.comment="I am a generator used to compile the getters/setters of a class.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accessorProtocolForObject",
@@ -846,7 +846,7 @@ globals.HLAccessorsGenerator);
 
 
 smalltalk.addClass('HLInitializeGenerator', globals.HLMethodGenerator, [], 'Helios-Helpers');
-globals.HLInitializeGenerator.comment="I am used to double-dispatch the `initialize` method(s) generation.\x0a\x0aUsage:\x0a\x0a    ^ HLInitializeGenerator new\x0a        class: aClass;\x0a        generate;\x0a        output\x0a\x0aI am a disposable object";
+globals.HLInitializeGenerator.comment="I am used to double-dispatch the `initialize` method(s) generation. I am a disposable object.\x0a\x0a## Usage\x0a\x0a    ^ HLInitializeGenerator new\x0a        class: aClass;\x0a        generate;\x0a        output";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "generate",
@@ -982,7 +982,7 @@ globals.HLInitializeGenerator);
 
 
 smalltalk.addClass('HLMethodSourceCode', globals.Object, ['selector', 'sourceCode'], 'Helios-Helpers');
-globals.HLMethodSourceCode.comment="I am a simple data object keeping track of the information about a method that will be compiled at the end of the generation process";
+globals.HLMethodSourceCode.comment="I am a simple data object keeping track of the information about a method that will be compiled at the end of the generation process.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "selector",

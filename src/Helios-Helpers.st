@@ -277,7 +277,7 @@ Object subclass: #HLMethodGenerator
 !HLMethodGenerator commentStamp!
 I am the abstract super class of the method generators.
 
-My main method is `generate` which produce an `output` object!
+My main method is `generate` which produces an `output` object accessed with `#output`.!
 
 !HLMethodGenerator methodsFor: 'accessing'!
 
@@ -307,7 +307,7 @@ HLMethodGenerator subclass: #HLAccessorsGenerator
 	instanceVariableNames: ''
 	package: 'Helios-Helpers'!
 !HLAccessorsGenerator commentStamp!
-I am a generator used to compile the getters/setters of a class!
+I am a generator used to compile the getters/setters of a class.!
 
 !HLAccessorsGenerator methodsFor: 'double-dispatch'!
 
@@ -360,16 +360,14 @@ HLMethodGenerator subclass: #HLInitializeGenerator
 	instanceVariableNames: ''
 	package: 'Helios-Helpers'!
 !HLInitializeGenerator commentStamp!
-I am used to double-dispatch the `initialize` method(s) generation.
+I am used to double-dispatch the `initialize` method(s) generation. I am a disposable object.
 
-Usage:
+## Usage
 
     ^ HLInitializeGenerator new
         class: aClass;
         generate;
-        output
-
-I am a disposable object!
+        output!
 
 !HLInitializeGenerator methodsFor: 'double-dispatch'!
 
@@ -417,7 +415,7 @@ Object subclass: #HLMethodSourceCode
 	instanceVariableNames: 'selector sourceCode'
 	package: 'Helios-Helpers'!
 !HLMethodSourceCode commentStamp!
-I am a simple data object keeping track of the information about a method that will be compiled at the end of the generation process!
+I am a simple data object keeping track of the information about a method that will be compiled at the end of the generation process.!
 
 !HLMethodSourceCode methodsFor: 'accessing'!
 
