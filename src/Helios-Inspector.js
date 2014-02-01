@@ -1,4 +1,4 @@
-define("amber_core/Helios-Inspector", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("amber_core/Helios-Inspector", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Core"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Inspector');
 smalltalk.packages["Helios-Inspector"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -78,32 +78,7 @@ globals.HLInspectorDisplayWidget);
 
 
 
-smalltalk.addClass('HLInspectorModel', globals.Object, ['announcer', 'environment', 'inspectee', 'code', 'variables', 'label', 'selection'], 'Helios-Inspector');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "announcer",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@announcer"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@announcer"]=_st($Announcer())._new();
-$1=self["@announcer"];
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"announcer",{},globals.HLInspectorModel)})},
-args: [],
-source: "announcer\x0a\x09^ announcer ifNil: [ announcer := Announcer new ]",
-messageSends: ["ifNil:", "new"],
-referencedClasses: ["Announcer"]
-}),
-globals.HLInspectorModel);
-
+smalltalk.addClass('HLInspectorModel', globals.HLModel, ['inspectee', 'code', 'variables', 'label', 'selection'], 'Helios-Inspector');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "code",
@@ -126,45 +101,6 @@ args: [],
 source: "code\x0a\x09\x22Answers the code model working for this workspace model\x22\x0a\x09^ code ifNil:[ code := HLCodeModel on: self environment ]",
 messageSends: ["ifNil:", "on:", "environment"],
 referencedClasses: ["HLCodeModel"]
-}),
-globals.HLInspectorModel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "environment",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $HLManager(){return globals.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@environment"];
-if(($receiver = $2) == nil || $receiver == null){
-$1=_st(_st($HLManager())._current())._environment();
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"environment",{},globals.HLInspectorModel)})},
-args: [],
-source: "environment\x0a\x09^ environment ifNil: [ HLManager current environment ]",
-messageSends: ["ifNil:", "environment", "current"],
-referencedClasses: ["HLManager"]
-}),
-globals.HLInspectorModel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "environment:",
-protocol: 'accessing',
-fn: function (anEnvironment){
-var self=this;
-self["@environment"]=anEnvironment;
-return self},
-args: ["anEnvironment"],
-source: "environment: anEnvironment\x0a\x09environment := anEnvironment",
-messageSends: [],
-referencedClasses: []
 }),
 globals.HLInspectorModel);
 

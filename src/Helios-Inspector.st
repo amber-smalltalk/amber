@@ -30,27 +30,15 @@ selectionDisplayString
       	ifFalse:[ '' ]
 ! !
 
-Object subclass: #HLInspectorModel
-	instanceVariableNames: 'announcer environment inspectee code variables label selection'
+HLModel subclass: #HLInspectorModel
+	instanceVariableNames: 'inspectee code variables label selection'
 	package: 'Helios-Inspector'!
 
 !HLInspectorModel methodsFor: 'accessing'!
 
-announcer
-	^ announcer ifNil: [ announcer := Announcer new ]
-!
-
 code
 	"Answers the code model working for this workspace model"
 	^ code ifNil:[ code := HLCodeModel on: self environment ]
-!
-
-environment
-	^ environment ifNil: [ HLManager current environment ]
-!
-
-environment: anEnvironment
-	environment := anEnvironment
 !
 
 inspectee 
