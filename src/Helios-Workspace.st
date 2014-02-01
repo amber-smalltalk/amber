@@ -152,7 +152,7 @@ browseIt
 	| result |
 	
 	result := [ self dotIt ] on: Error do: [ :exception | 
-		^ self ].
+		^ ErrorHandler handleError: exception ].
 		
 	self model browse: result
 !
