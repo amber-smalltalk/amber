@@ -9,6 +9,7 @@ define([
 	'./codemirror',
 	'css!amber_css/helios',
 	'amber_core/IDE',
+	'amber_core/IDE-Tests',
 	'amber_core/Examples',
 	'amber_core/Benchfib',
 	'amber_core/Spaces',

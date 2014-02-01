@@ -7,6 +7,7 @@ define([
 	'./codemirror',
 	'css!amber_css/amber',
 	'amber_core/IDE',
+	'amber_core/IDE-Tests',
 	'amber_core/Examples',
 	'amber_core/Benchfib'
 ], function (smalltalk) { return smalltalk; });

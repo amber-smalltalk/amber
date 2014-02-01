@@ -208,6 +208,10 @@ asJSONString
 
 asJavascript
 	^ self asString
+!
+
+browse
+	Browser openOn: self
 ! !
 
 !Object methodsFor: 'copying'!

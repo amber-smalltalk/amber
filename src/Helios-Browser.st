@@ -135,6 +135,22 @@ tabPriority
 	^ 0
 ! !
 
+!HLBrowser class methodsFor: 'opening'!
+
+open
+	self openAsTab
+!
+
+openOn: aThing
+	(self openAsTab) model selectedClass: aThing class
+! !
+
+!HLBrowser class methodsFor: 'registration'!
+
+initialize
+	Browser register: self
+! !
+
 !HLBrowser class methodsFor: 'testing'!
 
 canBeOpenAsTab

@@ -829,6 +829,32 @@ registerIfNone: anObject
 	self current ifNil: [ self register: anObject ]
 ! !
 
+Service subclass: #Browser
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!Browser commentStamp!
+I am the service responsible for displaying information about the classes in your system.
+
+*Deprecation warning: For backwards compatibility I support `Browser new open` or `Browser new openOn: aThing`. Do no rely on this functionality. Please use `Browser open` or `Browser openOn: aThing`.*!
+
+!Browser class methodsFor: 'backwards compatibility'!
+
+new
+	"Use Browser#open or Browser#openOn:"
+	self deprecatedAPI.
+	^ self
+! !
+
+!Browser class methodsFor: 'browsing'!
+
+open
+	^ self current open
+!
+
+openOn: aThing
+	^ self current openOn: aThing
+! !
+
 Service subclass: #ErrorHandler
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
