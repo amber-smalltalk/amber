@@ -119,7 +119,7 @@ displayLabel
 !HLCopyClassCommand methodsFor: 'defaults'!
 
 defaultInput
-	^ self model selectedClass name
+	^ self model selectedClass theNonMetaClass name
 ! !
 
 !HLCopyClassCommand methodsFor: 'executing'!

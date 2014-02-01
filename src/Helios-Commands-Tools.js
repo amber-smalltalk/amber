@@ -277,12 +277,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self._model())._selectedClass())._name();
+$1=_st(_st(_st(self._model())._selectedClass())._theNonMetaClass())._name();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultInput",{},globals.HLCopyClassCommand)})},
 args: [],
-source: "defaultInput\x0a\x09^ self model selectedClass name",
-messageSends: ["name", "selectedClass", "model"],
+source: "defaultInput\x0a\x09^ self model selectedClass theNonMetaClass name",
+messageSends: ["name", "theNonMetaClass", "selectedClass", "model"],
 referencedClasses: []
 }),
 globals.HLCopyClassCommand);
