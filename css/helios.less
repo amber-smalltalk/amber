@@ -828,6 +828,10 @@ body[id="helios"] {
 		margin: 0;
 		margin-left: 10px;
 		background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, .09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, .04) 50.5%, rgba(0, 0, 0, .04) 100%) #fff;
+		background: -moz-linear-gradient(bottom, rgba(0, 0, 0, .09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, .04) 50.5%, rgba(0, 0, 0, .04) 100%) #fff;
+		background: -o-linear-gradient(bottom, rgba(0, 0, 0, .09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, .04) 50.5%, rgba(0, 0, 0, .04) 100%) #fff;
+		background: -ms-linear-gradient(bottom, rgba(0, 0, 0, .09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, .04) 50.5%, rgba(0, 0, 0, .04) 100%) #fff;
+		background: linear-gradient(bottom, rgba(0, 0, 0, .09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, .04) 50.5%, rgba(0, 0, 0, .04) 100%) #fff;
 		font: 13px "Lucida Grande", Lucida, Verdana, sans-serif;
 	}
 
@@ -837,6 +841,9 @@ body[id="helios"] {
 		border-bottom: 1px solid #4B4B58;
 		background: -webkit-linear-gradient(bottom, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, .3) 50.5%, rgba(255, 255, 255, .45) 95%, rgba(255, 255, 255, .8) 100%) #b1bdd5;
 		background: -moz-linear-gradient(bottom, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, .3) 50.5%, rgba(255, 255, 255, .45) 95%, rgba(255, 255, 255, .8) 100%) #b1bdd5;
+		background: -o-linear-gradient(bottom, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, .3) 50.5%, rgba(255, 255, 255, .45) 95%, rgba(255, 255, 255, .8) 100%) #b1bdd5;
+		background: -ms-linear-gradient(bottom, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, .3) 50.5%, rgba(255, 255, 255, .45) 95%, rgba(255, 255, 255, .8) 100%) #b1bdd5;
+		background: linear-gradient(bottom, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, .3) 50.5%, rgba(255, 255, 255, .45) 95%, rgba(255, 255, 255, .8) 100%) #b1bdd5;
 		-moz-box-shadow: 0 0 3px rgba(69, 113, 184, 0.8);
 		-webkit-box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
 		box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
@@ -871,10 +878,14 @@ body[id="helios"] {
 		padding: 1px 4px;
 	}
 	.doc .head {
-		background: #08C;
+		background: #666;
 		padding: 10px;
 		font-size: 22px;
 		color: white;
+	}
+
+	.focused .doc .head {
+		background: #08c;
 	}
 
 	.doc .button {
