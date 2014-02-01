@@ -151,7 +151,7 @@ selectionStart: anInteger
 browseIt
 	| result |
 	
-	result := [ self dotIt ] on: Error do: [ :exception | 
+	result := [ self doIt ] on: Error do: [ :exception | 
 		^ ErrorHandler handleError: exception ].
 		
 	self model browse: result
@@ -274,6 +274,7 @@ onCtrlClickAt: aPosition
 		do: [ :error | ^ self ].
 	
 	node := (ast atPosition: aPosition).
+	console log: node.
 	node ifNil: [ ^ self ].
 	
 	node isNavigationNode ifTrue: [ 
