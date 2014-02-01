@@ -1245,7 +1245,9 @@ defaultEnvironment
 !HLManager methodsFor: 'initialization'!
 
 setup
-	self registerServices.
+	self 
+		registerServices;
+		setupEvents.
     self keyBinder 
 		setupEvents;
 		setupHelper
@@ -1259,6 +1261,18 @@ registerServices
 		registerErrorHandler;
 		registerProgressHandler;
 		registerTranscript
+!
+
+setupEvents
+	"on ctrl keydown, adds a 'navigation' css class to <body>
+	for the CodeMirror navigation links. See `HLCodeWidget`."
+	
+	'body' asJQuery keydown: [ :event |
+		event ctrlKey ifTrue: [
+			'body' asJQuery addClass: 'navigation' ] ].
+			
+	'body' asJQuery keyup: [ :event |
+		'body' asJQuery removeClass: 'navigation' ]
 ! !
 
 !HLManager methodsFor: 'rendering'!

@@ -3954,15 +3954,50 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 self._registerServices();
-$1=self._keyBinder();
-_st($1)._setupEvents();
-$2=_st($1)._setupHelper();
+$1=self._setupEvents();
+$ctx1.sendIdx["setupEvents"]=1;
+$2=self._keyBinder();
+_st($2)._setupEvents();
+$3=_st($2)._setupHelper();
 return self}, function($ctx1) {$ctx1.fill(self,"setup",{},globals.HLManager)})},
 args: [],
-source: "setup\x0a\x09self registerServices.\x0a    self keyBinder \x0a\x09\x09setupEvents;\x0a\x09\x09setupHelper",
+source: "setup\x0a\x09self \x0a\x09\x09registerServices;\x0a\x09\x09setupEvents.\x0a    self keyBinder \x0a\x09\x09setupEvents;\x0a\x09\x09setupHelper",
 messageSends: ["registerServices", "setupEvents", "keyBinder", "setupHelper"],
+referencedClasses: []
+}),
+globals.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setupEvents",
+protocol: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+$1="body"._asJQuery();
+$ctx1.sendIdx["asJQuery"]=1;
+_st($1)._keydown_((function(event){
+return smalltalk.withContext(function($ctx2) {
+$2=_st(event)._ctrlKey();
+if(smalltalk.assert($2)){
+$3="body"._asJQuery();
+$ctx2.sendIdx["asJQuery"]=2;
+return _st($3)._addClass_("navigation");
+};
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})}));
+$4="body"._asJQuery();
+$ctx1.sendIdx["asJQuery"]=3;
+_st($4)._keyup_((function(event){
+return smalltalk.withContext(function($ctx2) {
+return _st("body"._asJQuery())._removeClass_("navigation");
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,3)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"setupEvents",{},globals.HLManager)})},
+args: [],
+source: "setupEvents\x0a\x09\x22on ctrl keydown, adds a 'navigation' css class to <body>\x0a\x09for the CodeMirror navigation links. See `HLCodeWidget`.\x22\x0a\x09\x0a\x09'body' asJQuery keydown: [ :event |\x0a\x09\x09event ctrlKey ifTrue: [\x0a\x09\x09\x09'body' asJQuery addClass: 'navigation' ] ].\x0a\x09\x09\x09\x0a\x09'body' asJQuery keyup: [ :event |\x0a\x09\x09'body' asJQuery removeClass: 'navigation' ]",
+messageSends: ["keydown:", "asJQuery", "ifTrue:", "ctrlKey", "addClass:", "keyup:", "removeClass:"],
 referencedClasses: []
 }),
 globals.HLManager);
