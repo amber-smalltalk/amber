@@ -249,25 +249,31 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 function $HLBrowseItRequested(){return globals.HLBrowseItRequested||(typeof HLBrowseItRequested=="undefined"?nil:HLBrowseItRequested)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $References(){return globals.References||(typeof References=="undefined"?nil:References)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$3,$5,$6,$4;
 $2=self._model();
 $ctx1.sendIdx["model"]=1;
 $1=_st($2)._announcer();
 _st($1)._announce_(_st($HLBrowseItRequested())._on_(self["@model"]));
-_st(self._model())._browse_(_st((function(){
+self._try_catch_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self["@model"])._doItDangerously_(self._currentLineOrSelection());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(error){
-return $Object();
-})));
+$3=self._model();
+$ctx2.sendIdx["model"]=2;
+$5=self._model();
+$6=self._currentLineOrSelection();
+$ctx2.sendIdx["currentLineOrSelection"]=1;
+$4=_st($5)._doItDangerously_($6);
+return _st($3)._browse_($4);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(e){
+return smalltalk.withContext(function($ctx2) {
+return _st($References())._search_(self._currentLineOrSelection());
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"browseIt",{},globals.HLCodeWidget)})},
 args: [],
-source: "browseIt\x0a\x09self model announcer announce: (HLBrowseItRequested on: model).\x0a\x09self model browse: (\x0a\x09\x09[ model doItDangerously: self currentLineOrSelection ]\x0a\x09\x09\x09on: Error\x0a\x09\x09\x09do: [ :error | Object ]).",
-messageSends: ["announce:", "announcer", "model", "on:", "browse:", "on:do:", "doItDangerously:", "currentLineOrSelection"],
-referencedClasses: ["HLBrowseItRequested", "Error", "Object"]
+source: "browseIt\x0a\x09self model announcer announce: (HLBrowseItRequested on: model).\x0a\x09self try: [\x0a\x09\x09self model browse:\x0a\x09\x09\x09( self model doItDangerously: self currentLineOrSelection )\x0a\x09] catch: [ :e | References search: self currentLineOrSelection ].",
+messageSends: ["announce:", "announcer", "model", "on:", "try:catch:", "browse:", "doItDangerously:", "currentLineOrSelection", "search:"],
+referencedClasses: ["HLBrowseItRequested", "References"]
 }),
 globals.HLCodeWidget);
 

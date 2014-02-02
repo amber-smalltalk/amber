@@ -135,6 +135,10 @@ systemAnnouncer
 
 !Environment methodsFor: 'actions'!
 
+browse: anObject
+	Browser openOn: anObject
+!
+
 commitPackage: aPackage
 	aPackage commit
 !
@@ -923,6 +927,16 @@ The default behavior is to simply iterate over the collection, using `NullProgre
 
 do: aBlock on: aCollection displaying: aString
 	self current do: aBlock on: aCollection displaying: aString
+! !
+
+Service subclass: #References
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+
+!References class methodsFor: 'searching'!
+
+search: aString
+	self current search: aString
 ! !
 
 Service subclass: #Transcript

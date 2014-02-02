@@ -402,6 +402,42 @@ globals.HLReferences.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "initialize",
+protocol: 'registration',
+fn: function (){
+var self=this;
+function $References(){return globals.References||(typeof References=="undefined"?nil:References)}
+function $HLReferences(){return globals.HLReferences||(typeof HLReferences=="undefined"?nil:HLReferences)}
+return smalltalk.withContext(function($ctx1) { 
+_st($References())._register_($HLReferences());
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLReferences.klass)})},
+args: [],
+source: "initialize\x0a\x09References register: HLReferences",
+messageSends: ["register:"],
+referencedClasses: ["References", "HLReferences"]
+}),
+globals.HLReferences.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "search:",
+protocol: 'searching',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._openAsTab())._search_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString},globals.HLReferences.klass)})},
+args: ["aString"],
+source: "search: aString\x0a\x09^ self openAsTab search: aString",
+messageSends: ["search:", "openAsTab"],
+referencedClasses: []
+}),
+globals.HLReferences.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "tabClass",
 protocol: 'accessing',
 fn: function (){

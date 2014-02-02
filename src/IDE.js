@@ -6223,6 +6223,24 @@ globals.ReferencesBrowser);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "initialize",
+protocol: 'registration',
+fn: function (){
+var self=this;
+function $References(){return globals.References||(typeof References=="undefined"?nil:References)}
+function $ReferencesBrowser(){return globals.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
+return smalltalk.withContext(function($ctx1) { 
+_st($References())._registerIfNone_($ReferencesBrowser());
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ReferencesBrowser.klass)})},
+args: [],
+source: "initialize\x0a\x09References registerIfNone: ReferencesBrowser",
+messageSends: ["registerIfNone:"],
+referencedClasses: ["References", "ReferencesBrowser"]
+}),
+globals.ReferencesBrowser.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "search:",
 protocol: 'instance creation',
 fn: function (aString){

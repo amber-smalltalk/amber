@@ -329,6 +329,23 @@ globals.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "browse:",
+protocol: 'actions',
+fn: function (anObject){
+var self=this;
+function $Browser(){return globals.Browser||(typeof Browser=="undefined"?nil:Browser)}
+return smalltalk.withContext(function($ctx1) { 
+_st($Browser())._openOn_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"browse:",{anObject:anObject},globals.Environment)})},
+args: ["anObject"],
+source: "browse: anObject\x0a\x09Browser openOn: anObject",
+messageSends: ["openOn:"],
+referencedClasses: ["Browser"]
+}),
+globals.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "classBuilder",
 protocol: 'accessing',
 fn: function (){
@@ -2381,6 +2398,25 @@ messageSends: ["do:on:displaying:", "current"],
 referencedClasses: []
 }),
 globals.ProgressHandler.klass);
+
+
+smalltalk.addClass('References', globals.Service, [], 'Kernel-Infrastructure');
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "search:",
+protocol: 'searching',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._current())._search_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString},globals.References.klass)})},
+args: ["aString"],
+source: "search: aString\x0a\x09self current search: aString",
+messageSends: ["search:", "current"],
+referencedClasses: []
+}),
+globals.References.klass);
 
 
 smalltalk.addClass('Transcript', globals.Service, [], 'Kernel-Infrastructure');

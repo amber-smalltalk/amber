@@ -156,10 +156,10 @@ selectionStart: anInteger
 
 browseIt
 	self model announcer announce: (HLBrowseItRequested on: model).
-	self model browse: (
-		[ model doItDangerously: self currentLineOrSelection ]
-			on: Error
-			do: [ :error | Object ]).
+	self try: [
+		self model browse:
+			( self model doItDangerously: self currentLineOrSelection )
+	] catch: [ :e | References search: self currentLineOrSelection ].
 !
 
 clear

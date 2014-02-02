@@ -2003,6 +2003,12 @@ search: aString
 		open
 ! !
 
+!ReferencesBrowser class methodsFor: 'registration'!
+
+initialize
+	References registerIfNone: ReferencesBrowser
+! !
+
 TabWidget subclass: #TestRunner
 	instanceVariableNames: 'selectedCategories packagesList selectedClasses classesList selectedMethods progressBar methodsList result statusDiv'
 	package: 'IDE'!
