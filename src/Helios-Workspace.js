@@ -294,7 +294,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3;
 $1=self._editor();
 $ctx1.sendIdx["editor"]=1;
 _st($1)._at_put_("amberCodeWidget",self);
@@ -304,24 +304,21 @@ _st($2)._on_do_("change",(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._onChange();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["on:do:"]=1;
-$3=self._editor();
-$ctx1.sendIdx["editor"]=3;
-_st($3)._on_do_("mousedown",(function(cm,event){
+_st(_st(self._wrapper())._asJQuery())._on_in_do_("mousedown",".CodeMirror pre",(function(event){
 var position,node;
 return smalltalk.withContext(function($ctx2) {
-$4=_st(event)._at_("ctrlKey");
-if(smalltalk.assert($4)){
+$3=_st(event)._at_("ctrlKey");
+if(smalltalk.assert($3)){
 position=_st(self._editor())._coordsChar_(globals.HashedCollection._newFromPairs_(["left",_st(event)._clientX(),"top",_st(event)._clientY()]));
 position;
 self._onCtrlClickAt_(_st(_st(_st(position)._line()).__at(_st(position)._ch())).__plus((1)));
 return _st(event)._preventDefault();
 };
-}, function($ctx2) {$ctx2.fillBlock({cm:cm,event:event,position:position,node:node},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({event:event,position:position,node:node},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{},globals.HLCodeWidget)})},
 args: [],
-source: "configureEditor\x0a\x09self editor at: 'amberCodeWidget' put: self.\x0a\x09self editor on: 'change' do: [ self onChange ].\x0a\x0a\x09self editor on: 'mousedown' do: [ :cm :event | | position node |\x0a\x09\x09(event at: 'ctrlKey') ifTrue: [\x0a\x09\x09\x09position := self editor coordsChar: #{ \x0a\x09\x09\x09\x09'left' -> event clientX.\x0a\x09\x09\x09\x09'top' -> event clientY\x0a\x09\x09\x09}.\x0a\x09\x09\x09self onCtrlClickAt: (position line @ position ch) + 1.\x0a\x09\x09\x09event preventDefault ] ]",
-messageSends: ["at:put:", "editor", "on:do:", "onChange", "ifTrue:", "at:", "coordsChar:", "clientX", "clientY", "onCtrlClickAt:", "+", "@", "line", "ch", "preventDefault"],
+source: "configureEditor\x0a\x09self editor at: 'amberCodeWidget' put: self.\x0a\x09self editor on: 'change' do: [ self onChange ].\x0a\x0a\x09self wrapper asJQuery on: 'mousedown' in: '.CodeMirror pre' do: [ :event | | position node |\x0a\x09\x09(event at: 'ctrlKey') ifTrue: [\x0a\x09\x09\x09position := self editor coordsChar: #{ \x0a\x09\x09\x09\x09'left' -> event clientX.\x0a\x09\x09\x09\x09'top' -> event clientY\x0a\x09\x09\x09}.\x0a\x09\x09\x09self onCtrlClickAt: (position line @ position ch) + 1.\x0a\x09\x09\x09event preventDefault ] ]",
+messageSends: ["at:put:", "editor", "on:do:", "onChange", "on:in:do:", "asJQuery", "wrapper", "ifTrue:", "at:", "coordsChar:", "clientX", "clientY", "onCtrlClickAt:", "+", "@", "line", "ch", "preventDefault"],
 referencedClasses: []
 }),
 globals.HLCodeWidget);
