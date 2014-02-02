@@ -28,7 +28,7 @@ module.exports = function(grunt) {
          },
          src: ['projects/HelloWorld/src/HelloWorld.st'], // REQUIRED
          output_dir: 'projects/HelloWorld/src',  // optional
-         libraries: 'Canvas',                   // optional
+         libraries: 'Web',                       // optional
          jsGlobals: ['global1', 'global2'],     // optional
          main_class: 'HelloWorld',              // optional
          output_name: 'helloWorld',             // optional

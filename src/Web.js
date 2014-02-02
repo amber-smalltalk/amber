@@ -1,8 +1,8 @@
-define("amber_core/Canvas", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function(smalltalk,nil,_st, globals){
-smalltalk.addPackage('Canvas');
-smalltalk.packages["Canvas"].transport = {"type":"amd","amdNamespace":"amber_core"};
+define("amber_core/Web", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function(smalltalk,nil,_st, globals){
+smalltalk.addPackage('Web');
+smalltalk.packages["Web"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('BrowserInterface', globals.Object, [], 'Canvas');
+smalltalk.addClass('BrowserInterface', globals.Object, [], 'Web');
 globals.BrowserInterface.comment="I am platform interface class that tries to use window and jQuery; that is, one for browser environment.\x0a\x0a## API\x0a\x0a    self isAvailable. \x22true if window and jQuery exist\x22.\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -94,7 +94,7 @@ globals.BrowserInterface);
 
 
 
-smalltalk.addClass('HTMLCanvas', globals.Object, ['root'], 'Canvas');
+smalltalk.addClass('HTMLCanvas', globals.Object, ['root'], 'Web');
 globals.HTMLCanvas.comment="I am a canvas for building HTML.\x0a\x0aI provide the `#tag:` method to create a `TagBrush` (wrapping a DOM element) and convenience methods in the `tags` protocol.\x0a\x0a## API\x0a\x0aMy instances are used as the argument of the `#renderOn:` method of `Widget` objects.\x0a\x0aThe `#with:` method is used to compose HTML, nesting tags. `#with:` can take a `TagBrush`, a `String`, a `BlockClosure` or a `Widget` as argument.\x0a\x0a## Usage example:\x0a\x0a    aCanvas a \x0a        with: [ aCanvas span with: 'click me' ];\x0a        onClick: [ window alert: 'clicked!' ]";
 smalltalk.addMethod(
 smalltalk.method({
@@ -2217,7 +2217,7 @@ referencedClasses: []
 globals.HTMLCanvas.klass);
 
 
-smalltalk.addClass('HTMLSnippet', globals.Object, ['snippets'], 'Canvas');
+smalltalk.addClass('HTMLSnippet', globals.Object, ['snippets'], 'Web');
 globals.HTMLSnippet.comment="My sole instance is the registry of html snippets.\x0a`HTMLSnippet current` is the public singleton instance.\x0a\x0aOn startup, it scans the document for any html elements\x0awith `'data-snippet=\x22foo\x22'` attribute and takes them off the document,\x0aremembering them in the store under the specified name.\x0aIt also install method #foo into HTMLCanvas dynamically.\x0a\x0aEvery html snippet should mark a 'caret', a place where contents\x0acan be inserted, by 'data-snippet=\x22*\x22' (a special name for caret).\x0aFor example:\x0a\x0a`<li data-snippet='menuelement' class='...'><a data-snippet='*'></a></li>`\x0a\x0adefines a list element with a link inside; the link itself is marked as a caret.\x0a\x0aYou can later issue\x0a\x0a`html menuelement href: '/foo'; with: 'A foo'`\x0a\x0ato insert the whole snippet and directly manipulate the caret, so it renders:\x0a\x0a`<li class='...'><a href='/foo'>A foo</a></li>`\x0a\x0aFor a self-careting tags (not very useful, but you do not need to fill class etc.\x0ayou can use\x0a\x0a`<div class='lots of classes' attr1='one' attr2='two' data-snippet='*bar'></div>`\x0a\x0aand in code later do:\x0a\x0a`html bar with: [ xxx ]`\x0a\x0ato render\x0a\x0a`<div class='lots of classes' attr1='one' attr2='two'>...added by xxx...</div>`";
 smalltalk.addMethod(
 smalltalk.method({
@@ -2465,7 +2465,7 @@ referencedClasses: []
 globals.HTMLSnippet.klass);
 
 
-smalltalk.addClass('TagBrush', globals.Object, ['canvas', 'element'], 'Canvas');
+smalltalk.addClass('TagBrush', globals.Object, ['canvas', 'element'], 'Web');
 globals.TagBrush.comment="I am a brush for building a single DOM element (which I hold onto).\x0a\x0aAll tags but `<style>` are instances of me (see the `StyleBrush` class).\x0a\x0a## API\x0a\x0a1. Nesting\x0a\x0a    Use `#with:` to nest tags. `#with:` can take aString, `TagBrush` instance, a `Widget` or block closure as parameter.\x0a\x0a    Example: `aTag with: aString with: aCanvas div`\x0a\x0a2. Events\x0a\x0a    The `events` protocol contains all methods related to events (delegating event handling to jQuery).\x0a\x0a    Example: `aTag onClick: [ window alert: 'clicked' ]`\x0a\x0a3. Attributes\x0a\x0a    The `attribute` protocol contains methods for attribute manipulation (delegating to jQuery too).\x0a\x0a    Example: `aTag at: 'value' put: 'hello world'`\x0a\x0a4. Raw access and jQuery\x0a\x0a    The `#element` method can be used to access to JavaScript DOM element object.\x0a\x0a    Example: `aTag element cssStyle`\x0a\x0a    Use `#asJQuery` to access to the receiver converted into a jQuery object.\x0a\x0a    Example: `aTag asJQuery css: 'color' value: 'red'`";
 smalltalk.addMethod(
 smalltalk.method({
@@ -3673,7 +3673,7 @@ referencedClasses: []
 globals.TagBrush.klass);
 
 
-smalltalk.addClass('Widget', globals.InterfacingObject, [], 'Canvas');
+smalltalk.addClass('Widget', globals.InterfacingObject, [], 'Web');
 globals.Widget.comment="I am a presenter building HTML. Subclasses are typically reusable components.\x0a\x0a## API\x0a\x0aUse `#renderContentOn:` to build HTML. (See `HTMLCanvas` and `TagBrush` classes for more about building HTML).\x0a\x0aTo add a widget to the page, the convenience method `#appendToJQuery:` is very useful.\x0a\x0aExemple: \x0a\x0a    Counter new appendToJQuery: 'body' asJQuery";
 smalltalk.addMethod(
 smalltalk.method({
@@ -3741,7 +3741,7 @@ globals.Widget.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "appendToBrush:",
-protocol: '*Canvas',
+protocol: '*Web',
 fn: function (aTagBrush){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3757,7 +3757,7 @@ globals.BlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "appendToJQuery:",
-protocol: '*Canvas',
+protocol: '*Web',
 fn: function (aJQuery){
 var self=this;
 function $HTMLCanvas(){return globals.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
@@ -3774,7 +3774,7 @@ globals.BlockClosure);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asSnippet",
-protocol: '*Canvas',
+protocol: '*Web',
 fn: function (){
 var self=this;
 function $HTMLSnippet(){return globals.HTMLSnippet||(typeof HTMLSnippet=="undefined"?nil:HTMLSnippet)}
@@ -3793,7 +3793,7 @@ globals.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJQuery",
-protocol: '*Canvas',
+protocol: '*Web',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3809,7 +3809,7 @@ globals.JSObjectProxy);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJQueryInContext:",
-protocol: '*Canvas',
+protocol: '*Web',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3825,7 +3825,7 @@ globals.JSObjectProxy);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "appendToBrush:",
-protocol: '*Canvas',
+protocol: '*Web',
 fn: function (aTagBrush){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3841,7 +3841,7 @@ globals.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "appendToJQuery:",
-protocol: '*Canvas',
+protocol: '*Web',
 fn: function (aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3857,7 +3857,7 @@ globals.Object);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "appendToBrush:",
-protocol: '*Canvas',
+protocol: '*Web',
 fn: function (aTagBrush){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3873,7 +3873,7 @@ globals.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "appendToJQuery:",
-protocol: '*Canvas',
+protocol: '*Web',
 fn: function (aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3889,7 +3889,7 @@ globals.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJQuery",
-protocol: '*Canvas',
+protocol: '*Web',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3905,7 +3905,7 @@ globals.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJQueryInContext:",
-protocol: '*Canvas',
+protocol: '*Web',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

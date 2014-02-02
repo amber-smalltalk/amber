@@ -35,7 +35,7 @@ module.exports = function(grunt) {
               'src/Kernel-Infrastructure.st', 'src/Kernel-Exceptions.st', 'src/Kernel-Transcript.st', 'src/Kernel-Announcements.st',
               'src/Kernel-ImportExport.st', 'src/Compiler-Exceptions.st', 'src/Compiler-Core.st', 'src/Compiler-AST.st',
               'src/Compiler-IR.st', 'src/Compiler-Inlining.st', 'src/Compiler-Semantic.st', 'src/Compiler-Interpreter.st',
-              'src/Canvas.st', 'src/SUnit.st', 'src/IDE.st',
+              'src/Web.st', 'src/SUnit.st', 'src/IDE.st',
               'src/Kernel-Tests.st', 'src/Compiler-Tests.st', 'src/SUnit-Tests.st',
               'src/Helios-Core.st', 'src/Helios-Exceptions.st', 'src/Helios-Announcements.st',
               'src/Helios-KeyBindings.st', 'src/Helios-Layout.st',
@@ -52,14 +52,14 @@ module.exports = function(grunt) {
         src: ['src/Kernel-Objects.st', 'src/Kernel-Classes.st', 'src/Kernel-Methods.st', 'src/Kernel-Collections.st',
               'src/Kernel-Infrastructure.st', 'src/Kernel-Exceptions.st', 'src/Kernel-Transcript.st', 'src/Kernel-Announcements.st']
       },
-      amber_canvas: {
+      amber_web: {
         output_dir : 'src',
-        src: ['src/Canvas.st', 'src/SUnit.st']
+        src: ['src/Web.st', 'src/SUnit.st']
       },
       amber_IDE: {
         output_dir : 'src',
         src: ['src/IDE.st'],
-        libraries: ['Canvas']
+        libraries: ['Web']
       },
       amber_tests: {
         output_dir : 'src',
