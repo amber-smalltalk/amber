@@ -35,11 +35,11 @@ protocol: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(anObject)._browse();
+_st(self._environment())._browse_(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"browse:",{anObject:anObject},globals.HLCodeModel)})},
 args: ["anObject"],
-source: "browse: anObject\x0a\x09anObject browse",
-messageSends: ["browse"],
+source: "browse: anObject\x0a\x09self environment browse: anObject",
+messageSends: ["browse:", "environment"],
 referencedClasses: []
 }),
 globals.HLCodeModel);
@@ -73,7 +73,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._try_catch_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self._environment())._eval_on_(aString,self._receiver());
+return self._doItDangerously_(aString);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(e){
 return smalltalk.withContext(function($ctx2) {
 _st($ErrorHandler())._handleError_(e);
@@ -82,9 +82,27 @@ return nil;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doIt:",{aString:aString},globals.HLCodeModel)})},
 args: ["aString"],
-source: "doIt: aString\x0a\x09\x22Evaluate aString in the receiver's `environment`.\x0a\x09\x0a\x09Note: Catch any error and handle it manually, bypassing\x0a\x09boot.js behavior to avoid the browser default action on\x0a\x09ctrl+d/ctrl+p.\x0a\x09\x0a\x09See https://github.com/amber-smalltalk/amber/issues/882\x22\x0a\x0a\x09^ self \x0a\x09\x09try: [ self environment eval: aString on: self receiver ]\x0a\x09\x09catch: [ :e | \x0a\x09\x09\x09ErrorHandler handleError: e.\x0a\x09\x09\x09nil ]",
-messageSends: ["try:catch:", "eval:on:", "environment", "receiver", "handleError:"],
+source: "doIt: aString\x0a\x09\x22Evaluate aString in the receiver's `environment`.\x0a\x09\x0a\x09Note: Catch any error and handle it manually, bypassing\x0a\x09boot.js behavior to avoid the browser default action on\x0a\x09ctrl+d/ctrl+p.\x0a\x09\x0a\x09See https://github.com/amber-smalltalk/amber/issues/882\x22\x0a\x0a\x09^ self \x0a\x09\x09try: [ self doItDangerously: aString ]\x0a\x09\x09catch: [ :e | \x0a\x09\x09\x09ErrorHandler handleError: e.\x0a\x09\x09\x09nil ]",
+messageSends: ["try:catch:", "doItDangerously:", "handleError:"],
 referencedClasses: ["ErrorHandler"]
+}),
+globals.HLCodeModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doItDangerously:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._environment())._eval_on_(aString,self._receiver());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"doItDangerously:",{aString:aString},globals.HLCodeModel)})},
+args: ["aString"],
+source: "doItDangerously: aString\x0a\x09\x22Evaluate aString in the receiver's `environment`,\x0a\x09but don't bother to catch any of those pesky errors.\x22\x0a\x09^ self environment eval: aString on: self receiver",
+messageSends: ["eval:on:", "environment", "receiver"],
+referencedClasses: []
 }),
 globals.HLCodeModel);
 
@@ -230,29 +248,26 @@ selector: "browseIt",
 protocol: 'actions',
 fn: function (){
 var self=this;
-var result;
+function $HLBrowseItRequested(){return globals.HLBrowseItRequested||(typeof HLBrowseItRequested=="undefined"?nil:HLBrowseItRequested)}
 function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
-function $ErrorHandler(){return globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-var $early={};
-try {
-result=_st((function(){
+var $2,$1;
+$2=self._model();
+$ctx1.sendIdx["model"]=1;
+$1=_st($2)._announcer();
+_st($1)._announce_(_st($HLBrowseItRequested())._on_(self["@model"]));
+_st(self._model())._browse_(_st((function(){
 return smalltalk.withContext(function($ctx2) {
-return self._doIt();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(exception){
-return smalltalk.withContext(function($ctx2) {
-$1=_st($ErrorHandler())._handleError_(exception);
-throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1,2)})}));
-_st(self._model())._browse_(result);
-return self}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"browseIt",{result:result},globals.HLCodeWidget)})},
+return _st(self["@model"])._doItDangerously_(self._currentLineOrSelection());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(error){
+return $Object();
+})));
+return self}, function($ctx1) {$ctx1.fill(self,"browseIt",{},globals.HLCodeWidget)})},
 args: [],
-source: "browseIt\x0a\x09| result |\x0a\x09\x0a\x09result := [ self doIt ] on: Error do: [ :exception | \x0a\x09\x09^ ErrorHandler handleError: exception ].\x0a\x09\x09\x0a\x09self model browse: result",
-messageSends: ["on:do:", "doIt", "handleError:", "browse:", "model"],
-referencedClasses: ["Error", "ErrorHandler"]
+source: "browseIt\x0a\x09self model announcer announce: (HLBrowseItRequested on: model).\x0a\x09self model browse: (\x0a\x09\x09[ model doItDangerously: self currentLineOrSelection ]\x0a\x09\x09\x09on: Error\x0a\x09\x09\x09do: [ :error | Object ]).",
+messageSends: ["announce:", "announcer", "model", "on:", "browse:", "on:do:", "doItDangerously:", "currentLineOrSelection"],
+referencedClasses: ["HLBrowseItRequested", "Error", "Object"]
 }),
 globals.HLCodeWidget);
 
@@ -886,7 +901,7 @@ return self._browseIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLCodeWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'DoIt';\x0a\x09\x09onClick: [ self doIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'PrintIt';\x0a\x09\x09onClick: [ self printIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'InspectIt';\x0a\x09\x09onClick: [ self inspectIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'BrowseIt';\x0a\x09\x09onClick: [ self browseIt ]",
+source: "renderButtonsOn: html\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'DoIt';\x0a\x09\x09onClick: [ self doIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'PrintIt';\x0a\x09\x09onClick: [ self printIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'InspectIt';\x0a\x09\x09onClick: [ self inspectIt ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'BrowseIt';\x0a\x09\x09onClick: [ self browseIt ]",
 messageSends: ["class:", "button", "with:", "onClick:", "doIt", "printIt", "inspectIt", "browseIt"],
 referencedClasses: []
 }),

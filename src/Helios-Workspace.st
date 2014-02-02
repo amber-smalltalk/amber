@@ -28,7 +28,7 @@ receiver: anObject
 !HLCodeModel methodsFor: 'actions'!
 
 browse: anObject
-	anObject browse
+	self environment browse: anObject
 !
 
 doIt: aString
@@ -41,10 +41,16 @@ doIt: aString
 	See https://github.com/amber-smalltalk/amber/issues/882"
 
 	^ self 
-		try: [ self environment eval: aString on: self receiver ]
+		try: [ self doItDangerously: aString ]
 		catch: [ :e | 
 			ErrorHandler handleError: e.
 			nil ]
+!
+
+doItDangerously: aString
+	"Evaluate aString in the receiver's `environment`,
+	but don't bother to catch any of those pesky errors."
+	^ self environment eval: aString on: self receiver
 !
 
 inspect: anObject
@@ -149,12 +155,11 @@ selectionStart: anInteger
 !HLCodeWidget methodsFor: 'actions'!
 
 browseIt
-	| result |
-	
-	result := [ self doIt ] on: Error do: [ :exception | 
-		^ ErrorHandler handleError: exception ].
-		
-	self model browse: result
+	self model announcer announce: (HLBrowseItRequested on: model).
+	self model browse: (
+		[ model doItDangerously: self currentLineOrSelection ]
+			on: Error
+			do: [ :error | Object ]).
 !
 
 clear
@@ -309,7 +314,7 @@ renderButtonsOn: html
 		class: 'button';
 		with: 'InspectIt';
 		onClick: [ self inspectIt ].
-	html button 
+	html button
 		class: 'button';
 		with: 'BrowseIt';
 		onClick: [ self browseIt ]
