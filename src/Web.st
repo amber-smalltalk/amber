@@ -1,7 +1,7 @@
-Smalltalk createPackage: 'Canvas'!
+Smalltalk createPackage: 'Web'!
 Object subclass: #BrowserInterface
 	instanceVariableNames: ''
-	package: 'Canvas'!
+	package: 'Web'!
 !BrowserInterface commentStamp!
 I am platform interface class that tries to use window and jQuery; that is, one for browser environment.
 
@@ -43,7 +43,7 @@ isAvailable
 
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
-	package: 'Canvas'!
+	package: 'Web'!
 !HTMLCanvas commentStamp!
 I am a canvas for building HTML.
 
@@ -565,7 +565,7 @@ onJQuery: aJQuery
 
 Object subclass: #HTMLSnippet
 	instanceVariableNames: 'snippets'
-	package: 'Canvas'!
+	package: 'Web'!
 !HTMLSnippet commentStamp!
 My sole instance is the registry of html snippets.
 `HTMLSnippet current` is the public singleton instance.
@@ -696,7 +696,7 @@ new
 
 Object subclass: #TagBrush
 	instanceVariableNames: 'canvas element'
-	package: 'Canvas'!
+	package: 'Web'!
 !TagBrush commentStamp!
 I am a brush for building a single DOM element (which I hold onto).
 
@@ -1061,7 +1061,7 @@ fromString: aString canvas: aCanvas
 
 InterfacingObject subclass: #Widget
 	instanceVariableNames: ''
-	package: 'Canvas'!
+	package: 'Web'!
 !Widget commentStamp!
 I am a presenter building HTML. Subclasses are typically reusable components.
 
@@ -1097,7 +1097,7 @@ heliosClass
 	^ 'widget'
 ! !
 
-!BlockClosure methodsFor: '*Canvas'!
+!BlockClosure methodsFor: '*Web'!
 
 appendToBrush: aTagBrush
 	aTagBrush appendBlock: self
@@ -1107,13 +1107,13 @@ appendToJQuery: aJQuery
 	self value: (HTMLCanvas onJQuery: aJQuery)
 ! !
 
-!CharacterArray methodsFor: '*Canvas'!
+!CharacterArray methodsFor: '*Web'!
 
 asSnippet
 	^ HTMLSnippet current snippetAt: self asString
 ! !
 
-!JSObjectProxy methodsFor: '*Canvas'!
+!JSObjectProxy methodsFor: '*Web'!
 
 asJQuery
 	<return jQuery(self['@jsObject'])>
@@ -1123,7 +1123,7 @@ asJQueryInContext: aContext
 	<return jQuery(self['@jsObject'], aContext)>
 ! !
 
-!Object methodsFor: '*Canvas'!
+!Object methodsFor: '*Web'!
 
 appendToBrush: aTagBrush
 	aTagBrush append: self asString
@@ -1133,7 +1133,7 @@ appendToJQuery: aJQuery
 	aJQuery append: self asString
 ! !
 
-!String methodsFor: '*Canvas'!
+!String methodsFor: '*Web'!
 
 appendToBrush: aTagBrush
 	aTagBrush appendString: self

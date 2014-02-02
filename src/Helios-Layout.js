@@ -1,4 +1,4 @@
-define("amber_core/Helios-Layout", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Core", "amber_core/Canvas", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("amber_core/Helios-Layout", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Core", "amber_core/Web", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Layout');
 smalltalk.packages["Helios-Layout"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
