@@ -165,7 +165,7 @@ configureEditor
 	self editor at: 'amberCodeWidget' put: self.
 	self editor on: 'change' do: [ self onChange ].
 
-	self editor on: 'mousedown' do: [ :cm :event | | position node |
+	self wrapper asJQuery on: 'mousedown' in: '.CodeMirror pre' do: [ :event | | position node |
 		(event at: 'ctrlKey') ifTrue: [
 			position := self editor coordsChar: #{ 
 				'left' -> event clientX.
