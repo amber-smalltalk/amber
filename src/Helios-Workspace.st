@@ -373,8 +373,8 @@ macKeyMap
 		'Alt-Right'				-> 'goWordRight'. 
 		'Cmd-A'					-> 'selectAll'. 
 		'Cmd-Alt-F'				-> 'replace'. 
-		'Cmd-D'					-> 'doIt'. 
-		'Cmd-B'					-> 'browseIt'. 
+		'Cmd-D'					-> 'doIt'.
+		'Cmd-B'					-> 'browseIt'.
 		'Cmd-Down'				-> 'goDocEnd'. 
 		'Cmd-End'				-> 'goDocEnd'. 
 		'Cmd-F'					-> 'find'.
@@ -404,8 +404,8 @@ pcKeyMap
 		'Alt-Up' -> 		'goDocStart'. 
 		'Ctrl-A' -> 		'selectAll'. 
 		'Ctrl-Backspace' -> 'delWordBefore'. 
-		'Ctrl-D' -> 		'doIt'. 
-		'Ctrl-B' -> 		'browseIt'. 
+		'Ctrl-D' -> 		'doIt'.
+		'Ctrl-B' ->			'browseIt'.
 		'Ctrl-Delete' -> 		'delWordAfter'. 
 		'Ctrl-Down' -> 		'goDocEnd'.
 		'Ctrl-End' -> 		'goDocEnd'. 
@@ -480,7 +480,8 @@ setupCodeMirror
 !
 
 setupCommands
-	(CodeMirror basicAt: 'commands') 
+	(CodeMirror basicAt: 'commands')
+		at: 'browseIt' put: [ :cm | cm amberCodeWidget browseIt ];
 		at: 'doIt' put: [ :cm | cm amberCodeWidget doIt ];
 		at: 'inspectIt' put: [ :cm | cm amberCodeWidget inspectIt ];
 		at: 'printIt' put: [ :cm | cm amberCodeWidget printIt ];
