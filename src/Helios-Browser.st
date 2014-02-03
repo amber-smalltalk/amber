@@ -1251,14 +1251,11 @@ onPackageAdded: anAnnouncement
 
 onPackageSelected: anAnnouncement
 	| package |
-	
 	package := anAnnouncement item.
-	
-	self selectedItem: package.
-	self hasFocus ifFalse: [
-		self
-			activateItem: package;
-			focus ]
+	self
+		selectedItem: package;
+		activateItem: package;
+		focus.
 !
 
 onPackagesFocusRequested

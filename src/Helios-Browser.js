@@ -3592,19 +3592,15 @@ fn: function (anAnnouncement){
 var self=this;
 var package_;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 package_=_st(anAnnouncement)._item();
 self._selectedItem_(package_);
-$1=self._hasFocus();
-if(! smalltalk.assert($1)){
 self._activateItem_(package_);
-$2=self._focus();
-$2;
-};
+$1=self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{anAnnouncement:anAnnouncement,package_:package_},globals.HLPackagesListWidget)})},
 args: ["anAnnouncement"],
-source: "onPackageSelected: anAnnouncement\x0a\x09| package |\x0a\x09\x0a\x09package := anAnnouncement item.\x0a\x09\x0a\x09self selectedItem: package.\x0a\x09self hasFocus ifFalse: [\x0a\x09\x09self\x0a\x09\x09\x09activateItem: package;\x0a\x09\x09\x09focus ]",
-messageSends: ["item", "selectedItem:", "ifFalse:", "hasFocus", "activateItem:", "focus"],
+source: "onPackageSelected: anAnnouncement\x0a\x09| package |\x0a\x09package := anAnnouncement item.\x0a\x09self\x0a\x09\x09selectedItem: package;\x0a\x09\x09activateItem: package;\x0a\x09\x09focus.",
+messageSends: ["item", "selectedItem:", "activateItem:", "focus"],
 referencedClasses: []
 }),
 globals.HLPackagesListWidget);
