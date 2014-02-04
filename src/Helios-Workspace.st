@@ -273,12 +273,10 @@ onCtrlClickAt: aPosition
 		on: Error 
 		do: [ :error | ^ self ].
 	
-	node := (ast atPosition: aPosition).
-	console log: node.
+	node := (ast nodeAtPosition: aPosition).
 	node ifNil: [ ^ self ].
 	
-	node isNavigationNode ifTrue: [ 
-		self navigateTo: node navigationLink ]
+	self navigateTo: node navigationLink
 !
 
 onInspectIt

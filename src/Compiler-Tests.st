@@ -108,18 +108,23 @@ ASTParsingTest subclass: #ASTPositionTest
 
 !ASTPositionTest methodsFor: 'tests'!
 
-testAtPosition
+testNodeAtPosition
 	| node |
 	
 	node := self parse: 'yourself
 	^ self'.
 	
-	self assert: (node atPosition: 2@4) source equals: 'self'.
+	self assert: (node nodeAtPosition: 2@4) source equals: 'self'.
 	
 	node := self parse: 'foo
 	true ifTrue: [ 1 ]'.
 	
-	self assert: (node atPosition: 2@7) selector equals: 'ifTrue:'
+	self assert: (node nodeAtPosition: 2@7) selector equals: 'ifTrue:'.
+	
+	node := self parse: 'foo
+	self foo; bar; baz'.
+	
+	self assert: (node nodeAtPosition: 2@8) selector equals: 'foo'
 ! !
 
 ASTParsingTest subclass: #CodeGeneratorTest

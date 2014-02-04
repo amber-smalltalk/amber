@@ -27,12 +27,15 @@ allNodes
 !
 
 atPosition: aPoint
-	"Answer the node in the receiver's tree at aPoint"
+	"Answer the navigation node in the receiver's tree at aPoint 
+	or nil if no navigation node was found.
+	
+	See `node >> isNaviationNode`"
 	
 	| children |
 	
 	children := self allNodes select: [ :each | 
-		each inPosition: aPoint ].
+		each isNavigationNode and: [ each inPosition: aPoint ] ].
 	
 	children ifEmpty: [ ^ nil ].
 	

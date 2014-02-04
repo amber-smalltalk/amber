@@ -272,29 +272,40 @@ globals.ASTPCNodeVisitorTest);
 smalltalk.addClass('ASTPositionTest', globals.ASTParsingTest, [], 'Compiler-Tests');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "testAtPosition",
+selector: "testNodeAtPosition",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var node;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$4,$2,$1;
+var $3,$4,$2,$1,$7,$8,$6,$5;
 node=self._parse_("yourself\x0a\x09^ self");
 $ctx1.sendIdx["parse:"]=1;
 $3=node;
 $4=(2).__at((4));
 $ctx1.sendIdx["@"]=1;
-$2=_st($3)._atPosition_($4);
-$ctx1.sendIdx["atPosition:"]=1;
+$2=_st($3)._nodeAtPosition_($4);
+$ctx1.sendIdx["nodeAtPosition:"]=1;
 $1=_st($2)._source();
 self._assert_equals_($1,"self");
 $ctx1.sendIdx["assert:equals:"]=1;
 node=self._parse_("foo\x0a\x09true ifTrue: [ 1 ]");
-self._assert_equals_(_st(_st(node)._atPosition_((2).__at((7))))._selector(),"ifTrue:");
-return self}, function($ctx1) {$ctx1.fill(self,"testAtPosition",{node:node},globals.ASTPositionTest)})},
+$ctx1.sendIdx["parse:"]=2;
+$7=node;
+$8=(2).__at((7));
+$ctx1.sendIdx["@"]=2;
+$6=_st($7)._nodeAtPosition_($8);
+$ctx1.sendIdx["nodeAtPosition:"]=2;
+$5=_st($6)._selector();
+$ctx1.sendIdx["selector"]=1;
+self._assert_equals_($5,"ifTrue:");
+$ctx1.sendIdx["assert:equals:"]=2;
+node=self._parse_("foo\x0a\x09self foo; bar; baz");
+self._assert_equals_(_st(_st(node)._nodeAtPosition_((2).__at((8))))._selector(),"foo");
+return self}, function($ctx1) {$ctx1.fill(self,"testNodeAtPosition",{node:node},globals.ASTPositionTest)})},
 args: [],
-source: "testAtPosition\x0a\x09| node |\x0a\x09\x0a\x09node := self parse: 'yourself\x0a\x09^ self'.\x0a\x09\x0a\x09self assert: (node atPosition: 2@4) source equals: 'self'.\x0a\x09\x0a\x09node := self parse: 'foo\x0a\x09true ifTrue: [ 1 ]'.\x0a\x09\x0a\x09self assert: (node atPosition: 2@7) selector equals: 'ifTrue:'",
-messageSends: ["parse:", "assert:equals:", "source", "atPosition:", "@", "selector"],
+source: "testNodeAtPosition\x0a\x09| node |\x0a\x09\x0a\x09node := self parse: 'yourself\x0a\x09^ self'.\x0a\x09\x0a\x09self assert: (node nodeAtPosition: 2@4) source equals: 'self'.\x0a\x09\x0a\x09node := self parse: 'foo\x0a\x09true ifTrue: [ 1 ]'.\x0a\x09\x0a\x09self assert: (node nodeAtPosition: 2@7) selector equals: 'ifTrue:'.\x0a\x09\x0a\x09node := self parse: 'foo\x0a\x09self foo; bar; baz'.\x0a\x09\x0a\x09self assert: (node nodeAtPosition: 2@8) selector equals: 'foo'",
+messageSends: ["parse:", "assert:equals:", "source", "nodeAtPosition:", "@", "selector"],
 referencedClasses: []
 }),
 globals.ASTPositionTest);
