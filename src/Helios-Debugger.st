@@ -51,34 +51,13 @@ I am the main widget for the Helios debugger.!
 
 !HLDebugger methodsFor: 'accessing'!
 
-codeWidget
-	^ codeWidget ifNil: [ codeWidget := HLDebuggerCodeWidget new
-		model: (HLDebuggerCodeModel new
-			debuggerModel: self model;
-			yourself);
-		browserModel: self model;
-		yourself ]
-!
-
 initializeFromMethodContext: aMethodContext
 	model := HLDebuggerModel on: aMethodContext.
 	self observeModel
 !
 
-inspectorWidget
-	^ inspectorWidget ifNil: [ 
-		inspectorWidget := HLInspectorWidget new ]
-!
-
 model
 	^ model ifNil: [ model := HLDebuggerModel new ]
-!
-
-stackListWidget
-	^ stackListWidget ifNil: [ 
-		stackListWidget := (HLStackListWidget on: self model)
-			next: self codeWidget;
-			yourself ]
 ! !
 
 !HLDebugger methodsFor: 'actions'!
@@ -128,6 +107,29 @@ renderContentOn: html
 			with: self inspectorWidget)))
 ! !
 
+!HLDebugger methodsFor: 'widgets'!
+
+codeWidget
+	^ codeWidget ifNil: [ codeWidget := HLDebuggerCodeWidget new
+		model: (HLDebuggerCodeModel new
+			debuggerModel: self model;
+			yourself);
+		browserModel: self model;
+		yourself ]
+!
+
+inspectorWidget
+	^ inspectorWidget ifNil: [ 
+		inspectorWidget := HLInspectorWidget new ]
+!
+
+stackListWidget
+	^ stackListWidget ifNil: [ 
+		stackListWidget := (HLStackListWidget on: self model)
+			next: self codeWidget;
+			yourself ]
+! !
+
 !HLDebugger class methodsFor: 'accessing'!
 
 tabClass
@@ -163,7 +165,11 @@ debuggerModel: anObject
 !HLDebuggerCodeModel methodsFor: 'actions'!
 
 doIt: aString
-	^ self debuggerModel evaluate: aString
+	^ self 
+		try: [ self debuggerModel evaluate: aString ]
+		catch: [ :e | 
+			ErrorHandler handleError: e.
+			nil ]
 ! !
 
 HLBrowserCodeWidget subclass: #HLDebuggerCodeWidget

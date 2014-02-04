@@ -107,7 +107,7 @@ globals.HLDebugger.comment="I am the main widget for the Helios debugger.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "codeWidget",
-protocol: 'accessing',
+protocol: 'widgets',
 fn: function (){
 var self=this;
 function $HLDebuggerCodeWidget(){return globals.HLDebuggerCodeWidget||(typeof HLDebuggerCodeWidget=="undefined"?nil:HLDebuggerCodeWidget)}
@@ -181,7 +181,7 @@ globals.HLDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectorWidget",
-protocol: 'accessing',
+protocol: 'widgets',
 fn: function (){
 var self=this;
 function $HLInspectorWidget(){return globals.HLInspectorWidget||(typeof HLInspectorWidget=="undefined"?nil:HLInspectorWidget)}
@@ -314,7 +314,7 @@ globals.HLDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "stackListWidget",
-protocol: 'accessing',
+protocol: 'widgets',
 fn: function (){
 var self=this;
 function $HLStackListWidget(){return globals.HLStackListWidget||(typeof HLStackListWidget=="undefined"?nil:HLStackListWidget)}
@@ -449,15 +449,23 @@ selector: "doIt:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
+function $ErrorHandler(){return globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._debuggerModel())._evaluate_(aString);
+$1=self._try_catch_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._debuggerModel())._evaluate_(aString);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(e){
+return smalltalk.withContext(function($ctx2) {
+_st($ErrorHandler())._handleError_(e);
+return nil;
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,2)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doIt:",{aString:aString},globals.HLDebuggerCodeModel)})},
 args: ["aString"],
-source: "doIt: aString\x0a\x09^ self debuggerModel evaluate: aString",
-messageSends: ["evaluate:", "debuggerModel"],
-referencedClasses: []
+source: "doIt: aString\x0a\x09^ self \x0a\x09\x09try: [ self debuggerModel evaluate: aString ]\x0a\x09\x09catch: [ :e | \x0a\x09\x09\x09ErrorHandler handleError: e.\x0a\x09\x09\x09nil ]",
+messageSends: ["try:catch:", "evaluate:", "debuggerModel", "handleError:"],
+referencedClasses: ["ErrorHandler"]
 }),
 globals.HLDebuggerCodeModel);
 
