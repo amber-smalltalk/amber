@@ -671,6 +671,12 @@ printOn: aStream
 
 isPackage
 	^ true
+!
+
+isTestPackage
+	^ self classes anySatisfy: [ :each |
+		(each includesBehavior: TestCase) and: [ 
+			each isAbstract not ] ]
 ! !
 
 Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
