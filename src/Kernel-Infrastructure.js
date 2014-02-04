@@ -1670,6 +1670,31 @@ globals.Package);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isTestPackage",
+protocol: 'testing',
+fn: function (){
+var self=this;
+function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._classes())._anySatisfy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._includesBehavior_($TestCase()))._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(each)._isAbstract())._not();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isTestPackage",{},globals.Package)})},
+args: [],
+source: "isTestPackage\x0a\x09^ self classes anySatisfy: [ :each |\x0a\x09\x09(each includesBehavior: TestCase) and: [ \x0a\x09\x09\x09each isAbstract not ] ]",
+messageSends: ["anySatisfy:", "classes", "and:", "includesBehavior:", "not", "isAbstract"],
+referencedClasses: ["TestCase"]
+}),
+globals.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "loadDependencies",
 protocol: 'dependencies',
 fn: function (){
