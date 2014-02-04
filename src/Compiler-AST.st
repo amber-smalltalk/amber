@@ -26,7 +26,11 @@ allNodes
 	^ allNodes
 !
 
-atPosition: aPoint
+method
+	^ self parent ifNotNil: [ :node | node method ]
+!
+
+navigationNodeAt: aPoint ifAbsent: aBlock
 	"Answer the navigation node in the receiver's tree at aPoint 
 	or nil if no navigation node was found.
 	
@@ -37,15 +41,11 @@ atPosition: aPoint
 	children := self allNodes select: [ :each | 
 		each isNavigationNode and: [ each inPosition: aPoint ] ].
 	
-	children ifEmpty: [ ^ nil ].
+	children ifEmpty: [ ^ aBlock value ].
 	
 	^ (children asArray sort: [ :a :b | 
 		(a positionStart dist: aPoint) <= 
 		(b positionStart dist: aPoint) ]) first
-!
-
-method
-	^ self parent ifNotNil: [ :node | node method ]
 !
 
 nextChild

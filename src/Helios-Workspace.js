@@ -653,13 +653,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onCtrlClickAt:",
 protocol: 'reactions',
-fn: function (aPosition){
+fn: function (aPoint){
 var self=this;
 var ast,node;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 var $early={};
 try {
 ast=_st((function(){
@@ -668,20 +667,16 @@ return _st($Smalltalk())._parse_(_st(self._editor())._getValue());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(error){
 throw $early=[self];
 }));
-node=_st(ast)._nodeAtPosition_(aPosition);
-$1=node;
-if(($receiver = $1) == nil || $receiver == null){
-return self;
-} else {
-$1;
-};
+node=_st(ast)._navigationNodeAt_ifAbsent_(aPoint,(function(){
+throw $early=[nil];
+}));
 self._navigateTo_(_st(node)._navigationLink());
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"onCtrlClickAt:",{aPosition:aPosition,ast:ast,node:node},globals.HLCodeWidget)})},
-args: ["aPosition"],
-source: "onCtrlClickAt: aPosition\x0a\x09| ast node |\x0a\x09\x0a\x09ast := [ Smalltalk parse: self editor getValue ] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :error | ^ self ].\x0a\x09\x0a\x09node := (ast nodeAtPosition: aPosition).\x0a\x09node ifNil: [ ^ self ].\x0a\x09\x0a\x09self navigateTo: node navigationLink",
-messageSends: ["on:do:", "parse:", "getValue", "editor", "nodeAtPosition:", "ifNil:", "navigateTo:", "navigationLink"],
+}, function($ctx1) {$ctx1.fill(self,"onCtrlClickAt:",{aPoint:aPoint,ast:ast,node:node},globals.HLCodeWidget)})},
+args: ["aPoint"],
+source: "onCtrlClickAt: aPoint\x0a\x09| ast node |\x0a\x09\x0a\x09ast := [ Smalltalk parse: self editor getValue ] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :error | ^ self ].\x0a\x09\x0a\x09node := ast \x0a\x09\x09navigationNodeAt: aPoint \x0a\x09\x09ifAbsent: [ ^ nil ].\x0a\x09\x09\x0a\x09self navigateTo: node navigationLink",
+messageSends: ["on:do:", "parse:", "getValue", "editor", "navigationNodeAt:ifAbsent:", "navigateTo:", "navigationLink"],
 referencedClasses: ["Smalltalk", "Error"]
 }),
 globals.HLCodeWidget);

@@ -266,16 +266,17 @@ onChange
 	self updateState
 !
 
-onCtrlClickAt: aPosition
+onCtrlClickAt: aPoint
 	| ast node |
 	
 	ast := [ Smalltalk parse: self editor getValue ] 
 		on: Error 
 		do: [ :error | ^ self ].
 	
-	node := (ast nodeAtPosition: aPosition).
-	node ifNil: [ ^ self ].
-	
+	node := ast 
+		navigationNodeAt: aPoint 
+		ifAbsent: [ ^ nil ].
+		
 	self navigateTo: node navigationLink
 !
 

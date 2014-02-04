@@ -114,17 +114,17 @@ testNodeAtPosition
 	node := self parse: 'yourself
 	^ self'.
 	
-	self assert: (node nodeAtPosition: 2@4) source equals: 'self'.
+	self assert: (node navigationNodeAt: 2@4 ifAbsent: [ nil ]) source equals: 'self'.
 	
 	node := self parse: 'foo
 	true ifTrue: [ 1 ]'.
 	
-	self assert: (node nodeAtPosition: 2@7) selector equals: 'ifTrue:'.
+	self assert: (node navigationNodeAt: 2@7 ifAbsent: [ nil ]) selector equals: 'ifTrue:'.
 	
 	node := self parse: 'foo
 	self foo; bar; baz'.
 	
-	self assert: (node nodeAtPosition: 2@8) selector equals: 'foo'
+	self assert: (node navigationNodeAt: 2@8 ifAbsent: [ nil ]) selector equals: 'foo'
 ! !
 
 ASTParsingTest subclass: #CodeGeneratorTest

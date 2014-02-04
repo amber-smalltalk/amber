@@ -67,46 +67,6 @@ globals.Node);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "atPosition:",
-protocol: 'accessing',
-fn: function (aPoint){
-var self=this;
-var children;
-return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1;
-var $early={};
-try {
-children=_st(self._allNodes())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._isNavigationNode())._and_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(each)._inPosition_(aPoint);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-_st(children)._ifEmpty_((function(){
-throw $early=[nil];
-}));
-$1=_st(_st(_st(children)._asArray())._sort_((function(a,b){
-return smalltalk.withContext(function($ctx2) {
-$3=_st(a)._positionStart();
-$ctx2.sendIdx["positionStart"]=1;
-$2=_st($3)._dist_(aPoint);
-$ctx2.sendIdx["dist:"]=1;
-return _st($2).__lt_eq(_st(_st(b)._positionStart())._dist_(aPoint));
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,4)})})))._first();
-return $1;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"atPosition:",{aPoint:aPoint,children:children},globals.Node)})},
-args: ["aPoint"],
-source: "atPosition: aPoint\x0a\x09\x22Answer the navigation node in the receiver's tree at aPoint \x0a\x09or nil if no navigation node was found.\x0a\x09\x0a\x09See `node >> isNaviationNode`\x22\x0a\x09\x0a\x09| children |\x0a\x09\x0a\x09children := self allNodes select: [ :each | \x0a\x09\x09each isNavigationNode and: [ each inPosition: aPoint ] ].\x0a\x09\x0a\x09children ifEmpty: [ ^ nil ].\x0a\x09\x0a\x09^ (children asArray sort: [ :a :b | \x0a\x09\x09(a positionStart dist: aPoint) <= \x0a\x09\x09(b positionStart dist: aPoint) ]) first",
-messageSends: ["select:", "allNodes", "and:", "isNavigationNode", "inPosition:", "ifEmpty:", "first", "sort:", "asArray", "<=", "dist:", "positionStart"],
-referencedClasses: []
-}),
-globals.Node);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "inPosition:",
 protocol: 'testing',
 fn: function (aPoint){
@@ -385,6 +345,48 @@ return $1;
 args: [],
 source: "method\x0a\x09^ self parent ifNotNil: [ :node | node method ]",
 messageSends: ["ifNotNil:", "parent", "method"],
+referencedClasses: []
+}),
+globals.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "navigationNodeAt:ifAbsent:",
+protocol: 'accessing',
+fn: function (aPoint,aBlock){
+var self=this;
+var children;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$4,$3,$2;
+var $early={};
+try {
+children=_st(self._allNodes())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._isNavigationNode())._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(each)._inPosition_(aPoint);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+_st(children)._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(aBlock)._value();
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+$2=_st(_st(_st(children)._asArray())._sort_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+$4=_st(a)._positionStart();
+$ctx2.sendIdx["positionStart"]=1;
+$3=_st($4)._dist_(aPoint);
+$ctx2.sendIdx["dist:"]=1;
+return _st($3).__lt_eq(_st(_st(b)._positionStart())._dist_(aPoint));
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,4)})})))._first();
+return $2;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"navigationNodeAt:ifAbsent:",{aPoint:aPoint,aBlock:aBlock,children:children},globals.Node)})},
+args: ["aPoint", "aBlock"],
+source: "navigationNodeAt: aPoint ifAbsent: aBlock\x0a\x09\x22Answer the navigation node in the receiver's tree at aPoint \x0a\x09or nil if no navigation node was found.\x0a\x09\x0a\x09See `node >> isNaviationNode`\x22\x0a\x09\x0a\x09| children |\x0a\x09\x0a\x09children := self allNodes select: [ :each | \x0a\x09\x09each isNavigationNode and: [ each inPosition: aPoint ] ].\x0a\x09\x0a\x09children ifEmpty: [ ^ aBlock value ].\x0a\x09\x0a\x09^ (children asArray sort: [ :a :b | \x0a\x09\x09(a positionStart dist: aPoint) <= \x0a\x09\x09(b positionStart dist: aPoint) ]) first",
+messageSends: ["select:", "allNodes", "and:", "isNavigationNode", "inPosition:", "ifEmpty:", "value", "first", "sort:", "asArray", "<=", "dist:", "positionStart"],
 referencedClasses: []
 }),
 globals.Node);
