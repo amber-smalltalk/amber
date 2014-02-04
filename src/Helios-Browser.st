@@ -503,6 +503,10 @@ observeSystem
 		to: self
 !
 
+reselectItem: anItem
+	self model forceSelectedClass: anItem
+!
+
 selectItem: aClass
     self model selectedClass: aClass
 !
@@ -1007,6 +1011,10 @@ observeSystem
 		to: self
 !
 
+reselectItem: anItem
+	self model forceSelectedMethod: anItem
+!
+
 selectItem: aSelector
 	aSelector ifNil: [ ^ self model selectedMethod: nil ].
 
@@ -1192,6 +1200,10 @@ observeSystem
 		to: self
 !
 
+reselectItem: anItem
+	self model forceSelectedPackage: anItem
+!
+
 selectItem: aPackage
 	super selectItem: aPackage.
 	self model selectedPackage: aPackage
@@ -1301,6 +1313,10 @@ observeSystem
 		on: ProtocolRemoved
 		send: #onProtocolRemoved:
 		to: self
+!
+
+reselectItem: anItem
+	self model forceSelectedProtocol: anItem
 !
 
 selectItem: aString

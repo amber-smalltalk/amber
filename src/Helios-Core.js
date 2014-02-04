@@ -507,6 +507,82 @@ globals.HLToolModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "forceSelectedClass:",
+protocol: 'accessing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._selectedClass_(nil);
+$ctx1.sendIdx["selectedClass:"]=1;
+$1=self._selectedClass_(aClass);
+return self}, function($ctx1) {$ctx1.fill(self,"forceSelectedClass:",{aClass:aClass},globals.HLToolModel)})},
+args: ["aClass"],
+source: "forceSelectedClass: aClass\x0a\x09self \x09\x0a\x09\x09selectedClass: nil;\x0a\x09\x09selectedClass: aClass",
+messageSends: ["selectedClass:"],
+referencedClasses: []
+}),
+globals.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "forceSelectedMethod:",
+protocol: 'accessing',
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._selectedMethod_(nil);
+$ctx1.sendIdx["selectedMethod:"]=1;
+$1=self._selectedMethod_(aMethod);
+return self}, function($ctx1) {$ctx1.fill(self,"forceSelectedMethod:",{aMethod:aMethod},globals.HLToolModel)})},
+args: ["aMethod"],
+source: "forceSelectedMethod: aMethod\x0a\x09self \x09\x0a\x09\x09selectedMethod: nil;\x0a\x09\x09selectedMethod: aMethod",
+messageSends: ["selectedMethod:"],
+referencedClasses: []
+}),
+globals.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "forceSelectedPackage:",
+protocol: 'accessing',
+fn: function (aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._selectedPackage_(nil);
+$ctx1.sendIdx["selectedPackage:"]=1;
+$1=self._selectedPackage_(aPackage);
+return self}, function($ctx1) {$ctx1.fill(self,"forceSelectedPackage:",{aPackage:aPackage},globals.HLToolModel)})},
+args: ["aPackage"],
+source: "forceSelectedPackage: aPackage\x0a\x09self \x09\x0a\x09\x09selectedPackage: nil;\x0a\x09\x09selectedPackage: aPackage",
+messageSends: ["selectedPackage:"],
+referencedClasses: []
+}),
+globals.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "forceSelectedProtocol:",
+protocol: 'accessing',
+fn: function (aProtocol){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._selectedProtocol_(nil);
+$ctx1.sendIdx["selectedProtocol:"]=1;
+$1=self._selectedProtocol_(aProtocol);
+return self}, function($ctx1) {$ctx1.fill(self,"forceSelectedProtocol:",{aProtocol:aProtocol},globals.HLToolModel)})},
+args: ["aProtocol"],
+source: "forceSelectedProtocol: aProtocol\x0a\x09self \x09\x0a\x09\x09selectedProtocol: nil;\x0a\x09\x09selectedProtocol: aProtocol",
+messageSends: ["selectedProtocol:"],
+referencedClasses: []
+}),
+globals.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "handleCompileError:",
 protocol: 'error handling',
 fn: function (anError){
@@ -2525,6 +2601,23 @@ globals.HLListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "reactivateListItem:",
+protocol: 'actions',
+fn: function (aListItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._activateListItem_(aListItem);
+self._reselectItem_(self._selectedItem());
+return self}, function($ctx1) {$ctx1.fill(self,"reactivateListItem:",{aListItem:aListItem},globals.HLListWidget)})},
+args: ["aListItem"],
+source: "reactivateListItem: aListItem\x0a\x09self activateListItem: aListItem.\x0a\x09self reselectItem: self selectedItem",
+messageSends: ["activateListItem:", "reselectItem:", "selectedItem"],
+referencedClasses: []
+}),
+globals.HLListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "refresh",
 protocol: 'actions',
 fn: function (){
@@ -2618,15 +2711,15 @@ return self._renderItemLabel_on_(anObject,html);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 $5=_st($4)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
-return self._activateListItem_(_st(li)._asJQuery());
+return self._reactivateListItem_(_st(li)._asJQuery());
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
 return $5;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["with:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"renderItem:on:",{anObject:anObject,html:html,li:li},globals.HLListWidget)})},
 args: ["anObject", "html"],
-source: "renderItem: anObject on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09li asJQuery data: 'item' put: anObject.\x0a    li\x0a\x09\x09class: (self listCssClassForItem: anObject);\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self cssClassForItem: anObject).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: anObject on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ]",
-messageSends: ["li", "data:put:", "asJQuery", "class:", "listCssClassForItem:", "with:", "a", "tag:", "cssClassForItem:", "renderItemLabel:on:", "onClick:", "activateListItem:"],
+source: "renderItem: anObject on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09li asJQuery data: 'item' put: anObject.\x0a    li\x0a\x09\x09class: (self listCssClassForItem: anObject);\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self cssClassForItem: anObject).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: anObject on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self reactivateListItem: li asJQuery ] ]",
+messageSends: ["li", "data:put:", "asJQuery", "class:", "listCssClassForItem:", "with:", "a", "tag:", "cssClassForItem:", "renderItemLabel:on:", "onClick:", "reactivateListItem:"],
 referencedClasses: []
 }),
 globals.HLListWidget);
@@ -2662,6 +2755,20 @@ return self}, function($ctx1) {$ctx1.fill(self,"renderListOn:",{html:html},globa
 args: ["html"],
 source: "renderListOn: html\x0a\x09self items do: [ :each  | \x0a    \x09self renderItem: each  on: html ]",
 messageSends: ["do:", "items", "renderItem:on:"],
+referencedClasses: []
+}),
+globals.HLListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "reselectItem:",
+protocol: 'actions',
+fn: function (anObject){
+var self=this;
+return self},
+args: ["anObject"],
+source: "reselectItem: anObject\x0a\x09",
+messageSends: [],
 referencedClasses: []
 }),
 globals.HLListWidget);
@@ -2722,7 +2829,7 @@ fn: function (){
 var self=this;
 function $HLRepeatedKeyDownHandler(){return globals.HLRepeatedKeyDownHandler||(typeof HLRepeatedKeyDownHandler=="undefined"?nil:HLRepeatedKeyDownHandler)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 $1=_st($HLRepeatedKeyDownHandler())._on_(self);
 _st($1)._whileKeyDown_do_((38),(function(){
 return smalltalk.withContext(function($ctx2) {
@@ -2734,10 +2841,17 @@ return smalltalk.withContext(function($ctx2) {
 return self._activateNextListItem();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $2=_st($1)._rebindKeys();
+_st(_st(self._wrapper())._asJQuery())._keydown_((function(e){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(_st(e)._which()).__eq((13));
+if(smalltalk.assert($3)){
+return self._reselectItem_(self._selectedItem());
+};
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,3)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{},globals.HLListWidget)})},
 args: [],
-source: "setupKeyBindings \x0a\x09(HLRepeatedKeyDownHandler on: self)\x0a\x09\x09whileKeyDown: 38 do: [ self activatePreviousListItem ];\x0a\x09\x09whileKeyDown: 40 do: [ self activateNextListItem ];\x0a\x09\x09rebindKeys",
-messageSends: ["whileKeyDown:do:", "on:", "activatePreviousListItem", "activateNextListItem", "rebindKeys"],
+source: "setupKeyBindings \x0a\x09(HLRepeatedKeyDownHandler on: self)\x0a\x09\x09whileKeyDown: 38 do: [ self activatePreviousListItem ];\x0a\x09\x09whileKeyDown: 40 do: [ self activateNextListItem ];\x0a\x09\x09rebindKeys.\x0a\x09\x09\x0a\x09self wrapper asJQuery keydown: [ :e |\x0a        e which = 13 ifTrue: [ \x0a        \x09self reselectItem: self selectedItem ] ]",
+messageSends: ["whileKeyDown:do:", "on:", "activatePreviousListItem", "activateNextListItem", "rebindKeys", "keydown:", "asJQuery", "wrapper", "ifTrue:", "=", "which", "reselectItem:", "selectedItem"],
 referencedClasses: ["HLRepeatedKeyDownHandler"]
 }),
 globals.HLListWidget);

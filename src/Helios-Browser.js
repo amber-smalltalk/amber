@@ -1964,6 +1964,22 @@ globals.HLClassesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "reselectItem:",
+protocol: 'actions',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._forceSelectedClass_(anItem);
+return self}, function($ctx1) {$ctx1.fill(self,"reselectItem:",{anItem:anItem},globals.HLClassesListWidget)})},
+args: ["anItem"],
+source: "reselectItem: anItem\x0a\x09self model forceSelectedClass: anItem",
+messageSends: ["forceSelectedClass:", "model"],
+referencedClasses: []
+}),
+globals.HLClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "selectItem:",
 protocol: 'actions',
 fn: function (aClass){
@@ -3180,6 +3196,22 @@ globals.HLMethodsListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "reselectItem:",
+protocol: 'actions',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._forceSelectedMethod_(anItem);
+return self}, function($ctx1) {$ctx1.fill(self,"reselectItem:",{anItem:anItem},globals.HLMethodsListWidget)})},
+args: ["anItem"],
+source: "reselectItem: anItem\x0a\x09self model forceSelectedMethod: anItem",
+messageSends: ["forceSelectedMethod:", "model"],
+referencedClasses: []
+}),
+globals.HLMethodsListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "selectItem:",
 protocol: 'actions',
 fn: function (aSelector){
@@ -3562,6 +3594,22 @@ globals.HLPackagesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "reselectItem:",
+protocol: 'actions',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._forceSelectedPackage_(anItem);
+return self}, function($ctx1) {$ctx1.fill(self,"reselectItem:",{anItem:anItem},globals.HLPackagesListWidget)})},
+args: ["anItem"],
+source: "reselectItem: anItem\x0a\x09self model forceSelectedPackage: anItem",
+messageSends: ["forceSelectedPackage:", "model"],
+referencedClasses: []
+}),
+globals.HLPackagesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "selectItem:",
 protocol: 'actions',
 fn: function (aPackage){
@@ -3849,6 +3897,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},gl
 args: ["html"],
 source: "renderContentOn: html\x0a\x09self model showInstance\x0a    \x09ifFalse: [ html div \x0a        \x09class: 'class_side'; \x0a            with: [ super renderContentOn: html ] ]\x0a      \x09ifTrue: [ super renderContentOn: html ]",
 messageSends: ["ifFalse:ifTrue:", "showInstance", "model", "class:", "div", "with:", "renderContentOn:"],
+referencedClasses: []
+}),
+globals.HLProtocolsListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "reselectItem:",
+protocol: 'actions',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._forceSelectedProtocol_(anItem);
+return self}, function($ctx1) {$ctx1.fill(self,"reselectItem:",{anItem:anItem},globals.HLProtocolsListWidget)})},
+args: ["anItem"],
+source: "reselectItem: anItem\x0a\x09self model forceSelectedProtocol: anItem",
+messageSends: ["forceSelectedProtocol:", "model"],
 referencedClasses: []
 }),
 globals.HLProtocolsListWidget);

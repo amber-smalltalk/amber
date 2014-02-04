@@ -122,6 +122,30 @@ availableProtocols
 	^ self environment availableProtocolsFor: self selectedClass
 !
 
+forceSelectedClass: aClass
+	self 	
+		selectedClass: nil;
+		selectedClass: aClass
+!
+
+forceSelectedMethod: aMethod
+	self 	
+		selectedMethod: nil;
+		selectedMethod: aMethod
+!
+
+forceSelectedPackage: aPackage
+	self 	
+		selectedPackage: nil;
+		selectedPackage: aPackage
+!
+
+forceSelectedProtocol: aProtocol
+	self 	
+		selectedProtocol: nil;
+		selectedProtocol: aProtocol
+!
+
 packageToCommit
 	"Answer the package to commit depending on the context:
 	- if a Method is selected, answer its package
@@ -880,9 +904,17 @@ focus
 		self selectedItem ifNil: [ self activateFirstListItem ] ]
 !
 
+reactivateListItem: aListItem
+	self activateListItem: aListItem.
+	self reselectItem: self selectedItem
+!
+
 refresh
 	super refresh.
 	self selectedItem ifNotNil: [self ensureVisible: (self findListItemFor: self selectedItem)].
+!
+
+reselectItem: anObject
 !
 
 selectItem: anObject
@@ -901,7 +933,11 @@ setupKeyBindings
 	(HLRepeatedKeyDownHandler on: self)
 		whileKeyDown: 38 do: [ self activatePreviousListItem ];
 		whileKeyDown: 40 do: [ self activateNextListItem ];
-		rebindKeys
+		rebindKeys.
+		
+	self wrapper asJQuery keydown: [ :e |
+        e which = 13 ifTrue: [ 
+        	self reselectItem: self selectedItem ] ]
 ! !
 
 !HLListWidget methodsFor: 'rendering'!
@@ -932,7 +968,7 @@ renderItem: anObject on: html
             		(html tag: 'i') class: (self cssClassForItem: anObject).
   					self renderItemLabel: anObject on: html ];
 				onClick: [
-                  	self activateListItem: li asJQuery ] ]
+                  	self reactivateListItem: li asJQuery ] ]
 !
 
 renderItemLabel: anObject on: html
