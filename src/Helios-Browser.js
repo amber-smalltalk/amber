@@ -3201,11 +3201,11 @@ protocol: 'actions',
 fn: function (anItem){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._model())._forceSelectedMethod_(anItem);
+_st(self._model())._forceSelectedMethod_(self._methodForSelector_(anItem));
 return self}, function($ctx1) {$ctx1.fill(self,"reselectItem:",{anItem:anItem},globals.HLMethodsListWidget)})},
 args: ["anItem"],
-source: "reselectItem: anItem\x0a\x09self model forceSelectedMethod: anItem",
-messageSends: ["forceSelectedMethod:", "model"],
+source: "reselectItem: anItem\x0a\x09self model forceSelectedMethod: (self methodForSelector: anItem)",
+messageSends: ["forceSelectedMethod:", "model", "methodForSelector:"],
 referencedClasses: []
 }),
 globals.HLMethodsListWidget);
