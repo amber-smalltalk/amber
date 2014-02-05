@@ -44,7 +44,7 @@ smalltalk.addClass('AnnouncerTest', globals.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testOnDo",
-protocol: 'not yet classified',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var counter,announcer;
@@ -79,8 +79,52 @@ globals.AnnouncerTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testOnDoFor",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var counter,announcer;
+function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
+function $SystemAnnouncement(){return globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+counter=(0);
+announcer=_st($Announcer())._new();
+$ctx1.sendIdx["new"]=1;
+_st(announcer)._on_do_for_($SystemAnnouncement(),(function(){
+return smalltalk.withContext(function($ctx2) {
+counter=_st(counter).__plus((1));
+return counter;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),self);
+$1=announcer;
+$2=_st($SystemAnnouncement())._new();
+$ctx1.sendIdx["new"]=2;
+_st($1)._announce_($2);
+$ctx1.sendIdx["announce:"]=1;
+self._assert_equals_(counter,(1));
+$ctx1.sendIdx["assert:equals:"]=1;
+$3=announcer;
+$4=_st($SystemAnnouncement())._new();
+$ctx1.sendIdx["new"]=3;
+_st($3)._announce_($4);
+$ctx1.sendIdx["announce:"]=2;
+self._assert_equals_(counter,(2));
+$ctx1.sendIdx["assert:equals:"]=2;
+_st(announcer)._unsubscribe_(self);
+_st(announcer)._announce_(_st($SystemAnnouncement())._new());
+self._assert_equals_(counter,(2));
+return self}, function($ctx1) {$ctx1.fill(self,"testOnDoFor",{counter:counter,announcer:announcer},globals.AnnouncerTest)})},
+args: [],
+source: "testOnDoFor\x0a\x09| counter announcer |\x0a\x09\x0a\x09counter := 0.\x0a\x09announcer := Announcer new.\x0a\x09announcer on: SystemAnnouncement do: [ counter := counter + 1 ] for: self.\x0a\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 1.\x0a\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 2.\x0a\x09\x0a\x09announcer unsubscribe: self.\x0a\x09\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 2.",
+messageSends: ["new", "on:do:for:", "+", "announce:", "assert:equals:", "unsubscribe:"],
+referencedClasses: ["Announcer", "SystemAnnouncement"]
+}),
+globals.AnnouncerTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testOnDoOnce",
-protocol: 'not yet classified',
+protocol: 'tests',
 fn: function (){
 var self=this;
 var counter,announcer;

@@ -58,6 +58,40 @@ handlesAnnouncement: anAnnouncement
 		(Smalltalk globals at: anAnnouncement class theNonMetaClass name) includesBehavior: class ]
 ! !
 
+Object subclass: #AnnouncementValuable
+	instanceVariableNames: 'valuable receiver'
+	package: 'Kernel-Announcements'!
+!AnnouncementValuable commentStamp!
+I wrap `valuable` objects (typically instances of `BlockClosure`) with a `receiver` to be able to unregister subscriptions based on a `receiver`.!
+
+!AnnouncementValuable methodsFor: 'accessing'!
+
+receiver
+	^ receiver
+!
+
+receiver: anObject
+	receiver := anObject
+!
+
+valuable
+	^ valuable
+!
+
+valuable: anObject
+	valuable := anObject
+! !
+
+!AnnouncementValuable methodsFor: 'evaluating'!
+
+value
+	^ self valuable value
+!
+
+value: anObject
+	^ self valuable value: anObject
+! !
+
 Object subclass: #Announcer
 	instanceVariableNames: 'registry subscriptions'
 	package: 'Kernel-Announcements'!
@@ -98,8 +132,15 @@ initialize
 !Announcer methodsFor: 'subscribing'!
 
 on: aClass do: aBlock
+	self on: aClass do: aBlock for: nil
+!
+
+on: aClass do: aBlock for: aReceiver
 	subscriptions add: (AnnouncementSubscription new
-		valuable: aBlock;
+		valuable: (AnnouncementValuable new
+			valuable: aBlock;
+			receiver: aReceiver;
+			yourself);
 		announcementClass: aClass;
 		yourself)
 !
