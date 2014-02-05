@@ -628,6 +628,10 @@ I provide common methods, additional behavior to widgets useful for Helios, like
 
 !HLWidget methodsFor: 'accessing'!
 
+cssClass
+	^ 'widget'
+!
+
 manager
 	^ HLManager current
 !
@@ -699,7 +703,9 @@ renderContentOn: html
 !
 
 renderOn: html
-	wrapper := html div.
+	wrapper := html div
+		class: self cssClass;
+		yourself.
     [ :renderer | self renderContentOn: renderer ] appendToJQuery: wrapper asJQuery
 ! !
 

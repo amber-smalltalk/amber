@@ -1774,6 +1774,21 @@ globals.HLWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cssClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "widget";
+},
+args: [],
+source: "cssClass\x0a\x09^ 'widget'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "execute:",
 protocol: 'actions',
 fn: function (aCommand){
@@ -1912,15 +1927,19 @@ protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@wrapper"]=_st(html)._div();
+var $1,$2;
+$1=_st(html)._div();
+_st($1)._class_(self._cssClass());
+$2=_st($1)._yourself();
+self["@wrapper"]=$2;
 _st((function(renderer){
 return smalltalk.withContext(function($ctx2) {
 return self._renderContentOn_(renderer);
 }, function($ctx2) {$ctx2.fillBlock({renderer:renderer},$ctx1,1)})}))._appendToJQuery_(_st(self["@wrapper"])._asJQuery());
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.HLWidget)})},
 args: ["html"],
-source: "renderOn: html\x0a\x09wrapper := html div.\x0a    [ :renderer | self renderContentOn: renderer ] appendToJQuery: wrapper asJQuery",
-messageSends: ["div", "appendToJQuery:", "renderContentOn:", "asJQuery"],
+source: "renderOn: html\x0a\x09wrapper := html div\x0a\x09\x09class: self cssClass;\x0a\x09\x09yourself.\x0a    [ :renderer | self renderContentOn: renderer ] appendToJQuery: wrapper asJQuery",
+messageSends: ["class:", "div", "cssClass", "yourself", "appendToJQuery:", "renderContentOn:", "asJQuery"],
 referencedClasses: []
 }),
 globals.HLWidget);
