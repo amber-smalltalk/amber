@@ -1350,11 +1350,6 @@ setupEvents
 
 !HLManager methodsFor: 'rendering'!
 
-refresh
-	'.navbar' asJQuery remove.
-	self appendToJQuery: 'body' asJQuery
-!
-
 renderAddOn: html
     html li 
     	class: 'dropdown';

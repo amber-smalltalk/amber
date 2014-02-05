@@ -3760,26 +3760,6 @@ globals.HLManager);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "refresh",
-protocol: 'rendering',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=".navbar"._asJQuery();
-$ctx1.sendIdx["asJQuery"]=1;
-_st($1)._remove();
-self._appendToJQuery_("body"._asJQuery());
-return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},globals.HLManager)})},
-args: [],
-source: "refresh\x0a\x09'.navbar' asJQuery remove.\x0a\x09self appendToJQuery: 'body' asJQuery",
-messageSends: ["remove", "asJQuery", "appendToJQuery:"],
-referencedClasses: []
-}),
-globals.HLManager);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "registerErrorHandler",
 protocol: 'services',
 fn: function (){
