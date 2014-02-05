@@ -429,13 +429,14 @@ defaultBindings
 
 handleActiveKeyDown: event
 
-	"ESC or ctrl+g deactivate the keyBinder"
+	"ESC, ctrl+g ctrl+space deactivate the keyBinder"
 	(event which = self escapeKey or: [
-		event which = 71 and: [ event ctrlKey ] ])
-        	ifTrue: [ 
-            	self deactivate.
-				event preventDefault.
-				^ false ].
+		(event which = 71 or: [ event which = self activationKey ]) 
+			and: [ event ctrlKey ] ])
+        		ifTrue: [ 
+           			self deactivate.
+					event preventDefault.
+					^ false ].
             
     "Handle the keybinding"
     ^ self handleBindingFor: event
