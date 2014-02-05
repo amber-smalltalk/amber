@@ -1774,6 +1774,22 @@ globals.HLWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "confirm:ifTrue:ifFalse:",
+protocol: 'actions',
+fn: function (aString,aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._manager())._confirm_ifTrue_ifFalse_(aString,aBlock,anotherBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"confirm:ifTrue:ifFalse:",{aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},globals.HLWidget)})},
+args: ["aString", "aBlock", "anotherBlock"],
+source: "confirm: aString ifTrue: aBlock ifFalse: anotherBlock\x0a\x09self manager \x0a\x09\x09confirm: aString \x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: anotherBlock",
+messageSends: ["confirm:ifTrue:ifFalse:", "manager"],
+referencedClasses: []
+}),
+globals.HLWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "cssClass",
 protocol: 'accessing',
 fn: function (){
@@ -3579,18 +3595,14 @@ selector: "confirm:ifFalse:",
 protocol: 'actions',
 fn: function (aString,aBlock){
 var self=this;
-function $HLConfirmationWidget(){return globals.HLConfirmationWidget||(typeof HLConfirmationWidget=="undefined"?nil:HLConfirmationWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st($HLConfirmationWidget())._new();
-_st($1)._confirmationString_(aString);
-_st($1)._cancelBlock_(aBlock);
-$2=_st($1)._show();
+self._confirm_ifTrue_ifFalse_(aString,(function(){
+}),aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"confirm:ifFalse:",{aString:aString,aBlock:aBlock},globals.HLManager)})},
 args: ["aString", "aBlock"],
-source: "confirm: aString ifFalse: aBlock\x0a\x09HLConfirmationWidget new\x0a\x09\x09confirmationString: aString;\x0a\x09\x09cancelBlock: aBlock;\x0a\x09\x09show",
-messageSends: ["confirmationString:", "new", "cancelBlock:", "show"],
-referencedClasses: ["HLConfirmationWidget"]
+source: "confirm: aString ifFalse: aBlock\x0a\x09self \x0a\x09\x09confirm: aString\x0a\x09\x09ifTrue: []\x0a\x09\x09ifFalse: aBlock",
+messageSends: ["confirm:ifTrue:ifFalse:"],
+referencedClasses: []
 }),
 globals.HLManager);
 
@@ -3600,17 +3612,35 @@ selector: "confirm:ifTrue:",
 protocol: 'actions',
 fn: function (aString,aBlock){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._confirm_ifTrue_ifFalse_(aString,aBlock,(function(){
+}));
+return self}, function($ctx1) {$ctx1.fill(self,"confirm:ifTrue:",{aString:aString,aBlock:aBlock},globals.HLManager)})},
+args: ["aString", "aBlock"],
+source: "confirm: aString ifTrue: aBlock\x0a\x09self \x0a\x09\x09confirm: aString\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: []",
+messageSends: ["confirm:ifTrue:ifFalse:"],
+referencedClasses: []
+}),
+globals.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "confirm:ifTrue:ifFalse:",
+protocol: 'actions',
+fn: function (aString,aBlock,anotherBlock){
+var self=this;
 function $HLConfirmationWidget(){return globals.HLConfirmationWidget||(typeof HLConfirmationWidget=="undefined"?nil:HLConfirmationWidget)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st($HLConfirmationWidget())._new();
 _st($1)._confirmationString_(aString);
 _st($1)._actionBlock_(aBlock);
+_st($1)._cancelBlock_(anotherBlock);
 $2=_st($1)._show();
-return self}, function($ctx1) {$ctx1.fill(self,"confirm:ifTrue:",{aString:aString,aBlock:aBlock},globals.HLManager)})},
-args: ["aString", "aBlock"],
-source: "confirm: aString ifTrue: aBlock\x0a\x09HLConfirmationWidget new\x0a\x09\x09confirmationString: aString;\x0a\x09\x09actionBlock: aBlock;\x0a\x09\x09show",
-messageSends: ["confirmationString:", "new", "actionBlock:", "show"],
+return self}, function($ctx1) {$ctx1.fill(self,"confirm:ifTrue:ifFalse:",{aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},globals.HLManager)})},
+args: ["aString", "aBlock", "anotherBlock"],
+source: "confirm: aString ifTrue: aBlock ifFalse: anotherBlock\x0a\x09HLConfirmationWidget new\x0a\x09\x09confirmationString: aString;\x0a\x09\x09actionBlock: aBlock;\x0a\x09\x09cancelBlock: anotherBlock;\x0a\x09\x09show",
+messageSends: ["confirmationString:", "new", "actionBlock:", "cancelBlock:", "show"],
 referencedClasses: ["HLConfirmationWidget"]
 }),
 globals.HLManager);

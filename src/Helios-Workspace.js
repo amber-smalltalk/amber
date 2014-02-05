@@ -1643,24 +1643,26 @@ selector: "onBrowserAboutToChange:",
 protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
-var block;
+var block,currentContents;
 function $HLChangeForbidden(){return globals.HLChangeForbidden||(typeof HLChangeForbidden=="undefined"?nil:HLChangeForbidden)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 block=_st(anAnnouncement)._actionBlock();
+currentContents=self._methodContents();
 $1=self._hasModification();
 if(smalltalk.assert($1)){
-self._confirm_ifTrue_("Changes have not been saved. Do you want to discard these changes?",(function(){
-return smalltalk.withContext(function($ctx2) {
 self._methodContents_(self._contents());
-return _st(block)._value();
+$ctx1.sendIdx["methodContents:"]=1;
+self._confirm_ifTrue_ifFalse_("Changes have not been saved. Do you want to discard these changes?",block,(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._methodContents_(currentContents);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 _st($HLChangeForbidden())._signal();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"onBrowserAboutToChange:",{anAnnouncement:anAnnouncement,block:block},globals.HLBrowserCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onBrowserAboutToChange:",{anAnnouncement:anAnnouncement,block:block,currentContents:currentContents},globals.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
-source: "onBrowserAboutToChange: anAnnouncement\x0a\x09| block |\x0a\x09\x0a\x09block := anAnnouncement actionBlock.\x0a\x09\x0a\x09self hasModification\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self \x0a\x09\x09\x09\x09confirm: 'Changes have not been saved. Do you want to discard these changes?' \x0a\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x22Don't ask twice\x22\x0a\x09\x09\x09\x09\x09self methodContents: self contents.\x0a\x09\x09\x09\x09\x09block value ].\x0a\x09\x09\x09\x0a\x09\x09\x09\x0a\x09\x09\x09HLChangeForbidden signal ]",
-messageSends: ["actionBlock", "ifTrue:", "hasModification", "confirm:ifTrue:", "methodContents:", "contents", "value", "signal"],
+source: "onBrowserAboutToChange: anAnnouncement\x0a\x09| block currentContents |\x0a\x09\x0a\x09block := anAnnouncement actionBlock.\x0a\x09currentContents := self methodContents.\x0a\x09\x0a\x09self hasModification\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09\x22Don't ask twice\x22\x0a\x09\x09\x09self methodContents: self contents.\x0a\x09\x09\x09\x0a\x09\x09\x09self \x0a\x09\x09\x09\x09confirm: 'Changes have not been saved. Do you want to discard these changes?' \x0a\x09\x09\x09\x09ifTrue: block\x0a\x09\x09\x09\x09ifFalse: [ self methodContents: currentContents ].\x0a\x09\x09\x09\x0a\x09\x09\x09\x0a\x09\x09\x09HLChangeForbidden signal ]",
+messageSends: ["actionBlock", "methodContents", "ifTrue:", "hasModification", "methodContents:", "contents", "confirm:ifTrue:ifFalse:", "signal"],
 referencedClasses: ["HLChangeForbidden"]
 }),
 globals.HLBrowserCodeWidget);

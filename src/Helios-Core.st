@@ -650,6 +650,13 @@ confirm: aString ifTrue: aBlock
 	self manager confirm: aString ifTrue: aBlock
 !
 
+confirm: aString ifTrue: aBlock ifFalse: anotherBlock
+	self manager 
+		confirm: aString 
+		ifTrue: aBlock
+		ifFalse: anotherBlock
+!
+
 execute: aCommand
 	HLManager current keyBinder
 		activate;
@@ -1250,16 +1257,24 @@ addToHistory: aTab
 !
 
 confirm: aString ifFalse: aBlock
-	HLConfirmationWidget new
-		confirmationString: aString;
-		cancelBlock: aBlock;
-		show
+	self 
+		confirm: aString
+		ifTrue: []
+		ifFalse: aBlock
 !
 
 confirm: aString ifTrue: aBlock
+	self 
+		confirm: aString
+		ifTrue: aBlock
+		ifFalse: []
+!
+
+confirm: aString ifTrue: aBlock ifFalse: anotherBlock
 	HLConfirmationWidget new
 		confirmationString: aString;
 		actionBlock: aBlock;
+		cancelBlock: anotherBlock;
 		show
 !
 
