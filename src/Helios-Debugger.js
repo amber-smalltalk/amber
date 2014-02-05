@@ -146,6 +146,24 @@ globals.HLDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cssClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(globals.HLDebugger.superclass.fn.prototype._cssClass.apply(_st(self), [])).__comma(" hl_debugger");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"cssClass",{},globals.HLDebugger)})},
+args: [],
+source: "cssClass\x0a\x09^ super cssClass, ' hl_debugger'",
+messageSends: [",", "cssClass"],
+referencedClasses: []
+}),
+globals.HLDebugger);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "focus",
 protocol: 'actions',
 fn: function (){
@@ -162,17 +180,17 @@ globals.HLDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "initializeFromMethodContext:",
-protocol: 'accessing',
-fn: function (aMethodContext){
+selector: "initializeFromError:",
+protocol: 'initialization',
+fn: function (anError){
 var self=this;
 function $HLDebuggerModel(){return globals.HLDebuggerModel||(typeof HLDebuggerModel=="undefined"?nil:HLDebuggerModel)}
 return smalltalk.withContext(function($ctx1) { 
-self["@model"]=_st($HLDebuggerModel())._on_(aMethodContext);
+self["@model"]=_st($HLDebuggerModel())._on_(anError);
 self._observeModel();
-return self}, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:",{aMethodContext:aMethodContext},globals.HLDebugger)})},
-args: ["aMethodContext"],
-source: "initializeFromMethodContext: aMethodContext\x0a\x09model := HLDebuggerModel on: aMethodContext.\x0a\x09self observeModel",
+return self}, function($ctx1) {$ctx1.fill(self,"initializeFromError:",{anError:anError},globals.HLDebugger)})},
+args: ["anError"],
+source: "initializeFromError: anError\x0a\x09model := HLDebuggerModel on: anError.\x0a\x09self observeModel",
 messageSends: ["on:", "observeModel"],
 referencedClasses: ["HLDebuggerModel"]
 }),
@@ -298,6 +316,7 @@ function $HLHorizontalSplitter(){return globals.HLHorizontalSplitter||(typeof HL
 function $HLVerticalSplitter(){return globals.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
+self._renderHeadOn_(html);
 $2=_st($HLHorizontalSplitter())._with_with_(self._stackListWidget(),_st($HLVerticalSplitter())._with_with_(self._codeWidget(),self._inspectorWidget()));
 $ctx1.sendIdx["with:with:"]=1;
 $1=_st($HLContainer())._with_($2);
@@ -305,9 +324,32 @@ _st(html)._with_($1);
 $ctx1.sendIdx["with:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLDebugger)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter\x0a\x09\x09with: self stackListWidget\x0a\x09\x09with: (HLVerticalSplitter\x0a\x09\x09\x09with: self codeWidget\x0a\x09\x09\x09with: self inspectorWidget)))",
-messageSends: ["with:", "with:with:", "stackListWidget", "codeWidget", "inspectorWidget"],
+source: "renderContentOn: html\x0a\x09self renderHeadOn: html.\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter\x0a\x09\x09with: self stackListWidget\x0a\x09\x09with: (HLVerticalSplitter\x0a\x09\x09\x09with: self codeWidget\x0a\x09\x09\x09with: self inspectorWidget)))",
+messageSends: ["renderHeadOn:", "with:", "with:with:", "stackListWidget", "codeWidget", "inspectorWidget"],
 referencedClasses: ["HLContainer", "HLHorizontalSplitter", "HLVerticalSplitter"]
+}),
+globals.HLDebugger);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderHeadOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(html)._div();
+_st($1)._class_("head");
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(html)._h2())._with_(_st(_st(self._model())._error())._messageText());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["with:"]=1;
+return self}, function($ctx1) {$ctx1.fill(self,"renderHeadOn:",{html:html},globals.HLDebugger)})},
+args: ["html"],
+source: "renderHeadOn: html\x0a\x09html div \x0a\x09\x09class: 'head'; \x0a\x09\x09with: [ html h2 with: self model error messageText ]",
+messageSends: ["class:", "div", "with:", "h2", "messageText", "error", "model"],
+referencedClasses: []
 }),
 globals.HLDebugger);
 
@@ -362,19 +404,19 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
 protocol: 'instance creation',
-fn: function (aMethodContext){
+fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=self._new();
-_st($2)._initializeFromMethodContext_(aMethodContext);
+_st($2)._initializeFromError_(anError);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{aMethodContext:aMethodContext},globals.HLDebugger.klass)})},
-args: ["aMethodContext"],
-source: "on: aMethodContext\x0a\x09^ self new\x0a\x09\x09initializeFromMethodContext: aMethodContext;\x0a\x09\x09yourself",
-messageSends: ["initializeFromMethodContext:", "new", "yourself"],
+}, function($ctx1) {$ctx1.fill(self,"on:",{anError:anError},globals.HLDebugger.klass)})},
+args: ["anError"],
+source: "on: anError\x0a\x09^ self new\x0a\x09\x09initializeFromError: anError;\x0a\x09\x09yourself",
+messageSends: ["initializeFromError:", "new", "yourself"],
 referencedClasses: []
 }),
 globals.HLDebugger.klass);
@@ -657,7 +699,7 @@ globals.HLDebuggerCodeWidget);
 
 
 
-smalltalk.addClass('HLDebuggerModel', globals.HLToolModel, ['rootContext', 'currentContext', 'contexts'], 'Helios-Debugger');
+smalltalk.addClass('HLDebuggerModel', globals.HLToolModel, ['rootContext', 'currentContext', 'contexts', 'error'], 'Helios-Debugger');
 globals.HLDebuggerModel.comment="I am a model for debugging Amber code in Helios.\x0a\x0aMy instances hold a reference to an `AIContext` instance, built from a `MethodContext`. The context should be the root of the context stack.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -724,6 +766,38 @@ args: ["aContext"],
 source: "currentContext: aContext\x0a\x09self withChangesDo: [ \x0a\x09\x09self selectedMethod: aContext method.\x0a\x09\x09currentContext := aContext.\x0a\x09\x09self announcer announce: (HLDebuggerContextSelected new\x0a\x09\x09\x09context: aContext;\x0a\x09\x09\x09yourself) ]",
 messageSends: ["withChangesDo:", "selectedMethod:", "method", "announce:", "announcer", "context:", "new", "yourself"],
 referencedClasses: ["HLDebuggerContextSelected"]
+}),
+globals.HLDebuggerModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "error",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@error"];
+return $1;
+},
+args: [],
+source: "error\x0a\x09^ error",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLDebuggerModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "error:",
+protocol: 'accessing',
+fn: function (anError){
+var self=this;
+self["@error"]=anError;
+return self},
+args: ["anError"],
+source: "error: anError\x0a\x09error := anError",
+messageSends: [],
+referencedClasses: []
 }),
 globals.HLDebuggerModel);
 
@@ -808,6 +882,32 @@ return self}, function($ctx1) {$ctx1.fill(self,"initializeFromContext:",{aMethod
 args: ["aMethodContext"],
 source: "initializeFromContext: aMethodContext\x0a\x09rootContext := (AIContext fromMethodContext: aMethodContext).\x0a\x09self initializeContexts",
 messageSends: ["fromMethodContext:", "initializeContexts"],
+referencedClasses: ["AIContext"]
+}),
+globals.HLDebuggerModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeFromError:",
+protocol: 'initialization',
+fn: function (anError){
+var self=this;
+function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self["@error"]=anError;
+_st(console)._log_(self["@error"]);
+$ctx1.sendIdx["log:"]=1;
+$1=console;
+$2=_st(self["@error"])._context();
+$ctx1.sendIdx["context"]=1;
+_st($1)._log_($2);
+self["@rootContext"]=_st($AIContext())._fromMethodContext_(_st(self["@error"])._context());
+self._initializeContexts();
+return self}, function($ctx1) {$ctx1.fill(self,"initializeFromError:",{anError:anError},globals.HLDebuggerModel)})},
+args: ["anError"],
+source: "initializeFromError: anError\x0a\x09error := anError.\x0a\x09console log: error.\x0a\x09console log: error context.\x0a\x09rootContext := (AIContext fromMethodContext: error context).\x0a\x09self initializeContexts",
+messageSends: ["log:", "context", "fromMethodContext:", "initializeContexts"],
 referencedClasses: ["AIContext"]
 }),
 globals.HLDebuggerModel);
@@ -956,19 +1056,19 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
 protocol: 'instance creation',
-fn: function (aMethodContext){
+fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=self._new();
-_st($2)._initializeFromContext_(aMethodContext);
+_st($2)._initializeFromError_(anError);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{aMethodContext:aMethodContext},globals.HLDebuggerModel.klass)})},
-args: ["aMethodContext"],
-source: "on: aMethodContext\x0a\x09^ self new\x0a\x09\x09initializeFromContext: aMethodContext;\x0a\x09\x09yourself",
-messageSends: ["initializeFromContext:", "new", "yourself"],
+}, function($ctx1) {$ctx1.fill(self,"on:",{anError:anError},globals.HLDebuggerModel.klass)})},
+args: ["anError"],
+source: "on: anError\x0a\x09^ self new\x0a\x09\x09initializeFromError: anError;\x0a\x09\x09yourself",
+messageSends: ["initializeFromError:", "new", "yourself"],
 referencedClasses: []
 }),
 globals.HLDebuggerModel.klass);
@@ -977,27 +1077,68 @@ globals.HLDebuggerModel.klass);
 smalltalk.addClass('HLErrorHandler', globals.Object, [], 'Helios-Debugger');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "handleError:",
+selector: "confirmDebugError:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+function $HLConfirmationWidget(){return globals.HLConfirmationWidget||(typeof HLConfirmationWidget=="undefined"?nil:HLConfirmationWidget)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($HLConfirmationWidget())._new();
+_st($1)._confirmationString_(_st(anError)._messageText());
+_st($1)._actionBlock_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._debugError_(anError);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+_st($1)._cancelButtonLabel_("Abandon");
+_st($1)._confirmButtonLabel_("Debug");
+$2=_st($1)._show();
+return self}, function($ctx1) {$ctx1.fill(self,"confirmDebugError:",{anError:anError},globals.HLErrorHandler)})},
+args: ["anError"],
+source: "confirmDebugError: anError\x0a\x09HLConfirmationWidget new\x0a\x09\x09confirmationString: anError messageText;\x0a\x09\x09actionBlock: [ self debugError: anError ];\x0a\x09\x09cancelButtonLabel: 'Abandon';\x0a\x09\x09confirmButtonLabel: 'Debug';\x0a\x09\x09show",
+messageSends: ["confirmationString:", "new", "messageText", "actionBlock:", "debugError:", "cancelButtonLabel:", "confirmButtonLabel:", "show"],
+referencedClasses: ["HLConfirmationWidget"]
+}),
+globals.HLErrorHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "debugError:",
 protocol: 'error handling',
 fn: function (anError){
 var self=this;
 function $HLDebugger(){return globals.HLDebugger||(typeof HLDebugger=="undefined"?nil:HLDebugger)}
 function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
-function $ErrorHandler(){return globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+function $ConsoleErrorHandler(){return globals.ConsoleErrorHandler||(typeof ConsoleErrorHandler=="undefined"?nil:ConsoleErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
-self._onErrorHandled();
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($HLDebugger())._on_(_st(anError)._context()))._openAsTab();
+return _st(_st($HLDebugger())._on_(anError))._openAsTab();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(error){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($ErrorHandler())._new())._handleError_(error);
+return _st(_st($ConsoleErrorHandler())._new())._handleError_(error);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"debugError:",{anError:anError},globals.HLErrorHandler)})},
+args: ["anError"],
+source: "debugError: anError\x0a\x0a\x09[ \x0a\x09\x09(HLDebugger on: anError) openAsTab \x0a\x09] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :error | ConsoleErrorHandler new handleError: error ]",
+messageSends: ["on:do:", "openAsTab", "on:", "handleError:", "new"],
+referencedClasses: ["HLDebugger", "Error", "ConsoleErrorHandler"]
+}),
+globals.HLErrorHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleError:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._confirmDebugError_(anError);
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.HLErrorHandler)})},
 args: ["anError"],
-source: "handleError: anError\x0a\x09self onErrorHandled.\x0a\x0a\x09[ \x0a\x09\x09(HLDebugger on: anError context) openAsTab \x0a\x09] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :error | ErrorHandler new handleError: error ]",
-messageSends: ["onErrorHandled", "on:do:", "openAsTab", "on:", "context", "handleError:", "new"],
-referencedClasses: ["HLDebugger", "Error", "ErrorHandler"]
+source: "handleError: anError\x0a\x09self confirmDebugError: anError",
+messageSends: ["confirmDebugError:"],
+referencedClasses: []
 }),
 globals.HLErrorHandler);
 

@@ -816,3 +816,20 @@ body[id="helios"] .transcript textarea {
   padding: 0;
   border: 0;
 }
+body[id="helios"] .hl_debugger .tool_container {
+  top: 53px;
+}
+body[id="helios"] .hl_debugger .head {
+  position: absolute;
+  top: 23px;
+  width: 100%;
+  background: #464646 url(/images/debugger.png) 10px center no-repeat;
+  border-bottom: 1px solid white;
+}
+body[id="helios"] .hl_debugger .head h2 {
+  font-size: 14px;
+  line-height: 30px;
+  padding: 0 30px;
+  margin: 0;
+  color: white;
+}

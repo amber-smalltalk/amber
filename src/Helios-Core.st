@@ -629,7 +629,7 @@ I provide common methods, additional behavior to widgets useful for Helios, like
 !HLWidget methodsFor: 'accessing'!
 
 cssClass
-	^ 'widget'
+	^ 'hl_widget'
 !
 
 manager
@@ -789,7 +789,7 @@ renderContentOn: html
 
 renderOn: html
     wrapper := html div 
-    	class: 'hl_widget';
+    	class: self cssClass;
 		yourself.
 		
        wrapper with: [ self renderContentOn: html ].

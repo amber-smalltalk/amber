@@ -1778,10 +1778,10 @@ selector: "cssClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "widget";
+return "hl_widget";
 },
 args: [],
-source: "cssClass\x0a\x09^ 'widget'",
+source: "cssClass\x0a\x09^ 'hl_widget'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2241,7 +2241,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$5,$4,$6,$7;
 $1=_st(html)._div();
-_st($1)._class_("hl_widget");
+_st($1)._class_(self._cssClass());
 $2=_st($1)._yourself();
 self["@wrapper"]=$2;
 _st(self["@wrapper"])._with_((function(){
@@ -2266,8 +2266,8 @@ return _st(_st(self._wrapper())._asJQuery())._addClass_(self._focusClass());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.HLFocusableWidget)})},
 args: ["html"],
-source: "renderOn: html\x0a    wrapper := html div \x0a    \x09class: 'hl_widget';\x0a\x09\x09yourself.\x0a\x09\x09\x0a       wrapper with: [ self renderContentOn: html ].\x0a\x09\x0a\x09wrapper\x0a\x09\x09at: 'tabindex' put: '0';\x0a\x09\x09onBlur: [ self wrapper asJQuery removeClass: self focusClass ];\x0a        onFocus: [ self wrapper asJQuery addClass: self focusClass ]",
-messageSends: ["class:", "div", "yourself", "with:", "renderContentOn:", "at:put:", "onBlur:", "removeClass:", "asJQuery", "wrapper", "focusClass", "onFocus:", "addClass:"],
+source: "renderOn: html\x0a    wrapper := html div \x0a    \x09class: self cssClass;\x0a\x09\x09yourself.\x0a\x09\x09\x0a       wrapper with: [ self renderContentOn: html ].\x0a\x09\x0a\x09wrapper\x0a\x09\x09at: 'tabindex' put: '0';\x0a\x09\x09onBlur: [ self wrapper asJQuery removeClass: self focusClass ];\x0a        onFocus: [ self wrapper asJQuery addClass: self focusClass ]",
+messageSends: ["class:", "div", "cssClass", "yourself", "with:", "renderContentOn:", "at:put:", "onBlur:", "removeClass:", "asJQuery", "wrapper", "focusClass", "onFocus:", "addClass:"],
 referencedClasses: []
 }),
 globals.HLFocusableWidget);
