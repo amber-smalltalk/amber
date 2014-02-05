@@ -1,18 +1,21 @@
 Smalltalk createPackage: 'Helios-Inspector'!
 HLNavigationListWidget subclass: #HLInspectorDisplayWidget
-	instanceVariableNames: 'model'
+	instanceVariableNames: 'inspector'
 	package: 'Helios-Inspector'!
 
 !HLInspectorDisplayWidget methodsFor: 'accessing'!
 
-model
-
-	^ model
+inspector
+	^ inspector
 !
 
-model: aModel
+inspector: anInspector
+	inspector := anInspector
+!
 
-	model := aModel
+model
+
+	^ self inspector model
 ! !
 
 !HLInspectorDisplayWidget methodsFor: 'rendering'!
@@ -24,9 +27,9 @@ renderContentOn: html
 
 selectionDisplayString
 	|selection|
-	selection := model selection.
-    ^ (model variables includesKey: selection)
-    	ifTrue:[ (model instVarObjectAt: selection) printString ]
+	selection := self model selection.
+    ^ (self model variables includesKey: selection)
+    	ifTrue:[ (self model instVarObjectAt: selection) printString ]
       	ifFalse:[ '' ]
 ! !
 
@@ -115,7 +118,7 @@ on: anEnvironment
 ! !
 
 HLNavigationListWidget subclass: #HLInspectorVariablesWidget
-	instanceVariableNames: 'announcer model list diveButton'
+	instanceVariableNames: 'announcer inspector list diveButton'
 	package: 'Helios-Inspector'!
 
 !HLInspectorVariablesWidget methodsFor: 'accessing'!
@@ -124,16 +127,20 @@ announcer
 	^ announcer ifNil:[ announcer := Announcer new ]
 !
 
+inspector
+	^ inspector
+!
+
+inspector: anInspector
+	inspector := anInspector
+!
+
 label
 	^ self model label
 !
 
 model
-    ^ model
-!
-
-model: aModel
-    model := aModel
+    ^ self inspector model
 !
 
 selection
@@ -145,6 +152,10 @@ variables
 ! !
 
 !HLInspectorVariablesWidget methodsFor: 'actions'!
+
+dive
+	self announcer announce: HLDiveRequested new
+!
 
 refresh
 	self variables = self items ifFalse: [
@@ -175,12 +186,13 @@ renderButtonsOn: html
 	diveButton := html button 
 		class: 'btn';
 		with: 'Dive'; 
-		onClick: [ self announcer announce: HLDiveRequested new ]
+		onClick: [ self dive ]
 !
 
 renderContentOn: html
 	self renderHeadOn: html.
-	super renderContentOn: html
+	super renderContentOn: html.
+	self wrapper onDblClick: [ self dive ]
 !
 
 renderHeadOn: html
@@ -198,15 +210,15 @@ HLWidget subclass: #HLInspectorWidget
 codeWidget
 	^ codeWidget ifNil: [
 		codeWidget := HLCodeWidget new
-    		model: model code;
-        	receiver: model inspectee;
+    		model: self model code;
+        	receiver: self model inspectee;
         	yourself ]
 !
 
 displayWidget
 	^ displayWidget ifNil: [
 		displayWidget := HLInspectorDisplayWidget new
-    		model: self model;
+    		inspector: self;
         	yourself ]
 !
 
@@ -250,7 +262,7 @@ tabLabel
 variablesWidget
 	^ variablesWidget ifNil: [
 		variablesWidget := HLInspectorVariablesWidget new
-    		model: self model;
+    		inspector: self;
         	yourself ]
 ! !
 
@@ -280,7 +292,9 @@ observeModel
 
 observeVariablesWidget
 	self variablesWidget announcer 
-        on: HLDiveRequested do:[ self onDive ]
+        on: HLDiveRequested 
+		send: #onDive
+		to: self
 !
 
 refresh
@@ -306,7 +320,6 @@ setVariables: aDictionary
 !HLInspectorWidget methodsFor: 'reactions'!
 
 onDive
-
 	HLInspector new 
 		inspect: self model selectedInstVarObject;
 		openAsTab

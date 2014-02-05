@@ -2,19 +2,19 @@ define("amber_core/Helios-Inspector", ["amber_vm/smalltalk", "amber_vm/nil", "am
 smalltalk.addPackage('Helios-Inspector');
 smalltalk.packages["Helios-Inspector"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('HLInspectorDisplayWidget', globals.HLNavigationListWidget, ['model'], 'Helios-Inspector');
+smalltalk.addClass('HLInspectorDisplayWidget', globals.HLNavigationListWidget, ['inspector'], 'Helios-Inspector');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "model",
+selector: "inspector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 var $1;
-$1=self["@model"];
+$1=self["@inspector"];
 return $1;
 },
 args: [],
-source: "model\x0a\x0a\x09^ model",
+source: "inspector\x0a\x09^ inspector",
 messageSends: [],
 referencedClasses: []
 }),
@@ -22,15 +22,33 @@ globals.HLInspectorDisplayWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "model:",
+selector: "inspector:",
 protocol: 'accessing',
-fn: function (aModel){
+fn: function (anInspector){
 var self=this;
-self["@model"]=aModel;
+self["@inspector"]=anInspector;
 return self},
-args: ["aModel"],
-source: "model: aModel\x0a\x0a\x09model := aModel",
+args: ["anInspector"],
+source: "inspector: anInspector\x0a\x09inspector := anInspector",
 messageSends: [],
+referencedClasses: []
+}),
+globals.HLInspectorDisplayWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "model",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._inspector())._model();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"model",{},globals.HLInspectorDisplayWidget)})},
+args: [],
+source: "model\x0a\x0a\x09^ self inspector model",
+messageSends: ["model", "inspector"],
 referencedClasses: []
 }),
 globals.HLInspectorDisplayWidget);
@@ -59,19 +77,24 @@ fn: function (){
 var self=this;
 var selection;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-selection=_st(self["@model"])._selection();
-$2=_st(_st(self["@model"])._variables())._includesKey_(selection);
-if(smalltalk.assert($2)){
-$1=_st(_st(self["@model"])._instVarObjectAt_(selection))._printString();
+var $1,$5,$4,$3,$2;
+$1=self._model();
+$ctx1.sendIdx["model"]=1;
+selection=_st($1)._selection();
+$5=self._model();
+$ctx1.sendIdx["model"]=2;
+$4=_st($5)._variables();
+$3=_st($4)._includesKey_(selection);
+if(smalltalk.assert($3)){
+$2=_st(_st(self._model())._instVarObjectAt_(selection))._printString();
 } else {
-$1="";
+$2="";
 };
-return $1;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"selectionDisplayString",{selection:selection},globals.HLInspectorDisplayWidget)})},
 args: [],
-source: "selectionDisplayString\x0a\x09|selection|\x0a\x09selection := model selection.\x0a    ^ (model variables includesKey: selection)\x0a    \x09ifTrue:[ (model instVarObjectAt: selection) printString ]\x0a      \x09ifFalse:[ '' ]",
-messageSends: ["selection", "ifTrue:ifFalse:", "includesKey:", "variables", "printString", "instVarObjectAt:"],
+source: "selectionDisplayString\x0a\x09|selection|\x0a\x09selection := self model selection.\x0a    ^ (self model variables includesKey: selection)\x0a    \x09ifTrue:[ (self model instVarObjectAt: selection) printString ]\x0a      \x09ifFalse:[ '' ]",
+messageSends: ["selection", "model", "ifTrue:ifFalse:", "includesKey:", "variables", "printString", "instVarObjectAt:"],
 referencedClasses: []
 }),
 globals.HLInspectorDisplayWidget);
@@ -364,7 +387,7 @@ referencedClasses: []
 globals.HLInspectorModel.klass);
 
 
-smalltalk.addClass('HLInspectorVariablesWidget', globals.HLNavigationListWidget, ['announcer', 'model', 'list', 'diveButton'], 'Helios-Inspector');
+smalltalk.addClass('HLInspectorVariablesWidget', globals.HLNavigationListWidget, ['announcer', 'inspector', 'list', 'diveButton'], 'Helios-Inspector');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announcer",
@@ -410,6 +433,55 @@ globals.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "dive",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $HLDiveRequested(){return globals.HLDiveRequested||(typeof HLDiveRequested=="undefined"?nil:HLDiveRequested)}
+return smalltalk.withContext(function($ctx1) { 
+_st(self._announcer())._announce_(_st($HLDiveRequested())._new());
+return self}, function($ctx1) {$ctx1.fill(self,"dive",{},globals.HLInspectorVariablesWidget)})},
+args: [],
+source: "dive\x0a\x09self announcer announce: HLDiveRequested new",
+messageSends: ["announce:", "announcer", "new"],
+referencedClasses: ["HLDiveRequested"]
+}),
+globals.HLInspectorVariablesWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspector",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@inspector"];
+return $1;
+},
+args: [],
+source: "inspector\x0a\x09^ inspector",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLInspectorVariablesWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspector:",
+protocol: 'accessing',
+fn: function (anInspector){
+var self=this;
+self["@inspector"]=anInspector;
+return self},
+args: ["anInspector"],
+source: "inspector: anInspector\x0a\x09inspector := anInspector",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLInspectorVariablesWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "label",
 protocol: 'accessing',
 fn: function (){
@@ -432,28 +504,14 @@ selector: "model",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self["@model"];
+$1=_st(self._inspector())._model();
 return $1;
-},
+}, function($ctx1) {$ctx1.fill(self,"model",{},globals.HLInspectorVariablesWidget)})},
 args: [],
-source: "model\x0a    ^ model",
-messageSends: [],
-referencedClasses: []
-}),
-globals.HLInspectorVariablesWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "model:",
-protocol: 'accessing',
-fn: function (aModel){
-var self=this;
-self["@model"]=aModel;
-return self},
-args: ["aModel"],
-source: "model: aModel\x0a    model := aModel",
-messageSends: [],
+source: "model\x0a    ^ self inspector model",
+messageSends: ["model", "inspector"],
 referencedClasses: []
 }),
 globals.HLInspectorVariablesWidget);
@@ -485,7 +543,6 @@ selector: "renderButtonsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
-function $HLDiveRequested(){return globals.HLDiveRequested||(typeof HLDiveRequested=="undefined"?nil:HLDiveRequested)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st(html)._button();
@@ -493,14 +550,14 @@ _st($1)._class_("btn");
 _st($1)._with_("Dive");
 $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self._announcer())._announce_(_st($HLDiveRequested())._new());
+return self._dive();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 self["@diveButton"]=$2;
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLInspectorVariablesWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09diveButton := html button \x0a\x09\x09class: 'btn';\x0a\x09\x09with: 'Dive'; \x0a\x09\x09onClick: [ self announcer announce: HLDiveRequested new ]",
-messageSends: ["class:", "button", "with:", "onClick:", "announce:", "announcer", "new"],
-referencedClasses: ["HLDiveRequested"]
+source: "renderButtonsOn: html\x0a\x09diveButton := html button \x0a\x09\x09class: 'btn';\x0a\x09\x09with: 'Dive'; \x0a\x09\x09onClick: [ self dive ]",
+messageSends: ["class:", "button", "with:", "onClick:", "dive"],
+referencedClasses: []
 }),
 globals.HLInspectorVariablesWidget);
 
@@ -513,10 +570,14 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._renderHeadOn_(html);
 globals.HLInspectorVariablesWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+_st(self._wrapper())._onDblClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._dive();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLInspectorVariablesWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09self renderHeadOn: html.\x0a\x09super renderContentOn: html",
-messageSends: ["renderHeadOn:", "renderContentOn:"],
+source: "renderContentOn: html\x0a\x09self renderHeadOn: html.\x0a\x09super renderContentOn: html.\x0a\x09self wrapper onDblClick: [ self dive ]",
+messageSends: ["renderHeadOn:", "renderContentOn:", "onDblClick:", "wrapper", "dive"],
 referencedClasses: []
 }),
 globals.HLInspectorVariablesWidget);
@@ -619,14 +680,18 @@ fn: function (){
 var self=this;
 function $HLCodeWidget(){return globals.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
+var $2,$3,$4,$6,$5,$7,$1;
 $2=self["@codeWidget"];
 if(($receiver = $2) == nil || $receiver == null){
 $3=_st($HLCodeWidget())._new();
-_st($3)._model_(_st(self["@model"])._code());
-_st($3)._receiver_(_st(self["@model"])._inspectee());
-$4=_st($3)._yourself();
-self["@codeWidget"]=$4;
+$4=$3;
+$6=self._model();
+$ctx1.sendIdx["model"]=1;
+$5=_st($6)._code();
+_st($4)._model_($5);
+_st($3)._receiver_(_st(self._model())._inspectee());
+$7=_st($3)._yourself();
+self["@codeWidget"]=$7;
 $1=self["@codeWidget"];
 } else {
 $1=$2;
@@ -634,8 +699,8 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"codeWidget",{},globals.HLInspectorWidget)})},
 args: [],
-source: "codeWidget\x0a\x09^ codeWidget ifNil: [\x0a\x09\x09codeWidget := HLCodeWidget new\x0a    \x09\x09model: model code;\x0a        \x09receiver: model inspectee;\x0a        \x09yourself ]",
-messageSends: ["ifNil:", "model:", "new", "code", "receiver:", "inspectee", "yourself"],
+source: "codeWidget\x0a\x09^ codeWidget ifNil: [\x0a\x09\x09codeWidget := HLCodeWidget new\x0a    \x09\x09model: self model code;\x0a        \x09receiver: self model inspectee;\x0a        \x09yourself ]",
+messageSends: ["ifNil:", "model:", "new", "code", "model", "receiver:", "inspectee", "yourself"],
 referencedClasses: ["HLCodeWidget"]
 }),
 globals.HLInspectorWidget);
@@ -652,7 +717,7 @@ var $2,$3,$4,$1;
 $2=self["@displayWidget"];
 if(($receiver = $2) == nil || $receiver == null){
 $3=_st($HLInspectorDisplayWidget())._new();
-_st($3)._model_(self._model());
+_st($3)._inspector_(self);
 $4=_st($3)._yourself();
 self["@displayWidget"]=$4;
 $1=self["@displayWidget"];
@@ -662,8 +727,8 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"displayWidget",{},globals.HLInspectorWidget)})},
 args: [],
-source: "displayWidget\x0a\x09^ displayWidget ifNil: [\x0a\x09\x09displayWidget := HLInspectorDisplayWidget new\x0a    \x09\x09model: self model;\x0a        \x09yourself ]",
-messageSends: ["ifNil:", "model:", "new", "model", "yourself"],
+source: "displayWidget\x0a\x09^ displayWidget ifNil: [\x0a\x09\x09displayWidget := HLInspectorDisplayWidget new\x0a    \x09\x09inspector: self;\x0a        \x09yourself ]",
+messageSends: ["ifNil:", "inspector:", "new", "yourself"],
 referencedClasses: ["HLInspectorDisplayWidget"]
 }),
 globals.HLInspectorWidget);
@@ -848,14 +913,11 @@ fn: function (){
 var self=this;
 function $HLDiveRequested(){return globals.HLDiveRequested||(typeof HLDiveRequested=="undefined"?nil:HLDiveRequested)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self._variablesWidget())._announcer())._on_do_($HLDiveRequested(),(function(){
-return smalltalk.withContext(function($ctx2) {
-return self._onDive();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+_st(_st(self._variablesWidget())._announcer())._on_send_to_($HLDiveRequested(),"onDive",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeVariablesWidget",{},globals.HLInspectorWidget)})},
 args: [],
-source: "observeVariablesWidget\x0a\x09self variablesWidget announcer \x0a        on: HLDiveRequested do:[ self onDive ]",
-messageSends: ["on:do:", "announcer", "variablesWidget", "onDive"],
+source: "observeVariablesWidget\x0a\x09self variablesWidget announcer \x0a        on: HLDiveRequested \x0a\x09\x09send: #onDive\x0a\x09\x09to: self",
+messageSends: ["on:send:to:", "announcer", "variablesWidget"],
 referencedClasses: ["HLDiveRequested"]
 }),
 globals.HLInspectorWidget);
@@ -874,7 +936,7 @@ _st($1)._inspect_(_st(self._model())._selectedInstVarObject());
 $2=_st($1)._openAsTab();
 return self}, function($ctx1) {$ctx1.fill(self,"onDive",{},globals.HLInspectorWidget)})},
 args: [],
-source: "onDive\x0a\x0a\x09HLInspector new \x0a\x09\x09inspect: self model selectedInstVarObject;\x0a\x09\x09openAsTab",
+source: "onDive\x0a\x09HLInspector new \x0a\x09\x09inspect: self model selectedInstVarObject;\x0a\x09\x09openAsTab",
 messageSends: ["inspect:", "new", "selectedInstVarObject", "model", "openAsTab"],
 referencedClasses: ["HLInspector"]
 }),
@@ -1103,7 +1165,7 @@ var $2,$3,$4,$1;
 $2=self["@variablesWidget"];
 if(($receiver = $2) == nil || $receiver == null){
 $3=_st($HLInspectorVariablesWidget())._new();
-_st($3)._model_(self._model());
+_st($3)._inspector_(self);
 $4=_st($3)._yourself();
 self["@variablesWidget"]=$4;
 $1=self["@variablesWidget"];
@@ -1113,8 +1175,8 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"variablesWidget",{},globals.HLInspectorWidget)})},
 args: [],
-source: "variablesWidget\x0a\x09^ variablesWidget ifNil: [\x0a\x09\x09variablesWidget := HLInspectorVariablesWidget new\x0a    \x09\x09model: self model;\x0a        \x09yourself ]",
-messageSends: ["ifNil:", "model:", "new", "model", "yourself"],
+source: "variablesWidget\x0a\x09^ variablesWidget ifNil: [\x0a\x09\x09variablesWidget := HLInspectorVariablesWidget new\x0a    \x09\x09inspector: self;\x0a        \x09yourself ]",
+messageSends: ["ifNil:", "inspector:", "new", "yourself"],
 referencedClasses: ["HLInspectorVariablesWidget"]
 }),
 globals.HLInspectorWidget);
