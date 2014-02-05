@@ -175,6 +175,110 @@ globals.AnnouncementSubscription);
 
 
 
+smalltalk.addClass('AnnouncementValuable', globals.Object, ['valuable', 'receiver'], 'Kernel-Announcements');
+globals.AnnouncementValuable.comment="I wrap `valuable` objects (typically instances of `BlockClosure`) with a `receiver` to be able to unregister subscriptions based on a `receiver`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "receiver",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@receiver"];
+return $1;
+},
+args: [],
+source: "receiver\x0a\x09^ receiver",
+messageSends: [],
+referencedClasses: []
+}),
+globals.AnnouncementValuable);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "receiver:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@receiver"]=anObject;
+return self},
+args: ["anObject"],
+source: "receiver: anObject\x0a\x09receiver := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+globals.AnnouncementValuable);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "valuable",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@valuable"];
+return $1;
+},
+args: [],
+source: "valuable\x0a\x09^ valuable",
+messageSends: [],
+referencedClasses: []
+}),
+globals.AnnouncementValuable);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "valuable:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@valuable"]=anObject;
+return self},
+args: ["anObject"],
+source: "valuable: anObject\x0a\x09valuable := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+globals.AnnouncementValuable);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value",
+protocol: 'evaluating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._valuable())._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value",{},globals.AnnouncementValuable)})},
+args: [],
+source: "value\x0a\x09^ self valuable value",
+messageSends: ["value", "valuable"],
+referencedClasses: []
+}),
+globals.AnnouncementValuable);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value:",
+protocol: 'evaluating',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._valuable())._value_(anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},globals.AnnouncementValuable)})},
+args: ["anObject"],
+source: "value: anObject\x0a\x09^ self valuable value: anObject",
+messageSends: ["value:", "valuable"],
+referencedClasses: []
+}),
+globals.AnnouncementValuable);
+
+
+
 smalltalk.addClass('Announcer', globals.Object, ['registry', 'subscriptions'], 'Kernel-Announcements');
 globals.Announcer.comment="I hold annoncement subscriptions (instances of `AnnouncementSubscription`) in a private registry.\x0aI announce (trigger) announces, which are then dispatched to all subscriptions.\x0a\x0aThe code is based on the announcements as [described by Vassili Bykov](http://www.cincomsmalltalk.com/userblogs/vbykov/blogView?searchCategory=Announcements%20Framework).\x0a\x0a## API\x0a\x0aUse `#announce:` to trigger an announcement.\x0a\x0aUse `#on:do:` or `#on:send:to:` to register subscriptions.\x0a\x0aWhen using `#on:send:to:`, unregistration can be done with `#unregister:`.\x0a\x0a## Usage example:\x0a\x0a    SystemAnnouncer current\x0a        on: ClassAdded\x0a        do: [ :ann | window alert: ann theClass name, ' added' ].";
 smalltalk.addMethod(
@@ -220,19 +324,47 @@ selector: "on:do:",
 protocol: 'subscribing',
 fn: function (aClass,aBlock){
 var self=this;
-function $AnnouncementSubscription(){return globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st($AnnouncementSubscription())._new();
-_st($1)._valuable_(aBlock);
-_st($1)._announcementClass_(aClass);
-$2=_st($1)._yourself();
-_st(self["@subscriptions"])._add_($2);
+self._on_do_for_(aClass,aBlock,nil);
 return self}, function($ctx1) {$ctx1.fill(self,"on:do:",{aClass:aClass,aBlock:aBlock},globals.Announcer)})},
 args: ["aClass", "aBlock"],
-source: "on: aClass do: aBlock\x0a\x09subscriptions add: (AnnouncementSubscription new\x0a\x09\x09valuable: aBlock;\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself)",
-messageSends: ["add:", "valuable:", "new", "announcementClass:", "yourself"],
-referencedClasses: ["AnnouncementSubscription"]
+source: "on: aClass do: aBlock\x0a\x09self on: aClass do: aBlock for: nil",
+messageSends: ["on:do:for:"],
+referencedClasses: []
+}),
+globals.Announcer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:do:for:",
+protocol: 'subscribing',
+fn: function (aClass,aBlock,aReceiver){
+var self=this;
+function $AnnouncementSubscription(){return globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
+function $AnnouncementValuable(){return globals.AnnouncementValuable||(typeof AnnouncementValuable=="undefined"?nil:AnnouncementValuable)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$6,$7,$5,$8,$2;
+$1=self["@subscriptions"];
+$3=_st($AnnouncementSubscription())._new();
+$ctx1.sendIdx["new"]=1;
+$4=$3;
+$6=_st($AnnouncementValuable())._new();
+_st($6)._valuable_(aBlock);
+_st($6)._receiver_(aReceiver);
+$7=_st($6)._yourself();
+$ctx1.sendIdx["yourself"]=1;
+$5=$7;
+_st($4)._valuable_($5);
+$ctx1.sendIdx["valuable:"]=1;
+_st($3)._announcementClass_(aClass);
+$8=_st($3)._yourself();
+$2=$8;
+_st($1)._add_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"on:do:for:",{aClass:aClass,aBlock:aBlock,aReceiver:aReceiver},globals.Announcer)})},
+args: ["aClass", "aBlock", "aReceiver"],
+source: "on: aClass do: aBlock for: aReceiver\x0a\x09subscriptions add: (AnnouncementSubscription new\x0a\x09\x09valuable: (AnnouncementValuable new\x0a\x09\x09\x09valuable: aBlock;\x0a\x09\x09\x09receiver: aReceiver;\x0a\x09\x09\x09yourself);\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself)",
+messageSends: ["add:", "valuable:", "new", "receiver:", "yourself", "announcementClass:"],
+referencedClasses: ["AnnouncementSubscription", "AnnouncementValuable"]
 }),
 globals.Announcer);
 

@@ -503,6 +503,10 @@ observeSystem
 		to: self
 !
 
+reselectItem: anItem
+	self model forceSelectedClass: anItem
+!
+
 selectItem: aClass
     self model selectedClass: aClass
 !
@@ -688,7 +692,7 @@ renderItem: aClass level: anInteger on: html
             		(html tag: 'i') class: (self cssClassForItem: aClass).
   					self renderItemLabel: aClass level: anInteger on: html ];
 				onClick: [
-                  	self activateListItem: li asJQuery ] ].
+                  	self reactivateListItem: li asJQuery ] ].
                     
     (self getChildrenOf: aClass) do: [ :each |
     	self renderItem: each level: anInteger + 1 on: html ]
@@ -1007,6 +1011,10 @@ observeSystem
 		to: self
 !
 
+reselectItem: aSelector
+	self model forceSelectedMethod: (self methodForSelector: aSelector)
+!
+
 selectItem: aSelector
 	aSelector ifNil: [ ^ self model selectedMethod: nil ].
 
@@ -1192,6 +1200,10 @@ observeSystem
 		to: self
 !
 
+reselectItem: anItem
+	self model forceSelectedPackage: anItem
+!
+
 selectItem: aPackage
 	super selectItem: aPackage.
 	self model selectedPackage: aPackage
@@ -1301,6 +1313,10 @@ observeSystem
 		on: ProtocolRemoved
 		send: #onProtocolRemoved:
 		to: self
+!
+
+reselectItem: anItem
+	self model forceSelectedProtocol: anItem
 !
 
 selectItem: aString

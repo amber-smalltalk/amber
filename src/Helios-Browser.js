@@ -1865,7 +1865,7 @@ return self._renderItemLabel_level_on_(aClass,anInteger,html);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 $5=_st($4)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
-return self._activateListItem_(_st(li)._asJQuery());
+return self._reactivateListItem_(_st(li)._asJQuery());
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
 return $5;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
@@ -1876,8 +1876,8 @@ return self._renderItem_level_on_(each,_st(anInteger).__plus((1)),html);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderItem:level:on:",{aClass:aClass,anInteger:anInteger,html:html,li:li},globals.HLClassesListWidget)})},
 args: ["aClass", "anInteger", "html"],
-source: "renderItem: aClass level: anInteger on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09li asJQuery data: 'item' put: aClass.\x0a    li\x0a\x09\x09class: (self listCssClassForItem: aClass);\x0a\x09\x09with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self cssClassForItem: aClass).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: aClass level: anInteger on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ].\x0a                    \x0a    (self getChildrenOf: aClass) do: [ :each |\x0a    \x09self renderItem: each level: anInteger + 1 on: html ]",
-messageSends: ["li", "data:put:", "asJQuery", "class:", "listCssClassForItem:", "with:", "a", "tag:", "cssClassForItem:", "renderItemLabel:level:on:", "onClick:", "activateListItem:", "do:", "getChildrenOf:", "renderItem:level:on:", "+"],
+source: "renderItem: aClass level: anInteger on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09li asJQuery data: 'item' put: aClass.\x0a    li\x0a\x09\x09class: (self listCssClassForItem: aClass);\x0a\x09\x09with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self cssClassForItem: aClass).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: aClass level: anInteger on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self reactivateListItem: li asJQuery ] ].\x0a                    \x0a    (self getChildrenOf: aClass) do: [ :each |\x0a    \x09self renderItem: each level: anInteger + 1 on: html ]",
+messageSends: ["li", "data:put:", "asJQuery", "class:", "listCssClassForItem:", "with:", "a", "tag:", "cssClassForItem:", "renderItemLabel:level:on:", "onClick:", "reactivateListItem:", "do:", "getChildrenOf:", "renderItem:level:on:", "+"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -1958,6 +1958,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"renderListOn:",{html:html},globa
 args: ["html"],
 source: "renderListOn: html\x0a\x09(self getRootClassesOf: self items)\x0a    \x09do: [ :each | self renderItem: each on: html ]",
 messageSends: ["do:", "getRootClassesOf:", "items", "renderItem:on:"],
+referencedClasses: []
+}),
+globals.HLClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "reselectItem:",
+protocol: 'actions',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._forceSelectedClass_(anItem);
+return self}, function($ctx1) {$ctx1.fill(self,"reselectItem:",{anItem:anItem},globals.HLClassesListWidget)})},
+args: ["anItem"],
+source: "reselectItem: anItem\x0a\x09self model forceSelectedClass: anItem",
+messageSends: ["forceSelectedClass:", "model"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -3180,6 +3196,22 @@ globals.HLMethodsListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "reselectItem:",
+protocol: 'actions',
+fn: function (aSelector){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._forceSelectedMethod_(self._methodForSelector_(aSelector));
+return self}, function($ctx1) {$ctx1.fill(self,"reselectItem:",{aSelector:aSelector},globals.HLMethodsListWidget)})},
+args: ["aSelector"],
+source: "reselectItem: aSelector\x0a\x09self model forceSelectedMethod: (self methodForSelector: aSelector)",
+messageSends: ["forceSelectedMethod:", "model", "methodForSelector:"],
+referencedClasses: []
+}),
+globals.HLMethodsListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "selectItem:",
 protocol: 'actions',
 fn: function (aSelector){
@@ -3562,6 +3594,22 @@ globals.HLPackagesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "reselectItem:",
+protocol: 'actions',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._forceSelectedPackage_(anItem);
+return self}, function($ctx1) {$ctx1.fill(self,"reselectItem:",{anItem:anItem},globals.HLPackagesListWidget)})},
+args: ["anItem"],
+source: "reselectItem: anItem\x0a\x09self model forceSelectedPackage: anItem",
+messageSends: ["forceSelectedPackage:", "model"],
+referencedClasses: []
+}),
+globals.HLPackagesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "selectItem:",
 protocol: 'actions',
 fn: function (aPackage){
@@ -3849,6 +3897,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},gl
 args: ["html"],
 source: "renderContentOn: html\x0a\x09self model showInstance\x0a    \x09ifFalse: [ html div \x0a        \x09class: 'class_side'; \x0a            with: [ super renderContentOn: html ] ]\x0a      \x09ifTrue: [ super renderContentOn: html ]",
 messageSends: ["ifFalse:ifTrue:", "showInstance", "model", "class:", "div", "with:", "renderContentOn:"],
+referencedClasses: []
+}),
+globals.HLProtocolsListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "reselectItem:",
+protocol: 'actions',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._forceSelectedProtocol_(anItem);
+return self}, function($ctx1) {$ctx1.fill(self,"reselectItem:",{anItem:anItem},globals.HLProtocolsListWidget)})},
+args: ["anItem"],
+source: "reselectItem: anItem\x0a\x09self model forceSelectedProtocol: anItem",
+messageSends: ["forceSelectedProtocol:", "model"],
 referencedClasses: []
 }),
 globals.HLProtocolsListWidget);

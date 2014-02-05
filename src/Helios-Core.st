@@ -39,7 +39,8 @@ systemAnnouncer
 withChangesDo: aBlock
 	[ 
 		self announcer announce: (HLAboutToChange new
-			actionBlock: aBlock).
+			actionBlock: aBlock;
+			yourself).
 		aBlock value.
 	]
 		on: HLChangeForbidden 
@@ -120,6 +121,34 @@ availablePackages
 
 availableProtocols
 	^ self environment availableProtocolsFor: self selectedClass
+!
+
+forceSelectedClass: aClass
+	self withChangesDo: [
+		self 	
+			selectedClass: nil;
+			selectedClass: aClass ]
+!
+
+forceSelectedMethod: aMethod
+	self withChangesDo: [
+		self 	
+			selectedMethod: nil;
+			selectedMethod: aMethod ]
+!
+
+forceSelectedPackage: aPackage
+	self withChangesDo: [
+		self 	
+			selectedPackage: nil;
+			selectedPackage: aPackage ]
+!
+
+forceSelectedProtocol: aProtocol
+	self withChangesDo: [
+		self 	
+			selectedProtocol: nil;
+			selectedProtocol: aProtocol ]
 !
 
 packageToCommit
@@ -604,6 +633,10 @@ I provide common methods, additional behavior to widgets useful for Helios, like
 
 !HLWidget methodsFor: 'accessing'!
 
+cssClass
+	^ 'hl_widget'
+!
+
 manager
 	^ HLManager current
 !
@@ -620,6 +653,13 @@ wrapper
 
 confirm: aString ifTrue: aBlock
 	self manager confirm: aString ifTrue: aBlock
+!
+
+confirm: aString ifTrue: aBlock ifFalse: anotherBlock
+	self manager 
+		confirm: aString 
+		ifTrue: aBlock
+		ifFalse: anotherBlock
 !
 
 execute: aCommand
@@ -675,7 +715,9 @@ renderContentOn: html
 !
 
 renderOn: html
-	wrapper := html div.
+	wrapper := html div
+		class: self cssClass;
+		yourself.
     [ :renderer | self renderContentOn: renderer ] appendToJQuery: wrapper asJQuery
 ! !
 
@@ -759,7 +801,7 @@ renderContentOn: html
 
 renderOn: html
     wrapper := html div 
-    	class: 'hl_widget';
+    	class: self cssClass;
 		yourself.
 		
        wrapper with: [ self renderContentOn: html ].
@@ -880,9 +922,17 @@ focus
 		self selectedItem ifNil: [ self activateFirstListItem ] ]
 !
 
+reactivateListItem: aListItem
+	self activateListItem: aListItem.
+	self reselectItem: self selectedItem
+!
+
 refresh
 	super refresh.
 	self selectedItem ifNotNil: [self ensureVisible: (self findListItemFor: self selectedItem)].
+!
+
+reselectItem: anObject
 !
 
 selectItem: anObject
@@ -901,7 +951,11 @@ setupKeyBindings
 	(HLRepeatedKeyDownHandler on: self)
 		whileKeyDown: 38 do: [ self activatePreviousListItem ];
 		whileKeyDown: 40 do: [ self activateNextListItem ];
-		rebindKeys
+		rebindKeys.
+		
+	self wrapper asJQuery keydown: [ :e |
+        e which = 13 ifTrue: [ 
+        	self reselectItem: self selectedItem ] ]
 ! !
 
 !HLListWidget methodsFor: 'rendering'!
@@ -932,7 +986,7 @@ renderItem: anObject on: html
             		(html tag: 'i') class: (self cssClassForItem: anObject).
   					self renderItemLabel: anObject on: html ];
 				onClick: [
-                  	self activateListItem: li asJQuery ] ]
+                  	self reactivateListItem: li asJQuery ] ]
 !
 
 renderItemLabel: anObject on: html
@@ -1052,6 +1106,10 @@ observeModel
 !
 
 observeSystem
+!
+
+reactivateListItem: anItem
+	self model withChangesDo: [ super reactivateListItem: anItem ]
 !
 
 unregister
@@ -1208,16 +1266,24 @@ addToHistory: aTab
 !
 
 confirm: aString ifFalse: aBlock
-	HLConfirmationWidget new
-		confirmationString: aString;
-		cancelBlock: aBlock;
-		show
+	self 
+		confirm: aString
+		ifTrue: []
+		ifFalse: aBlock
 !
 
 confirm: aString ifTrue: aBlock
+	self 
+		confirm: aString
+		ifTrue: aBlock
+		ifFalse: []
+!
+
+confirm: aString ifTrue: aBlock ifFalse: anotherBlock
 	HLConfirmationWidget new
 		confirmationString: aString;
 		actionBlock: aBlock;
+		cancelBlock: anotherBlock;
 		show
 !
 
@@ -1307,11 +1373,6 @@ setupEvents
 ! !
 
 !HLManager methodsFor: 'rendering'!
-
-refresh
-	'.navbar' asJQuery remove.
-	self appendToJQuery: 'body' asJQuery
-!
 
 renderAddOn: html
     html li 
@@ -1419,15 +1480,27 @@ new
 ! !
 
 HLWidget subclass: #HLModalWidget
-	instanceVariableNames: ''
+	instanceVariableNames: 'confirmButtonLabel cancelButtonLabel'
 	package: 'Helios-Core'!
 !HLModalWidget commentStamp!
 I implement an abstract modal widget.!
 
 !HLModalWidget methodsFor: 'accessing'!
 
-cssClass
-	^ ''
+cancelButtonLabel
+	^ cancelButtonLabel ifNil: [ 'Cancel' ]
+!
+
+cancelButtonLabel: anObject
+	cancelButtonLabel := anObject
+!
+
+confirmButtonLabel
+	^ confirmButtonLabel ifNil: [ 'Confirm' ]
+!
+
+confirmButtonLabel: anObject
+	confirmButtonLabel := anObject
 ! !
 
 !HLModalWidget methodsFor: 'actions'!
@@ -1445,7 +1518,7 @@ remove
 	'.dialog' asJQuery removeClass: 'active'.
 	[ 
 		'#overlay' asJQuery remove.
-		'.dialog' asJQuery remove
+		wrapper asJQuery remove
 	] valueWithTimeout: 300
 !
 
@@ -1473,11 +1546,11 @@ renderButtonsOn: html
 		with: [
 			html button
 				class: 'button';
-				with: 'Cancel';
+				with: self cancelButtonLabel;
 				onClick: [ self cancel ].
 			confirmButton := html button
 				class: 'button default';
-				with: 'Confirm';
+				with: self confirmButtonLabel;
 				onClick: [ self confirm ] ].
 
 	self giveFocusToButton:confirmButton
@@ -1487,6 +1560,7 @@ renderContentOn: html
 	| confirmButton |
 	
 	html div id: 'overlay'.
+	
 	html div 
 		class: 'dialog ', self cssClass;
 		with: [

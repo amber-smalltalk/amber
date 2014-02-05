@@ -1240,29 +1240,38 @@ protocol: 'events',
 fn: function (event){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$4;
+var $3,$2,$6,$5,$4,$1,$7;
 $3=_st(event)._which();
 $ctx1.sendIdx["which"]=1;
 $2=_st($3).__eq(self._escapeKey());
 $ctx1.sendIdx["="]=1;
 $1=_st($2)._or_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(event)._which()).__eq((71)))._and_((function(){
+$6=_st(event)._which();
+$ctx2.sendIdx["which"]=2;
+$5=_st($6).__eq((71));
+$ctx2.sendIdx["="]=2;
+$4=_st($5)._or_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(event)._which()).__eq(self._activationKey());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+return _st($4)._and_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(event)._ctrlKey();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["or:"]=1;
 if(smalltalk.assert($1)){
 self._deactivate();
 _st(event)._preventDefault();
 return false;
 };
-$4=self._handleBindingFor_(event);
-return $4;
+$7=self._handleBindingFor_(event);
+return $7;
 }, function($ctx1) {$ctx1.fill(self,"handleActiveKeyDown:",{event:event},globals.HLKeyBinder)})},
 args: ["event"],
-source: "handleActiveKeyDown: event\x0a\x0a\x09\x22ESC or ctrl+g deactivate the keyBinder\x22\x0a\x09(event which = self escapeKey or: [\x0a\x09\x09event which = 71 and: [ event ctrlKey ] ])\x0a        \x09ifTrue: [ \x0a            \x09self deactivate.\x0a\x09\x09\x09\x09event preventDefault.\x0a\x09\x09\x09\x09^ false ].\x0a            \x0a    \x22Handle the keybinding\x22\x0a    ^ self handleBindingFor: event",
-messageSends: ["ifTrue:", "or:", "=", "which", "escapeKey", "and:", "ctrlKey", "deactivate", "preventDefault", "handleBindingFor:"],
+source: "handleActiveKeyDown: event\x0a\x0a\x09\x22ESC, ctrl+g ctrl+space deactivate the keyBinder\x22\x0a\x09(event which = self escapeKey or: [\x0a\x09\x09(event which = 71 or: [ event which = self activationKey ]) \x0a\x09\x09\x09and: [ event ctrlKey ] ])\x0a        \x09\x09ifTrue: [ \x0a           \x09\x09\x09self deactivate.\x0a\x09\x09\x09\x09\x09event preventDefault.\x0a\x09\x09\x09\x09\x09^ false ].\x0a            \x0a    \x22Handle the keybinding\x22\x0a    ^ self handleBindingFor: event",
+messageSends: ["ifTrue:", "or:", "=", "which", "escapeKey", "and:", "activationKey", "ctrlKey", "deactivate", "preventDefault", "handleBindingFor:"],
 referencedClasses: []
 }),
 globals.HLKeyBinder);
@@ -1583,11 +1592,11 @@ $1=_st(".".__comma(self._cssClass()))._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
 _st($1)._remove();
 $ctx1.sendIdx["remove"]=1;
-_st("#overlay"._asJQuery())._remove();
+_st(".helper_overlay"._asJQuery())._remove();
 self._showCog();
 return self}, function($ctx1) {$ctx1.fill(self,"hide",{},globals.HLKeyBinderHelperWidget)})},
 args: [],
-source: "hide\x0a\x09('.', self cssClass) asJQuery remove.\x0a\x09'#overlay' asJQuery remove.\x0a\x09self showCog",
+source: "hide\x0a\x09('.', self cssClass) asJQuery remove.\x0a\x09'.helper_overlay' asJQuery remove.\x0a\x09self showCog",
 messageSends: ["remove", "asJQuery", ",", "cssClass", "showCog"],
 referencedClasses: []
 }),
@@ -1793,7 +1802,7 @@ $1=_st(html)._div();
 $ctx1.sendIdx["div"]=1;
 _st($1)._id_("overlay");
 $ctx1.sendIdx["id:"]=1;
-_st($1)._class_("light");
+_st($1)._class_("helper_overlay");
 $ctx1.sendIdx["class:"]=1;
 $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -1818,7 +1827,7 @@ $ctx1.sendIdx["with:"]=1;
 _st(":focus"._asJQuery())._blur();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLKeyBinderHelperWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09id: 'overlay';\x0a\x09\x09class: 'light';\x0a\x09\x09onClick: [ self deactivate ].\x0a\x09\x0a\x09html div class: self cssClass; with: [\x0a      \x09self renderLabelOn: html.\x0a\x09\x09html div\x0a\x09\x09\x09id: self mainId;\x0a\x09\x09\x09with: [ self renderSelectedBindingOn: html ].\x0a\x09\x09self renderCloseOn: html ].\x0a\x09\x09\x0a\x09':focus' asJQuery blur",
+source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09id: 'overlay';\x0a\x09\x09class: 'helper_overlay';\x0a\x09\x09onClick: [ self deactivate ].\x0a\x09\x0a\x09html div class: self cssClass; with: [\x0a      \x09self renderLabelOn: html.\x0a\x09\x09html div\x0a\x09\x09\x09id: self mainId;\x0a\x09\x09\x09with: [ self renderSelectedBindingOn: html ].\x0a\x09\x09self renderCloseOn: html ].\x0a\x09\x09\x0a\x09':focus' asJQuery blur",
 messageSends: ["id:", "div", "class:", "onClick:", "deactivate", "cssClass", "with:", "renderLabelOn:", "mainId", "renderSelectedBindingOn:", "renderCloseOn:", "blur", "asJQuery"],
 referencedClasses: []
 }),

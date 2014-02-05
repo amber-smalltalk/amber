@@ -51,34 +51,12 @@ I am the main widget for the Helios debugger.!
 
 !HLDebugger methodsFor: 'accessing'!
 
-codeWidget
-	^ codeWidget ifNil: [ codeWidget := HLDebuggerCodeWidget new
-		model: (HLDebuggerCodeModel new
-			debuggerModel: self model;
-			yourself);
-		browserModel: self model;
-		yourself ]
-!
-
-initializeFromMethodContext: aMethodContext
-	model := HLDebuggerModel on: aMethodContext.
-	self observeModel
-!
-
-inspectorWidget
-	^ inspectorWidget ifNil: [ 
-		inspectorWidget := HLInspectorWidget new ]
+cssClass
+	^ super cssClass, ' hl_debugger'
 !
 
 model
 	^ model ifNil: [ model := HLDebuggerModel new ]
-!
-
-stackListWidget
-	^ stackListWidget ifNil: [ 
-		stackListWidget := (HLStackListWidget on: self model)
-			next: self codeWidget;
-			yourself ]
 ! !
 
 !HLDebugger methodsFor: 'actions'!
@@ -104,6 +82,13 @@ unregister
 	self inspectorWidget unregister
 ! !
 
+!HLDebugger methodsFor: 'initialization'!
+
+initializeFromError: anError
+	model := HLDebuggerModel on: anError.
+	self observeModel
+! !
+
 !HLDebugger methodsFor: 'keybindings'!
 
 registerBindingsOn: aBindingGroup
@@ -121,11 +106,41 @@ onContextSelected: anAnnouncement
 !HLDebugger methodsFor: 'rendering'!
 
 renderContentOn: html
+	self renderHeadOn: html.
 	html with: (HLContainer with: (HLHorizontalSplitter
 		with: self stackListWidget
 		with: (HLVerticalSplitter
 			with: self codeWidget
 			with: self inspectorWidget)))
+!
+
+renderHeadOn: html
+	html div 
+		class: 'head'; 
+		with: [ html h2 with: self model error messageText ]
+! !
+
+!HLDebugger methodsFor: 'widgets'!
+
+codeWidget
+	^ codeWidget ifNil: [ codeWidget := HLDebuggerCodeWidget new
+		model: (HLDebuggerCodeModel new
+			debuggerModel: self model;
+			yourself);
+		browserModel: self model;
+		yourself ]
+!
+
+inspectorWidget
+	^ inspectorWidget ifNil: [ 
+		inspectorWidget := HLInspectorWidget new ]
+!
+
+stackListWidget
+	^ stackListWidget ifNil: [ 
+		stackListWidget := (HLStackListWidget on: self model)
+			next: self codeWidget;
+			yourself ]
 ! !
 
 !HLDebugger class methodsFor: 'accessing'!
@@ -140,9 +155,9 @@ tabLabel
 
 !HLDebugger class methodsFor: 'instance creation'!
 
-on: aMethodContext
+on: anError
 	^ self new
-		initializeFromMethodContext: aMethodContext;
+		initializeFromError: anError;
 		yourself
 ! !
 
@@ -163,7 +178,11 @@ debuggerModel: anObject
 !HLDebuggerCodeModel methodsFor: 'actions'!
 
 doIt: aString
-	^ self debuggerModel evaluate: aString
+	^ self 
+		try: [ self debuggerModel evaluate: aString ]
+		catch: [ :e | 
+			ErrorHandler handleError: e.
+			nil ]
 ! !
 
 HLBrowserCodeWidget subclass: #HLDebuggerCodeWidget
@@ -239,7 +258,7 @@ onContextSelected
 ! !
 
 HLToolModel subclass: #HLDebuggerModel
-	instanceVariableNames: 'rootContext currentContext contexts'
+	instanceVariableNames: 'rootContext currentContext contexts error'
 	package: 'Helios-Debugger'!
 !HLDebuggerModel commentStamp!
 I am a model for debugging Amber code in Helios.
@@ -264,6 +283,14 @@ currentContext: aContext
 		self announcer announce: (HLDebuggerContextSelected new
 			context: aContext;
 			yourself) ]
+!
+
+error
+	^ error
+!
+
+error: anError
+	error := anError
 !
 
 interpreter
@@ -337,6 +364,14 @@ initializeContexts
 initializeFromContext: aMethodContext
 	rootContext := (AIContext fromMethodContext: aMethodContext).
 	self initializeContexts
+!
+
+initializeFromError: anError
+	error := anError.
+	console log: error.
+	console log: error context.
+	rootContext := (AIContext fromMethodContext: error context).
+	self initializeContexts
 ! !
 
 !HLDebuggerModel methodsFor: 'private'!
@@ -352,9 +387,9 @@ flushInnerContexts
 
 !HLDebuggerModel class methodsFor: 'instance creation'!
 
-on: aMethodContext
+on: anError
 	^ self new
-		initializeFromContext: aMethodContext;
+		initializeFromError: anError;
 		yourself
 ! !
 
@@ -364,14 +399,26 @@ Object subclass: #HLErrorHandler
 
 !HLErrorHandler methodsFor: 'error handling'!
 
-handleError: anError
-	self onErrorHandled.
+confirmDebugError: anError
+	HLConfirmationWidget new
+		confirmationString: anError messageText;
+		actionBlock: [ self debugError: anError ];
+		cancelButtonLabel: 'Abandon';
+		confirmButtonLabel: 'Debug';
+		show
+!
+
+debugError: anError
 
 	[ 
-		(HLDebugger on: anError context) openAsTab 
+		(HLDebugger on: anError) openAsTab 
 	] 
 		on: Error 
-		do: [ :error | ErrorHandler new handleError: error ]
+		do: [ :error | ConsoleErrorHandler new handleError: error ]
+!
+
+handleError: anError
+	self confirmDebugError: anError
 !
 
 onErrorHandled

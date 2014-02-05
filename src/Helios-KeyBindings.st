@@ -429,13 +429,14 @@ defaultBindings
 
 handleActiveKeyDown: event
 
-	"ESC or ctrl+g deactivate the keyBinder"
+	"ESC, ctrl+g ctrl+space deactivate the keyBinder"
 	(event which = self escapeKey or: [
-		event which = 71 and: [ event ctrlKey ] ])
-        	ifTrue: [ 
-            	self deactivate.
-				event preventDefault.
-				^ false ].
+		(event which = 71 or: [ event which = self activationKey ]) 
+			and: [ event ctrlKey ] ])
+        		ifTrue: [ 
+           			self deactivate.
+					event preventDefault.
+					^ false ].
             
     "Handle the keybinding"
     ^ self handleBindingFor: event
@@ -542,7 +543,7 @@ deactivate
 
 hide
 	('.', self cssClass) asJQuery remove.
-	'#overlay' asJQuery remove.
+	'.helper_overlay' asJQuery remove.
 	self showCog
 !
 
@@ -607,7 +608,7 @@ renderCog
 renderContentOn: html
 	html div 
 		id: 'overlay';
-		class: 'light';
+		class: 'helper_overlay';
 		onClick: [ self deactivate ].
 	
 	html div class: self cssClass; with: [

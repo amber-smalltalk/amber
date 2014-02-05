@@ -536,6 +536,7 @@ body[id="helios"] .key_helper .command strong {
 body[id="helios"] .key_helper #binding-helper-main {
   display: block;
   padding: 5px;
+  background: #eee;
 }
 body[id="helios"] .key_helper .label {
   padding: 1px 4px;
@@ -625,15 +626,12 @@ body[id="helios"] #helper {
 }
 body[id="helios"] #overlay {
   z-index: 2000;
-  background: rgba(112, 66, 20, 0.1);
+  background: transparent;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-}
-body[id="helios"] #overlay.light {
-  background: rgba(50, 50, 50, 0.1);
 }
 body[id="helios"] .confirmation,
 body[id="helios"] .dialog {
@@ -650,10 +648,10 @@ body[id="helios"] .dialog {
   left: 50%;
   margin-left: -135px;
   box-shadow: 0 0 6px #333;
-  transition: top .5s;
-  -webkit-transition: top .5s;
-  -moz-transition: top .5s;
-  -o-transition: top .5s;
+  transition: top .2s;
+  -webkit-transition: top .2s;
+  -moz-transition: top .2s;
+  -o-transition: top .2s;
 }
 body[id="helios"] .confirmation .hl_widget .form-actions,
 body[id="helios"] .dialog .hl_widget .form-actions {
@@ -815,4 +813,21 @@ body[id="helios"] .transcript textarea {
   margin: 0;
   padding: 0;
   border: 0;
+}
+body[id="helios"] .hl_debugger .tool_container {
+  top: 53px;
+}
+body[id="helios"] .hl_debugger .head {
+  position: absolute;
+  top: 23px;
+  width: 100%;
+  background: #0088cc url(/images/debugger.png) 10px center no-repeat;
+  border-bottom: 1px solid white;
+}
+body[id="helios"] .hl_debugger .head h2 {
+  font-size: 14px;
+  line-height: 30px;
+  padding: 0 30px;
+  margin: 0;
+  color: white;
 }

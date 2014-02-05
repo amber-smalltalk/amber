@@ -26,7 +26,7 @@ TestCase subclass: #AnnouncerTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!AnnouncerTest methodsFor: 'not yet classified'!
+!AnnouncerTest methodsFor: 'tests'!
 
 testOnDo
 	| counter announcer |
@@ -38,6 +38,25 @@ testOnDo
 	announcer announce: (SystemAnnouncement new).
 	self assert: counter equals: 1.
 
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 2.
+!
+
+testOnDoFor
+	| counter announcer |
+	
+	counter := 0.
+	announcer := Announcer new.
+	announcer on: SystemAnnouncement do: [ counter := counter + 1 ] for: self.
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 1.
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 2.
+	
+	announcer unsubscribe: self.
+	
 	announcer announce: (SystemAnnouncement new).
 	self assert: counter equals: 2.
 !
