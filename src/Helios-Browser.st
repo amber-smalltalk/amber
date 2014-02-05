@@ -692,7 +692,7 @@ renderItem: aClass level: anInteger on: html
             		(html tag: 'i') class: (self cssClassForItem: aClass).
   					self renderItemLabel: aClass level: anInteger on: html ];
 				onClick: [
-                  	self activateListItem: li asJQuery ] ].
+                  	self reactivateListItem: li asJQuery ] ].
                     
     (self getChildrenOf: aClass) do: [ :each |
     	self renderItem: each level: anInteger + 1 on: html ]
