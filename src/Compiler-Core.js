@@ -687,30 +687,6 @@ globals.Compiler.klass);
 
 smalltalk.addClass('DoIt', globals.Object, [], 'Compiler-Core');
 globals.DoIt.comment="`DoIt` is the class used to compile and evaluate expressions. See `Compiler >> evaluateExpression:`.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "foo",
-protocol: 'tests',
-fn: function (){
-var self=this;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st($Array())._new();
-_st($2)._add_((3));
-$ctx1.sendIdx["add:"]=1;
-_st($2)._add_((4));
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"foo",{},globals.DoIt)})},
-args: [],
-source: "foo ^ Array new add: 3; add: 4; yourself",
-messageSends: ["add:", "new", "yourself"],
-referencedClasses: ["Array"]
-}),
-globals.DoIt);
-
 
 
 smalltalk.addClass('NodeVisitor', globals.Object, [], 'Compiler-Core');
