@@ -1011,8 +1011,8 @@ observeSystem
 		to: self
 !
 
-reselectItem: anItem
-	self model forceSelectedMethod: anItem
+reselectItem: aSelector
+	self model forceSelectedMethod: (self methodForSelector: aSelector)
 !
 
 selectItem: aSelector

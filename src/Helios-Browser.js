@@ -3198,14 +3198,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "reselectItem:",
 protocol: 'actions',
-fn: function (anItem){
+fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._model())._forceSelectedMethod_(anItem);
-return self}, function($ctx1) {$ctx1.fill(self,"reselectItem:",{anItem:anItem},globals.HLMethodsListWidget)})},
-args: ["anItem"],
-source: "reselectItem: anItem\x0a\x09self model forceSelectedMethod: anItem",
-messageSends: ["forceSelectedMethod:", "model"],
+_st(self._model())._forceSelectedMethod_(self._methodForSelector_(aSelector));
+return self}, function($ctx1) {$ctx1.fill(self,"reselectItem:",{aSelector:aSelector},globals.HLMethodsListWidget)})},
+args: ["aSelector"],
+source: "reselectItem: aSelector\x0a\x09self model forceSelectedMethod: (self methodForSelector: aSelector)",
+messageSends: ["forceSelectedMethod:", "model", "methodForSelector:"],
 referencedClasses: []
 }),
 globals.HLMethodsListWidget);
