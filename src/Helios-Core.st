@@ -39,7 +39,8 @@ systemAnnouncer
 withChangesDo: aBlock
 	[ 
 		self announcer announce: (HLAboutToChange new
-			actionBlock: aBlock).
+			actionBlock: aBlock;
+			yourself).
 		aBlock value.
 	]
 		on: HLChangeForbidden 
@@ -123,27 +124,31 @@ availableProtocols
 !
 
 forceSelectedClass: aClass
-	self 	
-		selectedClass: nil;
-		selectedClass: aClass
+	self withChangesDo: [
+		self 	
+			selectedClass: nil;
+			selectedClass: aClass ]
 !
 
 forceSelectedMethod: aMethod
-	self 	
-		selectedMethod: nil;
-		selectedMethod: aMethod
+	self withChangesDo: [
+		self 	
+			selectedMethod: nil;
+			selectedMethod: aMethod ]
 !
 
 forceSelectedPackage: aPackage
-	self 	
-		selectedPackage: nil;
-		selectedPackage: aPackage
+	self withChangesDo: [
+		self 	
+			selectedPackage: nil;
+			selectedPackage: aPackage ]
 !
 
 forceSelectedProtocol: aProtocol
-	self 	
-		selectedProtocol: nil;
-		selectedProtocol: aProtocol
+	self withChangesDo: [
+		self 	
+			selectedProtocol: nil;
+			selectedProtocol: aProtocol ]
 !
 
 packageToCommit
@@ -1101,6 +1106,10 @@ observeModel
 !
 
 observeSystem
+!
+
+reactivateListItem: anItem
+	self model withChangesDo: [ super reactivateListItem: anItem ]
 !
 
 unregister

@@ -158,16 +158,20 @@ var self=this;
 function $HLAboutToChange(){return globals.HLAboutToChange||(typeof HLAboutToChange=="undefined"?nil:HLAboutToChange)}
 function $HLChangeForbidden(){return globals.HLChangeForbidden||(typeof HLChangeForbidden=="undefined"?nil:HLChangeForbidden)}
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-_st(self._announcer())._announce_(_st(_st($HLAboutToChange())._new())._actionBlock_(aBlock));
+$1=_st($HLAboutToChange())._new();
+_st($1)._actionBlock_(aBlock);
+$2=_st($1)._yourself();
+_st(self._announcer())._announce_($2);
 return _st(aBlock)._value();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($HLChangeForbidden(),(function(ex){
 }));
 return self}, function($ctx1) {$ctx1.fill(self,"withChangesDo:",{aBlock:aBlock},globals.HLModel)})},
 args: ["aBlock"],
-source: "withChangesDo: aBlock\x0a\x09[ \x0a\x09\x09self announcer announce: (HLAboutToChange new\x0a\x09\x09\x09actionBlock: aBlock).\x0a\x09\x09aBlock value.\x0a\x09]\x0a\x09\x09on: HLChangeForbidden \x0a\x09\x09do: [ :ex | ]",
-messageSends: ["on:do:", "announce:", "announcer", "actionBlock:", "new", "value"],
+source: "withChangesDo: aBlock\x0a\x09[ \x0a\x09\x09self announcer announce: (HLAboutToChange new\x0a\x09\x09\x09actionBlock: aBlock;\x0a\x09\x09\x09yourself).\x0a\x09\x09aBlock value.\x0a\x09]\x0a\x09\x09on: HLChangeForbidden \x0a\x09\x09do: [ :ex | ]",
+messageSends: ["on:do:", "announce:", "announcer", "actionBlock:", "new", "yourself", "value"],
 referencedClasses: ["HLAboutToChange", "HLChangeForbidden"]
 }),
 globals.HLModel);
@@ -513,13 +517,17 @@ fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
+self._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
 self._selectedClass_(nil);
-$ctx1.sendIdx["selectedClass:"]=1;
+$ctx2.sendIdx["selectedClass:"]=1;
 $1=self._selectedClass_(aClass);
+return $1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"forceSelectedClass:",{aClass:aClass},globals.HLToolModel)})},
 args: ["aClass"],
-source: "forceSelectedClass: aClass\x0a\x09self \x09\x0a\x09\x09selectedClass: nil;\x0a\x09\x09selectedClass: aClass",
-messageSends: ["selectedClass:"],
+source: "forceSelectedClass: aClass\x0a\x09self withChangesDo: [\x0a\x09\x09self \x09\x0a\x09\x09\x09selectedClass: nil;\x0a\x09\x09\x09selectedClass: aClass ]",
+messageSends: ["withChangesDo:", "selectedClass:"],
 referencedClasses: []
 }),
 globals.HLToolModel);
@@ -532,13 +540,17 @@ fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
+self._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
 self._selectedMethod_(nil);
-$ctx1.sendIdx["selectedMethod:"]=1;
+$ctx2.sendIdx["selectedMethod:"]=1;
 $1=self._selectedMethod_(aMethod);
+return $1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"forceSelectedMethod:",{aMethod:aMethod},globals.HLToolModel)})},
 args: ["aMethod"],
-source: "forceSelectedMethod: aMethod\x0a\x09self \x09\x0a\x09\x09selectedMethod: nil;\x0a\x09\x09selectedMethod: aMethod",
-messageSends: ["selectedMethod:"],
+source: "forceSelectedMethod: aMethod\x0a\x09self withChangesDo: [\x0a\x09\x09self \x09\x0a\x09\x09\x09selectedMethod: nil;\x0a\x09\x09\x09selectedMethod: aMethod ]",
+messageSends: ["withChangesDo:", "selectedMethod:"],
 referencedClasses: []
 }),
 globals.HLToolModel);
@@ -551,13 +563,17 @@ fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
+self._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
 self._selectedPackage_(nil);
-$ctx1.sendIdx["selectedPackage:"]=1;
+$ctx2.sendIdx["selectedPackage:"]=1;
 $1=self._selectedPackage_(aPackage);
+return $1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"forceSelectedPackage:",{aPackage:aPackage},globals.HLToolModel)})},
 args: ["aPackage"],
-source: "forceSelectedPackage: aPackage\x0a\x09self \x09\x0a\x09\x09selectedPackage: nil;\x0a\x09\x09selectedPackage: aPackage",
-messageSends: ["selectedPackage:"],
+source: "forceSelectedPackage: aPackage\x0a\x09self withChangesDo: [\x0a\x09\x09self \x09\x0a\x09\x09\x09selectedPackage: nil;\x0a\x09\x09\x09selectedPackage: aPackage ]",
+messageSends: ["withChangesDo:", "selectedPackage:"],
 referencedClasses: []
 }),
 globals.HLToolModel);
@@ -570,13 +586,17 @@ fn: function (aProtocol){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
+self._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
 self._selectedProtocol_(nil);
-$ctx1.sendIdx["selectedProtocol:"]=1;
+$ctx2.sendIdx["selectedProtocol:"]=1;
 $1=self._selectedProtocol_(aProtocol);
+return $1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"forceSelectedProtocol:",{aProtocol:aProtocol},globals.HLToolModel)})},
 args: ["aProtocol"],
-source: "forceSelectedProtocol: aProtocol\x0a\x09self \x09\x0a\x09\x09selectedProtocol: nil;\x0a\x09\x09selectedProtocol: aProtocol",
-messageSends: ["selectedProtocol:"],
+source: "forceSelectedProtocol: aProtocol\x0a\x09self withChangesDo: [\x0a\x09\x09self \x09\x0a\x09\x09\x09selectedProtocol: nil;\x0a\x09\x09\x09selectedProtocol: aProtocol ]",
+messageSends: ["withChangesDo:", "selectedProtocol:"],
 referencedClasses: []
 }),
 globals.HLToolModel);
@@ -3238,6 +3258,25 @@ return self},
 args: [],
 source: "observeSystem",
 messageSends: [],
+referencedClasses: []
+}),
+globals.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "reactivateListItem:",
+protocol: 'actions',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return globals.HLToolListWidget.superclass.fn.prototype._reactivateListItem_.apply(_st(self), [anItem]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"reactivateListItem:",{anItem:anItem},globals.HLToolListWidget)})},
+args: ["anItem"],
+source: "reactivateListItem: anItem\x0a\x09self model withChangesDo: [ super reactivateListItem: anItem ]",
+messageSends: ["withChangesDo:", "model", "reactivateListItem:"],
 referencedClasses: []
 }),
 globals.HLToolListWidget);

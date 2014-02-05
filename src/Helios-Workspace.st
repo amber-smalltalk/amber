@@ -653,20 +653,18 @@ unregister
 !HLBrowserCodeWidget methodsFor: 'reactions'!
 
 onBrowserAboutToChange: anAnnouncement
-	| block currentContents |
+	| block |
 	
 	block := anAnnouncement actionBlock.
-	currentContents := self methodContents.
 	
 	self hasModification
 		ifTrue: [
-			"Don't ask twice"
-			self methodContents: self contents.
-			
 			self 
 				confirm: 'Changes have not been saved. Do you want to discard these changes?' 
-				ifTrue: block
-				ifFalse: [ self methodContents: currentContents ].
+				ifTrue: [
+					"Don't ask twice"
+					self methodContents: self contents.
+					block value ].
 			
 			
 			HLChangeForbidden signal ]
