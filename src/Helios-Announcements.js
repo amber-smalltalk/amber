@@ -114,6 +114,9 @@ referencedClasses: []
 globals.HLCodeHandled.klass);
 
 
+smalltalk.addClass('HLBrowseItRequested', globals.HLCodeHandled, [], 'Helios-Announcements');
+
+
 smalltalk.addClass('HLDoItExecuted', globals.HLCodeHandled, [], 'Helios-Announcements');
 globals.HLDoItExecuted.comment="I am emitted by a `HLCodeWidget` after a DoIt has been executed.";
 

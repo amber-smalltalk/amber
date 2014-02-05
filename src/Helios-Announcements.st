@@ -56,6 +56,10 @@ on: aCodeModel
         yourself
 ! !
 
+HLCodeHandled subclass: #HLBrowseItRequested
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 HLCodeHandled subclass: #HLDoItExecuted
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!

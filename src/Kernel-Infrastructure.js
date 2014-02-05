@@ -329,6 +329,23 @@ globals.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "browse:",
+protocol: 'actions',
+fn: function (anObject){
+var self=this;
+function $Browser(){return globals.Browser||(typeof Browser=="undefined"?nil:Browser)}
+return smalltalk.withContext(function($ctx1) { 
+_st($Browser())._openOn_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"browse:",{anObject:anObject},globals.Environment)})},
+args: ["anObject"],
+source: "browse: anObject\x0a\x09Browser openOn: anObject",
+messageSends: ["openOn:"],
+referencedClasses: ["Browser"]
+}),
+globals.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "classBuilder",
 protocol: 'accessing',
 fn: function (){
@@ -2206,6 +2223,63 @@ referencedClasses: []
 globals.Service.klass);
 
 
+smalltalk.addClass('Browser', globals.Service, [], 'Kernel-Infrastructure');
+globals.Browser.comment="I am the service responsible for displaying information about the classes in your system.\x0a\x0a*Deprecation warning: For backwards compatibility I support `Browser new open` or `Browser new openOn: aThing`. Do no rely on this functionality. Please use `Browser open` or `Browser openOn: aThing`.*";
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "new",
+protocol: 'backwards compatibility',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._deprecatedAPI();
+return self;
+}, function($ctx1) {$ctx1.fill(self,"new",{},globals.Browser.klass)})},
+args: [],
+source: "new\x0a\x09\x22Use Browser#open or Browser#openOn:\x22\x0a\x09self deprecatedAPI.\x0a\x09^ self",
+messageSends: ["deprecatedAPI"],
+referencedClasses: []
+}),
+globals.Browser.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "open",
+protocol: 'browsing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._current())._open();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"open",{},globals.Browser.klass)})},
+args: [],
+source: "open\x0a\x09^ self current open",
+messageSends: ["open", "current"],
+referencedClasses: []
+}),
+globals.Browser.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "openOn:",
+protocol: 'browsing',
+fn: function (aThing){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._current())._openOn_(aThing);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"openOn:",{aThing:aThing},globals.Browser.klass)})},
+args: ["aThing"],
+source: "openOn: aThing\x0a\x09^ self current openOn: aThing",
+messageSends: ["openOn:", "current"],
+referencedClasses: []
+}),
+globals.Browser.klass);
+
+
 smalltalk.addClass('ErrorHandler', globals.Service, [], 'Kernel-Infrastructure');
 globals.ErrorHandler.comment="I am the service used to handle Smalltalk errors.\x0aSee `boot.js` `handleError()` function.\x0a\x0aRegistered service instances must implement `#handleError:` to perform an action on the thrown exception.";
 
@@ -2324,6 +2398,25 @@ messageSends: ["do:on:displaying:", "current"],
 referencedClasses: []
 }),
 globals.ProgressHandler.klass);
+
+
+smalltalk.addClass('References', globals.Service, [], 'Kernel-Infrastructure');
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "search:",
+protocol: 'searching',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._current())._search_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString},globals.References.klass)})},
+args: ["aString"],
+source: "search: aString\x0a\x09self current search: aString",
+messageSends: ["search:", "current"],
+referencedClasses: []
+}),
+globals.References.klass);
 
 
 smalltalk.addClass('Transcript', globals.Service, [], 'Kernel-Infrastructure');

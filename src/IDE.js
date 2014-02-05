@@ -1936,2075 +1936,6 @@ referencedClasses: []
 globals.TabWidget.klass);
 
 
-smalltalk.addClass('Browser', globals.TabWidget, ['selectedPackage', 'selectedClass', 'selectedProtocol', 'selectedMethod', 'packagesList', 'classesList', 'protocolsList', 'methodsList', 'sourceArea', 'tabsList', 'selectedTab', 'saveButton', 'classButtons', 'methodButtons', 'unsavedChanges'], 'IDE');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "addInstanceVariableNamed:toClass:",
-protocol: 'actions',
-fn: function (aString,aClass){
-var self=this;
-function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
-$1=_st($ClassBuilder())._new();
-$2=_st(aClass)._superclass();
-$3=_st(aClass)._name();
-$ctx1.sendIdx["name"]=1;
-$4=_st(_st(aClass)._instanceVariableNames())._copy();
-_st($4)._add_(aString);
-$5=_st($4)._yourself();
-_st($1)._addSubclassOf_named_instanceVariableNames_package_($2,$3,$5,_st(_st(aClass)._package())._name());
-return self}, function($ctx1) {$ctx1.fill(self,"addInstanceVariableNamed:toClass:",{aString:aString,aClass:aClass},globals.Browser)})},
-args: ["aString", "aClass"],
-source: "addInstanceVariableNamed: aString toClass: aClass\x0a\x09ClassBuilder new\x0a\x09\x09addSubclassOf: aClass superclass\x0a\x09\x09named: aClass name\x0a\x09\x09instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)\x0a\x09\x09package: aClass package name",
-messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "new", "superclass", "name", "add:", "copy", "instanceVariableNames", "yourself", "package"],
-referencedClasses: ["ClassBuilder"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "addNewClass",
-protocol: 'actions',
-fn: function (){
-var self=this;
-var className;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-className=self._prompt_("New class");
-$1=_st(_st(className)._notNil())._and_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(className)._notEmpty();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-if(smalltalk.assert($1)){
-_st($Object())._subclass_instanceVariableNames_package_(className,"",self._selectedPackage());
-self._resetClassesList();
-$2=self._updateClassesList();
-$2;
-self._selectClass_(_st(_st($Smalltalk())._globals())._at_(className));
-};
-return self}, function($ctx1) {$ctx1.fill(self,"addNewClass",{className:className},globals.Browser)})},
-args: [],
-source: "addNewClass\x0a\x09| className |\x0a\x09className := self prompt: 'New class'.\x0a\x09(className notNil and: [ className notEmpty ]) ifTrue: [\x0a\x09\x09Object subclass: className instanceVariableNames: '' package: self selectedPackage.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk globals at: className) ]",
-messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "subclass:instanceVariableNames:package:", "selectedPackage", "resetClassesList", "updateClassesList", "selectClass:", "at:", "globals"],
-referencedClasses: ["Object", "Smalltalk"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "addNewProtocol",
-protocol: 'actions',
-fn: function (){
-var self=this;
-var newProtocol;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-newProtocol=self._prompt_("New method protocol");
-$1=_st(_st(newProtocol)._notNil())._and_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(newProtocol)._notEmpty();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-if(smalltalk.assert($1)){
-_st(self["@selectedMethod"])._protocol_(newProtocol);
-self._setMethodProtocol_(newProtocol);
-};
-return self}, function($ctx1) {$ctx1.fill(self,"addNewProtocol",{newProtocol:newProtocol},globals.Browser)})},
-args: [],
-source: "addNewProtocol\x0a\x09| newProtocol |\x0a\x09\x0a\x09newProtocol := self prompt: 'New method protocol'.\x0a\x09\x0a\x09(newProtocol notNil and: [ newProtocol notEmpty ]) ifTrue: [\x0a\x09\x09selectedMethod protocol: newProtocol.\x0a\x09\x09self setMethodProtocol: newProtocol ]",
-messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "protocol:", "setMethodProtocol:"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "canBeClosed",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return true;
-},
-args: [],
-source: "canBeClosed\x0a\x09^ true",
-messageSends: [],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "cancelChanges",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@unsavedChanges"];
-if(smalltalk.assert($2)){
-$1=self._confirm_("Cancel changes?");
-} else {
-$1=true;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"cancelChanges",{},globals.Browser)})},
-args: [],
-source: "cancelChanges\x0a\x09^ unsavedChanges\x0a\x09ifTrue: [ self confirm: 'Cancel changes?' ]\x0a\x09ifFalse: [ true ]",
-messageSends: ["ifTrue:ifFalse:", "confirm:"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "classCommentSource",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self["@selectedClass"])._comment();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"classCommentSource",{},globals.Browser)})},
-args: [],
-source: "classCommentSource\x0a\x09^ selectedClass comment",
-messageSends: ["comment"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "classDeclarationSource",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var stream;
-function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$6,$7,$5,$8,$9,$10,$11,$12,$13;
-stream=""._writeStream();
-$1=self["@selectedClass"];
-if(($receiver = $1) == nil || $receiver == null){
-$2=self._classDeclarationTemplate();
-return $2;
-} else {
-$1;
-};
-$3=stream;
-_st($3)._nextPutAll_(_st(_st(self["@selectedClass"])._superclass())._asString());
-$ctx1.sendIdx["nextPutAll:"]=1;
-_st($3)._nextPutAll_(" subclass: #");
-$ctx1.sendIdx["nextPutAll:"]=2;
-_st($3)._nextPutAll_(_st(self["@selectedClass"])._name());
-$ctx1.sendIdx["nextPutAll:"]=3;
-$4=$3;
-$6=_st($String())._lf();
-$ctx1.sendIdx["lf"]=1;
-$7=_st($String())._tab();
-$ctx1.sendIdx["tab"]=1;
-$5=_st($6).__comma($7);
-$ctx1.sendIdx[","]=1;
-_st($4)._nextPutAll_($5);
-$ctx1.sendIdx["nextPutAll:"]=4;
-$8=_st($3)._nextPutAll_("instanceVariableNames: '");
-$ctx1.sendIdx["nextPutAll:"]=5;
-_st(_st(self["@selectedClass"])._instanceVariableNames())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(stream)._nextPutAll_(each);
-$ctx2.sendIdx["nextPutAll:"]=6;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(stream)._nextPutAll_(" ");
-$ctx2.sendIdx["nextPutAll:"]=7;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
-$9=stream;
-$10=$9;
-$11=_st("'".__comma(_st($String())._lf())).__comma(_st($String())._tab());
-$ctx1.sendIdx[","]=2;
-_st($10)._nextPutAll_($11);
-$ctx1.sendIdx["nextPutAll:"]=8;
-_st($9)._nextPutAll_("package: '");
-$ctx1.sendIdx["nextPutAll:"]=9;
-_st($9)._nextPutAll_(_st(self["@selectedClass"])._category());
-$ctx1.sendIdx["nextPutAll:"]=10;
-$12=_st($9)._nextPutAll_("'");
-$13=_st(stream)._contents();
-return $13;
-}, function($ctx1) {$ctx1.fill(self,"classDeclarationSource",{stream:stream},globals.Browser)})},
-args: [],
-source: "classDeclarationSource\x0a\x09| stream |\x0a\x09stream := '' writeStream.\x0a\x09selectedClass ifNil: [ ^ self classDeclarationTemplate ].\x0a\x09stream\x0a\x09\x09nextPutAll: selectedClass superclass asString;\x0a\x09\x09nextPutAll: ' subclass: #';\x0a\x09\x09nextPutAll: selectedClass name;\x0a\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09nextPutAll: 'instanceVariableNames: '''.\x0a\x09selectedClass instanceVariableNames\x0a\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ' ' ].\x0a\x09stream\x0a\x09\x09nextPutAll: '''', String lf, String tab;\x0a\x09\x09nextPutAll: 'package: ''';\x0a\x09\x09nextPutAll: selectedClass category;\x0a\x09\x09nextPutAll: ''''.\x0a\x09^ stream contents",
-messageSends: ["writeStream", "ifNil:", "classDeclarationTemplate", "nextPutAll:", "asString", "superclass", "name", ",", "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category", "contents"],
-referencedClasses: ["String"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "classDeclarationTemplate",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st("Object subclass: #NameOfSubclass\x0a\x09instanceVariableNames: ''\x0a\x09package: '".__comma(self._selectedPackage())).__comma("'");
-$ctx1.sendIdx[","]=1;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"classDeclarationTemplate",{},globals.Browser)})},
-args: [],
-source: "classDeclarationTemplate\x0a\x09^ 'Object subclass: #NameOfSubclass\x0a\x09instanceVariableNames: ''''\x0a\x09package: ''', self selectedPackage, ''''",
-messageSends: [",", "selectedPackage"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "classes",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$1=_st(_st(_st(_st($Smalltalk())._classes())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._category()).__eq(self["@selectedPackage"]);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._sort_((function(a,b){
-return smalltalk.withContext(function($ctx2) {
-$2=_st(a)._name();
-$ctx2.sendIdx["name"]=1;
-return _st($2).__lt(_st(b)._name());
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,2)})})))._asSet();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"classes",{},globals.Browser)})},
-args: [],
-source: "classes\x0a\x09^ ((Smalltalk classes\x0a\x09select: [ :each | each category = selectedPackage ])\x0a\x09sort: [ :a :b | a name < b name ]) asSet",
-messageSends: ["asSet", "sort:", "select:", "classes", "=", "category", "<", "name"],
-referencedClasses: ["Smalltalk"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPackage",
-protocol: 'actions',
-fn: function (){
-var self=this;
-function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@selectedPackage"];
-if(($receiver = $1) == nil || $receiver == null){
-$1;
-} else {
-_st(_st($Package())._named_(self["@selectedPackage"]))._commit();
-};
-return self}, function($ctx1) {$ctx1.fill(self,"commitPackage",{},globals.Browser)})},
-args: [],
-source: "commitPackage\x0a\x09selectedPackage ifNotNil: [\x0a\x09\x09(Package named: selectedPackage) commit ]",
-messageSends: ["ifNotNil:", "commit", "named:"],
-referencedClasses: ["Package"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "compile",
-protocol: 'actions',
-fn: function (){
-var self=this;
-var currentEditLine;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4;
-self._disableSaveButton();
-$1=_st(self["@sourceArea"])._editor();
-$ctx1.sendIdx["editor"]=1;
-currentEditLine=_st($1)._getCursor();
-$2=_st(self["@selectedTab"]).__eq("comment");
-if(smalltalk.assert($2)){
-$3=self["@selectedClass"];
-if(($receiver = $3) == nil || $receiver == null){
-$3;
-} else {
-self._compileClassComment();
-};
-} else {
-$5=_st(self["@selectedProtocol"])._notNil();
-$ctx1.sendIdx["notNil"]=1;
-$4=_st($5)._or_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self["@selectedMethod"])._notNil();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
-if(smalltalk.assert($4)){
-self._compileMethodDefinition();
-} else {
-self._compileDefinition();
-};
-};
-_st(_st(self["@sourceArea"])._editor())._setCursor_(currentEditLine);
-return self}, function($ctx1) {$ctx1.fill(self,"compile",{currentEditLine:currentEditLine},globals.Browser)})},
-args: [],
-source: "compile\x0a\x09| currentEditLine |\x0a\x09self disableSaveButton.\x0a\x09currentEditLine := sourceArea editor getCursor.\x0a\x09selectedTab = #comment\x0a\x09ifTrue: [\x0a\x09\x09\x09selectedClass ifNotNil: [\x0a\x09\x09\x09\x09self compileClassComment ]]\x0a\x09ifFalse: [\x0a\x09\x09\x09(selectedProtocol notNil or: [ selectedMethod notNil ])\x0a\x09\x09\x09\x09ifFalse: [ self compileDefinition ]\x0a\x09\x09\x09\x09ifTrue: [ self compileMethodDefinition ]].\x0a\x09sourceArea editor setCursor: currentEditLine.",
-messageSends: ["disableSaveButton", "getCursor", "editor", "ifTrue:ifFalse:", "=", "ifNotNil:", "compileClassComment", "ifFalse:ifTrue:", "or:", "notNil", "compileDefinition", "compileMethodDefinition", "setCursor:"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "compileClassComment",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self["@selectedClass"])._comment_(_st(self["@sourceArea"])._val());
-return self}, function($ctx1) {$ctx1.fill(self,"compileClassComment",{},globals.Browser)})},
-args: [],
-source: "compileClassComment\x0a\x09selectedClass comment: sourceArea val",
-messageSends: ["comment:", "val"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "compileDefinition",
-protocol: 'actions',
-fn: function (){
-var self=this;
-var newClass;
-function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-newClass=_st(_st($Compiler())._new())._evaluateExpression_(_st(self["@sourceArea"])._val());
-self._resetClassesList();
-self._updateCategoriesList();
-$1=self._updateClassesList();
-self._selectClass_(newClass);
-return self}, function($ctx1) {$ctx1.fill(self,"compileDefinition",{newClass:newClass},globals.Browser)})},
-args: [],
-source: "compileDefinition\x0a\x09| newClass |\x0a\x09newClass := Compiler new evaluateExpression: sourceArea val.\x0a\x09self\x0a\x09resetClassesList;\x0a\x09updateCategoriesList;\x0a\x09updateClassesList.\x0a\x09self selectClass: newClass",
-messageSends: ["evaluateExpression:", "new", "val", "resetClassesList", "updateCategoriesList", "updateClassesList", "selectClass:"],
-referencedClasses: ["Compiler"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "compileMethodDefinition",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self["@selectedTab"]).__eq("instance");
-if(smalltalk.assert($1)){
-self._compileMethodDefinitionFor_(self["@selectedClass"]);
-$ctx1.sendIdx["compileMethodDefinitionFor:"]=1;
-} else {
-self._compileMethodDefinitionFor_(_st(self["@selectedClass"])._class());
-};
-return self}, function($ctx1) {$ctx1.fill(self,"compileMethodDefinition",{},globals.Browser)})},
-args: [],
-source: "compileMethodDefinition\x0a\x09selectedTab = #instance\x0a\x09ifTrue: [ self compileMethodDefinitionFor: selectedClass ]\x0a\x09ifFalse: [ self compileMethodDefinitionFor: selectedClass class ]",
-messageSends: ["ifTrue:ifFalse:", "=", "compileMethodDefinitionFor:", "class"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "compileMethodDefinitionFor:",
-protocol: 'actions',
-fn: function (aClass){
-var self=this;
-var compiler,method,source,node;
-function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
-function $PlatformInterface(){return globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
-function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$6,$5,$4,$3,$7,$9,$8,$10;
-var $early={};
-try {
-source=_st(self["@sourceArea"])._val();
-$1=self["@selectedProtocol"];
-if(($receiver = $1) == nil || $receiver == null){
-self["@selectedProtocol"]=_st(self["@selectedMethod"])._protocol();
-self["@selectedProtocol"];
-} else {
-$1;
-};
-compiler=_st($Compiler())._new();
-$ctx1.sendIdx["new"]=1;
-_st(compiler)._source_(source);
-node=_st(compiler)._parse_(source);
-$2=_st(node)._isParseFailure();
-if(smalltalk.assert($2)){
-$6="PARSE ERROR: ".__comma(_st(node)._reason());
-$ctx1.sendIdx[","]=3;
-$5=_st($6).__comma(", position: ");
-$ctx1.sendIdx[","]=2;
-$4=_st($5).__comma(_st(_st(node)._position())._asString());
-$ctx1.sendIdx[","]=1;
-$3=self._alert_($4);
-return $3;
-};
-_st(compiler)._currentClass_(aClass);
-method=_st(compiler)._eval_(_st(compiler)._compileNode_(node));
-_st(_st(compiler)._unknownVariables())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-$7=_st($PlatformInterface())._existsGlobal_(each);
-if(! smalltalk.assert($7)){
-$9=_st("Declare '".__comma(each)).__comma("' as instance variable?");
-$ctx2.sendIdx[","]=4;
-$8=self._confirm_($9);
-if(smalltalk.assert($8)){
-self._addInstanceVariableNamed_toClass_(each,aClass);
-$10=self._compileMethodDefinitionFor_(aClass);
-throw $early=[$10];
-};
-};
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
-_st(_st($ClassBuilder())._new())._installMethod_forClass_protocol_(method,aClass,self["@selectedProtocol"]);
-self._updateMethodsList();
-self._selectMethod_(method);
-return self}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"compileMethodDefinitionFor:",{aClass:aClass,compiler:compiler,method:method,source:source,node:node},globals.Browser)})},
-args: ["aClass"],
-source: "compileMethodDefinitionFor: aClass\x0a\x09| compiler method source node |\x0a\x09source := sourceArea val.\x0a\x09selectedProtocol ifNil: [ selectedProtocol := selectedMethod protocol ].\x0a\x09compiler := Compiler new.\x0a\x09compiler source: source.\x0a\x09node := compiler parse: source.\x0a\x09node isParseFailure ifTrue: [\x0a\x09^ self alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString ].\x0a\x09compiler currentClass: aClass.\x0a\x09method := compiler eval: (compiler compileNode: node).\x0a\x09compiler unknownVariables do: [ :each |\x0a\x09\x09\x22Do not try to redeclare javascript's objects\x22\x0a\x09\x09(PlatformInterface existsGlobal: each) ifFalse: [\x0a\x09\x09(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [\x0a\x09\x09\x09self addInstanceVariableNamed: each toClass: aClass.\x0a\x09\x09\x09^ self compileMethodDefinitionFor: aClass ]] ].\x0a\x09ClassBuilder new installMethod: method forClass: aClass protocol: selectedProtocol.\x0a\x09self updateMethodsList.\x0a\x09self selectMethod: method",
-messageSends: ["val", "ifNil:", "protocol", "new", "source:", "parse:", "ifTrue:", "isParseFailure", "alert:", ",", "reason", "asString", "position", "currentClass:", "eval:", "compileNode:", "do:", "unknownVariables", "ifFalse:", "existsGlobal:", "confirm:", "addInstanceVariableNamed:toClass:", "compileMethodDefinitionFor:", "installMethod:forClass:protocol:", "updateMethodsList", "selectMethod:"],
-referencedClasses: ["Compiler", "PlatformInterface", "ClassBuilder"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "copyClass",
-protocol: 'actions',
-fn: function (){
-var self=this;
-var className;
-function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-className=self._prompt_("Copy class");
-$1=_st(_st(className)._notNil())._and_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(className)._notEmpty();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-if(smalltalk.assert($1)){
-_st(_st($ClassBuilder())._new())._copyClass_named_(self._selectedClass(),className);
-self._resetClassesList();
-$2=self._updateClassesList();
-$2;
-self._selectClass_(_st(_st($Smalltalk())._globals())._at_(className));
-};
-return self}, function($ctx1) {$ctx1.fill(self,"copyClass",{className:className},globals.Browser)})},
-args: [],
-source: "copyClass\x0a\x09| className |\x0a\x09className := self prompt: 'Copy class'.\x0a\x09(className notNil and: [ className notEmpty ]) ifTrue: [\x0a\x09\x09ClassBuilder new copyClass: self selectedClass named: className.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk globals at: className) ]",
-messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "copyClass:named:", "new", "selectedClass", "resetClassesList", "updateClassesList", "selectClass:", "at:", "globals"],
-referencedClasses: ["ClassBuilder", "Smalltalk"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "declarationSource",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(self["@selectedTab"]).__eq("instance");
-if(smalltalk.assert($2)){
-$1=self._classDeclarationSource();
-} else {
-$1=self._metaclassDeclarationSource();
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"declarationSource",{},globals.Browser)})},
-args: [],
-source: "declarationSource\x0a\x09^ selectedTab = #instance\x0a\x09ifTrue: [ self classDeclarationSource ]\x0a\x09ifFalse: [ self metaclassDeclarationSource ]",
-messageSends: ["ifTrue:ifFalse:", "=", "classDeclarationSource", "metaclassDeclarationSource"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "disableSaveButton",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@saveButton"];
-if(($receiver = $1) == nil || $receiver == null){
-$1;
-} else {
-_st(self["@saveButton"])._at_put_("disabled",true);
-};
-self["@unsavedChanges"]=false;
-return self}, function($ctx1) {$ctx1.fill(self,"disableSaveButton",{},globals.Browser)})},
-args: [],
-source: "disableSaveButton\x0a\x09saveButton ifNotNil: [\x0a\x09saveButton at: 'disabled' put: true ].\x0a\x09unsavedChanges := false",
-messageSends: ["ifNotNil:", "at:put:"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "dummyMethodSource",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return "messageSelectorAndArgumentNames\x0a\x09\x22comment stating purpose of message\x22\x0a\x0a\x09| temporary variable names |\x0a\x09statements";
-},
-args: [],
-source: "dummyMethodSource\x0a\x09^ 'messageSelectorAndArgumentNames\x0a\x09\x22comment stating purpose of message\x22\x0a\x0a\x09| temporary variable names |\x0a\x09statements'",
-messageSends: [],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "handleSourceAreaKeyDown:",
-protocol: 'actions',
-fn: function (anEvent){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 83) { //ctrl+s
-			self._compile();
-			anEvent.preventDefault();
-			return false;
-		}
-	}
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"handleSourceAreaKeyDown:",{anEvent:anEvent},globals.Browser)})},
-args: ["anEvent"],
-source: "handleSourceAreaKeyDown: anEvent\x0a\x09<if(anEvent.ctrlKey) {\x0a\x09\x09if(anEvent.keyCode === 83) { //ctrl+s\x0a\x09\x09\x09self._compile();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09}\x0a\x09>",
-messageSends: [],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "hideClassButtons",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@classButtons"])._asJQuery())._hide();
-return self}, function($ctx1) {$ctx1.fill(self,"hideClassButtons",{},globals.Browser)})},
-args: [],
-source: "hideClassButtons\x0a\x09classButtons asJQuery hide",
-messageSends: ["hide", "asJQuery"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "hideMethodButtons",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@methodButtons"])._asJQuery())._hide();
-return self}, function($ctx1) {$ctx1.fill(self,"hideMethodButtons",{},globals.Browser)})},
-args: [],
-source: "hideMethodButtons\x0a\x09methodButtons asJQuery hide",
-messageSends: ["hide", "asJQuery"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initialize",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-globals.Browser.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@selectedTab"]="instance";
-self["@selectedPackage"]=_st(self._packages())._first();
-self["@unsavedChanges"]=false;
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Browser)})},
-args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09selectedTab := #instance.\x0a\x09selectedPackage := self packages first.\x0a\x09unsavedChanges := false",
-messageSends: ["initialize", "first", "packages"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "label",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@selectedClass"];
-if(($receiver = $2) == nil || $receiver == null){
-$1="Browser (nil)";
-} else {
-$1="Browser: ".__comma(_st(self["@selectedClass"])._name());
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"label",{},globals.Browser)})},
-args: [],
-source: "label\x0a\x09^ selectedClass\x0a\x09ifNil: [ 'Browser (nil)' ]\x0a\x09ifNotNil: [ 'Browser: ', selectedClass name ]",
-messageSends: ["ifNil:ifNotNil:", ",", "name"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "metaclassDeclarationSource",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var stream;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-stream=""._writeStream();
-$1=self["@selectedClass"];
-if(($receiver = $1) == nil || $receiver == null){
-$1;
-} else {
-$2=stream;
-_st($2)._nextPutAll_(_st(self["@selectedClass"])._asString());
-$ctx1.sendIdx["nextPutAll:"]=1;
-_st($2)._nextPutAll_(" class ");
-$ctx1.sendIdx["nextPutAll:"]=2;
-$3=_st($2)._nextPutAll_("instanceVariableNames: '");
-$ctx1.sendIdx["nextPutAll:"]=3;
-$3;
-_st(_st(_st(self["@selectedClass"])._class())._instanceVariableNames())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(stream)._nextPutAll_(each);
-$ctx2.sendIdx["nextPutAll:"]=4;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(stream)._nextPutAll_(" ");
-$ctx2.sendIdx["nextPutAll:"]=5;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
-_st(stream)._nextPutAll_("'");
-};
-$4=_st(stream)._contents();
-return $4;
-}, function($ctx1) {$ctx1.fill(self,"metaclassDeclarationSource",{stream:stream},globals.Browser)})},
-args: [],
-source: "metaclassDeclarationSource\x0a\x09| stream |\x0a\x09stream := '' writeStream.\x0a\x09selectedClass ifNotNil: [\x0a\x09stream\x0a\x09\x09nextPutAll: selectedClass asString;\x0a\x09\x09nextPutAll: ' class ';\x0a\x09\x09nextPutAll: 'instanceVariableNames: '''.\x0a\x09selectedClass class instanceVariableNames\x0a\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ' ' ].\x0a\x09stream nextPutAll: '''' ].\x0a\x09^ stream contents",
-messageSends: ["writeStream", "ifNotNil:", "nextPutAll:", "asString", "do:separatedBy:", "instanceVariableNames", "class", "contents"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "methodSource",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@selectedMethod"];
-if(($receiver = $2) == nil || $receiver == null){
-$1=self._dummyMethodSource();
-} else {
-$1=_st(self["@selectedMethod"])._source();
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"methodSource",{},globals.Browser)})},
-args: [],
-source: "methodSource\x0a\x09^ selectedMethod\x0a\x09ifNil: [ self dummyMethodSource ]\x0a\x09ifNotNil: [ selectedMethod source ]",
-messageSends: ["ifNil:ifNotNil:", "dummyMethodSource", "source"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "methods",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var klass;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$7,$8,$6,$9,$5;
-$1=_st(self["@selectedTab"]).__eq("comment");
-$ctx1.sendIdx["="]=1;
-if(smalltalk.assert($1)){
-$2=[];
-return $2;
-};
-$3=self["@selectedClass"];
-if(($receiver = $3) == nil || $receiver == null){
-$3;
-} else {
-$4=_st(self["@selectedTab"]).__eq("instance");
-if(smalltalk.assert($4)){
-klass=self["@selectedClass"];
-} else {
-klass=_st(self["@selectedClass"])._class();
-};
-klass;
-};
-$7=self["@selectedProtocol"];
-if(($receiver = $7) == nil || $receiver == null){
-$8=klass;
-if(($receiver = $8) == nil || $receiver == null){
-$6=[];
-} else {
-$6=_st(_st(klass)._methodDictionary())._values();
-};
-} else {
-$6=_st(klass)._methodsInProtocol_(self["@selectedProtocol"]);
-};
-$5=_st($6)._sort_((function(a,b){
-return smalltalk.withContext(function($ctx2) {
-$9=_st(a)._selector();
-$ctx2.sendIdx["selector"]=1;
-return _st($9).__lt(_st(b)._selector());
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,9)})}));
-return $5;
-}, function($ctx1) {$ctx1.fill(self,"methods",{klass:klass},globals.Browser)})},
-args: [],
-source: "methods\x0a\x09| klass |\x0a\x09selectedTab = #comment ifTrue: [ ^ #() ].\x0a\x09selectedClass ifNotNil: [\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [ selectedClass ]\x0a\x09\x09ifFalse: [ selectedClass class ]].\x0a\x09^ (selectedProtocol\x0a\x09ifNil: [\x0a\x09\x09klass\x0a\x09\x09ifNil: [ #() ]\x0a\x09\x09ifNotNil: [ klass methodDictionary values ]]\x0a\x09ifNotNil: [\x0a\x09\x09klass methodsInProtocol: selectedProtocol ]) \x0a\x09\x09\x09\x09sort: [ :a :b | a selector < b selector ]",
-messageSends: ["ifTrue:", "=", "ifNotNil:", "ifTrue:ifFalse:", "class", "sort:", "ifNil:ifNotNil:", "values", "methodDictionary", "methodsInProtocol:", "<", "selector"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "packages",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var packages;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4;
-packages=_st($Array())._new();
-_st(_st($Smalltalk())._classes())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-$2=packages;
-$3=_st(each)._category();
-$ctx2.sendIdx["category"]=1;
-$1=_st($2)._includes_($3);
-if(! smalltalk.assert($1)){
-return _st(packages)._add_(_st(each)._category());
-};
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$4=_st(packages)._sort();
-return $4;
-}, function($ctx1) {$ctx1.fill(self,"packages",{packages:packages},globals.Browser)})},
-args: [],
-source: "packages\x0a\x09| packages |\x0a\x09packages := Array new.\x0a\x09Smalltalk classes do: [ :each |\x0a\x09(packages includes: each category) ifFalse: [\x0a\x09\x09packages add: each category ]].\x0a\x09^ packages sort",
-messageSends: ["new", "do:", "classes", "ifFalse:", "includes:", "category", "add:", "sort"],
-referencedClasses: ["Array", "Smalltalk"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "protocols",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var klass;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8;
-$1=self["@selectedClass"];
-if(($receiver = $1) == nil || $receiver == null){
-$1;
-} else {
-$2=_st(self["@selectedTab"]).__eq("comment");
-$ctx1.sendIdx["="]=1;
-if(smalltalk.assert($2)){
-$3=[];
-return $3;
-};
-$4=_st(self["@selectedTab"]).__eq("instance");
-if(smalltalk.assert($4)){
-klass=self["@selectedClass"];
-} else {
-klass=_st(self["@selectedClass"])._class();
-};
-klass;
-$5=_st(_st(klass)._methodDictionary())._isEmpty();
-if(smalltalk.assert($5)){
-$6=_st($Array())._with_("not yet classified");
-return $6;
-};
-$7=_st(klass)._protocols();
-return $7;
-};
-$8=_st($Array())._new();
-return $8;
-}, function($ctx1) {$ctx1.fill(self,"protocols",{klass:klass},globals.Browser)})},
-args: [],
-source: "protocols\x0a\x09| klass |\x0a\x09selectedClass ifNotNil: [\x0a\x09selectedTab = #comment ifTrue: [ ^ #() ].\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [ selectedClass ]\x0a\x09\x09ifFalse: [ selectedClass class ].\x0a\x09klass methodDictionary isEmpty ifTrue: [\x0a\x09\x09^ Array with: 'not yet classified' ].\x0a\x09^ klass protocols ].\x0a\x09^ Array new",
-messageSends: ["ifNotNil:", "ifTrue:", "=", "ifTrue:ifFalse:", "class", "isEmpty", "methodDictionary", "with:", "protocols", "new"],
-referencedClasses: ["Array"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "removeClass",
-protocol: 'actions',
-fn: function (){
-var self=this;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st("Do you really want to remove ".__comma(_st(self["@selectedClass"])._name())).__comma("?");
-$ctx1.sendIdx[","]=1;
-$1=self._confirm_($2);
-if(smalltalk.assert($1)){
-_st($Smalltalk())._removeClass_(self["@selectedClass"]);
-self._resetClassesList();
-self._selectClass_(nil);
-};
-return self}, function($ctx1) {$ctx1.fill(self,"removeClass",{},globals.Browser)})},
-args: [],
-source: "removeClass\x0a\x09(self confirm: 'Do you really want to remove ', selectedClass name, '?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk removeClass: selectedClass.\x0a\x09\x09self resetClassesList.\x0a\x09\x09self selectClass: nil ]",
-messageSends: ["ifTrue:", "confirm:", ",", "name", "removeClass:", "resetClassesList", "selectClass:"],
-referencedClasses: ["Smalltalk"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "removeMethod",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4;
-$1=self._cancelChanges();
-if(smalltalk.assert($1)){
-$3=_st("Do you really want to remove #".__comma(_st(self["@selectedMethod"])._selector())).__comma("?");
-$ctx1.sendIdx[","]=1;
-$2=self._confirm_($3);
-if(smalltalk.assert($2)){
-$4=_st(self["@selectedTab"]).__eq("instance");
-if(smalltalk.assert($4)){
-_st(self["@selectedClass"])._removeCompiledMethod_(self["@selectedMethod"]);
-$ctx1.sendIdx["removeCompiledMethod:"]=1;
-} else {
-_st(_st(self["@selectedClass"])._class())._removeCompiledMethod_(self["@selectedMethod"]);
-};
-self._selectMethod_(nil);
-};
-};
-return self}, function($ctx1) {$ctx1.fill(self,"removeMethod",{},globals.Browser)})},
-args: [],
-source: "removeMethod\x0a\x09self cancelChanges ifTrue: [\x0a\x09(self confirm: 'Do you really want to remove #', selectedMethod selector, '?')\x0a\x09\x09ifTrue: [\x0a\x09\x09selectedTab = #instance\x0a\x09\x09\x09ifTrue: [ selectedClass removeCompiledMethod: selectedMethod ]\x0a\x09\x09\x09ifFalse: [ selectedClass class removeCompiledMethod: selectedMethod ].\x0a\x09\x09self selectMethod: nil ]]",
-messageSends: ["ifTrue:", "cancelChanges", "confirm:", ",", "selector", "ifTrue:ifFalse:", "=", "removeCompiledMethod:", "class", "selectMethod:"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "removePackage",
-protocol: 'actions',
-fn: function (){
-var self=this;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st("Do you really want to remove the whole package ".__comma(self["@selectedPackage"])).__comma(" with all its classes?");
-$ctx1.sendIdx[","]=1;
-$1=self._confirm_($2);
-if(smalltalk.assert($1)){
-_st($Smalltalk())._removePackage_(self["@selectedPackage"]);
-self._updateCategoriesList();
-};
-return self}, function($ctx1) {$ctx1.fill(self,"removePackage",{},globals.Browser)})},
-args: [],
-source: "removePackage\x0a\x0a\x09(self confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk removePackage: selectedPackage.\x0a\x09\x09self updateCategoriesList ]",
-messageSends: ["ifTrue:", "confirm:", ",", "removePackage:", "updateCategoriesList"],
-referencedClasses: ["Smalltalk"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renameClass",
-protocol: 'actions',
-fn: function (){
-var self=this;
-var newName;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-newName=self._prompt_("Rename class ".__comma(_st(self["@selectedClass"])._name()));
-$1=_st(_st(newName)._notNil())._and_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(newName)._notEmpty();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-if(smalltalk.assert($1)){
-_st(self["@selectedClass"])._rename_(newName);
-self._updateClassesList();
-$2=self._updateSourceAndButtons();
-$2;
-};
-return self}, function($ctx1) {$ctx1.fill(self,"renameClass",{newName:newName},globals.Browser)})},
-args: [],
-source: "renameClass\x0a\x09| newName |\x0a\x09newName := self prompt: 'Rename class ', selectedClass name.\x0a\x09(newName notNil and: [ newName notEmpty ]) ifTrue: [\x0a\x09selectedClass rename: newName.\x0a\x09self\x0a\x09\x09updateClassesList;\x0a\x09\x09updateSourceAndButtons ]",
-messageSends: ["prompt:", ",", "name", "ifTrue:", "and:", "notNil", "notEmpty", "rename:", "updateClassesList", "updateSourceAndButtons"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renamePackage",
-protocol: 'actions',
-fn: function (){
-var self=this;
-var newName;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-newName=self._prompt_("Rename package ".__comma(self["@selectedPackage"]));
-$1=newName;
-if(($receiver = $1) == nil || $receiver == null){
-$1;
-} else {
-$2=_st(newName)._notEmpty();
-if(smalltalk.assert($2)){
-_st($Smalltalk())._renamePackage_to_(self["@selectedPackage"],newName);
-self._updateCategoriesList();
-};
-};
-return self}, function($ctx1) {$ctx1.fill(self,"renamePackage",{newName:newName},globals.Browser)})},
-args: [],
-source: "renamePackage\x0a\x0a\x09| newName |\x0a\x09newName := self prompt: 'Rename package ', selectedPackage.\x0a\x09newName ifNotNil: [\x0a\x09newName notEmpty ifTrue: [\x0a\x09Smalltalk renamePackage: selectedPackage to: newName.\x0a\x09self updateCategoriesList ]]",
-messageSends: ["prompt:", ",", "ifNotNil:", "ifTrue:", "notEmpty", "renamePackage:to:", "updateCategoriesList"],
-referencedClasses: ["Smalltalk"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderBottomPanelOn:",
-protocol: 'rendering',
-fn: function (html){
-var self=this;
-function $SourceArea(){return globals.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(html)._div();
-_st($1)._class_("amber_sourceCode");
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-self["@sourceArea"]=_st($SourceArea())._new();
-self["@sourceArea"];
-_st(self["@sourceArea"])._renderOn_(html);
-_st(self["@sourceArea"])._onKeyDown_((function(e){
-return smalltalk.withContext(function($ctx3) {
-return self._handleSourceAreaKeyDown_(e);
-}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2,2)})}));
-return _st(self["@sourceArea"])._onKeyUp_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._updateStatus();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderBottomPanelOn:",{html:html},globals.Browser)})},
-args: ["html"],
-source: "renderBottomPanelOn: html\x0a\x09html div\x0a\x09class: 'amber_sourceCode';\x0a\x09with: [\x0a\x09\x09sourceArea := SourceArea new.\x0a\x09\x09sourceArea renderOn: html.\x0a\x09\x09\x09sourceArea onKeyDown: [ :e |\x0a\x09\x09\x09\x09self handleSourceAreaKeyDown: e ].\x0a\x09\x09sourceArea onKeyUp: [ self updateStatus ]]",
-messageSends: ["class:", "div", "with:", "new", "renderOn:", "onKeyDown:", "handleSourceAreaKeyDown:", "onKeyUp:", "updateStatus"],
-referencedClasses: ["SourceArea"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderBoxOn:",
-protocol: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-self._renderTopPanelOn_(html);
-self._renderTabsOn_(html);
-$1=self._renderBottomPanelOn_(html);
-return self}, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},globals.Browser)})},
-args: ["html"],
-source: "renderBoxOn: html\x0a\x09self\x0a\x09renderTopPanelOn: html;\x0a\x09renderTabsOn: html;\x0a\x09renderBottomPanelOn: html",
-messageSends: ["renderTopPanelOn:", "renderTabsOn:", "renderBottomPanelOn:"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderButtonsOn:",
-protocol: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$6,$7,$8,$9,$10,$4;
-self["@saveButton"]=_st(html)._button();
-$ctx1.sendIdx["button"]=1;
-$1=self["@saveButton"];
-_st($1)._with_("Save");
-$ctx1.sendIdx["with:"]=1;
-$2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {
-return self._compile();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["onClick:"]=1;
-self["@methodButtons"]=_st(html)._span();
-$ctx1.sendIdx["span"]=1;
-self["@classButtons"]=_st(html)._span();
-$3=_st(html)._div();
-_st($3)._class_("right");
-$4=_st($3)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-$5=_st(html)._button();
-$ctx2.sendIdx["button"]=2;
-_st($5)._with_("DoIt");
-$ctx2.sendIdx["with:"]=3;
-$6=_st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(self["@sourceArea"])._doIt();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
-$ctx2.sendIdx["onClick:"]=2;
-$6;
-$7=_st(html)._button();
-$ctx2.sendIdx["button"]=3;
-_st($7)._with_("PrintIt");
-$ctx2.sendIdx["with:"]=4;
-$8=_st($7)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(self["@sourceArea"])._printIt();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
-$ctx2.sendIdx["onClick:"]=3;
-$8;
-$9=_st(html)._button();
-_st($9)._with_("InspectIt");
-$10=_st($9)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(self["@sourceArea"])._inspectIt();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)})}));
-return $10;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$ctx1.sendIdx["with:"]=2;
-self._updateSourceAndButtons();
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.Browser)})},
-args: ["html"],
-source: "renderButtonsOn: html\x0a\x09saveButton := html button.\x0a\x09saveButton\x0a\x09with: 'Save';\x0a\x09onClick: [ self compile ].\x0a\x09methodButtons := html span.\x0a\x09classButtons := html span.\x0a\x09html div\x0a\x09class: 'right';\x0a\x09with: [\x0a\x09\x09html button\x0a\x09\x09\x09with: 'DoIt';\x0a\x09\x09\x09onClick: [ sourceArea doIt ].\x0a\x09\x09html button\x0a\x09\x09\x09with: 'PrintIt';\x0a\x09\x09\x09onClick: [ sourceArea printIt ].\x0a\x09\x09html button with: 'InspectIt';\x0a\x09\x09\x09onClick: [ sourceArea inspectIt ]].\x0a\x09self updateSourceAndButtons",
-messageSends: ["button", "with:", "onClick:", "compile", "span", "class:", "div", "doIt", "printIt", "inspectIt", "updateSourceAndButtons"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderTabsOn:",
-protocol: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@tabsList"]=_st(_st(html)._ul())._class_("amber_tabs amber_browser");
-self._updateTabsList();
-return self}, function($ctx1) {$ctx1.fill(self,"renderTabsOn:",{html:html},globals.Browser)})},
-args: ["html"],
-source: "renderTabsOn: html\x0a\x09tabsList := html ul class: 'amber_tabs amber_browser'.\x0a\x09self updateTabsList.",
-messageSends: ["class:", "ul", "updateTabsList"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderTopPanelOn:",
-protocol: 'rendering',
-fn: function (html){
-var self=this;
-function $ClassesList(){return globals.ClassesList||(typeof ClassesList=="undefined"?nil:ClassesList)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$6,$7,$8,$9,$10,$11,$5,$12,$13,$2;
-$1=_st(html)._div();
-$ctx1.sendIdx["div"]=1;
-_st($1)._class_("top");
-$ctx1.sendIdx["class:"]=1;
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-$3=_st(html)._ul();
-$ctx2.sendIdx["ul"]=1;
-self["@packagesList"]=_st($3)._class_("amber_column browser packages");
-$ctx2.sendIdx["class:"]=2;
-self["@packagesList"];
-$4=_st(html)._div();
-$ctx2.sendIdx["div"]=2;
-_st($4)._class_("amber_packagesButtons");
-$ctx2.sendIdx["class:"]=3;
-$5=_st($4)._with_((function(){
-return smalltalk.withContext(function($ctx3) {
-$6=_st(html)._button();
-$ctx3.sendIdx["button"]=1;
-_st($6)._title_("Commit classes in this package to disk");
-$ctx3.sendIdx["title:"]=1;
-_st($6)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {
-return self._commitPackage();
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})}));
-$ctx3.sendIdx["onClick:"]=1;
-$7=_st($6)._with_("Commit");
-$ctx3.sendIdx["with:"]=3;
-$7;
-$8=_st(html)._button();
-$ctx3.sendIdx["button"]=2;
-_st($8)._title_("Rename package");
-$ctx3.sendIdx["title:"]=2;
-_st($8)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {
-return self._renamePackage();
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,4)})}));
-$ctx3.sendIdx["onClick:"]=2;
-$9=_st($8)._with_("Rename");
-$ctx3.sendIdx["with:"]=4;
-$9;
-$10=_st(html)._button();
-_st($10)._title_("Remove this package from the system");
-_st($10)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {
-return self._removePackage();
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,5)})}));
-$11=_st($10)._with_("Remove");
-return $11;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-$ctx2.sendIdx["with:"]=2;
-$5;
-self["@classesList"]=_st($ClassesList())._on_(self);
-self["@classesList"];
-_st(self["@classesList"])._renderOn_(html);
-$12=_st(html)._ul();
-$ctx2.sendIdx["ul"]=2;
-self["@protocolsList"]=_st($12)._class_("amber_column browser protocols");
-$ctx2.sendIdx["class:"]=4;
-self["@protocolsList"];
-self["@methodsList"]=_st(_st(html)._ul())._class_("amber_column browser methods");
-$ctx2.sendIdx["class:"]=5;
-self["@methodsList"];
-self._updateCategoriesList();
-self._updateClassesList();
-self._updateProtocolsList();
-$13=self._updateMethodsList();
-$13;
-return _st(_st(html)._div())._class_("amber_clear");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["with:"]=1;
-return self}, function($ctx1) {$ctx1.fill(self,"renderTopPanelOn:",{html:html},globals.Browser)})},
-args: ["html"],
-source: "renderTopPanelOn: html\x0a\x09html div\x0a\x09\x09class: 'top';\x0a\x09\x09with: [\x0a\x09\x09\x09packagesList := html ul class: 'amber_column browser packages'.\x0a\x09\x09\x09\x09html div class: 'amber_packagesButtons'; with: [\x0a\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09title: 'Commit classes in this package to disk';\x0a\x09\x09\x09\x09\x09onClick: [ self commitPackage ];\x0a\x09\x09\x09\x09\x09with: 'Commit'.\x0a\x09\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09title: 'Rename package';\x0a\x09\x09\x09\x09\x09onClick: [ self renamePackage ];\x0a\x09\x09\x09\x09\x09with: 'Rename'.\x0a\x09\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09title: 'Remove this package from the system';\x0a\x09\x09\x09\x09\x09onClick: [ self removePackage ];\x0a\x09\x09\x09\x09\x09with: 'Remove' ].\x0a\x09\x09\x09classesList := ClassesList on: self.\x0a\x09\x09\x09classesList renderOn: html.\x0a\x09\x09\x09protocolsList := html ul class: 'amber_column browser protocols'.\x0a\x09\x09\x09methodsList := html ul class: 'amber_column browser methods'.\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09updateCategoriesList;\x0a\x09\x09\x09\x09updateClassesList;\x0a\x09\x09\x09\x09updateProtocolsList;\x0a\x09\x09\x09\x09updateMethodsList.\x0a\x09\x09\x09html div class: 'amber_clear' ]",
-messageSends: ["class:", "div", "with:", "ul", "title:", "button", "onClick:", "commitPackage", "renamePackage", "removePackage", "on:", "renderOn:", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList"],
-referencedClasses: ["ClassesList"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "resetClassesList",
-protocol: 'updating',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self["@classesList"])._resetNodes();
-return self}, function($ctx1) {$ctx1.fill(self,"resetClassesList",{},globals.Browser)})},
-args: [],
-source: "resetClassesList\x0a\x09classesList resetNodes",
-messageSends: ["resetNodes"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "search:",
-protocol: 'actions',
-fn: function (aString){
-var self=this;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self._cancelChanges();
-if(smalltalk.assert($1)){
-var searchedClass;
-searchedClass=_st(_st($Smalltalk())._globals())._at_(aString);
-searchedClass;
-$2=_st(searchedClass)._isClass();
-if(smalltalk.assert($2)){
-_st(self._class())._openOn_(searchedClass);
-} else {
-self._searchReferencesOf_(aString);
-};
-};
-return self}, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString},globals.Browser)})},
-args: ["aString"],
-source: "search: aString\x0a\x09self cancelChanges ifTrue: [ | searchedClass |\x0a\x09\x09searchedClass := Smalltalk globals at: aString.\x0a\x09\x09searchedClass isClass\x0a\x09\x09\x09ifTrue: [ self class openOn: searchedClass ]\x0a\x09\x09\x09ifFalse: [ self searchReferencesOf: aString ]]",
-messageSends: ["ifTrue:", "cancelChanges", "at:", "globals", "ifTrue:ifFalse:", "isClass", "openOn:", "class", "searchReferencesOf:"],
-referencedClasses: ["Smalltalk"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "searchClassReferences",
-protocol: 'actions',
-fn: function (){
-var self=this;
-function $ReferencesBrowser(){return globals.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
-return smalltalk.withContext(function($ctx1) { 
-_st($ReferencesBrowser())._search_(_st(self["@selectedClass"])._name());
-return self}, function($ctx1) {$ctx1.fill(self,"searchClassReferences",{},globals.Browser)})},
-args: [],
-source: "searchClassReferences\x0a\x09ReferencesBrowser search: selectedClass name",
-messageSends: ["search:", "name"],
-referencedClasses: ["ReferencesBrowser"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "searchReferencesOf:",
-protocol: 'actions',
-fn: function (aString){
-var self=this;
-function $ReferencesBrowser(){return globals.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
-return smalltalk.withContext(function($ctx1) { 
-_st($ReferencesBrowser())._search_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"searchReferencesOf:",{aString:aString},globals.Browser)})},
-args: ["aString"],
-source: "searchReferencesOf: aString\x0a\x09ReferencesBrowser search: aString",
-messageSends: ["search:"],
-referencedClasses: ["ReferencesBrowser"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "selectCategory:",
-protocol: 'actions',
-fn: function (aCategory){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self._cancelChanges();
-if(smalltalk.assert($1)){
-self["@selectedPackage"]=aCategory;
-self["@selectedPackage"];
-self["@selectedMethod"]=nil;
-self["@selectedProtocol"]=self["@selectedMethod"];
-self["@selectedClass"]=self["@selectedProtocol"];
-self["@selectedClass"];
-self._resetClassesList();
-self._updateCategoriesList();
-self._updateClassesList();
-self._updateProtocolsList();
-self._updateMethodsList();
-$2=self._updateSourceAndButtons();
-$2;
-};
-return self}, function($ctx1) {$ctx1.fill(self,"selectCategory:",{aCategory:aCategory},globals.Browser)})},
-args: ["aCategory"],
-source: "selectCategory: aCategory\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedPackage := aCategory.\x0a\x09selectedClass := selectedProtocol := selectedMethod := nil.\x0a\x09self resetClassesList.\x0a\x09self\x0a\x09\x09updateCategoriesList;\x0a\x09\x09updateClassesList;\x0a\x09\x09updateProtocolsList;\x0a\x09\x09updateMethodsList;\x0a\x09\x09updateSourceAndButtons ]",
-messageSends: ["ifTrue:", "cancelChanges", "resetClassesList", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "selectClass:",
-protocol: 'actions',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self._cancelChanges();
-if(smalltalk.assert($1)){
-self["@selectedClass"]=aClass;
-self["@selectedClass"];
-self["@selectedMethod"]=nil;
-self["@selectedProtocol"]=self["@selectedMethod"];
-self["@selectedProtocol"];
-self._updateClassesList();
-self._updateProtocolsList();
-self._updateMethodsList();
-$2=self._updateSourceAndButtons();
-$2;
-};
-return self}, function($ctx1) {$ctx1.fill(self,"selectClass:",{aClass:aClass},globals.Browser)})},
-args: ["aClass"],
-source: "selectClass: aClass\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedClass := aClass.\x0a\x09selectedProtocol := selectedMethod := nil.\x0a\x09self\x0a\x09\x09updateClassesList;\x0a\x09\x09updateProtocolsList;\x0a\x09\x09updateMethodsList;\x0a\x09\x09updateSourceAndButtons ]",
-messageSends: ["ifTrue:", "cancelChanges", "updateClassesList", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "selectMethod:",
-protocol: 'actions',
-fn: function (aMethod){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self._cancelChanges();
-if(smalltalk.assert($1)){
-self["@selectedMethod"]=aMethod;
-self["@selectedMethod"];
-self._updateProtocolsList();
-self._updateMethodsList();
-$2=self._updateSourceAndButtons();
-$2;
-};
-return self}, function($ctx1) {$ctx1.fill(self,"selectMethod:",{aMethod:aMethod},globals.Browser)})},
-args: ["aMethod"],
-source: "selectMethod: aMethod\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedMethod := aMethod.\x0a\x09self\x0a\x09\x09updateProtocolsList;\x0a\x09\x09updateMethodsList;\x0a\x09\x09updateSourceAndButtons ]",
-messageSends: ["ifTrue:", "cancelChanges", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "selectProtocol:",
-protocol: 'actions',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self._cancelChanges();
-if(smalltalk.assert($1)){
-self["@selectedProtocol"]=aString;
-self["@selectedProtocol"];
-self["@selectedMethod"]=nil;
-self["@selectedMethod"];
-self._updateProtocolsList();
-self._updateMethodsList();
-$2=self._updateSourceAndButtons();
-$2;
-};
-return self}, function($ctx1) {$ctx1.fill(self,"selectProtocol:",{aString:aString},globals.Browser)})},
-args: ["aString"],
-source: "selectProtocol: aString\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedProtocol := aString.\x0a\x09selectedMethod := nil.\x0a\x09self\x0a\x09\x09updateProtocolsList;\x0a\x09\x09updateMethodsList;\x0a\x09\x09updateSourceAndButtons ]",
-messageSends: ["ifTrue:", "cancelChanges", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "selectTab:",
-protocol: 'actions',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._cancelChanges();
-if(smalltalk.assert($1)){
-self["@selectedTab"]=aString;
-self["@selectedTab"];
-self._selectProtocol_(nil);
-self._updateTabsList();
-};
-return self}, function($ctx1) {$ctx1.fill(self,"selectTab:",{aString:aString},globals.Browser)})},
-args: ["aString"],
-source: "selectTab: aString\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedTab := aString.\x0a\x09self selectProtocol: nil.\x0a\x09self updateTabsList ]",
-messageSends: ["ifTrue:", "cancelChanges", "selectProtocol:", "updateTabsList"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "selectedClass",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@selectedClass"];
-return $1;
-},
-args: [],
-source: "selectedClass\x0a\x09^ selectedClass",
-messageSends: [],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "selectedPackage",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@selectedPackage"];
-return $1;
-},
-args: [],
-source: "selectedPackage\x0a\x09^ selectedPackage",
-messageSends: [],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "setMethodProtocol:",
-protocol: 'actions',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-$1=self._cancelChanges();
-if(smalltalk.assert($1)){
-$2=_st(self._protocols())._includes_(aString);
-if(smalltalk.assert($2)){
-_st(self["@selectedMethod"])._protocol_(aString);
-self["@selectedProtocol"]=aString;
-self["@selectedProtocol"];
-self["@selectedMethod"]=self["@selectedMethod"];
-self["@selectedMethod"];
-self._updateProtocolsList();
-self._updateMethodsList();
-$3=self._updateSourceAndButtons();
-$3;
-} else {
-self._addNewProtocol();
-};
-};
-return self}, function($ctx1) {$ctx1.fill(self,"setMethodProtocol:",{aString:aString},globals.Browser)})},
-args: ["aString"],
-source: "setMethodProtocol: aString\x0a\x09self cancelChanges ifTrue: [\x0a\x09(self protocols includes: aString)\x0a\x09\x09ifFalse: [ self addNewProtocol ]\x0a\x09\x09ifTrue: [\x0a\x09\x09selectedMethod protocol: aString.\x0a\x09\x09selectedProtocol := aString.\x0a\x09\x09selectedMethod := selectedMethod.\x0a\x09\x09self\x0a\x09\x09\x09updateProtocolsList;\x0a\x09\x09\x09updateMethodsList;\x0a\x09\x09\x09updateSourceAndButtons ]]",
-messageSends: ["ifTrue:", "cancelChanges", "ifFalse:ifTrue:", "includes:", "protocols", "addNewProtocol", "protocol:", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "showClassButtons",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@classButtons"])._asJQuery())._show();
-return self}, function($ctx1) {$ctx1.fill(self,"showClassButtons",{},globals.Browser)})},
-args: [],
-source: "showClassButtons\x0a\x09classButtons asJQuery show",
-messageSends: ["show", "asJQuery"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "showMethodButtons",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@methodButtons"])._asJQuery())._show();
-return self}, function($ctx1) {$ctx1.fill(self,"showMethodButtons",{},globals.Browser)})},
-args: [],
-source: "showMethodButtons\x0a\x09methodButtons asJQuery show",
-messageSends: ["show", "asJQuery"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "source",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2,$6,$5;
-$1=_st(self["@selectedTab"]).__eq("comment");
-if(! smalltalk.assert($1)){
-$4=_st(self["@selectedProtocol"])._notNil();
-$ctx1.sendIdx["notNil"]=1;
-$3=_st($4)._or_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self["@selectedMethod"])._notNil();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-if(smalltalk.assert($3)){
-$2=self._methodSource();
-} else {
-$2=self._declarationSource();
-};
-return $2;
-};
-$6=self["@selectedClass"];
-if(($receiver = $6) == nil || $receiver == null){
-$5="";
-} else {
-$5=self._classCommentSource();
-};
-return $5;
-}, function($ctx1) {$ctx1.fill(self,"source",{},globals.Browser)})},
-args: [],
-source: "source\x0a\x09selectedTab = #comment ifFalse: [\x0a\x09^ (selectedProtocol notNil or: [ selectedMethod notNil ])\x0a\x09\x09ifFalse: [ self declarationSource ]\x0a\x09\x09ifTrue: [ self methodSource ]].\x0a\x09^ selectedClass\x0a\x09ifNil: [ '' ]\x0a\x09ifNotNil: [ self classCommentSource ]",
-messageSends: ["ifFalse:", "=", "ifFalse:ifTrue:", "or:", "notNil", "declarationSource", "methodSource", "ifNil:ifNotNil:", "classCommentSource"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateCategoriesList",
-protocol: 'updating',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-_st(self["@packagesList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {
-return _st(self._packages())._do_((function(each){
-var li,label;
-return smalltalk.withContext(function($ctx3) {
-$1=_st(each)._isEmpty();
-if(smalltalk.assert($1)){
-label="Unclassified";
-label;
-} else {
-label=each;
-label;
-};
-li=_st(html)._li();
-li;
-$2=_st(self["@selectedPackage"]).__eq(each);
-if(smalltalk.assert($2)){
-_st(li)._class_("selected");
-};
-$3=li;
-_st($3)._with_(label);
-$4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {
-return self._selectCategory_(each);
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,6)})}));
-return $4;
-}, function($ctx3) {$ctx3.fillBlock({each:each,li:li,label:label},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"updateCategoriesList",{},globals.Browser)})},
-args: [],
-source: "updateCategoriesList\x0a\x09packagesList contents: [ :html |\x0a\x09self packages do: [ :each || li label |\x0a\x09\x09each isEmpty\x0a\x09\x09ifTrue: [ label := 'Unclassified' ]\x0a\x09\x09ifFalse: [ label := each ].\x0a\x09\x09li := html li.\x0a\x09\x09selectedPackage = each ifTrue: [\x0a\x09\x09li class: 'selected' ].\x0a\x09\x09li\x0a\x09\x09with: label;\x0a\x09\x09onClick: [ self selectCategory: each ]] ]",
-messageSends: ["contents:", "do:", "packages", "ifTrue:ifFalse:", "isEmpty", "li", "ifTrue:", "=", "class:", "with:", "onClick:", "selectCategory:"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateClassesList",
-protocol: 'updating',
-fn: function (){
-var self=this;
-function $TabManager(){return globals.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
-return smalltalk.withContext(function($ctx1) { 
-_st(_st($TabManager())._current())._update();
-_st(self["@classesList"])._updateNodes();
-return self}, function($ctx1) {$ctx1.fill(self,"updateClassesList",{},globals.Browser)})},
-args: [],
-source: "updateClassesList\x0a\x09TabManager current update.\x0a\x09classesList updateNodes",
-messageSends: ["update", "current", "updateNodes"],
-referencedClasses: ["TabManager"]
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateMethodsList",
-protocol: 'updating',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-_st(self["@methodsList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {
-return _st(self._methods())._do_((function(each){
-var li;
-return smalltalk.withContext(function($ctx3) {
-li=_st(html)._li();
-li;
-$1=_st(self["@selectedMethod"]).__eq(each);
-if(smalltalk.assert($1)){
-_st(li)._class_("selected");
-};
-$2=li;
-_st($2)._with_(_st(each)._selector());
-$3=_st($2)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {
-return self._selectMethod_(each);
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,4)})}));
-return $3;
-}, function($ctx3) {$ctx3.fillBlock({each:each,li:li},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"updateMethodsList",{},globals.Browser)})},
-args: [],
-source: "updateMethodsList\x0a\x09methodsList contents: [ :html |\x0a\x09self methods do: [ :each || li |\x0a\x09\x09li := html li.\x0a\x09\x09selectedMethod = each ifTrue: [\x0a\x09\x09li class: 'selected' ].\x0a\x09\x09li\x0a\x09\x09with: each selector;\x0a\x09\x09onClick: [ self selectMethod: each ]] ]",
-messageSends: ["contents:", "do:", "methods", "li", "ifTrue:", "=", "class:", "with:", "selector", "onClick:", "selectMethod:"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateProtocolsList",
-protocol: 'updating',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-_st(self["@protocolsList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {
-return _st(self._protocols())._do_((function(each){
-var li;
-return smalltalk.withContext(function($ctx3) {
-li=_st(html)._li();
-li;
-$1=_st(self["@selectedProtocol"]).__eq(each);
-if(smalltalk.assert($1)){
-_st(li)._class_("selected");
-};
-$2=li;
-_st($2)._with_(each);
-$3=_st($2)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {
-return self._selectProtocol_(each);
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,4)})}));
-return $3;
-}, function($ctx3) {$ctx3.fillBlock({each:each,li:li},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"updateProtocolsList",{},globals.Browser)})},
-args: [],
-source: "updateProtocolsList\x0a\x09protocolsList contents: [ :html |\x0a\x09self protocols do: [ :each || li |\x0a\x09\x09li := html li.\x0a\x09\x09selectedProtocol = each ifTrue: [\x0a\x09\x09li class: 'selected' ].\x0a\x09\x09li\x0a\x09\x09with: each;\x0a\x09\x09onClick: [ self selectProtocol: each ]] ]",
-messageSends: ["contents:", "do:", "protocols", "li", "ifTrue:", "=", "class:", "with:", "onClick:", "selectProtocol:"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateSourceAndButtons",
-protocol: 'updating',
-fn: function (){
-var self=this;
-var currentProtocol;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$15,$14,$17,$18,$19,$20,$22,$21,$23,$24,$16,$25,$26,$28,$29,$30,$31,$27,$32,$33;
-self._disableSaveButton();
-_st(self["@classButtons"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {
-$1=_st(html)._button();
-$ctx2.sendIdx["button"]=1;
-_st($1)._title_("Create a new class");
-_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._addNewClass();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-$ctx2.sendIdx["onClick:"]=1;
-$2=_st($1)._with_("New class");
-$ctx2.sendIdx["with:"]=1;
-$2;
-$3=_st(html)._button();
-$ctx2.sendIdx["button"]=2;
-_st($3)._with_("Rename class");
-$ctx2.sendIdx["with:"]=2;
-$4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._renameClass();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
-$ctx2.sendIdx["onClick:"]=2;
-$4;
-$5=_st(html)._button();
-$ctx2.sendIdx["button"]=3;
-_st($5)._with_("Copy class");
-$ctx2.sendIdx["with:"]=3;
-$6=_st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._copyClass();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
-$ctx2.sendIdx["onClick:"]=3;
-$6;
-$7=_st(html)._button();
-$ctx2.sendIdx["button"]=4;
-_st($7)._with_("Remove class");
-$ctx2.sendIdx["with:"]=4;
-$8=_st($7)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._removeClass();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)})}));
-$ctx2.sendIdx["onClick:"]=4;
-$8;
-$9=_st(html)._button();
-$ctx2.sendIdx["button"]=5;
-_st($9)._with_("References");
-$ctx2.sendIdx["with:"]=5;
-$10=_st($9)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._searchClassReferences();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,6)})}));
-$ctx2.sendIdx["onClick:"]=5;
-return $10;
-}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
-$ctx1.sendIdx["contents:"]=1;
-_st(self["@methodButtons"])._contents_((function(html){
-var protocolSelect,referencesSelect;
-return smalltalk.withContext(function($ctx2) {
-$11=_st(html)._button();
-_st($11)._with_("Remove method");
-$ctx2.sendIdx["with:"]=6;
-$12=_st($11)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._removeMethod();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,8)})}));
-$12;
-protocolSelect=_st(html)._select();
-$ctx2.sendIdx["select"]=1;
-protocolSelect;
-$13=protocolSelect;
-_st($13)._onChange_((function(){
-return smalltalk.withContext(function($ctx3) {
-$15=_st(protocolSelect)._asJQuery();
-$ctx3.sendIdx["asJQuery"]=1;
-$14=_st($15)._val();
-$ctx3.sendIdx["val"]=1;
-return self._setMethodProtocol_($14);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,9)})}));
-$ctx2.sendIdx["onChange:"]=1;
-$16=_st($13)._with_((function(){
-return smalltalk.withContext(function($ctx3) {
-$17=_st(html)._option();
-$ctx3.sendIdx["option"]=1;
-_st($17)._with_("Method protocol");
-$ctx3.sendIdx["with:"]=8;
-$18=_st($17)._at_put_("disabled","disabled");
-$ctx3.sendIdx["at:put:"]=1;
-$18;
-$19=_st(html)._option();
-$ctx3.sendIdx["option"]=2;
-_st($19)._class_("important");
-$ctx3.sendIdx["class:"]=1;
-$20=_st($19)._with_("New...");
-$ctx3.sendIdx["with:"]=9;
-$20;
-currentProtocol=self["@selectedProtocol"];
-currentProtocol;
-$22=_st(currentProtocol)._isNil();
-$ctx3.sendIdx["isNil"]=1;
-$21=_st($22)._and_((function(){
-return smalltalk.withContext(function($ctx4) {
-return _st(self["@selectedMethod"])._notNil();
-$ctx4.sendIdx["notNil"]=1;
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,11)})}));
-if(smalltalk.assert($21)){
-currentProtocol=_st(self["@selectedMethod"])._category();
-currentProtocol;
-};
-return _st(self._protocols())._do_((function(each){
-var option;
-return smalltalk.withContext(function($ctx4) {
-$23=_st(html)._option();
-$ctx4.sendIdx["option"]=3;
-option=_st($23)._with_(each);
-$ctx4.sendIdx["with:"]=10;
-option;
-$24=_st(currentProtocol).__eq(each);
-if(smalltalk.assert($24)){
-return _st(option)._at_put_("selected","selected");
-$ctx4.sendIdx["at:put:"]=2;
-};
-}, function($ctx4) {$ctx4.fillBlock({each:each,option:option},$ctx3,13)})}));
-$ctx3.sendIdx["do:"]=1;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,10)})}));
-$ctx2.sendIdx["with:"]=7;
-$16;
-$25=_st(self["@selectedMethod"])._isNil();
-$ctx2.sendIdx["isNil"]=2;
-if(! smalltalk.assert($25)){
-referencesSelect=_st(html)._select();
-referencesSelect;
-$26=referencesSelect;
-_st($26)._onChange_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._searchReferencesOf_(_st(_st(referencesSelect)._asJQuery())._val());
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,16)})}));
-$27=_st($26)._with_((function(){
-var option;
-return smalltalk.withContext(function($ctx3) {
-$28=_st(html)._option();
-$ctx3.sendIdx["option"]=4;
-_st($28)._with_("References");
-$ctx3.sendIdx["with:"]=12;
-_st($28)._at_put_("disabled","disabled");
-$ctx3.sendIdx["at:put:"]=3;
-$29=_st($28)._at_put_("selected","selected");
-$29;
-$30=_st(html)._option();
-$ctx3.sendIdx["option"]=5;
-_st($30)._class_("important");
-$31=_st($30)._with_(_st(self["@selectedMethod"])._selector());
-$ctx3.sendIdx["with:"]=13;
-$31;
-return _st(_st(_st(self["@selectedMethod"])._messageSends())._sorted())._do_((function(each){
-return smalltalk.withContext(function($ctx4) {
-return _st(_st(html)._option())._with_(each);
-}, function($ctx4) {$ctx4.fillBlock({each:each},$ctx3,18)})}));
-}, function($ctx3) {$ctx3.fillBlock({option:option},$ctx2,17)})}));
-$ctx2.sendIdx["with:"]=11;
-return $27;
-};
-}, function($ctx2) {$ctx2.fillBlock({html:html,protocolSelect:protocolSelect,referencesSelect:referencesSelect},$ctx1,7)})}));
-$32=_st(self["@selectedMethod"])._isNil();
-$ctx1.sendIdx["isNil"]=3;
-if(smalltalk.assert($32)){
-self._hideMethodButtons();
-$33=_st(_st(self["@selectedClass"])._isNil())._or_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self["@selectedProtocol"])._notNil();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,20)})}));
-if(smalltalk.assert($33)){
-self._hideClassButtons();
-$ctx1.sendIdx["hideClassButtons"]=1;
-} else {
-self._showClassButtons();
-};
-} else {
-self._hideClassButtons();
-self._showMethodButtons();
-};
-_st(self["@sourceArea"])._val_(self._source());
-return self}, function($ctx1) {$ctx1.fill(self,"updateSourceAndButtons",{currentProtocol:currentProtocol},globals.Browser)})},
-args: [],
-source: "updateSourceAndButtons\x0a\x09| currentProtocol |\x0a\x0a\x09self disableSaveButton.\x0a\x09classButtons contents: [ :html |\x0a\x09\x09html button\x0a\x09\x09\x09title: 'Create a new class';\x0a\x09\x09\x09onClick: [ self addNewClass ];\x0a\x09\x09\x09with: 'New class'.\x0a\x09\x09html button\x0a\x09\x09\x09with: 'Rename class';\x0a\x09\x09\x09onClick: [ self renameClass ].\x0a\x09\x09html button\x0a\x09\x09\x09with: 'Copy class';\x0a\x09\x09\x09onClick: [ self copyClass ].\x0a\x09\x09html button\x0a\x09\x09\x09with: 'Remove class';\x0a\x09\x09\x09onClick: [ self removeClass ].\x0a\x09\x09html button\x0a\x09\x09\x09with: 'References';\x0a\x09\x09\x09onClick: [ self searchClassReferences ]].\x0a\x09methodButtons contents: [ :html | | protocolSelect referencesSelect |\x0a\x09\x09html button\x0a\x09\x09\x09with: 'Remove method';\x0a\x09\x09\x09onClick: [ self removeMethod ].\x0a\x09\x09protocolSelect := html select.\x0a\x09\x09\x09\x09protocolSelect\x0a\x09\x09\x09onChange: [ self setMethodProtocol: protocolSelect asJQuery val ];\x0a\x09\x09\x09with: [\x0a\x09\x09\x09\x09html option\x0a\x09\x09\x09\x09\x09with: 'Method protocol';\x0a\x09\x09\x09\x09\x09at: 'disabled' put: 'disabled'.\x0a\x09\x09\x09\x09html option\x0a\x09\x09\x09\x09\x09class: 'important';\x0a\x09\x09\x09\x09\x09with: 'New...'.\x0a\x09\x09\x09\x09currentProtocol := selectedProtocol.\x0a\x09\x09\x09\x09(currentProtocol isNil and: [ selectedMethod notNil ])\x0a\x09\x09\x09\x09\x09ifTrue: [ currentProtocol := selectedMethod category ].\x0a\x09\x09\x09\x09self protocols do: [ :each | | option |\x0a\x09\x09\x09\x09\x09option := html option with: each.\x0a\x09\x09\x09\x09\x09currentProtocol = each ifTrue: [ option at: 'selected' put: 'selected' ] ] ].\x0a\x09\x09selectedMethod isNil ifFalse: [\x0a\x09\x09\x09referencesSelect := html select.\x0a\x09\x09\x09\x09\x09\x09referencesSelect\x0a\x09\x09\x09\x09onChange: [ self searchReferencesOf: referencesSelect asJQuery val ];\x0a\x09\x09\x09\x09with: [ |option|\x0a\x09\x09\x09\x09\x09html option\x0a\x09\x09\x09\x09\x09\x09with: 'References';\x0a\x09\x09\x09\x09\x09\x09at: 'disabled' put: 'disabled';\x0a\x09\x09\x09\x09\x09\x09at: 'selected' put: 'selected'.\x0a\x09\x09\x09\x09\x09html option\x0a\x09\x09\x09\x09\x09\x09class: 'important';\x0a\x09\x09\x09\x09\x09\x09with: selectedMethod selector.\x0a\x09\x09\x09\x09\x09selectedMethod messageSends sorted do: [ :each |\x0a\x09\x09\x09\x09\x09\x09html option with: each ]] ]].\x0a\x09selectedMethod isNil\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self hideMethodButtons.\x0a\x09\x09\x09\x09(selectedClass isNil or: [ selectedProtocol notNil ])\x0a\x09\x09\x09\x09\x09ifTrue: [ self hideClassButtons ]\x0a\x09\x09\x09\x09\x09ifFalse: [ self showClassButtons ]]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09self hideClassButtons.\x0a\x09\x09\x09self showMethodButtons ].\x0a\x09sourceArea val: self source",
-messageSends: ["disableSaveButton", "contents:", "title:", "button", "onClick:", "addNewClass", "with:", "renameClass", "copyClass", "removeClass", "searchClassReferences", "removeMethod", "select", "onChange:", "setMethodProtocol:", "val", "asJQuery", "option", "at:put:", "class:", "ifTrue:", "and:", "isNil", "notNil", "category", "do:", "protocols", "=", "ifFalse:", "searchReferencesOf:", "selector", "sorted", "messageSends", "ifTrue:ifFalse:", "hideMethodButtons", "or:", "hideClassButtons", "showClassButtons", "showMethodButtons", "val:", "source"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateStatus",
-protocol: 'updating',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-$1=_st(_st(self["@sourceArea"])._val()).__eq(self._source());
-if(smalltalk.assert($1)){
-$2=self["@saveButton"];
-if(($receiver = $2) == nil || $receiver == null){
-$2;
-} else {
-_st(self["@saveButton"])._at_put_("disabled",true);
-};
-self["@unsavedChanges"]=false;
-self["@unsavedChanges"];
-} else {
-$3=self["@saveButton"];
-if(($receiver = $3) == nil || $receiver == null){
-$3;
-} else {
-_st(self["@saveButton"])._removeAt_("disabled");
-};
-self["@unsavedChanges"]=true;
-self["@unsavedChanges"];
-};
-return self}, function($ctx1) {$ctx1.fill(self,"updateStatus",{},globals.Browser)})},
-args: [],
-source: "updateStatus\x0a\x09sourceArea val = self source\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09saveButton ifNotNil: [\x0a\x09\x09\x09\x09saveButton at: 'disabled' put: true ].\x0a\x09\x09\x09\x09unsavedChanges := false ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09saveButton ifNotNil: [\x0a\x09\x09\x09\x09saveButton removeAt: 'disabled' ].\x0a\x09\x09\x09unsavedChanges := true ]",
-messageSends: ["ifTrue:ifFalse:", "=", "val", "source", "ifNotNil:", "at:put:", "removeAt:"],
-referencedClasses: []
-}),
-globals.Browser);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateTabsList",
-protocol: 'updating',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20;
-_st(self["@tabsList"])._contents_((function(html){
-var li;
-return smalltalk.withContext(function($ctx2) {
-li=_st(html)._li();
-$ctx2.sendIdx["li"]=1;
-li;
-$1=_st(self["@selectedTab"]).__eq("instance");
-$ctx2.sendIdx["="]=1;
-if(smalltalk.assert($1)){
-_st(li)._class_("selected");
-$ctx2.sendIdx["class:"]=1;
-};
-$2=li;
-_st($2)._with_((function(){
-return smalltalk.withContext(function($ctx3) {
-$3=_st(html)._span();
-$ctx3.sendIdx["span"]=1;
-_st($3)._class_("ltab");
-$ctx3.sendIdx["class:"]=2;
-$4=_st(html)._span();
-$ctx3.sendIdx["span"]=2;
-_st($4)._class_("mtab");
-$ctx3.sendIdx["class:"]=3;
-$5=_st($4)._with_("Instance");
-$ctx3.sendIdx["with:"]=2;
-$5;
-$6=_st(html)._span();
-$ctx3.sendIdx["span"]=3;
-return _st($6)._class_("rtab");
-$ctx3.sendIdx["class:"]=4;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
-$ctx2.sendIdx["with:"]=1;
-$7=_st($2)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._selectTab_("instance");
-$ctx3.sendIdx["selectTab:"]=1;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
-$ctx2.sendIdx["onClick:"]=1;
-$7;
-li=_st(html)._li();
-$ctx2.sendIdx["li"]=2;
-li;
-$8=_st(self["@selectedTab"]).__eq("class");
-$ctx2.sendIdx["="]=2;
-if(smalltalk.assert($8)){
-_st(li)._class_("selected");
-$ctx2.sendIdx["class:"]=5;
-};
-$9=li;
-_st($9)._with_((function(){
-return smalltalk.withContext(function($ctx3) {
-$10=_st(html)._span();
-$ctx3.sendIdx["span"]=4;
-_st($10)._class_("ltab");
-$ctx3.sendIdx["class:"]=6;
-$11=_st(html)._span();
-$ctx3.sendIdx["span"]=5;
-_st($11)._class_("mtab");
-$ctx3.sendIdx["class:"]=7;
-$12=_st($11)._with_("Class");
-$ctx3.sendIdx["with:"]=4;
-$12;
-$13=_st(html)._span();
-$ctx3.sendIdx["span"]=6;
-return _st($13)._class_("rtab");
-$ctx3.sendIdx["class:"]=8;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,6)})}));
-$ctx2.sendIdx["with:"]=3;
-$14=_st($9)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._selectTab_("class");
-$ctx3.sendIdx["selectTab:"]=2;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,7)})}));
-$ctx2.sendIdx["onClick:"]=2;
-$14;
-li=_st(html)._li();
-li;
-$15=_st(self["@selectedTab"]).__eq("comment");
-if(smalltalk.assert($15)){
-_st(li)._class_("selected");
-$ctx2.sendIdx["class:"]=9;
-};
-$16=li;
-_st($16)._with_((function(){
-return smalltalk.withContext(function($ctx3) {
-$17=_st(html)._span();
-$ctx3.sendIdx["span"]=7;
-_st($17)._class_("ltab");
-$ctx3.sendIdx["class:"]=10;
-$18=_st(html)._span();
-$ctx3.sendIdx["span"]=8;
-_st($18)._class_("mtab");
-$ctx3.sendIdx["class:"]=11;
-$19=_st($18)._with_("Comment");
-$19;
-return _st(_st(html)._span())._class_("rtab");
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,9)})}));
-$ctx2.sendIdx["with:"]=5;
-$20=_st($16)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._selectTab_("comment");
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,10)})}));
-return $20;
-}, function($ctx2) {$ctx2.fillBlock({html:html,li:li},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"updateTabsList",{},globals.Browser)})},
-args: [],
-source: "updateTabsList\x0a\x09tabsList contents: [ :html || li |\x0a\x09li := html li.\x0a\x09selectedTab = #instance ifTrue: [ li class: 'selected' ].\x0a\x09li\x0a\x09\x09with: [\x0a\x09\x09html span class: 'ltab'.\x0a\x09\x09html span class: 'mtab'; with: 'Instance'.\x0a\x09\x09html span class: 'rtab' ];\x0a\x09\x09onClick: [ self selectTab: #instance ].\x0a\x09li := html li.\x0a\x09selectedTab = #class ifTrue: [ li class: 'selected' ].\x0a\x09li\x0a\x09\x09with: [\x0a\x09\x09html span class: 'ltab'.\x0a\x09\x09html span class: 'mtab'; with: 'Class'.\x0a\x09\x09html span class: 'rtab' ];\x0a\x09\x09onClick: [ self selectTab: #class ].\x0a\x09li := html li.\x0a\x09selectedTab = #comment ifTrue: [ li class: 'selected' ].\x0a\x09li\x0a\x09\x09with: [\x0a\x09\x09html span class: 'ltab'.\x0a\x09\x09html span class: 'mtab'; with: 'Comment'.\x0a\x09\x09html span class: 'rtab' ];\x0a\x09\x09onClick: [ self selectTab: #comment ]]",
-messageSends: ["contents:", "li", "ifTrue:", "=", "class:", "with:", "span", "onClick:", "selectTab:"],
-referencedClasses: []
-}),
-globals.Browser);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "open",
-protocol: 'convenience',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self._new())._open();
-return self}, function($ctx1) {$ctx1.fill(self,"open",{},globals.Browser.klass)})},
-args: [],
-source: "open\x0a\x09self new open",
-messageSends: ["open", "new"],
-referencedClasses: []
-}),
-globals.Browser.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "openOn:",
-protocol: 'convenience',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=self._new();
-_st($2)._open();
-_st($2)._selectCategory_(_st(aClass)._category());
-$3=_st($2)._selectClass_(aClass);
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"openOn:",{aClass:aClass},globals.Browser.klass)})},
-args: ["aClass"],
-source: "openOn: aClass\x0a\x09^ self new\x0a\x09open;\x0a\x09selectCategory: aClass category;\x0a\x09selectClass: aClass",
-messageSends: ["open", "new", "selectCategory:", "category", "selectClass:"],
-referencedClasses: []
-}),
-globals.Browser.klass);
-
-
 smalltalk.addClass('Debugger', globals.TabWidget, ['error', 'selectedContext', 'sourceArea', 'ul', 'ul2', 'inspector', 'saveButton', 'unsavedChanges', 'selectedVariable', 'selectedVariableName', 'inspectButton'], 'IDE');
 smalltalk.addMethod(
 smalltalk.method({
@@ -4647,6 +2578,2100 @@ referencedClasses: []
 }),
 globals.Debugger);
 
+
+
+smalltalk.addClass('IDEBrowser', globals.TabWidget, ['selectedPackage', 'selectedClass', 'selectedProtocol', 'selectedMethod', 'packagesList', 'classesList', 'protocolsList', 'methodsList', 'sourceArea', 'tabsList', 'selectedTab', 'saveButton', 'classButtons', 'methodButtons', 'unsavedChanges'], 'IDE');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addInstanceVariableNamed:toClass:",
+protocol: 'actions',
+fn: function (aString,aClass){
+var self=this;
+function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5;
+$1=_st($ClassBuilder())._new();
+$2=_st(aClass)._superclass();
+$3=_st(aClass)._name();
+$ctx1.sendIdx["name"]=1;
+$4=_st(_st(aClass)._instanceVariableNames())._copy();
+_st($4)._add_(aString);
+$5=_st($4)._yourself();
+_st($1)._addSubclassOf_named_instanceVariableNames_package_($2,$3,$5,_st(_st(aClass)._package())._name());
+return self}, function($ctx1) {$ctx1.fill(self,"addInstanceVariableNamed:toClass:",{aString:aString,aClass:aClass},globals.IDEBrowser)})},
+args: ["aString", "aClass"],
+source: "addInstanceVariableNamed: aString toClass: aClass\x0a\x09ClassBuilder new\x0a\x09\x09addSubclassOf: aClass superclass\x0a\x09\x09named: aClass name\x0a\x09\x09instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)\x0a\x09\x09package: aClass package name",
+messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "new", "superclass", "name", "add:", "copy", "instanceVariableNames", "yourself", "package"],
+referencedClasses: ["ClassBuilder"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addNewClass",
+protocol: 'actions',
+fn: function (){
+var self=this;
+var className;
+function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+className=self._prompt_("New class");
+$1=_st(_st(className)._notNil())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(className)._notEmpty();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+if(smalltalk.assert($1)){
+_st($Object())._subclass_instanceVariableNames_package_(className,"",self._selectedPackage());
+self._resetClassesList();
+$2=self._updateClassesList();
+$2;
+self._selectClass_(_st(_st($Smalltalk())._globals())._at_(className));
+};
+return self}, function($ctx1) {$ctx1.fill(self,"addNewClass",{className:className},globals.IDEBrowser)})},
+args: [],
+source: "addNewClass\x0a\x09| className |\x0a\x09className := self prompt: 'New class'.\x0a\x09(className notNil and: [ className notEmpty ]) ifTrue: [\x0a\x09\x09Object subclass: className instanceVariableNames: '' package: self selectedPackage.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk globals at: className) ]",
+messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "subclass:instanceVariableNames:package:", "selectedPackage", "resetClassesList", "updateClassesList", "selectClass:", "at:", "globals"],
+referencedClasses: ["Object", "Smalltalk"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addNewProtocol",
+protocol: 'actions',
+fn: function (){
+var self=this;
+var newProtocol;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+newProtocol=self._prompt_("New method protocol");
+$1=_st(_st(newProtocol)._notNil())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(newProtocol)._notEmpty();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+if(smalltalk.assert($1)){
+_st(self["@selectedMethod"])._protocol_(newProtocol);
+self._setMethodProtocol_(newProtocol);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"addNewProtocol",{newProtocol:newProtocol},globals.IDEBrowser)})},
+args: [],
+source: "addNewProtocol\x0a\x09| newProtocol |\x0a\x09\x0a\x09newProtocol := self prompt: 'New method protocol'.\x0a\x09\x0a\x09(newProtocol notNil and: [ newProtocol notEmpty ]) ifTrue: [\x0a\x09\x09selectedMethod protocol: newProtocol.\x0a\x09\x09self setMethodProtocol: newProtocol ]",
+messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "protocol:", "setMethodProtocol:"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "canBeClosed",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return true;
+},
+args: [],
+source: "canBeClosed\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cancelChanges",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@unsavedChanges"];
+if(smalltalk.assert($2)){
+$1=self._confirm_("Cancel changes?");
+} else {
+$1=true;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"cancelChanges",{},globals.IDEBrowser)})},
+args: [],
+source: "cancelChanges\x0a\x09^ unsavedChanges\x0a\x09ifTrue: [ self confirm: 'Cancel changes?' ]\x0a\x09ifFalse: [ true ]",
+messageSends: ["ifTrue:ifFalse:", "confirm:"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "classCommentSource",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@selectedClass"])._comment();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classCommentSource",{},globals.IDEBrowser)})},
+args: [],
+source: "classCommentSource\x0a\x09^ selectedClass comment",
+messageSends: ["comment"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "classDeclarationSource",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var stream;
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$6,$7,$5,$8,$9,$10,$11,$12,$13;
+stream=""._writeStream();
+$1=self["@selectedClass"];
+if(($receiver = $1) == nil || $receiver == null){
+$2=self._classDeclarationTemplate();
+return $2;
+} else {
+$1;
+};
+$3=stream;
+_st($3)._nextPutAll_(_st(_st(self["@selectedClass"])._superclass())._asString());
+$ctx1.sendIdx["nextPutAll:"]=1;
+_st($3)._nextPutAll_(" subclass: #");
+$ctx1.sendIdx["nextPutAll:"]=2;
+_st($3)._nextPutAll_(_st(self["@selectedClass"])._name());
+$ctx1.sendIdx["nextPutAll:"]=3;
+$4=$3;
+$6=_st($String())._lf();
+$ctx1.sendIdx["lf"]=1;
+$7=_st($String())._tab();
+$ctx1.sendIdx["tab"]=1;
+$5=_st($6).__comma($7);
+$ctx1.sendIdx[","]=1;
+_st($4)._nextPutAll_($5);
+$ctx1.sendIdx["nextPutAll:"]=4;
+$8=_st($3)._nextPutAll_("instanceVariableNames: '");
+$ctx1.sendIdx["nextPutAll:"]=5;
+_st(_st(self["@selectedClass"])._instanceVariableNames())._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(stream)._nextPutAll_(each);
+$ctx2.sendIdx["nextPutAll:"]=6;
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(stream)._nextPutAll_(" ");
+$ctx2.sendIdx["nextPutAll:"]=7;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+$9=stream;
+$10=$9;
+$11=_st("'".__comma(_st($String())._lf())).__comma(_st($String())._tab());
+$ctx1.sendIdx[","]=2;
+_st($10)._nextPutAll_($11);
+$ctx1.sendIdx["nextPutAll:"]=8;
+_st($9)._nextPutAll_("package: '");
+$ctx1.sendIdx["nextPutAll:"]=9;
+_st($9)._nextPutAll_(_st(self["@selectedClass"])._category());
+$ctx1.sendIdx["nextPutAll:"]=10;
+$12=_st($9)._nextPutAll_("'");
+$13=_st(stream)._contents();
+return $13;
+}, function($ctx1) {$ctx1.fill(self,"classDeclarationSource",{stream:stream},globals.IDEBrowser)})},
+args: [],
+source: "classDeclarationSource\x0a\x09| stream |\x0a\x09stream := '' writeStream.\x0a\x09selectedClass ifNil: [ ^ self classDeclarationTemplate ].\x0a\x09stream\x0a\x09\x09nextPutAll: selectedClass superclass asString;\x0a\x09\x09nextPutAll: ' subclass: #';\x0a\x09\x09nextPutAll: selectedClass name;\x0a\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09nextPutAll: 'instanceVariableNames: '''.\x0a\x09selectedClass instanceVariableNames\x0a\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ' ' ].\x0a\x09stream\x0a\x09\x09nextPutAll: '''', String lf, String tab;\x0a\x09\x09nextPutAll: 'package: ''';\x0a\x09\x09nextPutAll: selectedClass category;\x0a\x09\x09nextPutAll: ''''.\x0a\x09^ stream contents",
+messageSends: ["writeStream", "ifNil:", "classDeclarationTemplate", "nextPutAll:", "asString", "superclass", "name", ",", "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category", "contents"],
+referencedClasses: ["String"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "classDeclarationTemplate",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st("Object subclass: #NameOfSubclass\x0a\x09instanceVariableNames: ''\x0a\x09package: '".__comma(self._selectedPackage())).__comma("'");
+$ctx1.sendIdx[","]=1;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classDeclarationTemplate",{},globals.IDEBrowser)})},
+args: [],
+source: "classDeclarationTemplate\x0a\x09^ 'Object subclass: #NameOfSubclass\x0a\x09instanceVariableNames: ''''\x0a\x09package: ''', self selectedPackage, ''''",
+messageSends: [",", "selectedPackage"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "classes",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$1=_st(_st(_st(_st($Smalltalk())._classes())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._category()).__eq(self["@selectedPackage"]);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._sort_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+$2=_st(a)._name();
+$ctx2.sendIdx["name"]=1;
+return _st($2).__lt(_st(b)._name());
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,2)})})))._asSet();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classes",{},globals.IDEBrowser)})},
+args: [],
+source: "classes\x0a\x09^ ((Smalltalk classes\x0a\x09select: [ :each | each category = selectedPackage ])\x0a\x09sort: [ :a :b | a name < b name ]) asSet",
+messageSends: ["asSet", "sort:", "select:", "classes", "=", "category", "<", "name"],
+referencedClasses: ["Smalltalk"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPackage",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@selectedPackage"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+_st(_st($Package())._named_(self["@selectedPackage"]))._commit();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"commitPackage",{},globals.IDEBrowser)})},
+args: [],
+source: "commitPackage\x0a\x09selectedPackage ifNotNil: [\x0a\x09\x09(Package named: selectedPackage) commit ]",
+messageSends: ["ifNotNil:", "commit", "named:"],
+referencedClasses: ["Package"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compile",
+protocol: 'actions',
+fn: function (){
+var self=this;
+var currentEditLine;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$5,$4;
+self._disableSaveButton();
+$1=_st(self["@sourceArea"])._editor();
+$ctx1.sendIdx["editor"]=1;
+currentEditLine=_st($1)._getCursor();
+$2=_st(self["@selectedTab"]).__eq("comment");
+if(smalltalk.assert($2)){
+$3=self["@selectedClass"];
+if(($receiver = $3) == nil || $receiver == null){
+$3;
+} else {
+self._compileClassComment();
+};
+} else {
+$5=_st(self["@selectedProtocol"])._notNil();
+$ctx1.sendIdx["notNil"]=1;
+$4=_st($5)._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@selectedMethod"])._notNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
+if(smalltalk.assert($4)){
+self._compileMethodDefinition();
+} else {
+self._compileDefinition();
+};
+};
+_st(_st(self["@sourceArea"])._editor())._setCursor_(currentEditLine);
+return self}, function($ctx1) {$ctx1.fill(self,"compile",{currentEditLine:currentEditLine},globals.IDEBrowser)})},
+args: [],
+source: "compile\x0a\x09| currentEditLine |\x0a\x09self disableSaveButton.\x0a\x09currentEditLine := sourceArea editor getCursor.\x0a\x09selectedTab = #comment\x0a\x09ifTrue: [\x0a\x09\x09\x09selectedClass ifNotNil: [\x0a\x09\x09\x09\x09self compileClassComment ]]\x0a\x09ifFalse: [\x0a\x09\x09\x09(selectedProtocol notNil or: [ selectedMethod notNil ])\x0a\x09\x09\x09\x09ifFalse: [ self compileDefinition ]\x0a\x09\x09\x09\x09ifTrue: [ self compileMethodDefinition ]].\x0a\x09sourceArea editor setCursor: currentEditLine.",
+messageSends: ["disableSaveButton", "getCursor", "editor", "ifTrue:ifFalse:", "=", "ifNotNil:", "compileClassComment", "ifFalse:ifTrue:", "or:", "notNil", "compileDefinition", "compileMethodDefinition", "setCursor:"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compileClassComment",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@selectedClass"])._comment_(_st(self["@sourceArea"])._val());
+return self}, function($ctx1) {$ctx1.fill(self,"compileClassComment",{},globals.IDEBrowser)})},
+args: [],
+source: "compileClassComment\x0a\x09selectedClass comment: sourceArea val",
+messageSends: ["comment:", "val"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compileDefinition",
+protocol: 'actions',
+fn: function (){
+var self=this;
+var newClass;
+function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+newClass=_st(_st($Compiler())._new())._evaluateExpression_(_st(self["@sourceArea"])._val());
+self._resetClassesList();
+self._updateCategoriesList();
+$1=self._updateClassesList();
+self._selectClass_(newClass);
+return self}, function($ctx1) {$ctx1.fill(self,"compileDefinition",{newClass:newClass},globals.IDEBrowser)})},
+args: [],
+source: "compileDefinition\x0a\x09| newClass |\x0a\x09newClass := Compiler new evaluateExpression: sourceArea val.\x0a\x09self\x0a\x09resetClassesList;\x0a\x09updateCategoriesList;\x0a\x09updateClassesList.\x0a\x09self selectClass: newClass",
+messageSends: ["evaluateExpression:", "new", "val", "resetClassesList", "updateCategoriesList", "updateClassesList", "selectClass:"],
+referencedClasses: ["Compiler"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compileMethodDefinition",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@selectedTab"]).__eq("instance");
+if(smalltalk.assert($1)){
+self._compileMethodDefinitionFor_(self["@selectedClass"]);
+$ctx1.sendIdx["compileMethodDefinitionFor:"]=1;
+} else {
+self._compileMethodDefinitionFor_(_st(self["@selectedClass"])._class());
+};
+return self}, function($ctx1) {$ctx1.fill(self,"compileMethodDefinition",{},globals.IDEBrowser)})},
+args: [],
+source: "compileMethodDefinition\x0a\x09selectedTab = #instance\x0a\x09ifTrue: [ self compileMethodDefinitionFor: selectedClass ]\x0a\x09ifFalse: [ self compileMethodDefinitionFor: selectedClass class ]",
+messageSends: ["ifTrue:ifFalse:", "=", "compileMethodDefinitionFor:", "class"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compileMethodDefinitionFor:",
+protocol: 'actions',
+fn: function (aClass){
+var self=this;
+var compiler,method,source,node;
+function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $PlatformInterface(){return globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$6,$5,$4,$3,$7,$9,$8,$10;
+var $early={};
+try {
+source=_st(self["@sourceArea"])._val();
+$1=self["@selectedProtocol"];
+if(($receiver = $1) == nil || $receiver == null){
+self["@selectedProtocol"]=_st(self["@selectedMethod"])._protocol();
+self["@selectedProtocol"];
+} else {
+$1;
+};
+compiler=_st($Compiler())._new();
+$ctx1.sendIdx["new"]=1;
+_st(compiler)._source_(source);
+node=_st(compiler)._parse_(source);
+$2=_st(node)._isParseFailure();
+if(smalltalk.assert($2)){
+$6="PARSE ERROR: ".__comma(_st(node)._reason());
+$ctx1.sendIdx[","]=3;
+$5=_st($6).__comma(", position: ");
+$ctx1.sendIdx[","]=2;
+$4=_st($5).__comma(_st(_st(node)._position())._asString());
+$ctx1.sendIdx[","]=1;
+$3=self._alert_($4);
+return $3;
+};
+_st(compiler)._currentClass_(aClass);
+method=_st(compiler)._eval_(_st(compiler)._compileNode_(node));
+_st(_st(compiler)._unknownVariables())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$7=_st($PlatformInterface())._existsGlobal_(each);
+if(! smalltalk.assert($7)){
+$9=_st("Declare '".__comma(each)).__comma("' as instance variable?");
+$ctx2.sendIdx[","]=4;
+$8=self._confirm_($9);
+if(smalltalk.assert($8)){
+self._addInstanceVariableNamed_toClass_(each,aClass);
+$10=self._compileMethodDefinitionFor_(aClass);
+throw $early=[$10];
+};
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
+_st(_st($ClassBuilder())._new())._installMethod_forClass_protocol_(method,aClass,self["@selectedProtocol"]);
+self._updateMethodsList();
+self._selectMethod_(method);
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"compileMethodDefinitionFor:",{aClass:aClass,compiler:compiler,method:method,source:source,node:node},globals.IDEBrowser)})},
+args: ["aClass"],
+source: "compileMethodDefinitionFor: aClass\x0a\x09| compiler method source node |\x0a\x09source := sourceArea val.\x0a\x09selectedProtocol ifNil: [ selectedProtocol := selectedMethod protocol ].\x0a\x09compiler := Compiler new.\x0a\x09compiler source: source.\x0a\x09node := compiler parse: source.\x0a\x09node isParseFailure ifTrue: [\x0a\x09^ self alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString ].\x0a\x09compiler currentClass: aClass.\x0a\x09method := compiler eval: (compiler compileNode: node).\x0a\x09compiler unknownVariables do: [ :each |\x0a\x09\x09\x22Do not try to redeclare javascript's objects\x22\x0a\x09\x09(PlatformInterface existsGlobal: each) ifFalse: [\x0a\x09\x09(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [\x0a\x09\x09\x09self addInstanceVariableNamed: each toClass: aClass.\x0a\x09\x09\x09^ self compileMethodDefinitionFor: aClass ]] ].\x0a\x09ClassBuilder new installMethod: method forClass: aClass protocol: selectedProtocol.\x0a\x09self updateMethodsList.\x0a\x09self selectMethod: method",
+messageSends: ["val", "ifNil:", "protocol", "new", "source:", "parse:", "ifTrue:", "isParseFailure", "alert:", ",", "reason", "asString", "position", "currentClass:", "eval:", "compileNode:", "do:", "unknownVariables", "ifFalse:", "existsGlobal:", "confirm:", "addInstanceVariableNamed:toClass:", "compileMethodDefinitionFor:", "installMethod:forClass:protocol:", "updateMethodsList", "selectMethod:"],
+referencedClasses: ["Compiler", "PlatformInterface", "ClassBuilder"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "copyClass",
+protocol: 'actions',
+fn: function (){
+var self=this;
+var className;
+function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+className=self._prompt_("Copy class");
+$1=_st(_st(className)._notNil())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(className)._notEmpty();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+if(smalltalk.assert($1)){
+_st(_st($ClassBuilder())._new())._copyClass_named_(self._selectedClass(),className);
+self._resetClassesList();
+$2=self._updateClassesList();
+$2;
+self._selectClass_(_st(_st($Smalltalk())._globals())._at_(className));
+};
+return self}, function($ctx1) {$ctx1.fill(self,"copyClass",{className:className},globals.IDEBrowser)})},
+args: [],
+source: "copyClass\x0a\x09| className |\x0a\x09className := self prompt: 'Copy class'.\x0a\x09(className notNil and: [ className notEmpty ]) ifTrue: [\x0a\x09\x09ClassBuilder new copyClass: self selectedClass named: className.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk globals at: className) ]",
+messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "copyClass:named:", "new", "selectedClass", "resetClassesList", "updateClassesList", "selectClass:", "at:", "globals"],
+referencedClasses: ["ClassBuilder", "Smalltalk"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "declarationSource",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(self["@selectedTab"]).__eq("instance");
+if(smalltalk.assert($2)){
+$1=self._classDeclarationSource();
+} else {
+$1=self._metaclassDeclarationSource();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"declarationSource",{},globals.IDEBrowser)})},
+args: [],
+source: "declarationSource\x0a\x09^ selectedTab = #instance\x0a\x09ifTrue: [ self classDeclarationSource ]\x0a\x09ifFalse: [ self metaclassDeclarationSource ]",
+messageSends: ["ifTrue:ifFalse:", "=", "classDeclarationSource", "metaclassDeclarationSource"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "disableSaveButton",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@saveButton"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+_st(self["@saveButton"])._at_put_("disabled",true);
+};
+self["@unsavedChanges"]=false;
+return self}, function($ctx1) {$ctx1.fill(self,"disableSaveButton",{},globals.IDEBrowser)})},
+args: [],
+source: "disableSaveButton\x0a\x09saveButton ifNotNil: [\x0a\x09saveButton at: 'disabled' put: true ].\x0a\x09unsavedChanges := false",
+messageSends: ["ifNotNil:", "at:put:"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "dummyMethodSource",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "messageSelectorAndArgumentNames\x0a\x09\x22comment stating purpose of message\x22\x0a\x0a\x09| temporary variable names |\x0a\x09statements";
+},
+args: [],
+source: "dummyMethodSource\x0a\x09^ 'messageSelectorAndArgumentNames\x0a\x09\x22comment stating purpose of message\x22\x0a\x0a\x09| temporary variable names |\x0a\x09statements'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleSourceAreaKeyDown:",
+protocol: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+if(anEvent.ctrlKey) {
+		if(anEvent.keyCode === 83) { //ctrl+s
+			self._compile();
+			anEvent.preventDefault();
+			return false;
+		}
+	}
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"handleSourceAreaKeyDown:",{anEvent:anEvent},globals.IDEBrowser)})},
+args: ["anEvent"],
+source: "handleSourceAreaKeyDown: anEvent\x0a\x09<if(anEvent.ctrlKey) {\x0a\x09\x09if(anEvent.keyCode === 83) { //ctrl+s\x0a\x09\x09\x09self._compile();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09}\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "hideClassButtons",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@classButtons"])._asJQuery())._hide();
+return self}, function($ctx1) {$ctx1.fill(self,"hideClassButtons",{},globals.IDEBrowser)})},
+args: [],
+source: "hideClassButtons\x0a\x09classButtons asJQuery hide",
+messageSends: ["hide", "asJQuery"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "hideMethodButtons",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@methodButtons"])._asJQuery())._hide();
+return self}, function($ctx1) {$ctx1.fill(self,"hideMethodButtons",{},globals.IDEBrowser)})},
+args: [],
+source: "hideMethodButtons\x0a\x09methodButtons asJQuery hide",
+messageSends: ["hide", "asJQuery"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+globals.IDEBrowser.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@selectedTab"]="instance";
+self["@selectedPackage"]=_st(self._packages())._first();
+self["@unsavedChanges"]=false;
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.IDEBrowser)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09selectedTab := #instance.\x0a\x09selectedPackage := self packages first.\x0a\x09unsavedChanges := false",
+messageSends: ["initialize", "first", "packages"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@selectedClass"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="Browser (nil)";
+} else {
+$1="Browser: ".__comma(_st(self["@selectedClass"])._name());
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"label",{},globals.IDEBrowser)})},
+args: [],
+source: "label\x0a\x09^ selectedClass\x0a\x09ifNil: [ 'Browser (nil)' ]\x0a\x09ifNotNil: [ 'Browser: ', selectedClass name ]",
+messageSends: ["ifNil:ifNotNil:", ",", "name"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "metaclassDeclarationSource",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var stream;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+stream=""._writeStream();
+$1=self["@selectedClass"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+$2=stream;
+_st($2)._nextPutAll_(_st(self["@selectedClass"])._asString());
+$ctx1.sendIdx["nextPutAll:"]=1;
+_st($2)._nextPutAll_(" class ");
+$ctx1.sendIdx["nextPutAll:"]=2;
+$3=_st($2)._nextPutAll_("instanceVariableNames: '");
+$ctx1.sendIdx["nextPutAll:"]=3;
+$3;
+_st(_st(_st(self["@selectedClass"])._class())._instanceVariableNames())._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(stream)._nextPutAll_(each);
+$ctx2.sendIdx["nextPutAll:"]=4;
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(stream)._nextPutAll_(" ");
+$ctx2.sendIdx["nextPutAll:"]=5;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+_st(stream)._nextPutAll_("'");
+};
+$4=_st(stream)._contents();
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"metaclassDeclarationSource",{stream:stream},globals.IDEBrowser)})},
+args: [],
+source: "metaclassDeclarationSource\x0a\x09| stream |\x0a\x09stream := '' writeStream.\x0a\x09selectedClass ifNotNil: [\x0a\x09stream\x0a\x09\x09nextPutAll: selectedClass asString;\x0a\x09\x09nextPutAll: ' class ';\x0a\x09\x09nextPutAll: 'instanceVariableNames: '''.\x0a\x09selectedClass class instanceVariableNames\x0a\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ' ' ].\x0a\x09stream nextPutAll: '''' ].\x0a\x09^ stream contents",
+messageSends: ["writeStream", "ifNotNil:", "nextPutAll:", "asString", "do:separatedBy:", "instanceVariableNames", "class", "contents"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methodSource",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@selectedMethod"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=self._dummyMethodSource();
+} else {
+$1=_st(self["@selectedMethod"])._source();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"methodSource",{},globals.IDEBrowser)})},
+args: [],
+source: "methodSource\x0a\x09^ selectedMethod\x0a\x09ifNil: [ self dummyMethodSource ]\x0a\x09ifNotNil: [ selectedMethod source ]",
+messageSends: ["ifNil:ifNotNil:", "dummyMethodSource", "source"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methods",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var klass;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$7,$8,$6,$9,$5;
+$1=_st(self["@selectedTab"]).__eq("comment");
+$ctx1.sendIdx["="]=1;
+if(smalltalk.assert($1)){
+$2=[];
+return $2;
+};
+$3=self["@selectedClass"];
+if(($receiver = $3) == nil || $receiver == null){
+$3;
+} else {
+$4=_st(self["@selectedTab"]).__eq("instance");
+if(smalltalk.assert($4)){
+klass=self["@selectedClass"];
+} else {
+klass=_st(self["@selectedClass"])._class();
+};
+klass;
+};
+$7=self["@selectedProtocol"];
+if(($receiver = $7) == nil || $receiver == null){
+$8=klass;
+if(($receiver = $8) == nil || $receiver == null){
+$6=[];
+} else {
+$6=_st(_st(klass)._methodDictionary())._values();
+};
+} else {
+$6=_st(klass)._methodsInProtocol_(self["@selectedProtocol"]);
+};
+$5=_st($6)._sort_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+$9=_st(a)._selector();
+$ctx2.sendIdx["selector"]=1;
+return _st($9).__lt(_st(b)._selector());
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,9)})}));
+return $5;
+}, function($ctx1) {$ctx1.fill(self,"methods",{klass:klass},globals.IDEBrowser)})},
+args: [],
+source: "methods\x0a\x09| klass |\x0a\x09selectedTab = #comment ifTrue: [ ^ #() ].\x0a\x09selectedClass ifNotNil: [\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [ selectedClass ]\x0a\x09\x09ifFalse: [ selectedClass class ]].\x0a\x09^ (selectedProtocol\x0a\x09ifNil: [\x0a\x09\x09klass\x0a\x09\x09ifNil: [ #() ]\x0a\x09\x09ifNotNil: [ klass methodDictionary values ]]\x0a\x09ifNotNil: [\x0a\x09\x09klass methodsInProtocol: selectedProtocol ]) \x0a\x09\x09\x09\x09sort: [ :a :b | a selector < b selector ]",
+messageSends: ["ifTrue:", "=", "ifNotNil:", "ifTrue:ifFalse:", "class", "sort:", "ifNil:ifNotNil:", "values", "methodDictionary", "methodsInProtocol:", "<", "selector"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "packages",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var packages;
+function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1,$4;
+packages=_st($Array())._new();
+_st(_st($Smalltalk())._classes())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$2=packages;
+$3=_st(each)._category();
+$ctx2.sendIdx["category"]=1;
+$1=_st($2)._includes_($3);
+if(! smalltalk.assert($1)){
+return _st(packages)._add_(_st(each)._category());
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$4=_st(packages)._sort();
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"packages",{packages:packages},globals.IDEBrowser)})},
+args: [],
+source: "packages\x0a\x09| packages |\x0a\x09packages := Array new.\x0a\x09Smalltalk classes do: [ :each |\x0a\x09(packages includes: each category) ifFalse: [\x0a\x09\x09packages add: each category ]].\x0a\x09^ packages sort",
+messageSends: ["new", "do:", "classes", "ifFalse:", "includes:", "category", "add:", "sort"],
+referencedClasses: ["Array", "Smalltalk"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "protocols",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var klass;
+function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8;
+$1=self["@selectedClass"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+$2=_st(self["@selectedTab"]).__eq("comment");
+$ctx1.sendIdx["="]=1;
+if(smalltalk.assert($2)){
+$3=[];
+return $3;
+};
+$4=_st(self["@selectedTab"]).__eq("instance");
+if(smalltalk.assert($4)){
+klass=self["@selectedClass"];
+} else {
+klass=_st(self["@selectedClass"])._class();
+};
+klass;
+$5=_st(_st(klass)._methodDictionary())._isEmpty();
+if(smalltalk.assert($5)){
+$6=_st($Array())._with_("not yet classified");
+return $6;
+};
+$7=_st(klass)._protocols();
+return $7;
+};
+$8=_st($Array())._new();
+return $8;
+}, function($ctx1) {$ctx1.fill(self,"protocols",{klass:klass},globals.IDEBrowser)})},
+args: [],
+source: "protocols\x0a\x09| klass |\x0a\x09selectedClass ifNotNil: [\x0a\x09selectedTab = #comment ifTrue: [ ^ #() ].\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [ selectedClass ]\x0a\x09\x09ifFalse: [ selectedClass class ].\x0a\x09klass methodDictionary isEmpty ifTrue: [\x0a\x09\x09^ Array with: 'not yet classified' ].\x0a\x09^ klass protocols ].\x0a\x09^ Array new",
+messageSends: ["ifNotNil:", "ifTrue:", "=", "ifTrue:ifFalse:", "class", "isEmpty", "methodDictionary", "with:", "protocols", "new"],
+referencedClasses: ["Array"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeClass",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st("Do you really want to remove ".__comma(_st(self["@selectedClass"])._name())).__comma("?");
+$ctx1.sendIdx[","]=1;
+$1=self._confirm_($2);
+if(smalltalk.assert($1)){
+_st($Smalltalk())._removeClass_(self["@selectedClass"]);
+self._resetClassesList();
+self._selectClass_(nil);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"removeClass",{},globals.IDEBrowser)})},
+args: [],
+source: "removeClass\x0a\x09(self confirm: 'Do you really want to remove ', selectedClass name, '?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk removeClass: selectedClass.\x0a\x09\x09self resetClassesList.\x0a\x09\x09self selectClass: nil ]",
+messageSends: ["ifTrue:", "confirm:", ",", "name", "removeClass:", "resetClassesList", "selectClass:"],
+referencedClasses: ["Smalltalk"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeMethod",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2,$4;
+$1=self._cancelChanges();
+if(smalltalk.assert($1)){
+$3=_st("Do you really want to remove #".__comma(_st(self["@selectedMethod"])._selector())).__comma("?");
+$ctx1.sendIdx[","]=1;
+$2=self._confirm_($3);
+if(smalltalk.assert($2)){
+$4=_st(self["@selectedTab"]).__eq("instance");
+if(smalltalk.assert($4)){
+_st(self["@selectedClass"])._removeCompiledMethod_(self["@selectedMethod"]);
+$ctx1.sendIdx["removeCompiledMethod:"]=1;
+} else {
+_st(_st(self["@selectedClass"])._class())._removeCompiledMethod_(self["@selectedMethod"]);
+};
+self._selectMethod_(nil);
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"removeMethod",{},globals.IDEBrowser)})},
+args: [],
+source: "removeMethod\x0a\x09self cancelChanges ifTrue: [\x0a\x09(self confirm: 'Do you really want to remove #', selectedMethod selector, '?')\x0a\x09\x09ifTrue: [\x0a\x09\x09selectedTab = #instance\x0a\x09\x09\x09ifTrue: [ selectedClass removeCompiledMethod: selectedMethod ]\x0a\x09\x09\x09ifFalse: [ selectedClass class removeCompiledMethod: selectedMethod ].\x0a\x09\x09self selectMethod: nil ]]",
+messageSends: ["ifTrue:", "cancelChanges", "confirm:", ",", "selector", "ifTrue:ifFalse:", "=", "removeCompiledMethod:", "class", "selectMethod:"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removePackage",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st("Do you really want to remove the whole package ".__comma(self["@selectedPackage"])).__comma(" with all its classes?");
+$ctx1.sendIdx[","]=1;
+$1=self._confirm_($2);
+if(smalltalk.assert($1)){
+_st($Smalltalk())._removePackage_(self["@selectedPackage"]);
+self._updateCategoriesList();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"removePackage",{},globals.IDEBrowser)})},
+args: [],
+source: "removePackage\x0a\x0a\x09(self confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk removePackage: selectedPackage.\x0a\x09\x09self updateCategoriesList ]",
+messageSends: ["ifTrue:", "confirm:", ",", "removePackage:", "updateCategoriesList"],
+referencedClasses: ["Smalltalk"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renameClass",
+protocol: 'actions',
+fn: function (){
+var self=this;
+var newName;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+newName=self._prompt_("Rename class ".__comma(_st(self["@selectedClass"])._name()));
+$1=_st(_st(newName)._notNil())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(newName)._notEmpty();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+if(smalltalk.assert($1)){
+_st(self["@selectedClass"])._rename_(newName);
+self._updateClassesList();
+$2=self._updateSourceAndButtons();
+$2;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"renameClass",{newName:newName},globals.IDEBrowser)})},
+args: [],
+source: "renameClass\x0a\x09| newName |\x0a\x09newName := self prompt: 'Rename class ', selectedClass name.\x0a\x09(newName notNil and: [ newName notEmpty ]) ifTrue: [\x0a\x09selectedClass rename: newName.\x0a\x09self\x0a\x09\x09updateClassesList;\x0a\x09\x09updateSourceAndButtons ]",
+messageSends: ["prompt:", ",", "name", "ifTrue:", "and:", "notNil", "notEmpty", "rename:", "updateClassesList", "updateSourceAndButtons"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renamePackage",
+protocol: 'actions',
+fn: function (){
+var self=this;
+var newName;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+newName=self._prompt_("Rename package ".__comma(self["@selectedPackage"]));
+$1=newName;
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+$2=_st(newName)._notEmpty();
+if(smalltalk.assert($2)){
+_st($Smalltalk())._renamePackage_to_(self["@selectedPackage"],newName);
+self._updateCategoriesList();
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"renamePackage",{newName:newName},globals.IDEBrowser)})},
+args: [],
+source: "renamePackage\x0a\x0a\x09| newName |\x0a\x09newName := self prompt: 'Rename package ', selectedPackage.\x0a\x09newName ifNotNil: [\x0a\x09newName notEmpty ifTrue: [\x0a\x09Smalltalk renamePackage: selectedPackage to: newName.\x0a\x09self updateCategoriesList ]]",
+messageSends: ["prompt:", ",", "ifNotNil:", "ifTrue:", "notEmpty", "renamePackage:to:", "updateCategoriesList"],
+referencedClasses: ["Smalltalk"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderBottomPanelOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+function $SourceArea(){return globals.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(html)._div();
+_st($1)._class_("amber_sourceCode");
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+self["@sourceArea"]=_st($SourceArea())._new();
+self["@sourceArea"];
+_st(self["@sourceArea"])._renderOn_(html);
+_st(self["@sourceArea"])._onKeyDown_((function(e){
+return smalltalk.withContext(function($ctx3) {
+return self._handleSourceAreaKeyDown_(e);
+}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2,2)})}));
+return _st(self["@sourceArea"])._onKeyUp_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._updateStatus();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderBottomPanelOn:",{html:html},globals.IDEBrowser)})},
+args: ["html"],
+source: "renderBottomPanelOn: html\x0a\x09html div\x0a\x09class: 'amber_sourceCode';\x0a\x09with: [\x0a\x09\x09sourceArea := SourceArea new.\x0a\x09\x09sourceArea renderOn: html.\x0a\x09\x09\x09sourceArea onKeyDown: [ :e |\x0a\x09\x09\x09\x09self handleSourceAreaKeyDown: e ].\x0a\x09\x09sourceArea onKeyUp: [ self updateStatus ]]",
+messageSends: ["class:", "div", "with:", "new", "renderOn:", "onKeyDown:", "handleSourceAreaKeyDown:", "onKeyUp:", "updateStatus"],
+referencedClasses: ["SourceArea"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderBoxOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._renderTopPanelOn_(html);
+self._renderTabsOn_(html);
+$1=self._renderBottomPanelOn_(html);
+return self}, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},globals.IDEBrowser)})},
+args: ["html"],
+source: "renderBoxOn: html\x0a\x09self\x0a\x09renderTopPanelOn: html;\x0a\x09renderTabsOn: html;\x0a\x09renderBottomPanelOn: html",
+messageSends: ["renderTopPanelOn:", "renderTabsOn:", "renderBottomPanelOn:"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderButtonsOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$5,$6,$7,$8,$9,$10,$4;
+self["@saveButton"]=_st(html)._button();
+$ctx1.sendIdx["button"]=1;
+$1=self["@saveButton"];
+_st($1)._with_("Save");
+$ctx1.sendIdx["with:"]=1;
+$2=_st($1)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._compile();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["onClick:"]=1;
+self["@methodButtons"]=_st(html)._span();
+$ctx1.sendIdx["span"]=1;
+self["@classButtons"]=_st(html)._span();
+$3=_st(html)._div();
+_st($3)._class_("right");
+$4=_st($3)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$5=_st(html)._button();
+$ctx2.sendIdx["button"]=2;
+_st($5)._with_("DoIt");
+$ctx2.sendIdx["with:"]=3;
+$6=_st($5)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(self["@sourceArea"])._doIt();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+$ctx2.sendIdx["onClick:"]=2;
+$6;
+$7=_st(html)._button();
+$ctx2.sendIdx["button"]=3;
+_st($7)._with_("PrintIt");
+$ctx2.sendIdx["with:"]=4;
+$8=_st($7)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(self["@sourceArea"])._printIt();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
+$ctx2.sendIdx["onClick:"]=3;
+$8;
+$9=_st(html)._button();
+_st($9)._with_("InspectIt");
+$10=_st($9)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(self["@sourceArea"])._inspectIt();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)})}));
+return $10;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$ctx1.sendIdx["with:"]=2;
+self._updateSourceAndButtons();
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.IDEBrowser)})},
+args: ["html"],
+source: "renderButtonsOn: html\x0a\x09saveButton := html button.\x0a\x09saveButton\x0a\x09with: 'Save';\x0a\x09onClick: [ self compile ].\x0a\x09methodButtons := html span.\x0a\x09classButtons := html span.\x0a\x09html div\x0a\x09class: 'right';\x0a\x09with: [\x0a\x09\x09html button\x0a\x09\x09\x09with: 'DoIt';\x0a\x09\x09\x09onClick: [ sourceArea doIt ].\x0a\x09\x09html button\x0a\x09\x09\x09with: 'PrintIt';\x0a\x09\x09\x09onClick: [ sourceArea printIt ].\x0a\x09\x09html button with: 'InspectIt';\x0a\x09\x09\x09onClick: [ sourceArea inspectIt ]].\x0a\x09self updateSourceAndButtons",
+messageSends: ["button", "with:", "onClick:", "compile", "span", "class:", "div", "doIt", "printIt", "inspectIt", "updateSourceAndButtons"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderTabsOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@tabsList"]=_st(_st(html)._ul())._class_("amber_tabs amber_browser");
+self._updateTabsList();
+return self}, function($ctx1) {$ctx1.fill(self,"renderTabsOn:",{html:html},globals.IDEBrowser)})},
+args: ["html"],
+source: "renderTabsOn: html\x0a\x09tabsList := html ul class: 'amber_tabs amber_browser'.\x0a\x09self updateTabsList.",
+messageSends: ["class:", "ul", "updateTabsList"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderTopPanelOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+function $ClassesList(){return globals.ClassesList||(typeof ClassesList=="undefined"?nil:ClassesList)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$6,$7,$8,$9,$10,$11,$5,$12,$13,$2;
+$1=_st(html)._div();
+$ctx1.sendIdx["div"]=1;
+_st($1)._class_("top");
+$ctx1.sendIdx["class:"]=1;
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(html)._ul();
+$ctx2.sendIdx["ul"]=1;
+self["@packagesList"]=_st($3)._class_("amber_column browser packages");
+$ctx2.sendIdx["class:"]=2;
+self["@packagesList"];
+$4=_st(html)._div();
+$ctx2.sendIdx["div"]=2;
+_st($4)._class_("amber_packagesButtons");
+$ctx2.sendIdx["class:"]=3;
+$5=_st($4)._with_((function(){
+return smalltalk.withContext(function($ctx3) {
+$6=_st(html)._button();
+$ctx3.sendIdx["button"]=1;
+_st($6)._title_("Commit classes in this package to disk");
+$ctx3.sendIdx["title:"]=1;
+_st($6)._onClick_((function(){
+return smalltalk.withContext(function($ctx4) {
+return self._commitPackage();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})}));
+$ctx3.sendIdx["onClick:"]=1;
+$7=_st($6)._with_("Commit");
+$ctx3.sendIdx["with:"]=3;
+$7;
+$8=_st(html)._button();
+$ctx3.sendIdx["button"]=2;
+_st($8)._title_("Rename package");
+$ctx3.sendIdx["title:"]=2;
+_st($8)._onClick_((function(){
+return smalltalk.withContext(function($ctx4) {
+return self._renamePackage();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,4)})}));
+$ctx3.sendIdx["onClick:"]=2;
+$9=_st($8)._with_("Rename");
+$ctx3.sendIdx["with:"]=4;
+$9;
+$10=_st(html)._button();
+_st($10)._title_("Remove this package from the system");
+_st($10)._onClick_((function(){
+return smalltalk.withContext(function($ctx4) {
+return self._removePackage();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,5)})}));
+$11=_st($10)._with_("Remove");
+return $11;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+$ctx2.sendIdx["with:"]=2;
+$5;
+self["@classesList"]=_st($ClassesList())._on_(self);
+self["@classesList"];
+_st(self["@classesList"])._renderOn_(html);
+$12=_st(html)._ul();
+$ctx2.sendIdx["ul"]=2;
+self["@protocolsList"]=_st($12)._class_("amber_column browser protocols");
+$ctx2.sendIdx["class:"]=4;
+self["@protocolsList"];
+self["@methodsList"]=_st(_st(html)._ul())._class_("amber_column browser methods");
+$ctx2.sendIdx["class:"]=5;
+self["@methodsList"];
+self._updateCategoriesList();
+self._updateClassesList();
+self._updateProtocolsList();
+$13=self._updateMethodsList();
+$13;
+return _st(_st(html)._div())._class_("amber_clear");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["with:"]=1;
+return self}, function($ctx1) {$ctx1.fill(self,"renderTopPanelOn:",{html:html},globals.IDEBrowser)})},
+args: ["html"],
+source: "renderTopPanelOn: html\x0a\x09html div\x0a\x09\x09class: 'top';\x0a\x09\x09with: [\x0a\x09\x09\x09packagesList := html ul class: 'amber_column browser packages'.\x0a\x09\x09\x09\x09html div class: 'amber_packagesButtons'; with: [\x0a\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09title: 'Commit classes in this package to disk';\x0a\x09\x09\x09\x09\x09onClick: [ self commitPackage ];\x0a\x09\x09\x09\x09\x09with: 'Commit'.\x0a\x09\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09title: 'Rename package';\x0a\x09\x09\x09\x09\x09onClick: [ self renamePackage ];\x0a\x09\x09\x09\x09\x09with: 'Rename'.\x0a\x09\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09title: 'Remove this package from the system';\x0a\x09\x09\x09\x09\x09onClick: [ self removePackage ];\x0a\x09\x09\x09\x09\x09with: 'Remove' ].\x0a\x09\x09\x09classesList := ClassesList on: self.\x0a\x09\x09\x09classesList renderOn: html.\x0a\x09\x09\x09protocolsList := html ul class: 'amber_column browser protocols'.\x0a\x09\x09\x09methodsList := html ul class: 'amber_column browser methods'.\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09updateCategoriesList;\x0a\x09\x09\x09\x09updateClassesList;\x0a\x09\x09\x09\x09updateProtocolsList;\x0a\x09\x09\x09\x09updateMethodsList.\x0a\x09\x09\x09html div class: 'amber_clear' ]",
+messageSends: ["class:", "div", "with:", "ul", "title:", "button", "onClick:", "commitPackage", "renamePackage", "removePackage", "on:", "renderOn:", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList"],
+referencedClasses: ["ClassesList"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "resetClassesList",
+protocol: 'updating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@classesList"])._resetNodes();
+return self}, function($ctx1) {$ctx1.fill(self,"resetClassesList",{},globals.IDEBrowser)})},
+args: [],
+source: "resetClassesList\x0a\x09classesList resetNodes",
+messageSends: ["resetNodes"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "search:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._cancelChanges();
+if(smalltalk.assert($1)){
+var searchedClass;
+searchedClass=_st(_st($Smalltalk())._globals())._at_(aString);
+searchedClass;
+$2=_st(searchedClass)._isClass();
+if(smalltalk.assert($2)){
+_st(self._class())._openOn_(searchedClass);
+} else {
+self._searchReferencesOf_(aString);
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString},globals.IDEBrowser)})},
+args: ["aString"],
+source: "search: aString\x0a\x09self cancelChanges ifTrue: [ | searchedClass |\x0a\x09\x09searchedClass := Smalltalk globals at: aString.\x0a\x09\x09searchedClass isClass\x0a\x09\x09\x09ifTrue: [ self class openOn: searchedClass ]\x0a\x09\x09\x09ifFalse: [ self searchReferencesOf: aString ]]",
+messageSends: ["ifTrue:", "cancelChanges", "at:", "globals", "ifTrue:ifFalse:", "isClass", "openOn:", "class", "searchReferencesOf:"],
+referencedClasses: ["Smalltalk"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "searchClassReferences",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $ReferencesBrowser(){return globals.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
+return smalltalk.withContext(function($ctx1) { 
+_st($ReferencesBrowser())._search_(_st(self["@selectedClass"])._name());
+return self}, function($ctx1) {$ctx1.fill(self,"searchClassReferences",{},globals.IDEBrowser)})},
+args: [],
+source: "searchClassReferences\x0a\x09ReferencesBrowser search: selectedClass name",
+messageSends: ["search:", "name"],
+referencedClasses: ["ReferencesBrowser"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "searchReferencesOf:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+function $ReferencesBrowser(){return globals.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
+return smalltalk.withContext(function($ctx1) { 
+_st($ReferencesBrowser())._search_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"searchReferencesOf:",{aString:aString},globals.IDEBrowser)})},
+args: ["aString"],
+source: "searchReferencesOf: aString\x0a\x09ReferencesBrowser search: aString",
+messageSends: ["search:"],
+referencedClasses: ["ReferencesBrowser"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectCategory:",
+protocol: 'actions',
+fn: function (aCategory){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._cancelChanges();
+if(smalltalk.assert($1)){
+self["@selectedPackage"]=aCategory;
+self["@selectedPackage"];
+self["@selectedMethod"]=nil;
+self["@selectedProtocol"]=self["@selectedMethod"];
+self["@selectedClass"]=self["@selectedProtocol"];
+self["@selectedClass"];
+self._resetClassesList();
+self._updateCategoriesList();
+self._updateClassesList();
+self._updateProtocolsList();
+self._updateMethodsList();
+$2=self._updateSourceAndButtons();
+$2;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"selectCategory:",{aCategory:aCategory},globals.IDEBrowser)})},
+args: ["aCategory"],
+source: "selectCategory: aCategory\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedPackage := aCategory.\x0a\x09selectedClass := selectedProtocol := selectedMethod := nil.\x0a\x09self resetClassesList.\x0a\x09self\x0a\x09\x09updateCategoriesList;\x0a\x09\x09updateClassesList;\x0a\x09\x09updateProtocolsList;\x0a\x09\x09updateMethodsList;\x0a\x09\x09updateSourceAndButtons ]",
+messageSends: ["ifTrue:", "cancelChanges", "resetClassesList", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectClass:",
+protocol: 'actions',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._cancelChanges();
+if(smalltalk.assert($1)){
+self["@selectedClass"]=aClass;
+self["@selectedClass"];
+self["@selectedMethod"]=nil;
+self["@selectedProtocol"]=self["@selectedMethod"];
+self["@selectedProtocol"];
+self._updateClassesList();
+self._updateProtocolsList();
+self._updateMethodsList();
+$2=self._updateSourceAndButtons();
+$2;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"selectClass:",{aClass:aClass},globals.IDEBrowser)})},
+args: ["aClass"],
+source: "selectClass: aClass\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedClass := aClass.\x0a\x09selectedProtocol := selectedMethod := nil.\x0a\x09self\x0a\x09\x09updateClassesList;\x0a\x09\x09updateProtocolsList;\x0a\x09\x09updateMethodsList;\x0a\x09\x09updateSourceAndButtons ]",
+messageSends: ["ifTrue:", "cancelChanges", "updateClassesList", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectMethod:",
+protocol: 'actions',
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._cancelChanges();
+if(smalltalk.assert($1)){
+self["@selectedMethod"]=aMethod;
+self["@selectedMethod"];
+self._updateProtocolsList();
+self._updateMethodsList();
+$2=self._updateSourceAndButtons();
+$2;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"selectMethod:",{aMethod:aMethod},globals.IDEBrowser)})},
+args: ["aMethod"],
+source: "selectMethod: aMethod\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedMethod := aMethod.\x0a\x09self\x0a\x09\x09updateProtocolsList;\x0a\x09\x09updateMethodsList;\x0a\x09\x09updateSourceAndButtons ]",
+messageSends: ["ifTrue:", "cancelChanges", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectProtocol:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._cancelChanges();
+if(smalltalk.assert($1)){
+self["@selectedProtocol"]=aString;
+self["@selectedProtocol"];
+self["@selectedMethod"]=nil;
+self["@selectedMethod"];
+self._updateProtocolsList();
+self._updateMethodsList();
+$2=self._updateSourceAndButtons();
+$2;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"selectProtocol:",{aString:aString},globals.IDEBrowser)})},
+args: ["aString"],
+source: "selectProtocol: aString\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedProtocol := aString.\x0a\x09selectedMethod := nil.\x0a\x09self\x0a\x09\x09updateProtocolsList;\x0a\x09\x09updateMethodsList;\x0a\x09\x09updateSourceAndButtons ]",
+messageSends: ["ifTrue:", "cancelChanges", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectTab:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._cancelChanges();
+if(smalltalk.assert($1)){
+self["@selectedTab"]=aString;
+self["@selectedTab"];
+self._selectProtocol_(nil);
+self._updateTabsList();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"selectTab:",{aString:aString},globals.IDEBrowser)})},
+args: ["aString"],
+source: "selectTab: aString\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedTab := aString.\x0a\x09self selectProtocol: nil.\x0a\x09self updateTabsList ]",
+messageSends: ["ifTrue:", "cancelChanges", "selectProtocol:", "updateTabsList"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@selectedClass"];
+return $1;
+},
+args: [],
+source: "selectedClass\x0a\x09^ selectedClass",
+messageSends: [],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedPackage",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@selectedPackage"];
+return $1;
+},
+args: [],
+source: "selectedPackage\x0a\x09^ selectedPackage",
+messageSends: [],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setMethodProtocol:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=self._cancelChanges();
+if(smalltalk.assert($1)){
+$2=_st(self._protocols())._includes_(aString);
+if(smalltalk.assert($2)){
+_st(self["@selectedMethod"])._protocol_(aString);
+self["@selectedProtocol"]=aString;
+self["@selectedProtocol"];
+self["@selectedMethod"]=self["@selectedMethod"];
+self["@selectedMethod"];
+self._updateProtocolsList();
+self._updateMethodsList();
+$3=self._updateSourceAndButtons();
+$3;
+} else {
+self._addNewProtocol();
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"setMethodProtocol:",{aString:aString},globals.IDEBrowser)})},
+args: ["aString"],
+source: "setMethodProtocol: aString\x0a\x09self cancelChanges ifTrue: [\x0a\x09(self protocols includes: aString)\x0a\x09\x09ifFalse: [ self addNewProtocol ]\x0a\x09\x09ifTrue: [\x0a\x09\x09selectedMethod protocol: aString.\x0a\x09\x09selectedProtocol := aString.\x0a\x09\x09selectedMethod := selectedMethod.\x0a\x09\x09self\x0a\x09\x09\x09updateProtocolsList;\x0a\x09\x09\x09updateMethodsList;\x0a\x09\x09\x09updateSourceAndButtons ]]",
+messageSends: ["ifTrue:", "cancelChanges", "ifFalse:ifTrue:", "includes:", "protocols", "addNewProtocol", "protocol:", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "showClassButtons",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@classButtons"])._asJQuery())._show();
+return self}, function($ctx1) {$ctx1.fill(self,"showClassButtons",{},globals.IDEBrowser)})},
+args: [],
+source: "showClassButtons\x0a\x09classButtons asJQuery show",
+messageSends: ["show", "asJQuery"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "showMethodButtons",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@methodButtons"])._asJQuery())._show();
+return self}, function($ctx1) {$ctx1.fill(self,"showMethodButtons",{},globals.IDEBrowser)})},
+args: [],
+source: "showMethodButtons\x0a\x09methodButtons asJQuery show",
+messageSends: ["show", "asJQuery"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "source",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$4,$3,$2,$6,$5;
+$1=_st(self["@selectedTab"]).__eq("comment");
+if(! smalltalk.assert($1)){
+$4=_st(self["@selectedProtocol"])._notNil();
+$ctx1.sendIdx["notNil"]=1;
+$3=_st($4)._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@selectedMethod"])._notNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+if(smalltalk.assert($3)){
+$2=self._methodSource();
+} else {
+$2=self._declarationSource();
+};
+return $2;
+};
+$6=self["@selectedClass"];
+if(($receiver = $6) == nil || $receiver == null){
+$5="";
+} else {
+$5=self._classCommentSource();
+};
+return $5;
+}, function($ctx1) {$ctx1.fill(self,"source",{},globals.IDEBrowser)})},
+args: [],
+source: "source\x0a\x09selectedTab = #comment ifFalse: [\x0a\x09^ (selectedProtocol notNil or: [ selectedMethod notNil ])\x0a\x09\x09ifFalse: [ self declarationSource ]\x0a\x09\x09ifTrue: [ self methodSource ]].\x0a\x09^ selectedClass\x0a\x09ifNil: [ '' ]\x0a\x09ifNotNil: [ self classCommentSource ]",
+messageSends: ["ifFalse:", "=", "ifFalse:ifTrue:", "or:", "notNil", "declarationSource", "methodSource", "ifNil:ifNotNil:", "classCommentSource"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateCategoriesList",
+protocol: 'updating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+_st(self["@packagesList"])._contents_((function(html){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._packages())._do_((function(each){
+var li,label;
+return smalltalk.withContext(function($ctx3) {
+$1=_st(each)._isEmpty();
+if(smalltalk.assert($1)){
+label="Unclassified";
+label;
+} else {
+label=each;
+label;
+};
+li=_st(html)._li();
+li;
+$2=_st(self["@selectedPackage"]).__eq(each);
+if(smalltalk.assert($2)){
+_st(li)._class_("selected");
+};
+$3=li;
+_st($3)._with_(label);
+$4=_st($3)._onClick_((function(){
+return smalltalk.withContext(function($ctx4) {
+return self._selectCategory_(each);
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,6)})}));
+return $4;
+}, function($ctx3) {$ctx3.fillBlock({each:each,li:li,label:label},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"updateCategoriesList",{},globals.IDEBrowser)})},
+args: [],
+source: "updateCategoriesList\x0a\x09packagesList contents: [ :html |\x0a\x09self packages do: [ :each || li label |\x0a\x09\x09each isEmpty\x0a\x09\x09ifTrue: [ label := 'Unclassified' ]\x0a\x09\x09ifFalse: [ label := each ].\x0a\x09\x09li := html li.\x0a\x09\x09selectedPackage = each ifTrue: [\x0a\x09\x09li class: 'selected' ].\x0a\x09\x09li\x0a\x09\x09with: label;\x0a\x09\x09onClick: [ self selectCategory: each ]] ]",
+messageSends: ["contents:", "do:", "packages", "ifTrue:ifFalse:", "isEmpty", "li", "ifTrue:", "=", "class:", "with:", "onClick:", "selectCategory:"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateClassesList",
+protocol: 'updating',
+fn: function (){
+var self=this;
+function $TabManager(){return globals.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($TabManager())._current())._update();
+_st(self["@classesList"])._updateNodes();
+return self}, function($ctx1) {$ctx1.fill(self,"updateClassesList",{},globals.IDEBrowser)})},
+args: [],
+source: "updateClassesList\x0a\x09TabManager current update.\x0a\x09classesList updateNodes",
+messageSends: ["update", "current", "updateNodes"],
+referencedClasses: ["TabManager"]
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateMethodsList",
+protocol: 'updating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+_st(self["@methodsList"])._contents_((function(html){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._methods())._do_((function(each){
+var li;
+return smalltalk.withContext(function($ctx3) {
+li=_st(html)._li();
+li;
+$1=_st(self["@selectedMethod"]).__eq(each);
+if(smalltalk.assert($1)){
+_st(li)._class_("selected");
+};
+$2=li;
+_st($2)._with_(_st(each)._selector());
+$3=_st($2)._onClick_((function(){
+return smalltalk.withContext(function($ctx4) {
+return self._selectMethod_(each);
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,4)})}));
+return $3;
+}, function($ctx3) {$ctx3.fillBlock({each:each,li:li},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"updateMethodsList",{},globals.IDEBrowser)})},
+args: [],
+source: "updateMethodsList\x0a\x09methodsList contents: [ :html |\x0a\x09self methods do: [ :each || li |\x0a\x09\x09li := html li.\x0a\x09\x09selectedMethod = each ifTrue: [\x0a\x09\x09li class: 'selected' ].\x0a\x09\x09li\x0a\x09\x09with: each selector;\x0a\x09\x09onClick: [ self selectMethod: each ]] ]",
+messageSends: ["contents:", "do:", "methods", "li", "ifTrue:", "=", "class:", "with:", "selector", "onClick:", "selectMethod:"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateProtocolsList",
+protocol: 'updating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+_st(self["@protocolsList"])._contents_((function(html){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._protocols())._do_((function(each){
+var li;
+return smalltalk.withContext(function($ctx3) {
+li=_st(html)._li();
+li;
+$1=_st(self["@selectedProtocol"]).__eq(each);
+if(smalltalk.assert($1)){
+_st(li)._class_("selected");
+};
+$2=li;
+_st($2)._with_(each);
+$3=_st($2)._onClick_((function(){
+return smalltalk.withContext(function($ctx4) {
+return self._selectProtocol_(each);
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,4)})}));
+return $3;
+}, function($ctx3) {$ctx3.fillBlock({each:each,li:li},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"updateProtocolsList",{},globals.IDEBrowser)})},
+args: [],
+source: "updateProtocolsList\x0a\x09protocolsList contents: [ :html |\x0a\x09self protocols do: [ :each || li |\x0a\x09\x09li := html li.\x0a\x09\x09selectedProtocol = each ifTrue: [\x0a\x09\x09li class: 'selected' ].\x0a\x09\x09li\x0a\x09\x09with: each;\x0a\x09\x09onClick: [ self selectProtocol: each ]] ]",
+messageSends: ["contents:", "do:", "protocols", "li", "ifTrue:", "=", "class:", "with:", "onClick:", "selectProtocol:"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateSourceAndButtons",
+protocol: 'updating',
+fn: function (){
+var self=this;
+var currentProtocol;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$15,$14,$17,$18,$19,$20,$22,$21,$23,$24,$16,$25,$26,$28,$29,$30,$31,$27,$32,$33;
+self._disableSaveButton();
+_st(self["@classButtons"])._contents_((function(html){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._button();
+$ctx2.sendIdx["button"]=1;
+_st($1)._title_("Create a new class");
+_st($1)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._addNewClass();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+$ctx2.sendIdx["onClick:"]=1;
+$2=_st($1)._with_("New class");
+$ctx2.sendIdx["with:"]=1;
+$2;
+$3=_st(html)._button();
+$ctx2.sendIdx["button"]=2;
+_st($3)._with_("Rename class");
+$ctx2.sendIdx["with:"]=2;
+$4=_st($3)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._renameClass();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+$ctx2.sendIdx["onClick:"]=2;
+$4;
+$5=_st(html)._button();
+$ctx2.sendIdx["button"]=3;
+_st($5)._with_("Copy class");
+$ctx2.sendIdx["with:"]=3;
+$6=_st($5)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._copyClass();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
+$ctx2.sendIdx["onClick:"]=3;
+$6;
+$7=_st(html)._button();
+$ctx2.sendIdx["button"]=4;
+_st($7)._with_("Remove class");
+$ctx2.sendIdx["with:"]=4;
+$8=_st($7)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._removeClass();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)})}));
+$ctx2.sendIdx["onClick:"]=4;
+$8;
+$9=_st(html)._button();
+$ctx2.sendIdx["button"]=5;
+_st($9)._with_("References");
+$ctx2.sendIdx["with:"]=5;
+$10=_st($9)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._searchClassReferences();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,6)})}));
+$ctx2.sendIdx["onClick:"]=5;
+return $10;
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
+$ctx1.sendIdx["contents:"]=1;
+_st(self["@methodButtons"])._contents_((function(html){
+var protocolSelect,referencesSelect;
+return smalltalk.withContext(function($ctx2) {
+$11=_st(html)._button();
+_st($11)._with_("Remove method");
+$ctx2.sendIdx["with:"]=6;
+$12=_st($11)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._removeMethod();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,8)})}));
+$12;
+protocolSelect=_st(html)._select();
+$ctx2.sendIdx["select"]=1;
+protocolSelect;
+$13=protocolSelect;
+_st($13)._onChange_((function(){
+return smalltalk.withContext(function($ctx3) {
+$15=_st(protocolSelect)._asJQuery();
+$ctx3.sendIdx["asJQuery"]=1;
+$14=_st($15)._val();
+$ctx3.sendIdx["val"]=1;
+return self._setMethodProtocol_($14);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,9)})}));
+$ctx2.sendIdx["onChange:"]=1;
+$16=_st($13)._with_((function(){
+return smalltalk.withContext(function($ctx3) {
+$17=_st(html)._option();
+$ctx3.sendIdx["option"]=1;
+_st($17)._with_("Method protocol");
+$ctx3.sendIdx["with:"]=8;
+$18=_st($17)._at_put_("disabled","disabled");
+$ctx3.sendIdx["at:put:"]=1;
+$18;
+$19=_st(html)._option();
+$ctx3.sendIdx["option"]=2;
+_st($19)._class_("important");
+$ctx3.sendIdx["class:"]=1;
+$20=_st($19)._with_("New...");
+$ctx3.sendIdx["with:"]=9;
+$20;
+currentProtocol=self["@selectedProtocol"];
+currentProtocol;
+$22=_st(currentProtocol)._isNil();
+$ctx3.sendIdx["isNil"]=1;
+$21=_st($22)._and_((function(){
+return smalltalk.withContext(function($ctx4) {
+return _st(self["@selectedMethod"])._notNil();
+$ctx4.sendIdx["notNil"]=1;
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,11)})}));
+if(smalltalk.assert($21)){
+currentProtocol=_st(self["@selectedMethod"])._category();
+currentProtocol;
+};
+return _st(self._protocols())._do_((function(each){
+var option;
+return smalltalk.withContext(function($ctx4) {
+$23=_st(html)._option();
+$ctx4.sendIdx["option"]=3;
+option=_st($23)._with_(each);
+$ctx4.sendIdx["with:"]=10;
+option;
+$24=_st(currentProtocol).__eq(each);
+if(smalltalk.assert($24)){
+return _st(option)._at_put_("selected","selected");
+$ctx4.sendIdx["at:put:"]=2;
+};
+}, function($ctx4) {$ctx4.fillBlock({each:each,option:option},$ctx3,13)})}));
+$ctx3.sendIdx["do:"]=1;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,10)})}));
+$ctx2.sendIdx["with:"]=7;
+$16;
+$25=_st(self["@selectedMethod"])._isNil();
+$ctx2.sendIdx["isNil"]=2;
+if(! smalltalk.assert($25)){
+referencesSelect=_st(html)._select();
+referencesSelect;
+$26=referencesSelect;
+_st($26)._onChange_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._searchReferencesOf_(_st(_st(referencesSelect)._asJQuery())._val());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,16)})}));
+$27=_st($26)._with_((function(){
+var option;
+return smalltalk.withContext(function($ctx3) {
+$28=_st(html)._option();
+$ctx3.sendIdx["option"]=4;
+_st($28)._with_("References");
+$ctx3.sendIdx["with:"]=12;
+_st($28)._at_put_("disabled","disabled");
+$ctx3.sendIdx["at:put:"]=3;
+$29=_st($28)._at_put_("selected","selected");
+$29;
+$30=_st(html)._option();
+$ctx3.sendIdx["option"]=5;
+_st($30)._class_("important");
+$31=_st($30)._with_(_st(self["@selectedMethod"])._selector());
+$ctx3.sendIdx["with:"]=13;
+$31;
+return _st(_st(_st(self["@selectedMethod"])._messageSends())._sorted())._do_((function(each){
+return smalltalk.withContext(function($ctx4) {
+return _st(_st(html)._option())._with_(each);
+}, function($ctx4) {$ctx4.fillBlock({each:each},$ctx3,18)})}));
+}, function($ctx3) {$ctx3.fillBlock({option:option},$ctx2,17)})}));
+$ctx2.sendIdx["with:"]=11;
+return $27;
+};
+}, function($ctx2) {$ctx2.fillBlock({html:html,protocolSelect:protocolSelect,referencesSelect:referencesSelect},$ctx1,7)})}));
+$32=_st(self["@selectedMethod"])._isNil();
+$ctx1.sendIdx["isNil"]=3;
+if(smalltalk.assert($32)){
+self._hideMethodButtons();
+$33=_st(_st(self["@selectedClass"])._isNil())._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@selectedProtocol"])._notNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,20)})}));
+if(smalltalk.assert($33)){
+self._hideClassButtons();
+$ctx1.sendIdx["hideClassButtons"]=1;
+} else {
+self._showClassButtons();
+};
+} else {
+self._hideClassButtons();
+self._showMethodButtons();
+};
+_st(self["@sourceArea"])._val_(self._source());
+return self}, function($ctx1) {$ctx1.fill(self,"updateSourceAndButtons",{currentProtocol:currentProtocol},globals.IDEBrowser)})},
+args: [],
+source: "updateSourceAndButtons\x0a\x09| currentProtocol |\x0a\x0a\x09self disableSaveButton.\x0a\x09classButtons contents: [ :html |\x0a\x09\x09html button\x0a\x09\x09\x09title: 'Create a new class';\x0a\x09\x09\x09onClick: [ self addNewClass ];\x0a\x09\x09\x09with: 'New class'.\x0a\x09\x09html button\x0a\x09\x09\x09with: 'Rename class';\x0a\x09\x09\x09onClick: [ self renameClass ].\x0a\x09\x09html button\x0a\x09\x09\x09with: 'Copy class';\x0a\x09\x09\x09onClick: [ self copyClass ].\x0a\x09\x09html button\x0a\x09\x09\x09with: 'Remove class';\x0a\x09\x09\x09onClick: [ self removeClass ].\x0a\x09\x09html button\x0a\x09\x09\x09with: 'References';\x0a\x09\x09\x09onClick: [ self searchClassReferences ]].\x0a\x09methodButtons contents: [ :html | | protocolSelect referencesSelect |\x0a\x09\x09html button\x0a\x09\x09\x09with: 'Remove method';\x0a\x09\x09\x09onClick: [ self removeMethod ].\x0a\x09\x09protocolSelect := html select.\x0a\x09\x09\x09\x09protocolSelect\x0a\x09\x09\x09onChange: [ self setMethodProtocol: protocolSelect asJQuery val ];\x0a\x09\x09\x09with: [\x0a\x09\x09\x09\x09html option\x0a\x09\x09\x09\x09\x09with: 'Method protocol';\x0a\x09\x09\x09\x09\x09at: 'disabled' put: 'disabled'.\x0a\x09\x09\x09\x09html option\x0a\x09\x09\x09\x09\x09class: 'important';\x0a\x09\x09\x09\x09\x09with: 'New...'.\x0a\x09\x09\x09\x09currentProtocol := selectedProtocol.\x0a\x09\x09\x09\x09(currentProtocol isNil and: [ selectedMethod notNil ])\x0a\x09\x09\x09\x09\x09ifTrue: [ currentProtocol := selectedMethod category ].\x0a\x09\x09\x09\x09self protocols do: [ :each | | option |\x0a\x09\x09\x09\x09\x09option := html option with: each.\x0a\x09\x09\x09\x09\x09currentProtocol = each ifTrue: [ option at: 'selected' put: 'selected' ] ] ].\x0a\x09\x09selectedMethod isNil ifFalse: [\x0a\x09\x09\x09referencesSelect := html select.\x0a\x09\x09\x09\x09\x09\x09referencesSelect\x0a\x09\x09\x09\x09onChange: [ self searchReferencesOf: referencesSelect asJQuery val ];\x0a\x09\x09\x09\x09with: [ |option|\x0a\x09\x09\x09\x09\x09html option\x0a\x09\x09\x09\x09\x09\x09with: 'References';\x0a\x09\x09\x09\x09\x09\x09at: 'disabled' put: 'disabled';\x0a\x09\x09\x09\x09\x09\x09at: 'selected' put: 'selected'.\x0a\x09\x09\x09\x09\x09html option\x0a\x09\x09\x09\x09\x09\x09class: 'important';\x0a\x09\x09\x09\x09\x09\x09with: selectedMethod selector.\x0a\x09\x09\x09\x09\x09selectedMethod messageSends sorted do: [ :each |\x0a\x09\x09\x09\x09\x09\x09html option with: each ]] ]].\x0a\x09selectedMethod isNil\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self hideMethodButtons.\x0a\x09\x09\x09\x09(selectedClass isNil or: [ selectedProtocol notNil ])\x0a\x09\x09\x09\x09\x09ifTrue: [ self hideClassButtons ]\x0a\x09\x09\x09\x09\x09ifFalse: [ self showClassButtons ]]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09self hideClassButtons.\x0a\x09\x09\x09self showMethodButtons ].\x0a\x09sourceArea val: self source",
+messageSends: ["disableSaveButton", "contents:", "title:", "button", "onClick:", "addNewClass", "with:", "renameClass", "copyClass", "removeClass", "searchClassReferences", "removeMethod", "select", "onChange:", "setMethodProtocol:", "val", "asJQuery", "option", "at:put:", "class:", "ifTrue:", "and:", "isNil", "notNil", "category", "do:", "protocols", "=", "ifFalse:", "searchReferencesOf:", "selector", "sorted", "messageSends", "ifTrue:ifFalse:", "hideMethodButtons", "or:", "hideClassButtons", "showClassButtons", "showMethodButtons", "val:", "source"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateStatus",
+protocol: 'updating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(_st(self["@sourceArea"])._val()).__eq(self._source());
+if(smalltalk.assert($1)){
+$2=self["@saveButton"];
+if(($receiver = $2) == nil || $receiver == null){
+$2;
+} else {
+_st(self["@saveButton"])._at_put_("disabled",true);
+};
+self["@unsavedChanges"]=false;
+self["@unsavedChanges"];
+} else {
+$3=self["@saveButton"];
+if(($receiver = $3) == nil || $receiver == null){
+$3;
+} else {
+_st(self["@saveButton"])._removeAt_("disabled");
+};
+self["@unsavedChanges"]=true;
+self["@unsavedChanges"];
+};
+return self}, function($ctx1) {$ctx1.fill(self,"updateStatus",{},globals.IDEBrowser)})},
+args: [],
+source: "updateStatus\x0a\x09sourceArea val = self source\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09saveButton ifNotNil: [\x0a\x09\x09\x09\x09saveButton at: 'disabled' put: true ].\x0a\x09\x09\x09\x09unsavedChanges := false ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09saveButton ifNotNil: [\x0a\x09\x09\x09\x09saveButton removeAt: 'disabled' ].\x0a\x09\x09\x09unsavedChanges := true ]",
+messageSends: ["ifTrue:ifFalse:", "=", "val", "source", "ifNotNil:", "at:put:", "removeAt:"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateTabsList",
+protocol: 'updating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20;
+_st(self["@tabsList"])._contents_((function(html){
+var li;
+return smalltalk.withContext(function($ctx2) {
+li=_st(html)._li();
+$ctx2.sendIdx["li"]=1;
+li;
+$1=_st(self["@selectedTab"]).__eq("instance");
+$ctx2.sendIdx["="]=1;
+if(smalltalk.assert($1)){
+_st(li)._class_("selected");
+$ctx2.sendIdx["class:"]=1;
+};
+$2=li;
+_st($2)._with_((function(){
+return smalltalk.withContext(function($ctx3) {
+$3=_st(html)._span();
+$ctx3.sendIdx["span"]=1;
+_st($3)._class_("ltab");
+$ctx3.sendIdx["class:"]=2;
+$4=_st(html)._span();
+$ctx3.sendIdx["span"]=2;
+_st($4)._class_("mtab");
+$ctx3.sendIdx["class:"]=3;
+$5=_st($4)._with_("Instance");
+$ctx3.sendIdx["with:"]=2;
+$5;
+$6=_st(html)._span();
+$ctx3.sendIdx["span"]=3;
+return _st($6)._class_("rtab");
+$ctx3.sendIdx["class:"]=4;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+$ctx2.sendIdx["with:"]=1;
+$7=_st($2)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._selectTab_("instance");
+$ctx3.sendIdx["selectTab:"]=1;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
+$ctx2.sendIdx["onClick:"]=1;
+$7;
+li=_st(html)._li();
+$ctx2.sendIdx["li"]=2;
+li;
+$8=_st(self["@selectedTab"]).__eq("class");
+$ctx2.sendIdx["="]=2;
+if(smalltalk.assert($8)){
+_st(li)._class_("selected");
+$ctx2.sendIdx["class:"]=5;
+};
+$9=li;
+_st($9)._with_((function(){
+return smalltalk.withContext(function($ctx3) {
+$10=_st(html)._span();
+$ctx3.sendIdx["span"]=4;
+_st($10)._class_("ltab");
+$ctx3.sendIdx["class:"]=6;
+$11=_st(html)._span();
+$ctx3.sendIdx["span"]=5;
+_st($11)._class_("mtab");
+$ctx3.sendIdx["class:"]=7;
+$12=_st($11)._with_("Class");
+$ctx3.sendIdx["with:"]=4;
+$12;
+$13=_st(html)._span();
+$ctx3.sendIdx["span"]=6;
+return _st($13)._class_("rtab");
+$ctx3.sendIdx["class:"]=8;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,6)})}));
+$ctx2.sendIdx["with:"]=3;
+$14=_st($9)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._selectTab_("class");
+$ctx3.sendIdx["selectTab:"]=2;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,7)})}));
+$ctx2.sendIdx["onClick:"]=2;
+$14;
+li=_st(html)._li();
+li;
+$15=_st(self["@selectedTab"]).__eq("comment");
+if(smalltalk.assert($15)){
+_st(li)._class_("selected");
+$ctx2.sendIdx["class:"]=9;
+};
+$16=li;
+_st($16)._with_((function(){
+return smalltalk.withContext(function($ctx3) {
+$17=_st(html)._span();
+$ctx3.sendIdx["span"]=7;
+_st($17)._class_("ltab");
+$ctx3.sendIdx["class:"]=10;
+$18=_st(html)._span();
+$ctx3.sendIdx["span"]=8;
+_st($18)._class_("mtab");
+$ctx3.sendIdx["class:"]=11;
+$19=_st($18)._with_("Comment");
+$19;
+return _st(_st(html)._span())._class_("rtab");
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,9)})}));
+$ctx2.sendIdx["with:"]=5;
+$20=_st($16)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._selectTab_("comment");
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,10)})}));
+return $20;
+}, function($ctx2) {$ctx2.fillBlock({html:html,li:li},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"updateTabsList",{},globals.IDEBrowser)})},
+args: [],
+source: "updateTabsList\x0a\x09tabsList contents: [ :html || li |\x0a\x09li := html li.\x0a\x09selectedTab = #instance ifTrue: [ li class: 'selected' ].\x0a\x09li\x0a\x09\x09with: [\x0a\x09\x09html span class: 'ltab'.\x0a\x09\x09html span class: 'mtab'; with: 'Instance'.\x0a\x09\x09html span class: 'rtab' ];\x0a\x09\x09onClick: [ self selectTab: #instance ].\x0a\x09li := html li.\x0a\x09selectedTab = #class ifTrue: [ li class: 'selected' ].\x0a\x09li\x0a\x09\x09with: [\x0a\x09\x09html span class: 'ltab'.\x0a\x09\x09html span class: 'mtab'; with: 'Class'.\x0a\x09\x09html span class: 'rtab' ];\x0a\x09\x09onClick: [ self selectTab: #class ].\x0a\x09li := html li.\x0a\x09selectedTab = #comment ifTrue: [ li class: 'selected' ].\x0a\x09li\x0a\x09\x09with: [\x0a\x09\x09html span class: 'ltab'.\x0a\x09\x09html span class: 'mtab'; with: 'Comment'.\x0a\x09\x09html span class: 'rtab' ];\x0a\x09\x09onClick: [ self selectTab: #comment ]]",
+messageSends: ["contents:", "li", "ifTrue:", "=", "class:", "with:", "span", "onClick:", "selectTab:"],
+referencedClasses: []
+}),
+globals.IDEBrowser);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'registration',
+fn: function (){
+var self=this;
+function $Browser(){return globals.Browser||(typeof Browser=="undefined"?nil:Browser)}
+return smalltalk.withContext(function($ctx1) { 
+_st($Browser())._registerIfNone_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.IDEBrowser.klass)})},
+args: [],
+source: "initialize\x0a\x09Browser registerIfNone: self",
+messageSends: ["registerIfNone:"],
+referencedClasses: ["Browser"]
+}),
+globals.IDEBrowser.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "open",
+protocol: 'convenience',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._new())._open();
+return self}, function($ctx1) {$ctx1.fill(self,"open",{},globals.IDEBrowser.klass)})},
+args: [],
+source: "open\x0a\x09self new open",
+messageSends: ["open", "new"],
+referencedClasses: []
+}),
+globals.IDEBrowser.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "openOn:",
+protocol: 'convenience',
+fn: function (aThing){
+var self=this;
+var aClass;
+function $Class(){return globals.Class||(typeof Class=="undefined"?nil:Class)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$2;
+$1=_st(aThing)._isKindOf_($Class());
+if(smalltalk.assert($1)){
+aClass=aThing;
+} else {
+aClass=_st(aThing)._class();
+};
+$3=self._new();
+_st($3)._open();
+_st($3)._selectCategory_(_st(aClass)._category());
+$4=_st($3)._selectClass_(aClass);
+$2=$4;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"openOn:",{aThing:aThing,aClass:aClass},globals.IDEBrowser.klass)})},
+args: ["aThing"],
+source: "openOn: aThing\x0a\x09| aClass |\x0a\x09aClass := (aThing isKindOf: Class)\x0a\x09\x09ifTrue: [ aThing ]\x0a\x09\x09ifFalse: [ aThing class ].\x0a\x09^ self new\x0a\x09open;\x0a\x09selectCategory: aClass category;\x0a\x09selectClass: aClass",
+messageSends: ["ifTrue:ifFalse:", "isKindOf:", "class", "open", "new", "selectCategory:", "category", "selectClass:"],
+referencedClasses: ["Class"]
+}),
+globals.IDEBrowser.klass);
 
 
 smalltalk.addClass('IDEInspector', globals.TabWidget, ['label', 'variables', 'object', 'selectedVariable', 'variablesList', 'valueTextarea', 'diveButton', 'sourceArea'], 'IDE');
@@ -6195,6 +6220,24 @@ referencedClasses: []
 }),
 globals.ReferencesBrowser);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'registration',
+fn: function (){
+var self=this;
+function $References(){return globals.References||(typeof References=="undefined"?nil:References)}
+function $ReferencesBrowser(){return globals.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
+return smalltalk.withContext(function($ctx1) { 
+_st($References())._registerIfNone_($ReferencesBrowser());
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ReferencesBrowser.klass)})},
+args: [],
+source: "initialize\x0a\x09References registerIfNone: ReferencesBrowser",
+messageSends: ["registerIfNone:"],
+referencedClasses: ["References", "ReferencesBrowser"]
+}),
+globals.ReferencesBrowser.klass);
 
 smalltalk.addMethod(
 smalltalk.method({

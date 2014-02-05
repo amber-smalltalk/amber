@@ -549,6 +549,23 @@ globals.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "browse",
+protocol: 'converting',
+fn: function (){
+var self=this;
+function $Browser(){return globals.Browser||(typeof Browser=="undefined"?nil:Browser)}
+return smalltalk.withContext(function($ctx1) { 
+_st($Browser())._openOn_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"browse",{},globals.Object)})},
+args: [],
+source: "browse\x0a\x09Browser openOn: self",
+messageSends: ["openOn:"],
+referencedClasses: ["Browser"]
+}),
+globals.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "copy",
 protocol: 'copying',
 fn: function (){

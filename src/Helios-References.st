@@ -135,6 +135,18 @@ tabPriority
 	^ 100
 ! !
 
+!HLReferences class methodsFor: 'registration'!
+
+initialize
+	References register: HLReferences
+! !
+
+!HLReferences class methodsFor: 'searching'!
+
+search: aString
+	^ self openAsTab search: aString
+! !
+
 !HLReferences class methodsFor: 'testing'!
 
 canBeOpenAsTab

@@ -28,7 +28,7 @@ receiver: anObject
 !HLCodeModel methodsFor: 'actions'!
 
 browse: anObject
-	anObject browse
+	self environment browse: anObject
 !
 
 doIt: aString
@@ -41,10 +41,16 @@ doIt: aString
 	See https://github.com/amber-smalltalk/amber/issues/882"
 
 	^ self 
-		try: [ self environment eval: aString on: self receiver ]
+		try: [ self doItDangerously: aString ]
 		catch: [ :e | 
 			ErrorHandler handleError: e.
 			nil ]
+!
+
+doItDangerously: aString
+	"Evaluate aString in the receiver's `environment`,
+	but don't bother to catch any of those pesky errors."
+	^ self environment eval: aString on: self receiver
 !
 
 inspect: anObject
@@ -149,12 +155,11 @@ selectionStart: anInteger
 !HLCodeWidget methodsFor: 'actions'!
 
 browseIt
-	| result |
-	
-	result := [ self doIt ] on: Error do: [ :exception | 
-		^ ErrorHandler handleError: exception ].
-		
-	self model browse: result
+	self model announcer announce: (HLBrowseItRequested on: model).
+	self try: [
+		self model browse:
+			( self model doItDangerously: self currentLineOrSelection )
+	] catch: [ :e | References search: self currentLineOrSelection ].
 !
 
 clear
@@ -309,7 +314,7 @@ renderButtonsOn: html
 		class: 'button';
 		with: 'InspectIt';
 		onClick: [ self inspectIt ].
-	html button 
+	html button
 		class: 'button';
 		with: 'BrowseIt';
 		onClick: [ self browseIt ]
@@ -368,8 +373,8 @@ macKeyMap
 		'Alt-Right'				-> 'goWordRight'. 
 		'Cmd-A'					-> 'selectAll'. 
 		'Cmd-Alt-F'				-> 'replace'. 
-		'Cmd-D'					-> 'doIt'. 
-		'Cmd-B'					-> 'browseIt'. 
+		'Cmd-D'					-> 'doIt'.
+		'Cmd-B'					-> 'browseIt'.
 		'Cmd-Down'				-> 'goDocEnd'. 
 		'Cmd-End'				-> 'goDocEnd'. 
 		'Cmd-F'					-> 'find'.
@@ -399,8 +404,8 @@ pcKeyMap
 		'Alt-Up' -> 		'goDocStart'. 
 		'Ctrl-A' -> 		'selectAll'. 
 		'Ctrl-Backspace' -> 'delWordBefore'. 
-		'Ctrl-D' -> 		'doIt'. 
-		'Ctrl-B' -> 		'browseIt'. 
+		'Ctrl-D' -> 		'doIt'.
+		'Ctrl-B' ->			'browseIt'.
 		'Ctrl-Delete' -> 		'delWordAfter'. 
 		'Ctrl-Down' -> 		'goDocEnd'.
 		'Ctrl-End' -> 		'goDocEnd'. 
@@ -475,7 +480,8 @@ setupCodeMirror
 !
 
 setupCommands
-	(CodeMirror basicAt: 'commands') 
+	(CodeMirror basicAt: 'commands')
+		at: 'browseIt' put: [ :cm | cm amberCodeWidget browseIt ];
 		at: 'doIt' put: [ :cm | cm amberCodeWidget doIt ];
 		at: 'inspectIt' put: [ :cm | cm amberCodeWidget inspectIt ];
 		at: 'printIt' put: [ :cm | cm amberCodeWidget printIt ];

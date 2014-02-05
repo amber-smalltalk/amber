@@ -135,6 +135,22 @@ tabPriority
 	^ 0
 ! !
 
+!HLBrowser class methodsFor: 'opening'!
+
+open
+	self openAsTab
+!
+
+openOn: aThing
+	(self openAsTab) model selectedClass: aThing class
+! !
+
+!HLBrowser class methodsFor: 'registration'!
+
+initialize
+	Browser register: self
+! !
+
 !HLBrowser class methodsFor: 'testing'!
 
 canBeOpenAsTab
@@ -1235,14 +1251,11 @@ onPackageAdded: anAnnouncement
 
 onPackageSelected: anAnnouncement
 	| package |
-	
 	package := anAnnouncement item.
-	
-	self selectedItem: package.
-	self hasFocus ifFalse: [
-		self
-			activateItem: package;
-			focus ]
+	self
+		selectedItem: package;
+		activateItem: package;
+		focus.
 !
 
 onPackagesFocusRequested

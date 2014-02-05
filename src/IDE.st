@@ -631,11 +631,227 @@ open
 	^ self new open
 ! !
 
-TabWidget subclass: #Browser
+TabWidget subclass: #Debugger
+	instanceVariableNames: 'error selectedContext sourceArea ul ul2 inspector saveButton unsavedChanges selectedVariable selectedVariableName inspectButton'
+	package: 'IDE'!
+
+!Debugger methodsFor: 'accessing'!
+
+allVariables
+	| all |
+	all := Dictionary new.
+
+	self receiver class allInstanceVariableNames do: [ :each |
+		all at: each put: (self receiver instVarAt: each) ].
+	
+	selectedContext locals keysAndValuesDo: [ :key :value |
+		all at: key put: value ].
+	
+	^ all
+!
+
+error
+	^ error
+!
+
+error: anError
+	error := anError
+!
+
+label
+	^ '[ Debugger ]'
+!
+
+method
+	^ selectedContext method
+!
+
+receiver
+	^ selectedContext receiver
+!
+
+source
+	^ self method
+		ifNil: [ 'Method doesn''t exist!!' ]
+		ifNotNil: [ self method source ]
+! !
+
+!Debugger methodsFor: 'actions'!
+
+inspectSelectedVariable
+	selectedVariable inspect
+!
+
+proceed
+	self close.
+	selectedContext receiver perform: selectedContext selector withArguments: selectedContext temps
+!
+
+save
+	| protocol |
+	protocol := (selectedContext receiver class methodDictionary at: selectedContext selector) category.
+	selectedContext receiver class compile: sourceArea val category: protocol.
+	self updateStatus
+!
+
+selectContext: aContext
+	selectedContext := aContext.
+	selectedVariable := nil.
+	selectedVariableName := nil.
+	self
+		updateContextsList;
+		updateSourceArea;
+		updateInspector;
+		updateVariablesList;
+		updateStatus
+!
+
+selectVariable: anObject named: aString
+	
+	selectedVariable := anObject.
+	selectedVariableName := aString.
+	inspector contents: [ :html | html with: anObject printString ].
+	self updateVariablesList
+! !
+
+!Debugger methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	unsavedChanges = false
+! !
+
+!Debugger methodsFor: 'rendering'!
+
+renderBottomPanelOn: html
+	html div
+		class: 'amber_sourceCode debugger';
+		with: [
+			sourceArea := SourceArea new.
+			sourceArea renderOn: html ].
+	ul2 := html ul class: 'amber_column debugger variables'.
+	inspector := html div class: 'amber_column debugger inspector'.
+	sourceArea
+		onKeyUp: [ self updateStatus ]
+!
+
+renderBoxOn: html
+	self
+		renderTopPanelOn: html;
+		renderBottomPanelOn: html
+!
+
+renderButtonsOn: html
+	saveButton := html button
+		with: 'Save';
+		onClick: [ self save ].
+	html button
+		with: 'DoIt';
+		onClick: [ sourceArea doIt ].
+	html button
+		with: 'PrintIt';
+		onClick: [ sourceArea printIt ].
+	html button
+		with: 'InspectIt';
+		onClick: [ sourceArea inspectIt ].
+	html button
+		with: 'Proceed';
+		onClick: [ self proceed ].
+	html button
+		with: 'Abandon';
+		onClick: [ self close ].
+	inspectButton := html button
+		class: 'amber_button debugger inspect';
+		with: 'Inspect';
+		onClick: [ self inspectSelectedVariable ].
+	self
+		updateSourceArea;
+		updateStatus;
+		updateVariablesList;
+		updateInspector
+!
+
+renderContext: aContext on: html
+	| li |
+	li := html li.
+	selectedContext = aContext ifTrue: [
+		li class: 'selected' ].
+	li
+		with: aContext asString;
+		onClick: [ self selectContext: aContext ].
+	aContext outerContext ifNotNil: [ self renderContext: aContext outerContext on: html ]
+!
+
+renderTopPanelOn: html
+	selectedContext := self error context.
+	html div
+		class: 'top';
+		with: [
+			html div
+				class: 'label';
+				with: self error messageText.
+			ul := html ul
+				class: 'amber_column debugger contexts';
+				with: [ self renderContext: self error context on: html ]]
+! !
+
+!Debugger methodsFor: 'testing'!
+
+canBeClosed
+	^ true
+! !
+
+!Debugger methodsFor: 'updating'!
+
+updateContextsList
+	ul contents: [ :html |
+		self renderContext: self error context on: html ]
+!
+
+updateInspector
+	inspector contents: [ :html | ]
+!
+
+updateSourceArea
+	sourceArea val: self source
+!
+
+updateStatus
+	sourceArea val = self source
+		ifTrue: [
+			saveButton ifNotNil: [
+				saveButton at: 'disabled' put: true ].
+			unsavedChanges := false ]
+		ifFalse: [
+			saveButton ifNotNil: [
+				saveButton removeAt: 'disabled' ].
+			unsavedChanges := true ]
+!
+
+updateVariablesList
+	ul2 contents: [ :html | | li |
+		li := html li
+			with: 'self';
+			onClick: [ self selectVariable: self receiver named: 'self' ].
+				selectedVariableName = 'self' ifTrue: [ li class: 'selected' ].
+		
+		self allVariables keysAndValuesDo: [ :key :value |
+						li := html li
+							with: key;
+							onClick: [ self selectVariable: value named: key ].
+						selectedVariableName = key ifTrue: [
+							li class: 'selected' ] ] ].
+							
+	selectedVariable
+		ifNil: [ inspectButton at: 'disabled' put: true ]
+		ifNotNil: [ inspectButton removeAt: 'disabled' ]
+! !
+
+TabWidget subclass: #IDEBrowser
 	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
 	package: 'IDE'!
 
-!Browser methodsFor: 'accessing'!
+!IDEBrowser methodsFor: 'accessing'!
 
 classCommentSource
 	^ selectedClass comment
@@ -772,7 +988,7 @@ source
 	ifNotNil: [ self classCommentSource ]
 ! !
 
-!Browser methodsFor: 'actions'!
+!IDEBrowser methodsFor: 'actions'!
 
 addInstanceVariableNamed: aString toClass: aClass
 	ClassBuilder new
@@ -1041,7 +1257,7 @@ showMethodButtons
 	methodButtons asJQuery show
 ! !
 
-!Browser methodsFor: 'initialization'!
+!IDEBrowser methodsFor: 'initialization'!
 
 initialize
 	super initialize.
@@ -1050,7 +1266,7 @@ initialize
 	unsavedChanges := false
 ! !
 
-!Browser methodsFor: 'rendering'!
+!IDEBrowser methodsFor: 'rendering'!
 
 renderBottomPanelOn: html
 	html div
@@ -1126,13 +1342,13 @@ renderTopPanelOn: html
 			html div class: 'amber_clear' ]
 ! !
 
-!Browser methodsFor: 'testing'!
+!IDEBrowser methodsFor: 'testing'!
 
 canBeClosed
 	^ true
 ! !
 
-!Browser methodsFor: 'updating'!
+!IDEBrowser methodsFor: 'updating'!
 
 resetClassesList
 	classesList resetNodes
@@ -1286,233 +1502,27 @@ updateTabsList
 		onClick: [ self selectTab: #comment ]]
 ! !
 
-!Browser class methodsFor: 'convenience'!
+!IDEBrowser class methodsFor: 'convenience'!
 
 open
 	self new open
 !
 
-openOn: aClass
+openOn: aThing
+	| aClass |
+	aClass := (aThing isKindOf: Class)
+		ifTrue: [ aThing ]
+		ifFalse: [ aThing class ].
 	^ self new
 	open;
 	selectCategory: aClass category;
 	selectClass: aClass
 ! !
 
-TabWidget subclass: #Debugger
-	instanceVariableNames: 'error selectedContext sourceArea ul ul2 inspector saveButton unsavedChanges selectedVariable selectedVariableName inspectButton'
-	package: 'IDE'!
-
-!Debugger methodsFor: 'accessing'!
-
-allVariables
-	| all |
-	all := Dictionary new.
-
-	self receiver class allInstanceVariableNames do: [ :each |
-		all at: each put: (self receiver instVarAt: each) ].
-	
-	selectedContext locals keysAndValuesDo: [ :key :value |
-		all at: key put: value ].
-	
-	^ all
-!
-
-error
-	^ error
-!
-
-error: anError
-	error := anError
-!
-
-label
-	^ '[ Debugger ]'
-!
-
-method
-	^ selectedContext method
-!
-
-receiver
-	^ selectedContext receiver
-!
-
-source
-	^ self method
-		ifNil: [ 'Method doesn''t exist!!' ]
-		ifNotNil: [ self method source ]
-! !
-
-!Debugger methodsFor: 'actions'!
-
-inspectSelectedVariable
-	selectedVariable inspect
-!
-
-proceed
-	self close.
-	selectedContext receiver perform: selectedContext selector withArguments: selectedContext temps
-!
-
-save
-	| protocol |
-	protocol := (selectedContext receiver class methodDictionary at: selectedContext selector) category.
-	selectedContext receiver class compile: sourceArea val category: protocol.
-	self updateStatus
-!
-
-selectContext: aContext
-	selectedContext := aContext.
-	selectedVariable := nil.
-	selectedVariableName := nil.
-	self
-		updateContextsList;
-		updateSourceArea;
-		updateInspector;
-		updateVariablesList;
-		updateStatus
-!
-
-selectVariable: anObject named: aString
-	
-	selectedVariable := anObject.
-	selectedVariableName := aString.
-	inspector contents: [ :html | html with: anObject printString ].
-	self updateVariablesList
-! !
-
-!Debugger methodsFor: 'initialization'!
+!IDEBrowser class methodsFor: 'registration'!
 
 initialize
-	super initialize.
-	unsavedChanges = false
-! !
-
-!Debugger methodsFor: 'rendering'!
-
-renderBottomPanelOn: html
-	html div
-		class: 'amber_sourceCode debugger';
-		with: [
-			sourceArea := SourceArea new.
-			sourceArea renderOn: html ].
-	ul2 := html ul class: 'amber_column debugger variables'.
-	inspector := html div class: 'amber_column debugger inspector'.
-	sourceArea
-		onKeyUp: [ self updateStatus ]
-!
-
-renderBoxOn: html
-	self
-		renderTopPanelOn: html;
-		renderBottomPanelOn: html
-!
-
-renderButtonsOn: html
-	saveButton := html button
-		with: 'Save';
-		onClick: [ self save ].
-	html button
-		with: 'DoIt';
-		onClick: [ sourceArea doIt ].
-	html button
-		with: 'PrintIt';
-		onClick: [ sourceArea printIt ].
-	html button
-		with: 'InspectIt';
-		onClick: [ sourceArea inspectIt ].
-	html button
-		with: 'Proceed';
-		onClick: [ self proceed ].
-	html button
-		with: 'Abandon';
-		onClick: [ self close ].
-	inspectButton := html button
-		class: 'amber_button debugger inspect';
-		with: 'Inspect';
-		onClick: [ self inspectSelectedVariable ].
-	self
-		updateSourceArea;
-		updateStatus;
-		updateVariablesList;
-		updateInspector
-!
-
-renderContext: aContext on: html
-	| li |
-	li := html li.
-	selectedContext = aContext ifTrue: [
-		li class: 'selected' ].
-	li
-		with: aContext asString;
-		onClick: [ self selectContext: aContext ].
-	aContext outerContext ifNotNil: [ self renderContext: aContext outerContext on: html ]
-!
-
-renderTopPanelOn: html
-	selectedContext := self error context.
-	html div
-		class: 'top';
-		with: [
-			html div
-				class: 'label';
-				with: self error messageText.
-			ul := html ul
-				class: 'amber_column debugger contexts';
-				with: [ self renderContext: self error context on: html ]]
-! !
-
-!Debugger methodsFor: 'testing'!
-
-canBeClosed
-	^ true
-! !
-
-!Debugger methodsFor: 'updating'!
-
-updateContextsList
-	ul contents: [ :html |
-		self renderContext: self error context on: html ]
-!
-
-updateInspector
-	inspector contents: [ :html | ]
-!
-
-updateSourceArea
-	sourceArea val: self source
-!
-
-updateStatus
-	sourceArea val = self source
-		ifTrue: [
-			saveButton ifNotNil: [
-				saveButton at: 'disabled' put: true ].
-			unsavedChanges := false ]
-		ifFalse: [
-			saveButton ifNotNil: [
-				saveButton removeAt: 'disabled' ].
-			unsavedChanges := true ]
-!
-
-updateVariablesList
-	ul2 contents: [ :html | | li |
-		li := html li
-			with: 'self';
-			onClick: [ self selectVariable: self receiver named: 'self' ].
-				selectedVariableName = 'self' ifTrue: [ li class: 'selected' ].
-		
-		self allVariables keysAndValuesDo: [ :key :value |
-						li := html li
-							with: key;
-							onClick: [ self selectVariable: value named: key ].
-						selectedVariableName = key ifTrue: [
-							li class: 'selected' ] ] ].
-							
-	selectedVariable
-		ifNil: [ inspectButton at: 'disabled' put: true ]
-		ifNotNil: [ inspectButton removeAt: 'disabled' ]
+	Browser registerIfNone: self
 ! !
 
 TabWidget subclass: #IDEInspector
@@ -1991,6 +2001,12 @@ search: aString
 	^ self new
 		searchReferencesFor: aString;
 		open
+! !
+
+!ReferencesBrowser class methodsFor: 'registration'!
+
+initialize
+	References registerIfNone: ReferencesBrowser
 ! !
 
 TabWidget subclass: #TestRunner

@@ -357,6 +357,23 @@ globals.HLBrowser.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "initialize",
+protocol: 'registration',
+fn: function (){
+var self=this;
+function $Browser(){return globals.Browser||(typeof Browser=="undefined"?nil:Browser)}
+return smalltalk.withContext(function($ctx1) { 
+_st($Browser())._register_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLBrowser.klass)})},
+args: [],
+source: "initialize\x0a\x09Browser register: self",
+messageSends: ["register:"],
+referencedClasses: ["Browser"]
+}),
+globals.HLBrowser.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "nextId",
 protocol: 'accessing',
 fn: function (){
@@ -376,6 +393,38 @@ return $2;
 args: [],
 source: "nextId\x0a\x09nextId ifNil: [ nextId := 0 ].\x0a    ^ 'browser_', (nextId + 1) asString",
 messageSends: ["ifNil:", ",", "asString", "+"],
+referencedClasses: []
+}),
+globals.HLBrowser.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "open",
+protocol: 'opening',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._openAsTab();
+return self}, function($ctx1) {$ctx1.fill(self,"open",{},globals.HLBrowser.klass)})},
+args: [],
+source: "open\x0a\x09self openAsTab",
+messageSends: ["openAsTab"],
+referencedClasses: []
+}),
+globals.HLBrowser.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "openOn:",
+protocol: 'opening',
+fn: function (aThing){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self._openAsTab())._model())._selectedClass_(_st(aThing)._class());
+return self}, function($ctx1) {$ctx1.fill(self,"openOn:",{aThing:aThing},globals.HLBrowser.klass)})},
+args: ["aThing"],
+source: "openOn: aThing\x0a\x09(self openAsTab) model selectedClass: aThing class",
+messageSends: ["selectedClass:", "model", "openAsTab", "class"],
 referencedClasses: []
 }),
 globals.HLBrowser.klass);
@@ -3543,19 +3592,15 @@ fn: function (anAnnouncement){
 var self=this;
 var package_;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 package_=_st(anAnnouncement)._item();
 self._selectedItem_(package_);
-$1=self._hasFocus();
-if(! smalltalk.assert($1)){
 self._activateItem_(package_);
-$2=self._focus();
-$2;
-};
+$1=self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{anAnnouncement:anAnnouncement,package_:package_},globals.HLPackagesListWidget)})},
 args: ["anAnnouncement"],
-source: "onPackageSelected: anAnnouncement\x0a\x09| package |\x0a\x09\x0a\x09package := anAnnouncement item.\x0a\x09\x0a\x09self selectedItem: package.\x0a\x09self hasFocus ifFalse: [\x0a\x09\x09self\x0a\x09\x09\x09activateItem: package;\x0a\x09\x09\x09focus ]",
-messageSends: ["item", "selectedItem:", "ifFalse:", "hasFocus", "activateItem:", "focus"],
+source: "onPackageSelected: anAnnouncement\x0a\x09| package |\x0a\x09package := anAnnouncement item.\x0a\x09self\x0a\x09\x09selectedItem: package;\x0a\x09\x09activateItem: package;\x0a\x09\x09focus.",
+messageSends: ["item", "selectedItem:", "activateItem:", "focus"],
 referencedClasses: []
 }),
 globals.HLPackagesListWidget);

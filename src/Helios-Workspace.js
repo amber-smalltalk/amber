@@ -35,11 +35,11 @@ protocol: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(anObject)._browse();
+_st(self._environment())._browse_(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"browse:",{anObject:anObject},globals.HLCodeModel)})},
 args: ["anObject"],
-source: "browse: anObject\x0a\x09anObject browse",
-messageSends: ["browse"],
+source: "browse: anObject\x0a\x09self environment browse: anObject",
+messageSends: ["browse:", "environment"],
 referencedClasses: []
 }),
 globals.HLCodeModel);
@@ -73,7 +73,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._try_catch_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self._environment())._eval_on_(aString,self._receiver());
+return self._doItDangerously_(aString);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(e){
 return smalltalk.withContext(function($ctx2) {
 _st($ErrorHandler())._handleError_(e);
@@ -82,9 +82,27 @@ return nil;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doIt:",{aString:aString},globals.HLCodeModel)})},
 args: ["aString"],
-source: "doIt: aString\x0a\x09\x22Evaluate aString in the receiver's `environment`.\x0a\x09\x0a\x09Note: Catch any error and handle it manually, bypassing\x0a\x09boot.js behavior to avoid the browser default action on\x0a\x09ctrl+d/ctrl+p.\x0a\x09\x0a\x09See https://github.com/amber-smalltalk/amber/issues/882\x22\x0a\x0a\x09^ self \x0a\x09\x09try: [ self environment eval: aString on: self receiver ]\x0a\x09\x09catch: [ :e | \x0a\x09\x09\x09ErrorHandler handleError: e.\x0a\x09\x09\x09nil ]",
-messageSends: ["try:catch:", "eval:on:", "environment", "receiver", "handleError:"],
+source: "doIt: aString\x0a\x09\x22Evaluate aString in the receiver's `environment`.\x0a\x09\x0a\x09Note: Catch any error and handle it manually, bypassing\x0a\x09boot.js behavior to avoid the browser default action on\x0a\x09ctrl+d/ctrl+p.\x0a\x09\x0a\x09See https://github.com/amber-smalltalk/amber/issues/882\x22\x0a\x0a\x09^ self \x0a\x09\x09try: [ self doItDangerously: aString ]\x0a\x09\x09catch: [ :e | \x0a\x09\x09\x09ErrorHandler handleError: e.\x0a\x09\x09\x09nil ]",
+messageSends: ["try:catch:", "doItDangerously:", "handleError:"],
 referencedClasses: ["ErrorHandler"]
+}),
+globals.HLCodeModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doItDangerously:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._environment())._eval_on_(aString,self._receiver());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"doItDangerously:",{aString:aString},globals.HLCodeModel)})},
+args: ["aString"],
+source: "doItDangerously: aString\x0a\x09\x22Evaluate aString in the receiver's `environment`,\x0a\x09but don't bother to catch any of those pesky errors.\x22\x0a\x09^ self environment eval: aString on: self receiver",
+messageSends: ["eval:on:", "environment", "receiver"],
+referencedClasses: []
 }),
 globals.HLCodeModel);
 
@@ -230,29 +248,32 @@ selector: "browseIt",
 protocol: 'actions',
 fn: function (){
 var self=this;
-var result;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
-function $ErrorHandler(){return globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+function $HLBrowseItRequested(){return globals.HLBrowseItRequested||(typeof HLBrowseItRequested=="undefined"?nil:HLBrowseItRequested)}
+function $References(){return globals.References||(typeof References=="undefined"?nil:References)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-var $early={};
-try {
-result=_st((function(){
+var $2,$1,$3,$5,$6,$4;
+$2=self._model();
+$ctx1.sendIdx["model"]=1;
+$1=_st($2)._announcer();
+_st($1)._announce_(_st($HLBrowseItRequested())._on_(self["@model"]));
+self._try_catch_((function(){
 return smalltalk.withContext(function($ctx2) {
-return self._doIt();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(exception){
+$3=self._model();
+$ctx2.sendIdx["model"]=2;
+$5=self._model();
+$6=self._currentLineOrSelection();
+$ctx2.sendIdx["currentLineOrSelection"]=1;
+$4=_st($5)._doItDangerously_($6);
+return _st($3)._browse_($4);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(e){
 return smalltalk.withContext(function($ctx2) {
-$1=_st($ErrorHandler())._handleError_(exception);
-throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1,2)})}));
-_st(self._model())._browse_(result);
-return self}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"browseIt",{result:result},globals.HLCodeWidget)})},
+return _st($References())._search_(self._currentLineOrSelection());
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,2)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"browseIt",{},globals.HLCodeWidget)})},
 args: [],
-source: "browseIt\x0a\x09| result |\x0a\x09\x0a\x09result := [ self doIt ] on: Error do: [ :exception | \x0a\x09\x09^ ErrorHandler handleError: exception ].\x0a\x09\x09\x0a\x09self model browse: result",
-messageSends: ["on:do:", "doIt", "handleError:", "browse:", "model"],
-referencedClasses: ["Error", "ErrorHandler"]
+source: "browseIt\x0a\x09self model announcer announce: (HLBrowseItRequested on: model).\x0a\x09self try: [\x0a\x09\x09self model browse:\x0a\x09\x09\x09( self model doItDangerously: self currentLineOrSelection )\x0a\x09] catch: [ :e | References search: self currentLineOrSelection ].",
+messageSends: ["announce:", "announcer", "model", "on:", "try:catch:", "browse:", "doItDangerously:", "currentLineOrSelection", "search:"],
+referencedClasses: ["HLBrowseItRequested", "References"]
 }),
 globals.HLCodeWidget);
 
@@ -886,7 +907,7 @@ return self._browseIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLCodeWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'DoIt';\x0a\x09\x09onClick: [ self doIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'PrintIt';\x0a\x09\x09onClick: [ self printIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'InspectIt';\x0a\x09\x09onClick: [ self inspectIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'BrowseIt';\x0a\x09\x09onClick: [ self browseIt ]",
+source: "renderButtonsOn: html\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'DoIt';\x0a\x09\x09onClick: [ self doIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'PrintIt';\x0a\x09\x09onClick: [ self printIt ].\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'InspectIt';\x0a\x09\x09onClick: [ self inspectIt ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'BrowseIt';\x0a\x09\x09onClick: [ self browseIt ]",
 messageSends: ["class:", "button", "with:", "onClick:", "doIt", "printIt", "inspectIt", "browseIt"],
 referencedClasses: []
 }),
@@ -1218,7 +1239,7 @@ $1=globals.HashedCollection._newFromPairs_(["Alt-Backspace","delWordBefore","Alt
 return $1;
 },
 args: [],
-source: "macKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Backspace'\x09\x09\x09-> 'delWordBefore'.\x0a\x09\x09'Alt-Delete'\x09\x09\x09-> 'delWordAfter'. \x0a\x09\x09'Alt-Left'\x09\x09\x09\x09-> 'goWordLeft'.\x0a\x09\x09'Alt-Right'\x09\x09\x09\x09-> 'goWordRight'. \x0a\x09\x09'Cmd-A'\x09\x09\x09\x09\x09-> 'selectAll'. \x0a\x09\x09'Cmd-Alt-F'\x09\x09\x09\x09-> 'replace'. \x0a\x09\x09'Cmd-D'\x09\x09\x09\x09\x09-> 'doIt'. \x0a\x09\x09'Cmd-B'\x09\x09\x09\x09\x09-> 'browseIt'. \x0a\x09\x09'Cmd-Down'\x09\x09\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-End'\x09\x09\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-F'\x09\x09\x09\x09\x09-> 'find'.\x0a\x09\x09'Cmd-G'\x09\x09\x09\x09\x09-> 'findNext'. \x0a\x09\x09'Cmd-I'\x09\x09\x09\x09\x09-> 'inspectIt'. \x0a\x09\x09'Cmd-Left'\x09\x09\x09\x09-> 'goLineStart'. \x0a\x09\x09'Cmd-P'\x09\x09\x09\x09\x09-> 'printIt'. \x0a\x09\x09'Cmd-Right'\x09\x09\x09\x09-> 'goLineEnd'. \x0a\x09\x09'Cmd-S'\x09\x09\x09\x09\x09-> 'saveIt'. \x0a\x09\x09'Cmd-Up'\x09\x09\x09\x09-> 'goDocStart'. \x0a\x09\x09'Cmd-Y'\x09\x09\x09\x09\x09-> 'redo'.\x0a\x09\x09'Cmd-Z'\x09\x09\x09\x09\x09-> 'undo'. \x0a\x09\x09'Cmd-['\x09\x09\x09\x09\x09-> 'indentLess'. \x0a\x09\x09'Cmd-]'\x09\x09\x09\x09\x09-> 'indentMore'.\x0a\x09\x09'Ctrl-Alt-Backspace'\x09-> 'delWordAfter'. \x0a\x09\x09'Shift-Cmd-Alt-F'\x09\x09-> 'replaceAll'.\x0a\x09\x09'Shift-Cmd-G'\x09\x09\x09-> 'findPrev'. \x0a\x09\x09'Shift-Cmd-Z'\x09\x09\x09-> 'redo'. \x0a    \x09'fallthrough' \x09\x09\x09-> { 'basic'. 'emacsy' }\x0a  }",
+source: "macKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Backspace'\x09\x09\x09-> 'delWordBefore'.\x0a\x09\x09'Alt-Delete'\x09\x09\x09-> 'delWordAfter'. \x0a\x09\x09'Alt-Left'\x09\x09\x09\x09-> 'goWordLeft'.\x0a\x09\x09'Alt-Right'\x09\x09\x09\x09-> 'goWordRight'. \x0a\x09\x09'Cmd-A'\x09\x09\x09\x09\x09-> 'selectAll'. \x0a\x09\x09'Cmd-Alt-F'\x09\x09\x09\x09-> 'replace'. \x0a\x09\x09'Cmd-D'\x09\x09\x09\x09\x09-> 'doIt'.\x0a\x09\x09'Cmd-B'\x09\x09\x09\x09\x09-> 'browseIt'.\x0a\x09\x09'Cmd-Down'\x09\x09\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-End'\x09\x09\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-F'\x09\x09\x09\x09\x09-> 'find'.\x0a\x09\x09'Cmd-G'\x09\x09\x09\x09\x09-> 'findNext'. \x0a\x09\x09'Cmd-I'\x09\x09\x09\x09\x09-> 'inspectIt'. \x0a\x09\x09'Cmd-Left'\x09\x09\x09\x09-> 'goLineStart'. \x0a\x09\x09'Cmd-P'\x09\x09\x09\x09\x09-> 'printIt'. \x0a\x09\x09'Cmd-Right'\x09\x09\x09\x09-> 'goLineEnd'. \x0a\x09\x09'Cmd-S'\x09\x09\x09\x09\x09-> 'saveIt'. \x0a\x09\x09'Cmd-Up'\x09\x09\x09\x09-> 'goDocStart'. \x0a\x09\x09'Cmd-Y'\x09\x09\x09\x09\x09-> 'redo'.\x0a\x09\x09'Cmd-Z'\x09\x09\x09\x09\x09-> 'undo'. \x0a\x09\x09'Cmd-['\x09\x09\x09\x09\x09-> 'indentLess'. \x0a\x09\x09'Cmd-]'\x09\x09\x09\x09\x09-> 'indentMore'.\x0a\x09\x09'Ctrl-Alt-Backspace'\x09-> 'delWordAfter'. \x0a\x09\x09'Shift-Cmd-Alt-F'\x09\x09-> 'replaceAll'.\x0a\x09\x09'Shift-Cmd-G'\x09\x09\x09-> 'findPrev'. \x0a\x09\x09'Shift-Cmd-Z'\x09\x09\x09-> 'redo'. \x0a    \x09'fallthrough' \x09\x09\x09-> { 'basic'. 'emacsy' }\x0a  }",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1253,7 +1274,7 @@ $1=globals.HashedCollection._newFromPairs_(["Alt-Left","goLineStart","Alt-Right"
 return $1;
 },
 args: [],
-source: "pcKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Left' -> \x09\x09'goLineStart'. \x0a\x09\x09'Alt-Right' -> \x09\x09'goLineEnd'.\x0a\x09\x09'Alt-Up' -> \x09\x09'goDocStart'. \x0a\x09\x09'Ctrl-A' -> \x09\x09'selectAll'. \x0a\x09\x09'Ctrl-Backspace' -> 'delWordBefore'. \x0a\x09\x09'Ctrl-D' -> \x09\x09'doIt'. \x0a\x09\x09'Ctrl-B' -> \x09\x09'browseIt'. \x0a\x09\x09'Ctrl-Delete' -> \x09\x09'delWordAfter'. \x0a\x09\x09'Ctrl-Down' -> \x09\x09'goDocEnd'.\x0a\x09\x09'Ctrl-End' -> \x09\x09'goDocEnd'. \x0a\x09\x09'Ctrl-F' -> \x09\x09'find'.\x0a\x09\x09'Ctrl-G' -> \x09\x09'findNext'. \x0a\x09\x09'Ctrl-I' -> \x09\x09'inspectIt'.\x0a\x09\x09'Ctrl-Home' -> \x09\x09'goDocStart'. \x0a\x09\x09'Ctrl-Left' -> \x09\x09'goWordLeft'. \x0a\x09\x09'Ctrl-P' -> \x09\x09'printIt'.\x0a\x09\x09'Ctrl-Right' -> \x09'goWordRight'. \x0a\x09\x09'Ctrl-S' -> \x09\x09'saveIt'. \x0a\x09\x09'Ctrl-Y' -> \x09\x09'redo'.\x0a\x09\x09'Ctrl-Z' -> \x09\x09'undo'. \x0a\x09\x09'Ctrl-[' -> \x09\x09'indentLess'. \x0a\x09\x09'Ctrl-]' -> \x09\x09'indentMore'.\x0a\x09\x09'Shift-Ctrl-F' -> \x09'replace'. \x0a\x09\x09'Shift-Ctrl-G' -> \x09'findPrev'. \x0a\x09\x09'Shift-Ctrl-R' -> \x09'replaceAll'.\x0a\x09\x09'Shift-Ctrl-Z' -> \x09'redo'. \x0a\x09\x09'fallthrough' -> \x09#('basic')\x0a}",
+source: "pcKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Left' -> \x09\x09'goLineStart'. \x0a\x09\x09'Alt-Right' -> \x09\x09'goLineEnd'.\x0a\x09\x09'Alt-Up' -> \x09\x09'goDocStart'. \x0a\x09\x09'Ctrl-A' -> \x09\x09'selectAll'. \x0a\x09\x09'Ctrl-Backspace' -> 'delWordBefore'. \x0a\x09\x09'Ctrl-D' -> \x09\x09'doIt'.\x0a\x09\x09'Ctrl-B' ->\x09\x09\x09'browseIt'.\x0a\x09\x09'Ctrl-Delete' -> \x09\x09'delWordAfter'. \x0a\x09\x09'Ctrl-Down' -> \x09\x09'goDocEnd'.\x0a\x09\x09'Ctrl-End' -> \x09\x09'goDocEnd'. \x0a\x09\x09'Ctrl-F' -> \x09\x09'find'.\x0a\x09\x09'Ctrl-G' -> \x09\x09'findNext'. \x0a\x09\x09'Ctrl-I' -> \x09\x09'inspectIt'.\x0a\x09\x09'Ctrl-Home' -> \x09\x09'goDocStart'. \x0a\x09\x09'Ctrl-Left' -> \x09\x09'goWordLeft'. \x0a\x09\x09'Ctrl-P' -> \x09\x09'printIt'.\x0a\x09\x09'Ctrl-Right' -> \x09'goWordRight'. \x0a\x09\x09'Ctrl-S' -> \x09\x09'saveIt'. \x0a\x09\x09'Ctrl-Y' -> \x09\x09'redo'.\x0a\x09\x09'Ctrl-Z' -> \x09\x09'undo'. \x0a\x09\x09'Ctrl-[' -> \x09\x09'indentLess'. \x0a\x09\x09'Ctrl-]' -> \x09\x09'indentMore'.\x0a\x09\x09'Shift-Ctrl-F' -> \x09'replace'. \x0a\x09\x09'Shift-Ctrl-G' -> \x09'findPrev'. \x0a\x09\x09'Shift-Ctrl-R' -> \x09'replaceAll'.\x0a\x09\x09'Shift-Ctrl-Z' -> \x09'redo'. \x0a\x09\x09'fallthrough' -> \x09#('basic')\x0a}",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1290,42 +1311,42 @@ function $CodeMirror(){return globals.CodeMirror||(typeof CodeMirror=="undefined
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6;
 $1=_st($CodeMirror())._basicAt_("commands");
-_st($1)._at_put_("doIt",(function(cm){
+_st($1)._at_put_("browseIt",(function(cm){
 return smalltalk.withContext(function($ctx2) {
 $2=_st(cm)._amberCodeWidget();
 $ctx2.sendIdx["amberCodeWidget"]=1;
-return _st($2)._doIt();
+return _st($2)._browseIt();
 }, function($ctx2) {$ctx2.fillBlock({cm:cm},$ctx1,1)})}));
 $ctx1.sendIdx["at:put:"]=1;
-_st($1)._at_put_("inspectIt",(function(cm){
+_st($1)._at_put_("doIt",(function(cm){
 return smalltalk.withContext(function($ctx2) {
 $3=_st(cm)._amberCodeWidget();
 $ctx2.sendIdx["amberCodeWidget"]=2;
-return _st($3)._inspectIt();
+return _st($3)._doIt();
 }, function($ctx2) {$ctx2.fillBlock({cm:cm},$ctx1,2)})}));
 $ctx1.sendIdx["at:put:"]=2;
-_st($1)._at_put_("printIt",(function(cm){
+_st($1)._at_put_("inspectIt",(function(cm){
 return smalltalk.withContext(function($ctx2) {
 $4=_st(cm)._amberCodeWidget();
 $ctx2.sendIdx["amberCodeWidget"]=3;
-return _st($4)._printIt();
+return _st($4)._inspectIt();
 }, function($ctx2) {$ctx2.fillBlock({cm:cm},$ctx1,3)})}));
 $ctx1.sendIdx["at:put:"]=3;
-_st($1)._at_put_("saveIt",(function(cm){
+_st($1)._at_put_("printIt",(function(cm){
 return smalltalk.withContext(function($ctx2) {
 $5=_st(cm)._amberCodeWidget();
 $ctx2.sendIdx["amberCodeWidget"]=4;
-return _st($5)._saveIt();
+return _st($5)._printIt();
 }, function($ctx2) {$ctx2.fillBlock({cm:cm},$ctx1,4)})}));
 $ctx1.sendIdx["at:put:"]=4;
-$6=_st($1)._at_put_("browseIt",(function(cm){
+$6=_st($1)._at_put_("saveIt",(function(cm){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(cm)._amberCodeWidget())._browseIt();
+return _st(_st(cm)._amberCodeWidget())._saveIt();
 }, function($ctx2) {$ctx2.fillBlock({cm:cm},$ctx1,5)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupCommands",{},globals.HLCodeWidget.klass)})},
 args: [],
-source: "setupCommands\x0a\x09(CodeMirror basicAt: 'commands') \x0a\x09\x09at: 'doIt' put: [ :cm | cm amberCodeWidget doIt ];\x0a\x09\x09at: 'inspectIt' put: [ :cm | cm amberCodeWidget inspectIt ];\x0a\x09\x09at: 'printIt' put: [ :cm | cm amberCodeWidget printIt ];\x0a\x09\x09at: 'saveIt' put: [ :cm | cm amberCodeWidget saveIt ];\x0a\x09\x09at: 'browseIt' put: [ :cm | cm amberCodeWidget browseIt ]",
-messageSends: ["at:put:", "basicAt:", "doIt", "amberCodeWidget", "inspectIt", "printIt", "saveIt", "browseIt"],
+source: "setupCommands\x0a\x09(CodeMirror basicAt: 'commands')\x0a\x09\x09at: 'browseIt' put: [ :cm | cm amberCodeWidget browseIt ];\x0a\x09\x09at: 'doIt' put: [ :cm | cm amberCodeWidget doIt ];\x0a\x09\x09at: 'inspectIt' put: [ :cm | cm amberCodeWidget inspectIt ];\x0a\x09\x09at: 'printIt' put: [ :cm | cm amberCodeWidget printIt ];\x0a\x09\x09at: 'saveIt' put: [ :cm | cm amberCodeWidget saveIt ]",
+messageSends: ["at:put:", "basicAt:", "browseIt", "amberCodeWidget", "doIt", "inspectIt", "printIt", "saveIt"],
 referencedClasses: ["CodeMirror"]
 }),
 globals.HLCodeWidget.klass);
