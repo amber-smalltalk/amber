@@ -536,6 +536,7 @@ body[id="helios"] .key_helper .command strong {
 body[id="helios"] .key_helper #binding-helper-main {
   display: block;
   padding: 5px;
+  background: #eee;
 }
 body[id="helios"] .key_helper .label {
   padding: 1px 4px;
