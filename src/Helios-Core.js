@@ -4448,21 +4448,6 @@ globals.HLModalWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "cssClass",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return "";
-},
-args: [],
-source: "cssClass\x0a\x09^ ''",
-messageSends: [],
-referencedClasses: []
-}),
-globals.HLModalWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "giveFocusToButton:",
 protocol: 'private',
 fn: function (aButton){
@@ -4509,11 +4494,11 @@ $2="#overlay"._asJQuery();
 $ctx2.sendIdx["asJQuery"]=2;
 _st($2)._remove();
 $ctx2.sendIdx["remove"]=1;
-return _st(".dialog"._asJQuery())._remove();
+return _st(_st(self["@wrapper"])._asJQuery())._remove();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._valueWithTimeout_((300));
 return self}, function($ctx1) {$ctx1.fill(self,"remove",{},globals.HLModalWidget)})},
 args: [],
-source: "remove\x0a\x09'.dialog' asJQuery removeClass: 'active'.\x0a\x09[ \x0a\x09\x09'#overlay' asJQuery remove.\x0a\x09\x09'.dialog' asJQuery remove\x0a\x09] valueWithTimeout: 300",
+source: "remove\x0a\x09'.dialog' asJQuery removeClass: 'active'.\x0a\x09[ \x0a\x09\x09'#overlay' asJQuery remove.\x0a\x09\x09wrapper asJQuery remove\x0a\x09] valueWithTimeout: 300",
 messageSends: ["removeClass:", "asJQuery", "valueWithTimeout:", "remove"],
 referencedClasses: []
 }),
@@ -4591,7 +4576,7 @@ _st(".dialog"._asJQuery())._addClass_("active");
 self._setupKeyBindings();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html,confirmButton:confirmButton},globals.HLModalWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div id: 'overlay'.\x0a\x09html div \x0a\x09\x09class: 'dialog ', self cssClass;\x0a\x09\x09with: [\x0a\x09\x09\x09self renderMainOn: html.\x0a\x09\x09\x09self hasButtons ifTrue: [ \x0a\x09\x09\x09\x09self renderButtonsOn: html ] ].\x0a\x0a\x09'.dialog' asJQuery addClass: 'active'.\x0a\x09self setupKeyBindings",
+source: "renderContentOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div id: 'overlay'.\x0a\x09\x0a\x09html div \x0a\x09\x09class: 'dialog ', self cssClass;\x0a\x09\x09with: [\x0a\x09\x09\x09self renderMainOn: html.\x0a\x09\x09\x09self hasButtons ifTrue: [ \x0a\x09\x09\x09\x09self renderButtonsOn: html ] ].\x0a\x0a\x09'.dialog' asJQuery addClass: 'active'.\x0a\x09self setupKeyBindings",
 messageSends: ["id:", "div", "class:", ",", "cssClass", "with:", "renderMainOn:", "ifTrue:", "hasButtons", "renderButtonsOn:", "addClass:", "asJQuery", "setupKeyBindings"],
 referencedClasses: []
 }),

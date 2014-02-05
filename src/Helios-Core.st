@@ -1482,10 +1482,6 @@ confirmButtonLabel
 
 confirmButtonLabel: anObject
 	confirmButtonLabel := anObject
-!
-
-cssClass
-	^ ''
 ! !
 
 !HLModalWidget methodsFor: 'actions'!
@@ -1503,7 +1499,7 @@ remove
 	'.dialog' asJQuery removeClass: 'active'.
 	[ 
 		'#overlay' asJQuery remove.
-		'.dialog' asJQuery remove
+		wrapper asJQuery remove
 	] valueWithTimeout: 300
 !
 
@@ -1545,6 +1541,7 @@ renderContentOn: html
 	| confirmButton |
 	
 	html div id: 'overlay'.
+	
 	html div 
 		class: 'dialog ', self cssClass;
 		with: [
