@@ -1012,7 +1012,7 @@ observeSystem
 !
 
 reselectItem: anItem
-	self model forceSelectedMethod: anItem
+	self model forceSelectedMethod: (self methodForSelector: anItem)
 !
 
 selectItem: aSelector
