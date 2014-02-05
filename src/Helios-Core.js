@@ -4317,7 +4317,7 @@ referencedClasses: []
 globals.HLManager.klass);
 
 
-smalltalk.addClass('HLModalWidget', globals.HLWidget, [], 'Helios-Core');
+smalltalk.addClass('HLModalWidget', globals.HLWidget, ['confirmactionText', 'cancelText'], 'Helios-Core');
 globals.HLModalWidget.comment="I implement an abstract modal widget.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -4337,6 +4337,44 @@ globals.HLModalWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cancelText",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@cancelText"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="Cancel";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"cancelText",{},globals.HLModalWidget)})},
+args: [],
+source: "cancelText\x0a\x09^ cancelText ifNil: [ 'Cancel' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.HLModalWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cancelText:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@cancelText"]=anObject;
+return self},
+args: ["anObject"],
+source: "cancelText: anObject\x0a\x09cancelText := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLModalWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "confirm",
 protocol: 'actions',
 fn: function (){
@@ -4347,6 +4385,44 @@ return self}, function($ctx1) {$ctx1.fill(self,"confirm",{},globals.HLModalWidge
 args: [],
 source: "confirm\x0a\x09\x22Override in subclasses\x22\x0a\x09self remove",
 messageSends: ["remove"],
+referencedClasses: []
+}),
+globals.HLModalWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "confirmactionText",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@confirmactionText"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="Confirm";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"confirmactionText",{},globals.HLModalWidget)})},
+args: [],
+source: "confirmactionText\x0a\x09^ confirmactionText ifNil: [ 'Confirm' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.HLModalWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "confirmactionText:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@confirmactionText"]=anObject;
+return self},
+args: ["anObject"],
+source: "confirmactionText: anObject\x0a\x09confirmactionText := anObject",
+messageSends: [],
 referencedClasses: []
 }),
 globals.HLModalWidget);
@@ -4442,7 +4518,7 @@ $3=_st(html)._button();
 $ctx2.sendIdx["button"]=1;
 _st($3)._class_("button");
 $ctx2.sendIdx["class:"]=2;
-_st($3)._with_("Cancel");
+_st($3)._with_(self._cancelText());
 $ctx2.sendIdx["with:"]=2;
 $4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -4452,7 +4528,7 @@ $ctx2.sendIdx["onClick:"]=1;
 $4;
 $5=_st(html)._button();
 _st($5)._class_("button default");
-_st($5)._with_("Confirm");
+_st($5)._with_(self._confirmationText());
 $6=_st($5)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
 return self._confirm();
@@ -4464,8 +4540,8 @@ $ctx1.sendIdx["with:"]=1;
 self._giveFocusToButton_(confirmButton);
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html,confirmButton:confirmButton},globals.HLModalWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div \x0a\x09\x09class: 'buttons';\x0a\x09\x09with: [\x0a\x09\x09\x09html button\x0a\x09\x09\x09\x09class: 'button';\x0a\x09\x09\x09\x09with: 'Cancel';\x0a\x09\x09\x09\x09onClick: [ self cancel ].\x0a\x09\x09\x09confirmButton := html button\x0a\x09\x09\x09\x09class: 'button default';\x0a\x09\x09\x09\x09with: 'Confirm';\x0a\x09\x09\x09\x09onClick: [ self confirm ] ].\x0a\x0a\x09self giveFocusToButton:confirmButton",
-messageSends: ["class:", "div", "with:", "button", "onClick:", "cancel", "confirm", "giveFocusToButton:"],
+source: "renderButtonsOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div \x0a\x09\x09class: 'buttons';\x0a\x09\x09with: [\x0a\x09\x09\x09html button\x0a\x09\x09\x09\x09class: 'button';\x0a\x09\x09\x09\x09with: self cancelText;\x0a\x09\x09\x09\x09onClick: [ self cancel ].\x0a\x09\x09\x09confirmButton := html button\x0a\x09\x09\x09\x09class: 'button default';\x0a\x09\x09\x09\x09with: self confirmationText;\x0a\x09\x09\x09\x09onClick: [ self confirm ] ].\x0a\x0a\x09self giveFocusToButton:confirmButton",
+messageSends: ["class:", "div", "with:", "button", "cancelText", "onClick:", "cancel", "confirmationText", "confirm", "giveFocusToButton:"],
 referencedClasses: []
 }),
 globals.HLModalWidget);

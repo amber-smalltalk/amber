@@ -1455,12 +1455,28 @@ new
 ! !
 
 HLWidget subclass: #HLModalWidget
-	instanceVariableNames: ''
+	instanceVariableNames: 'confirmactionText cancelText'
 	package: 'Helios-Core'!
 !HLModalWidget commentStamp!
 I implement an abstract modal widget.!
 
 !HLModalWidget methodsFor: 'accessing'!
+
+cancelText
+	^ cancelText ifNil: [ 'Cancel' ]
+!
+
+cancelText: anObject
+	cancelText := anObject
+!
+
+confirmactionText
+	^ confirmactionText ifNil: [ 'Confirm' ]
+!
+
+confirmactionText: anObject
+	confirmactionText := anObject
+!
 
 cssClass
 	^ ''
@@ -1509,11 +1525,11 @@ renderButtonsOn: html
 		with: [
 			html button
 				class: 'button';
-				with: 'Cancel';
+				with: self cancelText;
 				onClick: [ self cancel ].
 			confirmButton := html button
 				class: 'button default';
-				with: 'Confirm';
+				with: self confirmationText;
 				onClick: [ self confirm ] ].
 
 	self giveFocusToButton:confirmButton
