@@ -542,7 +542,7 @@ deactivate
 
 hide
 	('.', self cssClass) asJQuery remove.
-	'#overlay' asJQuery remove.
+	'.helper_overlay' asJQuery remove.
 	self showCog
 !
 
@@ -607,7 +607,7 @@ renderCog
 renderContentOn: html
 	html div 
 		id: 'overlay';
-		class: 'light';
+		class: 'helper_overlay';
 		onClick: [ self deactivate ].
 	
 	html div class: self cssClass; with: [

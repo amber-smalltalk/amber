@@ -1583,11 +1583,11 @@ $1=_st(".".__comma(self._cssClass()))._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
 _st($1)._remove();
 $ctx1.sendIdx["remove"]=1;
-_st("#overlay"._asJQuery())._remove();
+_st(".helper_overlay"._asJQuery())._remove();
 self._showCog();
 return self}, function($ctx1) {$ctx1.fill(self,"hide",{},globals.HLKeyBinderHelperWidget)})},
 args: [],
-source: "hide\x0a\x09('.', self cssClass) asJQuery remove.\x0a\x09'#overlay' asJQuery remove.\x0a\x09self showCog",
+source: "hide\x0a\x09('.', self cssClass) asJQuery remove.\x0a\x09'.helper_overlay' asJQuery remove.\x0a\x09self showCog",
 messageSends: ["remove", "asJQuery", ",", "cssClass", "showCog"],
 referencedClasses: []
 }),
@@ -1793,7 +1793,7 @@ $1=_st(html)._div();
 $ctx1.sendIdx["div"]=1;
 _st($1)._id_("overlay");
 $ctx1.sendIdx["id:"]=1;
-_st($1)._class_("light");
+_st($1)._class_("helper_overlay");
 $ctx1.sendIdx["class:"]=1;
 $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -1818,7 +1818,7 @@ $ctx1.sendIdx["with:"]=1;
 _st(":focus"._asJQuery())._blur();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLKeyBinderHelperWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09id: 'overlay';\x0a\x09\x09class: 'light';\x0a\x09\x09onClick: [ self deactivate ].\x0a\x09\x0a\x09html div class: self cssClass; with: [\x0a      \x09self renderLabelOn: html.\x0a\x09\x09html div\x0a\x09\x09\x09id: self mainId;\x0a\x09\x09\x09with: [ self renderSelectedBindingOn: html ].\x0a\x09\x09self renderCloseOn: html ].\x0a\x09\x09\x0a\x09':focus' asJQuery blur",
+source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09id: 'overlay';\x0a\x09\x09class: 'helper_overlay';\x0a\x09\x09onClick: [ self deactivate ].\x0a\x09\x0a\x09html div class: self cssClass; with: [\x0a      \x09self renderLabelOn: html.\x0a\x09\x09html div\x0a\x09\x09\x09id: self mainId;\x0a\x09\x09\x09with: [ self renderSelectedBindingOn: html ].\x0a\x09\x09self renderCloseOn: html ].\x0a\x09\x09\x0a\x09':focus' asJQuery blur",
 messageSends: ["id:", "div", "class:", "onClick:", "deactivate", "cssClass", "with:", "renderLabelOn:", "mainId", "renderSelectedBindingOn:", "renderCloseOn:", "blur", "asJQuery"],
 referencedClasses: []
 }),

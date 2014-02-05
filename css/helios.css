@@ -625,15 +625,12 @@ body[id="helios"] #helper {
 }
 body[id="helios"] #overlay {
   z-index: 2000;
-  background: rgba(112, 66, 20, 0.1);
+  background: transparent;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-}
-body[id="helios"] #overlay.light {
-  background: rgba(50, 50, 50, 0.1);
 }
 body[id="helios"] .confirmation,
 body[id="helios"] .dialog {
