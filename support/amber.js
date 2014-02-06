@@ -3,11 +3,11 @@
     either defines 'require', thus passing config, if loaded prior require.js;
     or calls require.config, if loaded post require.js).
   Usage example:
-    require(['amber/devel'], function(smalltalk) {
-        smallralk.initialize({"transport.defaultAmdNamespace": "com_example_myproject"});
+    require(['amber/devel'], function(amber) {
+        amber.initialize({"transport.defaultAmdNamespace": "com_example_myproject"});
 
-        smalltalk.globals.Browser._open(); // for legacy IDE
-        smalltalk.popupHelios(); // for Helios IDE
+        amber.globals.Browser._open(); // for legacy IDE
+        amber.popupHelios(); // for Helios IDE
     });
   For detailed explanation of amber loading, see:
   https://github.com/amber-smalltalk/amber/wiki/How-to-load-amber
@@ -62,7 +62,7 @@ require = function (require) {
             'amber_vm': amber_home + '/support',
             'amber_css': amber_home + '/css',
             'amber_lib': library_home,
-            'amber_core': amber_home + '/js',
+            'amber_core': amber_home + '/src',
             'amber_helios/html': amber_home,
             'jquery': library_home + '/jquery/jquery.min',
             'jquery-ui': library_home + '/jquery-ui/ui/minified/jquery-ui.min',

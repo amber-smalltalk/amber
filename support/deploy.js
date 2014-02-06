@@ -9,5 +9,5 @@ define([
     'amber_core/Kernel-Exceptions',
     'amber_core/Kernel-Transcript',
     'amber_core/Kernel-Announcements',
-    'amber_core/Canvas'
+    'amber_core/Web'
 ], function (smalltalk) { return smalltalk; });

@@ -118,7 +118,7 @@ AmberCompiler.prototype.main = function(configuration, finished_callback) {
 	}
 
 	if (undefined !== configuration.jsLibraryDirs) {
-		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'js'));
+		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'src'));
 		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'support'));
 	}
 
@@ -178,7 +178,7 @@ function check_configuration(configuration) {
  * Check if the file given as parameter exists in any of the following directories:
  *  1. current local directory
  *  2. configuration.jsLibraryDirs
- *  3. $AMBER/js/
+ *  3. $AMBER/src/
  *  3. $AMBER/support/
  *
  * @param filename name of a file without '.js' prefix
@@ -468,7 +468,8 @@ function compose_js_files(configuration) {
 	return new Promise(function(resolve, reject) {
 		var programFile = configuration.program;
 		if (undefined === programFile) {
-			reject(configuration);
+			resolve(configuration);
+            return;
 		}
 		if (undefined !== configuration.output_dir) {
 			programFile = path.join(configuration.output_dir, programFile);

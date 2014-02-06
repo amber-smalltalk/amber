@@ -30,40 +30,40 @@ module.exports = function(grunt) {
         closure_jar: ''
       },
       all: {
-        output_dir : 'js',
-        src: ['st/Kernel-Objects.st', 'st/Kernel-Classes.st', 'st/Kernel-Methods.st', 'st/Kernel-Collections.st',
-              'st/Kernel-Infrastructure.st', 'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st',
-              'st/Kernel-ImportExport.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
-              'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st', 'st/Compiler-Interpreter.st',
-              'st/Canvas.st', 'st/SUnit.st', 'st/IDE.st',
-              'st/Kernel-Tests.st', 'st/Compiler-Tests.st', 'st/SUnit-Tests.st',
-              'st/Helios-Core.st', 'st/Helios-Exceptions.st', 'st/Helios-Announcements.st',
-              'st/Helios-KeyBindings.st', 'st/Helios-Layout.st',
-              'st/Helios-Commands-Core.st', 'st/Helios-Commands-Tools.st', 'st/Helios-Commands-Browser.st',
-              'st/Helios-References.st', 'st/Helios-Inspector.st', 'st/Helios-Browser.st',
-              'st/Helios-Transcript.st', 'st/Helios-Workspace.st', 'st/Helios-Debugger.st',
-              'st/Helios-Workspace-Tests.st',
-              'st/Benchfib.st', 'st/Examples.st', 'st/Spaces.st'
+        output_dir : 'src',
+        src: ['src/Kernel-Objects.st', 'src/Kernel-Classes.st', 'src/Kernel-Methods.st', 'src/Kernel-Collections.st',
+              'src/Kernel-Infrastructure.st', 'src/Kernel-Exceptions.st', 'src/Kernel-Transcript.st', 'src/Kernel-Announcements.st',
+              'src/Kernel-ImportExport.st', 'src/Compiler-Exceptions.st', 'src/Compiler-Core.st', 'src/Compiler-AST.st',
+              'src/Compiler-IR.st', 'src/Compiler-Inlining.st', 'src/Compiler-Semantic.st', 'src/Compiler-Interpreter.st',
+              'src/Web.st', 'src/SUnit.st', 'src/IDE.st',
+              'src/Kernel-Tests.st', 'src/Compiler-Tests.st', 'src/SUnit-Tests.st',
+              'src/Helios-Core.st', 'src/Helios-Exceptions.st', 'src/Helios-Announcements.st',
+              'src/Helios-KeyBindings.st', 'src/Helios-Layout.st',
+              'src/Helios-Commands-Core.st', 'src/Helios-Commands-Tools.st', 'src/Helios-Commands-Browser.st',
+              'src/Helios-References.st', 'src/Helios-Inspector.st', 'src/Helios-Browser.st',
+              'src/Helios-Transcript.st', 'src/Helios-Workspace.st', 'src/Helios-Debugger.st',
+              'src/Helios-Workspace-Tests.st',
+              'src/Benchfib.st', 'src/Examples.st', 'src/Spaces.st'
               ],
         jsGlobals: ['navigator']
       },
       amber_kernel: {
-        output_dir : 'js',
-        src: ['st/Kernel-Objects.st', 'st/Kernel-Classes.st', 'st/Kernel-Methods.st', 'st/Kernel-Collections.st',
-              'st/Kernel-Infrastructure.st', 'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st']
+        output_dir : 'src',
+        src: ['src/Kernel-Objects.st', 'src/Kernel-Classes.st', 'src/Kernel-Methods.st', 'src/Kernel-Collections.st',
+              'src/Kernel-Infrastructure.st', 'src/Kernel-Exceptions.st', 'src/Kernel-Transcript.st', 'src/Kernel-Announcements.st']
       },
-      amber_canvas: {
-        output_dir : 'js',
-        src: ['st/Canvas.st', 'st/SUnit.st']
+      amber_web: {
+        output_dir : 'src',
+        src: ['src/Web.st', 'src/SUnit.st']
       },
       amber_IDE: {
-        output_dir : 'js',
-        src: ['st/IDE.st'],
-        libraries: ['Canvas']
+        output_dir : 'src',
+        src: ['src/IDE.st'],
+        libraries: ['Web']
       },
       amber_tests: {
-        output_dir : 'js',
-        src: ['st/Kernel-Tests.st', 'st/Compiler-Tests.st', 'st/SUnit-Tests.st'],
+        output_dir : 'src',
+        src: ['src/Kernel-Tests.st', 'src/Compiler-Tests.st', 'src/SUnit-Tests.st'],
         libraries: ['SUnit']
       },
       amber_test_runner: {
@@ -77,8 +77,8 @@ module.exports = function(grunt) {
         output_name: 'test/amber_test_runner'
       },
       amber_cli: {
-        output_dir: 'cli/js',
-        src: ['cli/st/AmberCli.st'],
+        output_dir: 'cli/src',
+        src: ['cli/src/AmberCli.st'],
         libraries: [
             'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
             'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser'
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      amber: ['js/*.js'],
+      amber: ['src/*.js'],
       server: ['server/*.js'],
       repl: ['repl/*.js'],
       tests: ['test/*.js'],

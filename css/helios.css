@@ -15,8 +15,11 @@ html[xmlns] .clearfix {
 * html .clearfix {
   height: 1%;
 }
+body.navigation .CodeMirror pre {
+  cursor: pointer !important;
+}
 .cm-s-helios.CodeMirror {
-  font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", Courier, monospace;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
   line-height: 16px;
   font-size: 13px;
 }
@@ -533,6 +536,7 @@ body[id="helios"] .key_helper .command strong {
 body[id="helios"] .key_helper #binding-helper-main {
   display: block;
   padding: 5px;
+  background: #eee;
 }
 body[id="helios"] .key_helper .label {
   padding: 1px 4px;
@@ -622,15 +626,12 @@ body[id="helios"] #helper {
 }
 body[id="helios"] #overlay {
   z-index: 2000;
-  background: rgba(112, 66, 20, 0.1);
+  background: transparent;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-}
-body[id="helios"] #overlay.light {
-  background: rgba(50, 50, 50, 0.1);
 }
 body[id="helios"] .confirmation,
 body[id="helios"] .dialog {
@@ -647,10 +648,14 @@ body[id="helios"] .dialog {
   left: 50%;
   margin-left: -135px;
   box-shadow: 0 0 6px #333;
-  transition: top .5s;
-  -webkit-transition: top .5s;
-  -moz-transition: top .5s;
-  -o-transition: top .5s;
+  transition: top .2s;
+  -webkit-transition: top .2s;
+  -moz-transition: top .2s;
+  -o-transition: top .2s;
+}
+body[id="helios"] .confirmation .head,
+body[id="helios"] .dialog .head {
+  display: block;
 }
 body[id="helios"] .confirmation .hl_widget .form-actions,
 body[id="helios"] .dialog .hl_widget .form-actions {
@@ -685,6 +690,11 @@ body[id="helios"] .confirmation textarea,
 body[id="helios"] .dialog textarea {
   display: block;
   width: 235px;
+}
+body[id="helios"] .confirmation input[type="text"],
+body[id="helios"] .dialog input[type="text"] {
+  margin: 5px 0;
+  width: 390px;
 }
 body[id="helios"] .confirmation .progress,
 body[id="helios"] .dialog .progress {
@@ -724,6 +734,10 @@ body[id="helios"] .button {
   margin: 0;
   margin-left: 10px;
   background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
   font: 13px "Lucida Grande", Lucida, Verdana, sans-serif;
 }
 body[id="helios"] .button.default {
@@ -732,6 +746,9 @@ body[id="helios"] .button.default {
   border-bottom: 1px solid #4B4B58;
   background: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
   background: -moz-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: -o-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: -ms-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
   -moz-box-shadow: 0 0 3px rgba(69, 113, 184, 0.8);
   -webkit-box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
   box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
@@ -762,10 +779,13 @@ body[id="helios"] .doc code {
   padding: 1px 4px;
 }
 body[id="helios"] .doc .head {
-  background: #08C;
+  background: #666;
   padding: 10px;
   font-size: 22px;
   color: white;
+}
+body[id="helios"] .focused .doc .head {
+  background: #08c;
 }
 body[id="helios"] .doc .button {
   float: right;
@@ -802,4 +822,21 @@ body[id="helios"] .transcript textarea {
   margin: 0;
   padding: 0;
   border: 0;
+}
+body[id="helios"] .hl_debugger .tool_container {
+  top: 53px;
+}
+body[id="helios"] .hl_debugger .head {
+  position: absolute;
+  top: 23px;
+  width: 100%;
+  background: #0088cc url(/images/debugger.png) 10px center no-repeat;
+  border-bottom: 1px solid white;
+}
+body[id="helios"] .hl_debugger .head h2 {
+  font-size: 14px;
+  line-height: 30px;
+  padding: 0 30px;
+  margin: 0;
+  color: white;
 }

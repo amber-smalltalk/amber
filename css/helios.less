@@ -19,9 +19,13 @@ html[xmlns] .clearfix {
 	height: 1%;
 }
 
+body.navigation .CodeMirror pre {
+	cursor: pointer !important;
+}
+
 .cm-s-helios {
 	&.CodeMirror {
-		font-family: Menlo, Monaco, Consolas, Inconsolata, "Lucida Console", Courier, monospace;
+		font-family: Consolas, "Liberation Mono", Courier, monospace;
 		line-height: 16px;
 		font-size: 13px;
 	}
@@ -613,6 +617,7 @@ body[id="helios"] {
 		#binding-helper-main {
 			display: block;
 			padding: 5px;
+			background: #eee;
 		}
 
 		.label {
@@ -721,16 +726,12 @@ body[id="helios"] {
 
 	#overlay {
 		z-index: 2000;
-		background: rgba(112, 66, 20, 0.1);
+		background: transparent;
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
-
-		&.light {
-			background: rgba(50, 50, 50, 0.1);
-		}
 	}
 
 	.confirmation, .dialog {
@@ -747,10 +748,14 @@ body[id="helios"] {
 		left: 50%;
 		margin-left: -135px;
 		box-shadow: 0 0 6px #333;
-		transition: top .5s;
-		-webkit-transition: top .5s;
-		-moz-transition: top .5s;
-		-o-transition: top .5s;
+		transition: top .2s;
+		-webkit-transition: top .2s;
+		-moz-transition: top .2s;
+		-o-transition: top .2s;
+
+		.head {
+			display: block;
+		}
 
 		.hl_widget {
 
@@ -787,6 +792,11 @@ body[id="helios"] {
 		textarea {
 			display: block;
 			width: 235px;
+		}
+
+		input[type="text"] {
+			margin: 5px 0;
+			width: 390px;
 		}
 
 		.progress {
@@ -828,6 +838,10 @@ body[id="helios"] {
 		margin: 0;
 		margin-left: 10px;
 		background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, .09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, .04) 50.5%, rgba(0, 0, 0, .04) 100%) #fff;
+		background: -moz-linear-gradient(bottom, rgba(0, 0, 0, .09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, .04) 50.5%, rgba(0, 0, 0, .04) 100%) #fff;
+		background: -o-linear-gradient(bottom, rgba(0, 0, 0, .09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, .04) 50.5%, rgba(0, 0, 0, .04) 100%) #fff;
+		background: -ms-linear-gradient(bottom, rgba(0, 0, 0, .09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, .04) 50.5%, rgba(0, 0, 0, .04) 100%) #fff;
+		background: linear-gradient(bottom, rgba(0, 0, 0, .09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, .04) 50.5%, rgba(0, 0, 0, .04) 100%) #fff;
 		font: 13px "Lucida Grande", Lucida, Verdana, sans-serif;
 	}
 
@@ -837,6 +851,9 @@ body[id="helios"] {
 		border-bottom: 1px solid #4B4B58;
 		background: -webkit-linear-gradient(bottom, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, .3) 50.5%, rgba(255, 255, 255, .45) 95%, rgba(255, 255, 255, .8) 100%) #b1bdd5;
 		background: -moz-linear-gradient(bottom, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, .3) 50.5%, rgba(255, 255, 255, .45) 95%, rgba(255, 255, 255, .8) 100%) #b1bdd5;
+		background: -o-linear-gradient(bottom, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, .3) 50.5%, rgba(255, 255, 255, .45) 95%, rgba(255, 255, 255, .8) 100%) #b1bdd5;
+		background: -ms-linear-gradient(bottom, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, .3) 50.5%, rgba(255, 255, 255, .45) 95%, rgba(255, 255, 255, .8) 100%) #b1bdd5;
+		background: linear-gradient(bottom, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, .3) 50.5%, rgba(255, 255, 255, .45) 95%, rgba(255, 255, 255, .8) 100%) #b1bdd5;
 		-moz-box-shadow: 0 0 3px rgba(69, 113, 184, 0.8);
 		-webkit-box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
 		box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
@@ -871,10 +888,14 @@ body[id="helios"] {
 		padding: 1px 4px;
 	}
 	.doc .head {
-		background: #08C;
+		background: #666;
 		padding: 10px;
 		font-size: 22px;
 		color: white;
+	}
+
+	.focused .doc .head {
+		background: #08c;
 	}
 
 	.doc .button {
@@ -918,4 +939,28 @@ body[id="helios"] {
 		padding: 0;
 		border: 0;
 	}
+
+	.hl_debugger {
+		
+		.tool_container {
+			top: 53px;
+		}
+
+		.head {
+			position: absolute;
+			top: 23px;
+			width: 100%;
+			background: #08c url(/images/debugger.png) 10px center no-repeat;
+			border-bottom: 1px solid white;
+
+			h2 {
+				font-size: 14px;
+				line-height: 30px;
+				padding: 0 30px;
+				margin: 0;
+				color: white;
+			}
+		}
+	}
+
 }
