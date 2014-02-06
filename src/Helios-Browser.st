@@ -1169,10 +1169,6 @@ label
 
 !HLPackagesListWidget methodsFor: 'actions'!
 
-commitPackage
-	self model commitPackage
-!
-
 focusClassesListWidget
 	self model announcer announce: HLClassesListFocus new
 !

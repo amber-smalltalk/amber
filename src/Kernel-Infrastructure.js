@@ -391,16 +391,16 @@ globals.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "commitPackage:",
+selector: "commitPackage:onSuccess:onError:",
 protocol: 'actions',
-fn: function (aPackage){
+fn: function (aPackage,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(aPackage)._commit();
-return self}, function($ctx1) {$ctx1.fill(self,"commitPackage:",{aPackage:aPackage},globals.Environment)})},
-args: ["aPackage"],
-source: "commitPackage: aPackage\x0a\x09aPackage commit",
-messageSends: ["commit"],
+_st(_st(aPackage)._transport())._commitOnSuccess_onError_(aBlock,anotherBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"commitPackage:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.Environment)})},
+args: ["aPackage", "aBlock", "anotherBlock"],
+source: "commitPackage: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09aPackage transport\x0a\x09\x09commitOnSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
+messageSends: ["commitOnSuccess:onError:", "transport"],
 referencedClasses: []
 }),
 globals.Environment);

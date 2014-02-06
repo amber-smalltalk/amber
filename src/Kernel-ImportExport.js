@@ -1426,26 +1426,16 @@ smalltalk.addClass('PackageHandler', globals.InterfacingObject, [], 'Kernel-Impo
 globals.PackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "ajaxPutAt:data:",
+selector: "ajaxPutAt:data:onSuccess:onError:",
 protocol: 'private',
-fn: function (aURL,aString){
+fn: function (aURL,aString,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1;
-self._ajax_(globals.HashedCollection._newFromPairs_(["url",aURL,"type","PUT","data",aString,"contentType","text/plain;charset=UTF-8","error",(function(xhr){
-return smalltalk.withContext(function($ctx2) {
-$3=_st("Commiting ".__comma(aURL)).__comma(" failed with reason: \x22");
-$ctx2.sendIdx[","]=3;
-$2=_st($3).__comma(_st(xhr)._responseText());
-$ctx2.sendIdx[","]=2;
-$1=_st($2).__comma("\x22");
-$ctx2.sendIdx[","]=1;
-return self._alert_($1);
-}, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1,1)})})]));
-return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:",{aURL:aURL,aString:aString},globals.PackageHandler)})},
-args: ["aURL", "aString"],
-source: "ajaxPutAt: aURL data: aString\x0a\x09self\x0a\x09\x09ajax: #{\x0a\x09\x09\x09'url' -> aURL.\x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'error' -> [ :xhr | self alert: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22' ] }",
-messageSends: ["ajax:", "alert:", ",", "responseText"],
+self._ajax_(globals.HashedCollection._newFromPairs_(["url",aURL,"type","PUT","data",aString,"contentType","text/plain;charset=UTF-8","success",aBlock,"error",anotherBlock]));
+return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:onSuccess:onError:",{aURL:aURL,aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)})},
+args: ["aURL", "aString", "aBlock", "anotherBlock"],
+source: "ajaxPutAt: aURL data: aString onSuccess: aBlock onError: anotherBlock\x0a\x09self\x0a\x09\x09ajax: #{\x0a\x09\x09\x09'url' -> aURL.\x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'success' -> aBlock.\x0a\x09\x09\x09'error' -> anotherBlock\x0a\x09\x09}",
+messageSends: ["ajax:"],
 referencedClasses: []
 }),
 globals.PackageHandler);
@@ -1512,30 +1502,52 @@ selector: "commit:",
 protocol: 'committing',
 fn: function (aPackage){
 var self=this;
+function $PackageCommitError(){return globals.PackageCommitError||(typeof PackageCommitError=="undefined"?nil:PackageCommitError)}
 return smalltalk.withContext(function($ctx1) { 
-_st([(function(){
+var $1,$2,$3,$4;
+self._commit_onSuccess_onError_(aPackage,(function(){
+}),(function(error){
 return smalltalk.withContext(function($ctx2) {
-return self._commitStFileFor_(aPackage);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return self._commitJsFileFor_(aPackage);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})])._do_displayingProgress_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each)._value();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}),"Committing package ".__comma(_st(aPackage)._name()));
+$1=_st($PackageCommitError())._new();
+$2=$1;
+$3=_st("Commiting failed with reason: \x22".__comma(_st(error)._responseText())).__comma("\x22");
+$ctx2.sendIdx[","]=1;
+_st($2)._messageText_($3);
+$4=_st($1)._signal();
+return $4;
+}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},globals.PackageHandler)})},
 args: ["aPackage"],
-source: "commit: aPackage\x0a\x09{\x0a\x09\x09[ self commitStFileFor: aPackage ].\x0a\x09\x09[ self commitJsFileFor: aPackage ]\x0a\x09}\x0a\x09\x09do: [ :each | each value ]\x0a\x09\x09displayingProgress: 'Committing package ', aPackage name",
-messageSends: ["do:displayingProgress:", "commitStFileFor:", "commitJsFileFor:", "value", ",", "name"],
+source: "commit: aPackage\x0a\x09self \x0a\x09\x09commit: aPackage\x0a\x09\x09onSuccess: []\x0a\x09\x09onError: [ :error |\x0a\x09\x09\x09PackageCommitError new\x0a\x09\x09\x09\x09messageText: 'Commiting failed with reason: \x22' , (error responseText) , '\x22';\x0a\x09\x09\x09\x09signal ]",
+messageSends: ["commit:onSuccess:onError:", "messageText:", "new", ",", "responseText", "signal"],
+referencedClasses: ["PackageCommitError"]
+}),
+globals.PackageHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commit:onSuccess:onError:",
+protocol: 'committing',
+fn: function (aPackage,aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._commitJsFileFor_onSuccess_onError_(aPackage,(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._commitStFileFor_onSuccess_onError_(aPackage,aBlock,anotherBlock);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),anotherBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"commit:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)})},
+args: ["aPackage", "aBlock", "anotherBlock"],
+source: "commit: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09commitJsFileFor: aPackage \x0a\x09\x09onSuccess: [\x0a\x09\x09\x09self \x0a\x09\x09\x09commitStFileFor: aPackage \x0a\x09\x09\x09onSuccess: aBlock\x0a\x09\x09\x09onError: anotherBlock ] \x0a\x09\x09onError: anotherBlock",
+messageSends: ["commitJsFileFor:onSuccess:onError:", "commitStFileFor:onSuccess:onError:"],
 referencedClasses: []
 }),
 globals.PackageHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "commitJsFileFor:",
+selector: "commitJsFileFor:onSuccess:onError:",
 protocol: 'committing',
-fn: function (aPackage){
+fn: function (aPackage,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
@@ -1543,11 +1555,11 @@ $2=_st(_st(self._commitPathJsFor_(aPackage)).__comma("/")).__comma(_st(aPackage)
 $ctx1.sendIdx[","]=2;
 $1=_st($2).__comma(".js");
 $ctx1.sendIdx[","]=1;
-self._ajaxPutAt_data_($1,self._contentsFor_(aPackage));
-return self}, function($ctx1) {$ctx1.fill(self,"commitJsFileFor:",{aPackage:aPackage},globals.PackageHandler)})},
-args: ["aPackage"],
-source: "commitJsFileFor: aPackage\x0a\x09self \x0a\x09\x09ajaxPutAt: (self commitPathJsFor: aPackage), '/', aPackage name, '.js'\x0a\x09\x09data: (self contentsFor: aPackage)",
-messageSends: ["ajaxPutAt:data:", ",", "commitPathJsFor:", "name", "contentsFor:"],
+self._ajaxPutAt_data_onSuccess_onError_($1,self._contentsFor_(aPackage),aBlock,anotherBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"commitJsFileFor:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)})},
+args: ["aPackage", "aBlock", "anotherBlock"],
+source: "commitJsFileFor: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09ajaxPutAt: (self commitPathJsFor: aPackage), '/', aPackage name, '.js'\x0a\x09\x09data: (self contentsFor: aPackage)\x0a\x09\x09onSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
+messageSends: ["ajaxPutAt:data:onSuccess:onError:", ",", "commitPathJsFor:", "name", "contentsFor:"],
 referencedClasses: []
 }),
 globals.PackageHandler);
@@ -1586,9 +1598,9 @@ globals.PackageHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "commitStFileFor:",
+selector: "commitStFileFor:onSuccess:onError:",
 protocol: 'committing',
-fn: function (aPackage){
+fn: function (aPackage,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
@@ -1596,11 +1608,11 @@ $2=_st(_st(self._commitPathStFor_(aPackage)).__comma("/")).__comma(_st(aPackage)
 $ctx1.sendIdx[","]=2;
 $1=_st($2).__comma(".st");
 $ctx1.sendIdx[","]=1;
-self._ajaxPutAt_data_($1,self._chunkContentsFor_(aPackage));
-return self}, function($ctx1) {$ctx1.fill(self,"commitStFileFor:",{aPackage:aPackage},globals.PackageHandler)})},
-args: ["aPackage"],
-source: "commitStFileFor: aPackage\x0a\x09self \x0a\x09\x09ajaxPutAt: (self commitPathStFor: aPackage), '/', aPackage name, '.st'\x0a\x09\x09data: (self chunkContentsFor: aPackage)",
-messageSends: ["ajaxPutAt:data:", ",", "commitPathStFor:", "name", "chunkContentsFor:"],
+self._ajaxPutAt_data_onSuccess_onError_($1,self._chunkContentsFor_(aPackage),aBlock,anotherBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"commitStFileFor:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)})},
+args: ["aPackage", "aBlock", "anotherBlock"],
+source: "commitStFileFor: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09ajaxPutAt: (self commitPathStFor: aPackage), '/', aPackage name, '.st'\x0a\x09\x09data: (self chunkContentsFor: aPackage)\x0a\x09\x09onSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
+messageSends: ["ajaxPutAt:data:onSuccess:onError:", ",", "commitPathStFor:", "name", "chunkContentsFor:"],
 referencedClasses: []
 }),
 globals.PackageHandler);
@@ -1674,6 +1686,29 @@ args: ["aPackage"],
 source: "load: aPackage\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
+}),
+globals.PackageHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onCommitError:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+function $PackageCommitError(){return globals.PackageCommitError||(typeof PackageCommitError=="undefined"?nil:PackageCommitError)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+$1=_st($PackageCommitError())._new();
+$2=$1;
+$3=_st("Commiting failed with reason: \x22".__comma(_st(anError)._responseText())).__comma("\x22");
+$ctx1.sendIdx[","]=1;
+_st($2)._messageText_($3);
+$4=_st($1)._signal();
+return self}, function($ctx1) {$ctx1.fill(self,"onCommitError:",{anError:anError},globals.PackageHandler)})},
+args: ["anError"],
+source: "onCommitError: anError\x0a\x09PackageCommitError new\x0a\x09\x09messageText: 'Commiting failed with reason: \x22' , (anError responseText) , '\x22';\x0a\x09\x09signal",
+messageSends: ["messageText:", "new", ",", "responseText", "signal"],
+referencedClasses: ["PackageCommitError"]
 }),
 globals.PackageHandler);
 
@@ -1920,6 +1955,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"commitHandlerClass",{},globals.P
 args: [],
 source: "commitHandlerClass\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+globals.PackageTransport);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitOnSuccess:onError:",
+protocol: 'committing',
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._commitHandler())._commit_onSuccess_onError_(self._package(),aBlock,anotherBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"commitOnSuccess:onError:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageTransport)})},
+args: ["aBlock", "anotherBlock"],
+source: "commitOnSuccess: aBlock onError: anotherBlock\x0a\x09self commitHandler \x0a\x09\x09commit: self package\x0a\x09\x09onSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
+messageSends: ["commit:onSuccess:onError:", "commitHandler", "package"],
 referencedClasses: []
 }),
 globals.PackageTransport);

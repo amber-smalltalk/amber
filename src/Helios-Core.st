@@ -259,8 +259,11 @@ saveSourceCode
 
 !HLToolModel methodsFor: 'commands actions'!
 
-commitPackage
-	self environment commitPackage: self packageToCommit
+commitPackageOnSuccess: aBlock onError: anotherBlock
+	self environment 
+		commitPackage: self packageToCommit
+		onSuccess: aBlock
+		onError: anotherBlock
 !
 
 copyClassTo: aClassName
@@ -666,6 +669,10 @@ execute: aCommand
 	HLManager current keyBinder
 		activate;
 		applyBinding: aCommand asBinding
+!
+
+inform: aString
+	self manager inform: aString
 !
 
 openAsTab
@@ -1287,6 +1294,12 @@ confirm: aString ifTrue: aBlock ifFalse: anotherBlock
 		show
 !
 
+inform: aString
+	HLInformationWidget new
+		informationString: aString;
+		show
+!
+
 removeActiveTab
 	self removeTab: self activeTab
 !
@@ -1480,39 +1493,12 @@ new
 ! !
 
 HLWidget subclass: #HLModalWidget
-	instanceVariableNames: 'confirmButtonLabel cancelButtonLabel'
+	instanceVariableNames: ''
 	package: 'Helios-Core'!
 !HLModalWidget commentStamp!
 I implement an abstract modal widget.!
 
-!HLModalWidget methodsFor: 'accessing'!
-
-cancelButtonLabel
-	^ cancelButtonLabel ifNil: [ 'Cancel' ]
-!
-
-cancelButtonLabel: anObject
-	cancelButtonLabel := anObject
-!
-
-confirmButtonLabel
-	^ confirmButtonLabel ifNil: [ 'Confirm' ]
-!
-
-confirmButtonLabel: anObject
-	confirmButtonLabel := anObject
-! !
-
 !HLModalWidget methodsFor: 'actions'!
-
-cancel
-	self remove
-!
-
-confirm
-	"Override in subclasses"
-	self remove
-!
 
 remove
 	'.dialog' asJQuery removeClass: 'active'.
@@ -1539,21 +1525,6 @@ hasButtons
 !
 
 renderButtonsOn: html
-	| confirmButton |
-	
-	html div 
-		class: 'buttons';
-		with: [
-			html button
-				class: 'button';
-				with: self cancelButtonLabel;
-				onClick: [ self cancel ].
-			confirmButton := html button
-				class: 'button default';
-				with: self confirmButtonLabel;
-				onClick: [ self confirm ] ].
-
-	self giveFocusToButton:confirmButton
 !
 
 renderContentOn: html
@@ -1581,12 +1552,14 @@ setupKeyBindings
 ! !
 
 HLModalWidget subclass: #HLConfirmationWidget
-	instanceVariableNames: 'confirmationString actionBlock cancelBlock'
+	instanceVariableNames: 'cancelButtonLabel confirmButtonLabel confirmationString actionBlock cancelBlock'
 	package: 'Helios-Core'!
 !HLConfirmationWidget commentStamp!
-I display confirmation messages. 
+I display confirmation dialog. 
 
-Instead of creating an instance directly, use `HLWidget >> #confirm:ifTrue:`.!
+## API
+
+HLWidget contains convenience methods like `HLWidget >> #confirm:ifTrue:` for creating confirmation dialogs.!
 
 !HLConfirmationWidget methodsFor: 'accessing'!
 
@@ -1606,6 +1579,22 @@ cancelBlock: aBlock
 	cancelBlock := aBlock
 !
 
+cancelButtonLabel
+	^ cancelButtonLabel ifNil: [ 'Cancel' ]
+!
+
+cancelButtonLabel: aString
+	^ cancelButtonLabel := aString
+!
+
+confirmButtonLabel
+	^ confirmButtonLabel ifNil: [ 'Confirm' ]
+!
+
+confirmButtonLabel: aString
+	^ confirmButtonLabel := aString
+!
+
 confirmationString
 	^ confirmationString ifNil: [ 'Confirm' ]
 !
@@ -1618,29 +1607,59 @@ confirmationString: aString
 
 cancel
 	self cancelBlock value.
-	super cancel
+	self remove
 !
 
 confirm
-	super confirm.
+	self remove.
 	self actionBlock value
 ! !
 
 !HLConfirmationWidget methodsFor: 'rendering'!
 
+renderButtonsOn: html
+	| confirmButton |
+	
+	html div 
+		class: 'buttons';
+		with: [
+			html button
+				class: 'button';
+				with: self cancelButtonLabel;
+				onClick: [ self cancel ].
+			confirmButton := html button
+				class: 'button default';
+				with: self confirmButtonLabel;
+				onClick: [ self confirm ] ].
+
+	self giveFocusToButton:confirmButton
+!
+
 renderMainOn: html
-	html span with: self confirmationString
+	html span 
+		class: 'head'; 
+		with: self confirmationString
 ! !
 
 HLConfirmationWidget subclass: #HLRequestWidget
-	instanceVariableNames: 'input value'
+	instanceVariableNames: 'input multiline value'
 	package: 'Helios-Core'!
 !HLRequestWidget commentStamp!
 I display a modal window requesting user input.
 
-Instead of creating instances manually, use `HLWidget >> #request:do:` and `#request:value:do:`.!
+## API
+
+`HLWidget >> #request:do:` and `#request:value:do:` are convenience methods for creating modal request dialogs.!
 
 !HLRequestWidget methodsFor: 'accessing'!
+
+beMultiline
+	multiline := true
+!
+
+beSingleline
+	multiline := false
+!
 
 cssClass
 	^ 'large'
@@ -1657,8 +1676,10 @@ value: aString
 !HLRequestWidget methodsFor: 'actions'!
 
 confirm
-	super confirm.
-	self actionBlock value: input asJQuery val
+	| val |
+	val := input asJQuery val.
+	self remove.
+	self actionBlock value: val
 ! !
 
 !HLRequestWidget methodsFor: 'private'!
@@ -1670,10 +1691,70 @@ giveFocusToButton: aButton
 
 renderMainOn: html
 	super renderMainOn: html.
-	input := html textarea.
+	self isMultiline
+		ifTrue: [ input := html textarea ]
+		ifFalse: [ input := html input 
+			type: 'text';
+			onKeyDown: [ :event |
+				event keyCode = 13 ifTrue: [
+					self confirm ] ];
+			yourself ].
 	input asJQuery 
 		val: self value;
 		focus
+! !
+
+!HLRequestWidget methodsFor: 'testing'!
+
+isMultiline
+	^ multiline ifNil: [ true ]
+! !
+
+HLModalWidget subclass: #HLInformationWidget
+	instanceVariableNames: 'buttonLabel informationString'
+	package: 'Helios-Core'!
+!HLInformationWidget commentStamp!
+I display an information dialog.
+
+## API
+
+`HLWidget >> #inform:` is a convenience method for creating information dialogs.!
+
+!HLInformationWidget methodsFor: 'accessing'!
+
+buttonLabel
+	^ buttonLabel ifNil: [ 'Ok' ]
+!
+
+buttonLabel: aString
+	buttonLabel := aString
+!
+
+informationString
+	^ informationString ifNil: [ '' ]
+!
+
+informationString: anObject
+	informationString := anObject
+! !
+
+!HLInformationWidget methodsFor: 'rendering'!
+
+renderButtonsOn: html
+	| button |
+	html div 
+		class: 'buttons';
+		with: [
+			button := html button
+				class: 'button default';
+				with: self buttonLabel;
+				onClick: [ self remove ] ].
+
+	self giveFocusToButton: button
+!
+
+renderMainOn: html
+	html span with: self informationString
 ! !
 
 HLModalWidget subclass: #HLProgressWidget

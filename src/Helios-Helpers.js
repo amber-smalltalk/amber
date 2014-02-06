@@ -1048,4 +1048,168 @@ referencedClasses: []
 globals.HLMethodSourceCode);
 
 
+
+smalltalk.addClass('HLPackageCommitErrorHelper', globals.Object, ['model'], 'Helios-Helpers');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPackage",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $HLCommitPackageCommand(){return globals.HLCommitPackageCommand||(typeof HLCommitPackageCommand=="undefined"?nil:HLCommitPackageCommand)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($HLCommitPackageCommand())._for_(self._model()))._execute();
+return self}, function($ctx1) {$ctx1.fill(self,"commitPackage",{},globals.HLPackageCommitErrorHelper)})},
+args: [],
+source: "commitPackage\x0a\x09(HLCommitPackageCommand for: self model)\x0a\x09\x09execute",
+messageSends: ["execute", "for:", "model"],
+referencedClasses: ["HLCommitPackageCommand"]
+}),
+globals.HLPackageCommitErrorHelper);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitToPath:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(require)._basicAt_("config"))._value_(globals.HashedCollection._newFromPairs_(["paths",globals.HashedCollection._newFromPairs_([_st(_st(self._package())._transport())._namespace(),aString])]));
+self._commitPackage();
+return self}, function($ctx1) {$ctx1.fill(self,"commitToPath:",{aString:aString},globals.HLPackageCommitErrorHelper)})},
+args: ["aString"],
+source: "commitToPath: aString\x0a\x09\x22We only take AMD package transport into account for now\x22\x0a\x09\x0a\x09(require basicAt: 'config') value: #{\x0a\x09\x09'paths' -> #{\x0a\x09\x09\x09self package transport namespace -> aString\x0a\x09\x09}\x0a\x09}.\x0a\x09\x0a\x09self commitPackage",
+messageSends: ["value:", "basicAt:", "namespace", "transport", "package", "commitPackage"],
+referencedClasses: []
+}),
+globals.HLPackageCommitErrorHelper);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "model",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@model"];
+return $1;
+},
+args: [],
+source: "model\x0a\x09^ model",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLPackageCommitErrorHelper);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "model:",
+protocol: 'accessing',
+fn: function (aToolModel){
+var self=this;
+self["@model"]=aToolModel;
+return self},
+args: ["aToolModel"],
+source: "model: aToolModel\x0a\x09model := aToolModel",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLPackageCommitErrorHelper);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "package",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._model())._packageToCommit();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"package",{},globals.HLPackageCommitErrorHelper)})},
+args: [],
+source: "package\x0a\x09^ self model packageToCommit",
+messageSends: ["packageToCommit", "model"],
+referencedClasses: []
+}),
+globals.HLPackageCommitErrorHelper);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "showHelp",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $HLConfirmationWidget(){return globals.HLConfirmationWidget||(typeof HLConfirmationWidget=="undefined"?nil:HLConfirmationWidget)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+$1=_st($HLConfirmationWidget())._new();
+$2=$1;
+$3=_st("Commit failed for namespace \x22".__comma(_st(_st(self._package())._transport())._namespace())).__comma("\x22. Do you want to commit to another path?");
+$ctx1.sendIdx[","]=1;
+_st($2)._confirmationString_($3);
+_st($1)._actionBlock_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._showNewCommitPath();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+_st($1)._cancelButtonLabel_("Abandon");
+_st($1)._confirmButtonLabel_("Set path");
+$4=_st($1)._show();
+return self}, function($ctx1) {$ctx1.fill(self,"showHelp",{},globals.HLPackageCommitErrorHelper)})},
+args: [],
+source: "showHelp\x0a\x09HLConfirmationWidget new\x0a\x09\x09confirmationString: 'Commit failed for namespace \x22', self package transport namespace, '\x22. Do you want to commit to another path?';\x0a\x09\x09actionBlock: [ self showNewCommitPath ];\x0a\x09\x09cancelButtonLabel: 'Abandon';\x0a\x09\x09confirmButtonLabel: 'Set path';\x0a\x09\x09show\x0a\x09",
+messageSends: ["confirmationString:", "new", ",", "namespace", "transport", "package", "actionBlock:", "showNewCommitPath", "cancelButtonLabel:", "confirmButtonLabel:", "show"],
+referencedClasses: ["HLConfirmationWidget"]
+}),
+globals.HLPackageCommitErrorHelper);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "showNewCommitPath",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $HLRequestWidget(){return globals.HLRequestWidget||(typeof HLRequestWidget=="undefined"?nil:HLRequestWidget)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($HLRequestWidget())._new();
+_st($1)._beSingleline();
+_st($1)._confirmationString_("Set commit path");
+_st($1)._actionBlock_((function(url){
+return smalltalk.withContext(function($ctx2) {
+return self._commitToPath_(url);
+}, function($ctx2) {$ctx2.fillBlock({url:url},$ctx1,1)})}));
+_st($1)._confirmButtonLabel_("Commit with new path");
+_st($1)._value_("/src");
+$2=_st($1)._show();
+return self}, function($ctx1) {$ctx1.fill(self,"showNewCommitPath",{},globals.HLPackageCommitErrorHelper)})},
+args: [],
+source: "showNewCommitPath\x0a\x09HLRequestWidget new\x0a\x09\x09beSingleline;\x0a\x09\x09confirmationString: 'Set commit path';\x0a\x09\x09actionBlock: [ :url | self commitToPath: url ];\x0a\x09\x09confirmButtonLabel: 'Commit with new path';\x0a\x09\x09value: '/src';\x0a\x09\x09show",
+messageSends: ["beSingleline", "new", "confirmationString:", "actionBlock:", "commitToPath:", "confirmButtonLabel:", "value:", "show"],
+referencedClasses: ["HLRequestWidget"]
+}),
+globals.HLPackageCommitErrorHelper);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+protocol: 'instance creation',
+fn: function (aToolModel){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._model_(aToolModel);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{aToolModel:aToolModel},globals.HLPackageCommitErrorHelper.klass)})},
+args: ["aToolModel"],
+source: "on: aToolModel\x0a\x09^ self new\x0a\x09\x09model: aToolModel;\x0a\x09\x09yourself",
+messageSends: ["model:", "new", "yourself"],
+referencedClasses: []
+}),
+globals.HLPackageCommitErrorHelper.klass);
+
 });

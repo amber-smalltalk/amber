@@ -653,6 +653,10 @@ body[id="helios"] .dialog {
   -moz-transition: top .2s;
   -o-transition: top .2s;
 }
+body[id="helios"] .confirmation .head,
+body[id="helios"] .dialog .head {
+  display: block;
+}
 body[id="helios"] .confirmation .hl_widget .form-actions,
 body[id="helios"] .dialog .hl_widget .form-actions {
   padding: 0;
@@ -686,6 +690,11 @@ body[id="helios"] .confirmation textarea,
 body[id="helios"] .dialog textarea {
   display: block;
   width: 235px;
+}
+body[id="helios"] .confirmation input[type="text"],
+body[id="helios"] .dialog input[type="text"] {
+  margin: 5px 0;
+  width: 390px;
 }
 body[id="helios"] .confirmation .progress,
 body[id="helios"] .dialog .progress {

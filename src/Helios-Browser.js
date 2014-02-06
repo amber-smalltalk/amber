@@ -3340,22 +3340,6 @@ smalltalk.addClass('HLPackagesListWidget', globals.HLToolListWidget, [], 'Helios
 globals.HLPackagesListWidget.comment="I render a list of the system packages.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "commitPackage",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self._model())._commitPackage();
-return self}, function($ctx1) {$ctx1.fill(self,"commitPackage",{},globals.HLPackagesListWidget)})},
-args: [],
-source: "commitPackage\x0a\x09self model commitPackage",
-messageSends: ["commitPackage", "model"],
-referencedClasses: []
-}),
-globals.HLPackagesListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "cssClassForItem:",
 protocol: 'accessing',
 fn: function (anItem){

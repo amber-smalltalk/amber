@@ -435,4 +435,8 @@ referencedClasses: []
 globals.NonBooleanReceiver);
 
 
+
+smalltalk.addClass('PackageCommitError', globals.Error, [], 'Kernel-Exceptions');
+globals.PackageCommitError.comment="I get signaled when an attempt to commit a package has failed.";
+
 });

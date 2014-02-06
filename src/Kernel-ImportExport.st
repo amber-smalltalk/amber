@@ -582,24 +582,48 @@ exporterClass
 !PackageHandler methodsFor: 'committing'!
 
 commit: aPackage
-	{
-		[ self commitStFileFor: aPackage ].
-		[ self commitJsFileFor: aPackage ]
-	}
-		do: [ :each | each value ]
-		displayingProgress: 'Committing package ', aPackage name
+	self 
+		commit: aPackage
+		onSuccess: []
+		onError: [ :error |
+			PackageCommitError new
+				messageText: 'Commiting failed with reason: "' , (error responseText) , '"';
+				signal ]
 !
 
-commitJsFileFor: aPackage
+commit: aPackage onSuccess: aBlock onError: anotherBlock
+	self 
+		commitJsFileFor: aPackage 
+		onSuccess: [
+			self 
+			commitStFileFor: aPackage 
+			onSuccess: aBlock
+			onError: anotherBlock ] 
+		onError: anotherBlock
+!
+
+commitJsFileFor: aPackage onSuccess: aBlock onError: anotherBlock
 	self 
 		ajaxPutAt: (self commitPathJsFor: aPackage), '/', aPackage name, '.js'
 		data: (self contentsFor: aPackage)
+		onSuccess: aBlock
+		onError: anotherBlock
 !
 
-commitStFileFor: aPackage
+commitStFileFor: aPackage onSuccess: aBlock onError: anotherBlock
 	self 
 		ajaxPutAt: (self commitPathStFor: aPackage), '/', aPackage name, '.st'
 		data: (self chunkContentsFor: aPackage)
+		onSuccess: aBlock
+		onError: anotherBlock
+! !
+
+!PackageHandler methodsFor: 'error handling'!
+
+onCommitError: anError
+	PackageCommitError new
+		messageText: 'Commiting failed with reason: "' , (anError responseText) , '"';
+		signal
 ! !
 
 !PackageHandler methodsFor: 'factory'!
@@ -620,14 +644,16 @@ load: aPackage
 
 !PackageHandler methodsFor: 'private'!
 
-ajaxPutAt: aURL data: aString
+ajaxPutAt: aURL data: aString onSuccess: aBlock onError: anotherBlock
 	self
 		ajax: #{
 			'url' -> aURL.
 			'type' -> 'PUT'.
 			'data' -> aString.
 			'contentType' -> 'text/plain;charset=UTF-8'.
-			'error' -> [ :xhr | self alert: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"' ] }
+			'success' -> aBlock.
+			'error' -> anotherBlock
+		}
 ! !
 
 PackageHandler subclass: #AmdPackageHandler
@@ -725,6 +751,13 @@ type
 
 commit
 	self commitHandler commit: self package
+!
+
+commitOnSuccess: aBlock onError: anotherBlock
+	self commitHandler 
+		commit: self package
+		onSuccess: aBlock
+		onError: anotherBlock
 ! !
 
 !PackageTransport methodsFor: 'converting'!

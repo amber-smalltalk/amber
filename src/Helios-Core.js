@@ -381,16 +381,16 @@ globals.HLToolModel);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "commitPackage",
+selector: "commitPackageOnSuccess:onError:",
 protocol: 'commands actions',
-fn: function (){
+fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._environment())._commitPackage_(self._packageToCommit());
-return self}, function($ctx1) {$ctx1.fill(self,"commitPackage",{},globals.HLToolModel)})},
-args: [],
-source: "commitPackage\x0a\x09self environment commitPackage: self packageToCommit",
-messageSends: ["commitPackage:", "environment", "packageToCommit"],
+_st(self._environment())._commitPackage_onSuccess_onError_(self._packageToCommit(),aBlock,anotherBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"commitPackageOnSuccess:onError:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.HLToolModel)})},
+args: ["aBlock", "anotherBlock"],
+source: "commitPackageOnSuccess: aBlock onError: anotherBlock\x0a\x09self environment \x0a\x09\x09commitPackage: self packageToCommit\x0a\x09\x09onSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
+messageSends: ["commitPackage:onSuccess:onError:", "environment", "packageToCommit"],
 referencedClasses: []
 }),
 globals.HLToolModel);
@@ -1840,6 +1840,22 @@ args: ["aCommand"],
 source: "execute: aCommand\x0a\x09HLManager current keyBinder\x0a\x09\x09activate;\x0a\x09\x09applyBinding: aCommand asBinding",
 messageSends: ["activate", "keyBinder", "current", "applyBinding:", "asBinding"],
 referencedClasses: ["HLManager"]
+}),
+globals.HLWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inform:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._manager())._inform_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"inform:",{aString:aString},globals.HLWidget)})},
+args: ["aString"],
+source: "inform: aString\x0a\x09self manager inform: aString",
+messageSends: ["inform:", "manager"],
+referencedClasses: []
 }),
 globals.HLWidget);
 
@@ -3810,6 +3826,26 @@ globals.HLManager);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "inform:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+function $HLInformationWidget(){return globals.HLInformationWidget||(typeof HLInformationWidget=="undefined"?nil:HLInformationWidget)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($HLInformationWidget())._new();
+_st($1)._informationString_(aString);
+$2=_st($1)._show();
+return self}, function($ctx1) {$ctx1.fill(self,"inform:",{aString:aString},globals.HLManager)})},
+args: ["aString"],
+source: "inform: aString\x0a\x09HLInformationWidget new\x0a\x09\x09informationString: aString;\x0a\x09\x09show",
+messageSends: ["informationString:", "new", "show"],
+referencedClasses: ["HLInformationWidget"]
+}),
+globals.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "keyBinder",
 protocol: 'accessing',
 fn: function (){
@@ -4385,116 +4421,8 @@ referencedClasses: []
 globals.HLManager.klass);
 
 
-smalltalk.addClass('HLModalWidget', globals.HLWidget, ['confirmButtonLabel', 'cancelButtonLabel'], 'Helios-Core');
+smalltalk.addClass('HLModalWidget', globals.HLWidget, [], 'Helios-Core');
 globals.HLModalWidget.comment="I implement an abstract modal widget.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "cancel",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._remove();
-return self}, function($ctx1) {$ctx1.fill(self,"cancel",{},globals.HLModalWidget)})},
-args: [],
-source: "cancel\x0a\x09self remove",
-messageSends: ["remove"],
-referencedClasses: []
-}),
-globals.HLModalWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "cancelButtonLabel",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@cancelButtonLabel"];
-if(($receiver = $2) == nil || $receiver == null){
-$1="Cancel";
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"cancelButtonLabel",{},globals.HLModalWidget)})},
-args: [],
-source: "cancelButtonLabel\x0a\x09^ cancelButtonLabel ifNil: [ 'Cancel' ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-globals.HLModalWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "cancelButtonLabel:",
-protocol: 'accessing',
-fn: function (anObject){
-var self=this;
-self["@cancelButtonLabel"]=anObject;
-return self},
-args: ["anObject"],
-source: "cancelButtonLabel: anObject\x0a\x09cancelButtonLabel := anObject",
-messageSends: [],
-referencedClasses: []
-}),
-globals.HLModalWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "confirm",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._remove();
-return self}, function($ctx1) {$ctx1.fill(self,"confirm",{},globals.HLModalWidget)})},
-args: [],
-source: "confirm\x0a\x09\x22Override in subclasses\x22\x0a\x09self remove",
-messageSends: ["remove"],
-referencedClasses: []
-}),
-globals.HLModalWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "confirmButtonLabel",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@confirmButtonLabel"];
-if(($receiver = $2) == nil || $receiver == null){
-$1="Confirm";
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"confirmButtonLabel",{},globals.HLModalWidget)})},
-args: [],
-source: "confirmButtonLabel\x0a\x09^ confirmButtonLabel ifNil: [ 'Confirm' ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-globals.HLModalWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "confirmButtonLabel:",
-protocol: 'accessing',
-fn: function (anObject){
-var self=this;
-self["@confirmButtonLabel"]=anObject;
-return self},
-args: ["anObject"],
-source: "confirmButtonLabel: anObject\x0a\x09confirmButtonLabel := anObject",
-messageSends: [],
-referencedClasses: []
-}),
-globals.HLModalWidget);
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "giveFocusToButton:",
@@ -4559,42 +4487,10 @@ selector: "renderButtonsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
-var confirmButton;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$2;
-$1=_st(html)._div();
-_st($1)._class_("buttons");
-$ctx1.sendIdx["class:"]=1;
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-$3=_st(html)._button();
-$ctx2.sendIdx["button"]=1;
-_st($3)._class_("button");
-$ctx2.sendIdx["class:"]=2;
-_st($3)._with_(self._cancelButtonLabel());
-$ctx2.sendIdx["with:"]=2;
-$4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._cancel();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-$ctx2.sendIdx["onClick:"]=1;
-$4;
-$5=_st(html)._button();
-_st($5)._class_("button default");
-_st($5)._with_(self._confirmButtonLabel());
-$6=_st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._confirm();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
-confirmButton=$6;
-return confirmButton;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["with:"]=1;
-self._giveFocusToButton_(confirmButton);
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html,confirmButton:confirmButton},globals.HLModalWidget)})},
+return self},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div \x0a\x09\x09class: 'buttons';\x0a\x09\x09with: [\x0a\x09\x09\x09html button\x0a\x09\x09\x09\x09class: 'button';\x0a\x09\x09\x09\x09with: self cancelButtonLabel;\x0a\x09\x09\x09\x09onClick: [ self cancel ].\x0a\x09\x09\x09confirmButton := html button\x0a\x09\x09\x09\x09class: 'button default';\x0a\x09\x09\x09\x09with: self confirmButtonLabel;\x0a\x09\x09\x09\x09onClick: [ self confirm ] ].\x0a\x0a\x09self giveFocusToButton:confirmButton",
-messageSends: ["class:", "div", "with:", "button", "cancelButtonLabel", "onClick:", "cancel", "confirmButtonLabel", "confirm", "giveFocusToButton:"],
+source: "renderButtonsOn: html",
+messageSends: [],
 referencedClasses: []
 }),
 globals.HLModalWidget);
@@ -4687,8 +4583,8 @@ globals.HLModalWidget);
 
 
 
-smalltalk.addClass('HLConfirmationWidget', globals.HLModalWidget, ['confirmationString', 'actionBlock', 'cancelBlock'], 'Helios-Core');
-globals.HLConfirmationWidget.comment="I display confirmation messages. \x0a\x0aInstead of creating an instance directly, use `HLWidget >> #confirm:ifTrue:`.";
+smalltalk.addClass('HLConfirmationWidget', globals.HLModalWidget, ['cancelButtonLabel', 'confirmButtonLabel', 'confirmationString', 'actionBlock', 'cancelBlock'], 'Helios-Core');
+globals.HLConfirmationWidget.comment="I display confirmation dialog. \x0a\x0a## API\x0a\x0aHLWidget contains convenience methods like `HLWidget >> #confirm:ifTrue:` for creating confirmation dialogs.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "actionBlock",
@@ -4736,11 +4632,11 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._cancelBlock())._value();
-globals.HLConfirmationWidget.superclass.fn.prototype._cancel.apply(_st(self), []);
+self._remove();
 return self}, function($ctx1) {$ctx1.fill(self,"cancel",{},globals.HLConfirmationWidget)})},
 args: [],
-source: "cancel\x0a\x09self cancelBlock value.\x0a\x09super cancel",
-messageSends: ["value", "cancelBlock", "cancel"],
+source: "cancel\x0a\x09self cancelBlock value.\x0a\x09self remove",
+messageSends: ["value", "cancelBlock", "remove"],
 referencedClasses: []
 }),
 globals.HLConfirmationWidget);
@@ -4786,17 +4682,99 @@ globals.HLConfirmationWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cancelButtonLabel",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@cancelButtonLabel"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="Cancel";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"cancelButtonLabel",{},globals.HLConfirmationWidget)})},
+args: [],
+source: "cancelButtonLabel\x0a\x09^ cancelButtonLabel ifNil: [ 'Cancel' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.HLConfirmationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cancelButtonLabel:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+var $1;
+self["@cancelButtonLabel"]=aString;
+$1=self["@cancelButtonLabel"];
+return $1;
+},
+args: ["aString"],
+source: "cancelButtonLabel: aString\x0a\x09^ cancelButtonLabel := aString",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLConfirmationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "confirm",
 protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLConfirmationWidget.superclass.fn.prototype._confirm.apply(_st(self), []);
+self._remove();
 _st(self._actionBlock())._value();
 return self}, function($ctx1) {$ctx1.fill(self,"confirm",{},globals.HLConfirmationWidget)})},
 args: [],
-source: "confirm\x0a\x09super confirm.\x0a\x09self actionBlock value",
-messageSends: ["confirm", "value", "actionBlock"],
+source: "confirm\x0a\x09self remove.\x0a\x09self actionBlock value",
+messageSends: ["remove", "value", "actionBlock"],
+referencedClasses: []
+}),
+globals.HLConfirmationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "confirmButtonLabel",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@confirmButtonLabel"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="Confirm";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"confirmButtonLabel",{},globals.HLConfirmationWidget)})},
+args: [],
+source: "confirmButtonLabel\x0a\x09^ confirmButtonLabel ifNil: [ 'Confirm' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.HLConfirmationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "confirmButtonLabel:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+var $1;
+self["@confirmButtonLabel"]=aString;
+$1=self["@confirmButtonLabel"];
+return $1;
+},
+args: ["aString"],
+source: "confirmButtonLabel: aString\x0a\x09^ confirmButtonLabel := aString",
+messageSends: [],
 referencedClasses: []
 }),
 globals.HLConfirmationWidget);
@@ -4841,37 +4819,118 @@ globals.HLConfirmationWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "renderButtonsOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+var confirmButton;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$5,$6,$2;
+$1=_st(html)._div();
+_st($1)._class_("buttons");
+$ctx1.sendIdx["class:"]=1;
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(html)._button();
+$ctx2.sendIdx["button"]=1;
+_st($3)._class_("button");
+$ctx2.sendIdx["class:"]=2;
+_st($3)._with_(self._cancelButtonLabel());
+$ctx2.sendIdx["with:"]=2;
+$4=_st($3)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._cancel();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+$ctx2.sendIdx["onClick:"]=1;
+$4;
+$5=_st(html)._button();
+_st($5)._class_("button default");
+_st($5)._with_(self._confirmButtonLabel());
+$6=_st($5)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._confirm();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+confirmButton=$6;
+return confirmButton;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["with:"]=1;
+self._giveFocusToButton_(confirmButton);
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html,confirmButton:confirmButton},globals.HLConfirmationWidget)})},
+args: ["html"],
+source: "renderButtonsOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div \x0a\x09\x09class: 'buttons';\x0a\x09\x09with: [\x0a\x09\x09\x09html button\x0a\x09\x09\x09\x09class: 'button';\x0a\x09\x09\x09\x09with: self cancelButtonLabel;\x0a\x09\x09\x09\x09onClick: [ self cancel ].\x0a\x09\x09\x09confirmButton := html button\x0a\x09\x09\x09\x09class: 'button default';\x0a\x09\x09\x09\x09with: self confirmButtonLabel;\x0a\x09\x09\x09\x09onClick: [ self confirm ] ].\x0a\x0a\x09self giveFocusToButton:confirmButton",
+messageSends: ["class:", "div", "with:", "button", "cancelButtonLabel", "onClick:", "cancel", "confirmButtonLabel", "confirm", "giveFocusToButton:"],
+referencedClasses: []
+}),
+globals.HLConfirmationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "renderMainOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(html)._span())._with_(self._confirmationString());
+var $1,$2;
+$1=_st(html)._span();
+_st($1)._class_("head");
+$2=_st($1)._with_(self._confirmationString());
 return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},globals.HLConfirmationWidget)})},
 args: ["html"],
-source: "renderMainOn: html\x0a\x09html span with: self confirmationString",
-messageSends: ["with:", "span", "confirmationString"],
+source: "renderMainOn: html\x0a\x09html span \x0a\x09\x09class: 'head'; \x0a\x09\x09with: self confirmationString",
+messageSends: ["class:", "span", "with:", "confirmationString"],
 referencedClasses: []
 }),
 globals.HLConfirmationWidget);
 
 
 
-smalltalk.addClass('HLRequestWidget', globals.HLConfirmationWidget, ['input', 'value'], 'Helios-Core');
-globals.HLRequestWidget.comment="I display a modal window requesting user input.\x0a\x0aInstead of creating instances manually, use `HLWidget >> #request:do:` and `#request:value:do:`.";
+smalltalk.addClass('HLRequestWidget', globals.HLConfirmationWidget, ['input', 'multiline', 'value'], 'Helios-Core');
+globals.HLRequestWidget.comment="I display a modal window requesting user input.\x0a\x0a## API\x0a\x0a`HLWidget >> #request:do:` and `#request:value:do:` are convenience methods for creating modal request dialogs.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "beMultiline",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+self["@multiline"]=true;
+return self},
+args: [],
+source: "beMultiline\x0a\x09multiline := true",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLRequestWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "beSingleline",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+self["@multiline"]=false;
+return self},
+args: [],
+source: "beSingleline\x0a\x09multiline := false",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLRequestWidget);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirm",
 protocol: 'actions',
 fn: function (){
 var self=this;
+var val;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLRequestWidget.superclass.fn.prototype._confirm.apply(_st(self), []);
-_st(self._actionBlock())._value_(_st(_st(self["@input"])._asJQuery())._val());
-return self}, function($ctx1) {$ctx1.fill(self,"confirm",{},globals.HLRequestWidget)})},
+val=_st(_st(self["@input"])._asJQuery())._val();
+self._remove();
+_st(self._actionBlock())._value_(val);
+return self}, function($ctx1) {$ctx1.fill(self,"confirm",{val:val},globals.HLRequestWidget)})},
 args: [],
-source: "confirm\x0a\x09super confirm.\x0a\x09self actionBlock value: input asJQuery val",
-messageSends: ["confirm", "value:", "actionBlock", "val", "asJQuery"],
+source: "confirm\x0a\x09| val |\x0a\x09val := input asJQuery val.\x0a\x09self remove.\x0a\x09self actionBlock value: val",
+messageSends: ["val", "asJQuery", "remove", "value:", "actionBlock"],
 referencedClasses: []
 }),
 globals.HLRequestWidget);
@@ -4907,21 +4966,61 @@ globals.HLRequestWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isMultiline",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@multiline"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=true;
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isMultiline",{},globals.HLRequestWidget)})},
+args: [],
+source: "isMultiline\x0a\x09^ multiline ifNil: [ true ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.HLRequestWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "renderMainOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3,$4,$5,$6;
 globals.HLRequestWidget.superclass.fn.prototype._renderMainOn_.apply(_st(self), [html]);
+$1=self._isMultiline();
+if(smalltalk.assert($1)){
 self["@input"]=_st(html)._textarea();
-$1=_st(self["@input"])._asJQuery();
-_st($1)._val_(self._value());
-$2=_st($1)._focus();
+self["@input"];
+} else {
+$2=_st(html)._input();
+_st($2)._type_("text");
+_st($2)._onKeyDown_((function(event){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(_st(event)._keyCode()).__eq((13));
+if(smalltalk.assert($3)){
+return self._confirm();
+};
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,3)})}));
+$4=_st($2)._yourself();
+self["@input"]=$4;
+self["@input"];
+};
+$5=_st(self["@input"])._asJQuery();
+_st($5)._val_(self._value());
+$6=_st($5)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},globals.HLRequestWidget)})},
 args: ["html"],
-source: "renderMainOn: html\x0a\x09super renderMainOn: html.\x0a\x09input := html textarea.\x0a\x09input asJQuery \x0a\x09\x09val: self value;\x0a\x09\x09focus",
-messageSends: ["renderMainOn:", "textarea", "val:", "asJQuery", "value", "focus"],
+source: "renderMainOn: html\x0a\x09super renderMainOn: html.\x0a\x09self isMultiline\x0a\x09\x09ifTrue: [ input := html textarea ]\x0a\x09\x09ifFalse: [ input := html input \x0a\x09\x09\x09type: 'text';\x0a\x09\x09\x09onKeyDown: [ :event |\x0a\x09\x09\x09\x09event keyCode = 13 ifTrue: [\x0a\x09\x09\x09\x09\x09self confirm ] ];\x0a\x09\x09\x09yourself ].\x0a\x09input asJQuery \x0a\x09\x09val: self value;\x0a\x09\x09focus",
+messageSends: ["renderMainOn:", "ifTrue:ifFalse:", "isMultiline", "textarea", "type:", "input", "onKeyDown:", "ifTrue:", "=", "keyCode", "confirm", "yourself", "val:", "asJQuery", "value", "focus"],
 referencedClasses: []
 }),
 globals.HLRequestWidget);
@@ -4963,6 +5062,136 @@ messageSends: [],
 referencedClasses: []
 }),
 globals.HLRequestWidget);
+
+
+
+smalltalk.addClass('HLInformationWidget', globals.HLModalWidget, ['buttonLabel', 'informationString'], 'Helios-Core');
+globals.HLInformationWidget.comment="I display an information dialog.\x0a\x0a## API\x0a\x0a`HLWidget >> #inform:` is a convenience method for creating information dialogs.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buttonLabel",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@buttonLabel"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="Ok";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"buttonLabel",{},globals.HLInformationWidget)})},
+args: [],
+source: "buttonLabel\x0a\x09^ buttonLabel ifNil: [ 'Ok' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.HLInformationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buttonLabel:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@buttonLabel"]=aString;
+return self},
+args: ["aString"],
+source: "buttonLabel: aString\x0a\x09buttonLabel := aString",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLInformationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "informationString",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@informationString"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"informationString",{},globals.HLInformationWidget)})},
+args: [],
+source: "informationString\x0a\x09^ informationString ifNil: [ '' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.HLInformationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "informationString:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@informationString"]=anObject;
+return self},
+args: ["anObject"],
+source: "informationString: anObject\x0a\x09informationString := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLInformationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderButtonsOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+var button;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$2;
+$1=_st(html)._div();
+_st($1)._class_("buttons");
+$ctx1.sendIdx["class:"]=1;
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(html)._button();
+_st($3)._class_("button default");
+_st($3)._with_(self._buttonLabel());
+$4=_st($3)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._remove();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+button=$4;
+return button;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["with:"]=1;
+self._giveFocusToButton_(button);
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html,button:button},globals.HLInformationWidget)})},
+args: ["html"],
+source: "renderButtonsOn: html\x0a\x09| button |\x0a\x09html div \x0a\x09\x09class: 'buttons';\x0a\x09\x09with: [\x0a\x09\x09\x09button := html button\x0a\x09\x09\x09\x09class: 'button default';\x0a\x09\x09\x09\x09with: self buttonLabel;\x0a\x09\x09\x09\x09onClick: [ self remove ] ].\x0a\x0a\x09self giveFocusToButton: button",
+messageSends: ["class:", "div", "with:", "button", "buttonLabel", "onClick:", "remove", "giveFocusToButton:"],
+referencedClasses: []
+}),
+globals.HLInformationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderMainOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(html)._span())._with_(self._informationString());
+return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},globals.HLInformationWidget)})},
+args: ["html"],
+source: "renderMainOn: html\x0a\x09html span with: self informationString",
+messageSends: ["with:", "span", "informationString"],
+referencedClasses: []
+}),
+globals.HLInformationWidget);
 
 
 
