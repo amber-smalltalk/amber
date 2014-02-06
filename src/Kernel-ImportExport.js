@@ -2378,6 +2378,22 @@ globals.AmdPackageTransport);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "setPath:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(require)._basicAt_("config"))._value_(globals.HashedCollection._newFromPairs_(["paths",globals.HashedCollection._newFromPairs_([self._namespace(),aString])]));
+return self}, function($ctx1) {$ctx1.fill(self,"setPath:",{aString:aString},globals.AmdPackageTransport)})},
+args: ["aString"],
+source: "setPath: aString\x0a\x09\x22Set the path the the receiver's `namespace`\x22\x0a\x09\x0a\x09(require basicAt: 'config') value: #{\x0a\x09\x09'paths' -> #{\x0a\x09\x09\x09self namespace -> aString\x0a\x09\x09}\x0a\x09}.",
+messageSends: ["value:", "basicAt:", "namespace"],
+referencedClasses: []
+}),
+globals.AmdPackageTransport);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "setupFromJson:",
 protocol: 'initialization',
 fn: function (anObject){

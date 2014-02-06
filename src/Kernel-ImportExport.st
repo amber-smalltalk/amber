@@ -864,6 +864,18 @@ namespace: aString
 	namespace := aString
 ! !
 
+!AmdPackageTransport methodsFor: 'actions'!
+
+setPath: aString
+	"Set the path the the receiver's `namespace`"
+	
+	(require basicAt: 'config') value: #{
+		'paths' -> #{
+			self namespace -> aString
+		}
+	}.
+! !
+
 !AmdPackageTransport methodsFor: 'converting'!
 
 asJSON

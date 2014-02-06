@@ -1074,12 +1074,12 @@ protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(require)._basicAt_("config"))._value_(globals.HashedCollection._newFromPairs_(["paths",globals.HashedCollection._newFromPairs_([_st(_st(self._package())._transport())._namespace(),aString])]));
+_st(_st(self._package())._transport())._setPath_(aString);
 self._commitPackage();
 return self}, function($ctx1) {$ctx1.fill(self,"commitToPath:",{aString:aString},globals.HLPackageCommitErrorHelper)})},
 args: ["aString"],
-source: "commitToPath: aString\x0a\x09\x22We only take AMD package transport into account for now\x22\x0a\x09\x0a\x09(require basicAt: 'config') value: #{\x0a\x09\x09'paths' -> #{\x0a\x09\x09\x09self package transport namespace -> aString\x0a\x09\x09}\x0a\x09}.\x0a\x09\x0a\x09self commitPackage",
-messageSends: ["value:", "basicAt:", "namespace", "transport", "package", "commitPackage"],
+source: "commitToPath: aString\x0a\x09\x22We only take AMD package transport into account for now\x22\x0a\x09\x0a\x09self package transport setPath: aString.\x0a\x09\x0a\x09self commitPackage",
+messageSends: ["setPath:", "transport", "package", "commitPackage"],
 referencedClasses: []
 }),
 globals.HLPackageCommitErrorHelper);
