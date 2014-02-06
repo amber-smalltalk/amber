@@ -65,17 +65,36 @@ category
 	^ 'Packages'
 ! !
 
+!HLCommitPackageCommand methodsFor: 'error handling'!
+
+onPackageCommitError: anError
+	(HLPackageCommitErrorHelper on: self model)
+		showHelp
+! !
+
 !HLCommitPackageCommand methodsFor: 'executing'!
 
+commitPackage
+	self model 
+		commitPackageOnSuccess: [ self informSuccess ]
+		onError: [ :error | self onPackageCommitError: error ]
+!
+
 execute
-	self model commitPackage
+	self commitPackage
+!
+
+informSuccess
+	HLInformationWidget new
+		informationString: 'Commit successful!!';
+		show
 ! !
 
 !HLCommitPackageCommand methodsFor: 'testing'!
 
 isActive
 	^ true
-	" slf model isPackageDirty"
+	"self model isPackageDirty"
 ! !
 
 !HLCommitPackageCommand class methodsFor: 'accessing'!

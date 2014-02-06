@@ -161,3 +161,9 @@ object: anObject
 	object := anObject
 ! !
 
+Error subclass: #PackageCommitError
+	instanceVariableNames: ''
+	package: 'Kernel-Exceptions'!
+!PackageCommitError commentStamp!
+I get signaled when an attempt to commit a package has failed.!
+

@@ -135,8 +135,10 @@ systemAnnouncer
 
 !Environment methodsFor: 'actions'!
 
-commitPackage: aPackage
-	aPackage commit
+commitPackage: aPackage onSuccess: aBlock onError: anotherBlock
+	aPackage transport
+		commitOnSuccess: aBlock
+		onError: anotherBlock
 !
 
 copyClass: aClass to: aClassName

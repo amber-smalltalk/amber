@@ -435,3 +435,67 @@ sourceCode: aString
 	sourceCode := aString
 ! !
 
+Object subclass: #HLPackageCommitErrorHelper
+	instanceVariableNames: 'model'
+	package: 'Helios-Helpers'!
+
+!HLPackageCommitErrorHelper methodsFor: 'accessing'!
+
+model
+	^ model
+!
+
+model: aToolModel
+	model := aToolModel
+!
+
+package
+	^ self model packageToCommit
+! !
+
+!HLPackageCommitErrorHelper methodsFor: 'actions'!
+
+commitPackage
+	(HLCommitPackageCommand for: self model)
+		execute
+!
+
+commitToPath: aString
+	"We only take AMD package transport into account for now"
+	
+	(require basicAt: 'config') value: #{
+		'paths' -> #{
+			self package transport namespace -> aString
+		}
+	}.
+	
+	self commitPackage
+!
+
+showHelp
+	HLConfirmationWidget new
+		confirmationString: 'Commit failed for namespace "', self package transport namespace, '". Do you want to commit to another path?';
+		actionBlock: [ self showNewCommitPath ];
+		cancelButtonLabel: 'Abandon';
+		confirmButtonLabel: 'Set path';
+		show
+!
+
+showNewCommitPath
+	HLRequestWidget new
+		beSingleline;
+		confirmationString: 'Set commit path';
+		actionBlock: [ :url | self commitToPath: url ];
+		confirmButtonLabel: 'Commit with new path';
+		value: '/src';
+		show
+! !
+
+!HLPackageCommitErrorHelper class methodsFor: 'instance creation'!
+
+on: aToolModel
+	^ self new
+		model: aToolModel;
+		yourself
+! !
+

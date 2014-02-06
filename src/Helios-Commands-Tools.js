@@ -159,17 +159,59 @@ globals.HLCommitPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "commitPackage",
+protocol: 'executing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._commitPackageOnSuccess_onError_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._informSuccess();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(error){
+return smalltalk.withContext(function($ctx2) {
+return self._onPackageCommitError_(error);
+}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"commitPackage",{},globals.HLCommitPackageCommand)})},
+args: [],
+source: "commitPackage\x0a\x09self model \x0a\x09\x09commitPackageOnSuccess: [ self informSuccess ]\x0a\x09\x09onError: [ :error | self onPackageCommitError: error ]",
+messageSends: ["commitPackageOnSuccess:onError:", "model", "informSuccess", "onPackageCommitError:"],
+referencedClasses: []
+}),
+globals.HLCommitPackageCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "execute",
 protocol: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._model())._commitPackage();
+self._commitPackage();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLCommitPackageCommand)})},
 args: [],
-source: "execute\x0a\x09self model commitPackage",
-messageSends: ["commitPackage", "model"],
+source: "execute\x0a\x09self commitPackage",
+messageSends: ["commitPackage"],
 referencedClasses: []
+}),
+globals.HLCommitPackageCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "informSuccess",
+protocol: 'executing',
+fn: function (){
+var self=this;
+function $HLInformationWidget(){return globals.HLInformationWidget||(typeof HLInformationWidget=="undefined"?nil:HLInformationWidget)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($HLInformationWidget())._new();
+_st($1)._informationString_("Commit successful!");
+$2=_st($1)._show();
+return self}, function($ctx1) {$ctx1.fill(self,"informSuccess",{},globals.HLCommitPackageCommand)})},
+args: [],
+source: "informSuccess\x0a\x09HLInformationWidget new\x0a\x09\x09informationString: 'Commit successful!';\x0a\x09\x09show",
+messageSends: ["informationString:", "new", "show"],
+referencedClasses: ["HLInformationWidget"]
 }),
 globals.HLCommitPackageCommand);
 
@@ -182,9 +224,26 @@ var self=this;
 return true;
 },
 args: [],
-source: "isActive\x0a\x09^ true\x0a\x09\x22 slf model isPackageDirty\x22",
+source: "isActive\x0a\x09^ true\x0a\x09\x22self model isPackageDirty\x22",
 messageSends: [],
 referencedClasses: []
+}),
+globals.HLCommitPackageCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onPackageCommitError:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+function $HLPackageCommitErrorHelper(){return globals.HLPackageCommitErrorHelper||(typeof HLPackageCommitErrorHelper=="undefined"?nil:HLPackageCommitErrorHelper)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($HLPackageCommitErrorHelper())._on_(self._model()))._showHelp();
+return self}, function($ctx1) {$ctx1.fill(self,"onPackageCommitError:",{anError:anError},globals.HLCommitPackageCommand)})},
+args: ["anError"],
+source: "onPackageCommitError: anError\x0a\x09(HLPackageCommitErrorHelper on: self model)\x0a\x09\x09showHelp",
+messageSends: ["showHelp", "on:", "model"],
+referencedClasses: ["HLPackageCommitErrorHelper"]
 }),
 globals.HLCommitPackageCommand);
 
