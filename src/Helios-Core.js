@@ -5449,12 +5449,12 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLTabSelectionWidget.superclass.fn.prototype._cancel.apply(_st(self), []);
+self._remove();
 _st(self._cancelCallback())._value();
 return self}, function($ctx1) {$ctx1.fill(self,"cancel",{},globals.HLTabSelectionWidget)})},
 args: [],
-source: "cancel\x0a\x09super cancel.\x0a\x09self cancelCallback value",
-messageSends: ["cancel", "value", "cancelCallback"],
+source: "cancel\x0a\x09self remove.\x0a\x09self cancelCallback value",
+messageSends: ["remove", "value", "cancelCallback"],
 referencedClasses: []
 }),
 globals.HLTabSelectionWidget);
@@ -5505,12 +5505,12 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLTabSelectionWidget.superclass.fn.prototype._confirm.apply(_st(self), []);
+self._remove();
 _st(self._confirmCallback())._value_(self._selectedTab());
 return self}, function($ctx1) {$ctx1.fill(self,"confirm",{},globals.HLTabSelectionWidget)})},
 args: [],
-source: "confirm\x0a\x09super confirm.\x0a\x09self confirmCallback value: self selectedTab",
-messageSends: ["confirm", "value:", "confirmCallback", "selectedTab"],
+source: "confirm\x0a\x09self remove.\x0a\x09self confirmCallback value: self selectedTab",
+messageSends: ["remove", "value:", "confirmCallback", "selectedTab"],
 referencedClasses: []
 }),
 globals.HLTabSelectionWidget);
@@ -5550,6 +5550,52 @@ return self},
 args: ["aBlock"],
 source: "confirmCallback: aBlock\x0a\x09confirmCallback := aBlock",
 messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabSelectionWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderButtonsOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+var confirmButton;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$5,$6,$2;
+$1=_st(html)._div();
+_st($1)._class_("buttons");
+$ctx1.sendIdx["class:"]=1;
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(html)._button();
+$ctx2.sendIdx["button"]=1;
+_st($3)._class_("button");
+$ctx2.sendIdx["class:"]=2;
+_st($3)._with_("Cancel");
+$ctx2.sendIdx["with:"]=2;
+$4=_st($3)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._cancel();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+$ctx2.sendIdx["onClick:"]=1;
+$4;
+$5=_st(html)._button();
+_st($5)._class_("button default");
+_st($5)._with_("Select tab");
+$6=_st($5)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._confirm();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+confirmButton=$6;
+return confirmButton;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["with:"]=1;
+self._giveFocusToButton_(confirmButton);
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html,confirmButton:confirmButton},globals.HLTabSelectionWidget)})},
+args: ["html"],
+source: "renderButtonsOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div \x0a\x09\x09class: 'buttons';\x0a\x09\x09with: [\x0a\x09\x09\x09html button\x0a\x09\x09\x09\x09class: 'button';\x0a\x09\x09\x09\x09with: 'Cancel';\x0a\x09\x09\x09\x09onClick: [ self cancel ].\x0a\x09\x09\x09confirmButton := html button\x0a\x09\x09\x09\x09class: 'button default';\x0a\x09\x09\x09\x09with: 'Select tab';\x0a\x09\x09\x09\x09onClick: [ self confirm ] ].\x0a\x0a\x09self giveFocusToButton:confirmButton",
+messageSends: ["class:", "div", "with:", "button", "onClick:", "cancel", "confirm", "giveFocusToButton:"],
 referencedClasses: []
 }),
 globals.HLTabSelectionWidget);

@@ -1895,12 +1895,12 @@ tabs: aCollection
 !HLTabSelectionWidget methodsFor: 'actions'!
 
 cancel
-	super cancel.
+	self remove.
 	self cancelCallback value
 !
 
 confirm
-	super confirm.
+	self remove.
 	self confirmCallback value: self selectedTab
 !
 
@@ -1916,6 +1916,24 @@ setupKeyBindings
 ! !
 
 !HLTabSelectionWidget methodsFor: 'rendering'!
+
+renderButtonsOn: html
+	| confirmButton |
+	
+	html div 
+		class: 'buttons';
+		with: [
+			html button
+				class: 'button';
+				with: 'Cancel';
+				onClick: [ self cancel ].
+			confirmButton := html button
+				class: 'button default';
+				with: 'Select tab';
+				onClick: [ self confirm ] ].
+
+	self giveFocusToButton:confirmButton
+!
 
 renderContentOn: html
 	super renderContentOn: html.
