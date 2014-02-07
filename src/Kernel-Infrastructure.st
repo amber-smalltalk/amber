@@ -843,7 +843,13 @@ Registered service instances must implement `#handleError:` to perform an action
 !ErrorHandler class methodsFor: 'error handling'!
 
 handleError: anError
-	self current handleError: anError
+	self handleUnhandledError: anError
+!
+
+handleUnhandledError: anError
+	anError wasHandled ifTrue: [ ^ self ].
+	
+	^ self current handleError: anError
 ! !
 
 Service subclass: #Finder

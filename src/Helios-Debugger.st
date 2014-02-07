@@ -368,8 +368,6 @@ initializeFromContext: aMethodContext
 
 initializeFromError: anError
 	error := anError.
-	console log: error.
-	console log: error context.
 	rootContext := (AIContext fromMethodContext: error context).
 	self initializeContexts
 ! !

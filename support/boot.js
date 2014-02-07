@@ -882,6 +882,7 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 					handleError(error);
 					st.thisContext = null;
 					// Rethrow the error in any case.
+					error.amberHandled = true;
 					throw error;
 				}
 			}

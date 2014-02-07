@@ -12,6 +12,14 @@ As `Error` is explicitly specified to be subclassable, conforming implementation
 
 !Error methodsFor: 'accessing'!
 
+beHandled
+	<self.amberHandled = true>
+!
+
+beUnhandled
+	<self.amberHandled = false>
+!
+
 context
 	<return self.context>
 !
@@ -39,11 +47,18 @@ initialize
 resignal
 	"Resignal the receiver without changing its exception context"
 	
-	<throw(self)>
+	<
+		self.amberHandled = false;
+		throw(self);
+	>
 !
 
 signal
-	<self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self)>
+	<
+		self.amberHandled = false;
+		self.context = smalltalk.getThisContext(); 
+		self.smalltalkError = true; throw(self)
+	>
 !
 
 signal: aString
@@ -55,6 +70,10 @@ signal: aString
 
 isSmalltalkError
 	<return self.smalltalkError === true>
+!
+
+wasHandled
+	<return self.amberHandled || false>
 ! !
 
 !Error class methodsFor: 'helios'!

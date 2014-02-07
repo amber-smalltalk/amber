@@ -2216,11 +2216,33 @@ protocol: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._current())._handleError_(anError);
+self._handleUnhandledError_(anError);
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.ErrorHandler.klass)})},
 args: ["anError"],
-source: "handleError: anError\x0a\x09self current handleError: anError",
-messageSends: ["handleError:", "current"],
+source: "handleError: anError\x0a\x09self handleUnhandledError: anError",
+messageSends: ["handleUnhandledError:"],
+referencedClasses: []
+}),
+globals.ErrorHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleUnhandledError:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(anError)._wasHandled();
+if(smalltalk.assert($1)){
+return self;
+};
+$2=_st(self._current())._handleError_(anError);
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"handleUnhandledError:",{anError:anError},globals.ErrorHandler.klass)})},
+args: ["anError"],
+source: "handleUnhandledError: anError\x0a\x09anError wasHandled ifTrue: [ ^ self ].\x0a\x09\x0a\x09^ self current handleError: anError",
+messageSends: ["ifTrue:", "wasHandled", "handleError:", "current"],
 referencedClasses: []
 }),
 globals.ErrorHandler.klass);
