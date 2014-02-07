@@ -239,7 +239,7 @@ compileMethod: sourceCode for: class protocol: protocol
 evaluate: aBlock on: anErrorClass do: exceptionBlock
 	"Evaluate a block and catch exceptions happening on the environment stack"
 	
-	self try: aBlock catch: [ :exception | 
+	aBlock tryCatch: [ :exception | 
 		(exception isKindOf: (self classNamed: anErrorClass name))
 			ifTrue: [ exceptionBlock value: exception ]
  			ifFalse: [ exception signal ] ]
@@ -1065,9 +1065,8 @@ includesKey: aKey
 parse: aString
 	| result |
 	
-	self 
-		try: [ result := self basicParse: aString ] 
-		catch: [ :ex | (self parseError: ex parsing: aString) signal ].
+	[ result := self basicParse: aString ] 
+		tryCatch: [ :ex | (self parseError: ex parsing: aString) signal ].
 		
 	^ result
 		source: aString;

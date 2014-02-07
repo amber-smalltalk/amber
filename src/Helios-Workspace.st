@@ -40,9 +40,8 @@ doIt: aString
 	
 	See https://github.com/amber-smalltalk/amber/issues/882"
 
-	^ self 
-		try: [ self environment eval: aString on: self receiver ]
-		catch: [ :e | 
+	^ [ self environment eval: aString on: self receiver ]
+		tryCatch: [ :e | 
 			ErrorHandler handleError: e.
 			nil ]
 !

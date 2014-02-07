@@ -494,10 +494,10 @@ var self=this;
 function $ErrorHandler(){return globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._try_catch_((function(){
+$1=_st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._debuggerModel())._evaluate_(aString);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(e){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._tryCatch_((function(e){
 return smalltalk.withContext(function($ctx2) {
 _st($ErrorHandler())._handleError_(e);
 return nil;
@@ -505,8 +505,8 @@ return nil;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doIt:",{aString:aString},globals.HLDebuggerCodeModel)})},
 args: ["aString"],
-source: "doIt: aString\x0a\x09^ self \x0a\x09\x09try: [ self debuggerModel evaluate: aString ]\x0a\x09\x09catch: [ :e | \x0a\x09\x09\x09ErrorHandler handleError: e.\x0a\x09\x09\x09nil ]",
-messageSends: ["try:catch:", "evaluate:", "debuggerModel", "handleError:"],
+source: "doIt: aString\x0a\x09^ [ self debuggerModel evaluate: aString ]\x0a\x09\x09tryCatch: [ :e | \x0a\x09\x09\x09ErrorHandler handleError: e.\x0a\x09\x09\x09nil ]",
+messageSends: ["tryCatch:", "evaluate:", "debuggerModel", "handleError:"],
 referencedClasses: ["ErrorHandler"]
 }),
 globals.HLDebuggerCodeModel);

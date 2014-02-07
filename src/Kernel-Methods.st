@@ -85,11 +85,21 @@ on: anErrorClass do: aBlock
 	"All exceptions thrown in the Smalltalk stack are cought.
 	Convert all JS exceptions to JavaScriptException instances."
 	
-	^ self try: self catch: [ :error | | smalltalkError |
+	^ self tryCatch: [ :error | | smalltalkError |
 		smalltalkError := Smalltalk asSmalltalkException: error.
 		(smalltalkError isKindOf: anErrorClass)
 		ifTrue: [ aBlock value: smalltalkError ]
 		ifFalse: [ smalltalkError resignal ] ]
+!
+
+tryCatch: aBlock
+	<
+		try {
+			return self._value();
+		} catch(error) {
+			return aBlock._value_(error);
+		}
+	>
 ! !
 
 !BlockClosure methodsFor: 'evaluating'!

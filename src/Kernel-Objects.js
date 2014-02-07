@@ -1130,11 +1130,14 @@ protocol: 'error handling',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)};
-return self}, function($ctx1) {$ctx1.fill(self,"try:catch:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Object)})},
+var $1;
+self._deprecatedAPI();
+$1=_st(aBlock)._tryCatch_(anotherBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"try:catch:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Object)})},
 args: ["aBlock", "anotherBlock"],
-source: "try: aBlock catch: anotherBlock\x0a\x09<try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)}>",
-messageSends: [],
+source: "try: aBlock catch: anotherBlock\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09^ aBlock tryCatch: anotherBlock",
+messageSends: ["deprecatedAPI", "tryCatch:"],
 referencedClasses: []
 }),
 globals.Object);

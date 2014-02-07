@@ -178,9 +178,8 @@ debuggerModel: anObject
 !HLDebuggerCodeModel methodsFor: 'actions'!
 
 doIt: aString
-	^ self 
-		try: [ self debuggerModel evaluate: aString ]
-		catch: [ :e | 
+	^ [ self debuggerModel evaluate: aString ]
+		tryCatch: [ :e | 
 			ErrorHandler handleError: e.
 			nil ]
 ! !

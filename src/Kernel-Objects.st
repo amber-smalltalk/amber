@@ -273,7 +273,9 @@ throw: anObject
 !
 
 try: aBlock catch: anotherBlock
-	<try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)}>
+	self deprecatedAPI.
+	
+	^ aBlock tryCatch: anotherBlock
 ! !
 
 !Object methodsFor: 'inspecting'!
