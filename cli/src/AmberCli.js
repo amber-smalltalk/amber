@@ -1351,7 +1351,7 @@ protocol: 'private',
 fn: function (buffer,aBlock){
 var self=this;
 function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
-function $ErrorHandler(){return globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+function $ConsoleErrorHandler(){return globals.ConsoleErrorHandler||(typeof ConsoleErrorHandler=="undefined"?nil:ConsoleErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $3,$4,$2,$1;
 $1=self._parseAssignment_do_(buffer,(function(name,expr){
@@ -1379,7 +1379,7 @@ value=self._eval_on_($2,self["@session"]);
 return value;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}))._on_do_($Error(),(function(e){
 return smalltalk.withContext(function($ctx3) {
-_st(_st($ErrorHandler())._new())._logError_(e);
+_st(_st($ConsoleErrorHandler())._new())._logError_(e);
 value=nil;
 return value;
 }, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2,5)})}));
@@ -1388,9 +1388,9 @@ return _st(aBlock)._value_value_(varName,value);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"assignNewVariable:do:",{buffer:buffer,aBlock:aBlock},globals.Repl)})},
 args: ["buffer", "aBlock"],
-source: "assignNewVariable: buffer do: aBlock\x0a\x09\x22Assigns a new variable and calls the given block with the variable's name and value\x0a\x09 if buffer contains an assignment expression. If it doesn't the block is called with nil for\x0a\x09 both arguments.\x22\x0a\x09^ self parseAssignment: buffer do: [ :name :expr || varName value |\x0a\x09\x09varName := name ifNil: [self nextResultName].\x0a\x09\x09session := self addVariableNamed: varName to: session.\x0a\x09\x09[ value := self eval: varName, ' := ', (expr ifNil: [buffer]) on: session ]\x0a\x09\x09\x09on: Error\x0a\x09\x09\x09do: [ :e | ErrorHandler new logError: e. value := nil].\x0a\x09\x09aBlock value: varName value: value]",
+source: "assignNewVariable: buffer do: aBlock\x0a\x09\x22Assigns a new variable and calls the given block with the variable's name and value\x0a\x09 if buffer contains an assignment expression. If it doesn't the block is called with nil for\x0a\x09 both arguments.\x22\x0a\x09^ self parseAssignment: buffer do: [ :name :expr || varName value |\x0a\x09\x09varName := name ifNil: [self nextResultName].\x0a\x09\x09session := self addVariableNamed: varName to: session.\x0a\x09\x09[ value := self eval: varName, ' := ', (expr ifNil: [buffer]) on: session ]\x0a\x09\x09\x09on: Error\x0a\x09\x09\x09do: [ :e | ConsoleErrorHandler new logError: e. value := nil].\x0a\x09\x09aBlock value: varName value: value]",
 messageSends: ["parseAssignment:do:", "ifNil:", "nextResultName", "addVariableNamed:to:", "on:do:", "eval:on:", ",", "logError:", "new", "value:value:"],
-referencedClasses: ["Error", "ErrorHandler"]
+referencedClasses: ["Error", "ConsoleErrorHandler"]
 }),
 globals.Repl);
 
