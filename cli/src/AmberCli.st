@@ -1031,7 +1031,7 @@ assignNewVariable: buffer do: aBlock
 		session := self addVariableNamed: varName to: session.
 		[ value := self eval: varName, ' := ', (expr ifNil: [buffer]) on: session ]
 			on: Error
-			do: [ :e | ErrorHandler new logError: e. value := nil].
+			do: [ :e | ConsoleErrorHandler new logError: e. value := nil].
 		aBlock value: varName value: value]
 !
 
