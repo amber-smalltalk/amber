@@ -16,7 +16,7 @@
 var require;
 
 require = function (require) {
-    // To be able to use its path and attrubutes
+    // To be able to use its path and attributes
     // to map other parts of Amber, this code must find its <script> tag.
     // It first looks for id 'amber-path-mapper'.
     // When loading amber.js asynchronously, you must include this id,
