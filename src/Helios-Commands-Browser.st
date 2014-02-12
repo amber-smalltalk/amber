@@ -326,7 +326,7 @@ HLToggleCommand subclass: #HLToggleClassSideCommand
 !HLToggleClassSideCommand methodsFor: 'executing'!
 
 execute
-	self model showInstance: false
+	self model showInstance: self model showInstance not
 ! !
 
 !HLToggleClassSideCommand class methodsFor: 'accessing'!
@@ -337,25 +337,5 @@ key
 
 label
 	^ 'Class side'
-! !
-
-HLToggleCommand subclass: #HLToggleInstanceSideCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands-Browser'!
-
-!HLToggleInstanceSideCommand methodsFor: 'executing'!
-
-execute
-	self model showInstance: true
-! !
-
-!HLToggleInstanceSideCommand class methodsFor: 'accessing'!
-
-key
-	^ 'i'
-!
-
-label
-	^ 'Instance side'
 ! !
 

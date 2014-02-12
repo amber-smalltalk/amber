@@ -753,11 +753,14 @@ protocol: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._model())._showInstance_(false);
+var $1;
+$1=self._model();
+$ctx1.sendIdx["model"]=1;
+_st($1)._showInstance_(_st(_st(self._model())._showInstance())._not());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLToggleClassSideCommand)})},
 args: [],
-source: "execute\x0a\x09self model showInstance: false",
-messageSends: ["showInstance:", "model"],
+source: "execute\x0a\x09self model showInstance: self model showInstance not",
+messageSends: ["showInstance:", "model", "not", "showInstance"],
 referencedClasses: []
 }),
 globals.HLToggleClassSideCommand);
@@ -792,54 +795,5 @@ messageSends: [],
 referencedClasses: []
 }),
 globals.HLToggleClassSideCommand.klass);
-
-
-smalltalk.addClass('HLToggleInstanceSideCommand', globals.HLToggleCommand, [], 'Helios-Commands-Browser');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "execute",
-protocol: 'executing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self._model())._showInstance_(true);
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{},globals.HLToggleInstanceSideCommand)})},
-args: [],
-source: "execute\x0a\x09self model showInstance: true",
-messageSends: ["showInstance:", "model"],
-referencedClasses: []
-}),
-globals.HLToggleInstanceSideCommand);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "key",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return "i";
-},
-args: [],
-source: "key\x0a\x09^ 'i'",
-messageSends: [],
-referencedClasses: []
-}),
-globals.HLToggleInstanceSideCommand.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "label",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return "Instance side";
-},
-args: [],
-source: "label\x0a\x09^ 'Instance side'",
-messageSends: [],
-referencedClasses: []
-}),
-globals.HLToggleInstanceSideCommand.klass);
 
 });
