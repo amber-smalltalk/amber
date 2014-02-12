@@ -64,8 +64,7 @@ require = function (require) {
             'amber_lib': library_home,
             'amber_core': amber_home + '/src',
             'amber_helios/html': amber_home,
-            'jquery': library_home + '/jquery/jquery.min',
-            'jquery-ui': library_home + '/jquery-ui/ui/minified/jquery-ui.min'
+            'jquery': library_home + '/jquery/jquery.min'
         },
         map: {
             '*': {
@@ -73,27 +72,6 @@ require = function (require) {
             }
         },
         shim: {
-            'jquery-ui': {
-                deps: [ 'jquery' ]
-            },
-            'amber_lib/bootstrap/js/bootstrap': {
-                deps: [ 'jquery', 'css!amber_lib/bootstrap/css/bootstrap' ]
-            },
-            'amber_lib/codemirror/lib/codemirror': {
-                deps: [ 'css!amber_lib/codemirror/lib/codemirror' ]
-            },
-            'amber_lib/jquery-tabby/jquery.textarea': {
-                deps: [ 'jquery' ]
-            },
-            'amber_core/IDE': {
-                deps: [ 'amber_lib/codemirror/mode/smalltalk/smalltalk' ]
-            },
-            'amber_lib/codemirror/mode/smalltalk/smalltalk': {
-                deps: [ '../../lib/codemirror' ]
-            },
-            'amber_lib/codemirror/addon/hint/show-hint': {
-                deps: [ '../../lib/codemirror' ]
-            },
             'ensure-console': {
                 exports: 'console'
             }

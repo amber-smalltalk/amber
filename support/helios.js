@@ -1,32 +1,26 @@
+require.config({
+	paths: {
+		'jquery-ui': require.toUrl('amber_lib/jquery-ui/ui/minified/jquery-ui.min')
+	},
+	shim: {
+		'jquery-ui': {
+			deps: [ 'jquery' ]
+		},
+		'amber_lib/bootstrap/js/bootstrap': {
+			deps: [ 'jquery', 'css!amber_lib/bootstrap/css/bootstrap' ]
+		},
+		'amber_lib/jquery-tabby/jquery.textarea': {
+			deps: [ 'jquery' ]
+		}
+	}
+});
+
 define([
 	'./helpers', // pre-fetch, dep of ./deploy
 	'./deploy', // pre-fetch, dep of ./lang
 	'./lang',
-	'jquery-ui',
-	'amber_lib/jquery-tabby/jquery.textarea',
-	'amber_lib/bootstrap/js/bootstrap',
-	'amber_lib/showdown/compressed/showdown',
 	'./codemirror',
-	'css!amber_css/helios',
-	'amber_core/IDE',
-	'amber_core/Examples',
-	'amber_core/Benchfib',
-	'amber_core/Spaces',
-	'amber_core/Helios-Core',
-	'amber_core/Helios-Exceptions',
-	'amber_core/Helios-Helpers',
-	'amber_core/Helios-Commands-Core',
-	'amber_core/Helios-Commands-Tools',
-	'amber_core/Helios-Commands-Browser',
-	'amber_core/Helios-Layout',
-	'amber_core/Helios-KeyBindings',
-	'amber_core/Helios-Browser',
-	'amber_core/Helios-Workspace',
-	'amber_core/Helios-Transcript',
-	'amber_core/Helios-SUnit',
-	'amber_core/Helios-Debugger',
-	'amber_core/Helios-Inspector',
-	'amber_core/Helios-References',
-	'amber_core/Helios-Announcements',
-	'amber_core/Helios-Workspace-Tests'
+	'./devel-inner', // pre-fetch, dep of ./helios-inner
+	'./helios-inner',
+	'css!amber_css/helios'
 ], function (smalltalk) { return smalltalk; });
