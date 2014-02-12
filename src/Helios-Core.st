@@ -1213,6 +1213,51 @@ renderItemLabel: aTab on: html
 		with: aTab label
 ! !
 
+HLWidget subclass: #HLInformationWidget
+	instanceVariableNames: 'informationString'
+	package: 'Helios-Core'!
+!HLInformationWidget commentStamp!
+I display an information dialog.
+
+## API
+
+`HLWidget >> #inform:` is a convenience method for creating information dialogs.!
+
+!HLInformationWidget methodsFor: 'accessing'!
+
+informationString
+	^ informationString ifNil: [ '' ]
+!
+
+informationString: anObject
+	informationString := anObject
+! !
+
+!HLInformationWidget methodsFor: 'actions'!
+
+remove
+	[ 
+		self wrapper asJQuery fadeOut: 100.
+		[ self wrapper asJQuery remove ]
+			valueWithTimeout: 400.
+	]
+		valueWithTimeout: 1500
+!
+
+show
+	self appendToJQuery: 'body' asJQuery
+! !
+
+!HLInformationWidget methodsFor: 'rendering'!
+
+renderContentOn: html
+	html div 
+		class: 'growl'; 
+		with: self informationString.
+		
+	self remove
+! !
+
 HLWidget subclass: #HLManager
 	instanceVariableNames: 'tabs activeTab environment history'
 	package: 'Helios-Core'!
@@ -1708,53 +1753,6 @@ renderMainOn: html
 
 isMultiline
 	^ multiline ifNil: [ true ]
-! !
-
-HLModalWidget subclass: #HLInformationWidget
-	instanceVariableNames: 'buttonLabel informationString'
-	package: 'Helios-Core'!
-!HLInformationWidget commentStamp!
-I display an information dialog.
-
-## API
-
-`HLWidget >> #inform:` is a convenience method for creating information dialogs.!
-
-!HLInformationWidget methodsFor: 'accessing'!
-
-buttonLabel
-	^ buttonLabel ifNil: [ 'Ok' ]
-!
-
-buttonLabel: aString
-	buttonLabel := aString
-!
-
-informationString
-	^ informationString ifNil: [ '' ]
-!
-
-informationString: anObject
-	informationString := anObject
-! !
-
-!HLInformationWidget methodsFor: 'rendering'!
-
-renderButtonsOn: html
-	| button |
-	html div 
-		class: 'buttons';
-		with: [
-			button := html button
-				class: 'button default';
-				with: self buttonLabel;
-				onClick: [ self remove ] ].
-
-	self giveFocusToButton: button
-!
-
-renderMainOn: html
-	html span with: self informationString
 ! !
 
 HLModalWidget subclass: #HLProgressWidget

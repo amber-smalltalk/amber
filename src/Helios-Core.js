@@ -3570,6 +3570,113 @@ globals.HLTabListWidget);
 
 
 
+smalltalk.addClass('HLInformationWidget', globals.HLWidget, ['informationString'], 'Helios-Core');
+globals.HLInformationWidget.comment="I display an information dialog.\x0a\x0a## API\x0a\x0a`HLWidget >> #inform:` is a convenience method for creating information dialogs.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "informationString",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@informationString"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"informationString",{},globals.HLInformationWidget)})},
+args: [],
+source: "informationString\x0a\x09^ informationString ifNil: [ '' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.HLInformationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "informationString:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@informationString"]=anObject;
+return self},
+args: ["anObject"],
+source: "informationString: anObject\x0a\x09informationString := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLInformationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "remove",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+$2=self._wrapper();
+$ctx2.sendIdx["wrapper"]=1;
+$1=_st($2)._asJQuery();
+$ctx2.sendIdx["asJQuery"]=1;
+_st($1)._fadeOut_((100));
+return _st((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(self._wrapper())._asJQuery())._remove();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}))._valueWithTimeout_((400));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._valueWithTimeout_((1500));
+$ctx1.sendIdx["valueWithTimeout:"]=1;
+return self}, function($ctx1) {$ctx1.fill(self,"remove",{},globals.HLInformationWidget)})},
+args: [],
+source: "remove\x0a\x09[ \x0a\x09\x09self wrapper asJQuery fadeOut: 100.\x0a\x09\x09[ self wrapper asJQuery remove ]\x0a\x09\x09\x09valueWithTimeout: 400.\x0a\x09]\x0a\x09\x09valueWithTimeout: 1500",
+messageSends: ["valueWithTimeout:", "fadeOut:", "asJQuery", "wrapper", "remove"],
+referencedClasses: []
+}),
+globals.HLInformationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(html)._div();
+_st($1)._class_("growl");
+$2=_st($1)._with_(self._informationString());
+self._remove();
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLInformationWidget)})},
+args: ["html"],
+source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09class: 'growl'; \x0a\x09\x09with: self informationString.\x0a\x09\x09\x0a\x09self remove",
+messageSends: ["class:", "div", "with:", "informationString", "remove"],
+referencedClasses: []
+}),
+globals.HLInformationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "show",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._appendToJQuery_("body"._asJQuery());
+return self}, function($ctx1) {$ctx1.fill(self,"show",{},globals.HLInformationWidget)})},
+args: [],
+source: "show\x0a\x09self appendToJQuery: 'body' asJQuery",
+messageSends: ["appendToJQuery:", "asJQuery"],
+referencedClasses: []
+}),
+globals.HLInformationWidget);
+
+
+
 smalltalk.addClass('HLManager', globals.HLWidget, ['tabs', 'activeTab', 'environment', 'history'], 'Helios-Core');
 smalltalk.addMethod(
 smalltalk.method({
@@ -5062,136 +5169,6 @@ messageSends: [],
 referencedClasses: []
 }),
 globals.HLRequestWidget);
-
-
-
-smalltalk.addClass('HLInformationWidget', globals.HLModalWidget, ['buttonLabel', 'informationString'], 'Helios-Core');
-globals.HLInformationWidget.comment="I display an information dialog.\x0a\x0a## API\x0a\x0a`HLWidget >> #inform:` is a convenience method for creating information dialogs.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "buttonLabel",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@buttonLabel"];
-if(($receiver = $2) == nil || $receiver == null){
-$1="Ok";
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"buttonLabel",{},globals.HLInformationWidget)})},
-args: [],
-source: "buttonLabel\x0a\x09^ buttonLabel ifNil: [ 'Ok' ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-globals.HLInformationWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "buttonLabel:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-self["@buttonLabel"]=aString;
-return self},
-args: ["aString"],
-source: "buttonLabel: aString\x0a\x09buttonLabel := aString",
-messageSends: [],
-referencedClasses: []
-}),
-globals.HLInformationWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "informationString",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@informationString"];
-if(($receiver = $2) == nil || $receiver == null){
-$1="";
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"informationString",{},globals.HLInformationWidget)})},
-args: [],
-source: "informationString\x0a\x09^ informationString ifNil: [ '' ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-globals.HLInformationWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "informationString:",
-protocol: 'accessing',
-fn: function (anObject){
-var self=this;
-self["@informationString"]=anObject;
-return self},
-args: ["anObject"],
-source: "informationString: anObject\x0a\x09informationString := anObject",
-messageSends: [],
-referencedClasses: []
-}),
-globals.HLInformationWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderButtonsOn:",
-protocol: 'rendering',
-fn: function (html){
-var self=this;
-var button;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
-$1=_st(html)._div();
-_st($1)._class_("buttons");
-$ctx1.sendIdx["class:"]=1;
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-$3=_st(html)._button();
-_st($3)._class_("button default");
-_st($3)._with_(self._buttonLabel());
-$4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._remove();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-button=$4;
-return button;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["with:"]=1;
-self._giveFocusToButton_(button);
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html,button:button},globals.HLInformationWidget)})},
-args: ["html"],
-source: "renderButtonsOn: html\x0a\x09| button |\x0a\x09html div \x0a\x09\x09class: 'buttons';\x0a\x09\x09with: [\x0a\x09\x09\x09button := html button\x0a\x09\x09\x09\x09class: 'button default';\x0a\x09\x09\x09\x09with: self buttonLabel;\x0a\x09\x09\x09\x09onClick: [ self remove ] ].\x0a\x0a\x09self giveFocusToButton: button",
-messageSends: ["class:", "div", "with:", "button", "buttonLabel", "onClick:", "remove", "giveFocusToButton:"],
-referencedClasses: []
-}),
-globals.HLInformationWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderMainOn:",
-protocol: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(html)._span())._with_(self._informationString());
-return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},globals.HLInformationWidget)})},
-args: ["html"],
-source: "renderMainOn: html\x0a\x09html span with: self informationString",
-messageSends: ["with:", "span", "informationString"],
-referencedClasses: []
-}),
-globals.HLInformationWidget);
 
 
 
