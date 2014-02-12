@@ -453,7 +453,7 @@ fn: function (anError){
 var self=this;
 function $Debugger(){return globals.Debugger||(typeof Debugger=="undefined"?nil:Debugger)}
 function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
-function $ErrorHandler(){return globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+function $ConsoleErrorHandler(){return globals.ConsoleErrorHandler||(typeof ConsoleErrorHandler=="undefined"?nil:ConsoleErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 _st((function(){
@@ -465,13 +465,13 @@ $2=_st($1)._open();
 return $2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(error){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($ErrorHandler())._new())._handleError_(error);
+return _st(_st($ConsoleErrorHandler())._new())._handleError_(error);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.DebugErrorHandler)})},
 args: ["anError"],
-source: "handleError: anError\x0a\x09[ Debugger new\x0a\x09\x09error: anError;\x0a\x09\x09open ] on: Error do: [ :error |\x0a\x09\x09\x09ErrorHandler new handleError: error ]",
+source: "handleError: anError\x0a\x09[ Debugger new\x0a\x09\x09error: anError;\x0a\x09\x09open ] on: Error do: [ :error |\x0a\x09\x09\x09ConsoleErrorHandler new handleError: error ]",
 messageSends: ["on:do:", "error:", "new", "open", "handleError:"],
-referencedClasses: ["Debugger", "Error", "ErrorHandler"]
+referencedClasses: ["Debugger", "Error", "ConsoleErrorHandler"]
 }),
 globals.DebugErrorHandler);
 

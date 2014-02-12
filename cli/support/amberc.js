@@ -293,7 +293,7 @@ function resolve_kernel(configuration) {
  * Returns a Promise object which resolves into the configuration object.
  */
 function create_compiler(configuration) {
-	var compiler_files = configuration.compiler_libraries.concat(configuration.load);
+	var compiler_files = configuration.compiler_libraries;
 	return Promise.all(
 		compiler_files.map(function(file) {
 			return resolve_js(file, configuration);
