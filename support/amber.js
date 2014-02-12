@@ -16,25 +16,43 @@
 var require;
 
 require = function (require) {
-    // To be able to use its path and attributes
-    // to map other parts of Amber, this code must find its <script> tag.
-    // It first looks for id 'amber-path-mapper'.
-    // When loading amber.js asynchronously, you must include this id,
-    // or the code can not reliably find its <script>.
-    var me = document.getElementById("amber-path-mapper");
-    if (!me || me.tagName.toLowerCase() !== "script") {
-        // If <script> with 'amber-path-mapper' id is not present,
-        // (this id is not necessary for inline <script> tag in HTML),
-        // it uses the "find the last <script> tag present in the moment" method.
-        var scripts = document.getElementsByTagName("script");
-        me = scripts[scripts.length - 1];
+    function uniquelyMapped(symbolicPath) {
+        if (require && typeof define !== "undefined" && define.amd) {
+            var mappedPath = require.toUrl(symbolicPath),
+                basePath = require.toUrl('') + symbolicPath;
+            if (resolveViaDOM(mappedPath) !== resolveViaDOM(basePath)) {
+                return mappedPath;
+            }
+        }
     }
+    function myTag() {
+        // To be able to use its path and attributes
+        // to map other parts of Amber, this code must find its path.
+        // It first looks if require is already present && 'amber' path mapped.
+        // It not, it looks for id 'amber-path-mapper'.
+        // When loading amber.js asynchronously, you must include this id,
+        // or the code can not reliably find its <script>.
+        // If neither 'amber' mapping, nor script#amber-path-mapper is present,
+        // (the id is not necessary for inline <script> tag in HTML),
+        // it uses the "find the last <script> tag present in the moment" method.
+        var result = uniquelyMapped('amber/amber');
+        if (result) {
+            return {src: result, hasAttribute: function () { return false; }};
+        }
+        var me = document.getElementById("amber-path-mapper");
+        if (me && me.tagName.toLowerCase() === "script") {
+            return me;
+        }
+        var scripts = document.getElementsByTagName("script");
+        return scripts[scripts.length - 1];
+    }
+    var me = myTag();
     var src = me.src;
     // strip the last two elements from the URL
     // e.g. http://app.com/amber/support/amber.js -> http://app.com/amber
     var amber_home = resolveViaDOM(src).replace(/\/[^\/]+\/[^\/]+$/, "");
     // In case of nonstandard deployment, you can specify libraries placement directly ...
-    var library_home = me.hasAttribute('data-libs') && me.getAttribute('data-libs');
+    var library_home = uniquelyMapped('amber_lib') || me.hasAttribute('data-libs') && me.getAttribute('data-libs');
 
     // ... otherwise, this heuristics is used:
     if (!library_home) {
