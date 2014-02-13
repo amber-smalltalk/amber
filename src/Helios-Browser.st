@@ -315,7 +315,7 @@ isBrowserModel
 	^ true
 ! !
 
-!HLBrowserModel class methodsFor: 'actions'!
+!HLBrowserModel class methodsFor: 'instance creation'!
 
 on: anEnvironment
 
