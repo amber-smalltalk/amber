@@ -662,7 +662,7 @@ fn: function (aMethod,aClassName){
 var self=this;
 var destinationClass;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
+var $2,$3,$1,$5,$4;
 destinationClass=self._classNamed_(aClassName);
 $2=destinationClass;
 $3=_st(aMethod)._methodClass();
@@ -671,12 +671,19 @@ $1=_st($2).__eq_eq($3);
 if(smalltalk.assert($1)){
 return self;
 };
+$5=_st(aMethod)._methodClass();
+$ctx1.sendIdx["methodClass"]=2;
+$4=_st($5)._isMetaclass();
+if(smalltalk.assert($4)){
+destinationClass=_st(destinationClass)._class();
+destinationClass;
+};
 _st(destinationClass)._compile_protocol_(_st(aMethod)._source(),_st(aMethod)._protocol());
 _st(_st(aMethod)._methodClass())._removeCompiledMethod_(aMethod);
 return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName,destinationClass:destinationClass},globals.Environment)})},
 args: ["aMethod", "aClassName"],
-source: "moveMethod: aMethod toClass: aClassName\x0a\x09| destinationClass |\x0a\x09\x0a\x09destinationClass := self classNamed: aClassName.\x0a\x09destinationClass == aMethod methodClass ifTrue: [ ^ self ].\x0a\x09\x0a\x09destinationClass \x0a\x09\x09compile: aMethod source\x0a\x09\x09protocol: aMethod protocol.\x0a\x09aMethod methodClass \x0a\x09\x09removeCompiledMethod: aMethod",
-messageSends: ["classNamed:", "ifTrue:", "==", "methodClass", "compile:protocol:", "source", "protocol", "removeCompiledMethod:"],
+source: "moveMethod: aMethod toClass: aClassName\x0a\x09| destinationClass |\x0a\x09\x0a\x09destinationClass := self classNamed: aClassName.\x0a\x09destinationClass == aMethod methodClass ifTrue: [ ^ self ].\x0a\x09\x0a\x09aMethod methodClass isMetaclass ifTrue: [ \x0a\x09\x09destinationClass := destinationClass class ].\x0a\x09\x0a\x09destinationClass \x0a\x09\x09compile: aMethod source\x0a\x09\x09protocol: aMethod protocol.\x0a\x09aMethod methodClass \x0a\x09\x09removeCompiledMethod: aMethod",
+messageSends: ["classNamed:", "ifTrue:", "==", "methodClass", "isMetaclass", "class", "compile:protocol:", "source", "protocol", "removeCompiledMethod:"],
 referencedClasses: []
 }),
 globals.Environment);
