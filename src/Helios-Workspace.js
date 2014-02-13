@@ -793,11 +793,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._print_(_st(self._doIt())._printString());
-self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"printIt",{},globals.HLCodeWidget)})},
 args: [],
-source: "printIt\x0a\x09self print: self doIt printString.\x0a\x09self focus.",
-messageSends: ["print:", "printString", "doIt", "focus"],
+source: "printIt\x0a\x09self print: self doIt printString",
+messageSends: ["print:", "printString", "doIt"],
 referencedClasses: []
 }),
 globals.HLCodeWidget);

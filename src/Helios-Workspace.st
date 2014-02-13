@@ -225,8 +225,7 @@ print: aString
 !
 
 printIt
-	self print: self doIt printString.
-	self focus.
+	self print: self doIt printString
 !
 
 saveIt
