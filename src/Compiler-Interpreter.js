@@ -1,4 +1,4 @@
-define("amber_core/Compiler-Interpreter", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Methods", "amber_core/Kernel-Objects", "amber_core/Compiler-Core", "amber_core/Kernel-Exceptions", "amber_core/Compiler-AST"], function(smalltalk,nil,_st, globals){
+define("amber_core/Compiler-Interpreter", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Methods", "amber_core/Compiler-Semantic", "amber_core/Kernel-Objects", "amber_core/Compiler-Core", "amber_core/Kernel-Exceptions", "amber_core/Compiler-AST"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Compiler-Interpreter');
 smalltalk.packages["Compiler-Interpreter"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -246,13 +246,16 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self._ast())._arguments())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return self._localAt_(each);
+return self._localAt_ifAbsent_(each,(function(){
+return smalltalk.withContext(function($ctx3) {
+return self._error_("Argument not in context");
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},globals.AIContext)})},
 args: [],
-source: "arguments\x0a\x09^ self ast arguments collect: [ :each |\x0a\x09\x09self localAt: each ]",
-messageSends: ["collect:", "arguments", "ast", "localAt:"],
+source: "arguments\x0a\x09^ self ast arguments collect: [ :each |\x0a\x09\x09self localAt: each ifAbsent: [ self error: 'Argument not in context' ] ]",
+messageSends: ["collect:", "arguments", "ast", "localAt:ifAbsent:", "error:"],
 referencedClasses: []
 }),
 globals.AIContext);
@@ -581,14 +584,17 @@ return $2;
 } else {
 var context;
 context=$receiver;
-return _st(context)._localAt_(aString);
+return _st(context)._localAt_ifAbsent_(aString,(function(){
+return smalltalk.withContext(function($ctx3) {
+return self._error_("Variable missing");
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"localAt:",{aString:aString},globals.AIContext)})},
 args: ["aString"],
-source: "localAt: aString\x0a\x09\x22Lookup the local value up to the method context\x22\x0a\x0a\x09^ self locals at: aString ifAbsent: [ \x0a\x09\x09self outerContext ifNotNil: [ :context | \x0a\x09\x09\x09context localAt: aString ] ]",
-messageSends: ["at:ifAbsent:", "locals", "ifNotNil:", "outerContext", "localAt:"],
+source: "localAt: aString\x0a\x09\x22Lookup the local value up to the method context\x22\x0a\x0a\x09^ self locals at: aString ifAbsent: [ \x0a\x09\x09self outerContext ifNotNil: [ :context | \x0a\x09\x09\x09context localAt: aString ifAbsent: [ \x0a\x09\x09\x09\x09self error: 'Variable missing' ] ] ]",
+messageSends: ["at:ifAbsent:", "locals", "ifNotNil:", "outerContext", "localAt:ifAbsent:", "error:"],
 referencedClasses: []
 }),
 globals.AIContext);
@@ -933,6 +939,105 @@ messageSends: ["initializeFromMethodContext:", "new", "yourself"],
 referencedClasses: []
 }),
 globals.AIContext.klass);
+
+
+smalltalk.addClass('AISemanticAnalyzer', globals.SemanticAnalyzer, ['context'], 'Compiler-Interpreter');
+globals.AISemanticAnalyzer.comment="I perform the same semantic analysis than `SemanticAnalyzer`, with the difference that provided an `AIContext` context, variables are bound with the context variables.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "context",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@context"];
+return $1;
+},
+args: [],
+source: "context\x0a\x09^ context",
+messageSends: [],
+referencedClasses: []
+}),
+globals.AISemanticAnalyzer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "context:",
+protocol: 'accessing',
+fn: function (anAIContext){
+var self=this;
+self["@context"]=anAIContext;
+return self},
+args: ["anAIContext"],
+source: "context: anAIContext\x0a\x09context := anAIContext",
+messageSends: [],
+referencedClasses: []
+}),
+globals.AISemanticAnalyzer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "visitVariableNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+function $ASTContextVar(){return globals.ASTContextVar||(typeof ASTContextVar=="undefined"?nil:ASTContextVar)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+_st(self._context())._localAt_ifAbsent_(_st(aNode)._value(),(function(){
+return smalltalk.withContext(function($ctx2) {
+$1=globals.AISemanticAnalyzer.superclass.fn.prototype._visitVariableNode_.apply(_st(self), [aNode]);
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+_st(aNode)._binding_(_st($ASTContextVar())._new());
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},globals.AISemanticAnalyzer)})},
+args: ["aNode"],
+source: "visitVariableNode: aNode\x0a\x09self context \x0a\x09\x09localAt: aNode value \x0a\x09\x09ifAbsent: [ ^ super visitVariableNode: aNode ].\x0a\x0a\x09aNode binding: ASTContextVar new",
+messageSends: ["localAt:ifAbsent:", "context", "value", "visitVariableNode:", "binding:", "new"],
+referencedClasses: ["ASTContextVar"]
+}),
+globals.AISemanticAnalyzer);
+
+
+
+smalltalk.addClass('ASTContextVar', globals.ScopeVar, ['context'], 'Compiler-Interpreter');
+globals.ASTContextVar.comment="I am a variable defined in a `context`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "context",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@context"];
+return $1;
+},
+args: [],
+source: "context\x0a\x09^ context",
+messageSends: [],
+referencedClasses: []
+}),
+globals.ASTContextVar);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "context:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@context"]=anObject;
+return self},
+args: ["anObject"],
+source: "context: anObject\x0a\x09context := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+globals.ASTContextVar);
+
 
 
 smalltalk.addClass('ASTDebugger', globals.Object, ['interpreter', 'context'], 'Compiler-Interpreter');

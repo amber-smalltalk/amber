@@ -1857,4 +1857,60 @@ referencedClasses: ["Smalltalk"]
 globals.SemanticAnalyzerTest);
 
 
+
+smalltalk.addClass('AISemanticAnalyzerTest', globals.SemanticAnalyzerTest, [], 'Compiler-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setUp",
+protocol: 'running',
+fn: function (){
+var self=this;
+function $AISemanticAnalyzer(){return globals.AISemanticAnalyzer||(typeof AISemanticAnalyzer=="undefined"?nil:AISemanticAnalyzer)}
+function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$5,$3,$6;
+$1=_st($AISemanticAnalyzer())._on_($Object());
+$2=$1;
+$4=_st($AIContext())._new();
+_st($4)._localAt_put_("local",(3));
+$5=_st($4)._yourself();
+$ctx1.sendIdx["yourself"]=1;
+$3=$5;
+_st($2)._context_($3);
+$6=_st($1)._yourself();
+self["@analyzer"]=$6;
+return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.AISemanticAnalyzerTest)})},
+args: [],
+source: "setUp\x0a\x09analyzer := (AISemanticAnalyzer on: Object)\x0a\x09\x09context: (AIContext new\x0a\x09\x09\x09localAt: 'local' put: 3;\x0a\x09\x09\x09yourself);\x0a\x09\x09yourself",
+messageSends: ["context:", "on:", "localAt:put:", "new", "yourself"],
+referencedClasses: ["AISemanticAnalyzer", "Object", "AIContext"]
+}),
+globals.AISemanticAnalyzerTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testContextVariables",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var src,ast;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $UnknownVariableError(){return globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
+return smalltalk.withContext(function($ctx1) { 
+src="foo | a | local + a";
+ast=_st($Smalltalk())._parse_(src);
+self._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@analyzer"])._visit_(ast);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$UnknownVariableError());
+return self}, function($ctx1) {$ctx1.fill(self,"testContextVariables",{src:src,ast:ast},globals.AISemanticAnalyzerTest)})},
+args: [],
+source: "testContextVariables\x0a\x09| src ast |\x0a\x09\x0a\x09src := 'foo | a | local + a'.\x0a\x09ast := Smalltalk parse: src.\x0a\x0a\x09self shouldnt: [ analyzer visit: ast ] raise: UnknownVariableError",
+messageSends: ["parse:", "shouldnt:raise:", "visit:"],
+referencedClasses: ["Smalltalk", "UnknownVariableError"]
+}),
+globals.AISemanticAnalyzerTest);
+
+
 });

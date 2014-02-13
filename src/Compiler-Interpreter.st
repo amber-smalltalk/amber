@@ -134,7 +134,8 @@ localAt: aString
 
 	^ self locals at: aString ifAbsent: [ 
 		self outerContext ifNotNil: [ :context | 
-			context localAt: aString ] ]
+			context localAt: aString ifAbsent: [ 
+				self error: 'Variable missing' ] ] ]
 !
 
 localAt: aString ifAbsent: aBlock
@@ -252,7 +253,7 @@ initializeLocals
 
 arguments
 	^ self ast arguments collect: [ :each |
-		self localAt: each ]
+		self localAt: each ifAbsent: [ self error: 'Argument not in context' ] ]
 !
 
 ast
@@ -305,6 +306,48 @@ fromMethodContext: aMethodContext
 	^ self new
 		initializeFromMethodContext: aMethodContext;
 		yourself
+! !
+
+SemanticAnalyzer subclass: #AISemanticAnalyzer
+	instanceVariableNames: 'context'
+	package: 'Compiler-Interpreter'!
+!AISemanticAnalyzer commentStamp!
+I perform the same semantic analysis than `SemanticAnalyzer`, with the difference that provided an `AIContext` context, variables are bound with the context variables.!
+
+!AISemanticAnalyzer methodsFor: 'accessing'!
+
+context
+	^ context
+!
+
+context: anAIContext
+	context := anAIContext
+! !
+
+!AISemanticAnalyzer methodsFor: 'visiting'!
+
+visitVariableNode: aNode
+	self context 
+		localAt: aNode value 
+		ifAbsent: [ ^ super visitVariableNode: aNode ].
+
+	aNode binding: ASTContextVar new
+! !
+
+ScopeVar subclass: #ASTContextVar
+	instanceVariableNames: 'context'
+	package: 'Compiler-Interpreter'!
+!ASTContextVar commentStamp!
+I am a variable defined in a `context`.!
+
+!ASTContextVar methodsFor: 'accessing'!
+
+context
+	^ context
+!
+
+context: anObject
+	context := anObject
 ! !
 
 Object subclass: #ASTDebugger

@@ -264,7 +264,8 @@ interpret: aString inContext: anAIContext
 	compiler := Compiler new.
 	[ ast := compiler parseExpression: aString ] on: Error do: [ :ex |
 		^ self alert: ex messageText ].
-	(SemanticAnalyzer on: anAIContext receiver class)
+	(AISemanticAnalyzer on: anAIContext receiver class)
+		context: anAIContext;
 		visit: ast.
 	^ anAIContext evaluateNode: ast
 ! !

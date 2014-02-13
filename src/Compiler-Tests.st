@@ -708,3 +708,28 @@ testVariablesLookup
 	self assert: ast nodes first nodes last nodes first nodes first left binding scope == ast nodes first nodes last scope.
 ! !
 
+SemanticAnalyzerTest subclass: #AISemanticAnalyzerTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!AISemanticAnalyzerTest methodsFor: 'running'!
+
+setUp
+	analyzer := (AISemanticAnalyzer on: Object)
+		context: (AIContext new
+			localAt: 'local' put: 3;
+			yourself);
+		yourself
+! !
+
+!AISemanticAnalyzerTest methodsFor: 'tests'!
+
+testContextVariables
+	| src ast |
+	
+	src := 'foo | a | local + a'.
+	ast := Smalltalk parse: src.
+
+	self shouldnt: [ analyzer visit: ast ] raise: UnknownVariableError
+! !
+
