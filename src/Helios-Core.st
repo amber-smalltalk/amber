@@ -306,8 +306,8 @@ openClassNamed: aString
 removeClass
 	self withChangesDo: [
 		self manager 
-			confirm: 'Do you REALLY want to remove class ', self selectedClass name
-			ifTrue: [ self environment removeClass: self selectedClass ] ]
+			confirm: 'Do you REALLY want to remove class ', self selectedClass theNonMetaClass name
+			ifTrue: [ self environment removeClass: self selectedClass theNonMetaClass ] ]
 !
 
 removeMethod

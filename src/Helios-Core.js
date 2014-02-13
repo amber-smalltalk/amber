@@ -831,23 +831,25 @@ protocol: 'commands actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2;
+var $1,$5,$4,$3,$2;
 self._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
 $1=self._manager();
-$4=self._selectedClass();
+$5=self._selectedClass();
 $ctx2.sendIdx["selectedClass"]=1;
+$4=_st($5)._theNonMetaClass();
+$ctx2.sendIdx["theNonMetaClass"]=1;
 $3=_st($4)._name();
 $2="Do you REALLY want to remove class ".__comma($3);
 return _st($1)._confirm_ifTrue_($2,(function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(self._environment())._removeClass_(self._selectedClass());
+return _st(self._environment())._removeClass_(_st(self._selectedClass())._theNonMetaClass());
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"removeClass",{},globals.HLToolModel)})},
 args: [],
-source: "removeClass\x0a\x09self withChangesDo: [\x0a\x09\x09self manager \x0a\x09\x09\x09confirm: 'Do you REALLY want to remove class ', self selectedClass name\x0a\x09\x09\x09ifTrue: [ self environment removeClass: self selectedClass ] ]",
-messageSends: ["withChangesDo:", "confirm:ifTrue:", "manager", ",", "name", "selectedClass", "removeClass:", "environment"],
+source: "removeClass\x0a\x09self withChangesDo: [\x0a\x09\x09self manager \x0a\x09\x09\x09confirm: 'Do you REALLY want to remove class ', self selectedClass theNonMetaClass name\x0a\x09\x09\x09ifTrue: [ self environment removeClass: self selectedClass theNonMetaClass ] ]",
+messageSends: ["withChangesDo:", "confirm:ifTrue:", "manager", ",", "name", "theNonMetaClass", "selectedClass", "removeClass:", "environment"],
 referencedClasses: []
 }),
 globals.HLToolModel);
