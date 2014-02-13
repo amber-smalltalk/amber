@@ -167,11 +167,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "openMethod:",
 protocol: 'actions',
-fn: function (aCompiledMethod) {
+fn: function (aCompiledMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$4,$3,$5;
 $1=self._model();
+_st($1)._focusOnSourceCode();
+$ctx1.sendIdx["focusOnSourceCode"]=1;
 $2=$1;
 $4=_st(aCompiledMethod)._methodClass();
 $ctx1.sendIdx["methodClass"]=1;
@@ -181,10 +183,10 @@ _st($1)._selectedClass_(_st(aCompiledMethod)._methodClass());
 _st($1)._selectedProtocol_(_st(aCompiledMethod)._protocol());
 _st($1)._selectedMethod_(aCompiledMethod);
 $5=_st($1)._focusOnSourceCode();
-return self}, function($ctx1) {$ctx1.fill(self,"openMethod:",{aCompiledMethod:aCompiledMethod},globals.HLBrowser)});},
+return self}, function($ctx1) {$ctx1.fill(self,"openMethod:",{aCompiledMethod:aCompiledMethod},globals.HLBrowser)})},
 args: ["aCompiledMethod"],
-source: "openMethod: aCompiledMethod\x0a\x09self model \x0a\x09\x09\x09selectedPackage: aCompiledMethod methodClass package;\x0a\x09\x09\x09selectedClass: aCompiledMethod methodClass;\x0a\x09\x09\x09selectedProtocol: aCompiledMethod protocol;\x0a\x09\x09\x09selectedMethod: aCompiledMethod;\x0a\x09\x09\x09focusOnSourceCode",
-messageSends: ["selectedPackage:", "model", "package", "methodClass", "selectedClass:", "selectedProtocol:", "protocol", "selectedMethod:", "focusOnSourceCode"],
+source: "openMethod: aCompiledMethod\x0a\x09self model\x0a\x09\x09\x22Workaround for the package selection announcement when the package list is focused\x22\x09\x0a\x09\x09focusOnSourceCode;\x0a\x09\x09selectedPackage: aCompiledMethod methodClass package;\x0a\x09\x09selectedClass: aCompiledMethod methodClass;\x0a\x09\x09selectedProtocol: aCompiledMethod protocol;\x0a\x09\x09selectedMethod: aCompiledMethod;\x0a\x09\x09focusOnSourceCode",
+messageSends: ["focusOnSourceCode", "model", "selectedPackage:", "package", "methodClass", "selectedClass:", "selectedProtocol:", "protocol", "selectedMethod:"],
 referencedClasses: []
 }),
 globals.HLBrowser);

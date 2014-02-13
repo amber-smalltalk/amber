@@ -30,12 +30,14 @@ openClassNamed: aString
 !
 
 openMethod: aCompiledMethod
-	self model 
-			selectedPackage: aCompiledMethod methodClass package;
-			selectedClass: aCompiledMethod methodClass;
-			selectedProtocol: aCompiledMethod protocol;
-			selectedMethod: aCompiledMethod;
-			focusOnSourceCode
+	self model
+		"Workaround for the package selection announcement when the package list is focused"	
+		focusOnSourceCode;
+		selectedPackage: aCompiledMethod methodClass package;
+		selectedClass: aCompiledMethod methodClass;
+		selectedProtocol: aCompiledMethod protocol;
+		selectedMethod: aCompiledMethod;
+		focusOnSourceCode
 !
 
 unregister
