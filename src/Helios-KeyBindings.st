@@ -335,7 +335,7 @@ renderOn: html
 	Commands can be executed from a menu, clicking on the menu to
 	evaluate the command would give it the focus otherwise"
 	
-	[ input asJQuery focus ] valueWithTimeout: 10
+	[ input asJQuery focus; select ] valueWithTimeout: 10
 ! !
 
 Object subclass: #HLKeyBinder
