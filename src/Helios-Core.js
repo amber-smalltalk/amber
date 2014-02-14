@@ -4194,11 +4194,11 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(_st(window)._asJQuery())._width()).__minus((100))).__slash(_st(self._tabs())._size());
+$1=_st(_st(_st(_st(window)._asJQuery())._width()).__minus((90))).__slash(_st(self._tabs())._size());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"tabWidth",{},globals.HLManager)})},
 args: [],
-source: "tabWidth\x0a\x09^ (window asJQuery width - 100) / self tabs size",
+source: "tabWidth\x0a\x09^ (window asJQuery width - 90) / self tabs size",
 messageSends: ["/", "-", "width", "asJQuery", "size", "tabs"],
 referencedClasses: []
 }),

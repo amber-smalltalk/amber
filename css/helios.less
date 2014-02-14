@@ -186,21 +186,20 @@ body[id="helios"] {
 
 	.navbar-fixed-top .navbar-inner {
 		min-height: 20px;
-		background-color: #dbdbdb;
 		border-bottom: 1px solid #666;
-		background-image: linear-gradient(top, #dfdfdf, #d0d0d0);
-		background-image: -webkit-linear-gradient(top, #dfdfdf, #d0d0d0);
-		background-image: -moz-linear-gradient(top, #dfdfdf, #d0d0d0);
-		background-image: -owebkit-linear-gradient(top, #dfdfdf, #d0d0d0);
 		box-shadow: 0 0 0;
+		background: #bababa;
 	}
 
-	.navbar .nav > li {
-		line-height: 16px;
-		text-align: center;
-		
-		&.new_tab {
-			width: 85px;
+	.navbar .nav {
+		> li {
+			line-height: 16px;
+			text-align: center;
+			
+			.new_tab {
+				width: 60px;
+				border-right: 0 none;
+			}
 		}
 	}
 
@@ -213,10 +212,9 @@ body[id="helios"] {
 		line-height: 22px;
 		padding: 0px 8px;
 		font-size: 11px;
-		color: #444;
-		text-shadow: 0 1px 0 #ddd;
-		border-left: 1px solid #aaa;
-		border-right: 1px solid transparent;
+		border-right: 1px solid #777;
+		text-shadow: #ddd 0px 1px 0px;
+		color: #222;
 
 		span {
 			display: block;
@@ -237,12 +235,13 @@ body[id="helios"] {
 	.navbar .nav > .active > a,
 	.navbar .nav > .active > a:hover,
 	.navbar .nav > .active > a:focus {
-		border-left: 0 none;
-		background-color: #bababa;
-		border-left: 1px solid #777;
-		border-right: 1px solid #777;
-		text-shadow: #ddd 0px 1px 0px;
-		color: #222;
+		color: #444;
+		background-image: linear-gradient(top, #dfdfdf, #d0d0d0);
+		background-image: -webkit-linear-gradient(top, #dfdfdf, #d0d0d0);
+		background-image: -moz-linear-gradient(top, #dfdfdf, #d0d0d0);
+		background-image: -o-linear-gradient(top, #dfdfdf, #d0d0d0);
+		text-shadow: 0 1px 0 #ddd;
+		box-shadow: 0 0 0;
 	}
 
 	.navbar-fixed-top i {
