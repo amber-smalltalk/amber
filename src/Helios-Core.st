@@ -1311,6 +1311,16 @@ activate: aTab
 		show: aTab
 !
 
+activateNextTab
+	| nextTab |
+	
+	nextTab := self tabs 
+		at: (self tabs indexOf: self activeTab) + 1 
+		ifAbsent: [ self tabs first ].
+		
+	self activate: nextTab
+!
+
 addTab: aTab
 	self tabs add: aTab.
     self activate: aTab
@@ -1423,10 +1433,15 @@ registerServices
 !
 
 setupEvents
-	"on ctrl keydown, adds a 'navigation' css class to <body>
-	for the CodeMirror navigation links. See `HLCodeWidget`."
-	
 	'body' asJQuery keydown: [ :event |
+	
+		"shift+tab"
+		(event which = 9 and: [ event shiftKey ]) ifTrue: [
+			self activateNextTab.
+			event preventDefault ].
+			
+		"On ctrl keydown, adds a 'navigation' css class to <body>
+		for the CodeMirror navigation links. See `HLCodeWidget`."
 		event ctrlKey ifTrue: [
 			'body' asJQuery addClass: 'navigation' ] ].
 			
