@@ -4272,7 +4272,7 @@ protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$6,$5,$8,$9,$10,$11,$12,$7,$2;
+var $1,$3,$4,$5,$6,$8,$7,$10,$11,$12,$13,$14,$9,$2;
 $1=_st(html)._ul();
 _st($1)._class_("nav");
 $ctx1.sendIdx["class:"]=1;
@@ -4282,48 +4282,52 @@ _st(self._tabs())._do_((function(each){
 return smalltalk.withContext(function($ctx3) {
 $3=_st(html)._li();
 $4=$3;
-$6=_st(each)._isActive();
-if(smalltalk.assert($6)){
-$5="active";
+$5=_st("width: ".__comma(_st(self._tabWidth())._asString())).__comma("px");
+$ctx3.sendIdx[","]=1;
+_st($4)._style_($5);
+$6=$3;
+$8=_st(each)._isActive();
+if(smalltalk.assert($8)){
+$7="tab active";
 } else {
-$5="inactive";
+$7="tab inactive";
 };
-_st($4)._class_($5);
+_st($6)._class_($7);
 $ctx3.sendIdx["class:"]=2;
-$7=_st($3)._with_((function(){
+$9=_st($3)._with_((function(){
 return smalltalk.withContext(function($ctx4) {
-$8=_st(html)._a();
-_st($8)._with_((function(){
+$10=_st(html)._a();
+_st($10)._with_((function(){
 return smalltalk.withContext(function($ctx5) {
-$9=_st(_st(html)._tag_("i"))._class_("close");
+$11=_st(_st(html)._tag_("i"))._class_("close");
 $ctx5.sendIdx["class:"]=3;
-_st($9)._onClick_((function(){
+_st($11)._onClick_((function(){
 return smalltalk.withContext(function($ctx6) {
 return self._removeTab_(each);
 }, function($ctx6) {$ctx6.fillBlock({},$ctx5,7)})}));
 $ctx5.sendIdx["onClick:"]=1;
-$10=_st(html)._span();
-_st($10)._class_(_st(each)._cssClass());
-$11=_st($10)._with_(_st(each)._displayLabel());
-return $11;
+$12=_st(html)._span();
+_st($12)._class_(_st(each)._cssClass());
+$13=_st($12)._with_(_st(each)._displayLabel());
+return $13;
 }, function($ctx5) {$ctx5.fillBlock({},$ctx4,6)})}));
 $ctx4.sendIdx["with:"]=3;
-$12=_st($8)._onClick_((function(){
+$14=_st($10)._onClick_((function(){
 return smalltalk.withContext(function($ctx5) {
 return _st(each)._activate();
 }, function($ctx5) {$ctx5.fillBlock({},$ctx4,8)})}));
-return $12;
+return $14;
 }, function($ctx4) {$ctx4.fillBlock({},$ctx3,5)})}));
 $ctx3.sendIdx["with:"]=2;
-return $7;
+return $9;
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}));
 return self._renderAddOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["with:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"renderTabsOn:",{html:html},globals.HLManager)})},
 args: ["html"],
-source: "renderTabsOn: html\x0a\x09html ul \x0a\x09\x09class: 'nav';\x0a\x09\x09with: [ \x0a        \x09self tabs do: [ :each |\x0a\x09\x09\x09\x09html li \x0a\x09\x09\x09\x09\x09class: (each isActive ifTrue: [ 'active' ] ifFalse: [ 'inactive' ]);\x0a\x09\x09\x09\x09\x09with: [\x0a\x09\x09\x09\x09\x09\x09html a\x0a\x09\x09\x09\x09\x09\x09\x09with: [\x0a      \x09\x09\x09\x09\x09\x09\x09((html tag: 'i') class: 'close')\x0a  \x09\x09\x09\x09\x09\x09\x09\x09\x09onClick: [ self removeTab: each ].\x0a                              \x09html span \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09class: each cssClass;\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09with: each displayLabel ];\x0a\x09\x09\x09\x09\x09\x09\x09onClick: [ each activate ] ] ].\x0a\x09\x09\x09self renderAddOn: html ]",
-messageSends: ["class:", "ul", "with:", "do:", "tabs", "li", "ifTrue:ifFalse:", "isActive", "a", "onClick:", "tag:", "removeTab:", "span", "cssClass", "displayLabel", "activate", "renderAddOn:"],
+source: "renderTabsOn: html\x0a\x09html ul \x0a\x09\x09class: 'nav';\x0a\x09\x09with: [ \x0a        \x09self tabs do: [ :each |\x0a\x09\x09\x09\x09html li \x0a\x09\x09\x09\x09\x09style: 'width: ', self tabWidth asString, 'px';\x0a\x09\x09\x09\x09\x09class: (each isActive ifTrue: [ 'tab active' ] ifFalse: [ 'tab inactive' ]);\x0a\x09\x09\x09\x09\x09with: [\x0a\x09\x09\x09\x09\x09\x09html a\x0a\x09\x09\x09\x09\x09\x09\x09with: [\x0a      \x09\x09\x09\x09\x09\x09\x09((html tag: 'i') class: 'close')\x0a  \x09\x09\x09\x09\x09\x09\x09\x09\x09onClick: [ self removeTab: each ].\x0a                              \x09html span \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09class: each cssClass;\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09with: each displayLabel ];\x0a\x09\x09\x09\x09\x09\x09\x09onClick: [ each activate ] ] ].\x0a\x09\x09\x09self renderAddOn: html ]",
+messageSends: ["class:", "ul", "with:", "do:", "tabs", "style:", "li", ",", "asString", "tabWidth", "ifTrue:ifFalse:", "isActive", "a", "onClick:", "tag:", "removeTab:", "span", "cssClass", "displayLabel", "activate", "renderAddOn:"],
 referencedClasses: []
 }),
 globals.HLManager);
@@ -4395,7 +4399,7 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3,$4,$5;
 $1="body"._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
 _st($1)._keydown_((function(event){
@@ -4411,12 +4415,18 @@ $4="body"._asJQuery();
 $ctx1.sendIdx["asJQuery"]=3;
 _st($4)._keyup_((function(event){
 return smalltalk.withContext(function($ctx2) {
-return _st("body"._asJQuery())._removeClass_("navigation");
+$5="body"._asJQuery();
+$ctx2.sendIdx["asJQuery"]=4;
+return _st($5)._removeClass_("navigation");
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,3)})}));
+_st(_st(window)._asJQuery())._resize_((function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._refresh();
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,4)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupEvents",{},globals.HLManager)})},
 args: [],
-source: "setupEvents\x0a\x09\x22on ctrl keydown, adds a 'navigation' css class to <body>\x0a\x09for the CodeMirror navigation links. See `HLCodeWidget`.\x22\x0a\x09\x0a\x09'body' asJQuery keydown: [ :event |\x0a\x09\x09event ctrlKey ifTrue: [\x0a\x09\x09\x09'body' asJQuery addClass: 'navigation' ] ].\x0a\x09\x09\x09\x0a\x09'body' asJQuery keyup: [ :event |\x0a\x09\x09'body' asJQuery removeClass: 'navigation' ]",
-messageSends: ["keydown:", "asJQuery", "ifTrue:", "ctrlKey", "addClass:", "keyup:", "removeClass:"],
+source: "setupEvents\x0a\x09\x22on ctrl keydown, adds a 'navigation' css class to <body>\x0a\x09for the CodeMirror navigation links. See `HLCodeWidget`.\x22\x0a\x09\x0a\x09'body' asJQuery keydown: [ :event |\x0a\x09\x09event ctrlKey ifTrue: [\x0a\x09\x09\x09'body' asJQuery addClass: 'navigation' ] ].\x0a\x09\x09\x09\x0a\x09'body' asJQuery keyup: [ :event |\x0a\x09\x09'body' asJQuery removeClass: 'navigation' ].\x0a\x09\x09\x0a\x09window asJQuery resize: [ :event |\x0a\x09\x09self refresh ]",
+messageSends: ["keydown:", "asJQuery", "ifTrue:", "ctrlKey", "addClass:", "keyup:", "removeClass:", "resize:", "refresh"],
 referencedClasses: []
 }),
 globals.HLManager);
@@ -4439,6 +4449,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"show:",{aTab:aTab},globals.HLMan
 args: ["aTab"],
 source: "show: aTab\x0a\x09self tabs do: [ :each | each hide ].\x0a\x09aTab show; focus",
 messageSends: ["do:", "tabs", "hide", "show", "focus"],
+referencedClasses: []
+}),
+globals.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tabWidth",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(_st(window)._asJQuery())._width()).__minus((100))).__slash(_st(self._tabs())._size());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"tabWidth",{},globals.HLManager)})},
+args: [],
+source: "tabWidth\x0a\x09^ (window asJQuery width - 100) / self tabs size",
+messageSends: ["/", "-", "width", "asJQuery", "size", "tabs"],
 referencedClasses: []
 }),
 globals.HLManager);

@@ -119,7 +119,7 @@ body[id="helios"] .dialog .nav a span {
   padding-left: 18px;
   background-position: center left;
   background-repeat: no-repeat;
-  background-position: 0px -1px;
+  background-position: 0px center;
 }
 body[id="helios"] .navbar-fixed-top i.close {
   width: 14px;
@@ -166,6 +166,10 @@ body[id="helios"] .navbar-fixed-top .navbar-inner {
 }
 body[id="helios"] .navbar .nav > li {
   line-height: 16px;
+  text-align: center;
+}
+body[id="helios"] .navbar .nav > li.dropdown {
+  width: 85px;
 }
 body[id="helios"] .navbar .nav > li > a {
   line-height: 22px;
@@ -173,6 +177,10 @@ body[id="helios"] .navbar .nav > li > a {
   font-size: 11px;
   color: #444;
   text-shadow: 0 1px 0 #ddd;
+}
+body[id="helios"] .navbar .nav > li > a span {
+  display: block;
+  overflow: hidden;
 }
 body[id="helios"] .nav > li > a:hover {
   background: transparent;

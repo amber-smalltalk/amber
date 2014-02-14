@@ -144,7 +144,7 @@ body[id="helios"] {
 		padding-left: 18px;
 		background-position: center left;
 		background-repeat: no-repeat;
-		background-position: 0px -1px;
+		background-position: 0px center;
 	}
 
 	.navbar-fixed-top i.close {
@@ -197,6 +197,11 @@ body[id="helios"] {
 
 	.navbar .nav > li {
 		line-height: 16px;
+		text-align: center;
+		
+		&.dropdown {
+			width: 85px;
+		}
 	}
 
 	.navbar .nav > li > a {
@@ -205,6 +210,11 @@ body[id="helios"] {
 		font-size: 11px;
 		color: #444;
 		text-shadow: 0 1px 0 #ddd;
+
+		span {
+			display: block;
+			overflow: hidden;
+		}
 	}
 
 	.nav > li > a:hover {

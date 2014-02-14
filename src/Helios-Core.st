@@ -1290,6 +1290,10 @@ keyBinder
 	^ HLKeyBinder current
 !
 
+tabWidth
+	^ (window asJQuery width - 100) / self tabs size
+!
+
 tabs
 	^ tabs ifNil: [ tabs := OrderedCollection new ]
 ! !
@@ -1427,7 +1431,10 @@ setupEvents
 			'body' asJQuery addClass: 'navigation' ] ].
 			
 	'body' asJQuery keyup: [ :event |
-		'body' asJQuery removeClass: 'navigation' ]
+		'body' asJQuery removeClass: 'navigation' ].
+		
+	window asJQuery resize: [ :event |
+		self refresh ]
 ! !
 
 !HLManager methodsFor: 'rendering'!
@@ -1469,7 +1476,8 @@ renderTabsOn: html
 		with: [ 
         	self tabs do: [ :each |
 				html li 
-					class: (each isActive ifTrue: [ 'active' ] ifFalse: [ 'inactive' ]);
+					style: 'width: ', self tabWidth asString, 'px';
+					class: (each isActive ifTrue: [ 'tab active' ] ifFalse: [ 'tab inactive' ]);
 					with: [
 						html a
 							with: [
