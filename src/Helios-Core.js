@@ -3382,22 +3382,31 @@ fn: function (){
 var self=this;
 var nextTab;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2;
+var $1,$2,$5,$4,$3;
+var $early={};
+try {
 $1=self._tabs();
 $ctx1.sendIdx["tabs"]=1;
-$4=self._tabs();
+_st($1)._ifEmpty_((function(){
+throw $early=[self];
+}));
+$2=self._tabs();
 $ctx1.sendIdx["tabs"]=2;
-$3=_st($4)._indexOf_(self._activeTab());
-$2=_st($3).__plus((1));
-nextTab=_st($1)._at_ifAbsent_($2,(function(){
+$5=self._tabs();
+$ctx1.sendIdx["tabs"]=3;
+$4=_st($5)._indexOf_(self._activeTab());
+$3=_st($4).__plus((1));
+nextTab=_st($2)._at_ifAbsent_($3,(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._tabs())._first();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 self._activate_(nextTab);
-return self}, function($ctx1) {$ctx1.fill(self,"activateNextTab",{nextTab:nextTab},globals.HLManager)})},
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"activateNextTab",{nextTab:nextTab},globals.HLManager)})},
 args: [],
-source: "activateNextTab\x0a\x09| nextTab |\x0a\x09\x0a\x09nextTab := self tabs \x0a\x09\x09at: (self tabs indexOf: self activeTab) + 1 \x0a\x09\x09ifAbsent: [ self tabs first ].\x0a\x09\x09\x0a\x09self activate: nextTab",
-messageSends: ["at:ifAbsent:", "tabs", "+", "indexOf:", "activeTab", "first", "activate:"],
+source: "activateNextTab\x0a\x09| nextTab |\x0a\x09\x0a\x09self tabs ifEmpty: [ ^ self ].\x0a\x09\x0a\x09nextTab := self tabs \x0a\x09\x09at: (self tabs indexOf: self activeTab) + 1 \x0a\x09\x09ifAbsent: [ self tabs first ].\x0a\x09\x09\x0a\x09self activate: nextTab",
+messageSends: ["ifEmpty:", "tabs", "at:ifAbsent:", "+", "indexOf:", "activeTab", "first", "activate:"],
 referencedClasses: []
 }),
 globals.HLManager);
@@ -3965,6 +3974,7 @@ selector: "renderContentOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
+function $HLWelcomeWidget(){return globals.HLWelcomeWidget||(typeof HLWelcomeWidget=="undefined"?nil:HLWelcomeWidget)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$3,$4,$2;
 $1=_st(html)._div();
@@ -3979,14 +3989,16 @@ $4=_st($3)._with_((function(){
 return smalltalk.withContext(function($ctx3) {
 return self._renderTabsOn_(html);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+$ctx2.sendIdx["with:"]=2;
 return $4;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["with:"]=1;
+_st(html)._with_(_st($HLWelcomeWidget())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLManager)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09class: 'navbar navbar-fixed-top';\x0a\x09\x09with: [ html div \x0a\x09\x09\x09class: 'navbar-inner';\x0a\x09\x09\x09with: [ self renderTabsOn: html ] ]",
-messageSends: ["class:", "div", "with:", "renderTabsOn:"],
-referencedClasses: []
+source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09class: 'navbar navbar-fixed-top';\x0a\x09\x09with: [ html div \x0a\x09\x09\x09class: 'navbar-inner';\x0a\x09\x09\x09with: [ self renderTabsOn: html ] ].\x0a\x09\x0a\x09html with:HLWelcomeWidget new",
+messageSends: ["class:", "div", "with:", "renderTabsOn:", "new"],
+referencedClasses: ["HLWelcomeWidget"]
 }),
 globals.HLManager);
 
@@ -6316,5 +6328,79 @@ messageSends: ["widget:", "new", "label:", "yourself"],
 referencedClasses: []
 }),
 globals.HLTabWidget.klass);
+
+
+smalltalk.addClass('HLWelcomeWidget', globals.HLWidget, [], 'Helios-Core');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cssClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "welcome";
+},
+args: [],
+source: "cssClass\x0a\x09^ 'welcome'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLWelcomeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8;
+$1=_st(html)._button();
+$ctx1.sendIdx["button"]=1;
+_st($1)._class_("button");
+$ctx1.sendIdx["class:"]=1;
+_st($1)._with_("Class Browser");
+$ctx1.sendIdx["with:"]=1;
+$2=_st($1)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._openClassBrowser();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["onClick:"]=1;
+$3=_st(html)._button();
+$ctx1.sendIdx["button"]=2;
+_st($3)._class_("button");
+$ctx1.sendIdx["class:"]=2;
+_st($3)._with_("Workspace");
+$ctx1.sendIdx["with:"]=2;
+$4=_st($3)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._openWorkspace();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$ctx1.sendIdx["onClick:"]=2;
+$5=_st(html)._button();
+$ctx1.sendIdx["button"]=3;
+_st($5)._class_("button");
+$ctx1.sendIdx["class:"]=3;
+_st($5)._with_("Test Runner");
+$ctx1.sendIdx["with:"]=3;
+$6=_st($5)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._openTestRunner();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+$ctx1.sendIdx["onClick:"]=3;
+$7=_st(html)._button();
+_st($7)._class_("button");
+_st($7)._with_("Help");
+$8=_st($7)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._openHelp();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLWelcomeWidget)})},
+args: ["html"],
+source: "renderContentOn: html\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Class Browser';\x0a\x09\x09onClick: [ self openClassBrowser ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Workspace';\x0a\x09\x09onClick: [ self openWorkspace ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Test Runner';\x0a\x09\x09onClick: [ self openTestRunner ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Help';\x0a\x09\x09onClick: [ self openHelp ]",
+messageSends: ["class:", "button", "with:", "onClick:", "openClassBrowser", "openWorkspace", "openTestRunner", "openHelp"],
+referencedClasses: []
+}),
+globals.HLWelcomeWidget);
+
 
 });

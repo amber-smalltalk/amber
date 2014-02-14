@@ -1223,6 +1223,8 @@ activate: aTab
 activateNextTab
 	| nextTab |
 	
+	self tabs ifEmpty: [ ^ self ].
+	
 	nextTab := self tabs 
 		at: (self tabs indexOf: self activeTab) + 1 
 		ifAbsent: [ self tabs first ].
@@ -1391,7 +1393,9 @@ renderContentOn: html
 		class: 'navbar navbar-fixed-top';
 		with: [ html div 
 			class: 'navbar-inner';
-			with: [ self renderTabsOn: html ] ]
+			with: [ self renderTabsOn: html ] ].
+	
+	html with:HLWelcomeWidget new
 !
 
 renderTabsOn: html
@@ -2119,5 +2123,36 @@ on: aWidget labelled: aString
 		widget: aWidget;
 		label: aString;
 		yourself
+! !
+
+HLWidget subclass: #HLWelcomeWidget
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+
+!HLWelcomeWidget methodsFor: 'accessing'!
+
+cssClass
+	^ 'welcome'
+! !
+
+!HLWelcomeWidget methodsFor: 'rendering'!
+
+renderContentOn: html
+	html button
+		class: 'button';
+		with: 'Class Browser';
+		onClick: [ self openClassBrowser ].
+	html button
+		class: 'button';
+		with: 'Workspace';
+		onClick: [ self openWorkspace ].
+	html button
+		class: 'button';
+		with: 'Test Runner';
+		onClick: [ self openTestRunner ].
+	html button
+		class: 'button';
+		with: 'Help';
+		onClick: [ self openHelp ]
 ! !
 
