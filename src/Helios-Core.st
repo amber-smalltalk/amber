@@ -491,115 +491,6 @@ do: aBlock on: aCollection displaying: aString
 		displaying: aString
 ! !
 
-Widget subclass: #HLTabWidget
-	instanceVariableNames: 'widget label root'
-	package: 'Helios-Core'!
-!HLTabWidget commentStamp!
-I am a widget specialized into building another widget as an Helios tab.
-
-I should not be used directly, `HLWidget class >> #openAsTab` should be used instead.
-
-## Example
-
-    HLWorkspace openAsTab!
-
-!HLTabWidget methodsFor: 'accessing'!
-
-activate
-	self manager activate: self
-!
-
-add
-	self manager addTab: self
-!
-
-cssClass
-	^ self widget tabClass
-!
-
-displayLabel
-	^ self label size > 20 
-		ifTrue: [ (self label first: 20), '...' ]
-		ifFalse: [ self label ]
-!
-
-focus
-	self widget canHaveFocus ifTrue: [
-		self widget focus ]
-!
-
-label
-	^ label ifNil: [ '' ]
-!
-
-label: aString
-	label := aString
-!
-
-manager
-	^ HLManager current
-!
-
-widget
-	^ widget
-!
-
-widget: aWidget
-	widget := aWidget
-! !
-
-!HLTabWidget methodsFor: 'actions'!
-
-hide
-	root ifNotNil: [ root asJQuery css: 'visibility' put: 'hidden' ]
-!
-
-registerBindings
-	self widget registerBindings
-!
-
-remove
-	self widget unregister.
-	root ifNotNil: [ root asJQuery remove ]
-!
-
-show
-	root
-		ifNil: [ self appendToJQuery: 'body' asJQuery ]
-		ifNotNil: [ root asJQuery css: 'visibility' put: 'visible' ]
-! !
-
-!HLTabWidget methodsFor: 'rendering'!
-
-renderOn: html
-	root := html div
-		class: 'tab';
-		yourself.
-	self renderTab
-!
-
-renderTab
-	root contents: [ :html |
-		html div
-			class: 'amber_box';
-			with: [ self widget renderOn: html ] ]
-! !
-
-!HLTabWidget methodsFor: 'testing'!
-
-isActive
-	^ self manager activeTab = self
-! !
-
-!HLTabWidget class methodsFor: 'instance creation'!
-
-on: aWidget labelled: aString
-	^ self new
-		widget: aWidget;
-		label: aString;
-		yourself
-! !
-
 Widget subclass: #HLWidget
 	instanceVariableNames: 'wrapper'
 	package: 'Helios-Core'!
@@ -644,6 +535,13 @@ manager
 	^ HLManager current
 !
 
+setTabLabel: aString
+	self manager announcer announce: (HLTabLabelChanged new
+		widget: self;
+		label: aString;
+		yourself)
+!
+
 tabClass
 	^ self class tabClass
 !
@@ -676,7 +574,8 @@ inform: aString
 !
 
 openAsTab
-	HLManager current addTab: (HLTabWidget on: self labelled: self class tabLabel)
+	(HLTabWidget on: self labelled: self defaultTabLabel)
+		add
 !
 
 request: aString do: aBlock
@@ -693,6 +592,12 @@ request: aString value: valueString do: aBlock
 unregister
 	"This method is called whenever the receiver is closed (as a tab).
 	Widgets subscribing to announcements should unregister there"
+! !
+
+!HLWidget methodsFor: 'defaults'!
+
+defaultTabLabel
+	^ self class tabLabel
 ! !
 
 !HLWidget methodsFor: 'keybindings'!
@@ -749,9 +654,9 @@ openAsTab
 	| instance |
 	
 	instance := self new.
-	HLManager current addTab: (HLTabWidget 
+	(HLTabWidget 
 		on: instance 
-		labelled: self tabLabel).
+		labelled: instance defaultTabLabel) add.
 	^ instance
 !
 
@@ -1259,13 +1164,17 @@ renderContentOn: html
 ! !
 
 HLWidget subclass: #HLManager
-	instanceVariableNames: 'tabs activeTab environment history'
+	instanceVariableNames: 'tabs activeTab environment history announcer'
 	package: 'Helios-Core'!
 
 !HLManager methodsFor: 'accessing'!
 
 activeTab
 	^ activeTab
+!
+
+announcer
+	^ announcer ifNil: [ announcer := Announcer new ]
 !
 
 environment
@@ -2080,5 +1989,135 @@ HLProgressBarWidget class instanceVariableNames: 'default'!
 
 default
 	^ default ifNil: [ default := self new ]
+! !
+
+HLWidget subclass: #HLTabWidget
+	instanceVariableNames: 'widget label root'
+	package: 'Helios-Core'!
+!HLTabWidget commentStamp!
+I am a widget specialized into building another widget as an Helios tab.
+
+I should not be used directly, `HLWidget class >> #openAsTab` should be used instead.
+
+## Example
+
+    HLWorkspace openAsTab!
+
+!HLTabWidget methodsFor: 'accessing'!
+
+activate
+	self manager activate: self
+!
+
+cssClass
+	^ self widget tabClass
+!
+
+displayLabel
+	^ self label size > 20 
+		ifTrue: [ (self label first: 20), '...' ]
+		ifFalse: [ self label ]
+!
+
+focus
+	self widget canHaveFocus ifTrue: [
+		self widget focus ]
+!
+
+label
+	^ label ifNil: [ '' ]
+!
+
+label: aString
+	label := aString
+!
+
+manager
+	^ HLManager current
+!
+
+widget
+	^ widget
+!
+
+widget: aWidget
+	widget := aWidget
+! !
+
+!HLTabWidget methodsFor: 'actions'!
+
+add
+	self manager addTab: self.
+	self observeManager
+!
+
+hide
+	root ifNotNil: [ root asJQuery css: 'visibility' put: 'hidden' ]
+!
+
+observeManager
+	self manager announcer 
+		on: HLTabLabelChanged
+		send: #onTabLabelChanged:
+		to: self
+!
+
+registerBindings
+	self widget registerBindings
+!
+
+remove
+	self unregister.
+	self widget unregister.
+	root ifNotNil: [ root asJQuery remove ]
+!
+
+show
+	root
+		ifNil: [ self appendToJQuery: 'body' asJQuery ]
+		ifNotNil: [ root asJQuery css: 'visibility' put: 'visible' ]
+!
+
+unregister
+	self manager announcer unsubscribe: self
+! !
+
+!HLTabWidget methodsFor: 'reactions'!
+
+onTabLabelChanged: anAnnouncement
+	anAnnouncement widget = self widget ifTrue: [
+		self label: anAnnouncement label.
+		self manager refresh]
+! !
+
+!HLTabWidget methodsFor: 'rendering'!
+
+renderOn: html
+	root := html div
+		class: 'tab';
+		yourself.
+	self renderTab
+!
+
+renderTab
+	root contents: [ :html |
+		html div
+			class: 'amber_box';
+			with: [ self widget renderOn: html ] ]
+! !
+
+!HLTabWidget methodsFor: 'testing'!
+
+isActive
+	^ self manager activeTab = self
+! !
+
+!HLTabWidget class methodsFor: 'instance creation'!
+
+on: aWidget labelled: aString
+	^ self new
+		widget: aWidget;
+		label: aString;
+		yourself
 ! !
 

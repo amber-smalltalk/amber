@@ -582,4 +582,71 @@ globals.HLShowTemplate);
 
 smalltalk.addClass('HLSourceCodeSaved', globals.HLAnnouncement, [], 'Helios-Announcements');
 
+
+smalltalk.addClass('HLTabLabelChanged', globals.HLAnnouncement, ['label', 'widget'], 'Helios-Announcements');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@label"];
+return $1;
+},
+args: [],
+source: "label\x0a\x09^ label",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabLabelChanged);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@label"]=aString;
+return self},
+args: ["aString"],
+source: "label: aString\x0a\x09label := aString",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabLabelChanged);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "widget",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@widget"];
+return $1;
+},
+args: [],
+source: "widget\x0a\x09^ widget",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabLabelChanged);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "widget:",
+protocol: 'accessing',
+fn: function (aWidget){
+var self=this;
+self["@widget"]=aWidget;
+return self},
+args: ["aWidget"],
+source: "widget: aWidget\x0a\x09widget := aWidget",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabLabelChanged);
+
+
 });

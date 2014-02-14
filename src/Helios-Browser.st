@@ -12,17 +12,30 @@ environment
 !
 
 model
-	^ model ifNil: [ model := HLBrowserModel new ]
+	^ model ifNil: [ self model: HLBrowserModel new. model ]
 !
 
 model: aModel
-	model := aModel
+	model := aModel.
+	self observeModel
 ! !
 
 !HLBrowser methodsFor: 'actions'!
 
 focus
 	^ self packagesListWidget focus
+!
+
+observeModel
+	self model announcer
+		on: HLPackageSelected
+		send: #onPackageSelected:
+		to: self.
+		
+	self model announcer
+		on: HLClassSelected
+		send: #onClassSelected:
+		to: self
 !
 
 openClassNamed: aString
@@ -59,6 +72,21 @@ registerBindingsOn: aBindingGroup
 	HLToolCommand 
 		registerConcreteClassesOn: aBindingGroup 
 		for: self model
+! !
+
+!HLBrowser methodsFor: 'reactions'!
+
+onClassSelected: anAnnouncement
+	anAnnouncement item 
+		ifNil: [ self setTabLabel: (self model selectedPackage 
+			ifNil: [ self defaultTabLabel ]
+			ifNotNil: [ :package | package name ]) ] 
+		ifNotNil: [ :item | self setTabLabel: item name ]
+!
+
+onPackageSelected: anAnnouncement
+	anAnnouncement item ifNotNil: [ :item |
+	self setTabLabel: item name ]
 ! !
 
 !HLBrowser methodsFor: 'rendering'!

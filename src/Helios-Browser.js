@@ -111,23 +111,23 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "model",
 protocol: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 function $HLBrowserModel(){return globals.HLBrowserModel||(typeof HLBrowserModel=="undefined"?nil:HLBrowserModel)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@model"];
 if(($receiver = $2) == nil || $receiver == null){
-self["@model"]=_st($HLBrowserModel())._new();
+self._model_(_st($HLBrowserModel())._new());
 $1=self["@model"];
 } else {
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"model",{},globals.HLBrowser)});},
+}, function($ctx1) {$ctx1.fill(self,"model",{},globals.HLBrowser)})},
 args: [],
-source: "model\x0a\x09^ model ifNil: [ model := HLBrowserModel new ]",
-messageSends: ["ifNil:", "new"],
+source: "model\x0a\x09^ model ifNil: [ self model: HLBrowserModel new. model ]",
+messageSends: ["ifNil:", "model:", "new"],
 referencedClasses: ["HLBrowserModel"]
 }),
 globals.HLBrowser);
@@ -136,13 +136,98 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "model:",
 protocol: 'accessing',
-fn: function (aModel) {
+fn: function (aModel){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self["@model"]=aModel;
-return self;},
+self._observeModel();
+return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},globals.HLBrowser)})},
 args: ["aModel"],
-source: "model: aModel\x0a\x09model := aModel",
-messageSends: [],
+source: "model: aModel\x0a\x09model := aModel.\x0a\x09self observeModel",
+messageSends: ["observeModel"],
+referencedClasses: []
+}),
+globals.HLBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "observeModel",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $HLPackageSelected(){return globals.HLPackageSelected||(typeof HLPackageSelected=="undefined"?nil:HLPackageSelected)}
+function $HLClassSelected(){return globals.HLClassSelected||(typeof HLClassSelected=="undefined"?nil:HLClassSelected)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._model();
+$ctx1.sendIdx["model"]=1;
+$1=_st($2)._announcer();
+$ctx1.sendIdx["announcer"]=1;
+_st($1)._on_send_to_($HLPackageSelected(),"onPackageSelected:",self);
+$ctx1.sendIdx["on:send:to:"]=1;
+_st(_st(self._model())._announcer())._on_send_to_($HLClassSelected(),"onClassSelected:",self);
+return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},globals.HLBrowser)})},
+args: [],
+source: "observeModel\x0a\x09self model announcer\x0a\x09\x09on: HLPackageSelected\x0a\x09\x09send: #onPackageSelected:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model announcer\x0a\x09\x09on: HLClassSelected\x0a\x09\x09send: #onClassSelected:\x0a\x09\x09to: self",
+messageSends: ["on:send:to:", "announcer", "model"],
+referencedClasses: ["HLPackageSelected", "HLClassSelected"]
+}),
+globals.HLBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClassSelected:",
+protocol: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2;
+$1=_st(anAnnouncement)._item();
+if(($receiver = $1) == nil || $receiver == null){
+$3=_st(self._model())._selectedPackage();
+if(($receiver = $3) == nil || $receiver == null){
+$2=self._defaultTabLabel();
+} else {
+var package_;
+package_=$receiver;
+$2=_st(package_)._name();
+$ctx1.sendIdx["name"]=1;
+};
+self._setTabLabel_($2);
+$ctx1.sendIdx["setTabLabel:"]=1;
+} else {
+var item;
+item=$receiver;
+self._setTabLabel_(_st(item)._name());
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncement:anAnnouncement},globals.HLBrowser)})},
+args: ["anAnnouncement"],
+source: "onClassSelected: anAnnouncement\x0a\x09anAnnouncement item \x0a\x09\x09ifNil: [ self setTabLabel: (self model selectedPackage \x0a\x09\x09\x09ifNil: [ self defaultTabLabel ]\x0a\x09\x09\x09ifNotNil: [ :package | package name ]) ] \x0a\x09\x09ifNotNil: [ :item | self setTabLabel: item name ]",
+messageSends: ["ifNil:ifNotNil:", "item", "setTabLabel:", "selectedPackage", "model", "defaultTabLabel", "name"],
+referencedClasses: []
+}),
+globals.HLBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onPackageSelected:",
+protocol: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anAnnouncement)._item();
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+var item;
+item=$receiver;
+self._setTabLabel_(_st(item)._name());
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{anAnnouncement:anAnnouncement},globals.HLBrowser)})},
+args: ["anAnnouncement"],
+source: "onPackageSelected: anAnnouncement\x0a\x09anAnnouncement item ifNotNil: [ :item |\x0a\x09self setTabLabel: item name ]",
+messageSends: ["ifNotNil:", "item", "setTabLabel:", "name"],
 referencedClasses: []
 }),
 globals.HLBrowser);
