@@ -3996,7 +3996,7 @@ $ctx1.sendIdx["with:"]=1;
 _st(html)._with_(_st($HLWelcomeWidget())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLManager)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09class: 'navbar navbar-fixed-top';\x0a\x09\x09with: [ html div \x0a\x09\x09\x09class: 'navbar-inner';\x0a\x09\x09\x09with: [ self renderTabsOn: html ] ].\x0a\x09\x0a\x09html with:HLWelcomeWidget new",
+source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09class: 'navbar navbar-fixed-top';\x0a\x09\x09with: [ html div \x0a\x09\x09\x09class: 'navbar-inner';\x0a\x09\x09\x09with: [ self renderTabsOn: html ] ].\x0a\x09\x0a\x09html with: HLWelcomeWidget new",
 messageSends: ["class:", "div", "with:", "renderTabsOn:", "new"],
 referencedClasses: ["HLWelcomeWidget"]
 }),
@@ -4114,17 +4114,16 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1;
 self._registerServices();
 $1=self._setupEvents();
 $ctx1.sendIdx["setupEvents"]=1;
-$2=self._keyBinder();
-_st($2)._setupEvents();
-$3=_st($2)._setupHelper();
+_st(self._keyBinder())._setupEvents();
+_st("#helper"._asJQuery())._fadeOut();
 return self}, function($ctx1) {$ctx1.fill(self,"setup",{},globals.HLManager)})},
 args: [],
-source: "setup\x0a\x09self \x0a\x09\x09registerServices;\x0a\x09\x09setupEvents.\x0a    self keyBinder \x0a\x09\x09setupEvents;\x0a\x09\x09setupHelper",
-messageSends: ["registerServices", "setupEvents", "keyBinder", "setupHelper"],
+source: "setup\x0a\x09self \x0a\x09\x09registerServices;\x0a\x09\x09setupEvents.\x0a    self keyBinder setupEvents.\x0a\x09\x0a\x09\x0a\x09'#helper' asJQuery fadeOut",
+messageSends: ["registerServices", "setupEvents", "keyBinder", "fadeOut", "asJQuery"],
 referencedClasses: []
 }),
 globals.HLManager);
@@ -6348,7 +6347,69 @@ globals.HLWelcomeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderContentOn:",
+selector: "openClassBrowser",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $HLBrowser(){return globals.HLBrowser||(typeof HLBrowser=="undefined"?nil:HLBrowser)}
+return smalltalk.withContext(function($ctx1) { 
+_st($HLBrowser())._openAsTab();
+return self}, function($ctx1) {$ctx1.fill(self,"openClassBrowser",{},globals.HLWelcomeWidget)})},
+args: [],
+source: "openClassBrowser\x0a\x09HLBrowser openAsTab",
+messageSends: ["openAsTab"],
+referencedClasses: ["HLBrowser"]
+}),
+globals.HLWelcomeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "openHelp",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return self},
+args: [],
+source: "openHelp",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLWelcomeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "openTestRunner",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return self},
+args: [],
+source: "openTestRunner",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLWelcomeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "openWorkspace",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $HLWorkspace(){return globals.HLWorkspace||(typeof HLWorkspace=="undefined"?nil:HLWorkspace)}
+return smalltalk.withContext(function($ctx1) { 
+_st($HLWorkspace())._openAsTab();
+return self}, function($ctx1) {$ctx1.fill(self,"openWorkspace",{},globals.HLWelcomeWidget)})},
+args: [],
+source: "openWorkspace\x0a\x09HLWorkspace openAsTab",
+messageSends: ["openAsTab"],
+referencedClasses: ["HLWorkspace"]
+}),
+globals.HLWelcomeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderButtonsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
@@ -6394,10 +6455,55 @@ $8=_st($7)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._openHelp();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLWelcomeWidget)})},
+args: ["html"],
+source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Class Browser';\x0a\x09\x09onClick: [ self openClassBrowser ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Workspace';\x0a\x09\x09onClick: [ self openWorkspace ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Test Runner';\x0a\x09\x09onClick: [ self openTestRunner ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Help';\x0a\x09\x09onClick: [ self openHelp ]",
+messageSends: ["class:", "button", "with:", "onClick:", "openClassBrowser", "openWorkspace", "openTestRunner", "openHelp"],
+referencedClasses: []
+}),
+globals.HLWelcomeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._renderHelpOn_(html);
+$1=self._renderButtonsOn_(html);
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLWelcomeWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Class Browser';\x0a\x09\x09onClick: [ self openClassBrowser ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Workspace';\x0a\x09\x09onClick: [ self openWorkspace ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Test Runner';\x0a\x09\x09onClick: [ self openTestRunner ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Help';\x0a\x09\x09onClick: [ self openHelp ]",
-messageSends: ["class:", "button", "with:", "onClick:", "openClassBrowser", "openWorkspace", "openTestRunner", "openHelp"],
+source: "renderContentOn: html\x0a\x09self\x0a\x09\x09renderHelpOn: html;\x0a\x09\x09renderButtonsOn: html",
+messageSends: ["renderHelpOn:", "renderButtonsOn:"],
+referencedClasses: []
+}),
+globals.HLWelcomeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderHelpOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(_st(html)._h2())._with_("No tools are open");
+$ctx1.sendIdx["with:"]=1;
+_st(_st(html)._ul())._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._li();
+$ctx2.sendIdx["li"]=1;
+_st($1)._with_("Perform actions with  ctrl + space");
+$ctx2.sendIdx["with:"]=3;
+return _st(_st(html)._li())._with_("Open one of the common tools:");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["with:"]=2;
+return self}, function($ctx1) {$ctx1.fill(self,"renderHelpOn:",{html:html},globals.HLWelcomeWidget)})},
+args: ["html"],
+source: "renderHelpOn: html\x0a\x09html h2 with: 'No tools are open'.\x0a\x09html ul with: [\x0a\x09\x09html li with: 'Perform actions with  ctrl + space'.\x0a\x09\x09html li with: 'Open one of the common tools:' ]",
+messageSends: ["with:", "h2", "ul", "li"],
 referencedClasses: []
 }),
 globals.HLWelcomeWidget);

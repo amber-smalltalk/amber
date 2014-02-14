@@ -246,6 +246,28 @@ body[id="helios"] .CodeMirror-hint-active {
   color: #fff;
   text-shadow: 0 0 0;
 }
+body[id="helios"] .welcome {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -170px;
+  width: 340px;
+  margin-top: 60px;
+  text-shadow: 0 1px 0 #fafafa;
+  color: #666;
+  font-size: 14px;
+}
+body[id="helios"] .welcome h2 {
+  text-align: center;
+  color: #666;
+}
+body[id="helios"] .welcome button {
+  margin: 10px;
+  padding: 20px;
+  height: auto;
+  width: 150px;
+}
 body[id="helios"] .tool_container {
   position: absolute;
   top: 23px;

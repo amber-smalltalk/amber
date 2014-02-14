@@ -1472,25 +1472,6 @@ globals.HLKeyBinder);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "setupHelper",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self["@helper"];
-_st($1)._renderStart();
-$2=_st($1)._renderCog();
-return self}, function($ctx1) {$ctx1.fill(self,"setupHelper",{},globals.HLKeyBinder)})},
-args: [],
-source: "setupHelper\x0a\x09helper \x09\x0a\x09\x09renderStart;\x0a\x09\x09renderCog",
-messageSends: ["renderStart", "renderCog"],
-referencedClasses: []
-}),
-globals.HLKeyBinder);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "systemIsMac",
 protocol: 'testing',
 fn: function (){
@@ -1759,42 +1740,6 @@ globals.HLKeyBinderHelperWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderCog",
-protocol: 'rendering',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
-_st((function(html){
-return smalltalk.withContext(function($ctx2) {
-$1=_st(html)._div();
-_st($1)._id_("cog-helper");
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx3) {
-$3=_st(html)._a();
-_st($3)._with_((function(){
-return smalltalk.withContext(function($ctx4) {
-return _st(_st(html)._tag_("i"))._class_("icon-cog");
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})}));
-$4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {
-return _st(self._keyBinder())._activate();
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,4)})}));
-return $4;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-$ctx2.sendIdx["with:"]=1;
-return $2;
-}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}))._appendToJQuery_("body"._asJQuery());
-return self}, function($ctx1) {$ctx1.fill(self,"renderCog",{},globals.HLKeyBinderHelperWidget)})},
-args: [],
-source: "renderCog\x0a\x09[ :html |\x0a\x09\x09html \x0a\x09\x09\x09div id: 'cog-helper'; \x0a\x09\x09\x09with: [\x0a\x09\x09\x09\x09html a \x0a\x09\x09\x09\x09\x09with: [ (html tag: 'i') class: 'icon-cog' ];\x0a\x09\x09\x09\x09\x09onClick: [ self keyBinder activate ] ] ]\x0a\x09\x09appendToJQuery: 'body' asJQuery",
-messageSends: ["appendToJQuery:", "id:", "div", "with:", "a", "class:", "tag:", "onClick:", "activate", "keyBinder", "asJQuery"],
-referencedClasses: []
-}),
-globals.HLKeyBinderHelperWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "renderContentOn:",
 protocol: 'rendering',
 fn: function (html){
@@ -1874,42 +1819,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"renderSelectedBindingOn:",{html:
 args: ["html"],
 source: "renderSelectedBindingOn: html\x0a\x09self selectedBinding renderOn: self html: html",
 messageSends: ["renderOn:html:", "selectedBinding"],
-referencedClasses: []
-}),
-globals.HLKeyBinderHelperWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderStart",
-protocol: 'rendering',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$5,$6,$4,$2,$7;
-$1="#helper"._asJQuery();
-$ctx1.sendIdx["asJQuery"]=1;
-_st($1)._remove();
-$2=(function(html){
-return smalltalk.withContext(function($ctx2) {
-$3=_st(html)._div();
-_st($3)._id_("helper");
-$5=$3;
-$6=_st("Press ".__comma(_st(self._keyBinder())._activationKeyLabel())).__comma(" to start");
-$ctx2.sendIdx[","]=1;
-$4=_st($5)._with_($6);
-return $4;
-}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})});
-$7="body"._asJQuery();
-$ctx1.sendIdx["asJQuery"]=2;
-_st($2)._appendToJQuery_($7);
-_st((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st("#helper"._asJQuery())._fadeOut_((1000));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))._valueWithTimeout_((2000));
-return self}, function($ctx1) {$ctx1.fill(self,"renderStart",{},globals.HLKeyBinderHelperWidget)})},
-args: [],
-source: "renderStart\x0a\x09'#helper' asJQuery remove.\x0a\x0a\x09[ :html |\x0a\x09\x09html div \x0a\x09\x09\x09id: 'helper';\x0a\x09\x09\x09with: 'Press ', self keyBinder activationKeyLabel, ' to start' ] appendToJQuery: 'body' asJQuery.\x0a\x09\x0a\x09[ '#helper' asJQuery fadeOut: 1000 ] \x0a\x09\x09valueWithTimeout: 2000",
-messageSends: ["remove", "asJQuery", "appendToJQuery:", "id:", "div", "with:", ",", "activationKeyLabel", "keyBinder", "valueWithTimeout:", "fadeOut:"],
 referencedClasses: []
 }),
 globals.HLKeyBinderHelperWidget);

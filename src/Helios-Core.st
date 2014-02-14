@@ -1327,9 +1327,10 @@ setup
 	self 
 		registerServices;
 		setupEvents.
-    self keyBinder 
-		setupEvents;
-		setupHelper
+    self keyBinder setupEvents.
+	
+	
+	'#helper' asJQuery fadeOut
 ! !
 
 !HLManager methodsFor: 'private'!
@@ -1395,7 +1396,7 @@ renderContentOn: html
 			class: 'navbar-inner';
 			with: [ self renderTabsOn: html ] ].
 	
-	html with:HLWelcomeWidget new
+	html with: HLWelcomeWidget new
 !
 
 renderTabsOn: html
@@ -2135,9 +2136,25 @@ cssClass
 	^ 'welcome'
 ! !
 
+!HLWelcomeWidget methodsFor: 'actions'!
+
+openClassBrowser
+	HLBrowser openAsTab
+!
+
+openHelp
+!
+
+openTestRunner
+!
+
+openWorkspace
+	HLWorkspace openAsTab
+! !
+
 !HLWelcomeWidget methodsFor: 'rendering'!
 
-renderContentOn: html
+renderButtonsOn: html
 	html button
 		class: 'button';
 		with: 'Class Browser';
@@ -2154,5 +2171,18 @@ renderContentOn: html
 		class: 'button';
 		with: 'Help';
 		onClick: [ self openHelp ]
+!
+
+renderContentOn: html
+	self
+		renderHelpOn: html;
+		renderButtonsOn: html
+!
+
+renderHelpOn: html
+	html h2 with: 'No tools are open'.
+	html ul with: [
+		html li with: 'Perform actions with  ctrl + space'.
+		html li with: 'Open one of the common tools:' ]
 ! !
 
