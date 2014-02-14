@@ -386,6 +386,30 @@ nextNode
 	^ self interpreter nextNode
 ! !
 
+!ASTDebugger methodsFor: 'private'!
+
+flushInnerContexts
+	"When stepping, the inner contexts are not relevent anymore,
+	and can be flushed"
+	
+	self context innerContext: nil
+!
+
+onStep
+	"After each step, check if the interpreter is at the end,
+	and if it is move to its outer context if any, skipping its 
+	current node (which was just evaluated by the current 
+	interpreter).
+	
+	After each step we also flush inner contexts."
+	
+	self interpreter atEnd ifTrue: [
+		self context: self context outerContext.
+		self context ifNotNil: [ self skip ] ].
+		
+	self flushInnerContexts
+! !
+
 !ASTDebugger methodsFor: 'stepping'!
 
 proceed
@@ -393,11 +417,13 @@ proceed
 !
 
 restart
-	self interpreter restart
+	self interpreter restart.
+	self flushInnerContexts
 !
 
 skip
-	self interpreter skip
+	self interpreter skip.
+	self onStep
 !
 
 stepInto
@@ -405,14 +431,15 @@ stepInto
 !
 
 stepOver
-	self flushOuterContexts.
-	self interpreter stepOver
+	self interpreter stepOver.
+	self onStep
 ! !
 
 !ASTDebugger methodsFor: 'testing'!
 
 atEnd
-	^ self interpreter atEnd
+	^ self interpreter atEnd and: [ 
+		self context outerContext isNil ]
 ! !
 
 !ASTDebugger class methodsFor: 'instance creation'!
