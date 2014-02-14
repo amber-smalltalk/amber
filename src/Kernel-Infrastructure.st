@@ -541,7 +541,7 @@ Organizer subclass: #PackageOrganizer
 I am an organizer specific to packages. I hold classes categorization information.!
 
 Object subclass: #Package
-	instanceVariableNames: 'transport'
+	instanceVariableNames: 'transport dirty'
 	package: 'Kernel-Infrastructure'!
 !Package commentStamp!
 I am similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
@@ -563,10 +563,20 @@ You can fetch a package from the server:
 
 !Package methodsFor: 'accessing'!
 
-basicTransport
-	"Answer the transport literal JavaScript object as setup in the JavaScript file, if any"
+beClean
+	dirty := false.
 	
-	<return self.transport>
+	SystemAnnouncer current announce: (PackageClean new
+		package: self;
+		yourself)
+!
+
+beDirty
+	dirty := true.
+	
+	SystemAnnouncer current announce: (PackageClean new
+		package: self;
+		yourself)
 !
 
 classTemplate
@@ -600,7 +610,8 @@ name
 !
 
 name: aString
-	<self.pkgName = aString>
+	self basicName: aString.
+	self beDirty
 !
 
 organization
@@ -673,7 +684,23 @@ printOn: aStream
 		nextPutAll: ')'
 ! !
 
+!Package methodsFor: 'private'!
+
+basicName: aString
+	<self.pkgName = aString>
+!
+
+basicTransport
+	"Answer the transport literal JavaScript object as setup in the JavaScript file, if any"
+	
+	<return self.transport>
+! !
+
 !Package methodsFor: 'testing'!
+
+isDirty
+	^ dirty ifNil: [ false ]
+!
 
 isPackage
 	^ true
@@ -722,6 +749,72 @@ sortedClasses: classes
 	nodes do: [ :aNode |
 		aNode traverseClassesWith: expandedClasses ].
 	^ expandedClasses
+! !
+
+Object subclass: #PackageStateObserver
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!PackageStateObserver commentStamp!
+My current instance listens for any changes in the system that might affect the state of a package (being dirty).!
+
+!PackageStateObserver methodsFor: 'accessing'!
+
+announcer
+	^ SystemAnnouncer current
+! !
+
+!PackageStateObserver methodsFor: 'actions'!
+
+observeSystem
+	self announcer
+		on: PackageAdded
+		send: #onPackageAdded:
+		to: self;
+		
+		on: ClassAnnouncement
+		send: #onClassModification:
+		to: self;
+		
+		on: MethodAnnouncement
+		send: #onMethodModification:
+		to: self;
+		
+		on: ProtocolAnnouncement
+		send: #onProtocolModification:
+		to: self
+! !
+
+!PackageStateObserver methodsFor: 'reactions'!
+
+onClassModification: anAnnouncement
+	anAnnouncement theClass ifNotNil: [ :theClass |
+		theClass package beDirty ]
+!
+
+onMethodModification: anAnnouncement
+	anAnnouncement method package ifNotNil: [ :package | package beDirty ]
+!
+
+onPackageAdded: anAnnouncement
+	anAnnouncement package beDirty
+!
+
+onProtocolModification: anAnnouncement
+	anAnnouncement theClass package beDirty
+! !
+
+PackageStateObserver class instanceVariableNames: 'current'!
+
+!PackageStateObserver class methodsFor: 'accessing'!
+
+current
+	^ current ifNil: [ current := self new ]
+! !
+
+!PackageStateObserver class methodsFor: 'initialization'!
+
+initialize
+	self current observeSystem
 ! !
 
 Object subclass: #PlatformInterface
@@ -1172,6 +1265,7 @@ createPackage: packageName
 	| package announcement |
 	
 	package := self basicCreatePackage: packageName.
+	
 	announcement := PackageAdded new
 		package: package;
 		yourself.

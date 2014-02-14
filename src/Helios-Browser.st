@@ -1202,7 +1202,9 @@ I render a list of the system packages.!
 !HLPackagesListWidget methodsFor: 'accessing'!
 
 cssClassForItem: anItem	
-	^ 'package'
+	^ anItem isDirty 
+		ifTrue: [ 'package_dirty' ]
+		ifFalse: [ 'package' ]
 !
 
 items
@@ -1239,7 +1241,17 @@ observeSystem
 	self model systemAnnouncer
 		on: PackageAdded
 		send: #onPackageAdded:
-		to: self
+		to: self.
+		
+	self model systemAnnouncer
+		on: PackageClean
+		send: #onPackageStateChanged
+		to: self.
+		
+	self model systemAnnouncer
+		on: PackageDirty
+		send: #onPackageStateChanged
+		to: self.
 !
 
 reselectItem: anItem
@@ -1285,6 +1297,10 @@ onPackageSelected: anAnnouncement
 		self
 			activateItem: package;
 			focus ]
+!
+
+onPackageStateChanged
+	self refresh
 !
 
 onPackagesFocusRequested

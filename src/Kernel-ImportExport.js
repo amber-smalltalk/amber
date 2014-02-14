@@ -1533,12 +1533,16 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._commitJsFileFor_onSuccess_onError_(aPackage,(function(){
 return smalltalk.withContext(function($ctx2) {
-return self._commitStFileFor_onSuccess_onError_(aPackage,aBlock,anotherBlock);
+return self._commitStFileFor_onSuccess_onError_(aPackage,(function(){
+return smalltalk.withContext(function($ctx3) {
+_st(aPackage)._beClean();
+return _st(aBlock)._value();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}),anotherBlock);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),anotherBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"commit:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)})},
 args: ["aPackage", "aBlock", "anotherBlock"],
-source: "commit: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09commitJsFileFor: aPackage \x0a\x09\x09onSuccess: [\x0a\x09\x09\x09self \x0a\x09\x09\x09commitStFileFor: aPackage \x0a\x09\x09\x09onSuccess: aBlock\x0a\x09\x09\x09onError: anotherBlock ] \x0a\x09\x09onError: anotherBlock",
-messageSends: ["commitJsFileFor:onSuccess:onError:", "commitStFileFor:onSuccess:onError:"],
+source: "commit: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09commitJsFileFor: aPackage \x0a\x09\x09onSuccess: [\x0a\x09\x09\x09self \x0a\x09\x09\x09\x09commitStFileFor: aPackage \x0a\x09\x09\x09\x09onSuccess: [ aPackage beClean. aBlock value ]\x0a\x09\x09\x09\x09onError: anotherBlock ] \x0a\x09\x09onError: anotherBlock",
+messageSends: ["commitJsFileFor:onSuccess:onError:", "commitStFileFor:onSuccess:onError:", "beClean", "value"],
 referencedClasses: []
 }),
 globals.PackageHandler);

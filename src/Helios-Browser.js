@@ -3437,13 +3437,21 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "cssClassForItem:",
 protocol: 'accessing',
-fn: function (anItem) {
+fn: function (anItem){
 var self=this;
-return "package";
-},
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(anItem)._isDirty();
+if(smalltalk.assert($2)){
+$1="package_dirty";
+} else {
+$1="package";
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{anItem:anItem},globals.HLPackagesListWidget)})},
 args: ["anItem"],
-source: "cssClassForItem: anItem\x09\x0a\x09^ 'package'",
-messageSends: [],
+source: "cssClassForItem: anItem\x09\x0a\x09^ anItem isDirty \x0a\x09\x09ifTrue: [ 'package_dirty' ]\x0a\x09\x09ifFalse: [ 'package' ]",
+messageSends: ["ifTrue:ifFalse:", "isDirty"],
 referencedClasses: []
 }),
 globals.HLPackagesListWidget);
@@ -3553,24 +3561,38 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "observeSystem",
 protocol: 'actions',
-fn: function () {
+fn: function (){
 var self=this;
 function $ClassAdded(){return globals.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
 function $PackageAdded(){return globals.PackageAdded||(typeof PackageAdded=="undefined"?nil:PackageAdded)}
+function $PackageClean(){return globals.PackageClean||(typeof PackageClean=="undefined"?nil:PackageClean)}
+function $PackageDirty(){return globals.PackageDirty||(typeof PackageDirty=="undefined"?nil:PackageDirty)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$4,$3,$6,$5;
 $2=self._model();
 $ctx1.sendIdx["model"]=1;
 $1=_st($2)._systemAnnouncer();
 $ctx1.sendIdx["systemAnnouncer"]=1;
 _st($1)._on_send_to_($ClassAdded(),"onClassAdded:",self);
 $ctx1.sendIdx["on:send:to:"]=1;
-_st(_st(self._model())._systemAnnouncer())._on_send_to_($PackageAdded(),"onPackageAdded:",self);
-return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},globals.HLPackagesListWidget)});},
+$4=self._model();
+$ctx1.sendIdx["model"]=2;
+$3=_st($4)._systemAnnouncer();
+$ctx1.sendIdx["systemAnnouncer"]=2;
+_st($3)._on_send_to_($PackageAdded(),"onPackageAdded:",self);
+$ctx1.sendIdx["on:send:to:"]=2;
+$6=self._model();
+$ctx1.sendIdx["model"]=3;
+$5=_st($6)._systemAnnouncer();
+$ctx1.sendIdx["systemAnnouncer"]=3;
+_st($5)._on_send_to_($PackageClean(),"onPackageStateChanged",self);
+$ctx1.sendIdx["on:send:to:"]=3;
+_st(_st(self._model())._systemAnnouncer())._on_send_to_($PackageDirty(),"onPackageStateChanged",self);
+return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},globals.HLPackagesListWidget)})},
 args: [],
-source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09send: #onClassAdded:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageAdded\x0a\x09\x09send: #onPackageAdded:\x0a\x09\x09to: self",
+source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09send: #onClassAdded:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageAdded\x0a\x09\x09send: #onPackageAdded:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageClean\x0a\x09\x09send: #onPackageStateChanged\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageDirty\x0a\x09\x09send: #onPackageStateChanged\x0a\x09\x09to: self.\x0a\x09",
 messageSends: ["on:send:to:", "systemAnnouncer", "model"],
-referencedClasses: ["ClassAdded", "PackageAdded"]
+referencedClasses: ["ClassAdded", "PackageAdded", "PackageClean", "PackageDirty"]
 }),
 globals.HLPackagesListWidget);
 
@@ -3635,6 +3657,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{anAnnouncem
 args: ["anAnnouncement"],
 source: "onPackageSelected: anAnnouncement\x0a\x09| package |\x0a\x09\x0a\x09package := anAnnouncement item.\x0a\x09\x0a\x09self selectedItem: package.\x0a\x09self hasFocus ifFalse: [\x0a\x09\x09self\x0a\x09\x09\x09activateItem: package;\x0a\x09\x09\x09focus ]",
 messageSends: ["item", "selectedItem:", "ifFalse:", "hasFocus", "activateItem:", "focus"],
+referencedClasses: []
+}),
+globals.HLPackagesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onPackageStateChanged",
+protocol: 'reactions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._refresh();
+return self}, function($ctx1) {$ctx1.fill(self,"onPackageStateChanged",{},globals.HLPackagesListWidget)})},
+args: [],
+source: "onPackageStateChanged\x0a\x09self refresh",
+messageSends: ["refresh"],
 referencedClasses: []
 }),
 globals.HLPackagesListWidget);

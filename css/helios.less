@@ -216,6 +216,7 @@ body[id="helios"] {
 		color: #444;
 		text-shadow: 0 1px 0 #ddd;
 		border-left: 1px solid #aaa;
+		border-right: 1px solid transparent;
 
 		span {
 			display: block;
@@ -229,7 +230,7 @@ body[id="helios"] {
 
 	.navbar .nav > .active + li {
 		a {
-			border-left: 0 none;
+			border-left: 1px solid transparent;
 		}
 	}
 
@@ -238,10 +239,8 @@ body[id="helios"] {
 	.navbar .nav > .active > a:focus {
 		border-left: 0 none;
 		background-color: #bababa;
-		background-image: linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
-		background-image: -webkit-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -webkit-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
-		background-image: -moz-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -moz-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
-		background-image: -o-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -o-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
+		border-left: 1px solid #777;
+		border-right: 1px solid #777;
 		text-shadow: #ddd 0px 1px 0px;
 		color: #222;
 	}
@@ -442,6 +441,9 @@ body[id="helios"] {
 	}
 	.tool_container .pane .nav-pills i.package {
 		background-image: url('../images/package.png');
+	}
+	.tool_container .pane .nav-pills i.package_dirty {
+		background-image: url('../images/package-dirty.png');
 	}
 	.tool_container .pane .nav-pills i.private {
 		background-image: url('../images/private.png');

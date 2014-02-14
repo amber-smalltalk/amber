@@ -239,6 +239,8 @@ package
 	- if it is an extension method, answer the corresponding package
 	- else answer the `methodClass` package"
 	
+	self methodClass ifNil: [ ^ nil ].
+	
 	(self protocol beginsWith: '*') ifFalse: [
 		^ self methodClass package ].
 		

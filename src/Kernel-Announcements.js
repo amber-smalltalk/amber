@@ -798,6 +798,14 @@ smalltalk.addClass('PackageAdded', globals.PackageAnnouncement, [], 'Kernel-Anno
 globals.PackageAdded.comment="I am emitted when a `Package` is added to the system.";
 
 
+smalltalk.addClass('PackageClean', globals.PackageAnnouncement, [], 'Kernel-Announcements');
+globals.PackageClean.comment="I am emitted when a package is committed and becomes clean.";
+
+
+smalltalk.addClass('PackageDirty', globals.PackageAnnouncement, [], 'Kernel-Announcements');
+globals.PackageDirty.comment="I am emitted when a package becomes dirty.";
+
+
 smalltalk.addClass('PackageRemoved', globals.PackageAnnouncement, [], 'Kernel-Announcements');
 globals.PackageRemoved.comment="I am emitted when a `Package` is removed from the system.";
 

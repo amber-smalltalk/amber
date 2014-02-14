@@ -596,9 +596,9 @@ commit: aPackage onSuccess: aBlock onError: anotherBlock
 		commitJsFileFor: aPackage 
 		onSuccess: [
 			self 
-			commitStFileFor: aPackage 
-			onSuccess: aBlock
-			onError: anotherBlock ] 
+				commitStFileFor: aPackage 
+				onSuccess: [ aPackage beClean. aBlock value ]
+				onError: anotherBlock ] 
 		onError: anotherBlock
 !
 
