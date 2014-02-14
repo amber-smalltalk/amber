@@ -168,8 +168,12 @@ body[id="helios"] .navbar .nav > li {
   line-height: 16px;
   text-align: center;
 }
-body[id="helios"] .navbar .nav > li.dropdown {
+body[id="helios"] .navbar .nav > li.new_tab {
   width: 85px;
+}
+body[id="helios"] .dropdown-menu {
+  min-width: 0;
+  text-align: left;
 }
 body[id="helios"] .navbar .nav > li > a {
   line-height: 22px;

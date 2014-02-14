@@ -1444,7 +1444,7 @@ renderAddOn: html
     	class: 'dropdown';
         with: [ 
 			html a 
-        		class: 'dropdown-toggle';
+        		class: 'new_tab dropdown-toggle';
            	 	at: 'data-toggle' put: 'dropdown';
             	with: [ 
             		html with: 'Open...'.
