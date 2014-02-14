@@ -210,6 +210,7 @@ body[id="helios"] {
 		font-size: 11px;
 		color: #444;
 		text-shadow: 0 1px 0 #ddd;
+		border-left: 1px solid #aaa;
 
 		span {
 			display: block;
@@ -221,9 +222,16 @@ body[id="helios"] {
 		background: transparent;
 	}
 
+	.navbar .nav > .active + li {
+		a {
+			border-left: 0 none;
+		}
+	}
+
 	.navbar .nav > .active > a,
 	.navbar .nav > .active > a:hover,
 	.navbar .nav > .active > a:focus {
+		border-left: 0 none;
 		background-color: #bababa;
 		background-image: linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
 		background-image: -webkit-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -webkit-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
