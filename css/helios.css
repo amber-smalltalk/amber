@@ -128,7 +128,7 @@ body[id="helios"] .navbar-fixed-top i.close {
   background-image: url('../images/close.gif');
   margin-right: 0;
   background-position: center left;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 body[id="helios"] .navbar-fixed-top a span.references,
 body[id="helios"] .dialog .nav a span.references {
