@@ -187,9 +187,6 @@ body[id="helios"] .navbar .nav > li > a span {
 body[id="helios"] .nav > li > a:hover {
   background: transparent;
 }
-body[id="helios"] .navbar .nav > .active + li a {
-  border-left: 1px solid transparent;
-}
 body[id="helios"] .navbar .nav > .active > a,
 body[id="helios"] .navbar .nav > .active > a:hover,
 body[id="helios"] .navbar .nav > .active > a:focus {
