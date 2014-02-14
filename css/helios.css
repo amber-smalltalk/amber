@@ -659,10 +659,10 @@ body[id="helios"] .growl {
   width: 200px;
   height: auto;
   padding: 15px;
-  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.8), rgba(235, 235, 235, 0.8));
-  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.8), rgba(235, 235, 235, 0.8));
-  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.8), rgba(235, 235, 235, 0.8));
-  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(235, 235, 235, 0.8));
+  background-image: -webkit-linear-gradient(#ffffff, #ebebeb);
+  background-image: -moz-linear-gradient(#ffffff, #ebebeb);
+  background-image: -o-linear-gradient(#ffffff, #ebebeb);
+  background-image: linear-gradient(#ffffff, #ebebeb);
   border: 1px solid #aaa;
   border-radius: 8px;
   box-shadow: 0 0 3px #ccc;
