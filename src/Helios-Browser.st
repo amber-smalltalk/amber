@@ -549,8 +549,10 @@ onClassAdded: anAnnouncement
 	(class package = self model selectedPackage or: [
 		self items includes: class ]) ifFalse: [ ^ self ].
     
-    self setItemsForSelectedPackage.
-    self refresh
+    self 
+		setItemsForSelectedPackage;
+		refresh;
+		focus
 !
 
 onClassCommentChanged: anAnnouncement
@@ -559,7 +561,9 @@ onClassCommentChanged: anAnnouncement
 
 	class package = self model selectedPackage ifFalse: [ ^ self ].
     
-    self refresh
+    self 
+		refresh;
+		focus
 !
 
 onClassMigrated: anAnnouncement
@@ -574,7 +578,9 @@ onClassMigrated: anAnnouncement
 		self model selectedClass: class ].
     
     self setItemsForSelectedPackage.
-    self refresh
+    self 
+		refresh;
+		focus
 !
 
 onClassMoved: anAnnouncement
@@ -593,7 +599,9 @@ onClassMoved: anAnnouncement
 			selectItem: nil ].
     
     self setItemsForSelectedPackage.
-    self refresh
+    self 	
+		refresh;
+		focus
 !
 
 onClassRemoved: anAnnouncement
@@ -606,14 +614,18 @@ onClassRemoved: anAnnouncement
 		selectItem: nil;
 		selectedItem: nil.
     self setItemsForSelectedPackage.
-    self refresh
+    self 
+		refresh;
+		focus
 !
 
 onClassRenamed: anAnnouncement
 	anAnnouncement theClass package = self model selectedPackage ifFalse: [ ^ self ].
     
     self setItemsForSelectedPackage.
-    self refresh
+    self 
+		refresh;
+		focus
 !
 
 onClassSelected: anAnnouncement
@@ -1071,7 +1083,9 @@ onMethodRemoved: anAnnouncement
 				selectItem: nil ] ].
 
     self setItemsForSelectedProtocol.
-	self refresh
+	self 
+		refresh;
+		focus
 !
 
 onMethodSelected: anAnnouncement

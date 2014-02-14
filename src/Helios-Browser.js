@@ -1483,11 +1483,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onClassAdded:",
 protocol: 'reactions',
-fn: function (anAnnouncement) {
+fn: function (anAnnouncement){
 var self=this;
 var class_;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 class_=_st(anAnnouncement)._theClass();
 $1=_st(_st(_st(class_)._package()).__eq(_st(self._model())._selectedPackage()))._or_((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -1498,10 +1498,11 @@ return self;
 };
 self._setItemsForSelectedPackage();
 self._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{anAnnouncement:anAnnouncement,class_:class_},globals.HLClassesListWidget)});},
+$2=self._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{anAnnouncement:anAnnouncement,class_:class_},globals.HLClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassAdded: anAnnouncement\x0a\x09| class |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09\x0a\x09(class package = self model selectedPackage or: [\x0a\x09\x09self items includes: class ]) ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
-messageSends: ["theClass", "ifFalse:", "or:", "=", "package", "selectedPackage", "model", "includes:", "items", "setItemsForSelectedPackage", "refresh"],
+source: "onClassAdded: anAnnouncement\x0a\x09| class |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09\x0a\x09(class package = self model selectedPackage or: [\x0a\x09\x09self items includes: class ]) ifFalse: [ ^ self ].\x0a    \x0a    self \x0a\x09\x09setItemsForSelectedPackage;\x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["theClass", "ifFalse:", "or:", "=", "package", "selectedPackage", "model", "includes:", "items", "setItemsForSelectedPackage", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -1510,21 +1511,22 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onClassCommentChanged:",
 protocol: 'reactions',
-fn: function (anAnnouncement) {
+fn: function (anAnnouncement){
 var self=this;
 var class_;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 class_=_st(anAnnouncement)._theClass();
 $1=_st(_st(class_)._package()).__eq(_st(self._model())._selectedPackage());
 if(! smalltalk.assert($1)){
 return self;
 };
 self._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onClassCommentChanged:",{anAnnouncement:anAnnouncement,class_:class_},globals.HLClassesListWidget)});},
+$2=self._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onClassCommentChanged:",{anAnnouncement:anAnnouncement,class_:class_},globals.HLClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassCommentChanged: anAnnouncement\x0a\x09| class |\x0a\x09class := anAnnouncement theClass.\x0a\x0a\x09class package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a    self refresh",
-messageSends: ["theClass", "ifFalse:", "=", "package", "selectedPackage", "model", "refresh"],
+source: "onClassCommentChanged: anAnnouncement\x0a\x09| class |\x0a\x09class := anAnnouncement theClass.\x0a\x0a\x09class package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a    self \x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["theClass", "ifFalse:", "=", "package", "selectedPackage", "model", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -1533,11 +1535,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onClassMigrated:",
 protocol: 'reactions',
-fn: function (anAnnouncement) {
+fn: function (anAnnouncement){
 var self=this;
 var class_,oldClass;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2;
+var $1,$4,$3,$2,$5;
 class_=_st(anAnnouncement)._theClass();
 oldClass=_st(anAnnouncement)._oldClass();
 $1=_st(self._items())._includes_(oldClass);
@@ -1553,10 +1555,11 @@ _st(self._model())._selectedClass_(class_);
 };
 self._setItemsForSelectedPackage();
 self._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onClassMigrated:",{anAnnouncement:anAnnouncement,class_:class_,oldClass:oldClass},globals.HLClassesListWidget)});},
+$5=self._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onClassMigrated:",{anAnnouncement:anAnnouncement,class_:class_,oldClass:oldClass},globals.HLClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassMigrated: anAnnouncement\x0a\x09| class oldClass |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09oldClass := anAnnouncement oldClass.\x0a\x0a\x09(self items includes: oldClass) ifFalse: [ ^ self ].\x0a\x0a\x09self model selectedClass = oldClass ifTrue: [\x0a\x09\x09self model selectedClass: class ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
-messageSends: ["theClass", "oldClass", "ifFalse:", "includes:", "items", "ifTrue:", "=", "selectedClass", "model", "selectedClass:", "setItemsForSelectedPackage", "refresh"],
+source: "onClassMigrated: anAnnouncement\x0a\x09| class oldClass |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09oldClass := anAnnouncement oldClass.\x0a\x0a\x09(self items includes: oldClass) ifFalse: [ ^ self ].\x0a\x0a\x09self model selectedClass = oldClass ifTrue: [\x0a\x09\x09self model selectedClass: class ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self \x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["theClass", "oldClass", "ifFalse:", "includes:", "items", "ifTrue:", "=", "selectedClass", "model", "selectedClass:", "setItemsForSelectedPackage", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -1565,11 +1568,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onClassMoved:",
 protocol: 'reactions',
-fn: function (anAnnouncement) {
+fn: function (anAnnouncement){
 var self=this;
 var class_,oldPackage;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$5,$4,$2,$6,$8,$7,$1,$9,$10;
+var $3,$5,$4,$2,$6,$8,$7,$1,$9,$10,$11;
 class_=_st(anAnnouncement)._theClass();
 oldPackage=_st(anAnnouncement)._oldPackage();
 $3=oldPackage;
@@ -1600,10 +1603,11 @@ $10;
 };
 self._setItemsForSelectedPackage();
 self._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onClassMoved:",{anAnnouncement:anAnnouncement,class_:class_,oldPackage:oldPackage},globals.HLClassesListWidget)});},
+$11=self._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onClassMoved:",{anAnnouncement:anAnnouncement,class_:class_,oldPackage:oldPackage},globals.HLClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassMoved: anAnnouncement\x0a\x09| class oldPackage |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09oldPackage := anAnnouncement oldPackage.\x0a\x09\x0a\x09(oldPackage = self model selectedPackage or: [\x0a\x09\x09class package = self model selectedPackage ])\x0a\x09\x09\x09ifFalse: [ ^ self ].\x0a\x09\x0a\x09oldPackage = self model selectedPackage ifTrue: [ \x0a\x09\x09self \x0a\x09\x09\x09selectedItem: nil;\x0a\x09\x09\x09selectItem: nil ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
-messageSends: ["theClass", "oldPackage", "ifFalse:", "or:", "=", "selectedPackage", "model", "package", "ifTrue:", "selectedItem:", "selectItem:", "setItemsForSelectedPackage", "refresh"],
+source: "onClassMoved: anAnnouncement\x0a\x09| class oldPackage |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09oldPackage := anAnnouncement oldPackage.\x0a\x09\x0a\x09(oldPackage = self model selectedPackage or: [\x0a\x09\x09class package = self model selectedPackage ])\x0a\x09\x09\x09ifFalse: [ ^ self ].\x0a\x09\x0a\x09oldPackage = self model selectedPackage ifTrue: [ \x0a\x09\x09self \x0a\x09\x09\x09selectedItem: nil;\x0a\x09\x09\x09selectItem: nil ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self \x09\x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["theClass", "oldPackage", "ifFalse:", "or:", "=", "selectedPackage", "model", "package", "ifTrue:", "selectedItem:", "selectItem:", "setItemsForSelectedPackage", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -1616,7 +1620,7 @@ fn: function (anAnnouncement){
 var self=this;
 var class_;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 class_=_st(anAnnouncement)._theClass();
 $1=_st(_st(class_)._package()).__eq(_st(self._model())._selectedPackage());
 if(! smalltalk.assert($1)){
@@ -1626,10 +1630,11 @@ self._selectItem_(nil);
 $2=self._selectedItem_(nil);
 self._setItemsForSelectedPackage();
 self._refresh();
+$3=self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassRemoved:",{anAnnouncement:anAnnouncement,class_:class_},globals.HLClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassRemoved: anAnnouncement\x0a\x09| class |\x0a\x09class := anAnnouncement theClass.\x0a\x0a\x09class package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a\x09self \x0a\x09\x09selectItem: nil;\x0a\x09\x09selectedItem: nil.\x0a    self setItemsForSelectedPackage.\x0a    self refresh",
-messageSends: ["theClass", "ifFalse:", "=", "package", "selectedPackage", "model", "selectItem:", "selectedItem:", "setItemsForSelectedPackage", "refresh"],
+source: "onClassRemoved: anAnnouncement\x0a\x09| class |\x0a\x09class := anAnnouncement theClass.\x0a\x0a\x09class package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a\x09self \x0a\x09\x09selectItem: nil;\x0a\x09\x09selectedItem: nil.\x0a    self setItemsForSelectedPackage.\x0a    self \x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["theClass", "ifFalse:", "=", "package", "selectedPackage", "model", "selectItem:", "selectedItem:", "setItemsForSelectedPackage", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -1638,20 +1643,21 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onClassRenamed:",
 protocol: 'reactions',
-fn: function (anAnnouncement) {
+fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 $1=_st(_st(_st(anAnnouncement)._theClass())._package()).__eq(_st(self._model())._selectedPackage());
 if(! smalltalk.assert($1)){
 return self;
 };
 self._setItemsForSelectedPackage();
 self._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onClassRenamed:",{anAnnouncement:anAnnouncement},globals.HLClassesListWidget)});},
+$2=self._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onClassRenamed:",{anAnnouncement:anAnnouncement},globals.HLClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassRenamed: anAnnouncement\x0a\x09anAnnouncement theClass package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
-messageSends: ["ifFalse:", "=", "package", "theClass", "selectedPackage", "model", "setItemsForSelectedPackage", "refresh"],
+source: "onClassRenamed: anAnnouncement\x0a\x09anAnnouncement theClass package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self \x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["ifFalse:", "=", "package", "theClass", "selectedPackage", "model", "setItemsForSelectedPackage", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -2930,11 +2936,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onMethodRemoved:",
 protocol: 'reactions',
-fn: function (anAnnouncement) {
+fn: function (anAnnouncement){
 var self=this;
 var method;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3,$5;
+var $1,$2,$4,$3,$5,$6;
 var $early={};
 try {
 method=_st(anAnnouncement)._method();
@@ -2966,12 +2972,13 @@ $5;
 };
 self._setItemsForSelectedProtocol();
 self._refresh();
+$6=self._focus();
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"onMethodRemoved:",{anAnnouncement:anAnnouncement,method:method},globals.HLMethodsListWidget)});},
+}, function($ctx1) {$ctx1.fill(self,"onMethodRemoved:",{anAnnouncement:anAnnouncement,method:method},globals.HLMethodsListWidget)})},
 args: ["anAnnouncement"],
-source: "onMethodRemoved: anAnnouncement\x0a\x09| method |\x0a\x09\x0a\x09method := anAnnouncement method.\x0a\x09\x0a\x09self items detect: [ :each | each = method selector ] ifNone: [ ^ self ].\x0a\x0a    self selectedItem ifNotNil: [\x0a      \x09(method methodClass = self model selectedClass and: [ method selector = self selectedItem ])\x0a  \x09\x09\x09ifTrue: [ \x0a\x09\x09\x09\x09self selectedItem: nil; \x0a\x09\x09\x09\x09selectItem: nil ] ].\x0a\x0a    self setItemsForSelectedProtocol.\x0a\x09self refresh",
-messageSends: ["method", "detect:ifNone:", "items", "=", "selector", "ifNotNil:", "selectedItem", "ifTrue:", "and:", "methodClass", "selectedClass", "model", "selectedItem:", "selectItem:", "setItemsForSelectedProtocol", "refresh"],
+source: "onMethodRemoved: anAnnouncement\x0a\x09| method |\x0a\x09\x0a\x09method := anAnnouncement method.\x0a\x09\x0a\x09self items detect: [ :each | each = method selector ] ifNone: [ ^ self ].\x0a\x0a    self selectedItem ifNotNil: [\x0a      \x09(method methodClass = self model selectedClass and: [ method selector = self selectedItem ])\x0a  \x09\x09\x09ifTrue: [ \x0a\x09\x09\x09\x09self selectedItem: nil; \x0a\x09\x09\x09\x09selectItem: nil ] ].\x0a\x0a    self setItemsForSelectedProtocol.\x0a\x09self \x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["method", "detect:ifNone:", "items", "=", "selector", "ifNotNil:", "selectedItem", "ifTrue:", "and:", "methodClass", "selectedClass", "model", "selectedItem:", "selectItem:", "setItemsForSelectedProtocol", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLMethodsListWidget);
