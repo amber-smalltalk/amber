@@ -156,7 +156,7 @@ body[id="helios"] .dialog .nav a span.inspector {
   background-image: url('../images/inspector.png');
 }
 body[id="helios"] .navbar-fixed-top .navbar-inner {
-  min-height: 20px;
+  min-height: 24px;
   border-bottom: 1px solid #666;
   box-shadow: inset 0px 2px 2px #aaa;
   background: #bababa;
@@ -167,7 +167,9 @@ body[id="helios"] .navbar .nav > li {
   max-width: 300px;
 }
 body[id="helios"] .new_tab {
-  width: 60px;
+  width: 20px;
+  height: 24px;
+  line-height: 24px;
   border-right: 0 none;
   position: absolute;
   top: 0px;
