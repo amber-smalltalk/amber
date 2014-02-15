@@ -120,6 +120,7 @@ body[id="helios"] .dialog .nav a span {
   background-position: center left;
   background-repeat: no-repeat;
   background-position: 0px center;
+  height: 22px;
 }
 body[id="helios"] .navbar-fixed-top i.close {
   width: 14px;
