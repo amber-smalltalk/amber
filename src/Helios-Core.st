@@ -1920,12 +1920,6 @@ cssClass
 	^ self widget tabClass
 !
 
-displayLabel
-	^ self label size > 20 
-		ifTrue: [ (self label first: 20), '...' ]
-		ifFalse: [ self label ]
-!
-
 focus
 	self widget canHaveFocus ifTrue: [
 		self widget focus ]
@@ -2197,8 +2191,8 @@ renderTab: aTab on: html
 					onClick: [ self removeTab: aTab ].
 				html span 
 					class: aTab cssClass;
-					title: aTab displayLabel;
-					with: aTab displayLabel ] ];
+					title: aTab label;
+					with: aTab label ] ];
 		onClick: [ aTab activate ].
 	
 	(li asJQuery get: 0) at: 'tab-data' put: aTab

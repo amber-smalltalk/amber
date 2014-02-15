@@ -5669,35 +5669,6 @@ globals.HLTabWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "displayLabel",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$6,$5,$1;
-$4=self._label();
-$ctx1.sendIdx["label"]=1;
-$3=_st($4)._size();
-$2=_st($3).__gt((20));
-if(smalltalk.assert($2)){
-$6=self._label();
-$ctx1.sendIdx["label"]=2;
-$5=_st($6)._first_((20));
-$1=_st($5).__comma("...");
-} else {
-$1=self._label();
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},globals.HLTabWidget)})},
-args: [],
-source: "displayLabel\x0a\x09^ self label size > 20 \x0a\x09\x09ifTrue: [ (self label first: 20), '...' ]\x0a\x09\x09ifFalse: [ self label ]",
-messageSends: ["ifTrue:ifFalse:", ">", "size", "label", ",", "first:"],
-referencedClasses: []
-}),
-globals.HLTabWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "focus",
 protocol: 'accessing',
 fn: function (){
@@ -6488,10 +6459,10 @@ $ctx3.sendIdx["onClick:"]=1;
 $8=_st(html)._span();
 _st($8)._class_(_st(aTab)._cssClass());
 $9=$8;
-$10=_st(aTab)._displayLabel();
-$ctx3.sendIdx["displayLabel"]=1;
+$10=_st(aTab)._label();
+$ctx3.sendIdx["label"]=1;
 _st($9)._title_($10);
-$11=_st($8)._with_(_st(aTab)._displayLabel());
+$11=_st($8)._with_(_st(aTab)._label());
 return $11;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
 $ctx2.sendIdx["with:"]=2;
@@ -6505,8 +6476,8 @@ li=$12;
 _st(_st(_st(li)._asJQuery())._get_((0)))._at_put_("tab-data",aTab);
 return self}, function($ctx1) {$ctx1.fill(self,"renderTab:on:",{aTab:aTab,html:html,li:li},globals.HLTabsWidget)})},
 args: ["aTab", "html"],
-source: "renderTab: aTab on: html\x0a\x09| li |\x0a\x09li := html li \x0a\x09\x09style: 'width: ', self tabWidth asString, 'px';\x0a\x09\x09class: (aTab isActive ifTrue: [ 'tab active' ] ifFalse: [ 'tab inactive' ]);\x0a\x09\x09with: [\x0a\x09\x09\x09html a\x0a\x09\x09\x09with: [\x0a\x09\x09\x09\x09((html tag: 'i') class: 'close')\x0a\x09\x09\x09\x09\x09onClick: [ self removeTab: aTab ].\x0a\x09\x09\x09\x09html span \x0a\x09\x09\x09\x09\x09class: aTab cssClass;\x0a\x09\x09\x09\x09\x09title: aTab displayLabel;\x0a\x09\x09\x09\x09\x09with: aTab displayLabel ] ];\x0a\x09\x09onClick: [ aTab activate ].\x0a\x09\x0a\x09(li asJQuery get: 0) at: 'tab-data' put: aTab",
-messageSends: ["style:", "li", ",", "asString", "tabWidth", "class:", "ifTrue:ifFalse:", "isActive", "with:", "a", "onClick:", "tag:", "removeTab:", "span", "cssClass", "title:", "displayLabel", "activate", "at:put:", "get:", "asJQuery"],
+source: "renderTab: aTab on: html\x0a\x09| li |\x0a\x09li := html li \x0a\x09\x09style: 'width: ', self tabWidth asString, 'px';\x0a\x09\x09class: (aTab isActive ifTrue: [ 'tab active' ] ifFalse: [ 'tab inactive' ]);\x0a\x09\x09with: [\x0a\x09\x09\x09html a\x0a\x09\x09\x09with: [\x0a\x09\x09\x09\x09((html tag: 'i') class: 'close')\x0a\x09\x09\x09\x09\x09onClick: [ self removeTab: aTab ].\x0a\x09\x09\x09\x09html span \x0a\x09\x09\x09\x09\x09class: aTab cssClass;\x0a\x09\x09\x09\x09\x09title: aTab label;\x0a\x09\x09\x09\x09\x09with: aTab label ] ];\x0a\x09\x09onClick: [ aTab activate ].\x0a\x09\x0a\x09(li asJQuery get: 0) at: 'tab-data' put: aTab",
+messageSends: ["style:", "li", ",", "asString", "tabWidth", "class:", "ifTrue:ifFalse:", "isActive", "with:", "a", "onClick:", "tag:", "removeTab:", "span", "cssClass", "title:", "label", "activate", "at:put:", "get:", "asJQuery"],
 referencedClasses: []
 }),
 globals.HLTabsWidget);
