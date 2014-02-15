@@ -1164,13 +1164,13 @@ renderContentOn: html
 ! !
 
 HLWidget subclass: #HLManager
-	instanceVariableNames: 'tabs activeTab environment history announcer'
+	instanceVariableNames: 'tabsWidget environment history announcer'
 	package: 'Helios-Core'!
 
 !HLManager methodsFor: 'accessing'!
 
 activeTab
-	^ activeTab
+	^ self tabsWidget activeTab
 !
 
 announcer
@@ -1203,55 +1203,18 @@ tabWidth
 	^ (window asJQuery width - 90) / self tabs size
 !
 
-tabs
-	^ tabs ifNil: [ tabs := OrderedCollection new ]
+tabsWidget
+	^ tabsWidget ifNil: [ tabsWidget := HLTabsWidget new ]
 ! !
 
 !HLManager methodsFor: 'actions'!
 
 activate: aTab
-	self keyBinder flushBindings.
-	aTab registerBindings.
-	activeTab := aTab.
-	
-	self 
-		refresh;
-		addToHistory: aTab;
-		show: aTab
-!
-
-activateNextTab
-	| nextTab |
-	
-	self tabs ifEmpty: [ ^ self ].
-	
-	nextTab := self tabs 
-		at: (self tabs indexOf: self activeTab) + 1 
-		ifAbsent: [ self tabs first ].
-		
-	self activate: nextTab
-!
-
-activatePreviousTab
-	| previousTab |
-	
-	self tabs ifEmpty: [ ^ self ].
-	
-	previousTab := self tabs 
-		at: (self tabs indexOf: self activeTab) - 1 
-		ifAbsent: [ self tabs last ].
-		
-	self activate: previousTab
+	self tabsWidget activate: aTab
 !
 
 addTab: aTab
-	self tabs add: aTab.
-    self activate: aTab
-!
-
-addToHistory: aTab
-	self removeFromHistory: aTab.
-	self history add: aTab
+	self tabsWidget addTab: aTab
 !
 
 confirm: aString ifFalse: aBlock
@@ -1283,23 +1246,7 @@ inform: aString
 !
 
 removeActiveTab
-	self removeTab: self activeTab
-!
-
-removeFromHistory: aTab
-	self history: (self history reject: [ :each | each == aTab ])
-!
-
-removeTab: aTab
-	(self tabs includes: aTab) ifFalse: [ ^ self ].
-
-	self removeFromHistory: aTab.
-	self tabs remove: aTab.
-	self keyBinder flushBindings.
-	aTab remove.
-	self refresh.
-	self history ifNotEmpty: [
-		self history last activate ]
+	self tabsWidget removeActiveTab
 !
 
 request: aString do: aBlock
@@ -1340,6 +1287,7 @@ setup
 		registerServices;
 		setupEvents.
     self keyBinder setupEvents.
+	self tabsWidget setupEvents.
 	
 	
 	'#helper' asJQuery fadeOut
@@ -1357,16 +1305,6 @@ registerServices
 !
 
 setupEvents
-	'body' asJQuery keypress: [ :event |
-	
-		"ctrl+> and ctrl+<"
-		(event ctrlKey and: [ event which = '<' asciiValue ]) ifTrue: [
-			self activatePreviousTab.
-			event preventDefault ].
-		(event ctrlKey and: [ event which = '>' asciiValue ]) ifTrue: [
-			self activateNextTab.
-			event preventDefault ] ].
-
 	'body' asJQuery keydown: [ :event |
 			
 		"On ctrl keydown, adds a 'navigation' css class to <body>
@@ -1383,62 +1321,9 @@ setupEvents
 
 !HLManager methodsFor: 'rendering'!
 
-renderAddOn: html
-    html li 
-    	class: 'dropdown';
-        with: [ 
-			html a 
-        		class: 'new_tab dropdown-toggle';
-           	 	at: 'data-toggle' put: 'dropdown';
-            	with: [ 
-            		html with: 'Open...'.
-  					(html tag: 'b') class: 'caret' ].
-           html ul 
-           		class: 'dropdown-menu';
-                with: [
-                  	((HLWidget withAllSubclasses
-                    	select: [ :each | each canBeOpenAsTab ])
-                        sorted: [ :a :b | a tabPriority < b tabPriority ])
-                        do: [ :each |
-  							html li with: [
-                      			html a 
-                                	with: each tabLabel;
-      								onClick: [ each openAsTab ] ] ] ] ]
-!
-
 renderContentOn: html
-	html div 
-		class: 'navbar navbar-fixed-top';
-		with: [ html div 
-			class: 'navbar-inner';
-			with: [ self renderTabsOn: html ] ].
-	
+	html with: self tabsWidget.
 	html with: HLWelcomeWidget new
-!
-
-renderTabsOn: html
-	html ul 
-		class: 'nav';
-		with: [ 
-        	self tabs do: [ :each |
-				html li 
-					style: 'width: ', self tabWidth asString, 'px';
-					class: (each isActive ifTrue: [ 'tab active' ] ifFalse: [ 'tab inactive' ]);
-					with: [
-						html a
-							with: [
-      							((html tag: 'i') class: 'close')
-  									onClick: [ self removeTab: each ].
-                              	html span 
-									class: each cssClass;
-									with: each displayLabel ];
-							onClick: [ each activate ] ] ].
-			self renderAddOn: html ]
-!
-
-show: aTab
-	self tabs do: [ :each | each hide ].
-	aTab show; focus
 ! !
 
 !HLManager methodsFor: 'services'!
@@ -2142,6 +2027,176 @@ on: aWidget labelled: aString
 		label: aString;
 		yourself
 ! !
+
+HLWidget subclass: #HLTabsWidget
+	instanceVariableNames: 'tabs activeTab history'
+	package: 'Helios-Core'!
+
+!HLTabsWidget methodsFor: 'accessing'!
+
+activeTab
+	^ activeTab
+!
+
+history
+	^ history ifNil: [ history := OrderedCollection new ]
+!
+
+history: aCollection
+	history := aCollection
+!
+
+tabWidth
+	^ (window asJQuery width - 90) / self tabs size
+!
+
+tabs
+	^ tabs ifNil: [ tabs := OrderedCollection new ]
+! !
+
+!HLTabsWidget methodsFor: 'actions'!
+
+activate: aTab
+	self manager keyBinder flushBindings.
+	aTab registerBindings.
+	activeTab := aTab.
+	
+	self 
+		refresh;
+		addToHistory: aTab;
+		show: aTab
+!
+
+activateNextTab
+	| nextTab |
+	
+	self tabs ifEmpty: [ ^ self ].
+	
+	nextTab := self tabs 
+		at: (self tabs indexOf: self activeTab) + 1 
+		ifAbsent: [ self tabs first ].
+		
+	self activate: nextTab
+!
+
+activatePreviousTab
+	| previousTab |
+	
+	self tabs ifEmpty: [ ^ self ].
+	
+	previousTab := self tabs 
+		at: (self tabs indexOf: self activeTab) - 1 
+		ifAbsent: [ self tabs last ].
+		
+	self activate: previousTab
+!
+
+addTab: aTab
+	self tabs add: aTab.
+    self activate: aTab
+!
+
+addToHistory: aTab
+	self removeFromHistory: aTab.
+	self history add: aTab
+!
+
+removeActiveTab
+	self removeTab: self activeTab
+!
+
+removeFromHistory: aTab
+	self history: (self history reject: [ :each | each == aTab ])
+!
+
+removeTab: aTab
+	(self tabs includes: aTab) ifFalse: [ ^ self ].
+
+	self removeFromHistory: aTab.
+	self tabs remove: aTab.
+	self manager keyBinder flushBindings.
+	aTab remove.
+	self refresh.
+	self history ifNotEmpty: [
+		self history last activate ]
+! !
+
+!HLTabsWidget methodsFor: 'private'!
+
+setupEvents
+	'body' asJQuery keypress: [ :event |
+	
+		"ctrl+> and ctrl+<"
+		(event ctrlKey and: [ event which = '<' asciiValue ]) ifTrue: [
+			self activatePreviousTab.
+			event preventDefault ].
+		(event ctrlKey and: [ event which = '>' asciiValue ]) ifTrue: [
+			self activateNextTab.
+			event preventDefault ] ]
+! !
+
+!HLTabsWidget methodsFor: 'rendering'!
+
+renderAddOn: html
+    html li 
+    	class: 'dropdown';
+        with: [ 
+			html a 
+        		class: 'new_tab dropdown-toggle';
+           	 	at: 'data-toggle' put: 'dropdown';
+            	with: [ 
+            		html with: 'Open...'.
+  					(html tag: 'b') class: 'caret' ].
+           html ul 
+           		class: 'dropdown-menu';
+                with: [
+                  	((HLWidget withAllSubclasses
+                    	select: [ :each | each canBeOpenAsTab ])
+                        sorted: [ :a :b | a tabPriority < b tabPriority ])
+                        do: [ :each |
+  							html li with: [
+                      			html a 
+                                	with: each tabLabel;
+      								onClick: [ each openAsTab ] ] ] ] ]
+!
+
+renderContentOn: html
+	html div 
+		class: 'navbar navbar-fixed-top';
+		with: [ html div 
+			class: 'navbar-inner';
+			with: [ self renderTabsOn: html ] ]
+!
+
+renderTabsOn: html
+	| ul |
+	ul := html ul 
+		class: 'nav';
+		with: [ 
+        	self tabs do: [ :each |
+				html li 
+					style: 'width: ', self tabWidth asString, 'px';
+					class: (each isActive ifTrue: [ 'tab active' ] ifFalse: [ 'tab inactive' ]);
+					with: [
+						html a
+							with: [
+      							((html tag: 'i') class: 'close')
+  									onClick: [ self removeTab: each ].
+                              	html span 
+									class: each cssClass;
+									with: each displayLabel ] ];
+						onClick: [ each activate ] ].
+			self renderAddOn: html ].
+		
+	ul asJQuery sortable; disableSelection
+!
+
+show: aTab
+	self tabs do: [ :each | each hide ].
+	aTab show; focus
+! !
+
+HLTabsWidget class instanceVariableNames: 'current'!
 
 HLWidget subclass: #HLWelcomeWidget
 	instanceVariableNames: ''
