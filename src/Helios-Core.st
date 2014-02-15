@@ -2153,10 +2153,11 @@ setupEvents
 !HLTabsWidget methodsFor: 'rendering'!
 
 renderAddOn: html
-    html div class: 'dropdown new_tab';
+    html li 
+    	class: 'dropdown';
         with: [ 
 			html a 
-        		class: 'dropdown-toggle';
+        		class: 'new_tab dropdown-toggle';
            	 	at: 'data-toggle' put: 'dropdown';
             	with: [ 
             		html with: 'Open...'.
@@ -2179,9 +2180,7 @@ renderContentOn: html
 		class: 'navbar navbar-fixed-top';
 		with: [ html div 
 			class: 'navbar-inner';
-			with: [ self renderTabsOn: html ] ].
-			
-	self renderAddOn: html
+			with: [ self renderTabsOn: html ] ]
 !
 
 renderTab: aTab on: html
@@ -2196,6 +2195,7 @@ renderTab: aTab on: html
 					onClick: [ self removeTab: aTab ].
 				html span 
 					class: aTab cssClass;
+					title: aTab displayLabel;
 					with: aTab displayLabel ] ];
 		onClick: [ aTab activate ].
 	
@@ -2208,7 +2208,8 @@ renderTabsOn: html
 		class: 'nav main-tabs';
 		with: [ 
         	self tabs do: [ :each |
-				self renderTab: each on: html ] ].
+				self renderTab: each on: html ].
+			"self renderAddOn: html" ].
 		
 	ul asJQuery sortable: #{
 		'start' -> [ self disableSelection ].

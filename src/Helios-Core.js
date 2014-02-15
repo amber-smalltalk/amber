@@ -6361,14 +6361,15 @@ var self=this;
 function $HLWidget(){return globals.HLWidget||(typeof HLWidget=="undefined"?nil:HLWidget)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$3,$4,$5,$7,$8,$9,$6,$2;
-$1=_st(html)._div();
-_st($1)._class_("dropdown new_tab");
+$1=_st(html)._li();
+$ctx1.sendIdx["li"]=1;
+_st($1)._class_("dropdown");
 $ctx1.sendIdx["class:"]=1;
 $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 $3=_st(html)._a();
 $ctx2.sendIdx["a"]=1;
-_st($3)._class_("dropdown-toggle");
+_st($3)._class_("new_tab dropdown-toggle");
 $ctx2.sendIdx["class:"]=2;
 _st($3)._at_put_("data-toggle","dropdown");
 $4=_st($3)._with_((function(){
@@ -6413,8 +6414,8 @@ return $6;
 $ctx1.sendIdx["with:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"renderAddOn:",{html:html},globals.HLTabsWidget)})},
 args: ["html"],
-source: "renderAddOn: html\x0a    html div class: 'dropdown new_tab';\x0a        with: [ \x0a\x09\x09\x09html a \x0a        \x09\x09class: 'dropdown-toggle';\x0a           \x09 \x09at: 'data-toggle' put: 'dropdown';\x0a            \x09with: [ \x0a            \x09\x09html with: 'Open...'.\x0a  \x09\x09\x09\x09\x09(html tag: 'b') class: 'caret' ].\x0a           html ul \x0a           \x09\x09class: 'dropdown-menu';\x0a                with: [\x0a                  \x09((HLWidget withAllSubclasses\x0a                    \x09select: [ :each | each canBeOpenAsTab ])\x0a                        sorted: [ :a :b | a tabPriority < b tabPriority ])\x0a                        do: [ :each |\x0a  \x09\x09\x09\x09\x09\x09\x09html li with: [\x0a                      \x09\x09\x09html a \x0a                                \x09with: each tabLabel;\x0a      \x09\x09\x09\x09\x09\x09\x09\x09onClick: [ each openAsTab ] ] ] ] ]",
-messageSends: ["class:", "div", "with:", "a", "at:put:", "tag:", "ul", "do:", "sorted:", "select:", "withAllSubclasses", "canBeOpenAsTab", "<", "tabPriority", "li", "tabLabel", "onClick:", "openAsTab"],
+source: "renderAddOn: html\x0a    html li \x0a    \x09class: 'dropdown';\x0a        with: [ \x0a\x09\x09\x09html a \x0a        \x09\x09class: 'new_tab dropdown-toggle';\x0a           \x09 \x09at: 'data-toggle' put: 'dropdown';\x0a            \x09with: [ \x0a            \x09\x09html with: 'Open...'.\x0a  \x09\x09\x09\x09\x09(html tag: 'b') class: 'caret' ].\x0a           html ul \x0a           \x09\x09class: 'dropdown-menu';\x0a                with: [\x0a                  \x09((HLWidget withAllSubclasses\x0a                    \x09select: [ :each | each canBeOpenAsTab ])\x0a                        sorted: [ :a :b | a tabPriority < b tabPriority ])\x0a                        do: [ :each |\x0a  \x09\x09\x09\x09\x09\x09\x09html li with: [\x0a                      \x09\x09\x09html a \x0a                                \x09with: each tabLabel;\x0a      \x09\x09\x09\x09\x09\x09\x09\x09onClick: [ each openAsTab ] ] ] ] ]",
+messageSends: ["class:", "li", "with:", "a", "at:put:", "tag:", "ul", "do:", "sorted:", "select:", "withAllSubclasses", "canBeOpenAsTab", "<", "tabPriority", "tabLabel", "onClick:", "openAsTab"],
 referencedClasses: ["HLWidget"]
 }),
 globals.HLTabsWidget);
@@ -6442,11 +6443,10 @@ return self._renderTabsOn_(html);
 return $4;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["with:"]=1;
-self._renderAddOn_(html);
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLTabsWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09class: 'navbar navbar-fixed-top';\x0a\x09\x09with: [ html div \x0a\x09\x09\x09class: 'navbar-inner';\x0a\x09\x09\x09with: [ self renderTabsOn: html ] ].\x0a\x09\x09\x09\x0a\x09self renderAddOn: html",
-messageSends: ["class:", "div", "with:", "renderTabsOn:", "renderAddOn:"],
+source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09class: 'navbar navbar-fixed-top';\x0a\x09\x09with: [ html div \x0a\x09\x09\x09class: 'navbar-inner';\x0a\x09\x09\x09with: [ self renderTabsOn: html ] ]",
+messageSends: ["class:", "div", "with:", "renderTabsOn:"],
 referencedClasses: []
 }),
 globals.HLTabsWidget);
@@ -6459,7 +6459,7 @@ fn: function (aTab,html){
 var self=this;
 var li;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$6,$5,$7,$8,$9,$10;
+var $1,$2,$3,$4,$6,$5,$7,$8,$9,$10,$11,$12;
 $1=_st(html)._li();
 $2=$1;
 $3=_st("width: ".__comma(_st(self._tabWidth())._asString())).__comma("px");
@@ -6487,22 +6487,26 @@ return self._removeTab_(aTab);
 $ctx3.sendIdx["onClick:"]=1;
 $8=_st(html)._span();
 _st($8)._class_(_st(aTab)._cssClass());
-$9=_st($8)._with_(_st(aTab)._displayLabel());
-return $9;
+$9=$8;
+$10=_st(aTab)._displayLabel();
+$ctx3.sendIdx["displayLabel"]=1;
+_st($9)._title_($10);
+$11=_st($8)._with_(_st(aTab)._displayLabel());
+return $11;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
 $ctx2.sendIdx["with:"]=2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 $ctx1.sendIdx["with:"]=1;
-$10=_st($1)._onClick_((function(){
+$12=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(aTab)._activate();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
-li=$10;
+li=$12;
 _st(_st(_st(li)._asJQuery())._get_((0)))._at_put_("tab-data",aTab);
 return self}, function($ctx1) {$ctx1.fill(self,"renderTab:on:",{aTab:aTab,html:html,li:li},globals.HLTabsWidget)})},
 args: ["aTab", "html"],
-source: "renderTab: aTab on: html\x0a\x09| li |\x0a\x09li := html li \x0a\x09\x09style: 'width: ', self tabWidth asString, 'px';\x0a\x09\x09class: (aTab isActive ifTrue: [ 'tab active' ] ifFalse: [ 'tab inactive' ]);\x0a\x09\x09with: [\x0a\x09\x09\x09html a\x0a\x09\x09\x09with: [\x0a\x09\x09\x09\x09((html tag: 'i') class: 'close')\x0a\x09\x09\x09\x09\x09onClick: [ self removeTab: aTab ].\x0a\x09\x09\x09\x09html span \x0a\x09\x09\x09\x09\x09class: aTab cssClass;\x0a\x09\x09\x09\x09\x09with: aTab displayLabel ] ];\x0a\x09\x09onClick: [ aTab activate ].\x0a\x09\x0a\x09(li asJQuery get: 0) at: 'tab-data' put: aTab",
-messageSends: ["style:", "li", ",", "asString", "tabWidth", "class:", "ifTrue:ifFalse:", "isActive", "with:", "a", "onClick:", "tag:", "removeTab:", "span", "cssClass", "displayLabel", "activate", "at:put:", "get:", "asJQuery"],
+source: "renderTab: aTab on: html\x0a\x09| li |\x0a\x09li := html li \x0a\x09\x09style: 'width: ', self tabWidth asString, 'px';\x0a\x09\x09class: (aTab isActive ifTrue: [ 'tab active' ] ifFalse: [ 'tab inactive' ]);\x0a\x09\x09with: [\x0a\x09\x09\x09html a\x0a\x09\x09\x09with: [\x0a\x09\x09\x09\x09((html tag: 'i') class: 'close')\x0a\x09\x09\x09\x09\x09onClick: [ self removeTab: aTab ].\x0a\x09\x09\x09\x09html span \x0a\x09\x09\x09\x09\x09class: aTab cssClass;\x0a\x09\x09\x09\x09\x09title: aTab displayLabel;\x0a\x09\x09\x09\x09\x09with: aTab displayLabel ] ];\x0a\x09\x09onClick: [ aTab activate ].\x0a\x09\x0a\x09(li asJQuery get: 0) at: 'tab-data' put: aTab",
+messageSends: ["style:", "li", ",", "asString", "tabWidth", "class:", "ifTrue:ifFalse:", "isActive", "with:", "a", "onClick:", "tag:", "removeTab:", "span", "cssClass", "title:", "displayLabel", "activate", "at:put:", "get:", "asJQuery"],
 referencedClasses: []
 }),
 globals.HLTabsWidget);
@@ -6541,7 +6545,7 @@ return self._updateTabsOrder();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})})]));
 return self}, function($ctx1) {$ctx1.fill(self,"renderTabsOn:",{html:html,ul:ul},globals.HLTabsWidget)})},
 args: ["html"],
-source: "renderTabsOn: html\x0a\x09| ul |\x0a\x09ul := html ul \x0a\x09\x09class: 'nav main-tabs';\x0a\x09\x09with: [ \x0a        \x09self tabs do: [ :each |\x0a\x09\x09\x09\x09self renderTab: each on: html ] ].\x0a\x09\x09\x0a\x09ul asJQuery sortable: #{\x0a\x09\x09'start' -> [ self disableSelection ].\x0a\x09\x09'stop' -> [ [ self enableSelection] valueWithTimeout: 300 ].\x0a\x09\x09'update' -> [ self updateTabsOrder ]\x0a\x09}",
+source: "renderTabsOn: html\x0a\x09| ul |\x0a\x09ul := html ul \x0a\x09\x09class: 'nav main-tabs';\x0a\x09\x09with: [ \x0a        \x09self tabs do: [ :each |\x0a\x09\x09\x09\x09self renderTab: each on: html ].\x0a\x09\x09\x09\x22self renderAddOn: html\x22 ].\x0a\x09\x09\x0a\x09ul asJQuery sortable: #{\x0a\x09\x09'start' -> [ self disableSelection ].\x0a\x09\x09'stop' -> [ [ self enableSelection] valueWithTimeout: 300 ].\x0a\x09\x09'update' -> [ self updateTabsOrder ]\x0a\x09}",
 messageSends: ["class:", "ul", "with:", "do:", "tabs", "renderTab:on:", "sortable:", "asJQuery", "disableSelection", "valueWithTimeout:", "enableSelection", "updateTabsOrder"],
 referencedClasses: []
 }),
