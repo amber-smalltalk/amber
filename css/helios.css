@@ -284,6 +284,7 @@ body[id="helios"] .welcome h2 {
   color: #666;
 }
 body[id="helios"] .welcome button {
+  background: #eee;
   margin: 10px;
   padding: 20px;
   height: auto;
