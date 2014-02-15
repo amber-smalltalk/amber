@@ -2153,8 +2153,7 @@ renderAddOn: html
 			html a 
         		class: 'dropdown-toggle';
            	 	at: 'data-toggle' put: 'dropdown';
-            	with: [ 
-            		html with: 'Open...'.
+            	with: [
   					(html tag: 'b') class: 'caret' ].
            html ul 
            		class: 'dropdown-menu';
