@@ -6501,7 +6501,7 @@ return self._renderTab_on_(each,html);
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 ul=$2;
-_st(_st(ul)._asJQuery())._sortable_(globals.HashedCollection._newFromPairs_(["start",(function(){
+_st(_st(ul)._asJQuery())._sortable_(globals.HashedCollection._newFromPairs_(["containment","parent","start",(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._disableSelection();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}),"stop",(function(){
@@ -6516,7 +6516,7 @@ return self._updateTabsOrder();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})})]));
 return self}, function($ctx1) {$ctx1.fill(self,"renderTabsOn:",{html:html,ul:ul},globals.HLTabsWidget)})},
 args: ["html"],
-source: "renderTabsOn: html\x0a\x09| ul |\x0a\x09ul := html ul \x0a\x09\x09class: 'nav main-tabs';\x0a\x09\x09with: [ \x0a        \x09self tabs do: [ :each |\x0a\x09\x09\x09\x09self renderTab: each on: html ] ].\x0a\x09\x09\x0a\x09ul asJQuery sortable: #{\x0a\x09\x09'start' -> [ self disableSelection ].\x0a\x09\x09'stop' -> [ [ self enableSelection] valueWithTimeout: 300 ].\x0a\x09\x09'update' -> [ self updateTabsOrder ]\x0a\x09}",
+source: "renderTabsOn: html\x0a\x09| ul |\x0a\x09ul := html ul \x0a\x09\x09class: 'nav main-tabs';\x0a\x09\x09with: [ \x0a        \x09self tabs do: [ :each |\x0a\x09\x09\x09\x09self renderTab: each on: html ] ].\x0a\x09\x09\x0a\x09ul asJQuery sortable: #{\x0a\x09\x09'containment' -> 'parent'.\x0a\x09\x09'start' -> [ self disableSelection ].\x0a\x09\x09'stop' -> [ [ self enableSelection] valueWithTimeout: 300 ].\x0a\x09\x09'update' -> [ self updateTabsOrder ]\x0a\x09}",
 messageSends: ["class:", "ul", "with:", "do:", "tabs", "renderTab:on:", "sortable:", "asJQuery", "disableSelection", "valueWithTimeout:", "enableSelection", "updateTabsOrder"],
 referencedClasses: []
 }),

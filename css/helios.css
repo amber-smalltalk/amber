@@ -217,7 +217,7 @@ body[id="helios"] .navbar .nav .ui-sortable-helper a {
   box-shadow: 0 0 0;
 }
 body[id="helios"] .navbar .nav .ui-sortable-helper a {
-  border: 1px solid #777;
+  border-left: 1px solid #777;
 }
 body[id="helios"] .navbar-fixed-top i {
   opacity: 0.4;

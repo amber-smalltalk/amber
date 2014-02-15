@@ -2207,6 +2207,7 @@ renderTabsOn: html
 				self renderTab: each on: html ] ].
 		
 	ul asJQuery sortable: #{
+		'containment' -> 'parent'.
 		'start' -> [ self disableSelection ].
 		'stop' -> [ [ self enableSelection] valueWithTimeout: 300 ].
 		'update' -> [ self updateTabsOrder ]
