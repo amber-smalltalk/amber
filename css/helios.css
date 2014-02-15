@@ -206,6 +206,15 @@ body[id="helios"] .navbar .nav > li > a span {
 body[id="helios"] .nav > li > a:hover {
   background: transparent;
 }
+body[id="helios"] .navbar .nav > li > a:hover {
+  color: #333;
+  background-image: linear-gradient(top, #cfcfcf, #c0c0c0);
+  background-image: -webkit-linear-gradient(top, #cfcfcf, #c0c0c0);
+  background-image: -moz-linear-gradient(top, #cfcfcf, #c0c0c0);
+  background-image: -o-linear-gradient(top, #cfcfcf, #c0c0c0);
+  text-shadow: 0 1px 0 #ddd;
+  box-shadow: 0 0 0;
+}
 body[id="helios"] .navbar .nav > .active > a,
 body[id="helios"] .navbar .nav > .active > a:hover,
 body[id="helios"] .navbar .nav > .active > a:focus,
