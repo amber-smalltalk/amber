@@ -209,10 +209,11 @@ HLWidget subclass: #HLInspectorWidget
 
 codeWidget
 	^ codeWidget ifNil: [
-		codeWidget := HLCodeWidget new
-    		model: self model code;
-        	receiver: self model inspectee;
-        	yourself ]
+		codeWidget := self defaultCodeWidget ]
+!
+
+codeWidget: aWidget
+	codeWidget := aWidget
 !
 
 displayWidget
@@ -315,6 +316,15 @@ setLabel: aString
 
 setVariables: aDictionary
 	self model variables: aDictionary
+! !
+
+!HLInspectorWidget methodsFor: 'defaults'!
+
+defaultCodeWidget
+	^ HLCodeWidget new
+    	model: self model code;
+       	receiver: self model inspectee;
+       	yourself
 ! !
 
 !HLInspectorWidget methodsFor: 'reactions'!

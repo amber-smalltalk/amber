@@ -678,20 +678,11 @@ selector: "codeWidget",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $HLCodeWidget(){return globals.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$6,$5,$7,$1;
+var $2,$1;
 $2=self["@codeWidget"];
 if(($receiver = $2) == nil || $receiver == null){
-$3=_st($HLCodeWidget())._new();
-$4=$3;
-$6=self._model();
-$ctx1.sendIdx["model"]=1;
-$5=_st($6)._code();
-_st($4)._model_($5);
-_st($3)._receiver_(_st(self._model())._inspectee());
-$7=_st($3)._yourself();
-self["@codeWidget"]=$7;
+self["@codeWidget"]=self._defaultCodeWidget();
 $1=self["@codeWidget"];
 } else {
 $1=$2;
@@ -699,8 +690,50 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"codeWidget",{},globals.HLInspectorWidget)})},
 args: [],
-source: "codeWidget\x0a\x09^ codeWidget ifNil: [\x0a\x09\x09codeWidget := HLCodeWidget new\x0a    \x09\x09model: self model code;\x0a        \x09receiver: self model inspectee;\x0a        \x09yourself ]",
-messageSends: ["ifNil:", "model:", "new", "code", "model", "receiver:", "inspectee", "yourself"],
+source: "codeWidget\x0a\x09^ codeWidget ifNil: [\x0a\x09\x09codeWidget := self defaultCodeWidget ]",
+messageSends: ["ifNil:", "defaultCodeWidget"],
+referencedClasses: []
+}),
+globals.HLInspectorWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "codeWidget:",
+protocol: 'accessing',
+fn: function (aWidget){
+var self=this;
+self["@codeWidget"]=aWidget;
+return self},
+args: ["aWidget"],
+source: "codeWidget: aWidget\x0a\x09codeWidget := aWidget",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLInspectorWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultCodeWidget",
+protocol: 'defaults',
+fn: function (){
+var self=this;
+function $HLCodeWidget(){return globals.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$5,$4,$6,$1;
+$2=_st($HLCodeWidget())._new();
+$3=$2;
+$5=self._model();
+$ctx1.sendIdx["model"]=1;
+$4=_st($5)._code();
+_st($3)._model_($4);
+_st($2)._receiver_(_st(self._model())._inspectee());
+$6=_st($2)._yourself();
+$1=$6;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultCodeWidget",{},globals.HLInspectorWidget)})},
+args: [],
+source: "defaultCodeWidget\x0a\x09^ HLCodeWidget new\x0a    \x09model: self model code;\x0a       \x09receiver: self model inspectee;\x0a       \x09yourself",
+messageSends: ["model:", "new", "code", "model", "receiver:", "inspectee", "yourself"],
 referencedClasses: ["HLCodeWidget"]
 }),
 globals.HLInspectorWidget);
