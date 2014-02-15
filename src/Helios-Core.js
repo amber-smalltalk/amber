@@ -6039,7 +6039,7 @@ referencedClasses: []
 globals.HLTabWidget.klass);
 
 
-smalltalk.addClass('HLTabsWidget', globals.HLWidget, ['tabs', 'activeTab', 'history'], 'Helios-Core');
+smalltalk.addClass('HLTabsWidget', globals.HLWidget, ['tabs', 'activeTab', 'history', 'selectionDisabled'], 'Helios-Core');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activate:",
@@ -6047,17 +6047,21 @@ protocol: 'actions',
 fn: function (aTab){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
+$1=self._isSelectionDisabled();
+if(smalltalk.assert($1)){
+return self;
+};
 _st(_st(self._manager())._keyBinder())._flushBindings();
 _st(aTab)._registerBindings();
 self["@activeTab"]=aTab;
 self._refresh();
 self._addToHistory_(aTab);
-$1=self._show_(aTab);
+$2=self._show_(aTab);
 return self}, function($ctx1) {$ctx1.fill(self,"activate:",{aTab:aTab},globals.HLTabsWidget)})},
 args: ["aTab"],
-source: "activate: aTab\x0a\x09self manager keyBinder flushBindings.\x0a\x09aTab registerBindings.\x0a\x09activeTab := aTab.\x0a\x09\x0a\x09self \x0a\x09\x09refresh;\x0a\x09\x09addToHistory: aTab;\x0a\x09\x09show: aTab",
-messageSends: ["flushBindings", "keyBinder", "manager", "registerBindings", "refresh", "addToHistory:", "show:"],
+source: "activate: aTab\x0a\x09self isSelectionDisabled ifTrue: [ ^ self ].\x0a\x0a\x09self manager keyBinder flushBindings.\x0a\x09aTab registerBindings.\x0a\x09activeTab := aTab.\x0a\x09\x0a\x09self \x0a\x09\x09refresh;\x0a\x09\x09addToHistory: aTab;\x0a\x09\x09show: aTab",
+messageSends: ["ifTrue:", "isSelectionDisabled", "flushBindings", "keyBinder", "manager", "registerBindings", "refresh", "addToHistory:", "show:"],
 referencedClasses: []
 }),
 globals.HLTabsWidget);
@@ -6189,6 +6193,36 @@ globals.HLTabsWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "disableSelection",
+protocol: 'actions',
+fn: function (){
+var self=this;
+self["@selectionDisabled"]=true;
+return self},
+args: [],
+source: "disableSelection\x0a\x09selectionDisabled := true",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabsWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "enableSelection",
+protocol: 'actions',
+fn: function (){
+var self=this;
+self["@selectionDisabled"]=false;
+return self},
+args: [],
+source: "enableSelection\x0a\x09selectionDisabled := false",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabsWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "history",
 protocol: 'accessing',
 fn: function (){
@@ -6223,6 +6257,29 @@ return self},
 args: ["aCollection"],
 source: "history: aCollection\x0a\x09history := aCollection",
 messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabsWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isSelectionDisabled",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@selectionDisabled"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=false;
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isSelectionDisabled",{},globals.HLTabsWidget)})},
+args: [],
+source: "isSelectionDisabled\x0a\x09^ selectionDisabled ifNil: [ false ]",
+messageSends: ["ifNil:"],
 referencedClasses: []
 }),
 globals.HLTabsWidget);
@@ -6396,70 +6453,96 @@ globals.HLTabsWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "renderTab:on:",
+protocol: 'rendering',
+fn: function (aTab,html){
+var self=this;
+var li;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$6,$5,$7,$8,$9,$10;
+$1=_st(html)._li();
+$2=$1;
+$3=_st("width: ".__comma(_st(self._tabWidth())._asString())).__comma("px");
+$ctx1.sendIdx[","]=1;
+_st($2)._style_($3);
+$4=$1;
+$6=_st(aTab)._isActive();
+if(smalltalk.assert($6)){
+$5="tab active";
+} else {
+$5="tab inactive";
+};
+_st($4)._class_($5);
+$ctx1.sendIdx["class:"]=1;
+_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(html)._a())._with_((function(){
+return smalltalk.withContext(function($ctx3) {
+$7=_st(_st(html)._tag_("i"))._class_("close");
+$ctx3.sendIdx["class:"]=2;
+_st($7)._onClick_((function(){
+return smalltalk.withContext(function($ctx4) {
+return self._removeTab_(aTab);
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,5)})}));
+$ctx3.sendIdx["onClick:"]=1;
+$8=_st(html)._span();
+_st($8)._class_(_st(aTab)._cssClass());
+$9=_st($8)._with_(_st(aTab)._displayLabel());
+return $9;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
+$ctx2.sendIdx["with:"]=2;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+$ctx1.sendIdx["with:"]=1;
+$10=_st($1)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aTab)._activate();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
+li=$10;
+_st(_st(_st(li)._asJQuery())._get_((0)))._at_put_("tab-data",aTab);
+return self}, function($ctx1) {$ctx1.fill(self,"renderTab:on:",{aTab:aTab,html:html,li:li},globals.HLTabsWidget)})},
+args: ["aTab", "html"],
+source: "renderTab: aTab on: html\x0a\x09| li |\x0a\x09li := html li \x0a\x09\x09style: 'width: ', self tabWidth asString, 'px';\x0a\x09\x09class: (aTab isActive ifTrue: [ 'tab active' ] ifFalse: [ 'tab inactive' ]);\x0a\x09\x09with: [\x0a\x09\x09\x09html a\x0a\x09\x09\x09with: [\x0a\x09\x09\x09\x09((html tag: 'i') class: 'close')\x0a\x09\x09\x09\x09\x09onClick: [ self removeTab: aTab ].\x0a\x09\x09\x09\x09html span \x0a\x09\x09\x09\x09\x09class: aTab cssClass;\x0a\x09\x09\x09\x09\x09with: aTab displayLabel ] ];\x0a\x09\x09onClick: [ aTab activate ].\x0a\x09\x0a\x09(li asJQuery get: 0) at: 'tab-data' put: aTab",
+messageSends: ["style:", "li", ",", "asString", "tabWidth", "class:", "ifTrue:ifFalse:", "isActive", "with:", "a", "onClick:", "tag:", "removeTab:", "span", "cssClass", "displayLabel", "activate", "at:put:", "get:", "asJQuery"],
+referencedClasses: []
+}),
+globals.HLTabsWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "renderTabsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 var ul;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$8,$7,$9,$10,$11,$12,$2,$13,$14;
+var $1,$2;
 $1=_st(html)._ul();
-_st($1)._class_("nav");
-$ctx1.sendIdx["class:"]=1;
+_st($1)._class_("nav main-tabs");
 $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
-_st(self._tabs())._do_((function(each){
+return _st(self._tabs())._do_((function(each){
 return smalltalk.withContext(function($ctx3) {
-$3=_st(html)._li();
-$4=$3;
-$5=_st("width: ".__comma(_st(self._tabWidth())._asString())).__comma("px");
-$ctx3.sendIdx[","]=1;
-_st($4)._style_($5);
-$6=$3;
-$8=_st(each)._isActive();
-if(smalltalk.assert($8)){
-$7="tab active";
-} else {
-$7="tab inactive";
-};
-_st($6)._class_($7);
-$ctx3.sendIdx["class:"]=2;
-_st($3)._with_((function(){
-return smalltalk.withContext(function($ctx4) {
-return _st(_st(html)._a())._with_((function(){
-return smalltalk.withContext(function($ctx5) {
-$9=_st(_st(html)._tag_("i"))._class_("close");
-$ctx5.sendIdx["class:"]=3;
-_st($9)._onClick_((function(){
-return smalltalk.withContext(function($ctx6) {
-return self._removeTab_(each);
-}, function($ctx6) {$ctx6.fillBlock({},$ctx5,7)})}));
-$ctx5.sendIdx["onClick:"]=1;
-$10=_st(html)._span();
-_st($10)._class_(_st(each)._cssClass());
-$11=_st($10)._with_(_st(each)._displayLabel());
-return $11;
-}, function($ctx5) {$ctx5.fillBlock({},$ctx4,6)})}));
-$ctx4.sendIdx["with:"]=3;
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,5)})}));
-$ctx3.sendIdx["with:"]=2;
-$12=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {
-return _st(each)._activate();
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,8)})}));
-return $12;
+return self._renderTab_on_(each,html);
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}));
-return self._renderAddOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["with:"]=1;
 ul=$2;
-$13=_st(ul)._asJQuery();
-_st($13)._sortable();
-$14=_st($13)._disableSelection();
+_st(_st(ul)._asJQuery())._sortable_(globals.HashedCollection._newFromPairs_(["start",(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._disableSelection();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}),"stop",(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._enableSelection();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)})}))._valueWithTimeout_((300));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}),"update",(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._updateTabsOrder();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})})]));
 return self}, function($ctx1) {$ctx1.fill(self,"renderTabsOn:",{html:html,ul:ul},globals.HLTabsWidget)})},
 args: ["html"],
-source: "renderTabsOn: html\x0a\x09| ul |\x0a\x09ul := html ul \x0a\x09\x09class: 'nav';\x0a\x09\x09with: [ \x0a        \x09self tabs do: [ :each |\x0a\x09\x09\x09\x09html li \x0a\x09\x09\x09\x09\x09style: 'width: ', self tabWidth asString, 'px';\x0a\x09\x09\x09\x09\x09class: (each isActive ifTrue: [ 'tab active' ] ifFalse: [ 'tab inactive' ]);\x0a\x09\x09\x09\x09\x09with: [\x0a\x09\x09\x09\x09\x09\x09html a\x0a\x09\x09\x09\x09\x09\x09\x09with: [\x0a      \x09\x09\x09\x09\x09\x09\x09((html tag: 'i') class: 'close')\x0a  \x09\x09\x09\x09\x09\x09\x09\x09\x09onClick: [ self removeTab: each ].\x0a                              \x09html span \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09class: each cssClass;\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09with: each displayLabel ] ];\x0a\x09\x09\x09\x09\x09\x09onClick: [ each activate ] ].\x0a\x09\x09\x09self renderAddOn: html ].\x0a\x09\x09\x0a\x09ul asJQuery sortable; disableSelection",
-messageSends: ["class:", "ul", "with:", "do:", "tabs", "style:", "li", ",", "asString", "tabWidth", "ifTrue:ifFalse:", "isActive", "a", "onClick:", "tag:", "removeTab:", "span", "cssClass", "displayLabel", "activate", "renderAddOn:", "sortable", "asJQuery", "disableSelection"],
+source: "renderTabsOn: html\x0a\x09| ul |\x0a\x09ul := html ul \x0a\x09\x09class: 'nav main-tabs';\x0a\x09\x09with: [ \x0a        \x09self tabs do: [ :each |\x0a\x09\x09\x09\x09self renderTab: each on: html ].\x0a\x09\x09\x09\x22self renderAddOn: html\x22 ].\x0a\x09\x09\x0a\x09ul asJQuery sortable: #{\x0a\x09\x09'start' -> [ self disableSelection ].\x0a\x09\x09'stop' -> [ [ self enableSelection] valueWithTimeout: 300 ].\x0a\x09\x09'update' -> [ self updateTabsOrder ]\x0a\x09}",
+messageSends: ["class:", "ul", "with:", "do:", "tabs", "renderTab:on:", "sortable:", "asJQuery", "disableSelection", "valueWithTimeout:", "enableSelection", "updateTabsOrder"],
 referencedClasses: []
 }),
 globals.HLTabsWidget);
@@ -6570,6 +6653,25 @@ args: [],
 source: "tabs\x0a\x09^ tabs ifNil: [ tabs := OrderedCollection new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: ["OrderedCollection"]
+}),
+globals.HLTabsWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateTabsOrder",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@tabs"]=_st(_st(".main-tabs li"._asJQuery())._toArray())._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._at_("tab-data");
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"updateTabsOrder",{},globals.HLTabsWidget)})},
+args: [],
+source: "updateTabsOrder\x0a\x09tabs := '.main-tabs li' asJQuery toArray \x0a\x09\x09collect: [ :each | each at: 'tab-data' ]",
+messageSends: ["collect:", "toArray", "asJQuery", "at:"],
+referencedClasses: []
 }),
 globals.HLTabsWidget);
 

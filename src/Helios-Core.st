@@ -2029,7 +2029,7 @@ on: aWidget labelled: aString
 ! !
 
 HLWidget subclass: #HLTabsWidget
-	instanceVariableNames: 'tabs activeTab history'
+	instanceVariableNames: 'tabs activeTab history selectionDisabled'
 	package: 'Helios-Core'!
 
 !HLTabsWidget methodsFor: 'accessing'!
@@ -2057,6 +2057,8 @@ tabs
 !HLTabsWidget methodsFor: 'actions'!
 
 activate: aTab
+	self isSelectionDisabled ifTrue: [ ^ self ].
+
 	self manager keyBinder flushBindings.
 	aTab registerBindings.
 	activeTab := aTab.
@@ -2101,6 +2103,14 @@ addToHistory: aTab
 	self history add: aTab
 !
 
+disableSelection
+	selectionDisabled := true
+!
+
+enableSelection
+	selectionDisabled := false
+!
+
 removeActiveTab
 	self removeTab: self activeTab
 !
@@ -2119,6 +2129,11 @@ removeTab: aTab
 	self refresh.
 	self history ifNotEmpty: [
 		self history last activate ]
+!
+
+updateTabsOrder
+	tabs := '.main-tabs li' asJQuery toArray 
+		collect: [ :each | each at: 'tab-data' ]
 ! !
 
 !HLTabsWidget methodsFor: 'private'!
@@ -2168,32 +2183,49 @@ renderContentOn: html
 			with: [ self renderTabsOn: html ] ]
 !
 
+renderTab: aTab on: html
+	| li |
+	li := html li 
+		style: 'width: ', self tabWidth asString, 'px';
+		class: (aTab isActive ifTrue: [ 'tab active' ] ifFalse: [ 'tab inactive' ]);
+		with: [
+			html a
+			with: [
+				((html tag: 'i') class: 'close')
+					onClick: [ self removeTab: aTab ].
+				html span 
+					class: aTab cssClass;
+					with: aTab displayLabel ] ];
+		onClick: [ aTab activate ].
+	
+	(li asJQuery get: 0) at: 'tab-data' put: aTab
+!
+
 renderTabsOn: html
 	| ul |
 	ul := html ul 
-		class: 'nav';
+		class: 'nav main-tabs';
 		with: [ 
         	self tabs do: [ :each |
-				html li 
-					style: 'width: ', self tabWidth asString, 'px';
-					class: (each isActive ifTrue: [ 'tab active' ] ifFalse: [ 'tab inactive' ]);
-					with: [
-						html a
-							with: [
-      							((html tag: 'i') class: 'close')
-  									onClick: [ self removeTab: each ].
-                              	html span 
-									class: each cssClass;
-									with: each displayLabel ] ];
-						onClick: [ each activate ] ].
-			self renderAddOn: html ].
+				self renderTab: each on: html ].
+			"self renderAddOn: html" ].
 		
-	ul asJQuery sortable; disableSelection
+	ul asJQuery sortable: #{
+		'start' -> [ self disableSelection ].
+		'stop' -> [ [ self enableSelection] valueWithTimeout: 300 ].
+		'update' -> [ self updateTabsOrder ]
+	}
 !
 
 show: aTab
 	self tabs do: [ :each | each hide ].
 	aTab show; focus
+! !
+
+!HLTabsWidget methodsFor: 'testing'!
+
+isSelectionDisabled
+	^ selectionDisabled ifNil: [ false ]
 ! !
 
 HLTabsWidget class instanceVariableNames: 'current'!

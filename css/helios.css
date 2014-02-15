@@ -189,7 +189,8 @@ body[id="helios"] .nav > li > a:hover {
 }
 body[id="helios"] .navbar .nav > .active > a,
 body[id="helios"] .navbar .nav > .active > a:hover,
-body[id="helios"] .navbar .nav > .active > a:focus {
+body[id="helios"] .navbar .nav > .active > a:focus,
+body[id="helios"] .navbar .nav .ui-sortable-helper a {
   color: #444;
   background-image: linear-gradient(top, #dfdfdf, #d0d0d0);
   background-image: -webkit-linear-gradient(top, #dfdfdf, #d0d0d0);
@@ -197,6 +198,9 @@ body[id="helios"] .navbar .nav > .active > a:focus {
   background-image: -o-linear-gradient(top, #dfdfdf, #d0d0d0);
   text-shadow: 0 1px 0 #ddd;
   box-shadow: 0 0 0;
+}
+body[id="helios"] .navbar .nav .ui-sortable-helper a {
+  border: 1px solid #777;
 }
 body[id="helios"] .navbar-fixed-top i {
   opacity: 0.4;
