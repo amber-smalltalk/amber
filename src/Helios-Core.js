@@ -3413,6 +3413,43 @@ globals.HLManager);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "activatePreviousTab",
+protocol: 'actions',
+fn: function (){
+var self=this;
+var previousTab;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$5,$4,$3;
+var $early={};
+try {
+$1=self._tabs();
+$ctx1.sendIdx["tabs"]=1;
+_st($1)._ifEmpty_((function(){
+throw $early=[self];
+}));
+$2=self._tabs();
+$ctx1.sendIdx["tabs"]=2;
+$5=self._tabs();
+$ctx1.sendIdx["tabs"]=3;
+$4=_st($5)._indexOf_(self._activeTab());
+$3=_st($4).__minus((1));
+previousTab=_st($2)._at_ifAbsent_($3,(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._tabs())._last();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+self._activate_(previousTab);
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"activatePreviousTab",{previousTab:previousTab},globals.HLManager)})},
+args: [],
+source: "activatePreviousTab\x0a\x09| previousTab |\x0a\x09\x0a\x09self tabs ifEmpty: [ ^ self ].\x0a\x09\x0a\x09previousTab := self tabs \x0a\x09\x09at: (self tabs indexOf: self activeTab) - 1 \x0a\x09\x09ifAbsent: [ self tabs last ].\x0a\x09\x09\x0a\x09self activate: previousTab",
+messageSends: ["ifEmpty:", "tabs", "at:ifAbsent:", "-", "indexOf:", "activeTab", "last", "activate:"],
+referencedClasses: []
+}),
+globals.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "activeTab",
 protocol: 'accessing',
 fn: function (){
@@ -4135,42 +4172,66 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
+var $1,$3,$4,$5,$2,$7,$6,$8,$9,$10,$11,$12;
 $1="body"._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
-_st($1)._keydown_((function(event){
+_st($1)._keypress_((function(event){
 return smalltalk.withContext(function($ctx2) {
-$2=_st(_st(_st(event)._which()).__eq((9)))._and_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(event)._shiftKey();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-if(smalltalk.assert($2)){
-self._activateNextTab();
-_st(event)._preventDefault();
-};
 $3=_st(event)._ctrlKey();
-if(smalltalk.assert($3)){
-$4="body"._asJQuery();
-$ctx2.sendIdx["asJQuery"]=2;
-return _st($4)._addClass_("navigation");
+$ctx2.sendIdx["ctrlKey"]=1;
+$2=_st($3)._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+$4=_st(event)._which();
+$ctx3.sendIdx["which"]=1;
+$5="<"._asciiValue();
+$ctx3.sendIdx["asciiValue"]=1;
+return _st($4).__eq($5);
+$ctx3.sendIdx["="]=1;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+$ctx2.sendIdx["and:"]=1;
+if(smalltalk.assert($2)){
+self._activatePreviousTab();
+_st(event)._preventDefault();
+$ctx2.sendIdx["preventDefault"]=1;
+};
+$7=_st(event)._ctrlKey();
+$ctx2.sendIdx["ctrlKey"]=2;
+$6=_st($7)._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(event)._which()).__eq(">"._asciiValue());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
+if(smalltalk.assert($6)){
+self._activateNextTab();
+return _st(event)._preventDefault();
 };
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})}));
-$5="body"._asJQuery();
-$ctx1.sendIdx["asJQuery"]=3;
-_st($5)._keyup_((function(event){
+$8="body"._asJQuery();
+$ctx1.sendIdx["asJQuery"]=2;
+_st($8)._keydown_((function(event){
 return smalltalk.withContext(function($ctx2) {
-$6="body"._asJQuery();
-$ctx2.sendIdx["asJQuery"]=4;
-return _st($6)._removeClass_("navigation");
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,5)})}));
+$9=_st(event)._ctrlKey();
+if(smalltalk.assert($9)){
+$10="body"._asJQuery();
+$ctx2.sendIdx["asJQuery"]=3;
+return _st($10)._addClass_("navigation");
+};
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,6)})}));
+$11="body"._asJQuery();
+$ctx1.sendIdx["asJQuery"]=4;
+_st($11)._keyup_((function(event){
+return smalltalk.withContext(function($ctx2) {
+$12="body"._asJQuery();
+$ctx2.sendIdx["asJQuery"]=5;
+return _st($12)._removeClass_("navigation");
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,8)})}));
 _st(_st(window)._asJQuery())._resize_((function(event){
 return smalltalk.withContext(function($ctx2) {
 return self._refresh();
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,6)})}));
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,9)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupEvents",{},globals.HLManager)})},
 args: [],
-source: "setupEvents\x0a\x09'body' asJQuery keydown: [ :event |\x0a\x09\x0a\x09\x09\x22shift+tab\x22\x0a\x09\x09(event which = 9 and: [ event shiftKey ]) ifTrue: [\x0a\x09\x09\x09self activateNextTab.\x0a\x09\x09\x09event preventDefault ].\x0a\x09\x09\x09\x0a\x09\x09\x22On ctrl keydown, adds a 'navigation' css class to <body>\x0a\x09\x09for the CodeMirror navigation links. See `HLCodeWidget`.\x22\x0a\x09\x09event ctrlKey ifTrue: [\x0a\x09\x09\x09'body' asJQuery addClass: 'navigation' ] ].\x0a\x09\x09\x09\x0a\x09'body' asJQuery keyup: [ :event |\x0a\x09\x09'body' asJQuery removeClass: 'navigation' ].\x0a\x09\x09\x0a\x09window asJQuery resize: [ :event |\x0a\x09\x09self refresh ]",
-messageSends: ["keydown:", "asJQuery", "ifTrue:", "and:", "=", "which", "shiftKey", "activateNextTab", "preventDefault", "ctrlKey", "addClass:", "keyup:", "removeClass:", "resize:", "refresh"],
+source: "setupEvents\x0a\x09'body' asJQuery keypress: [ :event |\x0a\x09\x0a\x09\x09\x22ctrl+> and ctrl+<\x22\x0a\x09\x09(event ctrlKey and: [ event which = '<' asciiValue ]) ifTrue: [\x0a\x09\x09\x09self activatePreviousTab.\x0a\x09\x09\x09event preventDefault ].\x0a\x09\x09(event ctrlKey and: [ event which = '>' asciiValue ]) ifTrue: [\x0a\x09\x09\x09self activateNextTab.\x0a\x09\x09\x09event preventDefault ] ].\x0a\x0a\x09'body' asJQuery keydown: [ :event |\x0a\x09\x09\x09\x0a\x09\x09\x22On ctrl keydown, adds a 'navigation' css class to <body>\x0a\x09\x09for the CodeMirror navigation links. See `HLCodeWidget`.\x22\x0a\x09\x09event ctrlKey ifTrue: [\x0a\x09\x09\x09'body' asJQuery addClass: 'navigation' ] ].\x0a\x09\x09\x09\x0a\x09'body' asJQuery keyup: [ :event |\x0a\x09\x09'body' asJQuery removeClass: 'navigation' ].\x0a\x09\x09\x0a\x09window asJQuery resize: [ :event |\x0a\x09\x09self refresh ]",
+messageSends: ["keypress:", "asJQuery", "ifTrue:", "and:", "ctrlKey", "=", "which", "asciiValue", "activatePreviousTab", "preventDefault", "activateNextTab", "keydown:", "addClass:", "keyup:", "removeClass:", "resize:", "refresh"],
 referencedClasses: []
 }),
 globals.HLManager);
