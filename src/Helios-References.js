@@ -322,10 +322,11 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._search_(aString);
+self._setTabLabel_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString},globals.HLReferences)})},
 args: ["aString"],
-source: "search: aString\x0a\x09self model search: aString",
-messageSends: ["search:", "model"],
+source: "search: aString\x0a\x09self model search: aString.\x0a\x09self setTabLabel: aString",
+messageSends: ["search:", "model", "setTabLabel:"],
 referencedClasses: []
 }),
 globals.HLReferences);
