@@ -2133,13 +2133,13 @@ updateTabsOrder
 !HLTabsWidget methodsFor: 'private'!
 
 setupEvents
-	'body' asJQuery keypress: [ :event |
+	'body' asJQuery keydown: [ :event |
 	
 		"ctrl+> and ctrl+<"
-		(event ctrlKey and: [ event which = '<' asciiValue ]) ifTrue: [
+		(event ctrlKey and: [ event which = 188 ]) ifTrue: [
 			self activatePreviousTab.
 			event preventDefault ].
-		(event ctrlKey and: [ event which = '>' asciiValue ]) ifTrue: [
+		(event ctrlKey and: [ event which = 190 ]) ifTrue: [
 			self activateNextTab.
 			event preventDefault ] ]
 ! !

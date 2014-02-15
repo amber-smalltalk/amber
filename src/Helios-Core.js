@@ -6527,8 +6527,8 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1,$5;
-_st("body"._asJQuery())._keypress_((function(event){
+var $2,$3,$1,$4;
+_st("body"._asJQuery())._keydown_((function(event){
 return smalltalk.withContext(function($ctx2) {
 $2=_st(event)._ctrlKey();
 $ctx2.sendIdx["ctrlKey"]=1;
@@ -6536,9 +6536,7 @@ $1=_st($2)._and_((function(){
 return smalltalk.withContext(function($ctx3) {
 $3=_st(event)._which();
 $ctx3.sendIdx["which"]=1;
-$4="<"._asciiValue();
-$ctx3.sendIdx["asciiValue"]=1;
-return _st($3).__eq($4);
+return _st($3).__eq((188));
 $ctx3.sendIdx["="]=1;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 $ctx2.sendIdx["and:"]=1;
@@ -6547,19 +6545,19 @@ self._activatePreviousTab();
 _st(event)._preventDefault();
 $ctx2.sendIdx["preventDefault"]=1;
 };
-$5=_st(_st(event)._ctrlKey())._and_((function(){
+$4=_st(_st(event)._ctrlKey())._and_((function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(_st(event)._which()).__eq(">"._asciiValue());
+return _st(_st(event)._which()).__eq((190));
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
-if(smalltalk.assert($5)){
+if(smalltalk.assert($4)){
 self._activateNextTab();
 return _st(event)._preventDefault();
 };
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupEvents",{},globals.HLTabsWidget)})},
 args: [],
-source: "setupEvents\x0a\x09'body' asJQuery keypress: [ :event |\x0a\x09\x0a\x09\x09\x22ctrl+> and ctrl+<\x22\x0a\x09\x09(event ctrlKey and: [ event which = '<' asciiValue ]) ifTrue: [\x0a\x09\x09\x09self activatePreviousTab.\x0a\x09\x09\x09event preventDefault ].\x0a\x09\x09(event ctrlKey and: [ event which = '>' asciiValue ]) ifTrue: [\x0a\x09\x09\x09self activateNextTab.\x0a\x09\x09\x09event preventDefault ] ]",
-messageSends: ["keypress:", "asJQuery", "ifTrue:", "and:", "ctrlKey", "=", "which", "asciiValue", "activatePreviousTab", "preventDefault", "activateNextTab"],
+source: "setupEvents\x0a\x09'body' asJQuery keydown: [ :event |\x0a\x09\x0a\x09\x09\x22ctrl+> and ctrl+<\x22\x0a\x09\x09(event ctrlKey and: [ event which = 188 ]) ifTrue: [\x0a\x09\x09\x09self activatePreviousTab.\x0a\x09\x09\x09event preventDefault ].\x0a\x09\x09(event ctrlKey and: [ event which = 190 ]) ifTrue: [\x0a\x09\x09\x09self activateNextTab.\x0a\x09\x09\x09event preventDefault ] ]",
+messageSends: ["keydown:", "asJQuery", "ifTrue:", "and:", "ctrlKey", "=", "which", "activatePreviousTab", "preventDefault", "activateNextTab"],
 referencedClasses: []
 }),
 globals.HLTabsWidget);
