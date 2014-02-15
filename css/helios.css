@@ -164,9 +164,24 @@ body[id="helios"] .navbar .nav > li {
   line-height: 16px;
   text-align: center;
 }
-body[id="helios"] .navbar .nav > li .new_tab {
+body[id="helios"] .new_tab {
   width: 60px;
   border-right: 0 none;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 2000;
+}
+body[id="helios"] .new_tab a {
+  color: #444;
+}
+body[id="helios"] .new_tab a:hover {
+  text-decoration: none;
+}
+body[id="helios"] .new_tab .dropdown-menu {
+  left: auto;
+  float: right;
+  right: 0;
 }
 body[id="helios"] .dropdown-menu {
   min-width: 0;

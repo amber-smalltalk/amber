@@ -195,11 +195,29 @@ body[id="helios"] {
 		> li {
 			line-height: 16px;
 			text-align: center;
-			
-			.new_tab {
-				width: 60px;
-				border-right: 0 none;
+		}
+	}
+
+	.new_tab {
+		width: 60px;
+		border-right: 0 none;
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		z-index: 2000;
+
+		a {
+			color: #444;
+
+			&:hover {
+				text-decoration: none;
 			}
+		}
+		
+		.dropdown-menu {
+			left: auto;
+			float: right;
+			right: 0;
 		}
 	}
 
