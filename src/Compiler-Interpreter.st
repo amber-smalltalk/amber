@@ -194,6 +194,10 @@ sendIndexes: aDictionary
 
 !AIContext methodsFor: 'evaluating'!
 
+evaluate: aString on: anEvaluator
+	^ anEvaluator evaluate: aString context: self
+!
+
 evaluateNode: aNode
 	^ ASTInterpreter new
 		context: self;

@@ -298,6 +298,24 @@ globals.AIContext);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "evaluate:on:",
+protocol: 'evaluating',
+fn: function (aString,anEvaluator){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anEvaluator)._evaluate_context_(aString,self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"evaluate:on:",{aString:aString,anEvaluator:anEvaluator},globals.AIContext)})},
+args: ["aString", "anEvaluator"],
+source: "evaluate: aString on: anEvaluator\x0a\x09^ anEvaluator evaluate: aString context: self",
+messageSends: ["evaluate:context:"],
+referencedClasses: []
+}),
+globals.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "evaluateNode:",
 protocol: 'evaluating',
 fn: function (aNode){

@@ -432,15 +432,15 @@ function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-return self._eval_on_(aString,_st($DoIt())._new());
+return self._evaluateString_on_(aString,_st($DoIt())._new());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(error){
 return smalltalk.withContext(function($ctx2) {
 return self._alert_(_st(error)._messageText());
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"compileClassDefinition:",{aString:aString},globals.Environment)})},
 args: ["aString"],
-source: "compileClassDefinition: aString\x0a\x09[ self eval: aString on: DoIt new ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :error | self alert: error messageText ]",
-messageSends: ["on:do:", "eval:on:", "new", "alert:", "messageText"],
+source: "compileClassDefinition: aString\x0a\x09[ self evaluateString: aString on: DoIt new ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :error | self alert: error messageText ]",
+messageSends: ["on:do:", "evaluateString:on:", "new", "alert:", "messageText"],
 referencedClasses: ["DoIt", "Error"]
 }),
 globals.Environment);
@@ -513,33 +513,18 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "eval:on:",
 protocol: 'evaluating',
-fn: function (aString,aReceiver){
+fn: function (aString,anObject){
 var self=this;
-var compiler;
-function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Evaluator(){return globals.Evaluator||(typeof Evaluator=="undefined"?nil:Evaluator)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-var $early={};
-try {
-compiler=_st($Compiler())._new();
-_st((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(compiler)._parseExpression_(aString);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(ex){
-return smalltalk.withContext(function($ctx2) {
-$1=self._alert_(_st(ex)._messageText());
-throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
-$2=_st(compiler)._evaluateExpression_on_(aString,aReceiver);
-return $2;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"eval:on:",{aString:aString,aReceiver:aReceiver,compiler:compiler},globals.Environment)})},
-args: ["aString", "aReceiver"],
-source: "eval: aString on: aReceiver\x0a\x09| compiler |\x0a\x09compiler := Compiler new.\x0a\x09[ compiler parseExpression: aString ] on: Error do: [ :ex |\x0a\x09\x09^ self alert: ex messageText ].\x0a\x09^ compiler evaluateExpression: aString on: aReceiver",
-messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "evaluateExpression:on:"],
-referencedClasses: ["Compiler", "Error"]
+var $1;
+$1=_st($Evaluator())._evaluate_on_(aString,anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"eval:on:",{aString:aString,anObject:anObject},globals.Environment)})},
+args: ["aString", "anObject"],
+source: "eval: aString on: anObject\x0a\x09^ Evaluator evaluate: aString on: anObject",
+messageSends: ["evaluate:on:"],
+referencedClasses: ["Evaluator"]
 }),
 globals.Environment);
 
@@ -570,6 +555,25 @@ globals.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "evaluateString:on:",
+protocol: 'evaluating',
+fn: function (aString,anObject){
+var self=this;
+function $Evaluator(){return globals.Evaluator||(typeof Evaluator=="undefined"?nil:Evaluator)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Evaluator())._evaluate_for_(aString,anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"evaluateString:on:",{aString:aString,anObject:anObject},globals.Environment)})},
+args: ["aString", "anObject"],
+source: "evaluateString: aString on: anObject\x0a\x09^ Evaluator evaluate: aString for: anObject",
+messageSends: ["evaluate:for:"],
+referencedClasses: ["Evaluator"]
+}),
+globals.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "inspect:",
 protocol: 'actions',
 fn: function (anObject){
@@ -582,45 +586,6 @@ args: ["anObject"],
 source: "inspect: anObject\x0a\x09Inspector inspect: anObject",
 messageSends: ["inspect:"],
 referencedClasses: ["Inspector"]
-}),
-globals.Environment);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpret:inContext:",
-protocol: 'evaluating',
-fn: function (aString,anAIContext){
-var self=this;
-var compiler,ast;
-function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
-function $AISemanticAnalyzer(){return globals.AISemanticAnalyzer||(typeof AISemanticAnalyzer=="undefined"?nil:AISemanticAnalyzer)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-var $early={};
-try {
-compiler=_st($Compiler())._new();
-_st((function(){
-return smalltalk.withContext(function($ctx2) {
-ast=_st(compiler)._parseExpression_(aString);
-return ast;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(ex){
-return smalltalk.withContext(function($ctx2) {
-$1=self._alert_(_st(ex)._messageText());
-throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
-$2=_st($AISemanticAnalyzer())._on_(_st(_st(anAIContext)._receiver())._class());
-_st($2)._context_(anAIContext);
-$3=_st($2)._visit_(ast);
-$4=_st(anAIContext)._evaluateNode_(ast);
-return $4;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"interpret:inContext:",{aString:aString,anAIContext:anAIContext,compiler:compiler,ast:ast},globals.Environment)})},
-args: ["aString", "anAIContext"],
-source: "interpret: aString inContext: anAIContext\x0a\x09\x22Similar to #eval:on:, with the following differences:\x0a\x09- instead of compiling and running `aString`, `aString` is interpreted using an `ASTInterpreter`\x0a\x09- instead of evaluating against a receiver, evaluate in the context of `anAIContext`\x22\x0a\x0a\x09| compiler ast |\x0a\x09compiler := Compiler new.\x0a\x09[ ast := compiler parseExpression: aString ] on: Error do: [ :ex |\x0a\x09\x09^ self alert: ex messageText ].\x0a\x09(AISemanticAnalyzer on: anAIContext receiver class)\x0a\x09\x09context: anAIContext;\x0a\x09\x09visit: ast.\x0a\x09^ anAIContext evaluateNode: ast",
-messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "context:", "on:", "class", "receiver", "visit:", "evaluateNode:"],
-referencedClasses: ["Compiler", "Error", "AISemanticAnalyzer"]
 }),
 globals.Environment);
 

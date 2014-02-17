@@ -22,6 +22,24 @@ globals.HLContextInspectorDecorator);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "evaluate:on:",
+protocol: 'evaluating',
+fn: function (aString,anEvaluator){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._context())._evaluate_on_(aString,anEvaluator);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"evaluate:on:",{aString:aString,anEvaluator:anEvaluator},globals.HLContextInspectorDecorator)})},
+args: ["aString", "anEvaluator"],
+source: "evaluate: aString on: anEvaluator\x0a\x09^ self context evaluate: aString on: anEvaluator",
+messageSends: ["evaluate:on:", "context"],
+referencedClasses: []
+}),
+globals.HLContextInspectorDecorator);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initializeFromContext:",
 protocol: 'initialization',
 fn: function (aContext){
@@ -809,12 +827,12 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._environment())._interpret_inContext_(aString,self._currentContext());
+$1=_st(self._environment())._evaluateString_on_(aString,self._currentContext());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"evaluate:",{aString:aString},globals.HLDebuggerModel)})},
 args: ["aString"],
-source: "evaluate: aString\x0a\x09^ self environment \x0a\x09\x09interpret: aString \x0a\x09\x09inContext: self currentContext",
-messageSends: ["interpret:inContext:", "environment", "currentContext"],
+source: "evaluate: aString\x0a\x09^ self environment \x0a\x09\x09evaluateString: aString \x0a\x09\x09on: self currentContext",
+messageSends: ["evaluateString:on:", "environment", "currentContext"],
 referencedClasses: []
 }),
 globals.HLDebuggerModel);

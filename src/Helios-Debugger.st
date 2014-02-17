@@ -9,6 +9,12 @@ context
 	^ context
 ! !
 
+!HLContextInspectorDecorator methodsFor: 'evaluating'!
+
+evaluate: aString on: anEvaluator
+	^ self context evaluate: aString on: anEvaluator
+! !
+
 !HLContextInspectorDecorator methodsFor: 'initialization'!
 
 initializeFromContext: aContext
@@ -341,8 +347,8 @@ where
 
 evaluate: aString
 	^ self environment 
-		interpret: aString 
-		inContext: self currentContext
+		evaluateString: aString 
+		on: self currentContext
 ! !
 
 !HLDebuggerModel methodsFor: 'initialization'!

@@ -223,6 +223,59 @@ Object subclass: #DoIt
 !DoIt commentStamp!
 `DoIt` is the class used to compile and evaluate expressions. See `Compiler >> evaluateExpression:`.!
 
+!DoIt methodsFor: 'xxxDoIt'!
+
+xxxDoIt ^ [ self halt ] value
+! !
+
+Object subclass: #Evaluator
+	instanceVariableNames: ''
+	package: 'Compiler-Core'!
+!Evaluator commentStamp!
+I evaluate code against a receiver, dispatching #evaluate:on: to the receiver.!
+
+!Evaluator methodsFor: 'evaluating'!
+
+evaluate: aString context: aContext
+	"Similar to #evaluate:for:, with the following differences:
+	- instead of compiling and running `aString`, `aString` is interpreted using an `ASTInterpreter`
+	- instead of evaluating against a receiver, evaluate in the context of `aContext`"
+
+	| compiler ast |
+	
+	compiler := Compiler new.
+	[ ast := compiler parseExpression: aString ] 
+		on: Error 
+		do: [ :ex | ^ self alert: ex messageText ].
+		
+	(AISemanticAnalyzer on: aContext receiver class)
+		context: aContext;
+		visit: ast.
+
+	^ aContext evaluateNode: ast
+!
+
+evaluate: aString for: anObject
+	^ anObject evaluate: aString on: self
+!
+
+evaluate: aString receiver: anObject
+	| compiler |
+	
+	compiler := Compiler new.
+	[ compiler parseExpression: aString ] 
+		on: Error 
+		do: [ :ex | ^ self alert: ex messageText ].
+
+	^ compiler evaluateExpression: aString on: anObject
+! !
+
+!Evaluator class methodsFor: 'instance creation'!
+
+evaluate: aString for: anObject
+	^ self new evaluate: aString for: anObject
+! !
+
 Object subclass: #NodeVisitor
 	instanceVariableNames: ''
 	package: 'Compiler-Core'!

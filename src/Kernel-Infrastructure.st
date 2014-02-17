@@ -226,7 +226,7 @@ compileClassComment: aString for: aClass
 !
 
 compileClassDefinition: aString
-	[ self eval: aString on: DoIt new ]
+	[ self evaluateString: aString on: DoIt new ]
 		on: Error
 		do: [ :error | self alert: error messageText ]
 !
@@ -250,27 +250,12 @@ evaluate: aBlock on: anErrorClass do: exceptionBlock
 
 !Environment methodsFor: 'evaluating'!
 
-eval: aString on: aReceiver
-	| compiler |
-	compiler := Compiler new.
-	[ compiler parseExpression: aString ] on: Error do: [ :ex |
-		^ self alert: ex messageText ].
-	^ compiler evaluateExpression: aString on: aReceiver
+eval: aString on: anObject
+	^ Evaluator evaluate: aString on: anObject
 !
 
-interpret: aString inContext: anAIContext
-	"Similar to #eval:on:, with the following differences:
-	- instead of compiling and running `aString`, `aString` is interpreted using an `ASTInterpreter`
-	- instead of evaluating against a receiver, evaluate in the context of `anAIContext`"
-
-	| compiler ast |
-	compiler := Compiler new.
-	[ ast := compiler parseExpression: aString ] on: Error do: [ :ex |
-		^ self alert: ex messageText ].
-	(AISemanticAnalyzer on: anAIContext receiver class)
-		context: anAIContext;
-		visit: ast.
-	^ anAIContext evaluateNode: ast
+evaluateString: aString on: anObject
+	^ Evaluator evaluate: aString for: anObject
 ! !
 
 !Environment methodsFor: 'services'!

@@ -68,6 +68,12 @@ doesNotUnderstand: aMessage
 		signal
 ! !
 
+!ProtoObject methodsFor: 'evaluating'!
+
+evaluate: aString on: anEvaluator
+	^ anEvaluator evaluate: aString receiver: self
+! !
+
 !ProtoObject methodsFor: 'initialization'!
 
 initialize

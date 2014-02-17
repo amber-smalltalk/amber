@@ -687,6 +687,140 @@ globals.Compiler.klass);
 
 smalltalk.addClass('DoIt', globals.Object, [], 'Compiler-Core');
 globals.DoIt.comment="`DoIt` is the class used to compile and evaluate expressions. See `Compiler >> evaluateExpression:`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "xxxDoIt",
+protocol: 'xxxDoIt',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._halt();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},globals.DoIt)})},
+args: [],
+source: "xxxDoIt ^ [ self halt ] value",
+messageSends: ["value", "halt"],
+referencedClasses: []
+}),
+globals.DoIt);
+
+
+
+smalltalk.addClass('Evaluator', globals.Object, [], 'Compiler-Core');
+globals.Evaluator.comment="I evaluate code against a receiver, dispatching #evaluate:on: to the receiver.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "evaluate:context:",
+protocol: 'evaluating',
+fn: function (aString,aContext){
+var self=this;
+var compiler,ast;
+function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $AISemanticAnalyzer(){return globals.AISemanticAnalyzer||(typeof AISemanticAnalyzer=="undefined"?nil:AISemanticAnalyzer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+var $early={};
+try {
+compiler=_st($Compiler())._new();
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+ast=_st(compiler)._parseExpression_(aString);
+return ast;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(ex){
+return smalltalk.withContext(function($ctx2) {
+$1=self._alert_(_st(ex)._messageText());
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
+$2=_st($AISemanticAnalyzer())._on_(_st(_st(aContext)._receiver())._class());
+_st($2)._context_(aContext);
+$3=_st($2)._visit_(ast);
+$4=_st(aContext)._evaluateNode_(ast);
+return $4;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"evaluate:context:",{aString:aString,aContext:aContext,compiler:compiler,ast:ast},globals.Evaluator)})},
+args: ["aString", "aContext"],
+source: "evaluate: aString context: aContext\x0a\x09\x22Similar to #evaluate:for:, with the following differences:\x0a\x09- instead of compiling and running `aString`, `aString` is interpreted using an `ASTInterpreter`\x0a\x09- instead of evaluating against a receiver, evaluate in the context of `aContext`\x22\x0a\x0a\x09| compiler ast |\x0a\x09\x0a\x09compiler := Compiler new.\x0a\x09[ ast := compiler parseExpression: aString ] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :ex | ^ self alert: ex messageText ].\x0a\x09\x09\x0a\x09(AISemanticAnalyzer on: aContext receiver class)\x0a\x09\x09context: aContext;\x0a\x09\x09visit: ast.\x0a\x0a\x09^ aContext evaluateNode: ast",
+messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "context:", "on:", "class", "receiver", "visit:", "evaluateNode:"],
+referencedClasses: ["Compiler", "Error", "AISemanticAnalyzer"]
+}),
+globals.Evaluator);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "evaluate:for:",
+protocol: 'evaluating',
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._evaluate_on_(aString,self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},globals.Evaluator)})},
+args: ["aString", "anObject"],
+source: "evaluate: aString for: anObject\x0a\x09^ anObject evaluate: aString on: self",
+messageSends: ["evaluate:on:"],
+referencedClasses: []
+}),
+globals.Evaluator);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "evaluate:receiver:",
+protocol: 'evaluating',
+fn: function (aString,anObject){
+var self=this;
+var compiler;
+function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+var $early={};
+try {
+compiler=_st($Compiler())._new();
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(compiler)._parseExpression_(aString);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(ex){
+return smalltalk.withContext(function($ctx2) {
+$1=self._alert_(_st(ex)._messageText());
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
+$2=_st(compiler)._evaluateExpression_on_(aString,anObject);
+return $2;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"evaluate:receiver:",{aString:aString,anObject:anObject,compiler:compiler},globals.Evaluator)})},
+args: ["aString", "anObject"],
+source: "evaluate: aString receiver: anObject\x0a\x09| compiler |\x0a\x09\x0a\x09compiler := Compiler new.\x0a\x09[ compiler parseExpression: aString ] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :ex | ^ self alert: ex messageText ].\x0a\x0a\x09^ compiler evaluateExpression: aString on: anObject",
+messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "evaluateExpression:on:"],
+referencedClasses: ["Compiler", "Error"]
+}),
+globals.Evaluator);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "evaluate:for:",
+protocol: 'instance creation',
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._evaluate_for_(aString,anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},globals.Evaluator.klass)})},
+args: ["aString", "anObject"],
+source: "evaluate: aString for: anObject\x0a\x09^ self new evaluate: aString for: anObject",
+messageSends: ["evaluate:for:", "new"],
+referencedClasses: []
+}),
+globals.Evaluator.klass);
 
 
 smalltalk.addClass('NodeVisitor', globals.Object, [], 'Compiler-Core');

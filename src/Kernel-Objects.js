@@ -99,6 +99,24 @@ globals.ProtoObject);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "evaluate:on:",
+protocol: 'evaluating',
+fn: function (aString,anEvaluator){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anEvaluator)._evaluate_receiver_(aString,self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"evaluate:on:",{aString:aString,anEvaluator:anEvaluator},globals.ProtoObject)})},
+args: ["aString", "anEvaluator"],
+source: "evaluate: aString on: anEvaluator\x0a\x09^ anEvaluator evaluate: aString receiver: self",
+messageSends: ["evaluate:receiver:"],
+referencedClasses: []
+}),
+globals.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "identityHash",
 protocol: 'accessing',
 fn: function (){
