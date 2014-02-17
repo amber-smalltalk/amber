@@ -93,7 +93,7 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 	}
 
 	var globals = {};
-    globals.SmalltalkSettings = {};
+	globals.SmalltalkSettings = {};
 	var api = Object.create(globals);
 	var brikz = new Brikz(api);
 
@@ -610,8 +610,10 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 
 			propagateMethodChange(klass);
 
-			for(var i=0; i<method.messageSends.length; i++) {
-				var dnuHandler = dnu.get(method.messageSends[i]);
+			var usedSelectors = method.messageSends;
+			usedSelectors.push(method.selector);
+			for(var i=0; i<usedSelectors.length; i++) {
+				var dnuHandler = dnu.get(usedSelectors[i]);
 				if(stInit.initialized()) {
 					installNewDnuHandler(dnuHandler);
 				}
