@@ -1991,8 +1991,9 @@ unregister
 
 onTabLabelChanged: anAnnouncement
 	anAnnouncement widget = self widget ifTrue: [
-		self label: anAnnouncement label.
-		self manager refresh]
+		self label = anAnnouncement label ifFalse: [
+			self label: anAnnouncement label.
+			self manager refresh ] ]
 ! !
 
 !HLTabWidget methodsFor: 'rendering'!

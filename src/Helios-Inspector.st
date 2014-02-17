@@ -378,10 +378,7 @@ HLInspectorWidget subclass: #HLInspector
 !HLInspector methodsFor: 'actions'!
 
 inspect: anObject
-	"Avoid refreshing the tabs if the inspectee didn't change"
-	self inspectee = anObject ifFalse: [
-		self setTabLabel: anObject printString ].
-		
+	self setTabLabel: anObject printString.
 	super inspect: anObject
 ! !
 
