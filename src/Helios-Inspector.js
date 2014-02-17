@@ -1219,6 +1219,23 @@ globals.HLInspectorWidget);
 smalltalk.addClass('HLInspector', globals.HLInspectorWidget, [], 'Helios-Inspector');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "inspect:",
+protocol: 'as yet unclassified',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+globals.HLInspector.superclass.fn.prototype._inspect_.apply(_st(self), [anObject]);
+self._setTabLabel_(_st(anObject)._printString());
+return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},globals.HLInspector)})},
+args: ["anObject"],
+source: "inspect: anObject\x0a\x09super inspect: anObject.\x0a\x09self setTabLabel: anObject printString",
+messageSends: ["inspect:", "setTabLabel:", "printString"],
+referencedClasses: []
+}),
+globals.HLInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "renderContentOn:",
 protocol: 'rendering',
 fn: function (html){

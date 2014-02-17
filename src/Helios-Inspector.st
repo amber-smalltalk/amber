@@ -375,6 +375,13 @@ HLInspectorWidget subclass: #HLInspector
 	instanceVariableNames: ''
 	package: 'Helios-Inspector'!
 
+!HLInspector methodsFor: 'as yet unclassified'!
+
+inspect: anObject
+	super inspect: anObject.
+	self setTabLabel: anObject printString
+! !
+
 !HLInspector methodsFor: 'rendering'!
 
 renderContentOn: html
