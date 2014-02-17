@@ -1220,16 +1220,21 @@ smalltalk.addClass('HLInspector', globals.HLInspectorWidget, [], 'Helios-Inspect
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspect:",
-protocol: 'as yet unclassified',
+protocol: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._inspectee()).__eq(anObject);
+if(smalltalk.assert($1)){
+return self;
+};
 globals.HLInspector.superclass.fn.prototype._inspect_.apply(_st(self), [anObject]);
 self._setTabLabel_(_st(anObject)._printString());
 return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},globals.HLInspector)})},
 args: ["anObject"],
-source: "inspect: anObject\x0a\x09super inspect: anObject.\x0a\x09self setTabLabel: anObject printString",
-messageSends: ["inspect:", "setTabLabel:", "printString"],
+source: "inspect: anObject\x0a\x09\x22Avoid refreshing the tabs if the inspectee didn't change\x22\x0a\x09self inspectee = anObject ifTrue: [ ^ self ].\x0a\x09\x0a\x09super inspect: anObject.\x0a\x09self setTabLabel: anObject printString",
+messageSends: ["ifTrue:", "=", "inspectee", "inspect:", "setTabLabel:", "printString"],
 referencedClasses: []
 }),
 globals.HLInspector);

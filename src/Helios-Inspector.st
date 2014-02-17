@@ -375,9 +375,12 @@ HLInspectorWidget subclass: #HLInspector
 	instanceVariableNames: ''
 	package: 'Helios-Inspector'!
 
-!HLInspector methodsFor: 'as yet unclassified'!
+!HLInspector methodsFor: 'actions'!
 
 inspect: anObject
+	"Avoid refreshing the tabs if the inspectee didn't change"
+	self inspectee = anObject ifTrue: [ ^ self ].
+	
 	super inspect: anObject.
 	self setTabLabel: anObject printString
 ! !
