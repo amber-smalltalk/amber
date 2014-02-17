@@ -827,12 +827,12 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._environment())._evaluateString_on_(aString,self._currentContext());
+$1=_st(self._environment())._evaluate_for_(aString,self._currentContext());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"evaluate:",{aString:aString},globals.HLDebuggerModel)})},
 args: ["aString"],
-source: "evaluate: aString\x0a\x09^ self environment \x0a\x09\x09evaluateString: aString \x0a\x09\x09on: self currentContext",
-messageSends: ["evaluateString:on:", "environment", "currentContext"],
+source: "evaluate: aString\x0a\x09^ self environment \x0a\x09\x09evaluate: aString \x0a\x09\x09for: self currentContext",
+messageSends: ["evaluate:for:", "environment", "currentContext"],
 referencedClasses: []
 }),
 globals.HLDebuggerModel);

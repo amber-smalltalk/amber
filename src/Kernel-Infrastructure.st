@@ -226,7 +226,7 @@ compileClassComment: aString for: aClass
 !
 
 compileClassDefinition: aString
-	[ self evaluateString: aString on: DoIt new ]
+	[ self evaluate: aString for: DoIt new ]
 		on: Error
 		do: [ :error | self alert: error messageText ]
 !
@@ -250,11 +250,7 @@ evaluate: aBlock on: anErrorClass do: exceptionBlock
 
 !Environment methodsFor: 'evaluating'!
 
-eval: aString on: anObject
-	^ Evaluator evaluate: aString on: anObject
-!
-
-evaluateString: aString on: anObject
+evaluate: aString for: anObject
 	^ Evaluator evaluate: aString for: anObject
 ! !
 

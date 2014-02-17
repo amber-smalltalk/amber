@@ -432,15 +432,15 @@ function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-return self._evaluateString_on_(aString,_st($DoIt())._new());
+return self._evaluate_for_(aString,_st($DoIt())._new());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(error){
 return smalltalk.withContext(function($ctx2) {
 return self._alert_(_st(error)._messageText());
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"compileClassDefinition:",{aString:aString},globals.Environment)})},
 args: ["aString"],
-source: "compileClassDefinition: aString\x0a\x09[ self evaluateString: aString on: DoIt new ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :error | self alert: error messageText ]",
-messageSends: ["on:do:", "evaluateString:on:", "new", "alert:", "messageText"],
+source: "compileClassDefinition: aString\x0a\x09[ self evaluate: aString for: DoIt new ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :error | self alert: error messageText ]",
+messageSends: ["on:do:", "evaluate:for:", "new", "alert:", "messageText"],
 referencedClasses: ["DoIt", "Error"]
 }),
 globals.Environment);
@@ -511,19 +511,19 @@ globals.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "eval:on:",
+selector: "evaluate:for:",
 protocol: 'evaluating',
 fn: function (aString,anObject){
 var self=this;
 function $Evaluator(){return globals.Evaluator||(typeof Evaluator=="undefined"?nil:Evaluator)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($Evaluator())._evaluate_on_(aString,anObject);
+$1=_st($Evaluator())._evaluate_for_(aString,anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"eval:on:",{aString:aString,anObject:anObject},globals.Environment)})},
+}, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},globals.Environment)})},
 args: ["aString", "anObject"],
-source: "eval: aString on: anObject\x0a\x09^ Evaluator evaluate: aString on: anObject",
-messageSends: ["evaluate:on:"],
+source: "evaluate: aString for: anObject\x0a\x09^ Evaluator evaluate: aString for: anObject",
+messageSends: ["evaluate:for:"],
 referencedClasses: ["Evaluator"]
 }),
 globals.Environment);
@@ -550,25 +550,6 @@ args: ["aBlock", "anErrorClass", "exceptionBlock"],
 source: "evaluate: aBlock on: anErrorClass do: exceptionBlock\x0a\x09\x22Evaluate a block and catch exceptions happening on the environment stack\x22\x0a\x09\x0a\x09aBlock tryCatch: [ :exception | \x0a\x09\x09(exception isKindOf: (self classNamed: anErrorClass name))\x0a\x09\x09\x09ifTrue: [ exceptionBlock value: exception ]\x0a \x09\x09\x09ifFalse: [ exception signal ] ]",
 messageSends: ["tryCatch:", "ifTrue:ifFalse:", "isKindOf:", "classNamed:", "name", "value:", "signal"],
 referencedClasses: []
-}),
-globals.Environment);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "evaluateString:on:",
-protocol: 'evaluating',
-fn: function (aString,anObject){
-var self=this;
-function $Evaluator(){return globals.Evaluator||(typeof Evaluator=="undefined"?nil:Evaluator)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($Evaluator())._evaluate_for_(aString,anObject);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"evaluateString:on:",{aString:aString,anObject:anObject},globals.Environment)})},
-args: ["aString", "anObject"],
-source: "evaluateString: aString on: anObject\x0a\x09^ Evaluator evaluate: aString for: anObject",
-messageSends: ["evaluate:for:"],
-referencedClasses: ["Evaluator"]
 }),
 globals.Environment);
 

@@ -347,8 +347,8 @@ where
 
 evaluate: aString
 	^ self environment 
-		evaluateString: aString 
-		on: self currentContext
+		evaluate: aString 
+		for: self currentContext
 ! !
 
 !HLDebuggerModel methodsFor: 'initialization'!
