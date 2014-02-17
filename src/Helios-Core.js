@@ -3927,6 +3927,24 @@ globals.HLManager);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "tabs",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._tabsWidget())._tabs();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"tabs",{},globals.HLManager)})},
+args: [],
+source: "tabs\x0a\x09^ self tabsWidget tabs",
+messageSends: ["tabs", "tabsWidget"],
+referencedClasses: []
+}),
+globals.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "tabsWidget",
 protocol: 'accessing',
 fn: function (){

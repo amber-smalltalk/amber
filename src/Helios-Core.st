@@ -1203,6 +1203,10 @@ tabWidth
 	^ (window asJQuery width - 90) / self tabs size
 !
 
+tabs
+	^ self tabsWidget tabs
+!
+
 tabsWidget
 	^ tabsWidget ifNil: [ tabsWidget := HLTabsWidget new ]
 ! !
