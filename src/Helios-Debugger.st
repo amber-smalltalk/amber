@@ -366,11 +366,6 @@ initializeContexts
 		context := context outerContext ]
 !
 
-initializeFromContext: aMethodContext
-	rootContext := (AIContext fromMethodContext: aMethodContext).
-	self initializeContexts
-!
-
 initializeFromError: anError
 	error := anError.
 	rootContext := (AIContext fromMethodContext: error context).
