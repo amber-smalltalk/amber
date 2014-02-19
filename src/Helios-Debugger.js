@@ -314,12 +314,18 @@ fn: function (anAnnouncement){
 var self=this;
 function $HLContextInspectorDecorator(){return globals.HLContextInspectorDecorator||(typeof HLContextInspectorDecorator=="undefined"?nil:HLContextInspectorDecorator)}
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(self._model())._atEnd();
+if(smalltalk.assert($1)){
+$2=_st(self._manager())._removeActiveTab();
+return $2;
+};
 _st(self._inspectorWidget())._inspect_(_st($HLContextInspectorDecorator())._on_(_st(anAnnouncement)._context()));
 _st(self._stackListWidget())._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onDebuggerStepped:",{anAnnouncement:anAnnouncement},globals.HLDebugger)})},
 args: ["anAnnouncement"],
-source: "onDebuggerStepped: anAnnouncement\x0a\x09self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context).\x0a\x09self stackListWidget refresh",
-messageSends: ["inspect:", "inspectorWidget", "on:", "context", "refresh", "stackListWidget"],
+source: "onDebuggerStepped: anAnnouncement\x0a\x09self model atEnd ifTrue: [ ^ self manager removeActiveTab ].\x0a\x09\x0a\x09self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context).\x0a\x09self stackListWidget refresh",
+messageSends: ["ifTrue:", "atEnd", "model", "removeActiveTab", "manager", "inspect:", "inspectorWidget", "on:", "context", "refresh", "stackListWidget"],
 referencedClasses: ["HLContextInspectorDecorator"]
 }),
 globals.HLDebugger);
@@ -627,11 +633,19 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._highlightNode_(_st(self._browserModel())._nextNode());
+var $1,$receiver;
+$1=_st(self._browserModel())._nextNode();
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+var node;
+node=$receiver;
+self._highlightNode_(node);
+};
 return self}, function($ctx1) {$ctx1.fill(self,"highlight",{},globals.HLDebuggerCodeWidget)})},
 args: [],
-source: "highlight\x0a\x09self highlightNode: self browserModel nextNode",
-messageSends: ["highlightNode:", "nextNode", "browserModel"],
+source: "highlight\x0a\x09self browserModel nextNode ifNotNil: [ :node |\x0a\x09\x09self highlightNode: node ]",
+messageSends: ["ifNotNil:", "nextNode", "browserModel", "highlightNode:"],
 referencedClasses: []
 }),
 globals.HLDebuggerCodeWidget);
@@ -737,6 +751,24 @@ globals.HLDebuggerCodeWidget);
 
 smalltalk.addClass('HLDebuggerModel', globals.HLToolModel, ['rootContext', 'debugger', 'error'], 'Helios-Debugger');
 globals.HLDebuggerModel.comment="I am a model for debugging Amber code in Helios.\x0a\x0aMy instances hold a reference to an `ASTDebugger` instance, itself referencing the current `context`. The context should be the root of the context stack.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "atEnd",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._debugger())._atEnd();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"atEnd",{},globals.HLDebuggerModel)})},
+args: [],
+source: "atEnd\x0a\x09^ self debugger atEnd",
+messageSends: ["atEnd", "debugger"],
+referencedClasses: []
+}),
+globals.HLDebuggerModel);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "contexts",

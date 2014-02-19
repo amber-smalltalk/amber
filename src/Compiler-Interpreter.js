@@ -1067,16 +1067,23 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self._interpreter())._atEnd())._and_((function(){
+var $1,$2,$receiver;
+$1=self._context();
+$ctx1.sendIdx["context"]=1;
+if(($receiver = $1) == nil || $receiver == null){
+return true;
+} else {
+$1;
+};
+$2=_st(_st(self._interpreter())._atEnd())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self._context())._outerContext())._isNil();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-return $1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"atEnd",{},globals.ASTDebugger)})},
 args: [],
-source: "atEnd\x0a\x09^ self interpreter atEnd and: [ \x0a\x09\x09self context outerContext isNil ]",
-messageSends: ["and:", "atEnd", "interpreter", "isNil", "outerContext", "context"],
+source: "atEnd\x09\x0a\x09self context ifNil: [ ^ true ].\x0a\x09\x0a\x09^ self interpreter atEnd and: [ \x0a\x09\x09self context outerContext isNil ]",
+messageSends: ["ifNil:", "context", "and:", "atEnd", "interpreter", "isNil", "outerContext"],
 referencedClasses: []
 }),
 globals.ASTDebugger);
@@ -1120,11 +1127,19 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._context())._innerContext_(nil);
+var $1,$receiver;
+$1=self._context();
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+var cxt;
+cxt=$receiver;
+_st(cxt)._innerContext_(nil);
+};
 return self}, function($ctx1) {$ctx1.fill(self,"flushInnerContexts",{},globals.ASTDebugger)})},
 args: [],
-source: "flushInnerContexts\x0a\x09\x22When stepping, the inner contexts are not relevent anymore,\x0a\x09and can be flushed\x22\x0a\x09\x0a\x09self context innerContext: nil",
-messageSends: ["innerContext:", "context"],
+source: "flushInnerContexts\x0a\x09\x22When stepping, the inner contexts are not relevent anymore,\x0a\x09and can be flushed\x22\x0a\x09\x0a\x09self context ifNotNil: [ :cxt | \x0a\x09\x09cxt innerContext: nil ]",
+messageSends: ["ifNotNil:", "context", "innerContext:"],
 referencedClasses: []
 }),
 globals.ASTDebugger);
@@ -1136,13 +1151,20 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._context())._interpreter();
+var $2,$1,$receiver;
+$2=self._context();
+if(($receiver = $2) == nil || $receiver == null){
+$1=$2;
+} else {
+var ctx;
+ctx=$receiver;
+$1=_st(ctx)._interpreter();
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"interpreter",{},globals.ASTDebugger)})},
 args: [],
-source: "interpreter\x0a\x09^ self context interpreter",
-messageSends: ["interpreter", "context"],
+source: "interpreter\x0a\x09^ self context ifNotNil: [ :ctx | \x0a\x09\x09ctx interpreter ]",
+messageSends: ["ifNotNil:", "context", "interpreter"],
 referencedClasses: []
 }),
 globals.ASTDebugger);
@@ -1190,13 +1212,19 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$1,$receiver;
+$2=self._interpreter();
+$ctx1.sendIdx["interpreter"]=1;
+if(($receiver = $2) == nil || $receiver == null){
+$1=$2;
+} else {
 $1=_st(self._interpreter())._node();
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"node",{},globals.ASTDebugger)})},
 args: [],
-source: "node\x0a\x09^ self interpreter node",
-messageSends: ["node", "interpreter"],
+source: "node\x0a\x09^ self interpreter ifNotNil: [\x0a\x09\x09self interpreter node ]",
+messageSends: ["ifNotNil:", "interpreter", "node"],
 referencedClasses: []
 }),
 globals.ASTDebugger);

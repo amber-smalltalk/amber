@@ -379,7 +379,8 @@ context: aContext
 !
 
 interpreter
-	^ self context interpreter
+	^ self context ifNotNil: [ :ctx | 
+		ctx interpreter ]
 !
 
 method
@@ -391,7 +392,8 @@ nextNode
 !
 
 node
-	^ self interpreter node
+	^ self interpreter ifNotNil: [
+		self interpreter node ]
 ! !
 
 !ASTDebugger methodsFor: 'private'!
@@ -400,7 +402,8 @@ flushInnerContexts
 	"When stepping, the inner contexts are not relevent anymore,
 	and can be flushed"
 	
-	self context innerContext: nil
+	self context ifNotNil: [ :cxt | 
+		cxt innerContext: nil ]
 !
 
 onStep
@@ -445,7 +448,9 @@ stepOver
 
 !ASTDebugger methodsFor: 'testing'!
 
-atEnd
+atEnd	
+	self context ifNil: [ ^ true ].
+	
 	^ self interpreter atEnd and: [ 
 		self context outerContext isNil ]
 ! !

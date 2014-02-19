@@ -110,6 +110,8 @@ onContextSelected: anAnnouncement
 !
 
 onDebuggerStepped: anAnnouncement
+	self model atEnd ifTrue: [ ^ self manager removeActiveTab ].
+	
 	self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context).
 	self stackListWidget refresh
 ! !
@@ -226,7 +228,8 @@ clearHighlight
 !
 
 highlight
-	self highlightNode: self browserModel nextNode
+	self browserModel nextNode ifNotNil: [ :node |
+		self highlightNode: node ]
 !
 
 highlightNode: aNode
@@ -383,6 +386,12 @@ flushInnerContexts
 
 onStep
 	rootContext := self currentContext
+! !
+
+!HLDebuggerModel methodsFor: 'testing'!
+
+atEnd
+	^ self debugger atEnd
 ! !
 
 !HLDebuggerModel class methodsFor: 'instance creation'!
