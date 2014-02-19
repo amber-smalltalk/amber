@@ -144,7 +144,7 @@ model
 !
 
 selection
-	^ model selection
+	^ self model selection
 !
 
 variables
