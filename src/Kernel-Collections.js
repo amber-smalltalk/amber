@@ -5487,7 +5487,7 @@ fn: function (anObject){
 var self=this;
 var bucket;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 bucket=self._bucketsOfElement_(anObject);
 $2=_st(bucket)._second();
 if(($receiver = $2) == nil || $receiver == null){
@@ -5675,7 +5675,7 @@ fn: function (anObject){
 var self=this;
 var bucket;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
+var $2,$3,$4,$1,$receiver;
 bucket=self._bucketsOfElement_(anObject);
 $2=_st(bucket)._second();
 if(($receiver = $2) == nil || $receiver == null){
@@ -5811,7 +5811,7 @@ fn: function (anObject,aBlock){
 var self=this;
 var bucket;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$1;
+var $2,$3,$4,$5,$1,$receiver;
 var $early={};
 try {
 bucket=self._bucketsOfElement_(anObject);
@@ -6425,7 +6425,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@position"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@position"]=(0);

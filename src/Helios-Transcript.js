@@ -84,7 +84,7 @@ protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self["@textarea"];
 if(($receiver = $1) == nil || $receiver == null){
 $1;
@@ -204,7 +204,7 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@transcripts"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@transcripts"]=_st($OrderedCollection())._new();

@@ -134,7 +134,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 $1=self["@nextAlias"];
 if(($receiver = $1) == nil || $receiver == null){
 self["@nextAlias"]=(0);
@@ -855,7 +855,7 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@instructions"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@instructions"]=_st($OrderedCollection())._new();
@@ -1147,7 +1147,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._parent();
 if(($receiver = $2) == nil || $receiver == null){
 $1=$2;
@@ -1294,7 +1294,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@arguments"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=[];
@@ -1356,7 +1356,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@requiresSmalltalkContext"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=false;
@@ -1541,7 +1541,7 @@ fn: function (){
 var self=this;
 function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@internalVariables"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@internalVariables"]=_st($Set())._new();
@@ -1873,7 +1873,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@scope"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=_st(self._parent())._scope();
@@ -3125,7 +3125,7 @@ fn: function (anIRSend){
 var self=this;
 var sends;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 sends=_st(_st(_st(_st(anIRSend)._method())._sendIndexes())._at_(_st(anIRSend)._selector()))._size();
 $1=_st(anIRSend)._classSend();
 if(($receiver = $1) == nil || $receiver == null){

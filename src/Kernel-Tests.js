@@ -1049,7 +1049,7 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self["@theClass"];
 if(($receiver = $1) == nil || $receiver == null){
 $1;
@@ -7818,7 +7818,7 @@ fn: function (){
 var self=this;
 function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$5,$4,$3,$7,$6,$9,$8,$11,$10;
+var $2,$1,$5,$4,$3,$7,$6,$9,$8,$11,$10,$receiver,$receiver,$receiver,$receiver;
 $2=_st($Object())._new();
 $ctx1.sendIdx["new"]=1;
 $1=_st($2)._isNil();
@@ -8832,7 +8832,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4,$6,$5;
+var $1,$3,$2,$4,$6,$5,$receiver,$receiver,$receiver,$receiver;
 if(($receiver = nil) == nil || $receiver == null){
 $1=true;
 } else {

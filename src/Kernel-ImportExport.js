@@ -1791,7 +1791,7 @@ var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
+var $1,$3,$2,$receiver;
 $1=_st($Smalltalk())._amdRequire();
 if(($receiver = $1) == nil || $receiver == null){
 self._error_("AMD loader not present");
@@ -1837,7 +1837,7 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=_st($Smalltalk())._amdRequire();
 if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("AMD loader not present");
@@ -2138,7 +2138,7 @@ protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
+var $1,$3,$4,$2,$receiver;
 if(($receiver = anObject) == nil || $receiver == null){
 $1=self._for_(self._defaultType());
 $ctx1.sendIdx["for:"]=1;
@@ -2201,7 +2201,7 @@ protocol: 'registration',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=_st(aClass)._type();
 $ctx1.sendIdx["type"]=1;
 if(($receiver = $1) == nil || $receiver == null){
@@ -2327,7 +2327,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@namespace"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=self._defaultNamespace();

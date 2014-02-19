@@ -394,7 +394,7 @@ protocol: 'async',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self["@asyncTimeout"];
 if(($receiver = $1) == nil || $receiver == null){
 $1;

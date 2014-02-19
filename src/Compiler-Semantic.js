@@ -92,7 +92,7 @@ fn: function (){
 var self=this;
 function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@args"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@args"]=_st($Dictionary())._new();
@@ -150,7 +150,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@blockIndex"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=(0);
@@ -299,7 +299,7 @@ fn: function (aNode){
 var self=this;
 var lookup;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver,$receiver;
 lookup=self._bindingFor_(aNode);
 $1=lookup;
 if(($receiver = $1) == nil || $receiver == null){
@@ -331,7 +331,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._outerScope();
 $ctx1.sendIdx["outerScope"]=1;
 if(($receiver = $2) == nil || $receiver == null){
@@ -437,7 +437,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3,$5;
+var $1,$2,$4,$3,$5,$receiver;
 $1=self._outerScope();
 $ctx1.sendIdx["outerScope"]=1;
 if(($receiver = $1) == nil || $receiver == null){
@@ -471,7 +471,7 @@ fn: function (){
 var self=this;
 function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@temps"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@temps"]=_st($Dictionary())._new();
@@ -554,7 +554,7 @@ protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=globals.MethodLexicalScope.superclass.fn.prototype._bindingFor_.apply(_st(self), [aNode]);
 if(($receiver = $2) == nil || $receiver == null){
 $1=_st(self._iVars())._at_ifAbsent_(_st(aNode)._value(),(function(){
@@ -631,7 +631,7 @@ fn: function (){
 var self=this;
 function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@iVars"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@iVars"]=_st($Dictionary())._new();
@@ -670,7 +670,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@localReturn"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=false;
@@ -724,7 +724,7 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@nonLocalReturns"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@nonLocalReturns"]=_st($OrderedCollection())._new();
@@ -751,7 +751,7 @@ function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $PseudoVar(){return globals.PseudoVar||(typeof PseudoVar=="undefined"?nil:PseudoVar)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3,$4,$receiver;
 $1=self["@pseudoVars"];
 if(($receiver = $1) == nil || $receiver == null){
 self["@pseudoVars"]=_st($Dictionary())._new();
@@ -801,7 +801,7 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@unknownVariables"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@unknownVariables"]=_st($OrderedCollection())._new();
@@ -1320,7 +1320,7 @@ fn: function (){
 var self=this;
 function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@classReferences"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@classReferences"]=_st($Set())._new();
@@ -1417,7 +1417,7 @@ fn: function (){
 var self=this;
 function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@messageSends"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@messageSends"]=_st($Dictionary())._new();
@@ -1500,7 +1500,7 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 $1=self["@blockIndex"];
 if(($receiver = $1) == nil || $receiver == null){
 self["@blockIndex"]=(0);
@@ -1526,7 +1526,7 @@ protocol: 'scope',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self["@currentScope"];
 if(($receiver = $1) == nil || $receiver == null){
 $1;
@@ -1567,7 +1567,7 @@ fn: function (){
 var self=this;
 function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@superSends"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@superSends"]=_st($Dictionary())._new();
@@ -1623,7 +1623,7 @@ protocol: 'scope',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=_st(self["@currentScope"])._lookupVariable_(aString);
 if(($receiver = $1) == nil || $receiver == null){
 $1;
@@ -1775,7 +1775,7 @@ var self=this;
 function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
 function $IRSendInliner(){return globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$4,$5,$6,$8,$9,$7,$11,$12,$10,$13,$14,$15,$17,$18,$16;
+var $3,$2,$1,$4,$5,$6,$8,$9,$7,$11,$12,$10,$13,$14,$15,$17,$18,$16,$receiver;
 $3=_st(aNode)._receiver();
 $ctx1.sendIdx["receiver"]=1;
 $2=_st($3)._value();
@@ -1875,7 +1875,7 @@ var binding;
 function $ClassRefVar(){return globals.ClassRefVar||(typeof ClassRefVar=="undefined"?nil:ClassRefVar)}
 function $UnknownVar(){return globals.UnknownVar||(typeof UnknownVar=="undefined"?nil:UnknownVar)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4,$5,$6,$7,$8,$9,$10,$11;
+var $1,$3,$2,$4,$5,$6,$7,$8,$9,$10,$11,$receiver;
 binding=_st(self["@currentScope"])._lookupVariable_(aNode);
 $1=binding;
 if(($receiver = $1) == nil || $receiver == null){

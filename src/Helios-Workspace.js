@@ -11,7 +11,7 @@ fn: function (){
 var self=this;
 function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@announcer"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@announcer"]=_st($Announcer())._new();
@@ -96,7 +96,7 @@ fn: function (){
 var self=this;
 function $HLManager(){return globals.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@environment"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=_st(_st($HLManager())._current())._environment();
@@ -150,7 +150,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@receiver"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@receiver"]=self._defaultReceiver();
@@ -348,7 +348,7 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 _st(self["@editor"])._setValue_(aString);
 $1=self["@state"];
 if(($receiver = $1) == nil || $receiver == null){
@@ -567,7 +567,7 @@ fn: function (){
 var self=this;
 function $HLCodeModel(){return globals.HLCodeModel||(typeof HLCodeModel=="undefined"?nil:HLCodeModel)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@model"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@model"]=_st($HLCodeModel())._new();
@@ -1424,7 +1424,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@methodContents"];
 if(($receiver = $2) == nil || $receiver == null){
 $1="";
@@ -1672,7 +1672,7 @@ fn: function (anAnnouncement){
 var self=this;
 var class_;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 class_=_st(anAnnouncement)._item();
 $1=class_;
 if(($receiver = $1) == nil || $receiver == null){
@@ -1731,7 +1731,7 @@ fn: function (anAnnouncement){
 var self=this;
 var method;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$5,$4,$7,$6;
+var $3,$2,$1,$5,$4,$7,$6,$receiver;
 method=_st(anAnnouncement)._method();
 $3=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
@@ -1773,7 +1773,7 @@ fn: function (anAnnouncement){
 var self=this;
 var method;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 method=_st(anAnnouncement)._item();
 $1=method;
 if(($receiver = $1) == nil || $receiver == null){
@@ -1800,7 +1800,7 @@ fn: function (anAnnouncement){
 var self=this;
 var package_;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 package_=_st(anAnnouncement)._item();
 $1=package_;
 if(($receiver = $1) == nil || $receiver == null){
@@ -1878,7 +1878,7 @@ protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $2,$1,$3,$receiver;
 $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
 $1=_st($2)._selectedClass();
@@ -1922,7 +1922,7 @@ protocol: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $2,$1,$3,$receiver;
 $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
 $1=_st($2)._selectedClass();
@@ -2173,7 +2173,7 @@ fn: function (){
 var self=this;
 function $HLCodeWidget(){return globals.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@codeWidget"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@codeWidget"]=_st($HLCodeWidget())._new();
@@ -2267,7 +2267,7 @@ fn: function (){
 var self=this;
 function $HLTranscript(){return globals.HLTranscript||(typeof HLTranscript=="undefined"?nil:HLTranscript)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@transcript"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@transcript"]=_st($HLTranscript())._new();

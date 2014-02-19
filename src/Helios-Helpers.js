@@ -11,7 +11,7 @@ protocol: 'protocol',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
+var $1,$3,$2,$receiver;
 $1=self._next();
 $ctx1.sendIdx["next"]=1;
 if(($receiver = $1) == nil || $receiver == null){
@@ -74,7 +74,7 @@ protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 self["@method"]=anObject;
 $1=self._next();
 if(($receiver = $1) == nil || $receiver == null){
@@ -663,7 +663,7 @@ protocol: 'protocol',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=_st(self["@output"])._targetClass();
 if(($receiver = $1) == nil || $receiver == null){
 self._error_("class should not be nil");

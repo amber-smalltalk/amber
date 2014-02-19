@@ -100,7 +100,7 @@ fn: function (anAnnouncement){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$4,$2,$1;
+var $3,$4,$2,$1,$receiver;
 $3=_st($Smalltalk())._globals();
 $ctx1.sendIdx["globals"]=1;
 $4=_st(self._announcementClass())._name();
@@ -461,7 +461,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@current"]=globals.SystemAnnouncer.klass.superclass.fn.prototype._new.apply(_st(self), []);

@@ -511,7 +511,7 @@ fn: function (aString,aBinding){
 var self=this;
 var binding;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 binding=self._at_(aString);
 $1=binding;
 if(($receiver = $1) == nil || $receiver == null){
@@ -559,7 +559,7 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@bindings"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@bindings"]=_st($OrderedCollection())._new();
@@ -662,7 +662,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@callback"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@callback"]=(function(value){
@@ -720,7 +720,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@defaultValue"];
 if(($receiver = $2) == nil || $receiver == null){
 $1="";
@@ -852,7 +852,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@inputCompletion"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=[];
@@ -890,7 +890,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@message"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@message"]="";
@@ -929,7 +929,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self["@wrapper"];
 if(($receiver = $1) == nil || $receiver == null){
 return self;
@@ -953,7 +953,7 @@ protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$6,$8,$10,$9,$7,$5,$11,$12,$13,$3,$14,$15;
+var $1,$2,$4,$6,$8,$10,$9,$7,$5,$11,$12,$13,$3,$14,$15,$receiver;
 $1=self["@wrapper"];
 if(($receiver = $1) == nil || $receiver == null){
 self["@wrapper"]=_st(html)._span();
@@ -1018,7 +1018,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@status"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@status"]="info";
@@ -1129,7 +1129,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@bindings"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@bindings"]=self._defaultBindings();
@@ -1153,7 +1153,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self["@selectedBinding"];
 if(($receiver = $1) == nil || $receiver == null){
 $1;
@@ -1287,7 +1287,7 @@ fn: function (anEvent){
 var self=this;
 var binding;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 binding=_st(self._selectedBinding())._atKey_(_st(anEvent)._which());
 $1=binding;
 if(($receiver = $1) == nil || $receiver == null){
@@ -1435,7 +1435,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@selectedBinding"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=self._bindings();
@@ -1497,7 +1497,7 @@ protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@current"]=globals.HLKeyBinder.klass.superclass.fn.prototype._new.apply(_st(self), []);
@@ -1788,7 +1788,7 @@ protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$5,$4,$2;
+var $1,$3,$5,$4,$2,$receiver;
 $1=_st(html)._span();
 _st($1)._class_("selected");
 $3=$1;
@@ -2009,7 +2009,7 @@ protocol: 'events handling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver,$receiver;
 $1=self._isKeyDown();
 if(smalltalk.assert($1)){
 self["@keyDown"]=false;
@@ -2042,7 +2042,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@keyDown"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=false;
@@ -2066,7 +2066,7 @@ fn: function (){
 var self=this;
 function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@keyBindings"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@keyBindings"]=_st($Dictionary())._new();
@@ -2108,7 +2108,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@repeatInterval"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=self._defaultRepeatInterval();

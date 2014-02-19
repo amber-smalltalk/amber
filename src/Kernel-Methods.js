@@ -15,7 +15,7 @@ return self.apply(anObject, aCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"applyTo:arguments:",{anObject:anObject,aCollection:aCollection},globals.BlockClosure)})},
 args: ["anObject", "aCollection"],
 source: "applyTo: anObject arguments: aCollection\x0a\x09<return self.apply(anObject, aCollection)>",
-messageSends: ["applyTo:arguments:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -31,7 +31,7 @@ return smalltalk.method({selector:aString, fn:self});;
 return self}, function($ctx1) {$ctx1.fill(self,"asCompiledMethod:",{aString:aString},globals.BlockClosure)})},
 args: ["aString"],
 source: "asCompiledMethod: aString\x0a\x09<return smalltalk.method({selector:aString, fn:self});>",
-messageSends: ["asCompiledMethod:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -47,7 +47,7 @@ return self.toString();
 return self}, function($ctx1) {$ctx1.fill(self,"compiledSource",{},globals.BlockClosure)})},
 args: [],
 source: "compiledSource\x0a\x09<return self.toString()>",
-messageSends: ["compiledSource"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -69,7 +69,7 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"currySelf",{},globals.BlockClosure)})},
 args: [],
 source: "currySelf\x0a\x09\x22Transforms [ :selfarg :x :y | stcode ] block\x0a\x09which represents JS function (selfarg, x, y, ...) {jscode}\x0a\x09into function (x, y, ...) {jscode} that takes selfarg from 'this'.\x0a\x09IOW, it is usable as JS method and first arg takes the receiver.\x22\x0a\x09\x0a\x09<\x0a\x09\x09return function () {\x0a\x09\x09\x09var args = [ this ];\x0a\x09\x09\x09args.push.apply(args, arguments);\x0a\x09\x09\x09return self.apply(null, args);\x0a\x09\x09}\x0a\x09>",
-messageSends: ["currySelf"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -85,7 +85,7 @@ try{return self._value()}finally{aBlock._value()};
 return self}, function($ctx1) {$ctx1.fill(self,"ensure:",{aBlock:aBlock},globals.BlockClosure)})},
 args: ["aBlock"],
 source: "ensure: aBlock\x0a\x09<try{return self._value()}finally{aBlock._value()}>",
-messageSends: ["ensure:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -102,7 +102,7 @@ _st(_st($ForkPool())._default())._fork_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"fork",{},globals.BlockClosure)})},
 args: [],
 source: "fork\x0a\x09ForkPool default fork: self",
-messageSends: ["fork:", "default", "fork"],
+messageSends: ["fork:", "default"],
 referencedClasses: ["ForkPool"]
 }),
 globals.BlockClosure);
@@ -118,7 +118,7 @@ return new self();
 return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.BlockClosure)})},
 args: [],
 source: "new\x0a\x09\x22Use the receiver as a JS constructor.\x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self()>",
-messageSends: ["new"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -136,7 +136,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"newValue:",{anObject:anObject},globals.BlockClosure)})},
 args: ["anObject"],
 source: "newValue: anObject\x0a\x09^ self newWithValues: { anObject }",
-messageSends: ["newWithValues:", "newValue:"],
+messageSends: ["newWithValues:"],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -154,7 +154,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"newValue:value:",{anObject:anObject,anObject2:anObject2},globals.BlockClosure)})},
 args: ["anObject", "anObject2"],
 source: "newValue: anObject value: anObject2\x0a\x09^ self newWithValues: { anObject. anObject2 }.",
-messageSends: ["newWithValues:", "newValue:value:"],
+messageSends: ["newWithValues:"],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -172,7 +172,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3},globals.BlockClosure)})},
 args: ["anObject", "anObject2", "anObject3"],
 source: "newValue: anObject value: anObject2 value: anObject3\x0a\x09^ self newWithValues: { anObject. anObject2. anObject3 }.",
-messageSends: ["newWithValues:", "newValue:value:value:"],
+messageSends: ["newWithValues:"],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -192,7 +192,7 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"newWithValues:",{aCollection:aCollection},globals.BlockClosure)})},
 args: ["aCollection"],
 source: "newWithValues: aCollection\x0a\x09\x22Simulates JS new operator by combination of Object.create and .apply\x22\x0a\x09<\x0a\x09\x09var object = Object.create(self.prototype);\x0a\x09\x09var result = self.apply(object, aCollection);\x0a\x09\x09return typeof result === \x22object\x22 ? result : object;\x0a\x09>",
-messageSends: ["newWithValues:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -208,7 +208,7 @@ return self.length;
 return self}, function($ctx1) {$ctx1.fill(self,"numArgs",{},globals.BlockClosure)})},
 args: [],
 source: "numArgs\x0a\x09<return self.length>",
-messageSends: ["numArgs"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -238,7 +238,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:do:",{anErrorClass:anErrorClass,aBlock:aBlock},globals.BlockClosure)})},
 args: ["anErrorClass", "aBlock"],
 source: "on: anErrorClass do: aBlock\x0a\x09\x22All exceptions thrown in the Smalltalk stack are cought.\x0a\x09Convert all JS exceptions to JavaScriptException instances.\x22\x0a\x09\x0a\x09^ self tryCatch: [ :error | | smalltalkError |\x0a\x09\x09smalltalkError := Smalltalk asSmalltalkException: error.\x0a\x09\x09(smalltalkError isKindOf: anErrorClass)\x0a\x09\x09ifTrue: [ aBlock value: smalltalkError ]\x0a\x09\x09ifFalse: [ smalltalkError resignal ] ]",
-messageSends: ["tryCatch:", "asSmalltalkException:", "ifTrue:ifFalse:", "isKindOf:", "value:", "resignal", "on:do:"],
+messageSends: ["tryCatch:", "asSmalltalkException:", "ifTrue:ifFalse:", "isKindOf:", "value:", "resignal"],
 referencedClasses: ["Smalltalk"]
 }),
 globals.BlockClosure);
@@ -253,7 +253,7 @@ return nil;
 },
 args: [],
 source: "receiver\x0a\x09^ nil",
-messageSends: ["receiver"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -272,7 +272,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"timeToRun",{},globals.BlockClosure)})},
 args: [],
 source: "timeToRun\x0a\x09\x22Answer the number of milliseconds taken to execute this block.\x22\x0a\x0a\x09^ Date millisecondsToRun: self",
-messageSends: ["millisecondsToRun:", "timeToRun"],
+messageSends: ["millisecondsToRun:"],
 referencedClasses: ["Date"]
 }),
 globals.BlockClosure);
@@ -294,7 +294,7 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"tryCatch:",{aBlock:aBlock},globals.BlockClosure)})},
 args: ["aBlock"],
 source: "tryCatch: aBlock\x0a\x09<\x0a\x09\x09try {\x0a\x09\x09\x09return self._value();\x0a\x09\x09} catch(error) {\x0a\x09\x09\x09return aBlock._value_(error);\x0a\x09\x09}\x0a\x09>",
-messageSends: ["tryCatch:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -310,7 +310,7 @@ return self();;
 return self}, function($ctx1) {$ctx1.fill(self,"value",{},globals.BlockClosure)})},
 args: [],
 source: "value\x0a\x09<return self();>",
-messageSends: ["value"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -326,7 +326,7 @@ return self(anArg);;
 return self}, function($ctx1) {$ctx1.fill(self,"value:",{anArg:anArg},globals.BlockClosure)})},
 args: ["anArg"],
 source: "value: anArg\x0a\x09<return self(anArg);>",
-messageSends: ["value:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -342,7 +342,7 @@ return self(firstArg, secondArg);;
 return self}, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArg:firstArg,secondArg:secondArg},globals.BlockClosure)})},
 args: ["firstArg", "secondArg"],
 source: "value: firstArg value: secondArg\x0a\x09<return self(firstArg, secondArg);>",
-messageSends: ["value:value:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -358,7 +358,7 @@ return self(firstArg, secondArg, thirdArg);;
 return self}, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArg:firstArg,secondArg:secondArg,thirdArg:thirdArg},globals.BlockClosure)})},
 args: ["firstArg", "secondArg", "thirdArg"],
 source: "value: firstArg value: secondArg value: thirdArg\x0a\x09<return self(firstArg, secondArg, thirdArg);>",
-messageSends: ["value:value:value:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -377,7 +377,7 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"valueWithInterval:",{aNumber:aNumber},globals.BlockClosure)})},
 args: ["aNumber"],
 source: "valueWithInterval: aNumber\x0a\x09<\x0a\x09\x09var interval = setInterval(self, aNumber);\x0a\x09\x09return globals.Timeout._on_(interval);\x0a\x09>",
-messageSends: ["valueWithInterval:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -393,7 +393,7 @@ return self.apply(null, aCollection);;
 return self}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection},globals.BlockClosure)})},
 args: ["aCollection"],
 source: "valueWithPossibleArguments: aCollection\x0a\x09<return self.apply(null, aCollection);>",
-messageSends: ["valueWithPossibleArguments:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -412,7 +412,7 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"valueWithTimeout:",{aNumber:aNumber},globals.BlockClosure)})},
 args: ["aNumber"],
 source: "valueWithTimeout: aNumber\x0a\x09<\x0a\x09\x09var timeout = setTimeout(self, aNumber);\x0a\x09\x09return globals.Timeout._on_(timeout);\x0a\x09>",
-messageSends: ["valueWithTimeout:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -429,7 +429,7 @@ self._whileFalse_((function(){
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse",{},globals.BlockClosure)})},
 args: [],
 source: "whileFalse\x0a\x09self whileFalse: []",
-messageSends: ["whileFalse:", "whileFalse"],
+messageSends: ["whileFalse:"],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -445,7 +445,7 @@ while(!smalltalk.assert(self._value())) {aBlock._value()};
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse:",{aBlock:aBlock},globals.BlockClosure)})},
 args: ["aBlock"],
 source: "whileFalse: aBlock\x0a\x09<while(!smalltalk.assert(self._value())) {aBlock._value()}>",
-messageSends: ["whileFalse:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -462,7 +462,7 @@ self._whileTrue_((function(){
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue",{},globals.BlockClosure)})},
 args: [],
 source: "whileTrue\x0a\x09self whileTrue: []",
-messageSends: ["whileTrue:", "whileTrue"],
+messageSends: ["whileTrue:"],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -478,7 +478,7 @@ while(smalltalk.assert(self._value())) {aBlock._value()};
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue:",{aBlock:aBlock},globals.BlockClosure)})},
 args: ["aBlock"],
 source: "whileTrue: aBlock\x0a\x09<while(smalltalk.assert(self._value())) {aBlock._value()}>",
-messageSends: ["whileTrue:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.BlockClosure);
@@ -498,7 +498,7 @@ return self.args || [];
 return self}, function($ctx1) {$ctx1.fill(self,"arguments",{},globals.CompiledMethod)})},
 args: [],
 source: "arguments\x0a\x09<return self.args || []>",
-messageSends: ["arguments"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -515,7 +515,7 @@ _st($Finder())._findMethod_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"browse",{},globals.CompiledMethod)})},
 args: [],
 source: "browse\x0a\x09Finder findMethod: self",
-messageSends: ["findMethod:", "browse"],
+messageSends: ["findMethod:"],
 referencedClasses: ["Finder"]
 }),
 globals.CompiledMethod);
@@ -533,7 +533,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"category",{},globals.CompiledMethod)})},
 args: [],
 source: "category\x0a\x09^ self protocol",
-messageSends: ["protocol", "category"],
+messageSends: ["protocol"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -548,7 +548,7 @@ return "as yet unclassified";
 },
 args: [],
 source: "defaultProtocol\x0a\x09^ 'as yet unclassified'",
-messageSends: ["defaultProtocol"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -566,7 +566,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"fn",{},globals.CompiledMethod)})},
 args: [],
 source: "fn\x0a\x09^ self basicAt: 'fn'",
-messageSends: ["basicAt:", "fn"],
+messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -582,7 +582,7 @@ self._basicAt_put_("fn",aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"fn:",{aBlock:aBlock},globals.CompiledMethod)})},
 args: ["aBlock"],
 source: "fn: aBlock\x0a\x09self basicAt: 'fn' put: aBlock",
-messageSends: ["basicAt:put:", "fn:"],
+messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -597,7 +597,7 @@ return true;
 },
 args: [],
 source: "isCompiledMethod\x0a\x09^ true",
-messageSends: ["isCompiledMethod"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -627,7 +627,7 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"isOverridden",{selector:selector},globals.CompiledMethod)})},
 args: [],
 source: "isOverridden\x0a\x09| selector |\x0a    \x0a    selector := self selector.\x0a    self methodClass allSubclassesDo: [ :each |\x0a\x09    (each includesSelector: selector)\x0a        \x09ifTrue: [ ^ true ] ].\x0a\x09^ false",
-messageSends: ["selector", "allSubclassesDo:", "methodClass", "ifTrue:", "includesSelector:", "isOverridden"],
+messageSends: ["selector", "allSubclassesDo:", "methodClass", "ifTrue:", "includesSelector:"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -640,7 +640,7 @@ fn: function (){
 var self=this;
 var superclass;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver;
 $1=self._methodClass();
 $ctx1.sendIdx["methodClass"]=1;
 superclass=_st($1)._superclass();
@@ -656,7 +656,7 @@ return $3;
 }, function($ctx1) {$ctx1.fill(self,"isOverride",{superclass:superclass},globals.CompiledMethod)})},
 args: [],
 source: "isOverride\x0a\x09| superclass |\x0a    \x0a    superclass := self methodClass superclass.\x0a\x09superclass ifNil: [ ^ false ].\x0a\x09\x0a    ^ (self methodClass superclass lookupSelector: self selector) notNil",
-messageSends: ["superclass", "methodClass", "ifNil:", "notNil", "lookupSelector:", "selector", "isOverride"],
+messageSends: ["superclass", "methodClass", "ifNil:", "notNil", "lookupSelector:", "selector"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -674,7 +674,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageSends",{},globals.CompiledMethod)})},
 args: [],
 source: "messageSends\x0a\x09^ self basicAt: 'messageSends'",
-messageSends: ["basicAt:", "messageSends"],
+messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -692,7 +692,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodClass",{},globals.CompiledMethod)})},
 args: [],
 source: "methodClass\x0a\x09^ self basicAt: 'methodClass'",
-messageSends: ["basicAt:", "methodClass"],
+messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -705,7 +705,7 @@ fn: function (){
 var self=this;
 function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$5,$4,$6;
+var $1,$3,$2,$5,$4,$6,$receiver;
 $1=self._methodClass();
 $ctx1.sendIdx["methodClass"]=1;
 if(($receiver = $1) == nil || $receiver == null){
@@ -731,7 +731,7 @@ return $6;
 }, function($ctx1) {$ctx1.fill(self,"package",{},globals.CompiledMethod)})},
 args: [],
 source: "package\x0a\x09\x22Answer the package the receiver belongs to:\x0a\x09- if it is an extension method, answer the corresponding package\x0a\x09- else answer the `methodClass` package\x22\x0a\x09\x0a\x09self methodClass ifNil: [ ^ nil ].\x0a\x09\x0a\x09(self protocol beginsWith: '*') ifFalse: [\x0a\x09\x09^ self methodClass package ].\x0a\x09\x09\x0a\x09^ Package \x0a\x09\x09named: self protocol allButFirst\x0a\x09\x09ifAbsent: [ self methodClass package ]",
-messageSends: ["ifNil:", "methodClass", "ifFalse:", "beginsWith:", "protocol", "package", "named:ifAbsent:", "allButFirst", "package"],
+messageSends: ["ifNil:", "methodClass", "ifFalse:", "beginsWith:", "protocol", "package", "named:ifAbsent:", "allButFirst"],
 referencedClasses: ["Package"]
 }),
 globals.CompiledMethod);
@@ -743,7 +743,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._basicAt_("protocol");
 if(($receiver = $2) == nil || $receiver == null){
 $1=self._defaultProtocol();
@@ -754,7 +754,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"protocol",{},globals.CompiledMethod)})},
 args: [],
 source: "protocol\x0a\x09^ (self basicAt: 'protocol') ifNil: [ self defaultProtocol ]",
-messageSends: ["ifNil:", "basicAt:", "defaultProtocol", "protocol"],
+messageSends: ["ifNil:", "basicAt:", "defaultProtocol"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -769,7 +769,7 @@ var oldProtocol;
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $MethodMoved(){return globals.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver;
 oldProtocol=self._protocol();
 self._basicAt_put_("protocol",aString);
 $1=_st($MethodMoved())._new();
@@ -789,7 +789,7 @@ _st(methodClass)._removeProtocolIfEmpty_(oldProtocol);
 return self}, function($ctx1) {$ctx1.fill(self,"protocol:",{aString:aString,oldProtocol:oldProtocol},globals.CompiledMethod)})},
 args: ["aString"],
 source: "protocol: aString\x0a\x09| oldProtocol |\x0a\x09oldProtocol := self protocol.\x0a\x09self basicAt: 'protocol' put: aString.\x0a\x0a\x09SystemAnnouncer current announce: (MethodMoved new\x0a\x09\x09method: self;\x0a\x09\x09oldProtocol: oldProtocol;\x0a\x09\x09yourself).\x0a\x0a\x09self methodClass ifNotNil: [ :methodClass |\x0a\x09\x09methodClass organization addElement: aString.\x0a\x09\x09methodClass removeProtocolIfEmpty: oldProtocol ]",
-messageSends: ["protocol", "basicAt:put:", "announce:", "current", "method:", "new", "oldProtocol:", "yourself", "ifNotNil:", "methodClass", "addElement:", "organization", "removeProtocolIfEmpty:", "protocol:"],
+messageSends: ["protocol", "basicAt:put:", "announce:", "current", "method:", "new", "oldProtocol:", "yourself", "ifNotNil:", "methodClass", "addElement:", "organization", "removeProtocolIfEmpty:"],
 referencedClasses: ["SystemAnnouncer", "MethodMoved"]
 }),
 globals.CompiledMethod);
@@ -807,7 +807,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"referencedClasses",{},globals.CompiledMethod)})},
 args: [],
 source: "referencedClasses\x0a\x09^ self basicAt: 'referencedClasses'",
-messageSends: ["basicAt:", "referencedClasses"],
+messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -825,7 +825,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector",{},globals.CompiledMethod)})},
 args: [],
 source: "selector\x0a\x09^ self basicAt: 'selector'",
-messageSends: ["basicAt:", "selector"],
+messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -841,7 +841,7 @@ self._basicAt_put_("selector",aString);
 return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},globals.CompiledMethod)})},
 args: ["aString"],
 source: "selector: aString\x0a\x09self basicAt: 'selector' put: aString",
-messageSends: ["basicAt:put:", "selector:"],
+messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -859,7 +859,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"sendTo:arguments:",{anObject:anObject,aCollection:aCollection},globals.CompiledMethod)})},
 args: ["anObject", "aCollection"],
 source: "sendTo: anObject arguments: aCollection\x0a\x09^ self fn applyTo: anObject arguments: aCollection",
-messageSends: ["applyTo:arguments:", "fn", "sendTo:arguments:"],
+messageSends: ["applyTo:arguments:", "fn"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -871,7 +871,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._basicAt_("source");
 if(($receiver = $2) == nil || $receiver == null){
 $1="";
@@ -882,7 +882,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"source",{},globals.CompiledMethod)})},
 args: [],
 source: "source\x0a\x09^ (self basicAt: 'source') ifNil: [ '' ]",
-messageSends: ["ifNil:", "basicAt:", "source"],
+messageSends: ["ifNil:", "basicAt:"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -898,7 +898,7 @@ self._basicAt_put_("source",aString);
 return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString},globals.CompiledMethod)})},
 args: ["aString"],
 source: "source: aString\x0a\x09self basicAt: 'source' put: aString",
-messageSends: ["basicAt:put:", "source:"],
+messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
 globals.CompiledMethod);
@@ -919,7 +919,7 @@ self["@poolSize"]=_st(self["@poolSize"]).__plus((1));
 return self}, function($ctx1) {$ctx1.fill(self,"addWorker",{},globals.ForkPool)})},
 args: [],
 source: "addWorker\x0a\x09worker valueWithTimeout: 0.\x0a\x09poolSize := poolSize + 1",
-messageSends: ["valueWithTimeout:", "+", "addWorker"],
+messageSends: ["valueWithTimeout:", "+"],
 referencedClasses: []
 }),
 globals.ForkPool);
@@ -937,7 +937,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultMaxPoolSize",{},globals.ForkPool)})},
 args: [],
 source: "defaultMaxPoolSize\x0a\x09^ self class defaultMaxPoolSize",
-messageSends: ["defaultMaxPoolSize", "class", "defaultMaxPoolSize"],
+messageSends: ["defaultMaxPoolSize", "class"],
 referencedClasses: []
 }),
 globals.ForkPool);
@@ -958,7 +958,7 @@ _st(self["@queue"])._nextPut_(aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"fork:",{aBlock:aBlock},globals.ForkPool)})},
 args: ["aBlock"],
 source: "fork: aBlock\x0a\x09poolSize < self maxPoolSize ifTrue: [ self addWorker ].\x0a\x09queue nextPut: aBlock",
-messageSends: ["ifTrue:", "<", "maxPoolSize", "addWorker", "nextPut:", "fork:"],
+messageSends: ["ifTrue:", "<", "maxPoolSize", "addWorker", "nextPut:"],
 referencedClasses: []
 }),
 globals.ForkPool);
@@ -978,7 +978,7 @@ self["@worker"]=self._makeWorker();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ForkPool)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09\x0a\x09poolSize := 0.\x0a\x09queue := Queue new.\x0a\x09worker := self makeWorker",
-messageSends: ["initialize", "new", "makeWorker", "initialize"],
+messageSends: ["initialize", "new", "makeWorker"],
 referencedClasses: ["Queue"]
 }),
 globals.ForkPool);
@@ -1018,7 +1018,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"makeWorker",{sentinel:sentinel},globals.ForkPool)})},
 args: [],
 source: "makeWorker\x0a\x09| sentinel |\x0a\x09sentinel := Object new.\x0a\x09^ [ | block |\x0a\x09\x09poolSize := poolSize - 1.\x0a\x09\x09block := queue nextIfAbsent: [ sentinel ].\x0a\x09\x09block == sentinel ifFalse: [\x0a\x09\x09\x09[ block value ] ensure: [ self addWorker ] ]]",
-messageSends: ["new", "-", "nextIfAbsent:", "ifFalse:", "==", "ensure:", "value", "addWorker", "makeWorker"],
+messageSends: ["new", "-", "nextIfAbsent:", "ifFalse:", "==", "ensure:", "value", "addWorker"],
 referencedClasses: ["Object"]
 }),
 globals.ForkPool);
@@ -1030,7 +1030,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@maxPoolSize"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=self._defaultMaxPoolSize();
@@ -1041,7 +1041,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"maxPoolSize",{},globals.ForkPool)})},
 args: [],
 source: "maxPoolSize\x0a\x09^ maxPoolSize ifNil: [ self defaultMaxPoolSize ]",
-messageSends: ["ifNil:", "defaultMaxPoolSize", "maxPoolSize"],
+messageSends: ["ifNil:", "defaultMaxPoolSize"],
 referencedClasses: []
 }),
 globals.ForkPool);
@@ -1056,7 +1056,7 @@ self["@maxPoolSize"]=anInteger;
 return self},
 args: ["anInteger"],
 source: "maxPoolSize: anInteger\x0a\x09maxPoolSize := anInteger",
-messageSends: ["maxPoolSize:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.ForkPool);
@@ -1070,7 +1070,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@default"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@default"]=self._new();
@@ -1082,7 +1082,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"default",{},globals.ForkPool.klass)})},
 args: [],
 source: "default\x0a\x09^ default ifNil: [ default := self new ]",
-messageSends: ["ifNil:", "new", "default"],
+messageSends: ["ifNil:", "new"],
 referencedClasses: []
 }),
 globals.ForkPool.klass);
@@ -1097,7 +1097,7 @@ return (100);
 },
 args: [],
 source: "defaultMaxPoolSize\x0a\x09^ 100",
-messageSends: ["defaultMaxPoolSize"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.ForkPool.klass);
@@ -1112,7 +1112,7 @@ self["@default"]=nil;
 return self},
 args: [],
 source: "resetDefault\x0a\x09default := nil",
-messageSends: ["resetDefault"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.ForkPool.klass);
@@ -1132,7 +1132,7 @@ return $1;
 },
 args: [],
 source: "arguments\x0a\x09^ arguments",
-messageSends: ["arguments"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.Message);
@@ -1147,7 +1147,7 @@ self["@arguments"]=anArray;
 return self},
 args: ["anArray"],
 source: "arguments: anArray\x0a\x09arguments := anArray",
-messageSends: ["arguments:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.Message);
@@ -1169,7 +1169,7 @@ $1=_st(aStream)._nextPutAll_(")");
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.Message)})},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09aStream\x0a\x09\x09nextPutAll: '(';\x0a\x09\x09nextPutAll: self selector;\x0a\x09\x09nextPutAll: ')'",
-messageSends: ["printOn:", "nextPutAll:", "selector", "printOn:"],
+messageSends: ["printOn:", "nextPutAll:", "selector"],
 referencedClasses: []
 }),
 globals.Message);
@@ -1186,7 +1186,7 @@ return $1;
 },
 args: [],
 source: "selector\x0a\x09^ selector",
-messageSends: ["selector"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.Message);
@@ -1201,7 +1201,7 @@ self["@selector"]=aString;
 return self},
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
-messageSends: ["selector:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.Message);
@@ -1219,7 +1219,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"sendTo:",{anObject:anObject},globals.Message)})},
 args: ["anObject"],
 source: "sendTo: anObject\x0a\x09^ anObject perform: self selector withArguments: self arguments",
-messageSends: ["perform:withArguments:", "selector", "arguments", "sendTo:"],
+messageSends: ["perform:withArguments:", "selector", "arguments"],
 referencedClasses: []
 }),
 globals.Message);
@@ -1242,7 +1242,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector:arguments:",{aString:aString,anArray:anArray},globals.Message.klass)})},
 args: ["aString", "anArray"],
 source: "selector: aString arguments: anArray\x0a\x09^ self new\x0a\x09\x09selector: aString;\x0a\x09\x09arguments: anArray;\x0a\x09\x09yourself",
-messageSends: ["selector:", "new", "arguments:", "yourself", "selector:arguments:"],
+messageSends: ["selector:", "new", "arguments:", "yourself"],
 referencedClasses: []
 }),
 globals.Message.klass);
@@ -1263,7 +1263,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},globals.MessageSend)})},
 args: [],
 source: "arguments\x0a\x09^ message arguments",
-messageSends: ["arguments", "arguments"],
+messageSends: ["arguments"],
 referencedClasses: []
 }),
 globals.MessageSend);
@@ -1279,7 +1279,7 @@ _st(self["@message"])._arguments_(aCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"arguments:",{aCollection:aCollection},globals.MessageSend)})},
 args: ["aCollection"],
 source: "arguments: aCollection\x0a\x09message arguments: aCollection",
-messageSends: ["arguments:", "arguments:"],
+messageSends: ["arguments:"],
 referencedClasses: []
 }),
 globals.MessageSend);
@@ -1297,7 +1297,7 @@ self["@message"]=_st($Message())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.MessageSend)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09message := Message new",
-messageSends: ["initialize", "new", "initialize"],
+messageSends: ["initialize", "new"],
 referencedClasses: ["Message"]
 }),
 globals.MessageSend);
@@ -1323,7 +1323,7 @@ $1=_st(aStream)._nextPutAll_(")");
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.MessageSend)})},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09aStream\x0a\x09\x09nextPutAll: '(';\x0a\x09\x09nextPutAll: self receiver;\x0a\x09\x09nextPutAll: ' >> ';\x0a\x09\x09nextPutAll: self selector;\x0a\x09\x09nextPutAll: ')'",
-messageSends: ["printOn:", "nextPutAll:", "receiver", "selector", "printOn:"],
+messageSends: ["printOn:", "nextPutAll:", "receiver", "selector"],
 referencedClasses: []
 }),
 globals.MessageSend);
@@ -1340,7 +1340,7 @@ return $1;
 },
 args: [],
 source: "receiver\x0a\x09^ receiver",
-messageSends: ["receiver"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.MessageSend);
@@ -1355,7 +1355,7 @@ self["@receiver"]=anObject;
 return self},
 args: ["anObject"],
 source: "receiver: anObject\x0a\x09receiver := anObject",
-messageSends: ["receiver:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.MessageSend);
@@ -1373,7 +1373,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector",{},globals.MessageSend)})},
 args: [],
 source: "selector\x0a\x09^ message selector",
-messageSends: ["selector", "selector"],
+messageSends: ["selector"],
 referencedClasses: []
 }),
 globals.MessageSend);
@@ -1389,7 +1389,7 @@ _st(self["@message"])._selector_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},globals.MessageSend)})},
 args: ["aString"],
 source: "selector: aString\x0a\x09message selector: aString",
-messageSends: ["selector:", "selector:"],
+messageSends: ["selector:"],
 referencedClasses: []
 }),
 globals.MessageSend);
@@ -1407,7 +1407,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"value",{},globals.MessageSend)})},
 args: [],
 source: "value\x0a\x09^ message sendTo: self receiver",
-messageSends: ["sendTo:", "receiver", "value"],
+messageSends: ["sendTo:", "receiver"],
 referencedClasses: []
 }),
 globals.MessageSend);
@@ -1428,7 +1428,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},globals.MessageSend)})},
 args: ["anObject"],
 source: "value: anObject\x0a\x09^ message \x0a\x09\x09arguments: { anObject };\x0a\x09\x09sendTo: self receiver",
-messageSends: ["arguments:", "sendTo:", "receiver", "value:"],
+messageSends: ["arguments:", "sendTo:", "receiver"],
 referencedClasses: []
 }),
 globals.MessageSend);
@@ -1449,7 +1449,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArgument:firstArgument,secondArgument:secondArgument},globals.MessageSend)})},
 args: ["firstArgument", "secondArgument"],
 source: "value: firstArgument value: secondArgument\x0a\x09^ message \x0a\x09\x09arguments: { firstArgument. secondArgument };\x0a\x09\x09sendTo: self receiver",
-messageSends: ["arguments:", "sendTo:", "receiver", "value:value:"],
+messageSends: ["arguments:", "sendTo:", "receiver"],
 referencedClasses: []
 }),
 globals.MessageSend);
@@ -1470,7 +1470,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArgument:firstArgument,secondArgument:secondArgument,thirdArgument:thirdArgument},globals.MessageSend)})},
 args: ["firstArgument", "secondArgument", "thirdArgument"],
 source: "value: firstArgument value: secondArgument value: thirdArgument\x0a\x09^ message \x0a\x09\x09arguments: { firstArgument. secondArgument. thirdArgument };\x0a\x09\x09sendTo: self receiver",
-messageSends: ["arguments:", "sendTo:", "receiver", "value:value:value:"],
+messageSends: ["arguments:", "sendTo:", "receiver"],
 referencedClasses: []
 }),
 globals.MessageSend);
@@ -1489,7 +1489,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection},globals.MessageSend)})},
 args: ["aCollection"],
 source: "valueWithPossibleArguments: aCollection\x0a\x09self arguments: aCollection.\x0a\x09^ self value",
-messageSends: ["arguments:", "value", "valueWithPossibleArguments:"],
+messageSends: ["arguments:", "value"],
 referencedClasses: []
 }),
 globals.MessageSend);
@@ -1520,7 +1520,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},globals.MethodContext)})},
 args: [],
 source: "asString\x0a\x09^ self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext asString, ')' ]\x0a\x09\x09ifFalse: [ self receiver class name, ' >> ', self selector ]",
-messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "name", "class", "receiver", "selector", "asString"],
+messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "name", "class", "receiver", "selector"],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1536,7 +1536,7 @@ return self.receiver;
 return self}, function($ctx1) {$ctx1.fill(self,"basicReceiver",{},globals.MethodContext)})},
 args: [],
 source: "basicReceiver\x0a\x09<return self.receiver>",
-messageSends: ["basicReceiver"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1552,7 +1552,7 @@ return self.evaluatedSelector;
 return self}, function($ctx1) {$ctx1.fill(self,"evaluatedSelector",{},globals.MethodContext)})},
 args: [],
 source: "evaluatedSelector\x0a\x09<return self.evaluatedSelector>",
-messageSends: ["evaluatedSelector"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1568,7 +1568,7 @@ return self.homeContext;
 return self}, function($ctx1) {$ctx1.fill(self,"home",{},globals.MethodContext)})},
 args: [],
 source: "home\x0a\x09<return self.homeContext>",
-messageSends: ["home"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1584,7 +1584,7 @@ return self.index || 0;
 return self}, function($ctx1) {$ctx1.fill(self,"index",{},globals.MethodContext)})},
 args: [],
 source: "index\x0a\x09<return self.index || 0>",
-messageSends: ["index"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1602,7 +1602,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isBlockContext",{},globals.MethodContext)})},
 args: [],
 source: "isBlockContext\x0a\x09\x22Block context do not have selectors.\x22\x0a\x09\x0a\x09^ self selector isNil",
-messageSends: ["isNil", "selector", "isBlockContext"],
+messageSends: ["isNil", "selector"],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1618,7 +1618,7 @@ return self.locals || {};
 return self}, function($ctx1) {$ctx1.fill(self,"locals",{},globals.MethodContext)})},
 args: [],
 source: "locals\x0a\x09<return self.locals || {}>",
-messageSends: ["locals"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1630,7 +1630,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$5,$4,$3,$1;
+var $2,$5,$4,$3,$1,$receiver;
 $2=self._methodContext();
 $ctx1.sendIdx["methodContext"]=1;
 if(($receiver = $2) == nil || $receiver == null){
@@ -1646,7 +1646,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},globals.MethodContext)})},
 args: [],
 source: "method\x0a\x09^ self methodContext ifNotNil: [\x0a\x09\x09self methodContext receiver class lookupSelector: self methodContext selector ]",
-messageSends: ["ifNotNil:", "methodContext", "lookupSelector:", "class", "receiver", "selector", "method"],
+messageSends: ["ifNotNil:", "methodContext", "lookupSelector:", "class", "receiver", "selector"],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1658,7 +1658,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
+var $1,$3,$2,$receiver;
 $1=self._isBlockContext();
 if(! smalltalk.assert($1)){
 return self;
@@ -1675,7 +1675,7 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"methodContext",{},globals.MethodContext)})},
 args: [],
 source: "methodContext\x0a\x09self isBlockContext ifFalse: [ ^ self ].\x0a\x09\x0a\x09^ self outerContext ifNotNil: [ :outer |\x0a\x09\x09outer methodContext ]",
-messageSends: ["ifFalse:", "isBlockContext", "ifNotNil:", "outerContext", "methodContext", "methodContext"],
+messageSends: ["ifFalse:", "isBlockContext", "ifNotNil:", "outerContext", "methodContext"],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1691,7 +1691,7 @@ return self.outerContext || self.homeContext;
 return self}, function($ctx1) {$ctx1.fill(self,"outerContext",{},globals.MethodContext)})},
 args: [],
 source: "outerContext\x0a\x09<return self.outerContext || self.homeContext>",
-messageSends: ["outerContext"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1713,7 +1713,7 @@ $1=_st(aStream)._nextPutAll_(")");
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.MethodContext)})},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09aStream \x0a\x09\x09nextPutAll: '(';\x0a\x09\x09nextPutAll: self asString;\x0a\x09\x09nextPutAll: ')'",
-messageSends: ["printOn:", "nextPutAll:", "asString", "printOn:"],
+messageSends: ["printOn:", "nextPutAll:", "asString"],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1741,7 +1741,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"receiver",{},globals.MethodContext)})},
 args: [],
 source: "receiver\x0a\x09^ (self isBlockContext and: [ self outerContext notNil ])\x0a\x09\x09ifTrue: [ self outerContext receiver ]\x0a\x09\x09ifFalse: [ self basicReceiver ]",
-messageSends: ["ifTrue:ifFalse:", "and:", "isBlockContext", "notNil", "outerContext", "receiver", "basicReceiver", "receiver"],
+messageSends: ["ifTrue:ifFalse:", "and:", "isBlockContext", "notNil", "outerContext", "receiver", "basicReceiver"],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1763,7 +1763,7 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"selector",{},globals.MethodContext)})},
 args: [],
 source: "selector\x0a\x09<\x0a\x09\x09if(self.selector) {\x0a\x09\x09\x09return smalltalk.convertSelector(self.selector);\x0a\x09\x09} else {\x0a\x09\x09\x09return nil;\x0a\x09\x09}\x0a\x09>",
-messageSends: ["selector"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1779,7 +1779,7 @@ return self.sendIdx[aSelector] || 0;
 return self}, function($ctx1) {$ctx1.fill(self,"sendIndexAt:",{aSelector:aSelector},globals.MethodContext)})},
 args: ["aSelector"],
 source: "sendIndexAt: aSelector\x0a\x09<return self.sendIdx[aSelector] || 0>",
-messageSends: ["sendIndexAt:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1795,7 +1795,7 @@ return self.sendIdx;
 return self}, function($ctx1) {$ctx1.fill(self,"sendIndexes",{},globals.MethodContext)})},
 args: [],
 source: "sendIndexes\x0a\x09<return self.sendIdx>",
-messageSends: ["sendIndexes"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1814,7 +1814,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"temps",{},globals.MethodContext)})},
 args: [],
 source: "temps\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09^ self locals",
-messageSends: ["deprecatedAPI", "locals", "temps"],
+messageSends: ["deprecatedAPI", "locals"],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1838,7 +1838,7 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"constructor:",{aString:aString},globals.NativeFunction.klass)})},
 args: ["aString"],
 source: "constructor: aString\x0a\x09<\x0a\x09\x09var native=eval(aString);\x0a\x09\x09return new native();\x0a\x09>",
-messageSends: ["constructor:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.NativeFunction.klass);
@@ -1857,7 +1857,7 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:",{aString:aString,anObject:anObject},globals.NativeFunction.klass)})},
 args: ["aString", "anObject"],
 source: "constructor: aString value:anObject\x0a\x09<\x0a\x09\x09var native=eval(aString);\x0a\x09\x09return new native(anObject);\x0a\x09>",
-messageSends: ["constructor:value:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.NativeFunction.klass);
@@ -1876,7 +1876,7 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2},globals.NativeFunction.klass)})},
 args: ["aString", "anObject", "anObject2"],
 source: "constructor: aString value:anObject value: anObject2\x0a\x09<\x0a\x09\x09var native=eval(aString);\x0a\x09\x09return new native(anObject,anObject2);\x0a\x09>",
-messageSends: ["constructor:value:value:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.NativeFunction.klass);
@@ -1895,7 +1895,7 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2,anObject3:anObject3},globals.NativeFunction.klass)})},
 args: ["aString", "anObject", "anObject2", "anObject3"],
 source: "constructor: aString value:anObject value: anObject2 value:anObject3\x0a\x09<\x0a\x09\x09var native=eval(aString);\x0a\x09\x09return new native(anObject,anObject2, anObject3);\x0a\x09>",
-messageSends: ["constructor:value:value:value:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.NativeFunction.klass);
@@ -1914,7 +1914,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},globals.NativeFunction.klass)})},
 args: ["aString"],
 source: "exists: aString\x0a\x09^ PlatformInterface existsGlobal: aString",
-messageSends: ["existsGlobal:", "exists:"],
+messageSends: ["existsGlobal:"],
 referencedClasses: ["PlatformInterface"]
 }),
 globals.NativeFunction.klass);
@@ -1936,7 +1936,7 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"clearInterval",{},globals.Timeout)})},
 args: [],
 source: "clearInterval\x0a\x09<\x0a\x09\x09var interval = self[\x22@rawTimeout\x22];\x0a\x09\x09clearInterval(interval);\x0a\x09>",
-messageSends: ["clearInterval"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.Timeout);
@@ -1955,7 +1955,7 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"clearTimeout",{},globals.Timeout)})},
 args: [],
 source: "clearTimeout\x0a\x09<\x0a\x09\x09var timeout = self[\x22@rawTimeout\x22];\x0a\x09\x09clearTimeout(timeout);\x0a\x09>",
-messageSends: ["clearTimeout"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.Timeout);
@@ -1970,7 +1970,7 @@ self["@rawTimeout"]=anObject;
 return self},
 args: ["anObject"],
 source: "rawTimeout: anObject\x0a\x09rawTimeout := anObject",
-messageSends: ["rawTimeout:"],
+messageSends: [],
 referencedClasses: []
 }),
 globals.Timeout);
@@ -1992,7 +1992,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},globals.Timeout.klass)})},
 args: ["anObject"],
 source: "on: anObject\x0a\x09^ self new rawTimeout: anObject; yourself",
-messageSends: ["rawTimeout:", "new", "yourself", "on:"],
+messageSends: ["rawTimeout:", "new", "yourself"],
 referencedClasses: []
 }),
 globals.Timeout.klass);

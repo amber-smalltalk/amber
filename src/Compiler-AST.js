@@ -331,7 +331,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._parent();
 if(($receiver = $2) == nil || $receiver == null){
 $1=$2;
@@ -423,7 +423,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._parent();
 if(($receiver = $2) == nil || $receiver == null){
 $1=$2;
@@ -477,7 +477,7 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@nodes"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@nodes"]=_st($Array())._new();
@@ -553,7 +553,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
+var $2,$3,$1,$receiver,$receiver;
 $2=self["@position"];
 if(($receiver = $2) == nil || $receiver == null){
 $3=self._parent();
@@ -687,7 +687,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@shouldBeAliased"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=false;
@@ -725,7 +725,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@shouldBeInlined"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=false;
@@ -781,7 +781,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@source"];
 if(($receiver = $2) == nil || $receiver == null){
 $1="";
@@ -1075,7 +1075,7 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@parameters"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@parameters"]=_st($Array())._new();
@@ -1354,7 +1354,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@arguments"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=[];
@@ -1726,7 +1726,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@arguments"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@arguments"]=[];
@@ -1902,7 +1902,7 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$5,$6,$4;
+var $1,$3,$2,$5,$6,$4,$receiver;
 $1=self._receiver();
 $ctx1.sendIdx["receiver"]=1;
 if(($receiver = $1) == nil || $receiver == null){
@@ -2063,7 +2063,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@superSend"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=false;
@@ -2102,7 +2102,7 @@ fn: function (anObject){
 var self=this;
 function $SendNode(){return globals.SendNode||(typeof SendNode=="undefined"?nil:SendNode)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$5,$4,$6,$1;
+var $2,$3,$5,$4,$6,$1,$receiver;
 $2=_st($SendNode())._new();
 _st($2)._position_(self._position());
 _st($2)._source_(self._source());
@@ -2229,7 +2229,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@temps"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=[];
@@ -2431,7 +2431,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@assigned"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=false;

@@ -33,7 +33,7 @@ function $MethodAdded(){return globals.MethodAdded||(typeof MethodAdded=="undefi
 function $MethodModified(){return globals.MethodModified||(typeof MethodModified=="undefined"?nil:MethodModified)}
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11;
+var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11,$receiver,$receiver;
 oldMethod=_st(self._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
 return nil;
 }));
@@ -87,7 +87,7 @@ fn: function (){
 var self=this;
 var result;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 result=_st(self._instanceVariableNames())._copy();
 $1=self._superclass();
 $ctx1.sendIdx["superclass"]=1;
@@ -190,7 +190,7 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$5,$4,$6,$3;
+var $1,$2,$5,$4,$6,$3,$receiver;
 $1=self._superclass();
 $ctx1.sendIdx["superclass"]=1;
 if(($receiver = $1) == nil || $receiver == null){
@@ -296,7 +296,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._basicAt_("comment");
 if(($receiver = $2) == nil || $receiver == null){
 $1="";
@@ -473,7 +473,7 @@ protocol: 'testing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2;
+var $1,$4,$3,$2,$receiver;
 $1=self._superclass();
 $ctx1.sendIdx["superclass"]=1;
 if(($receiver = $1) == nil || $receiver == null){
@@ -1148,7 +1148,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._package();
 $ctx1.sendIdx["package"]=1;
 if(($receiver = $2) == nil || $receiver == null){
@@ -1629,7 +1629,7 @@ var theClass,thePackage;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3,$4,$receiver;
 theClass=_st(_st($Smalltalk())._globals())._at_(className);
 thePackage=_st($Package())._named_(packageName);
 $1=theClass;
@@ -2065,7 +2065,7 @@ var newClass;
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassAdded(){return globals.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
+var $1,$2,$3,$4,$5,$receiver;
 $1=self._instanceVariableNamesFor_(ivarNames);
 if(($receiver = packageName) == nil || $receiver == null){
 $2="unclassified";

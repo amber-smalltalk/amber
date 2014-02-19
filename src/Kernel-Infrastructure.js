@@ -11,7 +11,7 @@ protocol: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=_st(anError)._context();
 $ctx1.sendIdx["context"]=1;
 if(($receiver = $1) == nil || $receiver == null){
@@ -51,7 +51,7 @@ protocol: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=_st(aContext)._home();
 $ctx1.sendIdx["home"]=1;
 if(($receiver = $1) == nil || $receiver == null){
@@ -91,7 +91,7 @@ protocol: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver,$receiver;
 if(($receiver = aContext) == nil || $receiver == null){
 aContext;
 } else {
@@ -308,7 +308,7 @@ fn: function (aClass){
 var self=this;
 var protocols;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 protocols=_st(aClass)._protocols();
 $1=_st(aClass)._superclass();
 $ctx1.sendIdx["superclass"]=1;
@@ -354,7 +354,7 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=_st(_st($Smalltalk())._globals())._at_(_st(aString)._asSymbol());
 if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("Invalid class name");
@@ -472,7 +472,7 @@ var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 $1=_st(_st($Smalltalk())._globals())._at_(aClassName);
 if(($receiver = $1) == nil || $receiver == null){
 $1;
@@ -579,7 +579,7 @@ var self=this;
 var package_;
 function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 package_=_st($Package())._named_(aPackageName);
 $1=package_;
 if(($receiver = $1) == nil || $receiver == null){
@@ -815,7 +815,7 @@ var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 $1=_st(_st($Smalltalk())._globals())._at_(aClassName);
 if(($receiver = $1) == nil || $receiver == null){
 $1;
@@ -1064,7 +1064,7 @@ protocol: 'proxy',
 fn: function (aMessage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
 if(($receiver = $2) == nil || $receiver == null){
 $1=globals.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
@@ -1615,7 +1615,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@dirty"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=false;
@@ -1838,7 +1838,7 @@ fn: function (){
 var self=this;
 function $PackageTransport(){return globals.PackageTransport||(typeof PackageTransport=="undefined"?nil:PackageTransport)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
+var $2,$3,$4,$1,$receiver;
 $2=self["@transport"];
 if(($receiver = $2) == nil || $receiver == null){
 $3=_st($PackageTransport())._fromJson_(self._basicTransport());
@@ -2047,7 +2047,7 @@ protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=_st(anAnnouncement)._theClass();
 if(($receiver = $1) == nil || $receiver == null){
 $1;
@@ -2071,7 +2071,7 @@ protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=_st(_st(anAnnouncement)._method())._package();
 if(($receiver = $1) == nil || $receiver == null){
 $1;
@@ -2129,7 +2129,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@current"]=self._new();
@@ -2174,7 +2174,7 @@ protocol: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@worker"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("ajax: not available");
@@ -2197,7 +2197,7 @@ protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@worker"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("alert: not available");
@@ -2220,7 +2220,7 @@ protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@worker"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("confirm: not available");
@@ -2284,7 +2284,7 @@ var self=this;
 var candidate;
 function $BrowserInterface(){return globals.BrowserInterface||(typeof BrowserInterface=="undefined"?nil:BrowserInterface)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 globals.PlatformInterface.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
 if(($receiver = $BrowserInterface()) == nil || $receiver == null){
 $BrowserInterface();
@@ -2312,7 +2312,7 @@ protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@worker"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("prompt: not available");
@@ -2403,7 +2403,7 @@ protocol: 'registration',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self._current();
 if(($receiver = $1) == nil || $receiver == null){
 self._register_(anObject);
@@ -3394,7 +3394,7 @@ fn: function (packageName,newName){
 var self=this;
 var pkg;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 pkg=self._packageAt_ifAbsent_(packageName,(function(){
 return smalltalk.withContext(function($ctx2) {
 $1="Missing package: ".__comma(packageName);
@@ -3491,7 +3491,7 @@ protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@current"]=globals.SmalltalkImage.klass.superclass.fn.prototype._new.apply(_st(self), []);

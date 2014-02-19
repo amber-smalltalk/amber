@@ -625,7 +625,7 @@ protocol: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$4,$1;
+var $3,$2,$4,$1,$receiver,$receiver;
 $3=self._model();
 $ctx1.sendIdx["model"]=1;
 $2=_st($3)._selectedMethod();

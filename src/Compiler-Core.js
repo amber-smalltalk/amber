@@ -108,7 +108,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@source"];
 if(($receiver = $2) == nil || $receiver == null){
 $1="";
@@ -243,7 +243,7 @@ fn: function (){
 var self=this;
 function $InliningCodeGenerator(){return globals.InliningCodeGenerator||(typeof InliningCodeGenerator=="undefined"?nil:InliningCodeGenerator)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@codeGeneratorClass"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=$InliningCodeGenerator();
@@ -584,7 +584,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@source"];
 if(($receiver = $2) == nil || $receiver == null){
 $1="";

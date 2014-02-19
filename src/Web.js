@@ -1123,7 +1123,7 @@ fn: function (){
 var self=this;
 function $TagBrush(){return globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 globals.HTMLCanvas.superclass.fn.prototype._initialize.apply(_st(self), []);
 $1=self["@root"];
 if(($receiver = $1) == nil || $receiver == null){
@@ -2331,7 +2331,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@snippets"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@snippets"]=globals.HashedCollection._newFromPairs_([]);
@@ -2392,7 +2392,7 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver;
 $1=self["@current"];
 if(($receiver = $1) == nil || $receiver == null){
 $2=globals.HTMLSnippet.klass.superclass.fn.prototype._new.apply(_st(self), []);

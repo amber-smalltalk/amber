@@ -49,7 +49,7 @@ protocol: 'releasing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self["@frame"];
 if(($receiver = $1) == nil || $receiver == null){
 return self;
