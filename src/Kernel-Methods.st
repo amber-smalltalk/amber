@@ -633,7 +633,12 @@ temps
 asString
 	^ self isBlockContext
 		ifTrue: [ 'a block (in ', self methodContext asString, ')' ]
-		ifFalse: [ self receiver class name, ' >> ', self selector ]
+		ifFalse: [ 
+			| methodClass |
+			methodClass := self method methodClass.
+			methodClass = self receiver class 
+				ifTrue: [ self receiver class name, ' >> ', self selector ]
+				ifFalse: [ self receiver class name, '(', methodClass name, ') >> ', self selector ] ]
 ! !
 
 !MethodContext methodsFor: 'printing'!

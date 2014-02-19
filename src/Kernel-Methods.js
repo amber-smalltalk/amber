@@ -1505,7 +1505,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
+var $2,$3,$5,$7,$6,$4,$11,$10,$9,$8,$12,$16,$15,$14,$13,$1;
 $2=self._isBlockContext();
 if(smalltalk.assert($2)){
 $3="a block (in ".__comma(_st(self._methodContext())._asString());
@@ -1513,14 +1513,45 @@ $ctx1.sendIdx[","]=2;
 $1=_st($3).__comma(")");
 $ctx1.sendIdx[","]=1;
 } else {
-$1=_st(_st(_st(_st(self._receiver())._class())._name()).__comma(" >> ")).__comma(self._selector());
+var methodClass;
+methodClass=_st(self._method())._methodClass();
+methodClass;
+$5=methodClass;
+$7=self._receiver();
+$ctx1.sendIdx["receiver"]=1;
+$6=_st($7)._class();
+$ctx1.sendIdx["class"]=1;
+$4=_st($5).__eq($6);
+if(smalltalk.assert($4)){
+$11=self._receiver();
+$ctx1.sendIdx["receiver"]=2;
+$10=_st($11)._class();
+$ctx1.sendIdx["class"]=2;
+$9=_st($10)._name();
+$ctx1.sendIdx["name"]=1;
+$8=_st($9).__comma(" >> ");
+$ctx1.sendIdx[","]=4;
+$12=self._selector();
+$ctx1.sendIdx["selector"]=1;
+$1=_st($8).__comma($12);
 $ctx1.sendIdx[","]=3;
+} else {
+$16=_st(_st(self._receiver())._class())._name();
+$ctx1.sendIdx["name"]=2;
+$15=_st($16).__comma("(");
+$14=_st($15).__comma(_st(methodClass)._name());
+$ctx1.sendIdx[","]=7;
+$13=_st($14).__comma(") >> ");
+$ctx1.sendIdx[","]=6;
+$1=_st($13).__comma(self._selector());
+$ctx1.sendIdx[","]=5;
+};
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},globals.MethodContext)})},
 args: [],
-source: "asString\x0a\x09^ self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext asString, ')' ]\x0a\x09\x09ifFalse: [ self receiver class name, ' >> ', self selector ]",
-messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "name", "class", "receiver", "selector"],
+source: "asString\x0a\x09^ self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext asString, ')' ]\x0a\x09\x09ifFalse: [ \x0a\x09\x09\x09| methodClass |\x0a\x09\x09\x09methodClass := self method methodClass.\x0a\x09\x09\x09methodClass = self receiver class \x0a\x09\x09\x09\x09ifTrue: [ self receiver class name, ' >> ', self selector ]\x0a\x09\x09\x09\x09ifFalse: [ self receiver class name, '(', methodClass name, ') >> ', self selector ] ]",
+messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "methodClass", "method", "=", "class", "receiver", "name", "selector"],
 referencedClasses: []
 }),
 globals.MethodContext);
