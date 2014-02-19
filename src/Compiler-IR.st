@@ -981,7 +981,7 @@ visitIRMethod: anIRMethod
 				anIRMethod classReferences do: [ :each | self stream nextPutClassRefFunction: each ].
 				self stream nextPutContextFor: anIRMethod during: [
 				anIRMethod internalVariables notEmpty ifTrue: [
-					self stream nextPutVars: (anIRMethod internalVariables asArray collect: [ :each |
+					self stream nextPutVars: (anIRMethod internalVariables asSet collect: [ :each |
 						each variable alias ]) ].
 				anIRMethod scope hasNonLocalReturn
 					ifTrue: [
