@@ -611,12 +611,18 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 			propagateMethodChange(klass);
 
 			var usedSelectors = method.messageSends;
-			usedSelectors.push(method.selector);
+			var dnuHandlers = [];
+
+			dnuHandlers.push(dnu.get(method.selector));
+
 			for(var i=0; i<usedSelectors.length; i++) {
-				var dnuHandler = dnu.get(usedSelectors[i]);
-				if(stInit.initialized()) {
-					installNewDnuHandler(dnuHandler);
-				}
+				dnuHandlers.push(dnu.get(usedSelectors[i]));
+			}
+
+			if(stInit.initialized()) {
+				dnuHandlers.forEach(function(each) {
+					installNewDnuHandler(each);
+				});
 			}
 		};
 
