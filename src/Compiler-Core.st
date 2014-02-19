@@ -223,12 +223,7 @@ Object subclass: #DoIt
 !DoIt commentStamp!
 `DoIt` is the class used to compile and evaluate expressions. See `Compiler >> evaluateExpression:`.!
 
-!DoIt methodsFor: 'xxxDoIt'!
-
-xxxDoIt ^ [ self halt ] value
-! !
-
-Object subclass: #Evaluator
+InterfacingObject subclass: #Evaluator
 	instanceVariableNames: ''
 	package: 'Compiler-Core'!
 !Evaluator commentStamp!
