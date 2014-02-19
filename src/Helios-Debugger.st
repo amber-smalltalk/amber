@@ -79,7 +79,7 @@ observeModel
 		
 	self model announcer 
 		on: HLDebuggerStepped
-		send: #onContextSelected:
+		send: #onDebuggerStepped:
 		to: self
 !
 
@@ -107,6 +107,11 @@ registerBindingsOn: aBindingGroup
 
 onContextSelected: anAnnouncement
 	self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context)
+!
+
+onDebuggerStepped: anAnnouncement
+	self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context).
+	self stackListWidget refresh
 ! !
 
 !HLDebugger methodsFor: 'rendering'!
@@ -318,6 +323,7 @@ rootContext
 
 restart
 	self debugger restart.
+	self onStep.
 	
 	self announcer announce: (HLDebuggerStepped new
 		context: self currentContext;
@@ -326,6 +332,7 @@ restart
 
 skip
 	self debugger skip.
+	self onStep.
 	
 	self announcer announce: (HLDebuggerStepped new
 		context: self currentContext;
@@ -334,6 +341,7 @@ skip
 
 stepOver
 	self debugger stepOver.
+	self onStep.
 	
 	self announcer announce: (HLDebuggerStepped new
 		context: self currentContext;
@@ -369,6 +377,12 @@ flushInnerContexts
 	self currentContext innerContext: nil.
 	rootContext := self currentContext.
 	self initializeContexts
+! !
+
+!HLDebuggerModel methodsFor: 'reactions'!
+
+onStep
+	rootContext := self currentContext
 ! !
 
 !HLDebuggerModel class methodsFor: 'instance creation'!
@@ -424,7 +438,7 @@ HLToolListWidget subclass: #HLStackListWidget
 !HLStackListWidget methodsFor: 'accessing'!
 
 items
-	^ items ifNil: [ items := self model contexts ]
+	^ self model contexts
 !
 
 label
