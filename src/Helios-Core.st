@@ -1305,7 +1305,7 @@ registerServices
 		registerErrorHandler;
 		registerProgressHandler;
 		registerTranscript;
-		registrFinder
+		registerFinder
 !
 
 setupEvents
