@@ -1242,7 +1242,13 @@ if(smalltalk.assert($1)){
 $3=self._context();
 $ctx1.sendIdx["context"]=1;
 $2=_st($3)._outerContext();
-self._context_($2);
+if(($receiver = $2) == nil || $receiver == null){
+$2;
+} else {
+var outerContext;
+outerContext=$receiver;
+self._context_(outerContext);
+};
 $4=self._context();
 if(($receiver = $4) == nil || $receiver == null){
 $4;
@@ -1253,8 +1259,8 @@ self._skip();
 self._flushInnerContexts();
 return self}, function($ctx1) {$ctx1.fill(self,"onStep",{},globals.ASTDebugger)})},
 args: [],
-source: "onStep\x0a\x09\x22After each step, check if the interpreter is at the end,\x0a\x09and if it is move to its outer context if any, skipping its \x0a\x09current node (which was just evaluated by the current \x0a\x09interpreter).\x0a\x09\x0a\x09After each step we also flush inner contexts.\x22\x0a\x09\x0a\x09self interpreter atEnd ifTrue: [\x0a\x09\x09self context: self context outerContext.\x0a\x09\x09self context ifNotNil: [ self skip ] ].\x0a\x09\x09\x0a\x09self flushInnerContexts",
-messageSends: ["ifTrue:", "atEnd", "interpreter", "context:", "outerContext", "context", "ifNotNil:", "skip", "flushInnerContexts"],
+source: "onStep\x0a\x09\x22After each step, check if the interpreter is at the end,\x0a\x09and if it is move to its outer context if any, skipping its \x0a\x09current node (which was just evaluated by the current \x0a\x09interpreter).\x0a\x09\x0a\x09After each step we also flush inner contexts.\x22\x0a\x09\x0a\x09self interpreter atEnd ifTrue: [\x0a\x09\x09self context outerContext ifNotNil: [ :outerContext | \x0a\x09\x09\x09self context: outerContext ].\x0a\x09\x09self context ifNotNil: [ self skip ] ].\x0a\x09\x09\x0a\x09self flushInnerContexts",
+messageSends: ["ifTrue:", "atEnd", "interpreter", "ifNotNil:", "outerContext", "context", "context:", "skip", "flushInnerContexts"],
 referencedClasses: []
 }),
 globals.ASTDebugger);

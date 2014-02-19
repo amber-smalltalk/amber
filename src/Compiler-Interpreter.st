@@ -415,7 +415,8 @@ onStep
 	After each step we also flush inner contexts."
 	
 	self interpreter atEnd ifTrue: [
-		self context: self context outerContext.
+		self context outerContext ifNotNil: [ :outerContext | 
+			self context: outerContext ].
 		self context ifNotNil: [ self skip ] ].
 		
 	self flushInnerContexts
