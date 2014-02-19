@@ -263,47 +263,51 @@ onContextSelected
 ! !
 
 HLToolModel subclass: #HLDebuggerModel
-	instanceVariableNames: 'rootContext currentContext contexts error'
+	instanceVariableNames: 'rootContext debugger error'
 	package: 'Helios-Debugger'!
 !HLDebuggerModel commentStamp!
 I am a model for debugging Amber code in Helios.
 
-My instances hold a reference to an `AIContext` instance, built from a `MethodContext`. The context should be the root of the context stack.!
+My instances hold a reference to an `ASTDebugger` instance, itself referencing the current `context`. The context should be the root of the context stack.!
 
 !HLDebuggerModel methodsFor: 'accessing'!
 
 contexts
+	| contexts context |
+	
+	contexts := OrderedCollection new.
+	context := self rootContext.
+	
+	[ context notNil ] whileTrue: [
+		contexts add: context.
+		context := context outerContext ].
+		
 	^ contexts
 !
 
 currentContext
-	currentContext ifNil: [ self currentContext: self rootContext ].
-	^ currentContext
+	^ self debugger context
 !
 
 currentContext: aContext
 	self withChangesDo: [ 
 		self selectedMethod: aContext method.
-		currentContext := aContext.
+		self debugger context: aContext.
 		self announcer announce: (HLDebuggerContextSelected new
 			context: aContext;
 			yourself) ]
+!
+
+debugger
+	^ debugger ifNil: [ debugger := ASTDebugger new ]
 !
 
 error
 	^ error
 !
 
-error: anError
-	error := anError
-!
-
-interpreter
-	^ self currentContext interpreter
-!
-
 nextNode
-	^ self interpreter node
+	^ self debugger node
 !
 
 rootContext
@@ -313,8 +317,7 @@ rootContext
 !HLDebuggerModel methodsFor: 'actions'!
 
 restart
-	self interpreter restart.
-	self flushInnerContexts.
+	self debugger restart.
 	
 	self announcer announce: (HLDebuggerStepped new
 		context: self currentContext;
@@ -322,8 +325,7 @@ restart
 !
 
 skip
-	self interpreter skip.
-	self flushInnerContexts.
+	self debugger skip.
 	
 	self announcer announce: (HLDebuggerStepped new
 		context: self currentContext;
@@ -331,8 +333,7 @@ skip
 !
 
 stepOver
-	self interpreter stepOver.
-	self flushInnerContexts.
+	self debugger stepOver.
 	
 	self announcer announce: (HLDebuggerStepped new
 		context: self currentContext;
@@ -353,23 +354,10 @@ evaluate: aString
 
 !HLDebuggerModel methodsFor: 'initialization'!
 
-initializeContexts
-	"Flatten the context stack into an OrderedCollection"
-	
-	| context |
-	
-	contexts := OrderedCollection new.
-	context := self rootContext.
-	
-	[ context notNil ] whileTrue: [
-		contexts add: context.
-		context := context outerContext ]
-!
-
 initializeFromError: anError
 	error := anError.
 	rootContext := (AIContext fromMethodContext: error context).
-	self initializeContexts
+	self debugger context: rootContext
 ! !
 
 !HLDebuggerModel methodsFor: 'private'!

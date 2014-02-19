@@ -562,6 +562,10 @@ My instances are JavaScript `SmalltalkMethodContext` objects defined in `boot.js
 
 !MethodContext methodsFor: 'accessing'!
 
+basicReceiver
+	<return self.receiver>
+!
+
 evaluatedSelector
 	<return self.evaluatedSelector>
 !
@@ -595,7 +599,9 @@ outerContext
 !
 
 receiver
-	<return self.receiver>
+	^ (self isBlockContext and: [ self outerContext notNil ])
+		ifTrue: [ self outerContext receiver ]
+		ifFalse: [ self basicReceiver ]
 !
 
 selector

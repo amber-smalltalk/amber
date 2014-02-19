@@ -268,6 +268,10 @@ ast
 	^ ast
 !
 
+basicReceiver
+	^ self localAt: 'self'
+!
+
 interpreter
 	interpreter ifNil: [ self initializeInterpreter ].
 	^ interpreter
@@ -275,10 +279,6 @@ interpreter
 
 interpreter: anInterpreter
 	interpreter := anInterpreter
-!
-
-receiver
-	^ self localAt: 'self'
 !
 
 receiver: anObject
@@ -388,6 +388,10 @@ method
 
 nextNode
 	^ self interpreter nextNode
+!
+
+node
+	^ self interpreter node
 ! !
 
 !ASTDebugger methodsFor: 'private'!
@@ -556,7 +560,7 @@ step
 stepOver
 	self step.
 	
-	[ self node isSteppingNode ] whileFalse: [ 
+	[ self node isNil or: [ self node isSteppingNode ] ] whileFalse: [ 
 		self step ]
 ! !
 
@@ -680,6 +684,11 @@ visitBlockNode: aNode
 	block := AIBlockClosure forContext: self context node: aNode.
 	
 	self push: block
+!
+
+visitBlockSequenceNode: aNode
+	super visitBlockSequenceNode: aNode.
+	returned := true
 !
 
 visitDynamicArrayNode: aNode
