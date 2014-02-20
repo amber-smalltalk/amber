@@ -94,6 +94,10 @@ context: aContext
 	context := aContext
 ! !
 
+HLDebuggerAnnouncement subclass: #HLDebuggerProceeded
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 HLDebuggerAnnouncement subclass: #HLDebuggerStepped
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!

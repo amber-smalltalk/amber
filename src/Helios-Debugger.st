@@ -75,11 +75,14 @@ observeModel
 	self model announcer 
 		on: HLDebuggerContextSelected
 		send: #onContextSelected:
-		to: self.
+		to: self;
 		
-	self model announcer 
 		on: HLDebuggerStepped
 		send: #onDebuggerStepped:
+		to: self;
+		
+		on: HLDebuggerProceeded
+		send: #onDebuggerProceeded
 		to: self
 !
 
@@ -109,8 +112,12 @@ onContextSelected: anAnnouncement
 	self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context)
 !
 
+onDebuggerProceeded
+	self removeTab
+!
+
 onDebuggerStepped: anAnnouncement
-	self model atEnd ifTrue: [ ^ self manager removeActiveTab ].
+	self model atEnd ifTrue: [ self removeTab ].
 	
 	self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context).
 	self stackListWidget refresh
@@ -270,6 +277,13 @@ onContextSelected
 	self highlight
 ! !
 
+!HLDebuggerCodeWidget methodsFor: 'rendering'!
+
+renderOn: html
+	super renderOn: html.
+	self contents: self browserModel selectedMethod source
+! !
+
 HLToolModel subclass: #HLDebuggerModel
 	instanceVariableNames: 'rootContext debugger error'
 	package: 'Helios-Debugger'!
@@ -326,11 +340,8 @@ rootContext
 
 proceed
 	self debugger proceed.
-	self onStep.
 	
-	self announcer announce: (HLDebuggerStepped new
-		context: self currentContext;
-		yourself)
+	self announcer announce: HLDebuggerProceeded new
 !
 
 restart
@@ -388,7 +399,10 @@ onStep
 	rootContext := self currentContext.
 	
 	"Force a refresh of the context list and code widget"
-	self currentContext: self currentContext
+	self selectedMethod: self currentContext method.
+	self announcer announce: (HLDebuggerContextSelected new
+		context: self currentContext;
+		yourself)
 ! !
 
 !HLDebuggerModel methodsFor: 'testing'!

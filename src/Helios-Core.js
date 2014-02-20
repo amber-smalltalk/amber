@@ -1613,6 +1613,22 @@ globals.HLWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "removeTab",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._manager())._removeTabForWidget_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"removeTab",{},globals.HLWidget)})},
+args: [],
+source: "removeTab\x0a\x09self manager removeTabForWidget: self",
+messageSends: ["removeTabForWidget:", "manager"],
+referencedClasses: []
+}),
+globals.HLWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "renderContentOn:",
 protocol: 'rendering',
 fn: function (html){
@@ -3784,6 +3800,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"removeActiveTab",{},globals.HLMa
 args: [],
 source: "removeActiveTab\x0a\x09self tabsWidget removeActiveTab",
 messageSends: ["removeActiveTab", "tabsWidget"],
+referencedClasses: []
+}),
+globals.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeTabForWidget:",
+protocol: 'actions',
+fn: function (aWidget){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._tabsWidget())._removeTabForWidget_(aWidget);
+return self}, function($ctx1) {$ctx1.fill(self,"removeTabForWidget:",{aWidget:aWidget},globals.HLManager)})},
+args: ["aWidget"],
+source: "removeTabForWidget: aWidget\x0a\x09self tabsWidget removeTabForWidget: aWidget",
+messageSends: ["removeTabForWidget:", "tabsWidget"],
 referencedClasses: []
 }),
 globals.HLManager);
@@ -6345,6 +6377,31 @@ return self}, function($ctx1) {$ctx1.fill(self,"removeTab:",{aTab:aTab},globals.
 args: ["aTab"],
 source: "removeTab: aTab\x0a\x09(self tabs includes: aTab) ifFalse: [ ^ self ].\x0a\x0a\x09self removeFromHistory: aTab.\x0a\x09self tabs remove: aTab.\x0a\x09self manager keyBinder flushBindings.\x0a\x09aTab remove.\x0a\x09self refresh.\x0a\x09self history ifNotEmpty: [\x0a\x09\x09self history last activate ]",
 messageSends: ["ifFalse:", "includes:", "tabs", "removeFromHistory:", "remove:", "flushBindings", "keyBinder", "manager", "remove", "refresh", "ifNotEmpty:", "history", "activate", "last"],
+referencedClasses: []
+}),
+globals.HLTabsWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeTabForWidget:",
+protocol: 'actions',
+fn: function (aWidget){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $early={};
+try {
+self._removeTab_(_st(self._tabs())._detect_ifNone_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._widget()).__eq(aWidget);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+throw $early=[self];
+})));
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"removeTabForWidget:",{aWidget:aWidget},globals.HLTabsWidget)})},
+args: ["aWidget"],
+source: "removeTabForWidget: aWidget\x0a\x09self removeTab: (self tabs \x0a\x09\x09detect: [ :each | each widget = aWidget ]\x0a\x09\x09ifNone: [ ^ self ])",
+messageSends: ["removeTab:", "detect:ifNone:", "tabs", "=", "widget"],
 referencedClasses: []
 }),
 globals.HLTabsWidget);

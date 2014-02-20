@@ -190,6 +190,9 @@ globals.HLDebuggerContextSelected);
 
 
 
+smalltalk.addClass('HLDebuggerProceeded', globals.HLDebuggerAnnouncement, [], 'Helios-Announcements');
+
+
 smalltalk.addClass('HLDebuggerStepped', globals.HLDebuggerAnnouncement, [], 'Helios-Announcements');
 
 

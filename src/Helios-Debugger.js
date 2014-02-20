@@ -272,20 +272,20 @@ fn: function (){
 var self=this;
 function $HLDebuggerContextSelected(){return globals.HLDebuggerContextSelected||(typeof HLDebuggerContextSelected=="undefined"?nil:HLDebuggerContextSelected)}
 function $HLDebuggerStepped(){return globals.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
+function $HLDebuggerProceeded(){return globals.HLDebuggerProceeded||(typeof HLDebuggerProceeded=="undefined"?nil:HLDebuggerProceeded)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._model();
-$ctx1.sendIdx["model"]=1;
-$1=_st($2)._announcer();
-$ctx1.sendIdx["announcer"]=1;
+var $1,$2;
+$1=_st(self._model())._announcer();
 _st($1)._on_send_to_($HLDebuggerContextSelected(),"onContextSelected:",self);
 $ctx1.sendIdx["on:send:to:"]=1;
-_st(_st(self._model())._announcer())._on_send_to_($HLDebuggerStepped(),"onDebuggerStepped:",self);
+_st($1)._on_send_to_($HLDebuggerStepped(),"onDebuggerStepped:",self);
+$ctx1.sendIdx["on:send:to:"]=2;
+$2=_st($1)._on_send_to_($HLDebuggerProceeded(),"onDebuggerProceeded",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},globals.HLDebugger)})},
 args: [],
-source: "observeModel\x0a\x09self model announcer \x0a\x09\x09on: HLDebuggerContextSelected\x0a\x09\x09send: #onContextSelected:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model announcer \x0a\x09\x09on: HLDebuggerStepped\x0a\x09\x09send: #onDebuggerStepped:\x0a\x09\x09to: self",
+source: "observeModel\x0a\x09self model announcer \x0a\x09\x09on: HLDebuggerContextSelected\x0a\x09\x09send: #onContextSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLDebuggerStepped\x0a\x09\x09send: #onDebuggerStepped:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLDebuggerProceeded\x0a\x09\x09send: #onDebuggerProceeded\x0a\x09\x09to: self",
 messageSends: ["on:send:to:", "announcer", "model"],
-referencedClasses: ["HLDebuggerContextSelected", "HLDebuggerStepped"]
+referencedClasses: ["HLDebuggerContextSelected", "HLDebuggerStepped", "HLDebuggerProceeded"]
 }),
 globals.HLDebugger);
 
@@ -308,24 +308,39 @@ globals.HLDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "onDebuggerProceeded",
+protocol: 'reactions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._removeTab();
+return self}, function($ctx1) {$ctx1.fill(self,"onDebuggerProceeded",{},globals.HLDebugger)})},
+args: [],
+source: "onDebuggerProceeded\x0a\x09self removeTab",
+messageSends: ["removeTab"],
+referencedClasses: []
+}),
+globals.HLDebugger);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "onDebuggerStepped:",
 protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 function $HLContextInspectorDecorator(){return globals.HLContextInspectorDecorator||(typeof HLContextInspectorDecorator=="undefined"?nil:HLContextInspectorDecorator)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=_st(self._model())._atEnd();
 if(smalltalk.assert($1)){
-$2=_st(self._manager())._removeActiveTab();
-return $2;
+self._removeTab();
 };
 _st(self._inspectorWidget())._inspect_(_st($HLContextInspectorDecorator())._on_(_st(anAnnouncement)._context()));
 _st(self._stackListWidget())._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onDebuggerStepped:",{anAnnouncement:anAnnouncement},globals.HLDebugger)})},
 args: ["anAnnouncement"],
-source: "onDebuggerStepped: anAnnouncement\x0a\x09self model atEnd ifTrue: [ ^ self manager removeActiveTab ].\x0a\x09\x0a\x09self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context).\x0a\x09self stackListWidget refresh",
-messageSends: ["ifTrue:", "atEnd", "model", "removeActiveTab", "manager", "inspect:", "inspectorWidget", "on:", "context", "refresh", "stackListWidget"],
+source: "onDebuggerStepped: anAnnouncement\x0a\x09self model atEnd ifTrue: [ self removeTab ].\x0a\x09\x0a\x09self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context).\x0a\x09self stackListWidget refresh",
+messageSends: ["ifTrue:", "atEnd", "model", "removeTab", "inspect:", "inspectorWidget", "on:", "context", "refresh", "stackListWidget"],
 referencedClasses: ["HLContextInspectorDecorator"]
 }),
 globals.HLDebugger);
@@ -746,6 +761,23 @@ referencedClasses: []
 }),
 globals.HLDebuggerCodeWidget);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+globals.HLDebuggerCodeWidget.superclass.fn.prototype._renderOn_.apply(_st(self), [html]);
+self._contents_(_st(_st(self._browserModel())._selectedMethod())._source());
+return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.HLDebuggerCodeWidget)})},
+args: ["html"],
+source: "renderOn: html\x0a\x09super renderOn: html.\x0a\x09self contents: self browserModel selectedMethod source",
+messageSends: ["renderOn:", "contents:", "source", "selectedMethod", "browserModel"],
+referencedClasses: []
+}),
+globals.HLDebuggerCodeWidget);
+
 
 
 smalltalk.addClass('HLDebuggerModel', globals.HLToolModel, ['rootContext', 'debugger', 'error'], 'Helios-Debugger');
@@ -968,15 +1000,24 @@ selector: "onStep",
 protocol: 'reactions',
 fn: function (){
 var self=this;
+function $HLDebuggerContextSelected(){return globals.HLDebuggerContextSelected||(typeof HLDebuggerContextSelected=="undefined"?nil:HLDebuggerContextSelected)}
 return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$3,$4;
 self["@rootContext"]=self._currentContext();
 $ctx1.sendIdx["currentContext"]=1;
-self._currentContext_(self._currentContext());
+$2=self._currentContext();
+$ctx1.sendIdx["currentContext"]=2;
+$1=_st($2)._method();
+self._selectedMethod_($1);
+$3=_st($HLDebuggerContextSelected())._new();
+_st($3)._context_(self._currentContext());
+$4=_st($3)._yourself();
+_st(self._announcer())._announce_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"onStep",{},globals.HLDebuggerModel)})},
 args: [],
-source: "onStep\x0a\x09rootContext := self currentContext.\x0a\x09\x0a\x09\x22Force a refresh of the context list and code widget\x22\x0a\x09self currentContext: self currentContext",
-messageSends: ["currentContext", "currentContext:"],
-referencedClasses: []
+source: "onStep\x0a\x09rootContext := self currentContext.\x0a\x09\x0a\x09\x22Force a refresh of the context list and code widget\x22\x0a\x09self selectedMethod: self currentContext method.\x0a\x09self announcer announce: (HLDebuggerContextSelected new\x0a\x09\x09context: self currentContext;\x0a\x09\x09yourself)",
+messageSends: ["currentContext", "selectedMethod:", "method", "announce:", "announcer", "context:", "new", "yourself"],
+referencedClasses: ["HLDebuggerContextSelected"]
 }),
 globals.HLDebuggerModel);
 
@@ -986,20 +1027,15 @@ selector: "proceed",
 protocol: 'actions',
 fn: function (){
 var self=this;
-function $HLDebuggerStepped(){return globals.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
+function $HLDebuggerProceeded(){return globals.HLDebuggerProceeded||(typeof HLDebuggerProceeded=="undefined"?nil:HLDebuggerProceeded)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
 _st(self._debugger())._proceed();
-self._onStep();
-$1=_st($HLDebuggerStepped())._new();
-_st($1)._context_(self._currentContext());
-$2=_st($1)._yourself();
-_st(self._announcer())._announce_($2);
+_st(self._announcer())._announce_(_st($HLDebuggerProceeded())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"proceed",{},globals.HLDebuggerModel)})},
 args: [],
-source: "proceed\x0a\x09self debugger proceed.\x0a\x09self onStep.\x0a\x09\x0a\x09self announcer announce: (HLDebuggerStepped new\x0a\x09\x09context: self currentContext;\x0a\x09\x09yourself)",
-messageSends: ["proceed", "debugger", "onStep", "announce:", "announcer", "context:", "new", "currentContext", "yourself"],
-referencedClasses: ["HLDebuggerStepped"]
+source: "proceed\x0a\x09self debugger proceed.\x0a\x09\x0a\x09self announcer announce: HLDebuggerProceeded new",
+messageSends: ["proceed", "debugger", "announce:", "announcer", "new"],
+referencedClasses: ["HLDebuggerProceeded"]
 }),
 globals.HLDebuggerModel);
 

@@ -535,6 +535,10 @@ manager
 	^ HLManager current
 !
 
+removeTab
+	self manager removeTabForWidget: self
+!
+
 setTabLabel: aString
 	self manager announcer announce: (HLTabLabelChanged new
 		widget: self;
@@ -1251,6 +1255,10 @@ inform: aString
 
 removeActiveTab
 	self tabsWidget removeActiveTab
+!
+
+removeTabForWidget: aWidget
+	self tabsWidget removeTabForWidget: aWidget
 !
 
 request: aString do: aBlock
@@ -2128,6 +2136,12 @@ removeTab: aTab
 	self refresh.
 	self history ifNotEmpty: [
 		self history last activate ]
+!
+
+removeTabForWidget: aWidget
+	self removeTab: (self tabs 
+		detect: [ :each | each widget = aWidget ]
+		ifNone: [ ^ self ])
 !
 
 updateTabsOrder
