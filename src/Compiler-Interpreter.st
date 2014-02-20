@@ -361,7 +361,7 @@ context: anObject
 ! !
 
 Object subclass: #ASTDebugger
-	instanceVariableNames: 'interpreter context'
+	instanceVariableNames: 'interpreter context result'
 	package: 'Compiler-Interpreter'!
 !ASTDebugger commentStamp!
 I am a stepping debugger interface for Amber code.
@@ -400,6 +400,10 @@ nextNode
 node
 	^ self interpreter ifNotNil: [
 		self interpreter node ]
+!
+
+result
+	^ result
 ! !
 
 !ASTDebugger methodsFor: 'private'!
@@ -420,10 +424,12 @@ onStep
 	
 	After each step we also flush inner contexts."
 	
+	result := self interpreter result.
+	
 	self interpreter atEnd ifTrue: [
 		self context outerContext ifNotNil: [ :outerContext | 
 			self context: outerContext ].
-		self atEnd ifFalse: [ self interpreter skip ] ].
+		self interpreter atEnd ifFalse: [ self interpreter skip ] ].
 		
 	self flushInnerContexts
 ! !

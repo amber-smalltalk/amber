@@ -1263,6 +1263,50 @@ globals.InterpreterTest);
 
 
 
+smalltalk.addClass('ASTDebuggerTest', globals.InterpreterTest, [], 'Compiler-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpret:receiver:withArguments:",
+protocol: 'private',
+fn: function (aString,anObject,aDictionary){
+var self=this;
+var ctx,debugger_;
+function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
+function $ASTDebugger(){return globals.ASTDebugger||(typeof ASTDebugger=="undefined"?nil:ASTDebugger)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$5,$6,$4;
+$1=_st($AIContext())._new();
+$ctx1.sendIdx["new"]=1;
+_st($1)._receiver_(anObject);
+_st($1)._interpreter_(_st($ASTInterpreter())._new());
+$2=_st($1)._yourself();
+ctx=$2;
+_st(aDictionary)._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) {
+return _st(ctx)._localAt_put_(key,value);
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
+$3=_st(ctx)._interpreter();
+$ctx1.sendIdx["interpreter"]=1;
+_st($3)._context_(ctx);
+$ctx1.sendIdx["context:"]=1;
+_st(_st(ctx)._interpreter())._node_(_st(self._parse_forClass_(aString,_st(anObject)._class()))._nextChild());
+debugger_=_st($ASTDebugger())._context_(ctx);
+$5=debugger_;
+_st($5)._proceed();
+$6=_st($5)._result();
+$4=$6;
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,debugger_:debugger_},globals.ASTDebuggerTest)})},
+args: ["aString", "anObject", "aDictionary"],
+source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09| ctx debugger |\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: ASTInterpreter new;\x0a\x09\x09yourself.\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09ctx interpreter context: ctx.\x0a\x09\x0a\x09ctx interpreter node: (self parse: aString forClass: anObject class) nextChild.\x0a\x09\x0a\x09debugger := ASTDebugger context: ctx.\x0a\x09\x0a\x09^ debugger \x0a\x09\x09proceed; \x0a\x09\x09result",
+messageSends: ["receiver:", "new", "interpreter:", "yourself", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "node:", "nextChild", "parse:forClass:", "class", "proceed", "result"],
+referencedClasses: ["AIContext", "ASTInterpreter", "ASTDebugger"]
+}),
+globals.ASTDebuggerTest);
+
+
+
 smalltalk.addClass('ScopeVarTest', globals.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
 smalltalk.method({

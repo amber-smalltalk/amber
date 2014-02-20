@@ -1076,7 +1076,7 @@ globals.ASTContextVar);
 
 
 
-smalltalk.addClass('ASTDebugger', globals.Object, ['interpreter', 'context'], 'Compiler-Interpreter');
+smalltalk.addClass('ASTDebugger', globals.Object, ['interpreter', 'context', 'result'], 'Compiler-Interpreter');
 globals.ASTDebugger.comment="I am a stepping debugger interface for Amber code.\x0aI internally use an instance of `ASTInterpreter` to actually step through node and interpret them.\x0a\x0aMy instances are created from an `AIContext` with `ASTDebugger class >> context:`.\x0aThey hold an `AIContext` instance internally, recursive copy of the `MethodContext`.\x0a\x0a## API\x0a\x0aUse the methods of the `'stepping'` protocol to do stepping.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1254,30 +1254,35 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$4,$receiver;
-$2=self._interpreter();
+var $1,$3,$2,$4,$6,$5,$receiver;
+$1=self._interpreter();
 $ctx1.sendIdx["interpreter"]=1;
-$1=_st($2)._atEnd();
+self["@result"]=_st($1)._result();
+$3=self._interpreter();
+$ctx1.sendIdx["interpreter"]=2;
+$2=_st($3)._atEnd();
 $ctx1.sendIdx["atEnd"]=1;
-if(smalltalk.assert($1)){
-$3=_st(self._context())._outerContext();
-if(($receiver = $3) == nil || $receiver == null){
-$3;
+if(smalltalk.assert($2)){
+$4=_st(self._context())._outerContext();
+if(($receiver = $4) == nil || $receiver == null){
+$4;
 } else {
 var outerContext;
 outerContext=$receiver;
 self._context_(outerContext);
 };
-$4=self._atEnd();
-if(! smalltalk.assert($4)){
+$6=self._interpreter();
+$ctx1.sendIdx["interpreter"]=3;
+$5=_st($6)._atEnd();
+if(! smalltalk.assert($5)){
 _st(self._interpreter())._skip();
 };
 };
 self._flushInnerContexts();
 return self}, function($ctx1) {$ctx1.fill(self,"onStep",{},globals.ASTDebugger)})},
 args: [],
-source: "onStep\x0a\x09\x22After each step, check if the interpreter is at the end,\x0a\x09and if it is move to its outer context if any, skipping its \x0a\x09current node (which was just evaluated by the current \x0a\x09interpreter).\x0a\x09\x0a\x09After each step we also flush inner contexts.\x22\x0a\x09\x0a\x09self interpreter atEnd ifTrue: [\x0a\x09\x09self context outerContext ifNotNil: [ :outerContext | \x0a\x09\x09\x09self context: outerContext ].\x0a\x09\x09self atEnd ifFalse: [ self interpreter skip ] ].\x0a\x09\x09\x0a\x09self flushInnerContexts",
-messageSends: ["ifTrue:", "atEnd", "interpreter", "ifNotNil:", "outerContext", "context", "context:", "ifFalse:", "skip", "flushInnerContexts"],
+source: "onStep\x0a\x09\x22After each step, check if the interpreter is at the end,\x0a\x09and if it is move to its outer context if any, skipping its \x0a\x09current node (which was just evaluated by the current \x0a\x09interpreter).\x0a\x09\x0a\x09After each step we also flush inner contexts.\x22\x0a\x09\x0a\x09result := self interpreter result.\x0a\x09\x0a\x09self interpreter atEnd ifTrue: [\x0a\x09\x09self context outerContext ifNotNil: [ :outerContext | \x0a\x09\x09\x09self context: outerContext ].\x0a\x09\x09self interpreter atEnd ifFalse: [ self interpreter skip ] ].\x0a\x09\x09\x0a\x09self flushInnerContexts",
+messageSends: ["result", "interpreter", "ifTrue:", "atEnd", "ifNotNil:", "outerContext", "context", "context:", "ifFalse:", "skip", "flushInnerContexts"],
 referencedClasses: []
 }),
 globals.ASTDebugger);
@@ -1317,6 +1322,23 @@ return self}, function($ctx1) {$ctx1.fill(self,"restart",{},globals.ASTDebugger)
 args: [],
 source: "restart\x0a\x09self interpreter restart.\x0a\x09self flushInnerContexts",
 messageSends: ["restart", "interpreter", "flushInnerContexts"],
+referencedClasses: []
+}),
+globals.ASTDebugger);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "result",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@result"];
+return $1;
+},
+args: [],
+source: "result\x0a\x09^ result",
+messageSends: [],
 referencedClasses: []
 }),
 globals.ASTDebugger);

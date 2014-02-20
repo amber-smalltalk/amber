@@ -513,6 +513,32 @@ should: aString return: anObject
 		return: anObject
 ! !
 
+InterpreterTest subclass: #ASTDebuggerTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!ASTDebuggerTest methodsFor: 'private'!
+
+interpret: aString receiver: anObject withArguments: aDictionary
+	| ctx debugger |
+	
+	ctx := AIContext new
+		receiver: anObject;
+		interpreter: ASTInterpreter new;
+		yourself.
+	aDictionary keysAndValuesDo: [ :key :value |
+		ctx localAt: key put: value ].
+	ctx interpreter context: ctx.
+	
+	ctx interpreter node: (self parse: aString forClass: anObject class) nextChild.
+	
+	debugger := ASTDebugger context: ctx.
+	
+	^ debugger 
+		proceed; 
+		result
+! !
+
 TestCase subclass: #ScopeVarTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
