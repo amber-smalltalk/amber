@@ -120,10 +120,10 @@ onDebuggerStepped: anAnnouncement
 
 renderContentOn: html
 	self renderHeadOn: html.
-	html with: (HLContainer with: (HLHorizontalSplitter
-		with: self stackListWidget
+	html with: (HLContainer with: (HLVerticalSplitter
+		with: self codeWidget
 		with: (HLVerticalSplitter
-			with: self codeWidget
+			with: self stackListWidget
 			with: self inspectorWidget)))
 !
 
@@ -324,8 +324,8 @@ rootContext
 
 !HLDebuggerModel methodsFor: 'actions'!
 
-restart
-	self debugger restart.
+proceed
+	self debugger proceed.
 	self onStep.
 	
 	self announcer announce: (HLDebuggerStepped new
@@ -333,8 +333,8 @@ restart
 		yourself)
 !
 
-skip
-	self debugger skip.
+restart
+	self debugger restart.
 	self onStep.
 	
 	self announcer announce: (HLDebuggerStepped new
@@ -368,7 +368,7 @@ evaluate: aString
 initializeFromError: anError
 	error := anError.
 	rootContext := (AIContext fromMethodContext: error context).
-	self debugger context: rootContext
+	self currentContext: rootContext
 ! !
 
 !HLDebuggerModel methodsFor: 'private'!
@@ -385,7 +385,10 @@ flushInnerContexts
 !HLDebuggerModel methodsFor: 'reactions'!
 
 onStep
-	rootContext := self currentContext
+	rootContext := self currentContext.
+	
+	"Force a refresh of the context list and code widget"
+	self currentContext: self currentContext
 ! !
 
 !HLDebuggerModel methodsFor: 'testing'!
@@ -465,6 +468,10 @@ observeModel
 		to: self
 !
 
+proceed
+	self model proceed
+!
+
 restart
 	self model restart
 !
@@ -474,8 +481,8 @@ selectItem: aContext
 	super selectItem: aContext
 !
 
-skip
-	self model skip
+selectedItem
+   	^ self model currentContext
 !
 
 stepOver
@@ -512,8 +519,8 @@ renderButtonsOn: html
 				with: 'Step over';
 				onClick: [ self stepOver ].
 			html button 
-				class: 'btn skip';
-				with: 'Skip';
-				onClick: [ self skip ] ]
+				class: 'btn proceed';
+				with: 'Proceed';
+				onClick: [ self proceed ] ]
 ! !
 

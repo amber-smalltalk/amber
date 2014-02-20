@@ -304,6 +304,12 @@ setupInterpreter: anInterpreter
 	anInterpreter push: (self innerContext receiver)
 ! !
 
+!AIContext methodsFor: 'testing'!
+
+isTopContext
+	^ self innerContext isNil
+! !
+
 !AIContext class methodsFor: 'instance creation'!
 
 fromMethodContext: aMethodContext
@@ -417,7 +423,7 @@ onStep
 	self interpreter atEnd ifTrue: [
 		self context outerContext ifNotNil: [ :outerContext | 
 			self context: outerContext ].
-		self context ifNotNil: [ self skip ] ].
+		self atEnd ifFalse: [ self interpreter skip ] ].
 		
 	self flushInnerContexts
 ! !
@@ -425,7 +431,7 @@ onStep
 !ASTDebugger methodsFor: 'stepping'!
 
 proceed
-	self shouldBeImplemented
+	[ self atEnd ] whileFalse: [ self stepOver ]
 !
 
 restart
@@ -433,17 +439,14 @@ restart
 	self flushInnerContexts
 !
 
-skip
-	self interpreter skip.
-	self onStep
-!
-
 stepInto
 	self shouldBeImplemented
 !
 
 stepOver
-	self interpreter stepOver.
+	self context isTopContext 
+		ifFalse: [ self interpreter skip ]
+		ifTrue: [ self interpreter stepOver ].
 	self onStep
 ! !
 
