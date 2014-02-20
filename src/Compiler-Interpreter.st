@@ -465,7 +465,7 @@ context: aContext
 ! !
 
 NodeVisitor subclass: #ASTInterpreter
-	instanceVariableNames: 'node context stack returnValue returned'
+	instanceVariableNames: 'node context stack returnValue returned forceAtEnd'
 	package: 'Compiler-Interpreter'!
 !ASTInterpreter commentStamp!
 I visit an AST, interpreting (evaluating) nodes one after the other, using a small stack machine.
@@ -517,6 +517,14 @@ returnValue: anObject
 
 stack
 	^ stack ifNil: [ stack := OrderedCollection new ]
+! !
+
+!ASTInterpreter methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+
+	forceAtEnd := false
 ! !
 
 !ASTInterpreter methodsFor: 'interpreting'!
@@ -655,6 +663,8 @@ push: anObject
 !ASTInterpreter methodsFor: 'testing'!
 
 atEnd
+	forceAtEnd ifTrue: [ ^ true ].
+	
 	^ self hasReturned or: [ self node isNil ]
 !
 
@@ -693,8 +703,14 @@ visitBlockNode: aNode
 !
 
 visitBlockSequenceNode: aNode
+	"If the receiver is actually visiting a BlockSequenceNode,
+	it means the the context is a block context. Evaluation should 
+	stop right after evaluating the block sequence and the outer
+	context's interpreter should take over. 
+	Therefore we force #atEnd."
+	
 	super visitBlockSequenceNode: aNode.
-	returned := true
+	forceAtEnd := true
 !
 
 visitDynamicArrayNode: aNode

@@ -1371,7 +1371,7 @@ referencedClasses: []
 globals.ASTDebugger.klass);
 
 
-smalltalk.addClass('ASTInterpreter', globals.NodeVisitor, ['node', 'context', 'stack', 'returnValue', 'returned'], 'Compiler-Interpreter');
+smalltalk.addClass('ASTInterpreter', globals.NodeVisitor, ['node', 'context', 'stack', 'returnValue', 'returned', 'forceAtEnd'], 'Compiler-Interpreter');
 globals.ASTInterpreter.comment="I visit an AST, interpreting (evaluating) nodes one after the other, using a small stack machine.\x0a\x0a## API\x0a\x0aWhile my instances should be used from within an `ASTDebugger`, which provides a more high level interface,\x0ayou can use methods from the `interpreting` protocol:\x0a\x0a- `#step` evaluates the current `node` only\x0a- `#stepOver` evaluates the AST from the current `node` up to the next stepping node (most likely the next send node)\x0a- `#proceed` evaluates eagerly the AST\x0a- `#restart` select the first node of the AST\x0a- `#skip` skips the current node, moving to the next one if any";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1407,16 +1407,20 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._hasReturned())._or_((function(){
+var $1,$2;
+$1=self["@forceAtEnd"];
+if(smalltalk.assert($1)){
+return true;
+};
+$2=_st(self._hasReturned())._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._node())._isNil();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-return $1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"atEnd",{},globals.ASTInterpreter)})},
 args: [],
-source: "atEnd\x0a\x09^ self hasReturned or: [ self node isNil ]",
-messageSends: ["or:", "hasReturned", "isNil", "node"],
+source: "atEnd\x0a\x09forceAtEnd ifTrue: [ ^ true ].\x0a\x09\x0a\x09^ self hasReturned or: [ self node isNil ]",
+messageSends: ["ifTrue:", "or:", "hasReturned", "isNil", "node"],
 referencedClasses: []
 }),
 globals.ASTInterpreter);
@@ -1519,6 +1523,23 @@ return $1;
 args: [],
 source: "hasReturned\x0a\x09^ returned ifNil: [ false ]",
 messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+globals.ASTInterpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+globals.ASTInterpreter.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@forceAtEnd"]=false;
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ASTInterpreter)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x0a\x09forceAtEnd := false",
+messageSends: ["initialize"],
 referencedClasses: []
 }),
 globals.ASTInterpreter);
@@ -2032,10 +2053,10 @@ fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 globals.ASTInterpreter.superclass.fn.prototype._visitBlockSequenceNode_.apply(_st(self), [aNode]);
-self["@returned"]=true;
+self["@forceAtEnd"]=true;
 return self}, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},globals.ASTInterpreter)})},
 args: ["aNode"],
-source: "visitBlockSequenceNode: aNode\x0a\x09super visitBlockSequenceNode: aNode.\x0a\x09returned := true",
+source: "visitBlockSequenceNode: aNode\x0a\x09\x22If the receiver is actually visiting a BlockSequenceNode,\x0a\x09it means the the context is a block context. Evaluation should \x0a\x09stop right after evaluating the block sequence and the outer\x0a\x09context's interpreter should take over. \x0a\x09Therefore we force #atEnd.\x22\x0a\x09\x0a\x09super visitBlockSequenceNode: aNode.\x0a\x09forceAtEnd := true",
 messageSends: ["visitBlockSequenceNode:"],
 referencedClasses: []
 }),
