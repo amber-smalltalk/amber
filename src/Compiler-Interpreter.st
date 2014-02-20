@@ -456,7 +456,7 @@ atEnd
 	self context ifNil: [ ^ true ].
 	
 	^ self interpreter atEnd and: [ 
-		self context outerContext isNil ]
+		self context isTopContext ]
 ! !
 
 !ASTDebugger class methodsFor: 'instance creation'!

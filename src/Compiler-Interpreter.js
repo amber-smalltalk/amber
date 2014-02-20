@@ -1095,13 +1095,13 @@ $1;
 };
 $2=_st(_st(self._interpreter())._atEnd())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(self._context())._outerContext())._isNil();
+return _st(self._context())._isTopContext();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"atEnd",{},globals.ASTDebugger)})},
 args: [],
-source: "atEnd\x09\x0a\x09self context ifNil: [ ^ true ].\x0a\x09\x0a\x09^ self interpreter atEnd and: [ \x0a\x09\x09self context outerContext isNil ]",
-messageSends: ["ifNil:", "context", "and:", "atEnd", "interpreter", "isNil", "outerContext"],
+source: "atEnd\x09\x0a\x09self context ifNil: [ ^ true ].\x0a\x09\x0a\x09^ self interpreter atEnd and: [ \x0a\x09\x09self context isTopContext ]",
+messageSends: ["ifNil:", "context", "and:", "atEnd", "interpreter", "isTopContext"],
 referencedClasses: []
 }),
 globals.ASTDebugger);
