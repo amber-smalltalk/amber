@@ -1590,6 +1590,42 @@ globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "findContextSuchThat:",
+protocol: 'accessing',
+fn: function (testBlock){
+var self=this;
+var context;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+var $early={};
+try {
+context=self;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(context)._isNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(testBlock)._value_(context);
+if(smalltalk.assert($1)){
+$2=context;
+throw $early=[$2];
+};
+context=_st(context)._outerContext();
+return context;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return nil;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"findContextSuchThat:",{testBlock:testBlock,context:context},globals.MethodContext)})},
+args: ["testBlock"],
+source: "findContextSuchThat: testBlock\x0a\x09\x22Search self and my sender chain for first one that satisfies `testBlock`.  \x0a\x09Answer `nil` if none satisfy\x22\x0a\x0a\x09| context |\x0a\x09\x0a\x09context := self.\x0a\x09[ context isNil] whileFalse: [\x0a\x09\x09(testBlock value: context) \x0a\x09\x09\x09ifTrue: [ ^ context ].\x0a\x09\x09context := context outerContext ].\x0a\x0a\x09^ nil",
+messageSends: ["whileFalse:", "isNil", "ifTrue:", "value:", "outerContext"],
+referencedClasses: []
+}),
+globals.MethodContext);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "home",
 protocol: 'accessing',
 fn: function (){

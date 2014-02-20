@@ -963,15 +963,17 @@ selector: "initializeFromError:",
 protocol: 'initialization',
 fn: function (anError){
 var self=this;
+var errorContext;
 function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return smalltalk.withContext(function($ctx1) { 
 self["@error"]=anError;
-self["@rootContext"]=_st($AIContext())._fromMethodContext_(_st(self["@error"])._context());
-self._currentContext_(self["@rootContext"]);
-return self}, function($ctx1) {$ctx1.fill(self,"initializeFromError:",{anError:anError},globals.HLDebuggerModel)})},
+errorContext=_st($AIContext())._fromMethodContext_(_st(self["@error"])._context());
+self["@rootContext"]=_st(self["@error"])._signalerContextFrom_(errorContext);
+self._selectedMethod_(_st(self["@rootContext"])._method());
+return self}, function($ctx1) {$ctx1.fill(self,"initializeFromError:",{anError:anError,errorContext:errorContext},globals.HLDebuggerModel)})},
 args: ["anError"],
-source: "initializeFromError: anError\x0a\x09error := anError.\x0a\x09rootContext := (AIContext fromMethodContext: error context).\x0a\x09self currentContext: rootContext",
-messageSends: ["fromMethodContext:", "context", "currentContext:"],
+source: "initializeFromError: anError\x0a\x09| errorContext |\x0a\x09\x0a\x09error := anError.\x0a\x09errorContext := (AIContext fromMethodContext: error context).\x0a\x09rootContext := error signalerContextFrom: errorContext.\x0a\x09self selectedMethod: rootContext method",
+messageSends: ["fromMethodContext:", "context", "signalerContextFrom:", "selectedMethod:", "method"],
 referencedClasses: ["AIContext"]
 }),
 globals.HLDebuggerModel);

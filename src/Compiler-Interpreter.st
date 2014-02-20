@@ -406,7 +406,7 @@ result
 	^ result
 ! !
 
-!ASTDebugger methodsFor: 'private'!
+!ASTDebugger methodsFor: 'actions'!
 
 flushInnerContexts
 	"When stepping, the inner contexts are not relevent anymore,
@@ -414,7 +414,9 @@ flushInnerContexts
 	
 	self context ifNotNil: [ :cxt | 
 		cxt innerContext: nil ]
-!
+! !
+
+!ASTDebugger methodsFor: 'private'!
 
 onStep
 	"After each step, check if the interpreter is at the end,
@@ -859,8 +861,7 @@ visitSendNode: aNode
 	super visitSendNode: aNode.
 	
 	self selector = aNode selector ifTrue: [
-		self index < sendIndex ifFalse: [ 
-			self index > sendIndex ifFalse: [ currentNode := aNode ] ].
+		self index = sendIndex ifTrue: [ currentNode := aNode ].
 		self increaseIndex ]
 ! !
 

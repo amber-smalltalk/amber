@@ -190,6 +190,53 @@ globals.Error);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "signalerContext",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._signalerContextFrom_(self._context());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"signalerContext",{},globals.Error)})},
+args: [],
+source: "signalerContext\x0a\x09^ self signalerContextFrom: self context",
+messageSends: ["signalerContextFrom:", "context"],
+referencedClasses: []
+}),
+globals.Error);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "signalerContextFrom:",
+protocol: 'accessing',
+fn: function (aContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $4,$3,$2,$1;
+$1=_st(aContext)._findContextSuchThat_((function(context){
+return smalltalk.withContext(function($ctx2) {
+$4=_st(context)._receiver();
+$ctx2.sendIdx["receiver"]=1;
+$3=_st($4).__eq_eq(self);
+$ctx2.sendIdx["=="]=1;
+$2=_st($3)._or_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(context)._receiver()).__eq_eq(self._class());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+return _st($2)._not();
+}, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},globals.Error)})},
+args: ["aContext"],
+source: "signalerContextFrom: aContext\x0a\x09\x22Find the first sender of signal(:), the first context which is neither \x0a\x09for an instance method nor for a class side method of Exception (or subclass).\x0a\x09This will make sure that the same context is found for both, `Error signal` \x0a\x09and `Error new signal`\x22\x0a\x0a\x09^ aContext findContextSuchThat: [ :context |\x0a\x09\x09(context receiver == self \x0a\x09\x09or: [ context receiver == self class ]) not ]",
+messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class"],
+referencedClasses: []
+}),
+globals.Error);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "wasHandled",
 protocol: 'testing',
 fn: function (){
@@ -255,6 +302,58 @@ messageSends: ["signal:", "new"],
 referencedClasses: []
 }),
 globals.Error.klass);
+
+
+smalltalk.addClass('Halt', globals.Error, [], 'Kernel-Exceptions');
+globals.Halt.comment="I am provided to support `Object>>#halt`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "messageText",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "Halt encountered";
+},
+args: [],
+source: "messageText\x0a\x09^ 'Halt encountered'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Halt);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "signalerContextFrom:",
+protocol: 'accessing',
+fn: function (aContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $4,$3,$2,$1;
+$1=_st(aContext)._findContextSuchThat_((function(context){
+return smalltalk.withContext(function($ctx2) {
+$4=_st(context)._receiver();
+$ctx2.sendIdx["receiver"]=1;
+$3=_st($4).__eq_eq(self);
+$ctx2.sendIdx["=="]=1;
+$2=_st($3)._or_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(_st(context)._receiver()).__eq_eq(self._class()))._or_((function(){
+return smalltalk.withContext(function($ctx4) {
+return _st(_st(_st(context)._method())._selector()).__eq("halt");
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+$ctx2.sendIdx["or:"]=1;
+return _st($2)._not();
+}, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},globals.Halt)})},
+args: ["aContext"],
+source: "signalerContextFrom: aContext\x0a\x09\x22specialized version to find the proper context to open the debugger on.\x0a\x09This will find the first context whose method is no longer on `Halt` or \x0a\x09`Halt class` nor is `#halt` method itself.\x22\x0a\x09\x0a\x09^ aContext findContextSuchThat: [ :context |\x0a\x09\x09(context receiver == self \x0a\x09\x09or: [ (context receiver == self class) \x0a\x09\x09or: [ context method selector = #halt ]]) not ]",
+messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class", "=", "selector", "method"],
+referencedClasses: []
+}),
+globals.Halt);
+
 
 
 smalltalk.addClass('JavaScriptException', globals.Error, ['exception'], 'Kernel-Exceptions');

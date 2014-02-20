@@ -34,6 +34,21 @@ messageText
 
 messageText: aString
 	messageText := aString
+!
+
+signalerContext
+	^ self signalerContextFrom: self context
+!
+
+signalerContextFrom: aContext
+	"Find the first sender of signal(:), the first context which is neither 
+	for an instance method nor for a class side method of Exception (or subclass).
+	This will make sure that the same context is found for both, `Error signal` 
+	and `Error new signal`"
+
+	^ aContext findContextSuchThat: [ :context |
+		(context receiver == self 
+		or: [ context receiver == self class ]) not ]
 ! !
 
 !Error methodsFor: 'initialization'!
@@ -91,6 +106,29 @@ signal
 signal: aString
 	^ self new
 		signal: aString
+! !
+
+Error subclass: #Halt
+	instanceVariableNames: ''
+	package: 'Kernel-Exceptions'!
+!Halt commentStamp!
+I am provided to support `Object>>#halt`.!
+
+!Halt methodsFor: 'accessing'!
+
+messageText
+	^ 'Halt encountered'
+!
+
+signalerContextFrom: aContext
+	"specialized version to find the proper context to open the debugger on.
+	This will find the first context whose method is no longer on `Halt` or 
+	`Halt class` nor is `#halt` method itself."
+	
+	^ aContext findContextSuchThat: [ :context |
+		(context receiver == self 
+		or: [ (context receiver == self class) 
+		or: [ context method selector = #halt ]]) not ]
 ! !
 
 Error subclass: #JavaScriptException

@@ -1141,7 +1141,7 @@ globals.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "flushInnerContexts",
-protocol: 'private',
+protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2460,7 +2460,7 @@ fn: function (aNode){
 var self=this;
 var sendIndex;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3,$6,$5,$7;
+var $1,$2,$4,$3,$5;
 $1=self._context();
 $2=self._selector();
 $ctx1.sendIdx["selector"]=1;
@@ -2469,23 +2469,19 @@ globals.ASTPCNodeVisitor.superclass.fn.prototype._visitSendNode_.apply(_st(self)
 $4=self._selector();
 $ctx1.sendIdx["selector"]=2;
 $3=_st($4).__eq(_st(aNode)._selector());
+$ctx1.sendIdx["="]=1;
 if(smalltalk.assert($3)){
-$6=self._index();
-$ctx1.sendIdx["index"]=1;
-$5=_st($6).__lt(sendIndex);
-if(! smalltalk.assert($5)){
-$7=_st(self._index()).__gt(sendIndex);
-if(! smalltalk.assert($7)){
+$5=_st(self._index()).__eq(sendIndex);
+if(smalltalk.assert($5)){
 self["@currentNode"]=aNode;
 self["@currentNode"];
-};
 };
 self._increaseIndex();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,sendIndex:sendIndex},globals.ASTPCNodeVisitor)})},
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09| sendIndex |\x0a\x09sendIndex := self context sendIndexAt: self selector.\x0a\x09\x0a\x09super visitSendNode: aNode.\x0a\x09\x0a\x09self selector = aNode selector ifTrue: [\x0a\x09\x09self index < sendIndex ifFalse: [ \x0a\x09\x09\x09self index > sendIndex ifFalse: [ currentNode := aNode ] ].\x0a\x09\x09self increaseIndex ]",
-messageSends: ["sendIndexAt:", "context", "selector", "visitSendNode:", "ifTrue:", "=", "ifFalse:", "<", "index", ">", "increaseIndex"],
+source: "visitSendNode: aNode\x0a\x09| sendIndex |\x0a\x09sendIndex := self context sendIndexAt: self selector.\x0a\x09\x0a\x09super visitSendNode: aNode.\x0a\x09\x0a\x09self selector = aNode selector ifTrue: [\x0a\x09\x09self index = sendIndex ifTrue: [ currentNode := aNode ].\x0a\x09\x09self increaseIndex ]",
+messageSends: ["sendIndexAt:", "context", "selector", "visitSendNode:", "ifTrue:", "=", "index", "increaseIndex"],
 referencedClasses: []
 }),
 globals.ASTPCNodeVisitor);

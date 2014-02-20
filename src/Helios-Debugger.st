@@ -377,9 +377,12 @@ evaluate: aString
 !HLDebuggerModel methodsFor: 'initialization'!
 
 initializeFromError: anError
+	| errorContext |
+	
 	error := anError.
-	rootContext := (AIContext fromMethodContext: error context).
-	self currentContext: rootContext
+	errorContext := (AIContext fromMethodContext: error context).
+	rootContext := error signalerContextFrom: errorContext.
+	self selectedMethod: rootContext method
 ! !
 
 !HLDebuggerModel methodsFor: 'private'!

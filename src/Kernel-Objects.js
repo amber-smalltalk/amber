@@ -660,13 +660,14 @@ selector: "halt",
 protocol: 'error handling',
 fn: function (){
 var self=this;
+function $Halt(){return globals.Halt||(typeof Halt=="undefined"?nil:Halt)}
 return smalltalk.withContext(function($ctx1) { 
-self._error_("Halt encountered");
+_st($Halt())._signal();
 return self}, function($ctx1) {$ctx1.fill(self,"halt",{},globals.Object)})},
 args: [],
-source: "halt\x0a\x09self error: 'Halt encountered'",
-messageSends: ["error:"],
-referencedClasses: []
+source: "halt\x0a\x09Halt signal",
+messageSends: ["signal"],
+referencedClasses: ["Halt"]
 }),
 globals.Object);
 

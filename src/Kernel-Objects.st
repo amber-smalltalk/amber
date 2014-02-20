@@ -263,7 +263,7 @@ error: aString
 !
 
 halt
-	self error: 'Halt encountered'
+	Halt signal
 !
 
 shouldNotImplement
