@@ -1112,26 +1112,7 @@ globals.CodeGeneratorTest);
 
 
 
-smalltalk.addClass('InliningCodeGeneratorTest', globals.CodeGeneratorTest, [], 'Compiler-Tests');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "codeGeneratorClass",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $InliningCodeGenerator(){return globals.InliningCodeGenerator||(typeof InliningCodeGenerator=="undefined"?nil:InliningCodeGenerator)}
-return $InliningCodeGenerator();
-},
-args: [],
-source: "codeGeneratorClass\x0a\x09^ InliningCodeGenerator",
-messageSends: [],
-referencedClasses: ["InliningCodeGenerator"]
-}),
-globals.InliningCodeGeneratorTest);
-
-
-
-smalltalk.addClass('InterpreterTest', globals.CodeGeneratorTest, [], 'Compiler-Tests');
+smalltalk.addClass('ASTInterpreterTest', globals.CodeGeneratorTest, [], 'Compiler-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "analyze:forClass:",
@@ -1142,13 +1123,13 @@ function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAn
 return smalltalk.withContext(function($ctx1) { 
 _st(_st($SemanticAnalyzer())._on_(aClass))._visit_(aNode);
 return aNode;
-}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass},globals.InterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass},globals.ASTInterpreterTest)})},
 args: ["aNode", "aClass"],
 source: "analyze: aNode forClass: aClass\x0a\x09(SemanticAnalyzer on: aClass) visit: aNode.\x0a\x09^ aNode",
 messageSends: ["visit:", "on:"],
 referencedClasses: ["SemanticAnalyzer"]
 }),
-globals.InterpreterTest);
+globals.ASTInterpreterTest);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1179,13 +1160,13 @@ _st($4)._proceed();
 $5=_st($4)._result();
 $3=$5;
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,interpreter:interpreter},globals.InterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,interpreter:interpreter},globals.ASTInterpreterTest)})},
 args: ["aString", "anObject", "aDictionary"],
 source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a\x09\x0a\x09| ctx interpreter |\x0a\x09\x0a\x09interpreter := ASTInterpreter new.\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: interpreter;\x0a\x09\x09yourself.\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09\x0a\x09^ interpreter\x0a\x09\x09context: ctx;\x0a\x09\x09interpret: (self parse: aString forClass: anObject class) nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
 messageSends: ["new", "receiver:", "interpreter:", "yourself", "keysAndValuesDo:", "localAt:put:", "context:", "interpret:", "nextChild", "parse:forClass:", "class", "proceed", "result"],
 referencedClasses: ["ASTInterpreter", "AIContext"]
 }),
-globals.InterpreterTest);
+globals.ASTInterpreterTest);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1198,13 +1179,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Smalltalk())._parse_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},globals.InterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},globals.ASTInterpreterTest)})},
 args: ["aString"],
 source: "parse: aString\x0a\x09^ Smalltalk parse: aString",
 messageSends: ["parse:"],
 referencedClasses: ["Smalltalk"]
 }),
-globals.InterpreterTest);
+globals.ASTInterpreterTest);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1216,13 +1197,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._analyze_forClass_(self._parse_(aString),aClass);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},globals.InterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},globals.ASTInterpreterTest)})},
 args: ["aString", "aClass"],
 source: "parse: aString forClass: aClass\x0a\x09^ self analyze: (self parse: aString) forClass: aClass",
 messageSends: ["analyze:forClass:", "parse:"],
 referencedClasses: []
 }),
-globals.InterpreterTest);
+globals.ASTInterpreterTest);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1235,13 +1216,13 @@ var $1;
 self["@receiver"]=anObject;
 $1=self._assert_equals_(self._interpret_receiver_withArguments_(aString,self["@receiver"],globals.HashedCollection._newFromPairs_([])),aResult);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult},globals.InterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult},globals.ASTInterpreterTest)})},
 args: ["aString", "anObject", "aResult"],
 source: "should: aString receiver: anObject return: aResult\x0a\x09receiver := anObject.\x0a\x09\x0a\x09^ self \x0a\x09\x09assert: (self interpret: aString receiver: receiver withArguments: #{})\x0a\x09\x09equals: aResult",
 messageSends: ["assert:equals:", "interpret:receiver:withArguments:"],
 referencedClasses: []
 }),
-globals.InterpreterTest);
+globals.ASTInterpreterTest);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1253,17 +1234,17 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._should_receiver_return_(aString,self["@receiver"],anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject},globals.InterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject},globals.ASTInterpreterTest)})},
 args: ["aString", "anObject"],
 source: "should: aString return: anObject\x0a\x09^ self \x0a\x09\x09should: aString\x0a\x09\x09receiver: receiver\x0a\x09\x09return: anObject",
 messageSends: ["should:receiver:return:"],
 referencedClasses: []
 }),
-globals.InterpreterTest);
+globals.ASTInterpreterTest);
 
 
 
-smalltalk.addClass('ASTDebuggerTest', globals.InterpreterTest, [], 'Compiler-Tests');
+smalltalk.addClass('ASTDebuggerTest', globals.ASTInterpreterTest, [], 'Compiler-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "interpret:receiver:withArguments:",
@@ -1304,6 +1285,25 @@ messageSends: ["receiver:", "new", "interpreter:", "yourself", "keysAndValuesDo:
 referencedClasses: ["AIContext", "ASTInterpreter", "ASTDebugger"]
 }),
 globals.ASTDebuggerTest);
+
+
+
+smalltalk.addClass('InliningCodeGeneratorTest', globals.CodeGeneratorTest, [], 'Compiler-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "codeGeneratorClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $InliningCodeGenerator(){return globals.InliningCodeGenerator||(typeof InliningCodeGenerator=="undefined"?nil:InliningCodeGenerator)}
+return $InliningCodeGenerator();
+},
+args: [],
+source: "codeGeneratorClass\x0a\x09^ InliningCodeGenerator",
+messageSends: [],
+referencedClasses: ["InliningCodeGenerator"]
+}),
+globals.InliningCodeGeneratorTest);
 
 
 

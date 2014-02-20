@@ -444,21 +444,11 @@ testifTrueIfFalse
 	self should: 'foo ^ true ifTrue: [ 2 ] ifFalse: [ 1 ]' return: 2.
 ! !
 
-CodeGeneratorTest subclass: #InliningCodeGeneratorTest
+CodeGeneratorTest subclass: #ASTInterpreterTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
 
-!InliningCodeGeneratorTest methodsFor: 'accessing'!
-
-codeGeneratorClass
-	^ InliningCodeGenerator
-! !
-
-CodeGeneratorTest subclass: #InterpreterTest
-	instanceVariableNames: ''
-	package: 'Compiler-Tests'!
-
-!InterpreterTest methodsFor: 'parsing'!
+!ASTInterpreterTest methodsFor: 'parsing'!
 
 analyze: aNode forClass: aClass
 	(SemanticAnalyzer on: aClass) visit: aNode.
@@ -473,7 +463,7 @@ parse: aString forClass: aClass
 	^ self analyze: (self parse: aString) forClass: aClass
 ! !
 
-!InterpreterTest methodsFor: 'private'!
+!ASTInterpreterTest methodsFor: 'private'!
 
 interpret: aString receiver: anObject withArguments: aDictionary
 	"The food is a methodNode. Interpret the sequenceNode only"
@@ -496,7 +486,7 @@ interpret: aString receiver: anObject withArguments: aDictionary
 		result
 ! !
 
-!InterpreterTest methodsFor: 'testing'!
+!ASTInterpreterTest methodsFor: 'testing'!
 
 should: aString receiver: anObject return: aResult
 	receiver := anObject.
@@ -513,7 +503,7 @@ should: aString return: anObject
 		return: anObject
 ! !
 
-InterpreterTest subclass: #ASTDebuggerTest
+ASTInterpreterTest subclass: #ASTDebuggerTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
 
@@ -537,6 +527,16 @@ interpret: aString receiver: anObject withArguments: aDictionary
 	^ debugger 
 		proceed; 
 		result
+! !
+
+CodeGeneratorTest subclass: #InliningCodeGeneratorTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!InliningCodeGeneratorTest methodsFor: 'accessing'!
+
+codeGeneratorClass
+	^ InliningCodeGenerator
 ! !
 
 TestCase subclass: #ScopeVarTest
