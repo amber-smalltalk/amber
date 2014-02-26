@@ -770,15 +770,15 @@ body[id="helios"] .growl {
   width: 200px;
   height: auto;
   padding: 15px;
-  background-image: -webkit-linear-gradient(#ffffff, #ebebeb);
-  background-image: -moz-linear-gradient(#ffffff, #ebebeb);
-  background-image: -o-linear-gradient(#ffffff, #ebebeb);
-  background-image: linear-gradient(#ffffff, #ebebeb);
+  background-image: -webkit-linear-gradient(#505050, #3c3c3c);
+  background-image: -moz-linear-gradient(#505050, #3c3c3c);
+  background-image: -o-linear-gradient(#505050, #3c3c3c);
+  background-image: linear-gradient(#888, #666);
   border: 1px solid #aaa;
   border-radius: 8px;
-  box-shadow: 0 0 3px #ccc;
+  box-shadow: 0 0 3px #777;
   font-weight: bold;
-  text-shadow: 0px 2px 1px #fff;
+  color: #ccc;
 }
 body[id="helios"] .confirmation,
 body[id="helios"] .dialog {
@@ -1001,6 +1001,8 @@ body[id="helios"] .transcript textarea {
   margin: 0;
   padding: 0;
   border: 0;
+  background: #444;
+  color: #b8c4cf;
 }
 body[id="helios"] .hl_debugger .tool_container {
   top: 53px;
