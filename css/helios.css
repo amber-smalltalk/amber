@@ -38,7 +38,7 @@ body.navigation .CodeMirror pre {
 body[id="helios"] {
   font-size: 11px;
   font-family: "Lucida Grande", "Segoe UI", helvetica, arial, sans-serif;
-  background: #eeeeee url(/images/squared_metal.png) repeat;
+  background: #eeeeee url('/images/squared_metal-dark.png') repeat;
 }
 body[id="helios"] a {
   cursor: pointer;
@@ -343,8 +343,7 @@ body[id="helios"] .welcome {
   margin-left: -170px;
   width: 340px;
   margin-top: 60px;
-  text-shadow: 0 1px 0 #fafafa;
-  color: #666;
+  color: #fffffb;
   font-size: 14px;
 }
 
@@ -355,10 +354,8 @@ body[id="helios"] [class^="icon-"], body[id="helios"][class*=" icon-"]{
 
 body[id="helios"] .welcome h2 {
   text-align: center;
-  color: #666;
 }
 body[id="helios"] .welcome button {
-  background: #eee;
   margin: 10px;
   padding: 20px;
   height: auto;
@@ -641,9 +638,9 @@ body[id="helios"] .key_helper {
   width: 400px;
   max-height: 300px;
   margin-left: -200px;
-  background: white;
-  box-shadow: 0 0 6px #aaa;
-  border: 1px solid #aaa;
+  background-color: #444;
+  box-shadow: 0 0 6px #222;
+  border: 1px solid #ccc;
   font-size: 11px;
   transition: all .5s;
   -webkit-transition: all .5s;
@@ -655,16 +652,19 @@ body[id="helios"] .key_helper .command {
   padding: 0;
   display: inline-block;
   width: 50%;
+  color: #ccc;
 }
 body[id="helios"] .key_helper .command strong {
   display: inline-block;
   min-width: 1.4em;
   text-align: left;
+  background-color: #ccc;
+  color: #666;
 }
 body[id="helios"] .key_helper #binding-helper-main {
   display: block;
   padding: 5px;
-  background: #eee;
+  background: #444;
 }
 body[id="helios"] .key_helper .label {
   padding: 1px 4px;
@@ -680,18 +680,18 @@ body[id="helios"] .key_helper .action {
   font-weight: bold;
 }
 body[id="helios"] .key_helper .selected {
-  background-image: linear-gradient(top, #cccccc, #bbbbbb);
-  background-image: -moz-linear-gradient(top, #cccccc, #bbbbbb);
-  background-image: -o-linear-gradient(top, #cccccc, #bbbbbb);
-  background-image: -webkit-linear-gradient(top, #cccccc, #bbbbbb);
+  background-image: linear-gradient(top, #444, #1d1d1d);
+  background-image: -webkit-linear-gradient(top, #444, #1d1d1d);
+  background-image: -moz-linear-gradient(top, #444, #1d1d1d);
+  background-image: -o-linear-gradient(top, #444, #1d1d1d);
   height: 28px;
   padding: 0 8px;
   font-weight: bold;
   font-size: 18px;
   line-height: 28px;
-  text-shadow: 0 1px 0 #fff;
   display: block;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #ccc;
+  color: #ccc
 }
 body[id="helios"] .key_helper .close {
   font-size: 14px;
