@@ -175,18 +175,20 @@ body[id="helios"] .navbar-fixed-top .navbar-inner {
   width: 12px;
 }  
 ::-webkit-scrollbar-track {  
-  background-color: #444;
-  border-left: 1px solid #080808;
+  background-color: transparent;
 }  
 ::-webkit-scrollbar-thumb {  
-  border-left: 1px solid #080808;
-  border-top: 1px solid #080808;
-  border-bottom: 1px solid #888;
-  background-color: #666;
-  margin: 1px;
+  border-left: 1px solid #333;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #707070;
+  background-color: #585858;
+  border-radius: 1px;
 }  
 ::-webkit-scrollbar-thumb:hover {  
-  background-color: #aaa;  
+  border-left: 1px solid #555;
+  border-top: 1px solid #555;
+  border-bottom: 1px solid #808080;
+  background-color: #707070;
 }  
 
 body[id="helios"] .new_tab  a  b {
