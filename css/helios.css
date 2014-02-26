@@ -172,24 +172,38 @@ body[id="helios"] .navbar-fixed-top .navbar-inner {
 }
 
 ::-webkit-scrollbar {  
-  width: 12px;
+  width: 14px;
 }  
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
 ::-webkit-scrollbar-track {  
   background-color: transparent;
 }  
-::-webkit-scrollbar-thumb {  
-  border-left: 1px solid #333;
-  border-top: 1px solid #333;
-  border-bottom: 1px solid #707070;
+
+.focused ::-webkit-scrollbar-thumb {
+  background-color: #4c4c4c;
+}
+
+.focused ::-webkit-scrollbar-thumb:hover {
+  background-color: #3a3a3a;
+}
+
+
+::-webkit-scrollbar-thumb {
   background-color: #585858;
-  border-radius: 1px;
+  border: 3px solid transparent;
+  border-radius: 9px;
+  background-clip: content-box;
 }  
 ::-webkit-scrollbar-thumb:hover {  
-  border-left: 1px solid #555;
-  border-top: 1px solid #555;
-  border-bottom: 1px solid #808080;
   background-color: #707070;
-}  
+}
+
+
+
 
 body[id="helios"] .new_tab  a  b {
   border-top: 4px solid #a7a7a7;
