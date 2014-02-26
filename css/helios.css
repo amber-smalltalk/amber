@@ -173,6 +173,7 @@ body[id="helios"] .navbar-fixed-top .navbar-inner {
 
 ::-webkit-scrollbar {  
   width: 14px;
+  height: 14px;
 }  
 
 ::-webkit-scrollbar-corner {
@@ -315,7 +316,7 @@ body[id="helios"] .dropdown-menu {
   margin: 3px;
 }
 body[id="helios"] .nav-pills > .active > a {
-  background-color: #666;
+  background-color: #12374f;
   color: #fffffb !important;
   text-shadow: 0 0 0;
 }
@@ -330,7 +331,7 @@ body[id="helios"] .dropdown-submenu:hover > a,
 body[id="helios"] .dropdown-menu .active > a,
 body[id="helios"] .dropdown-menu .active > a:hover,
 body[id="helios"] .CodeMirror-hint-active {
-  background: #2a5993;
+  background: #3b7cd4;
   color: #fff;
   text-shadow: 0 0 0;
 }
@@ -433,7 +434,7 @@ body[id="helios"] .tool_container .splitter.vertical {
   width: 5px;
   left: 50%;
   margin-left: -1px;
-  border-left: 1px solid #888;
+  border-left: 1px solid #666;
   height: 100%;
   float: left;
   cursor: ew-resize;
@@ -906,6 +907,17 @@ body[id="helios"] .button:hover {
   background-image: -moz-linear-gradient(top, #505050, #3c3c3c);
   background-image: -o-linear-gradient(top, #505050, #3c3c3c);
 }
+
+body[id="helios"] .button.default:hover {
+  cursor: pointer;
+  border: 1px solid #585858;
+  background-image: linear-gradient(top, #505050, #3c3c3c);
+  background-image: -webkit-linear-gradient(top, #505050, #3c3c3c);
+  background-image: -moz-linear-gradient(top, #505050, #3c3c3c);
+  background-image: -o-linear-gradient(top, #505050, #3c3c3c);
+}
+
+
 body[id="helios"] .button:active {
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
@@ -927,6 +939,10 @@ body[id="helios"] .doc div {
 }
 body[id="helios"] .doc code {
   padding: 1px 4px;
+  color: #d46e69;
+  background-color: #626262;
+  border-color: #888;
+  
 }
 body[id="helios"] .doc .head {
   background: #666;
