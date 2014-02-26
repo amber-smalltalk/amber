@@ -107,8 +107,14 @@ body[id="helios"] .buttons_bar .button {
 body[id="helios"] .btn,
 body[id="helios"] .btn-group > .btn,
 body[id="helios"] .btn-group > .dropdown-menu {
+  background-color: #666;
+  border-color: #888;
   padding: 2px 8px;
 }
+body[id="helios"] .btn-group > .dropdown-menu a {
+  color: #fffffb;
+}
+
 body[id="helios"] .navbar-fixed-top {
   font-size: 11px;
   line-height: 16px;
@@ -126,7 +132,7 @@ body[id="helios"] .navbar-fixed-top i.close {
   width: 14px;
   height: 16px;
   margin-left: 4px;
-  background-image: url('../images/close.gif');
+  background-image: url('../images/close-dark.png');
   margin-right: 0;
   background-position: center left;
   margin-top: 4px;
@@ -159,8 +165,16 @@ body[id="helios"] .navbar-fixed-top .navbar-inner {
   min-height: 24px;
   border-bottom: 1px solid #666;
   box-shadow: inset 0px 2px 2px #aaa;
-  background: #bababa;
+  background-image: linear-gradient(top, #444, #1d1d1d);
+  background-image: -webkit-linear-gradient(top, #444, #1d1d1d);
+  background-image: -moz-linear-gradient(top, #444, #1d1d1d);
+  background-image: -o-linear-gradient(top, #444, #1d1d1d);
 }
+
+body[id="helios"] .new_tab  a  b {
+  border-top: 4px solid #a7a7a7;
+}
+
 body[id="helios"] .navbar .nav > li {
   line-height: 16px;
   text-align: center;
@@ -219,17 +233,27 @@ body[id="helios"] .navbar .nav > .active > a,
 body[id="helios"] .navbar .nav > .active > a:hover,
 body[id="helios"] .navbar .nav > .active > a:focus,
 body[id="helios"] .navbar .nav .ui-sortable-helper a {
-  color: #444;
-  background-image: linear-gradient(top, #dfdfdf, #d0d0d0);
-  background-image: -webkit-linear-gradient(top, #dfdfdf, #d0d0d0);
-  background-image: -moz-linear-gradient(top, #dfdfdf, #d0d0d0);
-  background-image: -o-linear-gradient(top, #dfdfdf, #d0d0d0);
-  text-shadow: 0 1px 0 #ddd;
+  color: #fffffb;
+  background-image: linear-gradient(top, #444, #1d1d1d);
+  background-image: -webkit-linear-gradient(top, #444, #1d1d1d);
+  background-image: -moz-linear-gradient(top, #444, #1d1d1d);
+  background-image: -o-linear-gradient(top, #444, #1d1d1d);
+  text-shadow: 0 1px 0 #1d1d1d;
   box-shadow: 0 0 0;
 }
 body[id="helios"] .navbar .nav .ui-sortable-helper a {
   border-left: 1px solid #777;
 }
+
+body[id="helios"] .navbar-fixed-top li.inactive{
+  opacity: 0.6;
+}
+
+body[id="helios"] .navbar-fixed-top li.inactive span{
+  text-shadow: none;
+  color: #ccc;
+}
+
 body[id="helios"] .navbar-fixed-top i {
   opacity: 0.4;
   margin-right: 5px;
@@ -246,7 +270,7 @@ body[id="helios"] .nav-pills.nav-stacked > li > a {
   padding: 2px 2px 1px 4px;
   margin: 0;
   font-size: 11px;
-  color: #111;
+  color: #b8c4cf;
   white-space: nowrap;
 }
 body[id="helios"] [class^="icon-"],
@@ -259,12 +283,12 @@ body[id="helios"] .dropdown-menu {
   margin: 3px;
 }
 body[id="helios"] .nav-pills > .active > a {
-  background-color: #ddd;
-  color: #fff;
+  background-color: #666;
+  color: #fffffb !important;
   text-shadow: 0 0 0;
 }
 body[id="helios"] .focused .nav-pills {
-  background-color: #f3f7fb;
+  background-color: #666;
 }
 body[id="helios"] .focused .nav-pills > .active > a,
 body[id="helios"] .nav-pills > .active > a:hover,
@@ -274,7 +298,7 @@ body[id="helios"] .dropdown-submenu:hover > a,
 body[id="helios"] .dropdown-menu .active > a,
 body[id="helios"] .dropdown-menu .active > a:hover,
 body[id="helios"] .CodeMirror-hint-active {
-  background: rgba(95, 159, 228, 0.62);
+  background: #2a5993;
   color: #fff;
   text-shadow: 0 0 0;
 }
@@ -290,6 +314,12 @@ body[id="helios"] .welcome {
   color: #666;
   font-size: 14px;
 }
+
+body[id="helios"] [class^="icon-"], body[id="helios"][class*=" icon-"]{
+    opacity: 0.68;
+  background-image: url("../bower_components/bootstrap/img/glyphicons-halflings-white.png");
+}
+
 body[id="helios"] .welcome h2 {
   text-align: center;
   color: #666;
@@ -328,7 +358,7 @@ body[id="helios"] .tool_container .panes .pane {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #fefefe;
+  background: #444;
 }
 body[id="helios"] .tool_container .multi_pane {
   position: relative;
@@ -437,9 +467,7 @@ body[id="helios"] .tool_container .pane .nav-pills i.extension {
 }
 body[id="helios"] .tool_container .pane .nav-pills i.initialization {
   background-image: url('../images/initialization.png');
-}
-body[id="helios"] .tool_container .pane .nav-pills i.package {
-  background-image: url('../images/package.png');
+
 }
 body[id="helios"] .tool_container .pane .nav-pills i.override {
   background-image: url('../images/override.png ');
@@ -462,17 +490,14 @@ body[id="helios"] .tool_container .list-label {
   border-bottom: 1px solid #999;
   border-top: 1px solid #eee;
   background-color: #eee;
-  background-image: -webkit-linear-gradient(top, #eeeeee, #dddddd);
-  background-image: -moz-linear-gradient(top, #eeeeee, #dddddd);
-  background-image: -o-linear-gradient(top, #eeeeee, #dddddd);
-  background-image: linear-gradient(top, #eeeeee, #dddddd);
-  color: #444;
-  font-weight: bold;
-  text-shadow: 0 0 0;
+ background-image: linear-gradient(top, #444, #1d1d1d);
+  background-image: -webkit-linear-gradient(top, #444, #1d1d1d);
+  background-image: -moz-linear-gradient(top, #444, #1d1d1d);
+  background-image: -o-linear-gradient(top, #444, #1d1d1d);
+  color: #ccc;
   padding-left: 4px;
   line-height: 14px;
   height: 15px;
-  text-shadow: 0 1px 0 #eee;
 }
 body[id="helios"] .tool_container .list-label .btn-group.cog {
   position: absolute;
@@ -503,7 +528,7 @@ body[id="helios"] .tool_container .panes .pane .pane_actions {
   position: absolute;
   overflow: hidden;
   width: 100%;
-  height: 16px;
+  height: 18px;
   bottom: 0;
   padding: 0;
   margin: 0;
@@ -512,10 +537,10 @@ body[id="helios"] .tool_container .pane_actions,
 body[id="helios"] .tool_container .buttons_bar {
   background: #dadada;
   border-top: 1px solid #666;
-  background-image: -webkit-linear-gradient(top, #dadada, #bdbdbd);
-  background-image: -moz-linear-gradient(top, #dadada, #bdbdbd);
-  background-image: -o-linear-gradient(top, #dadada, #bdbdbd);
-  background-image: linear-gradient(top, #dadada, #bdbdbd);
+  background-image: linear-gradient(top, #444, #1d1d1d);
+  background-image: -webkit-linear-gradient(top, #444, #1d1d1d);
+  background-image: -moz-linear-gradient(top, #444, #1d1d1d);
+  background-image: -o-linear-gradient(top, #444, #1d1d1d);
 }
 body[id="helios"] .tool_container .panes .pane .pane_actions .info {
   padding: 10px 5px 5px;
@@ -533,8 +558,7 @@ body[id="helios"] .tool_container .panes .pane .pane_actions label {
   font-size: 11px;
   line-height: 16px;
   vertical-align: top;
-  text-shadow: #ddd 0px 1px 0px;
-  color: #222;
+  color: #d3d3d3;
 }
 body[id="helios"] .tool_container .panes .pane .pane_actions label input {
   float: none;
@@ -544,7 +568,7 @@ body[id="helios"] .tool_container .panes .pane .pane_actions label input {
 }
 body[id="helios"] .tool_container .panes .pane .pane_actions .btn {
   background: transparent;
-  border: 0;
+  border: 1px;
   font-size: 11px;
   line-height: 16px;
   padding: 0 5px;
@@ -552,6 +576,8 @@ body[id="helios"] .tool_container .panes .pane .pane_actions .btn {
   border-radius: 0;
   box-shadow: 0 0 0;
   vertical-align: top;
+  text-shadow: none;
+  color: #929292
   /* min-width: 50px; */
 }
 body[id="helios"] .tool_container .panes .pane .pane_actions .btn:hover {
@@ -561,17 +587,18 @@ body[id="helios"] .tool_container .panes .pane .pane_actions .btn-group .btn:hov
   background-color: transparent;
 }
 body[id="helios"] .tool_container .panes .pane .pane_actions .btn-group .btn.active {
-  text-shadow: #ddd 0px 1px 0px;
-  color: #222;
-  background: #bbb;
-  background-image: linear-gradient(left, #777777 0%, #bababa 2px, transparent 2px), linear-gradient(right, #777777 0%, #bababa 2px, transparent 2px);
-  background-image: -webkit-linear-gradient(left, #777777 0%, #bababa 2px, transparent 2px), -webkit-linear-gradient(right, #777777 0%, #bababa 2px, transparent 2px);
-  background-image: -moz-linear-gradient(left, #777777 0%, #bababa 2px, transparent 2px), -moz-linear-gradient(right, #777777 0%, #bababa 2px, transparent 2px);
-  background-image: -o-linear-gradient(left, #777777 0%, #bababa 2px, transparent 2px), -o-linear-gradient(right, #777777 0%, #bababa 2px, transparent 2px);
+  color: #d3d3d3;
+  border: 1px solid #585858;
+  border-radius: 4px;
+  background: #666;
+  background-image: linear-gradient(top, #252525, #121212);
+  background-image: -webkit-linear-gradient(top, #505050, #3c3c3c);
+  background-image: -moz-linear-gradient(top, #252525, #121212);
+  background-image: -o-linear-gradient(top, #252525, #121212);
 }
 body[id="helios"] .tool_container .panes .pane .class_side .nav-pills {
   font-weight: bold;
-  background: #ffffdd;
+  background: #2a62a7;
 }
 body[id="helios"] .key_helper {
   z-index: 2001;
@@ -810,21 +837,20 @@ body[id="helios"] .dialog.active {
   top: 0;
 }
 body[id="helios"] .button {
+  color: #d3d3d3;
   border-radius: 3px !important;
   background: #ccc;
-  border: 1px solid #9B9B9B;
+  border: 1px solid #585858;
   height: 20px;
-  border-radius: 5px;
   min-width: 68px;
   padding: 0 10px;
   text-align: center;
   margin: 0;
   margin-left: 10px;
-  background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
-  background: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
-  background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
-  background: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
-  background: linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background-image: linear-gradient(top, #444, #1d1d1d);
+  background-image: -webkit-linear-gradient(top, #252525, #202020);
+  background-image: -moz-linear-gradient(top, #444, #1d1d1d);
+  background-image: -o-linear-gradient(top, #444, #1d1d1d);
   font: 13px "Lucida Grande", Lucida, Verdana, sans-serif;
 }
 body[id="helios"] .button.default {
