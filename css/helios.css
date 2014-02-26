@@ -191,18 +191,16 @@ body[id="helios"] .navbar-fixed-top .navbar-inner {
   background-color: #3a3a3a;
 }
 
-
 ::-webkit-scrollbar-thumb {
   background-color: #585858;
   border: 3px solid transparent;
   border-radius: 9px;
   background-clip: content-box;
 }  
+
 ::-webkit-scrollbar-thumb:hover {  
   background-color: #707070;
 }
-
-
 
 
 body[id="helios"] .new_tab  a  b {
@@ -915,7 +913,8 @@ body[id="helios"] .button:focus {
   box-shadow: 0 0 5px #08C;
 }
 body[id="helios"] .doc {
-  background: white;
+  background: transparent;
+  color: #ccc;
 }
 body[id="helios"] .doc code .doc pre,
 body[id="helios"] .doc p,
@@ -936,6 +935,10 @@ body[id="helios"] .focused .doc .head {
 }
 body[id="helios"] .doc .button {
   float: right;
+  background-image: linear-gradient(top, #444, #1d1d1d);
+  background-image: -webkit-linear-gradient(top, #444, #1d1d1d);
+  background-image: -moz-linear-gradient(top, #444, #1d1d1d);
+  background-image: -o-linear-gradient(top, #444, #1d1d1d);
 }
 body[id="helios"] .doc .markdown,
 body[id="helios"] .doc .inheritance {
