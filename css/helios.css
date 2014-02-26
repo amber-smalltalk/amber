@@ -879,10 +879,10 @@ body[id="helios"] .button {
   text-align: center;
   margin: 0;
   margin-left: 10px;
-  background-image: linear-gradient(top, #444, #1d1d1d);
+  background-image: linear-gradient(top, #252525, #202020);
   background-image: -webkit-linear-gradient(top, #252525, #202020);
-  background-image: -moz-linear-gradient(top, #444, #1d1d1d);
-  background-image: -o-linear-gradient(top, #444, #1d1d1d);
+  background-image: -moz-linear-gradient(top, #252525, #202020);
+  background-image: -o-linear-gradient(top, #252525, #202020);
   font: 13px "Lucida Grande", Lucida, Verdana, sans-serif;
 }
 body[id="helios"] .button.default {
@@ -900,7 +900,11 @@ body[id="helios"] .button.default {
 }
 body[id="helios"] .button:hover {
   cursor: pointer;
-  border: 1px solid rgba(0, 0, 0, 0.6);
+  border: 1px solid #585858;
+  background-image: linear-gradient(top, #505050, #3c3c3c);
+  background-image: -webkit-linear-gradient(top, #505050, #3c3c3c);
+  background-image: -moz-linear-gradient(top, #505050, #3c3c3c);
+  background-image: -o-linear-gradient(top, #505050, #3c3c3c);
 }
 body[id="helios"] .button:active {
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
@@ -944,6 +948,15 @@ body[id="helios"] .doc .markdown,
 body[id="helios"] .doc .inheritance {
   padding: 10px;
 }
+
+body[id="helios"] .doc .inheritance > a {
+  color: #4098ed;
+}
+
+body[id="helios"] .doc .inheritance > a:hover {
+  color: #4098ed;
+}
+
 body[id="helios"] .doc h1 {
   font-size: 22px;
   margin: 0 10px;
