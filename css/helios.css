@@ -965,6 +965,11 @@ body[id="helios"] .doc .inheritance {
   padding: 10px;
 }
 
+body[id="helios"] .doc .markdown > pre {
+  background-color: #666;
+  border: 1px solid #383838;
+}
+
 body[id="helios"] .doc .inheritance > a {
   color: #4098ed;
 }
