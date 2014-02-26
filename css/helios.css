@@ -171,6 +171,24 @@ body[id="helios"] .navbar-fixed-top .navbar-inner {
   background-image: -o-linear-gradient(top, #444, #1d1d1d);
 }
 
+::-webkit-scrollbar {  
+  width: 12px;
+}  
+::-webkit-scrollbar-track {  
+  background-color: #444;
+  border-left: 1px solid #080808;
+}  
+::-webkit-scrollbar-thumb {  
+  border-left: 1px solid #080808;
+  border-top: 1px solid #080808;
+  border-bottom: 1px solid #888;
+  background-color: #666;
+  margin: 1px;
+}  
+::-webkit-scrollbar-thumb:hover {  
+  background-color: #aaa;  
+}  
+
 body[id="helios"] .new_tab  a  b {
   border-top: 4px solid #a7a7a7;
 }
