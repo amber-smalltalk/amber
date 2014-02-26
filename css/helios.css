@@ -890,15 +890,22 @@ body[id="helios"] .button.default {
   border-top: 1px solid #535273;
   border: 1px solid #4F4D67;
   border-bottom: 1px solid #4B4B58;
-  background: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
-  background: -moz-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
-  background: -o-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
-  background: -ms-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
-  background: linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  color: #0a0000;
+
+  background: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #549ceb;
+  background: -moz-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #549ceb;
+  background: -o-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #549ceb;
+  background: -ms-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #549ceb;
+  background: linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #549ceb;
   -moz-box-shadow: 0 0 3px rgba(69, 113, 184, 0.8);
   -webkit-box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
   box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
 }
+
+body[id="helios"] .doc .button.default {
+  color: #d3d3d3;
+}
+
 body[id="helios"] .button:hover {
   cursor: pointer;
   border: 1px solid #585858;
@@ -910,11 +917,12 @@ body[id="helios"] .button:hover {
 
 body[id="helios"] .button.default:hover {
   cursor: pointer;
+  color: #d3d3d3;
   border: 1px solid #585858;
-  background-image: linear-gradient(top, #505050, #3c3c3c);
-  background-image: -webkit-linear-gradient(top, #505050, #3c3c3c);
-  background-image: -moz-linear-gradient(top, #505050, #3c3c3c);
-  background-image: -o-linear-gradient(top, #505050, #3c3c3c);
+  background-image: linear-gradient(top, #549ceb, #12374f);
+  background-image: -webkit-linear-gradient(top, #549ceb, #12374f);
+  background-image: -moz-linear-gradient(top, #549ceb, #12374f);
+  background-image: -o-linear-gradient(top, #549ceb, #12374f);
 }
 
 
