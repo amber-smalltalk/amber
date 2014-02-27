@@ -565,7 +565,7 @@ body[id="helios"] .tool_container .panes .pane .pane_actions {
   position: absolute;
   overflow: hidden;
   width: 100%;
-  height: 18px;
+  height: 16px;
   bottom: 0;
   padding: 0;
   margin: 0;
@@ -614,6 +614,7 @@ body[id="helios"] .tool_container .panes .pane .pane_actions .btn {
   box-shadow: 0 0 0;
   vertical-align: top;
   text-shadow: none;
+  margin-top: -1px;
   color: #929292
   /* min-width: 50px; */
 }
@@ -625,13 +626,14 @@ body[id="helios"] .tool_container .panes .pane .pane_actions .btn-group .btn:hov
 }
 body[id="helios"] .tool_container .panes .pane .pane_actions .btn-group .btn.active {
   color: #d3d3d3;
-  border: 1px solid #585858;
+
+  box-shadow: inset 0px 0px 2px 0px #323232;
   border-radius: 4px;
   background: #666;
-  background-image: linear-gradient(top, #252525, #121212);
-  background-image: -webkit-linear-gradient(top, #505050, #3c3c3c);
-  background-image: -moz-linear-gradient(top, #252525, #121212);
-  background-image: -o-linear-gradient(top, #252525, #121212);
+  background-image: linear-gradient(top, #454545, #252525);
+  background-image: -webkit-linear-gradient(top, #454545, #252525);
+  background-image: -moz-linear-gradient(top, #454545, #252525);
+  background-image: -o-linear-gradient(top, #454545, #252525);
 }
 body[id="helios"] .tool_container .panes .pane .class_side .nav-pills {
   font-weight: bold;
@@ -880,17 +882,17 @@ body[id="helios"] .button {
   color: #d3d3d3;
   border-radius: 3px !important;
   background: #ccc;
-  border: 1px solid #585858;
+  border: 1px solid #383838;
   height: 20px;
   min-width: 68px;
   padding: 0 10px;
   text-align: center;
   margin: 0;
   margin-left: 10px;
-  background-image: linear-gradient(top, #252525, #202020);
-  background-image: -webkit-linear-gradient(top, #252525, #202020);
-  background-image: -moz-linear-gradient(top, #252525, #202020);
-  background-image: -o-linear-gradient(top, #252525, #202020);
+  background-image: linear-gradient(top, #454545, #252525);
+  background-image: -webkit-linear-gradient(top, #454545, #252525);
+  background-image: -moz-linear-gradient(top, #454545, #252525);
+  background-image: -o-linear-gradient(top, #454545, #252525);
   font: 13px "Lucida Grande", Lucida, Verdana, sans-serif;
 }
 body[id="helios"] .button.default {
@@ -915,11 +917,11 @@ body[id="helios"] .doc .button.default {
 
 body[id="helios"] .button:hover {
   cursor: pointer;
-  border: 1px solid #585858;
-  background-image: linear-gradient(top, #505050, #3c3c3c);
-  background-image: -webkit-linear-gradient(top, #505050, #3c3c3c);
-  background-image: -moz-linear-gradient(top, #505050, #3c3c3c);
-  background-image: -o-linear-gradient(top, #505050, #3c3c3c);
+  border: 1px solid #444;
+  background-image: linear-gradient(top, #353535, #151515);
+  background-image: -webkit-linear-gradient(top, #353535, #151515);
+  background-image: -moz-linear-gradient(top, #353535, #151515);
+  background-image: -o-linear-gradient(top, #353535, #151515);
 }
 
 body[id="helios"] .button.default:hover {
