@@ -10,6 +10,7 @@
 .cm-s-darcula .CodeMirror-scroll{
 	margin-right: 0px;
 	border-color: #202020;
+  padding-bottom: 0px;
 }
 .cm-s-darcula .CodeMirror-vscrollbar{
 	overflow-y: hidden;

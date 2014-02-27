@@ -161,12 +161,10 @@ body[id="helios"] .dialog .nav a span.inspector {
 }
 body[id="helios"] .navbar-fixed-top .navbar-inner {
   min-height: 24px;
-  border-bottom: 1px solid #666;
-  box-shadow: inset 0px 2px 2px #aaa;
-  background-image: linear-gradient(top, #444, #1d1d1d);
-  background-image: -webkit-linear-gradient(top, #444, #1d1d1d);
-  background-image: -moz-linear-gradient(top, #444, #1d1d1d);
-  background-image: -o-linear-gradient(top, #444, #1d1d1d);
+  border-bottom: 1px solid #222;
+  border-top: 1px solid #222;
+  box-shadow: inset 0px 1px 0px #777;
+  background: #4d5052;
 }
 
 ::-webkit-scrollbar {  
@@ -240,8 +238,9 @@ body[id="helios"] .navbar .nav > li > a {
   line-height: 22px;
   padding: 0px 8px;
   font-size: 11px;
-  border-right: 1px solid #777;
+  border-right: 1px solid transparent;
   text-shadow: #ddd 0px 1px 0px;
+  box-shadow: none;
   color: #222;
 }
 body[id="helios"] .navbar .nav > li > a span {
@@ -264,13 +263,15 @@ body[id="helios"] .navbar .nav > .active > a,
 body[id="helios"] .navbar .nav > .active > a:hover,
 body[id="helios"] .navbar .nav > .active > a:focus,
 body[id="helios"] .navbar .nav .ui-sortable-helper a {
-  color: #fffffb;
-  background-image: linear-gradient(top, #444, #1d1d1d);
-  background-image: -webkit-linear-gradient(top, #444, #1d1d1d);
-  background-image: -moz-linear-gradient(top, #444, #1d1d1d);
-  background-image: -o-linear-gradient(top, #444, #1d1d1d);
-  text-shadow: 0 1px 0 #1d1d1d;
-  box-shadow: 0 0 0;
+  color: #ddd;
+  background-image: linear-gradient(top, #666, #454648);
+  background-image: -webkit-linear-gradient(top, #666, #454648);
+  background-image: -moz-linear-gradient(top, #666, #454648);
+  background-image: -o-linear-gradient(top, #666, #454648);
+  text-shadow: none;
+  box-shadow: inset 1px 1px 1px #787878;
+  border-left: 1px solid #222;
+  border-right: 1px solid #222;
 }
 body[id="helios"] .navbar .nav .ui-sortable-helper a {
   border-left: 1px solid #777;
@@ -278,6 +279,8 @@ body[id="helios"] .navbar .nav .ui-sortable-helper a {
 
 body[id="helios"] .navbar-fixed-top li.inactive{
   opacity: 0.6;
+  background: #4d5052;
+  box-shadow: none;
 }
 
 body[id="helios"] .navbar-fixed-top li.inactive span{
