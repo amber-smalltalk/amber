@@ -536,6 +536,11 @@ body[id="helios"] .tool_container .list-label {
   line-height: 16px;
   height: 15px;
 }
+
+body[id="helios"] .transcript-container .list-label {
+  border-top: none;
+}
+
 body[id="helios"] .tool_container .list-label .btn-group.cog {
   position: absolute;
   top: 0;
@@ -573,10 +578,10 @@ body[id="helios"] .tool_container .panes .pane .pane_actions {
 body[id="helios"] .tool_container .pane_actions,
 body[id="helios"] .tool_container .buttons_bar {
   background: #dadada;
-  border-top: 1px solid #525252;
+  border-top: 1px solid #222;
   background-image: linear-gradient(top, #585858, #323232);
   background-image: -webkit-linear-gradient(top, #585858, #323232);
-  background-image: -moz-linear-gradient(top, #585858, #323232);
+  background-i  mage: -moz-linear-gradient(top, #585858, #323232);
   background-image: -o-linear-gradient(top, #585858, #323232);
 }
 body[id="helios"] .tool_container .panes .pane .pane_actions .info {
@@ -648,8 +653,8 @@ body[id="helios"] .key_helper {
   max-height: 300px;
   margin-left: -200px;
   background-color: #444;
-  box-shadow: 0 0 6px #222;
-  border: 1px solid #ccc;
+  box-shadow: 0 0 80px 2px #222;
+  border: 1px solid #777;
   font-size: 11px;
   transition: all .5s;
   -webkit-transition: all .5s;
@@ -667,8 +672,9 @@ body[id="helios"] .key_helper .command strong {
   display: inline-block;
   min-width: 1.4em;
   text-align: left;
-  background-color: #ccc;
-  color: #666;
+  text-align: center;
+  background-color: #eee;
+  color: #2b658b;
 }
 body[id="helios"] .key_helper #binding-helper-main {
   display: block;
@@ -686,20 +692,21 @@ body[id="helios"] .key_helper .label {
 body[id="helios"] .key_helper .action {
   padding: 0 0.5em 0 5px;
   color: inherit;
+  vertical-align: middle;
   font-weight: bold;
 }
 body[id="helios"] .key_helper .selected {
-  background-image: linear-gradient(top, #444, #1d1d1d);
-  background-image: -webkit-linear-gradient(top, #444, #1d1d1d);
-  background-image: -moz-linear-gradient(top, #444, #1d1d1d);
-  background-image: -o-linear-gradient(top, #444, #1d1d1d);
+    background-image: linear-gradient(top, #484848, #323232);
+  background-image: -webkit-linear-gradient(top, #484848, #323232);
+  background-image: -moz-linear-gradient(top, #585858, #323232);
+  background-image: -o-linear-gradient(top, #585858, #323232);
   height: 28px;
   padding: 0 8px;
   font-weight: bold;
   font-size: 18px;
   line-height: 28px;
   display: block;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #585858;
   color: #ccc
 }
 body[id="helios"] .key_helper .close {
@@ -896,15 +903,66 @@ body[id="helios"] .button {
   font: 13px "Lucida Grande", Lucida, Verdana, sans-serif;
 }
 body[id="helios"] .button.default {
-  
-  
   color: #d3d3d3;
   border: 1px solid #585858;
   background-image: linear-gradient(top, #549ceb, #12374f);
   background-image: -webkit-linear-gradient(top, #549ceb, #12374f);
   background-image: -moz-linear-gradient(top, #549ceb, #12374f);
   background-image: -o-linear-gradient(top, #549ceb, #12374f);
-  
+}
+
+body[id="helios"] .dialog .button {
+  color: #444;
+  border-radius: 3px !important;
+  background: #ccc;
+  border: 1px solid #9B9B9B;
+  height: 20px;
+  border-radius: 5px;
+  min-width: 68px;
+  padding: 0 10px;
+  text-align: center;
+  margin: 0;
+  margin-left: 10px;
+  background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  font: 13px "Lucida Grande", Lucida, Verdana, sans-serif; 
+}
+
+body[id="helios"] .dialog .button:hover {
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+   background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+}
+
+body[id="helios"] .dialog .button.default {
+   border-top: 1px solid #535273;
+  border: 1px solid #4F4D67;
+  border-bottom: 1px solid #4B4B58;
+  background: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: -moz-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: -o-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: -ms-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  -moz-box-shadow: 0 0 3px rgba(69, 113, 184, 0.8);
+  -webkit-box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
+  box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
+}
+
+body[id="helios"] .dialog .button.default:hover {
+  cursor: pointer;
+  color: #d3d3d3;
+  border: 1px solid #585858;
+  background-image: linear-gradient(top, #549ceb, #12374f);
+  background-image: -webkit-linear-gradient(top, #549ceb, #12374f);
+  background-image: -moz-linear-gradient(top, #549ceb, #12374f);
+  background-image: -o-linear-gradient(top, #549ceb, #12374f);
 }
 
 body[id="helios"] .button:hover {
