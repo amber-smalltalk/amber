@@ -437,7 +437,7 @@ body[id="helios"] .tool_container .splitter.vertical {
   width: 5px;
   left: 50%;
   margin-left: -1px;
-  border-left: 1px solid #666;
+  border-left: 1px solid #525252;
   height: 100%;
   float: left;
   cursor: ew-resize;
@@ -523,16 +523,17 @@ body[id="helios"] .tool_container .pane .nav-pills i.uncommented {
 body[id="helios"] .tool_container .list-label {
   font-size: 11px;
   border-radius: 0;
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid #525252;
   border-top: 1px solid #eee;
   background-color: #eee;
- background-image: linear-gradient(top, #444, #1d1d1d);
-  background-image: -webkit-linear-gradient(top, #444, #1d1d1d);
-  background-image: -moz-linear-gradient(top, #444, #1d1d1d);
-  background-image: -o-linear-gradient(top, #444, #1d1d1d);
+  padding-top: px;
+  background-image: linear-gradient(top, #585858, #323232);
+  background-image: -webkit-linear-gradient(top, #585858, #323232);
+  background-image: -moz-linear-gradient(top, #585858, #323232);
+  background-image: -o-linear-gradient(top, #585858, #323232);
   color: #ccc;
   padding-left: 4px;
-  line-height: 14px;
+  line-height: 16px;
   height: 15px;
 }
 body[id="helios"] .tool_container .list-label .btn-group.cog {
@@ -572,11 +573,11 @@ body[id="helios"] .tool_container .panes .pane .pane_actions {
 body[id="helios"] .tool_container .pane_actions,
 body[id="helios"] .tool_container .buttons_bar {
   background: #dadada;
-  border-top: 1px solid #666;
-  background-image: linear-gradient(top, #444, #1d1d1d);
-  background-image: -webkit-linear-gradient(top, #444, #1d1d1d);
-  background-image: -moz-linear-gradient(top, #444, #1d1d1d);
-  background-image: -o-linear-gradient(top, #444, #1d1d1d);
+  border-top: 1px solid #525252;
+  background-image: linear-gradient(top, #585858, #323232);
+  background-image: -webkit-linear-gradient(top, #585858, #323232);
+  background-image: -moz-linear-gradient(top, #585858, #323232);
+  background-image: -o-linear-gradient(top, #585858, #323232);
 }
 body[id="helios"] .tool_container .panes .pane .pane_actions .info {
   padding: 10px 5px 5px;
