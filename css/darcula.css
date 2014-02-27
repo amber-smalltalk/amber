@@ -4,11 +4,11 @@
     padding-left: 8px;
 }
 .cm-s-darcula .CodeMirror-sizer{
-	padding-bottom: 90px;
+	padding-bottom: 0px;
 }
 
 .cm-s-darcula .CodeMirror-scroll{
-	margin-right: 5px;
+	margin-right: 0px;
 	border-color: #202020;
 }
 .cm-s-darcula .CodeMirror-vscrollbar{
@@ -64,7 +64,7 @@
 }
 .cm-s-darcula.CodeMirror .CodeMirror-linenumber {
 	color: #80939b;
-	padding-left: 15px;
+	padding-left: 5px;
 }
 .cm-s-darcula.CodeMirror .CodeMirror-activeline,
 .cm-s-darcula.CodeMirror.CodeMirror-focused .CodeMirror-activeline .CodeMirror-gutter-elt{

@@ -51,9 +51,7 @@ body[id="helios"] [class*=" icon-"] {
   margin-top: 0;
 }
 body[id="helios"] .CodeMirror {
-  position: absolute;
   height: 100%;
-  width: 100%;
 }
 body[id="helios"] .CodeMirror-hints {
   border-radius: 0;
@@ -441,7 +439,7 @@ body[id="helios"] .tool_container .splitter.horizontal {
   height: 5px;
   margin-top: -1px;
   width: 100%;
-  border-top: 1px solid #888;
+  border-top: 1px solid #666;
   cursor: ns-resize;
 }
 body[id="helios"] .tool_container .panes .pane .nav-pills {
