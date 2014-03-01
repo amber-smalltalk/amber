@@ -322,12 +322,12 @@ body[id="helios"] .dropdown-menu {
   margin: 3px;
 }
 body[id="helios"] .nav-pills > .active > a {
-  background-color: #12374f;
+  background-color: #222B3C;
   color: #fffffb !important;
   text-shadow: 0 0 0;
 }
 body[id="helios"] .focused .nav-pills {
-  background-color: #666;
+  background-color: #585858;
 }
 body[id="helios"] .focused .nav-pills > .active > a,
 body[id="helios"] .nav-pills > .active > a:hover,
@@ -337,7 +337,7 @@ body[id="helios"] .dropdown-submenu:hover > a,
 body[id="helios"] .dropdown-menu .active > a,
 body[id="helios"] .dropdown-menu .active > a:hover,
 body[id="helios"] .CodeMirror-hint-active {
-  background: #3b7cd4;
+  background: #305f9f;
   color: #fff;
   text-shadow: 0 0 0;
 }
@@ -581,7 +581,7 @@ body[id="helios"] .tool_container .buttons_bar {
   border-top: 1px solid #222;
   background-image: linear-gradient(top, #585858, #323232);
   background-image: -webkit-linear-gradient(top, #585858, #323232);
-  background-i  mage: -moz-linear-gradient(top, #585858, #323232);
+  background-image: -moz-linear-gradient(top, #585858, #323232);
   background-image: -o-linear-gradient(top, #585858, #323232);
 }
 body[id="helios"] .tool_container .panes .pane .pane_actions .info {
@@ -642,7 +642,7 @@ body[id="helios"] .tool_container .panes .pane .pane_actions .btn-group .btn.act
 }
 body[id="helios"] .tool_container .panes .pane .class_side .nav-pills {
   font-weight: bold;
-  background: #2a62a7;
+  background: #38404a;
 }
 body[id="helios"] .key_helper {
   z-index: 2001;
@@ -1116,4 +1116,8 @@ body[id="helios"] .hl_debugger .head h2 {
   padding: 0 30px;
   margin: 0;
   color: white;
+}
+
+body[id="helios"] .hl_debugger .list-label {
+  border-top: 1px solid transparent;
 }
