@@ -22,5 +22,5 @@ define([
 	'./codemirror',
 	'./devel-inner', // pre-fetch, dep of ./helios-inner
 	'./helios-inner',
-	'css!amber_css/helios-dark'
+	'css!amber_css/helios-niflheim'
 ], function (smalltalk) { return smalltalk; });

@@ -96,7 +96,7 @@ currentLineOrSelection
 
 editorOptions
 	^ #{
-		'theme' -> ('helios.codeMirrorTheme' settingValueIfAbsent: 'darcula').
+		'theme' -> ('helios.codeMirrorTheme' settingValueIfAbsent: 'niflheim').
 		'mode' -> 'text/x-stsrc'.
         'lineNumbers' -> true.
         'enterMode' -> 'flat'.
