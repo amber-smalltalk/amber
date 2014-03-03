@@ -3954,10 +3954,11 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._setTheme_("niflheim");
+self._setEditorTheme_("niflheim");
 return self}, function($ctx1) {$ctx1.fill(self,"setupTheme",{},globals.HLManager)})},
 args: [],
-source: "setupTheme\x0a\x09self setTheme: 'niflheim'",
-messageSends: ["setTheme:"],
+source: "setupTheme\x0a\x09self setTheme: 'niflheim'.\x0a\x09self setEditorTheme: 'niflheim'.",
+messageSends: ["setTheme:", "setEditorTheme:"],
 referencedClasses: []
 }),
 globals.HLManager);

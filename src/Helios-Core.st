@@ -1339,7 +1339,8 @@ setupEvents
 !
 
 setupTheme
-	self setTheme: 'niflheim'
+	self setTheme: 'niflheim'.
+	self setEditorTheme: 'niflheim'.
 ! !
 
 !HLManager methodsFor: 'rendering'!
