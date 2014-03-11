@@ -32,7 +32,7 @@ body.navigation .CodeMirror pre {
 .cm-s-helios .CodeMirror-gutter-elt .stop {
   width: 16px;
   height: 16px;
-  background: url('../images/arrowRight.png');
+  background: url('../../images/arrowRight.png');
   margin-left: 2px;
 }
 body#helios {
@@ -75,7 +75,7 @@ body#helios .state {
   height: 16px;
 }
 body#helios .state.modified {
-  background: transparent url('../images/modified.png') 50% 50% no-repeat;
+  background: transparent url('../../images/modified.png') 50% 50% no-repeat;
 }
 body#helios .editor {
   position: absolute;
@@ -129,34 +129,34 @@ body#helios .navbar-fixed-top i.close {
   width: 14px;
   height: 16px;
   margin-left: 4px;
-  background-image: url('../images/close.gif');
+  background-image: url('../../images/close.gif');
   margin-right: 0;
   background-position: center left;
   margin-top: 4px;
 }
 body#helios .navbar-fixed-top a span.references,
 body#helios .dialog .nav a span.references {
-  background-image: url('../images/references.png');
+  background-image: url('../../images/references.png');
 }
 body#helios .navbar-fixed-top a span.browser,
 body#helios .dialog .nav a span.browser {
-  background-image: url('../images/browser.png');
+  background-image: url('../../images/browser.png');
 }
 body#helios .navbar-fixed-top a span.sunit,
 body#helios .dialog .nav a span.sunit {
-  background-image: url('../images/sunit.png');
+  background-image: url('../../images/sunit.png');
 }
 body#helios .navbar-fixed-top a span.workspace,
 body#helios .dialog .nav a span.workspace {
-  background-image: url('../images/workspace.png');
+  background-image: url('../../images/workspace.png');
 }
 body#helios .navbar-fixed-top a span.debugger,
 body#helios .dialog .nav a span.debugger {
-  background-image: url('../images/debugger.png');
+  background-image: url('../../images/debugger.png');
 }
 body#helios .navbar-fixed-top a span.inspector,
 body#helios .dialog .nav a span.inspector {
-  background-image: url('../images/inspector.png');
+  background-image: url('../../images/inspector.png');
 }
 body#helios .navbar-fixed-top .navbar-inner {
   min-height: 24px;
@@ -406,58 +406,58 @@ body#helios .tool_container .pane .nav-pills i {
   vertical-align: text-top;
 }
 body#helios .tool_container .pane .nav-pills i.announcement {
-  background-image: url('../images/announcement.png');
+  background-image: url('../../images/announcement.png');
 }
 body#helios .tool_container .pane .nav-pills i.class {
-  background-image: url('../images/class.png');
+  background-image: url('../../images/class.png');
 }
 body#helios .tool_container .pane .nav-pills i.collection {
-  background-image: url('../images/collection.png');
+  background-image: url('../../images/collection.png');
 }
 body#helios .tool_container .pane .nav-pills i.test {
-  background-image: url('../images/test.png');
+  background-image: url('../../images/test.png');
 }
 body#helios .tool_container .pane .nav-pills i.exception {
-  background-image: url('../images/exception.png');
+  background-image: url('../../images/exception.png');
 }
 body#helios .tool_container .pane .nav-pills i.widget {
-  background-image: url('../images/widget.png');
+  background-image: url('../../images/widget.png');
 }
 body#helios .tool_container .pane .nav-pills i.magnitude {
-  background-image: url('../images/magnitude.png');
+  background-image: url('../../images/magnitude.png');
 }
 body#helios .tool_container .pane .nav-pills i.package {
-  background-image: url('../images/package.png');
+  background-image: url('../../images/package.png');
 }
 body#helios .tool_container .pane .nav-pills i.package_dirty {
-  background-image: url('../images/package-dirty.png');
+  background-image: url('../../images/package-dirty.png');
 }
 body#helios .tool_container .pane .nav-pills i.private {
-  background-image: url('../images/private.png');
+  background-image: url('../../images/private.png');
 }
 body#helios .tool_container .pane .nav-pills i.extension {
-  background-image: url('../images/extension.png');
+  background-image: url('../../images/extension.png');
 }
 body#helios .tool_container .pane .nav-pills i.initialization {
-  background-image: url('../images/initialization.png');
+  background-image: url('../../images/initialization.png');
 }
 body#helios .tool_container .pane .nav-pills i.package {
-  background-image: url('../images/package.png');
+  background-image: url('../../images/package.png');
 }
 body#helios .tool_container .pane .nav-pills i.override {
   background-image: url('../images/override.png ');
 }
 body#helios .tool_container .pane .nav-pills i.overridden {
-  background-image: url('../images/overridden.png');
+  background-image: url('../../images/overridden.png');
 }
 body#helios .tool_container .pane .nav-pills i.override-overridden {
-  background-image: url('../images/override-overridden.png');
+  background-image: url('../../images/override-overridden.png');
 }
 body#helios .tool_container .pane .nav-pills i.warning {
   background-image: url('../images/warning.gif');
 }
 body#helios .tool_container .pane .nav-pills i.uncommented {
-  background-image: url('../images/uncommented.png');
+  background-image: url('../../images/uncommented.png');
 }
 body#helios .tool_container .list-label {
   font-size: 11px;

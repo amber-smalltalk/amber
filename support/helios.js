@@ -22,6 +22,6 @@ define([
 	'./codemirror',
 	'./devel-inner', // pre-fetch, dep of ./helios-inner
 	'./helios-inner',
-    'css!amber_css/helios',
-	'css!amber_css/helios-niflheim'
+    'css!helios/res/helios',
+	'css!helios/res/helios-niflheim'
 ], function (smalltalk) { return smalltalk; });
