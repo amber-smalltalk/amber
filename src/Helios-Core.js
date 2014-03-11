@@ -3985,11 +3985,12 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._setTheme_("niflheim");
-self._setEditorTheme_("niflheim");
+var $1;
+self._setTheme_("default");
+$1=self._setEditorTheme_("default");
 return self}, function($ctx1) {$ctx1.fill(self,"setupTheme",{},globals.HLManager)})},
 args: [],
-source: "setupTheme\x0a\x09self setTheme: 'niflheim'.\x0a\x09self setEditorTheme: 'niflheim'.",
+source: "setupTheme\x0a\x09\x22self \x0a\x09\x09setTheme: 'niflheim';\x0a\x09\x09setEditorTheme: 'niflheim'.\x22\x0a\x09\x09\x0a\x09self \x0a\x09\x09setTheme: 'default';\x0a\x09\x09setEditorTheme: 'default'.",
 messageSends: ["setTheme:", "setEditorTheme:"],
 referencedClasses: []
 }),
