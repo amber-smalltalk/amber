@@ -1203,6 +1203,24 @@ keyBinder
 	^ HLKeyBinder current
 !
 
+setEditorTheme: aTheme
+
+	'helios.editorTheme' asSetting value: aTheme
+!
+
+setTheme: aTheme
+	| currentTheme |
+
+	currentTheme := 'helios.theme' asSettingIfAbsent: 'default'.
+	
+	'body' asJQuery
+		removeClass: currentTheme value;
+		addClass: aTheme.
+		
+	
+	'helios.theme' asSetting value: aTheme
+!
+
 tabWidth
 	^ (window asJQuery width - 90) / self tabs size
 !
@@ -1300,6 +1318,7 @@ setup
 		setupEvents.
     self keyBinder setupEvents.
 	self tabsWidget setupEvents.
+	self setupTheme.
 	
 	
 	'#helper' asJQuery fadeOut
@@ -1329,6 +1348,16 @@ setupEvents
 		
 	window asJQuery resize: [ :event |
 		self refresh ]
+!
+
+setupTheme
+	"self 
+		setTheme: 'niflheim';
+		setEditorTheme: 'niflheim'."
+		
+	self 
+		setTheme: 'default';
+		setEditorTheme: 'default'.
 ! !
 
 !HLManager methodsFor: 'rendering'!
