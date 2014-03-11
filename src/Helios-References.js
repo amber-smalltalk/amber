@@ -1,4 +1,4 @@
-define("heliosn/Helios-References", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "helios/Helios-Core"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-References", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "helios/Helios-Core"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-References');
 smalltalk.packages["Helios-References"].transport = {"type":"amd","amdNamespace":"helios"};
 
