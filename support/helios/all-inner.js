@@ -3,7 +3,7 @@
 // See http://stackoverflow.com/questions/21647956/how-to-config-requirejs-shim-dependencies-just-in-time/
 
 define([
-	'./devel-inner',
+	'amber/devel-inner',
 	'amber_lib/bootstrap/js/bootstrap',
 	'amber_lib/showdown/compressed/showdown',
 	'amber_core/Spaces',
