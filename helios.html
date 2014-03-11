@@ -9,10 +9,16 @@
   <body id="helios">
     <div id="helper">Loading Helios...</div>
 
+	<script type="text/javascript">
+    window.requireNode = window.require;
+    window.require = undefined; 
+	</script>
+
     <div id="includes">
       <script type='text/javascript' src='support/amber.js'></script>
       <script type='text/javascript' src='support/requirejs/require.min.js'></script>
       <script type='text/javascript'>
+		
           require(
                   ["amber/helios"],
                   function (smalltalk) {

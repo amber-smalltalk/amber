@@ -1,44 +1,9 @@
 {
-  "name": "amber",
-  "version": "0.13.0-pre",
-  "description": "An implementation of the Smalltalk language that runs on top of the JS runtime.",
-  "homepage": "http://amber-lang.net",
-  "keywords": [
-    "javascript",
-    "smalltalk",
-    "language",
-    "compiler",
-    "web"
-  ],
-  "author": {
-    "name": "Nicolas Petton",
-    "email": "petton.nicolas@gmail.com",
-    "url": "http://www.nicolas-petton.fr"
-  },
-  "license": {
-    "type": "MIT"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/amber-smalltalk/amber.git"
-  },
-  "engines": {
-    "node": ">=0.8.0"
-  },
-  "bin": {
-    "amber": "./cli/support/amber-cli.js",
-    "amberc": "./cli/support/amberc-cli.js"
-  },
-  "scripts": {
-    "test": "grunt amberc:amber_test_runner && node ./test/amber_test_runner.js"
-  },
-  "dependencies": {
-    "es6-promise": "~0.1.1",
-    "amdefine": "0.0.8"
-  },
-  "devDependencies": {
-    "pegjs": "~0.8.0",
-    "grunt": "~0.4.0",
-    "grunt-contrib-jshint": "~0.3.0"
-  }
+	"name": "amber",
+	"main": "helios.html",
+	"window": {
+		"toolbar": false,
+		"width": 800,
+		"height": 600
+	}
 }
