@@ -1,6 +1,6 @@
-define("amber_core/Helios-Inspector", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Core"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Inspector", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Core"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Inspector');
-smalltalk.packages["Helios-Inspector"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Inspector"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLInspectorDisplayWidget', globals.HLNavigationListWidget, ['inspector'], 'Helios-Inspector');
 smalltalk.addMethod(

@@ -1,6 +1,6 @@
-define("amber_core/Helios-Transcript", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Transcript", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Transcript');
-smalltalk.packages["Helios-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Transcript"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLTranscript', globals.HLWidget, ['textarea'], 'Helios-Transcript');
 globals.HLTranscript.comment="I am a widget responsible for displaying transcript contents.\x0a\x0a## Transcript API\x0a\x0a    Transcript \x0a        show: 'hello world';\x0a        cr;\x0a        show: anObject.\x0a\x0a    Transcript clear.\x0a\x0aSee the `Transcript` service class.";

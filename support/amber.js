@@ -81,6 +81,7 @@ require = function (require) {
             'amber_css': amber_home + '/css',
             'amber_lib': library_home,
             'amber_core': amber_home + '/src',
+			'helios': amber_home + '/src',
             'amber_helios/html': amber_home,
             'jquery': library_home + '/jquery/jquery.min'
         },

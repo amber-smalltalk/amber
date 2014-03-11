@@ -1,6 +1,6 @@
-define("amber_core/Helios-Layout", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Core", "amber_core/Web", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Layout", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Core", "amber_core/Web", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Layout');
-smalltalk.packages["Helios-Layout"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Layout"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLContainer', globals.HLWidget, ['splitter'], 'Helios-Layout');
 smalltalk.addMethod(

@@ -1,6 +1,6 @@
-define("amber_core/Helios-Workspace", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "amber_core/Helios-Core"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Workspace", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "helios/Helios-Core"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Workspace');
-smalltalk.packages["Helios-Workspace"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Workspace"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLCodeModel', globals.Object, ['announcer', 'environment', 'receiver'], 'Helios-Workspace');
 smalltalk.addMethod(
