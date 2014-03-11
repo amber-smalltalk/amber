@@ -3,11 +3,9 @@ body[id="helios"].niflheim {
   /*		.navbar-fixed-top ul {
 		  width: 100%;
 		}*/
-
   /*.tool_container .pane .nav-pills i.package {
 			background-image: url('../images/package.png');
 		}*/
-
 }
 body[id="helios"].niflheim .btn-group > .dropdown-menu {
   background-color: #666;
@@ -16,10 +14,8 @@ body[id="helios"].niflheim .btn-group > .dropdown-menu {
 }
 body[id="helios"].niflheim .btn-group > .dropdown-menu a {
   /*			position: absolute;*/
-
   height: 100%;
   /*			width: 100%;*/
-
 }
 body[id="helios"].niflheim .btn-group > .dropdown-menu a {
   color: #fffffb;
@@ -134,11 +130,9 @@ body[id="helios"].niflheim body[id="helios"][class*=" icon-"] {
 body[id="helios"].niflheim .welcome h2 {
   text-align: center;
   /*			color: #666;*/
-
 }
 body[id="helios"].niflheim .welcome button {
   /*			background: #eee;*/
-
   margin: 10px;
   padding: 20px;
   height: auto;
