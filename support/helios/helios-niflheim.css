@@ -1,13 +1,11 @@
 body[id="helios"].niflheim {
-  background: #eeeeee url('/images/squared_metal-dark.png') repeat;
+  background: #eeeeee url('squared_metal-dark.png') repeat;
   /*		.navbar-fixed-top ul {
 		  width: 100%;
 		}*/
-
   /*.tool_container .pane .nav-pills i.package {
-			background-image: url('../images/package.png');
+			background-image: url('package.png');
 		}*/
-
 }
 body[id="helios"].niflheim .btn-group > .dropdown-menu {
   background-color: #666;
@@ -16,16 +14,14 @@ body[id="helios"].niflheim .btn-group > .dropdown-menu {
 }
 body[id="helios"].niflheim .btn-group > .dropdown-menu a {
   /*			position: absolute;*/
-
   height: 100%;
   /*			width: 100%;*/
-
 }
 body[id="helios"].niflheim .btn-group > .dropdown-menu a {
   color: #fffffb;
 }
 body[id="helios"].niflheim .navbar-fixed-top i.close {
-  background-image: url('../images/close-dark.png');
+  background-image: url('close-dark.png');
 }
 body[id="helios"].niflheim .navbar-fixed-top .navbar-inner {
   border-bottom: 1px solid #222;
@@ -129,16 +125,14 @@ body[id="helios"].niflheim .welcome {
 body[id="helios"].niflheim [class^="icon-"],
 body[id="helios"].niflheim body[id="helios"][class*=" icon-"] {
   opacity: 0.68;
-  background-image: url("../bower_components/bootstrap/img/glyphicons-halflings-white.png");
+  background-image: url("../../bower_components/bootstrap/img/glyphicons-halflings-white.png");
 }
 body[id="helios"].niflheim .welcome h2 {
   text-align: center;
   /*			color: #666;*/
-
 }
 body[id="helios"].niflheim .welcome button {
   /*			background: #eee;*/
-
   margin: 10px;
   padding: 20px;
   height: auto;
