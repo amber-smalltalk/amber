@@ -274,6 +274,10 @@ testJSStatement
 	self should: 'foo <return 2+3>' return: 5
 !
 
+testLexicalScope
+	self should: 'foo | a | a := 1. [ a := 2 ] value. ^ a' return: 2
+!
+
 testLiterals
 	self should: 'foo ^ 1' return: 1.
 	self should: 'foo ^ ''hello''' return: 'hello'.
@@ -468,20 +472,27 @@ parse: aString forClass: aClass
 interpret: aString receiver: anObject withArguments: aDictionary
 	"The food is a methodNode. Interpret the sequenceNode only"
 	
-	| ctx interpreter |
+	| ctx ast interpreter |
 	
 	interpreter := ASTInterpreter new.
+	ast := self parse: aString forClass: anObject class.
 	
 	ctx := AIContext new
 		receiver: anObject;
 		interpreter: interpreter;
 		yourself.
+		
+	"Define locals for the context"
+	ast sequenceNode ifNotNil: [ :sequence |
+		sequence temps do: [ :each |
+			ctx defineLocal: each ] ].
+		
 	aDictionary keysAndValuesDo: [ :key :value |
 		ctx localAt: key put: value ].
 	
 	^ interpreter
 		context: ctx;
-		interpret: (self parse: aString forClass: anObject class) nextChild;
+		interpret: ast nextChild;
 		proceed;
 		result
 ! !
@@ -510,17 +521,24 @@ ASTInterpreterTest subclass: #ASTDebuggerTest
 !ASTDebuggerTest methodsFor: 'private'!
 
 interpret: aString receiver: anObject withArguments: aDictionary
-	| ctx debugger |
+	| ctx ast debugger |
 	
 	ctx := AIContext new
 		receiver: anObject;
 		interpreter: ASTInterpreter new;
 		yourself.
+	ast := self parse: aString forClass: anObject class.
+		
+	"Define locals for the context"
+	ast sequenceNode ifNotNil: [ :sequence |
+		sequence temps do: [ :each |
+			ctx defineLocal: each ] ].
+	
 	aDictionary keysAndValuesDo: [ :key :value |
 		ctx localAt: key put: value ].
 	ctx interpreter context: ctx.
 	
-	ctx interpreter node: (self parse: aString forClass: anObject class) nextChild.
+	ctx interpreter node: ast nextChild.
 	
 	debugger := ASTDebugger context: ctx.
 	
@@ -743,6 +761,7 @@ SemanticAnalyzerTest subclass: #AISemanticAnalyzerTest
 setUp
 	analyzer := (AISemanticAnalyzer on: Object)
 		context: (AIContext new
+			defineLocal: 'local';
 			localAt: 'local' put: 3;
 			yourself);
 		yourself

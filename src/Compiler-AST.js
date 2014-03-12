@@ -1548,6 +1548,34 @@ globals.MethodNode);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "sequenceNode",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+_st(self._nodes())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(each)._isSequenceNode();
+if(smalltalk.assert($1)){
+throw $early=[each];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return nil;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"sequenceNode",{},globals.MethodNode)})},
+args: [],
+source: "sequenceNode\x0a\x09self nodes do: [ :each |\x0a\x09\x09each isSequenceNode ifTrue: [ ^ each ] ].\x0a\x09\x09\x0a\x09^ nil",
+messageSends: ["do:", "nodes", "ifTrue:", "isSequenceNode"],
+referencedClasses: []
+}),
+globals.MethodNode);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "source",
 protocol: 'accessing',
 fn: function (){
