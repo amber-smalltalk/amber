@@ -370,19 +370,20 @@ fn: function (html){
 var self=this;
 function $HLContainer(){return globals.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
 function $HLVerticalSplitter(){return globals.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
+function $HLHorizontalSplitter(){return globals.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 self._renderHeadOn_(html);
-$2=_st($HLVerticalSplitter())._with_with_(self._codeWidget(),_st($HLVerticalSplitter())._with_with_(self._stackListWidget(),self._inspectorWidget()));
+$2=_st($HLVerticalSplitter())._with_with_(self._codeWidget(),_st($HLHorizontalSplitter())._with_with_(self._stackListWidget(),self._inspectorWidget()));
 $ctx1.sendIdx["with:with:"]=1;
 $1=_st($HLContainer())._with_($2);
 _st(html)._with_($1);
 $ctx1.sendIdx["with:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLDebugger)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09self renderHeadOn: html.\x0a\x09html with: (HLContainer with: (HLVerticalSplitter\x0a\x09\x09with: self codeWidget\x0a\x09\x09with: (HLVerticalSplitter\x0a\x09\x09\x09with: self stackListWidget\x0a\x09\x09\x09with: self inspectorWidget)))",
+source: "renderContentOn: html\x0a\x09self renderHeadOn: html.\x0a\x09html with: (HLContainer with: (HLVerticalSplitter\x0a\x09\x09with: self codeWidget\x0a\x09\x09with: (HLHorizontalSplitter\x0a\x09\x09\x09with: self stackListWidget\x0a\x09\x09\x09with: self inspectorWidget)))",
 messageSends: ["renderHeadOn:", "with:", "with:with:", "codeWidget", "stackListWidget", "inspectorWidget"],
-referencedClasses: ["HLContainer", "HLVerticalSplitter"]
+referencedClasses: ["HLContainer", "HLVerticalSplitter", "HLHorizontalSplitter"]
 }),
 globals.HLDebugger);
 
