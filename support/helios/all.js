@@ -23,5 +23,6 @@ define([
 	'amber/devel-inner', // pre-fetch, dep of ./all-inner
 	'./resources/all-inner',
     'css!./resources/helios',
-	'css!./resources/helios-niflheim'
+	'css!./resources/helios-niflheim',
+    'css!amber_css/niflheim'
 ], function (smalltalk) { return smalltalk; });
