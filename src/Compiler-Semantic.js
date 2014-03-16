@@ -299,7 +299,7 @@ fn: function (aNode){
 var self=this;
 var lookup;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$receiver,$receiver;
+var $1,$2,$3,$receiver;
 lookup=self._bindingFor_(aNode);
 $1=lookup;
 if(($receiver = $1) == nil || $receiver == null){

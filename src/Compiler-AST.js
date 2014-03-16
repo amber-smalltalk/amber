@@ -553,7 +553,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$receiver,$receiver;
+var $2,$3,$1,$receiver;
 $2=self["@position"];
 if(($receiver = $2) == nil || $receiver == null){
 $3=self._parent();

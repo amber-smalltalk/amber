@@ -91,7 +91,7 @@ protocol: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$receiver,$receiver;
+var $1,$receiver;
 if(($receiver = aContext) == nil || $receiver == null){
 aContext;
 } else {
