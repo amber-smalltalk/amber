@@ -81,7 +81,9 @@ module.exports = function(grunt) {
         src: ['cli/src/AmberCli.st'],
         libraries: [
             'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
-            'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser'
+            'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
+            'SUnit', 'Kernel-ImportExport',
+            'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'
         ],
         main_class: 'AmberCli',
         output_name: '../support/amber-cli',
