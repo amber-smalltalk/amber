@@ -56,7 +56,7 @@ selectorForCommandLineSwitch: aSwitch
 !AmberCli class methodsFor: 'commands'!
 
 help: args
-	console log: 'Available Commands:'.
+	Transcript show: 'Available commands'.
 	self commandLineSwitches do: [ :each | console log: each ]
 !
 
@@ -69,7 +69,6 @@ serve: args
 !
 
 version: arguments
-		console log: 'This is Amber version: ', (Smalltalk version).
 ! !
 
 !AmberCli class methodsFor: 'startup'!
@@ -78,11 +77,13 @@ main
 	"Main entry point for Amber applications.
 	Parses commandline arguments and starts the according subprogram."
 	| args nodeMinorVersion |
+	
+	Transcript show: 'Welcome to Amber version ', Smalltalk version, ' (NodeJS ', process versions node, ').'.
 
 	nodeMinorVersion := ((process version) tokenize: '.') second asNumber.
 	nodeMinorVersion < 8 ifTrue: [
-		console log: 'You are currently using Node.js ', (process version).
-		console log: 'Required is at least Node.js v0.8.x or greater.'.
+		Transcript show: 'You are currently using Node.js ', (process version).
+		Transcript show: 'Required is at least Node.js v0.8.x or greater.'.
 		^ -1.
 	].
 
@@ -987,7 +988,6 @@ eval: buffer on: anObject
 !
 
 printWelcome
-	Transcript show: 'Welcome to Amber version ', Smalltalk version, ' (NodeJS ', process versions node, ').'.
 	Transcript show: 'Type :q to exit.'; cr.
 !
 
