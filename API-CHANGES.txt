@@ -2,6 +2,8 @@
 
 + AmberCli >>
   version:
++ Object >>
+  deprecatedAPI:
 
 0.12.3:
 
