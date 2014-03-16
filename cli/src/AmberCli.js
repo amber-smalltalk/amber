@@ -187,6 +187,23 @@ referencedClasses: ["FileServer"]
 }),
 globals.AmberCli.klass);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "version:",
+protocol: 'commands',
+fn: function (arguments){
+var self=this;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+_st(console)._log_("This is Amber version: ".__comma(_st(_st($Smalltalk())._current())._version()));
+return self}, function($ctx1) {$ctx1.fill(self,"version:",{arguments:arguments},globals.AmberCli.klass)})},
+args: ["arguments"],
+source: "version: arguments\x0a\x09\x09console log: 'This is Amber version: ', (Smalltalk current version).",
+messageSends: ["log:", ",", "version", "current"],
+referencedClasses: ["Smalltalk"]
+}),
+globals.AmberCli.klass);
+
 
 smalltalk.addClass('FileServer', globals.Object, ['path', 'http', 'fs', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'AmberCli');
 globals.FileServer.comment="I am the Amber Smalltalk FileServer.\x0aMy runtime requirement is a functional Node.js executable.\x0a\x0aTo start a FileServer instance on port `4000` use the following code:\x0a\x0a    FileServer new start\x0a\x0aA parameterized instance can be created with the following code:\x0a\x0a    FileServer createServerWithArguments: options\x0a\x0aHere, `options` is an array of commandline style strings each followed by a value e.g. `#('--port', '6000', '--host', '0.0.0.0')`.\x0aA list of all available parameters can be printed to the commandline by passing `--help` as parameter.\x0aSee the `Options` section for further details on how options are mapped to instance methods.\x0a\x0aAfter startup FileServer checks if the directory layout required by Amber is present and logs a warning on absence.\x0a\x0a\x0a## Options\x0a\x0aEach option is of the form `--some-option-string` which is transformed into a selector of the format `someOptionString:`.\x0aThe trailing `--` gets removed, each `-[a-z]` gets transformed into the according uppercase letter, and a `:` is appended to create a selector which takes a single argument.\x0aAfterwards, the selector gets executed on the `FileServer` instance with the value following in the options array as parameter.\x0a\x0a## Adding new commandline parameters\x0a\x0aAdding new commandline parameters to `FileServer` is as easy as adding a new single parameter method to the `accessing` protocol.";
@@ -213,7 +230,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@basePath"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=_st(self._class())._defaultBasePath();
@@ -516,7 +533,7 @@ fn: function (aRequest){
 var self=this;
 var header,token,auth,parts;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$4,$5,$6,$9,$10,$8,$7;
+var $2,$1,$3,$4,$5,$6,$9,$10,$8,$7,$receiver;
 $2=_st(self["@username"])._isNil();
 $ctx1.sendIdx["isNil"]=1;
 $1=_st($2)._and_((function(){
@@ -684,7 +701,7 @@ protocol: 'request handling',
 fn: function (aDirname,aUrl,aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$5,$7,$6,$4;
+var $2,$1,$3,$5,$7,$6,$4,$receiver;
 $2=_st(aUrl)._pathname();
 $ctx1.sendIdx["pathname"]=1;
 $1=_st($2)._endsWith_("/");
@@ -948,7 +965,7 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$7,$6,$5,$8,$9;
+var $1,$2,$3,$4,$7,$6,$5,$8,$9,$receiver;
 $1=self["@fs"];
 $2=self._basePath();
 $ctx1.sendIdx["basePath"]=1;
@@ -1255,7 +1272,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@mimeTypes"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@mimeTypes"]=self._defaultMimeTypes();
@@ -1353,7 +1370,7 @@ var self=this;
 function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 function $ConsoleErrorHandler(){return globals.ConsoleErrorHandler||(typeof ConsoleErrorHandler=="undefined"?nil:ConsoleErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$4,$2,$1;
+var $3,$4,$2,$1,$receiver;
 $1=self._parseAssignment_do_(buffer,(function(name,expr){
 var varName,value;
 return smalltalk.withContext(function($ctx2) {
@@ -1627,7 +1644,7 @@ protocol: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
+var $2,$3,$1,$receiver;
 $2=_st(aClass)._superclass();
 $ctx1.sendIdx["superclass"]=1;
 if(($receiver = $2) == nil || $receiver == null){
@@ -1689,7 +1706,7 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 $1=self["@resultCount"];
 if(($receiver = $1) == nil || $receiver == null){
 self["@resultCount"]=(1);
@@ -1931,6 +1948,7 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $receiver;
 _st(_st(process)._stdin())._on_do_("keypress",(function(s,key){
 return smalltalk.withContext(function($ctx2) {
 if(($receiver = key) == nil || $receiver == null){
@@ -1973,7 +1991,7 @@ protocol: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$7,$6,$5,$4,$8,$1;
+var $3,$2,$7,$6,$5,$4,$8,$1,$receiver;
 $3=_st(aClass)._name();
 $ctx1.sendIdx["name"]=1;
 $2=_st($3)._matchesOf_("\x5cd+$");

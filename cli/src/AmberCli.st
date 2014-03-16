@@ -66,6 +66,10 @@ repl: args
 
 serve: args
 	^(FileServer createServerWithArguments: args) start
+!
+
+version: arguments
+		console log: 'This is Amber version: ', (Smalltalk current version).
 ! !
 
 !AmberCli class methodsFor: 'startup'!
