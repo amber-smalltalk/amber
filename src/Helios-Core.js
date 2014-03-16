@@ -403,7 +403,7 @@ fn: function (){
 var self=this;
 var currentProtocol;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3,$receiver,$receiver;
+var $1,$2,$4,$3,$receiver;
 currentProtocol=self._selectedProtocol();
 $1=currentProtocol;
 if(($receiver = $1) == nil || $receiver == null){
@@ -2528,7 +2528,7 @@ fn: function (anObject){
 var self=this;
 return self},
 args: ["anObject"],
-source: "reselectItem: anObject\x0a\x09",
+source: "reselectItem: anObject",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3508,7 +3508,7 @@ var self=this;
 var parent,parentSmalltalkGlobals;
 function $Environment(){return globals.Environment||(typeof Environment=="undefined"?nil:Environment)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$receiver,$receiver,$receiver;
+var $1,$2,$3,$4,$5,$6,$7,$receiver;
 $1=_st(window)._opener();
 if(($receiver = $1) == nil || $receiver == null){
 parent=_st(window)._parent();

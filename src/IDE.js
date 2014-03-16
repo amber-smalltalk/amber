@@ -2644,7 +2644,7 @@ fn: function (){
 var self=this;
 var klass;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$7,$8,$6,$9,$5,$receiver,$receiver,$receiver;
+var $1,$2,$3,$4,$7,$8,$6,$9,$5,$receiver;
 $1=_st(self["@selectedTab"]).__eq("comment");
 $ctx1.sendIdx["="]=1;
 if(smalltalk.assert($1)){
@@ -3816,7 +3816,7 @@ protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$receiver,$receiver;
+var $1,$2,$3,$receiver;
 $1=_st(_st(self["@sourceArea"])._val()).__eq(self._source());
 if(smalltalk.assert($1)){
 $2=self["@saveButton"];
@@ -4559,7 +4559,7 @@ protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$receiver,$receiver;
+var $1,$2,$3,$receiver;
 $1=_st(_st(self["@sourceArea"])._val()).__eq(self._source());
 if(smalltalk.assert($1)){
 $2=self["@saveButton"];

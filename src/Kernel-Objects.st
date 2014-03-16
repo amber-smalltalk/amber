@@ -255,7 +255,15 @@ deprecatedAPI
 	"Just a simple way to deprecate methods.
 	#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,
 	but it could in the future."
-	console warn: thisContext home asString, ' is deprecated!! (in ', thisContext home home asString, ')'
+	console warn: thisContext home asString, ' is deprecated!! (in ', thisContext home home asString, ')'.
+!
+
+deprecatedAPI: aString
+	"Just a simple way to deprecate methods.
+	#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,
+	but it could in the future."
+	console warn: thisContext home asString, ' is deprecated!! (in ', thisContext home home asString, ')'.
+	console warn: aString
 !
 
 error: aString
