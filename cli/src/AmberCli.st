@@ -69,7 +69,7 @@ serve: args
 !
 
 version: arguments
-		console log: 'This is Amber version: ', (Smalltalk current version).
+		console log: 'This is Amber version: ', (Smalltalk version).
 ! !
 
 !AmberCli class methodsFor: 'startup'!
@@ -987,7 +987,7 @@ eval: buffer on: anObject
 !
 
 printWelcome
-	Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.
+	Transcript show: 'Welcome to Amber version ', Smalltalk version, ' (NodeJS ', process versions node, ').'.
 	Transcript show: 'Type :q to exit.'; cr.
 !
 

@@ -195,11 +195,11 @@ fn: function (arguments){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-_st(console)._log_("This is Amber version: ".__comma(_st(_st($Smalltalk())._current())._version()));
+_st(console)._log_("This is Amber version: ".__comma(_st($Smalltalk())._version()));
 return self}, function($ctx1) {$ctx1.fill(self,"version:",{arguments:arguments},globals.AmberCli.klass)})},
 args: ["arguments"],
-source: "version: arguments\x0a\x09\x09console log: 'This is Amber version: ', (Smalltalk current version).",
-messageSends: ["log:", ",", "version", "current"],
+source: "version: arguments\x0a\x09\x09console log: 'This is Amber version: ', (Smalltalk version).",
+messageSends: ["log:", ",", "version"],
 referencedClasses: ["Smalltalk"]
 }),
 globals.AmberCli.klass);
@@ -1816,7 +1816,7 @@ function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $3,$2,$1,$4;
-$3=_st("Welcome to Amber version ".__comma(_st(_st($Smalltalk())._current())._version())).__comma(" (NodeJS ");
+$3=_st("Welcome to Amber version ".__comma(_st($Smalltalk())._version())).__comma(" (NodeJS ");
 $ctx1.sendIdx[","]=3;
 $2=_st($3).__comma(_st(_st(process)._versions())._node());
 $ctx1.sendIdx[","]=2;
@@ -1828,8 +1828,8 @@ _st($Transcript())._show_("Type :q to exit.");
 $4=_st($Transcript())._cr();
 return self}, function($ctx1) {$ctx1.fill(self,"printWelcome",{},globals.Repl)})},
 args: [],
-source: "printWelcome\x0a\x09Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.\x0a\x09Transcript show: 'Type :q to exit.'; cr.",
-messageSends: ["show:", ",", "version", "current", "node", "versions", "cr"],
+source: "printWelcome\x0a\x09Transcript show: 'Welcome to Amber version ', Smalltalk version, ' (NodeJS ', process versions node, ').'.\x0a\x09Transcript show: 'Type :q to exit.'; cr.",
+messageSends: ["show:", ",", "version", "node", "versions", "cr"],
 referencedClasses: ["Transcript", "Smalltalk"]
 }),
 globals.Repl);

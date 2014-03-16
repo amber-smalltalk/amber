@@ -2084,7 +2084,39 @@ $ctx1.sendIdx[","]=1;
 _st($1)._warn_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"deprecatedAPI",{},globals.Object)})},
 args: [],
-source: "deprecatedAPI\x0a\x09\x22Just a simple way to deprecate methods.\x0a\x09#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,\x0a\x09but it could in the future.\x22\x0a\x09console warn: thisContext home asString, ' is deprecated! (in ', thisContext home home asString, ')'",
+source: "deprecatedAPI\x0a\x09\x22Just a simple way to deprecate methods.\x0a\x09#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,\x0a\x09but it could in the future.\x22\x0a\x09console warn: thisContext home asString, ' is deprecated! (in ', thisContext home home asString, ')'.",
+messageSends: ["warn:", ",", "asString", "home"],
+referencedClasses: []
+}),
+globals.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "deprecatedAPI:",
+protocol: 'error handling',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$6,$5,$4,$8,$7,$3,$2;
+$1=console;
+$6=smalltalk.getThisContext()._home();
+$ctx1.sendIdx["home"]=1;
+$5=_st($6)._asString();
+$ctx1.sendIdx["asString"]=1;
+$4=_st($5).__comma(" is deprecated! (in ");
+$8=_st(smalltalk.getThisContext()._home())._home();
+$ctx1.sendIdx["home"]=2;
+$7=_st($8)._asString();
+$3=_st($4).__comma($7);
+$ctx1.sendIdx[","]=2;
+$2=_st($3).__comma(")");
+$ctx1.sendIdx[","]=1;
+_st($1)._warn_($2);
+$ctx1.sendIdx["warn:"]=1;
+_st(console)._warn_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"deprecatedAPI:",{aString:aString},globals.Object)})},
+args: ["aString"],
+source: "deprecatedAPI: aString\x0a\x09\x22Just a simple way to deprecate methods.\x0a\x09#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,\x0a\x09but it could in the future.\x22\x0a\x09console warn: thisContext home asString, ' is deprecated! (in ', thisContext home home asString, ')'.\x0a\x09console warn: aString",
 messageSends: ["warn:", ",", "asString", "home"],
 referencedClasses: []
 }),
@@ -5697,7 +5729,7 @@ function $MethodAdded(){return globals.MethodAdded||(typeof MethodAdded=="undefi
 function $MethodModified(){return globals.MethodModified||(typeof MethodModified=="undefined"?nil:MethodModified)}
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11,$receiver,$receiver;
+var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11,$receiver;
 oldMethod=_st(self._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
 return nil;
 }));
@@ -17083,7 +17115,7 @@ protocol: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$receiver,$receiver;
+var $1,$receiver;
 if(($receiver = aContext) == nil || $receiver == null){
 aContext;
 } else {
@@ -24133,7 +24165,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$receiver,$receiver;
+var $2,$3,$1,$receiver;
 $2=self["@position"];
 if(($receiver = $2) == nil || $receiver == null){
 $3=self._parent();
@@ -32344,7 +32376,7 @@ fn: function (aNode){
 var self=this;
 var lookup;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$receiver,$receiver;
+var $1,$2,$3,$receiver;
 lookup=self._bindingFor_(aNode);
 $1=lookup;
 if(($receiver = $1) == nil || $receiver == null){
@@ -34256,7 +34288,7 @@ protocol: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4,$5,$receiver,$receiver;
+var $1,$3,$2,$4,$5,$receiver;
 $1=self._isBlockContext();
 if(smalltalk.assert($1)){
 $3=self._outerContext();
@@ -34443,7 +34475,7 @@ protocol: 'initialization',
 fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$receiver,$receiver;
+var $1,$2,$3,$4,$receiver;
 self._evaluatedSelector_(_st(aMethodContext)._evaluatedSelector());
 self._index_(_st(aMethodContext)._index());
 self._sendIndexes_(_st(aMethodContext)._sendIndexes());
@@ -40622,11 +40654,11 @@ fn: function (arguments){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-_st(console)._log_("This is Amber version: ".__comma(_st(_st($Smalltalk())._current())._version()));
+_st(console)._log_("This is Amber version: ".__comma(_st($Smalltalk())._version()));
 return self}, function($ctx1) {$ctx1.fill(self,"version:",{arguments:arguments},globals.AmberCli.klass)})},
 args: ["arguments"],
-source: "version: arguments\x0a\x09\x09console log: 'This is Amber version: ', (Smalltalk current version).",
-messageSends: ["log:", ",", "version", "current"],
+source: "version: arguments\x0a\x09\x09console log: 'This is Amber version: ', (Smalltalk version).",
+messageSends: ["log:", ",", "version"],
 referencedClasses: ["Smalltalk"]
 }),
 globals.AmberCli.klass);
@@ -42243,7 +42275,7 @@ function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $3,$2,$1,$4;
-$3=_st("Welcome to Amber version ".__comma(_st(_st($Smalltalk())._current())._version())).__comma(" (NodeJS ");
+$3=_st("Welcome to Amber version ".__comma(_st($Smalltalk())._version())).__comma(" (NodeJS ");
 $ctx1.sendIdx[","]=3;
 $2=_st($3).__comma(_st(_st(process)._versions())._node());
 $ctx1.sendIdx[","]=2;
@@ -42255,8 +42287,8 @@ _st($Transcript())._show_("Type :q to exit.");
 $4=_st($Transcript())._cr();
 return self}, function($ctx1) {$ctx1.fill(self,"printWelcome",{},globals.Repl)})},
 args: [],
-source: "printWelcome\x0a\x09Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.\x0a\x09Transcript show: 'Type :q to exit.'; cr.",
-messageSends: ["show:", ",", "version", "current", "node", "versions", "cr"],
+source: "printWelcome\x0a\x09Transcript show: 'Welcome to Amber version ', Smalltalk version, ' (NodeJS ', process versions node, ').'.\x0a\x09Transcript show: 'Type :q to exit.'; cr.",
+messageSends: ["show:", ",", "version", "node", "versions", "cr"],
 referencedClasses: ["Transcript", "Smalltalk"]
 }),
 globals.Repl);
