@@ -66,18 +66,18 @@ selector: "help:",
 protocol: 'commands',
 fn: function (args){
 var self=this;
+function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
-_st(console)._log_("Available Commands:");
-$ctx1.sendIdx["log:"]=1;
+_st($Transcript())._show_("Available commands");
 _st(self._commandLineSwitches())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(console)._log_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"help:",{args:args},globals.AmberCli.klass)})},
 args: ["args"],
-source: "help: args\x0a\x09console log: 'Available Commands:'.\x0a\x09self commandLineSwitches do: [ :each | console log: each ]",
-messageSends: ["log:", "do:", "commandLineSwitches"],
-referencedClasses: []
+source: "help: args\x0a\x09Transcript show: 'Available commands'.\x0a\x09self commandLineSwitches do: [ :each | console log: each ]",
+messageSends: ["show:", "do:", "commandLineSwitches", "log:"],
+referencedClasses: ["Transcript"]
 }),
 globals.AmberCli.klass);
 
@@ -88,34 +88,48 @@ protocol: 'startup',
 fn: function (){
 var self=this;
 var args,nodeMinorVersion;
+function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$4,$5,$6;
-$3=_st(process)._version();
+var $5,$4,$3,$2,$1,$8,$7,$6,$9,$10,$11;
+$5=_st($Smalltalk())._version();
 $ctx1.sendIdx["version"]=1;
-$2=_st($3)._tokenize_(".");
-$1=_st($2)._second();
-nodeMinorVersion=_st($1)._asNumber();
-$4=_st(nodeMinorVersion).__lt((8));
-if(smalltalk.assert($4)){
-_st(console)._log_("You are currently using Node.js ".__comma(_st(process)._version()));
-$ctx1.sendIdx["log:"]=1;
-_st(console)._log_("Required is at least Node.js v0.8.x or greater.");
+$4="Welcome to Amber version ".__comma($5);
+$ctx1.sendIdx[","]=4;
+$3=_st($4).__comma(" (NodeJS ");
+$ctx1.sendIdx[","]=3;
+$2=_st($3).__comma(_st(_st(process)._versions())._node());
+$ctx1.sendIdx[","]=2;
+$1=_st($2).__comma(").");
+$ctx1.sendIdx[","]=1;
+_st($Transcript())._show_($1);
+$ctx1.sendIdx["show:"]=1;
+$8=_st(process)._version();
+$ctx1.sendIdx["version"]=2;
+$7=_st($8)._tokenize_(".");
+$6=_st($7)._second();
+nodeMinorVersion=_st($6)._asNumber();
+$9=_st(nodeMinorVersion).__lt((8));
+if(smalltalk.assert($9)){
+_st($Transcript())._show_("You are currently using Node.js ".__comma(_st(process)._version()));
+$ctx1.sendIdx["show:"]=2;
+_st($Transcript())._show_("Required is at least Node.js v0.8.x or greater.");
 return (-1);
 };
 args=_st(process)._argv();
 _st(args)._removeFrom_to_((1),(2));
-$5=_st(args)._isEmpty();
-if(smalltalk.assert($5)){
+$10=_st(args)._isEmpty();
+if(smalltalk.assert($10)){
 self._help_(nil);
 } else {
-$6=self._handleArguments_(args);
-return $6;
+$11=self._handleArguments_(args);
+return $11;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"main",{args:args,nodeMinorVersion:nodeMinorVersion},globals.AmberCli.klass)})},
 args: [],
-source: "main\x0a\x09\x22Main entry point for Amber applications.\x0a\x09Parses commandline arguments and starts the according subprogram.\x22\x0a\x09| args nodeMinorVersion |\x0a\x0a\x09nodeMinorVersion := ((process version) tokenize: '.') second asNumber.\x0a\x09nodeMinorVersion < 8 ifTrue: [\x0a\x09\x09console log: 'You are currently using Node.js ', (process version).\x0a\x09\x09console log: 'Required is at least Node.js v0.8.x or greater.'.\x0a\x09\x09^ -1.\x0a\x09].\x0a\x0a\x09args := process argv.\x0a\x09\x22Remove the first args which contain the path to the node executable and the script file.\x22\x0a\x09args removeFrom: 1 to: 2.\x0a\x09\x0a\x09(args isEmpty)\x0a\x09\x09ifTrue: [self help: nil]\x0a\x09\x09ifFalse: [^self handleArguments: args]",
-messageSends: ["asNumber", "second", "tokenize:", "version", "ifTrue:", "<", "log:", ",", "argv", "removeFrom:to:", "ifTrue:ifFalse:", "isEmpty", "help:", "handleArguments:"],
-referencedClasses: []
+source: "main\x0a\x09\x22Main entry point for Amber applications.\x0a\x09Parses commandline arguments and starts the according subprogram.\x22\x0a\x09| args nodeMinorVersion |\x0a\x09\x0a\x09Transcript show: 'Welcome to Amber version ', Smalltalk version, ' (NodeJS ', process versions node, ').'.\x0a\x0a\x09nodeMinorVersion := ((process version) tokenize: '.') second asNumber.\x0a\x09nodeMinorVersion < 8 ifTrue: [\x0a\x09\x09Transcript show: 'You are currently using Node.js ', (process version).\x0a\x09\x09Transcript show: 'Required is at least Node.js v0.8.x or greater.'.\x0a\x09\x09^ -1.\x0a\x09].\x0a\x0a\x09args := process argv.\x0a\x09\x22Remove the first args which contain the path to the node executable and the script file.\x22\x0a\x09args removeFrom: 1 to: 2.\x0a\x09\x0a\x09(args isEmpty)\x0a\x09\x09ifTrue: [self help: nil]\x0a\x09\x09ifFalse: [^self handleArguments: args]",
+messageSends: ["show:", ",", "version", "node", "versions", "asNumber", "second", "tokenize:", "ifTrue:", "<", "argv", "removeFrom:to:", "ifTrue:ifFalse:", "isEmpty", "help:", "handleArguments:"],
+referencedClasses: ["Transcript", "Smalltalk"]
 }),
 globals.AmberCli.klass);
 
@@ -187,6 +201,20 @@ referencedClasses: ["FileServer"]
 }),
 globals.AmberCli.klass);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "version:",
+protocol: 'commands',
+fn: function (arguments){
+var self=this;
+return self},
+args: ["arguments"],
+source: "version: arguments",
+messageSends: [],
+referencedClasses: []
+}),
+globals.AmberCli.klass);
+
 
 smalltalk.addClass('FileServer', globals.Object, ['path', 'http', 'fs', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'AmberCli');
 globals.FileServer.comment="I am the Amber Smalltalk FileServer.\x0aMy runtime requirement is a functional Node.js executable.\x0a\x0aTo start a FileServer instance on port `4000` use the following code:\x0a\x0a    FileServer new start\x0a\x0aA parameterized instance can be created with the following code:\x0a\x0a    FileServer createServerWithArguments: options\x0a\x0aHere, `options` is an array of commandline style strings each followed by a value e.g. `#('--port', '6000', '--host', '0.0.0.0')`.\x0aA list of all available parameters can be printed to the commandline by passing `--help` as parameter.\x0aSee the `Options` section for further details on how options are mapped to instance methods.\x0a\x0aAfter startup FileServer checks if the directory layout required by Amber is present and logs a warning on absence.\x0a\x0a\x0a## Options\x0a\x0aEach option is of the form `--some-option-string` which is transformed into a selector of the format `someOptionString:`.\x0aThe trailing `--` gets removed, each `-[a-z]` gets transformed into the according uppercase letter, and a `:` is appended to create a selector which takes a single argument.\x0aAfterwards, the selector gets executed on the `FileServer` instance with the value following in the options array as parameter.\x0a\x0a## Adding new commandline parameters\x0a\x0aAdding new commandline parameters to `FileServer` is as easy as adding a new single parameter method to the `accessing` protocol.";
@@ -213,7 +241,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@basePath"];
 if(($receiver = $2) == nil || $receiver == null){
 $1=_st(self._class())._defaultBasePath();
@@ -516,7 +544,7 @@ fn: function (aRequest){
 var self=this;
 var header,token,auth,parts;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$4,$5,$6,$9,$10,$8,$7;
+var $2,$1,$3,$4,$5,$6,$9,$10,$8,$7,$receiver;
 $2=_st(self["@username"])._isNil();
 $ctx1.sendIdx["isNil"]=1;
 $1=_st($2)._and_((function(){
@@ -684,7 +712,7 @@ protocol: 'request handling',
 fn: function (aDirname,aUrl,aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$5,$7,$6,$4;
+var $2,$1,$3,$5,$7,$6,$4,$receiver;
 $2=_st(aUrl)._pathname();
 $ctx1.sendIdx["pathname"]=1;
 $1=_st($2)._endsWith_("/");
@@ -948,7 +976,7 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$7,$6,$5,$8,$9;
+var $1,$2,$3,$4,$7,$6,$5,$8,$9,$receiver;
 $1=self["@fs"];
 $2=self._basePath();
 $ctx1.sendIdx["basePath"]=1;
@@ -1255,7 +1283,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@mimeTypes"];
 if(($receiver = $2) == nil || $receiver == null){
 self["@mimeTypes"]=self._defaultMimeTypes();
@@ -1353,7 +1381,7 @@ var self=this;
 function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 function $ConsoleErrorHandler(){return globals.ConsoleErrorHandler||(typeof ConsoleErrorHandler=="undefined"?nil:ConsoleErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$4,$2,$1;
+var $3,$4,$2,$1,$receiver;
 $1=self._parseAssignment_do_(buffer,(function(name,expr){
 var varName,value;
 return smalltalk.withContext(function($ctx2) {
@@ -1627,7 +1655,7 @@ protocol: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
+var $2,$3,$1,$receiver;
 $2=_st(aClass)._superclass();
 $ctx1.sendIdx["superclass"]=1;
 if(($receiver = $2) == nil || $receiver == null){
@@ -1689,7 +1717,7 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 $1=self["@resultCount"];
 if(($receiver = $1) == nil || $receiver == null){
 self["@resultCount"]=(1);
@@ -1796,24 +1824,15 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$4;
-$3=_st("Welcome to Amber version ".__comma(_st(_st($Smalltalk())._current())._version())).__comma(" (NodeJS ");
-$ctx1.sendIdx[","]=3;
-$2=_st($3).__comma(_st(_st(process)._versions())._node());
-$ctx1.sendIdx[","]=2;
-$1=_st($2).__comma(").");
-$ctx1.sendIdx[","]=1;
-_st($Transcript())._show_($1);
-$ctx1.sendIdx["show:"]=1;
+var $1;
 _st($Transcript())._show_("Type :q to exit.");
-$4=_st($Transcript())._cr();
+$1=_st($Transcript())._cr();
 return self}, function($ctx1) {$ctx1.fill(self,"printWelcome",{},globals.Repl)})},
 args: [],
-source: "printWelcome\x0a\x09Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.\x0a\x09Transcript show: 'Type :q to exit.'; cr.",
-messageSends: ["show:", ",", "version", "current", "node", "versions", "cr"],
-referencedClasses: ["Transcript", "Smalltalk"]
+source: "printWelcome\x0a\x09Transcript show: 'Type :q to exit.'; cr.",
+messageSends: ["show:", "cr"],
+referencedClasses: ["Transcript"]
 }),
 globals.Repl);
 
@@ -1931,6 +1950,7 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $receiver;
 _st(_st(process)._stdin())._on_do_("keypress",(function(s,key){
 return smalltalk.withContext(function($ctx2) {
 if(($receiver = key) == nil || $receiver == null){
@@ -1973,7 +1993,7 @@ protocol: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$7,$6,$5,$4,$8,$1;
+var $3,$2,$7,$6,$5,$4,$8,$1,$receiver;
 $3=_st(aClass)._name();
 $ctx1.sendIdx["name"]=1;
 $2=_st($3)._matchesOf_("\x5cd+$");

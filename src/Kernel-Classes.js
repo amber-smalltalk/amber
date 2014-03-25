@@ -33,7 +33,7 @@ function $MethodAdded(){return globals.MethodAdded||(typeof MethodAdded=="undefi
 function $MethodModified(){return globals.MethodModified||(typeof MethodModified=="undefined"?nil:MethodModified)}
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11,$receiver,$receiver;
+var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11,$receiver;
 oldMethod=_st(self._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
 return nil;
 }));

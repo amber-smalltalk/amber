@@ -273,7 +273,7 @@ protocol: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4,$5,$receiver,$receiver;
+var $1,$3,$2,$4,$5,$receiver;
 $1=self._isBlockContext();
 if(smalltalk.assert($1)){
 $3=self._outerContext();
@@ -510,7 +510,7 @@ protocol: 'initialization',
 fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$receiver,$receiver;
+var $1,$2,$3,$4,$receiver;
 self._evaluatedSelector_(_st(aMethodContext)._evaluatedSelector());
 self._index_(_st(aMethodContext)._index());
 self._sendIndexes_(_st(aMethodContext)._sendIndexes());

@@ -2009,7 +2009,7 @@ protocol: 'events handling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$receiver,$receiver;
+var $1,$2,$3,$receiver;
 $1=self._isKeyDown();
 if(smalltalk.assert($1)){
 self["@keyDown"]=false;

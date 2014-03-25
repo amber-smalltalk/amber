@@ -12,7 +12,10 @@
   + tryCatch:
 + Environment >>
   + evaluate:for:
-
++ AmberCli >>
+  + version:
++ Object >>
+  + deprecatedAPI:
 - Environment >>
   - eval:on:
   - evaluateString:on:
