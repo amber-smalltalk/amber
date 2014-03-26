@@ -1528,16 +1528,16 @@ $3=_st($4).__comma(aString);
 $ctx1.sendIdx[","]=2;
 $2=_st($3).__comma(" := anObject");
 $ctx1.sendIdx[","]=1;
-_st($1)._install_forClass_category_($2,aClass,"session");
-$ctx1.sendIdx["install:forClass:category:"]=1;
+_st($1)._install_forClass_protocol_($2,aClass,"session");
+$ctx1.sendIdx["install:forClass:protocol:"]=1;
 $5=compiler;
 $6=_st(_st(aString).__comma(" ^ ")).__comma(aString);
 $ctx1.sendIdx[","]=4;
-_st($5)._install_forClass_category_($6,aClass,"session");
+_st($5)._install_forClass_protocol_($6,aClass,"session");
 return self}, function($ctx1) {$ctx1.fill(self,"encapsulateVariable:withValue:in:",{aString:aString,anObject:anObject,aClass:aClass,compiler:compiler},globals.Repl)})},
 args: ["aString", "anObject", "aClass"],
-source: "encapsulateVariable: aString withValue: anObject in: aClass\x0a\x09\x22Add getter and setter for given variable to session.\x22\x0a\x09| compiler |\x0a\x09compiler := Compiler new.\x0a\x09compiler install: aString, ': anObject ^ ', aString, ' := anObject' forClass: aClass category: 'session'.\x0a\x09compiler install: aString, ' ^ ', aString forClass: aClass category: 'session'.",
-messageSends: ["new", "install:forClass:category:", ","],
+source: "encapsulateVariable: aString withValue: anObject in: aClass\x0a\x09\x22Add getter and setter for given variable to session.\x22\x0a\x09| compiler |\x0a\x09compiler := Compiler new.\x0a\x09compiler install: aString, ': anObject ^ ', aString, ' := anObject' forClass: aClass protocol: 'session'.\x0a\x09compiler install: aString, ' ^ ', aString forClass: aClass protocol: 'session'.",
+messageSends: ["new", "install:forClass:protocol:", ","],
 referencedClasses: ["Compiler"]
 }),
 globals.Repl);
@@ -1573,11 +1573,11 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 $1=_st(buffer)._isEmpty();
 if(! smalltalk.assert($1)){
-self._try_catch_((function(){
+_st((function(){
 return smalltalk.withContext(function($ctx2) {
 result=_st(_st($Compiler())._new())._evaluateExpression_on_(buffer,anObject);
 return result;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}),(function(e){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))._tryCatch_((function(e){
 return smalltalk.withContext(function($ctx2) {
 $2=_st(e)._isSmalltalkError();
 if(smalltalk.assert($2)){
@@ -1591,8 +1591,8 @@ $3=result;
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"eval:on:",{buffer:buffer,anObject:anObject,result:result},globals.Repl)})},
 args: ["buffer", "anObject"],
-source: "eval: buffer on: anObject\x0a\x09| result |\x0a\x09buffer isEmpty ifFalse: [\x0a\x09\x09self try: [\x0a\x09\x09\x09result := Compiler new evaluateExpression: buffer on: anObject]\x0a\x09\x09catch: [:e |\x0a\x09\x09\x09e isSmalltalkError\x0a\x09\x09\x09    ifTrue: [ e resignal ]\x0a\x09\x09\x09    ifFalse: [ process stdout write: e jsStack ]]].\x0a\x09^ result",
-messageSends: ["ifFalse:", "isEmpty", "try:catch:", "evaluateExpression:on:", "new", "ifTrue:ifFalse:", "isSmalltalkError", "resignal", "write:", "stdout", "jsStack"],
+source: "eval: buffer on: anObject\x0a\x09| result |\x0a\x09buffer isEmpty ifFalse: [\x0a\x09\x09[result := Compiler new evaluateExpression: buffer on: anObject]\x0a\x09\x09\x09tryCatch: [:e |\x0a\x09\x09\x09\x09e isSmalltalkError\x0a\x09\x09\x09\x09    ifTrue: [ e resignal ]\x0a\x09\x09\x09 \x09   ifFalse: [ process stdout write: e jsStack ]]].\x0a\x09^ result",
+messageSends: ["ifFalse:", "isEmpty", "tryCatch:", "evaluateExpression:on:", "new", "ifTrue:ifFalse:", "isSmalltalkError", "resignal", "write:", "stdout", "jsStack"],
 referencedClasses: ["Compiler"]
 }),
 globals.Repl);
