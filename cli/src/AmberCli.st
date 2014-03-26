@@ -978,12 +978,11 @@ eval: buffer
 eval: buffer on: anObject
 	| result |
 	buffer isEmpty ifFalse: [
-		self try: [
-			result := Compiler new evaluateExpression: buffer on: anObject]
-		catch: [:e |
-			e isSmalltalkError
-			    ifTrue: [ e resignal ]
-			    ifFalse: [ process stdout write: e jsStack ]]].
+		[result := Compiler new evaluateExpression: buffer on: anObject]
+			tryCatch: [:e |
+				e isSmalltalkError
+				    ifTrue: [ e resignal ]
+			 	   ifFalse: [ process stdout write: e jsStack ]]].
 	^ result
 !
 
@@ -1043,8 +1042,8 @@ encapsulateVariable: aString withValue: anObject in: aClass
 	"Add getter and setter for given variable to session."
 	| compiler |
 	compiler := Compiler new.
-	compiler install: aString, ': anObject ^ ', aString, ' := anObject' forClass: aClass category: 'session'.
-	compiler install: aString, ' ^ ', aString forClass: aClass category: 'session'.
+	compiler install: aString, ': anObject ^ ', aString, ' := anObject' forClass: aClass protocol: 'session'.
+	compiler install: aString, ' ^ ', aString forClass: aClass protocol: 'session'.
 !
 
 executeCommand: aString
