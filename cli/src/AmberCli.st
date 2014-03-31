@@ -30,7 +30,7 @@ commandLineSwitches
 	switches := switches select: [ :each | each match: '^[^:]*:$'].
 	switches :=switches collect: [ :each |
 		(each allButLast replace: '([A-Z])' with: '-$1') asLowercase].
-	^switches
+	^ switches
 !
 
 handleArguments: args
@@ -50,7 +50,7 @@ selectorForCommandLineSwitch: aSwitch
 	 (self commandLineSwitches includes: aSwitch)
 	 ifTrue: [ selector := (aSwitch replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':']
 	 ifFalse: [ selector := 'help:' ].
-	^selector
+	^ selector
 ! !
 
 !AmberCli class methodsFor: 'commands'!
@@ -61,11 +61,15 @@ help: args
 !
 
 repl: args
-	^Repl new createInterface
+	^ Repl new createInterface
 !
 
 serve: args
-	^(FileServer createServerWithArguments: args) start
+	^ (FileServer createServerWithArguments: args) start
+!
+
+tests: arguments
+	^ NodeTestRunner runTestSuite
 !
 
 version: arguments
@@ -131,7 +135,7 @@ Adding new commandline parameters to `FileServer` is as easy as adding a new sin
 !FileServer methodsFor: 'accessing'!
 
 basePath
-	^basePath ifNil: [self class defaultBasePath]
+	^ basePath ifNil: [self class defaultBasePath]
 !
 
 basePath: aString
@@ -140,7 +144,7 @@ basePath: aString
 !
 
 fallbackPage
-	^fallbackPage
+	^ fallbackPage
 !
 
 fallbackPage: aString
@@ -148,7 +152,7 @@ fallbackPage: aString
 !
 
 host
-	^host
+	^ host
 !
 
 host: hostname
@@ -160,7 +164,7 @@ password: aPassword
 !
 
 port
-	^port
+	^ port
 !
 
 port: aNumber
@@ -206,12 +210,12 @@ isAuthenticated: aRequest
 	 and https://gist.github.com/1686663"
 	| header token auth parts|
 
-	(username isNil and: [password isNil]) ifTrue: [^true].
+	(username isNil and: [password isNil]) ifTrue: [^ true].
 
 	"get authentication header"
 	header := (aRequest headers at: 'authorization') ifNil:[''].
 	(header isEmpty)
-	ifTrue: [^false]
+	ifTrue: [^ false]
 	ifFalse: [
 		"get authentication token"
 		token := (header tokenize: ' ') ifNil:[''].
@@ -221,8 +225,8 @@ isAuthenticated: aRequest
 		parts := auth tokenize: ':'.
 
 		((username = (parts at: 1)) and: [password = (parts at: 2)])
-			ifTrue: [^true]
-			ifFalse: [^false]
+			ifTrue: [^ true]
+			ifFalse: [^ false]
 	].
 !
 
@@ -240,7 +244,7 @@ validateBasePath
 
 withBasePath: aBaseRelativePath
 	"return a file path which is relative to the basePath."
-	^	path join: self basePath with: aBaseRelativePath
+	^ path join: self basePath with: aBaseRelativePath
 !
 
 writeData: data toFileNamed: aFilename
@@ -273,7 +277,7 @@ handleOPTIONSRequest: aRequest respondTo: aResponse
 handlePUTRequest: aRequest respondTo: aResponse
 	| file stream |
 	(self isAuthenticated: aRequest)
-		ifFalse: [self respondAuthenticationRequiredTo: aResponse. ^nil].
+		ifFalse: [self respondAuthenticationRequiredTo: aResponse. ^ nil].
 
 	file := '.', aRequest url.
 	stream := fs createWriteStream: file.
@@ -417,7 +421,7 @@ commandLineSwitches
 	switches := switches select: [ :each | each match: '^[^:]*:$'].
 	switches :=switches collect: [ :each |
 		(each allButLast replace: '([A-Z])' with: '-$1') asLowercase replace: '^([a-z])' with: '--$1' ].
-	^switches
+	^ switches
 !
 
 defaultBasePath
@@ -425,7 +429,7 @@ defaultBasePath
 !
 
 defaultHost
-	^'127.0.0.1'
+	^ '127.0.0.1'
 !
 
 defaultMimeTypes
@@ -843,15 +847,15 @@ defaultMimeTypes
 !
 
 defaultPort
-	^4000
+	^ 4000
 !
 
 mimeTypeFor: aString
-	^self mimeTypes at: (aString replace: '.*[\.]' with: '') ifAbsent: ['text/plain']
+	^ self mimeTypes at: (aString replace: '.*[\.]' with: '') ifAbsent: ['text/plain']
 !
 
 mimeTypes
-	^mimeTypes ifNil: [mimeTypes := self defaultMimeTypes]
+	^ mimeTypes ifNil: [mimeTypes := self defaultMimeTypes]
 !
 
 printHelp
@@ -866,7 +870,7 @@ selectorForCommandLineSwitch: aSwitch
 	 and replace all occurences of a lowercase letter preceded by a '-' with
 	 the Uppercase letter.
 	 Example: --fallback-page becomes fallbackPage:"
-	^((aSwitch replace: '^--' with: '')
+	^ ((aSwitch replace: '^--' with: '')
 		replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':'
 ! !
 
@@ -911,7 +915,7 @@ createServerWithArguments: options
 			ifFalse: [
 				console log: optionName, ' is not a valid commandline option'.
 				console log: 'Use any of the following ones: ', switches ]].
-	^server.
+	^ server.
 !
 
 main
@@ -926,7 +930,39 @@ main
 		(each = '--help') ifTrue: [FileServer printHelp]]
 	ifNone: [
 		fileServer := FileServer createServerWithArguments: args.
-		^fileServer start]
+		^ fileServer start]
+! !
+
+Object subclass: #NodeTestRunner
+	instanceVariableNames: ''
+	package: 'AmberCli'!
+
+!NodeTestRunner class methodsFor: 'not yet classified'!
+
+runTestSuite
+	| suite worker |
+
+	suite := OrderedCollection new.
+	(TestCase allSubclasses select: [ :each | each isAbstract not ])
+		do: [ :each | suite addAll: each buildSuite ].
+
+	worker := TestSuiteRunner on: suite.
+	worker announcer on: ResultAnnouncement do:
+		[ :ann | | result |
+			result := ann result.
+			result runs = result total ifTrue: [
+				console log: result runs asString, ' tests run, ', result failures size asString, ' failures, ', result errors size asString, ' errors.'.
+
+				result failures isEmpty ifFalse: [
+					result failures first runCase.
+					"the line above should throw, normally, but just in case I leave the line below"
+					self throw: result failures first class name, ' >> ', result failures first selector, ' is failing!!!!' ].
+				result errors isEmpty ifFalse: [
+					result errors first runCase.
+					"the line above should throw, normally, but just in case I leave the line below"
+					self throw: result errors first class name, ' >> ', result errors first selector, ' has errors!!!!' ].
+	]].
+	worker run
 ! !
 
 Object subclass: #Repl
@@ -946,7 +982,7 @@ commands
 !
 
 prompt
-	^'amber >> '
+	^ 'amber >> '
 ! !
 
 !Repl methodsFor: 'actions'!

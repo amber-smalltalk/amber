@@ -31,7 +31,7 @@ $1=switches;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},globals.AmberCli.klass)})},
 args: [],
-source: "commandLineSwitches\x0a\x09\x22Collect all methodnames from the 'commands' protocol of the class\x0a\x09 and select the ones with only one parameter.\x0a\x09 Then remove the ':' at the end of the name.\x0a\x09 Additionally all uppercase letters are made lowercase and preceded by a '-'.\x0a\x09 Example: fallbackPage: becomes --fallback-page.\x0a\x09 Return the Array containing the commandline switches.\x22\x0a\x09| switches |\x0a\x09switches := ((self class methodsInProtocol: 'commands') collect: [ :each | each selector]).\x0a\x09switches := switches select: [ :each | each match: '^[^:]*:$'].\x0a\x09switches :=switches collect: [ :each |\x0a\x09\x09(each allButLast replace: '([A-Z])' with: '-$1') asLowercase].\x0a\x09^switches",
+source: "commandLineSwitches\x0a\x09\x22Collect all methodnames from the 'commands' protocol of the class\x0a\x09 and select the ones with only one parameter.\x0a\x09 Then remove the ':' at the end of the name.\x0a\x09 Additionally all uppercase letters are made lowercase and preceded by a '-'.\x0a\x09 Example: fallbackPage: becomes --fallback-page.\x0a\x09 Return the Array containing the commandline switches.\x22\x0a\x09| switches |\x0a\x09switches := ((self class methodsInProtocol: 'commands') collect: [ :each | each selector]).\x0a\x09switches := switches select: [ :each | each match: '^[^:]*:$'].\x0a\x09switches :=switches collect: [ :each |\x0a\x09\x09(each allButLast replace: '([A-Z])' with: '-$1') asLowercase].\x0a\x09^ switches",
 messageSends: ["collect:", "methodsInProtocol:", "class", "selector", "select:", "match:", "asLowercase", "replace:with:", "allButLast"],
 referencedClasses: []
 }),
@@ -146,7 +146,7 @@ $1=_st(_st($Repl())._new())._createInterface();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"repl:",{args:args},globals.AmberCli.klass)})},
 args: ["args"],
-source: "repl: args\x0a\x09^Repl new createInterface",
+source: "repl: args\x0a\x09^ Repl new createInterface",
 messageSends: ["createInterface", "new"],
 referencedClasses: ["Repl"]
 }),
@@ -176,7 +176,7 @@ $2=selector;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch,command:command,selector:selector},globals.AmberCli.klass)})},
 args: ["aSwitch"],
-source: "selectorForCommandLineSwitch: aSwitch\x0a\x09\x22Add ':' at the end and replace all occurences of a lowercase letter preceded by a '-' with the Uppercase letter.\x0a\x09 Example: fallback-page becomes fallbackPage:.\x0a\x09 If no correct selector is found return 'help:'\x22\x0a\x09 | command selector |\x0a\x0a\x09 (self commandLineSwitches includes: aSwitch)\x0a\x09 ifTrue: [ selector := (aSwitch replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':']\x0a\x09 ifFalse: [ selector := 'help:' ].\x0a\x09^selector",
+source: "selectorForCommandLineSwitch: aSwitch\x0a\x09\x22Add ':' at the end and replace all occurences of a lowercase letter preceded by a '-' with the Uppercase letter.\x0a\x09 Example: fallback-page becomes fallbackPage:.\x0a\x09 If no correct selector is found return 'help:'\x22\x0a\x09 | command selector |\x0a\x0a\x09 (self commandLineSwitches includes: aSwitch)\x0a\x09 ifTrue: [ selector := (aSwitch replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':']\x0a\x09 ifFalse: [ selector := 'help:' ].\x0a\x09^ selector",
 messageSends: ["ifTrue:ifFalse:", "includes:", "commandLineSwitches", ",", "replace:with:", "asUppercase", "second"],
 referencedClasses: []
 }),
@@ -195,9 +195,28 @@ $1=_st(_st($FileServer())._createServerWithArguments_(args))._start();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"serve:",{args:args},globals.AmberCli.klass)})},
 args: ["args"],
-source: "serve: args\x0a\x09^(FileServer createServerWithArguments: args) start",
+source: "serve: args\x0a\x09^ (FileServer createServerWithArguments: args) start",
 messageSends: ["start", "createServerWithArguments:"],
 referencedClasses: ["FileServer"]
+}),
+globals.AmberCli.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tests:",
+protocol: 'commands',
+fn: function (arguments){
+var self=this;
+function $NodeTestRunner(){return globals.NodeTestRunner||(typeof NodeTestRunner=="undefined"?nil:NodeTestRunner)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($NodeTestRunner())._runTestSuite();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"tests:",{arguments:arguments},globals.AmberCli.klass)})},
+args: ["arguments"],
+source: "tests: arguments\x0a\x09^ NodeTestRunner runTestSuite",
+messageSends: ["runTestSuite"],
+referencedClasses: ["NodeTestRunner"]
 }),
 globals.AmberCli.klass);
 
@@ -251,7 +270,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"basePath",{},globals.FileServer)})},
 args: [],
-source: "basePath\x0a\x09^basePath ifNil: [self class defaultBasePath]",
+source: "basePath\x0a\x09^ basePath ifNil: [self class defaultBasePath]",
 messageSends: ["ifNil:", "defaultBasePath", "class"],
 referencedClasses: []
 }),
@@ -311,7 +330,7 @@ $1=self["@fallbackPage"];
 return $1;
 },
 args: [],
-source: "fallbackPage\x0a\x09^fallbackPage",
+source: "fallbackPage\x0a\x09^ fallbackPage",
 messageSends: [],
 referencedClasses: []
 }),
@@ -431,7 +450,7 @@ return _st(stream)._end();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handlePUTRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse,file:file,stream:stream},globals.FileServer)})},
 args: ["aRequest", "aResponse"],
-source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09| file stream |\x0a\x09(self isAuthenticated: aRequest)\x0a\x09\x09ifFalse: [self respondAuthenticationRequiredTo: aResponse. ^nil].\x0a\x0a\x09file := '.', aRequest url.\x0a\x09stream := fs createWriteStream: file.\x0a\x0a\x09stream on: 'error' do: [:error |\x0a\x09\x09console warn: 'Error creating WriteStream for file ', file.\x0a\x09\x09console warn: '    Did you forget to create the necessary directory in your project (often /src)?'.\x0a\x09\x09console warn: '    The exact error is: ', error.\x0a\x09\x09self respondNotCreatedTo: aResponse].\x0a\x0a\x09stream on: 'close' do: [\x0a\x09\x09self respondCreatedTo: aResponse].\x0a\x0a\x09aRequest setEncoding: 'utf8'.\x0a\x09aRequest on: 'data' do: [:data |\x0a\x09\x09stream write: data].\x0a\x0a\x09aRequest on: 'end' do: [\x0a\x09\x09stream writable ifTrue: [stream end]]",
+source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09| file stream |\x0a\x09(self isAuthenticated: aRequest)\x0a\x09\x09ifFalse: [self respondAuthenticationRequiredTo: aResponse. ^ nil].\x0a\x0a\x09file := '.', aRequest url.\x0a\x09stream := fs createWriteStream: file.\x0a\x0a\x09stream on: 'error' do: [:error |\x0a\x09\x09console warn: 'Error creating WriteStream for file ', file.\x0a\x09\x09console warn: '    Did you forget to create the necessary directory in your project (often /src)?'.\x0a\x09\x09console warn: '    The exact error is: ', error.\x0a\x09\x09self respondNotCreatedTo: aResponse].\x0a\x0a\x09stream on: 'close' do: [\x0a\x09\x09self respondCreatedTo: aResponse].\x0a\x0a\x09aRequest setEncoding: 'utf8'.\x0a\x09aRequest on: 'data' do: [:data |\x0a\x09\x09stream write: data].\x0a\x0a\x09aRequest on: 'end' do: [\x0a\x09\x09stream writable ifTrue: [stream end]]",
 messageSends: ["ifFalse:", "isAuthenticated:", "respondAuthenticationRequiredTo:", ",", "url", "createWriteStream:", "on:do:", "warn:", "respondNotCreatedTo:", "respondCreatedTo:", "setEncoding:", "write:", "ifTrue:", "writable", "end"],
 referencedClasses: []
 }),
@@ -482,7 +501,7 @@ $1=self["@host"];
 return $1;
 },
 args: [],
-source: "host\x0a\x09^host",
+source: "host\x0a\x09^ host",
 messageSends: [],
 referencedClasses: []
 }),
@@ -597,7 +616,7 @@ return false;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"isAuthenticated:",{aRequest:aRequest,header:header,token:token,auth:auth,parts:parts},globals.FileServer)})},
 args: ["aRequest"],
-source: "isAuthenticated: aRequest\x0a\x09\x22Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175\x0a\x09 and https://gist.github.com/1686663\x22\x0a\x09| header token auth parts|\x0a\x0a\x09(username isNil and: [password isNil]) ifTrue: [^true].\x0a\x0a\x09\x22get authentication header\x22\x0a\x09header := (aRequest headers at: 'authorization') ifNil:[''].\x0a\x09(header isEmpty)\x0a\x09ifTrue: [^false]\x0a\x09ifFalse: [\x0a\x09\x09\x22get authentication token\x22\x0a\x09\x09token := (header tokenize: ' ') ifNil:[''].\x0a\x09\x09\x22convert back from base64\x22\x0a\x09\x09auth := self base64Decode: (token at: 2).\x0a\x09\x09\x22split token at colon\x22\x0a\x09\x09parts := auth tokenize: ':'.\x0a\x0a\x09\x09((username = (parts at: 1)) and: [password = (parts at: 2)])\x0a\x09\x09\x09ifTrue: [^true]\x0a\x09\x09\x09ifFalse: [^false]\x0a\x09].",
+source: "isAuthenticated: aRequest\x0a\x09\x22Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175\x0a\x09 and https://gist.github.com/1686663\x22\x0a\x09| header token auth parts|\x0a\x0a\x09(username isNil and: [password isNil]) ifTrue: [^ true].\x0a\x0a\x09\x22get authentication header\x22\x0a\x09header := (aRequest headers at: 'authorization') ifNil:[''].\x0a\x09(header isEmpty)\x0a\x09ifTrue: [^ false]\x0a\x09ifFalse: [\x0a\x09\x09\x22get authentication token\x22\x0a\x09\x09token := (header tokenize: ' ') ifNil:[''].\x0a\x09\x09\x22convert back from base64\x22\x0a\x09\x09auth := self base64Decode: (token at: 2).\x0a\x09\x09\x22split token at colon\x22\x0a\x09\x09parts := auth tokenize: ':'.\x0a\x0a\x09\x09((username = (parts at: 1)) and: [password = (parts at: 2)])\x0a\x09\x09\x09ifTrue: [^ true]\x0a\x09\x09\x09ifFalse: [^ false]\x0a\x09].",
 messageSends: ["ifTrue:", "and:", "isNil", "ifNil:", "at:", "headers", "ifTrue:ifFalse:", "isEmpty", "tokenize:", "base64Decode:", "="],
 referencedClasses: []
 }),
@@ -629,7 +648,7 @@ $1=self["@port"];
 return $1;
 },
 args: [],
-source: "port\x0a\x09^port",
+source: "port\x0a\x09^ port",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1022,7 +1041,7 @@ $1=_st(self["@path"])._join_with_(self._basePath(),aBaseRelativePath);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"withBasePath:",{aBaseRelativePath:aBaseRelativePath},globals.FileServer)})},
 args: ["aBaseRelativePath"],
-source: "withBasePath: aBaseRelativePath\x0a\x09\x22return a file path which is relative to the basePath.\x22\x0a\x09^\x09path join: self basePath with: aBaseRelativePath",
+source: "withBasePath: aBaseRelativePath\x0a\x09\x22return a file path which is relative to the basePath.\x22\x0a\x09^ path join: self basePath with: aBaseRelativePath",
 messageSends: ["join:with:", "basePath"],
 referencedClasses: []
 }),
@@ -1073,7 +1092,7 @@ $1=switches;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},globals.FileServer.klass)})},
 args: [],
-source: "commandLineSwitches\x0a\x09\x22Collect all methodnames from the 'accessing' protocol\x0a\x09 and select the ones with only one parameter.\x0a\x09 Then remove the ':' at the end of the name\x0a\x09 and add a '--' at the beginning.\x0a\x09 Additionally all uppercase letters are made lowercase and preceded by a '-'.\x0a\x09 Example: fallbackPage: becomes --fallback-page.\x0a\x09 Return the Array containing the commandline switches.\x22\x0a\x09| switches |\x0a\x09switches := ((self methodsInProtocol: 'accessing') collect: [ :each | each selector]).\x0a\x09switches := switches select: [ :each | each match: '^[^:]*:$'].\x0a\x09switches :=switches collect: [ :each |\x0a\x09\x09(each allButLast replace: '([A-Z])' with: '-$1') asLowercase replace: '^([a-z])' with: '--$1' ].\x0a\x09^switches",
+source: "commandLineSwitches\x0a\x09\x22Collect all methodnames from the 'accessing' protocol\x0a\x09 and select the ones with only one parameter.\x0a\x09 Then remove the ':' at the end of the name\x0a\x09 and add a '--' at the beginning.\x0a\x09 Additionally all uppercase letters are made lowercase and preceded by a '-'.\x0a\x09 Example: fallbackPage: becomes --fallback-page.\x0a\x09 Return the Array containing the commandline switches.\x22\x0a\x09| switches |\x0a\x09switches := ((self methodsInProtocol: 'accessing') collect: [ :each | each selector]).\x0a\x09switches := switches select: [ :each | each match: '^[^:]*:$'].\x0a\x09switches :=switches collect: [ :each |\x0a\x09\x09(each allButLast replace: '([A-Z])' with: '-$1') asLowercase replace: '^([a-z])' with: '--$1' ].\x0a\x09^ switches",
 messageSends: ["collect:", "methodsInProtocol:", "selector", "select:", "match:", "replace:with:", "asLowercase", "allButLast"],
 referencedClasses: []
 }),
@@ -1151,7 +1170,7 @@ return $11;
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"createServerWithArguments:",{options:options,server:server,popFront:popFront,front:front,optionName:optionName,optionValue:optionValue,switches:switches},globals.FileServer.klass)})},
 args: ["options"],
-source: "createServerWithArguments: options\x0a\x09\x22If options are empty return a default FileServer instance.\x0a\x09 If options are given loop through them and set the passed in values\x0a\x09 on the FileServer instance.\x0a\x09 \x0a\x09 Commanline options map directly to methods in the 'accessing' protocol\x0a\x09 taking one parameter.\x0a\x09 Adding a method to this protocol makes it directly settable through\x0a\x09 command line options.\x0a\x09 \x22\x0a\x09| server popFront front optionName optionValue switches |\x0a\x0a\x09switches := self commandLineSwitches.\x0a\x0a\x09server := self new.\x0a\x0a\x09options ifEmpty: [^server].\x0a\x0a\x09(options size even) ifFalse: [\x0a\x09\x09console log: 'Using default parameters.'.\x0a\x09\x09console log: 'Wrong commandline options or not enough arguments for: ' , options.\x0a\x09\x09console log: 'Use any of the following ones: ', switches.\x0a\x09\x09^server].\x0a\x0a\x09popFront := [:args |\x0a\x09\x09front := args first.\x0a\x09\x09args remove: front.\x0a\x09\x09front].\x0a\x0a\x09[options notEmpty] whileTrue: [\x0a\x09\x09optionName  := popFront value: options.\x0a\x09\x09optionValue := popFront value: options.\x0a\x0a\x09\x09(switches includes: optionName) ifTrue: [\x0a\x09\x09\x09optionName := self selectorForCommandLineSwitch: optionName.\x0a\x09\x09\x09server perform: optionName withArguments: (Array with: optionValue)]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09console log: optionName, ' is not a valid commandline option'.\x0a\x09\x09\x09\x09console log: 'Use any of the following ones: ', switches ]].\x0a\x09^server.",
+source: "createServerWithArguments: options\x0a\x09\x22If options are empty return a default FileServer instance.\x0a\x09 If options are given loop through them and set the passed in values\x0a\x09 on the FileServer instance.\x0a\x09 \x0a\x09 Commanline options map directly to methods in the 'accessing' protocol\x0a\x09 taking one parameter.\x0a\x09 Adding a method to this protocol makes it directly settable through\x0a\x09 command line options.\x0a\x09 \x22\x0a\x09| server popFront front optionName optionValue switches |\x0a\x0a\x09switches := self commandLineSwitches.\x0a\x0a\x09server := self new.\x0a\x0a\x09options ifEmpty: [^server].\x0a\x0a\x09(options size even) ifFalse: [\x0a\x09\x09console log: 'Using default parameters.'.\x0a\x09\x09console log: 'Wrong commandline options or not enough arguments for: ' , options.\x0a\x09\x09console log: 'Use any of the following ones: ', switches.\x0a\x09\x09^server].\x0a\x0a\x09popFront := [:args |\x0a\x09\x09front := args first.\x0a\x09\x09args remove: front.\x0a\x09\x09front].\x0a\x0a\x09[options notEmpty] whileTrue: [\x0a\x09\x09optionName  := popFront value: options.\x0a\x09\x09optionValue := popFront value: options.\x0a\x0a\x09\x09(switches includes: optionName) ifTrue: [\x0a\x09\x09\x09optionName := self selectorForCommandLineSwitch: optionName.\x0a\x09\x09\x09server perform: optionName withArguments: (Array with: optionValue)]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09console log: optionName, ' is not a valid commandline option'.\x0a\x09\x09\x09\x09console log: 'Use any of the following ones: ', switches ]].\x0a\x09^ server.",
 messageSends: ["commandLineSwitches", "new", "ifEmpty:", "ifFalse:", "even", "size", "log:", ",", "first", "remove:", "whileTrue:", "notEmpty", "value:", "ifTrue:ifFalse:", "includes:", "selectorForCommandLineSwitch:", "perform:withArguments:", "with:"],
 referencedClasses: ["Array"]
 }),
@@ -1181,7 +1200,7 @@ var self=this;
 return "127.0.0.1";
 },
 args: [],
-source: "defaultHost\x0a\x09^'127.0.0.1'",
+source: "defaultHost\x0a\x09^ '127.0.0.1'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1213,7 +1232,7 @@ var self=this;
 return (4000);
 },
 args: [],
-source: "defaultPort\x0a\x09^4000",
+source: "defaultPort\x0a\x09^ 4000",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1250,7 +1269,7 @@ return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"main",{fileServer:fileServer,args:args},globals.FileServer.klass)})},
 args: [],
-source: "main\x0a\x09\x22Main entry point for Amber applications.\x0a\x09 Creates and starts a FileServer instance.\x22\x0a\x09| fileServer args |\x0a\x09args := process argv.\x0a\x09\x22Remove the first args which contain the path to the node executable and the script file.\x22\x0a\x09args removeFrom: 1 to: 3.\x0a\x0a\x09args detect: [ :each |\x0a\x09\x09(each = '--help') ifTrue: [FileServer printHelp]]\x0a\x09ifNone: [\x0a\x09\x09fileServer := FileServer createServerWithArguments: args.\x0a\x09\x09^fileServer start]",
+source: "main\x0a\x09\x22Main entry point for Amber applications.\x0a\x09 Creates and starts a FileServer instance.\x22\x0a\x09| fileServer args |\x0a\x09args := process argv.\x0a\x09\x22Remove the first args which contain the path to the node executable and the script file.\x22\x0a\x09args removeFrom: 1 to: 3.\x0a\x0a\x09args detect: [ :each |\x0a\x09\x09(each = '--help') ifTrue: [FileServer printHelp]]\x0a\x09ifNone: [\x0a\x09\x09fileServer := FileServer createServerWithArguments: args.\x0a\x09\x09^ fileServer start]",
 messageSends: ["argv", "removeFrom:to:", "detect:ifNone:", "ifTrue:", "=", "printHelp", "createServerWithArguments:", "start"],
 referencedClasses: ["FileServer"]
 }),
@@ -1270,7 +1289,7 @@ return "text/plain";
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"mimeTypeFor:",{aString:aString},globals.FileServer.klass)})},
 args: ["aString"],
-source: "mimeTypeFor: aString\x0a\x09^self mimeTypes at: (aString replace: '.*[\x5c.]' with: '') ifAbsent: ['text/plain']",
+source: "mimeTypeFor: aString\x0a\x09^ self mimeTypes at: (aString replace: '.*[\x5c.]' with: '') ifAbsent: ['text/plain']",
 messageSends: ["at:ifAbsent:", "mimeTypes", "replace:with:"],
 referencedClasses: []
 }),
@@ -1294,7 +1313,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"mimeTypes",{},globals.FileServer.klass)})},
 args: [],
-source: "mimeTypes\x0a\x09^mimeTypes ifNil: [mimeTypes := self defaultMimeTypes]",
+source: "mimeTypes\x0a\x09^ mimeTypes ifNil: [mimeTypes := self defaultMimeTypes]",
 messageSends: ["ifNil:", "defaultMimeTypes"],
 referencedClasses: []
 }),
@@ -1340,11 +1359,134 @@ $1=_st($2).__comma(":");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch},globals.FileServer.klass)})},
 args: ["aSwitch"],
-source: "selectorForCommandLineSwitch: aSwitch\x0a\x09\x22Remove the trailing '--', add ':' at the end\x0a\x09 and replace all occurences of a lowercase letter preceded by a '-' with\x0a\x09 the Uppercase letter.\x0a\x09 Example: --fallback-page becomes fallbackPage:\x22\x0a\x09^((aSwitch replace: '^--' with: '')\x0a\x09\x09replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':'",
+source: "selectorForCommandLineSwitch: aSwitch\x0a\x09\x22Remove the trailing '--', add ':' at the end\x0a\x09 and replace all occurences of a lowercase letter preceded by a '-' with\x0a\x09 the Uppercase letter.\x0a\x09 Example: --fallback-page becomes fallbackPage:\x22\x0a\x09^ ((aSwitch replace: '^--' with: '')\x0a\x09\x09replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':'",
 messageSends: [",", "replace:with:", "asUppercase", "second"],
 referencedClasses: []
 }),
 globals.FileServer.klass);
+
+
+smalltalk.addClass('NodeTestRunner', globals.Object, [], 'AmberCli');
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "runTestSuite",
+protocol: 'not yet classified',
+fn: function (){
+var self=this;
+var suite,worker;
+function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
+function $TestSuiteRunner(){return globals.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
+function $ResultAnnouncement(){return globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$3,$9,$8,$12,$11,$10,$7,$6,$15,$14,$13,$5,$4,$17,$16,$19,$18,$26,$25,$24,$23,$22,$28,$27,$21,$20,$30,$29,$32,$31,$39,$38,$37,$36,$35,$34,$33;
+suite=_st($OrderedCollection())._new();
+_st(_st(_st($TestCase())._allSubclasses())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._isAbstract())._not();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(suite)._addAll_(_st(each)._buildSuite());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+worker=_st($TestSuiteRunner())._on_(suite);
+_st(_st(worker)._announcer())._on_do_($ResultAnnouncement(),(function(ann){
+var result;
+return smalltalk.withContext(function($ctx2) {
+result=_st(ann)._result();
+result;
+$2=_st(result)._runs();
+$ctx2.sendIdx["runs"]=1;
+$1=_st($2).__eq(_st(result)._total());
+if(smalltalk.assert($1)){
+$3=console;
+$9=_st(_st(result)._runs())._asString();
+$ctx2.sendIdx["asString"]=1;
+$8=_st($9).__comma(" tests run, ");
+$ctx2.sendIdx[","]=5;
+$12=_st(result)._failures();
+$ctx2.sendIdx["failures"]=1;
+$11=_st($12)._size();
+$ctx2.sendIdx["size"]=1;
+$10=_st($11)._asString();
+$ctx2.sendIdx["asString"]=2;
+$7=_st($8).__comma($10);
+$ctx2.sendIdx[","]=4;
+$6=_st($7).__comma(" failures, ");
+$ctx2.sendIdx[","]=3;
+$15=_st(result)._errors();
+$ctx2.sendIdx["errors"]=1;
+$14=_st($15)._size();
+$13=_st($14)._asString();
+$5=_st($6).__comma($13);
+$ctx2.sendIdx[","]=2;
+$4=_st($5).__comma(" errors.");
+$ctx2.sendIdx[","]=1;
+_st($3)._log_($4);
+$17=_st(result)._failures();
+$ctx2.sendIdx["failures"]=2;
+$16=_st($17)._isEmpty();
+$ctx2.sendIdx["isEmpty"]=1;
+if(! smalltalk.assert($16)){
+$19=_st(result)._failures();
+$ctx2.sendIdx["failures"]=3;
+$18=_st($19)._first();
+$ctx2.sendIdx["first"]=1;
+_st($18)._runCase();
+$ctx2.sendIdx["runCase"]=1;
+$26=_st(result)._failures();
+$ctx2.sendIdx["failures"]=4;
+$25=_st($26)._first();
+$ctx2.sendIdx["first"]=2;
+$24=_st($25)._class();
+$ctx2.sendIdx["class"]=1;
+$23=_st($24)._name();
+$ctx2.sendIdx["name"]=1;
+$22=_st($23).__comma(" >> ");
+$ctx2.sendIdx[","]=8;
+$28=_st(_st(result)._failures())._first();
+$ctx2.sendIdx["first"]=3;
+$27=_st($28)._selector();
+$ctx2.sendIdx["selector"]=1;
+$21=_st($22).__comma($27);
+$ctx2.sendIdx[","]=7;
+$20=_st($21).__comma(" is failing!!");
+$ctx2.sendIdx[","]=6;
+self._throw_($20);
+$ctx2.sendIdx["throw:"]=1;
+};
+$30=_st(result)._errors();
+$ctx2.sendIdx["errors"]=2;
+$29=_st($30)._isEmpty();
+if(! smalltalk.assert($29)){
+$32=_st(result)._errors();
+$ctx2.sendIdx["errors"]=3;
+$31=_st($32)._first();
+$ctx2.sendIdx["first"]=4;
+_st($31)._runCase();
+$39=_st(result)._errors();
+$ctx2.sendIdx["errors"]=4;
+$38=_st($39)._first();
+$ctx2.sendIdx["first"]=5;
+$37=_st($38)._class();
+$36=_st($37)._name();
+$35=_st($36).__comma(" >> ");
+$34=_st($35).__comma(_st(_st(_st(result)._errors())._first())._selector());
+$ctx2.sendIdx[","]=10;
+$33=_st($34).__comma(" has errors!!");
+$ctx2.sendIdx[","]=9;
+return self._throw_($33);
+};
+};
+}, function($ctx2) {$ctx2.fillBlock({ann:ann,result:result},$ctx1,3)})}));
+_st(worker)._run();
+return self}, function($ctx1) {$ctx1.fill(self,"runTestSuite",{suite:suite,worker:worker},globals.NodeTestRunner.klass)})},
+args: [],
+source: "runTestSuite\x0a\x09| suite worker |\x0a\x0a\x09suite := OrderedCollection new.\x0a\x09(TestCase allSubclasses select: [ :each | each isAbstract not ])\x0a\x09\x09do: [ :each | suite addAll: each buildSuite ].\x0a\x0a\x09worker := TestSuiteRunner on: suite.\x0a\x09worker announcer on: ResultAnnouncement do:\x0a\x09\x09[ :ann | | result |\x0a\x09\x09\x09result := ann result.\x0a\x09\x09\x09result runs = result total ifTrue: [\x0a\x09\x09\x09\x09console log: result runs asString, ' tests run, ', result failures size asString, ' failures, ', result errors size asString, ' errors.'.\x0a\x0a\x09\x09\x09\x09result failures isEmpty ifFalse: [\x0a\x09\x09\x09\x09\x09result failures first runCase.\x0a\x09\x09\x09\x09\x09\x22the line above should throw, normally, but just in case I leave the line below\x22\x0a\x09\x09\x09\x09\x09self throw: result failures first class name, ' >> ', result failures first selector, ' is failing!!' ].\x0a\x09\x09\x09\x09result errors isEmpty ifFalse: [\x0a\x09\x09\x09\x09\x09result errors first runCase.\x0a\x09\x09\x09\x09\x09\x22the line above should throw, normally, but just in case I leave the line below\x22\x0a\x09\x09\x09\x09\x09self throw: result errors first class name, ' >> ', result errors first selector, ' has errors!!' ].\x0a\x09]].\x0a\x09worker run",
+messageSends: ["new", "do:", "select:", "allSubclasses", "not", "isAbstract", "addAll:", "buildSuite", "on:", "on:do:", "announcer", "result", "ifTrue:", "=", "runs", "total", "log:", ",", "asString", "size", "failures", "errors", "ifFalse:", "isEmpty", "runCase", "first", "throw:", "name", "class", "selector", "run"],
+referencedClasses: ["OrderedCollection", "TestCase", "TestSuiteRunner", "ResultAnnouncement"]
+}),
+globals.NodeTestRunner.klass);
 
 
 smalltalk.addClass('Repl', globals.Object, ['readline', 'interface', 'util', 'session', 'resultCount', 'commands'], 'AmberCli');
@@ -1875,7 +2017,7 @@ var self=this;
 return "amber >> ";
 },
 args: [],
-source: "prompt\x0a\x09^'amber >> '",
+source: "prompt\x0a\x09^ 'amber >> '",
 messageSends: [],
 referencedClasses: []
 }),
