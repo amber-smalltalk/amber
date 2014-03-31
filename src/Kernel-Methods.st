@@ -697,29 +697,29 @@ Created instances will most probably be instance of `JSObjectProxy`.
 
 constructor: aString
 	<
-		var native=eval(aString);
-		return new native();
+		var nativeFunc=eval(aString);
+		return new nativeFunc();
 	>
 !
 
 constructor: aString value:anObject
 	<
-		var native=eval(aString);
-		return new native(anObject);
+		var nativeFunc=eval(aString);
+		return new nativeFunc(anObject);
 	>
 !
 
 constructor: aString value:anObject value: anObject2
 	<
-		var native=eval(aString);
-		return new native(anObject,anObject2);
+		var nativeFunc=eval(aString);
+		return new nativeFunc(anObject,anObject2);
 	>
 !
 
 constructor: aString value:anObject value: anObject2 value:anObject3
 	<
-		var native=eval(aString);
-		return new native(anObject,anObject2, anObject3);
+		var nativeFunc=eval(aString);
+		return new nativeFunc(anObject,anObject2, anObject3);
 	>
 ! !
 
