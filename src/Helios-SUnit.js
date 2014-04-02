@@ -1,6 +1,6 @@
-define("amber_core/Helios-SUnit", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Core"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-SUnit", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Core"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-SUnit');
-smalltalk.packages["Helios-SUnit"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-SUnit"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLSUnit', globals.HLWidget, [], 'Helios-SUnit');
 

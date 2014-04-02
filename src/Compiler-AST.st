@@ -478,6 +478,13 @@ sendIndexes: aDictionary
 	sendIndexes := aDictionary
 !
 
+sequenceNode
+	self nodes do: [ :each |
+		each isSequenceNode ifTrue: [ ^ each ] ].
+		
+	^ nil
+!
+
 source
 	^ source
 !

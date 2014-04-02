@@ -1,6 +1,6 @@
-define("amber_core/Helios-Commands-Tools", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Commands-Core"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Commands-Tools", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Commands-Core"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Commands-Tools');
-smalltalk.packages["Helios-Commands-Tools"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Commands-Tools"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLToolCommand', globals.HLModelCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
@@ -625,7 +625,7 @@ protocol: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$4,$1,$receiver,$receiver;
+var $3,$2,$4,$1,$receiver;
 $3=self._model();
 $ctx1.sendIdx["model"]=1;
 $2=_st($3)._selectedMethod();

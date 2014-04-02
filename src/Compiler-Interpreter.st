@@ -63,9 +63,14 @@ valueWithPossibleArguments: aCollection
 	sequenceNode := node nodes first copy
 		parent: nil;
 		yourself.
-
+		
+	"Define locals in the context"
+	sequenceNode temps do: [ :each |
+		context defineLocal: each ].
+		
 	"Populate the arguments into the context locals"	
 	node parameters withIndexDo: [ :each :index |
+		context defineLocal: each.
 		context localAt: each put: (aCollection at: index ifAbsent: [ nil ]) ].
 
 	"Interpret the first node of the BlockSequenceNode"
@@ -105,6 +110,10 @@ When debugging, my instances are created by copying the current `MethodContext` 
 
 !AIContext methodsFor: 'accessing'!
 
+defineLocal: aString
+	self locals at: aString put: nil
+!
+
 evaluatedSelector
 	^ evaluatedSelector
 !
@@ -132,23 +141,29 @@ innerContext: anAIContext
 localAt: aString
 	"Lookup the local value up to the method context"
 
-	^ self locals at: aString ifAbsent: [ 
-		self outerContext ifNotNil: [ :context | 
-			context localAt: aString ifAbsent: [ 
-				self error: 'Variable missing' ] ] ]
+	| context |
+	
+	context := self lookupContextForLocal: aString.
+	^ context basicLocalAt: aString
 !
 
 localAt: aString ifAbsent: aBlock
 	"Lookup the local value up to the method context"
 
-	^ self locals at: aString ifAbsent: [ 
-		self outerContext 
-			ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]
-			ifNil: [ aBlock value ] ]
+	| context |
+	
+	context := self 	
+		lookupContextForLocal: aString 
+		ifNone: [ ^ aBlock value ].
+	
+	^ context basicLocalAt: aString
 !
 
 localAt: aString put: anObject
-	self locals at: aString put: anObject
+	| context |
+	
+	context := self lookupContextForLocal: aString.
+	context basicLocalAt: aString put: anObject
 !
 
 locals
@@ -190,6 +205,14 @@ sendIndexes
 
 sendIndexes: aDictionary
 	sendIndexes := aDictionary
+! !
+
+!AIContext methodsFor: 'error handling'!
+
+variableNotFound
+	"Error thrown whenever a variable lookup fails"
+	
+	self error: 'Variable missing'
 ! !
 
 !AIContext methodsFor: 'evaluating'!
@@ -282,7 +305,7 @@ interpreter: anInterpreter
 !
 
 receiver: anObject
-	self localAt: 'self' put: anObject
+	self locals at: 'self' put: anObject
 !
 
 setupInterpreter: anInterpreter
@@ -295,6 +318,11 @@ setupInterpreter: anInterpreter
 			visit: self ast;
 			currentNode.
 	
+	"Define locals for the context"
+	self ast sequenceNode ifNotNil: [ :sequence |
+		sequence temps do: [ :each |
+			self defineLocal: each ] ].
+	
 	anInterpreter node: currentNode.
 
 	"Push the send args and receiver to the interpreter stack"	
@@ -302,6 +330,39 @@ setupInterpreter: anInterpreter
 		anInterpreter push: each ].
 		
 	anInterpreter push: (self innerContext receiver)
+! !
+
+!AIContext methodsFor: 'private'!
+
+basicLocalAt: aString
+	^ self locals at: aString
+!
+
+basicLocalAt: aString put: anObject
+	self locals at: aString put: anObject
+!
+
+lookupContextForLocal: aString
+	"Lookup the context defining the local named `aString` 
+	up to the method context"
+
+	^ self 
+		lookupContextForLocal: aString 
+		ifNone: [ self variableNotFound ]
+!
+
+lookupContextForLocal: aString ifNone: aBlock
+	"Lookup the context defining the local named `aString` 
+	up to the method context"
+
+	^ self locals 
+		at: aString
+		ifPresent: [ self ]
+		ifAbsent: [ 
+			self outerContext 
+				ifNil: aBlock
+				ifNotNil: [ :context | 
+					context lookupContextForLocal: aString ] ]
 ! !
 
 !AIContext methodsFor: 'testing'!
@@ -775,6 +836,11 @@ visitSendNode: aNode
 	(aNode isCascadeSendNode and: [ aNode isLastChild not ])
 		ifTrue: [ self push: receiver ]
 		ifFalse: [ self push: result ]
+!
+
+visitSequenceNode: aNode
+	aNode temps do: [ :each |
+		self context defineLocal: each ]
 !
 
 visitValueNode: aNode

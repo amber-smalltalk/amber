@@ -129,7 +129,7 @@ renderContentOn: html
 	self renderHeadOn: html.
 	html with: (HLContainer with: (HLVerticalSplitter
 		with: self codeWidget
-		with: (HLVerticalSplitter
+		with: (HLHorizontalSplitter
 			with: self stackListWidget
 			with: self inspectorWidget)))
 !

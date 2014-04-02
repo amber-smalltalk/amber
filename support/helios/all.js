@@ -16,11 +16,13 @@ require.config({
 });
 
 define([
-	'./helpers', // pre-fetch, dep of ./deploy
-	'./deploy', // pre-fetch, dep of ./lang
-	'./lang',
-	'./codemirror',
-	'./devel-inner', // pre-fetch, dep of ./helios-inner
-	'./helios-inner',
-	'css!amber_css/helios'
+	'amber/helpers', // pre-fetch, dep of amber/deploy
+	'amber/deploy', // pre-fetch, dep of amber/lang
+	'amber/lang',
+	'amber/codemirror',
+	'amber/devel-inner', // pre-fetch, dep of ./all-inner
+	'./resources/all-inner',
+    'css!./resources/helios',
+	'css!./resources/helios-niflheim',
+    'css!amber_css/niflheim'
 ], function (smalltalk) { return smalltalk; });

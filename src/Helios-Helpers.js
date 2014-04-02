@@ -1,6 +1,6 @@
-define("amber_core/Helios-Helpers", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Helpers", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Helpers');
-smalltalk.packages["Helios-Helpers"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Helpers"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLClassifier', globals.Object, ['next', 'method'], 'Helios-Helpers');
 globals.HLClassifier.comment="I am an abstract class implementing a link in a `chain of responsibility` pattern.\x0a\x0aSubclasses are in charge of classifying a method according to multiple strategies.";

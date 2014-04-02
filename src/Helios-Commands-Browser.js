@@ -1,6 +1,6 @@
-define("amber_core/Helios-Commands-Browser", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Commands-Tools"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Commands-Browser", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Commands-Tools"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Commands-Browser');
-smalltalk.packages["Helios-Commands-Browser"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Commands-Browser"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLBrowserCommand', globals.HLToolCommand, [], 'Helios-Commands-Browser');
 

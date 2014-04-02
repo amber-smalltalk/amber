@@ -1,6 +1,6 @@
-define("amber_core/Helios-Workspace", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "amber_core/Helios-Core"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Workspace", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "helios/Helios-Core"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Workspace');
-smalltalk.packages["Helios-Workspace"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Workspace"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLCodeModel', globals.Object, ['announcer', 'environment', 'receiver'], 'Helios-Workspace');
 smalltalk.addMethod(
@@ -455,13 +455,13 @@ var self=this;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$2="helios.codeMirrorTheme"._settingValueIfAbsent_("default helios");
+$2="helios.editorTheme"._settingValueIfAbsent_("default");
 $ctx1.sendIdx["settingValueIfAbsent:"]=1;
 $1=globals.HashedCollection._newFromPairs_(["theme",$2,"mode","text/x-stsrc","lineNumbers",true,"enterMode","flat","indentWithTabs",true,"indentUnit",(4),"matchBrackets",true,"electricChars",false,"keyMap","Amber","extraKeys",_st($HashedCollection())._with_(_st("helios.completionKey"._settingValueIfAbsent_("Shift-Space")).__minus_gt("autocomplete"))]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"editorOptions",{},globals.HLCodeWidget)})},
 args: [],
-source: "editorOptions\x0a\x09^ #{\x0a\x09\x09'theme' -> ('helios.codeMirrorTheme' settingValueIfAbsent: 'default helios').\x0a\x09\x09'mode' -> 'text/x-stsrc'.\x0a        'lineNumbers' -> true.\x0a        'enterMode' -> 'flat'.\x0a        'indentWithTabs' -> true.\x0a\x09\x09'indentUnit' -> 4.\x0a        'matchBrackets' -> true.\x0a        'electricChars' -> false.\x0a\x09\x09'keyMap' -> 'Amber'.\x0a\x09\x09'extraKeys' -> (HashedCollection with: ('helios.completionKey' settingValueIfAbsent: 'Shift-Space') -> 'autocomplete')\x0a\x09}",
+source: "editorOptions\x0a\x09^ #{\x0a\x09\x09'theme' -> ('helios.editorTheme' settingValueIfAbsent: 'default').\x0a\x09\x09'mode' -> 'text/x-stsrc'.\x0a        'lineNumbers' -> true.\x0a        'enterMode' -> 'flat'.\x0a        'indentWithTabs' -> true.\x0a\x09\x09'indentUnit' -> 4.\x0a        'matchBrackets' -> true.\x0a        'electricChars' -> false.\x0a\x09\x09'keyMap' -> 'Amber'.\x0a\x09\x09'extraKeys' -> (HashedCollection with: ('helios.completionKey' settingValueIfAbsent: 'Shift-Space') -> 'autocomplete')\x0a\x09}",
 messageSends: ["settingValueIfAbsent:", "with:", "->"],
 referencedClasses: ["HashedCollection"]
 }),

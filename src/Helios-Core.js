@@ -1,6 +1,6 @@
-define("amber_core/Helios-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Objects", "amber_core/Web"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Objects", "amber_core/Web"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Core');
-smalltalk.packages["Helios-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Core"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLModel', globals.InterfacingObject, ['announcer', 'environment'], 'Helios-Core');
 globals.HLModel.comment="I am the abstract superclass of all models of Helios.\x0aI am the \x22Model\x22 part of the MVC pattern implementation in Helios.\x0a\x0aI provide access to an `Environment` object and both a local (model-specific) and global (system-specific) announcer.\x0a\x0aThe `#withChangesDo:` method is handy for performing model changes ensuring that all widgets are aware of the change and can prevent it from happening.\x0a\x0aModifications of the system should be done via commands (see `HLCommand` and subclasses).";
@@ -403,7 +403,7 @@ fn: function (){
 var self=this;
 var currentProtocol;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3,$receiver,$receiver;
+var $1,$2,$4,$3,$receiver;
 currentProtocol=self._selectedProtocol();
 $1=currentProtocol;
 if(($receiver = $1) == nil || $receiver == null){
@@ -2528,7 +2528,7 @@ fn: function (anObject){
 var self=this;
 return self},
 args: ["anObject"],
-source: "reselectItem: anObject\x0a\x09",
+source: "reselectItem: anObject",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3508,7 +3508,7 @@ var self=this;
 var parent,parentSmalltalkGlobals;
 function $Environment(){return globals.Environment||(typeof Environment=="undefined"?nil:Environment)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$receiver,$receiver,$receiver;
+var $1,$2,$3,$4,$5,$6,$7,$receiver;
 $1=_st(window)._opener();
 if(($receiver = $1) == nil || $receiver == null){
 parent=_st(window)._parent();
@@ -3879,6 +3879,44 @@ globals.HLManager);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "setEditorTheme:",
+protocol: 'accessing',
+fn: function (aTheme){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st("helios.editorTheme"._asSetting())._value_(aTheme);
+return self}, function($ctx1) {$ctx1.fill(self,"setEditorTheme:",{aTheme:aTheme},globals.HLManager)})},
+args: ["aTheme"],
+source: "setEditorTheme: aTheme\x0a\x0a\x09'helios.editorTheme' asSetting value: aTheme",
+messageSends: ["value:", "asSetting"],
+referencedClasses: []
+}),
+globals.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setTheme:",
+protocol: 'accessing',
+fn: function (aTheme){
+var self=this;
+var currentTheme;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+currentTheme="helios.theme"._asSettingIfAbsent_("default");
+$1="body"._asJQuery();
+_st($1)._removeClass_(_st(currentTheme)._value());
+$2=_st($1)._addClass_(aTheme);
+_st("helios.theme"._asSetting())._value_(aTheme);
+return self}, function($ctx1) {$ctx1.fill(self,"setTheme:",{aTheme:aTheme,currentTheme:currentTheme},globals.HLManager)})},
+args: ["aTheme"],
+source: "setTheme: aTheme\x0a\x09| currentTheme |\x0a\x0a\x09currentTheme := 'helios.theme' asSettingIfAbsent: 'default'.\x0a\x09\x0a\x09'body' asJQuery\x0a\x09\x09removeClass: currentTheme value;\x0a\x09\x09addClass: aTheme.\x0a\x09\x09\x0a\x09\x0a\x09'helios.theme' asSetting value: aTheme",
+messageSends: ["asSettingIfAbsent:", "removeClass:", "asJQuery", "value", "addClass:", "value:", "asSetting"],
+referencedClasses: []
+}),
+globals.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "setup",
 protocol: 'initialization',
 fn: function (){
@@ -3891,11 +3929,12 @@ $ctx1.sendIdx["setupEvents"]=1;
 _st(self._keyBinder())._setupEvents();
 $ctx1.sendIdx["setupEvents"]=2;
 _st(self._tabsWidget())._setupEvents();
+self._setupTheme();
 _st("#helper"._asJQuery())._fadeOut();
 return self}, function($ctx1) {$ctx1.fill(self,"setup",{},globals.HLManager)})},
 args: [],
-source: "setup\x0a\x09self \x0a\x09\x09registerServices;\x0a\x09\x09setupEvents.\x0a    self keyBinder setupEvents.\x0a\x09self tabsWidget setupEvents.\x0a\x09\x0a\x09\x0a\x09'#helper' asJQuery fadeOut",
-messageSends: ["registerServices", "setupEvents", "keyBinder", "tabsWidget", "fadeOut", "asJQuery"],
+source: "setup\x0a\x09self \x0a\x09\x09registerServices;\x0a\x09\x09setupEvents.\x0a    self keyBinder setupEvents.\x0a\x09self tabsWidget setupEvents.\x0a\x09self setupTheme.\x0a\x09\x0a\x09\x0a\x09'#helper' asJQuery fadeOut",
+messageSends: ["registerServices", "setupEvents", "keyBinder", "tabsWidget", "setupTheme", "fadeOut", "asJQuery"],
 referencedClasses: []
 }),
 globals.HLManager);
@@ -3935,6 +3974,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"setupEvents",{},globals.HLManage
 args: [],
 source: "setupEvents\x0a\x09'body' asJQuery keydown: [ :event |\x0a\x09\x09\x09\x0a\x09\x09\x22On ctrl keydown, adds a 'navigation' css class to <body>\x0a\x09\x09for the CodeMirror navigation links. See `HLCodeWidget`.\x22\x0a\x09\x09event ctrlKey ifTrue: [\x0a\x09\x09\x09'body' asJQuery addClass: 'navigation' ] ].\x0a\x09\x09\x09\x0a\x09'body' asJQuery keyup: [ :event |\x0a\x09\x09'body' asJQuery removeClass: 'navigation' ].\x0a\x09\x09\x0a\x09window asJQuery resize: [ :event |\x0a\x09\x09self refresh ]",
 messageSends: ["keydown:", "asJQuery", "ifTrue:", "ctrlKey", "addClass:", "keyup:", "removeClass:", "resize:", "refresh"],
+referencedClasses: []
+}),
+globals.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setupTheme",
+protocol: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._setTheme_("default");
+$1=self._setEditorTheme_("default");
+return self}, function($ctx1) {$ctx1.fill(self,"setupTheme",{},globals.HLManager)})},
+args: [],
+source: "setupTheme\x0a\x09\x22self \x0a\x09\x09setTheme: 'niflheim';\x0a\x09\x09setEditorTheme: 'niflheim'.\x22\x0a\x09\x09\x0a\x09self \x0a\x09\x09setTheme: 'default';\x0a\x09\x09setEditorTheme: 'default'.",
+messageSends: ["setTheme:", "setEditorTheme:"],
 referencedClasses: []
 }),
 globals.HLManager);

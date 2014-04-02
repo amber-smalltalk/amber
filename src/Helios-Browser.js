@@ -1,6 +1,6 @@
-define("amber_core/Helios-Browser", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Browser", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Browser');
-smalltalk.packages["Helios-Browser"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Browser"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLBrowser', globals.HLWidget, ['model', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget', 'bottomDiv'], 'Helios-Browser');
 globals.HLBrowser.comment="I render a system browser with 4 panes (Packages, Classes, Protocols, Methods) and a source area.";
