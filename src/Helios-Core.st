@@ -1939,6 +1939,54 @@ default
 	^ default ifNil: [ default := self new ]
 ! !
 
+HLWidget subclass: #HLRemoteConnector
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+
+!HLRemoteConnector methodsFor: 'connecting'!
+
+connect
+	HLManager current
+		request: 'Connect Helios to'
+		value: 'http://localhost:4000'
+		do: [ :url | self connectTo: url ]
+!
+
+connectTo: aLocation
+	| target |
+	
+	target := self openLocation: aLocation.
+	target on: 'loaded' do: [
+		| win |
+		win := target at: 'window'.
+		
+		[
+			| globals environment |
+			globals := (win at: 'requirejs') value: 'amber_vm/globals'.
+			globals ifNil: [ self error: 'Unable to connect to ', aLocation ].
+	
+			environment := (globals at: 'Environment') new.
+			HLManager current 
+				environment: environment;
+				registerServices ] valueWithTimeout: 3000 ]
+!
+
+openLocation: aLocation
+	<
+		return require('nw.gui').Window.open(aLocation);
+	>
+! !
+
+!HLRemoteConnector class methodsFor: 'connecting'!
+
+connect
+	^ self new connect
+!
+
+connectTo: anUrl
+	^ self new connectTo: anUrl
+! !
+
 HLWidget subclass: #HLTabWidget
 	instanceVariableNames: 'widget label root'
 	package: 'Helios-Core'!

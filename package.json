@@ -2,6 +2,7 @@
 	"name": "amber",
 	"main": "helios.html",
 	"window": {
+		"icon": "images/helios-app.png",
 		"toolbar": false,
 		"width": 800,
 		"height": 600

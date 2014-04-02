@@ -5721,6 +5721,129 @@ referencedClasses: []
 globals.HLProgressBarWidget.klass);
 
 
+smalltalk.addClass('HLRemoteConnector', globals.HLWidget, [], 'Helios-Core');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "connect",
+protocol: 'connecting',
+fn: function (){
+var self=this;
+function $HLManager(){return globals.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($HLManager())._current())._request_value_do_("Connect Helios to","http://localhost:4000",(function(url){
+return smalltalk.withContext(function($ctx2) {
+return self._connectTo_(url);
+}, function($ctx2) {$ctx2.fillBlock({url:url},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"connect",{},globals.HLRemoteConnector)})},
+args: [],
+source: "connect\x0a\x09HLManager current\x0a\x09\x09request: 'Connect Helios to'\x0a\x09\x09value: 'http://localhost:4000'\x0a\x09\x09do: [ :url | self connectTo: url ]",
+messageSends: ["request:value:do:", "current", "connectTo:"],
+referencedClasses: ["HLManager"]
+}),
+globals.HLRemoteConnector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "connectTo:",
+protocol: 'connecting',
+fn: function (aLocation){
+var self=this;
+var target;
+function $HLManager(){return globals.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$receiver;
+target=self._openLocation_(aLocation);
+_st(target)._on_do_("loaded",(function(){
+var win;
+return smalltalk.withContext(function($ctx2) {
+win=_st(target)._at_("window");
+$ctx2.sendIdx["at:"]=1;
+win;
+return _st((function(){
+var globals,environment;
+return smalltalk.withContext(function($ctx3) {
+$1=_st(win)._at_("requirejs");
+$ctx3.sendIdx["at:"]=2;
+globals=_st($1)._value_("amber_vm/globals");
+globals;
+$2=globals;
+if(($receiver = $2) == nil || $receiver == null){
+self._error_("Unable to connect to ".__comma(aLocation));
+} else {
+$2;
+};
+environment=_st(_st(globals)._at_("Environment"))._new();
+environment;
+$3=_st($HLManager())._current();
+_st($3)._environment_(environment);
+$4=_st($3)._registerServices();
+return $4;
+}, function($ctx3) {$ctx3.fillBlock({globals:globals,environment:environment},$ctx2,2)})}))._valueWithTimeout_((3000));
+}, function($ctx2) {$ctx2.fillBlock({win:win},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"connectTo:",{aLocation:aLocation,target:target},globals.HLRemoteConnector)})},
+args: ["aLocation"],
+source: "connectTo: aLocation\x0a\x09| target |\x0a\x09\x0a\x09target := self openLocation: aLocation.\x0a\x09target on: 'loaded' do: [\x0a\x09\x09| win |\x0a\x09\x09win := target at: 'window'.\x0a\x09\x09\x0a\x09\x09[\x0a\x09\x09\x09| globals environment |\x0a\x09\x09\x09globals := (win at: 'requirejs') value: 'amber_vm/globals'.\x0a\x09\x09\x09globals ifNil: [ self error: 'Unable to connect to ', aLocation ].\x0a\x09\x0a\x09\x09\x09environment := (globals at: 'Environment') new.\x0a\x09\x09\x09HLManager current \x0a\x09\x09\x09\x09environment: environment;\x0a\x09\x09\x09\x09registerServices ] valueWithTimeout: 3000 ]",
+messageSends: ["openLocation:", "on:do:", "at:", "valueWithTimeout:", "value:", "ifNil:", "error:", ",", "new", "environment:", "current", "registerServices"],
+referencedClasses: ["HLManager"]
+}),
+globals.HLRemoteConnector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "openLocation:",
+protocol: 'connecting',
+fn: function (aLocation){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		return require('nw.gui').Window.open(aLocation);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"openLocation:",{aLocation:aLocation},globals.HLRemoteConnector)})},
+args: ["aLocation"],
+source: "openLocation: aLocation\x0a\x09<\x0a\x09\x09return require('nw.gui').Window.open(aLocation);\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLRemoteConnector);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "connect",
+protocol: 'connecting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._connect();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"connect",{},globals.HLRemoteConnector.klass)})},
+args: [],
+source: "connect\x0a\x09^ self new connect",
+messageSends: ["connect", "new"],
+referencedClasses: []
+}),
+globals.HLRemoteConnector.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "connectTo:",
+protocol: 'connecting',
+fn: function (anUrl){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._connectTo_(anUrl);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"connectTo:",{anUrl:anUrl},globals.HLRemoteConnector.klass)})},
+args: ["anUrl"],
+source: "connectTo: anUrl\x0a\x09^ self new connectTo: anUrl",
+messageSends: ["connectTo:", "new"],
+referencedClasses: []
+}),
+globals.HLRemoteConnector.klass);
+
+
 smalltalk.addClass('HLTabWidget', globals.HLWidget, ['widget', 'label', 'root'], 'Helios-Core');
 globals.HLTabWidget.comment="I am a widget specialized into building another widget as an Helios tab.\x0a\x0aI should not be used directly, `HLWidget class >> #openAsTab` should be used instead.\x0a\x0a## Example\x0a\x0a    HLWorkspace openAsTab";
 smalltalk.addMethod(
