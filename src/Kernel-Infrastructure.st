@@ -74,6 +74,10 @@ confirm: aString
 
 prompt: aString
 	^ PlatformInterface prompt: aString
+!
+
+prompt: aString default: defaultString
+	^ PlatformInterface prompt: aString default: defaultString
 ! !
 
 InterfacingObject subclass: #Environment
@@ -857,6 +861,12 @@ existsGlobal: aString
 prompt: aString
 	^ worker
 		ifNotNil: [ worker prompt: aString ]
+		ifNil: [ self error: 'prompt: not available' ]
+!
+
+prompt: aString default: defaultString
+	^ worker
+		ifNotNil: [ worker prompt: aString default: defaultString ]
 		ifNil: [ self error: 'prompt: not available' ]
 ! !
 

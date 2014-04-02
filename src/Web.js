@@ -92,6 +92,24 @@ referencedClasses: []
 }),
 globals.BrowserInterface);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "prompt:default:",
+protocol: 'actions',
+fn: function (aString,defaultString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(window)._prompt_default_(aString,defaultString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},globals.BrowserInterface)})},
+args: ["aString", "defaultString"],
+source: "prompt: aString default: defaultString\x0a\x09^ window prompt: aString default: defaultString",
+messageSends: ["prompt:default:"],
+referencedClasses: []
+}),
+globals.BrowserInterface);
+
 
 
 smalltalk.addClass('HTMLCanvas', globals.Object, ['root'], 'Web');
