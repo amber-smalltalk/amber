@@ -209,6 +209,25 @@ referencedClasses: ["PlatformInterface"]
 }),
 globals.InterfacingObject);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "prompt:default:",
+protocol: 'actions',
+fn: function (aString,defaultString){
+var self=this;
+function $PlatformInterface(){return globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($PlatformInterface())._prompt_default_(aString,defaultString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},globals.InterfacingObject)})},
+args: ["aString", "defaultString"],
+source: "prompt: aString default: defaultString\x0a\x09^ PlatformInterface prompt: aString default: defaultString",
+messageSends: ["prompt:default:"],
+referencedClasses: ["PlatformInterface"]
+}),
+globals.InterfacingObject);
+
 
 
 smalltalk.addClass('Environment', globals.InterfacingObject, [], 'Kernel-Infrastructure');
@@ -2324,6 +2343,29 @@ return $1;
 args: ["aString"],
 source: "prompt: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker prompt: aString ]\x0a\x09\x09ifNil: [ self error: 'prompt: not available' ]",
 messageSends: ["ifNotNil:ifNil:", "prompt:", "error:"],
+referencedClasses: []
+}),
+globals.PlatformInterface.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "prompt:default:",
+protocol: 'actions',
+fn: function (aString,defaultString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$receiver;
+$2=self["@worker"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=self._error_("prompt: not available");
+} else {
+$1=_st(self["@worker"])._prompt_default_(aString,defaultString);
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},globals.PlatformInterface.klass)})},
+args: ["aString", "defaultString"],
+source: "prompt: aString default: defaultString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker prompt: aString default: defaultString ]\x0a\x09\x09ifNil: [ self error: 'prompt: not available' ]",
+messageSends: ["ifNotNil:ifNil:", "prompt:default:", "error:"],
 referencedClasses: []
 }),
 globals.PlatformInterface.klass);

@@ -33,6 +33,10 @@ confirm: aString
 
 prompt: aString
 	^ window prompt: aString
+!
+
+prompt: aString default: defaultString
+	^ window prompt: aString default: defaultString
 ! !
 
 !BrowserInterface methodsFor: 'testing'!
