@@ -114,6 +114,16 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 		this.Object = SmalltalkObject;
 		this.nil = new SmalltalkNil();
 
+		// Adds an `isNil` property to the `nil` object.  When sending
+		// nil objects from one environment to another, doing
+		// `anObject == nil` (in JavaScript) does not always answer
+		// true as the referenced nil object might come from the other
+		// environment.
+		Object.defineProperty(this.nil, 'isNil', {
+			value: true,
+			enumerable: false, configurable: false, writable: false
+		});
+
 		// Hidden root class of the system.
 		this.rootAsClass = {fn: SmalltalkRoot};
 
