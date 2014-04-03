@@ -454,10 +454,6 @@ method
 	^ self context method
 !
 
-nextNode
-	^ self interpreter nextNode
-!
-
 node
 	^ self interpreter ifNotNil: [
 		self interpreter node ]

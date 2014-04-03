@@ -1333,24 +1333,6 @@ globals.ASTDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "nextNode",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._interpreter())._nextNode();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"nextNode",{},globals.ASTDebugger)})},
-args: [],
-source: "nextNode\x0a\x09^ self interpreter nextNode",
-messageSends: ["nextNode", "interpreter"],
-referencedClasses: []
-}),
-globals.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "node",
 protocol: 'accessing',
 fn: function (){
