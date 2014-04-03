@@ -1383,12 +1383,17 @@ selector: "connect",
 protocol: 'connecting',
 fn: function (){
 var self=this;
+var path;
 return smalltalk.withContext(function($ctx1) { 
-self._connectTo_(self._prompt_default_("Connect Helios to","http://localhost:4000"));
-return self}, function($ctx1) {$ctx1.fill(self,"connect",{},globals.HLRemoteConnector)})},
+path=self._prompt_default_("Connect Helios to","http://localhost:4000");
+_st(path)._ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._connectTo_(path);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"connect",{path:path},globals.HLRemoteConnector)})},
 args: [],
-source: "connect\x0a\x09self connectTo: (self \x0a\x09\x09prompt: 'Connect Helios to'\x0a\x09\x09default: 'http://localhost:4000')",
-messageSends: ["connectTo:", "prompt:default:"],
+source: "connect\x0a\x09| path |\x0a\x09path := self \x0a\x09\x09prompt: 'Connect Helios to'\x0a\x09\x09default: 'http://localhost:4000'.\x0a\x09\x09\x0a\x09path ifNotEmpty: [ self connectTo: path ]",
+messageSends: ["prompt:default:", "ifNotEmpty:", "connectTo:"],
 referencedClasses: []
 }),
 globals.HLRemoteConnector);
@@ -1466,12 +1471,15 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._connect();
+$1=_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._new())._connect();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._valueWithTimeout_((50));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"connect",{},globals.HLRemoteConnector.klass)})},
 args: [],
-source: "connect\x0a\x09^ self new connect",
-messageSends: ["connect", "new"],
+source: "connect\x0a\x09\x22Give some time to the UI to be properly initialized\x22\x0a\x09^ [ self new connect ] valueWithTimeout: 50",
+messageSends: ["valueWithTimeout:", "connect", "new"],
 referencedClasses: []
 }),
 globals.HLRemoteConnector.klass);

@@ -19,19 +19,25 @@
       <script type='text/javascript' src='support/amber.js'></script>
       <script type='text/javascript'>
 
+	  require.config({
+	      paths: {
+	          'amber_cli': 'cli/src'
+	      }
+	  });
+
           require(
-                  ["helios/all"],
+                  ["helios/all", "amber_cli/AmberCli"],
                   function (smalltalk) {
           window.require = window.requireNode;
                       window.onbeforeunload = function() {
                           return 'Do you want to close Amber? All uncommitted changes will be lost.';
                       };
 
-          smalltalk.initialize({'transport.defaultAmdNamespace': "amber_core"});
-	  smalltalk.globals.HLManager._setup();
-          smalltalk.globals.HLManager._current()._setTheme_('niflheim');
-          smalltalk.globals.HLManager._current()._setEditorTheme_('niflheim');
-          smalltalk.globals.HLRemoteConnector._connect();
+        smalltalk.initialize({'transport.defaultAmdNamespace': "amber_core"});
+	smalltalk.globals.HLManager._setup();
+        smalltalk.globals.HLManager._current()._setTheme_('niflheim');
+        smalltalk.globals.HLManager._current()._setEditorTheme_('niflheim');
+        smalltalk.globals.HLRemoteConnector._connect();
                   }
           );
 

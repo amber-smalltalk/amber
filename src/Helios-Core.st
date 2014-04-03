@@ -498,9 +498,12 @@ InterfacingObject subclass: #HLRemoteConnector
 !HLRemoteConnector methodsFor: 'connecting'!
 
 connect
-	self connectTo: (self 
+	| path |
+	path := self 
 		prompt: 'Connect Helios to'
-		default: 'http://localhost:4000')
+		default: 'http://localhost:4000'.
+		
+	path ifNotEmpty: [ self connectTo: path ]
 !
 
 connectTo: aLocation
@@ -531,7 +534,8 @@ openLocation: aLocation
 !HLRemoteConnector class methodsFor: 'connecting'!
 
 connect
-	^ self new connect
+	"Give some time to the UI to be properly initialized"
+	^ [ self new connect ] valueWithTimeout: 50
 !
 
 connectTo: anUrl
