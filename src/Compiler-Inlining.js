@@ -519,7 +519,8 @@ _st(anIRNonLocalReturn)._replaceWith_(localReturn);
 $8=localReturn;
 return $8;
 };
-$9=globals.IRInliner.superclass.fn.prototype._visitIRNonLocalReturn_.apply(_st(self), [anIRNonLocalReturn]);
+$9=($ctx1.supercall = true, globals.IRInliner.superclass.fn.prototype._visitIRNonLocalReturn_.apply(_st(self), [anIRNonLocalReturn]));
+$ctx1.supercall = false;
 return $9;
 }, function($ctx1) {$ctx1.fill(self,"transformNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn,localReturn:localReturn},globals.IRInliner)})},
 args: ["anIRNonLocalReturn"],
@@ -541,7 +542,8 @@ $2=self._shouldInlineAssignment_(anIRAssignment);
 if(smalltalk.assert($2)){
 $1=_st(self._assignmentInliner())._inlineAssignment_(anIRAssignment);
 } else {
-$1=globals.IRInliner.superclass.fn.prototype._visitIRAssignment_.apply(_st(self), [anIRAssignment]);
+$1=($ctx1.supercall = true, globals.IRInliner.superclass.fn.prototype._visitIRAssignment_.apply(_st(self), [anIRAssignment]));
+$ctx1.supercall = false;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitIRAssignment:",{anIRAssignment:anIRAssignment},globals.IRInliner)})},
@@ -582,7 +584,8 @@ $2=self._shouldInlineReturn_(anIRReturn);
 if(smalltalk.assert($2)){
 $1=_st(self._returnInliner())._inlineReturn_(anIRReturn);
 } else {
-$1=globals.IRInliner.superclass.fn.prototype._visitIRReturn_.apply(_st(self), [anIRReturn]);
+$1=($ctx1.supercall = true, globals.IRInliner.superclass.fn.prototype._visitIRReturn_.apply(_st(self), [anIRReturn]));
+$ctx1.supercall = false;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitIRReturn:",{anIRReturn:anIRReturn},globals.IRInliner)})},
@@ -605,7 +608,8 @@ $2=self._shouldInlineSend_(anIRSend);
 if(smalltalk.assert($2)){
 $1=_st(self._sendInliner())._inlineSend_(anIRSend);
 } else {
-$1=globals.IRInliner.superclass.fn.prototype._visitIRSend_.apply(_st(self), [anIRSend]);
+$1=($ctx1.supercall = true, globals.IRInliner.superclass.fn.prototype._visitIRSend_.apply(_st(self), [anIRSend]));
+$ctx1.supercall = false;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend},globals.IRInliner)})},
@@ -1541,7 +1545,8 @@ var inlinedClosure,statements;
 function $IRAssignment(){return globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$4,$3,$5,$7,$8,$6,$9;
-inlinedClosure=globals.IRAssignmentInliner.superclass.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]);
+inlinedClosure=($ctx1.supercall = true, globals.IRAssignmentInliner.superclass.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]));
+$ctx1.supercall = false;
 $2=_st(inlinedClosure)._instructions();
 $ctx1.sendIdx["instructions"]=2;
 $1=_st($2)._last();
@@ -1589,7 +1594,8 @@ var closure,statements;
 function $IRReturn(){return globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$3,$2,$4,$5,$6,$7;
-closure=globals.IRReturnInliner.superclass.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]);
+closure=($ctx1.supercall = true, globals.IRReturnInliner.superclass.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]));
+$ctx1.supercall = false;
 $1=_st(_st(closure)._instructions())._last();
 $ctx1.sendIdx["last"]=1;
 statements=_st($1)._instructions();

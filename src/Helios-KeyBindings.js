@@ -583,8 +583,10 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(globals.HLBindingGroup.superclass.fn.prototype._displayLabel.apply(_st(self), [])).__comma("...");
+var $2,$1;
+$2=($ctx1.supercall = true, globals.HLBindingGroup.superclass.fn.prototype._displayLabel.apply(_st(self), []));
+$ctx1.supercall = false;
+$1=_st($2).__comma("...");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"displayLabel",{},globals.HLBindingGroup)})},
 args: [],
@@ -1378,7 +1380,8 @@ fn: function (){
 var self=this;
 function $HLKeyBinderHelperWidget(){return globals.HLKeyBinderHelperWidget||(typeof HLKeyBinderHelperWidget=="undefined"?nil:HLKeyBinderHelperWidget)}
 return smalltalk.withContext(function($ctx1) { 
-globals.HLKeyBinder.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLKeyBinder.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@helper"]=_st($HLKeyBinderHelperWidget())._on_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLKeyBinder)})},
 args: [],
@@ -1500,7 +1503,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1,$receiver;
 $2=self["@current"];
 if(($receiver = $2) == null || $receiver.isNil){
-self["@current"]=globals.HLKeyBinder.klass.superclass.fn.prototype._new.apply(_st(self), []);
+self["@current"]=($ctx1.supercall = true, globals.HLKeyBinder.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self["@current"];
 } else {
 $1=$2;

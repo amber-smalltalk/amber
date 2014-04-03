@@ -2262,7 +2262,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$receiver;
-globals.HLListWidget.superclass.fn.prototype._focus.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLListWidget.superclass.fn.prototype._focus.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=_st(self._items())._isEmpty();
 if(! smalltalk.assert($1)){
 $2=self._selectedItem();
@@ -2385,7 +2386,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
-globals.HLListWidget.superclass.fn.prototype._refresh.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLListWidget.superclass.fn.prototype._refresh.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self._selectedItem();
 $ctx1.sendIdx["selectedItem"]=1;
 if(($receiver = $1) == null || $receiver.isNil){
@@ -2750,7 +2752,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$3;
-globals.HLNavigationListWidget.superclass.fn.prototype._setupKeyBindings.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLNavigationListWidget.superclass.fn.prototype._setupKeyBindings.apply(_st(self), []));
+$ctx1.supercall = false;
 _st(_st(self._wrapper())._asJQuery())._keydown_((function(e){
 return smalltalk.withContext(function($ctx2) {
 $2=_st(e)._which();
@@ -2785,7 +2788,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
-return globals.HLToolListWidget.superclass.fn.prototype._activateListItem_.apply(_st(self), [anItem]);
+return ($ctx2.supercall = true, globals.HLToolListWidget.superclass.fn.prototype._activateListItem_.apply(_st(self), [anItem]));
+$ctx2.supercall = false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{anItem:anItem},globals.HLToolListWidget)})},
 args: ["anItem"],
@@ -2804,7 +2808,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
-return globals.HLToolListWidget.superclass.fn.prototype._activateNextListItem.apply(_st(self), []);
+return ($ctx2.supercall = true, globals.HLToolListWidget.superclass.fn.prototype._activateNextListItem.apply(_st(self), []));
+$ctx2.supercall = false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activateNextListItem",{},globals.HLToolListWidget)})},
 args: [],
@@ -2823,7 +2828,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
-return globals.HLToolListWidget.superclass.fn.prototype._activatePreviousListItem.apply(_st(self), []);
+return ($ctx2.supercall = true, globals.HLToolListWidget.superclass.fn.prototype._activatePreviousListItem.apply(_st(self), []));
+$ctx2.supercall = false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activatePreviousListItem",{},globals.HLToolListWidget)})},
 args: [],
@@ -2977,7 +2983,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
-return globals.HLToolListWidget.superclass.fn.prototype._reactivateListItem_.apply(_st(self), [anItem]);
+return ($ctx2.supercall = true, globals.HLToolListWidget.superclass.fn.prototype._reactivateListItem_.apply(_st(self), [anItem]));
+$ctx2.supercall = false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"reactivateListItem:",{anItem:anItem},globals.HLToolListWidget)})},
 args: ["anItem"],
@@ -2995,7 +3002,8 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._renderHeadOn_(html);
-globals.HLToolListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+($ctx1.supercall = true, globals.HLToolListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLToolListWidget)})},
 args: ["html"],
 source: "renderContentOn: html\x0a\x09self renderHeadOn: html.\x09\x0a\x09super renderContentOn: html",
@@ -3098,7 +3106,8 @@ protocol: 'accessing',
 fn: function (anItem){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLToolListWidget.superclass.fn.prototype._selectedItem_.apply(_st(self), [anItem]);
+($ctx1.supercall = true, globals.HLToolListWidget.superclass.fn.prototype._selectedItem_.apply(_st(self), [anItem]));
+$ctx1.supercall = false;
 self._updateMenu();
 return self}, function($ctx1) {$ctx1.fill(self,"selectedItem:",{anItem:anItem},globals.HLToolListWidget)})},
 args: ["anItem"],
@@ -3116,7 +3125,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-globals.HLToolListWidget.superclass.fn.prototype._unregister.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLToolListWidget.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=self._model();
 $ctx1.sendIdx["model"]=1;
 $1=_st($2)._announcer();
@@ -3248,7 +3258,8 @@ protocol: 'actions',
 fn: function (aTab){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLTabListWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [aTab]);
+($ctx1.supercall = true, globals.HLTabListWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [aTab]));
+$ctx1.supercall = false;
 _st(self._callback())._value_(aTab);
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aTab:aTab},globals.HLTabListWidget)})},
 args: ["aTab"],
@@ -4693,7 +4704,8 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6;
-globals.HLRequestWidget.superclass.fn.prototype._renderMainOn_.apply(_st(self), [html]);
+($ctx1.supercall = true, globals.HLRequestWidget.superclass.fn.prototype._renderMainOn_.apply(_st(self), [html]));
+$ctx1.supercall = false;
 $1=self._isMultiline();
 if(smalltalk.assert($1)){
 self["@input"]=_st(html)._textarea();
@@ -4904,7 +4916,8 @@ $1=self._isVisible();
 if(smalltalk.assert($1)){
 self["@visible"]=false;
 self["@visible"];
-globals.HLProgressWidget.superclass.fn.prototype._remove.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLProgressWidget.superclass.fn.prototype._remove.apply(_st(self), []));
+$ctx1.supercall = false;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"remove",{},globals.HLProgressWidget)})},
 args: [],
@@ -4971,7 +4984,8 @@ $1=self._isVisible();
 if(! smalltalk.assert($1)){
 self["@visible"]=true;
 self["@visible"];
-globals.HLProgressWidget.superclass.fn.prototype._show.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLProgressWidget.superclass.fn.prototype._show.apply(_st(self), []));
+$ctx1.supercall = false;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"show",{},globals.HLProgressWidget)})},
 args: [],
@@ -5175,7 +5189,8 @@ protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLTabSelectionWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+($ctx1.supercall = true, globals.HLTabSelectionWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]));
+$ctx1.supercall = false;
 _st(self._tabList())._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLTabSelectionWidget)})},
 args: ["html"],
@@ -5355,7 +5370,8 @@ var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.HLTabSelectionWidget.superclass.fn.prototype._setupKeyBindings.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLTabSelectionWidget.superclass.fn.prototype._setupKeyBindings.apply(_st(self), []));
+$ctx1.supercall = false;
 _st(".dialog"._asJQuery())._keyup_((function(e){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(e)._keyCode()).__eq(_st(_st($String())._cr())._asciiValue());

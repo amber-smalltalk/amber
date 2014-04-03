@@ -2166,7 +2166,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.PackageTransport.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.PackageTransport.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@registry"]=globals.HashedCollection._newFromPairs_([]);
 self._register();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.PackageTransport.klass)})},
@@ -2243,7 +2244,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=globals.AmdPackageTransport.superclass.fn.prototype._asJSON.apply(_st(self), []);
+$2=($ctx1.supercall = true, globals.AmdPackageTransport.superclass.fn.prototype._asJSON.apply(_st(self), []));
+$ctx1.supercall = false;
 _st($2)._at_put_("amdNamespace",self._namespace());
 $3=_st($2)._yourself();
 $1=$3;
@@ -2366,7 +2368,8 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.AmdPackageTransport.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+($ctx1.supercall = true, globals.AmdPackageTransport.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+$ctx1.supercall = false;
 _st(aStream)._nextPutAll_(" (AMD Namespace: ");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._namespace());

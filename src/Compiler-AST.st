@@ -652,8 +652,10 @@ shouldBeAliased
 	
 	sends := (self method sendIndexes at: self selector) size.
 	
-	^ super shouldBeAliased or: [
-		(sends > 1 and: [ self index < sends ]) and: [ self isReferenced ] ]
+	^ (super shouldBeAliased or: [
+		self isReferenced and: [
+			(sends > 1 and: [ self index < sends ])
+				or: [ self superSend ] ] ])
 !
 
 stopOnStepping

@@ -169,8 +169,10 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(globals.HLDebugger.superclass.fn.prototype._cssClass.apply(_st(self), [])).__comma(" hl_debugger");
+var $2,$1;
+$2=($ctx1.supercall = true, globals.HLDebugger.superclass.fn.prototype._cssClass.apply(_st(self), []));
+$ctx1.supercall = false;
+$1=_st($2).__comma(" hl_debugger");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"cssClass",{},globals.HLDebugger)})},
 args: [],
@@ -445,7 +447,8 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLDebugger.superclass.fn.prototype._unregister.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLDebugger.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
 $ctx1.sendIdx["unregister"]=1;
 _st(self._inspectorWidget())._unregister();
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLDebugger)})},
@@ -611,7 +614,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._clearHighlight();
-globals.HLDebuggerCodeWidget.superclass.fn.prototype._contents_.apply(_st(self), [aString]);
+($ctx1.supercall = true, globals.HLDebuggerCodeWidget.superclass.fn.prototype._contents_.apply(_st(self), [aString]));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},globals.HLDebuggerCodeWidget)})},
 args: ["aString"],
 source: "contents: aString\x0a\x09self clearHighlight.\x0a\x09super contents: aString",
@@ -628,7 +632,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=globals.HLDebuggerCodeWidget.superclass.fn.prototype._editorOptions.apply(_st(self), []);
+$2=($ctx1.supercall = true, globals.HLDebuggerCodeWidget.superclass.fn.prototype._editorOptions.apply(_st(self), []));
+$ctx1.supercall = false;
 _st($2)._at_put_("gutters",["CodeMirror-linenumbers", "stops"]);
 $3=_st($2)._yourself();
 $1=$3;
@@ -724,7 +729,8 @@ function $HLDebuggerStepped(){return globals.HLDebuggerStepped||(typeof HLDebugg
 function $HLDebuggerWhere(){return globals.HLDebuggerWhere||(typeof HLDebuggerWhere=="undefined"?nil:HLDebuggerWhere)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$4,$3;
-globals.HLDebuggerCodeWidget.superclass.fn.prototype._observeBrowserModel.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLDebuggerCodeWidget.superclass.fn.prototype._observeBrowserModel.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
 $1=_st($2)._announcer();
@@ -769,7 +775,8 @@ protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLDebuggerCodeWidget.superclass.fn.prototype._renderOn_.apply(_st(self), [html]);
+($ctx1.supercall = true, globals.HLDebuggerCodeWidget.superclass.fn.prototype._renderOn_.apply(_st(self), [html]));
+$ctx1.supercall = false;
 self._contents_(_st(_st(self._browserModel())._selectedMethod())._source());
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.HLDebuggerCodeWidget)})},
 args: ["html"],
@@ -1277,7 +1284,8 @@ fn: function (){
 var self=this;
 function $HLDebuggerStepped(){return globals.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
 return smalltalk.withContext(function($ctx1) { 
-globals.HLStackListWidget.superclass.fn.prototype._observeModel.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLStackListWidget.superclass.fn.prototype._observeModel.apply(_st(self), []));
+$ctx1.supercall = false;
 _st(_st(self._model())._announcer())._on_send_to_($HLDebuggerStepped(),"onDebuggerStepped:",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},globals.HLStackListWidget)})},
 args: [],
@@ -1411,7 +1419,8 @@ fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._currentContext_(aContext);
-globals.HLStackListWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [aContext]);
+($ctx1.supercall = true, globals.HLStackListWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [aContext]));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aContext:aContext},globals.HLStackListWidget)})},
 args: ["aContext"],
 source: "selectItem: aContext\x0a   \x09self model currentContext: aContext.\x0a\x09super selectItem: aContext",

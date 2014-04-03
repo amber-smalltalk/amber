@@ -598,8 +598,19 @@ locals
 !
 
 method
-	^ self methodContext ifNotNil: [
-		self methodContext receiver class lookupSelector: self methodContext selector ]
+	| method lookupClass receiverClass supercall |
+	
+	self methodContext ifNil: [ ^ nil ].
+
+	receiverClass := self methodContext receiver class.
+	method := receiverClass lookupSelector: self methodContext selector.
+	supercall := self outerContext 
+		ifNil: [ false ]
+		ifNotNil: [ :outer | outer supercall ].
+
+	^ supercall
+		ifFalse: [ method ]
+		ifTrue: [ method methodClass superclass lookupSelector: self methodContext selector ]
 !
 
 methodContext
@@ -635,6 +646,10 @@ sendIndexAt: aSelector
 
 sendIndexes
 	<return self.sendIdx>
+!
+
+supercall
+	<return self.supercall == true>
 !
 
 temps

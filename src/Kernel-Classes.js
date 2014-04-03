@@ -2132,7 +2132,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.ClassCategoryReader.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.ClassCategoryReader.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ClassCategoryReader)})},
 args: [],
 source: "initialize\x0a\x09super initialize.",
@@ -2194,7 +2195,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.ClassCommentReader.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.ClassCommentReader.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ClassCommentReader)})},
 args: [],
 source: "initialize\x0a\x09super initialize.",

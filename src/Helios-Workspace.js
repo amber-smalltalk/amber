@@ -1170,7 +1170,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.HLCodeWidget.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLCodeWidget.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._setupCodeMirror();
 self._setupCommands();
 $1=self._setupKeyMaps();
@@ -1372,7 +1373,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLNavigationCodeWidget.superclass.fn.prototype._configureEditor.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLNavigationCodeWidget.superclass.fn.prototype._configureEditor.apply(_st(self), []));
+$ctx1.supercall = false;
 self._contents_(self._methodContents());
 return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{},globals.HLNavigationCodeWidget)})},
 args: [],
@@ -1390,7 +1392,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._methodContents_(aString);
-globals.HLNavigationCodeWidget.superclass.fn.prototype._contents_.apply(_st(self), [aString]);
+($ctx1.supercall = true, globals.HLNavigationCodeWidget.superclass.fn.prototype._contents_.apply(_st(self), [aString]));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},globals.HLNavigationCodeWidget)})},
 args: ["aString"],
 source: "contents: aString\x0a\x09self methodContents: aString.\x0a\x09super contents: aString",
@@ -2063,7 +2066,8 @@ $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._saveIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-globals.HLBrowserCodeWidget.superclass.fn.prototype._renderButtonsOn_.apply(_st(self), [html]);
+($ctx1.supercall = true, globals.HLBrowserCodeWidget.superclass.fn.prototype._renderButtonsOn_.apply(_st(self), [html]));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLBrowserCodeWidget)})},
 args: ["html"],
 source: "renderButtonsOn: html\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'SaveIt';\x0a\x09\x09onClick: [ self saveIt ].\x0a\x09super renderButtonsOn: html",
@@ -2096,7 +2100,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-globals.HLBrowserCodeWidget.superclass.fn.prototype._unregsiter.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLBrowserCodeWidget.superclass.fn.prototype._unregsiter.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
 $1=_st($2)._announcer();
@@ -2291,7 +2296,8 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLWorkspace.superclass.fn.prototype._unregister.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLWorkspace.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
 $ctx1.sendIdx["unregister"]=1;
 _st(self._transcript())._unregister();
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLWorkspace)})},

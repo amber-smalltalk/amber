@@ -411,7 +411,8 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLBrowser.superclass.fn.prototype._unregister.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLBrowser.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
 $ctx1.sendIdx["unregister"]=1;
 _st([self._packagesListWidget(),self._classesListWidget(),self._protocolsListWidget(),self._methodsListWidget(),self._sourceWidget()])._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -1393,7 +1394,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
-globals.HLClassesListWidget.superclass.fn.prototype._focus.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLClassesListWidget.superclass.fn.prototype._focus.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self._selectedItem();
 if(($receiver = $1) == null || $receiver.isNil){
 _st(self._model())._showClassTemplate();
@@ -1983,7 +1985,8 @@ protocol: 'rendering',
 fn: function (aClass,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLClassesListWidget.superclass.fn.prototype._renderItem_on_.apply(_st(self), [aClass,html]);
+($ctx1.supercall = true, globals.HLClassesListWidget.superclass.fn.prototype._renderItem_on_.apply(_st(self), [aClass,html]));
+$ctx1.supercall = false;
 _st(self._getChildrenOf_(aClass))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._renderItem_level_on_(each,(1),html);
@@ -2703,7 +2706,8 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLDocumentationWidget.superclass.fn.prototype._unregister.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLDocumentationWidget.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
 _st(_st(self._model())._announcer())._unregister_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLDocumentationWidget)})},
 args: [],
@@ -2780,7 +2784,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
-globals.HLMethodsListWidget.superclass.fn.prototype._focus.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLMethodsListWidget.superclass.fn.prototype._focus.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self._selectedItem();
 if(($receiver = $1) == null || $receiver.isNil){
 _st(self._model())._showMethodTemplate();
@@ -3254,13 +3259,15 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 $1=_st(self._model())._showInstance();
 if(smalltalk.assert($1)){
-globals.HLMethodsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+($ctx1.supercall = true, globals.HLMethodsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]));
+$ctx1.supercall = false;
 } else {
 $2=_st(html)._div();
 _st($2)._class_("class_side");
 $3=_st($2)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
-return globals.HLMethodsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+return ($ctx2.supercall = true, globals.HLMethodsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]));
+$ctx2.supercall = false;
 $ctx2.sendIdx["renderContentOn:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $3;
@@ -3732,7 +3739,8 @@ protocol: 'actions',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLPackagesListWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [aPackage]);
+($ctx1.supercall = true, globals.HLPackagesListWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [aPackage]));
+$ctx1.supercall = false;
 _st(self._model())._selectedPackage_(aPackage);
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aPackage:aPackage},globals.HLPackagesListWidget)})},
 args: ["aPackage"],
@@ -3999,13 +4007,15 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 $1=_st(self._model())._showInstance();
 if(smalltalk.assert($1)){
-globals.HLProtocolsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+($ctx1.supercall = true, globals.HLProtocolsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]));
+$ctx1.supercall = false;
 } else {
 $2=_st(html)._div();
 _st($2)._class_("class_side");
 $3=_st($2)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
-return globals.HLProtocolsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+return ($ctx2.supercall = true, globals.HLProtocolsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]));
+$ctx2.supercall = false;
 $ctx2.sendIdx["renderContentOn:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $3;
@@ -4058,7 +4068,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=globals.HLProtocolsListWidget.superclass.fn.prototype._selectedItem.apply(_st(self), []);
+$1=($ctx1.supercall = true, globals.HLProtocolsListWidget.superclass.fn.prototype._selectedItem.apply(_st(self), []));
+$ctx1.supercall = false;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedItem",{},globals.HLProtocolsListWidget)})},
 args: [],
@@ -4174,7 +4185,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLSelectorsCache.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLSelectorsCache.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._observeSystem();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLSelectorsCache)})},
 args: [],
@@ -4322,7 +4334,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1,$receiver;
 $2=self["@current"];
 if(($receiver = $2) == null || $receiver.isNil){
-self["@current"]=globals.HLSelectorsCache.klass.superclass.fn.prototype._new.apply(_st(self), []);
+self["@current"]=($ctx1.supercall = true, globals.HLSelectorsCache.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self["@current"];
 } else {
 $1=$2;

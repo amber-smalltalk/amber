@@ -27,7 +27,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLTranscript.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLTranscript.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._register();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLTranscript)})},
 args: [],
@@ -107,7 +108,8 @@ fn: function (){
 var self=this;
 function $HLTranscriptHandler(){return globals.HLTranscriptHandler||(typeof HLTranscriptHandler=="undefined"?nil:HLTranscriptHandler)}
 return smalltalk.withContext(function($ctx1) { 
-globals.HLTranscript.superclass.fn.prototype._unregister.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLTranscript.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
 _st($HLTranscriptHandler())._unregister_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLTranscript)})},
 args: [],

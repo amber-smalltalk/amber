@@ -834,6 +834,8 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 			this.sendIdx     = {};
 			this.homeContext = home;
 			this.setup       = setup || function() {};
+
+			this.supercall = false;
 		}
 
 		inherits(SmalltalkMethodContext, SmalltalkObject);

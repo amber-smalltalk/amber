@@ -971,7 +971,8 @@ fn: function (){
 var self=this;
 function $Queue(){return globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
 return smalltalk.withContext(function($ctx1) { 
-globals.ForkPool.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.ForkPool.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@poolSize"]=(0);
 self["@queue"]=_st($Queue())._new();
 self["@worker"]=self._makeWorker();
@@ -1160,7 +1161,8 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.Message.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+($ctx1.supercall = true, globals.Message.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+$ctx1.supercall = false;
 _st(aStream)._nextPutAll_("(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._selector());
@@ -1292,7 +1294,8 @@ fn: function (){
 var self=this;
 function $Message(){return globals.Message||(typeof Message=="undefined"?nil:Message)}
 return smalltalk.withContext(function($ctx1) { 
-globals.MessageSend.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.MessageSend.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@message"]=_st($Message())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.MessageSend)})},
 args: [],
@@ -1310,7 +1313,8 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.MessageSend.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+($ctx1.supercall = true, globals.MessageSend.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+$ctx1.supercall = false;
 _st(aStream)._nextPutAll_("(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._receiver());
@@ -1696,24 +1700,46 @@ selector: "method",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+var method,lookupClass,receiverClass,supercall;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$5,$4,$3,$1,$receiver;
-$2=self._methodContext();
+var $1,$3,$2,$4,$6,$5,$7,$9,$8,$receiver;
+$1=self._methodContext();
 $ctx1.sendIdx["methodContext"]=1;
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$2;
+if(($receiver = $1) == null || $receiver.isNil){
+return nil;
 } else {
-$5=self._methodContext();
-$ctx1.sendIdx["methodContext"]=2;
-$4=_st($5)._receiver();
-$3=_st($4)._class();
-$1=_st($3)._lookupSelector_(_st(self._methodContext())._selector());
+$1;
 };
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"method",{},globals.MethodContext)})},
+$3=self._methodContext();
+$ctx1.sendIdx["methodContext"]=2;
+$2=_st($3)._receiver();
+receiverClass=_st($2)._class();
+$4=receiverClass;
+$6=self._methodContext();
+$ctx1.sendIdx["methodContext"]=3;
+$5=_st($6)._selector();
+$ctx1.sendIdx["selector"]=1;
+method=_st($4)._lookupSelector_($5);
+$ctx1.sendIdx["lookupSelector:"]=1;
+$7=self._outerContext();
+if(($receiver = $7) == null || $receiver.isNil){
+supercall=false;
+} else {
+var outer;
+outer=$receiver;
+supercall=_st(outer)._supercall();
+};
+$9=supercall;
+if(smalltalk.assert($9)){
+$8=_st(_st(_st(method)._methodClass())._superclass())._lookupSelector_(_st(self._methodContext())._selector());
+} else {
+$8=method;
+};
+return $8;
+}, function($ctx1) {$ctx1.fill(self,"method",{method:method,lookupClass:lookupClass,receiverClass:receiverClass,supercall:supercall},globals.MethodContext)})},
 args: [],
-source: "method\x0a\x09^ self methodContext ifNotNil: [\x0a\x09\x09self methodContext receiver class lookupSelector: self methodContext selector ]",
-messageSends: ["ifNotNil:", "methodContext", "lookupSelector:", "class", "receiver", "selector"],
+source: "method\x0a\x09| method lookupClass receiverClass supercall |\x0a\x09\x0a\x09self methodContext ifNil: [ ^ nil ].\x0a\x0a\x09receiverClass := self methodContext receiver class.\x0a\x09method := receiverClass lookupSelector: self methodContext selector.\x0a\x09supercall := self outerContext \x0a\x09\x09ifNil: [ false ]\x0a\x09\x09ifNotNil: [ :outer | outer supercall ].\x0a\x0a\x09^ supercall\x0a\x09\x09ifFalse: [ method ]\x0a\x09\x09ifTrue: [ method methodClass superclass lookupSelector: self methodContext selector ]",
+messageSends: ["ifNil:", "methodContext", "class", "receiver", "lookupSelector:", "selector", "ifNil:ifNotNil:", "outerContext", "supercall", "ifFalse:ifTrue:", "superclass", "methodClass"],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1771,7 +1797,8 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.MethodContext.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+($ctx1.supercall = true, globals.MethodContext.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+$ctx1.supercall = false;
 _st(aStream)._nextPutAll_("(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._asString());
@@ -1862,6 +1889,22 @@ return self.sendIdx;
 return self}, function($ctx1) {$ctx1.fill(self,"sendIndexes",{},globals.MethodContext)})},
 args: [],
 source: "sendIndexes\x0a\x09<return self.sendIdx>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.MethodContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "supercall",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.supercall == true;
+return self}, function($ctx1) {$ctx1.fill(self,"supercall",{},globals.MethodContext)})},
+args: [],
+source: "supercall\x0a\x09<return self.supercall == true>",
 messageSends: [],
 referencedClasses: []
 }),

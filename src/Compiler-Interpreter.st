@@ -57,7 +57,7 @@ value: firstArgument value: secondArgument value: thirdArgument
 
 valueWithPossibleArguments: aCollection
 	| context sequenceNode |
-	context := outerContext newBlockContext.
+	context := outerContext newInnerContext.
 
 	"Interpret a copy of the sequence node to avoid creating a new AIBlockClosure"
 	sequenceNode := node nodes first copy
@@ -100,7 +100,7 @@ forContext: aContext node: aNode
 ! !
 
 MethodContext subclass: #AIContext
-	instanceVariableNames: 'outerContext innerContext pc locals selector index sendIndexes evaluatedSelector ast interpreter'
+	instanceVariableNames: 'outerContext innerContext pc locals selector index sendIndexes evaluatedSelector ast interpreter supercall'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -172,11 +172,6 @@ locals
 	^ locals
 !
 
-method
-	^ self methodContext ifNotNil: [
-		self methodContext receiver class lookupSelector: self methodContext selector ]
-!
-
 outerContext
 	^ outerContext
 !
@@ -231,7 +226,7 @@ evaluateNode: aNode
 
 !AIContext methodsFor: 'factory'!
 
-newBlockContext
+newInnerContext
 	^ self class new
 		outerContext: self;
 		yourself
@@ -252,6 +247,7 @@ initializeFromMethodContext: aMethodContext
 		index: aMethodContext index;
 		sendIndexes: aMethodContext sendIndexes;
 		receiver: aMethodContext receiver;
+		supercall: aMethodContext supercall;
 		selector: aMethodContext selector.
 		
 	aMethodContext outerContext ifNotNil: [ :outer |
@@ -330,6 +326,14 @@ setupInterpreter: anInterpreter
 		anInterpreter push: each ].
 		
 	anInterpreter push: (self innerContext receiver)
+!
+
+supercall
+	^ supercall ifNil: [ false ]
+!
+
+supercall: aBoolean
+	supercall := aBoolean
 ! !
 
 !AIContext methodsFor: 'private'!

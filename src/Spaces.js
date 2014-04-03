@@ -117,7 +117,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.ObjectSpace.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.ObjectSpace.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._create();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ObjectSpace)})},
 args: [],

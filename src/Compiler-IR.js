@@ -1394,7 +1394,8 @@ protocol: 'accessing',
 fn: function (aScope){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.IRClosureInstruction.superclass.fn.prototype._scope_.apply(_st(self), [aScope]);
+($ctx1.supercall = true, globals.IRClosureInstruction.superclass.fn.prototype._scope_.apply(_st(self), [aScope]));
+$ctx1.supercall = false;
 _st(aScope)._instruction_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"scope:",{aScope:aScope},globals.IRClosureInstruction)})},
 args: ["aScope"],
@@ -2856,7 +2857,8 @@ fn: function (){
 var self=this;
 function $JSStream(){return globals.JSStream||(typeof JSStream=="undefined"?nil:JSStream)}
 return smalltalk.withContext(function($ctx1) { 
-globals.IRJSTranslator.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.IRJSTranslator.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@stream"]=_st($JSStream())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.IRJSTranslator)})},
 args: [],
@@ -2941,7 +2943,8 @@ return _st(_st(each)._name())._asVariableName();
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})})));
 return _st(self._stream())._nextPutBlockContextFor_during_(anIRClosure,(function(){
 return smalltalk.withContext(function($ctx3) {
-return globals.IRJSTranslator.superclass.fn.prototype._visitIRClosure_.apply(_st(self), [anIRClosure]);
+return ($ctx3.supercall = true, globals.IRJSTranslator.superclass.fn.prototype._visitIRClosure_.apply(_st(self), [anIRClosure]));
+$ctx3.supercall = false;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),_st(anIRClosure)._arguments());
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRClosure:",{anIRClosure:anIRClosure},globals.IRJSTranslator)})},
@@ -3062,11 +3065,13 @@ $10=_st(_st(anIRMethod)._scope())._hasNonLocalReturn();
 if(smalltalk.assert($10)){
 return _st(self._stream())._nextPutNonLocalReturnHandlingWith_((function(){
 return smalltalk.withContext(function($ctx5) {
-return globals.IRJSTranslator.superclass.fn.prototype._visitIRMethod_.apply(_st(self), [anIRMethod]);
+return ($ctx5.supercall = true, globals.IRJSTranslator.superclass.fn.prototype._visitIRMethod_.apply(_st(self), [anIRMethod]));
+$ctx5.supercall = false;
 $ctx5.sendIdx["visitIRMethod:"]=1;
 }, function($ctx5) {$ctx5.fillBlock({},$ctx4,9)})}));
 } else {
-return globals.IRJSTranslator.superclass.fn.prototype._visitIRMethod_.apply(_st(self), [anIRMethod]);
+return ($ctx4.supercall = true, globals.IRJSTranslator.superclass.fn.prototype._visitIRMethod_.apply(_st(self), [anIRMethod]));
+$ctx4.supercall = false;
 };
 }, function($ctx4) {$ctx4.fillBlock({},$ctx3,5)})}));
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}),_st(anIRMethod)._arguments());
@@ -3088,7 +3093,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._stream())._nextPutNonLocalReturnWith_((function(){
 return smalltalk.withContext(function($ctx2) {
-return globals.IRJSTranslator.superclass.fn.prototype._visitIRNonLocalReturn_.apply(_st(self), [anIRNonLocalReturn]);
+return ($ctx2.supercall = true, globals.IRJSTranslator.superclass.fn.prototype._visitIRNonLocalReturn_.apply(_st(self), [anIRNonLocalReturn]));
+$ctx2.supercall = false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn},globals.IRJSTranslator)})},
 args: ["anIRNonLocalReturn"],
@@ -3107,7 +3113,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._stream())._nextPutReturnWith_((function(){
 return smalltalk.withContext(function($ctx2) {
-return globals.IRJSTranslator.superclass.fn.prototype._visitIRReturn_.apply(_st(self), [anIRReturn]);
+return ($ctx2.supercall = true, globals.IRJSTranslator.superclass.fn.prototype._visitIRReturn_.apply(_st(self), [anIRReturn]));
+$ctx2.supercall = false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRReturn:",{anIRReturn:anIRReturn},globals.IRJSTranslator)})},
 args: ["anIRReturn"],
@@ -3325,41 +3332,59 @@ protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3,$5,$6;
+var $1,$2,$6,$5,$4,$3,$7,$8,$9,$11,$10,$12,$13,$14,$15;
 $1=self._stream();
 $ctx1.sendIdx["stream"]=1;
-_st($1)._nextPutAll_(_st(self._currentClass())._asJavascript());
+$2=$1;
+$6=_st(anIRSend)._scope();
+$ctx1.sendIdx["scope"]=1;
+$5=_st($6)._alias();
+$ctx1.sendIdx["alias"]=1;
+$4="(".__comma($5);
+$ctx1.sendIdx[","]=2;
+$3=_st($4).__comma(".supercall = true, ");
+$ctx1.sendIdx[","]=1;
+_st($2)._nextPutAll_($3);
 $ctx1.sendIdx["nextPutAll:"]=1;
-_st($1)._nextPutAll_(".superclass.fn.prototype.");
+_st($1)._nextPutAll_(_st(self._currentClass())._asJavascript());
 $ctx1.sendIdx["nextPutAll:"]=2;
-_st($1)._nextPutAll_(_st(_st(_st(anIRSend)._selector())._asSelector()).__comma(".apply("));
+_st($1)._nextPutAll_(".superclass.fn.prototype.");
 $ctx1.sendIdx["nextPutAll:"]=3;
-$2=_st($1)._nextPutAll_("_st(");
+$7=$1;
+$8=_st(_st(_st(anIRSend)._selector())._asSelector()).__comma(".apply(");
+$ctx1.sendIdx[","]=3;
+_st($7)._nextPutAll_($8);
 $ctx1.sendIdx["nextPutAll:"]=4;
-$4=_st(anIRSend)._instructions();
-$ctx1.sendIdx["instructions"]=1;
-$3=_st($4)._first();
-self._visit_($3);
-$ctx1.sendIdx["visit:"]=1;
-$5=self._stream();
-$ctx1.sendIdx["stream"]=2;
-_st($5)._nextPutAll_("), [");
+$9=_st($1)._nextPutAll_("_st(");
 $ctx1.sendIdx["nextPutAll:"]=5;
+$11=_st(anIRSend)._instructions();
+$ctx1.sendIdx["instructions"]=1;
+$10=_st($11)._first();
+self._visit_($10);
+$ctx1.sendIdx["visit:"]=1;
+$12=self._stream();
+$ctx1.sendIdx["stream"]=2;
+_st($12)._nextPutAll_("), [");
+$ctx1.sendIdx["nextPutAll:"]=6;
 _st(_st(_st(anIRSend)._instructions())._allButFirst())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._visit_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
-$6=self._stream();
+$13=self._stream();
 $ctx2.sendIdx["stream"]=3;
-return _st($6)._nextPutAll_(",");
-$ctx2.sendIdx["nextPutAll:"]=6;
+return _st($13)._nextPutAll_(",");
+$ctx2.sendIdx["nextPutAll:"]=7;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-_st(self._stream())._nextPutAll_("])");
+$14=self._stream();
+_st($14)._nextPutAll_("]));");
+$ctx1.sendIdx["nextPutAll:"]=8;
+_st($14)._lf();
+$15=_st($14)._nextPutAll_(_st(_st(_st(anIRSend)._scope())._alias()).__comma(".supercall = false"));
 return self}, function($ctx1) {$ctx1.fill(self,"visitSuperSend:",{anIRSend:anIRSend},globals.IRJSTranslator)})},
 args: ["anIRSend"],
-source: "visitSuperSend: anIRSend\x0a\x09self stream\x0a\x09\x09nextPutAll: self currentClass asJavascript;\x0a\x09\x09nextPutAll: '.superclass.fn.prototype.';\x0a\x09\x09nextPutAll: anIRSend selector asSelector, '.apply(';\x0a\x09\x09nextPutAll: '_st('.\x0a\x09self visit: anIRSend instructions first.\x0a\x09self stream nextPutAll: '), ['.\x0a\x09anIRSend instructions allButFirst\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream nextPutAll: '])'",
-messageSends: ["nextPutAll:", "stream", "asJavascript", "currentClass", ",", "asSelector", "selector", "visit:", "first", "instructions", "do:separatedBy:", "allButFirst"],
+source: "visitSuperSend: anIRSend\x0a\x09self stream\x0a\x09\x09nextPutAll: '(', anIRSend scope alias, '.supercall = true, ';\x0a\x09\x09nextPutAll: self currentClass asJavascript;\x0a\x09\x09nextPutAll: '.superclass.fn.prototype.';\x0a\x09\x09nextPutAll: anIRSend selector asSelector, '.apply(';\x0a\x09\x09nextPutAll: '_st('.\x0a\x09self visit: anIRSend instructions first.\x0a\x09self stream nextPutAll: '), ['.\x0a\x09anIRSend instructions allButFirst\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream \x0a\x09\x09nextPutAll: ']));'; lf;\x0a\x09\x09nextPutAll: anIRSend scope alias, '.supercall = false'",
+messageSends: ["nextPutAll:", "stream", ",", "alias", "scope", "asJavascript", "currentClass", "asSelector", "selector", "visit:", "first", "instructions", "do:separatedBy:", "allButFirst", "lf"],
 referencedClasses: []
 }),
 globals.IRJSTranslator);
@@ -3392,7 +3417,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.JSStream.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.JSStream.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@stream"]=""._writeStream();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.JSStream)})},
 args: [],

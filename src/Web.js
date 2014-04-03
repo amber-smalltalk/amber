@@ -1142,7 +1142,8 @@ var self=this;
 function $TagBrush(){return globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
-globals.HTMLCanvas.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HTMLCanvas.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self["@root"];
 if(($receiver = $1) == null || $receiver.isNil){
 self["@root"]=_st($TagBrush())._fromString_canvas_("div",self);
@@ -2413,7 +2414,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3,$receiver;
 $1=self["@current"];
 if(($receiver = $1) == null || $receiver.isNil){
-$2=globals.HTMLSnippet.klass.superclass.fn.prototype._new.apply(_st(self), []);
+$2=($ctx1.supercall = true, globals.HTMLSnippet.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 _st($2)._initializeFromJQuery_(_st(document)._asJQuery());
 $3=_st($2)._yourself();
 self["@current"]=$3;
@@ -2437,7 +2439,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.HTMLSnippet.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HTMLSnippet.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self._isDOMAvailable();
 if(smalltalk.assert($1)){
 self._ensureCurrent();

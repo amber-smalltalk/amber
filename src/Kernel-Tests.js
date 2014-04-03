@@ -2780,7 +2780,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
-globals.AssociativeCollectionTest.superclass.fn.prototype._testAddAll.apply(_st(self), []);
+($ctx1.supercall = true, globals.AssociativeCollectionTest.superclass.fn.prototype._testAddAll.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $3=$2;
@@ -2865,7 +2866,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
-globals.AssociativeCollectionTest.superclass.fn.prototype._testComma.apply(_st(self), []);
+($ctx1.supercall = true, globals.AssociativeCollectionTest.superclass.fn.prototype._testComma.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $3=self._collection();
@@ -3338,7 +3340,8 @@ protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.DictionaryTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]);
+($ctx1.supercall = true, globals.DictionaryTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
+$ctx1.supercall = false;
 _st(aBlock)._value_value_(true,(3));
 $ctx1.sendIdx["value:value:"]=1;
 _st(aBlock)._value_value_((1).__at((3)),(-4));
@@ -4209,7 +4212,8 @@ protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.ArrayTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]);
+($ctx1.supercall = true, globals.ArrayTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
+$ctx1.supercall = false;
 _st(aBlock)._value_value_((3),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.ArrayTest)})},
 args: ["aBlock"],
@@ -4618,7 +4622,8 @@ protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.StringTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]);
+($ctx1.supercall = true, globals.StringTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
+$ctx1.supercall = false;
 _st(aBlock)._value_value_((3),"l");
 return self}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.StringTest)})},
 args: ["aBlock"],
@@ -5346,7 +5351,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
-globals.SetTest.superclass.fn.prototype._testAddAll.apply(_st(self), []);
+($ctx1.supercall = true, globals.SetTest.superclass.fn.prototype._testAddAll.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $3=$2;
@@ -5451,7 +5457,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-globals.SetTest.superclass.fn.prototype._testCollect.apply(_st(self), []);
+($ctx1.supercall = true, globals.SetTest.superclass.fn.prototype._testCollect.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=[(5), (6), (8)]._asSet();
 $ctx1.sendIdx["asSet"]=1;
 $1=_st($2)._collect_((function(x){
@@ -5475,7 +5482,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
-globals.SetTest.superclass.fn.prototype._testComma.apply(_st(self), []);
+($ctx1.supercall = true, globals.SetTest.superclass.fn.prototype._testComma.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $3=self._collection();

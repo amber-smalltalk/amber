@@ -644,7 +644,8 @@ protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.Node.superclass.fn.prototype._postCopy.apply(_st(self), []);
+($ctx1.supercall = true, globals.Node.superclass.fn.prototype._postCopy.apply(_st(self), []));
+$ctx1.supercall = false;
 _st(self._nodes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._parent_(self);
@@ -986,8 +987,10 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(globals.AssignmentNode.superclass.fn.prototype._shouldBeAliased.apply(_st(self), []))._or_((function(){
+var $2,$1;
+$2=($ctx1.supercall = true, globals.AssignmentNode.superclass.fn.prototype._shouldBeAliased.apply(_st(self), []));
+$ctx1.supercall = false;
+$1=_st($2)._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._isReferenced();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
@@ -2047,24 +2050,30 @@ fn: function (){
 var self=this;
 var sends;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$1;
 sends=_st(_st(_st(self._method())._sendIndexes())._at_(self._selector()))._size();
-$1=_st(globals.SendNode.superclass.fn.prototype._shouldBeAliased.apply(_st(self), []))._or_((function(){
+$2=($ctx1.supercall = true, globals.SendNode.superclass.fn.prototype._shouldBeAliased.apply(_st(self), []));
+$ctx1.supercall = false;
+$1=_st($2)._or_((function(){
 return smalltalk.withContext(function($ctx2) {
+return _st(self._isReferenced())._and_((function(){
+return smalltalk.withContext(function($ctx3) {
 return _st(_st(_st(sends).__gt((1)))._and_((function(){
-return smalltalk.withContext(function($ctx3) {
+return smalltalk.withContext(function($ctx4) {
 return _st(self._index()).__lt(sends);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})))._and_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._isReferenced();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})})))._or_((function(){
+return smalltalk.withContext(function($ctx4) {
+return self._superSend();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,4)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 $ctx2.sendIdx["and:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["or:"]=1;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldBeAliased",{sends:sends},globals.SendNode)})},
 args: [],
-source: "shouldBeAliased\x0a\x09\x22Because we keep track of send indexes, some send nodes need additional care for aliasing. \x0a\x09See IRJSVisitor >> visitIRSend:\x22\x0a\x09\x0a\x09| sends |\x0a\x09\x0a\x09sends := (self method sendIndexes at: self selector) size.\x0a\x09\x0a\x09^ super shouldBeAliased or: [\x0a\x09\x09(sends > 1 and: [ self index < sends ]) and: [ self isReferenced ] ]",
-messageSends: ["size", "at:", "sendIndexes", "method", "selector", "or:", "shouldBeAliased", "and:", ">", "<", "index", "isReferenced"],
+source: "shouldBeAliased\x0a\x09\x22Because we keep track of send indexes, some send nodes need additional care for aliasing. \x0a\x09See IRJSVisitor >> visitIRSend:\x22\x0a\x09\x0a\x09| sends |\x0a\x09\x0a\x09sends := (self method sendIndexes at: self selector) size.\x0a\x09\x0a\x09^ (super shouldBeAliased or: [\x0a\x09\x09self isReferenced and: [\x0a\x09\x09\x09(sends > 1 and: [ self index < sends ])\x0a\x09\x09\x09\x09or: [ self superSend ] ] ])",
+messageSends: ["size", "at:", "sendIndexes", "method", "selector", "or:", "shouldBeAliased", "and:", "isReferenced", ">", "<", "index", "superSend"],
 referencedClasses: []
 }),
 globals.SendNode);

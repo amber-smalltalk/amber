@@ -1001,7 +1001,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.SourceArea.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.SourceArea.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._setupCodeMirror();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.SourceArea.klass)})},
 args: [],
@@ -1111,7 +1112,8 @@ function $Workspace(){return globals.Workspace||(typeof Workspace=="undefined"?n
 function $TestRunner(){return globals.TestRunner||(typeof TestRunner=="undefined"?nil:TestRunner)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6,$7;
-globals.TabManager.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.TabManager.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 _st($Inspector())._register_($IDEInspector());
 self["@opened"]=true;
 $1=(function(html){
@@ -1631,7 +1633,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1,$receiver;
 $2=self["@current"];
 if(($receiver = $2) == null || $receiver.isNil){
-self["@current"]=globals.TabManager.klass.superclass.fn.prototype._new.apply(_st(self), []);
+self["@current"]=($ctx1.supercall = true, globals.TabManager.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self["@current"];
 } else {
 $1=$2;
@@ -2535,7 +2538,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.Browser.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.Browser.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@selectedTab"]="instance";
 self["@selectedPackage"]=_st(self._packages())._first();
 self["@unsavedChanges"]=false;
@@ -4094,7 +4098,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.Debugger.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.Debugger.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 _st(self["@unsavedChanges"]).__eq(false);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Debugger)})},
 args: [],
@@ -5307,7 +5312,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1,$receiver;
 $2=self["@current"];
 if(($receiver = $2) == null || $receiver.isNil){
-self["@current"]=globals.IDETranscript.klass.superclass.fn.prototype._new.apply(_st(self), []);
+self["@current"]=($ctx1.supercall = true, globals.IDETranscript.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self["@current"];
 } else {
 $1=$2;
@@ -5553,7 +5559,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.ReferencesBrowser.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.ReferencesBrowser.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@selector"]="";
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ReferencesBrowser)})},
 args: [],
@@ -6275,7 +6282,8 @@ fn: function (){
 var self=this;
 function $TestResult(){return globals.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
 return smalltalk.withContext(function($ctx1) { 
-globals.TestRunner.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.TestRunner.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@result"]=_st($TestResult())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.TestRunner)})},
 args: [],
@@ -7218,7 +7226,8 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.Workspace.superclass.fn.prototype._show.apply(_st(self), []);
+($ctx1.supercall = true, globals.Workspace.superclass.fn.prototype._show.apply(_st(self), []));
+$ctx1.supercall = false;
 _st(self["@sourceArea"])._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"show",{},globals.Workspace)})},
 args: [],
@@ -7395,7 +7404,8 @@ var self=this;
 var label;
 return smalltalk.withContext(function($ctx1) { 
 var $3,$2,$1,$5,$4;
-globals.String.superclass.fn.prototype._inspectOn_.apply(_st(self), [anInspector]);
+($ctx1.supercall = true, globals.String.superclass.fn.prototype._inspectOn_.apply(_st(self), [anInspector]));
+$ctx1.supercall = false;
 $3=self._printString();
 $ctx1.sendIdx["printString"]=1;
 $2=_st($3)._size();

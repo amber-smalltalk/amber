@@ -1086,7 +1086,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1,$receiver;
 $2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
 if(($receiver = $2) == null || $receiver.isNil){
-$1=globals.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
+$1=($ctx1.supercall = true, globals.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]));
+$ctx1.supercall = false;
 } else {
 var jsSelector;
 jsSelector=$receiver;
@@ -1374,7 +1375,8 @@ function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnoun
 function $ProtocolAdded(){return globals.ProtocolAdded||(typeof ProtocolAdded=="undefined"?nil:ProtocolAdded)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-globals.ClassOrganizer.superclass.fn.prototype._addElement_.apply(_st(self), [aString]);
+($ctx1.supercall = true, globals.ClassOrganizer.superclass.fn.prototype._addElement_.apply(_st(self), [aString]));
+$ctx1.supercall = false;
 $1=_st($ProtocolAdded())._new();
 _st($1)._protocol_(aString);
 _st($1)._theClass_(self._theClass());
@@ -1398,7 +1400,8 @@ function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnoun
 function $ProtocolRemoved(){return globals.ProtocolRemoved||(typeof ProtocolRemoved=="undefined"?nil:ProtocolRemoved)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-globals.ClassOrganizer.superclass.fn.prototype._removeElement_.apply(_st(self), [aString]);
+($ctx1.supercall = true, globals.ClassOrganizer.superclass.fn.prototype._removeElement_.apply(_st(self), [aString]));
+$ctx1.supercall = false;
 $1=_st($ProtocolRemoved())._new();
 _st($1)._protocol_(aString);
 _st($1)._theClass_(self._theClass());
@@ -1790,7 +1793,8 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.Package.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+($ctx1.supercall = true, globals.Package.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+$ctx1.supercall = false;
 _st(aStream)._nextPutAll_(" (");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._name());
@@ -2304,7 +2308,8 @@ var candidate;
 function $BrowserInterface(){return globals.BrowserInterface||(typeof BrowserInterface=="undefined"?nil:BrowserInterface)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
-globals.PlatformInterface.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.PlatformInterface.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 if(($receiver = $BrowserInterface()) == null || $receiver.isNil){
 $BrowserInterface();
 } else {
@@ -2804,7 +2809,8 @@ fn: function (aString,anotherString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=globals.Setting.klass.superclass.fn.prototype._new.apply(_st(self), []);
+$2=($ctx1.supercall = true, globals.Setting.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 _st($2)._key_(aString);
 _st($2)._defaultValue_(anotherString);
 $3=_st($2)._yourself();
@@ -3536,7 +3542,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1,$receiver;
 $2=self["@current"];
 if(($receiver = $2) == null || $receiver.isNil){
-self["@current"]=globals.SmalltalkImage.klass.superclass.fn.prototype._new.apply(_st(self), []);
+self["@current"]=($ctx1.supercall = true, globals.SmalltalkImage.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self["@current"];
 } else {
 self._deprecatedAPI();

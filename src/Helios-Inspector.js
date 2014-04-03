@@ -527,7 +527,8 @@ var $1;
 $1=_st(self._variables()).__eq(self._items());
 if(! smalltalk.assert($1)){
 self._resetItems();
-globals.HLInspectorVariablesWidget.superclass.fn.prototype._refresh.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLInspectorVariablesWidget.superclass.fn.prototype._refresh.apply(_st(self), []));
+$ctx1.supercall = false;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},globals.HLInspectorVariablesWidget)})},
 args: [],
@@ -569,7 +570,8 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._renderHeadOn_(html);
-globals.HLInspectorVariablesWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+($ctx1.supercall = true, globals.HLInspectorVariablesWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]));
+$ctx1.supercall = false;
 _st(self._wrapper())._onDblClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._dive();
@@ -623,7 +625,8 @@ protocol: 'reactions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLInspectorVariablesWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [anObject]);
+($ctx1.supercall = true, globals.HLInspectorVariablesWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [anObject]));
+$ctx1.supercall = false;
 _st(self._model())._selectedInstVar_(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{anObject:anObject},globals.HLInspectorVariablesWidget)})},
 args: ["anObject"],
@@ -773,7 +776,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLInspectorWidget.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLInspectorWidget.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._register();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLInspectorWidget)})},
 args: [],
@@ -1176,7 +1180,8 @@ fn: function (){
 var self=this;
 function $HLInspector(){return globals.HLInspector||(typeof HLInspector=="undefined"?nil:HLInspector)}
 return smalltalk.withContext(function($ctx1) { 
-globals.HLInspectorWidget.superclass.fn.prototype._unregister.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLInspectorWidget.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
 _st($HLInspector())._unregister_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLInspectorWidget)})},
 args: [],
@@ -1225,7 +1230,8 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._setTabLabel_(_st(anObject)._printString());
-globals.HLInspector.superclass.fn.prototype._inspect_.apply(_st(self), [anObject]);
+($ctx1.supercall = true, globals.HLInspector.superclass.fn.prototype._inspect_.apply(_st(self), [anObject]));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},globals.HLInspector)})},
 args: ["anObject"],
 source: "inspect: anObject\x0a\x09self setTabLabel: anObject printString.\x0a\x09super inspect: anObject",
@@ -1286,7 +1292,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLInspector.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLInspector.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._watchChanges();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLInspector.klass)})},
 args: [],

@@ -1059,6 +1059,7 @@ visitSend: anIRSend
 
 visitSuperSend: anIRSend
 	self stream
+		nextPutAll: '(', anIRSend scope alias, '.supercall = true, ';
 		nextPutAll: self currentClass asJavascript;
 		nextPutAll: '.superclass.fn.prototype.';
 		nextPutAll: anIRSend selector asSelector, '.apply(';
@@ -1068,7 +1069,9 @@ visitSuperSend: anIRSend
 	anIRSend instructions allButFirst
 		do: [ :each | self visit: each ]
 		separatedBy: [ self stream nextPutAll: ',' ].
-	self stream nextPutAll: '])'
+	self stream 
+		nextPutAll: ']));'; lf;
+		nextPutAll: anIRSend scope alias, '.supercall = false'
 ! !
 
 Object subclass: #JSStream

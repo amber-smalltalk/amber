@@ -457,7 +457,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
-return globals.HLReferencesListWidget.superclass.fn.prototype._activateListItem_.apply(_st(self), [anItem]);
+return ($ctx2.supercall = true, globals.HLReferencesListWidget.superclass.fn.prototype._activateListItem_.apply(_st(self), [anItem]));
+$ctx2.supercall = false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{anItem:anItem},globals.HLReferencesListWidget)})},
 args: ["anItem"],

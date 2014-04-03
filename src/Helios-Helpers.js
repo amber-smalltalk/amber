@@ -285,7 +285,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLPrefixClassifier.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLPrefixClassifier.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._buildPrefixDictionary();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLPrefixClassifier)})},
 args: [],
@@ -421,7 +422,8 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-globals.HLGenerationOutput.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLGenerationOutput.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@sourceCodes"]=_st($OrderedCollection())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLGenerationOutput)})},
 args: [],
@@ -593,7 +595,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLMethodClassifier.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLMethodClassifier.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._setupClassifiers();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLMethodClassifier)})},
 args: [],
@@ -686,7 +689,8 @@ fn: function (){
 var self=this;
 function $HLGenerationOutput(){return globals.HLGenerationOutput||(typeof HLGenerationOutput=="undefined"?nil:HLGenerationOutput)}
 return smalltalk.withContext(function($ctx1) { 
-globals.HLMethodGenerator.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLMethodGenerator.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@output"]=_st($HLGenerationOutput())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLMethodGenerator)})},
 args: [],
@@ -769,7 +773,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-globals.HLAccessorsGenerator.superclass.fn.prototype._generate.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLAccessorsGenerator.superclass.fn.prototype._generate.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=_st(self["@output"])._targetClass();
 _st($1)._accessorsSourceCodesWith_(self);
 $2=_st($1)._accessorProtocolWith_(self);
@@ -855,7 +860,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-globals.HLInitializeGenerator.superclass.fn.prototype._generate.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLInitializeGenerator.superclass.fn.prototype._generate.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=_st(self["@output"])._targetClass();
 _st($1)._initializeSourceCodesWith_(self);
 $2=_st($1)._initializeProtocolWith_(self);
