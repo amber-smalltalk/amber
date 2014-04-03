@@ -5490,7 +5490,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1,$receiver;
 bucket=self._bucketsOfElement_(anObject);
 $2=_st(bucket)._second();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 var object,slowBucket;
 object=_st(bucket)._first();
 $ctx1.sendIdx["first"]=1;
@@ -5678,7 +5678,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$4,$1,$receiver;
 bucket=self._bucketsOfElement_(anObject);
 $2=_st(bucket)._second();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st(bucket)._third();
 $4=_st(bucket)._first();
 $ctx1.sendIdx["first"]=1;
@@ -5816,7 +5816,7 @@ var $early={};
 try {
 bucket=self._bucketsOfElement_(anObject);
 $2=_st(bucket)._second();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st(bucket)._third();
 $4=_st(bucket)._first();
 $ctx1.sendIdx["first"]=1;
@@ -6427,7 +6427,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@position"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@position"]=(0);
 $1=self["@position"];
 } else {

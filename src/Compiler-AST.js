@@ -333,7 +333,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self._parent();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=$2;
 } else {
 var node;
@@ -425,7 +425,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self._parent();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=$2;
 } else {
 var node;
@@ -479,7 +479,7 @@ function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@nodes"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@nodes"]=_st($Array())._new();
 $1=self["@nodes"];
 } else {
@@ -553,11 +553,11 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$receiver,$receiver;
+var $2,$3,$1,$receiver;
 $2=self["@position"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=self._parent();
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $1=$3;
 } else {
 var node;
@@ -689,7 +689,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@shouldBeAliased"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=false;
 } else {
 $1=$2;
@@ -727,7 +727,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@shouldBeInlined"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=false;
 } else {
 $1=$2;
@@ -783,7 +783,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@source"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 $1=$2;
@@ -1077,7 +1077,7 @@ function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@parameters"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@parameters"]=_st($Array())._new();
 $1=self["@parameters"];
 } else {
@@ -1356,7 +1356,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@arguments"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=[];
 } else {
 $1=$2;
@@ -1756,7 +1756,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@arguments"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@arguments"]=[];
 $1=self["@arguments"];
 } else {
@@ -1933,7 +1933,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$3,$2,$5,$6,$4,$receiver;
 $1=self._receiver();
 $ctx1.sendIdx["receiver"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $3=self._arguments();
 $ctx1.sendIdx["arguments"]=1;
 $2=_st($3)._copy();
@@ -2093,7 +2093,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@superSend"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=false;
 } else {
 $1=$2;
@@ -2137,7 +2137,7 @@ _st($2)._source_(self._source());
 $3=$2;
 $5=self._receiver();
 $ctx1.sendIdx["receiver"]=1;
-if(($receiver = $5) == nil || $receiver == null){
+if(($receiver = $5) == null || $receiver.isNil){
 $4=anObject;
 } else {
 $4=_st(self._receiver())._valueForReceiver_(anObject);
@@ -2259,7 +2259,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@temps"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=[];
 } else {
 $1=$2;
@@ -2461,7 +2461,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@assigned"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=false;
 } else {
 $1=$2;

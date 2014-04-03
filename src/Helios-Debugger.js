@@ -81,7 +81,7 @@ return smalltalk.withContext(function($ctx2) {
 inspectedContext=_st(inspectedContext)._outerContext();
 inspectedContext;
 $3=inspectedContext;
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 return $3;
 } else {
 return _st(variables)._addAll_(_st(inspectedContext)._locals());
@@ -133,7 +133,7 @@ function $HLDebuggerCodeModel(){return globals.HLDebuggerCodeModel||(typeof HLDe
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$6,$7,$8,$9,$5,$10,$1,$receiver;
 $2=self["@codeWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($HLDebuggerCodeWidget())._new();
 $ctx1.sendIdx["new"]=1;
 $4=$3;
@@ -224,7 +224,7 @@ function $HLInspectorWidget(){return globals.HLInspectorWidget||(typeof HLInspec
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@inspectorWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@inspectorWidget"]=_st($HLInspectorWidget())._new();
 $1=self["@inspectorWidget"];
 } else {
@@ -249,7 +249,7 @@ function $HLDebuggerModel(){return globals.HLDebuggerModel||(typeof HLDebuggerMo
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@model"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@model"]=_st($HLDebuggerModel())._new();
 $1=self["@model"];
 } else {
@@ -420,7 +420,7 @@ function $HLStackListWidget(){return globals.HLStackListWidget||(typeof HLStackL
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1,$receiver;
 $2=self["@stackListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($HLStackListWidget())._on_(self._model());
 _st($3)._next_(self._codeWidget());
 $4=_st($3)._yourself();
@@ -650,7 +650,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
 $1=_st(self._browserModel())._nextNode();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 var node;
@@ -674,7 +674,7 @@ var self=this;
 var token;
 return smalltalk.withContext(function($ctx1) { 
 var $4,$3,$2,$1,$5,$9,$8,$7,$11,$10,$6,$15,$14,$13,$12,$receiver;
-if(($receiver = aNode) == nil || $receiver == null){
+if(($receiver = aNode) == null || $receiver.isNil){
 aNode;
 } else {
 self._clearHighlight();
@@ -887,7 +887,7 @@ function $ASTDebugger(){return globals.ASTDebugger||(typeof ASTDebugger=="undefi
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@debugger"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@debugger"]=_st($ASTDebugger())._new();
 $1=self["@debugger"];
 } else {

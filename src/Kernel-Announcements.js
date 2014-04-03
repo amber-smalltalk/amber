@@ -107,7 +107,7 @@ $4=_st(self._announcementClass())._name();
 $ctx1.sendIdx["name"]=1;
 $2=_st($3)._at_($4);
 $ctx1.sendIdx["at:"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 return false;
 } else {
 var class_;
@@ -463,7 +463,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@current"]=globals.SystemAnnouncer.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {

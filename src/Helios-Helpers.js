@@ -14,7 +14,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$3,$2,$receiver;
 $1=self._next();
 $ctx1.sendIdx["next"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return false;
 } else {
 $1;
@@ -77,7 +77,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$receiver;
 self["@method"]=anObject;
 $1=self._next();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 var nextLink;
@@ -665,7 +665,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
 $1=_st(self["@output"])._targetClass();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self._error_("class should not be nil");
 } else {
 $1;

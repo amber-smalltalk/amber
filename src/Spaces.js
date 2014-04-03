@@ -51,7 +51,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
 $1=self["@frame"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return self;
 } else {
 $1;

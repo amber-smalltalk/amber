@@ -136,7 +136,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$receiver;
 $1=self["@nextAlias"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self["@nextAlias"]=(0);
 self["@nextAlias"];
 } else {
@@ -857,7 +857,7 @@ function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedC
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@instructions"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@instructions"]=_st($OrderedCollection())._new();
 $1=self["@instructions"];
 } else {
@@ -1149,7 +1149,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self._parent();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=$2;
 } else {
 var node;
@@ -1296,7 +1296,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@arguments"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=[];
 } else {
 $1=$2;
@@ -1358,7 +1358,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@requiresSmalltalkContext"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=false;
 } else {
 $1=$2;
@@ -1543,7 +1543,7 @@ function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@internalVariables"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@internalVariables"]=_st($Set())._new();
 $1=self["@internalVariables"];
 } else {
@@ -1875,7 +1875,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@scope"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=_st(self._parent())._scope();
 } else {
 $1=$2;
@@ -3128,7 +3128,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$receiver;
 sends=_st(_st(_st(_st(anIRSend)._method())._sendIndexes())._at_(_st(anIRSend)._selector()))._size();
 $1=_st(anIRSend)._classSend();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self._visitSend_(anIRSend);
 } else {
 self._visitSuperSend_(anIRSend);

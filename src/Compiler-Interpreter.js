@@ -277,7 +277,7 @@ var $1,$3,$2,$4,$5,$receiver;
 $1=self._isBlockContext();
 if(smalltalk.assert($1)){
 $3=self._outerContext();
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $2=$3;
 } else {
 var context;
@@ -287,7 +287,7 @@ $2=_st(context)._ast();
 return $2;
 };
 $4=self["@ast"];
-if(($receiver = $4) == nil || $receiver == null){
+if(($receiver = $4) == null || $receiver.isNil){
 self._initializeAST();
 } else {
 $4;
@@ -453,7 +453,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@index"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=(0);
 } else {
 $1=$2;
@@ -518,13 +518,13 @@ self._receiver_(_st(aMethodContext)._receiver());
 $1=self._selector_(_st(aMethodContext)._selector());
 $2=_st(aMethodContext)._outerContext();
 $ctx1.sendIdx["outerContext"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $2;
 } else {
 var outer;
 outer=$receiver;
 $3=_st(outer)._methodContext();
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $3;
 } else {
 self._outerContext_(_st(self._class())._fromMethodContext_(_st(aMethodContext)._outerContext()));
@@ -558,7 +558,7 @@ _st($1)._context_(self);
 $2=_st($1)._yourself();
 self["@interpreter"]=$2;
 $3=self._innerContext();
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $3;
 } else {
 self._setupInterpreter_(self["@interpreter"]);
@@ -630,7 +630,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$receiver;
 $1=self["@interpreter"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self._initializeInterpreter();
 } else {
 $1;
@@ -753,7 +753,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$receiver;
 $1=self["@locals"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self._initializeLocals();
 } else {
 $1;
@@ -826,7 +826,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$5,$4,$3,$1,$receiver;
 $2=self._methodContext();
 $ctx1.sendIdx["methodContext"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=$2;
 } else {
 $5=self._methodContext();
@@ -892,7 +892,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$receiver;
 self["@outerContext"]=anAIContext;
 $1=self["@outerContext"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 var context;
@@ -985,7 +985,7 @@ function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@sendIndexes"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=_st($Dictionary())._new();
 } else {
 $1=$2;
@@ -1034,7 +1034,7 @@ _st($2)._visit_($3);
 $4=_st($1)._currentNode();
 currentNode=$4;
 $5=_st(self._ast())._sequenceNode();
-if(($receiver = $5) == nil || $receiver == null){
+if(($receiver = $5) == null || $receiver.isNil){
 $5;
 } else {
 var sequence;
@@ -1214,7 +1214,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$receiver;
 $1=self._context();
 $ctx1.sendIdx["context"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return true;
 } else {
 $1;
@@ -1273,7 +1273,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
 $1=self._context();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 var cxt;
@@ -1297,7 +1297,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self._context();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=$2;
 } else {
 var ctx;
@@ -1341,7 +1341,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1,$receiver;
 $2=self._interpreter();
 $ctx1.sendIdx["interpreter"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=$2;
 } else {
 $1=_st(self._interpreter())._node();
@@ -1372,7 +1372,7 @@ $2=_st($3)._atEnd();
 $ctx1.sendIdx["atEnd"]=1;
 if(smalltalk.assert($2)){
 $4=_st(self._context())._outerContext();
-if(($receiver = $4) == nil || $receiver == null){
+if(($receiver = $4) == null || $receiver.isNil){
 $4;
 } else {
 var outerContext;
@@ -1657,7 +1657,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@returned"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=false;
 } else {
 $1=$2;
@@ -1991,7 +1991,7 @@ $3=_st(anObject)._class();
 $ctx1.sendIdx["class"]=1;
 $2=_st($3)._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $4=self._messageNotUnderstood_receiver_(aMessage,anObject);
 $ctx1.sendIdx["messageNotUnderstood:receiver:"]=1;
 return $4;
@@ -2065,7 +2065,7 @@ function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedC
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@stack"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@stack"]=_st($OrderedCollection())._new();
 $1=self["@stack"];
 } else {
@@ -2517,7 +2517,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@index"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@index"]=(0);
 $1=self["@index"];
 } else {

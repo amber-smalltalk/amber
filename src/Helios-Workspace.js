@@ -13,7 +13,7 @@ function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?n
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@announcer"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@announcer"]=_st($Announcer())._new();
 $1=self["@announcer"];
 } else {
@@ -98,7 +98,7 @@ function $HLManager(){return globals.HLManager||(typeof HLManager=="undefined"?n
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@environment"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=_st(_st($HLManager())._current())._environment();
 } else {
 $1=$2;
@@ -152,7 +152,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@receiver"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@receiver"]=self._defaultReceiver();
 $1=self["@receiver"];
 } else {
@@ -351,7 +351,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$receiver;
 _st(self["@editor"])._setValue_(aString);
 $1=self["@state"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 self._updateState();
@@ -569,7 +569,7 @@ function $HLCodeModel(){return globals.HLCodeModel||(typeof HLCodeModel=="undefi
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@model"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@model"]=_st($HLCodeModel())._new();
 $1=self["@model"];
 } else {
@@ -1426,7 +1426,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@methodContents"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 $1=$2;
@@ -1675,7 +1675,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$receiver;
 class_=_st(anAnnouncement)._item();
 $1=class_;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $2=self._contents_("");
 $ctx1.sendIdx["contents:"]=1;
 return $2;
@@ -1745,7 +1745,7 @@ $5=self._browserModel();
 $ctx1.sendIdx["browserModel"]=2;
 $4=_st($5)._selectedMethod();
 $ctx1.sendIdx["selectedMethod"]=1;
-if(($receiver = $4) == nil || $receiver == null){
+if(($receiver = $4) == null || $receiver.isNil){
 return self;
 } else {
 $4;
@@ -1776,7 +1776,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$receiver;
 method=_st(anAnnouncement)._item();
 $1=method;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $2=self._contents_("");
 $ctx1.sendIdx["contents:"]=1;
 return $2;
@@ -1803,7 +1803,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$receiver;
 package_=_st(anAnnouncement)._item();
 $1=package_;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $2=self._contents_("");
 $ctx1.sendIdx["contents:"]=1;
 return $2;
@@ -1883,7 +1883,7 @@ $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
 $1=_st($2)._selectedClass();
 $ctx1.sendIdx["selectedClass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $3=self._contents_("");
 $ctx1.sendIdx["contents:"]=1;
 return $3;
@@ -1927,7 +1927,7 @@ $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
 $1=_st($2)._selectedClass();
 $ctx1.sendIdx["selectedClass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $3=self._contents_("");
 $ctx1.sendIdx["contents:"]=1;
 return $3;
@@ -2175,7 +2175,7 @@ function $HLCodeWidget(){return globals.HLCodeWidget||(typeof HLCodeWidget=="und
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@codeWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@codeWidget"]=_st($HLCodeWidget())._new();
 $1=self["@codeWidget"];
 } else {
@@ -2269,7 +2269,7 @@ function $HLTranscript(){return globals.HLTranscript||(typeof HLTranscript=="und
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@transcript"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@transcript"]=_st($HLTranscript())._new();
 $1=self["@transcript"];
 } else {

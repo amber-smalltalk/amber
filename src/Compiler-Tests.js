@@ -1167,7 +1167,7 @@ _st($1)._interpreter_(interpreter);
 $2=_st($1)._yourself();
 ctx=$2;
 $3=_st(ast)._sequenceNode();
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $3;
 } else {
 var sequence;
@@ -1293,7 +1293,7 @@ $2=_st($1)._yourself();
 ctx=$2;
 ast=self._parse_forClass_(aString,_st(anObject)._class());
 $3=_st(ast)._sequenceNode();
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $3;
 } else {
 var sequence;

@@ -29,7 +29,7 @@ function $HLClassesListWidget(){return globals.HLClassesListWidget||(typeof HLCl
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@classesListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@classesListWidget"]=_st($HLClassesListWidget())._on_(self._model());
 self["@classesListWidget"];
 $1=_st(self["@classesListWidget"])._next_(self._protocolsListWidget());
@@ -91,7 +91,7 @@ function $HLMethodsListWidget(){return globals.HLMethodsListWidget||(typeof HLMe
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@methodsListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@methodsListWidget"]=_st($HLMethodsListWidget())._on_(self._model());
 self["@methodsListWidget"];
 $1=_st(self["@methodsListWidget"])._next_(self._sourceWidget());
@@ -117,7 +117,7 @@ function $HLBrowserModel(){return globals.HLBrowserModel||(typeof HLBrowserModel
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@model"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self._model_(_st($HLBrowserModel())._new());
 $1=self["@model"];
 } else {
@@ -181,11 +181,11 @@ protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$receiver,$receiver;
+var $1,$3,$2,$receiver;
 $1=_st(anAnnouncement)._item();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $3=_st(self._model())._selectedPackage();
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $2=self._defaultTabLabel();
 } else {
 var package_;
@@ -217,7 +217,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
 $1=_st(anAnnouncement)._item();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 var item;
@@ -286,7 +286,7 @@ function $HLPackagesListWidget(){return globals.HLPackagesListWidget||(typeof HL
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@packagesListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@packagesListWidget"]=_st($HLPackagesListWidget())._on_(self._model());
 self["@packagesListWidget"];
 $1=_st(self["@packagesListWidget"])._next_(self._classesListWidget());
@@ -312,7 +312,7 @@ function $HLProtocolsListWidget(){return globals.HLProtocolsListWidget||(typeof 
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@protocolsListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@protocolsListWidget"]=_st($HLProtocolsListWidget())._on_(self._model());
 self["@protocolsListWidget"];
 $1=_st(self["@protocolsListWidget"])._next_(self._methodsListWidget());
@@ -386,7 +386,7 @@ function $HLBrowserBottomWidget(){return globals.HLBrowserBottomWidget||(typeof 
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1,$receiver;
 $2=self["@sourceWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($HLBrowserBottomWidget())._new();
 _st($3)._model_(self._model());
 $4=_st($3)._yourself();
@@ -451,7 +451,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$receiver;
 $1=self["@nextId"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self["@nextId"]=(0);
 self["@nextId"];
 } else {
@@ -540,7 +540,7 @@ function $HLBrowserCodeWidget(){return globals.HLBrowserCodeWidget||(typeof HLBr
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1,$receiver;
 $2=self["@codeWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($HLBrowserCodeWidget())._new();
 _st($3)._browserModel_(self._model());
 $4=_st($3)._yourself();
@@ -568,7 +568,7 @@ function $HLDocumentationWidget(){return globals.HLDocumentationWidget||(typeof 
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1,$receiver;
 $2=self["@documentationWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($HLDocumentationWidget())._new();
 _st($3)._model_(self._model());
 $4=_st($3)._yourself();
@@ -920,7 +920,7 @@ function $HLShowTemplate(){return globals.HLShowTemplate||(typeof HLShowTemplate
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$receiver;
 $1=self._selectedPackage();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 var package_;
@@ -947,7 +947,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@showComment"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=true;
 } else {
 $1=$2;
@@ -992,7 +992,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@showInstance"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=true;
 } else {
 $1=$2;
@@ -1021,7 +1021,7 @@ self["@showInstance"]=aBoolean;
 self["@showInstance"];
 $1=self._selectedClass();
 $ctx2.sendIdx["selectedClass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 if(smalltalk.assert(aBoolean)){
@@ -1053,7 +1053,7 @@ function $HLShowTemplate(){return globals.HLShowTemplate||(typeof HLShowTemplate
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$receiver;
 $1=self._selectedClass();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 var theClass;
@@ -1130,7 +1130,7 @@ $2=self._theClass();
 $ctx1.sendIdx["theClass"]=1;
 $1=_st($2)._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 $3=_st(self._selectorsCache())._cacheFor_(_st(self._theClass())._superclass());
@@ -1217,7 +1217,7 @@ function $HashedCollection(){return globals.HashedCollection||(typeof HashedColl
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@overriddenCache"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@overriddenCache"]=_st($HashedCollection())._new();
 $1=self["@overriddenCache"];
 } else {
@@ -1242,7 +1242,7 @@ function $HashedCollection(){return globals.HashedCollection||(typeof HashedColl
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@overrideCache"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@overrideCache"]=_st($HashedCollection())._new();
 $1=self["@overrideCache"];
 } else {
@@ -1395,7 +1395,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$receiver;
 globals.HLClassesListWidget.superclass.fn.prototype._focus.apply(_st(self), []);
 $1=self._selectedItem();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 _st(self._model())._showClassTemplate();
 } else {
 $1;
@@ -1758,7 +1758,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3,$receiver;
 $1=_st(anAnnouncement)._item();
 $ctx1.sendIdx["item"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return self;
 } else {
 $1;
@@ -2096,7 +2096,7 @@ fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
-if(($receiver = aPackage) == nil || $receiver == null){
+if(($receiver = aPackage) == null || $receiver.isNil){
 $1=[];
 } else {
 $1=_st(_st(_st(aPackage)._classes())._collect_((function(each){
@@ -2279,7 +2279,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self._selectedItem();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 var item;
@@ -2323,7 +2323,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self._selectedItem();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._defaultHead();
 } else {
 var item;
@@ -2429,7 +2429,7 @@ $2=self._model();
 $ctx1.sendIdx["model"]=1;
 $1=_st($2)._selectedClass();
 $ctx1.sendIdx["selectedClass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return self;
 } else {
 $1;
@@ -2540,7 +2540,7 @@ function $Showdown(){return globals.Showdown||(typeof Showdown=="undefined"?nil:
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$4,$5,$3,$6,$7,$receiver;
 $1=self._selectedItem();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 self._renderInheritanceOn_(html);
@@ -2611,7 +2611,7 @@ $4=self._selectedItem();
 $ctx2.sendIdx["selectedItem"]=1;
 $3=_st($4)._superclass();
 $ctx2.sendIdx["superclass"]=1;
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 return _st(_st(html)._em())._with_("nil");
 $ctx2.sendIdx["with:"]=3;
 } else {
@@ -2664,7 +2664,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=_st(self._model())._selectedClass();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=$2;
 } else {
 var class_;
@@ -2782,7 +2782,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$receiver;
 globals.HLMethodsListWidget.superclass.fn.prototype._focus.apply(_st(self), []);
 $1=self._selectedItem();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 _st(self._model())._showMethodTemplate();
 } else {
 $1;
@@ -2876,7 +2876,7 @@ $2=self._model();
 $ctx1.sendIdx["model"]=1;
 $1=_st($2)._selectedClass();
 $ctx1.sendIdx["selectedClass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $3=[];
 return $3;
 } else {
@@ -3040,7 +3040,7 @@ throw $early=[self];
 }));
 $2=self._selectedItem();
 $ctx1.sendIdx["selectedItem"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $2;
 } else {
 $4=_st(_st(method)._methodClass()).__eq(_st(self._model())._selectedClass());
@@ -3313,7 +3313,7 @@ fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
-if(($receiver = aSelector) == nil || $receiver == null){
+if(($receiver = aSelector) == null || $receiver.isNil){
 $2=self._model();
 $ctx1.sendIdx["model"]=1;
 $1=_st($2)._selectedMethod_(nil);
@@ -3378,7 +3378,7 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
-if(($receiver = aString) == nil || $receiver == null){
+if(($receiver = aString) == null || $receiver.isNil){
 $2=[];
 } else {
 $2=self._selectorsInProtocol_(aString);
@@ -3506,7 +3506,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@items"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._initializeItems();
 } else {
 $1=$2;
@@ -3954,7 +3954,7 @@ var $1,$2,$3,$receiver;
 protocol=_st(anAnnouncement)._item();
 self._selectedItem_(protocol);
 $1=protocol;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return self;
 } else {
 $1;
@@ -4077,7 +4077,7 @@ var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1,$receiver;
-if(($receiver = aClass) == nil || $receiver == null){
+if(($receiver = aClass) == null || $receiver.isNil){
 $2=self._allProtocol();
 $ctx1.sendIdx["allProtocol"]=1;
 $1=_st($Array())._with_($2);
@@ -4124,7 +4124,7 @@ fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
-if(($receiver = aClass) == nil || $receiver == null){
+if(($receiver = aClass) == null || $receiver.isNil){
 return nil;
 } else {
 aClass;
@@ -4152,7 +4152,7 @@ function $HashedCollection(){return globals.HashedCollection||(typeof HashedColl
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@classesCache"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@classesCache"]=_st($HashedCollection())._new();
 $1=self["@classesCache"];
 } else {
@@ -4321,7 +4321,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@current"]=globals.HLSelectorsCache.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {

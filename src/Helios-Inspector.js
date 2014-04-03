@@ -113,7 +113,7 @@ function $HLCodeModel(){return globals.HLCodeModel||(typeof HLCodeModel=="undefi
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@code"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@code"]=_st($HLCodeModel())._on_(self._environment());
 $1=self["@code"];
 } else {
@@ -205,7 +205,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@label"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=_st(self._inspectee())._printString();
 } else {
 $1=$2;
@@ -277,7 +277,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@selection"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 $1=$2;
@@ -335,7 +335,7 @@ function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@variables"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=_st($Dictionary())._new();
 } else {
 $1=$2;
@@ -398,7 +398,7 @@ function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?n
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@announcer"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@announcer"]=_st($Announcer())._new();
 $1=self["@announcer"];
 } else {
@@ -681,7 +681,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@codeWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@codeWidget"]=self._defaultCodeWidget();
 $1=self["@codeWidget"];
 } else {
@@ -748,7 +748,7 @@ function $HLInspectorDisplayWidget(){return globals.HLInspectorDisplayWidget||(t
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1,$receiver;
 $2=self["@displayWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($HLInspectorDisplayWidget())._new();
 _st($3)._inspector_(self);
 $4=_st($3)._yourself();
@@ -865,7 +865,7 @@ function $HLInspectorModel(){return globals.HLInspectorModel||(typeof HLInspecto
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@model"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self._model_(_st($HLInspectorModel())._new());
 $1=self["@model"];
 } else {
@@ -1196,7 +1196,7 @@ function $HLInspectorVariablesWidget(){return globals.HLInspectorVariablesWidget
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1,$receiver;
 $2=self["@variablesWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($HLInspectorVariablesWidget())._new();
 _st($3)._inspector_(self);
 $4=_st($3)._yourself();
@@ -1325,7 +1325,7 @@ function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedC
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@inspectors"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@inspectors"]=_st($OrderedCollection())._new();
 $1=self["@inspectors"];
 } else {

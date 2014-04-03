@@ -629,9 +629,9 @@ var $3,$2,$4,$1,$receiver;
 $3=self._model();
 $ctx1.sendIdx["model"]=1;
 $2=_st($3)._selectedMethod();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $4=_st(self._model())._selectedClass();
-if(($receiver = $4) == nil || $receiver == null){
+if(($receiver = $4) == null || $receiver.isNil){
 $1="";
 } else {
 var class_;

@@ -14,7 +14,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$receiver;
 $1=_st(anError)._context();
 $ctx1.sendIdx["context"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 self._logErrorContext_(_st(anError)._context());
@@ -54,7 +54,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$receiver;
 $1=_st(aContext)._home();
 $ctx1.sendIdx["home"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 self._logContext_(_st(aContext)._home());
@@ -92,12 +92,12 @@ fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
-if(($receiver = aContext) == nil || $receiver == null){
+if(($receiver = aContext) == null || $receiver.isNil){
 aContext;
 } else {
 $1=_st(aContext)._home();
 $ctx1.sendIdx["home"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 self._logContext_(_st(aContext)._home());
@@ -331,7 +331,7 @@ var $1,$2,$receiver;
 protocols=_st(aClass)._protocols();
 $1=_st(aClass)._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(protocols)._addAll_(self._availableProtocolsFor_(_st(aClass)._superclass()));
@@ -375,7 +375,7 @@ function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?n
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=_st(_st($Smalltalk())._globals())._at_(_st(aString)._asSymbol());
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._error_("Invalid class name");
 } else {
 $1=$2;
@@ -493,7 +493,7 @@ function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="und
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$receiver;
 $1=_st(_st($Smalltalk())._globals())._at_(aClassName);
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 $2=_st("A class named ".__comma(aClassName)).__comma(" already exists");
@@ -601,7 +601,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$receiver;
 package_=_st($Package())._named_(aPackageName);
 $1=package_;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self._error_("Invalid package name");
 } else {
 $1;
@@ -836,7 +836,7 @@ function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="und
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$receiver;
 $1=_st(_st($Smalltalk())._globals())._at_(aClassName);
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 $2=_st("A class named ".__comma(aClassName)).__comma(" already exists");
@@ -1085,7 +1085,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=globals.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
 } else {
 var jsSelector;
@@ -1636,7 +1636,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@dirty"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=false;
 } else {
 $1=$2;
@@ -1859,7 +1859,7 @@ function $PackageTransport(){return globals.PackageTransport||(typeof PackageTra
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1,$receiver;
 $2=self["@transport"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($PackageTransport())._fromJson_(self._basicTransport());
 _st($3)._package_(self);
 $4=_st($3)._yourself();
@@ -2068,7 +2068,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
 $1=_st(anAnnouncement)._theClass();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 var theClass;
@@ -2092,7 +2092,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
 $1=_st(_st(anAnnouncement)._method())._package();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 var package_;
@@ -2150,7 +2150,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@current"]=self._new();
 $1=self["@current"];
 } else {
@@ -2195,7 +2195,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._error_("ajax: not available");
 } else {
 $1=_st(self["@worker"])._ajax_(anObject);
@@ -2218,7 +2218,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._error_("alert: not available");
 } else {
 $1=_st(self["@worker"])._alert_(aString);
@@ -2241,7 +2241,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._error_("confirm: not available");
 } else {
 $1=_st(self["@worker"])._confirm_(aString);
@@ -2305,7 +2305,7 @@ function $BrowserInterface(){return globals.BrowserInterface||(typeof BrowserInt
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
 globals.PlatformInterface.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
-if(($receiver = $BrowserInterface()) == nil || $receiver == null){
+if(($receiver = $BrowserInterface()) == null || $receiver.isNil){
 $BrowserInterface();
 } else {
 candidate=_st($BrowserInterface())._new();
@@ -2333,7 +2333,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._error_("prompt: not available");
 } else {
 $1=_st(self["@worker"])._prompt_(aString);
@@ -2356,7 +2356,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._error_("prompt: not available");
 } else {
 $1=_st(self["@worker"])._prompt_default_(aString,defaultString);
@@ -2447,7 +2447,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
 $1=self._current();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self._register_(anObject);
 } else {
 $1;
@@ -3445,7 +3445,7 @@ return self._error_($1);
 $ctx2.sendIdx["error:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $2=self._packageAt_(newName);
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $2;
 } else {
 self._error_("Already exists a package called: ".__comma(newName));
@@ -3535,7 +3535,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@current"]=globals.SmalltalkImage.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {

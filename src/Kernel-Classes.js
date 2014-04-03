@@ -49,13 +49,13 @@ _st($4)._addElement_($5);
 };
 self._basicAddCompiledMethod_(aMethod);
 $6=oldMethod;
-if(($receiver = $6) == nil || $receiver == null){
+if(($receiver = $6) == null || $receiver.isNil){
 $6;
 } else {
 self._removeProtocolIfEmpty_(_st(oldMethod)._protocol());
 };
 $7=oldMethod;
-if(($receiver = $7) == nil || $receiver == null){
+if(($receiver = $7) == null || $receiver.isNil){
 $8=_st($MethodAdded())._new();
 $ctx1.sendIdx["new"]=1;
 _st($8)._method_(aMethod);
@@ -91,7 +91,7 @@ var $1,$2,$receiver;
 result=_st(self._instanceVariableNames())._copy();
 $1=self._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(result)._addAll_(_st(self._superclass())._allInstanceVariableNames());
@@ -193,7 +193,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$5,$4,$6,$3,$receiver;
 $1=self._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $2=[];
 return $2;
 } else {
@@ -298,7 +298,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self._basicAt_("comment");
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 $1=$2;
@@ -476,7 +476,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$4,$3,$2,$receiver;
 $1=self._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return false;
 } else {
 $1;
@@ -1151,7 +1151,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1,$receiver;
 $2=self._package();
 $ctx1.sendIdx["package"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="Unclassified";
 } else {
 $1=_st(self._package())._name();
@@ -1633,7 +1633,7 @@ var $1,$2,$3,$4,$receiver;
 theClass=_st(_st($Smalltalk())._globals())._at_(className);
 thePackage=_st($Package())._named_(packageName);
 $1=theClass;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(theClass)._package_(thePackage);
@@ -2067,7 +2067,7 @@ function $ClassAdded(){return globals.ClassAdded||(typeof ClassAdded=="undefined
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$receiver;
 $1=self._instanceVariableNamesFor_(ivarNames);
-if(($receiver = packageName) == nil || $receiver == null){
+if(($receiver = packageName) == null || $receiver.isNil){
 $2="unclassified";
 } else {
 $2=packageName;

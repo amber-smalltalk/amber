@@ -646,7 +646,7 @@ $ctx1.sendIdx["methodClass"]=1;
 superclass=_st($1)._superclass();
 $ctx1.sendIdx["superclass"]=1;
 $2=superclass;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 return false;
 } else {
 $2;
@@ -708,7 +708,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$3,$2,$5,$4,$6,$receiver;
 $1=self._methodClass();
 $ctx1.sendIdx["methodClass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return nil;
 } else {
 $1;
@@ -745,7 +745,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self._basicAt_("protocol");
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._defaultProtocol();
 } else {
 $1=$2;
@@ -778,7 +778,7 @@ _st($1)._oldProtocol_(oldProtocol);
 $2=_st($1)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($2);
 $3=self._methodClass();
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $3;
 } else {
 var methodClass;
@@ -873,7 +873,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self._basicAt_("source");
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 $1=$2;
@@ -1032,7 +1032,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@maxPoolSize"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._defaultMaxPoolSize();
 } else {
 $1=$2;
@@ -1072,7 +1072,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@default"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@default"]=self._new();
 $1=self["@default"];
 } else {
@@ -1700,7 +1700,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$5,$4,$3,$1,$receiver;
 $2=self._methodContext();
 $ctx1.sendIdx["methodContext"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=$2;
 } else {
 $5=self._methodContext();
@@ -1731,7 +1731,7 @@ if(! smalltalk.assert($1)){
 return self;
 };
 $3=self._outerContext();
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $2=$3;
 } else {
 var outer;

@@ -14,7 +14,7 @@ function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?n
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@announcer"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@announcer"]=_st($Announcer())._new();
 $1=self["@announcer"];
 } else {
@@ -38,7 +38,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@environment"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=_st(self._manager())._environment();
 } else {
 $1=$2;
@@ -231,7 +231,7 @@ return _st(_st(each)._name()).__eq(aString);
 return nil;
 }));
 $1=foundClass;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 _st(_st($HLReferences())._openAsTab())._search_(aString);
 } else {
 self._findClass_(foundClass);
@@ -406,7 +406,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$4,$3,$receiver;
 currentProtocol=self._selectedProtocol();
 $1=currentProtocol;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 currentProtocol=self._unclassifiedProtocol();
 $ctx1.sendIdx["unclassifiedProtocol"]=1;
 currentProtocol;
@@ -415,7 +415,7 @@ $1;
 };
 $2=self._selectedMethod();
 $ctx1.sendIdx["selectedMethod"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $2;
 } else {
 currentProtocol=_st(self._selectedMethod())._protocol();
@@ -790,7 +790,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self._selectedMethod();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._selectedPackage();
 } else {
 var method;
@@ -1040,7 +1040,7 @@ if(smalltalk.assert($4)){
 self._selectedProtocol_(nil);
 $ctx2.sendIdx["selectedProtocol:"]=1;
 };
-if(($receiver = aClass) == nil || $receiver == null){
+if(($receiver = aClass) == null || $receiver.isNil){
 self["@selectedClass"]=nil;
 self["@selectedClass"];
 } else {
@@ -1078,7 +1078,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1,$receiver;
 $2=self._selectedClass();
 $ctx1.sendIdx["selectedClass"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=$2;
 } else {
 $1=_st(_st(self._selectedClass())._methodDictionary())._at_ifAbsent_(self["@selectedSelector"],(function(){
@@ -1109,7 +1109,7 @@ return self;
 };
 self._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
-if(($receiver = aCompiledMethod) == nil || $receiver == null){
+if(($receiver = aCompiledMethod) == null || $receiver.isNil){
 self["@selectedSelector"]=nil;
 self["@selectedSelector"];
 } else {
@@ -1559,7 +1559,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$3,$2,$receiver;
 $1=self._wrapper();
 $ctx1.sendIdx["wrapper"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return self;
 } else {
 $1;
@@ -2059,7 +2059,7 @@ var item;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$receiver;
 $1=_st(aListItem)._get_((0));
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return self;
 } else {
 $1;
@@ -2167,7 +2167,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$4,$3,$2,$5,$9,$8,$11,$10,$7,$6,$15,$14,$16,$13,$17,$12,$18,$22,$23,$21,$20,$19,$receiver;
 $1=_st(aListItem)._get_((0));
 $ctx1.sendIdx["get:"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return self;
 } else {
 $1;
@@ -2266,7 +2266,7 @@ globals.HLListWidget.superclass.fn.prototype._focus.apply(_st(self), []);
 $1=_st(self._items())._isEmpty();
 if(! smalltalk.assert($1)){
 $2=self._selectedItem();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self._activateFirstListItem();
 } else {
 $2;
@@ -2289,7 +2289,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@items"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@items"]=self._defaultItems();
 $1=self["@items"];
 } else {
@@ -2388,7 +2388,7 @@ var $1,$receiver;
 globals.HLListWidget.superclass.fn.prototype._refresh.apply(_st(self), []);
 $1=self._selectedItem();
 $ctx1.sendIdx["selectedItem"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 self._ensureVisible_(self._findListItemFor_(self._selectedItem()));
@@ -2668,7 +2668,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$receiver;
 $1=self._next();
 $ctx1.sendIdx["next"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(self._next())._focus();
@@ -2729,7 +2729,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$receiver;
 $1=self._previous();
 $ctx1.sendIdx["previous"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(self._previous())._focus();
@@ -3192,7 +3192,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@callback"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=(function(){
 });
 } else {
@@ -3271,7 +3271,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@informationString"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 $1=$2;
@@ -3428,7 +3428,7 @@ function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?n
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@announcer"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@announcer"]=_st($Announcer())._new();
 $1=self["@announcer"];
 } else {
@@ -3510,13 +3510,13 @@ function $Environment(){return globals.Environment||(typeof Environment=="undefi
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6,$7,$receiver;
 $1=_st(window)._opener();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 parent=_st(window)._parent();
 } else {
 parent=$1;
 };
 $2=parent;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($Environment())._new();
 $ctx1.sendIdx["new"]=1;
 return $3;
@@ -3527,7 +3527,7 @@ $4=_st(parent)._at_("requirejs");
 $ctx1.sendIdx["at:"]=1;
 parentSmalltalkGlobals=_st($4)._value_("amber_vm/globals");
 $5=parentSmalltalkGlobals;
-if(($receiver = $5) == nil || $receiver == null){
+if(($receiver = $5) == null || $receiver.isNil){
 $6=_st($Environment())._new();
 $ctx1.sendIdx["new"]=2;
 return $6;
@@ -3553,7 +3553,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@environment"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@environment"]=self._defaultEnvironment();
 $1=self["@environment"];
 } else {
@@ -3593,7 +3593,7 @@ function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedC
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@history"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@history"]=_st($OrderedCollection())._new();
 $1=self["@history"];
 } else {
@@ -4042,7 +4042,7 @@ function $HLTabsWidget(){return globals.HLTabsWidget||(typeof HLTabsWidget=="und
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@tabsWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@tabsWidget"]=_st($HLTabsWidget())._new();
 $1=self["@tabsWidget"];
 } else {
@@ -4068,7 +4068,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@current"]=_st(self._basicNew())._initialize();
 $1=self["@current"];
 } else {
@@ -4292,7 +4292,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@actionBlock"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=(function(){
 });
 } else {
@@ -4348,7 +4348,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@cancelBlock"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=(function(){
 });
 } else {
@@ -4387,7 +4387,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@cancelButtonLabel"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="Cancel";
 } else {
 $1=$2;
@@ -4445,7 +4445,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@confirmButtonLabel"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="Confirm";
 } else {
 $1=$2;
@@ -4486,7 +4486,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@confirmationString"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="Confirm";
 } else {
 $1=$2;
@@ -4671,7 +4671,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@multiline"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=true;
 } else {
 $1=$2;
@@ -4732,7 +4732,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@value"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 $1=$2;
@@ -4853,7 +4853,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@visible"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=false;
 } else {
 $1=$2;
@@ -4877,7 +4877,7 @@ function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedC
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@progressBars"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@progressBars"]=_st($OrderedCollection())._new();
 $1=self["@progressBars"];
 } else {
@@ -4992,7 +4992,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@default"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@default"]=self._new();
 $1=self["@default"];
 } else {
@@ -5036,7 +5036,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@cancelCallback"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=(function(){
 });
 } else {
@@ -5092,7 +5092,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@confirmCallback"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=(function(){
 });
 } else {
@@ -5267,7 +5267,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@selectCallback"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=(function(){
 });
 } else {
@@ -5381,7 +5381,7 @@ function $HLTabListWidget(){return globals.HLTabListWidget||(typeof HLTabListWid
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$receiver;
 $1=self["@tabList"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self["@tabList"]=_st($HLTabListWidget())._new();
 self["@tabList"];
 $2=self["@tabList"];
@@ -5415,7 +5415,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@tabs"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=[];
 } else {
 $1=$2;
@@ -5705,7 +5705,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@default"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@default"]=self._new();
 $1=self["@default"];
 } else {
@@ -5805,7 +5805,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$receiver;
 $1=self["@root"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(_st(self["@root"])._asJQuery())._css_put_("visibility","hidden");
@@ -5845,7 +5845,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@label"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 $1=$2;
@@ -5969,7 +5969,7 @@ self._unregister();
 $ctx1.sendIdx["unregister"]=1;
 _st(self._widget())._unregister();
 $1=self["@root"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(_st(self["@root"])._asJQuery())._remove();
@@ -6038,7 +6038,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$receiver;
 $1=self["@root"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $2="body"._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
 self._appendToJQuery_($2);
@@ -6317,7 +6317,7 @@ function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedC
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@history"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@history"]=_st($OrderedCollection())._new();
 $1=self["@history"];
 } else {
@@ -6356,7 +6356,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@selectionDisabled"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=false;
 } else {
 $1=$2;
@@ -6752,7 +6752,7 @@ function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedC
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@tabs"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@tabs"]=_st($OrderedCollection())._new();
 $1=self["@tabs"];
 } else {
