@@ -262,7 +262,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@basePath"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=_st(self._class())._defaultBasePath();
 } else {
 $1=$2;
@@ -530,7 +530,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.FileServer.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.FileServer.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@path"]=self._require_("path");
 $ctx1.sendIdx["require:"]=1;
 self["@http"]=self._require_("http");
@@ -576,7 +577,7 @@ return true;
 };
 $3=_st(_st(aRequest)._headers())._at_("authorization");
 $ctx1.sendIdx["at:"]=1;
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 header="";
 } else {
 header=$3;
@@ -587,7 +588,7 @@ return false;
 } else {
 $5=_st(header)._tokenize_(" ");
 $ctx1.sendIdx["tokenize:"]=1;
-if(($receiver = $5) == nil || $receiver == null){
+if(($receiver = $5) == null || $receiver.isNil){
 token="";
 } else {
 token=$5;
@@ -742,7 +743,7 @@ self._respondFileNamed_to_($3,aResponse);
 } else {
 $5=_st(_st(aUrl)._pathname()).__comma("/");
 $7=_st(aUrl)._search();
-if(($receiver = $7) == nil || $receiver == null){
+if(($receiver = $7) == null || $receiver.isNil){
 $6="";
 } else {
 $6=$7;
@@ -1001,7 +1002,7 @@ $2=self._basePath();
 $ctx1.sendIdx["basePath"]=1;
 _st($1)._stat_then_($2,(function(err,stat){
 return smalltalk.withContext(function($ctx2) {
-if(($receiver = err) == nil || $receiver == null){
+if(($receiver = err) == null || $receiver.isNil){
 $3=_st(stat)._isDirectory();
 if(! smalltalk.assert($3)){
 $4=console;
@@ -1304,7 +1305,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
 $2=self["@mimeTypes"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@mimeTypes"]=self._defaultMimeTypes();
 $1=self["@mimeTypes"];
 } else {
@@ -1527,7 +1528,7 @@ var $3,$4,$2,$1,$receiver;
 $1=self._parseAssignment_do_(buffer,(function(name,expr){
 var varName,value;
 return smalltalk.withContext(function($ctx2) {
-if(($receiver = name) == nil || $receiver == null){
+if(($receiver = name) == null || $receiver.isNil){
 varName=self._nextResultName();
 } else {
 varName=name;
@@ -1538,7 +1539,7 @@ self["@session"];
 _st((function(){
 return smalltalk.withContext(function($ctx3) {
 $3=_st(varName).__comma(" := ");
-if(($receiver = expr) == nil || $receiver == null){
+if(($receiver = expr) == null || $receiver.isNil){
 $4=buffer;
 } else {
 $4=expr;
@@ -1776,7 +1777,8 @@ fn: function (){
 var self=this;
 function $DoIt(){return globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return smalltalk.withContext(function($ctx1) { 
-globals.Repl.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.Repl.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@session"]=_st($DoIt())._new();
 self["@readline"]=_st(require)._value_("readline");
 $ctx1.sendIdx["value:"]=1;
@@ -1800,7 +1802,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$1,$receiver;
 $2=_st(aClass)._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=_st(aClass)._instanceVariableNames();
 } else {
 $3=_st(aClass)._instanceVariableNames();
@@ -1861,7 +1863,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$receiver;
 $1=self["@resultCount"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self["@resultCount"]=(1);
 } else {
 self["@resultCount"]=_st(self["@resultCount"]).__plus((1));
@@ -2095,7 +2097,7 @@ return smalltalk.withContext(function($ctx1) {
 var $receiver;
 _st(_st(process)._stdin())._on_do_("keypress",(function(s,key){
 return smalltalk.withContext(function($ctx2) {
-if(($receiver = key) == nil || $receiver == null){
+if(($receiver = key) == null || $receiver.isNil){
 return key;
 } else {
 return self._onKeyPress_(key);
@@ -2140,7 +2142,7 @@ $3=_st(aClass)._name();
 $ctx1.sendIdx["name"]=1;
 $2=_st($3)._matchesOf_("\x5cd+$");
 $ctx1.sendIdx["matchesOf:"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=_st(_st(aClass)._name()).__comma("2");
 } else {
 var counter;
