@@ -39,20 +39,6 @@ globals.AmberCli.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "create:",
-protocol: 'commands',
-fn: function (args){
-var self=this;
-return self},
-args: ["args"],
-source: "create: args",
-messageSends: [],
-referencedClasses: []
-}),
-globals.AmberCli.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "handleArguments:",
 protocol: 'commandline',
 fn: function (args){
@@ -92,6 +78,23 @@ args: ["args"],
 source: "help: args\x0a\x09Transcript show: 'Available commands'.\x0a\x09self commandLineSwitches do: [ :each | console log: each ]",
 messageSends: ["show:", "do:", "commandLineSwitches", "log:"],
 referencedClasses: ["Transcript"]
+}),
+globals.AmberCli.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "init:",
+protocol: 'commands',
+fn: function (args){
+var self=this;
+function $Initer(){return globals.Initer||(typeof Initer=="undefined"?nil:Initer)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($Initer())._new())._start();
+return self}, function($ctx1) {$ctx1.fill(self,"init:",{args:args},globals.AmberCli.klass)})},
+args: ["args"],
+source: "init: args\x0a\x09Initer new start",
+messageSends: ["start", "new"],
+referencedClasses: ["Initer"]
 }),
 globals.AmberCli.klass);
 
@@ -1379,6 +1382,126 @@ messageSends: [",", "replace:with:", "asUppercase", "second"],
 referencedClasses: []
 }),
 globals.FileServer.klass);
+
+
+smalltalk.addClass('Initer', globals.Object, ['path', 'childProcess', 'nmPath'], 'AmberCli');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "dirname",
+protocol: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return __dirname;
+return self}, function($ctx1) {$ctx1.fill(self,"dirname",{},globals.Initer)})},
+args: [],
+source: "dirname\x0a\x09<return __dirname>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Initer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "gruntInitThenDo:",
+protocol: 'action',
+fn: function (aBlock){
+var self=this;
+var child;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$2,$5,$6,$7;
+$1=self["@childProcess"];
+$3=_st(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt-init")).__comma(" ");
+$4=_st(_st(_st(self["@path"])._join_with_(self["@nmPath"],"grunt-init-amber"))._replace_with_("\x5c\x5c","\x5c\x5c"))._replace_with_(":","\x5c:");
+$ctx1.sendIdx["replace:with:"]=1;
+$2=_st($3).__comma($4);
+$ctx1.sendIdx[","]=1;
+child=_st($1)._exec_thenDo_($2,aBlock);
+$5=_st(child)._stdout();
+$ctx1.sendIdx["stdout"]=1;
+_st($5)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
+$ctx1.sendIdx["pipe:options:"]=1;
+$6=_st(process)._stdin();
+$ctx1.sendIdx["stdin"]=1;
+_st($6)._resume();
+$7=_st(process)._stdin();
+$ctx1.sendIdx["stdin"]=2;
+_st($7)._pipe_options_(_st(child)._stdin(),globals.HashedCollection._newFromPairs_(["end",false]));
+return self}, function($ctx1) {$ctx1.fill(self,"gruntInitThenDo:",{aBlock:aBlock,child:child},globals.Initer)})},
+args: ["aBlock"],
+source: "gruntInitThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: (path join: nmPath with: '.bin' with: 'grunt-init'), ' ', (((path join: nmPath with: 'grunt-init-amber') replace: '\x5c\x5c' with: '\x5c\x5c') replace: ':' with: '\x5c:')\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }.\x0a\x09process stdin resume.\x0a\x09process stdin pipe: child stdin options: #{ 'end' -> false }",
+messageSends: ["exec:thenDo:", ",", "join:with:with:", "replace:with:", "join:with:", "pipe:options:", "stdout", "resume", "stdin"],
+referencedClasses: []
+}),
+globals.Initer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+($ctx1.supercall = true, globals.Initer.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
+self["@path"]=_st(require)._value_("path");
+$ctx1.sendIdx["value:"]=1;
+self["@childProcess"]=_st(require)._value_("child_process");
+self["@nmPath"]=_st(self["@path"])._join_with_(self._rootDirname(),"node_modules");
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Initer)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09path := require value: 'path'.\x0a\x09childProcess := require value: 'child_process'.\x0a\x09nmPath := path join: self rootDirname with: 'node_modules'",
+messageSends: ["initialize", "value:", "join:with:", "rootDirname"],
+referencedClasses: []
+}),
+globals.Initer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rootDirname",
+protocol: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@path"])._join_with_with_(self._dirname(),"..","..");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"rootDirname",{},globals.Initer)})},
+args: [],
+source: "rootDirname\x0a\x09^ path join: self dirname with: '..' with: '..'",
+messageSends: ["join:with:with:", "dirname"],
+referencedClasses: []
+}),
+globals.Initer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "start",
+protocol: 'action',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$receiver;
+self._gruntInitThenDo_((function(error){
+return smalltalk.withContext(function($ctx2) {
+if(($receiver = error) == null || $receiver.isNil){
+return _st(process)._exit();
+} else {
+$1=console;
+_st($1)._log_("grunt-init exec error:");
+$ctx2.sendIdx["log:"]=1;
+$2=_st($1)._log_(error);
+return $2;
+};
+}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"start",{},globals.Initer)})},
+args: [],
+source: "start\x0a\x09self gruntInitThenDo: [ :error |\x0a\x09\x09error ifNotNil: [ console log: 'grunt-init exec error:'; log: error ]\x0a\x09\x09ifNil: [ process exit ]\x0a\x09]",
+messageSends: ["gruntInitThenDo:", "ifNotNil:ifNil:", "log:", "exit"],
+referencedClasses: []
+}),
+globals.Initer);
+
 
 
 smalltalk.addClass('NodeTestRunner', globals.Object, [], 'AmberCli');
