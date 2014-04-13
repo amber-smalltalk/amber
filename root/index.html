@@ -12,8 +12,7 @@
   <body>
     <script type='text/javascript'>
       require.config({ paths: {
-          '{%= namespace %}': 'js', //mapping compiled .js files
-          '{%= namespace %}/_source': 'st' //mapping smalltalk source files
+          '{%= namespace %}': 'src' //mapping compiled .js files and smalltalk source files
       }});
       require([
           'amber/devel',
