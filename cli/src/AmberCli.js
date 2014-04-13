@@ -39,6 +39,20 @@ globals.AmberCli.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "create:",
+protocol: 'commands',
+fn: function (args){
+var self=this;
+return self},
+args: ["args"],
+source: "create: args",
+messageSends: [],
+referencedClasses: []
+}),
+globals.AmberCli.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "handleArguments:",
 protocol: 'commandline',
 fn: function (args){
