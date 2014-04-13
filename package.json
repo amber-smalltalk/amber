@@ -1,0 +1,17 @@
+{
+  "name": "grunt-init-amber",
+  "version": "0.0.1",
+  "description": "grunt-init template for amber project",
+  "main": "template.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amber-smalltalk/grunt-init-amber.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amber-smalltalk/grunt-init-amber/issues"
+  }
+}
