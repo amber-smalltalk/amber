@@ -20,8 +20,9 @@
           '{%= namespace %}/{%= name %}'
       ], function (smalltalk) {
           //used for all new packages in IDE
-          smalltalk.defaultAmdNamespace = "{%= namespace %}";
-          smalltalk.initialize();
+          smalltalk.initialize({
+            defaultAmdNamespace: "{%= namespace %}"
+          });
       });
     </script>
     <button onclick="require('amber_vm/smalltalk').Browser._open()">class browser</button>
