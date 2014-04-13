@@ -36,8 +36,8 @@ exports.template = function(grunt, init, done) {
     },
     {
       name: 'amber_version',
-      default: '0.12.0',
-      message: 'The version of Amber to use. Must be >= 0.12.0',
+      default: '>= 0.12.4',
+      message: 'The version of Amber to use. Must be >= 0.12.4',
     },
     init.prompt('version'),
     init.prompt('repository'),
