@@ -55,6 +55,9 @@ selectorForCommandLineSwitch: aSwitch
 
 !AmberCli class methodsFor: 'commands'!
 
+create: args
+!
+
 help: args
 	Transcript show: 'Available commands'.
 	self commandLineSwitches do: [ :each | console log: each ]
