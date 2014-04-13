@@ -943,6 +943,14 @@ Object subclass: #Initer
 
 !Initer methodsFor: 'action'!
 
+bowerInstallThenDo: aBlock
+	| child |
+	child := childProcess
+		exec: (path join: nmPath with: '.bin' with: 'bower'), ' install'
+		thenDo: aBlock.
+	child stdout pipe: process stdout options: #{ 'end' -> false }
+!
+
 gruntInitThenDo: aBlock
 	| child |
 	child := childProcess
@@ -955,9 +963,11 @@ gruntInitThenDo: aBlock
 
 start
 	self gruntInitThenDo: [ :error |
-		error ifNotNil: [ console log: 'grunt-init exec error:'; log: error ]
-		ifNil: [ process exit ]
-	]
+		error ifNotNil: [ console log: 'grunt-init exec error:'; log: error. process exit ]
+		ifNil: [
+			self bowerInstallThenDo: [ :error2 |
+				error2 ifNotNil: [ console log: 'bower install exec error:'; log: error2 ].
+				process exit ]]]
 ! !
 
 !Initer methodsFor: 'initialization'!
