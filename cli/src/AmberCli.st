@@ -60,6 +60,10 @@ help: args
 	self commandLineSwitches do: [ :each | console log: each ]
 !
 
+init: args
+	Initer new start
+!
+
 repl: args
 	^ Repl new createInterface
 !
@@ -931,6 +935,58 @@ main
 	ifNone: [
 		fileServer := FileServer createServerWithArguments: args.
 		^ fileServer start]
+! !
+
+Object subclass: #Initer
+	instanceVariableNames: 'path childProcess nmPath'
+	package: 'AmberCli'!
+
+!Initer methodsFor: 'action'!
+
+bowerInstallThenDo: aBlock
+	| child |
+	child := childProcess
+		exec: (path join: nmPath with: '.bin' with: 'bower'), ' install'
+		thenDo: aBlock.
+	child stdout pipe: process stdout options: #{ 'end' -> false }
+!
+
+gruntInitThenDo: aBlock
+	| child |
+	child := childProcess
+		exec: (path join: nmPath with: '.bin' with: 'grunt-init'), ' ', (((path join: nmPath with: 'grunt-init-amber') replace: '\\' with: '\\') replace: ':' with: '\:')
+		thenDo: aBlock.
+	child stdout pipe: process stdout options: #{ 'end' -> false }.
+	process stdin resume.
+	process stdin pipe: child stdin options: #{ 'end' -> false }
+!
+
+start
+	self gruntInitThenDo: [ :error |
+		error ifNotNil: [ console log: 'grunt-init exec error:'; log: error. process exit ]
+		ifNil: [
+			self bowerInstallThenDo: [ :error2 |
+				error2 ifNotNil: [ console log: 'bower install exec error:'; log: error2 ].
+				process exit ]]]
+! !
+
+!Initer methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	path := require value: 'path'.
+	childProcess := require value: 'child_process'.
+	nmPath := path join: self rootDirname with: 'node_modules'
+! !
+
+!Initer methodsFor: 'private'!
+
+dirname
+	<return __dirname>
+!
+
+rootDirname
+	^ path join: self dirname with: '..' with: '..'
 ! !
 
 Object subclass: #NodeTestRunner

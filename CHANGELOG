@@ -1,4 +1,4 @@
-??nd ??? 2014 - Release 0.12.4
+11th April 2014 - Release 0.12.4
 ===================================
 
 Highlights:
@@ -6,6 +6,10 @@ Highlights:
 * Fixed backward compatibility for pre-0.12.3 loader syntax.
 * `namespace/_source` is not needed to map and is recommended
   not to use; `.st` files are by default committed to the `.js` location.
+* All sources, including js files into the src/ directory
+* Many improvements in Helios, especially in its debugger and
+  inspector, as well as UI-related improvements
+* New Helios dark theme by @BenjaminVanRyseghem
 
 Commits: https://github.com/amber-smalltalk/amber/compare/0.12.3...0.12.4
 Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=12&state=closed
