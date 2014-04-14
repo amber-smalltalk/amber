@@ -144,7 +144,7 @@ model
 !
 
 selection
-	^ model selection
+	^ self model selection
 !
 
 variables
@@ -209,10 +209,11 @@ HLWidget subclass: #HLInspectorWidget
 
 codeWidget
 	^ codeWidget ifNil: [
-		codeWidget := HLCodeWidget new
-    		model: self model code;
-        	receiver: self model inspectee;
-        	yourself ]
+		codeWidget := self defaultCodeWidget ]
+!
+
+codeWidget: aWidget
+	codeWidget := aWidget
 !
 
 displayWidget
@@ -317,6 +318,15 @@ setVariables: aDictionary
 	self model variables: aDictionary
 ! !
 
+!HLInspectorWidget methodsFor: 'defaults'!
+
+defaultCodeWidget
+	^ HLCodeWidget new
+    	model: self model code;
+       	receiver: self model inspectee;
+       	yourself
+! !
+
 !HLInspectorWidget methodsFor: 'reactions'!
 
 onDive
@@ -364,6 +374,13 @@ renderContentOn: html
 HLInspectorWidget subclass: #HLInspector
 	instanceVariableNames: ''
 	package: 'Helios-Inspector'!
+
+!HLInspector methodsFor: 'actions'!
+
+inspect: anObject
+	self setTabLabel: anObject printString.
+	super inspect: anObject
+! !
 
 !HLInspector methodsFor: 'rendering'!
 

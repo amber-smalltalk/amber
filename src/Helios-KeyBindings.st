@@ -335,7 +335,7 @@ renderOn: html
 	Commands can be executed from a menu, clicking on the menu to
 	evaluate the command would give it the focus otherwise"
 	
-	[ input asJQuery focus ] valueWithTimeout: 10
+	[ input asJQuery focus; select ] valueWithTimeout: 10
 ! !
 
 Object subclass: #HLKeyBinder
@@ -475,12 +475,6 @@ setupEvents
 initialize
 	super initialize.
 	helper := HLKeyBinderHelperWidget on: self
-!
-
-setupHelper
-	helper 	
-		renderStart;
-		renderCog
 ! !
 
 !HLKeyBinder methodsFor: 'testing'!
@@ -594,17 +588,6 @@ renderCloseOn: html
 		onClick: [ self keyBinder deactivate ]
 !
 
-renderCog
-	[ :html |
-		html 
-			div id: 'cog-helper'; 
-			with: [
-				html a 
-					with: [ (html tag: 'i') class: 'icon-cog' ];
-					onClick: [ self keyBinder activate ] ] ]
-		appendToJQuery: 'body' asJQuery
-!
-
 renderContentOn: html
 	html div 
 		id: 'overlay';
@@ -629,18 +612,6 @@ renderLabelOn: html
 
 renderSelectedBindingOn: html
 	self selectedBinding renderOn: self html: html
-!
-
-renderStart
-	'#helper' asJQuery remove.
-
-	[ :html |
-		html div 
-			id: 'helper';
-			with: 'Press ', self keyBinder activationKeyLabel, ' to start' ] appendToJQuery: 'body' asJQuery.
-	
-	[ '#helper' asJQuery fadeOut: 1000 ] 
-		valueWithTimeout: 2000
 ! !
 
 !HLKeyBinderHelperWidget class methodsFor: 'instance creation'!

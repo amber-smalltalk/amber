@@ -99,6 +99,24 @@ globals.ProtoObject);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "evaluate:on:",
+protocol: 'evaluating',
+fn: function (aString,anEvaluator){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anEvaluator)._evaluate_receiver_(aString,self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"evaluate:on:",{aString:aString,anEvaluator:anEvaluator},globals.ProtoObject)})},
+args: ["aString", "anEvaluator"],
+source: "evaluate: aString on: anEvaluator\x0a\x09^ anEvaluator evaluate: aString receiver: self",
+messageSends: ["evaluate:receiver:"],
+referencedClasses: []
+}),
+globals.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "identityHash",
 protocol: 'accessing',
 fn: function (){
@@ -613,7 +631,39 @@ $ctx1.sendIdx[","]=1;
 _st($1)._warn_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"deprecatedAPI",{},globals.Object)})},
 args: [],
-source: "deprecatedAPI\x0a\x09\x22Just a simple way to deprecate methods.\x0a\x09#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,\x0a\x09but it could in the future.\x22\x0a\x09console warn: thisContext home asString, ' is deprecated! (in ', thisContext home home asString, ')'",
+source: "deprecatedAPI\x0a\x09\x22Just a simple way to deprecate methods.\x0a\x09#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,\x0a\x09but it could in the future.\x22\x0a\x09console warn: thisContext home asString, ' is deprecated! (in ', thisContext home home asString, ')'.",
+messageSends: ["warn:", ",", "asString", "home"],
+referencedClasses: []
+}),
+globals.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "deprecatedAPI:",
+protocol: 'error handling',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$6,$5,$4,$8,$7,$3,$2;
+$1=console;
+$6=smalltalk.getThisContext()._home();
+$ctx1.sendIdx["home"]=1;
+$5=_st($6)._asString();
+$ctx1.sendIdx["asString"]=1;
+$4=_st($5).__comma(" is deprecated! (in ");
+$8=_st(smalltalk.getThisContext()._home())._home();
+$ctx1.sendIdx["home"]=2;
+$7=_st($8)._asString();
+$3=_st($4).__comma($7);
+$ctx1.sendIdx[","]=2;
+$2=_st($3).__comma(")");
+$ctx1.sendIdx[","]=1;
+_st($1)._warn_($2);
+$ctx1.sendIdx["warn:"]=1;
+_st(console)._warn_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"deprecatedAPI:",{aString:aString},globals.Object)})},
+args: ["aString"],
+source: "deprecatedAPI: aString\x0a\x09\x22Just a simple way to deprecate methods.\x0a\x09#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,\x0a\x09but it could in the future.\x22\x0a\x09console warn: thisContext home asString, ' is deprecated! (in ', thisContext home home asString, ')'.\x0a\x09console warn: aString",
 messageSends: ["warn:", ",", "asString", "home"],
 referencedClasses: []
 }),
@@ -642,13 +692,14 @@ selector: "halt",
 protocol: 'error handling',
 fn: function (){
 var self=this;
+function $Halt(){return globals.Halt||(typeof Halt=="undefined"?nil:Halt)}
 return smalltalk.withContext(function($ctx1) { 
-self._error_("Halt encountered");
+_st($Halt())._signal();
 return self}, function($ctx1) {$ctx1.fill(self,"halt",{},globals.Object)})},
 args: [],
-source: "halt\x0a\x09self error: 'Halt encountered'",
-messageSends: ["error:"],
-referencedClasses: []
+source: "halt\x0a\x09Halt signal",
+messageSends: ["signal"],
+referencedClasses: ["Halt"]
 }),
 globals.Object);
 
@@ -1130,11 +1181,14 @@ protocol: 'error handling',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)};
-return self}, function($ctx1) {$ctx1.fill(self,"try:catch:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Object)})},
+var $1;
+self._deprecatedAPI();
+$1=_st(aBlock)._tryCatch_(anotherBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"try:catch:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Object)})},
 args: ["aBlock", "anotherBlock"],
-source: "try: aBlock catch: anotherBlock\x0a\x09<try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)}>",
-messageSends: [],
+source: "try: aBlock catch: anotherBlock\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09^ aBlock tryCatch: anotherBlock",
+messageSends: ["deprecatedAPI", "tryCatch:"],
 referencedClasses: []
 }),
 globals.Object);

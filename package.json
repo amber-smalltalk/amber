@@ -30,7 +30,7 @@
     "amberc": "./cli/support/amberc-cli.js"
   },
   "scripts": {
-    "test": "grunt amberc:amber_test_runner && node ./test/amber_test_runner.js"
+    "test": "grunt amberc:amber_cli && ./bin/amber tests"
   },
   "dependencies": {
     "es6-promise": "~0.1.1",

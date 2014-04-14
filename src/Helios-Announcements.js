@@ -1,6 +1,6 @@
-define("amber_core/Helios-Announcements", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Announcements", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Announcements');
-smalltalk.packages["Helios-Announcements"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Announcements"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLAboutToChange', globals.Object, ['actionBlock'], 'Helios-Announcements');
 globals.HLAboutToChange.comment="I am announced whenever a change of context is about to be made, and unsaved changes could be lost.\x0a\x0aI am used within `HLModel` to handle such user actions. See `HLModel >> withChangesDo:`.";
@@ -188,6 +188,9 @@ referencedClasses: []
 }),
 globals.HLDebuggerContextSelected);
 
+
+
+smalltalk.addClass('HLDebuggerProceeded', globals.HLDebuggerAnnouncement, [], 'Helios-Announcements');
 
 
 smalltalk.addClass('HLDebuggerStepped', globals.HLDebuggerAnnouncement, [], 'Helios-Announcements');
@@ -581,5 +584,72 @@ globals.HLShowTemplate);
 
 
 smalltalk.addClass('HLSourceCodeSaved', globals.HLAnnouncement, [], 'Helios-Announcements');
+
+
+smalltalk.addClass('HLTabLabelChanged', globals.HLAnnouncement, ['label', 'widget'], 'Helios-Announcements');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@label"];
+return $1;
+},
+args: [],
+source: "label\x0a\x09^ label",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabLabelChanged);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@label"]=aString;
+return self},
+args: ["aString"],
+source: "label: aString\x0a\x09label := aString",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabLabelChanged);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "widget",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@widget"];
+return $1;
+},
+args: [],
+source: "widget\x0a\x09^ widget",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabLabelChanged);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "widget:",
+protocol: 'accessing',
+fn: function (aWidget){
+var self=this;
+self["@widget"]=aWidget;
+return self},
+args: ["aWidget"],
+source: "widget: aWidget\x0a\x09widget := aWidget",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabLabelChanged);
+
 
 });

@@ -373,6 +373,18 @@ PackageAnnouncement subclass: #PackageAdded
 !PackageAdded commentStamp!
 I am emitted when a `Package` is added to the system.!
 
+PackageAnnouncement subclass: #PackageClean
+	instanceVariableNames: ''
+	package: 'Kernel-Announcements'!
+!PackageClean commentStamp!
+I am emitted when a package is committed and becomes clean.!
+
+PackageAnnouncement subclass: #PackageDirty
+	instanceVariableNames: ''
+	package: 'Kernel-Announcements'!
+!PackageDirty commentStamp!
+I am emitted when a package becomes dirty.!
+
 PackageAnnouncement subclass: #PackageRemoved
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!

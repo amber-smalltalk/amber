@@ -1,6 +1,6 @@
-define("amber_core/Helios-Browser", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Browser", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Browser');
-smalltalk.packages["Helios-Browser"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Browser"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLBrowser', globals.HLWidget, ['model', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget', 'bottomDiv'], 'Helios-Browser');
 globals.HLBrowser.comment="I render a system browser with 4 panes (Packages, Classes, Protocols, Methods) and a source area.";
@@ -27,9 +27,9 @@ fn: function (){
 var self=this;
 function $HLClassesListWidget(){return globals.HLClassesListWidget||(typeof HLClassesListWidget=="undefined"?nil:HLClassesListWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@classesListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@classesListWidget"]=_st($HLClassesListWidget())._on_(self._model());
 self["@classesListWidget"];
 $1=_st(self["@classesListWidget"])._next_(self._protocolsListWidget());
@@ -89,9 +89,9 @@ fn: function (){
 var self=this;
 function $HLMethodsListWidget(){return globals.HLMethodsListWidget||(typeof HLMethodsListWidget=="undefined"?nil:HLMethodsListWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@methodsListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@methodsListWidget"]=_st($HLMethodsListWidget())._on_(self._model());
 self["@methodsListWidget"];
 $1=_st(self["@methodsListWidget"])._next_(self._sourceWidget());
@@ -115,10 +115,10 @@ fn: function (){
 var self=this;
 function $HLBrowserModel(){return globals.HLBrowserModel||(typeof HLBrowserModel=="undefined"?nil:HLBrowserModel)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@model"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@model"]=_st($HLBrowserModel())._new();
+if(($receiver = $2) == null || $receiver.isNil){
+self._model_(_st($HLBrowserModel())._new());
 $1=self["@model"];
 } else {
 $1=$2;
@@ -126,8 +126,8 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"model",{},globals.HLBrowser)})},
 args: [],
-source: "model\x0a\x09^ model ifNil: [ model := HLBrowserModel new ]",
-messageSends: ["ifNil:", "new"],
+source: "model\x0a\x09^ model ifNil: [ self model: HLBrowserModel new. model ]",
+messageSends: ["ifNil:", "model:", "new"],
 referencedClasses: ["HLBrowserModel"]
 }),
 globals.HLBrowser);
@@ -138,11 +138,96 @@ selector: "model:",
 protocol: 'accessing',
 fn: function (aModel){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self["@model"]=aModel;
-return self},
+self._observeModel();
+return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},globals.HLBrowser)})},
 args: ["aModel"],
-source: "model: aModel\x0a\x09model := aModel",
-messageSends: [],
+source: "model: aModel\x0a\x09model := aModel.\x0a\x09self observeModel",
+messageSends: ["observeModel"],
+referencedClasses: []
+}),
+globals.HLBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "observeModel",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $HLPackageSelected(){return globals.HLPackageSelected||(typeof HLPackageSelected=="undefined"?nil:HLPackageSelected)}
+function $HLClassSelected(){return globals.HLClassSelected||(typeof HLClassSelected=="undefined"?nil:HLClassSelected)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._model();
+$ctx1.sendIdx["model"]=1;
+$1=_st($2)._announcer();
+$ctx1.sendIdx["announcer"]=1;
+_st($1)._on_send_to_($HLPackageSelected(),"onPackageSelected:",self);
+$ctx1.sendIdx["on:send:to:"]=1;
+_st(_st(self._model())._announcer())._on_send_to_($HLClassSelected(),"onClassSelected:",self);
+return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},globals.HLBrowser)})},
+args: [],
+source: "observeModel\x0a\x09self model announcer\x0a\x09\x09on: HLPackageSelected\x0a\x09\x09send: #onPackageSelected:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model announcer\x0a\x09\x09on: HLClassSelected\x0a\x09\x09send: #onClassSelected:\x0a\x09\x09to: self",
+messageSends: ["on:send:to:", "announcer", "model"],
+referencedClasses: ["HLPackageSelected", "HLClassSelected"]
+}),
+globals.HLBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClassSelected:",
+protocol: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2,$receiver;
+$1=_st(anAnnouncement)._item();
+if(($receiver = $1) == null || $receiver.isNil){
+$3=_st(self._model())._selectedPackage();
+if(($receiver = $3) == null || $receiver.isNil){
+$2=self._defaultTabLabel();
+} else {
+var package_;
+package_=$receiver;
+$2=_st(package_)._name();
+$ctx1.sendIdx["name"]=1;
+};
+self._setTabLabel_($2);
+$ctx1.sendIdx["setTabLabel:"]=1;
+} else {
+var item;
+item=$receiver;
+self._setTabLabel_(_st(item)._name());
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncement:anAnnouncement},globals.HLBrowser)})},
+args: ["anAnnouncement"],
+source: "onClassSelected: anAnnouncement\x0a\x09anAnnouncement item \x0a\x09\x09ifNil: [ self setTabLabel: (self model selectedPackage \x0a\x09\x09\x09ifNil: [ self defaultTabLabel ]\x0a\x09\x09\x09ifNotNil: [ :package | package name ]) ] \x0a\x09\x09ifNotNil: [ :item | self setTabLabel: item name ]",
+messageSends: ["ifNil:ifNotNil:", "item", "setTabLabel:", "selectedPackage", "model", "defaultTabLabel", "name"],
+referencedClasses: []
+}),
+globals.HLBrowser);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onPackageSelected:",
+protocol: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$receiver;
+$1=_st(anAnnouncement)._item();
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
+} else {
+var item;
+item=$receiver;
+self._setTabLabel_(_st(item)._name());
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{anAnnouncement:anAnnouncement},globals.HLBrowser)})},
+args: ["anAnnouncement"],
+source: "onPackageSelected: anAnnouncement\x0a\x09anAnnouncement item ifNotNil: [ :item |\x0a\x09self setTabLabel: item name ]",
+messageSends: ["ifNotNil:", "item", "setTabLabel:", "name"],
 referencedClasses: []
 }),
 globals.HLBrowser);
@@ -172,6 +257,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$4,$3,$5;
 $1=self._model();
+_st($1)._focusOnSourceCode();
+$ctx1.sendIdx["focusOnSourceCode"]=1;
 $2=$1;
 $4=_st(aCompiledMethod)._methodClass();
 $ctx1.sendIdx["methodClass"]=1;
@@ -183,8 +270,8 @@ _st($1)._selectedMethod_(aCompiledMethod);
 $5=_st($1)._focusOnSourceCode();
 return self}, function($ctx1) {$ctx1.fill(self,"openMethod:",{aCompiledMethod:aCompiledMethod},globals.HLBrowser)})},
 args: ["aCompiledMethod"],
-source: "openMethod: aCompiledMethod\x0a\x09self model \x0a\x09\x09\x09selectedPackage: aCompiledMethod methodClass package;\x0a\x09\x09\x09selectedClass: aCompiledMethod methodClass;\x0a\x09\x09\x09selectedProtocol: aCompiledMethod protocol;\x0a\x09\x09\x09selectedMethod: aCompiledMethod;\x0a\x09\x09\x09focusOnSourceCode",
-messageSends: ["selectedPackage:", "model", "package", "methodClass", "selectedClass:", "selectedProtocol:", "protocol", "selectedMethod:", "focusOnSourceCode"],
+source: "openMethod: aCompiledMethod\x0a\x09self model\x0a\x09\x09\x22Workaround for the package selection announcement when the package list is focused\x22\x09\x0a\x09\x09focusOnSourceCode;\x0a\x09\x09selectedPackage: aCompiledMethod methodClass package;\x0a\x09\x09selectedClass: aCompiledMethod methodClass;\x0a\x09\x09selectedProtocol: aCompiledMethod protocol;\x0a\x09\x09selectedMethod: aCompiledMethod;\x0a\x09\x09focusOnSourceCode",
+messageSends: ["focusOnSourceCode", "model", "selectedPackage:", "package", "methodClass", "selectedClass:", "selectedProtocol:", "protocol", "selectedMethod:"],
 referencedClasses: []
 }),
 globals.HLBrowser);
@@ -197,9 +284,9 @@ fn: function (){
 var self=this;
 function $HLPackagesListWidget(){return globals.HLPackagesListWidget||(typeof HLPackagesListWidget=="undefined"?nil:HLPackagesListWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@packagesListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@packagesListWidget"]=_st($HLPackagesListWidget())._on_(self._model());
 self["@packagesListWidget"];
 $1=_st(self["@packagesListWidget"])._next_(self._classesListWidget());
@@ -223,9 +310,9 @@ fn: function (){
 var self=this;
 function $HLProtocolsListWidget(){return globals.HLProtocolsListWidget||(typeof HLProtocolsListWidget=="undefined"?nil:HLProtocolsListWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@protocolsListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@protocolsListWidget"]=_st($HLProtocolsListWidget())._on_(self._model());
 self["@protocolsListWidget"];
 $1=_st(self["@protocolsListWidget"])._next_(self._methodsListWidget());
@@ -297,9 +384,9 @@ fn: function (){
 var self=this;
 function $HLBrowserBottomWidget(){return globals.HLBrowserBottomWidget||(typeof HLBrowserBottomWidget=="undefined"?nil:HLBrowserBottomWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
+var $2,$3,$4,$1,$receiver;
 $2=self["@sourceWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($HLBrowserBottomWidget())._new();
 _st($3)._model_(self._model());
 $4=_st($3)._yourself();
@@ -324,7 +411,8 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLBrowser.superclass.fn.prototype._unregister.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLBrowser.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
 $ctx1.sendIdx["unregister"]=1;
 _st([self._packagesListWidget(),self._classesListWidget(),self._protocolsListWidget(),self._methodsListWidget(),self._sourceWidget()])._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -362,9 +450,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 $1=self["@nextId"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self["@nextId"]=(0);
 self["@nextId"];
 } else {
@@ -451,9 +539,9 @@ fn: function (){
 var self=this;
 function $HLBrowserCodeWidget(){return globals.HLBrowserCodeWidget||(typeof HLBrowserCodeWidget=="undefined"?nil:HLBrowserCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
+var $2,$3,$4,$1,$receiver;
 $2=self["@codeWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($HLBrowserCodeWidget())._new();
 _st($3)._browserModel_(self._model());
 $4=_st($3)._yourself();
@@ -479,9 +567,9 @@ fn: function (){
 var self=this;
 function $HLDocumentationWidget(){return globals.HLDocumentationWidget||(typeof HLDocumentationWidget=="undefined"?nil:HLDocumentationWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
+var $2,$3,$4,$1,$receiver;
 $2=self["@documentationWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($HLDocumentationWidget())._new();
 _st($3)._model_(self._model());
 $4=_st($3)._yourself();
@@ -831,9 +919,9 @@ fn: function (){
 var self=this;
 function $HLShowTemplate(){return globals.HLShowTemplate||(typeof HLShowTemplate=="undefined"?nil:HLShowTemplate)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver;
 $1=self._selectedPackage();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 var package_;
@@ -858,9 +946,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@showComment"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=true;
 } else {
 $1=$2;
@@ -903,9 +991,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@showInstance"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=true;
 } else {
 $1=$2;
@@ -927,14 +1015,14 @@ fn: function (aBoolean){
 var self=this;
 function $HLShowInstanceToggled(){return globals.HLShowInstanceToggled||(typeof HLShowInstanceToggled=="undefined"?nil:HLShowInstanceToggled)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
+var $1,$3,$2,$receiver;
 self._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
 self["@showInstance"]=aBoolean;
 self["@showInstance"];
 $1=self._selectedClass();
 $ctx2.sendIdx["selectedClass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 if(smalltalk.assert(aBoolean)){
@@ -964,9 +1052,9 @@ fn: function (){
 var self=this;
 function $HLShowTemplate(){return globals.HLShowTemplate||(typeof HLShowTemplate=="undefined"?nil:HLShowTemplate)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver;
 $1=self._selectedClass();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 var theClass;
@@ -988,7 +1076,7 @@ globals.HLBrowserModel);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-protocol: 'actions',
+protocol: 'instance creation',
 fn: function (anEnvironment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1038,12 +1126,12 @@ protocol: 'actions',
 fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$4;
+var $2,$1,$3,$4,$receiver;
 $2=self._theClass();
 $ctx1.sendIdx["theClass"]=1;
 $1=_st($2)._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 $3=_st(self._selectorsCache())._cacheFor_(_st(self._theClass())._superclass());
@@ -1128,9 +1216,9 @@ fn: function (){
 var self=this;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@overriddenCache"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@overriddenCache"]=_st($HashedCollection())._new();
 $1=self["@overriddenCache"];
 } else {
@@ -1153,9 +1241,9 @@ fn: function (){
 var self=this;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@overrideCache"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@overrideCache"]=_st($HashedCollection())._new();
 $1=self["@overrideCache"];
 } else {
@@ -1305,10 +1393,11 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-globals.HLClassesListWidget.superclass.fn.prototype._focus.apply(_st(self), []);
+var $1,$receiver;
+($ctx1.supercall = true, globals.HLClassesListWidget.superclass.fn.prototype._focus.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self._selectedItem();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 _st(self._model())._showClassTemplate();
 } else {
 $1;
@@ -1485,7 +1574,7 @@ fn: function (anAnnouncement){
 var self=this;
 var class_;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 class_=_st(anAnnouncement)._theClass();
 $1=_st(_st(_st(class_)._package()).__eq(_st(self._model())._selectedPackage()))._or_((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -1496,10 +1585,11 @@ return self;
 };
 self._setItemsForSelectedPackage();
 self._refresh();
+$2=self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{anAnnouncement:anAnnouncement,class_:class_},globals.HLClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassAdded: anAnnouncement\x0a\x09| class |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09\x0a\x09(class package = self model selectedPackage or: [\x0a\x09\x09self items includes: class ]) ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
-messageSends: ["theClass", "ifFalse:", "or:", "=", "package", "selectedPackage", "model", "includes:", "items", "setItemsForSelectedPackage", "refresh"],
+source: "onClassAdded: anAnnouncement\x0a\x09| class |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09\x0a\x09(class package = self model selectedPackage or: [\x0a\x09\x09self items includes: class ]) ifFalse: [ ^ self ].\x0a    \x0a    self \x0a\x09\x09setItemsForSelectedPackage;\x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["theClass", "ifFalse:", "or:", "=", "package", "selectedPackage", "model", "includes:", "items", "setItemsForSelectedPackage", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -1512,17 +1602,18 @@ fn: function (anAnnouncement){
 var self=this;
 var class_;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 class_=_st(anAnnouncement)._theClass();
 $1=_st(_st(class_)._package()).__eq(_st(self._model())._selectedPackage());
 if(! smalltalk.assert($1)){
 return self;
 };
 self._refresh();
+$2=self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassCommentChanged:",{anAnnouncement:anAnnouncement,class_:class_},globals.HLClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassCommentChanged: anAnnouncement\x0a\x09| class |\x0a\x09class := anAnnouncement theClass.\x0a\x0a\x09class package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a    self refresh",
-messageSends: ["theClass", "ifFalse:", "=", "package", "selectedPackage", "model", "refresh"],
+source: "onClassCommentChanged: anAnnouncement\x0a\x09| class |\x0a\x09class := anAnnouncement theClass.\x0a\x0a\x09class package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a    self \x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["theClass", "ifFalse:", "=", "package", "selectedPackage", "model", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -1535,7 +1626,7 @@ fn: function (anAnnouncement){
 var self=this;
 var class_,oldClass;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2;
+var $1,$4,$3,$2,$5;
 class_=_st(anAnnouncement)._theClass();
 oldClass=_st(anAnnouncement)._oldClass();
 $1=_st(self._items())._includes_(oldClass);
@@ -1551,10 +1642,11 @@ _st(self._model())._selectedClass_(class_);
 };
 self._setItemsForSelectedPackage();
 self._refresh();
+$5=self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassMigrated:",{anAnnouncement:anAnnouncement,class_:class_,oldClass:oldClass},globals.HLClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassMigrated: anAnnouncement\x0a\x09| class oldClass |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09oldClass := anAnnouncement oldClass.\x0a\x0a\x09(self items includes: oldClass) ifFalse: [ ^ self ].\x0a\x0a\x09self model selectedClass = oldClass ifTrue: [\x0a\x09\x09self model selectedClass: class ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
-messageSends: ["theClass", "oldClass", "ifFalse:", "includes:", "items", "ifTrue:", "=", "selectedClass", "model", "selectedClass:", "setItemsForSelectedPackage", "refresh"],
+source: "onClassMigrated: anAnnouncement\x0a\x09| class oldClass |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09oldClass := anAnnouncement oldClass.\x0a\x0a\x09(self items includes: oldClass) ifFalse: [ ^ self ].\x0a\x0a\x09self model selectedClass = oldClass ifTrue: [\x0a\x09\x09self model selectedClass: class ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self \x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["theClass", "oldClass", "ifFalse:", "includes:", "items", "ifTrue:", "=", "selectedClass", "model", "selectedClass:", "setItemsForSelectedPackage", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -1567,7 +1659,7 @@ fn: function (anAnnouncement){
 var self=this;
 var class_,oldPackage;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$5,$4,$2,$6,$8,$7,$1,$9,$10;
+var $3,$5,$4,$2,$6,$8,$7,$1,$9,$10,$11;
 class_=_st(anAnnouncement)._theClass();
 oldPackage=_st(anAnnouncement)._oldPackage();
 $3=oldPackage;
@@ -1598,10 +1690,11 @@ $10;
 };
 self._setItemsForSelectedPackage();
 self._refresh();
+$11=self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassMoved:",{anAnnouncement:anAnnouncement,class_:class_,oldPackage:oldPackage},globals.HLClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassMoved: anAnnouncement\x0a\x09| class oldPackage |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09oldPackage := anAnnouncement oldPackage.\x0a\x09\x0a\x09(oldPackage = self model selectedPackage or: [\x0a\x09\x09class package = self model selectedPackage ])\x0a\x09\x09\x09ifFalse: [ ^ self ].\x0a\x09\x0a\x09oldPackage = self model selectedPackage ifTrue: [ \x0a\x09\x09self \x0a\x09\x09\x09selectedItem: nil;\x0a\x09\x09\x09selectItem: nil ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
-messageSends: ["theClass", "oldPackage", "ifFalse:", "or:", "=", "selectedPackage", "model", "package", "ifTrue:", "selectedItem:", "selectItem:", "setItemsForSelectedPackage", "refresh"],
+source: "onClassMoved: anAnnouncement\x0a\x09| class oldPackage |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09oldPackage := anAnnouncement oldPackage.\x0a\x09\x0a\x09(oldPackage = self model selectedPackage or: [\x0a\x09\x09class package = self model selectedPackage ])\x0a\x09\x09\x09ifFalse: [ ^ self ].\x0a\x09\x0a\x09oldPackage = self model selectedPackage ifTrue: [ \x0a\x09\x09self \x0a\x09\x09\x09selectedItem: nil;\x0a\x09\x09\x09selectItem: nil ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self \x09\x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["theClass", "oldPackage", "ifFalse:", "or:", "=", "selectedPackage", "model", "package", "ifTrue:", "selectedItem:", "selectItem:", "setItemsForSelectedPackage", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -1614,19 +1707,21 @@ fn: function (anAnnouncement){
 var self=this;
 var class_;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2,$3;
 class_=_st(anAnnouncement)._theClass();
 $1=_st(_st(class_)._package()).__eq(_st(self._model())._selectedPackage());
 if(! smalltalk.assert($1)){
 return self;
 };
 self._selectItem_(nil);
+$2=self._selectedItem_(nil);
 self._setItemsForSelectedPackage();
 self._refresh();
+$3=self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassRemoved:",{anAnnouncement:anAnnouncement,class_:class_},globals.HLClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassRemoved: anAnnouncement\x0a\x09| class |\x0a\x09class := anAnnouncement theClass.\x0a\x0a\x09class package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a\x09self selectItem: nil.\x0a    self setItemsForSelectedPackage.\x0a    self refresh",
-messageSends: ["theClass", "ifFalse:", "=", "package", "selectedPackage", "model", "selectItem:", "setItemsForSelectedPackage", "refresh"],
+source: "onClassRemoved: anAnnouncement\x0a\x09| class |\x0a\x09class := anAnnouncement theClass.\x0a\x0a\x09class package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a\x09self \x0a\x09\x09selectItem: nil;\x0a\x09\x09selectedItem: nil.\x0a    self setItemsForSelectedPackage.\x0a    self \x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["theClass", "ifFalse:", "=", "package", "selectedPackage", "model", "selectItem:", "selectedItem:", "setItemsForSelectedPackage", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -1638,17 +1733,18 @@ protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 $1=_st(_st(_st(anAnnouncement)._theClass())._package()).__eq(_st(self._model())._selectedPackage());
 if(! smalltalk.assert($1)){
 return self;
 };
 self._setItemsForSelectedPackage();
 self._refresh();
+$2=self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassRenamed:",{anAnnouncement:anAnnouncement},globals.HLClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassRenamed: anAnnouncement\x0a\x09anAnnouncement theClass package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
-messageSends: ["ifFalse:", "=", "package", "theClass", "selectedPackage", "model", "setItemsForSelectedPackage", "refresh"],
+source: "onClassRenamed: anAnnouncement\x0a\x09anAnnouncement theClass package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self \x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["ifFalse:", "=", "package", "theClass", "selectedPackage", "model", "setItemsForSelectedPackage", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLClassesListWidget);
@@ -1661,10 +1757,10 @@ fn: function (anAnnouncement){
 var self=this;
 var selectedClass;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver;
 $1=_st(anAnnouncement)._item();
 $ctx1.sendIdx["item"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return self;
 } else {
 $1;
@@ -1889,7 +1985,8 @@ protocol: 'rendering',
 fn: function (aClass,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLClassesListWidget.superclass.fn.prototype._renderItem_on_.apply(_st(self), [aClass,html]);
+($ctx1.supercall = true, globals.HLClassesListWidget.superclass.fn.prototype._renderItem_on_.apply(_st(self), [aClass,html]));
+$ctx1.supercall = false;
 _st(self._getChildrenOf_(aClass))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._renderItem_level_on_(each,(1),html);
@@ -2001,8 +2098,8 @@ protocol: 'private',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-if(($receiver = aPackage) == nil || $receiver == null){
+var $2,$1,$receiver;
+if(($receiver = aPackage) == null || $receiver.isNil){
 $1=[];
 } else {
 $1=_st(_st(_st(aPackage)._classes())._collect_((function(each){
@@ -2183,9 +2280,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._selectedItem();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 var item;
@@ -2227,9 +2324,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._selectedItem();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._defaultHead();
 } else {
 var item;
@@ -2330,12 +2427,12 @@ protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $2,$1,$3,$receiver;
 $2=self._model();
 $ctx1.sendIdx["model"]=1;
 $1=_st($2)._selectedClass();
 $ctx1.sendIdx["selectedClass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return self;
 } else {
 $1;
@@ -2444,9 +2541,9 @@ fn: function (html){
 var self=this;
 function $Showdown(){return globals.Showdown||(typeof Showdown=="undefined"?nil:Showdown)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$5,$3,$6,$7;
+var $1,$2,$4,$5,$3,$6,$7,$receiver;
 $1=self._selectedItem();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 self._renderInheritanceOn_(html);
@@ -2506,7 +2603,7 @@ protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$5,$6,$9,$8,$7,$10,$2;
+var $1,$4,$3,$5,$6,$9,$8,$7,$10,$2,$receiver;
 $1=_st(html)._div();
 _st($1)._class_("inheritance");
 $2=_st($1)._with_((function(){
@@ -2517,7 +2614,7 @@ $4=self._selectedItem();
 $ctx2.sendIdx["selectedItem"]=1;
 $3=_st($4)._superclass();
 $ctx2.sendIdx["superclass"]=1;
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 return _st(_st(html)._em())._with_("nil");
 $ctx2.sendIdx["with:"]=3;
 } else {
@@ -2568,9 +2665,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=_st(self._model())._selectedClass();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=$2;
 } else {
 var class_;
@@ -2609,7 +2706,8 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLDocumentationWidget.superclass.fn.prototype._unregister.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLDocumentationWidget.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
 _st(_st(self._model())._announcer())._unregister_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLDocumentationWidget)})},
 args: [],
@@ -2685,10 +2783,11 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-globals.HLMethodsListWidget.superclass.fn.prototype._focus.apply(_st(self), []);
+var $1,$receiver;
+($ctx1.supercall = true, globals.HLMethodsListWidget.superclass.fn.prototype._focus.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self._selectedItem();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 _st(self._model())._showMethodTemplate();
 } else {
 $1;
@@ -2777,12 +2876,12 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$5,$7,$6,$4;
+var $2,$1,$3,$5,$7,$6,$4,$receiver;
 $2=self._model();
 $ctx1.sendIdx["model"]=1;
 $1=_st($2)._selectedClass();
 $ctx1.sendIdx["selectedClass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $3=[];
 return $3;
 } else {
@@ -2931,7 +3030,7 @@ fn: function (anAnnouncement){
 var self=this;
 var method;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3,$5;
+var $1,$2,$4,$3,$5,$6,$receiver;
 var $early={};
 try {
 method=_st(anAnnouncement)._method();
@@ -2946,7 +3045,7 @@ throw $early=[self];
 }));
 $2=self._selectedItem();
 $ctx1.sendIdx["selectedItem"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $2;
 } else {
 $4=_st(_st(method)._methodClass()).__eq(_st(self._model())._selectedClass());
@@ -2963,12 +3062,13 @@ $5;
 };
 self._setItemsForSelectedProtocol();
 self._refresh();
+$6=self._focus();
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"onMethodRemoved:",{anAnnouncement:anAnnouncement,method:method},globals.HLMethodsListWidget)})},
 args: ["anAnnouncement"],
-source: "onMethodRemoved: anAnnouncement\x0a\x09| method |\x0a\x09\x0a\x09method := anAnnouncement method.\x0a\x09\x0a\x09self items detect: [ :each | each = method selector ] ifNone: [ ^ self ].\x0a\x0a    self selectedItem ifNotNil: [\x0a      \x09(method methodClass = self model selectedClass and: [ method selector = self selectedItem ])\x0a  \x09\x09\x09ifTrue: [ \x0a\x09\x09\x09\x09self selectedItem: nil; \x0a\x09\x09\x09\x09selectItem: nil ] ].\x0a\x0a    self setItemsForSelectedProtocol.\x0a\x09self refresh",
-messageSends: ["method", "detect:ifNone:", "items", "=", "selector", "ifNotNil:", "selectedItem", "ifTrue:", "and:", "methodClass", "selectedClass", "model", "selectedItem:", "selectItem:", "setItemsForSelectedProtocol", "refresh"],
+source: "onMethodRemoved: anAnnouncement\x0a\x09| method |\x0a\x09\x0a\x09method := anAnnouncement method.\x0a\x09\x0a\x09self items detect: [ :each | each = method selector ] ifNone: [ ^ self ].\x0a\x0a    self selectedItem ifNotNil: [\x0a      \x09(method methodClass = self model selectedClass and: [ method selector = self selectedItem ])\x0a  \x09\x09\x09ifTrue: [ \x0a\x09\x09\x09\x09self selectedItem: nil; \x0a\x09\x09\x09\x09selectItem: nil ] ].\x0a\x0a    self setItemsForSelectedProtocol.\x0a\x09self \x0a\x09\x09refresh;\x0a\x09\x09focus",
+messageSends: ["method", "detect:ifNone:", "items", "=", "selector", "ifNotNil:", "selectedItem", "ifTrue:", "and:", "methodClass", "selectedClass", "model", "selectedItem:", "selectItem:", "setItemsForSelectedProtocol", "refresh", "focus"],
 referencedClasses: []
 }),
 globals.HLMethodsListWidget);
@@ -3159,13 +3259,15 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 $1=_st(self._model())._showInstance();
 if(smalltalk.assert($1)){
-globals.HLMethodsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+($ctx1.supercall = true, globals.HLMethodsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]));
+$ctx1.supercall = false;
 } else {
 $2=_st(html)._div();
 _st($2)._class_("class_side");
 $3=_st($2)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
-return globals.HLMethodsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+return ($ctx2.supercall = true, globals.HLMethodsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]));
+$ctx2.supercall = false;
 $ctx2.sendIdx["renderContentOn:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $3;
@@ -3217,8 +3319,8 @@ protocol: 'actions',
 fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-if(($receiver = aSelector) == nil || $receiver == null){
+var $2,$1,$receiver;
+if(($receiver = aSelector) == null || $receiver.isNil){
 $2=self._model();
 $ctx1.sendIdx["model"]=1;
 $1=_st($2)._selectedMethod_(nil);
@@ -3282,8 +3384,8 @@ protocol: 'private',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-if(($receiver = aString) == nil || $receiver == null){
+var $2,$1,$receiver;
+if(($receiver = aString) == null || $receiver.isNil){
 $2=[];
 } else {
 $2=self._selectorsInProtocol_(aString);
@@ -3344,11 +3446,19 @@ selector: "cssClassForItem:",
 protocol: 'accessing',
 fn: function (anItem){
 var self=this;
-return "package";
-},
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(anItem)._isDirty();
+if(smalltalk.assert($2)){
+$1="package_dirty";
+} else {
+$1="package";
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{anItem:anItem},globals.HLPackagesListWidget)})},
 args: ["anItem"],
-source: "cssClassForItem: anItem\x09\x0a\x09^ 'package'",
-messageSends: [],
+source: "cssClassForItem: anItem\x09\x0a\x09^ anItem isDirty \x0a\x09\x09ifTrue: [ 'package_dirty' ]\x0a\x09\x09ifFalse: [ 'package' ]",
+messageSends: ["ifTrue:ifFalse:", "isDirty"],
 referencedClasses: []
 }),
 globals.HLPackagesListWidget);
@@ -3401,9 +3511,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@items"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._initializeItems();
 } else {
 $1=$2;
@@ -3462,20 +3572,34 @@ fn: function (){
 var self=this;
 function $ClassAdded(){return globals.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
 function $PackageAdded(){return globals.PackageAdded||(typeof PackageAdded=="undefined"?nil:PackageAdded)}
+function $PackageClean(){return globals.PackageClean||(typeof PackageClean=="undefined"?nil:PackageClean)}
+function $PackageDirty(){return globals.PackageDirty||(typeof PackageDirty=="undefined"?nil:PackageDirty)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$4,$3,$6,$5;
 $2=self._model();
 $ctx1.sendIdx["model"]=1;
 $1=_st($2)._systemAnnouncer();
 $ctx1.sendIdx["systemAnnouncer"]=1;
 _st($1)._on_send_to_($ClassAdded(),"onClassAdded:",self);
 $ctx1.sendIdx["on:send:to:"]=1;
-_st(_st(self._model())._systemAnnouncer())._on_send_to_($PackageAdded(),"onPackageAdded:",self);
+$4=self._model();
+$ctx1.sendIdx["model"]=2;
+$3=_st($4)._systemAnnouncer();
+$ctx1.sendIdx["systemAnnouncer"]=2;
+_st($3)._on_send_to_($PackageAdded(),"onPackageAdded:",self);
+$ctx1.sendIdx["on:send:to:"]=2;
+$6=self._model();
+$ctx1.sendIdx["model"]=3;
+$5=_st($6)._systemAnnouncer();
+$ctx1.sendIdx["systemAnnouncer"]=3;
+_st($5)._on_send_to_($PackageClean(),"onPackageStateChanged",self);
+$ctx1.sendIdx["on:send:to:"]=3;
+_st(_st(self._model())._systemAnnouncer())._on_send_to_($PackageDirty(),"onPackageStateChanged",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},globals.HLPackagesListWidget)})},
 args: [],
-source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09send: #onClassAdded:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageAdded\x0a\x09\x09send: #onPackageAdded:\x0a\x09\x09to: self",
+source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09send: #onClassAdded:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageAdded\x0a\x09\x09send: #onPackageAdded:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageClean\x0a\x09\x09send: #onPackageStateChanged\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageDirty\x0a\x09\x09send: #onPackageStateChanged\x0a\x09\x09to: self.\x0a\x09",
 messageSends: ["on:send:to:", "systemAnnouncer", "model"],
-referencedClasses: ["ClassAdded", "PackageAdded"]
+referencedClasses: ["ClassAdded", "PackageAdded", "PackageClean", "PackageDirty"]
 }),
 globals.HLPackagesListWidget);
 
@@ -3546,6 +3670,22 @@ globals.HLPackagesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "onPackageStateChanged",
+protocol: 'reactions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._refresh();
+return self}, function($ctx1) {$ctx1.fill(self,"onPackageStateChanged",{},globals.HLPackagesListWidget)})},
+args: [],
+source: "onPackageStateChanged\x0a\x09self refresh",
+messageSends: ["refresh"],
+referencedClasses: []
+}),
+globals.HLPackagesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "onPackagesFocusRequested",
 protocol: 'reactions',
 fn: function (){
@@ -3599,7 +3739,8 @@ protocol: 'actions',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLPackagesListWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [aPackage]);
+($ctx1.supercall = true, globals.HLPackagesListWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [aPackage]));
+$ctx1.supercall = false;
 _st(self._model())._selectedPackage_(aPackage);
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aPackage:aPackage},globals.HLPackagesListWidget)})},
 args: ["aPackage"],
@@ -3817,11 +3958,11 @@ fn: function (anAnnouncement){
 var self=this;
 var protocol;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver;
 protocol=_st(anAnnouncement)._item();
 self._selectedItem_(protocol);
 $1=protocol;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return self;
 } else {
 $1;
@@ -3866,13 +4007,15 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 $1=_st(self._model())._showInstance();
 if(smalltalk.assert($1)){
-globals.HLProtocolsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+($ctx1.supercall = true, globals.HLProtocolsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]));
+$ctx1.supercall = false;
 } else {
 $2=_st(html)._div();
 _st($2)._class_("class_side");
 $3=_st($2)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
-return globals.HLProtocolsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+return ($ctx2.supercall = true, globals.HLProtocolsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]));
+$ctx2.supercall = false;
 $ctx2.sendIdx["renderContentOn:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $3;
@@ -3925,7 +4068,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=globals.HLProtocolsListWidget.superclass.fn.prototype._selectedItem.apply(_st(self), []);
+$1=($ctx1.supercall = true, globals.HLProtocolsListWidget.superclass.fn.prototype._selectedItem.apply(_st(self), []));
+$ctx1.supercall = false;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedItem",{},globals.HLProtocolsListWidget)})},
 args: [],
@@ -3943,8 +4087,8 @@ fn: function (aClass){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
-if(($receiver = aClass) == nil || $receiver == null){
+var $2,$3,$4,$1,$receiver;
+if(($receiver = aClass) == null || $receiver.isNil){
 $2=self._allProtocol();
 $ctx1.sendIdx["allProtocol"]=1;
 $1=_st($Array())._with_($2);
@@ -3990,8 +4134,8 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = aClass) == nil || $receiver == null){
+var $1,$receiver;
+if(($receiver = aClass) == null || $receiver.isNil){
 return nil;
 } else {
 aClass;
@@ -4017,9 +4161,9 @@ fn: function (){
 var self=this;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@classesCache"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@classesCache"]=_st($HashedCollection())._new();
 $1=self["@classesCache"];
 } else {
@@ -4041,7 +4185,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLSelectorsCache.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLSelectorsCache.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._observeSystem();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLSelectorsCache)})},
 args: [],
@@ -4186,10 +4331,11 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@current"]=globals.HLSelectorsCache.klass.superclass.fn.prototype._new.apply(_st(self), []);
+if(($receiver = $2) == null || $receiver.isNil){
+self["@current"]=($ctx1.supercall = true, globals.HLSelectorsCache.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self["@current"];
 } else {
 $1=$2;

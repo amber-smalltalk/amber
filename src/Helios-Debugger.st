@@ -9,6 +9,12 @@ context
 	^ context
 ! !
 
+!HLContextInspectorDecorator methodsFor: 'evaluating'!
+
+evaluate: aString on: anEvaluator
+	^ self context evaluate: aString on: anEvaluator
+! !
+
 !HLContextInspectorDecorator methodsFor: 'initialization'!
 
 initializeFromContext: aContext
@@ -69,11 +75,14 @@ observeModel
 	self model announcer 
 		on: HLDebuggerContextSelected
 		send: #onContextSelected:
-		to: self.
+		to: self;
 		
-	self model announcer 
 		on: HLDebuggerStepped
-		send: #onContextSelected:
+		send: #onDebuggerStepped:
+		to: self;
+		
+		on: HLDebuggerProceeded
+		send: #onDebuggerProceeded
 		to: self
 !
 
@@ -101,16 +110,27 @@ registerBindingsOn: aBindingGroup
 
 onContextSelected: anAnnouncement
 	self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context)
+!
+
+onDebuggerProceeded
+	self removeTab
+!
+
+onDebuggerStepped: anAnnouncement
+	self model atEnd ifTrue: [ self removeTab ].
+	
+	self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context).
+	self stackListWidget refresh
 ! !
 
 !HLDebugger methodsFor: 'rendering'!
 
 renderContentOn: html
 	self renderHeadOn: html.
-	html with: (HLContainer with: (HLHorizontalSplitter
-		with: self stackListWidget
-		with: (HLVerticalSplitter
-			with: self codeWidget
+	html with: (HLContainer with: (HLVerticalSplitter
+		with: self codeWidget
+		with: (HLHorizontalSplitter
+			with: self stackListWidget
 			with: self inspectorWidget)))
 !
 
@@ -178,9 +198,8 @@ debuggerModel: anObject
 !HLDebuggerCodeModel methodsFor: 'actions'!
 
 doIt: aString
-	^ self 
-		try: [ self debuggerModel evaluate: aString ]
-		catch: [ :e | 
+	^ [ self debuggerModel evaluate: aString ]
+		tryCatch: [ :e | 
 			ErrorHandler handleError: e.
 			nil ]
 ! !
@@ -216,7 +235,8 @@ clearHighlight
 !
 
 highlight
-	self highlightNode: self browserModel nextNode
+	self browserModel nextNode ifNotNil: [ :node |
+		self highlightNode: node ]
 !
 
 highlightNode: aNode
@@ -257,48 +277,59 @@ onContextSelected
 	self highlight
 ! !
 
+!HLDebuggerCodeWidget methodsFor: 'rendering'!
+
+renderOn: html
+	super renderOn: html.
+	self contents: self browserModel selectedMethod source
+! !
+
 HLToolModel subclass: #HLDebuggerModel
-	instanceVariableNames: 'rootContext currentContext contexts error'
+	instanceVariableNames: 'rootContext debugger error'
 	package: 'Helios-Debugger'!
 !HLDebuggerModel commentStamp!
 I am a model for debugging Amber code in Helios.
 
-My instances hold a reference to an `AIContext` instance, built from a `MethodContext`. The context should be the root of the context stack.!
+My instances hold a reference to an `ASTDebugger` instance, itself referencing the current `context`. The context should be the root of the context stack.!
 
 !HLDebuggerModel methodsFor: 'accessing'!
 
 contexts
+	| contexts context |
+	
+	contexts := OrderedCollection new.
+	context := self rootContext.
+	
+	[ context notNil ] whileTrue: [
+		contexts add: context.
+		context := context outerContext ].
+		
 	^ contexts
 !
 
 currentContext
-	currentContext ifNil: [ self currentContext: self rootContext ].
-	^ currentContext
+	^ self debugger context
 !
 
 currentContext: aContext
 	self withChangesDo: [ 
 		self selectedMethod: aContext method.
-		currentContext := aContext.
+		self debugger context: aContext.
 		self announcer announce: (HLDebuggerContextSelected new
 			context: aContext;
 			yourself) ]
+!
+
+debugger
+	^ debugger ifNil: [ debugger := ASTDebugger new ]
 !
 
 error
 	^ error
 !
 
-error: anError
-	error := anError
-!
-
-interpreter
-	^ self currentContext interpreter
-!
-
 nextNode
-	^ self interpreter node
+	^ self debugger node
 !
 
 rootContext
@@ -307,18 +338,15 @@ rootContext
 
 !HLDebuggerModel methodsFor: 'actions'!
 
-restart
-	self interpreter restart.
-	self flushInnerContexts.
+proceed
+	self debugger proceed.
 	
-	self announcer announce: (HLDebuggerStepped new
-		context: self currentContext;
-		yourself)
+	self announcer announce: HLDebuggerProceeded new
 !
 
-skip
-	self interpreter skip.
-	self flushInnerContexts.
+restart
+	self debugger restart.
+	self onStep.
 	
 	self announcer announce: (HLDebuggerStepped new
 		context: self currentContext;
@@ -326,8 +354,8 @@ skip
 !
 
 stepOver
-	self interpreter stepOver.
-	self flushInnerContexts.
+	self debugger stepOver.
+	self onStep.
 	
 	self announcer announce: (HLDebuggerStepped new
 		context: self currentContext;
@@ -342,36 +370,19 @@ where
 
 evaluate: aString
 	^ self environment 
-		interpret: aString 
-		inContext: self currentContext
+		evaluate: aString 
+		for: self currentContext
 ! !
 
 !HLDebuggerModel methodsFor: 'initialization'!
 
-initializeContexts
-	"Flatten the context stack into an OrderedCollection"
-	
-	| context |
-	
-	contexts := OrderedCollection new.
-	context := self rootContext.
-	
-	[ context notNil ] whileTrue: [
-		contexts add: context.
-		context := context outerContext ]
-!
-
-initializeFromContext: aMethodContext
-	rootContext := (AIContext fromMethodContext: aMethodContext).
-	self initializeContexts
-!
-
 initializeFromError: anError
+	| errorContext |
+	
 	error := anError.
-	console log: error.
-	console log: error context.
-	rootContext := (AIContext fromMethodContext: error context).
-	self initializeContexts
+	errorContext := (AIContext fromMethodContext: error context).
+	rootContext := error signalerContextFrom: errorContext.
+	self selectedMethod: rootContext method
 ! !
 
 !HLDebuggerModel methodsFor: 'private'!
@@ -383,6 +394,24 @@ flushInnerContexts
 	self currentContext innerContext: nil.
 	rootContext := self currentContext.
 	self initializeContexts
+! !
+
+!HLDebuggerModel methodsFor: 'reactions'!
+
+onStep
+	rootContext := self currentContext.
+	
+	"Force a refresh of the context list and code widget"
+	self selectedMethod: self currentContext method.
+	self announcer announce: (HLDebuggerContextSelected new
+		context: self currentContext;
+		yourself)
+! !
+
+!HLDebuggerModel methodsFor: 'testing'!
+
+atEnd
+	^ self debugger atEnd
 ! !
 
 !HLDebuggerModel class methodsFor: 'instance creation'!
@@ -438,7 +467,7 @@ HLToolListWidget subclass: #HLStackListWidget
 !HLStackListWidget methodsFor: 'accessing'!
 
 items
-	^ items ifNil: [ items := self model contexts ]
+	^ self model contexts
 !
 
 label
@@ -456,6 +485,10 @@ observeModel
 		to: self
 !
 
+proceed
+	self model proceed
+!
+
 restart
 	self model restart
 !
@@ -465,8 +498,8 @@ selectItem: aContext
 	super selectItem: aContext
 !
 
-skip
-	self model skip
+selectedItem
+   	^ self model currentContext
 !
 
 stepOver
@@ -503,8 +536,8 @@ renderButtonsOn: html
 				with: 'Step over';
 				onClick: [ self stepOver ].
 			html button 
-				class: 'btn skip';
-				with: 'Skip';
-				onClick: [ self skip ] ]
+				class: 'btn proceed';
+				with: 'Proceed';
+				onClick: [ self proceed ] ]
 ! !
 

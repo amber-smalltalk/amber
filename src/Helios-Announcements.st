@@ -94,6 +94,10 @@ context: aContext
 	context := aContext
 ! !
 
+HLDebuggerAnnouncement subclass: #HLDebuggerProceeded
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 HLDebuggerAnnouncement subclass: #HLDebuggerStepped
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
@@ -297,4 +301,26 @@ template: aString
 HLAnnouncement subclass: #HLSourceCodeSaved
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
+
+HLAnnouncement subclass: #HLTabLabelChanged
+	instanceVariableNames: 'label widget'
+	package: 'Helios-Announcements'!
+
+!HLTabLabelChanged methodsFor: 'accessing'!
+
+label
+	^ label
+!
+
+label: aString
+	label := aString
+!
+
+widget
+	^ widget
+!
+
+widget: aWidget
+	widget := aWidget
+! !
 

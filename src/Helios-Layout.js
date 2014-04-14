@@ -1,6 +1,6 @@
-define("amber_core/Helios-Layout", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Core", "amber_core/Web", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Layout", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Core", "amber_core/Web", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Layout');
-smalltalk.packages["Helios-Layout"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Layout"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLContainer', globals.HLWidget, ['splitter'], 'Helios-Layout');
 smalltalk.addMethod(
@@ -290,8 +290,10 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(globals.HLHorizontalSplitter.superclass.fn.prototype._cssClass.apply(_st(self), [])).__comma(" horizontal");
+var $2,$1;
+$2=($ctx1.supercall = true, globals.HLHorizontalSplitter.superclass.fn.prototype._cssClass.apply(_st(self), []));
+$ctx1.supercall = false;
+$1=_st($2).__comma(" horizontal");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"cssClass",{},globals.HLHorizontalSplitter)})},
 args: [],
@@ -308,8 +310,10 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(globals.HLHorizontalSplitter.superclass.fn.prototype._panesCssClass.apply(_st(self), [])).__comma(" horizontal");
+var $2,$1;
+$2=($ctx1.supercall = true, globals.HLHorizontalSplitter.superclass.fn.prototype._panesCssClass.apply(_st(self), []));
+$ctx1.supercall = false;
+$1=_st($2).__comma(" horizontal");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"panesCssClass",{},globals.HLHorizontalSplitter)})},
 args: [],
@@ -438,8 +442,10 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(globals.HLVerticalSplitter.superclass.fn.prototype._cssClass.apply(_st(self), [])).__comma(" vertical");
+var $2,$1;
+$2=($ctx1.supercall = true, globals.HLVerticalSplitter.superclass.fn.prototype._cssClass.apply(_st(self), []));
+$ctx1.supercall = false;
+$1=_st($2).__comma(" vertical");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"cssClass",{},globals.HLVerticalSplitter)})},
 args: [],
@@ -456,8 +462,10 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(globals.HLVerticalSplitter.superclass.fn.prototype._panesCssClass.apply(_st(self), [])).__comma(" vertical");
+var $2,$1;
+$2=($ctx1.supercall = true, globals.HLVerticalSplitter.superclass.fn.prototype._panesCssClass.apply(_st(self), []));
+$ctx1.supercall = false;
+$1=_st($2).__comma(" vertical");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"panesCssClass",{},globals.HLVerticalSplitter)})},
 args: [],

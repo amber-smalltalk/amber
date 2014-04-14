@@ -11,10 +11,10 @@ protocol: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=_st(anError)._context();
 $ctx1.sendIdx["context"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 self._logErrorContext_(_st(anError)._context());
@@ -51,10 +51,10 @@ protocol: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=_st(aContext)._home();
 $ctx1.sendIdx["home"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 self._logContext_(_st(aContext)._home());
@@ -91,13 +91,13 @@ protocol: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = aContext) == nil || $receiver == null){
+var $1,$receiver;
+if(($receiver = aContext) == null || $receiver.isNil){
 aContext;
 } else {
 $1=_st(aContext)._home();
 $ctx1.sendIdx["home"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 self._logContext_(_st(aContext)._home());
@@ -209,6 +209,25 @@ referencedClasses: ["PlatformInterface"]
 }),
 globals.InterfacingObject);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "prompt:default:",
+protocol: 'actions',
+fn: function (aString,defaultString){
+var self=this;
+function $PlatformInterface(){return globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($PlatformInterface())._prompt_default_(aString,defaultString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},globals.InterfacingObject)})},
+args: ["aString", "defaultString"],
+source: "prompt: aString default: defaultString\x0a\x09^ PlatformInterface prompt: aString default: defaultString",
+messageSends: ["prompt:default:"],
+referencedClasses: ["PlatformInterface"]
+}),
+globals.InterfacingObject);
+
 
 
 smalltalk.addClass('Environment', globals.InterfacingObject, [], 'Kernel-Infrastructure');
@@ -308,11 +327,11 @@ fn: function (aClass){
 var self=this;
 var protocols;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 protocols=_st(aClass)._protocols();
 $1=_st(aClass)._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(protocols)._addAll_(self._availableProtocolsFor_(_st(aClass)._superclass()));
@@ -354,9 +373,9 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=_st(_st($Smalltalk())._globals())._at_(_st(aString)._asSymbol());
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._error_("Invalid class name");
 } else {
 $1=$2;
@@ -432,15 +451,15 @@ function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-return self._eval_on_(aString,_st($DoIt())._new());
+return self._evaluate_for_(aString,_st($DoIt())._new());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(error){
 return smalltalk.withContext(function($ctx2) {
 return self._alert_(_st(error)._messageText());
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"compileClassDefinition:",{aString:aString},globals.Environment)})},
 args: ["aString"],
-source: "compileClassDefinition: aString\x0a\x09[ self eval: aString on: DoIt new ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :error | self alert: error messageText ]",
-messageSends: ["on:do:", "eval:on:", "new", "alert:", "messageText"],
+source: "compileClassDefinition: aString\x0a\x09[ self evaluate: aString for: DoIt new ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :error | self alert: error messageText ]",
+messageSends: ["on:do:", "evaluate:for:", "new", "alert:", "messageText"],
 referencedClasses: ["DoIt", "Error"]
 }),
 globals.Environment);
@@ -472,9 +491,9 @@ var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 $1=_st(_st($Smalltalk())._globals())._at_(aClassName);
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 $2=_st("A class named ".__comma(aClassName)).__comma(" already exists");
@@ -511,35 +530,20 @@ globals.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "eval:on:",
+selector: "evaluate:for:",
 protocol: 'evaluating',
-fn: function (aString,aReceiver){
+fn: function (aString,anObject){
 var self=this;
-var compiler;
-function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Evaluator(){return globals.Evaluator||(typeof Evaluator=="undefined"?nil:Evaluator)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-var $early={};
-try {
-compiler=_st($Compiler())._new();
-_st((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(compiler)._parseExpression_(aString);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(ex){
-return smalltalk.withContext(function($ctx2) {
-$1=self._alert_(_st(ex)._messageText());
-throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
-$2=_st(compiler)._evaluateExpression_on_(aString,aReceiver);
-return $2;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"eval:on:",{aString:aString,aReceiver:aReceiver,compiler:compiler},globals.Environment)})},
-args: ["aString", "aReceiver"],
-source: "eval: aString on: aReceiver\x0a\x09| compiler |\x0a\x09compiler := Compiler new.\x0a\x09[ compiler parseExpression: aString ] on: Error do: [ :ex |\x0a\x09\x09^ self alert: ex messageText ].\x0a\x09^ compiler evaluateExpression: aString on: aReceiver",
-messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "evaluateExpression:on:"],
-referencedClasses: ["Compiler", "Error"]
+var $1;
+$1=_st($Evaluator())._evaluate_for_(aString,anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},globals.Environment)})},
+args: ["aString", "anObject"],
+source: "evaluate: aString for: anObject\x0a\x09^ Evaluator evaluate: aString for: anObject",
+messageSends: ["evaluate:for:"],
+referencedClasses: ["Evaluator"]
 }),
 globals.Environment);
 
@@ -551,7 +555,7 @@ fn: function (aBlock,anErrorClass,exceptionBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-self._try_catch_(aBlock,(function(exception){
+_st(aBlock)._tryCatch_((function(exception){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(exception)._isKindOf_(self._classNamed_(_st(anErrorClass)._name()));
 if(smalltalk.assert($1)){
@@ -562,8 +566,8 @@ return _st(exception)._signal();
 }, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"evaluate:on:do:",{aBlock:aBlock,anErrorClass:anErrorClass,exceptionBlock:exceptionBlock},globals.Environment)})},
 args: ["aBlock", "anErrorClass", "exceptionBlock"],
-source: "evaluate: aBlock on: anErrorClass do: exceptionBlock\x0a\x09\x22Evaluate a block and catch exceptions happening on the environment stack\x22\x0a\x09\x0a\x09self try: aBlock catch: [ :exception | \x0a\x09\x09(exception isKindOf: (self classNamed: anErrorClass name))\x0a\x09\x09\x09ifTrue: [ exceptionBlock value: exception ]\x0a \x09\x09\x09ifFalse: [ exception signal ] ]",
-messageSends: ["try:catch:", "ifTrue:ifFalse:", "isKindOf:", "classNamed:", "name", "value:", "signal"],
+source: "evaluate: aBlock on: anErrorClass do: exceptionBlock\x0a\x09\x22Evaluate a block and catch exceptions happening on the environment stack\x22\x0a\x09\x0a\x09aBlock tryCatch: [ :exception | \x0a\x09\x09(exception isKindOf: (self classNamed: anErrorClass name))\x0a\x09\x09\x09ifTrue: [ exceptionBlock value: exception ]\x0a \x09\x09\x09ifFalse: [ exception signal ] ]",
+messageSends: ["tryCatch:", "ifTrue:ifFalse:", "isKindOf:", "classNamed:", "name", "value:", "signal"],
 referencedClasses: []
 }),
 globals.Environment);
@@ -587,43 +591,6 @@ globals.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "interpret:inContext:",
-protocol: 'evaluating',
-fn: function (aString,anAIContext){
-var self=this;
-var compiler,ast;
-function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
-function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-var $early={};
-try {
-compiler=_st($Compiler())._new();
-_st((function(){
-return smalltalk.withContext(function($ctx2) {
-ast=_st(compiler)._parseExpression_(aString);
-return ast;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(ex){
-return smalltalk.withContext(function($ctx2) {
-$1=self._alert_(_st(ex)._messageText());
-throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
-_st(_st($SemanticAnalyzer())._on_(_st(_st(anAIContext)._receiver())._class()))._visit_(ast);
-$2=_st(anAIContext)._evaluateNode_(ast);
-return $2;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"interpret:inContext:",{aString:aString,anAIContext:anAIContext,compiler:compiler,ast:ast},globals.Environment)})},
-args: ["aString", "anAIContext"],
-source: "interpret: aString inContext: anAIContext\x0a\x09\x22Similar to #eval:on:, with the following differences:\x0a\x09- instead of compiling and running `aString`, `aString` is interpreted using an `ASTInterpreter`\x0a\x09- instead of evaluating against a receiver, evaluate in the context of `anAIContext`\x22\x0a\x0a\x09| compiler ast |\x0a\x09compiler := Compiler new.\x0a\x09[ ast := compiler parseExpression: aString ] on: Error do: [ :ex |\x0a\x09\x09^ self alert: ex messageText ].\x0a\x09(SemanticAnalyzer on: anAIContext receiver class)\x0a\x09\x09visit: ast.\x0a\x09^ anAIContext evaluateNode: ast",
-messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "visit:", "on:", "class", "receiver", "evaluateNode:"],
-referencedClasses: ["Compiler", "Error", "SemanticAnalyzer"]
-}),
-globals.Environment);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "moveClass:toPackage:",
 protocol: 'actions',
 fn: function (aClass,aPackageName){
@@ -631,10 +598,10 @@ var self=this;
 var package_;
 function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 package_=_st($Package())._named_(aPackageName);
 $1=package_;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self._error_("Invalid package name");
 } else {
 $1;
@@ -660,7 +627,7 @@ fn: function (aMethod,aClassName){
 var self=this;
 var destinationClass;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
+var $2,$3,$1,$5,$4;
 destinationClass=self._classNamed_(aClassName);
 $2=destinationClass;
 $3=_st(aMethod)._methodClass();
@@ -669,12 +636,19 @@ $1=_st($2).__eq_eq($3);
 if(smalltalk.assert($1)){
 return self;
 };
+$5=_st(aMethod)._methodClass();
+$ctx1.sendIdx["methodClass"]=2;
+$4=_st($5)._isMetaclass();
+if(smalltalk.assert($4)){
+destinationClass=_st(destinationClass)._class();
+destinationClass;
+};
 _st(destinationClass)._compile_protocol_(_st(aMethod)._source(),_st(aMethod)._protocol());
 _st(_st(aMethod)._methodClass())._removeCompiledMethod_(aMethod);
 return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName,destinationClass:destinationClass},globals.Environment)})},
 args: ["aMethod", "aClassName"],
-source: "moveMethod: aMethod toClass: aClassName\x0a\x09| destinationClass |\x0a\x09\x0a\x09destinationClass := self classNamed: aClassName.\x0a\x09destinationClass == aMethod methodClass ifTrue: [ ^ self ].\x0a\x09\x0a\x09destinationClass \x0a\x09\x09compile: aMethod source\x0a\x09\x09protocol: aMethod protocol.\x0a\x09aMethod methodClass \x0a\x09\x09removeCompiledMethod: aMethod",
-messageSends: ["classNamed:", "ifTrue:", "==", "methodClass", "compile:protocol:", "source", "protocol", "removeCompiledMethod:"],
+source: "moveMethod: aMethod toClass: aClassName\x0a\x09| destinationClass |\x0a\x09\x0a\x09destinationClass := self classNamed: aClassName.\x0a\x09destinationClass == aMethod methodClass ifTrue: [ ^ self ].\x0a\x09\x0a\x09aMethod methodClass isMetaclass ifTrue: [ \x0a\x09\x09destinationClass := destinationClass class ].\x0a\x09\x0a\x09destinationClass \x0a\x09\x09compile: aMethod source\x0a\x09\x09protocol: aMethod protocol.\x0a\x09aMethod methodClass \x0a\x09\x09removeCompiledMethod: aMethod",
+messageSends: ["classNamed:", "ifTrue:", "==", "methodClass", "isMetaclass", "class", "compile:protocol:", "source", "protocol", "removeCompiledMethod:"],
 referencedClasses: []
 }),
 globals.Environment);
@@ -860,9 +834,9 @@ var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 $1=_st(_st($Smalltalk())._globals())._at_(aClassName);
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 $2=_st("A class named ".__comma(aClassName)).__comma(" already exists");
@@ -1109,10 +1083,11 @@ protocol: 'proxy',
 fn: function (aMessage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
-if(($receiver = $2) == nil || $receiver == null){
-$1=globals.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
+if(($receiver = $2) == null || $receiver.isNil){
+$1=($ctx1.supercall = true, globals.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]));
+$ctx1.supercall = false;
 } else {
 var jsSelector;
 jsSelector=$receiver;
@@ -1400,7 +1375,8 @@ function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnoun
 function $ProtocolAdded(){return globals.ProtocolAdded||(typeof ProtocolAdded=="undefined"?nil:ProtocolAdded)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-globals.ClassOrganizer.superclass.fn.prototype._addElement_.apply(_st(self), [aString]);
+($ctx1.supercall = true, globals.ClassOrganizer.superclass.fn.prototype._addElement_.apply(_st(self), [aString]));
+$ctx1.supercall = false;
 $1=_st($ProtocolAdded())._new();
 _st($1)._protocol_(aString);
 _st($1)._theClass_(self._theClass());
@@ -1424,7 +1400,8 @@ function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnoun
 function $ProtocolRemoved(){return globals.ProtocolRemoved||(typeof ProtocolRemoved=="undefined"?nil:ProtocolRemoved)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-globals.ClassOrganizer.superclass.fn.prototype._removeElement_.apply(_st(self), [aString]);
+($ctx1.supercall = true, globals.ClassOrganizer.superclass.fn.prototype._removeElement_.apply(_st(self), [aString]));
+$ctx1.supercall = false;
 $1=_st($ProtocolRemoved())._new();
 _st($1)._protocol_(aString);
 _st($1)._theClass_(self._theClass());
@@ -1460,12 +1437,28 @@ smalltalk.addClass('PackageOrganizer', globals.Organizer, [], 'Kernel-Infrastruc
 globals.PackageOrganizer.comment="I am an organizer specific to packages. I hold classes categorization information.";
 
 
-smalltalk.addClass('Package', globals.Object, ['transport'], 'Kernel-Infrastructure');
+smalltalk.addClass('Package', globals.Object, ['transport', 'dirty'], 'Kernel-Infrastructure');
 globals.Package.comment="I am similar to a \x22class category\x22 typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.\x0a\x0aEach package has a name and can be queried for its classes, but it will then resort to a reverse scan of all classes to find them.\x0a\x0a## API\x0a\x0aPackages are manipulated through \x22Smalltalk current\x22, like for example finding one based on a name or with `Package class >> #name` directly:\x0a\x0a    Smalltalk current packageAt: 'Kernel'\x0a    Package named: 'Kernel'\x0a\x0aA package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a package supports \x22class extensions\x22 so a package can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows.\x0a\x0aYou can fetch a package from the server:\x0a\x0a\x09Package load: 'Additional-Examples'";
 smalltalk.addMethod(
 smalltalk.method({
+selector: "basicName:",
+protocol: 'private',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self.pkgName = aString;
+return self}, function($ctx1) {$ctx1.fill(self,"basicName:",{aString:aString},globals.Package)})},
+args: ["aString"],
+source: "basicName: aString\x0a\x09<self.pkgName = aString>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "basicTransport",
-protocol: 'accessing',
+protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1475,6 +1468,52 @@ args: [],
 source: "basicTransport\x0a\x09\x22Answer the transport literal JavaScript object as setup in the JavaScript file, if any\x22\x0a\x09\x0a\x09<return self.transport>",
 messageSends: [],
 referencedClasses: []
+}),
+globals.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "beClean",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+function $PackageClean(){return globals.PackageClean||(typeof PackageClean=="undefined"?nil:PackageClean)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self["@dirty"]=false;
+$1=_st($PackageClean())._new();
+_st($1)._package_(self);
+$2=_st($1)._yourself();
+_st(_st($SystemAnnouncer())._current())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"beClean",{},globals.Package)})},
+args: [],
+source: "beClean\x0a\x09dirty := false.\x0a\x09\x0a\x09SystemAnnouncer current announce: (PackageClean new\x0a\x09\x09package: self;\x0a\x09\x09yourself)",
+messageSends: ["announce:", "current", "package:", "new", "yourself"],
+referencedClasses: ["SystemAnnouncer", "PackageClean"]
+}),
+globals.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "beDirty",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+function $PackageClean(){return globals.PackageClean||(typeof PackageClean=="undefined"?nil:PackageClean)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self["@dirty"]=true;
+$1=_st($PackageClean())._new();
+_st($1)._package_(self);
+$2=_st($1)._yourself();
+_st(_st($SystemAnnouncer())._current())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"beDirty",{},globals.Package)})},
+args: [],
+source: "beDirty\x0a\x09dirty := true.\x0a\x09\x0a\x09SystemAnnouncer current announce: (PackageClean new\x0a\x09\x09package: self;\x0a\x09\x09yourself)",
+messageSends: ["announce:", "current", "package:", "new", "yourself"],
+referencedClasses: ["SystemAnnouncer", "PackageClean"]
 }),
 globals.Package);
 
@@ -1588,6 +1627,29 @@ args: [],
 source: "definition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream \x0a\x09\x09\x09nextPutAll: self class name;\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: ' named: ';\x0a\x09\x09\x09nextPutAll: '''', self name, '''';\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll:  ' transport: (';\x0a\x09\x09\x09nextPutAll: self transport definition, ')' ]",
 messageSends: ["streamContents:", "nextPutAll:", "name", "class", ",", "lf", "tab", "definition", "transport"],
 referencedClasses: ["String"]
+}),
+globals.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isDirty",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$receiver;
+$2=self["@dirty"];
+if(($receiver = $2) == null || $receiver.isNil){
+$1=false;
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isDirty",{},globals.Package)})},
+args: [],
+source: "isDirty\x0a\x09^ dirty ifNil: [ false ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
 }),
 globals.Package);
 
@@ -1720,11 +1782,12 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self.pkgName = aString;
+self._basicName_(aString);
+self._beDirty();
 return self}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},globals.Package)})},
 args: ["aString"],
-source: "name: aString\x0a\x09<self.pkgName = aString>",
-messageSends: [],
+source: "name: aString\x0a\x09self basicName: aString.\x0a\x09self beDirty",
+messageSends: ["basicName:", "beDirty"],
 referencedClasses: []
 }),
 globals.Package);
@@ -1755,7 +1818,8 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.Package.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+($ctx1.supercall = true, globals.Package.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+$ctx1.supercall = false;
 _st(aStream)._nextPutAll_(" (");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._name());
@@ -1822,9 +1886,9 @@ fn: function (){
 var self=this;
 function $PackageTransport(){return globals.PackageTransport||(typeof PackageTransport=="undefined"?nil:PackageTransport)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
+var $2,$3,$4,$1,$receiver;
 $2=self["@transport"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($PackageTransport())._fromJson_(self._basicTransport());
 _st($3)._package_(self);
 $4=_st($3)._yourself();
@@ -1975,6 +2039,178 @@ referencedClasses: ["ClassSorterNode", "Array"]
 globals.Package.klass);
 
 
+smalltalk.addClass('PackageStateObserver', globals.Object, [], 'Kernel-Infrastructure');
+globals.PackageStateObserver.comment="My current instance listens for any changes in the system that might affect the state of a package (being dirty).";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "announcer",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($SystemAnnouncer())._current();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"announcer",{},globals.PackageStateObserver)})},
+args: [],
+source: "announcer\x0a\x09^ SystemAnnouncer current",
+messageSends: ["current"],
+referencedClasses: ["SystemAnnouncer"]
+}),
+globals.PackageStateObserver);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "observeSystem",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $PackageAdded(){return globals.PackageAdded||(typeof PackageAdded=="undefined"?nil:PackageAdded)}
+function $ClassAnnouncement(){return globals.ClassAnnouncement||(typeof ClassAnnouncement=="undefined"?nil:ClassAnnouncement)}
+function $MethodAnnouncement(){return globals.MethodAnnouncement||(typeof MethodAnnouncement=="undefined"?nil:MethodAnnouncement)}
+function $ProtocolAnnouncement(){return globals.ProtocolAnnouncement||(typeof ProtocolAnnouncement=="undefined"?nil:ProtocolAnnouncement)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._announcer();
+_st($1)._on_send_to_($PackageAdded(),"onPackageAdded:",self);
+$ctx1.sendIdx["on:send:to:"]=1;
+_st($1)._on_send_to_($ClassAnnouncement(),"onClassModification:",self);
+$ctx1.sendIdx["on:send:to:"]=2;
+_st($1)._on_send_to_($MethodAnnouncement(),"onMethodModification:",self);
+$ctx1.sendIdx["on:send:to:"]=3;
+$2=_st($1)._on_send_to_($ProtocolAnnouncement(),"onProtocolModification:",self);
+return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},globals.PackageStateObserver)})},
+args: [],
+source: "observeSystem\x0a\x09self announcer\x0a\x09\x09on: PackageAdded\x0a\x09\x09send: #onPackageAdded:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: ClassAnnouncement\x0a\x09\x09send: #onClassModification:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: MethodAnnouncement\x0a\x09\x09send: #onMethodModification:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: ProtocolAnnouncement\x0a\x09\x09send: #onProtocolModification:\x0a\x09\x09to: self",
+messageSends: ["on:send:to:", "announcer"],
+referencedClasses: ["PackageAdded", "ClassAnnouncement", "MethodAnnouncement", "ProtocolAnnouncement"]
+}),
+globals.PackageStateObserver);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClassModification:",
+protocol: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$receiver;
+$1=_st(anAnnouncement)._theClass();
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
+} else {
+var theClass;
+theClass=$receiver;
+_st(_st(theClass)._package())._beDirty();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onClassModification:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)})},
+args: ["anAnnouncement"],
+source: "onClassModification: anAnnouncement\x0a\x09anAnnouncement theClass ifNotNil: [ :theClass |\x0a\x09\x09theClass package beDirty ]",
+messageSends: ["ifNotNil:", "theClass", "beDirty", "package"],
+referencedClasses: []
+}),
+globals.PackageStateObserver);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onMethodModification:",
+protocol: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$receiver;
+$1=_st(_st(anAnnouncement)._method())._package();
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
+} else {
+var package_;
+package_=$receiver;
+_st(package_)._beDirty();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onMethodModification:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)})},
+args: ["anAnnouncement"],
+source: "onMethodModification: anAnnouncement\x0a\x09anAnnouncement method package ifNotNil: [ :package | package beDirty ]",
+messageSends: ["ifNotNil:", "package", "method", "beDirty"],
+referencedClasses: []
+}),
+globals.PackageStateObserver);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onPackageAdded:",
+protocol: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(anAnnouncement)._package())._beDirty();
+return self}, function($ctx1) {$ctx1.fill(self,"onPackageAdded:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)})},
+args: ["anAnnouncement"],
+source: "onPackageAdded: anAnnouncement\x0a\x09anAnnouncement package beDirty",
+messageSends: ["beDirty", "package"],
+referencedClasses: []
+}),
+globals.PackageStateObserver);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onProtocolModification:",
+protocol: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(_st(anAnnouncement)._theClass())._package())._beDirty();
+return self}, function($ctx1) {$ctx1.fill(self,"onProtocolModification:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)})},
+args: ["anAnnouncement"],
+source: "onProtocolModification: anAnnouncement\x0a\x09anAnnouncement theClass package beDirty",
+messageSends: ["beDirty", "package", "theClass"],
+referencedClasses: []
+}),
+globals.PackageStateObserver);
+
+
+globals.PackageStateObserver.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "current",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$receiver;
+$2=self["@current"];
+if(($receiver = $2) == null || $receiver.isNil){
+self["@current"]=self._new();
+$1=self["@current"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"current",{},globals.PackageStateObserver.klass)})},
+args: [],
+source: "current\x0a\x09^ current ifNil: [ current := self new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: []
+}),
+globals.PackageStateObserver.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._current())._observeSystem();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.PackageStateObserver.klass)})},
+args: [],
+source: "initialize\x0a\x09self current observeSystem",
+messageSends: ["observeSystem", "current"],
+referencedClasses: []
+}),
+globals.PackageStateObserver.klass);
+
+
 smalltalk.addClass('PlatformInterface', globals.Object, [], 'Kernel-Infrastructure');
 globals.PlatformInterface.comment="I am single entry point to UI and environment interface.\x0aMy `initialize` tries several options (for now, browser environment only) to set myself up.\x0a\x0a## API\x0a\x0a    PlatformInterface alert: 'Hey, there is a problem'.\x0a    PlatformInterface confirm: 'Affirmative?'.\x0a    PlatformInterface prompt: 'Your name:'.\x0a\x0a    PlatformInterface ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
 
@@ -1986,9 +2222,9 @@ protocol: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._error_("ajax: not available");
 } else {
 $1=_st(self["@worker"])._ajax_(anObject);
@@ -2009,9 +2245,9 @@ protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._error_("alert: not available");
 } else {
 $1=_st(self["@worker"])._alert_(aString);
@@ -2032,9 +2268,9 @@ protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._error_("confirm: not available");
 } else {
 $1=_st(self["@worker"])._confirm_(aString);
@@ -2096,9 +2332,10 @@ var self=this;
 var candidate;
 function $BrowserInterface(){return globals.BrowserInterface||(typeof BrowserInterface=="undefined"?nil:BrowserInterface)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-globals.PlatformInterface.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
-if(($receiver = $BrowserInterface()) == nil || $receiver == null){
+var $1,$receiver;
+($ctx1.supercall = true, globals.PlatformInterface.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
+if(($receiver = $BrowserInterface()) == null || $receiver.isNil){
 $BrowserInterface();
 } else {
 candidate=_st($BrowserInterface())._new();
@@ -2124,9 +2361,9 @@ protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._error_("prompt: not available");
 } else {
 $1=_st(self["@worker"])._prompt_(aString);
@@ -2136,6 +2373,29 @@ return $1;
 args: ["aString"],
 source: "prompt: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker prompt: aString ]\x0a\x09\x09ifNil: [ self error: 'prompt: not available' ]",
 messageSends: ["ifNotNil:ifNil:", "prompt:", "error:"],
+referencedClasses: []
+}),
+globals.PlatformInterface.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "prompt:default:",
+protocol: 'actions',
+fn: function (aString,defaultString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$receiver;
+$2=self["@worker"];
+if(($receiver = $2) == null || $receiver.isNil){
+$1=self._error_("prompt: not available");
+} else {
+$1=_st(self["@worker"])._prompt_default_(aString,defaultString);
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},globals.PlatformInterface.klass)})},
+args: ["aString", "defaultString"],
+source: "prompt: aString default: defaultString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker prompt: aString default: defaultString ]\x0a\x09\x09ifNil: [ self error: 'prompt: not available' ]",
+messageSends: ["ifNotNil:ifNil:", "prompt:default:", "error:"],
 referencedClasses: []
 }),
 globals.PlatformInterface.klass);
@@ -2215,9 +2475,9 @@ protocol: 'registration',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self._current();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self._register_(anObject);
 } else {
 $1;
@@ -2241,11 +2501,33 @@ protocol: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._current())._handleError_(anError);
+self._handleUnhandledError_(anError);
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.ErrorHandler.klass)})},
 args: ["anError"],
-source: "handleError: anError\x0a\x09self current handleError: anError",
-messageSends: ["handleError:", "current"],
+source: "handleError: anError\x0a\x09self handleUnhandledError: anError",
+messageSends: ["handleUnhandledError:"],
+referencedClasses: []
+}),
+globals.ErrorHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleUnhandledError:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(anError)._wasHandled();
+if(smalltalk.assert($1)){
+return self;
+};
+$2=_st(self._current())._handleError_(anError);
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"handleUnhandledError:",{anError:anError},globals.ErrorHandler.klass)})},
+args: ["anError"],
+source: "handleUnhandledError: anError\x0a\x09anError wasHandled ifTrue: [ ^ self ].\x0a\x09\x0a\x09^ self current handleError: anError",
+messageSends: ["ifTrue:", "wasHandled", "handleError:", "current"],
 referencedClasses: []
 }),
 globals.ErrorHandler.klass);
@@ -2552,7 +2834,8 @@ fn: function (aString,anotherString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=globals.Setting.klass.superclass.fn.prototype._new.apply(_st(self), []);
+$2=($ctx1.supercall = true, globals.Setting.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 _st($2)._key_(aString);
 _st($2)._defaultValue_(anotherString);
 $3=_st($2)._yourself();
@@ -2780,7 +3063,7 @@ $3=package_;
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"createPackage:",{packageName:packageName,package_:package_,announcement:announcement},globals.SmalltalkImage)})},
 args: ["packageName"],
-source: "createPackage: packageName\x0a\x09| package announcement |\x0a\x09\x0a\x09package := self basicCreatePackage: packageName.\x0a\x09announcement := PackageAdded new\x0a\x09\x09package: package;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09SystemAnnouncer current announce: announcement.\x0a\x09\x0a\x09^ package",
+source: "createPackage: packageName\x0a\x09| package announcement |\x0a\x09\x0a\x09package := self basicCreatePackage: packageName.\x0a\x09\x0a\x09announcement := PackageAdded new\x0a\x09\x09package: package;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09SystemAnnouncer current announce: announcement.\x0a\x09\x0a\x09^ package",
 messageSends: ["basicCreatePackage:", "package:", "new", "yourself", "announce:", "current"],
 referencedClasses: ["PackageAdded", "SystemAnnouncer"]
 }),
@@ -3037,11 +3320,11 @@ var self=this;
 var result;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-self._try_catch_((function(){
+_st((function(){
 return smalltalk.withContext(function($ctx2) {
 result=self._basicParse_(aString);
 return result;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(ex){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._tryCatch_((function(ex){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._parseError_parsing_(ex,aString))._signal();
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
@@ -3052,8 +3335,8 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString,result:result},globals.SmalltalkImage)})},
 args: ["aString"],
-source: "parse: aString\x0a\x09| result |\x0a\x09\x0a\x09self \x0a\x09\x09try: [ result := self basicParse: aString ] \x0a\x09\x09catch: [ :ex | (self parseError: ex parsing: aString) signal ].\x0a\x09\x09\x0a\x09^ result\x0a\x09\x09source: aString;\x0a\x09\x09yourself",
-messageSends: ["try:catch:", "basicParse:", "signal", "parseError:parsing:", "source:", "yourself"],
+source: "parse: aString\x0a\x09| result |\x0a\x09\x0a\x09[ result := self basicParse: aString ] \x0a\x09\x09tryCatch: [ :ex | (self parseError: ex parsing: aString) signal ].\x0a\x09\x09\x0a\x09^ result\x0a\x09\x09source: aString;\x0a\x09\x09yourself",
+messageSends: ["tryCatch:", "basicParse:", "signal", "parseError:parsing:", "source:", "yourself"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
@@ -3184,7 +3467,7 @@ fn: function (packageName,newName){
 var self=this;
 var pkg;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 pkg=self._packageAt_ifAbsent_(packageName,(function(){
 return smalltalk.withContext(function($ctx2) {
 $1="Missing package: ".__comma(packageName);
@@ -3193,7 +3476,7 @@ return self._error_($1);
 $ctx2.sendIdx["error:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $2=self._packageAt_(newName);
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $2;
 } else {
 self._error_("Already exists a package called: ".__comma(newName));
@@ -3281,10 +3564,11 @@ protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@current"]=globals.SmalltalkImage.klass.superclass.fn.prototype._new.apply(_st(self), []);
+if(($receiver = $2) == null || $receiver.isNil){
+self["@current"]=($ctx1.supercall = true, globals.SmalltalkImage.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self["@current"];
 } else {
 self._deprecatedAPI();

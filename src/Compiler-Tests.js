@@ -661,6 +661,22 @@ globals.CodeGeneratorTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testLexicalScope",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._should_return_("foo | a | a := 1. [ a := 2 ] value. ^ a",(2));
+return self}, function($ctx1) {$ctx1.fill(self,"testLexicalScope",{},globals.CodeGeneratorTest)})},
+args: [],
+source: "testLexicalScope\x0a\x09self should: 'foo | a | a := 1. [ a := 2 ] value. ^ a' return: 2",
+messageSends: ["should:return:"],
+referencedClasses: []
+}),
+globals.CodeGeneratorTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testLiterals",
 protocol: 'tests',
 fn: function (){
@@ -1112,6 +1128,206 @@ globals.CodeGeneratorTest);
 
 
 
+smalltalk.addClass('ASTInterpreterTest', globals.CodeGeneratorTest, [], 'Compiler-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "analyze:forClass:",
+protocol: 'parsing',
+fn: function (aNode,aClass){
+var self=this;
+function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($SemanticAnalyzer())._on_(aClass))._visit_(aNode);
+return aNode;
+}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass},globals.ASTInterpreterTest)})},
+args: ["aNode", "aClass"],
+source: "analyze: aNode forClass: aClass\x0a\x09(SemanticAnalyzer on: aClass) visit: aNode.\x0a\x09^ aNode",
+messageSends: ["visit:", "on:"],
+referencedClasses: ["SemanticAnalyzer"]
+}),
+globals.ASTInterpreterTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpret:receiver:withArguments:",
+protocol: 'private',
+fn: function (aString,anObject,aDictionary){
+var self=this;
+var ctx,ast,interpreter;
+function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
+function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$5,$6,$4,$receiver;
+interpreter=_st($ASTInterpreter())._new();
+$ctx1.sendIdx["new"]=1;
+ast=self._parse_forClass_(aString,_st(anObject)._class());
+$1=_st($AIContext())._new();
+_st($1)._receiver_(anObject);
+_st($1)._interpreter_(interpreter);
+$2=_st($1)._yourself();
+ctx=$2;
+$3=_st(ast)._sequenceNode();
+if(($receiver = $3) == null || $receiver.isNil){
+$3;
+} else {
+var sequence;
+sequence=$receiver;
+_st(_st(sequence)._temps())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(ctx)._defineLocal_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+};
+_st(aDictionary)._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) {
+return _st(ctx)._localAt_put_(key,value);
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,3)})}));
+$5=interpreter;
+_st($5)._context_(ctx);
+_st($5)._interpret_(_st(ast)._nextChild());
+_st($5)._proceed();
+$6=_st($5)._result();
+$4=$6;
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,ast:ast,interpreter:interpreter},globals.ASTInterpreterTest)})},
+args: ["aString", "anObject", "aDictionary"],
+source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a\x09\x0a\x09| ctx ast interpreter |\x0a\x09\x0a\x09interpreter := ASTInterpreter new.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: interpreter;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09\x0a\x09^ interpreter\x0a\x09\x09context: ctx;\x0a\x09\x09interpret: ast nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
+messageSends: ["new", "parse:forClass:", "class", "receiver:", "interpreter:", "yourself", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpret:", "nextChild", "proceed", "result"],
+referencedClasses: ["ASTInterpreter", "AIContext"]
+}),
+globals.ASTInterpreterTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "parse:",
+protocol: 'parsing',
+fn: function (aString){
+var self=this;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Smalltalk())._parse_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},globals.ASTInterpreterTest)})},
+args: ["aString"],
+source: "parse: aString\x0a\x09^ Smalltalk parse: aString",
+messageSends: ["parse:"],
+referencedClasses: ["Smalltalk"]
+}),
+globals.ASTInterpreterTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "parse:forClass:",
+protocol: 'parsing',
+fn: function (aString,aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._analyze_forClass_(self._parse_(aString),aClass);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},globals.ASTInterpreterTest)})},
+args: ["aString", "aClass"],
+source: "parse: aString forClass: aClass\x0a\x09^ self analyze: (self parse: aString) forClass: aClass",
+messageSends: ["analyze:forClass:", "parse:"],
+referencedClasses: []
+}),
+globals.ASTInterpreterTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "should:receiver:return:",
+protocol: 'testing',
+fn: function (aString,anObject,aResult){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self["@receiver"]=anObject;
+$1=self._assert_equals_(self._interpret_receiver_withArguments_(aString,self["@receiver"],globals.HashedCollection._newFromPairs_([])),aResult);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult},globals.ASTInterpreterTest)})},
+args: ["aString", "anObject", "aResult"],
+source: "should: aString receiver: anObject return: aResult\x0a\x09receiver := anObject.\x0a\x09\x0a\x09^ self \x0a\x09\x09assert: (self interpret: aString receiver: receiver withArguments: #{})\x0a\x09\x09equals: aResult",
+messageSends: ["assert:equals:", "interpret:receiver:withArguments:"],
+referencedClasses: []
+}),
+globals.ASTInterpreterTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "should:return:",
+protocol: 'testing',
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._should_receiver_return_(aString,self["@receiver"],anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject},globals.ASTInterpreterTest)})},
+args: ["aString", "anObject"],
+source: "should: aString return: anObject\x0a\x09^ self \x0a\x09\x09should: aString\x0a\x09\x09receiver: receiver\x0a\x09\x09return: anObject",
+messageSends: ["should:receiver:return:"],
+referencedClasses: []
+}),
+globals.ASTInterpreterTest);
+
+
+
+smalltalk.addClass('ASTDebuggerTest', globals.ASTInterpreterTest, [], 'Compiler-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpret:receiver:withArguments:",
+protocol: 'private',
+fn: function (aString,anObject,aDictionary){
+var self=this;
+var ctx,ast,debugger_;
+function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
+function $ASTDebugger(){return globals.ASTDebugger||(typeof ASTDebugger=="undefined"?nil:ASTDebugger)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$6,$7,$5,$receiver;
+$1=_st($AIContext())._new();
+$ctx1.sendIdx["new"]=1;
+_st($1)._receiver_(anObject);
+_st($1)._interpreter_(_st($ASTInterpreter())._new());
+$2=_st($1)._yourself();
+ctx=$2;
+ast=self._parse_forClass_(aString,_st(anObject)._class());
+$3=_st(ast)._sequenceNode();
+if(($receiver = $3) == null || $receiver.isNil){
+$3;
+} else {
+var sequence;
+sequence=$receiver;
+_st(_st(sequence)._temps())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(ctx)._defineLocal_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+};
+_st(aDictionary)._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) {
+return _st(ctx)._localAt_put_(key,value);
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,3)})}));
+$4=_st(ctx)._interpreter();
+$ctx1.sendIdx["interpreter"]=1;
+_st($4)._context_(ctx);
+$ctx1.sendIdx["context:"]=1;
+_st(_st(ctx)._interpreter())._node_(_st(ast)._nextChild());
+debugger_=_st($ASTDebugger())._context_(ctx);
+$6=debugger_;
+_st($6)._proceed();
+$7=_st($6)._result();
+$5=$7;
+return $5;
+}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,ast:ast,debugger_:debugger_},globals.ASTDebuggerTest)})},
+args: ["aString", "anObject", "aDictionary"],
+source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09| ctx ast debugger |\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: ASTInterpreter new;\x0a\x09\x09yourself.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09ctx interpreter context: ctx.\x0a\x09\x0a\x09ctx interpreter node: ast nextChild.\x0a\x09\x0a\x09debugger := ASTDebugger context: ctx.\x0a\x09\x0a\x09^ debugger \x0a\x09\x09proceed; \x0a\x09\x09result",
+messageSends: ["receiver:", "new", "interpreter:", "yourself", "parse:forClass:", "class", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "node:", "nextChild", "proceed", "result"],
+referencedClasses: ["AIContext", "ASTInterpreter", "ASTDebugger"]
+}),
+globals.ASTDebuggerTest);
+
+
+
 smalltalk.addClass('InliningCodeGeneratorTest', globals.CodeGeneratorTest, [], 'Compiler-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1128,138 +1344,6 @@ messageSends: [],
 referencedClasses: ["InliningCodeGenerator"]
 }),
 globals.InliningCodeGeneratorTest);
-
-
-
-smalltalk.addClass('InterpreterTest', globals.CodeGeneratorTest, [], 'Compiler-Tests');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "analyze:forClass:",
-protocol: 'parsing',
-fn: function (aNode,aClass){
-var self=this;
-function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
-return smalltalk.withContext(function($ctx1) { 
-_st(_st($SemanticAnalyzer())._on_(aClass))._visit_(aNode);
-return aNode;
-}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass},globals.InterpreterTest)})},
-args: ["aNode", "aClass"],
-source: "analyze: aNode forClass: aClass\x0a\x09(SemanticAnalyzer on: aClass) visit: aNode.\x0a\x09^ aNode",
-messageSends: ["visit:", "on:"],
-referencedClasses: ["SemanticAnalyzer"]
-}),
-globals.InterpreterTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpret:receiver:withArguments:",
-protocol: 'private',
-fn: function (aString,anObject,aDictionary){
-var self=this;
-var ctx,interpreter;
-function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
-function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$5,$3;
-interpreter=_st($ASTInterpreter())._new();
-$ctx1.sendIdx["new"]=1;
-$1=_st($AIContext())._new();
-_st($1)._receiver_(anObject);
-_st($1)._interpreter_(interpreter);
-$2=_st($1)._yourself();
-ctx=$2;
-_st(aDictionary)._keysAndValuesDo_((function(key,value){
-return smalltalk.withContext(function($ctx2) {
-return _st(ctx)._localAt_put_(key,value);
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
-$4=interpreter;
-_st($4)._context_(ctx);
-_st($4)._interpret_(_st(self._parse_forClass_(aString,_st(anObject)._class()))._nextChild());
-_st($4)._proceed();
-$5=_st($4)._result();
-$3=$5;
-return $3;
-}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,interpreter:interpreter},globals.InterpreterTest)})},
-args: ["aString", "anObject", "aDictionary"],
-source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a\x09\x0a\x09| ctx interpreter |\x0a\x09\x0a\x09interpreter := ASTInterpreter new.\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: interpreter;\x0a\x09\x09yourself.\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09\x0a\x09^ interpreter\x0a\x09\x09context: ctx;\x0a\x09\x09interpret: (self parse: aString forClass: anObject class) nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
-messageSends: ["new", "receiver:", "interpreter:", "yourself", "keysAndValuesDo:", "localAt:put:", "context:", "interpret:", "nextChild", "parse:forClass:", "class", "proceed", "result"],
-referencedClasses: ["ASTInterpreter", "AIContext"]
-}),
-globals.InterpreterTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "parse:",
-protocol: 'parsing',
-fn: function (aString){
-var self=this;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($Smalltalk())._parse_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},globals.InterpreterTest)})},
-args: ["aString"],
-source: "parse: aString\x0a\x09^ Smalltalk parse: aString",
-messageSends: ["parse:"],
-referencedClasses: ["Smalltalk"]
-}),
-globals.InterpreterTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "parse:forClass:",
-protocol: 'parsing',
-fn: function (aString,aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._analyze_forClass_(self._parse_(aString),aClass);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},globals.InterpreterTest)})},
-args: ["aString", "aClass"],
-source: "parse: aString forClass: aClass\x0a\x09^ self analyze: (self parse: aString) forClass: aClass",
-messageSends: ["analyze:forClass:", "parse:"],
-referencedClasses: []
-}),
-globals.InterpreterTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "should:receiver:return:",
-protocol: 'testing',
-fn: function (aString,anObject,aResult){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-self["@receiver"]=anObject;
-$1=self._assert_equals_(self._interpret_receiver_withArguments_(aString,self["@receiver"],globals.HashedCollection._newFromPairs_([])),aResult);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult},globals.InterpreterTest)})},
-args: ["aString", "anObject", "aResult"],
-source: "should: aString receiver: anObject return: aResult\x0a\x09receiver := anObject.\x0a\x09\x0a\x09^ self \x0a\x09\x09assert: (self interpret: aString receiver: receiver withArguments: #{})\x0a\x09\x09equals: aResult",
-messageSends: ["assert:equals:", "interpret:receiver:withArguments:"],
-referencedClasses: []
-}),
-globals.InterpreterTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "should:return:",
-protocol: 'testing',
-fn: function (aString,anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._should_receiver_return_(aString,self["@receiver"],anObject);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject},globals.InterpreterTest)})},
-args: ["aString", "anObject"],
-source: "should: aString return: anObject\x0a\x09^ self \x0a\x09\x09should: aString\x0a\x09\x09receiver: receiver\x0a\x09\x09return: anObject",
-messageSends: ["should:receiver:return:"],
-referencedClasses: []
-}),
-globals.InterpreterTest);
 
 
 
@@ -1855,6 +1939,63 @@ messageSends: ["parse:", "visit:", "assert:", "isTempVar", "binding", "receiver"
 referencedClasses: ["Smalltalk"]
 }),
 globals.SemanticAnalyzerTest);
+
+
+
+smalltalk.addClass('AISemanticAnalyzerTest', globals.SemanticAnalyzerTest, [], 'Compiler-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setUp",
+protocol: 'running',
+fn: function (){
+var self=this;
+function $AISemanticAnalyzer(){return globals.AISemanticAnalyzer||(typeof AISemanticAnalyzer=="undefined"?nil:AISemanticAnalyzer)}
+function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$5,$3,$6;
+$1=_st($AISemanticAnalyzer())._on_($Object());
+$2=$1;
+$4=_st($AIContext())._new();
+_st($4)._defineLocal_("local");
+_st($4)._localAt_put_("local",(3));
+$5=_st($4)._yourself();
+$ctx1.sendIdx["yourself"]=1;
+$3=$5;
+_st($2)._context_($3);
+$6=_st($1)._yourself();
+self["@analyzer"]=$6;
+return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.AISemanticAnalyzerTest)})},
+args: [],
+source: "setUp\x0a\x09analyzer := (AISemanticAnalyzer on: Object)\x0a\x09\x09context: (AIContext new\x0a\x09\x09\x09defineLocal: 'local';\x0a\x09\x09\x09localAt: 'local' put: 3;\x0a\x09\x09\x09yourself);\x0a\x09\x09yourself",
+messageSends: ["context:", "on:", "defineLocal:", "new", "localAt:put:", "yourself"],
+referencedClasses: ["AISemanticAnalyzer", "Object", "AIContext"]
+}),
+globals.AISemanticAnalyzerTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testContextVariables",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var src,ast;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $UnknownVariableError(){return globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
+return smalltalk.withContext(function($ctx1) { 
+src="foo | a | local + a";
+ast=_st($Smalltalk())._parse_(src);
+self._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@analyzer"])._visit_(ast);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$UnknownVariableError());
+return self}, function($ctx1) {$ctx1.fill(self,"testContextVariables",{src:src,ast:ast},globals.AISemanticAnalyzerTest)})},
+args: [],
+source: "testContextVariables\x0a\x09| src ast |\x0a\x09\x0a\x09src := 'foo | a | local + a'.\x0a\x09ast := Smalltalk parse: src.\x0a\x0a\x09self shouldnt: [ analyzer visit: ast ] raise: UnknownVariableError",
+messageSends: ["parse:", "shouldnt:raise:", "visit:"],
+referencedClasses: ["Smalltalk", "UnknownVariableError"]
+}),
+globals.AISemanticAnalyzerTest);
 
 
 });

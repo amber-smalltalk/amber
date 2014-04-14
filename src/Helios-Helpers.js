@@ -1,6 +1,6 @@
-define("amber_core/Helios-Helpers", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Helpers", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Helpers');
-smalltalk.packages["Helios-Helpers"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Helpers"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLClassifier', globals.Object, ['next', 'method'], 'Helios-Helpers');
 globals.HLClassifier.comment="I am an abstract class implementing a link in a `chain of responsibility` pattern.\x0a\x0aSubclasses are in charge of classifying a method according to multiple strategies.";
@@ -11,10 +11,10 @@ protocol: 'protocol',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
+var $1,$3,$2,$receiver;
 $1=self._next();
 $ctx1.sendIdx["next"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return false;
 } else {
 $1;
@@ -74,10 +74,10 @@ protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 self["@method"]=anObject;
 $1=self._next();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 var nextLink;
@@ -285,7 +285,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLPrefixClassifier.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLPrefixClassifier.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._buildPrefixDictionary();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLPrefixClassifier)})},
 args: [],
@@ -421,7 +422,8 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-globals.HLGenerationOutput.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLGenerationOutput.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@sourceCodes"]=_st($OrderedCollection())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLGenerationOutput)})},
 args: [],
@@ -593,7 +595,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLMethodClassifier.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLMethodClassifier.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._setupClassifiers();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLMethodClassifier)})},
 args: [],
@@ -663,9 +666,9 @@ protocol: 'protocol',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=_st(self["@output"])._targetClass();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self._error_("class should not be nil");
 } else {
 $1;
@@ -686,7 +689,8 @@ fn: function (){
 var self=this;
 function $HLGenerationOutput(){return globals.HLGenerationOutput||(typeof HLGenerationOutput=="undefined"?nil:HLGenerationOutput)}
 return smalltalk.withContext(function($ctx1) { 
-globals.HLMethodGenerator.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLMethodGenerator.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@output"]=_st($HLGenerationOutput())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLMethodGenerator)})},
 args: [],
@@ -769,7 +773,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-globals.HLAccessorsGenerator.superclass.fn.prototype._generate.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLAccessorsGenerator.superclass.fn.prototype._generate.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=_st(self["@output"])._targetClass();
 _st($1)._accessorsSourceCodesWith_(self);
 $2=_st($1)._accessorProtocolWith_(self);
@@ -855,7 +860,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-globals.HLInitializeGenerator.superclass.fn.prototype._generate.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLInitializeGenerator.superclass.fn.prototype._generate.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=_st(self["@output"])._targetClass();
 _st($1)._initializeSourceCodesWith_(self);
 $2=_st($1)._initializeProtocolWith_(self);
@@ -1074,12 +1080,12 @@ protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(require)._basicAt_("config"))._value_(globals.HashedCollection._newFromPairs_(["paths",globals.HashedCollection._newFromPairs_([_st(_st(self._package())._transport())._namespace(),aString])]));
+_st(_st(self._package())._transport())._setPath_(aString);
 self._commitPackage();
 return self}, function($ctx1) {$ctx1.fill(self,"commitToPath:",{aString:aString},globals.HLPackageCommitErrorHelper)})},
 args: ["aString"],
-source: "commitToPath: aString\x0a\x09\x22We only take AMD package transport into account for now\x22\x0a\x09\x0a\x09(require basicAt: 'config') value: #{\x0a\x09\x09'paths' -> #{\x0a\x09\x09\x09self package transport namespace -> aString\x0a\x09\x09}\x0a\x09}.\x0a\x09\x0a\x09self commitPackage",
-messageSends: ["value:", "basicAt:", "namespace", "transport", "package", "commitPackage"],
+source: "commitToPath: aString\x0a\x09\x22We only take AMD package transport into account for now\x22\x0a\x09\x0a\x09self package transport setPath: aString.\x0a\x09\x0a\x09self commitPackage",
+messageSends: ["setPath:", "transport", "package", "commitPackage"],
 referencedClasses: []
 }),
 globals.HLPackageCommitErrorHelper);

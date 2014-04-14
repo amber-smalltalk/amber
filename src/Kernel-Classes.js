@@ -33,7 +33,7 @@ function $MethodAdded(){return globals.MethodAdded||(typeof MethodAdded=="undefi
 function $MethodModified(){return globals.MethodModified||(typeof MethodModified=="undefined"?nil:MethodModified)}
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11;
+var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11,$receiver;
 oldMethod=_st(self._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
 return nil;
 }));
@@ -49,13 +49,13 @@ _st($4)._addElement_($5);
 };
 self._basicAddCompiledMethod_(aMethod);
 $6=oldMethod;
-if(($receiver = $6) == nil || $receiver == null){
+if(($receiver = $6) == null || $receiver.isNil){
 $6;
 } else {
 self._removeProtocolIfEmpty_(_st(oldMethod)._protocol());
 };
 $7=oldMethod;
-if(($receiver = $7) == nil || $receiver == null){
+if(($receiver = $7) == null || $receiver.isNil){
 $8=_st($MethodAdded())._new();
 $ctx1.sendIdx["new"]=1;
 _st($8)._method_(aMethod);
@@ -87,11 +87,11 @@ fn: function (){
 var self=this;
 var result;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 result=_st(self._instanceVariableNames())._copy();
 $1=self._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(result)._addAll_(_st(self._superclass())._allInstanceVariableNames());
@@ -190,10 +190,10 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$5,$4,$6,$3;
+var $1,$2,$5,$4,$6,$3,$receiver;
 $1=self._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $2=[];
 return $2;
 } else {
@@ -296,9 +296,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._basicAt_("comment");
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 $1=$2;
@@ -473,10 +473,10 @@ protocol: 'testing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2;
+var $1,$4,$3,$2,$receiver;
 $1=self._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return false;
 } else {
 $1;
@@ -1148,10 +1148,10 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._package();
 $ctx1.sendIdx["package"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="Unclassified";
 } else {
 $1=_st(self._package())._name();
@@ -1629,11 +1629,11 @@ var theClass,thePackage;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3,$4,$receiver;
 theClass=_st(_st($Smalltalk())._globals())._at_(className);
 thePackage=_st($Package())._named_(packageName);
 $1=theClass;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(theClass)._package_(thePackage);
@@ -2065,9 +2065,9 @@ var newClass;
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassAdded(){return globals.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
+var $1,$2,$3,$4,$5,$receiver;
 $1=self._instanceVariableNamesFor_(ivarNames);
-if(($receiver = packageName) == nil || $receiver == null){
+if(($receiver = packageName) == null || $receiver.isNil){
 $2="unclassified";
 } else {
 $2=packageName;
@@ -2132,7 +2132,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.ClassCategoryReader.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.ClassCategoryReader.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ClassCategoryReader)})},
 args: [],
 source: "initialize\x0a\x09super initialize.",
@@ -2194,7 +2195,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.ClassCommentReader.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.ClassCommentReader.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ClassCommentReader)})},
 args: [],
 source: "initialize\x0a\x09super initialize.",
