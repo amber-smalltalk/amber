@@ -1,4 +1,4 @@
-Amber [![Travis CI Status](https://secure.travis-ci.org/amber-smalltalk/amber.png)](https://travis-ci.org/#!/amber-smalltalk/amber)
+Amber [![Travis CI Status](https://secure.travis-ci.org/amber-smalltalk/amber.png)](https://travis-ci.org/#!/amber-smalltalk/amber-cli)
 =====
 
 By Nicolas Petton <petton.nicolas@gmail.com> and [Amber contributors](https://github.com/NicolasPetton/amber/contributors)
@@ -24,27 +24,16 @@ Getting Amber
 Amber is shipped as a [npm](http://npmjs.org) package for its CLI tools and as a [bower](https://github.com/bower/bower) package for the client-side.
 
     # Install the CLI tool `amber`
-    npm install -g amber
+    npm install -g amber-cli
     
-    # Initialize your project as bower package
+    # Initialize your project
     cd /path/to/myproject
-    bower init
+    amber init
 
-    # Load amber via bower in your project
-    bower install amber --save
-    
     # Serve amber on localhost:4000
     amber serve
 
-The [Getting started](https://github.com/amber-smalltalk/amber/wiki/Getting-started) page shows more details on ways to obtain Amber and start a project.
-
-Building Amber
---------------
-
-This step is only used by people developing Amber itself.
-Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for further details.
-It explains the Amber development setup and how to contribute.
-
+The [Getting started](http://docs.amber-lang.net/getting-started.html) page shows more details on ways to obtain Amber and start a project.
 
 License
 -------
