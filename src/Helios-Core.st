@@ -2311,14 +2311,14 @@ renderButtonsOn: html
 		class: 'button';
 		with: 'Workspace';
 		onClick: [ self openWorkspace ].
-	html button
+	"html button
 		class: 'button';
 		with: 'Test Runner';
 		onClick: [ self openTestRunner ].
 	html button
 		class: 'button';
 		with: 'Help';
-		onClick: [ self openHelp ]
+		onClick: [ self openHelp ]"
 !
 
 renderContentOn: html

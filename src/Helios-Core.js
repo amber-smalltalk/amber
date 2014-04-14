@@ -6890,7 +6890,7 @@ protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8;
+var $1,$2,$3,$4;
 $1=_st(html)._button();
 $ctx1.sendIdx["button"]=1;
 _st($1)._class_("button");
@@ -6903,38 +6903,16 @@ return self._openClassBrowser();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["onClick:"]=1;
 $3=_st(html)._button();
-$ctx1.sendIdx["button"]=2;
 _st($3)._class_("button");
-$ctx1.sendIdx["class:"]=2;
 _st($3)._with_("Workspace");
-$ctx1.sendIdx["with:"]=2;
 $4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._openWorkspace();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$ctx1.sendIdx["onClick:"]=2;
-$5=_st(html)._button();
-$ctx1.sendIdx["button"]=3;
-_st($5)._class_("button");
-$ctx1.sendIdx["class:"]=3;
-_st($5)._with_("Test Runner");
-$ctx1.sendIdx["with:"]=3;
-$6=_st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {
-return self._openTestRunner();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
-$ctx1.sendIdx["onClick:"]=3;
-$7=_st(html)._button();
-_st($7)._class_("button");
-_st($7)._with_("Help");
-$8=_st($7)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {
-return self._openHelp();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLWelcomeWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Class Browser';\x0a\x09\x09onClick: [ self openClassBrowser ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Workspace';\x0a\x09\x09onClick: [ self openWorkspace ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Test Runner';\x0a\x09\x09onClick: [ self openTestRunner ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Help';\x0a\x09\x09onClick: [ self openHelp ]",
-messageSends: ["class:", "button", "with:", "onClick:", "openClassBrowser", "openWorkspace", "openTestRunner", "openHelp"],
+source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Class Browser';\x0a\x09\x09onClick: [ self openClassBrowser ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Workspace';\x0a\x09\x09onClick: [ self openWorkspace ].\x0a\x09\x22html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Test Runner';\x0a\x09\x09onClick: [ self openTestRunner ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Help';\x0a\x09\x09onClick: [ self openHelp ]\x22",
+messageSends: ["class:", "button", "with:", "onClick:", "openClassBrowser", "openWorkspace"],
 referencedClasses: []
 }),
 globals.HLWelcomeWidget);
