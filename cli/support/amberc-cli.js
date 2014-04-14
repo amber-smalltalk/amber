@@ -16,7 +16,7 @@ if (1 > parameters.length) {
 
 // Get Amber root directory from the location of this script so that
 // we can find the st and js directories etc.
-var amber_dir = path.normalize(path.join(path.dirname(process.argv[1]), '..', '..'));
+var amber_dir = path.normalize(path.join(__dirname, '..', '..', 'node_modules', 'amber'));
 
 var compiler = new amberc.Compiler(amber_dir);
 

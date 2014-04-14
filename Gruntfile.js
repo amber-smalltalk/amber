@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+  var path = require('path');
 
   grunt.loadTasks('./grunt/tasks');
 
@@ -26,7 +27,7 @@ module.exports = function(grunt) {
 
     amberc: {
       options: {
-        amber_dir: process.cwd(),
+        amber_dir: path.normalize(path.join(__dirname, "node_modules", "amber")),
         closure_jar: ''
       },
       all: {
