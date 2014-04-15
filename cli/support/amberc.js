@@ -294,6 +294,8 @@ function resolve_kernel(configuration) {
  */
 function create_compiler(configuration) {
 	var compiler_files = configuration.compiler_libraries;
+	var include_files = configuration.load;
+	var builder;
 	return Promise.all(
 		compiler_files.map(function(file) {
 			return resolve_js(file, configuration);
@@ -315,7 +317,7 @@ function create_compiler(configuration) {
 		)
 	})
 	.then(function(files) {
-		var builder = createConcatenator();
+		builder = createConcatenator();
 		builder.add('(function() {');
 		builder.start();
 
@@ -328,8 +330,43 @@ function create_compiler(configuration) {
 				builder.addId(match[1]);
 			}
 		});
+	})
+	.then(function () { return Promise.all(
+		include_files.map(function(file) {
+			return resolve_js(file, configuration);
+		})
+	); })
+	.then(function(includeFilesArray) {
+		return Promise.all(
+			includeFilesArray.map(function(file) {
+				return new Promise(function(resolve, reject) {
+					console.log('Loading library file: ' + file);
+					fs.readFile(file, function(err, data) {
+						if (err)
+							reject(err);
+						else
+							resolve(data);
+					});
+				});
+			})
+		)
+	})
+	.then(function(files) {
+		var loadIds = [];
+		files.forEach(function(data) {
+			// data is an array where index 0 is the error code and index 1 contains the data
+			builder.add(data);
+			// matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
+			var match = ('' + data).match(/^define\("([^"]*)"/);
+			if (match) {
+				loadIds.push(match[1]);
+			}
+		});
 		// store the generated smalltalk env in configuration.{vm,globals}
 		builder.finish('configuration.vm = vm; configuration.globals = globals;');
+		loadIds.forEach(function (id) {
+		   builder.add('requirejs("' + id + '");');
+		});
 		builder.add('})();');
 
 		eval(builder.toString());
@@ -469,7 +506,7 @@ function compose_js_files(configuration) {
 		var programFile = configuration.program;
 		if (undefined === programFile) {
 			resolve(configuration);
-            return;
+			return;
 		}
 		if (undefined !== configuration.output_dir) {
 			programFile = path.join(configuration.output_dir, programFile);
