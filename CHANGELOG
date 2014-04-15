@@ -6,8 +6,19 @@ Highlights:
 * Package is polished.
 * `amber-cli` is now official package to install globally.
 
-Commits: https://github.com/amber-smalltalk/amber-cli/compare/0.0.5...0.1.0
+Commits: https://github.com/amber-smalltalk/amber-cli/compare/0.0.6...0.1.0
 Issues:  https://github.com/amber-smalltalk/amber-cli/issues?milestone=2&state=closed
+
+
+15th April 2014 - Release 0.0.6
+===================================
+
+Highlights:
+
+* `amberc -d dir` allows specify alternate Amber dir.
+
+Commits: https://github.com/amber-smalltalk/amber-cli/compare/0.0.5...0.0.6
+Issues:  https://github.com/amber-smalltalk/amber-cli/issues?milestone=4&state=closed
 
 
 15th April 2014 - Release 0.0.5
