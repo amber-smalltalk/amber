@@ -57,6 +57,9 @@ function handle_options(optionsArray) {
 			case '-D':
 				defaults.output_dir = optionsArray.shift();
 				break;
+            case '-d':
+                amber_dir = path.normalize(optionsArray.shift());
+                break;
 			case '-s':
 				defaults.suffix = optionsArray.shift();
 				defaults.suffix_used = defaults.suffix;
@@ -157,6 +160,10 @@ function print_usage() {
 		'     Specifies the output directory for all generated .js files.',
 		'     The hierarchy of the input files is not maintaned.',
 		'     If this option is omitted all generated .js files are placed next to their input files',
+		'',
+		'  -d',
+		'     Specifies the alternate directory to look for Amber files.',
+		'     If not specified, the version embedded in CLI is used..',
 		'',
 		'  -s suffix',
 		'     Add <suffix> to compiled .js files. File.st is then compiled into',
