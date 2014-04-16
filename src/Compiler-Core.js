@@ -687,31 +687,6 @@ globals.Compiler.klass);
 
 smalltalk.addClass('DoIt', globals.Object, [], 'Compiler-Core');
 globals.DoIt.comment="`DoIt` is the class used to compile and evaluate expressions. See `Compiler >> evaluateExpression:`.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "xxxDoIt",
-protocol: 'xxxDoIt',
-fn: function (){
-var self=this;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st($Smalltalk())._packages())._do_((function(each){
-return smalltalk.withContext(function($ctx3) {
-return _st(each)._commit();
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._value();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},globals.DoIt)})},
-args: [],
-source: "xxxDoIt ^ [ Smalltalk packages do: [ :each | each commit ] ] value",
-messageSends: ["value", "do:", "packages", "commit"],
-referencedClasses: ["Smalltalk"]
-}),
-globals.DoIt);
-
 
 
 smalltalk.addClass('Evaluator', globals.InterfacingObject, [], 'Compiler-Core');

@@ -573,21 +573,6 @@ globals.HLFindClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "isValidFor:",
-protocol: 'testing',
-fn: function (aModel){
-var self=this;
-return true;
-},
-args: ["aModel"],
-source: "isValidFor: aModel\x0a\x09^ true",
-messageSends: [],
-referencedClasses: []
-}),
-globals.HLFindClassCommand.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "key",
 protocol: 'accessing',
 fn: function (){
