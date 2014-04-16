@@ -744,6 +744,10 @@ HLFocusableWidget subclass: #HLListWidget
 
 !HLListWidget methodsFor: 'accessing'!
 
+activeItemCssClass
+	^'active'
+!
+
 cssClassForItem: anObject
 	^ ''
 !
@@ -759,6 +763,10 @@ items
 
 items: aCollection
 	items := aCollection
+!
+
+listCssClass 
+	^'nav nav-pills nav-stacked'
 !
 
 listCssClassForItem: anObject
@@ -795,8 +803,8 @@ activateListItem: aListItem
 	| item |
 	
 	(aListItem get: 0) ifNil: [ ^ self ].
-	aListItem parent children removeClass: 'active'.
-	aListItem addClass: 'active'.
+	aListItem parent children removeClass: self activeItemCssClass.
+	aListItem addClass: self activeItemCssClass.
     
 	self ensureVisible: aListItem.
     
@@ -807,15 +815,15 @@ activateListItem: aListItem
 !
 
 activateNextListItem
-	self activateListItem: (self wrapper asJQuery find: 'li.active') next.
+	self activateListItem: (self wrapper asJQuery find: ('li.', self activeItemCssClass)) next.
 	
 	"select the first item if none is selected"
-	(self wrapper asJQuery find: ' .active') get ifEmpty: [
+	(self wrapper asJQuery find: (' .', self activeItemCssClass)) get ifEmpty: [
 		self activateFirstListItem ]
 !
 
 activatePreviousListItem
-	self activateListItem: (self wrapper asJQuery find: 'li.active') prev
+	self activateListItem: (self wrapper asJQuery find:  ('li.', self activeItemCssClass)) prev
 !
 
 ensureVisible: aListItem	
@@ -881,7 +889,7 @@ renderButtonsOn: html
 
 renderContentOn: html
 	html ul 
-    	class: 'nav nav-pills nav-stacked';
+    	class: self listCssClass;
         with: [ self renderListOn: html ].
     html div class: 'pane_actions form-actions'; with: [
       	self renderButtonsOn: html ].
@@ -2294,6 +2302,7 @@ openHelp
 !
 
 openTestRunner
+	HLSUnit openAsTab
 !
 
 openWorkspace
@@ -2311,11 +2320,11 @@ renderButtonsOn: html
 		class: 'button';
 		with: 'Workspace';
 		onClick: [ self openWorkspace ].
-	"html button
+	html button
 		class: 'button';
 		with: 'Test Runner';
 		onClick: [ self openTestRunner ].
-	html button
+	"html button
 		class: 'button';
 		with: 'Help';
 		onClick: [ self openHelp ]"

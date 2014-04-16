@@ -225,12 +225,6 @@ label
 	^ 'Find class'
 ! !
 
-!HLFindClassCommand class methodsFor: 'testing'!
-
-isValidFor: aModel
-	^ true
-! !
-
 HLFindCommand subclass: #HLFindReferencesCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Tools'!

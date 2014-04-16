@@ -2057,25 +2057,28 @@ fn: function (aListItem){
 var self=this;
 var item;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$receiver;
+var $1,$2,$3,$4,$receiver;
 $1=_st(aListItem)._get_((0));
 if(($receiver = $1) == null || $receiver.isNil){
 return self;
 } else {
 $1;
 };
-_st(_st(_st(aListItem)._parent())._children())._removeClass_("active");
-_st(aListItem)._addClass_("active");
+$2=_st(_st(aListItem)._parent())._children();
+$3=self._activeItemCssClass();
+$ctx1.sendIdx["activeItemCssClass"]=1;
+_st($2)._removeClass_($3);
+_st(aListItem)._addClass_(self._activeItemCssClass());
 self._ensureVisible_(aListItem);
 item=_st(aListItem)._data_("item");
-$2=_st(self._selectedItem()).__eq_eq(item);
-if(! smalltalk.assert($2)){
+$4=_st(self._selectedItem()).__eq_eq(item);
+if(! smalltalk.assert($4)){
 self._selectItem_(item);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{aListItem:aListItem,item:item},globals.HLListWidget)})},
 args: ["aListItem"],
-source: "activateListItem: aListItem\x0a\x09| item |\x0a\x09\x0a\x09(aListItem get: 0) ifNil: [ ^ self ].\x0a\x09aListItem parent children removeClass: 'active'.\x0a\x09aListItem addClass: 'active'.\x0a    \x0a\x09self ensureVisible: aListItem.\x0a    \x0a   \x22Activate the corresponding item\x22\x0a   item := aListItem data: 'item'.\x0a   self selectedItem == item ifFalse: [\x0a\x09   self selectItem: item ]",
-messageSends: ["ifNil:", "get:", "removeClass:", "children", "parent", "addClass:", "ensureVisible:", "data:", "ifFalse:", "==", "selectedItem", "selectItem:"],
+source: "activateListItem: aListItem\x0a\x09| item |\x0a\x09\x0a\x09(aListItem get: 0) ifNil: [ ^ self ].\x0a\x09aListItem parent children removeClass: self activeItemCssClass.\x0a\x09aListItem addClass: self activeItemCssClass.\x0a    \x0a\x09self ensureVisible: aListItem.\x0a    \x0a   \x22Activate the corresponding item\x22\x0a   item := aListItem data: 'item'.\x0a   self selectedItem == item ifFalse: [\x0a\x09   self selectItem: item ]",
+messageSends: ["ifNil:", "get:", "removeClass:", "children", "parent", "activeItemCssClass", "addClass:", "ensureVisible:", "data:", "ifFalse:", "==", "selectedItem", "selectItem:"],
 referencedClasses: []
 }),
 globals.HLListWidget);
@@ -2087,23 +2090,27 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1;
+var $4,$3,$6,$5,$2,$1;
 $4=self._wrapper();
 $ctx1.sendIdx["wrapper"]=1;
 $3=_st($4)._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
-$2=_st($3)._find_("li.active");
+$6=self._activeItemCssClass();
+$ctx1.sendIdx["activeItemCssClass"]=1;
+$5="li.".__comma($6);
+$ctx1.sendIdx[","]=1;
+$2=_st($3)._find_($5);
 $ctx1.sendIdx["find:"]=1;
 $1=_st($2)._next();
 self._activateListItem_($1);
-_st(_st(_st(_st(self._wrapper())._asJQuery())._find_(" .active"))._get())._ifEmpty_((function(){
+_st(_st(_st(_st(self._wrapper())._asJQuery())._find_(" .".__comma(self._activeItemCssClass())))._get())._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._activateFirstListItem();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activateNextListItem",{},globals.HLListWidget)})},
 args: [],
-source: "activateNextListItem\x0a\x09self activateListItem: (self wrapper asJQuery find: 'li.active') next.\x0a\x09\x0a\x09\x22select the first item if none is selected\x22\x0a\x09(self wrapper asJQuery find: ' .active') get ifEmpty: [\x0a\x09\x09self activateFirstListItem ]",
-messageSends: ["activateListItem:", "next", "find:", "asJQuery", "wrapper", "ifEmpty:", "get", "activateFirstListItem"],
+source: "activateNextListItem\x0a\x09self activateListItem: (self wrapper asJQuery find: ('li.', self activeItemCssClass)) next.\x0a\x09\x0a\x09\x22select the first item if none is selected\x22\x0a\x09(self wrapper asJQuery find: (' .', self activeItemCssClass)) get ifEmpty: [\x0a\x09\x09self activateFirstListItem ]",
+messageSends: ["activateListItem:", "next", "find:", "asJQuery", "wrapper", ",", "activeItemCssClass", "ifEmpty:", "get", "activateFirstListItem"],
 referencedClasses: []
 }),
 globals.HLListWidget);
@@ -2115,11 +2122,26 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._activateListItem_(_st(_st(_st(self._wrapper())._asJQuery())._find_("li.active"))._prev());
+self._activateListItem_(_st(_st(_st(self._wrapper())._asJQuery())._find_("li.".__comma(self._activeItemCssClass())))._prev());
 return self}, function($ctx1) {$ctx1.fill(self,"activatePreviousListItem",{},globals.HLListWidget)})},
 args: [],
-source: "activatePreviousListItem\x0a\x09self activateListItem: (self wrapper asJQuery find: 'li.active') prev",
-messageSends: ["activateListItem:", "prev", "find:", "asJQuery", "wrapper"],
+source: "activatePreviousListItem\x0a\x09self activateListItem: (self wrapper asJQuery find:  ('li.', self activeItemCssClass)) prev",
+messageSends: ["activateListItem:", "prev", "find:", "asJQuery", "wrapper", ",", "activeItemCssClass"],
+referencedClasses: []
+}),
+globals.HLListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "activeItemCssClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "active";
+},
+args: [],
+source: "activeItemCssClass\x0a\x09^'active'",
+messageSends: [],
 referencedClasses: []
 }),
 globals.HLListWidget);
@@ -2322,6 +2344,21 @@ globals.HLListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "listCssClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "nav nav-pills nav-stacked";
+},
+args: [],
+source: "listCssClass \x0a\x09^'nav nav-pills nav-stacked'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "listCssClassForItem:",
 protocol: 'accessing',
 fn: function (anObject){
@@ -2426,7 +2463,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
 $1=_st(html)._ul();
-_st($1)._class_("nav nav-pills nav-stacked");
+_st($1)._class_(self._listCssClass());
 $ctx1.sendIdx["class:"]=1;
 $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -2442,8 +2479,8 @@ return self._renderButtonsOn_(html);
 self._setupKeyBindings();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLListWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html ul \x0a    \x09class: 'nav nav-pills nav-stacked';\x0a        with: [ self renderListOn: html ].\x0a    html div class: 'pane_actions form-actions'; with: [\x0a      \x09self renderButtonsOn: html ].\x0a        \x0a   self setupKeyBindings",
-messageSends: ["class:", "ul", "with:", "renderListOn:", "div", "renderButtonsOn:", "setupKeyBindings"],
+source: "renderContentOn: html\x0a\x09html ul \x0a    \x09class: self listCssClass;\x0a        with: [ self renderListOn: html ].\x0a    html div class: 'pane_actions form-actions'; with: [\x0a      \x09self renderButtonsOn: html ].\x0a        \x0a   self setupKeyBindings",
+messageSends: ["class:", "ul", "listCssClass", "with:", "renderListOn:", "div", "renderButtonsOn:", "setupKeyBindings"],
 referencedClasses: []
 }),
 globals.HLListWidget);
@@ -6858,11 +6895,14 @@ selector: "openTestRunner",
 protocol: 'actions',
 fn: function (){
 var self=this;
-return self},
+function $HLSUnit(){return globals.HLSUnit||(typeof HLSUnit=="undefined"?nil:HLSUnit)}
+return smalltalk.withContext(function($ctx1) { 
+_st($HLSUnit())._openAsTab();
+return self}, function($ctx1) {$ctx1.fill(self,"openTestRunner",{},globals.HLWelcomeWidget)})},
 args: [],
-source: "openTestRunner",
-messageSends: [],
-referencedClasses: []
+source: "openTestRunner\x0a\x09HLSUnit openAsTab",
+messageSends: ["openAsTab"],
+referencedClasses: ["HLSUnit"]
 }),
 globals.HLWelcomeWidget);
 
@@ -6890,7 +6930,7 @@ protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3,$4,$5,$6;
 $1=_st(html)._button();
 $ctx1.sendIdx["button"]=1;
 _st($1)._class_("button");
@@ -6903,16 +6943,27 @@ return self._openClassBrowser();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["onClick:"]=1;
 $3=_st(html)._button();
+$ctx1.sendIdx["button"]=2;
 _st($3)._class_("button");
+$ctx1.sendIdx["class:"]=2;
 _st($3)._with_("Workspace");
+$ctx1.sendIdx["with:"]=2;
 $4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._openWorkspace();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$ctx1.sendIdx["onClick:"]=2;
+$5=_st(html)._button();
+_st($5)._class_("button");
+_st($5)._with_("Test Runner");
+$6=_st($5)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._openTestRunner();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLWelcomeWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Class Browser';\x0a\x09\x09onClick: [ self openClassBrowser ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Workspace';\x0a\x09\x09onClick: [ self openWorkspace ].\x0a\x09\x22html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Test Runner';\x0a\x09\x09onClick: [ self openTestRunner ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Help';\x0a\x09\x09onClick: [ self openHelp ]\x22",
-messageSends: ["class:", "button", "with:", "onClick:", "openClassBrowser", "openWorkspace"],
+source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Class Browser';\x0a\x09\x09onClick: [ self openClassBrowser ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Workspace';\x0a\x09\x09onClick: [ self openWorkspace ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Test Runner';\x0a\x09\x09onClick: [ self openTestRunner ].\x0a\x09\x22html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Help';\x0a\x09\x09onClick: [ self openHelp ]\x22",
+messageSends: ["class:", "button", "with:", "onClick:", "openClassBrowser", "openWorkspace", "openTestRunner"],
 referencedClasses: []
 }),
 globals.HLWelcomeWidget);
