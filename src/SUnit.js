@@ -394,9 +394,9 @@ protocol: 'async',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self["@asyncTimeout"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(self["@asyncTimeout"])._clearTimeout();
@@ -686,7 +686,8 @@ _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._withErrorReporting_((function(){
 return smalltalk.withContext(function($ctx3) {
-return globals.ReportingTestContext.superclass.fn.prototype._execute_.apply(_st(self), [aBlock]);
+return ($ctx3.supercall = true, globals.ReportingTestContext.superclass.fn.prototype._execute_.apply(_st(self), [aBlock]));
+$ctx3.supercall = false;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._ensure_((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -771,7 +772,8 @@ fn: function (aTestCase,aTestResult,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=globals.ReportingTestContext.klass.superclass.fn.prototype._testCase_.apply(_st(self), [aTestCase]);
+$2=($ctx1.supercall = true, globals.ReportingTestContext.klass.superclass.fn.prototype._testCase_.apply(_st(self), [aTestCase]));
+$ctx1.supercall = false;
 _st($2)._result_(aTestResult);
 _st($2)._finished_(aBlock);
 $3=_st($2)._yourself();
@@ -883,7 +885,8 @@ var self=this;
 function $Date(){return globals.Date||(typeof Date=="undefined"?nil:Date)}
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-globals.TestResult.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.TestResult.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@timestamp"]=_st($Date())._now();
 self["@runs"]=(0);
 self["@errors"]=_st($Array())._new();
@@ -1101,7 +1104,8 @@ function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?n
 function $TestResult(){return globals.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.TestSuiteRunner.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.TestSuiteRunner.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@announcer"]=_st($Announcer())._new();
 $ctx1.sendIdx["new"]=1;
 self["@result"]=_st($TestResult())._new();
@@ -1214,8 +1218,10 @@ protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(globals.TestSuiteRunner.klass.superclass.fn.prototype._new.apply(_st(self), []))._suite_(aCollection);
+var $2,$1;
+$2=($ctx1.supercall = true, globals.TestSuiteRunner.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
+$1=_st($2)._suite_(aCollection);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{aCollection:aCollection},globals.TestSuiteRunner.klass)})},
 args: ["aCollection"],

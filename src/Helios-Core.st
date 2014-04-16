@@ -306,8 +306,8 @@ openClassNamed: aString
 removeClass
 	self withChangesDo: [
 		self manager 
-			confirm: 'Do you REALLY want to remove class ', self selectedClass name
-			ifTrue: [ self environment removeClass: self selectedClass ] ]
+			confirm: 'Do you REALLY want to remove class ', self selectedClass theNonMetaClass name
+			ifTrue: [ self environment removeClass: self selectedClass theNonMetaClass ] ]
 !
 
 removeMethod
@@ -491,115 +491,6 @@ do: aBlock on: aCollection displaying: aString
 		displaying: aString
 ! !
 
-Widget subclass: #HLTabWidget
-	instanceVariableNames: 'widget label root'
-	package: 'Helios-Core'!
-!HLTabWidget commentStamp!
-I am a widget specialized into building another widget as an Helios tab.
-
-I should not be used directly, `HLWidget class >> #openAsTab` should be used instead.
-
-## Example
-
-    HLWorkspace openAsTab!
-
-!HLTabWidget methodsFor: 'accessing'!
-
-activate
-	self manager activate: self
-!
-
-add
-	self manager addTab: self
-!
-
-cssClass
-	^ self widget tabClass
-!
-
-displayLabel
-	^ self label size > 20 
-		ifTrue: [ (self label first: 20), '...' ]
-		ifFalse: [ self label ]
-!
-
-focus
-	self widget canHaveFocus ifTrue: [
-		self widget focus ]
-!
-
-label
-	^ label ifNil: [ '' ]
-!
-
-label: aString
-	label := aString
-!
-
-manager
-	^ HLManager current
-!
-
-widget
-	^ widget
-!
-
-widget: aWidget
-	widget := aWidget
-! !
-
-!HLTabWidget methodsFor: 'actions'!
-
-hide
-	root ifNotNil: [ root asJQuery css: 'visibility' put: 'hidden' ]
-!
-
-registerBindings
-	self widget registerBindings
-!
-
-remove
-	self widget unregister.
-	root ifNotNil: [ root asJQuery remove ]
-!
-
-show
-	root
-		ifNil: [ self appendToJQuery: 'body' asJQuery ]
-		ifNotNil: [ root asJQuery css: 'visibility' put: 'visible' ]
-! !
-
-!HLTabWidget methodsFor: 'rendering'!
-
-renderOn: html
-	root := html div
-		class: 'tab';
-		yourself.
-	self renderTab
-!
-
-renderTab
-	root contents: [ :html |
-		html div
-			class: 'amber_box';
-			with: [ self widget renderOn: html ] ]
-! !
-
-!HLTabWidget methodsFor: 'testing'!
-
-isActive
-	^ self manager activeTab = self
-! !
-
-!HLTabWidget class methodsFor: 'instance creation'!
-
-on: aWidget labelled: aString
-	^ self new
-		widget: aWidget;
-		label: aString;
-		yourself
-! !
-
 Widget subclass: #HLWidget
 	instanceVariableNames: 'wrapper'
 	package: 'Helios-Core'!
@@ -644,6 +535,17 @@ manager
 	^ HLManager current
 !
 
+removeTab
+	self manager removeTabForWidget: self
+!
+
+setTabLabel: aString
+	self manager announcer announce: (HLTabLabelChanged new
+		widget: self;
+		label: aString;
+		yourself)
+!
+
 tabClass
 	^ self class tabClass
 !
@@ -676,7 +578,8 @@ inform: aString
 !
 
 openAsTab
-	HLManager current addTab: (HLTabWidget on: self labelled: self class tabLabel)
+	(HLTabWidget on: self labelled: self defaultTabLabel)
+		add
 !
 
 request: aString do: aBlock
@@ -693,6 +596,12 @@ request: aString value: valueString do: aBlock
 unregister
 	"This method is called whenever the receiver is closed (as a tab).
 	Widgets subscribing to announcements should unregister there"
+! !
+
+!HLWidget methodsFor: 'defaults'!
+
+defaultTabLabel
+	^ self class tabLabel
 ! !
 
 !HLWidget methodsFor: 'keybindings'!
@@ -749,9 +658,9 @@ openAsTab
 	| instance |
 	
 	instance := self new.
-	HLManager current addTab: (HLTabWidget 
+	(HLTabWidget 
 		on: instance 
-		labelled: self tabLabel).
+		labelled: instance defaultTabLabel) add.
 	^ instance
 !
 
@@ -1213,14 +1122,63 @@ renderItemLabel: aTab on: html
 		with: aTab label
 ! !
 
+HLWidget subclass: #HLInformationWidget
+	instanceVariableNames: 'informationString'
+	package: 'Helios-Core'!
+!HLInformationWidget commentStamp!
+I display an information dialog.
+
+## API
+
+`HLWidget >> #inform:` is a convenience method for creating information dialogs.!
+
+!HLInformationWidget methodsFor: 'accessing'!
+
+informationString
+	^ informationString ifNil: [ '' ]
+!
+
+informationString: anObject
+	informationString := anObject
+! !
+
+!HLInformationWidget methodsFor: 'actions'!
+
+remove
+	[ 
+		self wrapper asJQuery fadeOut: 100.
+		[ self wrapper asJQuery remove ]
+			valueWithTimeout: 400.
+	]
+		valueWithTimeout: 1500
+!
+
+show
+	self appendToJQuery: 'body' asJQuery
+! !
+
+!HLInformationWidget methodsFor: 'rendering'!
+
+renderContentOn: html
+	html div 
+		class: 'growl'; 
+		with: self informationString.
+		
+	self remove
+! !
+
 HLWidget subclass: #HLManager
-	instanceVariableNames: 'tabs activeTab environment history'
+	instanceVariableNames: 'tabsWidget environment history announcer'
 	package: 'Helios-Core'!
 
 !HLManager methodsFor: 'accessing'!
 
 activeTab
-	^ activeTab
+	^ self tabsWidget activeTab
+!
+
+announcer
+	^ announcer ifNil: [ announcer := Announcer new ]
 !
 
 environment
@@ -1245,31 +1203,44 @@ keyBinder
 	^ HLKeyBinder current
 !
 
+setEditorTheme: aTheme
+
+	'helios.editorTheme' asSetting value: aTheme
+!
+
+setTheme: aTheme
+	| currentTheme |
+
+	currentTheme := 'helios.theme' asSettingIfAbsent: 'default'.
+	
+	'body' asJQuery
+		removeClass: currentTheme value;
+		addClass: aTheme.
+		
+	
+	'helios.theme' asSetting value: aTheme
+!
+
+tabWidth
+	^ (window asJQuery width - 90) / self tabs size
+!
+
 tabs
-	^ tabs ifNil: [ tabs := OrderedCollection new ]
+	^ self tabsWidget tabs
+!
+
+tabsWidget
+	^ tabsWidget ifNil: [ tabsWidget := HLTabsWidget new ]
 ! !
 
 !HLManager methodsFor: 'actions'!
 
 activate: aTab
-	self keyBinder flushBindings.
-	aTab registerBindings.
-	activeTab := aTab.
-	
-	self 
-		refresh;
-		addToHistory: aTab;
-		show: aTab
+	self tabsWidget activate: aTab
 !
 
 addTab: aTab
-	self tabs add: aTab.
-    self activate: aTab
-!
-
-addToHistory: aTab
-	self removeFromHistory: aTab.
-	self history add: aTab
+	self tabsWidget addTab: aTab
 !
 
 confirm: aString ifFalse: aBlock
@@ -1301,23 +1272,11 @@ inform: aString
 !
 
 removeActiveTab
-	self removeTab: self activeTab
+	self tabsWidget removeActiveTab
 !
 
-removeFromHistory: aTab
-	self history: (self history reject: [ :each | each == aTab ])
-!
-
-removeTab: aTab
-	(self tabs includes: aTab) ifFalse: [ ^ self ].
-
-	self removeFromHistory: aTab.
-	self tabs remove: aTab.
-	self keyBinder flushBindings.
-	aTab remove.
-	self refresh.
-	self history ifNotEmpty: [
-		self history last activate ]
+removeTabForWidget: aWidget
+	self tabsWidget removeTabForWidget: aWidget
 !
 
 request: aString do: aBlock
@@ -1357,9 +1316,12 @@ setup
 	self 
 		registerServices;
 		setupEvents.
-    self keyBinder 
-		setupEvents;
-		setupHelper
+    self keyBinder setupEvents.
+	self tabsWidget setupEvents.
+	self setupTheme.
+	
+	
+	'#helper' asJQuery fadeOut
 ! !
 
 !HLManager methodsFor: 'private'!
@@ -1370,76 +1332,39 @@ registerServices
 		registerErrorHandler;
 		registerProgressHandler;
 		registerTranscript;
-		registrFinder
+		registerFinder
 !
 
 setupEvents
-	"on ctrl keydown, adds a 'navigation' css class to <body>
-	for the CodeMirror navigation links. See `HLCodeWidget`."
-	
 	'body' asJQuery keydown: [ :event |
+			
+		"On ctrl keydown, adds a 'navigation' css class to <body>
+		for the CodeMirror navigation links. See `HLCodeWidget`."
 		event ctrlKey ifTrue: [
 			'body' asJQuery addClass: 'navigation' ] ].
 			
 	'body' asJQuery keyup: [ :event |
-		'body' asJQuery removeClass: 'navigation' ]
+		'body' asJQuery removeClass: 'navigation' ].
+		
+	window asJQuery resize: [ :event |
+		self refresh ]
+!
+
+setupTheme
+	"self 
+		setTheme: 'niflheim';
+		setEditorTheme: 'niflheim'."
+		
+	self 
+		setTheme: 'default';
+		setEditorTheme: 'default'.
 ! !
 
 !HLManager methodsFor: 'rendering'!
 
-renderAddOn: html
-    html li 
-    	class: 'dropdown';
-        with: [ 
-			html a 
-        		class: 'dropdown-toggle';
-           	 	at: 'data-toggle' put: 'dropdown';
-            	with: [ 
-            		html with: 'Open...'.
-  					(html tag: 'b') class: 'caret' ].
-           html ul 
-           		class: 'dropdown-menu';
-                with: [
-                  	((HLWidget withAllSubclasses
-                    	select: [ :each | each canBeOpenAsTab ])
-                        sorted: [ :a :b | a tabPriority < b tabPriority ])
-                        do: [ :each |
-  							html li with: [
-                      			html a 
-                                	with: each tabLabel;
-      								onClick: [ each openAsTab ] ] ] ] ]
-!
-
 renderContentOn: html
-	html div 
-		class: 'navbar navbar-fixed-top';
-		with: [ html div 
-			class: 'navbar-inner';
-			with: [ self renderTabsOn: html ] ]
-!
-
-renderTabsOn: html
-	html ul 
-		class: 'nav';
-		with: [ 
-        	self tabs do: [ :each |
-				html li 
-					class: (each isActive ifTrue: [ 'active' ] ifFalse: [ 'inactive' ]);
-					with: [
-						html a
-							with: [
-      							((html tag: 'i') class: 'close')
-  									onClick: [ self removeTab: each ].
-                              	html span 
-									class: each cssClass;
-									with: each displayLabel ];
-							onClick: [ each activate ] ] ].
-			self renderAddOn: html ]
-!
-
-show: aTab
-	self tabs do: [ :each | each hide ].
-	aTab show; focus
+	html with: self tabsWidget.
+	html with: HLWelcomeWidget new
 ! !
 
 !HLManager methodsFor: 'services'!
@@ -1710,53 +1635,6 @@ isMultiline
 	^ multiline ifNil: [ true ]
 ! !
 
-HLModalWidget subclass: #HLInformationWidget
-	instanceVariableNames: 'buttonLabel informationString'
-	package: 'Helios-Core'!
-!HLInformationWidget commentStamp!
-I display an information dialog.
-
-## API
-
-`HLWidget >> #inform:` is a convenience method for creating information dialogs.!
-
-!HLInformationWidget methodsFor: 'accessing'!
-
-buttonLabel
-	^ buttonLabel ifNil: [ 'Ok' ]
-!
-
-buttonLabel: aString
-	buttonLabel := aString
-!
-
-informationString
-	^ informationString ifNil: [ '' ]
-!
-
-informationString: anObject
-	informationString := anObject
-! !
-
-!HLInformationWidget methodsFor: 'rendering'!
-
-renderButtonsOn: html
-	| button |
-	html div 
-		class: 'buttons';
-		with: [
-			button := html button
-				class: 'button default';
-				with: self buttonLabel;
-				onClick: [ self remove ] ].
-
-	self giveFocusToButton: button
-!
-
-renderMainOn: html
-	html span with: self informationString
-! !
-
 HLModalWidget subclass: #HLProgressWidget
 	instanceVariableNames: 'progressBars visible'
 	package: 'Helios-Core'!
@@ -1895,12 +1773,12 @@ tabs: aCollection
 !HLTabSelectionWidget methodsFor: 'actions'!
 
 cancel
-	super cancel.
+	self remove.
 	self cancelCallback value
 !
 
 confirm
-	super confirm.
+	self remove.
 	self confirmCallback value: self selectedTab
 !
 
@@ -1916,6 +1794,24 @@ setupKeyBindings
 ! !
 
 !HLTabSelectionWidget methodsFor: 'rendering'!
+
+renderButtonsOn: html
+	| confirmButton |
+	
+	html div 
+		class: 'buttons';
+		with: [
+			html button
+				class: 'button';
+				with: 'Cancel';
+				onClick: [ self cancel ].
+			confirmButton := html button
+				class: 'button default';
+				with: 'Select tab';
+				onClick: [ self confirm ] ].
+
+	self giveFocusToButton:confirmButton
+!
 
 renderContentOn: html
 	super renderContentOn: html.
@@ -2041,5 +1937,400 @@ HLProgressBarWidget class instanceVariableNames: 'default'!
 
 default
 	^ default ifNil: [ default := self new ]
+! !
+
+HLWidget subclass: #HLTabWidget
+	instanceVariableNames: 'widget label root'
+	package: 'Helios-Core'!
+!HLTabWidget commentStamp!
+I am a widget specialized into building another widget as an Helios tab.
+
+I should not be used directly, `HLWidget class >> #openAsTab` should be used instead.
+
+## Example
+
+    HLWorkspace openAsTab!
+
+!HLTabWidget methodsFor: 'accessing'!
+
+activate
+	self manager activate: self
+!
+
+cssClass
+	^ self widget tabClass
+!
+
+focus
+	self widget canHaveFocus ifTrue: [
+		self widget focus ]
+!
+
+label
+	^ label ifNil: [ '' ]
+!
+
+label: aString
+	label := aString
+!
+
+manager
+	^ HLManager current
+!
+
+widget
+	^ widget
+!
+
+widget: aWidget
+	widget := aWidget
+! !
+
+!HLTabWidget methodsFor: 'actions'!
+
+add
+	self manager addTab: self.
+	self observeManager
+!
+
+hide
+	root ifNotNil: [ root asJQuery css: 'visibility' put: 'hidden' ]
+!
+
+observeManager
+	self manager announcer 
+		on: HLTabLabelChanged
+		send: #onTabLabelChanged:
+		to: self
+!
+
+registerBindings
+	self widget registerBindings
+!
+
+remove
+	self unregister.
+	self widget unregister.
+	root ifNotNil: [ root asJQuery remove ]
+!
+
+show
+	root
+		ifNil: [ self appendToJQuery: 'body' asJQuery ]
+		ifNotNil: [ root asJQuery css: 'visibility' put: 'visible' ]
+!
+
+unregister
+	self manager announcer unsubscribe: self
+! !
+
+!HLTabWidget methodsFor: 'reactions'!
+
+onTabLabelChanged: anAnnouncement
+	anAnnouncement widget = self widget ifTrue: [
+		self label = anAnnouncement label ifFalse: [
+			self label: anAnnouncement label.
+			self manager refresh ] ]
+! !
+
+!HLTabWidget methodsFor: 'rendering'!
+
+renderOn: html
+	root := html div
+		class: 'tab';
+		yourself.
+	self renderTab
+!
+
+renderTab
+	root contents: [ :html |
+		html div
+			class: 'amber_box';
+			with: [ self widget renderOn: html ] ]
+! !
+
+!HLTabWidget methodsFor: 'testing'!
+
+isActive
+	^ self manager activeTab = self
+! !
+
+!HLTabWidget class methodsFor: 'instance creation'!
+
+on: aWidget labelled: aString
+	^ self new
+		widget: aWidget;
+		label: aString;
+		yourself
+! !
+
+HLWidget subclass: #HLTabsWidget
+	instanceVariableNames: 'tabs activeTab history selectionDisabled'
+	package: 'Helios-Core'!
+
+!HLTabsWidget methodsFor: 'accessing'!
+
+activeTab
+	^ activeTab
+!
+
+history
+	^ history ifNil: [ history := OrderedCollection new ]
+!
+
+history: aCollection
+	history := aCollection
+!
+
+tabWidth
+	^ (window asJQuery width - 90) / self tabs size
+!
+
+tabs
+	^ tabs ifNil: [ tabs := OrderedCollection new ]
+! !
+
+!HLTabsWidget methodsFor: 'actions'!
+
+activate: aTab
+	self isSelectionDisabled ifTrue: [ ^ self ].
+
+	self manager keyBinder flushBindings.
+	aTab registerBindings.
+	activeTab := aTab.
+	
+	self 
+		refresh;
+		addToHistory: aTab;
+		show: aTab
+!
+
+activateNextTab
+	| nextTab |
+	
+	self tabs ifEmpty: [ ^ self ].
+	
+	nextTab := self tabs 
+		at: (self tabs indexOf: self activeTab) + 1 
+		ifAbsent: [ self tabs first ].
+		
+	self activate: nextTab
+!
+
+activatePreviousTab
+	| previousTab |
+	
+	self tabs ifEmpty: [ ^ self ].
+	
+	previousTab := self tabs 
+		at: (self tabs indexOf: self activeTab) - 1 
+		ifAbsent: [ self tabs last ].
+		
+	self activate: previousTab
+!
+
+addTab: aTab
+	self tabs add: aTab.
+    self activate: aTab
+!
+
+addToHistory: aTab
+	self removeFromHistory: aTab.
+	self history add: aTab
+!
+
+disableSelection
+	selectionDisabled := true
+!
+
+enableSelection
+	selectionDisabled := false
+!
+
+removeActiveTab
+	self removeTab: self activeTab
+!
+
+removeFromHistory: aTab
+	self history: (self history reject: [ :each | each == aTab ])
+!
+
+removeTab: aTab
+	(self tabs includes: aTab) ifFalse: [ ^ self ].
+
+	self removeFromHistory: aTab.
+	self tabs remove: aTab.
+	self manager keyBinder flushBindings.
+	aTab remove.
+	self refresh.
+	self history ifNotEmpty: [
+		self history last activate ]
+!
+
+removeTabForWidget: aWidget
+	self removeTab: (self tabs 
+		detect: [ :each | each widget = aWidget ]
+		ifNone: [ ^ self ])
+!
+
+updateTabsOrder
+	tabs := '.main-tabs li' asJQuery toArray 
+		collect: [ :each | each at: 'tab-data' ]
+! !
+
+!HLTabsWidget methodsFor: 'private'!
+
+setupEvents
+	'body' asJQuery keydown: [ :event |
+	
+		"ctrl+> and ctrl+<"
+		(event ctrlKey and: [ event which = 188 ]) ifTrue: [
+			self activatePreviousTab.
+			event preventDefault ].
+		(event ctrlKey and: [ event which = 190 ]) ifTrue: [
+			self activateNextTab.
+			event preventDefault ] ]
+! !
+
+!HLTabsWidget methodsFor: 'rendering'!
+
+renderAddOn: html
+    html div 
+    	class: 'dropdown new_tab';
+        with: [ 
+			html a 
+        		class: 'dropdown-toggle';
+           	 	at: 'data-toggle' put: 'dropdown';
+            	with: [
+  					(html tag: 'b') class: 'caret' ].
+           html ul 
+           		class: 'dropdown-menu';
+                with: [
+                  	((HLWidget withAllSubclasses
+                    	select: [ :each | each canBeOpenAsTab ])
+                        sorted: [ :a :b | a tabPriority < b tabPriority ])
+                        do: [ :each |
+  							html li with: [
+                      			html a 
+                                	with: each tabLabel;
+      								onClick: [ each openAsTab ] ] ] ] ]
+!
+
+renderContentOn: html
+	html div 
+		class: 'navbar navbar-fixed-top';
+		with: [ html div 
+			class: 'navbar-inner';
+			with: [ self renderTabsOn: html ] ].
+			
+	self renderAddOn: html
+!
+
+renderTab: aTab on: html
+	| li |
+	li := html li 
+		style: 'width: ', self tabWidth asString, 'px';
+		class: (aTab isActive ifTrue: [ 'tab active' ] ifFalse: [ 'tab inactive' ]);
+		with: [
+			html a
+			with: [
+				((html tag: 'i') class: 'close')
+					onClick: [ self removeTab: aTab ].
+				html span 
+					class: aTab cssClass;
+					title: aTab label;
+					with: aTab label ] ];
+		onClick: [ aTab activate ].
+	
+	(li asJQuery get: 0) at: 'tab-data' put: aTab
+!
+
+renderTabsOn: html
+	| ul |
+	ul := html ul 
+		class: 'nav main-tabs';
+		with: [ 
+        	self tabs do: [ :each |
+				self renderTab: each on: html ] ].
+		
+	ul asJQuery sortable: #{
+		'containment' -> 'parent'.
+		'start' -> [ self disableSelection ].
+		'stop' -> [ [ self enableSelection] valueWithTimeout: 300 ].
+		'update' -> [ self updateTabsOrder ]
+	}
+!
+
+show: aTab
+	self tabs do: [ :each | each hide ].
+	aTab show; focus
+! !
+
+!HLTabsWidget methodsFor: 'testing'!
+
+isSelectionDisabled
+	^ selectionDisabled ifNil: [ false ]
+! !
+
+HLTabsWidget class instanceVariableNames: 'current'!
+
+HLWidget subclass: #HLWelcomeWidget
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+
+!HLWelcomeWidget methodsFor: 'accessing'!
+
+cssClass
+	^ 'welcome'
+! !
+
+!HLWelcomeWidget methodsFor: 'actions'!
+
+openClassBrowser
+	HLBrowser openAsTab
+!
+
+openHelp
+!
+
+openTestRunner
+!
+
+openWorkspace
+	HLWorkspace openAsTab
+! !
+
+!HLWelcomeWidget methodsFor: 'rendering'!
+
+renderButtonsOn: html
+	html button
+		class: 'button';
+		with: 'Class Browser';
+		onClick: [ self openClassBrowser ].
+	html button
+		class: 'button';
+		with: 'Workspace';
+		onClick: [ self openWorkspace ].
+	"html button
+		class: 'button';
+		with: 'Test Runner';
+		onClick: [ self openTestRunner ].
+	html button
+		class: 'button';
+		with: 'Help';
+		onClick: [ self openHelp ]"
+!
+
+renderContentOn: html
+	self
+		renderHelpOn: html;
+		renderButtonsOn: html
+!
+
+renderHelpOn: html
+	html h2 with: 'No tools are open'.
+	html ul with: [
+		html li with: 'Perform actions with  ctrl + space'.
+		html li with: 'Open one of the common tools:' ]
 ! !
 

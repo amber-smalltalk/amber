@@ -1,6 +1,6 @@
-define("amber_core/Helios-SUnit", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Core"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-SUnit", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Core"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-SUnit');
-smalltalk.packages["Helios-SUnit"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-SUnit"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLSUnit', globals.HLWidget, ['model', 'packagesListWidget', 'resultWidget'], 'Helios-SUnit');
 globals.HLSUnit.comment="I am the main widget for running unit tests in Helios.\x0a\x0aI provide the ability to select set of tests to run per package, and a detailed result log with passed tests, failed tests and errors.";

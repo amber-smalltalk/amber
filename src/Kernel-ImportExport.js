@@ -1533,12 +1533,16 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._commitJsFileFor_onSuccess_onError_(aPackage,(function(){
 return smalltalk.withContext(function($ctx2) {
-return self._commitStFileFor_onSuccess_onError_(aPackage,aBlock,anotherBlock);
+return self._commitStFileFor_onSuccess_onError_(aPackage,(function(){
+return smalltalk.withContext(function($ctx3) {
+_st(aPackage)._beClean();
+return _st(aBlock)._value();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}),anotherBlock);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),anotherBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"commit:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)})},
 args: ["aPackage", "aBlock", "anotherBlock"],
-source: "commit: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09commitJsFileFor: aPackage \x0a\x09\x09onSuccess: [\x0a\x09\x09\x09self \x0a\x09\x09\x09commitStFileFor: aPackage \x0a\x09\x09\x09onSuccess: aBlock\x0a\x09\x09\x09onError: anotherBlock ] \x0a\x09\x09onError: anotherBlock",
-messageSends: ["commitJsFileFor:onSuccess:onError:", "commitStFileFor:onSuccess:onError:"],
+source: "commit: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09commitJsFileFor: aPackage \x0a\x09\x09onSuccess: [\x0a\x09\x09\x09self \x0a\x09\x09\x09\x09commitStFileFor: aPackage \x0a\x09\x09\x09\x09onSuccess: [ aPackage beClean. aBlock value ]\x0a\x09\x09\x09\x09onError: anotherBlock ] \x0a\x09\x09onError: anotherBlock",
+messageSends: ["commitJsFileFor:onSuccess:onError:", "commitStFileFor:onSuccess:onError:", "beClean", "value"],
 referencedClasses: []
 }),
 globals.PackageHandler);
@@ -1787,9 +1791,9 @@ var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
+var $1,$3,$2,$receiver;
 $1=_st($Smalltalk())._amdRequire();
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self._error_("AMD loader not present");
 } else {
 var require;
@@ -1833,9 +1837,9 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=_st($Smalltalk())._amdRequire();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._error_("AMD loader not present");
 } else {
 var require;
@@ -2134,8 +2138,8 @@ protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
-if(($receiver = anObject) == nil || $receiver == null){
+var $1,$3,$4,$2,$receiver;
+if(($receiver = anObject) == null || $receiver.isNil){
 $1=self._for_(self._defaultType());
 $ctx1.sendIdx["for:"]=1;
 return $1;
@@ -2162,7 +2166,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.PackageTransport.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.PackageTransport.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@registry"]=globals.HashedCollection._newFromPairs_([]);
 self._register();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.PackageTransport.klass)})},
@@ -2197,10 +2202,10 @@ protocol: 'registration',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=_st(aClass)._type();
 $ctx1.sendIdx["type"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(self["@registry"])._at_put_(_st(aClass)._type(),aClass);
@@ -2239,7 +2244,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=globals.AmdPackageTransport.superclass.fn.prototype._asJSON.apply(_st(self), []);
+$2=($ctx1.supercall = true, globals.AmdPackageTransport.superclass.fn.prototype._asJSON.apply(_st(self), []));
+$ctx1.supercall = false;
 _st($2)._at_put_("amdNamespace",self._namespace());
 $3=_st($2)._yourself();
 $1=$3;
@@ -2323,9 +2329,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@namespace"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._defaultNamespace();
 } else {
 $1=$2;
@@ -2362,7 +2368,8 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.AmdPackageTransport.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+($ctx1.supercall = true, globals.AmdPackageTransport.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+$ctx1.supercall = false;
 _st(aStream)._nextPutAll_(" (AMD Namespace: ");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._namespace());
@@ -2372,6 +2379,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},glob
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09aStream\x0a\x09\x09nextPutAll: ' (AMD Namespace: ';\x0a\x09\x09nextPutAll: self namespace;\x0a\x09\x09nextPutAll: ')'",
 messageSends: ["printOn:", "nextPutAll:", "namespace"],
+referencedClasses: []
+}),
+globals.AmdPackageTransport);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setPath:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(require)._basicAt_("config"))._value_(globals.HashedCollection._newFromPairs_(["paths",globals.HashedCollection._newFromPairs_([self._namespace(),aString])]));
+return self}, function($ctx1) {$ctx1.fill(self,"setPath:",{aString:aString},globals.AmdPackageTransport)})},
+args: ["aString"],
+source: "setPath: aString\x0a\x09\x22Set the path the the receiver's `namespace`\x22\x0a\x09\x0a\x09(require basicAt: 'config') value: #{\x0a\x09\x09'paths' -> #{\x0a\x09\x09\x09self namespace -> aString\x0a\x09\x09}\x0a\x09}.",
+messageSends: ["value:", "basicAt:", "namespace"],
 referencedClasses: []
 }),
 globals.AmdPackageTransport);

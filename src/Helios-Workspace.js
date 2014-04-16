@@ -1,6 +1,6 @@
-define("amber_core/Helios-Workspace", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "amber_core/Helios-Core"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Workspace", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "helios/Helios-Core"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Workspace');
-smalltalk.packages["Helios-Workspace"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Workspace"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLCodeModel', globals.Object, ['announcer', 'environment', 'receiver'], 'Helios-Workspace');
 smalltalk.addMethod(
@@ -11,9 +11,9 @@ fn: function (){
 var self=this;
 function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@announcer"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@announcer"]=_st($Announcer())._new();
 $1=self["@announcer"];
 } else {
@@ -71,10 +71,10 @@ var self=this;
 function $ErrorHandler(){return globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._try_catch_((function(){
+$1=_st((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self._environment())._eval_on_(aString,self._receiver());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(e){
+return _st(self._environment())._evaluate_for_(aString,self._receiver());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._tryCatch_((function(e){
 return smalltalk.withContext(function($ctx2) {
 _st($ErrorHandler())._handleError_(e);
 return nil;
@@ -82,8 +82,8 @@ return nil;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doIt:",{aString:aString},globals.HLCodeModel)})},
 args: ["aString"],
-source: "doIt: aString\x0a\x09\x22Evaluate aString in the receiver's `environment`.\x0a\x09\x0a\x09Note: Catch any error and handle it manually, bypassing\x0a\x09boot.js behavior to avoid the browser default action on\x0a\x09ctrl+d/ctrl+p.\x0a\x09\x0a\x09See https://github.com/amber-smalltalk/amber/issues/882\x22\x0a\x0a\x09^ self \x0a\x09\x09try: [ self environment eval: aString on: self receiver ]\x0a\x09\x09catch: [ :e | \x0a\x09\x09\x09ErrorHandler handleError: e.\x0a\x09\x09\x09nil ]",
-messageSends: ["try:catch:", "eval:on:", "environment", "receiver", "handleError:"],
+source: "doIt: aString\x0a\x09\x22Evaluate aString in the receiver's `environment`.\x0a\x09\x0a\x09Note: Catch any error and handle it manually, bypassing\x0a\x09boot.js behavior to avoid the browser default action on\x0a\x09ctrl+d/ctrl+p.\x0a\x09\x0a\x09See https://github.com/amber-smalltalk/amber/issues/882\x22\x0a\x0a\x09^ [ self environment evaluate: aString for: self receiver ]\x0a\x09\x09tryCatch: [ :e | \x0a\x09\x09\x09ErrorHandler handleError: e.\x0a\x09\x09\x09nil ]",
+messageSends: ["tryCatch:", "evaluate:for:", "environment", "receiver", "handleError:"],
 referencedClasses: ["ErrorHandler"]
 }),
 globals.HLCodeModel);
@@ -96,9 +96,9 @@ fn: function (){
 var self=this;
 function $HLManager(){return globals.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@environment"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=_st(_st($HLManager())._current())._environment();
 } else {
 $1=$2;
@@ -150,9 +150,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@receiver"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@receiver"]=self._defaultReceiver();
 $1=self["@receiver"];
 } else {
@@ -348,10 +348,10 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 _st(self["@editor"])._setValue_(aString);
 $1=self["@state"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 self._updateState();
@@ -455,13 +455,13 @@ var self=this;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$2="helios.codeMirrorTheme"._settingValueIfAbsent_("default helios");
+$2="helios.editorTheme"._settingValueIfAbsent_("default");
 $ctx1.sendIdx["settingValueIfAbsent:"]=1;
 $1=globals.HashedCollection._newFromPairs_(["theme",$2,"mode","text/x-stsrc","lineNumbers",true,"enterMode","flat","indentWithTabs",true,"indentUnit",(4),"matchBrackets",true,"electricChars",false,"keyMap","Amber","extraKeys",_st($HashedCollection())._with_(_st("helios.completionKey"._settingValueIfAbsent_("Shift-Space")).__minus_gt("autocomplete"))]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"editorOptions",{},globals.HLCodeWidget)})},
 args: [],
-source: "editorOptions\x0a\x09^ #{\x0a\x09\x09'theme' -> ('helios.codeMirrorTheme' settingValueIfAbsent: 'default helios').\x0a\x09\x09'mode' -> 'text/x-stsrc'.\x0a        'lineNumbers' -> true.\x0a        'enterMode' -> 'flat'.\x0a        'indentWithTabs' -> true.\x0a\x09\x09'indentUnit' -> 4.\x0a        'matchBrackets' -> true.\x0a        'electricChars' -> false.\x0a\x09\x09'keyMap' -> 'Amber'.\x0a\x09\x09'extraKeys' -> (HashedCollection with: ('helios.completionKey' settingValueIfAbsent: 'Shift-Space') -> 'autocomplete')\x0a\x09}",
+source: "editorOptions\x0a\x09^ #{\x0a\x09\x09'theme' -> ('helios.editorTheme' settingValueIfAbsent: 'default').\x0a\x09\x09'mode' -> 'text/x-stsrc'.\x0a        'lineNumbers' -> true.\x0a        'enterMode' -> 'flat'.\x0a        'indentWithTabs' -> true.\x0a\x09\x09'indentUnit' -> 4.\x0a        'matchBrackets' -> true.\x0a        'electricChars' -> false.\x0a\x09\x09'keyMap' -> 'Amber'.\x0a\x09\x09'extraKeys' -> (HashedCollection with: ('helios.completionKey' settingValueIfAbsent: 'Shift-Space') -> 'autocomplete')\x0a\x09}",
 messageSends: ["settingValueIfAbsent:", "with:", "->"],
 referencedClasses: ["HashedCollection"]
 }),
@@ -567,9 +567,9 @@ fn: function (){
 var self=this;
 function $HLCodeModel(){return globals.HLCodeModel||(typeof HLCodeModel=="undefined"?nil:HLCodeModel)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@model"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@model"]=_st($HLCodeModel())._new();
 $1=self["@model"];
 } else {
@@ -793,11 +793,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._print_(_st(self._doIt())._printString());
-self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"printIt",{},globals.HLCodeWidget)})},
 args: [],
-source: "printIt\x0a\x09self print: self doIt printString.\x0a\x09self focus.",
-messageSends: ["print:", "printString", "doIt", "focus"],
+source: "printIt\x0a\x09self print: self doIt printString",
+messageSends: ["print:", "printString", "doIt"],
 referencedClasses: []
 }),
 globals.HLCodeWidget);
@@ -1171,7 +1170,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.HLCodeWidget.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLCodeWidget.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._setupCodeMirror();
 self._setupCommands();
 $1=self._setupKeyMaps();
@@ -1373,7 +1373,8 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLNavigationCodeWidget.superclass.fn.prototype._configureEditor.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLNavigationCodeWidget.superclass.fn.prototype._configureEditor.apply(_st(self), []));
+$ctx1.supercall = false;
 self._contents_(self._methodContents());
 return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{},globals.HLNavigationCodeWidget)})},
 args: [],
@@ -1391,7 +1392,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._methodContents_(aString);
-globals.HLNavigationCodeWidget.superclass.fn.prototype._contents_.apply(_st(self), [aString]);
+($ctx1.supercall = true, globals.HLNavigationCodeWidget.superclass.fn.prototype._contents_.apply(_st(self), [aString]));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},globals.HLNavigationCodeWidget)})},
 args: ["aString"],
 source: "contents: aString\x0a\x09self methodContents: aString.\x0a\x09super contents: aString",
@@ -1425,9 +1427,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@methodContents"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 $1=$2;
@@ -1673,10 +1675,10 @@ fn: function (anAnnouncement){
 var self=this;
 var class_;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 class_=_st(anAnnouncement)._item();
 $1=class_;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $2=self._contents_("");
 $ctx1.sendIdx["contents:"]=1;
 return $2;
@@ -1732,7 +1734,7 @@ fn: function (anAnnouncement){
 var self=this;
 var method;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$5,$4,$7,$6;
+var $3,$2,$1,$5,$4,$7,$6,$receiver;
 method=_st(anAnnouncement)._method();
 $3=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
@@ -1746,7 +1748,7 @@ $5=self._browserModel();
 $ctx1.sendIdx["browserModel"]=2;
 $4=_st($5)._selectedMethod();
 $ctx1.sendIdx["selectedMethod"]=1;
-if(($receiver = $4) == nil || $receiver == null){
+if(($receiver = $4) == null || $receiver.isNil){
 return self;
 } else {
 $4;
@@ -1774,10 +1776,10 @@ fn: function (anAnnouncement){
 var self=this;
 var method;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 method=_st(anAnnouncement)._item();
 $1=method;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $2=self._contents_("");
 $ctx1.sendIdx["contents:"]=1;
 return $2;
@@ -1801,10 +1803,10 @@ fn: function (anAnnouncement){
 var self=this;
 var package_;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 package_=_st(anAnnouncement)._item();
 $1=package_;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $2=self._contents_("");
 $ctx1.sendIdx["contents:"]=1;
 return $2;
@@ -1879,12 +1881,12 @@ protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $2,$1,$3,$receiver;
 $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
 $1=_st($2)._selectedClass();
 $ctx1.sendIdx["selectedClass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $3=self._contents_("");
 $ctx1.sendIdx["contents:"]=1;
 return $3;
@@ -1923,12 +1925,12 @@ protocol: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $2,$1,$3,$receiver;
 $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
 $1=_st($2)._selectedClass();
 $ctx1.sendIdx["selectedClass"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $3=self._contents_("");
 $ctx1.sendIdx["contents:"]=1;
 return $3;
@@ -2064,7 +2066,8 @@ $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._saveIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-globals.HLBrowserCodeWidget.superclass.fn.prototype._renderButtonsOn_.apply(_st(self), [html]);
+($ctx1.supercall = true, globals.HLBrowserCodeWidget.superclass.fn.prototype._renderButtonsOn_.apply(_st(self), [html]));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLBrowserCodeWidget)})},
 args: ["html"],
 source: "renderButtonsOn: html\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'SaveIt';\x0a\x09\x09onClick: [ self saveIt ].\x0a\x09super renderButtonsOn: html",
@@ -2097,7 +2100,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-globals.HLBrowserCodeWidget.superclass.fn.prototype._unregsiter.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLBrowserCodeWidget.superclass.fn.prototype._unregsiter.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
 $1=_st($2)._announcer();
@@ -2174,9 +2178,9 @@ fn: function (){
 var self=this;
 function $HLCodeWidget(){return globals.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@codeWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@codeWidget"]=_st($HLCodeWidget())._new();
 $1=self["@codeWidget"];
 } else {
@@ -2268,9 +2272,9 @@ fn: function (){
 var self=this;
 function $HLTranscript(){return globals.HLTranscript||(typeof HLTranscript=="undefined"?nil:HLTranscript)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@transcript"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@transcript"]=_st($HLTranscript())._new();
 $1=self["@transcript"];
 } else {
@@ -2292,7 +2296,8 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLWorkspace.superclass.fn.prototype._unregister.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLWorkspace.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
 $ctx1.sendIdx["unregister"]=1;
 _st(self._transcript())._unregister();
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLWorkspace)})},

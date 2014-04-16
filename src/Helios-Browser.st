@@ -12,11 +12,12 @@ environment
 !
 
 model
-	^ model ifNil: [ model := HLBrowserModel new ]
+	^ model ifNil: [ self model: HLBrowserModel new. model ]
 !
 
 model: aModel
-	model := aModel
+	model := aModel.
+	self observeModel
 ! !
 
 !HLBrowser methodsFor: 'actions'!
@@ -25,17 +26,31 @@ focus
 	^ self packagesListWidget focus
 !
 
+observeModel
+	self model announcer
+		on: HLPackageSelected
+		send: #onPackageSelected:
+		to: self.
+		
+	self model announcer
+		on: HLClassSelected
+		send: #onClassSelected:
+		to: self
+!
+
 openClassNamed: aString
 	self model openClassNamed: aString
 !
 
 openMethod: aCompiledMethod
-	self model 
-			selectedPackage: aCompiledMethod methodClass package;
-			selectedClass: aCompiledMethod methodClass;
-			selectedProtocol: aCompiledMethod protocol;
-			selectedMethod: aCompiledMethod;
-			focusOnSourceCode
+	self model
+		"Workaround for the package selection announcement when the package list is focused"	
+		focusOnSourceCode;
+		selectedPackage: aCompiledMethod methodClass package;
+		selectedClass: aCompiledMethod methodClass;
+		selectedProtocol: aCompiledMethod protocol;
+		selectedMethod: aCompiledMethod;
+		focusOnSourceCode
 !
 
 unregister
@@ -57,6 +72,21 @@ registerBindingsOn: aBindingGroup
 	HLToolCommand 
 		registerConcreteClassesOn: aBindingGroup 
 		for: self model
+! !
+
+!HLBrowser methodsFor: 'reactions'!
+
+onClassSelected: anAnnouncement
+	anAnnouncement item 
+		ifNil: [ self setTabLabel: (self model selectedPackage 
+			ifNil: [ self defaultTabLabel ]
+			ifNotNil: [ :package | package name ]) ] 
+		ifNotNil: [ :item | self setTabLabel: item name ]
+!
+
+onPackageSelected: anAnnouncement
+	anAnnouncement item ifNotNil: [ :item |
+	self setTabLabel: item name ]
 ! !
 
 !HLBrowser methodsFor: 'rendering'!
@@ -315,7 +345,7 @@ isBrowserModel
 	^ true
 ! !
 
-!HLBrowserModel class methodsFor: 'actions'!
+!HLBrowserModel class methodsFor: 'instance creation'!
 
 on: anEnvironment
 
@@ -547,8 +577,10 @@ onClassAdded: anAnnouncement
 	(class package = self model selectedPackage or: [
 		self items includes: class ]) ifFalse: [ ^ self ].
     
-    self setItemsForSelectedPackage.
-    self refresh
+    self 
+		setItemsForSelectedPackage;
+		refresh;
+		focus
 !
 
 onClassCommentChanged: anAnnouncement
@@ -557,7 +589,9 @@ onClassCommentChanged: anAnnouncement
 
 	class package = self model selectedPackage ifFalse: [ ^ self ].
     
-    self refresh
+    self 
+		refresh;
+		focus
 !
 
 onClassMigrated: anAnnouncement
@@ -572,7 +606,9 @@ onClassMigrated: anAnnouncement
 		self model selectedClass: class ].
     
     self setItemsForSelectedPackage.
-    self refresh
+    self 
+		refresh;
+		focus
 !
 
 onClassMoved: anAnnouncement
@@ -591,7 +627,9 @@ onClassMoved: anAnnouncement
 			selectItem: nil ].
     
     self setItemsForSelectedPackage.
-    self refresh
+    self 	
+		refresh;
+		focus
 !
 
 onClassRemoved: anAnnouncement
@@ -600,16 +638,22 @@ onClassRemoved: anAnnouncement
 
 	class package = self model selectedPackage ifFalse: [ ^ self ].
     
-	self selectItem: nil.
+	self 
+		selectItem: nil;
+		selectedItem: nil.
     self setItemsForSelectedPackage.
-    self refresh
+    self 
+		refresh;
+		focus
 !
 
 onClassRenamed: anAnnouncement
 	anAnnouncement theClass package = self model selectedPackage ifFalse: [ ^ self ].
     
     self setItemsForSelectedPackage.
-    self refresh
+    self 
+		refresh;
+		focus
 !
 
 onClassSelected: anAnnouncement
@@ -1067,7 +1111,9 @@ onMethodRemoved: anAnnouncement
 				selectItem: nil ] ].
 
     self setItemsForSelectedProtocol.
-	self refresh
+	self 
+		refresh;
+		focus
 !
 
 onMethodSelected: anAnnouncement
@@ -1156,7 +1202,9 @@ I render a list of the system packages.!
 !HLPackagesListWidget methodsFor: 'accessing'!
 
 cssClassForItem: anItem	
-	^ 'package'
+	^ anItem isDirty 
+		ifTrue: [ 'package_dirty' ]
+		ifFalse: [ 'package' ]
 !
 
 items
@@ -1193,7 +1241,17 @@ observeSystem
 	self model systemAnnouncer
 		on: PackageAdded
 		send: #onPackageAdded:
-		to: self
+		to: self.
+		
+	self model systemAnnouncer
+		on: PackageClean
+		send: #onPackageStateChanged
+		to: self.
+		
+	self model systemAnnouncer
+		on: PackageDirty
+		send: #onPackageStateChanged
+		to: self.
 !
 
 reselectItem: anItem
@@ -1239,6 +1297,10 @@ onPackageSelected: anAnnouncement
 		self
 			activateItem: package;
 			focus ]
+!
+
+onPackageStateChanged
+	self refresh
 !
 
 onPackagesFocusRequested

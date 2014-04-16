@@ -51,7 +51,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.Counter.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.Counter.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@count"]=(0);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Counter)})},
 args: [],

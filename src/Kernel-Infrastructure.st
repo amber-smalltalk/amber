@@ -74,6 +74,10 @@ confirm: aString
 
 prompt: aString
 	^ PlatformInterface prompt: aString
+!
+
+prompt: aString default: defaultString
+	^ PlatformInterface prompt: aString default: defaultString
 ! !
 
 InterfacingObject subclass: #Environment
@@ -168,6 +172,9 @@ moveMethod: aMethod toClass: aClassName
 	destinationClass := self classNamed: aClassName.
 	destinationClass == aMethod methodClass ifTrue: [ ^ self ].
 	
+	aMethod methodClass isMetaclass ifTrue: [ 
+		destinationClass := destinationClass class ].
+	
 	destinationClass 
 		compile: aMethod source
 		protocol: aMethod protocol.
@@ -223,7 +230,7 @@ compileClassComment: aString for: aClass
 !
 
 compileClassDefinition: aString
-	[ self eval: aString on: DoIt new ]
+	[ self evaluate: aString for: DoIt new ]
 		on: Error
 		do: [ :error | self alert: error messageText ]
 !
@@ -239,7 +246,7 @@ compileMethod: sourceCode for: class protocol: protocol
 evaluate: aBlock on: anErrorClass do: exceptionBlock
 	"Evaluate a block and catch exceptions happening on the environment stack"
 	
-	self try: aBlock catch: [ :exception | 
+	aBlock tryCatch: [ :exception | 
 		(exception isKindOf: (self classNamed: anErrorClass name))
 			ifTrue: [ exceptionBlock value: exception ]
  			ifFalse: [ exception signal ] ]
@@ -247,26 +254,8 @@ evaluate: aBlock on: anErrorClass do: exceptionBlock
 
 !Environment methodsFor: 'evaluating'!
 
-eval: aString on: aReceiver
-	| compiler |
-	compiler := Compiler new.
-	[ compiler parseExpression: aString ] on: Error do: [ :ex |
-		^ self alert: ex messageText ].
-	^ compiler evaluateExpression: aString on: aReceiver
-!
-
-interpret: aString inContext: anAIContext
-	"Similar to #eval:on:, with the following differences:
-	- instead of compiling and running `aString`, `aString` is interpreted using an `ASTInterpreter`
-	- instead of evaluating against a receiver, evaluate in the context of `anAIContext`"
-
-	| compiler ast |
-	compiler := Compiler new.
-	[ ast := compiler parseExpression: aString ] on: Error do: [ :ex |
-		^ self alert: ex messageText ].
-	(SemanticAnalyzer on: anAIContext receiver class)
-		visit: ast.
-	^ anAIContext evaluateNode: ast
+evaluate: aString for: anObject
+	^ Evaluator evaluate: aString for: anObject
 ! !
 
 !Environment methodsFor: 'services'!
@@ -537,7 +526,7 @@ Organizer subclass: #PackageOrganizer
 I am an organizer specific to packages. I hold classes categorization information.!
 
 Object subclass: #Package
-	instanceVariableNames: 'transport'
+	instanceVariableNames: 'transport dirty'
 	package: 'Kernel-Infrastructure'!
 !Package commentStamp!
 I am similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
@@ -559,10 +548,20 @@ You can fetch a package from the server:
 
 !Package methodsFor: 'accessing'!
 
-basicTransport
-	"Answer the transport literal JavaScript object as setup in the JavaScript file, if any"
+beClean
+	dirty := false.
 	
-	<return self.transport>
+	SystemAnnouncer current announce: (PackageClean new
+		package: self;
+		yourself)
+!
+
+beDirty
+	dirty := true.
+	
+	SystemAnnouncer current announce: (PackageClean new
+		package: self;
+		yourself)
 !
 
 classTemplate
@@ -596,7 +595,8 @@ name
 !
 
 name: aString
-	<self.pkgName = aString>
+	self basicName: aString.
+	self beDirty
 !
 
 organization
@@ -669,7 +669,23 @@ printOn: aStream
 		nextPutAll: ')'
 ! !
 
+!Package methodsFor: 'private'!
+
+basicName: aString
+	<self.pkgName = aString>
+!
+
+basicTransport
+	"Answer the transport literal JavaScript object as setup in the JavaScript file, if any"
+	
+	<return self.transport>
+! !
+
 !Package methodsFor: 'testing'!
+
+isDirty
+	^ dirty ifNil: [ false ]
+!
 
 isPackage
 	^ true
@@ -724,6 +740,72 @@ sortedClasses: classes
 	nodes do: [ :aNode |
 		aNode traverseClassesWith: expandedClasses ].
 	^ expandedClasses
+! !
+
+Object subclass: #PackageStateObserver
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!PackageStateObserver commentStamp!
+My current instance listens for any changes in the system that might affect the state of a package (being dirty).!
+
+!PackageStateObserver methodsFor: 'accessing'!
+
+announcer
+	^ SystemAnnouncer current
+! !
+
+!PackageStateObserver methodsFor: 'actions'!
+
+observeSystem
+	self announcer
+		on: PackageAdded
+		send: #onPackageAdded:
+		to: self;
+		
+		on: ClassAnnouncement
+		send: #onClassModification:
+		to: self;
+		
+		on: MethodAnnouncement
+		send: #onMethodModification:
+		to: self;
+		
+		on: ProtocolAnnouncement
+		send: #onProtocolModification:
+		to: self
+! !
+
+!PackageStateObserver methodsFor: 'reactions'!
+
+onClassModification: anAnnouncement
+	anAnnouncement theClass ifNotNil: [ :theClass |
+		theClass package beDirty ]
+!
+
+onMethodModification: anAnnouncement
+	anAnnouncement method package ifNotNil: [ :package | package beDirty ]
+!
+
+onPackageAdded: anAnnouncement
+	anAnnouncement package beDirty
+!
+
+onProtocolModification: anAnnouncement
+	anAnnouncement theClass package beDirty
+! !
+
+PackageStateObserver class instanceVariableNames: 'current'!
+
+!PackageStateObserver class methodsFor: 'accessing'!
+
+current
+	^ current ifNil: [ current := self new ]
+! !
+
+!PackageStateObserver class methodsFor: 'initialization'!
+
+initialize
+	self current observeSystem
 ! !
 
 Object subclass: #PlatformInterface
@@ -785,6 +867,12 @@ existsGlobal: aString
 prompt: aString
 	^ worker
 		ifNotNil: [ worker prompt: aString ]
+		ifNil: [ self error: 'prompt: not available' ]
+!
+
+prompt: aString default: defaultString
+	^ worker
+		ifNotNil: [ worker prompt: aString default: defaultString ]
 		ifNil: [ self error: 'prompt: not available' ]
 ! !
 
@@ -849,7 +937,13 @@ Registered service instances must implement `#handleError:` to perform an action
 !ErrorHandler class methodsFor: 'error handling'!
 
 handleError: anError
-	self current handleError: anError
+	self handleUnhandledError: anError
+!
+
+handleUnhandledError: anError
+	anError wasHandled ifTrue: [ ^ self ].
+	
+	^ self current handleError: anError
 ! !
 
 Service subclass: #Finder
@@ -1065,9 +1159,8 @@ includesKey: aKey
 parse: aString
 	| result |
 	
-	self 
-		try: [ result := self basicParse: aString ] 
-		catch: [ :ex | (self parseError: ex parsing: aString) signal ].
+	[ result := self basicParse: aString ] 
+		tryCatch: [ :ex | (self parseError: ex parsing: aString) signal ].
 		
 	^ result
 		source: aString;
@@ -1169,6 +1262,7 @@ createPackage: packageName
 	| package announcement |
 	
 	package := self basicCreatePackage: packageName.
+	
 	announcement := PackageAdded new
 		package: package;
 		yourself.

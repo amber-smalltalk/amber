@@ -1049,9 +1049,9 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self["@theClass"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st($Smalltalk())._removeClass_(self["@theClass"]);
@@ -2780,7 +2780,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
-globals.AssociativeCollectionTest.superclass.fn.prototype._testAddAll.apply(_st(self), []);
+($ctx1.supercall = true, globals.AssociativeCollectionTest.superclass.fn.prototype._testAddAll.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $3=$2;
@@ -2865,7 +2866,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
-globals.AssociativeCollectionTest.superclass.fn.prototype._testComma.apply(_st(self), []);
+($ctx1.supercall = true, globals.AssociativeCollectionTest.superclass.fn.prototype._testComma.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $3=self._collection();
@@ -3338,7 +3340,8 @@ protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.DictionaryTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]);
+($ctx1.supercall = true, globals.DictionaryTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
+$ctx1.supercall = false;
 _st(aBlock)._value_value_(true,(3));
 $ctx1.sendIdx["value:value:"]=1;
 _st(aBlock)._value_value_((1).__at((3)),(-4));
@@ -4209,7 +4212,8 @@ protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.ArrayTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]);
+($ctx1.supercall = true, globals.ArrayTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
+$ctx1.supercall = false;
 _st(aBlock)._value_value_((3),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.ArrayTest)})},
 args: ["aBlock"],
@@ -4618,7 +4622,8 @@ protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.StringTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]);
+($ctx1.supercall = true, globals.StringTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
+$ctx1.supercall = false;
 _st(aBlock)._value_value_((3),"l");
 return self}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.StringTest)})},
 args: ["aBlock"],
@@ -5346,7 +5351,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
-globals.SetTest.superclass.fn.prototype._testAddAll.apply(_st(self), []);
+($ctx1.supercall = true, globals.SetTest.superclass.fn.prototype._testAddAll.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $3=$2;
@@ -5451,7 +5457,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-globals.SetTest.superclass.fn.prototype._testCollect.apply(_st(self), []);
+($ctx1.supercall = true, globals.SetTest.superclass.fn.prototype._testCollect.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=[(5), (6), (8)]._asSet();
 $ctx1.sendIdx["asSet"]=1;
 $1=_st($2)._collect_((function(x){
@@ -5475,7 +5482,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
-globals.SetTest.superclass.fn.prototype._testComma.apply(_st(self), []);
+($ctx1.supercall = true, globals.SetTest.superclass.fn.prototype._testComma.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $3=self._collection();
@@ -7818,7 +7826,7 @@ fn: function (){
 var self=this;
 function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$5,$4,$3,$7,$6,$9,$8,$11,$10;
+var $2,$1,$5,$4,$3,$7,$6,$9,$8,$11,$10,$receiver;
 $2=_st($Object())._new();
 $ctx1.sendIdx["new"]=1;
 $1=_st($2)._isNil();
@@ -7826,7 +7834,7 @@ self._deny_($1);
 $ctx1.sendIdx["deny:"]=1;
 $5=_st($Object())._new();
 $ctx1.sendIdx["new"]=2;
-if(($receiver = $5) == nil || $receiver == null){
+if(($receiver = $5) == null || $receiver.isNil){
 $4=true;
 } else {
 $4=$5;
@@ -7835,7 +7843,7 @@ $3=_st($4).__eq(true);
 self._deny_($3);
 $7=_st($Object())._new();
 $ctx1.sendIdx["new"]=3;
-if(($receiver = $7) == nil || $receiver == null){
+if(($receiver = $7) == null || $receiver.isNil){
 $6=$7;
 } else {
 $6=true;
@@ -7844,7 +7852,7 @@ self._assert_equals_($6,true);
 $ctx1.sendIdx["assert:equals:"]=1;
 $9=_st($Object())._new();
 $ctx1.sendIdx["new"]=4;
-if(($receiver = $9) == nil || $receiver == null){
+if(($receiver = $9) == null || $receiver.isNil){
 $8=false;
 } else {
 $8=true;
@@ -7852,7 +7860,7 @@ $8=true;
 self._assert_equals_($8,true);
 $ctx1.sendIdx["assert:equals:"]=2;
 $11=_st($Object())._new();
-if(($receiver = $11) == nil || $receiver == null){
+if(($receiver = $11) == null || $receiver.isNil){
 $10=false;
 } else {
 $10=true;
@@ -8832,15 +8840,15 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4,$6,$5;
-if(($receiver = nil) == nil || $receiver == null){
+var $1,$3,$2,$4,$6,$5,$receiver;
+if(($receiver = nil) == null || $receiver.isNil){
 $1=true;
 } else {
 $1=nil;
 };
 self._assert_equals_($1,true);
 $ctx1.sendIdx["assert:equals:"]=1;
-if(($receiver = nil) == nil || $receiver == null){
+if(($receiver = nil) == null || $receiver.isNil){
 $3=nil;
 } else {
 $3=true;
@@ -8849,13 +8857,13 @@ $2=_st($3).__eq(true);
 $ctx1.sendIdx["="]=1;
 self._deny_($2);
 $ctx1.sendIdx["deny:"]=1;
-if(($receiver = nil) == nil || $receiver == null){
+if(($receiver = nil) == null || $receiver.isNil){
 $4=true;
 } else {
 $4=false;
 };
 self._assert_equals_($4,true);
-if(($receiver = nil) == nil || $receiver == null){
+if(($receiver = nil) == null || $receiver.isNil){
 $6=false;
 } else {
 $6=true;

@@ -159,7 +159,7 @@ handleError: anError
 	[ Debugger new
 		error: anError;
 		open ] on: Error do: [ :error |
-			ErrorHandler new handleError: error ]
+			ConsoleErrorHandler new handleError: error ]
 ! !
 
 !DebugErrorHandler class methodsFor: 'initialization'!

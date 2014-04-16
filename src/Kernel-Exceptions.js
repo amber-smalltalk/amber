@@ -6,6 +6,38 @@ smalltalk.addClass('Error', globals.Object, ['messageText'], 'Kernel-Exceptions'
 globals.Error.comment="From the ANSI standard:\x0a\x0aThis protocol describes the behavior of instances of class `Error`.\x0aThese are used to represent error conditions that prevent the normal continuation of processing.\x0aActual error exceptions used by an application may be subclasses of this class.\x0aAs `Error` is explicitly specified to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.";
 smalltalk.addMethod(
 smalltalk.method({
+selector: "beHandled",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self.amberHandled = true;
+return self}, function($ctx1) {$ctx1.fill(self,"beHandled",{},globals.Error)})},
+args: [],
+source: "beHandled\x0a\x09<self.amberHandled = true>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Error);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "beUnhandled",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self.amberHandled = false;
+return self}, function($ctx1) {$ctx1.fill(self,"beUnhandled",{},globals.Error)})},
+args: [],
+source: "beUnhandled\x0a\x09<self.amberHandled = false>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Error);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "context",
 protocol: 'accessing',
 fn: function (){
@@ -107,10 +139,13 @@ protocol: 'signaling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-throw(self);
+
+		self.amberHandled = false;
+		throw(self);
+	;
 return self}, function($ctx1) {$ctx1.fill(self,"resignal",{},globals.Error)})},
 args: [],
-source: "resignal\x0a\x09\x22Resignal the receiver without changing its exception context\x22\x0a\x09\x0a\x09<throw(self)>",
+source: "resignal\x0a\x09\x22Resignal the receiver without changing its exception context\x22\x0a\x09\x0a\x09<\x0a\x09\x09self.amberHandled = false;\x0a\x09\x09throw(self);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -123,10 +158,14 @@ protocol: 'signaling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self);
+
+		self.amberHandled = false;
+		self.context = smalltalk.getThisContext(); 
+		self.smalltalkError = true; throw(self)
+	;
 return self}, function($ctx1) {$ctx1.fill(self,"signal",{},globals.Error)})},
 args: [],
-source: "signal\x0a\x09<self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self)>",
+source: "signal\x0a\x09<\x0a\x09\x09self.amberHandled = false;\x0a\x09\x09self.context = smalltalk.getThisContext(); \x0a\x09\x09self.smalltalkError = true; throw(self)\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -145,6 +184,69 @@ return self}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},globa
 args: ["aString"],
 source: "signal: aString\x0a\x09self messageText: aString.\x0a\x09self signal",
 messageSends: ["messageText:", "signal"],
+referencedClasses: []
+}),
+globals.Error);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "signalerContext",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._signalerContextFrom_(self._context());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"signalerContext",{},globals.Error)})},
+args: [],
+source: "signalerContext\x0a\x09^ self signalerContextFrom: self context",
+messageSends: ["signalerContextFrom:", "context"],
+referencedClasses: []
+}),
+globals.Error);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "signalerContextFrom:",
+protocol: 'accessing',
+fn: function (aContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $4,$3,$2,$1;
+$1=_st(aContext)._findContextSuchThat_((function(context){
+return smalltalk.withContext(function($ctx2) {
+$4=_st(context)._receiver();
+$ctx2.sendIdx["receiver"]=1;
+$3=_st($4).__eq_eq(self);
+$ctx2.sendIdx["=="]=1;
+$2=_st($3)._or_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(context)._receiver()).__eq_eq(self._class());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+return _st($2)._not();
+}, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},globals.Error)})},
+args: ["aContext"],
+source: "signalerContextFrom: aContext\x0a\x09\x22Find the first sender of signal(:), the first context which is neither \x0a\x09for an instance method nor for a class side method of Exception (or subclass).\x0a\x09This will make sure that the same context is found for both, `Error signal` \x0a\x09and `Error new signal`\x22\x0a\x0a\x09^ aContext findContextSuchThat: [ :context |\x0a\x09\x09(context receiver == self \x0a\x09\x09or: [ context receiver == self class ]) not ]",
+messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class"],
+referencedClasses: []
+}),
+globals.Error);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "wasHandled",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.amberHandled || false;
+return self}, function($ctx1) {$ctx1.fill(self,"wasHandled",{},globals.Error)})},
+args: [],
+source: "wasHandled\x0a\x09<return self.amberHandled || false>",
+messageSends: [],
 referencedClasses: []
 }),
 globals.Error);
@@ -200,6 +302,58 @@ messageSends: ["signal:", "new"],
 referencedClasses: []
 }),
 globals.Error.klass);
+
+
+smalltalk.addClass('Halt', globals.Error, [], 'Kernel-Exceptions');
+globals.Halt.comment="I am provided to support `Object>>#halt`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "messageText",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "Halt encountered";
+},
+args: [],
+source: "messageText\x0a\x09^ 'Halt encountered'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Halt);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "signalerContextFrom:",
+protocol: 'accessing',
+fn: function (aContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $4,$3,$2,$1;
+$1=_st(aContext)._findContextSuchThat_((function(context){
+return smalltalk.withContext(function($ctx2) {
+$4=_st(context)._receiver();
+$ctx2.sendIdx["receiver"]=1;
+$3=_st($4).__eq_eq(self);
+$ctx2.sendIdx["=="]=1;
+$2=_st($3)._or_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(_st(context)._receiver()).__eq_eq(self._class()))._or_((function(){
+return smalltalk.withContext(function($ctx4) {
+return _st(_st(_st(context)._method())._selector()).__eq("halt");
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+$ctx2.sendIdx["or:"]=1;
+return _st($2)._not();
+}, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},globals.Halt)})},
+args: ["aContext"],
+source: "signalerContextFrom: aContext\x0a\x09\x22specialized version to find the proper context to open the debugger on.\x0a\x09This will find the first context whose method is no longer on `Halt` or \x0a\x09`Halt class` nor is `#halt` method itself.\x22\x0a\x09\x0a\x09^ aContext findContextSuchThat: [ :context |\x0a\x09\x09(context receiver == self \x0a\x09\x09or: [ (context receiver == self class) \x0a\x09\x09or: [ context method selector = #halt ]]) not ]",
+messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class", "=", "selector", "method"],
+referencedClasses: []
+}),
+globals.Halt);
+
 
 
 smalltalk.addClass('JavaScriptException', globals.Error, ['exception'], 'Kernel-Exceptions');

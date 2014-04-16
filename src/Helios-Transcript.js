@@ -1,6 +1,6 @@
-define("amber_core/Helios-Transcript", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Helios-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Transcript", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Transcript');
-smalltalk.packages["Helios-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Transcript"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLTranscript', globals.HLWidget, ['textarea'], 'Helios-Transcript');
 globals.HLTranscript.comment="I am a widget responsible for displaying transcript contents.\x0a\x0a## Transcript API\x0a\x0a    Transcript \x0a        show: 'hello world';\x0a        cr;\x0a        show: anObject.\x0a\x0a    Transcript clear.\x0a\x0aSee the `Transcript` service class.";
@@ -27,7 +27,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLTranscript.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLTranscript.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._register();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HLTranscript)})},
 args: [],
@@ -84,9 +85,9 @@ protocol: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self["@textarea"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(_st(self["@textarea"])._asJQuery())._append_(_st(aString)._asString());
@@ -107,7 +108,8 @@ fn: function (){
 var self=this;
 function $HLTranscriptHandler(){return globals.HLTranscriptHandler||(typeof HLTranscriptHandler=="undefined"?nil:HLTranscriptHandler)}
 return smalltalk.withContext(function($ctx1) { 
-globals.HLTranscript.superclass.fn.prototype._unregister.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLTranscript.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
 _st($HLTranscriptHandler())._unregister_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLTranscript)})},
 args: [],
@@ -204,9 +206,9 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@transcripts"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@transcripts"]=_st($OrderedCollection())._new();
 $1=self["@transcripts"];
 } else {

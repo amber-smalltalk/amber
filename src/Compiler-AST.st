@@ -478,6 +478,13 @@ sendIndexes: aDictionary
 	sendIndexes := aDictionary
 !
 
+sequenceNode
+	self nodes do: [ :each |
+		each isSequenceNode ifTrue: [ ^ each ] ].
+		
+	^ nil
+!
+
 source
 	^ source
 !
@@ -645,8 +652,10 @@ shouldBeAliased
 	
 	sends := (self method sendIndexes at: self selector) size.
 	
-	^ super shouldBeAliased or: [
-		(sends > 1 and: [ self index < sends ]) and: [ self isReferenced ] ]
+	^ (super shouldBeAliased or: [
+		self isReferenced and: [
+			(sends > 1 and: [ self index < sends ])
+				or: [ self superSend ] ] ])
 !
 
 stopOnStepping

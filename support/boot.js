@@ -93,7 +93,7 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 	}
 
 	var globals = {};
-    globals.SmalltalkSettings = {};
+	globals.SmalltalkSettings = {};
 	var api = Object.create(globals);
 	var brikz = new Brikz(api);
 
@@ -113,6 +113,16 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 
 		this.Object = SmalltalkObject;
 		this.nil = new SmalltalkNil();
+
+		// Adds an `isNil` property to the `nil` object.  When sending
+		// nil objects from one environment to another, doing
+		// `anObject == nil` (in JavaScript) does not always answer
+		// true as the referenced nil object might come from the other
+		// environment.
+		Object.defineProperty(this.nil, 'isNil', {
+			value: true,
+			enumerable: false, configurable: false, writable: false
+		});
 
 		// Hidden root class of the system.
 		this.rootAsClass = {fn: SmalltalkRoot};
@@ -610,11 +620,19 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 
 			propagateMethodChange(klass);
 
-			for(var i=0; i<method.messageSends.length; i++) {
-				var dnuHandler = dnu.get(method.messageSends[i]);
-				if(stInit.initialized()) {
-					installNewDnuHandler(dnuHandler);
-				}
+			var usedSelectors = method.messageSends;
+			var dnuHandlers = [];
+
+			dnuHandlers.push(dnu.get(method.selector));
+
+			for(var i=0; i<usedSelectors.length; i++) {
+				dnuHandlers.push(dnu.get(usedSelectors[i]));
+			}
+
+			if(stInit.initialized()) {
+				dnuHandlers.forEach(function(each) {
+					installNewDnuHandler(each);
+				});
 			}
 		};
 
@@ -816,6 +834,8 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 			this.sendIdx     = {};
 			this.homeContext = home;
 			this.setup       = setup || function() {};
+
+			this.supercall = false;
 		}
 
 		inherits(SmalltalkMethodContext, SmalltalkObject);
@@ -882,6 +902,7 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 					handleError(error);
 					st.thisContext = null;
 					// Rethrow the error in any case.
+					error.amberHandled = true;
 					throw error;
 				}
 			}

@@ -98,9 +98,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 $1=self["@nodes"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self["@nodes"]=self._getNodes();
 self["@nodes"];
 } else {
@@ -453,7 +453,7 @@ fn: function (anError){
 var self=this;
 function $Debugger(){return globals.Debugger||(typeof Debugger=="undefined"?nil:Debugger)}
 function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
-function $ErrorHandler(){return globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+function $ConsoleErrorHandler(){return globals.ConsoleErrorHandler||(typeof ConsoleErrorHandler=="undefined"?nil:ConsoleErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 _st((function(){
@@ -465,13 +465,13 @@ $2=_st($1)._open();
 return $2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(error){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($ErrorHandler())._new())._handleError_(error);
+return _st(_st($ConsoleErrorHandler())._new())._handleError_(error);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.DebugErrorHandler)})},
 args: ["anError"],
-source: "handleError: anError\x0a\x09[ Debugger new\x0a\x09\x09error: anError;\x0a\x09\x09open ] on: Error do: [ :error |\x0a\x09\x09\x09ErrorHandler new handleError: error ]",
+source: "handleError: anError\x0a\x09[ Debugger new\x0a\x09\x09error: anError;\x0a\x09\x09open ] on: Error do: [ :error |\x0a\x09\x09\x09ConsoleErrorHandler new handleError: error ]",
 messageSends: ["on:do:", "error:", "new", "open", "handleError:"],
-referencedClasses: ["Debugger", "Error", "ErrorHandler"]
+referencedClasses: ["Debugger", "Error", "ConsoleErrorHandler"]
 }),
 globals.DebugErrorHandler);
 
@@ -560,11 +560,11 @@ fn: function (){
 var self=this;
 var result;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 result=self._eval_(self._currentLineOrSelection());
 $1=self._onDoIt();
 $ctx1.sendIdx["onDoIt"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(self._onDoIt())._value();
@@ -858,9 +858,9 @@ fn: function (){
 var self=this;
 function $DoIt(){return globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@receiver"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=_st($DoIt())._new();
 } else {
 $1=$2;
@@ -1001,7 +1001,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.SourceArea.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.SourceArea.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._setupCodeMirror();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.SourceArea.klass)})},
 args: [],
@@ -1111,7 +1112,8 @@ function $Workspace(){return globals.Workspace||(typeof Workspace=="undefined"?n
 function $TestRunner(){return globals.TestRunner||(typeof TestRunner=="undefined"?nil:TestRunner)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6,$7;
-globals.TabManager.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.TabManager.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 _st($Inspector())._register_($IDEInspector());
 self["@opened"]=true;
 $1=(function(html){
@@ -1550,9 +1552,9 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@tabs"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@tabs"]=_st($Array())._new();
 $1=self["@tabs"];
 } else {
@@ -1628,10 +1630,11 @@ protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@current"]=globals.TabManager.klass.superclass.fn.prototype._new.apply(_st(self), []);
+if(($receiver = $2) == null || $receiver.isNil){
+self["@current"]=($ctx1.supercall = true, globals.TabManager.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self["@current"];
 } else {
 $1=$2;
@@ -2084,10 +2087,10 @@ var self=this;
 var stream;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$6,$7,$5,$8,$9,$10,$11,$12,$13;
+var $1,$2,$3,$4,$6,$7,$5,$8,$9,$10,$11,$12,$13,$receiver;
 stream=""._writeStream();
 $1=self["@selectedClass"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $2=self._classDeclarationTemplate();
 return $2;
 } else {
@@ -2195,9 +2198,9 @@ fn: function (){
 var self=this;
 function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self["@selectedPackage"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(_st($Package())._named_(self["@selectedPackage"]))._commit();
@@ -2218,7 +2221,7 @@ fn: function (){
 var self=this;
 var currentEditLine;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4;
+var $1,$2,$3,$5,$4,$receiver;
 self._disableSaveButton();
 $1=_st(self["@sourceArea"])._editor();
 $ctx1.sendIdx["editor"]=1;
@@ -2226,7 +2229,7 @@ currentEditLine=_st($1)._getCursor();
 $2=_st(self["@selectedTab"]).__eq("comment");
 if(smalltalk.assert($2)){
 $3=self["@selectedClass"];
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $3;
 } else {
 self._compileClassComment();
@@ -2326,12 +2329,12 @@ function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:
 function $PlatformInterface(){return globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$6,$5,$4,$3,$7,$9,$8,$10;
+var $1,$2,$6,$5,$4,$3,$7,$9,$8,$10,$receiver;
 var $early={};
 try {
 source=_st(self["@sourceArea"])._val();
 $1=self["@selectedProtocol"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self["@selectedProtocol"]=_st(self["@selectedMethod"])._protocol();
 self["@selectedProtocol"];
 } else {
@@ -2442,9 +2445,9 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self["@saveButton"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(self["@saveButton"])._at_put_("disabled",true);
@@ -2535,7 +2538,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.Browser.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.Browser.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@selectedTab"]="instance";
 self["@selectedPackage"]=_st(self._packages())._first();
 self["@unsavedChanges"]=false;
@@ -2554,9 +2558,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@selectedClass"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="Browser (nil)";
 } else {
 $1="Browser: ".__comma(_st(self["@selectedClass"])._name());
@@ -2578,10 +2582,10 @@ fn: function (){
 var self=this;
 var stream;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3,$4,$receiver;
 stream=""._writeStream();
 $1=self["@selectedClass"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 $2=stream;
@@ -2620,9 +2624,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@selectedMethod"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._dummyMethodSource();
 } else {
 $1=_st(self["@selectedMethod"])._source();
@@ -2644,7 +2648,7 @@ fn: function (){
 var self=this;
 var klass;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$7,$8,$6,$9,$5;
+var $1,$2,$3,$4,$7,$8,$6,$9,$5,$receiver;
 $1=_st(self["@selectedTab"]).__eq("comment");
 $ctx1.sendIdx["="]=1;
 if(smalltalk.assert($1)){
@@ -2652,7 +2656,7 @@ $2=[];
 return $2;
 };
 $3=self["@selectedClass"];
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $3;
 } else {
 $4=_st(self["@selectedTab"]).__eq("instance");
@@ -2664,9 +2668,9 @@ klass=_st(self["@selectedClass"])._class();
 klass;
 };
 $7=self["@selectedProtocol"];
-if(($receiver = $7) == nil || $receiver == null){
+if(($receiver = $7) == null || $receiver.isNil){
 $8=klass;
-if(($receiver = $8) == nil || $receiver == null){
+if(($receiver = $8) == null || $receiver.isNil){
 $6=[];
 } else {
 $6=_st(_st(klass)._methodDictionary())._values();
@@ -2730,9 +2734,9 @@ var self=this;
 var klass;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8;
+var $1,$2,$3,$4,$5,$6,$7,$8,$receiver;
 $1=self["@selectedClass"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 $2=_st(self["@selectedTab"]).__eq("comment");
@@ -2884,10 +2888,10 @@ var self=this;
 var newName;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 newName=self._prompt_("Rename package ".__comma(self["@selectedPackage"]));
 $1=newName;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 $2=_st(newName)._notEmpty();
@@ -3445,7 +3449,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2,$6,$5;
+var $1,$4,$3,$2,$6,$5,$receiver;
 $1=_st(self["@selectedTab"]).__eq("comment");
 if(! smalltalk.assert($1)){
 $4=_st(self["@selectedProtocol"])._notNil();
@@ -3462,7 +3466,7 @@ $2=self._declarationSource();
 return $2;
 };
 $6=self["@selectedClass"];
-if(($receiver = $6) == nil || $receiver == null){
+if(($receiver = $6) == null || $receiver.isNil){
 $5="";
 } else {
 $5=self._classCommentSource();
@@ -3816,11 +3820,11 @@ protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver;
 $1=_st(_st(self["@sourceArea"])._val()).__eq(self._source());
 if(smalltalk.assert($1)){
 $2=self["@saveButton"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $2;
 } else {
 _st(self["@saveButton"])._at_put_("disabled",true);
@@ -3829,7 +3833,7 @@ self["@unsavedChanges"]=false;
 self["@unsavedChanges"];
 } else {
 $3=self["@saveButton"];
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $3;
 } else {
 _st(self["@saveButton"])._removeAt_("disabled");
@@ -4094,7 +4098,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.Debugger.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.Debugger.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 _st(self["@unsavedChanges"]).__eq(false);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Debugger)})},
 args: [],
@@ -4331,7 +4336,7 @@ fn: function (aContext,html){
 var self=this;
 var li;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3,$4,$receiver;
 li=_st(html)._li();
 $1=_st(self["@selectedContext"]).__eq(aContext);
 if(smalltalk.assert($1)){
@@ -4345,7 +4350,7 @@ return self._selectContext_(aContext);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $4=_st(aContext)._outerContext();
 $ctx1.sendIdx["outerContext"]=1;
-if(($receiver = $4) == nil || $receiver == null){
+if(($receiver = $4) == null || $receiver.isNil){
 $4;
 } else {
 self._renderContext_on_(_st(aContext)._outerContext(),html);
@@ -4483,10 +4488,10 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._method();
 $ctx1.sendIdx["method"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="Method doesn't exist!";
 } else {
 $1=_st(self._method())._source();
@@ -4559,11 +4564,11 @@ protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver;
 $1=_st(_st(self["@sourceArea"])._val()).__eq(self._source());
 if(smalltalk.assert($1)){
 $2=self["@saveButton"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $2;
 } else {
 _st(self["@saveButton"])._at_put_("disabled",true);
@@ -4572,7 +4577,7 @@ self["@unsavedChanges"]=false;
 self["@unsavedChanges"];
 } else {
 $3=self["@saveButton"];
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $3;
 } else {
 _st(self["@saveButton"])._removeAt_("disabled");
@@ -4595,7 +4600,7 @@ protocol: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7;
+var $1,$2,$3,$4,$5,$6,$7,$receiver;
 _st(self["@ul2"])._contents_((function(html){
 var li;
 return smalltalk.withContext(function($ctx2) {
@@ -4634,7 +4639,7 @@ return _st(li)._class_("selected");
 }, function($ctx3) {$ctx3.fillBlock({key:key,value:value},$ctx2,4)})}));
 }, function($ctx2) {$ctx2.fillBlock({html:html,li:li},$ctx1,1)})}));
 $7=self["@selectedVariable"];
-if(($receiver = $7) == nil || $receiver == null){
+if(($receiver = $7) == null || $receiver.isNil){
 _st(self["@inspectButton"])._at_put_("disabled",true);
 } else {
 _st(self["@inspectButton"])._removeAt_("disabled");
@@ -4706,9 +4711,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@label"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="Inspector (nil)";
 } else {
 $1=$2;
@@ -5277,9 +5282,9 @@ protocol: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$receiver;
 $1=self["@textarea"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self._open();
 } else {
 $1;
@@ -5304,10 +5309,11 @@ protocol: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@current"]=globals.IDETranscript.klass.superclass.fn.prototype._new.apply(_st(self), []);
+if(($receiver = $2) == null || $receiver.isNil){
+self["@current"]=($ctx1.supercall = true, globals.IDETranscript.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self["@current"];
 } else {
 $1=$2;
@@ -5384,9 +5390,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@percent"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=(0);
 } else {
 $1=$2;
@@ -5529,9 +5535,9 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@implementors"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@implementors"]=_st($Array())._new();
 $1=self["@implementors"];
 } else {
@@ -5553,7 +5559,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.ReferencesBrowser.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.ReferencesBrowser.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@selector"]="";
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ReferencesBrowser)})},
 args: [],
@@ -5586,9 +5593,9 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@matches"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@matches"]=_st($Array())._new();
 $1=self["@matches"];
 } else {
@@ -5649,9 +5656,9 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@referencedClasses"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@referencedClasses"]=_st($Array())._new();
 $1=self["@referencedClasses"];
 } else {
@@ -5942,9 +5949,9 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@senders"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@senders"]=_st($Array())._new();
 $1=self["@senders"];
 } else {
@@ -5966,7 +5973,7 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
+var $1,$3,$2,$receiver;
 $1=self["@input"];
 _st($1)._onKeyUp_((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -5979,7 +5986,7 @@ return self["@timer"];
 $2=_st($1)._onKeyDown_((function(){
 return smalltalk.withContext(function($ctx2) {
 $3=self["@timer"];
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 return $3;
 } else {
 return _st(self["@timer"])._clearTimeout();
@@ -6275,7 +6282,8 @@ fn: function (){
 var self=this;
 function $TestResult(){return globals.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
 return smalltalk.withContext(function($ctx1) { 
-globals.TestRunner.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.TestRunner.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@result"]=_st($TestResult())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.TestRunner)})},
 args: [],
@@ -6475,9 +6483,9 @@ fn: function (){
 var self=this;
 function $ProgressBar(){return globals.ProgressBar||(typeof ProgressBar=="undefined"?nil:ProgressBar)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@progressBar"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@progressBar"]=_st($ProgressBar())._new();
 $1=self["@progressBar"];
 } else {
@@ -6754,9 +6762,9 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@selectedCategories"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@selectedCategories"]=_st($Array())._new();
 $1=self["@selectedCategories"];
 } else {
@@ -6779,9 +6787,9 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@selectedClasses"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@selectedClasses"]=_st($Array())._new();
 $1=self["@selectedClasses"];
 } else {
@@ -7218,7 +7226,8 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.Workspace.superclass.fn.prototype._show.apply(_st(self), []);
+($ctx1.supercall = true, globals.Workspace.superclass.fn.prototype._show.apply(_st(self), []));
+$ctx1.supercall = false;
 _st(self["@sourceArea"])._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"show",{},globals.Workspace)})},
 args: [],
@@ -7395,7 +7404,8 @@ var self=this;
 var label;
 return smalltalk.withContext(function($ctx1) { 
 var $3,$2,$1,$5,$4;
-globals.String.superclass.fn.prototype._inspectOn_.apply(_st(self), [anInspector]);
+($ctx1.supercall = true, globals.String.superclass.fn.prototype._inspectOn_.apply(_st(self), [anInspector]));
+$ctx1.supercall = false;
 $3=self._printString();
 $ctx1.sendIdx["printString"]=1;
 $2=_st($3)._size();

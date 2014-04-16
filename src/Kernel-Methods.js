@@ -222,7 +222,7 @@ var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$1=self._try_catch_(self,(function(error){
+$1=self._tryCatch_((function(error){
 var smalltalkError;
 return smalltalk.withContext(function($ctx2) {
 smalltalkError=_st($Smalltalk())._asSmalltalkException_(error);
@@ -237,8 +237,8 @@ return _st(smalltalkError)._resignal();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:do:",{anErrorClass:anErrorClass,aBlock:aBlock},globals.BlockClosure)})},
 args: ["anErrorClass", "aBlock"],
-source: "on: anErrorClass do: aBlock\x0a\x09\x22All exceptions thrown in the Smalltalk stack are cought.\x0a\x09Convert all JS exceptions to JavaScriptException instances.\x22\x0a\x09\x0a\x09^ self try: self catch: [ :error | | smalltalkError |\x0a\x09\x09smalltalkError := Smalltalk asSmalltalkException: error.\x0a\x09\x09(smalltalkError isKindOf: anErrorClass)\x0a\x09\x09ifTrue: [ aBlock value: smalltalkError ]\x0a\x09\x09ifFalse: [ smalltalkError resignal ] ]",
-messageSends: ["try:catch:", "asSmalltalkException:", "ifTrue:ifFalse:", "isKindOf:", "value:", "resignal"],
+source: "on: anErrorClass do: aBlock\x0a\x09\x22All exceptions thrown in the Smalltalk stack are cought.\x0a\x09Convert all JS exceptions to JavaScriptException instances.\x22\x0a\x09\x0a\x09^ self tryCatch: [ :error | | smalltalkError |\x0a\x09\x09smalltalkError := Smalltalk asSmalltalkException: error.\x0a\x09\x09(smalltalkError isKindOf: anErrorClass)\x0a\x09\x09ifTrue: [ aBlock value: smalltalkError ]\x0a\x09\x09ifFalse: [ smalltalkError resignal ] ]",
+messageSends: ["tryCatch:", "asSmalltalkException:", "ifTrue:ifFalse:", "isKindOf:", "value:", "resignal"],
 referencedClasses: ["Smalltalk"]
 }),
 globals.BlockClosure);
@@ -274,6 +274,28 @@ args: [],
 source: "timeToRun\x0a\x09\x22Answer the number of milliseconds taken to execute this block.\x22\x0a\x0a\x09^ Date millisecondsToRun: self",
 messageSends: ["millisecondsToRun:"],
 referencedClasses: ["Date"]
+}),
+globals.BlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tryCatch:",
+protocol: 'error handling',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		try {
+			return self._value();
+		} catch(error) {
+			return aBlock._value_(error);
+		}
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"tryCatch:",{aBlock:aBlock},globals.BlockClosure)})},
+args: ["aBlock"],
+source: "tryCatch: aBlock\x0a\x09<\x0a\x09\x09try {\x0a\x09\x09\x09return self._value();\x0a\x09\x09} catch(error) {\x0a\x09\x09\x09return aBlock._value_(error);\x0a\x09\x09}\x0a\x09>",
+messageSends: [],
+referencedClasses: []
 }),
 globals.BlockClosure);
 
@@ -618,13 +640,13 @@ fn: function (){
 var self=this;
 var superclass;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver;
 $1=self._methodClass();
 $ctx1.sendIdx["methodClass"]=1;
 superclass=_st($1)._superclass();
 $ctx1.sendIdx["superclass"]=1;
 $2=superclass;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 return false;
 } else {
 $2;
@@ -683,26 +705,33 @@ fn: function (){
 var self=this;
 function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$5;
-$2=self._protocol();
-$ctx1.sendIdx["protocol"]=1;
-$1=_st($2)._beginsWith_("*");
-if(! smalltalk.assert($1)){
-$4=self._methodClass();
+var $1,$3,$2,$5,$4,$6,$receiver;
+$1=self._methodClass();
 $ctx1.sendIdx["methodClass"]=1;
-$3=_st($4)._package();
-$ctx1.sendIdx["package"]=1;
-return $3;
+if(($receiver = $1) == null || $receiver.isNil){
+return nil;
+} else {
+$1;
 };
-$5=_st($Package())._named_ifAbsent_(_st(self._protocol())._allButFirst(),(function(){
+$3=self._protocol();
+$ctx1.sendIdx["protocol"]=1;
+$2=_st($3)._beginsWith_("*");
+if(! smalltalk.assert($2)){
+$5=self._methodClass();
+$ctx1.sendIdx["methodClass"]=2;
+$4=_st($5)._package();
+$ctx1.sendIdx["package"]=1;
+return $4;
+};
+$6=_st($Package())._named_ifAbsent_(_st(self._protocol())._allButFirst(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._methodClass())._package();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-return $5;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+return $6;
 }, function($ctx1) {$ctx1.fill(self,"package",{},globals.CompiledMethod)})},
 args: [],
-source: "package\x0a\x09\x22Answer the package the receiver belongs to:\x0a\x09- if it is an extension method, answer the corresponding package\x0a\x09- else answer the `methodClass` package\x22\x0a\x09\x0a\x09(self protocol beginsWith: '*') ifFalse: [\x0a\x09\x09^ self methodClass package ].\x0a\x09\x09\x0a\x09^ Package \x0a\x09\x09named: self protocol allButFirst\x0a\x09\x09ifAbsent: [ self methodClass package ]",
-messageSends: ["ifFalse:", "beginsWith:", "protocol", "package", "methodClass", "named:ifAbsent:", "allButFirst"],
+source: "package\x0a\x09\x22Answer the package the receiver belongs to:\x0a\x09- if it is an extension method, answer the corresponding package\x0a\x09- else answer the `methodClass` package\x22\x0a\x09\x0a\x09self methodClass ifNil: [ ^ nil ].\x0a\x09\x0a\x09(self protocol beginsWith: '*') ifFalse: [\x0a\x09\x09^ self methodClass package ].\x0a\x09\x09\x0a\x09^ Package \x0a\x09\x09named: self protocol allButFirst\x0a\x09\x09ifAbsent: [ self methodClass package ]",
+messageSends: ["ifNil:", "methodClass", "ifFalse:", "beginsWith:", "protocol", "package", "named:ifAbsent:", "allButFirst"],
 referencedClasses: ["Package"]
 }),
 globals.CompiledMethod);
@@ -714,9 +743,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._basicAt_("protocol");
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._defaultProtocol();
 } else {
 $1=$2;
@@ -740,7 +769,7 @@ var oldProtocol;
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $MethodMoved(){return globals.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver;
 oldProtocol=self._protocol();
 self._basicAt_put_("protocol",aString);
 $1=_st($MethodMoved())._new();
@@ -749,7 +778,7 @@ _st($1)._oldProtocol_(oldProtocol);
 $2=_st($1)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($2);
 $3=self._methodClass();
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $3;
 } else {
 var methodClass;
@@ -842,9 +871,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._basicAt_("source");
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 $1=$2;
@@ -942,7 +971,8 @@ fn: function (){
 var self=this;
 function $Queue(){return globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
 return smalltalk.withContext(function($ctx1) { 
-globals.ForkPool.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.ForkPool.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@poolSize"]=(0);
 self["@queue"]=_st($Queue())._new();
 self["@worker"]=self._makeWorker();
@@ -1001,9 +1031,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@maxPoolSize"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=self._defaultMaxPoolSize();
 } else {
 $1=$2;
@@ -1041,9 +1071,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@default"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@default"]=self._new();
 $1=self["@default"];
 } else {
@@ -1131,7 +1161,8 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.Message.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+($ctx1.supercall = true, globals.Message.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+$ctx1.supercall = false;
 _st(aStream)._nextPutAll_("(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._selector());
@@ -1263,7 +1294,8 @@ fn: function (){
 var self=this;
 function $Message(){return globals.Message||(typeof Message=="undefined"?nil:Message)}
 return smalltalk.withContext(function($ctx1) { 
-globals.MessageSend.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.MessageSend.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@message"]=_st($Message())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.MessageSend)})},
 args: [],
@@ -1281,7 +1313,8 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.MessageSend.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+($ctx1.supercall = true, globals.MessageSend.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+$ctx1.supercall = false;
 _st(aStream)._nextPutAll_("(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._receiver());
@@ -1476,7 +1509,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
+var $2,$3,$5,$7,$6,$4,$11,$10,$9,$8,$12,$16,$15,$14,$13,$1;
 $2=self._isBlockContext();
 if(smalltalk.assert($2)){
 $3="a block (in ".__comma(_st(self._methodContext())._asString());
@@ -1484,14 +1517,61 @@ $ctx1.sendIdx[","]=2;
 $1=_st($3).__comma(")");
 $ctx1.sendIdx[","]=1;
 } else {
-$1=_st(_st(_st(_st(self._receiver())._class())._name()).__comma(" >> ")).__comma(self._selector());
+var methodClass;
+methodClass=_st(self._method())._methodClass();
+methodClass;
+$5=methodClass;
+$7=self._receiver();
+$ctx1.sendIdx["receiver"]=1;
+$6=_st($7)._class();
+$ctx1.sendIdx["class"]=1;
+$4=_st($5).__eq($6);
+if(smalltalk.assert($4)){
+$11=self._receiver();
+$ctx1.sendIdx["receiver"]=2;
+$10=_st($11)._class();
+$ctx1.sendIdx["class"]=2;
+$9=_st($10)._name();
+$ctx1.sendIdx["name"]=1;
+$8=_st($9).__comma(" >> ");
+$ctx1.sendIdx[","]=4;
+$12=self._selector();
+$ctx1.sendIdx["selector"]=1;
+$1=_st($8).__comma($12);
 $ctx1.sendIdx[","]=3;
+} else {
+$16=_st(_st(self._receiver())._class())._name();
+$ctx1.sendIdx["name"]=2;
+$15=_st($16).__comma("(");
+$14=_st($15).__comma(_st(methodClass)._name());
+$ctx1.sendIdx[","]=7;
+$13=_st($14).__comma(") >> ");
+$ctx1.sendIdx[","]=6;
+$1=_st($13).__comma(self._selector());
+$ctx1.sendIdx[","]=5;
+};
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},globals.MethodContext)})},
 args: [],
-source: "asString\x0a\x09^ self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext asString, ')' ]\x0a\x09\x09ifFalse: [ self receiver class name, ' >> ', self selector ]",
-messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "name", "class", "receiver", "selector"],
+source: "asString\x0a\x09^ self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext asString, ')' ]\x0a\x09\x09ifFalse: [ \x0a\x09\x09\x09| methodClass |\x0a\x09\x09\x09methodClass := self method methodClass.\x0a\x09\x09\x09methodClass = self receiver class \x0a\x09\x09\x09\x09ifTrue: [ self receiver class name, ' >> ', self selector ]\x0a\x09\x09\x09\x09ifFalse: [ self receiver class name, '(', methodClass name, ') >> ', self selector ] ]",
+messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "methodClass", "method", "=", "class", "receiver", "name", "selector"],
+referencedClasses: []
+}),
+globals.MethodContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "basicReceiver",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.receiver;
+return self}, function($ctx1) {$ctx1.fill(self,"basicReceiver",{},globals.MethodContext)})},
+args: [],
+source: "basicReceiver\x0a\x09<return self.receiver>",
+messageSends: [],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1508,6 +1588,42 @@ return self}, function($ctx1) {$ctx1.fill(self,"evaluatedSelector",{},globals.Me
 args: [],
 source: "evaluatedSelector\x0a\x09<return self.evaluatedSelector>",
 messageSends: [],
+referencedClasses: []
+}),
+globals.MethodContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "findContextSuchThat:",
+protocol: 'accessing',
+fn: function (testBlock){
+var self=this;
+var context;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+var $early={};
+try {
+context=self;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(context)._isNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(testBlock)._value_(context);
+if(smalltalk.assert($1)){
+$2=context;
+throw $early=[$2];
+};
+context=_st(context)._outerContext();
+return context;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return nil;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"findContextSuchThat:",{testBlock:testBlock,context:context},globals.MethodContext)})},
+args: ["testBlock"],
+source: "findContextSuchThat: testBlock\x0a\x09\x22Search self and my sender chain for first one that satisfies `testBlock`.  \x0a\x09Answer `nil` if none satisfy\x22\x0a\x0a\x09| context |\x0a\x09\x0a\x09context := self.\x0a\x09[ context isNil] whileFalse: [\x0a\x09\x09(testBlock value: context) \x0a\x09\x09\x09ifTrue: [ ^ context ].\x0a\x09\x09context := context outerContext ].\x0a\x0a\x09^ nil",
+messageSends: ["whileFalse:", "isNil", "ifTrue:", "value:", "outerContext"],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1584,24 +1700,46 @@ selector: "method",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+var method,lookupClass,receiverClass,supercall;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$5,$4,$3,$1;
-$2=self._methodContext();
+var $1,$3,$2,$4,$6,$5,$7,$9,$8,$receiver;
+$1=self._methodContext();
 $ctx1.sendIdx["methodContext"]=1;
-if(($receiver = $2) == nil || $receiver == null){
-$1=$2;
+if(($receiver = $1) == null || $receiver.isNil){
+return nil;
 } else {
-$5=self._methodContext();
-$ctx1.sendIdx["methodContext"]=2;
-$4=_st($5)._receiver();
-$3=_st($4)._class();
-$1=_st($3)._lookupSelector_(_st(self._methodContext())._selector());
+$1;
 };
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"method",{},globals.MethodContext)})},
+$3=self._methodContext();
+$ctx1.sendIdx["methodContext"]=2;
+$2=_st($3)._receiver();
+receiverClass=_st($2)._class();
+$4=receiverClass;
+$6=self._methodContext();
+$ctx1.sendIdx["methodContext"]=3;
+$5=_st($6)._selector();
+$ctx1.sendIdx["selector"]=1;
+method=_st($4)._lookupSelector_($5);
+$ctx1.sendIdx["lookupSelector:"]=1;
+$7=self._outerContext();
+if(($receiver = $7) == null || $receiver.isNil){
+supercall=false;
+} else {
+var outer;
+outer=$receiver;
+supercall=_st(outer)._supercall();
+};
+$9=supercall;
+if(smalltalk.assert($9)){
+$8=_st(_st(_st(method)._methodClass())._superclass())._lookupSelector_(_st(self._methodContext())._selector());
+} else {
+$8=method;
+};
+return $8;
+}, function($ctx1) {$ctx1.fill(self,"method",{method:method,lookupClass:lookupClass,receiverClass:receiverClass,supercall:supercall},globals.MethodContext)})},
 args: [],
-source: "method\x0a\x09^ self methodContext ifNotNil: [\x0a\x09\x09self methodContext receiver class lookupSelector: self methodContext selector ]",
-messageSends: ["ifNotNil:", "methodContext", "lookupSelector:", "class", "receiver", "selector"],
+source: "method\x0a\x09| method lookupClass receiverClass supercall |\x0a\x09\x0a\x09self methodContext ifNil: [ ^ nil ].\x0a\x0a\x09receiverClass := self methodContext receiver class.\x0a\x09method := receiverClass lookupSelector: self methodContext selector.\x0a\x09supercall := self outerContext \x0a\x09\x09ifNil: [ false ]\x0a\x09\x09ifNotNil: [ :outer | outer supercall ].\x0a\x0a\x09^ supercall\x0a\x09\x09ifFalse: [ method ]\x0a\x09\x09ifTrue: [ method methodClass superclass lookupSelector: self methodContext selector ]",
+messageSends: ["ifNil:", "methodContext", "class", "receiver", "lookupSelector:", "selector", "ifNil:ifNotNil:", "outerContext", "supercall", "ifFalse:ifTrue:", "superclass", "methodClass"],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1613,13 +1751,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
+var $1,$3,$2,$receiver;
 $1=self._isBlockContext();
 if(! smalltalk.assert($1)){
 return self;
 };
 $3=self._outerContext();
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $2=$3;
 } else {
 var outer;
@@ -1659,7 +1797,8 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.MethodContext.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+($ctx1.supercall = true, globals.MethodContext.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+$ctx1.supercall = false;
 _st(aStream)._nextPutAll_("(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._asString());
@@ -1680,11 +1819,23 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.receiver;
-return self}, function($ctx1) {$ctx1.fill(self,"receiver",{},globals.MethodContext)})},
+var $3,$2,$1;
+$2=_st(self._isBlockContext())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+$3=self._outerContext();
+$ctx2.sendIdx["outerContext"]=1;
+return _st($3)._notNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+if(smalltalk.assert($2)){
+$1=_st(self._outerContext())._receiver();
+} else {
+$1=self._basicReceiver();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"receiver",{},globals.MethodContext)})},
 args: [],
-source: "receiver\x0a\x09<return self.receiver>",
-messageSends: [],
+source: "receiver\x0a\x09^ (self isBlockContext and: [ self outerContext notNil ])\x0a\x09\x09ifTrue: [ self outerContext receiver ]\x0a\x09\x09ifFalse: [ self basicReceiver ]",
+messageSends: ["ifTrue:ifFalse:", "and:", "isBlockContext", "notNil", "outerContext", "receiver", "basicReceiver"],
 referencedClasses: []
 }),
 globals.MethodContext);
@@ -1745,6 +1896,22 @@ globals.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "supercall",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.supercall == true;
+return self}, function($ctx1) {$ctx1.fill(self,"supercall",{},globals.MethodContext)})},
+args: [],
+source: "supercall\x0a\x09<return self.supercall == true>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.MethodContext);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "temps",
 protocol: 'accessing',
 fn: function (){
@@ -1775,12 +1942,12 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		var native=eval(aString);
-		return new native();
+		var nativeFunc=eval(aString);
+		return new nativeFunc();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"constructor:",{aString:aString},globals.NativeFunction.klass)})},
 args: ["aString"],
-source: "constructor: aString\x0a\x09<\x0a\x09\x09var native=eval(aString);\x0a\x09\x09return new native();\x0a\x09>",
+source: "constructor: aString\x0a\x09<\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1794,12 +1961,12 @@ fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		var native=eval(aString);
-		return new native(anObject);
+		var nativeFunc=eval(aString);
+		return new nativeFunc(anObject);
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:",{aString:aString,anObject:anObject},globals.NativeFunction.klass)})},
 args: ["aString", "anObject"],
-source: "constructor: aString value:anObject\x0a\x09<\x0a\x09\x09var native=eval(aString);\x0a\x09\x09return new native(anObject);\x0a\x09>",
+source: "constructor: aString value:anObject\x0a\x09<\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1813,12 +1980,12 @@ fn: function (aString,anObject,anObject2){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		var native=eval(aString);
-		return new native(anObject,anObject2);
+		var nativeFunc=eval(aString);
+		return new nativeFunc(anObject,anObject2);
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2},globals.NativeFunction.klass)})},
 args: ["aString", "anObject", "anObject2"],
-source: "constructor: aString value:anObject value: anObject2\x0a\x09<\x0a\x09\x09var native=eval(aString);\x0a\x09\x09return new native(anObject,anObject2);\x0a\x09>",
+source: "constructor: aString value:anObject value: anObject2\x0a\x09<\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject,anObject2);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1832,12 +1999,12 @@ fn: function (aString,anObject,anObject2,anObject3){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		var native=eval(aString);
-		return new native(anObject,anObject2, anObject3);
+		var nativeFunc=eval(aString);
+		return new nativeFunc(anObject,anObject2, anObject3);
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2,anObject3:anObject3},globals.NativeFunction.klass)})},
 args: ["aString", "anObject", "anObject2", "anObject3"],
-source: "constructor: aString value:anObject value: anObject2 value:anObject3\x0a\x09<\x0a\x09\x09var native=eval(aString);\x0a\x09\x09return new native(anObject,anObject2, anObject3);\x0a\x09>",
+source: "constructor: aString value:anObject value: anObject2 value:anObject3\x0a\x09<\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject,anObject2, anObject3);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

@@ -274,6 +274,10 @@ testJSStatement
 	self should: 'foo <return 2+3>' return: 5
 !
 
+testLexicalScope
+	self should: 'foo | a | a := 1. [ a := 2 ] value. ^ a' return: 2
+!
+
 testLiterals
 	self should: 'foo ^ 1' return: 1.
 	self should: 'foo ^ ''hello''' return: 'hello'.
@@ -444,21 +448,11 @@ testifTrueIfFalse
 	self should: 'foo ^ true ifTrue: [ 2 ] ifFalse: [ 1 ]' return: 2.
 ! !
 
-CodeGeneratorTest subclass: #InliningCodeGeneratorTest
+CodeGeneratorTest subclass: #ASTInterpreterTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
 
-!InliningCodeGeneratorTest methodsFor: 'accessing'!
-
-codeGeneratorClass
-	^ InliningCodeGenerator
-! !
-
-CodeGeneratorTest subclass: #InterpreterTest
-	instanceVariableNames: ''
-	package: 'Compiler-Tests'!
-
-!InterpreterTest methodsFor: 'parsing'!
+!ASTInterpreterTest methodsFor: 'parsing'!
 
 analyze: aNode forClass: aClass
 	(SemanticAnalyzer on: aClass) visit: aNode.
@@ -473,30 +467,37 @@ parse: aString forClass: aClass
 	^ self analyze: (self parse: aString) forClass: aClass
 ! !
 
-!InterpreterTest methodsFor: 'private'!
+!ASTInterpreterTest methodsFor: 'private'!
 
 interpret: aString receiver: anObject withArguments: aDictionary
 	"The food is a methodNode. Interpret the sequenceNode only"
 	
-	| ctx interpreter |
+	| ctx ast interpreter |
 	
 	interpreter := ASTInterpreter new.
+	ast := self parse: aString forClass: anObject class.
 	
 	ctx := AIContext new
 		receiver: anObject;
 		interpreter: interpreter;
 		yourself.
+		
+	"Define locals for the context"
+	ast sequenceNode ifNotNil: [ :sequence |
+		sequence temps do: [ :each |
+			ctx defineLocal: each ] ].
+		
 	aDictionary keysAndValuesDo: [ :key :value |
 		ctx localAt: key put: value ].
 	
 	^ interpreter
 		context: ctx;
-		interpret: (self parse: aString forClass: anObject class) nextChild;
+		interpret: ast nextChild;
 		proceed;
 		result
 ! !
 
-!InterpreterTest methodsFor: 'testing'!
+!ASTInterpreterTest methodsFor: 'testing'!
 
 should: aString receiver: anObject return: aResult
 	receiver := anObject.
@@ -511,6 +512,49 @@ should: aString return: anObject
 		should: aString
 		receiver: receiver
 		return: anObject
+! !
+
+ASTInterpreterTest subclass: #ASTDebuggerTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!ASTDebuggerTest methodsFor: 'private'!
+
+interpret: aString receiver: anObject withArguments: aDictionary
+	| ctx ast debugger |
+	
+	ctx := AIContext new
+		receiver: anObject;
+		interpreter: ASTInterpreter new;
+		yourself.
+	ast := self parse: aString forClass: anObject class.
+		
+	"Define locals for the context"
+	ast sequenceNode ifNotNil: [ :sequence |
+		sequence temps do: [ :each |
+			ctx defineLocal: each ] ].
+	
+	aDictionary keysAndValuesDo: [ :key :value |
+		ctx localAt: key put: value ].
+	ctx interpreter context: ctx.
+	
+	ctx interpreter node: ast nextChild.
+	
+	debugger := ASTDebugger context: ctx.
+	
+	^ debugger 
+		proceed; 
+		result
+! !
+
+CodeGeneratorTest subclass: #InliningCodeGeneratorTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!InliningCodeGeneratorTest methodsFor: 'accessing'!
+
+codeGeneratorClass
+	^ InliningCodeGenerator
 ! !
 
 TestCase subclass: #ScopeVarTest
@@ -706,5 +750,31 @@ testVariablesLookup
 	"Binding for `b`"
 	self assert: ast nodes first nodes last nodes first nodes first left binding isTempVar.
 	self assert: ast nodes first nodes last nodes first nodes first left binding scope == ast nodes first nodes last scope.
+! !
+
+SemanticAnalyzerTest subclass: #AISemanticAnalyzerTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!AISemanticAnalyzerTest methodsFor: 'running'!
+
+setUp
+	analyzer := (AISemanticAnalyzer on: Object)
+		context: (AIContext new
+			defineLocal: 'local';
+			localAt: 'local' put: 3;
+			yourself);
+		yourself
+! !
+
+!AISemanticAnalyzerTest methodsFor: 'tests'!
+
+testContextVariables
+	| src ast |
+	
+	src := 'foo | a | local + a'.
+	ast := Smalltalk parse: src.
+
+	self shouldnt: [ analyzer visit: ast ] raise: UnknownVariableError
 ! !
 
