@@ -49,9 +49,9 @@ protocol: 'releasing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$receiver;
 $1=self["@frame"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 return self;
 } else {
 $1;
@@ -117,7 +117,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.ObjectSpace.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.ObjectSpace.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._create();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ObjectSpace)})},
 args: [],

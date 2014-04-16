@@ -331,9 +331,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._parent();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=$2;
 } else {
 var node;
@@ -423,9 +423,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self._parent();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=$2;
 } else {
 var node;
@@ -477,9 +477,9 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@nodes"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@nodes"]=_st($Array())._new();
 $1=self["@nodes"];
 } else {
@@ -553,11 +553,11 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
+var $2,$3,$1,$receiver;
 $2=self["@position"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=self._parent();
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 $1=$3;
 } else {
 var node;
@@ -644,7 +644,8 @@ protocol: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.Node.superclass.fn.prototype._postCopy.apply(_st(self), []);
+($ctx1.supercall = true, globals.Node.superclass.fn.prototype._postCopy.apply(_st(self), []));
+$ctx1.supercall = false;
 _st(self._nodes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._parent_(self);
@@ -687,9 +688,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@shouldBeAliased"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=false;
 } else {
 $1=$2;
@@ -725,9 +726,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@shouldBeInlined"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=false;
 } else {
 $1=$2;
@@ -781,9 +782,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@source"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1="";
 } else {
 $1=$2;
@@ -986,8 +987,10 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(globals.AssignmentNode.superclass.fn.prototype._shouldBeAliased.apply(_st(self), []))._or_((function(){
+var $2,$1;
+$2=($ctx1.supercall = true, globals.AssignmentNode.superclass.fn.prototype._shouldBeAliased.apply(_st(self), []));
+$ctx1.supercall = false;
+$1=_st($2)._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._isReferenced();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
@@ -1075,9 +1078,9 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@parameters"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@parameters"]=_st($Array())._new();
 $1=self["@parameters"];
 } else {
@@ -1354,9 +1357,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@arguments"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=[];
 } else {
 $1=$2;
@@ -1548,6 +1551,34 @@ globals.MethodNode);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "sequenceNode",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+_st(self._nodes())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(each)._isSequenceNode();
+if(smalltalk.assert($1)){
+throw $early=[each];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return nil;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"sequenceNode",{},globals.MethodNode)})},
+args: [],
+source: "sequenceNode\x0a\x09self nodes do: [ :each |\x0a\x09\x09each isSequenceNode ifTrue: [ ^ each ] ].\x0a\x09\x09\x0a\x09^ nil",
+messageSends: ["do:", "nodes", "ifTrue:", "isSequenceNode"],
+referencedClasses: []
+}),
+globals.MethodNode);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "source",
 protocol: 'accessing',
 fn: function (){
@@ -1726,9 +1757,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@arguments"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@arguments"]=[];
 $1=self["@arguments"];
 } else {
@@ -1902,10 +1933,10 @@ fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$5,$6,$4;
+var $1,$3,$2,$5,$6,$4,$receiver;
 $1=self._receiver();
 $ctx1.sendIdx["receiver"]=1;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 $3=self._arguments();
 $ctx1.sendIdx["arguments"]=1;
 $2=_st($3)._copy();
@@ -2019,24 +2050,30 @@ fn: function (){
 var self=this;
 var sends;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$1;
 sends=_st(_st(_st(self._method())._sendIndexes())._at_(self._selector()))._size();
-$1=_st(globals.SendNode.superclass.fn.prototype._shouldBeAliased.apply(_st(self), []))._or_((function(){
+$2=($ctx1.supercall = true, globals.SendNode.superclass.fn.prototype._shouldBeAliased.apply(_st(self), []));
+$ctx1.supercall = false;
+$1=_st($2)._or_((function(){
 return smalltalk.withContext(function($ctx2) {
+return _st(self._isReferenced())._and_((function(){
+return smalltalk.withContext(function($ctx3) {
 return _st(_st(_st(sends).__gt((1)))._and_((function(){
-return smalltalk.withContext(function($ctx3) {
+return smalltalk.withContext(function($ctx4) {
 return _st(self._index()).__lt(sends);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})))._and_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._isReferenced();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})})))._or_((function(){
+return smalltalk.withContext(function($ctx4) {
+return self._superSend();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,4)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 $ctx2.sendIdx["and:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["or:"]=1;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldBeAliased",{sends:sends},globals.SendNode)})},
 args: [],
-source: "shouldBeAliased\x0a\x09\x22Because we keep track of send indexes, some send nodes need additional care for aliasing. \x0a\x09See IRJSVisitor >> visitIRSend:\x22\x0a\x09\x0a\x09| sends |\x0a\x09\x0a\x09sends := (self method sendIndexes at: self selector) size.\x0a\x09\x0a\x09^ super shouldBeAliased or: [\x0a\x09\x09(sends > 1 and: [ self index < sends ]) and: [ self isReferenced ] ]",
-messageSends: ["size", "at:", "sendIndexes", "method", "selector", "or:", "shouldBeAliased", "and:", ">", "<", "index", "isReferenced"],
+source: "shouldBeAliased\x0a\x09\x22Because we keep track of send indexes, some send nodes need additional care for aliasing. \x0a\x09See IRJSVisitor >> visitIRSend:\x22\x0a\x09\x0a\x09| sends |\x0a\x09\x0a\x09sends := (self method sendIndexes at: self selector) size.\x0a\x09\x0a\x09^ (super shouldBeAliased or: [\x0a\x09\x09self isReferenced and: [\x0a\x09\x09\x09(sends > 1 and: [ self index < sends ])\x0a\x09\x09\x09\x09or: [ self superSend ] ] ])",
+messageSends: ["size", "at:", "sendIndexes", "method", "selector", "or:", "shouldBeAliased", "and:", "isReferenced", ">", "<", "index", "superSend"],
 referencedClasses: []
 }),
 globals.SendNode);
@@ -2063,9 +2100,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@superSend"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=false;
 } else {
 $1=$2;
@@ -2102,14 +2139,14 @@ fn: function (anObject){
 var self=this;
 function $SendNode(){return globals.SendNode||(typeof SendNode=="undefined"?nil:SendNode)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$5,$4,$6,$1;
+var $2,$3,$5,$4,$6,$1,$receiver;
 $2=_st($SendNode())._new();
 _st($2)._position_(self._position());
 _st($2)._source_(self._source());
 $3=$2;
 $5=self._receiver();
 $ctx1.sendIdx["receiver"]=1;
-if(($receiver = $5) == nil || $receiver == null){
+if(($receiver = $5) == null || $receiver.isNil){
 $4=anObject;
 } else {
 $4=_st(self._receiver())._valueForReceiver_(anObject);
@@ -2229,9 +2266,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@temps"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=[];
 } else {
 $1=$2;
@@ -2431,9 +2468,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@assigned"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $1=false;
 } else {
 $1=$2;

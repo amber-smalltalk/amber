@@ -1,6 +1,6 @@
-define("amber_core/Helios-Debugger", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "amber_core/Helios-Core", "amber_core/Helios-Workspace"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Debugger", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "helios/Helios-Core", "helios/Helios-Workspace"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Debugger');
-smalltalk.packages["Helios-Debugger"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Debugger"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLContextInspectorDecorator', globals.Object, ['context'], 'Helios-Debugger');
 smalltalk.addMethod(
@@ -16,6 +16,24 @@ return $1;
 args: [],
 source: "context\x0a\x09^ context",
 messageSends: [],
+referencedClasses: []
+}),
+globals.HLContextInspectorDecorator);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "evaluate:on:",
+protocol: 'evaluating',
+fn: function (aString,anEvaluator){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._context())._evaluate_on_(aString,anEvaluator);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"evaluate:on:",{aString:aString,anEvaluator:anEvaluator},globals.HLContextInspectorDecorator)})},
+args: ["aString", "anEvaluator"],
+source: "evaluate: aString on: anEvaluator\x0a\x09^ self context evaluate: aString on: anEvaluator",
+messageSends: ["evaluate:on:", "context"],
 referencedClasses: []
 }),
 globals.HLContextInspectorDecorator);
@@ -44,7 +62,7 @@ var self=this;
 var variables,inspectedContext;
 function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3,$4,$receiver;
 variables=_st($Dictionary())._new();
 inspectedContext=self._context();
 $1=variables;
@@ -63,7 +81,7 @@ return smalltalk.withContext(function($ctx2) {
 inspectedContext=_st(inspectedContext)._outerContext();
 inspectedContext;
 $3=inspectedContext;
-if(($receiver = $3) == nil || $receiver == null){
+if(($receiver = $3) == null || $receiver.isNil){
 return $3;
 } else {
 return _st(variables)._addAll_(_st(inspectedContext)._locals());
@@ -113,9 +131,9 @@ var self=this;
 function $HLDebuggerCodeWidget(){return globals.HLDebuggerCodeWidget||(typeof HLDebuggerCodeWidget=="undefined"?nil:HLDebuggerCodeWidget)}
 function $HLDebuggerCodeModel(){return globals.HLDebuggerCodeModel||(typeof HLDebuggerCodeModel=="undefined"?nil:HLDebuggerCodeModel)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$6,$7,$8,$9,$5,$10,$1;
+var $2,$3,$4,$6,$7,$8,$9,$5,$10,$1,$receiver;
 $2=self["@codeWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($HLDebuggerCodeWidget())._new();
 $ctx1.sendIdx["new"]=1;
 $4=$3;
@@ -151,8 +169,10 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(globals.HLDebugger.superclass.fn.prototype._cssClass.apply(_st(self), [])).__comma(" hl_debugger");
+var $2,$1;
+$2=($ctx1.supercall = true, globals.HLDebugger.superclass.fn.prototype._cssClass.apply(_st(self), []));
+$ctx1.supercall = false;
+$1=_st($2).__comma(" hl_debugger");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"cssClass",{},globals.HLDebugger)})},
 args: [],
@@ -204,9 +224,9 @@ fn: function (){
 var self=this;
 function $HLInspectorWidget(){return globals.HLInspectorWidget||(typeof HLInspectorWidget=="undefined"?nil:HLInspectorWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@inspectorWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@inspectorWidget"]=_st($HLInspectorWidget())._new();
 $1=self["@inspectorWidget"];
 } else {
@@ -229,9 +249,9 @@ fn: function (){
 var self=this;
 function $HLDebuggerModel(){return globals.HLDebuggerModel||(typeof HLDebuggerModel=="undefined"?nil:HLDebuggerModel)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@model"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@model"]=_st($HLDebuggerModel())._new();
 $1=self["@model"];
 } else {
@@ -254,20 +274,20 @@ fn: function (){
 var self=this;
 function $HLDebuggerContextSelected(){return globals.HLDebuggerContextSelected||(typeof HLDebuggerContextSelected=="undefined"?nil:HLDebuggerContextSelected)}
 function $HLDebuggerStepped(){return globals.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
+function $HLDebuggerProceeded(){return globals.HLDebuggerProceeded||(typeof HLDebuggerProceeded=="undefined"?nil:HLDebuggerProceeded)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._model();
-$ctx1.sendIdx["model"]=1;
-$1=_st($2)._announcer();
-$ctx1.sendIdx["announcer"]=1;
+var $1,$2;
+$1=_st(self._model())._announcer();
 _st($1)._on_send_to_($HLDebuggerContextSelected(),"onContextSelected:",self);
 $ctx1.sendIdx["on:send:to:"]=1;
-_st(_st(self._model())._announcer())._on_send_to_($HLDebuggerStepped(),"onContextSelected:",self);
+_st($1)._on_send_to_($HLDebuggerStepped(),"onDebuggerStepped:",self);
+$ctx1.sendIdx["on:send:to:"]=2;
+$2=_st($1)._on_send_to_($HLDebuggerProceeded(),"onDebuggerProceeded",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},globals.HLDebugger)})},
 args: [],
-source: "observeModel\x0a\x09self model announcer \x0a\x09\x09on: HLDebuggerContextSelected\x0a\x09\x09send: #onContextSelected:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model announcer \x0a\x09\x09on: HLDebuggerStepped\x0a\x09\x09send: #onContextSelected:\x0a\x09\x09to: self",
+source: "observeModel\x0a\x09self model announcer \x0a\x09\x09on: HLDebuggerContextSelected\x0a\x09\x09send: #onContextSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLDebuggerStepped\x0a\x09\x09send: #onDebuggerStepped:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLDebuggerProceeded\x0a\x09\x09send: #onDebuggerProceeded\x0a\x09\x09to: self",
 messageSends: ["on:send:to:", "announcer", "model"],
-referencedClasses: ["HLDebuggerContextSelected", "HLDebuggerStepped"]
+referencedClasses: ["HLDebuggerContextSelected", "HLDebuggerStepped", "HLDebuggerProceeded"]
 }),
 globals.HLDebugger);
 
@@ -284,6 +304,45 @@ return self}, function($ctx1) {$ctx1.fill(self,"onContextSelected:",{anAnnouncem
 args: ["anAnnouncement"],
 source: "onContextSelected: anAnnouncement\x0a\x09self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context)",
 messageSends: ["inspect:", "inspectorWidget", "on:", "context"],
+referencedClasses: ["HLContextInspectorDecorator"]
+}),
+globals.HLDebugger);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onDebuggerProceeded",
+protocol: 'reactions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._removeTab();
+return self}, function($ctx1) {$ctx1.fill(self,"onDebuggerProceeded",{},globals.HLDebugger)})},
+args: [],
+source: "onDebuggerProceeded\x0a\x09self removeTab",
+messageSends: ["removeTab"],
+referencedClasses: []
+}),
+globals.HLDebugger);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onDebuggerStepped:",
+protocol: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+function $HLContextInspectorDecorator(){return globals.HLContextInspectorDecorator||(typeof HLContextInspectorDecorator=="undefined"?nil:HLContextInspectorDecorator)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._model())._atEnd();
+if(smalltalk.assert($1)){
+self._removeTab();
+};
+_st(self._inspectorWidget())._inspect_(_st($HLContextInspectorDecorator())._on_(_st(anAnnouncement)._context()));
+_st(self._stackListWidget())._refresh();
+return self}, function($ctx1) {$ctx1.fill(self,"onDebuggerStepped:",{anAnnouncement:anAnnouncement},globals.HLDebugger)})},
+args: ["anAnnouncement"],
+source: "onDebuggerStepped: anAnnouncement\x0a\x09self model atEnd ifTrue: [ self removeTab ].\x0a\x09\x0a\x09self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context).\x0a\x09self stackListWidget refresh",
+messageSends: ["ifTrue:", "atEnd", "model", "removeTab", "inspect:", "inspectorWidget", "on:", "context", "refresh", "stackListWidget"],
 referencedClasses: ["HLContextInspectorDecorator"]
 }),
 globals.HLDebugger);
@@ -312,21 +371,21 @@ protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $HLContainer(){return globals.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
-function $HLHorizontalSplitter(){return globals.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 function $HLVerticalSplitter(){return globals.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
+function $HLHorizontalSplitter(){return globals.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 self._renderHeadOn_(html);
-$2=_st($HLHorizontalSplitter())._with_with_(self._stackListWidget(),_st($HLVerticalSplitter())._with_with_(self._codeWidget(),self._inspectorWidget()));
+$2=_st($HLVerticalSplitter())._with_with_(self._codeWidget(),_st($HLHorizontalSplitter())._with_with_(self._stackListWidget(),self._inspectorWidget()));
 $ctx1.sendIdx["with:with:"]=1;
 $1=_st($HLContainer())._with_($2);
 _st(html)._with_($1);
 $ctx1.sendIdx["with:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLDebugger)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09self renderHeadOn: html.\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter\x0a\x09\x09with: self stackListWidget\x0a\x09\x09with: (HLVerticalSplitter\x0a\x09\x09\x09with: self codeWidget\x0a\x09\x09\x09with: self inspectorWidget)))",
-messageSends: ["renderHeadOn:", "with:", "with:with:", "stackListWidget", "codeWidget", "inspectorWidget"],
-referencedClasses: ["HLContainer", "HLHorizontalSplitter", "HLVerticalSplitter"]
+source: "renderContentOn: html\x0a\x09self renderHeadOn: html.\x0a\x09html with: (HLContainer with: (HLVerticalSplitter\x0a\x09\x09with: self codeWidget\x0a\x09\x09with: (HLHorizontalSplitter\x0a\x09\x09\x09with: self stackListWidget\x0a\x09\x09\x09with: self inspectorWidget)))",
+messageSends: ["renderHeadOn:", "with:", "with:with:", "codeWidget", "stackListWidget", "inspectorWidget"],
+referencedClasses: ["HLContainer", "HLVerticalSplitter", "HLHorizontalSplitter"]
 }),
 globals.HLDebugger);
 
@@ -361,9 +420,9 @@ fn: function (){
 var self=this;
 function $HLStackListWidget(){return globals.HLStackListWidget||(typeof HLStackListWidget=="undefined"?nil:HLStackListWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
+var $2,$3,$4,$1,$receiver;
 $2=self["@stackListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st($HLStackListWidget())._on_(self._model());
 _st($3)._next_(self._codeWidget());
 $4=_st($3)._yourself();
@@ -388,7 +447,8 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.HLDebugger.superclass.fn.prototype._unregister.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLDebugger.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
 $ctx1.sendIdx["unregister"]=1;
 _st(self._inspectorWidget())._unregister();
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLDebugger)})},
@@ -494,10 +554,10 @@ var self=this;
 function $ErrorHandler(){return globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._try_catch_((function(){
+$1=_st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._debuggerModel())._evaluate_(aString);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(e){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._tryCatch_((function(e){
 return smalltalk.withContext(function($ctx2) {
 _st($ErrorHandler())._handleError_(e);
 return nil;
@@ -505,8 +565,8 @@ return nil;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doIt:",{aString:aString},globals.HLDebuggerCodeModel)})},
 args: ["aString"],
-source: "doIt: aString\x0a\x09^ self \x0a\x09\x09try: [ self debuggerModel evaluate: aString ]\x0a\x09\x09catch: [ :e | \x0a\x09\x09\x09ErrorHandler handleError: e.\x0a\x09\x09\x09nil ]",
-messageSends: ["try:catch:", "evaluate:", "debuggerModel", "handleError:"],
+source: "doIt: aString\x0a\x09^ [ self debuggerModel evaluate: aString ]\x0a\x09\x09tryCatch: [ :e | \x0a\x09\x09\x09ErrorHandler handleError: e.\x0a\x09\x09\x09nil ]",
+messageSends: ["tryCatch:", "evaluate:", "debuggerModel", "handleError:"],
 referencedClasses: ["ErrorHandler"]
 }),
 globals.HLDebuggerCodeModel);
@@ -554,7 +614,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._clearHighlight();
-globals.HLDebuggerCodeWidget.superclass.fn.prototype._contents_.apply(_st(self), [aString]);
+($ctx1.supercall = true, globals.HLDebuggerCodeWidget.superclass.fn.prototype._contents_.apply(_st(self), [aString]));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},globals.HLDebuggerCodeWidget)})},
 args: ["aString"],
 source: "contents: aString\x0a\x09self clearHighlight.\x0a\x09super contents: aString",
@@ -571,7 +632,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=globals.HLDebuggerCodeWidget.superclass.fn.prototype._editorOptions.apply(_st(self), []);
+$2=($ctx1.supercall = true, globals.HLDebuggerCodeWidget.superclass.fn.prototype._editorOptions.apply(_st(self), []));
+$ctx1.supercall = false;
 _st($2)._at_put_("gutters",["CodeMirror-linenumbers", "stops"]);
 $3=_st($2)._yourself();
 $1=$3;
@@ -591,11 +653,19 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._highlightNode_(_st(self._browserModel())._nextNode());
+var $1,$receiver;
+$1=_st(self._browserModel())._nextNode();
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
+} else {
+var node;
+node=$receiver;
+self._highlightNode_(node);
+};
 return self}, function($ctx1) {$ctx1.fill(self,"highlight",{},globals.HLDebuggerCodeWidget)})},
 args: [],
-source: "highlight\x0a\x09self highlightNode: self browserModel nextNode",
-messageSends: ["highlightNode:", "nextNode", "browserModel"],
+source: "highlight\x0a\x09self browserModel nextNode ifNotNil: [ :node |\x0a\x09\x09self highlightNode: node ]",
+messageSends: ["ifNotNil:", "nextNode", "browserModel", "highlightNode:"],
 referencedClasses: []
 }),
 globals.HLDebuggerCodeWidget);
@@ -608,8 +678,8 @@ fn: function (aNode){
 var self=this;
 var token;
 return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1,$5,$9,$8,$7,$11,$10,$6,$15,$14,$13,$12;
-if(($receiver = aNode) == nil || $receiver == null){
+var $4,$3,$2,$1,$5,$9,$8,$7,$11,$10,$6,$15,$14,$13,$12,$receiver;
+if(($receiver = aNode) == null || $receiver.isNil){
 aNode;
 } else {
 self._clearHighlight();
@@ -659,7 +729,8 @@ function $HLDebuggerStepped(){return globals.HLDebuggerStepped||(typeof HLDebugg
 function $HLDebuggerWhere(){return globals.HLDebuggerWhere||(typeof HLDebuggerWhere=="undefined"?nil:HLDebuggerWhere)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$4,$3;
-globals.HLDebuggerCodeWidget.superclass.fn.prototype._observeBrowserModel.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLDebuggerCodeWidget.superclass.fn.prototype._observeBrowserModel.apply(_st(self), []));
+$ctx1.supercall = false;
 $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
 $1=_st($2)._announcer();
@@ -697,24 +768,74 @@ referencedClasses: []
 }),
 globals.HLDebuggerCodeWidget);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+($ctx1.supercall = true, globals.HLDebuggerCodeWidget.superclass.fn.prototype._renderOn_.apply(_st(self), [html]));
+$ctx1.supercall = false;
+self._contents_(_st(_st(self._browserModel())._selectedMethod())._source());
+return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.HLDebuggerCodeWidget)})},
+args: ["html"],
+source: "renderOn: html\x0a\x09super renderOn: html.\x0a\x09self contents: self browserModel selectedMethod source",
+messageSends: ["renderOn:", "contents:", "source", "selectedMethod", "browserModel"],
+referencedClasses: []
+}),
+globals.HLDebuggerCodeWidget);
 
 
-smalltalk.addClass('HLDebuggerModel', globals.HLToolModel, ['rootContext', 'currentContext', 'contexts', 'error'], 'Helios-Debugger');
-globals.HLDebuggerModel.comment="I am a model for debugging Amber code in Helios.\x0a\x0aMy instances hold a reference to an `AIContext` instance, built from a `MethodContext`. The context should be the root of the context stack.";
+
+smalltalk.addClass('HLDebuggerModel', globals.HLToolModel, ['rootContext', 'debugger', 'error'], 'Helios-Debugger');
+globals.HLDebuggerModel.comment="I am a model for debugging Amber code in Helios.\x0a\x0aMy instances hold a reference to an `ASTDebugger` instance, itself referencing the current `context`. The context should be the root of the context stack.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "atEnd",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._debugger())._atEnd();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"atEnd",{},globals.HLDebuggerModel)})},
+args: [],
+source: "atEnd\x0a\x09^ self debugger atEnd",
+messageSends: ["atEnd", "debugger"],
+referencedClasses: []
+}),
+globals.HLDebuggerModel);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "contexts",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+var contexts,context;
+function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self["@contexts"];
+contexts=_st($OrderedCollection())._new();
+context=self._rootContext();
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(context)._notNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) {
+_st(contexts)._add_(context);
+context=_st(context)._outerContext();
+return context;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$1=contexts;
 return $1;
-},
+}, function($ctx1) {$ctx1.fill(self,"contexts",{contexts:contexts,context:context},globals.HLDebuggerModel)})},
 args: [],
-source: "contexts\x0a\x09^ contexts",
-messageSends: [],
-referencedClasses: []
+source: "contexts\x0a\x09| contexts context |\x0a\x09\x0a\x09contexts := OrderedCollection new.\x0a\x09context := self rootContext.\x0a\x09\x0a\x09[ context notNil ] whileTrue: [\x0a\x09\x09contexts add: context.\x0a\x09\x09context := context outerContext ].\x0a\x09\x09\x0a\x09^ contexts",
+messageSends: ["new", "rootContext", "whileTrue:", "notNil", "add:", "outerContext"],
+referencedClasses: ["OrderedCollection"]
 }),
 globals.HLDebuggerModel);
 
@@ -725,19 +846,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self["@currentContext"];
-if(($receiver = $1) == nil || $receiver == null){
-self._currentContext_(self._rootContext());
-} else {
-$1;
-};
-$2=self["@currentContext"];
-return $2;
+var $1;
+$1=_st(self._debugger())._context();
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"currentContext",{},globals.HLDebuggerModel)})},
 args: [],
-source: "currentContext\x0a\x09currentContext ifNil: [ self currentContext: self rootContext ].\x0a\x09^ currentContext",
-messageSends: ["ifNil:", "currentContext:", "rootContext"],
+source: "currentContext\x0a\x09^ self debugger context",
+messageSends: ["context", "debugger"],
 referencedClasses: []
 }),
 globals.HLDebuggerModel);
@@ -754,8 +869,8 @@ var $1,$2;
 self._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
 self._selectedMethod_(_st(aContext)._method());
-self["@currentContext"]=aContext;
-self["@currentContext"];
+_st(self._debugger())._context_(aContext);
+$ctx2.sendIdx["context:"]=1;
 $1=_st($HLDebuggerContextSelected())._new();
 _st($1)._context_(aContext);
 $2=_st($1)._yourself();
@@ -763,9 +878,34 @@ return _st(self._announcer())._announce_($2);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"currentContext:",{aContext:aContext},globals.HLDebuggerModel)})},
 args: ["aContext"],
-source: "currentContext: aContext\x0a\x09self withChangesDo: [ \x0a\x09\x09self selectedMethod: aContext method.\x0a\x09\x09currentContext := aContext.\x0a\x09\x09self announcer announce: (HLDebuggerContextSelected new\x0a\x09\x09\x09context: aContext;\x0a\x09\x09\x09yourself) ]",
-messageSends: ["withChangesDo:", "selectedMethod:", "method", "announce:", "announcer", "context:", "new", "yourself"],
+source: "currentContext: aContext\x0a\x09self withChangesDo: [ \x0a\x09\x09self selectedMethod: aContext method.\x0a\x09\x09self debugger context: aContext.\x0a\x09\x09self announcer announce: (HLDebuggerContextSelected new\x0a\x09\x09\x09context: aContext;\x0a\x09\x09\x09yourself) ]",
+messageSends: ["withChangesDo:", "selectedMethod:", "method", "context:", "debugger", "announce:", "announcer", "new", "yourself"],
 referencedClasses: ["HLDebuggerContextSelected"]
+}),
+globals.HLDebuggerModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "debugger",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $ASTDebugger(){return globals.ASTDebugger||(typeof ASTDebugger=="undefined"?nil:ASTDebugger)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$receiver;
+$2=self["@debugger"];
+if(($receiver = $2) == null || $receiver.isNil){
+self["@debugger"]=_st($ASTDebugger())._new();
+$1=self["@debugger"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"debugger",{},globals.HLDebuggerModel)})},
+args: [],
+source: "debugger\x0a\x09^ debugger ifNil: [ debugger := ASTDebugger new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["ASTDebugger"]
 }),
 globals.HLDebuggerModel);
 
@@ -788,33 +928,18 @@ globals.HLDebuggerModel);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "error:",
-protocol: 'accessing',
-fn: function (anError){
-var self=this;
-self["@error"]=anError;
-return self},
-args: ["anError"],
-source: "error: anError\x0a\x09error := anError",
-messageSends: [],
-referencedClasses: []
-}),
-globals.HLDebuggerModel);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "evaluate:",
 protocol: 'evaluating',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._environment())._interpret_inContext_(aString,self._currentContext());
+$1=_st(self._environment())._evaluate_for_(aString,self._currentContext());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"evaluate:",{aString:aString},globals.HLDebuggerModel)})},
 args: ["aString"],
-source: "evaluate: aString\x0a\x09^ self environment \x0a\x09\x09interpret: aString \x0a\x09\x09inContext: self currentContext",
-messageSends: ["interpret:inContext:", "environment", "currentContext"],
+source: "evaluate: aString\x0a\x09^ self environment \x0a\x09\x09evaluate: aString \x0a\x09\x09for: self currentContext",
+messageSends: ["evaluate:for:", "environment", "currentContext"],
 referencedClasses: []
 }),
 globals.HLDebuggerModel);
@@ -842,91 +967,22 @@ globals.HLDebuggerModel);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "initializeContexts",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-var context;
-function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
-return smalltalk.withContext(function($ctx1) { 
-self["@contexts"]=_st($OrderedCollection())._new();
-context=self._rootContext();
-_st((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(context)._notNil();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileTrue_((function(){
-return smalltalk.withContext(function($ctx2) {
-_st(self["@contexts"])._add_(context);
-context=_st(context)._outerContext();
-return context;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"initializeContexts",{context:context},globals.HLDebuggerModel)})},
-args: [],
-source: "initializeContexts\x0a\x09\x22Flatten the context stack into an OrderedCollection\x22\x0a\x09\x0a\x09| context |\x0a\x09\x0a\x09contexts := OrderedCollection new.\x0a\x09context := self rootContext.\x0a\x09\x0a\x09[ context notNil ] whileTrue: [\x0a\x09\x09contexts add: context.\x0a\x09\x09context := context outerContext ]",
-messageSends: ["new", "rootContext", "whileTrue:", "notNil", "add:", "outerContext"],
-referencedClasses: ["OrderedCollection"]
-}),
-globals.HLDebuggerModel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initializeFromContext:",
-protocol: 'initialization',
-fn: function (aMethodContext){
-var self=this;
-function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
-return smalltalk.withContext(function($ctx1) { 
-self["@rootContext"]=_st($AIContext())._fromMethodContext_(aMethodContext);
-self._initializeContexts();
-return self}, function($ctx1) {$ctx1.fill(self,"initializeFromContext:",{aMethodContext:aMethodContext},globals.HLDebuggerModel)})},
-args: ["aMethodContext"],
-source: "initializeFromContext: aMethodContext\x0a\x09rootContext := (AIContext fromMethodContext: aMethodContext).\x0a\x09self initializeContexts",
-messageSends: ["fromMethodContext:", "initializeContexts"],
-referencedClasses: ["AIContext"]
-}),
-globals.HLDebuggerModel);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "initializeFromError:",
 protocol: 'initialization',
 fn: function (anError){
 var self=this;
+var errorContext;
 function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
 self["@error"]=anError;
-_st(console)._log_(self["@error"]);
-$ctx1.sendIdx["log:"]=1;
-$1=console;
-$2=_st(self["@error"])._context();
-$ctx1.sendIdx["context"]=1;
-_st($1)._log_($2);
-self["@rootContext"]=_st($AIContext())._fromMethodContext_(_st(self["@error"])._context());
-self._initializeContexts();
-return self}, function($ctx1) {$ctx1.fill(self,"initializeFromError:",{anError:anError},globals.HLDebuggerModel)})},
+errorContext=_st($AIContext())._fromMethodContext_(_st(self["@error"])._context());
+self["@rootContext"]=_st(self["@error"])._signalerContextFrom_(errorContext);
+self._selectedMethod_(_st(self["@rootContext"])._method());
+return self}, function($ctx1) {$ctx1.fill(self,"initializeFromError:",{anError:anError,errorContext:errorContext},globals.HLDebuggerModel)})},
 args: ["anError"],
-source: "initializeFromError: anError\x0a\x09error := anError.\x0a\x09console log: error.\x0a\x09console log: error context.\x0a\x09rootContext := (AIContext fromMethodContext: error context).\x0a\x09self initializeContexts",
-messageSends: ["log:", "context", "fromMethodContext:", "initializeContexts"],
+source: "initializeFromError: anError\x0a\x09| errorContext |\x0a\x09\x0a\x09error := anError.\x0a\x09errorContext := (AIContext fromMethodContext: error context).\x0a\x09rootContext := error signalerContextFrom: errorContext.\x0a\x09self selectedMethod: rootContext method",
+messageSends: ["fromMethodContext:", "context", "signalerContextFrom:", "selectedMethod:", "method"],
 referencedClasses: ["AIContext"]
-}),
-globals.HLDebuggerModel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._currentContext())._interpreter();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter",{},globals.HLDebuggerModel)})},
-args: [],
-source: "interpreter\x0a\x09^ self currentContext interpreter",
-messageSends: ["interpreter", "currentContext"],
-referencedClasses: []
 }),
 globals.HLDebuggerModel);
 
@@ -938,13 +994,58 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._interpreter())._node();
+$1=_st(self._debugger())._node();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextNode",{},globals.HLDebuggerModel)})},
 args: [],
-source: "nextNode\x0a\x09^ self interpreter node",
-messageSends: ["node", "interpreter"],
+source: "nextNode\x0a\x09^ self debugger node",
+messageSends: ["node", "debugger"],
 referencedClasses: []
+}),
+globals.HLDebuggerModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onStep",
+protocol: 'reactions',
+fn: function (){
+var self=this;
+function $HLDebuggerContextSelected(){return globals.HLDebuggerContextSelected||(typeof HLDebuggerContextSelected=="undefined"?nil:HLDebuggerContextSelected)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$3,$4;
+self["@rootContext"]=self._currentContext();
+$ctx1.sendIdx["currentContext"]=1;
+$2=self._currentContext();
+$ctx1.sendIdx["currentContext"]=2;
+$1=_st($2)._method();
+self._selectedMethod_($1);
+$3=_st($HLDebuggerContextSelected())._new();
+_st($3)._context_(self._currentContext());
+$4=_st($3)._yourself();
+_st(self._announcer())._announce_($4);
+return self}, function($ctx1) {$ctx1.fill(self,"onStep",{},globals.HLDebuggerModel)})},
+args: [],
+source: "onStep\x0a\x09rootContext := self currentContext.\x0a\x09\x0a\x09\x22Force a refresh of the context list and code widget\x22\x0a\x09self selectedMethod: self currentContext method.\x0a\x09self announcer announce: (HLDebuggerContextSelected new\x0a\x09\x09context: self currentContext;\x0a\x09\x09yourself)",
+messageSends: ["currentContext", "selectedMethod:", "method", "announce:", "announcer", "context:", "new", "yourself"],
+referencedClasses: ["HLDebuggerContextSelected"]
+}),
+globals.HLDebuggerModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "proceed",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $HLDebuggerProceeded(){return globals.HLDebuggerProceeded||(typeof HLDebuggerProceeded=="undefined"?nil:HLDebuggerProceeded)}
+return smalltalk.withContext(function($ctx1) { 
+_st(self._debugger())._proceed();
+_st(self._announcer())._announce_(_st($HLDebuggerProceeded())._new());
+return self}, function($ctx1) {$ctx1.fill(self,"proceed",{},globals.HLDebuggerModel)})},
+args: [],
+source: "proceed\x0a\x09self debugger proceed.\x0a\x09\x0a\x09self announcer announce: HLDebuggerProceeded new",
+messageSends: ["proceed", "debugger", "announce:", "announcer", "new"],
+referencedClasses: ["HLDebuggerProceeded"]
 }),
 globals.HLDebuggerModel);
 
@@ -957,16 +1058,16 @@ var self=this;
 function $HLDebuggerStepped(){return globals.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-_st(self._interpreter())._restart();
-self._flushInnerContexts();
+_st(self._debugger())._restart();
+self._onStep();
 $1=_st($HLDebuggerStepped())._new();
 _st($1)._context_(self._currentContext());
 $2=_st($1)._yourself();
 _st(self._announcer())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"restart",{},globals.HLDebuggerModel)})},
 args: [],
-source: "restart\x0a\x09self interpreter restart.\x0a\x09self flushInnerContexts.\x0a\x09\x0a\x09self announcer announce: (HLDebuggerStepped new\x0a\x09\x09context: self currentContext;\x0a\x09\x09yourself)",
-messageSends: ["restart", "interpreter", "flushInnerContexts", "announce:", "announcer", "context:", "new", "currentContext", "yourself"],
+source: "restart\x0a\x09self debugger restart.\x0a\x09self onStep.\x0a\x09\x0a\x09self announcer announce: (HLDebuggerStepped new\x0a\x09\x09context: self currentContext;\x0a\x09\x09yourself)",
+messageSends: ["restart", "debugger", "onStep", "announce:", "announcer", "context:", "new", "currentContext", "yourself"],
 referencedClasses: ["HLDebuggerStepped"]
 }),
 globals.HLDebuggerModel);
@@ -990,29 +1091,6 @@ globals.HLDebuggerModel);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "skip",
-protocol: 'actions',
-fn: function (){
-var self=this;
-function $HLDebuggerStepped(){return globals.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-_st(self._interpreter())._skip();
-self._flushInnerContexts();
-$1=_st($HLDebuggerStepped())._new();
-_st($1)._context_(self._currentContext());
-$2=_st($1)._yourself();
-_st(self._announcer())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"skip",{},globals.HLDebuggerModel)})},
-args: [],
-source: "skip\x0a\x09self interpreter skip.\x0a\x09self flushInnerContexts.\x0a\x09\x0a\x09self announcer announce: (HLDebuggerStepped new\x0a\x09\x09context: self currentContext;\x0a\x09\x09yourself)",
-messageSends: ["skip", "interpreter", "flushInnerContexts", "announce:", "announcer", "context:", "new", "currentContext", "yourself"],
-referencedClasses: ["HLDebuggerStepped"]
-}),
-globals.HLDebuggerModel);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "stepOver",
 protocol: 'actions',
 fn: function (){
@@ -1020,16 +1098,16 @@ var self=this;
 function $HLDebuggerStepped(){return globals.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-_st(self._interpreter())._stepOver();
-self._flushInnerContexts();
+_st(self._debugger())._stepOver();
+self._onStep();
 $1=_st($HLDebuggerStepped())._new();
 _st($1)._context_(self._currentContext());
 $2=_st($1)._yourself();
 _st(self._announcer())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"stepOver",{},globals.HLDebuggerModel)})},
 args: [],
-source: "stepOver\x0a\x09self interpreter stepOver.\x0a\x09self flushInnerContexts.\x0a\x09\x0a\x09self announcer announce: (HLDebuggerStepped new\x0a\x09\x09context: self currentContext;\x0a\x09\x09yourself)",
-messageSends: ["stepOver", "interpreter", "flushInnerContexts", "announce:", "announcer", "context:", "new", "currentContext", "yourself"],
+source: "stepOver\x0a\x09self debugger stepOver.\x0a\x09self onStep.\x0a\x09\x0a\x09self announcer announce: (HLDebuggerStepped new\x0a\x09\x09context: self currentContext;\x0a\x09\x09yourself)",
+messageSends: ["stepOver", "debugger", "onStep", "announce:", "announcer", "context:", "new", "currentContext", "yourself"],
 referencedClasses: ["HLDebuggerStepped"]
 }),
 globals.HLDebuggerModel);
@@ -1172,19 +1250,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@items"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@items"]=_st(self._model())._contexts();
-$1=self["@items"];
-} else {
-$1=$2;
-};
+var $1;
+$1=_st(self._model())._contexts();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"items",{},globals.HLStackListWidget)})},
 args: [],
-source: "items\x0a\x09^ items ifNil: [ items := self model contexts ]",
-messageSends: ["ifNil:", "contexts", "model"],
+source: "items\x0a\x09^ self model contexts",
+messageSends: ["contexts", "model"],
 referencedClasses: []
 }),
 globals.HLStackListWidget);
@@ -1212,7 +1284,8 @@ fn: function (){
 var self=this;
 function $HLDebuggerStepped(){return globals.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
 return smalltalk.withContext(function($ctx1) { 
-globals.HLStackListWidget.superclass.fn.prototype._observeModel.apply(_st(self), []);
+($ctx1.supercall = true, globals.HLStackListWidget.superclass.fn.prototype._observeModel.apply(_st(self), []));
+$ctx1.supercall = false;
 _st(_st(self._model())._announcer())._on_send_to_($HLDebuggerStepped(),"onDebuggerStepped:",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},globals.HLStackListWidget)})},
 args: [],
@@ -1235,6 +1308,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"onDebuggerStepped:",{anAnnouncem
 args: ["anAnnouncement"],
 source: "onDebuggerStepped: anAnnouncement\x0a\x09items := nil.\x0a\x09self refresh",
 messageSends: ["refresh"],
+referencedClasses: []
+}),
+globals.HLStackListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "proceed",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._proceed();
+return self}, function($ctx1) {$ctx1.fill(self,"proceed",{},globals.HLStackListWidget)})},
+args: [],
+source: "proceed\x0a\x09self model proceed",
+messageSends: ["proceed", "model"],
 referencedClasses: []
 }),
 globals.HLStackListWidget);
@@ -1289,19 +1378,19 @@ return self._stepOver();
 $ctx2.sendIdx["onClick:"]=3;
 $8;
 $9=_st(html)._button();
-_st($9)._class_("btn skip");
-_st($9)._with_("Skip");
+_st($9)._class_("btn proceed");
+_st($9)._with_("Proceed");
 $10=_st($9)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
-return self._skip();
+return self._proceed();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)})}));
 return $10;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["with:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLStackListWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html div \x0a\x09\x09class: 'debugger_bar'; \x0a\x09\x09with: [\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn restart';\x0a\x09\x09\x09\x09with: 'Restart';\x0a\x09\x09\x09\x09onClick: [ self restart ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn where';\x0a\x09\x09\x09\x09with: 'Where';\x0a\x09\x09\x09\x09onClick: [ self where ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn stepOver';\x0a\x09\x09\x09\x09with: 'Step over';\x0a\x09\x09\x09\x09onClick: [ self stepOver ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn skip';\x0a\x09\x09\x09\x09with: 'Skip';\x0a\x09\x09\x09\x09onClick: [ self skip ] ]",
-messageSends: ["class:", "div", "with:", "button", "onClick:", "restart", "where", "stepOver", "skip"],
+source: "renderButtonsOn: html\x0a\x09html div \x0a\x09\x09class: 'debugger_bar'; \x0a\x09\x09with: [\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn restart';\x0a\x09\x09\x09\x09with: 'Restart';\x0a\x09\x09\x09\x09onClick: [ self restart ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn where';\x0a\x09\x09\x09\x09with: 'Where';\x0a\x09\x09\x09\x09onClick: [ self where ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn stepOver';\x0a\x09\x09\x09\x09with: 'Step over';\x0a\x09\x09\x09\x09onClick: [ self stepOver ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn proceed';\x0a\x09\x09\x09\x09with: 'Proceed';\x0a\x09\x09\x09\x09onClick: [ self proceed ] ]",
+messageSends: ["class:", "div", "with:", "button", "onClick:", "restart", "where", "stepOver", "proceed"],
 referencedClasses: []
 }),
 globals.HLStackListWidget);
@@ -1330,7 +1419,8 @@ fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._currentContext_(aContext);
-globals.HLStackListWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [aContext]);
+($ctx1.supercall = true, globals.HLStackListWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [aContext]));
+$ctx1.supercall = false;
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aContext:aContext},globals.HLStackListWidget)})},
 args: ["aContext"],
 source: "selectItem: aContext\x0a   \x09self model currentContext: aContext.\x0a\x09super selectItem: aContext",
@@ -1341,16 +1431,18 @@ globals.HLStackListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "skip",
+selector: "selectedItem",
 protocol: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._model())._skip();
-return self}, function($ctx1) {$ctx1.fill(self,"skip",{},globals.HLStackListWidget)})},
+var $1;
+$1=_st(self._model())._currentContext();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"selectedItem",{},globals.HLStackListWidget)})},
 args: [],
-source: "skip\x0a\x09self model skip",
-messageSends: ["skip", "model"],
+source: "selectedItem\x0a   \x09^ self model currentContext",
+messageSends: ["currentContext", "model"],
 referencedClasses: []
 }),
 globals.HLStackListWidget);

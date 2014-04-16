@@ -207,7 +207,8 @@ protocol: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.RethrowErrorHandler.superclass.fn.prototype._handleError_.apply(_st(self), [anError]);
+($ctx1.supercall = true, globals.RethrowErrorHandler.superclass.fn.prototype._handleError_.apply(_st(self), [anError]));
+$ctx1.supercall = false;
 self._basicSignal_(anError);
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.RethrowErrorHandler)})},
 args: ["anError"],

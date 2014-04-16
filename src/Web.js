@@ -92,6 +92,24 @@ referencedClasses: []
 }),
 globals.BrowserInterface);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "prompt:default:",
+protocol: 'actions',
+fn: function (aString,defaultString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(window)._prompt_default_(aString,defaultString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},globals.BrowserInterface)})},
+args: ["aString", "defaultString"],
+source: "prompt: aString default: defaultString\x0a\x09^ window prompt: aString default: defaultString",
+messageSends: ["prompt:default:"],
+referencedClasses: []
+}),
+globals.BrowserInterface);
+
 
 
 smalltalk.addClass('HTMLCanvas', globals.Object, ['root'], 'Web');
@@ -1123,10 +1141,11 @@ fn: function (){
 var self=this;
 function $TagBrush(){return globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-globals.HTMLCanvas.superclass.fn.prototype._initialize.apply(_st(self), []);
+var $1,$receiver;
+($ctx1.supercall = true, globals.HTMLCanvas.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self["@root"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = $1) == null || $receiver.isNil){
 self["@root"]=_st($TagBrush())._fromString_canvas_("div",self);
 self["@root"];
 } else {
@@ -2331,9 +2350,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@snippets"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@snippets"]=globals.HashedCollection._newFromPairs_([]);
 $1=self["@snippets"];
 } else {
@@ -2392,10 +2411,11 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$receiver;
 $1=self["@current"];
-if(($receiver = $1) == nil || $receiver == null){
-$2=globals.HTMLSnippet.klass.superclass.fn.prototype._new.apply(_st(self), []);
+if(($receiver = $1) == null || $receiver.isNil){
+$2=($ctx1.supercall = true, globals.HTMLSnippet.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 _st($2)._initializeFromJQuery_(_st(document)._asJQuery());
 $3=_st($2)._yourself();
 self["@current"]=$3;
@@ -2419,7 +2439,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.HTMLSnippet.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.HTMLSnippet.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self._isDOMAvailable();
 if(smalltalk.assert($1)){
 self._ensureCurrent();

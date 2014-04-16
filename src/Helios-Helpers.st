@@ -463,11 +463,7 @@ commitPackage
 commitToPath: aString
 	"We only take AMD package transport into account for now"
 	
-	(require basicAt: 'config') value: #{
-		'paths' -> #{
-			self package transport namespace -> aString
-		}
-	}.
+	self package transport setPath: aString.
 	
 	self commitPackage
 !

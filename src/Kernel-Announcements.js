@@ -100,14 +100,14 @@ fn: function (anAnnouncement){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$4,$2,$1;
+var $3,$4,$2,$1,$receiver;
 $3=_st($Smalltalk())._globals();
 $ctx1.sendIdx["globals"]=1;
 $4=_st(self._announcementClass())._name();
 $ctx1.sendIdx["name"]=1;
 $2=_st($3)._at_($4);
 $ctx1.sendIdx["at:"]=1;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 return false;
 } else {
 var class_;
@@ -308,7 +308,8 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-globals.Announcer.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.Announcer.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@subscriptions"]=_st($OrderedCollection())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Announcer)})},
 args: [],
@@ -461,10 +462,11 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@current"]=globals.SystemAnnouncer.klass.superclass.fn.prototype._new.apply(_st(self), []);
+if(($receiver = $2) == null || $receiver.isNil){
+self["@current"]=($ctx1.supercall = true, globals.SystemAnnouncer.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$ctx1.supercall = false;
 $1=self["@current"];
 } else {
 $1=$2;
@@ -796,6 +798,14 @@ globals.PackageAnnouncement);
 
 smalltalk.addClass('PackageAdded', globals.PackageAnnouncement, [], 'Kernel-Announcements');
 globals.PackageAdded.comment="I am emitted when a `Package` is added to the system.";
+
+
+smalltalk.addClass('PackageClean', globals.PackageAnnouncement, [], 'Kernel-Announcements');
+globals.PackageClean.comment="I am emitted when a package is committed and becomes clean.";
+
+
+smalltalk.addClass('PackageDirty', globals.PackageAnnouncement, [], 'Kernel-Announcements');
+globals.PackageDirty.comment="I am emitted when a package becomes dirty.";
 
 
 smalltalk.addClass('PackageRemoved', globals.PackageAnnouncement, [], 'Kernel-Announcements');

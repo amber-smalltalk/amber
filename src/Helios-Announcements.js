@@ -1,6 +1,6 @@
-define("amber_core/Helios-Announcements", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Announcements", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
 smalltalk.addPackage('Helios-Announcements');
-smalltalk.packages["Helios-Announcements"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["Helios-Announcements"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLAboutToChange', globals.Object, ['actionBlock'], 'Helios-Announcements');
 globals.HLAboutToChange.comment="I am announced whenever a change of context is about to be made, and unsaved changes could be lost.\x0a\x0aI am used within `HLModel` to handle such user actions. See `HLModel >> withChangesDo:`.";
@@ -188,6 +188,9 @@ referencedClasses: []
 }),
 globals.HLDebuggerContextSelected);
 
+
+
+smalltalk.addClass('HLDebuggerProceeded', globals.HLDebuggerAnnouncement, [], 'Helios-Announcements');
 
 
 smalltalk.addClass('HLDebuggerStepped', globals.HLDebuggerAnnouncement, [], 'Helios-Announcements');
@@ -501,6 +504,124 @@ smalltalk.addClass('HLPackageSelected', globals.HLItemSelected, [], 'Helios-Anno
 smalltalk.addClass('HLProtocolSelected', globals.HLItemSelected, [], 'Helios-Announcements');
 
 
+smalltalk.addClass('HLItemUnselected', globals.HLAnnouncement, ['item'], 'Helios-Announcements');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "item",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@item"];
+return $1;
+},
+args: [],
+source: "item\x0a\x09^ item",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLItemUnselected);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "item:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@item"]=anObject;
+return self},
+args: ["anObject"],
+source: "item: anObject\x0a\x09item := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLItemUnselected);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+protocol: 'instance creation',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._item_(anItem);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{anItem:anItem},globals.HLItemUnselected.klass)})},
+args: ["anItem"],
+source: "on: anItem\x0a\x09^ self new\x0a    \x09item: anItem;\x0a        yourself",
+messageSends: ["item:", "new", "yourself"],
+referencedClasses: []
+}),
+globals.HLItemUnselected.klass);
+
+
+smalltalk.addClass('HLClassUnselected', globals.HLItemUnselected, [], 'Helios-Announcements');
+
+
+smalltalk.addClass('HLPackageUnselected', globals.HLItemUnselected, [], 'Helios-Announcements');
+
+
+smalltalk.addClass('HLRunTests', globals.HLAnnouncement, ['testSuiteRunner'], 'Helios-Announcements');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testSuiteRunner",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@testSuiteRunner"];
+return $1;
+},
+args: [],
+source: "testSuiteRunner\x0a\x09^ testSuiteRunner",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLRunTests);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testSuiteRunner:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@testSuiteRunner"]=anObject;
+return self},
+args: ["anObject"],
+source: "testSuiteRunner: anObject\x0a\x09testSuiteRunner := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLRunTests);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+protocol: 'instance creation',
+fn: function (aTestSuiteRunner){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._testSuiteRunner_(aTestSuiteRunner);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{aTestSuiteRunner:aTestSuiteRunner},globals.HLRunTests.klass)})},
+args: ["aTestSuiteRunner"],
+source: "on: aTestSuiteRunner\x0a\x09^self new\x0a\x09\x09testSuiteRunner: aTestSuiteRunner;\x0a\x09\x09yourself",
+messageSends: ["testSuiteRunner:", "new", "yourself"],
+referencedClasses: []
+}),
+globals.HLRunTests.klass);
+
+
 smalltalk.addClass('HLSaveSourceCode', globals.HLAnnouncement, [], 'Helios-Announcements');
 
 
@@ -581,5 +702,72 @@ globals.HLShowTemplate);
 
 
 smalltalk.addClass('HLSourceCodeSaved', globals.HLAnnouncement, [], 'Helios-Announcements');
+
+
+smalltalk.addClass('HLTabLabelChanged', globals.HLAnnouncement, ['label', 'widget'], 'Helios-Announcements');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@label"];
+return $1;
+},
+args: [],
+source: "label\x0a\x09^ label",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabLabelChanged);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@label"]=aString;
+return self},
+args: ["aString"],
+source: "label: aString\x0a\x09label := aString",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabLabelChanged);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "widget",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@widget"];
+return $1;
+},
+args: [],
+source: "widget\x0a\x09^ widget",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabLabelChanged);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "widget:",
+protocol: 'accessing',
+fn: function (aWidget){
+var self=this;
+self["@widget"]=aWidget;
+return self},
+args: ["aWidget"],
+source: "widget: aWidget\x0a\x09widget := aWidget",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLTabLabelChanged);
+
 
 });

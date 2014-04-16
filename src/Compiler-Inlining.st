@@ -59,6 +59,15 @@ IRSend subclass: #IRInlinedSend
 !IRInlinedSend commentStamp!
 I am the abstract super class of inlined message send instructions.!
 
+!IRInlinedSend methodsFor: 'accessing'!
+
+internalVariables
+	"Answer a collection of internal variables required 
+	to perform the inlining"
+	
+	^ #()
+! !
+
 !IRInlinedSend methodsFor: 'testing'!
 
 isInlined
@@ -88,6 +97,22 @@ IRInlinedSend subclass: #IRInlinedIfNilIfNotNil
 	package: 'Compiler-Inlining'!
 !IRInlinedIfNilIfNotNil commentStamp!
 I represent an inlined `#ifNil:ifNotNil:` message send instruction.!
+
+!IRInlinedIfNilIfNotNil methodsFor: 'accessing'!
+
+internalVariables
+	^ Array with: self receiverInternalVariable
+!
+
+receiverInternalVariable
+	^ IRVariable new
+		variable: (AliasVar new name: self receiverInternalVariableName);
+		yourself.
+!
+
+receiverInternalVariableName
+	^ '$receiver'
+! !
 
 !IRInlinedIfNilIfNotNil methodsFor: 'visiting'!
 
@@ -251,20 +276,12 @@ visitIRInlinedIfFalse: anIRInlinedIfFalse
 		with: [ self visit: anIRInlinedIfFalse instructions last ]
 !
 
-visitIRInlinedIfNil: anIRInlinedIfNil
-	self stream nextPutIf: [
-		self stream nextPutAll: '($receiver = '.
-		self visit: anIRInlinedIfNil instructions first.
-		self stream nextPutAll: ') == nil || $receiver == null' ]
-		with: [ self visit: anIRInlinedIfNil instructions last ]
-!
-
 visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil
 	self stream
 		nextPutIfElse: [
-			self stream nextPutAll: '($receiver = '.
+			self stream nextPutAll: '(', anIRInlinedIfNilIfNotNil receiverInternalVariableName, ' = '.
 			self visit: anIRInlinedIfNilIfNotNil instructions first.
-			self stream nextPutAll: ') == nil || $receiver == null' ]
+			self stream nextPutAll: ') == null || $receiver.isNil' ]
 		with: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]
 		with: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]
 !
@@ -396,7 +413,9 @@ inlineClosure: anIRClosure
 	| inlinedClosure sequence statements |
 
 	inlinedClosure := self inlinedClosure.
-	inlinedClosure scope: anIRClosure scope.
+	inlinedClosure 
+		scope: anIRClosure scope;
+		parent: anIRClosure parent.
 
 	"Add the possible temp declarations"
 	anIRClosure tempDeclarations do: [ :each |
@@ -450,6 +469,8 @@ inlinedSend: inlinedSend with: anIRInstruction
 		add: inlinedClosure.
 
 	self send replaceWith: inlinedSend.
+	inlinedSend method internalVariables 
+		addAll: inlinedSend internalVariables.
 
 	^ inlinedSend
 !
@@ -469,6 +490,9 @@ inlinedSend: inlinedSend with: anIRInstruction with: anotherIRInstruction
 		add: inlinedClosure2.
 
 	self send replaceWith: inlinedSend.
+	inlinedSend method internalVariables 
+		addAll: inlinedSend internalVariables.
+		
 	^ inlinedSend
 ! !
 

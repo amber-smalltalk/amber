@@ -40,9 +40,8 @@ doIt: aString
 	
 	See https://github.com/amber-smalltalk/amber/issues/882"
 
-	^ self 
-		try: [ self environment eval: aString on: self receiver ]
-		catch: [ :e | 
+	^ [ self environment evaluate: aString for: self receiver ]
+		tryCatch: [ :e | 
 			ErrorHandler handleError: e.
 			nil ]
 !
@@ -97,7 +96,7 @@ currentLineOrSelection
 
 editorOptions
 	^ #{
-		'theme' -> ('helios.codeMirrorTheme' settingValueIfAbsent: 'default helios').
+		'theme' -> ('helios.editorTheme' settingValueIfAbsent: 'default').
 		'mode' -> 'text/x-stsrc'.
         'lineNumbers' -> true.
         'enterMode' -> 'flat'.
@@ -226,8 +225,7 @@ print: aString
 !
 
 printIt
-	self print: self doIt printString.
-	self focus.
+	self print: self doIt printString
 !
 
 saveIt

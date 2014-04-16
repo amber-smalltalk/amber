@@ -23,33 +23,10 @@ body.navigation .CodeMirror pre {
 	cursor: pointer !important;
 }
 
-.cm-s-helios {
-	&.CodeMirror {
-		font-family: Consolas, "Liberation Mono", Courier, monospace;
-		line-height: 16px;
-		font-size: 13px;
-	}
-
-	.CodeMirror-gutter.stops {
-		width: 20px;
-	}
-
-	.highlighted.CodeMirror-linebackground {
-		background-color: #ffffaa;
-	}
-
-	.CodeMirror-gutter-elt .stop {
-		width: 16px;
-		height: 16px;
-		background: url('../images/arrowRight.png');
-		margin-left: 2px;
-	}
-}
-
 body[id="helios"] {
 	font-size: 11px;
 	font-family: "Lucida Grande", "Segoe UI", helvetica, arial, sans-serif;
-	background: #eee;
+	background: #eee url(squared_metal.png) repeat;
 
 	a {
 		cursor: pointer;
@@ -67,7 +44,26 @@ body[id="helios"] {
 		position: absolute;
 		height: 100%;
 		width: 100%;
+		font-family: Consolas, "Liberation Mono", Courier, monospace;
+		line-height: 16px;
+		font-size: 13px;
+
+		.CodeMirror-gutter.stops {
+			width: 20px;
+		}
+
+		.highlighted.CodeMirror-linebackground {
+			background-color: #ffffaa;
+		}
+
+		.CodeMirror-gutter-elt .stop {
+			width: 16px;
+			height: 16px;
+			background: url('arrowRight.png');
+			margin-left: 2px;
+		}
 	}
+
 
 	.CodeMirror-hints {
 		border-radius: 0;
@@ -92,7 +88,7 @@ body[id="helios"] {
 	}
 
 	.state.modified {
-		background: transparent url('../images/modified.png') 50% 50% no-repeat;
+		background: transparent url('modified.png') 50% 50% no-repeat;
 	}
 
 	.editor {
@@ -136,6 +132,10 @@ body[id="helios"] {
 	.navbar-fixed-top {
 		font-size: 11px;
 		line-height: 16px;
+		
+		ul {
+			width: 100%;
+		}
 	}
 
 	.navbar-fixed-top a span,
@@ -144,83 +144,135 @@ body[id="helios"] {
 		padding-left: 18px;
 		background-position: center left;
 		background-repeat: no-repeat;
-		background-position: 0px -1px;
+		background-position: 0px center;
+		height: 22px;
 	}
 
 	.navbar-fixed-top i.close {
 		width: 14px;
 		height: 16px;
 		margin-left: 4px;
-		background-image: url('../images/close.gif');
+		background-image: url('close.gif');
 		margin-right: 0;
 		background-position: center left;
-		margin-top: 2px;
+		margin-top: 4px;
 	}
 
 	.navbar-fixed-top a,
 	.dialog .nav a {
 
 		span.references {
-			background-image: url('../images/references.png')
+			background-image: url('references.png')
 		}
 
 		span.browser {
-			background-image: url('../images/browser.png')
+			background-image: url('browser.png')
 		}
 
 		span.sunit {
-			background-image: url('../images/sunit.png')
+			background-image: url('sunit.png')
 		}
 
 		span.workspace {
-			background-image: url('../images/workspace.png')
+			background-image: url('workspace.png')
 		}
 
 		span.debugger {
-			background-image: url('../images/debugger.png')
+			background-image: url('debugger.png')
 		}
 		span.inspector {
-			background-image: url('../images/inspector.png')
+			background-image: url('inspector.png')
 		}
 	}
 
 	.navbar-fixed-top .navbar-inner {
-		min-height: 20px;
-		background-color: #dbdbdb;
+		min-height: 24px;
 		border-bottom: 1px solid #666;
-		background-image: linear-gradient(top, #dfdfdf, #d0d0d0);
-		background-image: -webkit-linear-gradient(top, #dfdfdf, #d0d0d0);
-		background-image: -moz-linear-gradient(top, #dfdfdf, #d0d0d0);
-		background-image: -owebkit-linear-gradient(top, #dfdfdf, #d0d0d0);
-		box-shadow: 0 0 0;
+		box-shadow: inset 0px 2px 2px #aaa;
+		background: #bababa;
 	}
 
-	.navbar .nav > li {
-		line-height: 16px;
+	.navbar .nav {
+		> li {
+			line-height: 16px;
+			text-align: center;
+			max-width: 300px;
+		}
+	}
+
+	.new_tab {
+		width: 20px;
+		height: 24px;
+		line-height: 24px;
+		border-right: 0 none;
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		z-index: 2000;
+
+		a {
+			color: #444;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+		
+		.dropdown-menu {
+			left: auto;
+			float: right;
+			right: 0;
+		}
+	}
+
+	.dropdown-menu {
+		min-width: 0;
+		text-align: left;
 	}
 
 	.navbar .nav > li > a {
 		line-height: 22px;
 		padding: 0px 8px;
 		font-size: 11px;
-		color: #444;
-		text-shadow: 0 1px 0 #ddd;
+		border-right: 1px solid #777;
+		text-shadow: #ddd 0px 1px 0px;
+		color: #222;
+
+		span {
+			display: block;
+			overflow: hidden;
+		}
 	}
 
 	.nav > li > a:hover {
 		background: transparent;
 	}
 
+	.navbar .nav > li > a:hover {
+		color: #333;
+		background-image: linear-gradient(top, #cfcfcf, #c0c0c0);
+		background-image: -webkit-linear-gradient(top, #cfcfcf, #c0c0c0);
+		background-image: -moz-linear-gradient(top, #cfcfcf, #c0c0c0);
+		background-image: -o-linear-gradient(top, #cfcfcf, #c0c0c0);
+		text-shadow: 0 1px 0 #ddd;
+		box-shadow: 0 0 0;
+	}
+
 	.navbar .nav > .active > a,
 	.navbar .nav > .active > a:hover,
-	.navbar .nav > .active > a:focus {
-		background-color: #bababa;
-		background-image: linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
-		background-image: -webkit-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -webkit-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
-		background-image: -moz-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -moz-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
-		background-image: -o-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -o-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
-		text-shadow: #ddd 0px 1px 0px;
-		color: #222;
+	.navbar .nav > .active > a:focus,
+	.navbar .nav .ui-sortable-helper a {
+		color: #444;
+		background-image: linear-gradient(top, #dfdfdf, #d0d0d0);
+		background-image: -webkit-linear-gradient(top, #dfdfdf, #d0d0d0);
+		background-image: -moz-linear-gradient(top, #dfdfdf, #d0d0d0);
+		background-image: -o-linear-gradient(top, #dfdfdf, #d0d0d0);
+		text-shadow: 0 1px 0 #ddd;
+		box-shadow: 0 0 0;
+	}
+
+	.navbar .nav .ui-sortable-helper a {
+		border-left: 1px solid #777;
 	}
 
 	.navbar-fixed-top i {
@@ -276,6 +328,33 @@ body[id="helios"] {
 		background: rgba(95, 159, 228, 0.62);
 		color: #fff;
 		text-shadow: 0 0 0;
+	}
+
+	.welcome {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 50%;
+		margin-left: -170px;
+		width: 340px;
+		margin-top: 60px;
+		text-shadow: 0 1px 0 #fafafa;
+
+		color: #666;
+		font-size: 14px;
+		
+		h2 {
+			text-align: center;
+			color: #666;
+		}
+
+		button {
+			background: #eee;
+			margin: 10px;
+			padding: 20px;
+			height: auto;
+			width: 150px;
+		}
 	}
 
 	.tool_container {
@@ -397,55 +476,58 @@ body[id="helios"] {
 	}
 
 	.tool_container .pane .nav-pills i.announcement {
-		background-image: url('../images/announcement.png');
+		background-image: url('announcement.png');
 	}
 	.tool_container .pane .nav-pills i.class {
-		background-image: url('../images/class.png');
+		background-image: url('class.png');
 	}
 	.tool_container .pane .nav-pills i.collection {
-		background-image: url('../images/collection.png');
+		background-image: url('collection.png');
 	}
 	.tool_container .pane .nav-pills i.test {
-		background-image: url('../images/test.png');
+		background-image: url('test.png');
 	}
 	.tool_container .pane .nav-pills i.exception {
-		background-image: url('../images/exception.png');
+		background-image: url('exception.png');
 	}
 	.tool_container .pane .nav-pills i.widget {
-		background-image: url('../images/widget.png');
+		background-image: url('widget.png');
 	}
 	.tool_container .pane .nav-pills i.magnitude {
-		background-image: url('../images/magnitude.png');
+		background-image: url('magnitude.png');
 	}
 	.tool_container .pane .nav-pills i.package {
-		background-image: url('../images/package.png');
+		background-image: url('package.png');
+	}
+	.tool_container .pane .nav-pills i.package_dirty {
+		background-image: url('package-dirty.png');
 	}
 	.tool_container .pane .nav-pills i.private {
-		background-image: url('../images/private.png');
+		background-image: url('private.png');
 	}
 	.tool_container .pane .nav-pills i.extension {
-		background-image: url('../images/extension.png');
+		background-image: url('extension.png');
 	}
 	.tool_container .pane .nav-pills i.initialization {
-		background-image: url('../images/initialization.png');
+		background-image: url('initialization.png');
 	}
 	.tool_container .pane .nav-pills i.package {
-		background-image: url('../images/package.png');
+		background-image: url('package.png');
 	}
 	.tool_container .pane .nav-pills i.override {
-		background-image: url('../images/override.png ');
+		background-image: url('override.png ');
 	}
 	.tool_container .pane .nav-pills i.overridden {
-		background-image: url('../images/overridden.png');
+		background-image: url('overridden.png');
 	}
 	.tool_container .pane .nav-pills i.override-overridden {
-		background-image: url('../images/override-overridden.png');
+		background-image: url('override-overridden.png');
 	}
 	.tool_container .pane .nav-pills i.warning {
-		background-image: url('../images/warning.gif');
+		background-image: url('warning.gif');
 	}
 	.tool_container .pane .nav-pills i.uncommented {
-		background-image: url('../images/uncommented.png');
+		background-image: url('uncommented.png');
 	}
 
 	.tool_container .list-label {
@@ -734,6 +816,27 @@ body[id="helios"] {
 		bottom: 0;
 	}
 
+	.growl {
+		position: fixed;
+		top: 10px;
+		right: 10px;
+		margin: 0;
+		z-index: 2001;
+		width: 200px;
+		height:auto;
+		padding: 15px;
+		background-image: -webkit-linear-gradient(rgba(255,255,255,1), rgba(235,235,235,1));
+		background-image: -moz-linear-gradient(rgba(255,255,255,1), rgba(235,235,235,1));
+		background-image: -o-linear-gradient(rgba(255,255,255,1), rgba(235,235,235,1));
+		background-image: linear-gradient(rgba(255,255,255,1), rgba(235,235,235,1));
+		border: 1px solid #aaa;
+		border-radius: 8px;
+		box-shadow: 0 0 3px #ccc;
+		font-weight: bold;
+		text-shadow: 0px 2px 1px #fff;
+	}
+
+
 	.confirmation, .dialog {
 		z-index: 2001;
 		background: rgba(243, 243, 243, 0.9);
@@ -950,7 +1053,7 @@ body[id="helios"] {
 			position: absolute;
 			top: 23px;
 			width: 100%;
-			background: #08c url(/images/debugger.png) 10px center no-repeat;
+			background: #08c url(debugger.png) 10px center no-repeat;
 			border-bottom: 1px solid white;
 
 			h2 {

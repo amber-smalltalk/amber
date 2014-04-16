@@ -57,15 +57,20 @@ value: firstArgument value: secondArgument value: thirdArgument
 
 valueWithPossibleArguments: aCollection
 	| context sequenceNode |
-	context := outerContext newBlockContext.
+	context := outerContext newInnerContext.
 
 	"Interpret a copy of the sequence node to avoid creating a new AIBlockClosure"
 	sequenceNode := node nodes first copy
 		parent: nil;
 		yourself.
-
+		
+	"Define locals in the context"
+	sequenceNode temps do: [ :each |
+		context defineLocal: each ].
+		
 	"Populate the arguments into the context locals"	
 	node parameters withIndexDo: [ :each :index |
+		context defineLocal: each.
 		context localAt: each put: (aCollection at: index ifAbsent: [ nil ]) ].
 
 	"Interpret the first node of the BlockSequenceNode"
@@ -95,7 +100,7 @@ forContext: aContext node: aNode
 ! !
 
 MethodContext subclass: #AIContext
-	instanceVariableNames: 'outerContext innerContext pc locals selector index sendIndexes evaluatedSelector ast interpreter'
+	instanceVariableNames: 'outerContext innerContext pc locals selector index sendIndexes evaluatedSelector ast interpreter supercall'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -104,6 +109,10 @@ Unlike a `MethodContext`, my instances are not read-only.
 When debugging, my instances are created by copying the current `MethodContext` (thisContext)!
 
 !AIContext methodsFor: 'accessing'!
+
+defineLocal: aString
+	self locals at: aString put: nil
+!
 
 evaluatedSelector
 	^ evaluatedSelector
@@ -132,33 +141,35 @@ innerContext: anAIContext
 localAt: aString
 	"Lookup the local value up to the method context"
 
-	^ self locals at: aString ifAbsent: [ 
-		self outerContext ifNotNil: [ :context | 
-			context localAt: aString ] ]
+	| context |
+	
+	context := self lookupContextForLocal: aString.
+	^ context basicLocalAt: aString
 !
 
 localAt: aString ifAbsent: aBlock
 	"Lookup the local value up to the method context"
 
-	^ self locals at: aString ifAbsent: [ 
-		self outerContext 
-			ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]
-			ifNil: [ aBlock value ] ]
+	| context |
+	
+	context := self 	
+		lookupContextForLocal: aString 
+		ifNone: [ ^ aBlock value ].
+	
+	^ context basicLocalAt: aString
 !
 
 localAt: aString put: anObject
-	self locals at: aString put: anObject
+	| context |
+	
+	context := self lookupContextForLocal: aString.
+	context basicLocalAt: aString put: anObject
 !
 
 locals
 	locals ifNil: [ self initializeLocals ].
 	
 	^ locals
-!
-
-method
-	^ self methodContext ifNotNil: [
-		self methodContext receiver class lookupSelector: self methodContext selector ]
 !
 
 outerContext
@@ -191,7 +202,19 @@ sendIndexes: aDictionary
 	sendIndexes := aDictionary
 ! !
 
+!AIContext methodsFor: 'error handling'!
+
+variableNotFound
+	"Error thrown whenever a variable lookup fails"
+	
+	self error: 'Variable missing'
+! !
+
 !AIContext methodsFor: 'evaluating'!
+
+evaluate: aString on: anEvaluator
+	^ anEvaluator evaluate: aString context: self
+!
 
 evaluateNode: aNode
 	^ ASTInterpreter new
@@ -203,7 +226,7 @@ evaluateNode: aNode
 
 !AIContext methodsFor: 'factory'!
 
-newBlockContext
+newInnerContext
 	^ self class new
 		outerContext: self;
 		yourself
@@ -224,6 +247,7 @@ initializeFromMethodContext: aMethodContext
 		index: aMethodContext index;
 		sendIndexes: aMethodContext sendIndexes;
 		receiver: aMethodContext receiver;
+		supercall: aMethodContext supercall;
 		selector: aMethodContext selector.
 		
 	aMethodContext outerContext ifNotNil: [ :outer |
@@ -252,7 +276,7 @@ initializeLocals
 
 arguments
 	^ self ast arguments collect: [ :each |
-		self localAt: each ]
+		self localAt: each ifAbsent: [ self error: 'Argument not in context' ] ]
 !
 
 ast
@@ -261,6 +285,10 @@ ast
 
 	ast ifNil: [ self initializeAST ].
 	^ ast
+!
+
+basicReceiver
+	^ self localAt: 'self'
 !
 
 interpreter
@@ -272,12 +300,8 @@ interpreter: anInterpreter
 	interpreter := anInterpreter
 !
 
-receiver
-	^ self localAt: 'self'
-!
-
 receiver: anObject
-	self localAt: 'self' put: anObject
+	self locals at: 'self' put: anObject
 !
 
 setupInterpreter: anInterpreter
@@ -290,6 +314,11 @@ setupInterpreter: anInterpreter
 			visit: self ast;
 			currentNode.
 	
+	"Define locals for the context"
+	self ast sequenceNode ifNotNil: [ :sequence |
+		sequence temps do: [ :each |
+			self defineLocal: each ] ].
+	
 	anInterpreter node: currentNode.
 
 	"Push the send args and receiver to the interpreter stack"	
@@ -297,6 +326,53 @@ setupInterpreter: anInterpreter
 		anInterpreter push: each ].
 		
 	anInterpreter push: (self innerContext receiver)
+!
+
+supercall
+	^ supercall ifNil: [ false ]
+!
+
+supercall: aBoolean
+	supercall := aBoolean
+! !
+
+!AIContext methodsFor: 'private'!
+
+basicLocalAt: aString
+	^ self locals at: aString
+!
+
+basicLocalAt: aString put: anObject
+	self locals at: aString put: anObject
+!
+
+lookupContextForLocal: aString
+	"Lookup the context defining the local named `aString` 
+	up to the method context"
+
+	^ self 
+		lookupContextForLocal: aString 
+		ifNone: [ self variableNotFound ]
+!
+
+lookupContextForLocal: aString ifNone: aBlock
+	"Lookup the context defining the local named `aString` 
+	up to the method context"
+
+	^ self locals 
+		at: aString
+		ifPresent: [ self ]
+		ifAbsent: [ 
+			self outerContext 
+				ifNil: aBlock
+				ifNotNil: [ :context | 
+					context lookupContextForLocal: aString ] ]
+! !
+
+!AIContext methodsFor: 'testing'!
+
+isTopContext
+	^ self innerContext isNil
 ! !
 
 !AIContext class methodsFor: 'instance creation'!
@@ -307,8 +383,50 @@ fromMethodContext: aMethodContext
 		yourself
 ! !
 
+SemanticAnalyzer subclass: #AISemanticAnalyzer
+	instanceVariableNames: 'context'
+	package: 'Compiler-Interpreter'!
+!AISemanticAnalyzer commentStamp!
+I perform the same semantic analysis than `SemanticAnalyzer`, with the difference that provided an `AIContext` context, variables are bound with the context variables.!
+
+!AISemanticAnalyzer methodsFor: 'accessing'!
+
+context
+	^ context
+!
+
+context: anAIContext
+	context := anAIContext
+! !
+
+!AISemanticAnalyzer methodsFor: 'visiting'!
+
+visitVariableNode: aNode
+	self context 
+		localAt: aNode value 
+		ifAbsent: [ ^ super visitVariableNode: aNode ].
+
+	aNode binding: ASTContextVar new
+! !
+
+ScopeVar subclass: #ASTContextVar
+	instanceVariableNames: 'context'
+	package: 'Compiler-Interpreter'!
+!ASTContextVar commentStamp!
+I am a variable defined in a `context`.!
+
+!ASTContextVar methodsFor: 'accessing'!
+
+context
+	^ context
+!
+
+context: anObject
+	context := anObject
+! !
+
 Object subclass: #ASTDebugger
-	instanceVariableNames: 'interpreter context'
+	instanceVariableNames: 'interpreter context result'
 	package: 'Compiler-Interpreter'!
 !ASTDebugger commentStamp!
 I am a stepping debugger interface for Amber code.
@@ -332,29 +450,62 @@ context: aContext
 !
 
 interpreter
-	^ self context interpreter
+	^ self context ifNotNil: [ :ctx | 
+		ctx interpreter ]
 !
 
 method
 	^ self context method
 !
 
-nextNode
-	^ self interpreter nextNode
+node
+	^ self interpreter ifNotNil: [
+		self interpreter node ]
+!
+
+result
+	^ result
+! !
+
+!ASTDebugger methodsFor: 'actions'!
+
+flushInnerContexts
+	"When stepping, the inner contexts are not relevent anymore,
+	and can be flushed"
+	
+	self context ifNotNil: [ :cxt | 
+		cxt innerContext: nil ]
+! !
+
+!ASTDebugger methodsFor: 'private'!
+
+onStep
+	"After each step, check if the interpreter is at the end,
+	and if it is move to its outer context if any, skipping its 
+	current node (which was just evaluated by the current 
+	interpreter).
+	
+	After each step we also flush inner contexts."
+	
+	result := self interpreter result.
+	
+	self interpreter atEnd ifTrue: [
+		self context outerContext ifNotNil: [ :outerContext | 
+			self context: outerContext ].
+		self interpreter atEnd ifFalse: [ self interpreter skip ] ].
+		
+	self flushInnerContexts
 ! !
 
 !ASTDebugger methodsFor: 'stepping'!
 
 proceed
-	self shouldBeImplemented
+	[ self atEnd ] whileFalse: [ self stepOver ]
 !
 
 restart
-	self interpreter restart
-!
-
-skip
-	self interpreter skip
+	self interpreter restart.
+	self flushInnerContexts
 !
 
 stepInto
@@ -362,14 +513,19 @@ stepInto
 !
 
 stepOver
-	self flushOuterContexts.
-	self interpreter stepOver
+	self context isTopContext 
+		ifFalse: [ self interpreter skip ]
+		ifTrue: [ self interpreter stepOver ].
+	self onStep
 ! !
 
 !ASTDebugger methodsFor: 'testing'!
 
-atEnd
-	^ self interpreter atEnd
+atEnd	
+	self context ifNil: [ ^ true ].
+	
+	^ self interpreter atEnd and: [ 
+		self context isTopContext ]
 ! !
 
 !ASTDebugger class methodsFor: 'instance creation'!
@@ -381,7 +537,7 @@ context: aContext
 ! !
 
 NodeVisitor subclass: #ASTInterpreter
-	instanceVariableNames: 'node context stack returnValue returned'
+	instanceVariableNames: 'node context stack returnValue returned forceAtEnd'
 	package: 'Compiler-Interpreter'!
 !ASTInterpreter commentStamp!
 I visit an AST, interpreting (evaluating) nodes one after the other, using a small stack machine.
@@ -435,6 +591,14 @@ stack
 	^ stack ifNil: [ stack := OrderedCollection new ]
 ! !
 
+!ASTInterpreter methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+
+	forceAtEnd := false
+! !
+
 !ASTInterpreter methodsFor: 'interpreting'!
 
 interpret
@@ -482,7 +646,7 @@ step
 stepOver
 	self step.
 	
-	[ self node isSteppingNode ] whileFalse: [ 
+	[ self node isNil or: [ self node isSteppingNode ] ] whileFalse: [ 
 		self step ]
 ! !
 
@@ -571,6 +735,8 @@ push: anObject
 !ASTInterpreter methodsFor: 'testing'!
 
 atEnd
+	forceAtEnd ifTrue: [ ^ true ].
+	
 	^ self hasReturned or: [ self node isNil ]
 !
 
@@ -606,6 +772,17 @@ visitBlockNode: aNode
 	block := AIBlockClosure forContext: self context node: aNode.
 	
 	self push: block
+!
+
+visitBlockSequenceNode: aNode
+	"If the receiver is actually visiting a BlockSequenceNode,
+	it means the the context is a block context. Evaluation should 
+	stop right after evaluating the block sequence and the outer
+	context's interpreter should take over. 
+	Therefore we force #atEnd."
+	
+	super visitBlockSequenceNode: aNode.
+	forceAtEnd := true
 !
 
 visitDynamicArrayNode: aNode
@@ -659,6 +836,11 @@ visitSendNode: aNode
 	(aNode isCascadeSendNode and: [ aNode isLastChild not ])
 		ifTrue: [ self push: receiver ]
 		ifFalse: [ self push: result ]
+!
+
+visitSequenceNode: aNode
+	aNode temps do: [ :each |
+		self context defineLocal: each ]
 !
 
 visitValueNode: aNode
@@ -745,8 +927,7 @@ visitSendNode: aNode
 	super visitSendNode: aNode.
 	
 	self selector = aNode selector ifTrue: [
-		self index < sendIndex ifFalse: [ 
-			self index > sendIndex ifFalse: [ currentNode := aNode ] ].
+		self index = sendIndex ifTrue: [ currentNode := aNode ].
 		self increaseIndex ]
 ! !
 

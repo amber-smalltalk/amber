@@ -94,6 +94,10 @@ context: aContext
 	context := aContext
 ! !
 
+HLDebuggerAnnouncement subclass: #HLDebuggerProceeded
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 HLDebuggerAnnouncement subclass: #HLDebuggerStepped
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
@@ -254,6 +258,58 @@ HLItemSelected subclass: #HLProtocolSelected
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
+HLAnnouncement subclass: #HLItemUnselected
+	instanceVariableNames: 'item'
+	package: 'Helios-Announcements'!
+
+!HLItemUnselected methodsFor: 'accessing'!
+
+item
+	^ item
+!
+
+item: anObject
+	item := anObject
+! !
+
+!HLItemUnselected class methodsFor: 'instance creation'!
+
+on: anItem
+	^ self new
+    	item: anItem;
+        yourself
+! !
+
+HLItemUnselected subclass: #HLClassUnselected
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
+HLItemUnselected subclass: #HLPackageUnselected
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
+HLAnnouncement subclass: #HLRunTests
+	instanceVariableNames: 'testSuiteRunner'
+	package: 'Helios-Announcements'!
+
+!HLRunTests methodsFor: 'accessing'!
+
+testSuiteRunner
+	^ testSuiteRunner
+!
+
+testSuiteRunner: anObject
+	testSuiteRunner := anObject
+! !
+
+!HLRunTests class methodsFor: 'instance creation'!
+
+on: aTestSuiteRunner
+	^self new
+		testSuiteRunner: aTestSuiteRunner;
+		yourself
+! !
+
 HLAnnouncement subclass: #HLSaveSourceCode
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
@@ -297,4 +353,26 @@ template: aString
 HLAnnouncement subclass: #HLSourceCodeSaved
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
+
+HLAnnouncement subclass: #HLTabLabelChanged
+	instanceVariableNames: 'label widget'
+	package: 'Helios-Announcements'!
+
+!HLTabLabelChanged methodsFor: 'accessing'!
+
+label
+	^ label
+!
+
+label: aString
+	label := aString
+!
+
+widget
+	^ widget
+!
+
+widget: aWidget
+	widget := aWidget
+! !
 

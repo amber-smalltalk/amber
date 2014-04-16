@@ -1,14 +1,10 @@
 define("amber/helpers", ["amber_vm/smalltalk", "amber_vm/globals", "require"], function (vm, globals, require) {
     var exports = Object.create(globals);
 
-    var storage = (function (global) {
-        return 'localStorage' in global && global.localStorage;
-    })(new Function('return this')());
-
     // API
 
     exports.popupHelios = function () {
-        window.open(require.toUrl('amber_helios/html/helios.html'), "Helios", "menubar=no, status=no, scrollbars=no, menubar=no, width=1000, height=600");
+        window.open(require.toUrl('helios/index.html'), "Helios", "menubar=no, width=1000, height=600");
     };
     Object.defineProperty(exports, "vm", {
         value: vm,
@@ -18,14 +14,18 @@ define("amber/helpers", ["amber_vm/smalltalk", "amber_vm/globals", "require"], f
         value: globals,
         enumerable: true, configurable: true, writable: false
     });
-    exports.initialize = function (options) {
+
+    function mixinToSettings(source) {
         var settings = globals.SmalltalkSettings;
-        function mixinToSettings(source) {
-            Object.keys(source).forEach(function (key) {
-                settings[key] = source[key];
-            });
-        }
-        settings['transport.defaultAmdNamespace'] = vm.defaultAmdNamespace;
+        Object.keys(source).forEach(function (key) {
+            settings[key] = source[key];
+        });
+    }
+
+    function settingsInLocalStorage() {
+        var global = new Function('return this')(),
+            storage = 'localStorage' in global && global.localStorage;
+
         if (storage) {
             var fromStorage;
             try {
@@ -37,18 +37,22 @@ define("amber/helpers", ["amber_vm/smalltalk", "amber_vm/globals", "require"], f
             if (typeof window !== "undefined") {
                 requirejs(['jquery'], function ($) {
                     $(window).on('beforeunload', function () {
-                       storage.setItem('amber.SmalltalkSettings', JSON.stringify(globals.SmalltalkSettings));
+                        storage.setItem('amber.SmalltalkSettings', JSON.stringify(globals.SmalltalkSettings));
                     });
                 });
             }
         }
+    }
+
+    exports.initialize = function (options) {
+        globals.SmalltalkSettings['transport.defaultAmdNamespace'] = vm.defaultAmdNamespace;
+        settingsInLocalStorage();
         if (exports.defaultAmdNamespace) {
             console.warn("`smalltalk.defaultAmdNamespace = 'namespace';` is deprecated. Please use `smalltalk.initialize({'transport.defaultAmdNamespace': 'namespace'});` instead.");
-            settings['transport.defaultAmdNamespace'] = settings['transport.defaultAmdNamespace'] || exports.defaultAmdNamespace;
+            globals.SmalltalkSettings['transport.defaultAmdNamespace'] = globals.SmalltalkSettings['transport.defaultAmdNamespace'] || exports.defaultAmdNamespace;
         }
         mixinToSettings(options || {});
         console.warn("smalltalk.ClassName is deprecated. Please use smalltalk.globals.ClassName instead.");
-        globals.SmalltalkSettings = settings;
         return vm.initialize();
     };
 

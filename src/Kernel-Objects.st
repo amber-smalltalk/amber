@@ -68,6 +68,12 @@ doesNotUnderstand: aMessage
 		signal
 ! !
 
+!ProtoObject methodsFor: 'evaluating'!
+
+evaluate: aString on: anEvaluator
+	^ anEvaluator evaluate: aString receiver: self
+! !
+
 !ProtoObject methodsFor: 'initialization'!
 
 initialize
@@ -249,7 +255,15 @@ deprecatedAPI
 	"Just a simple way to deprecate methods.
 	#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,
 	but it could in the future."
-	console warn: thisContext home asString, ' is deprecated!! (in ', thisContext home home asString, ')'
+	console warn: thisContext home asString, ' is deprecated!! (in ', thisContext home home asString, ')'.
+!
+
+deprecatedAPI: aString
+	"Just a simple way to deprecate methods.
+	#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,
+	but it could in the future."
+	console warn: thisContext home asString, ' is deprecated!! (in ', thisContext home home asString, ')'.
+	console warn: aString
 !
 
 error: aString
@@ -257,7 +271,7 @@ error: aString
 !
 
 halt
-	self error: 'Halt encountered'
+	Halt signal
 !
 
 shouldNotImplement
@@ -273,7 +287,9 @@ throw: anObject
 !
 
 try: aBlock catch: anotherBlock
-	<try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)}>
+	self deprecatedAPI.
+	
+	^ aBlock tryCatch: anotherBlock
 ! !
 
 !Object methodsFor: 'inspecting'!

@@ -102,7 +102,8 @@ registerBindingsOn: aBindingGroup
 !
 
 search: aString
-	self model search: aString
+	self model search: aString.
+	self setTabLabel: aString
 ! !
 
 !HLReferences methodsFor: 'rendering'!

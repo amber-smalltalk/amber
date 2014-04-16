@@ -85,11 +85,21 @@ on: anErrorClass do: aBlock
 	"All exceptions thrown in the Smalltalk stack are cought.
 	Convert all JS exceptions to JavaScriptException instances."
 	
-	^ self try: self catch: [ :error | | smalltalkError |
+	^ self tryCatch: [ :error | | smalltalkError |
 		smalltalkError := Smalltalk asSmalltalkException: error.
 		(smalltalkError isKindOf: anErrorClass)
 		ifTrue: [ aBlock value: smalltalkError ]
 		ifFalse: [ smalltalkError resignal ] ]
+!
+
+tryCatch: aBlock
+	<
+		try {
+			return self._value();
+		} catch(error) {
+			return aBlock._value_(error);
+		}
+	>
 ! !
 
 !BlockClosure methodsFor: 'evaluating'!
@@ -228,6 +238,8 @@ package
 	"Answer the package the receiver belongs to:
 	- if it is an extension method, answer the corresponding package
 	- else answer the `methodClass` package"
+	
+	self methodClass ifNil: [ ^ nil ].
 	
 	(self protocol beginsWith: '*') ifFalse: [
 		^ self methodClass package ].
@@ -550,8 +562,27 @@ My instances are JavaScript `SmalltalkMethodContext` objects defined in `boot.js
 
 !MethodContext methodsFor: 'accessing'!
 
+basicReceiver
+	<return self.receiver>
+!
+
 evaluatedSelector
 	<return self.evaluatedSelector>
+!
+
+findContextSuchThat: testBlock
+	"Search self and my sender chain for first one that satisfies `testBlock`.  
+	Answer `nil` if none satisfy"
+
+	| context |
+	
+	context := self.
+	[ context isNil] whileFalse: [
+		(testBlock value: context) 
+			ifTrue: [ ^ context ].
+		context := context outerContext ].
+
+	^ nil
 !
 
 home
@@ -567,8 +598,19 @@ locals
 !
 
 method
-	^ self methodContext ifNotNil: [
-		self methodContext receiver class lookupSelector: self methodContext selector ]
+	| method lookupClass receiverClass supercall |
+	
+	self methodContext ifNil: [ ^ nil ].
+
+	receiverClass := self methodContext receiver class.
+	method := receiverClass lookupSelector: self methodContext selector.
+	supercall := self outerContext 
+		ifNil: [ false ]
+		ifNotNil: [ :outer | outer supercall ].
+
+	^ supercall
+		ifFalse: [ method ]
+		ifTrue: [ method methodClass superclass lookupSelector: self methodContext selector ]
 !
 
 methodContext
@@ -583,7 +625,9 @@ outerContext
 !
 
 receiver
-	<return self.receiver>
+	^ (self isBlockContext and: [ self outerContext notNil ])
+		ifTrue: [ self outerContext receiver ]
+		ifFalse: [ self basicReceiver ]
 !
 
 selector
@@ -604,6 +648,10 @@ sendIndexes
 	<return self.sendIdx>
 !
 
+supercall
+	<return self.supercall == true>
+!
+
 temps
 	self deprecatedAPI.
 	
@@ -615,7 +663,12 @@ temps
 asString
 	^ self isBlockContext
 		ifTrue: [ 'a block (in ', self methodContext asString, ')' ]
-		ifFalse: [ self receiver class name, ' >> ', self selector ]
+		ifFalse: [ 
+			| methodClass |
+			methodClass := self method methodClass.
+			methodClass = self receiver class 
+				ifTrue: [ self receiver class name, ' >> ', self selector ]
+				ifFalse: [ self receiver class name, '(', methodClass name, ') >> ', self selector ] ]
 ! !
 
 !MethodContext methodsFor: 'printing'!
@@ -659,29 +712,29 @@ Created instances will most probably be instance of `JSObjectProxy`.
 
 constructor: aString
 	<
-		var native=eval(aString);
-		return new native();
+		var nativeFunc=eval(aString);
+		return new nativeFunc();
 	>
 !
 
 constructor: aString value:anObject
 	<
-		var native=eval(aString);
-		return new native(anObject);
+		var nativeFunc=eval(aString);
+		return new nativeFunc(anObject);
 	>
 !
 
 constructor: aString value:anObject value: anObject2
 	<
-		var native=eval(aString);
-		return new native(anObject,anObject2);
+		var nativeFunc=eval(aString);
+		return new nativeFunc(anObject,anObject2);
 	>
 !
 
 constructor: aString value:anObject value: anObject2 value:anObject3
 	<
-		var native=eval(aString);
-		return new native(anObject,anObject2, anObject3);
+		var nativeFunc=eval(aString);
+		return new nativeFunc(anObject,anObject2, anObject3);
 	>
 ! !
 

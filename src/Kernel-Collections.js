@@ -213,7 +213,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.BucketStore.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.BucketStore.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self._removeAll();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.BucketStore)})},
 args: [],
@@ -1503,7 +1504,8 @@ protocol: 'adding/removing',
 fn: function (anAssociativeCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.AssociativeCollection.superclass.fn.prototype._addAll_.apply(_st(self), [_st(anAssociativeCollection)._associations()]);
+($ctx1.supercall = true, globals.AssociativeCollection.superclass.fn.prototype._addAll_.apply(_st(self), [_st(anAssociativeCollection)._associations()]));
+$ctx1.supercall = false;
 return anAssociativeCollection;
 }, function($ctx1) {$ctx1.fill(self,"addAll:",{anAssociativeCollection:anAssociativeCollection},globals.AssociativeCollection)})},
 args: ["anAssociativeCollection"],
@@ -1877,7 +1879,8 @@ protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.AssociativeCollection.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+($ctx1.supercall = true, globals.AssociativeCollection.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+$ctx1.supercall = false;
 $ctx1.sendIdx["printOn:"]=1;
 _st(aStream)._nextPutAll_(" (");
 $ctx1.sendIdx["nextPutAll:"]=1;
@@ -2264,7 +2267,8 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.Dictionary.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.Dictionary.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@keys"]=[];
 self["@values"]=[];
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Dictionary)})},
@@ -3483,7 +3487,8 @@ protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.Array.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+($ctx1.supercall = true, globals.Array.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+$ctx1.supercall = false;
 $ctx1.sendIdx["printOn:"]=1;
 _st(aStream)._nextPutAll_(" (");
 $ctx1.sendIdx["nextPutAll:"]=1;
@@ -5487,10 +5492,10 @@ fn: function (anObject){
 var self=this;
 var bucket;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 bucket=self._bucketsOfElement_(anObject);
 $2=_st(bucket)._second();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 var object,slowBucket;
 object=_st(bucket)._first();
 $ctx1.sendIdx["first"]=1;
@@ -5675,10 +5680,10 @@ fn: function (anObject){
 var self=this;
 var bucket;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
+var $2,$3,$4,$1,$receiver;
 bucket=self._bucketsOfElement_(anObject);
 $2=_st(bucket)._second();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st(bucket)._third();
 $4=_st(bucket)._first();
 $ctx1.sendIdx["first"]=1;
@@ -5721,7 +5726,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-globals.Set.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.Set.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@defaultBucket"]=[];
 self._initializeSlowBucketStores();
 $1=self._removeAll();
@@ -5782,7 +5788,8 @@ protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-globals.Set.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+($ctx1.supercall = true, globals.Set.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+$ctx1.supercall = false;
 $ctx1.sendIdx["printOn:"]=1;
 _st(aStream)._nextPutAll_(" (");
 $ctx1.sendIdx["nextPutAll:"]=1;
@@ -5811,12 +5818,12 @@ fn: function (anObject,aBlock){
 var self=this;
 var bucket;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$1;
+var $2,$3,$4,$5,$1,$receiver;
 var $early={};
 try {
 bucket=self._bucketsOfElement_(anObject);
 $2=_st(bucket)._second();
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 $3=_st(bucket)._third();
 $4=_st(bucket)._first();
 $ctx1.sendIdx["first"]=1;
@@ -5940,7 +5947,8 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-globals.Queue.superclass.fn.prototype._initialize.apply(_st(self), []);
+($ctx1.supercall = true, globals.Queue.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
 self["@read"]=_st($OrderedCollection())._new();
 $ctx1.sendIdx["new"]=1;
 self["@write"]=_st($OrderedCollection())._new();
@@ -6425,9 +6433,9 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$1,$receiver;
 $2=self["@position"];
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = $2) == null || $receiver.isNil){
 self["@position"]=(0);
 $1=self["@position"];
 } else {
