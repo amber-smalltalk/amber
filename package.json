@@ -13,5 +13,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/amber-smalltalk/amber-dev/issues"
+  },
+  "dependencies": {
+    "amdefine": "0.0.8",
+    "es6-promise": "~0.1.1"
   }
 }
