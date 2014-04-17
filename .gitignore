@@ -6,6 +6,3 @@
 
 # Ignoring local NPM modules
 /node_modules/*
-
-# Ignoring local bower modules
-/cli/bower_components/*
