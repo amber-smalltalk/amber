@@ -38,10 +38,12 @@
     "amber": "~0.12.4",
     "grunt-init-amber": "git://github.com/amber-smalltalk/grunt-init-amber.git",
     "grunt-init": "~0.3.1",
-    "bower": "~1.3.2"
+    "bower": "~1.3.2",
+    "amber-dev": "git://github.com/amber-smalltalk/amber-dev.git"
   },
   "devDependencies": {
     "grunt": "~0.4.0",
-    "grunt-contrib-jshint": "~0.3.0"
+    "grunt-contrib-jshint": "~0.3.0",
+    "amber-dev": "git://github.com/amber-smalltalk/amber-dev.git"
   }
 }
