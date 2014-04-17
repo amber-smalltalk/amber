@@ -33,8 +33,6 @@
     "test": "grunt amberc:amber_cli && ./bin/amber tests"
   },
   "dependencies": {
-    "es6-promise": "~0.1.1",
-    "amdefine": "0.0.8",
     "amber": "~0.12.4",
     "grunt-init-amber": "git://github.com/amber-smalltalk/grunt-init-amber.git",
     "grunt-init": "~0.3.1",
@@ -44,6 +42,6 @@
   "devDependencies": {
     "grunt": "~0.4.0",
     "grunt-contrib-jshint": "~0.3.0",
-    "amber-dev": "git://github.com/amber-smalltalk/amber-dev.git"
+    "amber-dev": "~0.0.1"
   }
 }
