@@ -225,48 +225,8 @@ isSelected: anObject
 ! !
 
 HLWidget subclass: #HLSUnit
-<<<<<<< variant A
-	instanceVariableNames: 'model packagesListWidget resultWidget'
->>>>>>> variant B
 	instanceVariableNames: 'model packagesListWidget classesListWidget resultWidget failuresWidget errorsWidget'
-####### Ancestor
-	instanceVariableNames: ''
-======= end
 	package: 'Helios-SUnit'!
-<<<<<<< variant A
-!HLSUnit commentStamp!
-I am the main widget for running unit tests in Helios.
-
-I provide the ability to select set of tests to run per package, and a detailed result log with passed tests, failed tests and errors.!
-
-!HLSUnit methodsFor: 'accessing'!
-
-model
-	^ model ifNil: [ model := HLSUnitModel new ]
-! !
-
-!HLSUnit methodsFor: 'rendering'!
-
-renderContentOn: html
-	html with: (HLVerticalSplitter
-        with: self packagesListWidget 
-        with: self resultWidget).
-	
-	self packagesListWidget focus
-! !
-
-!HLSUnit methodsFor: 'widgets'!
-
-packagesListWidget
-	^ packagesListWidget ifNil: [ 
-		packagesListWidget := HLSUnitPackagesListWidget on: self model ]
-!
-
-resultWidget
-	^ resultWidget ifNil: [
-		resultWidget := HLWidget new ]
-! !
->>>>>>> variant B
 !HLSUnit commentStamp!
 I am the main widget for running unit tests in Helios.
 
@@ -333,8 +293,6 @@ resultWidget
 			model: self model;
 			yourself]
 ! !
-####### Ancestor
-======= end
 
 !HLSUnit class methodsFor: 'accessing'!
 
@@ -356,59 +314,6 @@ canBeOpenAsTab
 	^ true
 ! !
 
-<<<<<<< variant A
-HLModel subclass: #HLSUnitModel
-	instanceVariableNames: 'selectedPackages'
-	package: 'Helios-SUnit'!
-
-!HLSUnitModel methodsFor: 'accessing'!
-
-selectedPackages
-	^ selectedPackages ifNil: [ selectedPackages := Set new ]
-!
-
-testPackages
-	"Answer all packages containing concrete subclasses of TestCase"
-	
-	^ self environment packages 
-		select: [ :each | each isTestPackage ]
-! !
-
-!HLSUnitModel methodsFor: 'actions'!
-
-selectPackage: aPackage
-	self packages add: aPackage
-!
-
-unselectPackage: aPackage
-	self packages remove: aPackage ifAbsent: []
-! !
-
-HLWidget subclass: #HLSUnitPackagesListWidget
-	instanceVariableNames: 'model'
-	package: 'Helios-SUnit'!
-!HLSUnitPackagesListWidget commentStamp!
-I display a list of packages for which unit tests are associated (packages containing subclasses of `TestCase`).!
-
-!HLSUnitPackagesListWidget methodsFor: 'accessing'!
-
-model
-	^ model
-!
-
-model: anObject
-	model := anObject
-! !
-
-!HLSUnitPackagesListWidget class methodsFor: 'instance creation'!
-
-on: aSUnitModel
-	^ self new
-		model: aSUnitModel;
-		yourself
-! !
-
->>>>>>> variant B
 HLModel subclass: #HLSUnitModel
 	instanceVariableNames: 'selectedPackages selectedClasses testResult currentSuite'
 	package: 'Helios-SUnit'!
@@ -708,5 +613,3 @@ renderContentOn: html
 		with: self progressBarWidget
 ! !
 
-####### Ancestor
-======= end
