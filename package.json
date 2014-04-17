@@ -25,16 +25,13 @@
   "engines": {
     "node": ">=0.8.0"
   },
-  "bin": {
-    "amber": "./cli/support/amber-cli.js",
-    "amberc": "./cli/support/amberc-cli.js"
-  },
   "scripts": {
     "test": "grunt amberc:amber_cli && ./bin/amber tests"
   },
   "devDependencies": {
     "pegjs": "~0.8.0",
     "grunt": "~0.4.0",
-    "grunt-contrib-jshint": "~0.3.0"
+    "grunt-contrib-jshint": "~0.3.0",
+    "amber-dev": "0.0.1"
   }
 }

@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
 
   grunt.loadTasks('./grunt/tasks');
+  grunt.loadNpmTasks('amber-dev');
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
 
