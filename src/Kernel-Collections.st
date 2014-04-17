@@ -1597,6 +1597,12 @@ shallowCopy
 	^ self class fromString: self
 ! !
 
+!String methodsFor: 'evaluating'!
+
+value: anObject 
+	^ anObject perform: self
+! !
+
 !String methodsFor: 'printing'!
 
 printNl
