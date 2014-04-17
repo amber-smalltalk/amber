@@ -2367,15 +2367,15 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=_st(self._selectedItem()).__eq(anObject);
 if(smalltalk.assert($2)){
-$1="active";
+$1=self._activeItemCssClass();
 } else {
 $1="inactive";
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"listCssClassForItem:",{anObject:anObject},globals.HLListWidget)})},
 args: ["anObject"],
-source: "listCssClassForItem: anObject\x0a\x09^ self selectedItem = anObject\x0a\x09\x09ifTrue: [ 'active' ]\x0a\x09\x09ifFalse: [ 'inactive' ]",
-messageSends: ["ifTrue:ifFalse:", "=", "selectedItem"],
+source: "listCssClassForItem: anObject\x0a\x09^ self selectedItem = anObject\x0a\x09\x09ifTrue: [ self activeItemCssClass ]\x0a\x09\x09ifFalse: [ 'inactive' ]",
+messageSends: ["ifTrue:ifFalse:", "=", "selectedItem", "activeItemCssClass"],
 referencedClasses: []
 }),
 globals.HLListWidget);

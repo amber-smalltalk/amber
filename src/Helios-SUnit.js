@@ -56,65 +56,44 @@ selector: "listCssClassForItem:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
-var class_;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-$1=_st(self._selectedItem()).__eq(anObject);
-if(smalltalk.assert($1)){
-class_="selector";
+var $2,$4,$3,$1;
+$2=($ctx1.supercall = true, globals.HLMultiSelectToolListWidget.superclass.fn.prototype._listCssClassForItem_.apply(_st(self), [anObject]));
+$ctx1.supercall = false;
+$4=self._isSelected_(anObject);
+if(smalltalk.assert($4)){
+$3=" active";
 } else {
-class_="";
+$3="";
 };
-$2=self._isSelected_(anObject);
-if(smalltalk.assert($2)){
-class_=_st(class_).__comma(" active");
-class_;
-};
-$3=class_;
-return $3;
-}, function($ctx1) {$ctx1.fill(self,"listCssClassForItem:",{anObject:anObject,class_:class_},globals.HLMultiSelectToolListWidget)})},
+$1=_st($2).__comma($3);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"listCssClassForItem:",{anObject:anObject},globals.HLMultiSelectToolListWidget)})},
 args: ["anObject"],
-source: "listCssClassForItem: anObject\x0a\x09 |class |\x0a\x09class := self selectedItem = anObject\x0a\x09\x09ifTrue: [ 'selector' ]\x0a\x09\x09ifFalse: [ '' ].\x0a\x09(self isSelected: anObject)\x0a\x09\x09ifTrue: [class := class, ' active'].\x0a\x09^class",
-messageSends: ["ifTrue:ifFalse:", "=", "selectedItem", "ifTrue:", "isSelected:", ","],
+source: "listCssClassForItem: anObject\x0a\x09^(super listCssClassForItem: anObject), ((self isSelected: anObject)\x0a\x09\x09ifTrue: [' active']\x0a\x09\x09ifFalse: ['']).\x0a\x09",
+messageSends: [",", "listCssClassForItem:", "ifTrue:ifFalse:", "isSelected:"],
 referencedClasses: []
 }),
 globals.HLMultiSelectToolListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderItem:on:",
+selector: "reselectItem:",
 protocol: 'rendering',
-fn: function (anObject,html){
+fn: function (anObject){
 var self=this;
-var li;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$5,$3;
-li=_st(html)._li();
-$1=_st(li)._asJQuery();
-$ctx1.sendIdx["asJQuery"]=1;
-_st($1)._data_put_("item",anObject);
-$2=li;
-_st($2)._class_(self._listCssClassForItem_(anObject));
-$ctx1.sendIdx["class:"]=1;
-$3=_st($2)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-$4=_st(html)._a();
-_st($4)._with_((function(){
-return smalltalk.withContext(function($ctx3) {
-_st(_st(html)._tag_("i"))._class_(self._cssClassForItem_(anObject));
-return self._renderItemLabel_on_(anObject,html);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-$5=_st($4)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._toggleListItem_(_st(li)._asJQuery());
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
-return $5;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["with:"]=1;
-return self}, function($ctx1) {$ctx1.fill(self,"renderItem:on:",{anObject:anObject,html:html,li:li},globals.HLMultiSelectToolListWidget)})},
-args: ["anObject", "html"],
-source: "renderItem: anObject on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09li asJQuery data: 'item' put: anObject.\x0a    li\x0a\x09\x09class: (self listCssClassForItem: anObject);\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self cssClassForItem: anObject).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: anObject on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self toggleListItem: li asJQuery ] ]",
-messageSends: ["li", "data:put:", "asJQuery", "class:", "listCssClassForItem:", "with:", "a", "tag:", "cssClassForItem:", "renderItemLabel:on:", "onClick:", "toggleListItem:"],
+var $receiver;
+if(($receiver = anObject) == null || $receiver.isNil){
+return self;
+} else {
+anObject;
+};
+self._toggleSelection_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"reselectItem:",{anObject:anObject},globals.HLMultiSelectToolListWidget)})},
+args: ["anObject"],
+source: "reselectItem: anObject\x0a\x09anObject ifNil: [^self].\x0a\x09self toggleSelection: anObject",
+messageSends: ["ifNil:", "toggleSelection:"],
 referencedClasses: []
 }),
 globals.HLMultiSelectToolListWidget);
@@ -1012,13 +991,13 @@ return smalltalk.withContext(function($ctx1) {
 worker=_st($TestSuiteRunner())._on_(self._testCases());
 $ctx1.sendIdx["on:"]=1;
 self["@testResult"]=_st(worker)._result();
-self._subscribeToTestSuite_(worker);
 _st(self._announcer())._announce_(_st($HLRunTests())._on_(worker));
+self._subscribeToTestSuite_(worker);
 _st(worker)._run();
 return self}, function($ctx1) {$ctx1.fill(self,"runTests",{worker:worker},globals.HLSUnitModel)})},
 args: [],
-source: "runTests\x0a\x09| worker |\x0a\x09worker := TestSuiteRunner on: self testCases.\x0a\x09testResult := worker result.\x0a\x09self subscribeToTestSuite: worker.\x0a\x09self announcer announce: (HLRunTests on: worker).\x0a\x09worker run",
-messageSends: ["on:", "testCases", "result", "subscribeToTestSuite:", "announce:", "announcer", "run"],
+source: "runTests\x0a\x09| worker |\x0a\x09worker := TestSuiteRunner on: self testCases.\x0a\x09testResult := worker result.\x0a\x09self announcer announce: (HLRunTests on: worker).\x0a\x09self subscribeToTestSuite: worker.\x0a\x09worker run",
+messageSends: ["on:", "testCases", "result", "announce:", "announcer", "subscribeToTestSuite:", "run"],
 referencedClasses: ["TestSuiteRunner", "HLRunTests"]
 }),
 globals.HLSUnitModel);
@@ -1360,20 +1339,30 @@ protocol: 'rendering',
 fn: function (anObject,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-$1=_st(html)._span();
-$2=$1;
-$3=_st(_st(_st(_st(anObject)._class())._name()).__comma(" >> ")).__comma(_st(anObject)._selector());
+var $1;
+$1=_st(_st(_st(_st(anObject)._class())._name()).__comma(" >> ")).__comma(_st(anObject)._selector());
 $ctx1.sendIdx[","]=1;
-_st($2)._with_($3);
-$4=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {
-return self._performFailure_(anObject);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+_st(html)._with_($1);
 return self}, function($ctx1) {$ctx1.fill(self,"renderItemLabel:on:",{anObject:anObject,html:html},globals.HLSUnitResultListWidget)})},
 args: ["anObject", "html"],
-source: "renderItemLabel: anObject on: html\x0a\x09html span\x0a\x09\x09with: anObject class name, ' >> ', anObject selector;\x0a\x09\x09onClick: [ self performFailure: anObject ]",
-messageSends: ["with:", "span", ",", "name", "class", "selector", "onClick:", "performFailure:"],
+source: "renderItemLabel: anObject on: html\x0a\x09html with: anObject class name, ' >> ', anObject selector",
+messageSends: ["with:", ",", "name", "class", "selector"],
+referencedClasses: []
+}),
+globals.HLSUnitResultListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "reselectItem:",
+protocol: 'rendering',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._performFailure_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"reselectItem:",{anObject:anObject},globals.HLSUnitResultListWidget)})},
+args: ["anObject"],
+source: "reselectItem: anObject\x0a\x09self performFailure: anObject ",
+messageSends: ["performFailure:"],
 referencedClasses: []
 }),
 globals.HLSUnitResultListWidget);
@@ -1758,20 +1747,24 @@ protocol: 'reacting',
 fn: function (announcement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$6,$5,$4,$3,$2;
+var $1,$7,$6,$5,$4,$3,$2;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
 $1=self._progressBarWidget();
-$6=self._model();
-$ctx1.sendIdx["model"]=1;
-$5=_st($6)._testResult();
-$ctx1.sendIdx["testResult"]=1;
-$4=_st($5)._runs();
-$3=_st($4).__slash(_st(_st(self._model())._testResult())._total());
-$2=_st($3).__star((100));
-_st($1)._updateProgress_($2);
+$7=self._model();
+$ctx2.sendIdx["model"]=1;
+$6=_st($7)._testResult();
+$ctx2.sendIdx["testResult"]=1;
+$5=_st($6)._runs();
+$4=_st($5).__slash(_st(_st(self._model())._testResult())._total());
+$3=_st($4).__star((100));
+$2=_st($3)._rounded();
+return _st($1)._updateProgress_($2);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._valueWithTimeout_((10));
 return self}, function($ctx1) {$ctx1.fill(self,"onResultAnnouncement:",{announcement:announcement},globals.HLSUnitResults)})},
 args: ["announcement"],
-source: "onResultAnnouncement: announcement\x0a\x09self progressBarWidget \x0a\x09\x09updateProgress: self model testResult runs / self model testResult total * 100.",
-messageSends: ["updateProgress:", "progressBarWidget", "*", "/", "runs", "testResult", "model", "total"],
+source: "onResultAnnouncement: announcement\x0a\x09[self progressBarWidget \x0a\x09\x09updateProgress: (self model testResult runs / self model testResult total * 100) rounded] valueWithTimeout: 10 ",
+messageSends: ["valueWithTimeout:", "updateProgress:", "progressBarWidget", "rounded", "*", "/", "runs", "testResult", "model", "total"],
 referencedClasses: []
 }),
 globals.HLSUnitResults);

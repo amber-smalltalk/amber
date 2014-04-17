@@ -771,7 +771,7 @@ listCssClass
 
 listCssClassForItem: anObject
 	^ self selectedItem = anObject
-		ifTrue: [ 'active' ]
+		ifTrue: [ self activeItemCssClass ]
 		ifFalse: [ 'inactive' ]
 !
 

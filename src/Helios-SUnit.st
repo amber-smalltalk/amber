@@ -16,13 +16,9 @@ listCssClass
 !
 
 listCssClassForItem: anObject
-	 |class |
-	class := self selectedItem = anObject
-		ifTrue: [ 'selector' ]
-		ifFalse: [ '' ].
-	(self isSelected: anObject)
-		ifTrue: [class := class, ' active'].
-	^class
+	^(super listCssClassForItem: anObject), ((self isSelected: anObject)
+		ifTrue: [' active']
+		ifFalse: ['']).
 ! !
 
 !HLMultiSelectToolListWidget methodsFor: 'actions'!
@@ -52,20 +48,9 @@ unselect: anObject
 
 !HLMultiSelectToolListWidget methodsFor: 'rendering'!
 
-renderItem: anObject on: html
-	| li |
-    
-	li := html li.
-	li asJQuery data: 'item' put: anObject.
-    li
-		class: (self listCssClassForItem: anObject);
-        with: [ 
-        	html a
-            	with: [ 
-            		(html tag: 'i') class: (self cssClassForItem: anObject).
-  					self renderItemLabel: anObject on: html ];
-				onClick: [
-                  	self toggleListItem: li asJQuery ] ]
+reselectItem: anObject
+	anObject ifNil: [^self].
+	self toggleSelection: anObject
 ! !
 
 !HLMultiSelectToolListWidget methodsFor: 'testing'!
@@ -385,8 +370,8 @@ runTests
 	| worker |
 	worker := TestSuiteRunner on: self testCases.
 	testResult := worker result.
-	self subscribeToTestSuite: worker.
 	self announcer announce: (HLRunTests on: worker).
+	self subscribeToTestSuite: worker.
 	worker run
 !
 
@@ -464,9 +449,11 @@ onResultAnnouncement: announcement
 !HLSUnitResultListWidget methodsFor: 'rendering'!
 
 renderItemLabel: anObject on: html
-	html span
-		with: anObject class name, ' >> ', anObject selector;
-		onClick: [ self performFailure: anObject ]
+	html with: anObject class name, ' >> ', anObject selector
+!
+
+reselectItem: anObject
+	self performFailure: anObject
 ! !
 
 HLSUnitResultListWidget subclass: #HLSUnitErrorsListWidget
@@ -610,8 +597,8 @@ observeModel
 !HLSUnitResults methodsFor: 'reacting'!
 
 onResultAnnouncement: announcement
-	self progressBarWidget 
-		updateProgress: self model testResult runs / self model testResult total * 100.
+	[self progressBarWidget 
+		updateProgress: (self model testResult runs / self model testResult total * 100) rounded] valueWithTimeout: 10
 !
 
 onRunTests: announcement
