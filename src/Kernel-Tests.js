@@ -5200,6 +5200,24 @@ referencedClasses: []
 }),
 globals.StringTest);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testValue",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_("asString"._value_((1)),"1");
+$ctx1.sendIdx["assert:equals:"]=1;
+self._assert_equals_([(1), (2), (3)]._collect_("asString"),["1", "2", "3"]);
+return self}, function($ctx1) {$ctx1.fill(self,"testValue",{},globals.StringTest)})},
+args: [],
+source: "testValue\x0a\x0a\x09self assert: (#asString value: 1) equals: '1'.\x0a\x0a\x09\x22Which (since String and BlockClosure are now polymorphic) enables the nice idiom...\x22\x0a\x09self assert: (#(1 2 3) collect: #asString) equals: #('1' '2' '3')",
+messageSends: ["assert:equals:", "value:", "collect:"],
+referencedClasses: []
+}),
+globals.StringTest);
+
 
 smalltalk.addMethod(
 smalltalk.method({
