@@ -2081,7 +2081,7 @@ _st(_st(theClass)._package())._beDirty();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"onClassModification:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)})},
 args: ["anAnnouncement"],
-source: "onClassModification: anAnnouncement\x0a\x09anAnnouncement theClass ifNotNil: [ :theClass |\x0a\x09\x09theClass package beDirty ]",
+source: "onClassModification: anAnnouncement\x0a\x09anAnnouncement theClass ifNotNil: [ :theClass | theClass package beDirty ]",
 messageSends: ["ifNotNil:", "theClass", "beDirty", "package"],
 referencedClasses: []
 }),
@@ -2134,11 +2134,19 @@ protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(anAnnouncement)._theClass())._package())._beDirty();
+var $1,$receiver;
+$1=_st(anAnnouncement)._package();
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
+} else {
+var package_;
+package_=$receiver;
+_st(package_)._beDirty();
+};
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolModification:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)})},
 args: ["anAnnouncement"],
-source: "onProtocolModification: anAnnouncement\x0a\x09anAnnouncement theClass package beDirty",
-messageSends: ["beDirty", "package", "theClass"],
+source: "onProtocolModification: anAnnouncement\x0a\x09anAnnouncement package ifNotNil: [ :package | package beDirty ]",
+messageSends: ["ifNotNil:", "package", "beDirty"],
 referencedClasses: []
 }),
 globals.PackageStateObserver);

@@ -5,6 +5,13 @@ TestCase subclass: #AnnouncementSubscriptionTest
 
 !AnnouncementSubscriptionTest methodsFor: 'tests'!
 
+testAddExtensionMethod
+	| method |
+	method := self class compile: 'doNothing' protocol: '**not-a-package'.
+	self deny: self class package isDirty.
+	self class removeCompiledMethod: method.
+!
+
 testHandlesAnnouncement
 	| subscription announcementClass1 announcementClass2 classBuilder |
 	
