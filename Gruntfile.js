@@ -16,8 +16,7 @@ module.exports = function(grunt) {
 
     amberc: {
       options: {
-        amber_dir: path.normalize(path.join(__dirname, "node_modules", "amber")),
-        closure_jar: ''
+        amber_dir: path.normalize(path.join(__dirname, "node_modules", "amber"))
       },
       amber_tests: {
         output_dir : 'src',
