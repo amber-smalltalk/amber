@@ -30,7 +30,7 @@
     "amberc": "./cli/support/amberc-cli.js"
   },
   "scripts": {
-    "test": "grunt amberc:cli && ./support/amber-cli tests"
+    "test": "grunt amberc:cli && node ./cli/support/amber-cli.js tests"
   },
   "dependencies": {
     "amber": "~0.12.4",
