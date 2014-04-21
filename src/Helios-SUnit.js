@@ -304,6 +304,45 @@ globals.HLSUnitClassesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "observeSystem",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $ClassAdded(){return globals.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self._model())._systemAnnouncer())._on_send_to_($ClassAdded(),"onClassAdded:",self);
+return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},globals.HLSUnitClassesListWidget)})},
+args: [],
+source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09send: #onClassAdded:\x0a\x09\x09to: self.",
+messageSends: ["on:send:to:", "systemAnnouncer", "model"],
+referencedClasses: ["ClassAdded"]
+}),
+globals.HLSUnitClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClassAdded:",
+protocol: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(self._model())._selectedPackages())._includes_(_st(_st(anAnnouncement)._theClass())._package());
+if(smalltalk.assert($1)){
+self._initializeItems();
+$2=self._refresh();
+$2;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{anAnnouncement:anAnnouncement},globals.HLSUnitClassesListWidget)})},
+args: ["anAnnouncement"],
+source: "onClassAdded: anAnnouncement\x09\x0a\x09(self model selectedPackages includes: anAnnouncement theClass package)\x0a\x09\x09ifTrue: [ \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09initializeItems;\x0a\x09\x09\x09\x09refresh ]",
+messageSends: ["ifTrue:", "includes:", "selectedPackages", "model", "package", "theClass", "initializeItems", "refresh"],
+referencedClasses: []
+}),
+globals.HLSUnitClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "onClassSelected:",
 protocol: 'reactions',
 fn: function (anAnnouncement){
@@ -548,6 +587,55 @@ args: [],
 source: "observeModel\x0a    self model announcer \x0a\x09\x09on: HLPackageSelected\x0a\x09\x09send: #onPackageSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLPackageUnselected\x0a\x09\x09send: #onPackageUnselected:\x0a\x09\x09to: self",
 messageSends: ["on:send:to:", "announcer", "model"],
 referencedClasses: ["HLPackageSelected", "HLPackageUnselected"]
+}),
+globals.HLSUnitPackagesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "observeSystem",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $ClassAdded(){return globals.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self._model())._systemAnnouncer())._on_send_to_($ClassAdded(),"onClassAdded:",self);
+return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},globals.HLSUnitPackagesListWidget)})},
+args: [],
+source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09send: #onClassAdded:\x0a\x09\x09to: self.",
+messageSends: ["on:send:to:", "systemAnnouncer", "model"],
+referencedClasses: ["ClassAdded"]
+}),
+globals.HLSUnitPackagesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClassAdded:",
+protocol: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $4,$6,$5,$3,$2,$1,$7;
+$4=self._items();
+$6=_st(anAnnouncement)._theClass();
+$ctx1.sendIdx["theClass"]=1;
+$5=_st($6)._package();
+$ctx1.sendIdx["package"]=1;
+$3=_st($4)._includes_($5);
+$2=_st($3)._not();
+$1=_st($2)._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(anAnnouncement)._theClass())._package())._isTestPackage();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+if(smalltalk.assert($1)){
+self._initializeItems();
+$7=self._refresh();
+$7;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{anAnnouncement:anAnnouncement},globals.HLSUnitPackagesListWidget)})},
+args: ["anAnnouncement"],
+source: "onClassAdded: anAnnouncement\x0a\x09((self items includes: anAnnouncement theClass package) not and: [anAnnouncement theClass package isTestPackage])\x0a\x09\x09ifTrue: [ \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09initializeItems;\x0a\x09\x09\x09\x09refresh ]",
+messageSends: ["ifTrue:", "and:", "not", "includes:", "items", "package", "theClass", "isTestPackage", "initializeItems", "refresh"],
+referencedClasses: []
 }),
 globals.HLSUnitPackagesListWidget);
 

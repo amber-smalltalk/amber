@@ -100,6 +100,13 @@ observeModel
 		to: self.
 !
 
+observeSystem
+    self model systemAnnouncer 
+		on: ClassAdded 
+		send: #onClassAdded:
+		to: self.
+!
+
 select: anObject
 	model selectClass: anObject
 !
@@ -115,6 +122,14 @@ initializeItems
 ! !
 
 !HLSUnitClassesListWidget methodsFor: 'reactions'!
+
+onClassAdded: anAnnouncement	
+	(self model selectedPackages includes: anAnnouncement theClass package)
+		ifTrue: [ 
+			self 
+				initializeItems;
+				refresh ]
+!
 
 onClassSelected: anAnnouncement
 	| listItem |
@@ -185,6 +200,13 @@ observeModel
 		to: self
 !
 
+observeSystem
+    self model systemAnnouncer 
+		on: ClassAdded 
+		send: #onClassAdded:
+		to: self.
+!
+
 select: anObject
 	model selectPackage: anObject
 !
@@ -201,6 +223,14 @@ initializeItems
 ! !
 
 !HLSUnitPackagesListWidget methodsFor: 'reactions'!
+
+onClassAdded: anAnnouncement
+	((self items includes: anAnnouncement theClass package) not and: [anAnnouncement theClass package isTestPackage])
+		ifTrue: [ 
+			self 
+				initializeItems;
+				refresh ]
+!
 
 onPackageSelected: anAnnouncement
 	| listItem |
