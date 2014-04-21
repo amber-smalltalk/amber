@@ -97,7 +97,7 @@ observeModel
 		
 		on: HLClassUnselected
 		send: #onClassUnselected:
-		to: self
+		to: self.
 !
 
 select: anObject
@@ -117,11 +117,15 @@ initializeItems
 !HLSUnitClassesListWidget methodsFor: 'reactions'!
 
 onClassSelected: anAnnouncement
-	self refresh
+	| listItem |
+	listItem := self findListItemFor: anAnnouncement item.
+	listItem addClass: 'active'.
 !
 
 onClassUnselected: anAnnouncement
-	self refresh
+	| listItem |
+	listItem := self findListItemFor: anAnnouncement item.
+	listItem removeClass: 'active'.
 !
 
 onPackageSelected: anAnnouncement
@@ -199,11 +203,15 @@ initializeItems
 !HLSUnitPackagesListWidget methodsFor: 'reactions'!
 
 onPackageSelected: anAnnouncement
-	self refresh
+	| listItem |
+	listItem := self findListItemFor: anAnnouncement item.
+	listItem addClass: 'active'.
 !
 
 onPackageUnselected: anAnnouncement
-	self refresh
+	| listItem |
+	listItem := self findListItemFor: anAnnouncement item.
+	listItem removeClass: 'active'.
 ! !
 
 !HLSUnitPackagesListWidget methodsFor: 'rendering'!
@@ -325,7 +333,7 @@ currentSuite
 !
 
 selectedClasses
-	^ (self privateSelectedClasses) select: [:each |
+	^ (self unfilteredSelectedClasses) select: [:each |
 		self selectedPackages includes: each package]
 !
 
@@ -366,6 +374,20 @@ testResult
 
 !HLSUnitModel methodsFor: 'actions'!
 
+invertSelectedClasses
+	self testClasses do: [:each | 
+		(self unfilteredSelectedClasses includes: each)
+			ifTrue: [ self unselectClass: each ]
+			ifFalse: [ self selectClass: each ]].
+!
+
+invertSelectedPackages
+	self testPackages do: [:each | 
+		(self selectedPackages includes: each)
+			ifTrue: [ self unselectPackage: each ]
+			ifFalse: [ self selectPackage: each ]].
+!
+
 runTests
 	| worker |
 	worker := TestSuiteRunner on: self testCases.
@@ -375,12 +397,16 @@ runTests
 	worker run
 !
 
+selectAllClasses
+	self testClasses do: [:each | self selectClass: each].
+!
+
 selectAllPackages
-	self testPackages do: [:each | self selectPackage: each]
+	self testPackages do: [:each | self selectPackage: each].
 !
 
 selectClass: aClass
-	self privateSelectedClasses add: aClass.
+	self unfilteredSelectedClasses add: aClass.
 	self announcer announce: (HLClassSelected on: aClass).
 !
 
@@ -399,7 +425,7 @@ subscribeToTestSuite: aTestSuiteRunner
 !
 
 unselectClass: aClass
-	self privateSelectedClasses remove: aClass ifAbsent: [^self].
+	self unfilteredSelectedClasses remove: aClass ifAbsent: [^self].
 	self announcer announce: (HLClassUnselected on: aClass).
 !
 
@@ -410,7 +436,7 @@ unselectPackage: aPackage
 
 !HLSUnitModel methodsFor: 'private'!
 
-privateSelectedClasses
+unfilteredSelectedClasses
 	^ (selectedClasses ifNil: [ selectedClasses := Set new ])
 ! !
 
@@ -476,14 +502,12 @@ HLSUnitResultListWidget subclass: #HLSUnitFailuresListWidget
 
 !HLSUnitFailuresListWidget methodsFor: 'accessing'!
 
-label
-	^'Failures'
-! !
-
-!HLSUnitFailuresListWidget methodsFor: 'as yet unclassified'!
-
 items
 	^self model testResult failures
+!
+
+label
+	^'Failures'
 ! !
 
 HLWidget subclass: #HLSUnitResultStatus

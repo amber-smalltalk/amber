@@ -64,6 +64,114 @@ globals.HLSUnitModelTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testInvertSelectedClasses",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$3,$6,$5,$8,$7,$10,$9;
+_st(self["@model"])._selectAllPackages();
+_st(self["@model"])._selectAllClasses();
+$1=self["@model"];
+$2=self._class();
+$ctx1.sendIdx["class"]=1;
+_st($1)._unselectClass_($2);
+$4=_st(self["@model"])._selectedClasses();
+$ctx1.sendIdx["selectedClasses"]=1;
+$3=_st($4)._notEmpty();
+self._assert_($3);
+$6=_st(self["@model"])._selectedClasses();
+$ctx1.sendIdx["selectedClasses"]=2;
+$5=_st($6)._size();
+$ctx1.sendIdx["size"]=1;
+$8=_st(_st(self["@model"])._testClasses())._size();
+$ctx1.sendIdx["size"]=2;
+$7=_st($8).__minus((1));
+self._assert_equals_($5,$7);
+$ctx1.sendIdx["assert:equals:"]=1;
+_st(self["@model"])._invertSelectedClasses();
+$10=_st(self["@model"])._selectedClasses();
+$ctx1.sendIdx["selectedClasses"]=3;
+$9=_st($10)._size();
+self._assert_equals_($9,(1));
+$ctx1.sendIdx["assert:equals:"]=2;
+self._assert_equals_(_st(_st(self["@model"])._selectedClasses())._anyOne(),self._class());
+return self}, function($ctx1) {$ctx1.fill(self,"testInvertSelectedClasses",{},globals.HLSUnitModelTest)})},
+args: [],
+source: "testInvertSelectedClasses\x0a\x09model selectAllPackages.\x0a\x09model selectAllClasses.\x0a\x09model unselectClass: self class.\x0a\x09self assert: model selectedClasses notEmpty.\x0a\x09self assert: model selectedClasses size equals: model testClasses size - 1.\x0a\x09model invertSelectedClasses.\x0a\x09self assert: model selectedClasses size equals: 1.\x0a\x09self assert: model selectedClasses anyOne equals: self class.",
+messageSends: ["selectAllPackages", "selectAllClasses", "unselectClass:", "class", "assert:", "notEmpty", "selectedClasses", "assert:equals:", "size", "-", "testClasses", "invertSelectedClasses", "anyOne"],
+referencedClasses: []
+}),
+globals.HLSUnitModelTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testInvertSelectedPackages",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$3,$6,$5,$8,$7,$10,$9;
+_st(self["@model"])._selectAllPackages();
+$1=self["@model"];
+$2=self._thisPackage();
+$ctx1.sendIdx["thisPackage"]=1;
+_st($1)._unselectPackage_($2);
+$4=_st(self["@model"])._selectedPackages();
+$ctx1.sendIdx["selectedPackages"]=1;
+$3=_st($4)._notEmpty();
+self._assert_($3);
+$6=_st(self["@model"])._selectedPackages();
+$ctx1.sendIdx["selectedPackages"]=2;
+$5=_st($6)._size();
+$ctx1.sendIdx["size"]=1;
+$8=_st(_st(self["@model"])._testPackages())._size();
+$ctx1.sendIdx["size"]=2;
+$7=_st($8).__minus((1));
+self._assert_equals_($5,$7);
+$ctx1.sendIdx["assert:equals:"]=1;
+_st(self["@model"])._invertSelectedPackages();
+$10=_st(self["@model"])._selectedPackages();
+$ctx1.sendIdx["selectedPackages"]=3;
+$9=_st($10)._size();
+self._assert_equals_($9,(1));
+$ctx1.sendIdx["assert:equals:"]=2;
+self._assert_equals_(_st(_st(self["@model"])._selectedPackages())._anyOne(),self._thisPackage());
+return self}, function($ctx1) {$ctx1.fill(self,"testInvertSelectedPackages",{},globals.HLSUnitModelTest)})},
+args: [],
+source: "testInvertSelectedPackages\x0a\x09model selectAllPackages.\x0a\x09model unselectPackage: self thisPackage.\x0a\x09self assert: model selectedPackages notEmpty.\x0a\x09self assert: model selectedPackages size equals: model testPackages size - 1.\x0a\x09model invertSelectedPackages.\x0a\x09self assert: model selectedPackages size equals: 1.\x0a\x09self assert: model selectedPackages anyOne equals: self thisPackage.",
+messageSends: ["selectAllPackages", "unselectPackage:", "thisPackage", "assert:", "notEmpty", "selectedPackages", "assert:equals:", "size", "-", "testPackages", "invertSelectedPackages", "anyOne"],
+referencedClasses: []
+}),
+globals.HLSUnitModelTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testSelectAllClasses",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$3;
+_st(self["@model"])._selectAllPackages();
+$2=_st(self["@model"])._testClasses();
+$ctx1.sendIdx["testClasses"]=1;
+$1=_st($2)._notEmpty();
+self._assert_($1);
+_st(self["@model"])._selectAllClasses();
+$3=_st(_st(self["@model"])._selectedClasses())._size();
+$ctx1.sendIdx["size"]=1;
+self._assert_equals_($3,_st(_st(self["@model"])._testClasses())._size());
+return self}, function($ctx1) {$ctx1.fill(self,"testSelectAllClasses",{},globals.HLSUnitModelTest)})},
+args: [],
+source: "testSelectAllClasses\x0a\x09model selectAllPackages.\x0a\x09self assert: model testClasses notEmpty.\x0a\x09model selectAllClasses.\x0a\x09self assert: model selectedClasses size equals: model testClasses size",
+messageSends: ["selectAllPackages", "assert:", "notEmpty", "testClasses", "selectAllClasses", "assert:equals:", "size", "selectedClasses"],
+referencedClasses: []
+}),
+globals.HLSUnitModelTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testSelectAllPackages",
 protocol: 'tests',
 fn: function (){

@@ -28,6 +28,34 @@ testEmptyTestResults
 	self assert: (model testResult isKindOf: TestResult)
 !
 
+testInvertSelectedClasses
+	model selectAllPackages.
+	model selectAllClasses.
+	model unselectClass: self class.
+	self assert: model selectedClasses notEmpty.
+	self assert: model selectedClasses size equals: model testClasses size - 1.
+	model invertSelectedClasses.
+	self assert: model selectedClasses size equals: 1.
+	self assert: model selectedClasses anyOne equals: self class.
+!
+
+testInvertSelectedPackages
+	model selectAllPackages.
+	model unselectPackage: self thisPackage.
+	self assert: model selectedPackages notEmpty.
+	self assert: model selectedPackages size equals: model testPackages size - 1.
+	model invertSelectedPackages.
+	self assert: model selectedPackages size equals: 1.
+	self assert: model selectedPackages anyOne equals: self thisPackage.
+!
+
+testSelectAllClasses
+	model selectAllPackages.
+	self assert: model testClasses notEmpty.
+	model selectAllClasses.
+	self assert: model selectedClasses size equals: model testClasses size
+!
+
 testSelectAllPackages
 	self assert: model selectedPackages isEmpty.
 	model selectAllPackages.
