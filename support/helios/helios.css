@@ -305,6 +305,15 @@ body[id="helios"] .welcome button {
   height: auto;
   width: 150px;
 }
+body[id="helios"] .sunit.status.success {
+  background: #43d443;
+}
+body[id="helios"] .sunit.status.failure {
+  background: #ecd443;
+}
+body[id="helios"] .sunit.status.error {
+  background: #e56f3b;
+}
 body[id="helios"] .tool_container {
   position: absolute;
   top: 23px;
