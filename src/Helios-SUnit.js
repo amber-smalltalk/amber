@@ -900,28 +900,51 @@ selector: "renderContentOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
+var resultSection;
 function $HLContainer(){return globals.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
 function $HLVerticalSplitter(){return globals.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
-function $HLHorizontalSplitter(){return globals.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
 var $4,$3,$5,$2,$1;
 $4=self._packagesListWidget();
 $ctx1.sendIdx["packagesListWidget"]=1;
 $3=_st($HLVerticalSplitter())._with_with_($4,self._classesListWidget());
-$ctx1.sendIdx["with:with:"]=2;
-$5=_st($HLHorizontalSplitter())._with_with_(self._resultWidget(),_st($HLHorizontalSplitter())._with_with_(self._failuresWidget(),self._errorsWidget()));
-$ctx1.sendIdx["with:with:"]=3;
+resultSection=self._resultSection();
+$5=resultSection;
 $2=_st($HLVerticalSplitter())._with_with_($3,$5);
 $ctx1.sendIdx["with:with:"]=1;
 $1=_st($HLContainer())._with_($2);
 _st(html)._with_($1);
 $ctx1.sendIdx["with:"]=1;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(resultSection)._resize_((0));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._valueWithTimeout_((100));
 _st(self._packagesListWidget())._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLSUnit)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html,resultSection:resultSection},globals.HLSUnit)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html with: (HLContainer with:  (\x0a\x09\x09HLVerticalSplitter \x0a\x09\x09\x09with: (HLVerticalSplitter\x0a\x09\x09\x09\x09with: self packagesListWidget \x0a        \x09\x09with: self classesListWidget)\x0a\x09\x09\x09with: (HLHorizontalSplitter \x0a\x09\x09\x09\x09with: self resultWidget\x0a\x09\x09\x09\x09with: (HLHorizontalSplitter \x0a\x09\x09\x09\x09\x09with: self failuresWidget\x0a\x09\x09\x09\x09\x09with: self errorsWidget)))).\x0a\x09\x0a\x09self packagesListWidget focus",
-messageSends: ["with:", "with:with:", "packagesListWidget", "classesListWidget", "resultWidget", "failuresWidget", "errorsWidget", "focus"],
-referencedClasses: ["HLContainer", "HLVerticalSplitter", "HLHorizontalSplitter"]
+source: "renderContentOn: html\x0a\x09| resultSection |\x0a\x09html with: (HLContainer with:  (\x0a\x09\x09HLVerticalSplitter \x0a\x09\x09\x09with: (HLVerticalSplitter\x0a\x09\x09\x09\x09with: self packagesListWidget \x0a        \x09\x09with: self classesListWidget)\x0a\x09\x09\x09with: (resultSection := self resultSection))).\x0a\x09\x0a\x09[resultSection resize: 0] valueWithTimeout: 100.\x0a\x09\x0a\x09self packagesListWidget focus",
+messageSends: ["with:", "with:with:", "packagesListWidget", "classesListWidget", "resultSection", "valueWithTimeout:", "resize:", "focus"],
+referencedClasses: ["HLContainer", "HLVerticalSplitter"]
+}),
+globals.HLSUnit);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "resultSection",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $HLHorizontalSplitter(){return globals.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($HLHorizontalSplitter())._with_with_(self._resultWidget(),_st($HLHorizontalSplitter())._with_with_(self._failuresWidget(),self._errorsWidget()));
+$ctx1.sendIdx["with:with:"]=1;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"resultSection",{},globals.HLSUnit)})},
+args: [],
+source: "resultSection\x0a\x09^HLHorizontalSplitter \x0a\x09\x09with: self resultWidget\x0a\x09\x09with: (HLHorizontalSplitter \x0a\x09\x09\x09with: self failuresWidget\x0a\x09\x09\x09with: self errorsWidget)",
+messageSends: ["with:with:", "resultWidget", "failuresWidget", "errorsWidget"],
+referencedClasses: ["HLHorizontalSplitter"]
 }),
 globals.HLSUnit);
 
@@ -1854,7 +1877,7 @@ globals.HLSUnitResultStatus);
 
 
 smalltalk.addClass('HLSUnitResults', globals.HLWidget, ['model', 'progressBarWidget', 'resultStatusWidget'], 'Helios-SUnit');
-globals.HLSUnitResults.comment="I am the widget that displays the test results for a previous test run in Helios.\x0a\x0aI display.\x0a\x0a1. The status of the tests.\x0a* Progress of the currently running test suite.\x0a* A list of failed tests.\x0a* A list of tests that resulted in an error.";
+globals.HLSUnitResults.comment="I am the widget that displays the test results for a previous test run in Helios.\x0a\x0aI display.\x0a\x0a1. The status of the tests.\x0a* Progress of the currently running test suite.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model",

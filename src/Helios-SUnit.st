@@ -274,6 +274,14 @@ I provide the ability to select set of tests to run per package, and a detailed 
 
 model
 	^ model ifNil: [ model := HLSUnitModel new ]
+!
+
+resultSection
+	^HLHorizontalSplitter 
+		with: self resultWidget
+		with: (HLHorizontalSplitter 
+			with: self failuresWidget
+			with: self errorsWidget)
 ! !
 
 !HLSUnit methodsFor: 'keybindings'!
@@ -287,16 +295,15 @@ registerBindingsOn: aBindingGroup
 !HLSUnit methodsFor: 'rendering'!
 
 renderContentOn: html
+	| resultSection |
 	html with: (HLContainer with:  (
 		HLVerticalSplitter 
 			with: (HLVerticalSplitter
 				with: self packagesListWidget 
         		with: self classesListWidget)
-			with: (HLHorizontalSplitter 
-				with: self resultWidget
-				with: (HLHorizontalSplitter 
-					with: self failuresWidget
-					with: self errorsWidget)))).
+			with: (resultSection := self resultSection))).
+	
+	[resultSection resize: 0] valueWithTimeout: 100.
 	
 	self packagesListWidget focus
 ! !
@@ -634,9 +641,7 @@ I am the widget that displays the test results for a previous test run in Helios
 I display.
 
 1. The status of the tests.
-* Progress of the currently running test suite.
-* A list of failed tests.
-* A list of tests that resulted in an error.!
+* Progress of the currently running test suite.!
 
 !HLSUnitResults methodsFor: 'accessing'!
 
