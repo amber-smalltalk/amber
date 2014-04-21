@@ -1016,6 +1016,7 @@ globals.HLSUnit.klass);
 
 
 smalltalk.addClass('HLSUnitModel', globals.HLModel, ['selectedPackages', 'selectedClasses', 'testResult', 'currentSuite'], 'Helios-SUnit');
+globals.HLSUnitModel.comment="I am the model for running unit tests in Helios.\x0a\x0aI provide the ability to select set of tests to run per package, and a detailed result log with passed tests, failed tests and errors.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currentSuite",
@@ -1448,6 +1449,7 @@ globals.HLSUnitModel);
 
 
 smalltalk.addClass('HLSUnitResultListWidget', globals.HLToolListWidget, [], 'Helios-SUnit');
+globals.HLSUnitResultListWidget.comment="I group the lists that display test results";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "observeModel",
@@ -1535,6 +1537,7 @@ globals.HLSUnitResultListWidget);
 
 
 smalltalk.addClass('HLSUnitErrorsListWidget', globals.HLSUnitResultListWidget, [], 'Helios-SUnit');
+globals.HLSUnitErrorsListWidget.comment="I display a list of tests that have errors";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "items",
@@ -1571,6 +1574,7 @@ globals.HLSUnitErrorsListWidget);
 
 
 smalltalk.addClass('HLSUnitFailuresListWidget', globals.HLSUnitResultListWidget, [], 'Helios-SUnit');
+globals.HLSUnitFailuresListWidget.comment="I display a list of tests that have failures";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "items",
@@ -1607,6 +1611,7 @@ globals.HLSUnitFailuresListWidget);
 
 
 smalltalk.addClass('HLSUnitResultStatus', globals.HLWidget, ['model'], 'Helios-SUnit');
+globals.HLSUnitResultStatus.comment="I display the status of the previous test run\x0a\x0a1. How many tests where run.\x0a* How many tests passed.\x0a* How many tests failed.\x0a* How many tests resulted in an error.\x0a";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model",
@@ -1652,7 +1657,7 @@ globals.HLSUnitResultStatus);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "observeModel",
-protocol: 'initialization',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $ResultAnnouncement(){return globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
@@ -1849,6 +1854,7 @@ globals.HLSUnitResultStatus);
 
 
 smalltalk.addClass('HLSUnitResults', globals.HLWidget, ['model', 'progressBarWidget', 'resultStatusWidget'], 'Helios-SUnit');
+globals.HLSUnitResults.comment="I am the widget that displays the test results for a previous test run in Helios.\x0a\x0aI display.\x0a\x0a1. The status of the tests.\x0a* Progress of the currently running test suite.\x0a* A list of failed tests.\x0a* A list of tests that resulted in an error.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model",

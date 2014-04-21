@@ -3,6 +3,7 @@ smalltalk.addPackage('Helios-SUnit-Tests');
 smalltalk.packages["Helios-SUnit-Tests"].transport = {"type":"amd","amdNamespace":"helios"};
 
 smalltalk.addClass('HLSUnitModelTest', globals.TestCase, ['model'], 'Helios-SUnit-Tests');
+globals.HLSUnitModelTest.comment="Test cases for the functionality of  `HLSUnitModel`";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setUp",

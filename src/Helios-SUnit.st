@@ -355,6 +355,10 @@ canBeOpenAsTab
 HLModel subclass: #HLSUnitModel
 	instanceVariableNames: 'selectedPackages selectedClasses testResult currentSuite'
 	package: 'Helios-SUnit'!
+!HLSUnitModel commentStamp!
+I am the model for running unit tests in Helios.
+
+I provide the ability to select set of tests to run per package, and a detailed result log with passed tests, failed tests and errors.!
 
 !HLSUnitModel methodsFor: 'accessing'!
 
@@ -480,6 +484,8 @@ onResultAnnouncement: announcement
 HLToolListWidget subclass: #HLSUnitResultListWidget
 	instanceVariableNames: ''
 	package: 'Helios-SUnit'!
+!HLSUnitResultListWidget commentStamp!
+I group the lists that display test results!
 
 !HLSUnitResultListWidget methodsFor: 'actions'!
 
@@ -515,6 +521,8 @@ reselectItem: anObject
 HLSUnitResultListWidget subclass: #HLSUnitErrorsListWidget
 	instanceVariableNames: ''
 	package: 'Helios-SUnit'!
+!HLSUnitErrorsListWidget commentStamp!
+I display a list of tests that have errors!
 
 !HLSUnitErrorsListWidget methodsFor: 'accessing'!
 
@@ -529,6 +537,8 @@ label
 HLSUnitResultListWidget subclass: #HLSUnitFailuresListWidget
 	instanceVariableNames: ''
 	package: 'Helios-SUnit'!
+!HLSUnitFailuresListWidget commentStamp!
+I display a list of tests that have failures!
 
 !HLSUnitFailuresListWidget methodsFor: 'accessing'!
 
@@ -543,6 +553,13 @@ label
 HLWidget subclass: #HLSUnitResultStatus
 	instanceVariableNames: 'model'
 	package: 'Helios-SUnit'!
+!HLSUnitResultStatus commentStamp!
+I display the status of the previous test run
+
+1. How many tests where run.
+* How many tests passed.
+* How many tests failed.
+* How many tests resulted in an error.!
 
 !HLSUnitResultStatus methodsFor: 'accessing'!
 
@@ -567,7 +584,7 @@ statusInfo
 	^ self printTotal, self printPasses, self printErrors, self printFailures
 ! !
 
-!HLSUnitResultStatus methodsFor: 'initialization'!
+!HLSUnitResultStatus methodsFor: 'actions'!
 
 observeModel
 	self model announcer 
@@ -611,6 +628,15 @@ renderContentOn: html
 HLWidget subclass: #HLSUnitResults
 	instanceVariableNames: 'model progressBarWidget resultStatusWidget'
 	package: 'Helios-SUnit'!
+!HLSUnitResults commentStamp!
+I am the widget that displays the test results for a previous test run in Helios.
+
+I display.
+
+1. The status of the tests.
+* Progress of the currently running test suite.
+* A list of failed tests.
+* A list of tests that resulted in an error.!
 
 !HLSUnitResults methodsFor: 'accessing'!
 

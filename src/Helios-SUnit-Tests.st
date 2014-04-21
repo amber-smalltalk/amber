@@ -2,6 +2,8 @@ Smalltalk createPackage: 'Helios-SUnit-Tests'!
 TestCase subclass: #HLSUnitModelTest
 	instanceVariableNames: 'model'
 	package: 'Helios-SUnit-Tests'!
+!HLSUnitModelTest commentStamp!
+Test cases for the functionality of  `HLSUnitModel`!
 
 !HLSUnitModelTest methodsFor: 'accessing'!
 
