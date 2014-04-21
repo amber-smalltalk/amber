@@ -26,12 +26,12 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "grunt amberc:amber_cli && ./bin/amber tests"
+    "test": "grunt amberc:test_runner && node test_runner.js && ( rm test_runner.js || del test_runner.js )"
   },
   "devDependencies": {
     "pegjs": "~0.8.0",
     "grunt": "~0.4.0",
     "grunt-contrib-jshint": "~0.3.0",
-    "amber-dev": "0.0.1"
+    "amber-dev": "0.0.2"
   }
 }
