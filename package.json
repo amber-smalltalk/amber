@@ -1,13 +1,13 @@
 {
   "name": "amber-dev",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Development goodies for Amber Smalltalk",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/amber-smalltalk/amber-dev"
+    "url": "git://github.com/amber-smalltalk/amber-dev#0.0.2"
   },
   "author": "",
   "license": "MIT",
