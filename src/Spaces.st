@@ -116,7 +116,7 @@ testConnection
 
 testCreate
 
-	self assert: space frame notNil.
+	self assert: space frame ~= nil.
 	self assert: space isConnected
 !
 
