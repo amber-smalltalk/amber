@@ -1,12 +1,12 @@
-XXth Xxx 2014 - Release 0.12.5
+XXnd XXX 2014 - Release 0.12.5
 ===================================
 
 Highlights:
 
-* Command-line tool `amber` extracted to its own repo and npm package.
+* `amber` and `amberc` cli moved to dedicated repository.
 
 Commits: https://github.com/amber-smalltalk/amber/compare/0.12.4...0.12.5
-Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=12&state=closed
+Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=13&state=closed
 
 For the most important API related changes see the file API-CHANGES.txt.
 

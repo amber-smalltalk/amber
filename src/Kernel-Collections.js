@@ -5236,6 +5236,24 @@ referencedClasses: []
 }),
 globals.String);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value:",
+protocol: 'evaluating',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._perform_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},globals.String)})},
+args: ["anObject"],
+source: "value: anObject \x0a\x09^ anObject perform: self",
+messageSends: ["perform:"],
+referencedClasses: []
+}),
+globals.String);
+
 
 smalltalk.addMethod(
 smalltalk.method({

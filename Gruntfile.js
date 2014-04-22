@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
 
   grunt.loadTasks('./grunt/tasks');
+  grunt.loadNpmTasks('amber-dev');
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
 
@@ -66,28 +67,15 @@ module.exports = function(grunt) {
         src: ['src/Kernel-Tests.st', 'src/Compiler-Tests.st', 'src/SUnit-Tests.st'],
         libraries: ['SUnit']
       },
-      amber_test_runner: {
-        src: ['test/Test.st'],
+      test_runner: {
+        src: ['node_modules/amber-dev/lib/Test.st'],
         libraries: [
         'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
         'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
         'SUnit', 'Kernel-ImportExport',
         'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
         main_class: 'NodeTestRunner',
-        output_name: 'test/amber_test_runner'
-      },
-      amber_cli: {
-        output_dir: 'cli/src',
-        src: ['cli/src/AmberCli.st'],
-        libraries: [
-            'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
-            'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
-            'SUnit', 'Kernel-ImportExport',
-            'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'
-        ],
-        main_class: 'AmberCli',
-        output_name: '../support/amber-cli',
-        amd_namespace: 'amber_cli'
+        output_name: 'test_runner'
       }
     },
 

@@ -4,9 +4,10 @@ server/FileServer*.js
 # Ignoring Mac Finder files
 .DS_Store
 
-# Ignoring run.js in test/
+# Ignoring test runner
 test/amber_test_runner.js
 test/run.js
+test_runner.js
 
 # In case amber is also saved in a local Subversion
 .svn

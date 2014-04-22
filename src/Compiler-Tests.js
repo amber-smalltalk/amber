@@ -698,12 +698,14 @@ self._should_return_("foo ^ #{1->2. 3->4}",globals.HashedCollection._newFromPair
 $ctx1.sendIdx["should:return:"]=7;
 self._should_return_("foo ^ #hello","hello");
 $ctx1.sendIdx["should:return:"]=8;
-self._should_return_("foo ^ -123.456",(-123.456));
+self._should_return_("foo ^ $h","h");
 $ctx1.sendIdx["should:return:"]=9;
+self._should_return_("foo ^ -123.456",(-123.456));
+$ctx1.sendIdx["should:return:"]=10;
 self._should_return_("foo ^ -2.5e4",(-25000));
 return self}, function($ctx1) {$ctx1.fill(self,"testLiterals",{},globals.CodeGeneratorTest)})},
 args: [],
-source: "testLiterals\x0a\x09self should: 'foo ^ 1' return: 1.\x0a\x09self should: 'foo ^ ''hello''' return: 'hello'.\x0a\x09self should: 'foo ^ #(1 2 3 4)' return: #(1 2 3 4).\x0a\x09self should: 'foo ^ {1. [:x | x ] value: 2. 3. [4] value}' return: #(1 2 3 4).\x0a\x09self should: 'foo ^ true' return: true.\x0a\x09self should: 'foo ^ false' return: false.\x0a\x09self should: 'foo ^ #{1->2. 3->4}' return: #{1->2. 3->4}.\x0a\x09self should: 'foo ^ #hello' return: #hello.\x0a\x09self should: 'foo ^ -123.456' return: -123.456.\x0a\x09self should: 'foo ^ -2.5e4' return: -25000.",
+source: "testLiterals\x0a\x09self should: 'foo ^ 1' return: 1.\x0a\x09self should: 'foo ^ ''hello''' return: 'hello'.\x0a\x09self should: 'foo ^ #(1 2 3 4)' return: #(1 2 3 4).\x0a\x09self should: 'foo ^ {1. [:x | x ] value: 2. 3. [4] value}' return: #(1 2 3 4).\x0a\x09self should: 'foo ^ true' return: true.\x0a\x09self should: 'foo ^ false' return: false.\x0a\x09self should: 'foo ^ #{1->2. 3->4}' return: #{1->2. 3->4}.\x0a\x09self should: 'foo ^ #hello' return: #hello.\x0a\x09self should: 'foo ^ $h' return: 'h'.\x0a\x09self should: 'foo ^ -123.456' return: -123.456.\x0a\x09self should: 'foo ^ -2.5e4' return: -25000.",
 messageSends: ["should:return:"],
 referencedClasses: []
 }),

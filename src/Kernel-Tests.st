@@ -1498,6 +1498,14 @@ testSubStrings
 testTrim
 	self assert: '       jackie' trimLeft equals: 'jackie'.
 	self assert: 'jackie               ' trimRight equals: 'jackie'.
+!
+
+testValue
+
+	self assert: (#asString value: 1) equals: '1'.
+
+	"Which (since String and BlockClosure are now polymorphic) enables the nice idiom..."
+	self assert: (#(1 2 3) collect: #asString) equals: #('1' '2' '3')
 ! !
 
 !StringTest class methodsFor: 'fixture'!

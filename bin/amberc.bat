@@ -1,1 +1,1 @@
-@node "%~dp0\..\cli\support\amberc-cli.js" %*
+@amberc -d "%~dp0\.." %*

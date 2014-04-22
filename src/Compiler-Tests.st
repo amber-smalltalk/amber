@@ -287,6 +287,7 @@ testLiterals
 	self should: 'foo ^ false' return: false.
 	self should: 'foo ^ #{1->2. 3->4}' return: #{1->2. 3->4}.
 	self should: 'foo ^ #hello' return: #hello.
+	self should: 'foo ^ $h' return: 'h'.
 	self should: 'foo ^ -123.456' return: -123.456.
 	self should: 'foo ^ -2.5e4' return: -25000.
 !
