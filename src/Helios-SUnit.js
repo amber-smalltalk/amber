@@ -296,9 +296,48 @@ $ctx1.sendIdx["on:send:to:"]=3;
 $2=_st($1)._on_send_to_($HLClassUnselected(),"onClassUnselected:",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},globals.HLSUnitClassesListWidget)})},
 args: [],
-source: "observeModel\x0a    self model announcer \x0a\x09\x09on: HLPackageSelected\x0a\x09\x09send: #onPackageSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLPackageUnselected\x0a\x09\x09send: #onPackageUnselected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLClassSelected\x0a\x09\x09send: #onClassSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLClassUnselected\x0a\x09\x09send: #onClassUnselected:\x0a\x09\x09to: self",
+source: "observeModel\x0a    self model announcer \x0a\x09\x09on: HLPackageSelected\x0a\x09\x09send: #onPackageSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLPackageUnselected\x0a\x09\x09send: #onPackageUnselected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLClassSelected\x0a\x09\x09send: #onClassSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLClassUnselected\x0a\x09\x09send: #onClassUnselected:\x0a\x09\x09to: self.",
 messageSends: ["on:send:to:", "announcer", "model"],
 referencedClasses: ["HLPackageSelected", "HLPackageUnselected", "HLClassSelected", "HLClassUnselected"]
+}),
+globals.HLSUnitClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "observeSystem",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $ClassAdded(){return globals.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self._model())._systemAnnouncer())._on_send_to_($ClassAdded(),"onClassAdded:",self);
+return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},globals.HLSUnitClassesListWidget)})},
+args: [],
+source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09send: #onClassAdded:\x0a\x09\x09to: self.",
+messageSends: ["on:send:to:", "systemAnnouncer", "model"],
+referencedClasses: ["ClassAdded"]
+}),
+globals.HLSUnitClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClassAdded:",
+protocol: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(self._model())._selectedPackages())._includes_(_st(_st(anAnnouncement)._theClass())._package());
+if(smalltalk.assert($1)){
+self._initializeItems();
+$2=self._refresh();
+$2;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{anAnnouncement:anAnnouncement},globals.HLSUnitClassesListWidget)})},
+args: ["anAnnouncement"],
+source: "onClassAdded: anAnnouncement\x09\x0a\x09(self model selectedPackages includes: anAnnouncement theClass package)\x0a\x09\x09ifTrue: [ \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09initializeItems;\x0a\x09\x09\x09\x09refresh ]",
+messageSends: ["ifTrue:", "includes:", "selectedPackages", "model", "package", "theClass", "initializeItems", "refresh"],
+referencedClasses: []
 }),
 globals.HLSUnitClassesListWidget);
 
@@ -308,12 +347,14 @@ selector: "onClassSelected:",
 protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
+var listItem;
 return smalltalk.withContext(function($ctx1) { 
-self._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncement:anAnnouncement},globals.HLSUnitClassesListWidget)})},
+listItem=self._findListItemFor_(_st(anAnnouncement)._item());
+_st(listItem)._addClass_("active");
+return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncement:anAnnouncement,listItem:listItem},globals.HLSUnitClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassSelected: anAnnouncement\x0a\x09self refresh",
-messageSends: ["refresh"],
+source: "onClassSelected: anAnnouncement\x0a\x09| listItem |\x0a\x09listItem := self findListItemFor: anAnnouncement item.\x0a\x09listItem addClass: 'active'.",
+messageSends: ["findListItemFor:", "item", "addClass:"],
 referencedClasses: []
 }),
 globals.HLSUnitClassesListWidget);
@@ -324,12 +365,14 @@ selector: "onClassUnselected:",
 protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
+var listItem;
 return smalltalk.withContext(function($ctx1) { 
-self._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onClassUnselected:",{anAnnouncement:anAnnouncement},globals.HLSUnitClassesListWidget)})},
+listItem=self._findListItemFor_(_st(anAnnouncement)._item());
+_st(listItem)._removeClass_("active");
+return self}, function($ctx1) {$ctx1.fill(self,"onClassUnselected:",{anAnnouncement:anAnnouncement,listItem:listItem},globals.HLSUnitClassesListWidget)})},
 args: ["anAnnouncement"],
-source: "onClassUnselected: anAnnouncement\x0a\x09self refresh",
-messageSends: ["refresh"],
+source: "onClassUnselected: anAnnouncement\x0a\x09| listItem |\x0a\x09listItem := self findListItemFor: anAnnouncement item.\x0a\x09listItem removeClass: 'active'.",
+messageSends: ["findListItemFor:", "item", "removeClass:"],
 referencedClasses: []
 }),
 globals.HLSUnitClassesListWidget);
@@ -549,16 +592,67 @@ globals.HLSUnitPackagesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "onPackageSelected:",
+selector: "observeSystem",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $ClassAdded(){return globals.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self._model())._systemAnnouncer())._on_send_to_($ClassAdded(),"onClassAdded:",self);
+return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},globals.HLSUnitPackagesListWidget)})},
+args: [],
+source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09send: #onClassAdded:\x0a\x09\x09to: self.",
+messageSends: ["on:send:to:", "systemAnnouncer", "model"],
+referencedClasses: ["ClassAdded"]
+}),
+globals.HLSUnitPackagesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClassAdded:",
 protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{anAnnouncement:anAnnouncement},globals.HLSUnitPackagesListWidget)})},
+var $4,$6,$5,$3,$2,$1,$7;
+$4=self._items();
+$6=_st(anAnnouncement)._theClass();
+$ctx1.sendIdx["theClass"]=1;
+$5=_st($6)._package();
+$ctx1.sendIdx["package"]=1;
+$3=_st($4)._includes_($5);
+$2=_st($3)._not();
+$1=_st($2)._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(anAnnouncement)._theClass())._package())._isTestPackage();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+if(smalltalk.assert($1)){
+self._initializeItems();
+$7=self._refresh();
+$7;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{anAnnouncement:anAnnouncement},globals.HLSUnitPackagesListWidget)})},
 args: ["anAnnouncement"],
-source: "onPackageSelected: anAnnouncement\x0a\x09self refresh",
-messageSends: ["refresh"],
+source: "onClassAdded: anAnnouncement\x0a\x09((self items includes: anAnnouncement theClass package) not and: [anAnnouncement theClass package isTestPackage])\x0a\x09\x09ifTrue: [ \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09initializeItems;\x0a\x09\x09\x09\x09refresh ]",
+messageSends: ["ifTrue:", "and:", "not", "includes:", "items", "package", "theClass", "isTestPackage", "initializeItems", "refresh"],
+referencedClasses: []
+}),
+globals.HLSUnitPackagesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onPackageSelected:",
+protocol: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+var listItem;
+return smalltalk.withContext(function($ctx1) { 
+listItem=self._findListItemFor_(_st(anAnnouncement)._item());
+_st(listItem)._addClass_("active");
+return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{anAnnouncement:anAnnouncement,listItem:listItem},globals.HLSUnitPackagesListWidget)})},
+args: ["anAnnouncement"],
+source: "onPackageSelected: anAnnouncement\x0a\x09| listItem |\x0a\x09listItem := self findListItemFor: anAnnouncement item.\x0a\x09listItem addClass: 'active'.\x0a\x09",
+messageSends: ["findListItemFor:", "item", "addClass:"],
 referencedClasses: []
 }),
 globals.HLSUnitPackagesListWidget);
@@ -569,12 +663,14 @@ selector: "onPackageUnselected:",
 protocol: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
+var listItem;
 return smalltalk.withContext(function($ctx1) { 
-self._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onPackageUnselected:",{anAnnouncement:anAnnouncement},globals.HLSUnitPackagesListWidget)})},
+listItem=self._findListItemFor_(_st(anAnnouncement)._item());
+_st(listItem)._removeClass_("active");
+return self}, function($ctx1) {$ctx1.fill(self,"onPackageUnselected:",{anAnnouncement:anAnnouncement,listItem:listItem},globals.HLSUnitPackagesListWidget)})},
 args: ["anAnnouncement"],
-source: "onPackageUnselected: anAnnouncement\x0a\x09self refresh",
-messageSends: ["refresh"],
+source: "onPackageUnselected: anAnnouncement\x0a\x09| listItem |\x0a\x09listItem := self findListItemFor: anAnnouncement item.\x0a\x09listItem removeClass: 'active'.",
+messageSends: ["findListItemFor:", "item", "removeClass:"],
 referencedClasses: []
 }),
 globals.HLSUnitPackagesListWidget);
@@ -804,28 +900,51 @@ selector: "renderContentOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
+var resultSection;
 function $HLContainer(){return globals.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
 function $HLVerticalSplitter(){return globals.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
-function $HLHorizontalSplitter(){return globals.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
 var $4,$3,$5,$2,$1;
 $4=self._packagesListWidget();
 $ctx1.sendIdx["packagesListWidget"]=1;
 $3=_st($HLVerticalSplitter())._with_with_($4,self._classesListWidget());
-$ctx1.sendIdx["with:with:"]=2;
-$5=_st($HLHorizontalSplitter())._with_with_(self._resultWidget(),_st($HLHorizontalSplitter())._with_with_(self._failuresWidget(),self._errorsWidget()));
-$ctx1.sendIdx["with:with:"]=3;
+resultSection=self._resultSection();
+$5=resultSection;
 $2=_st($HLVerticalSplitter())._with_with_($3,$5);
 $ctx1.sendIdx["with:with:"]=1;
 $1=_st($HLContainer())._with_($2);
 _st(html)._with_($1);
 $ctx1.sendIdx["with:"]=1;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(resultSection)._resize_((0));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._valueWithTimeout_((100));
 _st(self._packagesListWidget())._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLSUnit)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html,resultSection:resultSection},globals.HLSUnit)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html with: (HLContainer with:  (\x0a\x09\x09HLVerticalSplitter \x0a\x09\x09\x09with: (HLVerticalSplitter\x0a\x09\x09\x09\x09with: self packagesListWidget \x0a        \x09\x09with: self classesListWidget)\x0a\x09\x09\x09with: (HLHorizontalSplitter \x0a\x09\x09\x09\x09with: self resultWidget\x0a\x09\x09\x09\x09with: (HLHorizontalSplitter \x0a\x09\x09\x09\x09\x09with: self failuresWidget\x0a\x09\x09\x09\x09\x09with: self errorsWidget)))).\x0a\x09\x0a\x09self packagesListWidget focus",
-messageSends: ["with:", "with:with:", "packagesListWidget", "classesListWidget", "resultWidget", "failuresWidget", "errorsWidget", "focus"],
-referencedClasses: ["HLContainer", "HLVerticalSplitter", "HLHorizontalSplitter"]
+source: "renderContentOn: html\x0a\x09| resultSection |\x0a\x09html with: (HLContainer with:  (\x0a\x09\x09HLVerticalSplitter \x0a\x09\x09\x09with: (HLVerticalSplitter\x0a\x09\x09\x09\x09with: self packagesListWidget \x0a        \x09\x09with: self classesListWidget)\x0a\x09\x09\x09with: (resultSection := self resultSection))).\x0a\x09\x0a\x09[resultSection resize: 0] valueWithTimeout: 100.\x0a\x09\x0a\x09self packagesListWidget focus",
+messageSends: ["with:", "with:with:", "packagesListWidget", "classesListWidget", "resultSection", "valueWithTimeout:", "resize:", "focus"],
+referencedClasses: ["HLContainer", "HLVerticalSplitter"]
+}),
+globals.HLSUnit);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "resultSection",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $HLHorizontalSplitter(){return globals.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($HLHorizontalSplitter())._with_with_(self._resultWidget(),_st($HLHorizontalSplitter())._with_with_(self._failuresWidget(),self._errorsWidget()));
+$ctx1.sendIdx["with:with:"]=1;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"resultSection",{},globals.HLSUnit)})},
+args: [],
+source: "resultSection\x0a\x09^HLHorizontalSplitter \x0a\x09\x09with: self resultWidget\x0a\x09\x09with: (HLHorizontalSplitter \x0a\x09\x09\x09with: self failuresWidget\x0a\x09\x09\x09with: self errorsWidget)",
+messageSends: ["with:with:", "resultWidget", "failuresWidget", "errorsWidget"],
+referencedClasses: ["HLHorizontalSplitter"]
 }),
 globals.HLSUnit);
 
@@ -920,6 +1039,7 @@ globals.HLSUnit.klass);
 
 
 smalltalk.addClass('HLSUnitModel', globals.HLModel, ['selectedPackages', 'selectedClasses', 'testResult', 'currentSuite'], 'Helios-SUnit');
+globals.HLSUnitModel.comment="I am the model for running unit tests in Helios.\x0a\x0aI provide the ability to select set of tests to run per package, and a detailed result log with passed tests, failed tests and errors.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "currentSuite",
@@ -939,6 +1059,56 @@ globals.HLSUnitModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "invertSelectedClasses",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(self._testClasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(self._unfilteredSelectedClasses())._includes_(each);
+if(smalltalk.assert($1)){
+return self._unselectClass_(each);
+} else {
+return self._selectClass_(each);
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"invertSelectedClasses",{},globals.HLSUnitModel)})},
+args: [],
+source: "invertSelectedClasses\x0a\x09self testClasses do: [:each | \x0a\x09\x09(self unfilteredSelectedClasses includes: each)\x0a\x09\x09\x09ifTrue: [ self unselectClass: each ]\x0a\x09\x09\x09ifFalse: [ self selectClass: each ]].\x0a\x09",
+messageSends: ["do:", "testClasses", "ifTrue:ifFalse:", "includes:", "unfilteredSelectedClasses", "unselectClass:", "selectClass:"],
+referencedClasses: []
+}),
+globals.HLSUnitModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "invertSelectedPackages",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(self._testPackages())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(self._selectedPackages())._includes_(each);
+if(smalltalk.assert($1)){
+return self._unselectPackage_(each);
+} else {
+return self._selectPackage_(each);
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"invertSelectedPackages",{},globals.HLSUnitModel)})},
+args: [],
+source: "invertSelectedPackages\x0a\x09self testPackages do: [:each | \x0a\x09\x09(self selectedPackages includes: each)\x0a\x09\x09\x09ifTrue: [ self unselectPackage: each ]\x0a\x09\x09\x09ifFalse: [ self selectPackage: each ]].\x0a\x09",
+messageSends: ["do:", "testPackages", "ifTrue:ifFalse:", "includes:", "selectedPackages", "unselectPackage:", "selectPackage:"],
+referencedClasses: []
+}),
+globals.HLSUnitModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "onResultAnnouncement:",
 protocol: 'reacting',
 fn: function (announcement){
@@ -950,31 +1120,6 @@ args: ["announcement"],
 source: "onResultAnnouncement: announcement\x0a\x09\x22Propogate announcement\x22\x0a\x09self announcer announce: announcement.",
 messageSends: ["announce:", "announcer"],
 referencedClasses: []
-}),
-globals.HLSUnitModel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "privateSelectedClasses",
-protocol: 'private',
-fn: function (){
-var self=this;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$receiver;
-$2=self["@selectedClasses"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@selectedClasses"]=_st($Set())._new();
-$1=self["@selectedClasses"];
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"privateSelectedClasses",{},globals.HLSUnitModel)})},
-args: [],
-source: "privateSelectedClasses\x0a\x09^ (selectedClasses ifNil: [ selectedClasses := Set new ])",
-messageSends: ["ifNil:", "new"],
-referencedClasses: ["Set"]
 }),
 globals.HLSUnitModel);
 
@@ -1004,6 +1149,25 @@ globals.HLSUnitModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "selectAllClasses",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._testClasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return self._selectClass_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"selectAllClasses",{},globals.HLSUnitModel)})},
+args: [],
+source: "selectAllClasses\x0a\x09self testClasses do: [:each | self selectClass: each].\x0a\x09",
+messageSends: ["do:", "testClasses", "selectClass:"],
+referencedClasses: []
+}),
+globals.HLSUnitModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "selectAllPackages",
 protocol: 'actions',
 fn: function (){
@@ -1015,7 +1179,7 @@ return self._selectPackage_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"selectAllPackages",{},globals.HLSUnitModel)})},
 args: [],
-source: "selectAllPackages\x0a\x09self testPackages do: [:each | self selectPackage: each]",
+source: "selectAllPackages\x0a\x09self testPackages do: [:each | self selectPackage: each].",
 messageSends: ["do:", "testPackages", "selectPackage:"],
 referencedClasses: []
 }),
@@ -1029,12 +1193,12 @@ fn: function (aClass){
 var self=this;
 function $HLClassSelected(){return globals.HLClassSelected||(typeof HLClassSelected=="undefined"?nil:HLClassSelected)}
 return smalltalk.withContext(function($ctx1) { 
-_st(self._privateSelectedClasses())._add_(aClass);
+_st(self._unfilteredSelectedClasses())._add_(aClass);
 _st(self._announcer())._announce_(_st($HLClassSelected())._on_(aClass));
 return self}, function($ctx1) {$ctx1.fill(self,"selectClass:",{aClass:aClass},globals.HLSUnitModel)})},
 args: ["aClass"],
-source: "selectClass: aClass\x0a\x09self privateSelectedClasses add: aClass.\x0a\x09self announcer announce: (HLClassSelected on: aClass).",
-messageSends: ["add:", "privateSelectedClasses", "announce:", "announcer", "on:"],
+source: "selectClass: aClass\x0a\x09self unfilteredSelectedClasses add: aClass.\x0a\x09self announcer announce: (HLClassSelected on: aClass).",
+messageSends: ["add:", "unfilteredSelectedClasses", "announce:", "announcer", "on:"],
 referencedClasses: ["HLClassSelected"]
 }),
 globals.HLSUnitModel);
@@ -1065,15 +1229,15 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._privateSelectedClasses())._select_((function(each){
+$1=_st(self._unfilteredSelectedClasses())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._selectedPackages())._includes_(_st(each)._package());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedClasses",{},globals.HLSUnitModel)})},
 args: [],
-source: "selectedClasses\x0a\x09^ (self privateSelectedClasses) select: [:each |\x0a\x09\x09self selectedPackages includes: each package]",
-messageSends: ["select:", "privateSelectedClasses", "includes:", "selectedPackages", "package"],
+source: "selectedClasses\x0a\x09^ (self unfilteredSelectedClasses) select: [:each |\x0a\x09\x09self selectedPackages includes: each package]",
+messageSends: ["select:", "unfilteredSelectedClasses", "includes:", "selectedPackages", "package"],
 referencedClasses: []
 }),
 globals.HLSUnitModel);
@@ -1234,6 +1398,31 @@ globals.HLSUnitModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "unfilteredSelectedClasses",
+protocol: 'private',
+fn: function (){
+var self=this;
+function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$receiver;
+$2=self["@selectedClasses"];
+if(($receiver = $2) == null || $receiver.isNil){
+self["@selectedClasses"]=_st($Set())._new();
+$1=self["@selectedClasses"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"unfilteredSelectedClasses",{},globals.HLSUnitModel)})},
+args: [],
+source: "unfilteredSelectedClasses\x0a\x09^ (selectedClasses ifNil: [ selectedClasses := Set new ])",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["Set"]
+}),
+globals.HLSUnitModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "unselectClass:",
 protocol: 'actions',
 fn: function (aClass){
@@ -1242,7 +1431,7 @@ function $HLClassUnselected(){return globals.HLClassUnselected||(typeof HLClassU
 return smalltalk.withContext(function($ctx1) { 
 var $early={};
 try {
-_st(self._privateSelectedClasses())._remove_ifAbsent_(aClass,(function(){
+_st(self._unfilteredSelectedClasses())._remove_ifAbsent_(aClass,(function(){
 throw $early=[self];
 }));
 _st(self._announcer())._announce_(_st($HLClassUnselected())._on_(aClass));
@@ -1250,8 +1439,8 @@ return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"unselectClass:",{aClass:aClass},globals.HLSUnitModel)})},
 args: ["aClass"],
-source: "unselectClass: aClass\x0a\x09self privateSelectedClasses remove: aClass ifAbsent: [^self].\x0a\x09self announcer announce: (HLClassUnselected on: aClass).",
-messageSends: ["remove:ifAbsent:", "privateSelectedClasses", "announce:", "announcer", "on:"],
+source: "unselectClass: aClass\x0a\x09self unfilteredSelectedClasses remove: aClass ifAbsent: [^self].\x0a\x09self announcer announce: (HLClassUnselected on: aClass).",
+messageSends: ["remove:ifAbsent:", "unfilteredSelectedClasses", "announce:", "announcer", "on:"],
 referencedClasses: ["HLClassUnselected"]
 }),
 globals.HLSUnitModel);
@@ -1283,6 +1472,7 @@ globals.HLSUnitModel);
 
 
 smalltalk.addClass('HLSUnitResultListWidget', globals.HLToolListWidget, [], 'Helios-SUnit');
+globals.HLSUnitResultListWidget.comment="I group the lists that display test results";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "observeModel",
@@ -1370,6 +1560,7 @@ globals.HLSUnitResultListWidget);
 
 
 smalltalk.addClass('HLSUnitErrorsListWidget', globals.HLSUnitResultListWidget, [], 'Helios-SUnit');
+globals.HLSUnitErrorsListWidget.comment="I display a list of tests that have errors";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "items",
@@ -1406,10 +1597,11 @@ globals.HLSUnitErrorsListWidget);
 
 
 smalltalk.addClass('HLSUnitFailuresListWidget', globals.HLSUnitResultListWidget, [], 'Helios-SUnit');
+globals.HLSUnitFailuresListWidget.comment="I display a list of tests that have failures";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "items",
-protocol: 'as yet unclassified',
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1442,6 +1634,7 @@ globals.HLSUnitFailuresListWidget);
 
 
 smalltalk.addClass('HLSUnitResultStatus', globals.HLWidget, ['model'], 'Helios-SUnit');
+globals.HLSUnitResultStatus.comment="I display the status of the previous test run\x0a\x0a1. How many tests where run.\x0a* How many tests passed.\x0a* How many tests failed.\x0a* How many tests resulted in an error.\x0a";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model",
@@ -1487,7 +1680,7 @@ globals.HLSUnitResultStatus);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "observeModel",
-protocol: 'initialization',
+protocol: 'actions',
 fn: function (){
 var self=this;
 function $ResultAnnouncement(){return globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
@@ -1684,6 +1877,7 @@ globals.HLSUnitResultStatus);
 
 
 smalltalk.addClass('HLSUnitResults', globals.HLWidget, ['model', 'progressBarWidget', 'resultStatusWidget'], 'Helios-SUnit');
+globals.HLSUnitResults.comment="I am the widget that displays the test results for a previous test run in Helios.\x0a\x0aI display.\x0a\x0a1. The status of the tests.\x0a* Progress of the currently running test suite.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "model",

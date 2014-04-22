@@ -97,7 +97,14 @@ observeModel
 		
 		on: HLClassUnselected
 		send: #onClassUnselected:
-		to: self
+		to: self.
+!
+
+observeSystem
+    self model systemAnnouncer 
+		on: ClassAdded 
+		send: #onClassAdded:
+		to: self.
 !
 
 select: anObject
@@ -116,12 +123,24 @@ initializeItems
 
 !HLSUnitClassesListWidget methodsFor: 'reactions'!
 
+onClassAdded: anAnnouncement	
+	(self model selectedPackages includes: anAnnouncement theClass package)
+		ifTrue: [ 
+			self 
+				initializeItems;
+				refresh ]
+!
+
 onClassSelected: anAnnouncement
-	self refresh
+	| listItem |
+	listItem := self findListItemFor: anAnnouncement item.
+	listItem addClass: 'active'.
 !
 
 onClassUnselected: anAnnouncement
-	self refresh
+	| listItem |
+	listItem := self findListItemFor: anAnnouncement item.
+	listItem removeClass: 'active'.
 !
 
 onPackageSelected: anAnnouncement
@@ -181,6 +200,13 @@ observeModel
 		to: self
 !
 
+observeSystem
+    self model systemAnnouncer 
+		on: ClassAdded 
+		send: #onClassAdded:
+		to: self.
+!
+
 select: anObject
 	model selectPackage: anObject
 !
@@ -198,12 +224,24 @@ initializeItems
 
 !HLSUnitPackagesListWidget methodsFor: 'reactions'!
 
+onClassAdded: anAnnouncement
+	((self items includes: anAnnouncement theClass package) not and: [anAnnouncement theClass package isTestPackage])
+		ifTrue: [ 
+			self 
+				initializeItems;
+				refresh ]
+!
+
 onPackageSelected: anAnnouncement
-	self refresh
+	| listItem |
+	listItem := self findListItemFor: anAnnouncement item.
+	listItem addClass: 'active'.
 !
 
 onPackageUnselected: anAnnouncement
-	self refresh
+	| listItem |
+	listItem := self findListItemFor: anAnnouncement item.
+	listItem removeClass: 'active'.
 ! !
 
 !HLSUnitPackagesListWidget methodsFor: 'rendering'!
@@ -236,6 +274,14 @@ I provide the ability to select set of tests to run per package, and a detailed 
 
 model
 	^ model ifNil: [ model := HLSUnitModel new ]
+!
+
+resultSection
+	^HLHorizontalSplitter 
+		with: self resultWidget
+		with: (HLHorizontalSplitter 
+			with: self failuresWidget
+			with: self errorsWidget)
 ! !
 
 !HLSUnit methodsFor: 'keybindings'!
@@ -249,16 +295,15 @@ registerBindingsOn: aBindingGroup
 !HLSUnit methodsFor: 'rendering'!
 
 renderContentOn: html
+	| resultSection |
 	html with: (HLContainer with:  (
 		HLVerticalSplitter 
 			with: (HLVerticalSplitter
 				with: self packagesListWidget 
         		with: self classesListWidget)
-			with: (HLHorizontalSplitter 
-				with: self resultWidget
-				with: (HLHorizontalSplitter 
-					with: self failuresWidget
-					with: self errorsWidget)))).
+			with: (resultSection := self resultSection))).
+	
+	[resultSection resize: 0] valueWithTimeout: 100.
 	
 	self packagesListWidget focus
 ! !
@@ -317,6 +362,10 @@ canBeOpenAsTab
 HLModel subclass: #HLSUnitModel
 	instanceVariableNames: 'selectedPackages selectedClasses testResult currentSuite'
 	package: 'Helios-SUnit'!
+!HLSUnitModel commentStamp!
+I am the model for running unit tests in Helios.
+
+I provide the ability to select set of tests to run per package, and a detailed result log with passed tests, failed tests and errors.!
 
 !HLSUnitModel methodsFor: 'accessing'!
 
@@ -325,7 +374,7 @@ currentSuite
 !
 
 selectedClasses
-	^ (self privateSelectedClasses) select: [:each |
+	^ (self unfilteredSelectedClasses) select: [:each |
 		self selectedPackages includes: each package]
 !
 
@@ -366,6 +415,20 @@ testResult
 
 !HLSUnitModel methodsFor: 'actions'!
 
+invertSelectedClasses
+	self testClasses do: [:each | 
+		(self unfilteredSelectedClasses includes: each)
+			ifTrue: [ self unselectClass: each ]
+			ifFalse: [ self selectClass: each ]].
+!
+
+invertSelectedPackages
+	self testPackages do: [:each | 
+		(self selectedPackages includes: each)
+			ifTrue: [ self unselectPackage: each ]
+			ifFalse: [ self selectPackage: each ]].
+!
+
 runTests
 	| worker |
 	worker := TestSuiteRunner on: self testCases.
@@ -375,12 +438,16 @@ runTests
 	worker run
 !
 
+selectAllClasses
+	self testClasses do: [:each | self selectClass: each].
+!
+
 selectAllPackages
-	self testPackages do: [:each | self selectPackage: each]
+	self testPackages do: [:each | self selectPackage: each].
 !
 
 selectClass: aClass
-	self privateSelectedClasses add: aClass.
+	self unfilteredSelectedClasses add: aClass.
 	self announcer announce: (HLClassSelected on: aClass).
 !
 
@@ -399,7 +466,7 @@ subscribeToTestSuite: aTestSuiteRunner
 !
 
 unselectClass: aClass
-	self privateSelectedClasses remove: aClass ifAbsent: [^self].
+	self unfilteredSelectedClasses remove: aClass ifAbsent: [^self].
 	self announcer announce: (HLClassUnselected on: aClass).
 !
 
@@ -410,7 +477,7 @@ unselectPackage: aPackage
 
 !HLSUnitModel methodsFor: 'private'!
 
-privateSelectedClasses
+unfilteredSelectedClasses
 	^ (selectedClasses ifNil: [ selectedClasses := Set new ])
 ! !
 
@@ -424,6 +491,8 @@ onResultAnnouncement: announcement
 HLToolListWidget subclass: #HLSUnitResultListWidget
 	instanceVariableNames: ''
 	package: 'Helios-SUnit'!
+!HLSUnitResultListWidget commentStamp!
+I group the lists that display test results!
 
 !HLSUnitResultListWidget methodsFor: 'actions'!
 
@@ -459,6 +528,8 @@ reselectItem: anObject
 HLSUnitResultListWidget subclass: #HLSUnitErrorsListWidget
 	instanceVariableNames: ''
 	package: 'Helios-SUnit'!
+!HLSUnitErrorsListWidget commentStamp!
+I display a list of tests that have errors!
 
 !HLSUnitErrorsListWidget methodsFor: 'accessing'!
 
@@ -473,22 +544,29 @@ label
 HLSUnitResultListWidget subclass: #HLSUnitFailuresListWidget
 	instanceVariableNames: ''
 	package: 'Helios-SUnit'!
+!HLSUnitFailuresListWidget commentStamp!
+I display a list of tests that have failures!
 
 !HLSUnitFailuresListWidget methodsFor: 'accessing'!
+
+items
+	^self model testResult failures
+!
 
 label
 	^'Failures'
 ! !
 
-!HLSUnitFailuresListWidget methodsFor: 'as yet unclassified'!
-
-items
-	^self model testResult failures
-! !
-
 HLWidget subclass: #HLSUnitResultStatus
 	instanceVariableNames: 'model'
 	package: 'Helios-SUnit'!
+!HLSUnitResultStatus commentStamp!
+I display the status of the previous test run
+
+1. How many tests where run.
+* How many tests passed.
+* How many tests failed.
+* How many tests resulted in an error.!
 
 !HLSUnitResultStatus methodsFor: 'accessing'!
 
@@ -513,7 +591,7 @@ statusInfo
 	^ self printTotal, self printPasses, self printErrors, self printFailures
 ! !
 
-!HLSUnitResultStatus methodsFor: 'initialization'!
+!HLSUnitResultStatus methodsFor: 'actions'!
 
 observeModel
 	self model announcer 
@@ -557,6 +635,13 @@ renderContentOn: html
 HLWidget subclass: #HLSUnitResults
 	instanceVariableNames: 'model progressBarWidget resultStatusWidget'
 	package: 'Helios-SUnit'!
+!HLSUnitResults commentStamp!
+I am the widget that displays the test results for a previous test run in Helios.
+
+I display.
+
+1. The status of the tests.
+* Progress of the currently running test suite.!
 
 !HLSUnitResults methodsFor: 'accessing'!
 
