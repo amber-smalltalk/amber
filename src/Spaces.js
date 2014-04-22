@@ -282,13 +282,13 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._assert_(_st(_st(self["@space"])._frame())._notNil());
+self._assert_(_st(_st(self["@space"])._frame()).__tild_eq(nil));
 $ctx1.sendIdx["assert:"]=1;
 self._assert_(_st(self["@space"])._isConnected());
 return self}, function($ctx1) {$ctx1.fill(self,"testCreate",{},globals.ObjectSpaceTest)})},
 args: [],
-source: "testCreate\x0a\x0a\x09self assert: space frame notNil.\x0a\x09self assert: space isConnected",
-messageSends: ["assert:", "notNil", "frame", "isConnected"],
+source: "testCreate\x0a\x0a\x09self assert: space frame ~= nil.\x0a\x09self assert: space isConnected",
+messageSends: ["assert:", "~=", "frame", "isConnected"],
 referencedClasses: []
 }),
 globals.ObjectSpaceTest);
