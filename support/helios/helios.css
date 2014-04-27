@@ -1,0 +1,930 @@
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+.clearfix {
+  display: inline-block;
+}
+html[xmlns] .clearfix {
+  display: block;
+}
+* html .clearfix {
+  height: 1%;
+}
+body.navigation .CodeMirror pre {
+  cursor: pointer !important;
+}
+body[id="helios"] {
+  font-size: 11px;
+  font-family: "Lucida Grande", "Segoe UI", helvetica, arial, sans-serif;
+  background: #eeeeee url(squared_metal.png) repeat;
+}
+body[id="helios"] a {
+  cursor: pointer;
+}
+body[id="helios"] i {
+  opacity: 1;
+}
+body[id="helios"] [class^="icon-"],
+body[id="helios"] [class*=" icon-"] {
+  margin-top: 0;
+}
+body[id="helios"] .CodeMirror {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+  line-height: 16px;
+  font-size: 13px;
+}
+body[id="helios"] .CodeMirror .CodeMirror-gutter.stops {
+  width: 20px;
+}
+body[id="helios"] .CodeMirror .highlighted.CodeMirror-linebackground {
+  background-color: #ffffaa;
+}
+body[id="helios"] .CodeMirror .CodeMirror-gutter-elt .stop {
+  width: 16px;
+  height: 16px;
+  background: url('arrowRight.png');
+  margin-left: 2px;
+}
+body[id="helios"] .CodeMirror-hints {
+  border-radius: 0;
+  font-family: "Lucida Grande", "Segoe UI", helvetica, arial, sans-serif;
+  font-size: 11px;
+  line-height: 1em;
+  padding: 0;
+  max-height: 120px;
+}
+body[id="helios"] .CodeMirror-hint {
+  border-radius: 0;
+  padding: 0 10px;
+}
+body[id="helios"] .state {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  width: 16px;
+  height: 16px;
+}
+body[id="helios"] .state.modified {
+  background: transparent url('modified.png') 50% 50% no-repeat;
+}
+body[id="helios"] .editor {
+  position: absolute;
+  top: 0;
+  bottom: 23px;
+  left: 0;
+  right: 0;
+}
+body[id="helios"] .hl_widget:focus {
+  outline: 0 none;
+}
+body[id="helios"] .buttons_bar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  padding: 0px 25px;
+  height: 21px;
+  line-height: 18px;
+  border-top: 1px solid #999;
+  text-align: right;
+}
+body[id="helios"] .buttons_bar .button {
+  height: 17px;
+  font-size: 12px;
+  min-width: 0;
+}
+body[id="helios"] .btn,
+body[id="helios"] .btn-group > .btn,
+body[id="helios"] .btn-group > .dropdown-menu {
+  padding: 2px 8px;
+}
+body[id="helios"] .navbar-fixed-top {
+  font-size: 11px;
+  line-height: 16px;
+}
+body[id="helios"] .navbar-fixed-top ul {
+  width: 100%;
+}
+body[id="helios"] .navbar-fixed-top a span,
+body[id="helios"] .dialog .nav a span {
+  padding: 1px;
+  padding-left: 18px;
+  background-position: center left;
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  height: 22px;
+}
+body[id="helios"] .navbar-fixed-top i.close {
+  width: 14px;
+  height: 16px;
+  margin-left: 4px;
+  background-image: url('close.gif');
+  margin-right: 0;
+  background-position: center left;
+  margin-top: 4px;
+}
+body[id="helios"] .navbar-fixed-top a span.references,
+body[id="helios"] .dialog .nav a span.references {
+  background-image: url('references.png');
+}
+body[id="helios"] .navbar-fixed-top a span.browser,
+body[id="helios"] .dialog .nav a span.browser {
+  background-image: url('browser.png');
+}
+body[id="helios"] .navbar-fixed-top a span.sunit,
+body[id="helios"] .dialog .nav a span.sunit {
+  background-image: url('sunit.png');
+}
+body[id="helios"] .navbar-fixed-top a span.workspace,
+body[id="helios"] .dialog .nav a span.workspace {
+  background-image: url('workspace.png');
+}
+body[id="helios"] .navbar-fixed-top a span.debugger,
+body[id="helios"] .dialog .nav a span.debugger {
+  background-image: url('debugger.png');
+}
+body[id="helios"] .navbar-fixed-top a span.inspector,
+body[id="helios"] .dialog .nav a span.inspector {
+  background-image: url('inspector.png');
+}
+body[id="helios"] .navbar-fixed-top .navbar-inner {
+  min-height: 24px;
+  border-bottom: 1px solid #666;
+  box-shadow: inset 0px 2px 2px #aaa;
+  background: #bababa;
+}
+body[id="helios"] .navbar .nav > li {
+  line-height: 16px;
+  text-align: center;
+  max-width: 300px;
+}
+body[id="helios"] .new_tab {
+  width: 20px;
+  height: 24px;
+  line-height: 24px;
+  border-right: 0 none;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 2000;
+}
+body[id="helios"] .new_tab a {
+  color: #444;
+}
+body[id="helios"] .new_tab a:hover {
+  text-decoration: none;
+}
+body[id="helios"] .new_tab .dropdown-menu {
+  left: auto;
+  float: right;
+  right: 0;
+}
+body[id="helios"] .dropdown-menu {
+  min-width: 0;
+  text-align: left;
+}
+body[id="helios"] .navbar .nav > li > a {
+  line-height: 22px;
+  padding: 0px 8px;
+  font-size: 11px;
+  border-right: 1px solid #777;
+  text-shadow: #ddd 0px 1px 0px;
+  color: #222;
+}
+body[id="helios"] .navbar .nav > li > a span {
+  display: block;
+  overflow: hidden;
+}
+body[id="helios"] .nav > li > a:hover {
+  background: transparent;
+}
+body[id="helios"] .navbar .nav > li > a:hover {
+  color: #333;
+  background-image: linear-gradient(top, #cfcfcf, #c0c0c0);
+  background-image: -webkit-linear-gradient(top, #cfcfcf, #c0c0c0);
+  background-image: -moz-linear-gradient(top, #cfcfcf, #c0c0c0);
+  background-image: -o-linear-gradient(top, #cfcfcf, #c0c0c0);
+  text-shadow: 0 1px 0 #ddd;
+  box-shadow: 0 0 0;
+}
+body[id="helios"] .navbar .nav > .active > a,
+body[id="helios"] .navbar .nav > .active > a:hover,
+body[id="helios"] .navbar .nav > .active > a:focus,
+body[id="helios"] .navbar .nav .ui-sortable-helper a {
+  color: #444;
+  background-image: linear-gradient(top, #dfdfdf, #d0d0d0);
+  background-image: -webkit-linear-gradient(top, #dfdfdf, #d0d0d0);
+  background-image: -moz-linear-gradient(top, #dfdfdf, #d0d0d0);
+  background-image: -o-linear-gradient(top, #dfdfdf, #d0d0d0);
+  text-shadow: 0 1px 0 #ddd;
+  box-shadow: 0 0 0;
+}
+body[id="helios"] .navbar .nav .ui-sortable-helper a {
+  border-left: 1px solid #777;
+}
+body[id="helios"] .navbar-fixed-top i {
+  opacity: 0.4;
+  margin-right: 5px;
+  height: 12px;
+  margin-top: 0;
+}
+body[id="helios"] .navbar-fixed-top .active i {
+  opacity: 0.6;
+}
+body[id="helios"] .nav-pills.nav-stacked > li > a {
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  padding: 2px 2px 1px 4px;
+  margin: 0;
+  font-size: 11px;
+  color: #111;
+  white-space: nowrap;
+}
+body[id="helios"] [class^="icon-"],
+body[id="helios"] [class*=" icon-"] {
+  margin-right: 2px;
+}
+body[id="helios"] .dropdown-menu {
+  border-radius: 0;
+  padding: 0;
+  margin: 3px;
+}
+body[id="helios"] .nav-pills > .active > a {
+  background-color: #ddd;
+  color: #fff;
+  text-shadow: 0 0 0;
+}
+body[id="helios"] .focused .nav-pills {
+  background-color: #f3f7fb;
+}
+body[id="helios"] .focused .nav-pills > .active > a,
+body[id="helios"] .nav-pills > .active > a:hover,
+body[id="helios"] .dropdown-menu li > a:hover,
+body[id="helios"] .dropdown-menu li > a:focus,
+body[id="helios"] .dropdown-submenu:hover > a,
+body[id="helios"] .dropdown-menu .active > a,
+body[id="helios"] .dropdown-menu .active > a:hover,
+body[id="helios"] .CodeMirror-hint-active {
+  background: rgba(95, 159, 228, 0.62);
+  color: #fff;
+  text-shadow: 0 0 0;
+}
+body[id="helios"] .welcome {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -170px;
+  width: 340px;
+  margin-top: 60px;
+  text-shadow: 0 1px 0 #fafafa;
+  color: #666;
+  font-size: 14px;
+}
+body[id="helios"] .welcome h2 {
+  text-align: center;
+  color: #666;
+}
+body[id="helios"] .welcome button {
+  background: #eee;
+  margin: 10px;
+  padding: 20px;
+  height: auto;
+  width: 150px;
+}
+body[id="helios"] .tool_container {
+  position: absolute;
+  top: 23px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+body[id="helios"] .transcript textarea {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body[id="helios"] .tool_container .panes {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+body[id="helios"] .tool_container .panes .pane {
+  position: absolute;
+  overflow: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fefefe;
+}
+body[id="helios"] .tool_container .multi_pane {
+  position: relative;
+  height: 100%;
+  width: auto;
+  overflow-x: auto;
+}
+body[id="helios"] .tool_container .multi_pane .pane {
+  height: 100%;
+  max-width: 300px;
+  border-right: 1px solid #888;
+}
+body[id="helios"] .tool_container .panes .pane > div {
+  height: 100%;
+  position: relative;
+}
+body[id="helios"] .tool_container .panes.horizontal > .pane {
+  min-height: 50px;
+}
+body[id="helios"] .tool_container .panes.horizontal > .pane {
+  top: 50%;
+}
+body[id="helios"] .tool_container .panes.horizontal > .pane:first-child {
+  top: 0;
+  bottom: 50%;
+}
+body[id="helios"] .tool_container .panes.vertical > .pane {
+  left: 50%;
+}
+body[id="helios"] .tool_container .panes.vertical > .pane:first-child {
+  left: 0;
+  right: 50%;
+}
+body[id="helios"] .tool_container .splitter {
+  position: absolute;
+  border-width: 0;
+  z-index: 10;
+}
+body[id="helios"] .tool_container .splitter.vertical {
+  width: 5px;
+  left: 50%;
+  margin-left: -1px;
+  border-left: 1px solid #888;
+  height: 100%;
+  float: left;
+  cursor: ew-resize;
+}
+body[id="helios"] .tool_container .splitter.horizontal {
+  top: 50%;
+  height: 5px;
+  margin-top: -1px;
+  width: 100%;
+  border-top: 1px solid #888;
+  cursor: ns-resize;
+}
+body[id="helios"] .tool_container .panes .pane .nav-pills {
+  position: absolute;
+  overflow-y: auto;
+  top: 17px;
+  bottom: 17px;
+  width: 100%;
+  margin: 0;
+}
+body[id="helios"] .tool_container .pane .nav-pills i {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  background-image: none;
+  background-position: top left;
+  line-height: 14px;
+  vertical-align: text-top;
+}
+body[id="helios"] .tool_container .pane .nav-pills i.announcement {
+  background-image: url('announcement.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.class {
+  background-image: url('class.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.collection {
+  background-image: url('collection.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.test {
+  background-image: url('test.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.exception {
+  background-image: url('exception.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.widget {
+  background-image: url('widget.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.magnitude {
+  background-image: url('magnitude.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.package {
+  background-image: url('package.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.package_dirty {
+  background-image: url('package-dirty.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.private {
+  background-image: url('private.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.extension {
+  background-image: url('extension.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.initialization {
+  background-image: url('initialization.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.package {
+  background-image: url('package.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.override {
+  background-image: url('override.png ');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.overridden {
+  background-image: url('overridden.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.override-overridden {
+  background-image: url('override-overridden.png');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.warning {
+  background-image: url('warning.gif');
+}
+body[id="helios"] .tool_container .pane .nav-pills i.uncommented {
+  background-image: url('uncommented.png');
+}
+body[id="helios"] .tool_container .list-label {
+  font-size: 11px;
+  border-radius: 0;
+  border-bottom: 1px solid #999;
+  border-top: 1px solid #eee;
+  background-color: #eee;
+  background-image: -webkit-linear-gradient(top, #eeeeee, #dddddd);
+  background-image: -moz-linear-gradient(top, #eeeeee, #dddddd);
+  background-image: -o-linear-gradient(top, #eeeeee, #dddddd);
+  background-image: linear-gradient(top, #eeeeee, #dddddd);
+  color: #444;
+  font-weight: bold;
+  text-shadow: 0 0 0;
+  padding-left: 4px;
+  line-height: 14px;
+  height: 15px;
+  text-shadow: 0 1px 0 #eee;
+}
+body[id="helios"] .tool_container .list-label .btn-group.cog {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+}
+body[id="helios"] .tool_container .list-label .btn-group.open .dropdown-toggle {
+  box-shadow: 0 0 0;
+  border: 0;
+}
+body[id="helios"] .tool_container .list-label .btn-group > .dropdown-menu {
+  padding: 0;
+  font-size: 11px;
+}
+body[id="helios"] .tool_container .list-label .btn-group.cog i {
+  margin-top: 1px;
+}
+body[id="helios"] .tool_container .list-label .cog .btn.dropdown-toggle {
+  padding: 0;
+  margin: 0;
+  line-height: 12px;
+  border: 0;
+  background: transparent;
+}
+body[id="helios"] .tool_container .panes .pane .pane_actions {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 16px;
+  bottom: 0;
+  padding: 0;
+  margin: 0;
+}
+body[id="helios"] .tool_container .pane_actions,
+body[id="helios"] .tool_container .buttons_bar {
+  background: #dadada;
+  border-top: 1px solid #666;
+  background-image: -webkit-linear-gradient(top, #dadada, #bdbdbd);
+  background-image: -moz-linear-gradient(top, #dadada, #bdbdbd);
+  background-image: -o-linear-gradient(top, #dadada, #bdbdbd);
+  background-image: linear-gradient(top, #dadada, #bdbdbd);
+}
+body[id="helios"] .tool_container .panes .pane .pane_actions .info {
+  padding: 10px 5px 5px;
+  font-weight: bold;
+  color: #666;
+  line-height: 20px;
+}
+body[id="helios"] .tool_container .panes .pane .pane_actions .btn-group {
+  display: inline;
+  margin-left: 5px;
+}
+body[id="helios"] .tool_container .panes .pane .pane_actions label {
+  display: inline-block;
+  padding-left: 30px;
+  font-size: 11px;
+  line-height: 16px;
+  vertical-align: top;
+  text-shadow: #ddd 0px 1px 0px;
+  color: #222;
+}
+body[id="helios"] .tool_container .panes .pane .pane_actions label input {
+  float: none;
+  vertical-align: top;
+  margin-top: 2px;
+  margin-right: 5px;
+}
+body[id="helios"] .tool_container .panes .pane .pane_actions .btn {
+  background: transparent;
+  border: 0;
+  font-size: 11px;
+  line-height: 16px;
+  padding: 0 5px;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: 0 0 0;
+  vertical-align: top;
+  /* min-width: 50px; */
+}
+body[id="helios"] .tool_container .panes .pane .pane_actions .btn:hover {
+  background-color: #bbb;
+}
+body[id="helios"] .tool_container .panes .pane .pane_actions .btn-group .btn:hover {
+  background-color: transparent;
+}
+body[id="helios"] .tool_container .panes .pane .pane_actions .btn-group .btn.active {
+  text-shadow: #ddd 0px 1px 0px;
+  color: #222;
+  background: #bbb;
+  background-image: linear-gradient(left, #777777 0%, #bababa 2px, transparent 2px), linear-gradient(right, #777777 0%, #bababa 2px, transparent 2px);
+  background-image: -webkit-linear-gradient(left, #777777 0%, #bababa 2px, transparent 2px), -webkit-linear-gradient(right, #777777 0%, #bababa 2px, transparent 2px);
+  background-image: -moz-linear-gradient(left, #777777 0%, #bababa 2px, transparent 2px), -moz-linear-gradient(right, #777777 0%, #bababa 2px, transparent 2px);
+  background-image: -o-linear-gradient(left, #777777 0%, #bababa 2px, transparent 2px), -o-linear-gradient(right, #777777 0%, #bababa 2px, transparent 2px);
+}
+body[id="helios"] .tool_container .panes .pane .class_side .nav-pills {
+  font-weight: bold;
+  background: #ffffdd;
+}
+body[id="helios"] .key_helper {
+  z-index: 2001;
+  position: fixed;
+  top: 120px;
+  left: 50%;
+  width: 400px;
+  max-height: 300px;
+  margin-left: -200px;
+  background: white;
+  box-shadow: 0 0 6px #aaa;
+  border: 1px solid #aaa;
+  font-size: 11px;
+  transition: all .5s;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  -ms-transition: all .5s;
+}
+body[id="helios"] .key_helper .command {
+  padding: 0;
+  display: inline-block;
+  width: 50%;
+}
+body[id="helios"] .key_helper .command strong {
+  display: inline-block;
+  min-width: 1.4em;
+  text-align: left;
+}
+body[id="helios"] .key_helper #binding-helper-main {
+  display: block;
+  padding: 5px;
+  background: #eee;
+}
+body[id="helios"] .key_helper .label {
+  padding: 1px 4px;
+  font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
+  background: transparent;
+  color: #0E4561;
+  text-shadow: none;
+  border: 0 none;
+}
+body[id="helios"] .key_helper .action {
+  padding: 0 0.5em 0 5px;
+  color: inherit;
+  font-weight: bold;
+}
+body[id="helios"] .key_helper .selected {
+  background-image: linear-gradient(top, #cccccc, #bbbbbb);
+  background-image: -moz-linear-gradient(top, #cccccc, #bbbbbb);
+  background-image: -o-linear-gradient(top, #cccccc, #bbbbbb);
+  background-image: -webkit-linear-gradient(top, #cccccc, #bbbbbb);
+  height: 28px;
+  padding: 0 8px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 28px;
+  text-shadow: 0 1px 0 #fff;
+  display: block;
+  border-bottom: 1px solid #aaa;
+}
+body[id="helios"] .key_helper .close {
+  font-size: 14px;
+  line-height: 28px;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  right: 4px;
+}
+body[id="helios"] .key_helper .close:hover {
+  opacity: 0.8;
+}
+body[id="helios"] .key_helper input {
+  outline: none;
+  font-size: 11px;
+  padding: 2px 8px;
+  background: #fff;
+  border: 1px solid #a1a1a1;
+  border-radius: 12px;
+  box-shadow: inset 0 0px 2px 0px #aaa;
+  margin: 2px 4px;
+  line-height: 1em;
+}
+body[id="helios"] .key_helper .error .help-inline,
+body[id="helios"] .key_helper .error input {
+  color: #B91010;
+  font-weight: bold;
+}
+body[id="helios"] .key_helper #cog-helper {
+  position: fixed;
+  bottom: 2px;
+  right: 2px;
+  z-index: 1000;
+  opacity: 0.6;
+  transition: all .5s;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  -ms-transition: all .5s;
+}
+body[id="helios"] .key_helper #cog-helper:hover {
+  opacity: 1;
+}
+body[id="helios"] #helper {
+  z-index: 300;
+  top: 50%;
+  position: absolute;
+  left: 50%;
+  margin-left: -220px;
+  margin-top: -35px;
+  width: 400px;
+  text-align: center;
+  color: #ddd;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 0 -1px 0 #111111;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 40px;
+}
+body[id="helios"] #overlay {
+  z-index: 2000;
+  background: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+body[id="helios"] .growl {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  margin: 0;
+  z-index: 2001;
+  width: 200px;
+  height: auto;
+  padding: 15px;
+  background-image: -webkit-linear-gradient(#ffffff, #ebebeb);
+  background-image: -moz-linear-gradient(#ffffff, #ebebeb);
+  background-image: -o-linear-gradient(#ffffff, #ebebeb);
+  background-image: linear-gradient(#ffffff, #ebebeb);
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  box-shadow: 0 0 3px #ccc;
+  font-weight: bold;
+  text-shadow: 0px 2px 1px #fff;
+}
+body[id="helios"] .confirmation,
+body[id="helios"] .dialog {
+  z-index: 2001;
+  background: rgba(243, 243, 243, 0.9);
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 5px, transparent 6px);
+  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 5px, transparent 6px);
+  background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 5px, transparent 6px);
+  background-image: linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 5px, transparent 6px);
+  padding: 20px;
+  width: 250px;
+  position: fixed;
+  top: -500px;
+  left: 50%;
+  margin-left: -135px;
+  box-shadow: 0 0 6px #333;
+  transition: top .2s;
+  -webkit-transition: top .2s;
+  -moz-transition: top .2s;
+  -o-transition: top .2s;
+}
+body[id="helios"] .confirmation .head,
+body[id="helios"] .dialog .head {
+  display: block;
+}
+body[id="helios"] .confirmation .hl_widget .form-actions,
+body[id="helios"] .dialog .hl_widget .form-actions {
+  padding: 0;
+  border: 0;
+}
+body[id="helios"] .confirmation .nav,
+body[id="helios"] .dialog .nav {
+  border: 1px solid #999;
+}
+body[id="helios"] .confirmation .nav span,
+body[id="helios"] .dialog .nav span {
+  font-size: 11px;
+  font-weight: normal;
+}
+body[id="helios"] .confirmation .title,
+body[id="helios"] .dialog .title {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+body[id="helios"] .confirmation.large,
+body[id="helios"] .dialog.large {
+  width: 400px;
+  margin-left: -220px;
+}
+body[id="helios"] .confirmation.large textarea,
+body[id="helios"] .dialog.large textarea {
+  width: 385px;
+  height: 200px;
+}
+body[id="helios"] .confirmation textarea,
+body[id="helios"] .dialog textarea {
+  display: block;
+  width: 235px;
+}
+body[id="helios"] .confirmation input[type="text"],
+body[id="helios"] .dialog input[type="text"] {
+  margin: 5px 0;
+  width: 390px;
+}
+body[id="helios"] .confirmation .progress,
+body[id="helios"] .dialog .progress {
+  height: 5px;
+}
+body[id="helios"] .confirmation .progress .bar,
+body[id="helios"] .dialog .progress .bar {
+  background-color: #e9eaf5;
+  background-image: -webkit-linear-gradient(top, #b1bdd5, #8999b8);
+  background-image: -moz-linear-gradient(top, #b1bdd5, #8999b8);
+  background-image: -o-linear-gradient(top, #b1bdd5, #8999b8);
+  background-image: linear-gradient(top, #b1bdd5, #8999b8);
+}
+body[id="helios"] .confirmation span,
+body[id="helios"] .dialog span {
+  font-size: 13px;
+  font-weight: bold;
+}
+body[id="helios"] .confirmation .buttons,
+body[id="helios"] .dialog .buttons {
+  text-align: right;
+  margin-top: 20px;
+}
+body[id="helios"] .confirmation.active,
+body[id="helios"] .dialog.active {
+  top: 0;
+}
+body[id="helios"] .button {
+  border-radius: 3px !important;
+  background: #ccc;
+  border: 1px solid #9B9B9B;
+  height: 20px;
+  border-radius: 5px;
+  min-width: 68px;
+  padding: 0 10px;
+  text-align: center;
+  margin: 0;
+  margin-left: 10px;
+  background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  font: 13px "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+body[id="helios"] .button.default {
+  border-top: 1px solid #535273;
+  border: 1px solid #4F4D67;
+  border-bottom: 1px solid #4B4B58;
+  background: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: -moz-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: -o-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: -ms-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  -moz-box-shadow: 0 0 3px rgba(69, 113, 184, 0.8);
+  -webkit-box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
+  box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
+}
+body[id="helios"] .button:hover {
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
+body[id="helios"] .button:active {
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+body[id="helios"] .button:focus {
+  outline: 0;
+  border-color: #08C;
+  box-shadow: 0 0 5px #08C;
+}
+body[id="helios"] .doc {
+  background: white;
+}
+body[id="helios"] .doc code .doc pre,
+body[id="helios"] .doc p,
+body[id="helios"] .doc div {
+  font-size: 13px;
+}
+body[id="helios"] .doc code {
+  padding: 1px 4px;
+}
+body[id="helios"] .doc .head {
+  background: #666;
+  padding: 10px;
+  font-size: 22px;
+  color: white;
+}
+body[id="helios"] .focused .doc .head {
+  background: #08c;
+}
+body[id="helios"] .doc .button {
+  float: right;
+}
+body[id="helios"] .doc .markdown,
+body[id="helios"] .doc .inheritance {
+  padding: 10px;
+}
+body[id="helios"] .doc h1 {
+  font-size: 22px;
+  margin: 0 10px;
+  border-bottom: 1px solid #666;
+}
+body[id="helios"] .doc h2 {
+  font-size: 16px;
+}
+body[id="helios"] .transcript_container .list-label {
+  height: 16px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+body[id="helios"] .transcript {
+  position: absolute;
+  top: 17px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+body[id="helios"] .transcript textarea {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body[id="helios"] .hl_debugger .tool_container {
+  top: 53px;
+}
+body[id="helios"] .hl_debugger .head {
+  position: absolute;
+  top: 23px;
+  width: 100%;
+  background: #0088cc url(debugger.png) 10px center no-repeat;
+  border-bottom: 1px solid white;
+}
+body[id="helios"] .hl_debugger .head h2 {
+  font-size: 14px;
+  line-height: 30px;
+  padding: 0 30px;
+  margin: 0;
+  color: white;
+}

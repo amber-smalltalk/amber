@@ -1,0 +1,368 @@
+body[id="helios"].niflheim {
+  background: #eeeeee url('squared_metal-dark.png') repeat;
+  /*		.navbar-fixed-top ul {
+		  width: 100%;
+		}*/
+  /*.tool_container .pane .nav-pills i.package {
+			background-image: url('package.png');
+		}*/
+}
+body[id="helios"].niflheim .btn-group > .dropdown-menu {
+  background-color: #666;
+  border-color: #888;
+  padding: 2px 8px;
+}
+body[id="helios"].niflheim .btn-group > .dropdown-menu a {
+  /*			position: absolute;*/
+  height: 100%;
+  /*			width: 100%;*/
+}
+body[id="helios"].niflheim .btn-group > .dropdown-menu a {
+  color: #fffffb;
+}
+body[id="helios"].niflheim .navbar-fixed-top i.close {
+  background-image: url('close-dark.png');
+}
+body[id="helios"].niflheim .navbar-fixed-top .navbar-inner {
+  border-bottom: 1px solid #222;
+  border-top: 1px solid #222;
+  box-shadow: inset 0px 1px 0px #777;
+  background: #4d5052;
+}
+body[id="helios"].niflheim ::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+body[id="helios"].niflheim ::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+body[id="helios"].niflheim ::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+body[id="helios"].niflheim .focused ::-webkit-scrollbar-thumb {
+  background-color: #4c4c4c;
+}
+body[id="helios"].niflheim .focused ::-webkit-scrollbar-thumb:hover {
+  background-color: #3a3a3a;
+}
+body[id="helios"].niflheim ::-webkit-scrollbar-thumb {
+  background-color: #585858;
+  border: 3px solid transparent;
+  border-radius: 9px;
+  background-clip: content-box;
+}
+body[id="helios"].niflheim ::-webkit-scrollbar-thumb:hover {
+  background-color: #707070;
+}
+body[id="helios"].niflheim .new_tab a b {
+  border-top: 4px solid #a7a7a7;
+}
+body[id="helios"].niflheim .navbar .nav > li > a {
+  border-right: 1px solid #222;
+  box-shadow: none;
+}
+body[id="helios"].niflheim .navbar .nav > li > a:hover {
+  color: #f00;
+  background-image: linear-gradient(top, #666666, #454648);
+  background-image: -webkit-linear-gradient(top, #666666, #454648);
+  background-image: -moz-linear-gradient(top, #666666, #454648);
+  background-image: -o-linear-gradient(top, #666666, #454648);
+}
+body[id="helios"].niflheim .navbar .nav > .active > a,
+body[id="helios"].niflheim .navbar .nav > .active > a:hover,
+body[id="helios"].niflheim .navbar .nav > .active > a:focus,
+body[id="helios"].niflheim .navbar .nav .ui-sortable-helper a {
+  color: #ddd;
+  background-image: linear-gradient(top, #666666, #454648);
+  background-image: -webkit-linear-gradient(top, #666666, #454648);
+  background-image: -moz-linear-gradient(top, #666666, #454648);
+  background-image: -o-linear-gradient(top, #666666, #454648);
+  text-shadow: none;
+  box-shadow: inset -1px 0px 1px -1px #eeeeee, inset 1px 1px 1px -1px #eeeeee;
+  border-right: 1px solid #222;
+}
+body[id="helios"].niflheim .navbar-fixed-top li.inactive {
+  opacity: 0.6;
+  background: #4d5052;
+  box-shadow: none;
+}
+body[id="helios"].niflheim .navbar-fixed-top li.inactive span {
+  text-shadow: none;
+  color: #ccc;
+}
+body[id="helios"].niflheim .nav-pills.nav-stacked > li > a {
+  color: #b8c4cf;
+}
+body[id="helios"].niflheim .focused .nav-pills.nav-stacked > li > a {
+  color: #ddd;
+}
+body[id="helios"].niflheim .nav-pills > .active > a {
+  background-color: #222B3C;
+  color: #fffffb !important;
+}
+body[id="helios"].niflheim .focused .nav-pills {
+  background-color: #585858;
+}
+body[id="helios"].niflheim .focused .nav-pills > .active > a,
+body[id="helios"].niflheim .nav-pills > .active > a:hover,
+body[id="helios"].niflheim .dropdown-menu li > a:hover,
+body[id="helios"].niflheim .dropdown-menu li > a:focus,
+body[id="helios"].niflheim .dropdown-submenu:hover > a,
+body[id="helios"].niflheim .dropdown-menu .active > a,
+body[id="helios"].niflheim .dropdown-menu .active > a:hover,
+body[id="helios"].niflheim .CodeMirror-hint-active {
+  background: #305f9f;
+}
+body[id="helios"].niflheim .CodeMirror {
+  position: initial;
+  height: 100%;
+  width: initial;
+}
+body[id="helios"].niflheim .welcome {
+  color: #fffffb;
+  text-shadow: none;
+}
+body[id="helios"].niflheim [class^="icon-"],
+body[id="helios"].niflheim body[id="helios"][class*=" icon-"] {
+  opacity: 0.68;
+  background-image: url("../../bower_components/bootstrap/img/glyphicons-halflings-white.png");
+}
+body[id="helios"].niflheim .welcome h2 {
+  text-align: center;
+  /*			color: #666;*/
+}
+body[id="helios"].niflheim .welcome button {
+  /*			background: #eee;*/
+  margin: 10px;
+  padding: 20px;
+  height: auto;
+  width: 150px;
+}
+body[id="helios"].niflheim .tool_container .panes .pane {
+  background: #444;
+}
+body[id="helios"].niflheim .tool_container .splitter.vertical {
+  border-left: 1px solid #525252;
+}
+body[id="helios"].niflheim .tool_container .splitter.horizontal {
+  border-top: 1px solid #666;
+}
+body[id="helios"].niflheim .tool_container .list-label {
+  border-bottom: 1px solid #525252;
+  background-image: linear-gradient(top, #585858, #323232);
+  background-image: -webkit-linear-gradient(top, #585858, #323232);
+  background-image: -moz-linear-gradient(top, #585858, #323232);
+  background-image: -o-linear-gradient(top, #585858, #323232);
+  color: #ccc;
+  font-weight: normal;
+  text-shadow: none;
+}
+body[id="helios"].niflheim .transcript-container .list-label {
+  border-top: none;
+}
+body[id="helios"].niflheim .tool_container .pane_actions,
+body[id="helios"].niflheim .tool_container .buttons_bar {
+  border-top: 1px solid #222;
+  background-image: linear-gradient(top, #585858, #323232);
+  background-image: -webkit-linear-gradient(top, #585858, #323232);
+  background-image: -moz-linear-gradient(top, #585858, #323232);
+  background-image: -o-linear-gradient(top, #585858, #323232);
+}
+body[id="helios"].niflheim .tool_container .panes .pane .pane_actions label {
+  test-shadow: none;
+  color: #d3d3d3;
+}
+body[id="helios"].niflheim .tool_container .panes .pane .pane_actions .btn {
+  border: 1px;
+  text-shadow: none;
+  margin-top: -1px;
+  color: #929292;
+}
+body[id="helios"].niflheim .tool_container .panes .pane .pane_actions .btn-group .btn.active {
+  color: #d3d3d3;
+  text-shadow: none;
+  box-shadow: inset 0px 0px 2px 0px #323232;
+  border-radius: 4px;
+  background: #666;
+  background-image: linear-gradient(top, #454545, #252525);
+  background-image: -webkit-linear-gradient(top, #454545, #252525);
+  background-image: -moz-linear-gradient(top, #454545, #252525);
+  background-image: -o-linear-gradient(top, #454545, #252525);
+}
+body[id="helios"].niflheim .tool_container .panes .pane .class_side .nav-pills {
+  background: #38404a;
+}
+body[id="helios"].niflheim .key_helper {
+  background: #444;
+  box-shadow: 0 0 80px 2px #222;
+  border: 1px solid #777;
+}
+body[id="helios"].niflheim .key_helper .command {
+  color: #ccc;
+}
+body[id="helios"].niflheim .key_helper .command strong {
+  display: inline-block;
+  min-width: 1.4em;
+  text-align: center;
+  background-color: #eee;
+  color: #2b658b;
+}
+body[id="helios"].niflheim .key_helper #binding-helper-main {
+  background: #444;
+}
+body[id="helios"].niflheim .key_helper .action {
+  vertical-align: middle;
+}
+body[id="helios"].niflheim .key_helper .selected {
+  background-image: linear-gradient(top, #484848, #323232);
+  background-image: -webkit-linear-gradient(top, #484848, #323232);
+  background-image: -moz-linear-gradient(top, #585858, #323232);
+  background-image: -o-linear-gradient(top, #585858, #323232);
+  text-shadow: none;
+  border-bottom: 1px solid #585858;
+  color: #cccccc;
+}
+body[id="helios"].niflheim .growl {
+  background-image: -webkit-linear-gradient(#505050, #3c3c3c);
+  background-image: -moz-linear-gradient(#505050, #3c3c3c);
+  background-image: -o-linear-gradient(#505050, #3c3c3c);
+  background-image: linear-gradient(#888888, #666666);
+  box-shadow: 0 0 3px #777;
+  color: #ccc;
+  text-shadow: none;
+}
+body[id="helios"].niflheim .button {
+  color: #d3d3d3;
+  border-radius: 3px !important;
+  border: 1px solid #383838;
+  background-image: linear-gradient(top, #454545, #252525);
+  background-image: -webkit-linear-gradient(top, #454545, #252525);
+  background-image: -moz-linear-gradient(top, #454545, #252525);
+  background-image: -o-linear-gradient(top, #454545, #252525);
+}
+body[id="helios"].niflheim .button.default {
+  color: #d3d3d3;
+  border: 1px solid #585858;
+  background-image: linear-gradient(top, #549ceb, #12374f);
+  background-image: -webkit-linear-gradient(top, #549ceb, #12374f);
+  background-image: -moz-linear-gradient(top, #549ceb, #12374f);
+  background-image: -o-linear-gradient(top, #549ceb, #12374f);
+}
+body[id="helios"].niflheim .dialog .button {
+  color: #444;
+  border-radius: 3px !important;
+  background: #ccc;
+  border: 1px solid #9B9B9B;
+  height: 20px;
+  border-radius: 5px;
+  min-width: 68px;
+  padding: 0 10px;
+  text-align: center;
+  margin: 0;
+  margin-left: 10px;
+  background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  font: 13px "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+body[id="helios"].niflheim .dialog .button:hover {
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+  background: linear-gradient(bottom, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.04) 50.5%, rgba(0, 0, 0, 0.04) 100%) #ffffff;
+}
+body[id="helios"].niflheim .dialog .button.default {
+  border-top: 1px solid #535273;
+  border: 1px solid #4F4D67;
+  border-bottom: 1px solid #4B4B58;
+  background: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: -moz-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: -o-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: -ms-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  background: linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 50.5%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #b1bdd5;
+  -moz-box-shadow: 0 0 3px rgba(69, 113, 184, 0.8);
+  -webkit-box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
+  box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
+}
+body[id="helios"].niflheim .dialog .button.default:hover {
+  cursor: pointer;
+  color: #d3d3d3;
+  border: 1px solid #585858;
+  background-image: linear-gradient(top, #549ceb, #12374f);
+  background-image: -webkit-linear-gradient(top, #549ceb, #12374f);
+  background-image: -moz-linear-gradient(top, #549ceb, #12374f);
+  background-image: -o-linear-gradient(top, #549ceb, #12374f);
+}
+body[id="helios"].niflheim .button:hover {
+  cursor: pointer;
+  border: 1px solid #444;
+  background-image: linear-gradient(top, #353535, #151515);
+  background-image: -webkit-linear-gradient(top, #353535, #151515);
+  background-image: -moz-linear-gradient(top, #353535, #151515);
+  background-image: -o-linear-gradient(top, #353535, #151515);
+}
+body[id="helios"].niflheim .button.default:hover {
+  cursor: pointer;
+  border: 1px solid #4F4D67;
+  border-top: 1px solid #535273;
+  border-bottom: 1px solid #4B4B58;
+  color: #0a0000;
+  background: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #549ceb;
+  background: -moz-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #549ceb;
+  background: -o-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #549ceb;
+  background: -ms-linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #549ceb;
+  background: linear-gradient(bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.45) 95%, rgba(255, 255, 255, 0.8) 100%) #549ceb;
+  -moz-box-shadow: 0 0 3px rgba(69, 113, 184, 0.8);
+  -webkit-box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
+  box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
+}
+body[id="helios"].niflheim .doc {
+  background: transparent;
+  color: #ccc;
+}
+body[id="helios"].niflheim .doc code {
+  color: #d46e69;
+  background-color: #626262;
+  border-color: #888;
+}
+body[id="helios"].niflheim .doc .button {
+  background-image: linear-gradient(top, #444444, #1d1d1d);
+  background-image: -webkit-linear-gradient(top, #444444, #1d1d1d);
+  background-image: -moz-linear-gradient(top, #444444, #1d1d1d);
+  background-image: -o-linear-gradient(top, #444444, #1d1d1d);
+}
+body[id="helios"].niflheim .doc .button.default {
+  background-image: linear-gradient(top, #585858, #323232);
+  background-image: -webkit-linear-gradient(top, #585858, #323232);
+  background-image: -moz-linear-gradient(top, #585858, #323232);
+  background-image: -o-linear-gradient(top, #585858, #323232);
+}
+body[id="helios"].niflheim .doc .button.default:hover {
+  color: #ccc;
+  background-image: linear-gradient(top, #454545, #252525);
+  background-image: -webkit-linear-gradient(top, #454545, #252525);
+  background-image: -moz-linear-gradient(top, #454545, #252525);
+  background-image: -o-linear-gradient(top, #454545, #252525);
+}
+body[id="helios"].niflheim .doc .markdown > pre {
+  background-color: #666;
+  border: 1px solid #383838;
+}
+body[id="helios"].niflheim .doc .inheritance > a {
+  color: #4098ed;
+}
+body[id="helios"].niflheim .doc .inheritance > a:hover {
+  color: #4098ed;
+}
+body[id="helios"].niflheim .transcript textarea {
+  background: #444;
+  color: #b8c4cf;
+}
+body[id="helios"].niflheim .hl_debugger .list-label {
+  border-top: 1px solid transparent;
+}

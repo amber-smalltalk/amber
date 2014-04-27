@@ -1,0 +1,327 @@
+XXnd XXX 2014 - Release 0.12.5
+===================================
+
+Highlights:
+
+* `amber` and `amberc` cli moved to dedicated repository.
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.12.4...0.12.5
+Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=13&state=closed
+
+For the most important API related changes see the file API-CHANGES.txt.
+
+
+11th April 2014 - Release 0.12.4
+===================================
+
+Highlights:
+
+* Fixed backward compatibility for pre-0.12.3 loader syntax.
+* `namespace/_source` is not needed to map and is recommended
+  not to use; `.st` files are by default committed to the `.js` location.
+* All sources, including js files into the src/ directory
+* Many improvements in Helios, especially in its debugger and
+  inspector, as well as UI-related improvements
+* New Helios dark theme by @BenjaminVanRyseghem
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.12.3...0.12.4
+Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=12&state=closed
+
+For the most important API related changes see the file API-CHANGES.txt.
+
+
+22nd Jan 2014 - Release 0.12.3
+===================================
+
+Highlights:
+
+* JQuery updated to ~1.10.2; jquery-ui updated to match
+* Subclasses of `nil` can be created
+* Several fixes for IE8
+* amber.js can be loaded asynchronously (it must
+  have an id 'amber-path-mapper' in that case)
+* CodeMirror updated to ~3.20.0
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.12.2...0.12.3
+Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=11&state=closed
+
+For the most important API related changes see the file API-CHANGES.txt.
+
+
+03rd December 2013 - Release 0.12.2
+===================================
+
+Highlights:
+
+* Loading Amber in nested pages now possible (via additional `data-libs` attribute of the `<script>` tag which loads `amber.js`)
+* IDE related fixes
+* Contributions Guide
+* Improved Collections
+* Amber Server responds with `not found` instead of `internal server error` if `index.html` could not be found
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.12.1...0.12.2
+Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=10&state=closed
+
+For the most important API related changes see the file API-CHANGES.txt.
+
+
+14th November 2013 - Release 0.12.1
+===================================
+
+Fixes a bug in Helios preventing class definitions from being compiled
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.12.0...0.12.1
+Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=9&state=closed
+
+
+11th November 2013 - Release 0.12.0
+===================================
+
+After 3 months of work we are pleased to announce the 0.12.0 release of Amber.
+
+Besides the usual bug fixes a lot of new features have emerged.
+
+The biggest change is the switch to RequireJS to specify Amber package dependencies
+and for loading the packages as AMD modules.
+Amber is now additionally available as Bower [2] component.
+Bower is also used to manage required JavaScript libraries which don't have to be kept
+around in the repository anymore.
+
+The repository layout was restructured to provide a cleaner separation of different Amber parts:
+* Smalltalk code is located in 'st'
+* Compiled Amber packages are located in 'js'
+* Supporting JavaScript code is located in 'support'
+
+Together with the RequireJS changes the specifying their dependencies the Brickz [3]
+reconfigurable micro composition system was introduced.
+This is used for
+
+On the Smalltalk side support has been added for writing exponential numbers of the form 2e5.
+
+Helios (the new IDE) is progressing nicely and has seen a lot of improvements.
+One of the great parts is the new stepping debugger which is also making progress.
+To try Helios, open the helios.html page or
+evaluate in any other amber page `require('amber/helpers').popupHelios()`.
+
+The last enhancements target the commandline compiler which can be used as
+`amberc` (an executable script) or as a Grunt task.
+The following features have been added:
+ * generation of shebang line (#!/usr/bin/env node)
+ * specification of target namespace (`-n` flag; `amd_namespace` option in Grunt)
+ * specification of additional library directories (`-L` flag; `library_dirs` option in Grunt)
+The following features have been removed:
+ * creation of *.deploy.js files (`-d` flag; `deploy` option in Grunt)
+ * optimization passes via Closure compiler (`-o`/`-O` flags; `closure_jar` option in Grunt)
+   The same behavior can be achieved by using specific Grunt tasks
+
+Additionally, the Grunt task now handles the -v/--verbose flag which triggers the same behavior
+as the `verbose` option which can be specified in the Gruntfile.
+
+
+Some numbers about this release (starting from 0.11.0):
+
+* 660 commits
+* 10 committers
+* 66 unit tests added
+* 152 issues were closed
+* 379 unit tests in total
+
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.11.0...0.12.0
+Issues: https://github.com/amber-smalltalk/amber/issues?direction=desc&milestone=8&page=1&sort=updated&state=closed
+
+For the most important API related changes see the file API-CHANGES.txt.
+
+
+* Installing Amber from NPM
+
+To install Amber from NPM, run
+
+    npm install amber
+
+* Installing Amber from Bower
+
+To install Amber from Bower, run
+
+    bower install amber
+
+* Migration from Amber 0.11.0
+
+First, the loading of JavaScript files must be adapted. The custom loader has been replaced with
+requirejs for loading files in the browser. New loader code is thouroughly
+explained in [4].
+
+After updating the loader part, `.st` files need to be recompiled
+into new AMD `.js` files. During loader changes, a namespace was choosen and will be needed for recompilation.
+
+Go to your directory with `.st` files and issue this from the shell:
+
+```sh
+<path-to-amber>/bin/amberc -l SUnit,Canvas -n <chosen-namespace> -D <path-for-compiled-js-files> *.st
+```
+
+In windows, use `\` as path separator, the rest is identical.
+
+The `-l SUnit,Canvas` is just a general guess, if your code depends on more (or less) non-kernel packages from amber, list them here accordingly.
+
+This migrate scenario only covers simple deployments with your project's code and amber.
+If your project is more complicated, using libraries and packages from multiple sources,
+it is hard to give general advices to migrate - you must do it library by library,
+giving each location its own namespace, and `-L` option of `amberc`
+comes handy when integrating; ask on the mailing list if problems arise.
+
+[1] http://requirejs.org/
+[2] http://bower.io/
+[3] https://github.com/amber-smalltalk/brikz
+[4] https://github.com/amber-smalltalk/amber/wiki/How-to-load-amber
+
+
+09th July 2013 - Release 0.11.0
+===============================
+
+Three months have passed and we are happy to announce the release
+of Amber 0.11.0!
+
+Some numbers about this release:
+
+* 494 commits
+* 13 committers
+* increasing the number of core committers to 25
+* 50 unit tests added to the kernel
+* 313 unit tests in total
+
+Since the last release 60 issues were closed, bringing us to 499
+issues closed.
+
+This release includes a lot of bug fixes, improvements to the
+CLI, as well as a preview of the next IDE, named Helios. Amber
+now also uses a CI server [1].
+
+To try the Helios, the new IDE, open the helios.html page, or
+evaluate in any other amber page `amber.loadHelios()`.
+
+The compiler also received some improvements, especially
+regarding message send optimisations and super sends.
+
+Here's the list of commits and closed issues:
+https://github.com/amber-smalltalk/amber/compare/0.10.0...0.11.0
+https://github.com/amber-smalltalk/amber/issues?direction=desc&milestone=6&page=1&sort=updated&state=closed
+
+There is a lot more to come with Helios, a stepping debugger
+based on the AST is in progress and currently in the 'debugger'
+branch on GitHub.
+
+* Installing Amber from NPM
+
+To install amber from NPM, run
+
+    npm install amber
+
+
+* Migration from Amber 0.10.0
+
+Amber compiled code should be compatible with Amber 0.10.0, but
+recompiling is needed in order to get contexts working:
+
+    Compiler new recompile: (Package named: 'MyPackage') classes.
+    (Package named: 'MyPackage') commit
+
+For API related changes see the file API-CHANGES.txt.
+
+
+13th March 2013 - Release 0.10.0
+================================
+
+Here's a summary of change since the 0.9.1 release:
+
+- Travis CI jobs
+- Almost 300 issues closed
+- 150 new unit tests written
+- All classes in the Kernel are documented
+
+- New and much improved compiler toolchain, providing:
+  - Semantic analysis
+  - AST Node annotation
+  - Intermediate representation (easier to optimize)
+  - Better inlining
+  - an AST interpreter
+  - support for blocks contexts
+
+- New build system based on grunt.js, replacing the old makefiles
+- New bin/amberc compiler written in Amber/Node.js
+- SUnit improvements and cleanup, with support for async assertions
+- Improved ClassBuilder with better class migration support
+- Improved loader for third party packages
+- New: Announcements
+- Classes can be augmented by light-weight methods created from blocks
+- Snippets of HTML can be marked to become virtual tags in HTMLCanvas
+- Amber server supports Basic HTTP authentication (not recommended for production environments/unencrypted connections)
+- New IDE on it's way for Amber 1.0
+
+
+
+16th January 2012 - Release 0.9.1
+=================================
+
+Here's a summary of changes since the 0.9 release:
+
+- 80 new unit tests written
+- 52 issues fixed
+- All classes in Kernel-Objects, Kernel-Classes and Kernel-Methods has been documented
+- New documentation framework (see http://amber-lang.net/documentation.html)
+- Better class organisations, "Kernel" package split into several packages
+- First class packages have replaced class categories
+- Internet Explorer 7+ compatibility
+- New Announcement framework ported from Pharo
+- New console-based REPL written in Amber using node.js
+- Symbol class implemented together with object identity and #==
+- New OrderedCollection and Set implementation
+- Dictionary can now have any kind of object as keys. String-key dictionary has been renamed HashedCollection
+- New TwitterWall example
+- Improved HTML Canvas, now compatible with IE7
+- Improved JSObjectProxy for seamless JavaScript objects access from Amber
+- No more jQuery binding. Amber is fully capable of sending messages to JavaScript objects
+
+13th September 2011 - Release 0.9
+=================================
+Amber has been evolving furiously since the presentation at ESUG 2011 in Edinburgh less than 3 weeks ago.
+
+This is a summary:
+
+Language, compiler and runtime
+
+- New 100x faster parser built using PEGjs instead of the old parser built using PetitParser.
+- New much faster ChunkParser implementation in handwritten Amber instead of using PetitParser.
+- Improved parsing error report with quoted source code plus marker pinpointing parsing error.
+- Removed PetitParser since it is no longer needed by Amber itself.
+- Added compiler optimizations in the form of speculative inlining of specific messages and control structures.
+- Added support for dynamic Arrays, just like in Squeak/Pharo.
+- Added support for similar dynamic Dictionaries, not seen in other Smalltalks.
+- Added & and | as allowed binary selectors and implemented them in Boolean.
+- Added a Set implementation.
+- Added first basic support for real Packages with dependency information.
+
+...and various extensions, enhancements and bug fixes to the library classes.
+
+
+Development environment
+
+- A working Debugger with integrated inspector, proceed etc.
+- A new structure with
+- A working amberc command line compiler including a Makefile for recompiling the whole Amber.
+- Enabled TestRunner in the IDE for running unit tests based on SUnit.
+- Added "File in" button in Workspace to easily paste and filein source code in chunk format in the IDE.
+
+
+Example code and ports
+
+- Ported ProfStef interactive tutorial, available on Amber homepage but also in examples directory.
+- Included the ESUG presentation as an example also in the examples directory.
+- Several new examples running on Node.js and webOS included, all with Makefiles.
+
+
+Various other things
+
+- Issue tracker on github now used as primary source, closed a bunch of reported issues.
+- Wiki pages on github with information on how to port code from other Smalltalks, lists of articles, tutorials, roadmap and more.
+
