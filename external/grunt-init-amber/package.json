@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/amber-smalltalk/grunt-init-amber.git"
+    "url": "git://github.com/amber-smalltalk/amber.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/amber-smalltalk/grunt-init-amber/issues"
+    "url": "https://github.com/amber-smalltalk/amber/issues?labels=grunt+template"
   }
 }
