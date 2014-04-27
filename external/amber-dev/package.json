@@ -12,7 +12,7 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/amber-smalltalk/amber/issues"
+    "url": "https://github.com/amber-smalltalk/amber/issues?labels=devkit"
   },
   "dependencies": {
     "amdefine": "0.0.8",
