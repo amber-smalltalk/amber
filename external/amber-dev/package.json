@@ -7,12 +7,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/amber-smalltalk/amber-dev#0.0.2"
+    "url": "git://github.com/amber-smalltalk/amber.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/amber-smalltalk/amber-dev/issues"
+    "url": "https://github.com/amber-smalltalk/amber/issues"
   },
   "dependencies": {
     "amdefine": "0.0.8",
