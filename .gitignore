@@ -13,7 +13,7 @@ test_runner.js
 .svn
 
 # Ignoring local NPM modules
-/node_modules/*
+node_modules/
 
 # Ignoring local bower modules
-/bower_components/*
+bower_components/
