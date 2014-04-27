@@ -20,10 +20,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/amber-smalltalk/amber-cli.git#0.0.8"
+    "url": "git://github.com/amber-smalltalk/amber.git"
   },
   "engines": {
     "node": ">=0.8.0"
+  },
+  "bugs": {
+    "url": "https://github.com/amber-smalltalk/amber/issues?labels=cli"
   },
   "bin": {
     "amber": "./cli/support/amber-cli.js",
