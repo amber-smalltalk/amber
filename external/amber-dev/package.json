@@ -1,0 +1,21 @@
+{
+  "name": "amber-dev",
+  "version": "0.0.3",
+  "description": "Development goodies for Amber Smalltalk",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/amber-smalltalk/amber.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amber-smalltalk/amber/issues?labels=devkit"
+  },
+  "dependencies": {
+    "amdefine": "0.0.8",
+    "es6-promise": "~0.1.1"
+  }
+}
