@@ -772,8 +772,7 @@ observeSystem
 !PackageStateObserver methodsFor: 'reactions'!
 
 onClassModification: anAnnouncement
-	anAnnouncement theClass ifNotNil: [ :theClass |
-		theClass package beDirty ]
+	anAnnouncement theClass ifNotNil: [ :theClass | theClass package beDirty ]
 !
 
 onMethodModification: anAnnouncement
@@ -785,7 +784,7 @@ onPackageAdded: anAnnouncement
 !
 
 onProtocolModification: anAnnouncement
-	anAnnouncement theClass package beDirty
+	anAnnouncement package ifNotNil: [ :package | package beDirty ]
 ! !
 
 PackageStateObserver class instanceVariableNames: 'current'!
