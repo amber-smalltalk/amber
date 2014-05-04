@@ -4,8 +4,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('amber-dev');
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-execute');
 
   grunt.registerTask('default', ['peg', 'amberc:all']);
+  grunt.registerTask('test', ['amberc:test_runner', 'execute:test_runner_run', 'clean:test_runner_clean']);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -77,6 +80,16 @@ module.exports = function(grunt) {
         main_class: 'NodeTestRunner',
         output_name: 'test_runner'
       }
+    },
+
+    execute: {
+      test_runner_run: {
+        src: ['test_runner.js']
+      }
+    },
+
+    clean: {
+      test_runner_clean: ['test_runner.js']
     },
 
     jshint: {
