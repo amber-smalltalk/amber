@@ -18,9 +18,9 @@ if (1 > parameters.length) {
 // we can find the st and js directories etc.
 var amber_dir = path.normalize(path.join(__dirname, '..', '..', 'node_modules', 'amber'));
 
-var compiler = new amberc.Compiler(amber_dir);
-
 var configuration = handle_options(parameters);
+
+var compiler = new amberc.Compiler(amber_dir);
 
 compiler.main(configuration);
 
