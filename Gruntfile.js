@@ -8,7 +8,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-execute');
 
   grunt.registerTask('default', ['peg', 'amberc:all']);
-  grunt.registerTask('test', ['amberc:test_runner', 'execute:test_runner_run', 'clean:test_runner_clean']);
+  grunt.registerTask('test', ['amberc:test_runner', 'execute:test_runner', 'clean:test_runner']);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -83,13 +83,13 @@ module.exports = function(grunt) {
     },
 
     execute: {
-      test_runner_run: {
+      test_runner: {
         src: ['test_runner.js']
       }
     },
 
     clean: {
-      test_runner_clean: ['test_runner.js']
+      test_runner: ['test_runner.js']
     },
 
     jshint: {
