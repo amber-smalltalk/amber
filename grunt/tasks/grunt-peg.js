@@ -18,7 +18,7 @@ module.exports = function(grunt) {
       export_var: 'module.exports'
     });
     var parser = PEG.buildParser(grunt.file.read(this.data.src), options);
-    var content = 'define("amber_vm/parser", ["./globals", "./nil"], function(globals, nil) {\n'+options.export_var + ' = ' + parser + ';\n});';
+    var content = 'define("amber/parser", ["amber_vm/globals", "amber_vm/nil"], function(globals, nil) {\n'+options.export_var + ' = ' + parser + ';\n});';
     grunt.file.write(this.data.dest, content);
   });
 };
