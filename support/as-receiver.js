@@ -1,5 +1,3 @@
-// !!! THIS FILE IS DEPRECATED !!!
-// Use as-receiver.js instead.
 
 /**
  * _st is a function used all over the compiled amber code that

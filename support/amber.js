@@ -78,6 +78,7 @@ require = function (require) {
         paths: {
             'amber': amber_home + '/support',
             'amber_vm': amber_home + '/support',
+            'amber_vm/_st': amber_home + '/support/as-receiver',
             'amber_css': amber_home + '/css',
             'amber_lib': library_home,
             'amber_core': amber_home + '/src',
