@@ -38,7 +38,7 @@
  ==================================================================== */
 
 
-define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (require) {
+define("amber/boot", [ 'require', './browser-compatibility' ], function (require) {
 
 	/* Reconfigurable micro composition system, https://github.com/amber-smalltalk/brikz */
 
