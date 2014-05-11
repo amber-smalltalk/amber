@@ -29,11 +29,11 @@
     "url": "https://github.com/amber-smalltalk/amber/issues?labels=cli"
   },
   "bin": {
-    "amber": "./cli/support/amber-cli.js",
-    "amberc": "./cli/support/amberc-cli.js"
+    "amber": "./support/amber-cli.js",
+    "amberc": "./support/amberc-cli.js"
   },
   "scripts": {
-    "test": "grunt amberc:cli && node ./cli/support/amber-cli.js tests"
+    "test": "grunt amberc:cli && node ./support/amber-cli.js tests"
   },
   "dependencies": {
     "amber": "~0.12.4",
