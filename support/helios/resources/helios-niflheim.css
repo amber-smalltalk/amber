@@ -4,7 +4,7 @@ body[id="helios"].niflheim {
 		  width: 100%;
 		}*/
   /*.tool_container .pane .nav-pills i.package {
-			background-image: url('package.png');
+			background-image: url('resources/package.png');
 		}*/
 }
 body[id="helios"].niflheim .btn-group > .dropdown-menu {
@@ -125,7 +125,7 @@ body[id="helios"].niflheim .welcome {
 body[id="helios"].niflheim [class^="icon-"],
 body[id="helios"].niflheim body[id="helios"][class*=" icon-"] {
   opacity: 0.68;
-  background-image: url("../../bower_components/bootstrap/img/glyphicons-halflings-white.png");
+  background-image: url("../../../bower_components/bootstrap/img/glyphicons-halflings-white.png");
 }
 body[id="helios"].niflheim .welcome h2 {
   text-align: center;
