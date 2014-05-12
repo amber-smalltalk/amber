@@ -38,16 +38,17 @@ function createConcatenator () {
 		start: function () {
 			this.add(
 				'var define = (' + require('amdefine') + ')(null, function (id) { throw new Error("Dependency not found: " +  id); }), requirejs = define.require;',
-				'define("amber_vm/browser-compatibility", [], {});'
+				'define("amber_vm/browser-compatibility", [], {});',
+				'define("amber/browser-compatibility", [], {});'
 			);
 		},
 		finish: function (realWork) {
 			this.add(
-				'define("amber_vm/_init", ["amber_vm/smalltalk", "amber_vm/globals", "' + this.ids.join('","') + '"], function (vm, globals) {',
-				'vm.initialize();',
+				'define("amber/_init", ["' + this.ids.join('","') + '"], function (boot) {',
+				'boot.vm.initialize();',
 				realWork,
 				'});',
-				'requirejs("amber_vm/_init");'
+				'requirejs("amber/_init");'
 			);
 		},
 		toString: function () {
@@ -71,6 +72,7 @@ function AmberCompiler(amber_dir) {
 	}
 
 	this.amber_dir = amber_dir;
+	// Important: in next list, boot MUST be first
 	this.kernel_libraries = ['boot', 'smalltalk', 'globals', 'nil', '_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 							'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Transcript',
 							'Kernel-Announcements'];
@@ -120,6 +122,7 @@ AmberCompiler.prototype.main = function(configuration, finished_callback) {
 	if (undefined !== configuration.jsLibraryDirs) {
 		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'src'));
 		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'support'));
+		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'support', 'deprecated-vm-files'));
 	}
 
 	console.ambercLog = console.log;
@@ -325,9 +328,9 @@ function create_compiler(configuration) {
 			// data is an array where index 0 is the error code and index 1 contains the data
 			builder.add(data);
 			// matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
-			var match = ('' + data).match(/^define\("([^"]*)"/);
+			var match = ('' + data).match(/(^|\n)define\("([^"]*)"/);
 			if (match) {
-				builder.addId(match[1]);
+				builder.addId(match[2]);
 			}
 		});
 	})
@@ -362,8 +365,11 @@ function create_compiler(configuration) {
 				loadIds.push(match[1]);
 			}
 		});
+		//backward compatibility
+		if (builder.ids.indexOf("amber_vm/boot") === -1) { console.log(builder.ids); console.log("defining amber_vm/boot"); builder.add('define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });'); }
+
 		// store the generated smalltalk env in configuration.{vm,globals}
-		builder.finish('configuration.vm = vm; configuration.globals = globals;');
+		builder.finish('configuration.vm = boot.vm; configuration.globals = boot.globals;');
 		loadIds.forEach(function (id) {
 			builder.add('requirejs("' + id + '");');
 		});
@@ -547,9 +553,9 @@ function compose_js_files(configuration) {
 				console.log('Adding : ' + file);
 				var buffer = fs.readFileSync(file);
 				// matches and returns the "module_id" string in the AMD define: define("module_id", ...)
-				var match = buffer.toString().match(/^define\("([^"]*)"/);
+				var match = buffer.toString().match(/(^|\n)define\("([^"]*)"/);
 				if (match /*&& match[1].slice(0,9) !== "amber_vm/"*/) {
-					builder.addId(match[1]);
+					builder.addId(match[2]);
 				}
 				builder.add(buffer);
 			} else {
@@ -557,8 +563,10 @@ function compose_js_files(configuration) {
 				reject(Error('Can not find file ' + file));
 			}
 		});
+		//backward compatibility
+		if (builder.ids.indexOf("amber_vm/boot") === -1) { builder.add('define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });'); }
 
-		var mainFunctionOrFile = '';
+		var mainFunctionOrFile = 'var vm = boot.vm, globals = boot.globals;\n';
 
 		if (undefined !== configuration.main) {
 			console.log('Adding call to: %s>>main', configuration.main);
