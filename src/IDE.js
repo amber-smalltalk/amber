@@ -1,4 +1,5 @@
-define("amber_core/IDE", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Web", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections", "amber_core/Kernel-Methods"], function(smalltalk,nil,_st, globals){
+define("amber_core/IDE", ["amber/boot", "amber_core/Web", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections", "amber_core/Kernel-Methods"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('IDE');
 smalltalk.packages["IDE"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
