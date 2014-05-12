@@ -9,8 +9,7 @@ var parameters = process.argv.slice(2);
 
 // check if at least one parameter was passed to the script
 if (1 > parameters.length) {
-	print_usage();
-	process.exit();
+	print_usage_and_exit();
 }
 
 
@@ -57,9 +56,9 @@ function handle_options(optionsArray) {
 			case '-D':
 				defaults.output_dir = optionsArray.shift();
 				break;
-            case '-d':
-                amber_dir = path.normalize(optionsArray.shift());
-                break;
+			case '-d':
+				amber_dir = path.normalize(optionsArray.shift());
+				break;
 			case '-s':
 				defaults.suffix = optionsArray.shift();
 				defaults.suffix_used = defaults.suffix;
@@ -74,7 +73,7 @@ function handle_options(optionsArray) {
 			case '-h':
 			case '--help':
 			case '?':
-				print_usage();
+				print_usage_and_exit();
 				break;
 			default:
 				var fileSuffix = path.extname(currentItem);
@@ -104,7 +103,7 @@ function handle_options(optionsArray) {
 
 
 // print available flags
-function print_usage() {
+function print_usage_and_exit() {
 	var usage = [
 		'Usage: amberc [-l lib1,lib2...] [-g jsGlobal1,jsGlobla2] [-m main_class] [-M main_file]',
 		'          [-n namespace] [-D output_dir] [-v] [-s suffix] [-S suffix] [file1 [file2 ...]] [Program]',
@@ -192,6 +191,7 @@ function print_usage() {
 		'        amberc -M main.js myboot.js myKernel.js Cat1.st Cat2.st Program',
 	];
 	usage.forEach(function (line) {
-        console.log(line);
+		console.log(line);
 	});
+	process.exit();
 }

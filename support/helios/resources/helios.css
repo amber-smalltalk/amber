@@ -443,7 +443,7 @@ body[id="helios"] .tool_container .pane .nav-pills i.package {
   background-image: url('package.png');
 }
 body[id="helios"] .tool_container .pane .nav-pills i.override {
-  background-image: url('override.png ');
+  background-image: url('resources/override.png ');
 }
 body[id="helios"] .tool_container .pane .nav-pills i.overridden {
   background-image: url('overridden.png');
