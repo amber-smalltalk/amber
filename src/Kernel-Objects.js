@@ -217,6 +217,29 @@ globals.ProtoObject);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isKindOf:",
+protocol: 'testing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._isMemberOf_(aClass);
+if(smalltalk.assert($2)){
+$1=true;
+} else {
+$1=_st(self._class())._inheritsFrom_(aClass);
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isKindOf:",{aClass:aClass},globals.ProtoObject)})},
+args: ["aClass"],
+source: "isKindOf: aClass\x0a\x09^ (self isMemberOf: aClass)\x0a\x09\x09ifTrue: [ true ]\x0a\x09\x09ifFalse: [ self class inheritsFrom: aClass ]",
+messageSends: ["ifTrue:ifFalse:", "isMemberOf:", "inheritsFrom:", "class"],
+referencedClasses: []
+}),
+globals.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "perform:",
 protocol: 'message handling',
 fn: function (aString){
@@ -871,29 +894,6 @@ return false;
 args: [],
 source: "isImmutable\x0a\x09^ false",
 messageSends: [],
-referencedClasses: []
-}),
-globals.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isKindOf:",
-protocol: 'testing',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._isMemberOf_(aClass);
-if(smalltalk.assert($2)){
-$1=true;
-} else {
-$1=_st(self._class())._inheritsFrom_(aClass);
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isKindOf:",{aClass:aClass},globals.Object)})},
-args: ["aClass"],
-source: "isKindOf: aClass\x0a\x09^ (self isMemberOf: aClass)\x0a\x09\x09ifTrue: [ true ]\x0a\x09\x09ifFalse: [ self class inheritsFrom: aClass ]",
-messageSends: ["ifTrue:ifFalse:", "isMemberOf:", "inheritsFrom:", "class"],
 referencedClasses: []
 }),
 globals.Object);
