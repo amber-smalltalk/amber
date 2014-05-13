@@ -506,7 +506,7 @@ indexOf: anObject ifAbsent: aBlock
 	self subclassResponsibility
 ! !
 
-!IndexableCollection methodsFor: 'enumarating'!
+!IndexableCollection methodsFor: 'enumerating'!
 
 with: anotherCollection do: aBlock
 	"Calls aBlock with every value from self

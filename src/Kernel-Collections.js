@@ -1412,7 +1412,7 @@ globals.IndexableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "with:do:",
-protocol: 'enumarating',
+protocol: 'enumerating',
 fn: function (anotherCollection,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1431,7 +1431,7 @@ globals.IndexableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "withIndexDo:",
-protocol: 'enumarating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
