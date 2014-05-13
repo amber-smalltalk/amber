@@ -10,22 +10,40 @@ selector: "testAddExtensionMethod",
 protocol: 'tests',
 fn: function (){
 var self=this;
-var method;
+var method,dirty;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2;
-$1=self._class();
+var $2,$1,$4,$3,$5,$8,$7,$6,$9,$10;
+$2=self._class();
 $ctx1.sendIdx["class"]=1;
-method=_st($1)._compile_protocol_("doNothing","**not-a-package");
+$1=_st($2)._package();
+$ctx1.sendIdx["package"]=1;
+dirty=_st($1)._isDirty();
+$ctx1.sendIdx["isDirty"]=1;
 $4=self._class();
 $ctx1.sendIdx["class"]=2;
 $3=_st($4)._package();
-$2=_st($3)._isDirty();
-self._deny_($2);
-_st(self._class())._removeCompiledMethod_(method);
-return self}, function($ctx1) {$ctx1.fill(self,"testAddExtensionMethod",{method:method},globals.AnnouncementSubscriptionTest)})},
+$ctx1.sendIdx["package"]=2;
+_st($3)._beClean();
+$5=self._class();
+$ctx1.sendIdx["class"]=3;
+method=_st($5)._compile_protocol_("doNothing","**not-a-package");
+$8=self._class();
+$ctx1.sendIdx["class"]=4;
+$7=_st($8)._package();
+$ctx1.sendIdx["package"]=3;
+$6=_st($7)._isDirty();
+self._deny_($6);
+$9=self._class();
+$ctx1.sendIdx["class"]=5;
+_st($9)._removeCompiledMethod_(method);
+$10=dirty;
+if(smalltalk.assert($10)){
+_st(_st(self._class())._package())._beDirty();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"testAddExtensionMethod",{method:method,dirty:dirty},globals.AnnouncementSubscriptionTest)})},
 args: [],
-source: "testAddExtensionMethod\x0a\x09| method |\x0a\x09method := self class compile: 'doNothing' protocol: '**not-a-package'.\x0a\x09self deny: self class package isDirty.\x0a\x09self class removeCompiledMethod: method.",
-messageSends: ["compile:protocol:", "class", "deny:", "isDirty", "package", "removeCompiledMethod:"],
+source: "testAddExtensionMethod\x0a\x09| method dirty |\x0a\x09dirty := self class package isDirty.\x0a\x09self class package beClean.\x0a\x09method := self class compile: 'doNothing' protocol: '**not-a-package'.\x0a\x09self deny: self class package isDirty.\x0a\x09\x0a\x09self class removeCompiledMethod: method.\x0a\x09dirty ifTrue: [ self class package beDirty ]",
+messageSends: ["isDirty", "package", "class", "beClean", "compile:protocol:", "deny:", "removeCompiledMethod:", "ifTrue:", "beDirty"],
 referencedClasses: []
 }),
 globals.AnnouncementSubscriptionTest);

@@ -1502,19 +1502,19 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
-function $PackageClean(){return globals.PackageClean||(typeof PackageClean=="undefined"?nil:PackageClean)}
+function $PackageDirty(){return globals.PackageDirty||(typeof PackageDirty=="undefined"?nil:PackageDirty)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 self["@dirty"]=true;
-$1=_st($PackageClean())._new();
+$1=_st($PackageDirty())._new();
 _st($1)._package_(self);
 $2=_st($1)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"beDirty",{},globals.Package)})},
 args: [],
-source: "beDirty\x0a\x09dirty := true.\x0a\x09\x0a\x09SystemAnnouncer current announce: (PackageClean new\x0a\x09\x09package: self;\x0a\x09\x09yourself)",
+source: "beDirty\x0a\x09dirty := true.\x0a\x09\x0a\x09SystemAnnouncer current announce: (PackageDirty new\x0a\x09\x09package: self;\x0a\x09\x09yourself)",
 messageSends: ["announce:", "current", "package:", "new", "yourself"],
-referencedClasses: ["SystemAnnouncer", "PackageClean"]
+referencedClasses: ["SystemAnnouncer", "PackageDirty"]
 }),
 globals.Package);
 
