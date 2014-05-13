@@ -5,7 +5,7 @@ body.amberBody {
 #amberTabs, #amber .amber_tabs {
     margin: 0;
     padding: 0;
-    background: url("../images/sprite.amber.png") #DBD9C9 0 -27px;
+    background: url("sprite.amber.png") #DBD9C9 0 -27px;
     height: 22px;
     width: 100%;
     list-style: none;
@@ -42,17 +42,17 @@ body.amberBody {
 
 #amberTabs li:hover .ltab,
 #amber .amber_tabs li:hover .ltab {
-    background: url("../images/sprite.amber.png") -16px -96px;
+    background: url("sprite.amber.png") -16px -96px;
 }
 
 #amberTabs li:hover .mtab,
 #amber .amber_tabs li:hover .mtab {
-    background: url("../images/sprite.amber.png") 0 -73px;
+    background: url("sprite.amber.png") 0 -73px;
 }
 
 #amberTabs li:hover .rtab,
 #amber .amber_tabs li:hover .rtab {
-    background: url("../images/sprite.amber.png") -24px -96px;
+    background: url("sprite.amber.png") -24px -96px;
 }
 
 #amberTabs li.selected,
@@ -62,17 +62,17 @@ body.amberBody {
 
 #amberTabs li.selected .ltab,
 #amber .amber_tabs li.selected .ltab {
-    background: url("../images/sprite.amber.png") 0px -96px;
+    background: url("sprite.amber.png") 0px -96px;
 }
 
 #amberTabs li.selected .mtab,
 #amber .amber_tabs li.selected .mtab {
-    background: url("../images/sprite.amber.png") 0 -50px;
+    background: url("sprite.amber.png") 0 -50px;
 }
 
 #amberTabs li.selected .rtab,
 #amber .amber_tabs li.selected .rtab {
-    background: url("../images/sprite.amber.png") -8px -96px;
+    background: url("sprite.amber.png") -8px -96px;
 }
 
 #amberTabs li .close {
@@ -100,12 +100,12 @@ body.amberBody {
     left: 8px;
     width: 22px;
     height: 20px;
-    background: url("../images/tinylogo.amber.png") top left no-repeat;
+    background: url("tinylogo.amber.png") top left no-repeat;
 }
 
 #amber #amber_toolbar {
     height: 27px;
-    background: url("../images/sprite.amber.png") 0 0;
+    background: url("sprite.amber.png") 0 0;
 }
 
 #amber #amber_toolbar input {
@@ -120,12 +120,12 @@ body.amberBody {
     top: 6px;
     width: 16px;
     height: 16px;
-    background: url('../images/off.amber.png');
+    background: url('off.amber.png');
     cursor: pointer;
 }
 
 #amber #amber_toolbar #amber_close:hover {
-    background: url('../images/offHover.amber.png');
+    background: url('offHover.amber.png');
 }
 
 
@@ -169,7 +169,7 @@ body.amberBody {
     right: 0;
     height: 27px;
     line-height: 27px;
-    background: url("../images/sprite.amber.png") 0 0 repeat;
+    background: url("sprite.amber.png") 0 0 repeat;
 }
 
 .amberTool .amber_buttons .right {
@@ -368,7 +368,7 @@ body.amberBody {
 	line-height: 1.5em;
 	font-size: 16px;
 	color: red;
-	background: url("../images/sprite.amber.png") top left repeat;
+	background: url("sprite.amber.png") top left repeat;
 	height: 27px;
 }
 
