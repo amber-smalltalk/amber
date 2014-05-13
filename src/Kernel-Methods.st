@@ -246,7 +246,7 @@ package
 		
 	^ Package 
 		named: self protocol allButFirst
-		ifAbsent: [ self methodClass package ]
+		ifAbsent: [ nil ]
 !
 
 protocol

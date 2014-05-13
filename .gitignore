@@ -1,19 +1,14 @@
-# Ignoring compiled files in examples etc
-server/FileServer*.js
-
 # Ignoring Mac Finder files
 .DS_Store
 
 # Ignoring test runner
-test/amber_test_runner.js
-test/run.js
 test_runner.js
 
 # In case amber is also saved in a local Subversion
 .svn
 
 # Ignoring local NPM modules
-/node_modules/*
+node_modules/
 
 # Ignoring local bower modules
-/bower_components/*
+bower_components/

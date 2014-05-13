@@ -3,7 +3,13 @@ XXnd XXX 2014 - Release 0.12.5
 
 Highlights:
 
-* `amber` and `amberc` cli moved to dedicated repository.
+* `amber` and `amberc` cli moved to `external` directory
+  and to dedicated npm package.
+* Amber now parses `$c` character literal.
+* `amber` is not to be installed globally any more.
+  Instead, `npm install -g amber-cli` installs cli tooling.
+* After installing the cli tooling, `amber init` initializes
+  new project if run in empty directory.
 
 Commits: https://github.com/amber-smalltalk/amber/compare/0.12.4...0.12.5
 Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=13&state=closed

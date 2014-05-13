@@ -1,8 +1,35 @@
-define("amber_core/Kernel-Tests", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/SUnit", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("amber_core/Kernel-Tests", ["amber/boot", "amber_core/SUnit", "amber_core/Kernel-Objects"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Kernel-Tests');
 smalltalk.packages["Kernel-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('AnnouncementSubscriptionTest', globals.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testAddExtensionMethod",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var method;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$4,$3,$2;
+$1=self._class();
+$ctx1.sendIdx["class"]=1;
+method=_st($1)._compile_protocol_("doNothing","**not-a-package");
+$4=self._class();
+$ctx1.sendIdx["class"]=2;
+$3=_st($4)._package();
+$2=_st($3)._isDirty();
+self._deny_($2);
+_st(self._class())._removeCompiledMethod_(method);
+return self}, function($ctx1) {$ctx1.fill(self,"testAddExtensionMethod",{method:method},globals.AnnouncementSubscriptionTest)})},
+args: [],
+source: "testAddExtensionMethod\x0a\x09| method |\x0a\x09method := self class compile: 'doNothing' protocol: '**not-a-package'.\x0a\x09self deny: self class package isDirty.\x0a\x09self class removeCompiledMethod: method.",
+messageSends: ["compile:protocol:", "class", "deny:", "isDirty", "package", "removeCompiledMethod:"],
+referencedClasses: []
+}),
+globals.AnnouncementSubscriptionTest);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testHandlesAnnouncement",

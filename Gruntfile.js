@@ -4,8 +4,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('amber-dev');
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-execute');
 
   grunt.registerTask('default', ['peg', 'amberc:all']);
+  grunt.registerTask('amberc:all', ['amberc:core', 'amberc:helios']);
+  grunt.registerTask('test', ['amberc:test_runner', 'execute:test_runner', 'clean:test_runner']);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -30,7 +34,7 @@ module.exports = function(grunt) {
         amber_dir: process.cwd(),
         closure_jar: ''
       },
-      all: {
+      core: {
         output_dir : 'src',
         src: ['src/Kernel-Objects.st', 'src/Kernel-Classes.st', 'src/Kernel-Methods.st', 'src/Kernel-Collections.st',
               'src/Kernel-Infrastructure.st', 'src/Kernel-Exceptions.st', 'src/Kernel-Transcript.st', 'src/Kernel-Announcements.st',
@@ -38,14 +42,21 @@ module.exports = function(grunt) {
               'src/Compiler-IR.st', 'src/Compiler-Inlining.st', 'src/Compiler-Semantic.st', 'src/Compiler-Interpreter.st',
               'src/Web.st', 'src/SUnit.st', 'src/IDE.st',
               'src/Kernel-Tests.st', 'src/Compiler-Tests.st', 'src/SUnit-Tests.st',
-              'src/Helios-Core.st', 'src/Helios-Exceptions.st', 'src/Helios-Announcements.st',
-              'src/Helios-KeyBindings.st', 'src/Helios-Layout.st',
-              'src/Helios-Commands-Core.st', 'src/Helios-Commands-Tools.st', 'src/Helios-Commands-Browser.st',
-              'src/Helios-References.st', 'src/Helios-Inspector.st', 'src/Helios-Browser.st',
-              'src/Helios-Transcript.st', 'src/Helios-Workspace.st', 'src/Helios-Debugger.st',
-              'src/Helios-Workspace-Tests.st',
               'src/Benchfib.st', 'src/Examples.st', 'src/Spaces.st'
               ],
+        jsGlobals: ['navigator']
+      },
+      helios: {
+        output_dir : 'support/helios/src',
+        src: ['support/helios/src/Helios-Core.st', 'support/helios/src/Helios-Exceptions.st', 'support/helios/src/Helios-Announcements.st',
+              'support/helios/src/Helios-KeyBindings.st', 'support/helios/src/Helios-Layout.st',
+              'support/helios/src/Helios-Commands-Core.st', 'support/helios/src/Helios-Commands-Tools.st', 'support/helios/src/Helios-Commands-Browser.st',
+              'support/helios/src/Helios-References.st', 'support/helios/src/Helios-Inspector.st', 'support/helios/src/Helios-Browser.st',
+              'support/helios/src/Helios-Transcript.st', 'support/helios/src/Helios-Workspace.st', 'support/helios/src/Helios-Debugger.st',
+              'support/helios/src/Helios-Workspace-Tests.st'
+              ],
+        libraries: ['Web', 'SUnit'],
+        amd_namespace: 'helios',
         jsGlobals: ['navigator']
       },
       amber_kernel: {
@@ -77,6 +88,16 @@ module.exports = function(grunt) {
         main_class: 'NodeTestRunner',
         output_name: 'test_runner'
       }
+    },
+
+    execute: {
+      test_runner: {
+        src: ['test_runner.js']
+      }
+    },
+
+    clean: {
+      test_runner: ['test_runner.js']
     },
 
     jshint: {

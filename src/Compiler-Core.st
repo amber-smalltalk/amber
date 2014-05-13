@@ -167,7 +167,7 @@ evaluateExpression: aString on: anObject
 	"Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object"
 	| result method |
 	method := self eval: (self compileExpression: aString on: anObject).
-	method protocol: 'xxxDoIt'.
+	method protocol: '**xxxDoIt'.
 	anObject class addCompiledMethod: method.
 	result := anObject xxxDoIt.
 	anObject class removeCompiledMethod: method.

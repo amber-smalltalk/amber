@@ -1,5 +1,8 @@
-define("amber/helpers", ["amber_vm/smalltalk", "amber_vm/globals", "require"], function (vm, globals, require) {
-    var exports = Object.create(globals);
+define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
+    var globals = boot.globals,
+        exports = Object.create(globals), // backward compatibility, use {} later
+        vm = boot.vm,
+        nil = boot.vm;
 
     // API
 
@@ -12,6 +15,10 @@ define("amber/helpers", ["amber_vm/smalltalk", "amber_vm/globals", "require"], f
     });
     Object.defineProperty(exports, "globals", {
         value: globals,
+        enumerable: true, configurable: true, writable: false
+    });
+    Object.defineProperty(exports, "nil", {
+        value: nil,
         enumerable: true, configurable: true, writable: false
     });
 

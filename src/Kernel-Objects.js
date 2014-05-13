@@ -1,4 +1,5 @@
-define("amber_core/Kernel-Objects", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals"], function(smalltalk,nil,_st, globals){
+define("amber_core/Kernel-Objects", ["amber/boot"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Kernel-Objects');
 smalltalk.packages["Kernel-Objects"].transport = {"type":"amd","amdNamespace":"amber_core"};
 

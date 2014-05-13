@@ -6,6 +6,8 @@
     "**/.*",
     "node_modules",
     "bower_components",
+    "/external",
+    "/test_runner.js",
     "test",
     "tests"
   ],

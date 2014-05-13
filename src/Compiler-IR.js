@@ -1,4 +1,5 @@
-define("amber_core/Compiler-IR", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function(smalltalk,nil,_st, globals){
+define("amber_core/Compiler-IR", ["amber/boot", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Compiler-IR');
 smalltalk.packages["Compiler-IR"].transport = {"type":"amd","amdNamespace":"amber_core"};
 

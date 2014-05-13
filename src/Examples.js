@@ -1,4 +1,5 @@
-define("amber_core/Examples", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Web"], function(smalltalk,nil,_st, globals){
+define("amber_core/Examples", ["amber/boot", "amber_core/Web"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Examples');
 smalltalk.packages["Examples"].transport = {"type":"amd","amdNamespace":"amber_core"};
 

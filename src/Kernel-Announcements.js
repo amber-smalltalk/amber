@@ -1,4 +1,5 @@
-define("amber_core/Kernel-Announcements", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("amber_core/Kernel-Announcements", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Kernel-Announcements');
 smalltalk.packages["Kernel-Announcements"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -814,6 +815,34 @@ globals.PackageRemoved.comment="I am emitted when a `Package` is removed from th
 
 smalltalk.addClass('ProtocolAnnouncement', globals.SystemAnnouncement, ['theClass', 'protocol'], 'Kernel-Announcements');
 globals.ProtocolAnnouncement.comment="I am the abstract superclass of protocol-related announcements.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "package",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$3,$4;
+$2=self._protocol();
+$ctx1.sendIdx["protocol"]=1;
+$1=_st($2)._beginsWith_("*");
+if(! smalltalk.assert($1)){
+$3=_st(self._theClass())._package();
+return $3;
+};
+$4=_st($Package())._named_ifAbsent_(_st(self._protocol())._allButFirst(),(function(){
+return nil;
+}));
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"package",{},globals.ProtocolAnnouncement)})},
+args: [],
+source: "package\x0a\x0a\x09(self protocol beginsWith: '*') ifFalse: [\x0a\x09\x09^ self theClass package ].\x0a\x09\x09\x0a\x09^ Package \x0a\x09\x09named: self protocol allButFirst\x0a\x09\x09ifAbsent: [ nil ]",
+messageSends: ["ifFalse:", "beginsWith:", "protocol", "package", "theClass", "named:ifAbsent:", "allButFirst"],
+referencedClasses: ["Package"]
+}),
+globals.ProtocolAnnouncement);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "protocol",

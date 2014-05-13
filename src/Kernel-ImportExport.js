@@ -1,4 +1,5 @@
-define("amber_core/Kernel-ImportExport", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure"], function(smalltalk,nil,_st, globals){
+define("amber_core/Kernel-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Kernel-ImportExport');
 smalltalk.packages["Kernel-ImportExport"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -1098,13 +1099,17 @@ _st(aStream)._nextPutAll_(_st(aPackage)._name());
 $ctx1.sendIdx["nextPutAll:"]=4;
 _st(aStream)._nextPutAll_("\x22, ");
 $ctx1.sendIdx["nextPutAll:"]=5;
-_st(aStream)._nextPutAll_(_st(["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals"].__comma(self._amdNamesOfPackages_(_st(aPackage)._loadDependencies())))._asJavascript());
+_st(aStream)._nextPutAll_(_st(["amber/boot"].__comma(self._amdNamesOfPackages_(_st(aPackage)._loadDependencies())))._asJavascript());
 $ctx1.sendIdx["nextPutAll:"]=6;
-_st(aStream)._nextPutAll_(", function(smalltalk,nil,_st, globals){");
+_st(aStream)._nextPutAll_(", function($boot){");
+$ctx1.sendIdx["nextPutAll:"]=7;
+_st(aStream)._lf();
+$ctx1.sendIdx["lf"]=1;
+_st(aStream)._nextPutAll_("var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;");
 $1=_st(aStream)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},globals.AmdExporter)})},
 args: ["aPackage", "aStream"],
-source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st' 'amber_vm/globals'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;\x0a\x09\x09nextPutAll: ', function(smalltalk,nil,_st, globals){';\x0a\x09\x09lf",
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (#('amber/boot'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;\x0a\x09\x09nextPutAll: ', function($boot){';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", "amdNamespaceOfPackage:", "name", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"],
 referencedClasses: []
 }),

@@ -23,16 +23,13 @@ Getting Amber
 
 Amber is shipped as a [npm](http://npmjs.org) package for its CLI tools and as a [bower](https://github.com/bower/bower) package for the client-side.
 
-    # Install the CLI tool `amber`
-    npm install -g amber
+    # Install the CLI tool `amber-cli`
+    npm install -g amber-cli
     
-    # Initialize your project as bower package
+    # Initialize your project (directory must be empty)
     cd /path/to/myproject
-    bower init
+    amber init
 
-    # Load amber via bower in your project
-    bower install amber --save
-    
     # Serve amber on localhost:4000
     amber serve
 
