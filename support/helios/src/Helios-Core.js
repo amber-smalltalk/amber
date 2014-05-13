@@ -2481,22 +2481,26 @@ var $1,$2,$3,$4;
 $1=_st(html)._ul();
 _st($1)._class_(self._listCssClass());
 $ctx1.sendIdx["class:"]=1;
-$2=_st($1)._with_((function(){
+_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._renderListOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["with:"]=1;
+$2=_st($1)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._focus();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $3=_st(html)._div();
 _st($3)._class_(self._buttonsDivCssClass());
 $4=_st($3)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._renderButtonsOn_(html);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 self._setupKeyBindings();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLListWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html ul \x0a    \x09class: self listCssClass;\x0a        with: [ self renderListOn: html ].\x0a    html div class: self buttonsDivCssClass; with: [\x0a      \x09self renderButtonsOn: html ].\x0a        \x0a   self setupKeyBindings",
-messageSends: ["class:", "ul", "listCssClass", "with:", "renderListOn:", "div", "buttonsDivCssClass", "renderButtonsOn:", "setupKeyBindings"],
+source: "renderContentOn: html\x0a\x09html ul \x0a    \x09class: self listCssClass;\x0a        with: [ self renderListOn: html ];\x0a\x09\x09onClick: [ self focus ].\x0a    html div class: self buttonsDivCssClass; with: [\x0a      \x09self renderButtonsOn: html ].\x0a        \x0a   self setupKeyBindings",
+messageSends: ["class:", "ul", "listCssClass", "with:", "renderListOn:", "onClick:", "focus", "div", "buttonsDivCssClass", "renderButtonsOn:", "setupKeyBindings"],
 referencedClasses: []
 }),
 globals.HLListWidget);

@@ -894,7 +894,8 @@ renderButtonsOn: html
 renderContentOn: html
 	html ul 
     	class: self listCssClass;
-        with: [ self renderListOn: html ].
+        with: [ self renderListOn: html ];
+		onClick: [ self focus ].
     html div class: self buttonsDivCssClass; with: [
       	self renderButtonsOn: html ].
         
