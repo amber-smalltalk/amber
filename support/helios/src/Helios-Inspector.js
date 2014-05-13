@@ -1,4 +1,5 @@
-define("helios/Helios-Inspector", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Core"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Inspector", ["amber/boot", "helios/Helios-Core"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Helios-Inspector');
 smalltalk.packages["Helios-Inspector"].transport = {"type":"amd","amdNamespace":"helios"};
 

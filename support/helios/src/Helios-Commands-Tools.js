@@ -1,4 +1,5 @@
-define("helios/Helios-Commands-Tools", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Commands-Core"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Commands-Tools", ["amber/boot", "helios/Helios-Commands-Core"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Helios-Commands-Tools');
 smalltalk.packages["Helios-Commands-Tools"].transport = {"type":"amd","amdNamespace":"helios"};
 

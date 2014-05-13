@@ -1,4 +1,5 @@
-define("helios/Helios-Browser", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-Browser", ["amber/boot", "helios/Helios-Core", "amber_core/Kernel-Objects"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Helios-Browser');
 smalltalk.packages["Helios-Browser"].transport = {"type":"amd","amdNamespace":"helios"};
 
@@ -3597,7 +3598,7 @@ $ctx1.sendIdx["on:send:to:"]=3;
 _st(_st(self._model())._systemAnnouncer())._on_send_to_($PackageDirty(),"onPackageStateChanged",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},globals.HLPackagesListWidget)})},
 args: [],
-source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09send: #onClassAdded:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageAdded\x0a\x09\x09send: #onPackageAdded:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageClean\x0a\x09\x09send: #onPackageStateChanged\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageDirty\x0a\x09\x09send: #onPackageStateChanged\x0a\x09\x09to: self.\x0a\x09",
+source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09send: #onClassAdded:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageAdded\x0a\x09\x09send: #onPackageAdded:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageClean\x0a\x09\x09send: #onPackageStateChanged\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageDirty\x0a\x09\x09send: #onPackageStateChanged\x0a\x09\x09to: self.",
 messageSends: ["on:send:to:", "systemAnnouncer", "model"],
 referencedClasses: ["ClassAdded", "PackageAdded", "PackageClean", "PackageDirty"]
 }),
