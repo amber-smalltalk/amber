@@ -4,6 +4,10 @@
   + value:
 + ProtocolAnnouncement >>
   + package
++ amber/{devel,deploy,lang} exports
+  + nil
++ amber/helpers exports
+  + nil
 
 0.12.4:
 
