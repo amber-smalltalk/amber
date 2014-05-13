@@ -6,10 +6,14 @@ TestCase subclass: #AnnouncementSubscriptionTest
 !AnnouncementSubscriptionTest methodsFor: 'tests'!
 
 testAddExtensionMethod
-	| method |
+	| method dirty |
+	dirty := self class package isDirty.
+	self class package beClean.
 	method := self class compile: 'doNothing' protocol: '**not-a-package'.
 	self deny: self class package isDirty.
+	
 	self class removeCompiledMethod: method.
+	dirty ifTrue: [ self class package beDirty ]
 !
 
 testHandlesAnnouncement
