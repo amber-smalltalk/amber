@@ -986,7 +986,7 @@ dirname
 !
 
 rootDirname
-	^ path join: self dirname with: '..' with: '..'
+	^ path join: self dirname with: '..'
 ! !
 
 Object subclass: #NodeTestRunner

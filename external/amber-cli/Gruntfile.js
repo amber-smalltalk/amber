@@ -24,8 +24,8 @@ module.exports = function(grunt) {
         libraries: ['SUnit']
       },
       cli: {
-        output_dir: 'cli/src',
-        src: ['cli/src/AmberCli.st'],
+        output_dir: 'src',
+        src: ['src/AmberCli.st'],
         libraries: [
             'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
             'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      cli: ['cli/src/*.js', 'cli/support/*.js']
+      cli: ['src/*.js', 'support/*.js']
     }
   });
 };

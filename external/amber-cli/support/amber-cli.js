@@ -57586,12 +57586,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@path"])._join_with_with_(self._dirname(),"..","..");
+$1=_st(self["@path"])._join_with_(self._dirname(),"..");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"rootDirname",{},globals.Initer)})},
 args: [],
-source: "rootDirname\x0a\x09^ path join: self dirname with: '..' with: '..'",
-messageSends: ["join:with:with:", "dirname"],
+source: "rootDirname\x0a\x09^ path join: self dirname with: '..'",
+messageSends: ["join:with:", "dirname"],
 referencedClasses: []
 }),
 globals.Initer);
