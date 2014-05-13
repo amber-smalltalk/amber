@@ -42,7 +42,7 @@ module.exports = function(grunt) {
               'src/Compiler-IR.st', 'src/Compiler-Inlining.st', 'src/Compiler-Semantic.st', 'src/Compiler-Interpreter.st',
               'src/Web.st', 'src/SUnit.st', 'src/IDE.st',
               'src/Kernel-Tests.st', 'src/Compiler-Tests.st', 'src/SUnit-Tests.st',
-              'src/Benchfib.st', 'src/Examples.st', 'src/Spaces.st'
+              'src/Benchfib.st', 'src/Examples.st'
               ],
         jsGlobals: ['navigator']
       },
