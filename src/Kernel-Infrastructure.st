@@ -559,7 +559,7 @@ beClean
 beDirty
 	dirty := true.
 	
-	SystemAnnouncer current announce: (PackageClean new
+	SystemAnnouncer current announce: (PackageDirty new
 		package: self;
 		yourself)
 !
