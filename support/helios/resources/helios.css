@@ -142,7 +142,7 @@ body[id="helios"] .dialog .nav a span.browser {
 }
 body[id="helios"] .navbar-fixed-top a span.sunit,
 body[id="helios"] .dialog .nav a span.sunit {
-  background-image: url('sunit.png');
+  background-image: url('test.png');
 }
 body[id="helios"] .navbar-fixed-top a span.workspace,
 body[id="helios"] .dialog .nav a span.workspace {
@@ -936,4 +936,7 @@ body[id="helios"] .hl_debugger .head h2 {
   padding: 0 30px;
   margin: 0;
   color: white;
+}
+body[id="helios"] .progress {
+  border-radius: 0;
 }

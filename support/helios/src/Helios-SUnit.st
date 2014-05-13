@@ -67,6 +67,10 @@ I display a list of  classes (subclasses of `TestCase`).!
 
 !HLSUnitClassesListWidget methodsFor: 'accessing'!
 
+buttonsDivCssClass
+	^ 'buttons_bar'
+!
+
 cssClassForItem: aClass	
 	^ aClass theNonMetaClass heliosClass
 !
@@ -155,6 +159,13 @@ onPackageUnselected: anAnnouncement
 
 !HLSUnitClassesListWidget methodsFor: 'rendering'!
 
+renderButtonsOn: html
+	html button
+		class: 'button'; 
+		with: 'Select all';
+		with: [ self model selectAllClasses ]
+!
+
 renderItemLabel: aClass on: html
 	html with: aClass name
 ! !
@@ -172,6 +183,10 @@ HLMultiSelectToolListWidget subclass: #HLSUnitPackagesListWidget
 I display a list of packages for which unit tests are associated (packages containing subclasses of `TestCase`).!
 
 !HLSUnitPackagesListWidget methodsFor: 'accessing'!
+
+buttonsDivCssClass
+	^ 'buttons_bar'
+!
 
 cssClassForItem: anItem	
 	^ anItem isDirty 
@@ -248,8 +263,13 @@ onPackageUnselected: anAnnouncement
 
 renderButtonsOn: html
 	html button
-	with: 'Run Tests';
-	onClick: [ self model runTests ]
+		class: 'button';
+		with: 'Run Tests';
+		onClick: [ self model runTests ].
+	html button
+		class: 'button';
+		with: 'Select all';
+		onClick: [ self model selectAllPackages ]
 !
 
 renderItemLabel: aPackage on: html
@@ -374,8 +394,8 @@ currentSuite
 !
 
 selectedClasses
-	^ (self unfilteredSelectedClasses) select: [:each |
-		self selectedPackages includes: each package]
+	^ (self unfilteredSelectedClasses) select: [ :each |
+		self selectedPackages includes: each package ]
 !
 
 selectedPackages

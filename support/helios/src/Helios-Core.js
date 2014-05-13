@@ -2149,6 +2149,21 @@ globals.HLListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "buttonsDivCssClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "pane_actions form-actions";
+},
+args: [],
+source: "buttonsDivCssClass\x0a\x09^ 'pane_actions form-actions'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "cssClassForItem:",
 protocol: 'accessing',
 fn: function (anObject){
@@ -2472,7 +2487,7 @@ return self._renderListOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["with:"]=1;
 $3=_st(html)._div();
-_st($3)._class_("pane_actions form-actions");
+_st($3)._class_(self._buttonsDivCssClass());
 $4=_st($3)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._renderButtonsOn_(html);
@@ -2480,8 +2495,8 @@ return self._renderButtonsOn_(html);
 self._setupKeyBindings();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},globals.HLListWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html ul \x0a    \x09class: self listCssClass;\x0a        with: [ self renderListOn: html ].\x0a    html div class: 'pane_actions form-actions'; with: [\x0a      \x09self renderButtonsOn: html ].\x0a        \x0a   self setupKeyBindings",
-messageSends: ["class:", "ul", "listCssClass", "with:", "renderListOn:", "div", "renderButtonsOn:", "setupKeyBindings"],
+source: "renderContentOn: html\x0a\x09html ul \x0a    \x09class: self listCssClass;\x0a        with: [ self renderListOn: html ].\x0a    html div class: self buttonsDivCssClass; with: [\x0a      \x09self renderButtonsOn: html ].\x0a        \x0a   self setupKeyBindings",
+messageSends: ["class:", "ul", "listCssClass", "with:", "renderListOn:", "div", "buttonsDivCssClass", "renderButtonsOn:", "setupKeyBindings"],
 referencedClasses: []
 }),
 globals.HLListWidget);

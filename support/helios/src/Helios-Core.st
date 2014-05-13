@@ -748,6 +748,10 @@ activeItemCssClass
 	^'active'
 !
 
+buttonsDivCssClass
+	^ 'pane_actions form-actions'
+!
+
 cssClassForItem: anObject
 	^ ''
 !
@@ -891,7 +895,7 @@ renderContentOn: html
 	html ul 
     	class: self listCssClass;
         with: [ self renderListOn: html ].
-    html div class: 'pane_actions form-actions'; with: [
+    html div class: self buttonsDivCssClass; with: [
       	self renderButtonsOn: html ].
         
    self setupKeyBindings

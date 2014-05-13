@@ -1,4 +1,5 @@
-define("helios/Helios-SUnit", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "helios/Helios-Core"], function(smalltalk,nil,_st, globals){
+define("helios/Helios-SUnit", ["amber/boot", "helios/Helios-Core"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Helios-SUnit');
 smalltalk.packages["Helios-SUnit"].transport = {"type":"amd","amdNamespace":"helios"};
 
@@ -181,6 +182,21 @@ globals.HLMultiSelectToolListWidget);
 
 smalltalk.addClass('HLSUnitClassesListWidget', globals.HLMultiSelectToolListWidget, [], 'Helios-SUnit');
 globals.HLSUnitClassesListWidget.comment="I display a list of  classes (subclasses of `TestCase`).";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buttonsDivCssClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "buttons_bar";
+},
+args: [],
+source: "buttonsDivCssClass\x0a\x09^ 'buttons_bar'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLSUnitClassesListWidget);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cssClassForItem:",
@@ -415,6 +431,30 @@ globals.HLSUnitClassesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "renderButtonsOn:",
+protocol: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(html)._button();
+_st($1)._class_("button");
+_st($1)._with_("Select all");
+$ctx1.sendIdx["with:"]=1;
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._model())._selectAllClasses();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLSUnitClassesListWidget)})},
+args: ["html"],
+source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09class: 'button'; \x0a\x09\x09with: 'Select all';\x0a\x09\x09with: [ self model selectAllClasses ]",
+messageSends: ["class:", "button", "with:", "selectAllClasses", "model"],
+referencedClasses: []
+}),
+globals.HLSUnitClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "renderItemLabel:on:",
 protocol: 'rendering',
 fn: function (aClass,html){
@@ -465,6 +505,21 @@ globals.HLSUnitClassesListWidget);
 
 smalltalk.addClass('HLSUnitPackagesListWidget', globals.HLMultiSelectToolListWidget, [], 'Helios-SUnit');
 globals.HLSUnitPackagesListWidget.comment="I display a list of packages for which unit tests are associated (packages containing subclasses of `TestCase`).";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buttonsDivCssClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "buttons_bar";
+},
+args: [],
+source: "buttonsDivCssClass\x0a\x09^ 'buttons_bar'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.HLSUnitPackagesListWidget);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cssClassForItem:",
@@ -682,17 +737,31 @@ protocol: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$3,$2,$4,$5;
 $1=_st(html)._button();
+$ctx1.sendIdx["button"]=1;
+_st($1)._class_("button");
+$ctx1.sendIdx["class:"]=1;
 _st($1)._with_("Run Tests");
+$ctx1.sendIdx["with:"]=1;
 $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self._model())._runTests();
+$3=self._model();
+$ctx2.sendIdx["model"]=1;
+return _st($3)._runTests();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["onClick:"]=1;
+$4=_st(html)._button();
+_st($4)._class_("button");
+_st($4)._with_("Select all");
+$5=_st($4)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._model())._selectAllPackages();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLSUnitPackagesListWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html button\x0a\x09with: 'Run Tests';\x0a\x09onClick: [ self model runTests ]",
-messageSends: ["with:", "button", "onClick:", "runTests", "model"],
+source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Run Tests';\x0a\x09\x09onClick: [ self model runTests ].\x0a\x09html button\x0a\x09\x09class: 'button';\x0a\x09\x09with: 'Select all';\x0a\x09\x09onClick: [ self model selectAllPackages ]",
+messageSends: ["class:", "button", "with:", "onClick:", "runTests", "model", "selectAllPackages"],
 referencedClasses: []
 }),
 globals.HLSUnitPackagesListWidget);
@@ -1236,7 +1305,7 @@ return _st(self._selectedPackages())._includes_(_st(each)._package());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedClasses",{},globals.HLSUnitModel)})},
 args: [],
-source: "selectedClasses\x0a\x09^ (self unfilteredSelectedClasses) select: [:each |\x0a\x09\x09self selectedPackages includes: each package]",
+source: "selectedClasses\x0a\x09^ (self unfilteredSelectedClasses) select: [ :each |\x0a\x09\x09self selectedPackages includes: each package ]",
 messageSends: ["select:", "unfilteredSelectedClasses", "includes:", "selectedPackages", "package"],
 referencedClasses: []
 }),
