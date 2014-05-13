@@ -102,10 +102,7 @@ module.exports = function(grunt) {
 
     jshint: {
       amber: ['src/*.js'],
-      server: ['server/*.js'],
-      repl: ['repl/*.js'],
-      tests: ['test/*.js'],
-      grunt: ['grunt.js', 'grunt/**/*.js']
+      grunt: ['Gruntfile.js', 'grunt/**/*.js']
     }
   });
 };
