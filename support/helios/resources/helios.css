@@ -264,9 +264,6 @@ body[id="helios"] .nav-pills > .active > a {
   color: #fff;
   text-shadow: 0 0 0;
 }
-body[id="helios"] .focused .nav-multiselect .selector {
-  border-style: dotted;
-}
 body[id="helios"] .focused .nav-pills {
   background-color: #f3f7fb;
 }
