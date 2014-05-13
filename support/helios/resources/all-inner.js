@@ -6,7 +6,6 @@ define([
 	'amber/devel-inner',
 	'amber_lib/bootstrap/js/bootstrap',
 	'amber_lib/showdown/compressed/showdown',
-	'amber_core/Spaces',
 	'helios/Helios-Core',
 	'helios/Helios-Exceptions',
 	'helios/Helios-Helpers',
