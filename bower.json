@@ -14,7 +14,7 @@
   "dependencies": {
     "jquery": "~1.10.2",
     "jquery-ui": "~1.10.3",
-    "bootstrap": "http://getbootstrap.com/2.3.2/assets/bootstrap.zip",
+    "bootstrap": "bootstrap2.3.2#~2.3.2",
     "jquery-tabby": "git://github.com/alanhogan/Tabby",
     "es5-shim": "~2.1.0",
     "codemirror": "~3.20.0",
