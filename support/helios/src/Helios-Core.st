@@ -1317,7 +1317,8 @@ defaultEnvironment
 	parent := window opener ifNil: [ window parent ].
 	parent ifNil: [ ^ Environment new ].
 	
-	parentSmalltalkGlobals := (parent at: 'requirejs') value: 'amber_vm/globals'.
+	[ parentSmalltalkGlobals := ((parent at: 'requirejs') value: 'amber/boot') at: 'globals' ]
+	on: Error do: [ parentSmalltalkGlobals := (parent at: 'requirejs') value: 'amber_vm/globals' ].
 	parentSmalltalkGlobals ifNil: [ ^ Environment new ].
 	
 	^ (parentSmalltalkGlobals at: 'Environment') new
