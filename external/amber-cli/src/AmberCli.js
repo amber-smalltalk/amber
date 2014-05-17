@@ -1480,6 +1480,27 @@ globals.Initer);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "npmInstallThenDo:",
+protocol: 'action',
+fn: function (aBlock){
+var self=this;
+var child;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+child=_st(self["@childProcess"])._exec_thenDo_("npm install",aBlock);
+$1=_st(child)._stdout();
+$ctx1.sendIdx["stdout"]=1;
+_st($1)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
+return self}, function($ctx1) {$ctx1.fill(self,"npmInstallThenDo:",{aBlock:aBlock,child:child},globals.Initer)})},
+args: ["aBlock"],
+source: "npmInstallThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: 'npm install'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
+messageSends: ["exec:thenDo:", "pipe:options:", "stdout"],
+referencedClasses: []
+}),
+globals.Initer);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "rootDirname",
 protocol: 'private',
 fn: function (){
@@ -1503,22 +1524,37 @@ protocol: 'action',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$receiver;
+var $1,$2,$3,$4,$5,$6,$receiver;
 self._gruntInitThenDo_((function(error){
 return smalltalk.withContext(function($ctx2) {
 if(($receiver = error) == null || $receiver.isNil){
 return self._bowerInstallThenDo_((function(error2){
 return smalltalk.withContext(function($ctx3) {
 if(($receiver = error2) == null || $receiver.isNil){
-error2;
+return self._npmInstallThenDo_((function(error3){
+return smalltalk.withContext(function($ctx4) {
+if(($receiver = error3) == null || $receiver.isNil){
+return _st(process)._exit();
+} else {
+$5=console;
+_st($5)._log_("npm install exec error:");
+$ctx4.sendIdx["log:"]=5;
+$6=_st($5)._log_(error3);
+$6;
+return _st(process)._exit();
+$ctx4.sendIdx["exit"]=3;
+};
+}, function($ctx4) {$ctx4.fillBlock({error3:error3},$ctx3,7)})}));
 } else {
 $3=console;
 _st($3)._log_("bower install exec error:");
 $ctx3.sendIdx["log:"]=3;
 $4=_st($3)._log_(error2);
+$ctx3.sendIdx["log:"]=4;
 $4;
-};
 return _st(process)._exit();
+$ctx3.sendIdx["exit"]=2;
+};
 }, function($ctx3) {$ctx3.fillBlock({error2:error2},$ctx2,4)})}));
 } else {
 $1=console;
@@ -1533,8 +1569,8 @@ $ctx2.sendIdx["exit"]=1;
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"start",{},globals.Initer)})},
 args: [],
-source: "start\x0a\x09self gruntInitThenDo: [ :error |\x0a\x09\x09error ifNotNil: [ console log: 'grunt-init exec error:'; log: error. process exit ]\x0a\x09\x09ifNil: [\x0a\x09\x09\x09self bowerInstallThenDo: [ :error2 |\x0a\x09\x09\x09\x09error2 ifNotNil: [ console log: 'bower install exec error:'; log: error2 ].\x0a\x09\x09\x09\x09process exit ]]]",
-messageSends: ["gruntInitThenDo:", "ifNotNil:ifNil:", "log:", "exit", "bowerInstallThenDo:", "ifNotNil:"],
+source: "start\x0a\x09self gruntInitThenDo: [ :error | error\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'grunt-init exec error:'; log: error.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self bowerInstallThenDo: [ :error2 | error2\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'bower install exec error:'; log: error2.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self npmInstallThenDo: [ :error3 | error3\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'npm install exec error:'; log: error3.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09process exit ]]]]]]",
+messageSends: ["gruntInitThenDo:", "ifNotNil:ifNil:", "log:", "exit", "bowerInstallThenDo:", "npmInstallThenDo:"],
 referencedClasses: []
 }),
 globals.Initer);

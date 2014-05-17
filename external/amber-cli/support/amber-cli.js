@@ -1691,6 +1691,29 @@ globals.ProtoObject);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isKindOf:",
+protocol: 'testing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._isMemberOf_(aClass);
+if(smalltalk.assert($2)){
+$1=true;
+} else {
+$1=_st(self._class())._inheritsFrom_(aClass);
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isKindOf:",{aClass:aClass},globals.ProtoObject)})},
+args: ["aClass"],
+source: "isKindOf: aClass\x0a\x09^ (self isMemberOf: aClass)\x0a\x09\x09ifTrue: [ true ]\x0a\x09\x09ifFalse: [ self class inheritsFrom: aClass ]",
+messageSends: ["ifTrue:ifFalse:", "isMemberOf:", "inheritsFrom:", "class"],
+referencedClasses: []
+}),
+globals.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "perform:",
 protocol: 'message handling',
 fn: function (aString){
@@ -2345,29 +2368,6 @@ return false;
 args: [],
 source: "isImmutable\x0a\x09^ false",
 messageSends: [],
-referencedClasses: []
-}),
-globals.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isKindOf:",
-protocol: 'testing',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._isMemberOf_(aClass);
-if(smalltalk.assert($2)){
-$1=true;
-} else {
-$1=_st(self._class())._inheritsFrom_(aClass);
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isKindOf:",{aClass:aClass},globals.Object)})},
-args: ["aClass"],
-source: "isKindOf: aClass\x0a\x09^ (self isMemberOf: aClass)\x0a\x09\x09ifTrue: [ true ]\x0a\x09\x09ifFalse: [ self class inheritsFrom: aClass ]",
-messageSends: ["ifTrue:ifFalse:", "isMemberOf:", "inheritsFrom:", "class"],
 referencedClasses: []
 }),
 globals.Object);
@@ -11654,7 +11654,7 @@ globals.IndexableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "with:do:",
-protocol: 'enumarating',
+protocol: 'enumerating',
 fn: function (anotherCollection,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -11673,7 +11673,7 @@ globals.IndexableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "withIndexDo:",
-protocol: 'enumarating',
+protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -18613,19 +18613,19 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
-function $PackageClean(){return globals.PackageClean||(typeof PackageClean=="undefined"?nil:PackageClean)}
+function $PackageDirty(){return globals.PackageDirty||(typeof PackageDirty=="undefined"?nil:PackageDirty)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 self["@dirty"]=true;
-$1=_st($PackageClean())._new();
+$1=_st($PackageDirty())._new();
 _st($1)._package_(self);
 $2=_st($1)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"beDirty",{},globals.Package)})},
 args: [],
-source: "beDirty\x0a\x09dirty := true.\x0a\x09\x0a\x09SystemAnnouncer current announce: (PackageClean new\x0a\x09\x09package: self;\x0a\x09\x09yourself)",
+source: "beDirty\x0a\x09dirty := true.\x0a\x09\x0a\x09SystemAnnouncer current announce: (PackageDirty new\x0a\x09\x09package: self;\x0a\x09\x09yourself)",
 messageSends: ["announce:", "current", "package:", "new", "yourself"],
-referencedClasses: ["SystemAnnouncer", "PackageClean"]
+referencedClasses: ["SystemAnnouncer", "PackageDirty"]
 }),
 globals.Package);
 
@@ -18777,6 +18777,31 @@ args: [],
 source: "isPackage\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
+}),
+globals.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isTestPackage",
+protocol: 'testing',
+fn: function (){
+var self=this;
+function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._classes())._anySatisfy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._includesBehavior_($TestCase()))._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(each)._isAbstract())._not();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isTestPackage",{},globals.Package)})},
+args: [],
+source: "isTestPackage\x0a\x09^ self classes anySatisfy: [ :each |\x0a\x09\x09(each includesBehavior: TestCase) and: [ \x0a\x09\x09\x09each isAbstract not ] ]",
+messageSends: ["anySatisfy:", "classes", "and:", "includesBehavior:", "not", "isAbstract"],
+referencedClasses: ["TestCase"]
 }),
 globals.Package);
 
@@ -44719,22 +44744,40 @@ selector: "testAddExtensionMethod",
 protocol: 'tests',
 fn: function (){
 var self=this;
-var method;
+var method,dirty;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2;
-$1=self._class();
+var $2,$1,$4,$3,$5,$8,$7,$6,$9,$10;
+$2=self._class();
 $ctx1.sendIdx["class"]=1;
-method=_st($1)._compile_protocol_("doNothing","**not-a-package");
+$1=_st($2)._package();
+$ctx1.sendIdx["package"]=1;
+dirty=_st($1)._isDirty();
+$ctx1.sendIdx["isDirty"]=1;
 $4=self._class();
 $ctx1.sendIdx["class"]=2;
 $3=_st($4)._package();
-$2=_st($3)._isDirty();
-self._deny_($2);
-_st(self._class())._removeCompiledMethod_(method);
-return self}, function($ctx1) {$ctx1.fill(self,"testAddExtensionMethod",{method:method},globals.AnnouncementSubscriptionTest)})},
+$ctx1.sendIdx["package"]=2;
+_st($3)._beClean();
+$5=self._class();
+$ctx1.sendIdx["class"]=3;
+method=_st($5)._compile_protocol_("doNothing","**not-a-package");
+$8=self._class();
+$ctx1.sendIdx["class"]=4;
+$7=_st($8)._package();
+$ctx1.sendIdx["package"]=3;
+$6=_st($7)._isDirty();
+self._deny_($6);
+$9=self._class();
+$ctx1.sendIdx["class"]=5;
+_st($9)._removeCompiledMethod_(method);
+$10=dirty;
+if(smalltalk.assert($10)){
+_st(_st(self._class())._package())._beDirty();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"testAddExtensionMethod",{method:method,dirty:dirty},globals.AnnouncementSubscriptionTest)})},
 args: [],
-source: "testAddExtensionMethod\x0a\x09| method |\x0a\x09method := self class compile: 'doNothing' protocol: '**not-a-package'.\x0a\x09self deny: self class package isDirty.\x0a\x09self class removeCompiledMethod: method.",
-messageSends: ["compile:protocol:", "class", "deny:", "isDirty", "package", "removeCompiledMethod:"],
+source: "testAddExtensionMethod\x0a\x09| method dirty |\x0a\x09dirty := self class package isDirty.\x0a\x09self class package beClean.\x0a\x09method := self class compile: 'doNothing' protocol: '**not-a-package'.\x0a\x09self deny: self class package isDirty.\x0a\x09\x0a\x09self class removeCompiledMethod: method.\x0a\x09dirty ifTrue: [ self class package beDirty ]",
+messageSends: ["isDirty", "package", "class", "beClean", "compile:protocol:", "deny:", "removeCompiledMethod:", "ifTrue:", "beDirty"],
 referencedClasses: []
 }),
 globals.AnnouncementSubscriptionTest);
@@ -57736,6 +57779,27 @@ globals.Initer);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "npmInstallThenDo:",
+protocol: 'action',
+fn: function (aBlock){
+var self=this;
+var child;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+child=_st(self["@childProcess"])._exec_thenDo_("npm install",aBlock);
+$1=_st(child)._stdout();
+$ctx1.sendIdx["stdout"]=1;
+_st($1)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
+return self}, function($ctx1) {$ctx1.fill(self,"npmInstallThenDo:",{aBlock:aBlock,child:child},globals.Initer)})},
+args: ["aBlock"],
+source: "npmInstallThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: 'npm install'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
+messageSends: ["exec:thenDo:", "pipe:options:", "stdout"],
+referencedClasses: []
+}),
+globals.Initer);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "rootDirname",
 protocol: 'private',
 fn: function (){
@@ -57759,22 +57823,37 @@ protocol: 'action',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$receiver;
+var $1,$2,$3,$4,$5,$6,$receiver;
 self._gruntInitThenDo_((function(error){
 return smalltalk.withContext(function($ctx2) {
 if(($receiver = error) == null || $receiver.isNil){
 return self._bowerInstallThenDo_((function(error2){
 return smalltalk.withContext(function($ctx3) {
 if(($receiver = error2) == null || $receiver.isNil){
-error2;
+return self._npmInstallThenDo_((function(error3){
+return smalltalk.withContext(function($ctx4) {
+if(($receiver = error3) == null || $receiver.isNil){
+return _st(process)._exit();
+} else {
+$5=console;
+_st($5)._log_("npm install exec error:");
+$ctx4.sendIdx["log:"]=5;
+$6=_st($5)._log_(error3);
+$6;
+return _st(process)._exit();
+$ctx4.sendIdx["exit"]=3;
+};
+}, function($ctx4) {$ctx4.fillBlock({error3:error3},$ctx3,7)})}));
 } else {
 $3=console;
 _st($3)._log_("bower install exec error:");
 $ctx3.sendIdx["log:"]=3;
 $4=_st($3)._log_(error2);
+$ctx3.sendIdx["log:"]=4;
 $4;
-};
 return _st(process)._exit();
+$ctx3.sendIdx["exit"]=2;
+};
 }, function($ctx3) {$ctx3.fillBlock({error2:error2},$ctx2,4)})}));
 } else {
 $1=console;
@@ -57789,8 +57868,8 @@ $ctx2.sendIdx["exit"]=1;
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"start",{},globals.Initer)})},
 args: [],
-source: "start\x0a\x09self gruntInitThenDo: [ :error |\x0a\x09\x09error ifNotNil: [ console log: 'grunt-init exec error:'; log: error. process exit ]\x0a\x09\x09ifNil: [\x0a\x09\x09\x09self bowerInstallThenDo: [ :error2 |\x0a\x09\x09\x09\x09error2 ifNotNil: [ console log: 'bower install exec error:'; log: error2 ].\x0a\x09\x09\x09\x09process exit ]]]",
-messageSends: ["gruntInitThenDo:", "ifNotNil:ifNil:", "log:", "exit", "bowerInstallThenDo:", "ifNotNil:"],
+source: "start\x0a\x09self gruntInitThenDo: [ :error | error\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'grunt-init exec error:'; log: error.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self bowerInstallThenDo: [ :error2 | error2\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'bower install exec error:'; log: error2.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self npmInstallThenDo: [ :error3 | error3\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'npm install exec error:'; log: error3.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09process exit ]]]]]]",
+messageSends: ["gruntInitThenDo:", "ifNotNil:ifNil:", "log:", "exit", "bowerInstallThenDo:", "npmInstallThenDo:"],
 referencedClasses: []
 }),
 globals.Initer);

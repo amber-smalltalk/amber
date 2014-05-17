@@ -961,13 +961,34 @@ gruntInitThenDo: aBlock
 	process stdin pipe: child stdin options: #{ 'end' -> false }
 !
 
+npmInstallThenDo: aBlock
+	| child |
+	child := childProcess
+		exec: 'npm install'
+		thenDo: aBlock.
+	child stdout pipe: process stdout options: #{ 'end' -> false }
+!
+
 start
-	self gruntInitThenDo: [ :error |
-		error ifNotNil: [ console log: 'grunt-init exec error:'; log: error. process exit ]
-		ifNil: [
-			self bowerInstallThenDo: [ :error2 |
-				error2 ifNotNil: [ console log: 'bower install exec error:'; log: error2 ].
-				process exit ]]]
+	self gruntInitThenDo: [ :error | error
+	ifNotNil: [
+		console log: 'grunt-init exec error:'; log: error.
+		process exit ]
+	ifNil: [
+
+	self bowerInstallThenDo: [ :error2 | error2
+	ifNotNil: [
+		console log: 'bower install exec error:'; log: error2.
+		process exit ]
+	ifNil: [
+
+	self npmInstallThenDo: [ :error3 | error3
+	ifNotNil: [
+		console log: 'npm install exec error:'; log: error3.
+		process exit ]
+	ifNil: [
+
+	process exit ]]]]]]
 ! !
 
 !Initer methodsFor: 'initialization'!
