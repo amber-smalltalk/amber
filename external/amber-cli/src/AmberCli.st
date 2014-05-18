@@ -961,6 +961,14 @@ gruntInitThenDo: aBlock
 	process stdin pipe: child stdin options: #{ 'end' -> false }
 !
 
+gruntThenDo: aBlock
+	| child |
+	child := childProcess
+		exec: (path join: nmPath with: '.bin' with: 'grunt')
+		thenDo: aBlock.
+	child stdout pipe: process stdout options: #{ 'end' -> false }
+!
+
 npmInstallThenDo: aBlock
 	| child |
 	child := childProcess
@@ -988,7 +996,13 @@ start
 		process exit ]
 	ifNil: [
 
-	process exit ]]]]]]
+	self gruntThenDo: [ :error4 | error4
+	ifNotNil: [
+		console log: 'grunt exec error:'; log: error4.
+		process exit ]
+	ifNil: [
+
+	process exit ]]]]]]]]
 ! !
 
 !Initer methodsFor: 'initialization'!
