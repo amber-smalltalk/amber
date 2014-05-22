@@ -1042,7 +1042,7 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 			if(typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
 				return jsProperty.apply(receiver, args);
 			} else if(jsProperty !== undefined) {
-				if(args[0]) {
+				if(args[0] !== undefined) {
 					receiver[jsSelector] = args[0];
 					return nil;
 				} else {

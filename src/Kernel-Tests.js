@@ -6066,6 +6066,42 @@ globals.JSObjectProxyTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testSetPropertyWithFalsyValue",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var jsObject;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+jsObject=self._jsObject();
+$1=_st(jsObject)._a();
+$ctx1.sendIdx["a"]=1;
+self._assert_equals_($1,(1));
+$ctx1.sendIdx["assert:equals:"]=1;
+_st(jsObject)._a_((0));
+$ctx1.sendIdx["a:"]=1;
+$2=_st(jsObject)._a();
+$ctx1.sendIdx["a"]=2;
+self._assert_equals_($2,(0));
+$ctx1.sendIdx["assert:equals:"]=2;
+_st(jsObject)._a_("");
+$ctx1.sendIdx["a:"]=2;
+$3=_st(jsObject)._a();
+$ctx1.sendIdx["a"]=3;
+self._assert_equals_($3,"");
+$ctx1.sendIdx["assert:equals:"]=3;
+_st(jsObject)._a_(false);
+self._assert_equals_(_st(jsObject)._a(),false);
+return self}, function($ctx1) {$ctx1.fill(self,"testSetPropertyWithFalsyValue",{jsObject:jsObject},globals.JSObjectProxyTest)})},
+args: [],
+source: "testSetPropertyWithFalsyValue\x0a\x09| jsObject |\x0a\x09jsObject := self jsObject.\x0a\x09self assert: (jsObject a) equals: 1.\x0a\x0a\x09jsObject a: 0.\x0a\x09self assert: (jsObject a) equals: 0.\x0a\x09jsObject a: ''.\x0a\x09self assert: (jsObject a) equals: ''.\x0a\x09jsObject a: false.\x0a\x09self assert: (jsObject a) equals: false\x0a\x0a\x0a\x09",
+messageSends: ["jsObject", "assert:equals:", "a", "a:"],
+referencedClasses: []
+}),
+globals.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testValue",
 protocol: 'tests',
 fn: function (){

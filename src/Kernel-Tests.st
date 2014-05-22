@@ -1749,6 +1749,19 @@ testPropertyThatReturnsUndefined
 	self assert: object e isNil
 !
 
+testSetPropertyWithFalsyValue
+	| jsObject |
+	jsObject := self jsObject.
+	self assert: (jsObject a) equals: 1.
+
+	jsObject a: 0.
+	self assert: (jsObject a) equals: 0.
+	jsObject a: ''.
+	self assert: (jsObject a) equals: ''.
+	jsObject a: false.
+	self assert: (jsObject a) equals: false
+!
+
 testValue
 	| testObject |
 	testObject := self jsObject.
