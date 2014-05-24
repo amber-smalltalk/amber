@@ -38,7 +38,7 @@
  ==================================================================== */
 
 
-define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (require) {
+define("amber/boot", [ 'require', './browser-compatibility' ], function (require) {
 
 	/* Reconfigurable micro composition system, https://github.com/amber-smalltalk/brikz */
 
@@ -1122,6 +1122,28 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 		};
 	}
 
+    /* Defines asReceiver to be present at load time */
+    /* (logically it belongs more to PrimitiveBrik) */
+    function AsReceiverBrik(brikz, st) {
+
+        var nil = brikz.ensure("root").nil;
+
+        /**
+         * This function is used all over the compiled amber code.
+         * It takes any value (JavaScript or Smalltalk)
+         * and returns a proper Amber Smalltalk receiver.
+         *
+         * null or undefined -> nil,
+         * plain JS object -> wrapped JS object,
+         * otherwise unchanged
+         */
+        this.asReceiver = function (o) {
+            if (o == null) { return nil; }
+            if (o.klass) { return o; }
+            return globals.JSObjectProxy._on_(o);
+        };
+    }
+
 
 	/* Making smalltalk that can load */
 
@@ -1136,6 +1158,7 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 	brikz.stInit = SmalltalkInitBrik;
 	brikz.augments = AugmentsBrik;
 	brikz.amdBrik = AMDBrik;
+	brikz.asReceiverBrik = AsReceiverBrik;
 
 	brikz.rebuild();
 
@@ -1149,5 +1172,5 @@ define("amber_vm/boot", [ 'require', './browser-compatibility' ], function (requ
 		brikz.rebuild();
 	};
 
-	return { vm: api, nil: brikz.root.nil, globals: globals };
+	return { vm: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiverBrik.asReceiver };
 });

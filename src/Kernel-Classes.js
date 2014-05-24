@@ -1,4 +1,5 @@
-define("amber_core/Kernel-Classes", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("amber_core/Kernel-Classes", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Kernel-Classes');
 smalltalk.packages["Kernel-Classes"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -1934,9 +1935,8 @@ function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassMigrated(){return globals.ClassMigrated||(typeof ClassMigrated=="undefined"?nil:ClassMigrated)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8;
+var $1,$2,$3,$4,$5;
 tmp="new*".__comma(className);
-$ctx1.sendIdx[","]=1;
 oldClass=_st(_st($Smalltalk())._globals())._at_(className);
 newClass=self._addSubclassOf_named_instanceVariableNames_package_(aClass,tmp,aCollection,packageName);
 self._basicSwapClassNames_with_(oldClass,newClass);
@@ -1955,26 +1955,22 @@ return _st(exception)._signal();
 self._rawRenameClass_to_(oldClass,tmp);
 $ctx1.sendIdx["rawRenameClass:to:"]=1;
 $2=self._rawRenameClass_to_(newClass,className);
-$3=_st(oldClass)._subclasses();
-$4=(function(each){
+_st(_st(oldClass)._subclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._migrateClass_superclass_(each,newClass);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})});
-$5=_st("Recompiling ".__comma(_st(newClass)._name())).__comma("...");
-$ctx1.sendIdx[","]=2;
-_st($3)._do_displayingProgress_($4,$5);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
 self._basicRemoveClass_(oldClass);
-$6=_st($ClassMigrated())._new();
-_st($6)._theClass_(newClass);
-_st($6)._oldClass_(oldClass);
-$7=_st($6)._yourself();
-_st(_st($SystemAnnouncer())._current())._announce_($7);
-$8=newClass;
-return $8;
+$3=_st($ClassMigrated())._new();
+_st($3)._theClass_(newClass);
+_st($3)._oldClass_(oldClass);
+$4=_st($3)._yourself();
+_st(_st($SystemAnnouncer())._current())._announce_($4);
+$5=newClass;
+return $5;
 }, function($ctx1) {$ctx1.fill(self,"migrateClassNamed:superclass:instanceVariableNames:package:",{className:className,aClass:aClass,aCollection:aCollection,packageName:packageName,oldClass:oldClass,newClass:newClass,tmp:tmp},globals.ClassBuilder)})},
 args: ["className", "aClass", "aCollection", "packageName"],
-source: "migrateClassNamed: className superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass tmp |\x0a\x09\x0a\x09tmp := 'new*', className.\x0a\x09oldClass := Smalltalk globals at: className.\x0a\x09\x0a\x09newClass := self\x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: tmp\x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09self basicSwapClassNames: oldClass with: newClass.\x0a\x0a\x09[ self copyClass: oldClass to: newClass ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :exception |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09basicSwapClassNames: oldClass with: newClass;\x0a\x09\x09\x09\x09basicRemoveClass: newClass.\x0a\x09\x09\x09exception signal ].\x0a\x0a\x09self\x0a\x09\x09rawRenameClass: oldClass to: tmp;\x0a\x09\x09rawRenameClass: newClass to: className.\x0a\x0a\x09oldClass subclasses \x0a\x09\x09do: [ :each | self migrateClass: each superclass: newClass ]\x0a\x09\x09displayingProgress: 'Recompiling ', newClass name, '...'.\x0a\x0a\x09self basicRemoveClass: oldClass.\x0a\x09\x0a\x09SystemAnnouncer current announce: (ClassMigrated new\x0a\x09\x09theClass: newClass;\x0a\x09\x09oldClass: oldClass;\x0a\x09\x09yourself).\x0a\x09\x0a\x09^ newClass",
-messageSends: [",", "at:", "globals", "addSubclassOf:named:instanceVariableNames:package:", "basicSwapClassNames:with:", "on:do:", "copyClass:to:", "basicRemoveClass:", "signal", "rawRenameClass:to:", "do:displayingProgress:", "subclasses", "migrateClass:superclass:", "name", "announce:", "current", "theClass:", "new", "oldClass:", "yourself"],
+source: "migrateClassNamed: className superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass tmp |\x0a\x09\x0a\x09tmp := 'new*', className.\x0a\x09oldClass := Smalltalk globals at: className.\x0a\x09\x0a\x09newClass := self\x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: tmp\x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09self basicSwapClassNames: oldClass with: newClass.\x0a\x0a\x09[ self copyClass: oldClass to: newClass ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :exception |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09basicSwapClassNames: oldClass with: newClass;\x0a\x09\x09\x09\x09basicRemoveClass: newClass.\x0a\x09\x09\x09exception signal ].\x0a\x0a\x09self\x0a\x09\x09rawRenameClass: oldClass to: tmp;\x0a\x09\x09rawRenameClass: newClass to: className.\x0a\x0a\x09oldClass subclasses \x0a\x09\x09do: [ :each | self migrateClass: each superclass: newClass ].\x0a\x0a\x09self basicRemoveClass: oldClass.\x0a\x09\x0a\x09SystemAnnouncer current announce: (ClassMigrated new\x0a\x09\x09theClass: newClass;\x0a\x09\x09oldClass: oldClass;\x0a\x09\x09yourself).\x0a\x09\x0a\x09^ newClass",
+messageSends: [",", "at:", "globals", "addSubclassOf:named:instanceVariableNames:package:", "basicSwapClassNames:with:", "on:do:", "copyClass:to:", "basicRemoveClass:", "signal", "rawRenameClass:to:", "do:", "subclasses", "migrateClass:superclass:", "announce:", "current", "theClass:", "new", "oldClass:", "yourself"],
 referencedClasses: ["Smalltalk", "Error", "SystemAnnouncer", "ClassMigrated"]
 }),
 globals.ClassBuilder);

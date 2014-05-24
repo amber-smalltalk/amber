@@ -1,7 +1,7 @@
 Amber [![Travis CI Status](https://secure.travis-ci.org/amber-smalltalk/amber.png)](https://travis-ci.org/#!/amber-smalltalk/amber)
 =====
 
-By Nicolas Petton <petton.nicolas@gmail.com> and [Amber contributors](https://github.com/NicolasPetton/amber/contributors)
+By Nicolas Petton <petton.nicolas@gmail.com> and [Amber contributors](https://github.com/amber-smalltalk/amber/contributors)
 
 Amber is an implementation of the Smalltalk language that runs on top of the JavaScript runtime. It is designed to make client-side development faster and easier.
 
@@ -23,16 +23,13 @@ Getting Amber
 
 Amber is shipped as a [npm](http://npmjs.org) package for its CLI tools and as a [bower](https://github.com/bower/bower) package for the client-side.
 
-    # Install the CLI tool `amber`
-    npm install -g amber
+    # Install the CLI tool `amber-cli`
+    npm install -g amber-cli
     
-    # Initialize your project as bower package
+    # Initialize your project (directory must be empty)
     cd /path/to/myproject
-    bower init
+    amber init
 
-    # Load amber via bower in your project
-    bower install amber --save
-    
     # Serve amber on localhost:4000
     amber serve
 

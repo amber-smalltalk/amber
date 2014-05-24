@@ -1,4 +1,5 @@
-define("amber_core/Compiler-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Collections"], function(smalltalk,nil,_st, globals){
+define("amber_core/Compiler-Core", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Collections"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Compiler-Core');
 smalltalk.packages["Compiler-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -459,7 +460,7 @@ var result,method;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 method=self._eval_(self._compileExpression_on_(aString,anObject));
-_st(method)._protocol_("xxxDoIt");
+_st(method)._protocol_("**xxxDoIt");
 $1=_st(anObject)._class();
 $ctx1.sendIdx["class"]=1;
 _st($1)._addCompiledMethod_(method);
@@ -469,7 +470,7 @@ $2=result;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"evaluateExpression:on:",{aString:aString,anObject:anObject,result:result,method:method},globals.Compiler)})},
 args: ["aString", "anObject"],
-source: "evaluateExpression: aString on: anObject\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object\x22\x0a\x09| result method |\x0a\x09method := self eval: (self compileExpression: aString on: anObject).\x0a\x09method protocol: 'xxxDoIt'.\x0a\x09anObject class addCompiledMethod: method.\x0a\x09result := anObject xxxDoIt.\x0a\x09anObject class removeCompiledMethod: method.\x0a\x09^ result",
+source: "evaluateExpression: aString on: anObject\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object\x22\x0a\x09| result method |\x0a\x09method := self eval: (self compileExpression: aString on: anObject).\x0a\x09method protocol: '**xxxDoIt'.\x0a\x09anObject class addCompiledMethod: method.\x0a\x09result := anObject xxxDoIt.\x0a\x09anObject class removeCompiledMethod: method.\x0a\x09^ result",
 messageSends: ["eval:", "compileExpression:on:", "protocol:", "addCompiledMethod:", "class", "xxxDoIt", "removeCompiledMethod:"],
 referencedClasses: []
 }),
@@ -687,31 +688,6 @@ globals.Compiler.klass);
 
 smalltalk.addClass('DoIt', globals.Object, [], 'Compiler-Core');
 globals.DoIt.comment="`DoIt` is the class used to compile and evaluate expressions. See `Compiler >> evaluateExpression:`.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "xxxDoIt",
-protocol: 'xxxDoIt',
-fn: function (){
-var self=this;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st($Smalltalk())._packages())._do_((function(each){
-return smalltalk.withContext(function($ctx3) {
-return _st(each)._commit();
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._value();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},globals.DoIt)})},
-args: [],
-source: "xxxDoIt ^ [ Smalltalk packages do: [ :each | each commit ] ] value",
-messageSends: ["value", "do:", "packages", "commit"],
-referencedClasses: ["Smalltalk"]
-}),
-globals.DoIt);
-
 
 
 smalltalk.addClass('Evaluator', globals.InterfacingObject, [], 'Compiler-Core');

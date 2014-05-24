@@ -1,8 +1,53 @@
-define("amber_core/Kernel-Tests", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/SUnit", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st, globals){
+define("amber_core/Kernel-Tests", ["amber/boot", "amber_core/SUnit", "amber_core/Kernel-Objects"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Kernel-Tests');
 smalltalk.packages["Kernel-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('AnnouncementSubscriptionTest', globals.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testAddExtensionMethod",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var method,dirty;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$4,$3,$5,$8,$7,$6,$9,$10;
+$2=self._class();
+$ctx1.sendIdx["class"]=1;
+$1=_st($2)._package();
+$ctx1.sendIdx["package"]=1;
+dirty=_st($1)._isDirty();
+$ctx1.sendIdx["isDirty"]=1;
+$4=self._class();
+$ctx1.sendIdx["class"]=2;
+$3=_st($4)._package();
+$ctx1.sendIdx["package"]=2;
+_st($3)._beClean();
+$5=self._class();
+$ctx1.sendIdx["class"]=3;
+method=_st($5)._compile_protocol_("doNothing","**not-a-package");
+$8=self._class();
+$ctx1.sendIdx["class"]=4;
+$7=_st($8)._package();
+$ctx1.sendIdx["package"]=3;
+$6=_st($7)._isDirty();
+self._deny_($6);
+$9=self._class();
+$ctx1.sendIdx["class"]=5;
+_st($9)._removeCompiledMethod_(method);
+$10=dirty;
+if(smalltalk.assert($10)){
+_st(_st(self._class())._package())._beDirty();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"testAddExtensionMethod",{method:method,dirty:dirty},globals.AnnouncementSubscriptionTest)})},
+args: [],
+source: "testAddExtensionMethod\x0a\x09| method dirty |\x0a\x09dirty := self class package isDirty.\x0a\x09self class package beClean.\x0a\x09method := self class compile: 'doNothing' protocol: '**not-a-package'.\x0a\x09self deny: self class package isDirty.\x0a\x09\x0a\x09self class removeCompiledMethod: method.\x0a\x09dirty ifTrue: [ self class package beDirty ]",
+messageSends: ["isDirty", "package", "class", "beClean", "compile:protocol:", "deny:", "removeCompiledMethod:", "ifTrue:", "beDirty"],
+referencedClasses: []
+}),
+globals.AnnouncementSubscriptionTest);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testHandlesAnnouncement",
@@ -5196,6 +5241,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"testTrim",{},globals.StringTest)
 args: [],
 source: "testTrim\x0a\x09self assert: '       jackie' trimLeft equals: 'jackie'.\x0a\x09self assert: 'jackie               ' trimRight equals: 'jackie'.",
 messageSends: ["assert:equals:", "trimLeft", "trimRight"],
+referencedClasses: []
+}),
+globals.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testValue",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_("asString"._value_((1)),"1");
+$ctx1.sendIdx["assert:equals:"]=1;
+self._assert_equals_([(1), (2), (3)]._collect_("asString"),["1", "2", "3"]);
+return self}, function($ctx1) {$ctx1.fill(self,"testValue",{},globals.StringTest)})},
+args: [],
+source: "testValue\x0a\x0a\x09self assert: (#asString value: 1) equals: '1'.\x0a\x0a\x09\x22Which (since String and BlockClosure are now polymorphic) enables the nice idiom...\x22\x0a\x09self assert: (#(1 2 3) collect: #asString) equals: #('1' '2' '3')",
+messageSends: ["assert:equals:", "value:", "collect:"],
 referencedClasses: []
 }),
 globals.StringTest);

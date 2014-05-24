@@ -559,7 +559,7 @@ beClean
 beDirty
 	dirty := true.
 	
-	SystemAnnouncer current announce: (PackageClean new
+	SystemAnnouncer current announce: (PackageDirty new
 		package: self;
 		yourself)
 !
@@ -689,6 +689,12 @@ isDirty
 
 isPackage
 	^ true
+!
+
+isTestPackage
+	^ self classes anySatisfy: [ :each |
+		(each includesBehavior: TestCase) and: [ 
+			each isAbstract not ] ]
 ! !
 
 Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
@@ -772,8 +778,7 @@ observeSystem
 !PackageStateObserver methodsFor: 'reactions'!
 
 onClassModification: anAnnouncement
-	anAnnouncement theClass ifNotNil: [ :theClass |
-		theClass package beDirty ]
+	anAnnouncement theClass ifNotNil: [ :theClass | theClass package beDirty ]
 !
 
 onMethodModification: anAnnouncement
@@ -785,7 +790,7 @@ onPackageAdded: anAnnouncement
 !
 
 onProtocolModification: anAnnouncement
-	anAnnouncement theClass package beDirty
+	anAnnouncement package ifNotNil: [ :package | package beDirty ]
 ! !
 
 PackageStateObserver class instanceVariableNames: 'current'!
@@ -1181,7 +1186,7 @@ settings
 version
 	"Answer the version string of Amber"
 	
-	^ '0.12.4'
+	^ '0.13.0-pre'
 !
 
 vm

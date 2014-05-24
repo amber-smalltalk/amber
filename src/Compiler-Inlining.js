@@ -1,4 +1,5 @@
-define("amber_core/Compiler-Inlining", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_vm/globals", "amber_core/Compiler-IR", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function(smalltalk,nil,_st, globals){
+define("amber_core/Compiler-Inlining", ["amber/boot", "amber_core/Compiler-IR", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){
+var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Compiler-Inlining');
 smalltalk.packages["Compiler-Inlining"].transport = {"type":"amd","amdNamespace":"amber_core"};
 

@@ -1,5 +1,6 @@
 require.config({
 	paths: {
+        'amber_lib/bootstrap': require.toUrl('amber_lib') + '/bootstrap/bootstrap',
 		'jquery-ui': require.toUrl('amber_lib/jquery-ui/ui/minified/jquery-ui.min')
 	},
 	shim: {
@@ -24,5 +25,5 @@ define([
 	'./resources/all-inner',
     'css!./resources/helios',
 	'css!./resources/helios-niflheim',
-    'css!amber_css/niflheim'
+    'css!./resources/niflheim'
 ], function (smalltalk) { return smalltalk; });
