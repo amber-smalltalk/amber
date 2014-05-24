@@ -211,8 +211,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		function createHandler(selector) {
 			return function() {
-				var args = Array.prototype.slice.call(arguments);
-				return brikz.messageSend.messageNotUnderstood(this, selector, args);
+				return brikz.messageSend.messageNotUnderstood(this, selector, arguments);
 			};
 		}
 
