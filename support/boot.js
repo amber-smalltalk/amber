@@ -915,7 +915,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			return result;
 		}
 
-		/* Wrap a JavaScript exception in a Smalltalk Exception. 
+		/* Wrap a JavaScript exception in a Smalltalk Exception.
 
 		 In case of a RangeError, stub the stack after 100 contexts to
 		 avoid another RangeError later when the stack is manipulated. */
@@ -1038,17 +1038,17 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		function callJavaScriptMethod(receiver, selector, args) {
 			var jsSelector = selector._asJavaScriptSelector();
-			var jsProperty = receiver[jsSelector];
-			if(typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
-				return jsProperty.apply(receiver, args);
-			} else if(jsProperty !== undefined) {
-				if(args[0] !== undefined) {
-					receiver[jsSelector] = args[0];
-					return nil;
-				} else {
-					return jsProperty;
-				}
-			}
+            if (jsSelector in receiver) {
+                var jsProperty = receiver[jsSelector];
+                if (typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
+                    return jsProperty.apply(receiver, args);
+                } else if (args.length > 0) {
+                    receiver[jsSelector] = args[0];
+                    return nil;
+                } else {
+                    return jsProperty;
+                }
+            }
 
 			return st.send(globals.JSObjectProxy._on_(receiver), selector, args);
 		}
