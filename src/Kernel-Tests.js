@@ -5784,15 +5784,47 @@ globals.ConsoleTranscriptTest);
 smalltalk.addClass('JSObjectProxyTest', globals.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "jsNull",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return null;
+return self}, function($ctx1) {$ctx1.fill(self,"jsNull",{},globals.JSObjectProxyTest)})},
+args: [],
+source: "jsNull\x0a\x09<return null>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "jsObject",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0};
+return {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0};
 return self}, function($ctx1) {$ctx1.fill(self,"jsObject",{},globals.JSObjectProxyTest)})},
 args: [],
-source: "jsObject\x0a\x09<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0}>",
+source: "jsObject\x0a\x09<return {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0}>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "jsUndefined",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return;
+return self}, function($ctx1) {$ctx1.fill(self,"jsUndefined",{},globals.JSObjectProxyTest)})},
+args: [],
+source: "jsUndefined\x0a\x09<return>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -6135,30 +6167,42 @@ fn: function (){
 var self=this;
 var jsObject;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$4,$5;
 jsObject=self._jsObject();
 $1=_st(jsObject)._a();
 $ctx1.sendIdx["a"]=1;
 self._assert_equals_($1,(1));
 $ctx1.sendIdx["assert:equals:"]=1;
-_st(jsObject)._a_((0));
+_st(jsObject)._a_(self._jsNull());
 $ctx1.sendIdx["a:"]=1;
 $2=_st(jsObject)._a();
 $ctx1.sendIdx["a"]=2;
-self._assert_equals_($2,(0));
+self._assert_equals_($2,nil);
 $ctx1.sendIdx["assert:equals:"]=2;
-_st(jsObject)._a_("");
+_st(jsObject)._a_((0));
 $ctx1.sendIdx["a:"]=2;
 $3=_st(jsObject)._a();
 $ctx1.sendIdx["a"]=3;
-self._assert_equals_($3,"");
+self._assert_equals_($3,(0));
 $ctx1.sendIdx["assert:equals:"]=3;
+_st(jsObject)._a_(self._jsUndefined());
+$ctx1.sendIdx["a:"]=3;
+$4=_st(jsObject)._a();
+$ctx1.sendIdx["a"]=4;
+self._assert_equals_($4,nil);
+$ctx1.sendIdx["assert:equals:"]=4;
+_st(jsObject)._a_("");
+$ctx1.sendIdx["a:"]=4;
+$5=_st(jsObject)._a();
+$ctx1.sendIdx["a"]=5;
+self._assert_equals_($5,"");
+$ctx1.sendIdx["assert:equals:"]=5;
 _st(jsObject)._a_(false);
 self._assert_equals_(_st(jsObject)._a(),false);
 return self}, function($ctx1) {$ctx1.fill(self,"testSetPropertyWithFalsyValue",{jsObject:jsObject},globals.JSObjectProxyTest)})},
 args: [],
-source: "testSetPropertyWithFalsyValue\x0a\x09| jsObject |\x0a\x09jsObject := self jsObject.\x0a\x09self assert: (jsObject a) equals: 1.\x0a\x0a\x09jsObject a: 0.\x0a\x09self assert: (jsObject a) equals: 0.\x0a\x09jsObject a: ''.\x0a\x09self assert: (jsObject a) equals: ''.\x0a\x09jsObject a: false.\x0a\x09self assert: (jsObject a) equals: false\x0a\x0a\x0a\x09",
-messageSends: ["jsObject", "assert:equals:", "a", "a:"],
+source: "testSetPropertyWithFalsyValue\x0a\x09| jsObject |\x0a\x09jsObject := self jsObject.\x0a\x09self assert: (jsObject a) equals: 1.\x0a\x0a\x09jsObject a: self jsNull.\x0a\x09self assert: (jsObject a) equals: nil.\x0a\x09jsObject a: 0.\x0a\x09self assert: (jsObject a) equals: 0.\x0a\x09jsObject a: self jsUndefined.\x0a\x09self assert: (jsObject a) equals: nil.\x0a\x09jsObject a: ''.\x0a\x09self assert: (jsObject a) equals: ''.\x0a\x09jsObject a: false.\x0a\x09self assert: (jsObject a) equals: false\x0a\x0a\x0a\x09",
+messageSends: ["jsObject", "assert:equals:", "a", "a:", "jsNull", "jsUndefined"],
 referencedClasses: []
 }),
 globals.JSObjectProxyTest);

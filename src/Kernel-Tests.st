@@ -1680,8 +1680,16 @@ TestCase subclass: #JSObjectProxyTest
 
 !JSObjectProxyTest methodsFor: 'accessing'!
 
+jsNull
+	<return null>
+!
+
 jsObject
-	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0}>
+	<return {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0}>
+!
+
+jsUndefined
+	<return>
 ! !
 
 !JSObjectProxyTest methodsFor: 'tests'!
@@ -1773,8 +1781,12 @@ testSetPropertyWithFalsyValue
 	jsObject := self jsObject.
 	self assert: (jsObject a) equals: 1.
 
+	jsObject a: self jsNull.
+	self assert: (jsObject a) equals: nil.
 	jsObject a: 0.
 	self assert: (jsObject a) equals: 0.
+	jsObject a: self jsUndefined.
+	self assert: (jsObject a) equals: nil.
 	jsObject a: ''.
 	self assert: (jsObject a) equals: ''.
 	jsObject a: false.
