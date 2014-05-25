@@ -7,7 +7,11 @@ define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
     // API
 
     exports.popupHelios = function () {
-        window.open(require.toUrl('helios/index.html'), "Helios", "menubar=no, width=1000, height=600");
+        require(['helios/index'], function (helios) {
+            helios.popup();
+        }, function (err) {
+            window.alert("Error loading helios.\nIf not present, you can install it with 'bower install helios --save-dev'.\nThe error follows:\n" + err);
+        });
     };
     Object.defineProperty(exports, "vm", {
         value: vm,
