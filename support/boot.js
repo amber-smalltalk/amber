@@ -1018,7 +1018,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			return receiver._doesNotUnderstand_(
 				globals.Message._new()
 					._selector_(st.convertSelector(selector))
-					._arguments_(args)
+					._arguments_([].slice.call(args))
 			);
 		}
 
