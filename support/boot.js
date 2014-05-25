@@ -442,11 +442,9 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 A Package is lazily created if it does not exist with given name. */
 
 		st.addClass = function(className, superclass, iVarNames, pkgName) {
-			if (superclass == nil) { superclass = null; }
-
 			// While subclassing nil is allowed, it might be an error, so
 			// warn about it.
-			if (superclass === null) {
+			if (!superclass || superclass == nil) {
 				console.warn('Compiling ' + className + ' as a subclass of `nil`. A dependency might be missing.');
 			}
 			rawAddClass(pkgName, className, superclass, iVarNames, false, null);
@@ -459,6 +457,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				throw new Error("Missing package "+pkgName);
 			}
 
+			if (!superclass || superclass == nil) { superclass = null; }
 			if(globals[className] && globals[className].superclass == superclass) {
 				//            globals[className].superclass = superclass;
 				globals[className].iVarNames = iVarNames || [];
