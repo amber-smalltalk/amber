@@ -129,7 +129,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		this.__init__ = function () {
 			st.addPackage("Kernel-Objects");
-			st.addPackage("Kernel-Infrastructure");
 			st.wrapClassName("ProtoObject", "Kernel-Objects", SmalltalkProtoObject, undefined, false);
 			st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, globals.ProtoObject, false);
 			st.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, globals.Object, false);
@@ -154,6 +153,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
 		this.__init__ = function () {
+			st.addPackage("Kernel-Infrastructure");
 			st.wrapClassName("Organizer", "Kernel-Infrastructure", SmalltalkOrganizer, globals.Object, false);
 			st.wrapClassName("PackageOrganizer", "Kernel-Infrastructure", SmalltalkPackageOrganizer, globals.Organizer, false);
 			st.wrapClassName("ClassOrganizer", "Kernel-Infrastructure", SmalltalkClassOrganizer, globals.Organizer, false);
@@ -341,6 +341,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			globals.ProtoObject.klass.superclass = rootAsClass.klass = globals.Class;
 			addSubclass(globals.ProtoObject.klass);
 
+			st.addPackage("Kernel-Infrastructure");
 			st.wrapClassName("Package", "Kernel-Infrastructure", SmalltalkPackage, globals.Object, false);
 		};
 
