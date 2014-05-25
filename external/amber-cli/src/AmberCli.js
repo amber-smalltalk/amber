@@ -1425,6 +1425,25 @@ globals.Initer);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "finishMessage",
+protocol: 'action',
+fn: function (){
+var self=this;
+function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+_st(console)._log_([" ", "The project should now be set up.", " ", " ", "To manage project from cli (run tests, recompile),", "the `grunt` command-line tool needs to be installed.", "If not present, it can be installed with:", "  (sudo) npm install -g grunt-cli", " ", "To manage project dependencies,", "the `bower` command-line tool needs to be installed.", "If not present, it can be installed with:", "  (sudo) npm install -g bower", " "]._join_(_st($String())._lf()));
+_st((function(){
+}))._valueWithTimeout_((600));
+return self}, function($ctx1) {$ctx1.fill(self,"finishMessage",{},globals.Initer)})},
+args: [],
+source: "finishMessage\x0a\x09console log: (#(\x0a\x09\x09' '\x0a\x09\x09'The project should now be set up.'\x0a\x09\x09' '\x0a\x09\x09' '\x0a\x09\x09'To manage project from cli (run tests, recompile),'\x0a\x09\x09'the `grunt` command-line tool needs to be installed.'\x0a\x09\x09'If not present, it can be installed with:'\x0a\x09\x09'  (sudo) npm install -g grunt-cli'\x0a\x09\x09' '\x0a\x09\x09'To manage project dependencies,'\x0a\x09\x09'the `bower` command-line tool needs to be installed.'\x0a\x09\x09'If not present, it can be installed with:'\x0a\x09\x09'  (sudo) npm install -g bower'\x0a\x09\x09' '\x0a\x09) join: String lf).\x0a\x09[] valueWithTimeout: 600",
+messageSends: ["log:", "join:", "lf", "valueWithTimeout:"],
+referencedClasses: ["String"]
+}),
+globals.Initer);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "gruntInitThenDo:",
 protocol: 'action',
 fn: function (aBlock){
@@ -1453,6 +1472,27 @@ return self}, function($ctx1) {$ctx1.fill(self,"gruntInitThenDo:",{aBlock:aBlock
 args: ["aBlock"],
 source: "gruntInitThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: (path join: nmPath with: '.bin' with: 'grunt-init'), ' ', (((path join: nmPath with: 'grunt-init-amber') replace: '\x5c\x5c' with: '\x5c\x5c') replace: ':' with: '\x5c:')\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }.\x0a\x09process stdin resume.\x0a\x09process stdin pipe: child stdin options: #{ 'end' -> false }",
 messageSends: ["exec:thenDo:", ",", "join:with:with:", "replace:with:", "join:with:", "pipe:options:", "stdout", "resume", "stdin"],
+referencedClasses: []
+}),
+globals.Initer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "gruntThenDo:",
+protocol: 'action',
+fn: function (aBlock){
+var self=this;
+var child;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+child=_st(self["@childProcess"])._exec_thenDo_(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt"),aBlock);
+$1=_st(child)._stdout();
+$ctx1.sendIdx["stdout"]=1;
+_st($1)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
+return self}, function($ctx1) {$ctx1.fill(self,"gruntThenDo:",{aBlock:aBlock,child:child},globals.Initer)})},
+args: ["aBlock"],
+source: "gruntThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: (path join: nmPath with: '.bin' with: 'grunt')\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
+messageSends: ["exec:thenDo:", "join:with:with:", "pipe:options:", "stdout"],
 referencedClasses: []
 }),
 globals.Initer);
@@ -1524,7 +1564,7 @@ protocol: 'action',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$receiver;
+var $1,$2,$3,$4,$5,$6,$7,$8,$receiver;
 self._gruntInitThenDo_((function(error){
 return smalltalk.withContext(function($ctx2) {
 if(($receiver = error) == null || $receiver.isNil){
@@ -1534,12 +1574,27 @@ if(($receiver = error2) == null || $receiver.isNil){
 return self._npmInstallThenDo_((function(error3){
 return smalltalk.withContext(function($ctx4) {
 if(($receiver = error3) == null || $receiver.isNil){
+return self._gruntThenDo_((function(error4){
+return smalltalk.withContext(function($ctx5) {
+if(($receiver = error4) == null || $receiver.isNil){
+self._finishMessage();
 return _st(process)._exit();
+} else {
+$7=console;
+_st($7)._log_("grunt exec error:");
+$ctx5.sendIdx["log:"]=7;
+$8=_st($7)._log_(error4);
+$8;
+return _st(process)._exit();
+$ctx5.sendIdx["exit"]=4;
+};
+}, function($ctx5) {$ctx5.fillBlock({error4:error4},$ctx4,10)})}));
 } else {
 $5=console;
 _st($5)._log_("npm install exec error:");
 $ctx4.sendIdx["log:"]=5;
 $6=_st($5)._log_(error3);
+$ctx4.sendIdx["log:"]=6;
 $6;
 return _st(process)._exit();
 $ctx4.sendIdx["exit"]=3;
@@ -1569,8 +1624,8 @@ $ctx2.sendIdx["exit"]=1;
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"start",{},globals.Initer)})},
 args: [],
-source: "start\x0a\x09self gruntInitThenDo: [ :error | error\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'grunt-init exec error:'; log: error.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self bowerInstallThenDo: [ :error2 | error2\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'bower install exec error:'; log: error2.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self npmInstallThenDo: [ :error3 | error3\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'npm install exec error:'; log: error3.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09process exit ]]]]]]",
-messageSends: ["gruntInitThenDo:", "ifNotNil:ifNil:", "log:", "exit", "bowerInstallThenDo:", "npmInstallThenDo:"],
+source: "start\x0a\x09self gruntInitThenDo: [ :error | error\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'grunt-init exec error:'; log: error.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self bowerInstallThenDo: [ :error2 | error2\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'bower install exec error:'; log: error2.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self npmInstallThenDo: [ :error3 | error3\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'npm install exec error:'; log: error3.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self gruntThenDo: [ :error4 | error4\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'grunt exec error:'; log: error4.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self finishMessage.\x0a\x09process exit ]]]]]]]]",
+messageSends: ["gruntInitThenDo:", "ifNotNil:ifNil:", "log:", "exit", "bowerInstallThenDo:", "npmInstallThenDo:", "gruntThenDo:", "finishMessage"],
 referencedClasses: []
 }),
 globals.Initer);
