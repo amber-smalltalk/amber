@@ -313,7 +313,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		var org = brikz.ensure("organize");
 		var root = brikz.ensure("root");
-        brikz.ensure("classInit");
+		brikz.ensure("classInit");
 		var nil = root.nil;
 		var rootAsClass = root.rootAsClass;
 		var SmalltalkObject = root.Object;
@@ -1038,17 +1038,17 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		function callJavaScriptMethod(receiver, selector, args) {
 			var jsSelector = selector._asJavaScriptSelector();
-            if (jsSelector in receiver) {
-                var jsProperty = receiver[jsSelector];
-                if (typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
-                    return jsProperty.apply(receiver, args);
-                } else if (args.length > 0) {
-                    receiver[jsSelector] = args[0];
-                    return nil;
-                } else {
-                    return jsProperty;
-                }
-            }
+			if (jsSelector in receiver) {
+				var jsProperty = receiver[jsSelector];
+				if (typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
+					return jsProperty.apply(receiver, args);
+				} else if (args.length > 0) {
+					receiver[jsSelector] = args[0];
+					return nil;
+				} else {
+					return jsProperty;
+				}
+			}
 
 			return st.send(globals.JSObjectProxy._on_(receiver), selector, args);
 		}
@@ -1122,27 +1122,27 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		};
 	}
 
-    /* Defines asReceiver to be present at load time */
-    /* (logically it belongs more to PrimitiveBrik) */
-    function AsReceiverBrik(brikz, st) {
+	/* Defines asReceiver to be present at load time */
+	/* (logically it belongs more to PrimitiveBrik) */
+	function AsReceiverBrik(brikz, st) {
 
-        var nil = brikz.ensure("root").nil;
+		var nil = brikz.ensure("root").nil;
 
-        /**
-         * This function is used all over the compiled amber code.
-         * It takes any value (JavaScript or Smalltalk)
-         * and returns a proper Amber Smalltalk receiver.
-         *
-         * null or undefined -> nil,
-         * plain JS object -> wrapped JS object,
-         * otherwise unchanged
-         */
-        this.asReceiver = function (o) {
-            if (o == null) { return nil; }
-            if (o.klass) { return o; }
-            return globals.JSObjectProxy._on_(o);
-        };
-    }
+		/**
+		 * This function is used all over the compiled amber code.
+		 * It takes any value (JavaScript or Smalltalk)
+		 * and returns a proper Amber Smalltalk receiver.
+		 *
+		 * null or undefined -> nil,
+		 * plain JS object -> wrapped JS object,
+		 * otherwise unchanged
+		 */
+		this.asReceiver = function (o) {
+			if (o == null) { return nil; }
+			if (o.klass) { return o; }
+			return globals.JSObjectProxy._on_(o);
+		};
+	}
 
 
 	/* Making smalltalk that can load */
