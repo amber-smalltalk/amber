@@ -403,6 +403,13 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			return 'Smalltalk ' + this.className;
 		};
 
+		function wireKlass(klass) {
+			Object.defineProperty(klass.fn.prototype, "klass", {
+				value: klass,
+				enumerable: false, configurable: true, writable: true
+			});
+		}
+
 		function setupClass(klass, spec) {
 			spec = spec || {};
 			klass.iVarNames = spec.iVarNames || [];
@@ -413,10 +420,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				value: Object.create(null),
 				enumerable: false, configurable: true, writable: true
 			});
-			Object.defineProperty(klass.fn.prototype, "klass", {
-				value: klass,
-				enumerable: false, configurable: true, writable: true
-			});
+			wireKlass(klass);
 		}
 
 		/* Add a package to the smalltalk.packages object, creating a new one if needed.
@@ -525,10 +529,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			klass.fn = constructor;
 
 			// The fn property changed. We need to add back the klass property to the prototype
-			Object.defineProperty(klass.fn.prototype, "klass", {
-				value: klass,
-				enumerable: false, configurable: true, writable: true
-			});
+			wireKlass(klass);
 
 			st.initClass(klass);
 		};
