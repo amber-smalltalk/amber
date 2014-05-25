@@ -79,7 +79,7 @@ require = function (require) {
             'amber': amber_home + '/support',
             'amber_vm': amber_home + '/support/deprecated-vm-files',
             'amber_vm/_st': amber_home + '/support/deprecated-vm-files/as-receiver',
-            'amber_css': amber_home + '/css',
+            'amber_css': amber_home + '/support/resources', // deprecated
             'amber_lib': library_home,
             'amber_core': amber_home + '/src',
             'helios': amber_home + '/support/helios/src',

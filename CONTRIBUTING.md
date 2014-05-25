@@ -64,7 +64,8 @@ Setup your Amber clone
 3. Run ```npm install``` to install dependencies listed in package.json (See [here](https://www.npmjs.org/doc/cli/npm-install.html for more info) for more info)
 4. Run ```bower install``` to install dependencies listed in bower.json (See [here](http://bower.io/) for more info)
   - requires bower to be installed via ```npm install -g bower```
-5. Run ```${Amber_DIR}/bin/amber serve```
+5. Install the cli tool: ```npm install -g amber-cli```.
+6. Run ```amber serve```
 
 Now you should be able to commit changes to your computer.
 

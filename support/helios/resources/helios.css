@@ -20,7 +20,7 @@ body.navigation .CodeMirror pre {
 }
 body[id="helios"] {
   font-size: 11px;
-  font-family: "Lucida Grande", "Segoe UI", helvetica, arial, sans-serif;
+  font-family: "Bitstream Vera Sans", "Lucida Grande", "Segoe UI", helvetica, arial, sans-serif;
   background: #eeeeee url(squared_metal.png) repeat;
 }
 body[id="helios"] a {

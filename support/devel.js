@@ -18,5 +18,5 @@ define([
 	'./lang',
 	'./codemirror',
 	'./devel-inner',
-	'css!amber_css/amber'
+	'css!amber/resources/amber'
 ], function (smalltalk) { return smalltalk; });
