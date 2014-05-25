@@ -241,9 +241,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		st.initClass = function(klass) {
 			if(klass.wrapped) {
 				copySuperclass(klass);
-			}
-
-			if(klass.wrapped) {
 				dnu.installHandlers(klass);
 			}
 		};
