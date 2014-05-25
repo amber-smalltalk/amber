@@ -773,13 +773,10 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		/* Converts a JavaScript object to valid Smalltalk Object */
 		st.readJSObject = function(js) {
-			var object = js;
-			var readObject = (js.constructor === Object);
-			var readArray = (js.constructor === Array);
+			var readObject = js.constructor === Object;
+			var readArray = js.constructor === Array;
+			var object = readObject ? globals.Dictionary._new() : readArray ? [] : js;
 
-			if(readObject) {
-				object = globals.Dictionary._new();
-			}
 			for(var i in js) {
 				if(readObject) {
 					object._at_put_(i, st.readJSObject(js[i]));
