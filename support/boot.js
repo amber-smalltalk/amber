@@ -449,7 +449,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			// While subclassing nil is allowed, it might be an error, so
 			// warn about it.
 			if (!superclass || superclass == nil) {
-				console.warn('Compiling ' + className + ' as a subclass of `nil`. A dependency might be missing.');
+				console.warn('Creating ' + className + ' as a subclass of `nil`. A dependency might be missing.');
 			}
 			rawAddClass(pkgName, className, superclass, iVarNames, false, null);
 		};
