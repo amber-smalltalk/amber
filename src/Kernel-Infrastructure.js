@@ -1671,27 +1671,6 @@ globals.Package);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "isTestPackage",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._classes())._anySatisfy_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each)._isTestClass();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isTestPackage",{},globals.Package)})},
-args: [],
-source: "isTestPackage\x0a\x09^ self classes anySatisfy: [ :each | each isTestClass ]",
-messageSends: ["anySatisfy:", "classes", "isTestClass"],
-referencedClasses: []
-}),
-globals.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "loadDependencies",
 protocol: 'dependencies',
 fn: function (){

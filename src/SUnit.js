@@ -1,4 +1,4 @@
-define("amber_core/SUnit", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions"], function($boot){
+define("amber_core/SUnit", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Classes", "amber_core/Kernel-Infrastructure"], function($boot){
 var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('SUnit');
 smalltalk.packages["SUnit"].transport = {"type":"amd","amdNamespace":"amber_core"};
@@ -1231,5 +1231,48 @@ messageSends: ["suite:", "new"],
 referencedClasses: []
 }),
 globals.TestSuiteRunner.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isTestClass",
+protocol: '*SUnit',
+fn: function (){
+var self=this;
+function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._includesBehavior_($TestCase()))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._isAbstract())._not();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isTestClass",{},globals.Behavior)})},
+args: [],
+source: "isTestClass\x0a\x09^(self includesBehavior: TestCase) and: [ \x0a\x09\x09\x09self isAbstract not ]",
+messageSends: ["and:", "includesBehavior:", "not", "isAbstract"],
+referencedClasses: ["TestCase"]
+}),
+globals.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isTestPackage",
+protocol: '*SUnit',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._classes())._anySatisfy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._isTestClass();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isTestPackage",{},globals.Package)})},
+args: [],
+source: "isTestPackage\x0a\x09^ self classes anySatisfy: [ :each | each isTestClass ]",
+messageSends: ["anySatisfy:", "classes", "isTestClass"],
+referencedClasses: []
+}),
+globals.Package);
 
 });

@@ -443,3 +443,16 @@ on: aCollection
 	^ super new suite: aCollection
 ! !
 
+!Behavior methodsFor: '*SUnit'!
+
+isTestClass
+	^(self includesBehavior: TestCase) and: [ 
+			self isAbstract not ]
+! !
+
+!Package methodsFor: '*SUnit'!
+
+isTestPackage
+	^ self classes anySatisfy: [ :each | each isTestClass ]
+! !
+

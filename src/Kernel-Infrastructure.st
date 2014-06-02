@@ -689,10 +689,6 @@ isDirty
 
 isPackage
 	^ true
-!
-
-isTestPackage
-	^ self classes anySatisfy: [ :each | each isTestClass ]
 ! !
 
 Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
