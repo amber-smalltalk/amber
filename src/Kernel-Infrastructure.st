@@ -692,9 +692,7 @@ isPackage
 !
 
 isTestPackage
-	^ self classes anySatisfy: [ :each |
-		(each includesBehavior: TestCase) and: [ 
-			each isAbstract not ] ]
+	^ self classes anySatisfy: [ :each | each isTestClass ]
 ! !
 
 Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!

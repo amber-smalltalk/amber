@@ -531,6 +531,28 @@ globals.Behavior);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isTestClass",
+protocol: 'testing',
+fn: function (){
+var self=this;
+function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._includesBehavior_($TestCase()))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._isAbstract())._not();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isTestClass",{},globals.Behavior)})},
+args: [],
+source: "isTestClass\x0a\x09^(self includesBehavior: TestCase) and: [ \x0a\x09\x09\x09self isAbstract not ]",
+messageSends: ["and:", "includesBehavior:", "not", "isAbstract"],
+referencedClasses: ["TestCase"]
+}),
+globals.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "javascriptConstructor",
 protocol: 'accessing',
 fn: function (){

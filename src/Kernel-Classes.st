@@ -348,6 +348,11 @@ inheritsFrom: aClass
 
 isBehavior
 	^ true
+!
+
+isTestClass
+	^(self includesBehavior: TestCase) and: [ 
+			self isAbstract not ]
 ! !
 
 Behavior subclass: #Class

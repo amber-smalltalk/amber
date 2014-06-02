@@ -1395,7 +1395,6 @@ fn: function (){
 var self=this;
 var stream;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
-function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 stream=_st(_st($Array())._new())._writeStream();
@@ -1403,19 +1402,16 @@ _st(self._selectedPackages())._do_((function(package_){
 return smalltalk.withContext(function($ctx2) {
 return _st(stream)._nextPutAll_(_st(_st(package_)._classes())._select_((function(each){
 return smalltalk.withContext(function($ctx3) {
-return _st(_st(each)._includesBehavior_($TestCase()))._and_((function(){
-return smalltalk.withContext(function($ctx4) {
-return _st(_st(each)._isAbstract())._not();
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})}));
+return _st(each)._isTestClass();
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})})));
 }, function($ctx2) {$ctx2.fillBlock({package_:package_},$ctx1,1)})}));
 $1=_st(stream)._contents();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"testClasses",{stream:stream},globals.HLSUnitModel)})},
 args: [],
-source: "testClasses\x0a\x09\x22Answer all concrete subclasses of TestCase in selected packages\x22\x0a\x09\x0a\x09| stream |\x0a\x09stream := Array new writeStream.\x0a\x09self selectedPackages do: [ :package |\x0a\x09\x09stream nextPutAll: (package classes select:  [ :each |\x0a\x09\x09\x09(each includesBehavior: TestCase) and: [ \x0a\x09\x09\x09\x09each isAbstract not ] ] ) ].\x0a\x09^ stream contents\x0a\x09",
-messageSends: ["writeStream", "new", "do:", "selectedPackages", "nextPutAll:", "select:", "classes", "and:", "includesBehavior:", "not", "isAbstract", "contents"],
-referencedClasses: ["Array", "TestCase"]
+source: "testClasses\x0a\x09\x22Answer all concrete subclasses of TestCase in selected packages\x22\x0a\x09\x0a\x09| stream |\x0a\x09stream := Array new writeStream.\x0a\x09self selectedPackages do: [ :package |\x0a\x09\x09stream nextPutAll: (package classes select:  [ :each |\x0a\x09\x09\x09each isTestClass ] ) ].\x0a\x09^ stream contents\x0a\x09",
+messageSends: ["writeStream", "new", "do:", "selectedPackages", "nextPutAll:", "select:", "classes", "isTestClass", "contents"],
+referencedClasses: ["Array"]
 }),
 globals.HLSUnitModel);
 
