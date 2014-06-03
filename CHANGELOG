@@ -3,6 +3,7 @@ XXnd XXX 2014 - Release 0.12.5
 
 Highlights:
 
+* SUnit Runner in Helios IDE.
 * `amber` and `amberc` cli moved to `external` directory
   and to dedicated npm package.
 * Amber now parses `$c` character literal.
