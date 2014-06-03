@@ -4,6 +4,10 @@
   + value:
 + ProtocolAnnouncement >>
   + package
++ Behavior >>
+  + isTestClass
++ Package >>
+  + isTestPackage
 + amber/{devel,deploy,lang} exports
   + nil
 + amber/helpers exports
