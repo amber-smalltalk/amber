@@ -417,8 +417,7 @@ testClasses
 	stream := Array new writeStream.
 	self selectedPackages do: [ :package |
 		stream nextPutAll: (package classes select:  [ :each |
-			(each includesBehavior: TestCase) and: [ 
-				each isAbstract not ] ] ) ].
+			each isTestClass ] ) ].
 	^ stream contents
 !
 
