@@ -60,7 +60,7 @@ module.exports = function(grunt) {
     }
 
     // create and initialize amberc
-    var compiler = new amberc.Compiler(grunt.config('amberc.options.amber_dir'));
+    var compiler = new amberc.Compiler(options.amber_dir);
 
     // generate the amberc configuration out of the given target properties
     var configuration = generateCompilerConfiguration(this.data, this.filesSrc);
