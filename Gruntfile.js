@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = function(grunt) {
 
   grunt.loadTasks('./internal/grunt-tasks');
@@ -8,7 +10,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-execute');
 
   grunt.registerTask('default', ['peg', 'amberc:all']);
-  grunt.registerTask('amberc:all', ['amberc:core', 'amberc:helios']);
+  grunt.registerTask('amberc:all', ['amberc:core', 'amberc:cli', 'amberc:helios']);
   grunt.registerTask('test', ['amberc:test_runner', 'execute:test_runner', 'clean:test_runner']);
 
   grunt.initConfig({
@@ -78,6 +80,23 @@ module.exports = function(grunt) {
         src: ['src/Kernel-Tests.st', 'src/Compiler-Tests.st', 'src/SUnit-Tests.st'],
         libraries: ['SUnit']
       },
+      cli: {
+        output_dir: 'external/amber-cli/src',
+        src: ['external/amber-cli/src/AmberCli.st'],
+        libraries: [
+          'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
+          'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
+          'SUnit', 'Kernel-ImportExport',
+          'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'
+        ],
+        main_class: 'AmberCli',
+        output_name: '../support/amber-cli',
+        amd_namespace: 'amber_cli'
+      },
+      dev: {
+        output_dir: 'external/amber-dev/lib',
+        src: ['external/amber-dev/lib/Test.st']
+      },
       test_runner: {
         src: ['node_modules/amber-dev/lib/Test.st'],
         libraries: [
@@ -102,7 +121,9 @@ module.exports = function(grunt) {
 
     jshint: {
       amber: ['src/*.js'],
-      grunt: ['Gruntfile.js', 'internal/grunt-tasks/*.js']
+      cli: ['external/amber-cli/src/*.js', 'external/amber-cli/support/*.js'],
+      dev: ['external/amber-dev/lib/*.js'],
+      grunt: ['Gruntfile.js', 'internal/grunt-tasks/*.js', 'external/amber-dev/tasks/*.js']
     }
   });
 };

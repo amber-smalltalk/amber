@@ -11,8 +11,13 @@
 
 <body>
 <script type='text/javascript'>
+    require.config({
+        paths: {
+            'amber_cli': '../external/amber-cli/src'
+        }
+    });
     require(
-        ["amber/devel"],
+        ["amber/devel", "amber_cli/AmberCli"],
         function (smalltalk) {
             smalltalk.initialize({'transport.defaultAmdNamespace': "amber_core"});
         }
