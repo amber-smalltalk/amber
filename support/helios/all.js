@@ -1,6 +1,6 @@
 require.config({
 	paths: {
-        'amber_lib/bootstrap': require.toUrl('amber_lib') + '/bootstrap/bootstrap',
+        'amber_lib/bootstrap': require.toUrl('amber_lib') + '/bootstrap2.3.2/bootstrap',
 		'jquery-ui': require.toUrl('amber_lib/jquery-ui/ui/minified/jquery-ui.min')
 	},
 	shim: {
