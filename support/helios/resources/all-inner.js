@@ -4,7 +4,7 @@
 
 define([
 	'amber/devel-inner',
-	'amber_lib/bootstrap/js/bootstrap',
+	'bootstrap2.3.2/js/bootstrap',
 	'amber_lib/showdown/compressed/showdown',
 	'helios/Helios-Core',
 	'helios/Helios-Exceptions',
