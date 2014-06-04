@@ -59,6 +59,16 @@ and check if you have all development dependencies installed (as indicated in [G
 Setup your Amber clone
 ----------------------
 
+Amber repository contains more parts:
+
+1. Amber language itself (in root directory),
+1. Amber development helpers (in `external/amber-dev`),
+1. Amber CLI tool (in `external/amber-cli`).
+1. In `internal` directory, there are files that are not part of Amber,
+  but are important to developers wanting to contribute to Amber.
+
+To get your clone, follow this list:
+
 1. Create a fork of the repository on GitHub
 2. Clone the repository
 3. Run ```npm install``` to install dependencies listed in package.json (See [here](https://www.npmjs.org/doc/cli/npm-install.html for more info) for more info)
@@ -69,6 +79,7 @@ Setup your Amber clone
 
 Now you should be able to commit changes to your computer.
 
+You should open `http://localhost:4000/internal/` to start work on Amber.
 
 Creating a Pull Request
 -----------------------
