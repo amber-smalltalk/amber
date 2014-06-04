@@ -13,7 +13,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~1.10.2",
+    "jquery": ">=1.7.0",
     "jquery-ui": "~1.10.3",
     "bootstrap2.3.2": "~2.3.2",
     "jquery-tabby": "git://github.com/alanhogan/Tabby",
