@@ -1,14 +1,14 @@
 require.config({
 	paths: {
-        'amber_lib/bootstrap': require.toUrl('amber_lib') + '/bootstrap/bootstrap',
+		'bootstrap2.3.2': require.toUrl('amber_lib') + '/bootstrap2.3.2/bootstrap',
 		'jquery-ui': require.toUrl('amber_lib/jquery-ui/ui/minified/jquery-ui.min')
 	},
 	shim: {
 		'jquery-ui': {
 			deps: [ 'jquery' ]
 		},
-		'amber_lib/bootstrap/js/bootstrap': {
-			deps: [ 'jquery', 'css!amber_lib/bootstrap/css/bootstrap' ]
+		'bootstrap2.3.2/js/bootstrap': {
+			deps: [ 'jquery', 'css!bootstrap2.3.2/css/bootstrap' ]
 		},
 		'amber_lib/jquery-tabby/jquery.textarea': {
 			deps: [ 'jquery' ]
