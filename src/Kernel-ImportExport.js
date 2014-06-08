@@ -587,69 +587,35 @@ smalltalk.addClass('Exporter', globals.AbstractExporter, [], 'Kernel-ImportExpor
 globals.Exporter.comment="I am responsible for outputting Amber code into a JavaScript string.\x0a\x0aThe generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.\x0a\x0a## Use case\x0a\x0aI am typically used to save code outside of the Amber runtime (committing to disk, etc.).";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "classNameFor:",
-protocol: 'convenience',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
-$2=_st(aClass)._isMetaclass();
-if(smalltalk.assert($2)){
-$3=_st(_st(aClass)._instanceClass())._name();
-$ctx1.sendIdx["name"]=1;
-$1=_st($3).__comma(".klass");
-} else {
-$4=_st(aClass)._isNil();
-if(smalltalk.assert($4)){
-$1="nil";
-} else {
-$1=_st(aClass)._name();
-};
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},globals.Exporter)})},
-args: ["aClass"],
-source: "classNameFor: aClass\x0a\x09^ aClass isMetaclass\x0a\x09\x09ifTrue: [ aClass instanceClass name, '.klass' ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09aClass isNil\x0a\x09\x09\x09\x09ifTrue: [ 'nil' ]\x0a\x09\x09\x09\x09ifFalse: [ aClass name ] ]",
-messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"],
-referencedClasses: []
-}),
-globals.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "exportDefinitionOf:on:",
 protocol: 'output',
 fn: function (aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$5,$4,$6,$8,$7,$9,$11,$10,$12;
+var $2,$1,$3,$4,$6,$5,$7,$9,$8,$10;
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
 _st(aStream)._nextPutAll_("smalltalk.addClass(");
 $ctx1.sendIdx["nextPutAll:"]=1;
-$3=self._classNameFor_(aClass);
-$ctx1.sendIdx["classNameFor:"]=1;
-$2="'".__comma($3);
+$2="'".__comma(self._classNameFor_(aClass));
 $ctx1.sendIdx[","]=2;
 $1=_st($2).__comma("', ");
 $ctx1.sendIdx[","]=1;
 _st(aStream)._nextPutAll_($1);
 $ctx1.sendIdx["nextPutAll:"]=2;
-$5=self._classNameFor_(_st(aClass)._superclass());
-$ctx1.sendIdx["classNameFor:"]=2;
-$4="globals.".__comma($5);
-$ctx1.sendIdx[","]=3;
-_st(aStream)._nextPutAll_($4);
+$3=self._jsClassNameFor_(_st(aClass)._superclass());
+$ctx1.sendIdx["jsClassNameFor:"]=1;
+_st(aStream)._nextPutAll_($3);
 $ctx1.sendIdx["nextPutAll:"]=3;
-$6=_st(aStream)._nextPutAll_(", [");
+$4=_st(aStream)._nextPutAll_(", [");
 $ctx1.sendIdx["nextPutAll:"]=4;
 _st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$8="'".__comma(each);
-$ctx2.sendIdx[","]=5;
-$7=_st($8).__comma("'");
+$6="'".__comma(each);
 $ctx2.sendIdx[","]=4;
-return _st(aStream)._nextPutAll_($7);
+$5=_st($6).__comma("'");
+$ctx2.sendIdx[","]=3;
+return _st(aStream)._nextPutAll_($5);
 $ctx2.sendIdx["nextPutAll:"]=5;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
@@ -660,30 +626,28 @@ _st(aStream)._nextPutAll_("], '");
 $ctx1.sendIdx["nextPutAll:"]=7;
 _st(aStream)._nextPutAll_(_st(_st(aClass)._category()).__comma("'"));
 $ctx1.sendIdx["nextPutAll:"]=8;
-$9=_st(aStream)._nextPutAll_(");");
+$7=_st(aStream)._nextPutAll_(");");
 $ctx1.sendIdx["nextPutAll:"]=9;
-$11=_st(aClass)._comment();
+$9=_st(aClass)._comment();
 $ctx1.sendIdx["comment"]=1;
-$10=_st($11)._notEmpty();
-if(smalltalk.assert($10)){
+$8=_st($9)._notEmpty();
+if(smalltalk.assert($8)){
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=2;
-_st(aStream)._nextPutAll_("globals.");
+_st(aStream)._nextPutAll_(self._jsClassNameFor_(aClass));
 $ctx1.sendIdx["nextPutAll:"]=10;
-_st(aStream)._nextPutAll_(self._classNameFor_(aClass));
-$ctx1.sendIdx["nextPutAll:"]=11;
 _st(aStream)._nextPutAll_(".comment=");
-$ctx1.sendIdx["nextPutAll:"]=12;
+$ctx1.sendIdx["nextPutAll:"]=11;
 _st(aStream)._nextPutAll_(_st(_st(aClass)._comment())._asJavascript());
-$ctx1.sendIdx["nextPutAll:"]=13;
-$12=_st(aStream)._nextPutAll_(";");
-$12;
+$ctx1.sendIdx["nextPutAll:"]=12;
+$10=_st(aStream)._nextPutAll_(";");
+$10;
 };
 _st(aStream)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.Exporter)})},
 args: ["aClass", "aStream"],
-source: "exportDefinitionOf: aClass on: aStream\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'smalltalk.addClass(';\x0a\x09\x09nextPutAll: '''', (self classNameFor: aClass), ''', ';\x0a\x09\x09nextPutAll: 'globals.', (self classNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ', ['.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ', ' ].\x0a\x09aStream\x0a\x09\x09nextPutAll: '], ''';\x0a\x09\x09nextPutAll: aClass category, '''';\x0a\x09\x09nextPutAll: ');'.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09\x09lf;\x0a\x09\x09nextPutAll: 'globals.';\x0a\x09\x09nextPutAll: (self classNameFor: aClass);\x0a\x09\x09nextPutAll: '.comment=';\x0a\x09\x09nextPutAll: aClass comment asJavascript;\x0a\x09\x09nextPutAll: ';' ].\x0a\x09aStream lf",
-messageSends: ["lf", "nextPutAll:", ",", "classNameFor:", "superclass", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "asJavascript"],
+source: "exportDefinitionOf: aClass on: aStream\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'smalltalk.addClass(';\x0a\x09\x09nextPutAll: '''', (self classNameFor: aClass), ''', ';\x0a\x09\x09nextPutAll: (self jsClassNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ', ['.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ', ' ].\x0a\x09aStream\x0a\x09\x09nextPutAll: '], ''';\x0a\x09\x09nextPutAll: aClass category, '''';\x0a\x09\x09nextPutAll: ');'.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09\x09lf;\x0a\x09\x09nextPutAll: (self jsClassNameFor: aClass);\x0a\x09\x09nextPutAll: '.comment=';\x0a\x09\x09nextPutAll: aClass comment asJavascript;\x0a\x09\x09nextPutAll: ';' ].\x0a\x09aStream lf",
+messageSends: ["lf", "nextPutAll:", ",", "classNameFor:", "jsClassNameFor:", "superclass", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "asJavascript"],
 referencedClasses: []
 }),
 globals.Exporter);
@@ -696,7 +660,7 @@ fn: function (aClass,aStream){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$6,$5,$4,$7,$9,$8;
+var $3,$2,$1,$5,$4,$6,$8,$7;
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
 $3=_st(aClass)._class();
@@ -705,23 +669,21 @@ $2=_st($3)._instanceVariableNames();
 $ctx1.sendIdx["instanceVariableNames"]=1;
 $1=_st($2)._isEmpty();
 if(! smalltalk.assert($1)){
-$6=_st(aClass)._class();
+$5=_st(aClass)._class();
 $ctx1.sendIdx["class"]=2;
-$5=self._classNameFor_($6);
-$4="globals.".__comma($5);
-$ctx1.sendIdx[","]=1;
+$4=self._jsClassNameFor_($5);
 _st(aStream)._nextPutAll_($4);
 $ctx1.sendIdx["nextPutAll:"]=1;
-$7=_st(aStream)._nextPutAll_(".iVarNames = [");
+$6=_st(aStream)._nextPutAll_(".iVarNames = [");
 $ctx1.sendIdx["nextPutAll:"]=2;
-$7;
+$6;
 _st(_st(_st(aClass)._class())._instanceVariableNames())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$9="'".__comma(each);
-$ctx2.sendIdx[","]=3;
-$8=_st($9).__comma("'");
+$8="'".__comma(each);
 $ctx2.sendIdx[","]=2;
-return _st(aStream)._nextPutAll_($8);
+$7=_st($8).__comma("'");
+$ctx2.sendIdx[","]=1;
+return _st(aStream)._nextPutAll_($7);
 $ctx2.sendIdx["nextPutAll:"]=3;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
@@ -732,8 +694,8 @@ _st(aStream)._nextPutAll_("];".__comma(_st($String())._lf()));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.Exporter)})},
 args: ["aClass", "aStream"],
-source: "exportMetaDefinitionOf: aClass on: aStream\x0a\x09aStream lf.\x0a\x09aClass class instanceVariableNames isEmpty ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09nextPutAll: 'globals.', (self classNameFor: aClass class);\x0a\x09\x09nextPutAll: '.iVarNames = ['.\x0a\x09\x09aClass class instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ',' ].\x0a\x09\x09aStream nextPutAll: '];', String lf ]",
-messageSends: ["lf", "ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", ",", "classNameFor:", "do:separatedBy:"],
+source: "exportMetaDefinitionOf: aClass on: aStream\x0a\x09aStream lf.\x0a\x09aClass class instanceVariableNames isEmpty ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09nextPutAll: (self jsClassNameFor: aClass class);\x0a\x09\x09nextPutAll: '.iVarNames = ['.\x0a\x09\x09aClass class instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ',' ].\x0a\x09\x09aStream nextPutAll: '];', String lf ]",
+messageSends: ["lf", "ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", "jsClassNameFor:", "do:separatedBy:", ","],
 referencedClasses: ["String"]
 }),
 globals.Exporter);
@@ -745,7 +707,7 @@ protocol: 'output',
 fn: function (aMethod,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$5,$4,$7,$6,$10,$9,$8,$13,$12,$11,$16,$15,$14,$18,$17,$19;
+var $3,$2,$1,$5,$4,$7,$6,$10,$9,$8,$13,$12,$11,$16,$15,$14,$17,$18;
 _st(aStream)._nextPutAll_("smalltalk.addMethod(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._lf();
@@ -810,9 +772,7 @@ _st(aStream)._nextPutAll_($14);
 $ctx1.sendIdx["nextPutAll:"]=8;
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=8;
-$18="referencedClasses: ".__comma(_st(_st(aMethod)._referencedClasses())._asJavascript());
-$ctx1.sendIdx[","]=13;
-$17=_st(aStream)._nextPutAll_($18);
+$17=_st(aStream)._nextPutAll_("referencedClasses: ".__comma(_st(_st(aMethod)._referencedClasses())._asJavascript()));
 $ctx1.sendIdx["nextPutAll:"]=9;
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=9;
@@ -820,16 +780,16 @@ _st(aStream)._nextPutAll_("}),");
 $ctx1.sendIdx["nextPutAll:"]=10;
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=10;
-_st(aStream)._nextPutAll_("globals.".__comma(self._classNameFor_(_st(aMethod)._methodClass())));
+_st(aStream)._nextPutAll_(self._jsClassNameFor_(_st(aMethod)._methodClass()));
 $ctx1.sendIdx["nextPutAll:"]=11;
 _st(aStream)._nextPutAll_(");");
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=11;
-$19=_st(aStream)._lf();
+$18=_st(aStream)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},globals.Exporter)})},
 args: ["aMethod", "aStream"],
-source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09\x22nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x22\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: 'globals.', (self classNameFor: aMethod methodClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
-messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "protocol", "compiledSource", "fn", "arguments", "source", "messageSends", "referencedClasses", "classNameFor:", "methodClass"],
+source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09\x22nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x22\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: (self jsClassNameFor: aMethod methodClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
+messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "protocol", "compiledSource", "fn", "arguments", "source", "messageSends", "referencedClasses", "jsClassNameFor:", "methodClass"],
 referencedClasses: []
 }),
 globals.Exporter);
@@ -958,6 +918,34 @@ return self}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{a
 args: ["aPackage", "aStream"],
 source: "exportPackageTransportOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.packages[';\x0a\x09\x09nextPutAll: aPackage name asJavascript;\x0a\x09\x09nextPutAll: '].transport = ';\x0a\x09\x09nextPutAll: aPackage transport asJSONString;\x0a\x09\x09nextPutAll: ';';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", "asJavascript", "name", "asJSONString", "transport", "lf"],
+referencedClasses: []
+}),
+globals.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "jsClassNameFor:",
+protocol: 'convenience',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$receiver;
+$2=_st(aClass)._isMetaclass();
+if(smalltalk.assert($2)){
+$1=_st(self._jsClassNameFor_(_st(aClass)._instanceClass())).__comma(".klass");
+$ctx1.sendIdx[","]=1;
+} else {
+if(($receiver = aClass) == null || $receiver.isNil){
+$1="null";
+} else {
+$1="globals.".__comma(_st(aClass)._name());
+};
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"jsClassNameFor:",{aClass:aClass},globals.Exporter)})},
+args: ["aClass"],
+source: "jsClassNameFor: aClass\x0a\x09^ aClass isMetaclass\x0a\x09\x09ifTrue: [ (self jsClassNameFor: aClass instanceClass), '.klass' ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09aClass\x0a\x09\x09\x09\x09ifNil: [ 'null' ]\x0a\x09\x09\x09\x09ifNotNil: [ 'globals.', aClass name ] ]",
+messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "jsClassNameFor:", "instanceClass", "ifNil:ifNotNil:", "name"],
 referencedClasses: []
 }),
 globals.Exporter);
