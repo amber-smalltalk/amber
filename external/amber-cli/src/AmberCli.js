@@ -351,10 +351,12 @@ selector: "start",
 protocol: 'action',
 fn: function (){
 var self=this;
-return self},
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(require)._value_("amber-dev/lib/config"))._writeConfig_(_st(process)._cwd());
+return self}, function($ctx1) {$ctx1.fill(self,"start",{},globals.Configurator)})},
 args: [],
-source: "start",
-messageSends: [],
+source: "start\x0a\x09(require value: 'amber-dev/lib/config')\x0a\x09\x09writeConfig: process cwd",
+messageSends: ["writeConfig:", "value:", "cwd"],
 referencedClasses: []
 }),
 globals.Configurator);

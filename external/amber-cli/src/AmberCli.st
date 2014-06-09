@@ -137,6 +137,8 @@ BaseFileManipulator subclass: #Configurator
 !Configurator methodsFor: 'action'!
 
 start
+	(require value: 'amber-dev/lib/config')
+		writeConfig: process cwd
 ! !
 
 !Configurator methodsFor: 'initialization'!
