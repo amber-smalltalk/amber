@@ -11,12 +11,7 @@
 
 <body>
 <script type='text/javascript'>
-    require.config({
-        baseUrl: '..',
-        paths: {
-            'amber_cli': 'external/amber-cli/src'
-        }
-    });
+    require.config({baseUrl: '..'});
     require(
         ["amber/devel", "amber_cli/AmberCli"],
         function (smalltalk) {
