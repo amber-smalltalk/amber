@@ -1,22 +1,12 @@
-require.config({
-	paths: {
-		'jquery-ui': require.toUrl('amber_lib/jquery-ui/ui/minified/jquery-ui.min')
-	},
-	shim: {
-		'jquery-ui': {
-			deps: [ 'jquery' ]
-		},
-		'amber_lib/jquery-tabby/jquery.textarea': {
-			deps: [ 'jquery' ]
-		}
-	}
-});
-
 define([
 	'./helpers', // pre-fetch, dep of ./deploy
 	'./deploy', // pre-fetch, dep of ./lang
 	'./lang',
 	'./codemirror',
-	'./devel-inner',
+    'jquery-ui',
+    'amber_lib/jquery-tabby/jquery.textarea',
+    'amber_core/IDE',
+    'amber_core/Examples',
+    'amber_core/Benchfib',
 	'css!amber/resources/amber'
 ], function (smalltalk) { return smalltalk; });
