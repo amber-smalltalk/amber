@@ -247,13 +247,13 @@ ownMethodsOfMetaClass: aClass
 
 !Exporter methodsFor: 'convenience'!
 
-classNameFor: aClass
+jsClassNameFor: aClass
 	^ aClass isMetaclass
-		ifTrue: [ aClass instanceClass name, '.klass' ]
+		ifTrue: [ (self jsClassNameFor: aClass instanceClass), '.klass' ]
 		ifFalse: [
-			aClass isNil
-				ifTrue: [ 'nil' ]
-				ifFalse: [ aClass name ] ]
+			aClass
+				ifNil: [ 'null' ]
+				ifNotNil: [ 'globals.', aClass name ] ]
 ! !
 
 !Exporter methodsFor: 'output'!
@@ -263,7 +263,7 @@ exportDefinitionOf: aClass on: aStream
 		lf;
 		nextPutAll: 'smalltalk.addClass(';
 		nextPutAll: '''', (self classNameFor: aClass), ''', ';
-		nextPutAll: 'globals.', (self classNameFor: aClass superclass);
+		nextPutAll: (self jsClassNameFor: aClass superclass);
 		nextPutAll: ', ['.
 	aClass instanceVariableNames
 		do: [ :each | aStream nextPutAll: '''', each, '''' ]
@@ -275,8 +275,7 @@ exportDefinitionOf: aClass on: aStream
 	aClass comment notEmpty ifTrue: [
 		aStream
 			lf;
-		nextPutAll: 'globals.';
-		nextPutAll: (self classNameFor: aClass);
+		nextPutAll: (self jsClassNameFor: aClass);
 		nextPutAll: '.comment=';
 		nextPutAll: aClass comment asJavascript;
 		nextPutAll: ';' ].
@@ -287,7 +286,7 @@ exportMetaDefinitionOf: aClass on: aStream
 	aStream lf.
 	aClass class instanceVariableNames isEmpty ifFalse: [
 		aStream
-		nextPutAll: 'globals.', (self classNameFor: aClass class);
+		nextPutAll: (self jsClassNameFor: aClass class);
 		nextPutAll: '.iVarNames = ['.
 		aClass class instanceVariableNames
 		do: [ :each | aStream nextPutAll: '''', each, '''' ]
@@ -310,7 +309,7 @@ exportMethod: aMethod on: aStream
 	aStream
 		lf;
 		nextPutAll: '}),';lf;
-		nextPutAll: 'globals.', (self classNameFor: aMethod methodClass);
+		nextPutAll: (self jsClassNameFor: aMethod methodClass);
 		nextPutAll: ');';lf;lf
 !
 
