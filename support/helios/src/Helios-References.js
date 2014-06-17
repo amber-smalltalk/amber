@@ -606,11 +606,13 @@ protocol: 'actions',
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+($ctx1.supercall = true, globals.HLReferencesListWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [aMethod]));
+$ctx1.supercall = false;
 _st(self._model())._selectedMethod_(aMethod);
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aMethod:aMethod},globals.HLReferencesListWidget)})},
 args: ["aMethod"],
-source: "selectItem: aMethod\x0a\x09self model selectedMethod: aMethod",
-messageSends: ["selectedMethod:", "model"],
+source: "selectItem: aMethod\x0a\x09super selectItem: aMethod.\x0a\x09self model selectedMethod: aMethod",
+messageSends: ["selectItem:", "selectedMethod:", "model"],
 referencedClasses: []
 }),
 globals.HLReferencesListWidget);
