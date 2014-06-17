@@ -171,6 +171,7 @@ observeModel
 !
 
 selectItem: aMethod
+	super selectItem: aMethod.
 	self model selectedMethod: aMethod
 ! !
 

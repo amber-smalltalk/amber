@@ -55,6 +55,10 @@ selectorForCommandLineSwitch: aSwitch
 
 !AmberCli class methodsFor: 'commands'!
 
+config: args
+	Configurator new start
+!
+
 help: args
 	Transcript show: 'Available commands'.
 	self commandLineSwitches do: [ :each | console log: each ]
@@ -104,8 +108,47 @@ main
 		ifFalse: [^self handleArguments: args]
 ! !
 
-Object subclass: #FileServer
-	instanceVariableNames: 'path http fs url host port basePath util username password fallbackPage'
+Object subclass: #BaseFileManipulator
+	instanceVariableNames: 'path fs'
+	package: 'AmberCli'!
+
+!BaseFileManipulator methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	path := require value: 'path'.
+	fs := require value: 'fs'
+! !
+
+!BaseFileManipulator methodsFor: 'private'!
+
+dirname
+	<return __dirname>
+!
+
+rootDirname
+	^ path join: self dirname with: '..'
+! !
+
+BaseFileManipulator subclass: #Configurator
+	instanceVariableNames: ''
+	package: 'AmberCli'!
+
+!Configurator methodsFor: 'action'!
+
+start
+	(require value: 'amber-dev/lib/config')
+		writeConfig: process cwd
+! !
+
+!Configurator methodsFor: 'initialization'!
+
+initialize
+	super initialize
+! !
+
+BaseFileManipulator subclass: #FileServer
+	instanceVariableNames: 'http url host port basePath util username password fallbackPage'
 	package: 'AmberCli'!
 !FileServer commentStamp!
 I am the Amber Smalltalk FileServer.
@@ -191,9 +234,7 @@ checkDirectoryLayout
 
 initialize
 	super initialize.
-	path := self require: 'path'.
 	http := self require: 'http'.
-	fs := self require: 'fs'.
 	util := self require: 'util'.
 	url := self require: 'url'.
 	host := self class defaultHost.
@@ -937,8 +978,8 @@ main
 		^ fileServer start]
 ! !
 
-Object subclass: #Initer
-	instanceVariableNames: 'path childProcess nmPath'
+BaseFileManipulator subclass: #Initer
+	instanceVariableNames: 'childProcess nmPath'
 	package: 'AmberCli'!
 
 !Initer methodsFor: 'action'!
@@ -1030,19 +1071,8 @@ start
 
 initialize
 	super initialize.
-	path := require value: 'path'.
 	childProcess := require value: 'child_process'.
 	nmPath := path join: self rootDirname with: 'node_modules'
-! !
-
-!Initer methodsFor: 'private'!
-
-dirname
-	<return __dirname>
-!
-
-rootDirname
-	^ path join: self dirname with: '..'
 ! !
 
 Object subclass: #NodeTestRunner

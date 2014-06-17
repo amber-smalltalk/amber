@@ -409,7 +409,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		this.__init__ = function () {
 			st.addPackage("Kernel-Objects");
-			st.addPackage("Kernel-Infrastructure");
 			st.wrapClassName("ProtoObject", "Kernel-Objects", SmalltalkProtoObject, undefined, false);
 			st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, globals.ProtoObject, false);
 			st.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, globals.Object, false);
@@ -434,6 +433,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
 		this.__init__ = function () {
+			st.addPackage("Kernel-Infrastructure");
 			st.wrapClassName("Organizer", "Kernel-Infrastructure", SmalltalkOrganizer, globals.Object, false);
 			st.wrapClassName("PackageOrganizer", "Kernel-Infrastructure", SmalltalkPackageOrganizer, globals.Organizer, false);
 			st.wrapClassName("ClassOrganizer", "Kernel-Infrastructure", SmalltalkClassOrganizer, globals.Organizer, false);
@@ -491,8 +491,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		function createHandler(selector) {
 			return function() {
-				var args = Array.prototype.slice.call(arguments);
-				return brikz.messageSend.messageNotUnderstood(this, selector, args);
+				return brikz.messageSend.messageNotUnderstood(this, selector, arguments);
 			};
 		}
 
@@ -522,9 +521,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		st.initClass = function(klass) {
 			if(klass.wrapped) {
 				copySuperclass(klass);
-			}
-
-			if(klass.wrapped) {
 				dnu.installHandlers(klass);
 			}
 		};
@@ -594,6 +590,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		var org = brikz.ensure("organize");
 		var root = brikz.ensure("root");
+		brikz.ensure("classInit");
 		var nil = root.nil;
 		var rootAsClass = root.rootAsClass;
 		var SmalltalkObject = root.Object;
@@ -621,6 +618,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			globals.ProtoObject.klass.superclass = rootAsClass.klass = globals.Class;
 			addSubclass(globals.ProtoObject.klass);
 
+			st.addPackage("Kernel-Infrastructure");
 			st.wrapClassName("Package", "Kernel-Infrastructure", SmalltalkPackage, globals.Object, false);
 		};
 
@@ -685,6 +683,13 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			return 'Smalltalk ' + this.className;
 		};
 
+		function wireKlass(klass) {
+			Object.defineProperty(klass.fn.prototype, "klass", {
+				value: klass,
+				enumerable: false, configurable: true, writable: true
+			});
+		}
+
 		function setupClass(klass, spec) {
 			spec = spec || {};
 			klass.iVarNames = spec.iVarNames || [];
@@ -695,10 +700,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				value: Object.create(null),
 				enumerable: false, configurable: true, writable: true
 			});
-			Object.defineProperty(klass.fn.prototype, "klass", {
-				value: klass,
-				enumerable: false, configurable: true, writable: true
-			});
+			wireKlass(klass);
 		}
 
 		/* Add a package to the smalltalk.packages object, creating a new one if needed.
@@ -724,11 +726,9 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 A Package is lazily created if it does not exist with given name. */
 
 		st.addClass = function(className, superclass, iVarNames, pkgName) {
-			if (superclass == nil) { superclass = null; }
-
 			// While subclassing nil is allowed, it might be an error, so
 			// warn about it.
-			if (superclass === null) {
+			if (typeof superclass == 'undefined' || superclass == nil) {
 				console.warn('Compiling ' + className + ' as a subclass of `nil`. A dependency might be missing.');
 			}
 			rawAddClass(pkgName, className, superclass, iVarNames, false, null);
@@ -741,6 +741,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				throw new Error("Missing package "+pkgName);
 			}
 
+			if (!superclass || superclass == nil) { superclass = null; }
 			if(globals[className] && globals[className].superclass == superclass) {
 				//            globals[className].superclass = superclass;
 				globals[className].iVarNames = iVarNames || [];
@@ -808,10 +809,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			klass.fn = constructor;
 
 			// The fn property changed. We need to add back the klass property to the prototype
-			Object.defineProperty(klass.fn.prototype, "klass", {
-				value: klass,
-				enumerable: false, configurable: true, writable: true
-			});
+			wireKlass(klass);
 
 			st.initClass(klass);
 		};
@@ -1055,13 +1053,10 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		/* Converts a JavaScript object to valid Smalltalk Object */
 		st.readJSObject = function(js) {
-			var object = js;
-			var readObject = (js.constructor === Object);
-			var readArray = (js.constructor === Array);
+			var readObject = js.constructor === Object;
+			var readArray = js.constructor === Array;
+			var object = readObject ? globals.Dictionary._new() : readArray ? [] : js;
 
-			if(readObject) {
-				object = globals.Dictionary._new();
-			}
 			for(var i in js) {
 				if(readObject) {
 					object._at_put_(i, st.readJSObject(js[i]));
@@ -1195,7 +1190,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			return result;
 		}
 
-		/* Wrap a JavaScript exception in a Smalltalk Exception. 
+		/* Wrap a JavaScript exception in a Smalltalk Exception.
 
 		 In case of a RangeError, stub the stack after 100 contexts to
 		 avoid another RangeError later when the stack is manipulated. */
@@ -1299,7 +1294,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			return receiver._doesNotUnderstand_(
 				globals.Message._new()
 					._selector_(st.convertSelector(selector))
-					._arguments_(args)
+					._arguments_([].slice.call(args))
 			);
 		}
 
@@ -1318,11 +1313,11 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		function callJavaScriptMethod(receiver, selector, args) {
 			var jsSelector = selector._asJavaScriptSelector();
-			var jsProperty = receiver[jsSelector];
-			if(typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
-				return jsProperty.apply(receiver, args);
-			} else if(jsProperty !== undefined) {
-				if(args[0]) {
+			if (jsSelector in receiver) {
+				var jsProperty = receiver[jsSelector];
+				if (typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
+					return jsProperty.apply(receiver, args);
+				} else if (args.length > 0) {
 					receiver[jsSelector] = args[0];
 					return nil;
 				} else {
@@ -1402,27 +1397,27 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		};
 	}
 
-    /* Defines asReceiver to be present at load time */
-    /* (logically it belongs more to PrimitiveBrik) */
-    function AsReceiverBrik(brikz, st) {
+	/* Defines asReceiver to be present at load time */
+	/* (logically it belongs more to PrimitiveBrik) */
+	function AsReceiverBrik(brikz, st) {
 
-        var nil = brikz.ensure("root").nil;
+		var nil = brikz.ensure("root").nil;
 
-        /**
-         * This function is used all over the compiled amber code.
-         * It takes any value (JavaScript or Smalltalk)
-         * and returns a proper Amber Smalltalk receiver.
-         *
-         * null or undefined -> nil,
-         * plain JS object -> wrapped JS object,
-         * otherwise unchanged
-         */
-        this.asReceiver = function (o) {
-            if (o == null) { return nil; }
-            if (o.klass) { return o; }
-            return globals.JSObjectProxy._on_(o);
-        };
-    }
+		/**
+		 * This function is used all over the compiled amber code.
+		 * It takes any value (JavaScript or Smalltalk)
+		 * and returns a proper Amber Smalltalk receiver.
+		 *
+		 * null or undefined -> nil,
+		 * plain JS object -> wrapped JS object,
+		 * otherwise unchanged
+		 */
+		this.asReceiver = function (o) {
+			if (o == null) { return nil; }
+			if (o.klass) { return o; }
+			return globals.JSObjectProxy._on_(o);
+		};
+	}
 
 
 	/* Making smalltalk that can load */
@@ -1477,7 +1472,7 @@ var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Kernel-Objects');
 smalltalk.packages["Kernel-Objects"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('ProtoObject', globals.nil, [], 'Kernel-Objects');
+smalltalk.addClass('ProtoObject', null, [], 'Kernel-Objects');
 globals.ProtoObject.comment="I implement the basic behavior required for any object in Amber.\x0a\x0aIn most cases, subclassing `ProtoObject` is wrong and `Object` should be used instead. However subclassing `ProtoObject` can be useful in some special cases like proxy implementations.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -18777,31 +18772,6 @@ args: [],
 source: "isPackage\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
-}),
-globals.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isTestPackage",
-protocol: 'testing',
-fn: function (){
-var self=this;
-function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._classes())._anySatisfy_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._includesBehavior_($TestCase()))._and_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(_st(each)._isAbstract())._not();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isTestPackage",{},globals.Package)})},
-args: [],
-source: "isTestPackage\x0a\x09^ self classes anySatisfy: [ :each |\x0a\x09\x09(each includesBehavior: TestCase) and: [ \x0a\x09\x09\x09each isAbstract not ] ]",
-messageSends: ["anySatisfy:", "classes", "and:", "includesBehavior:", "not", "isAbstract"],
-referencedClasses: ["TestCase"]
 }),
 globals.Package);
 
@@ -40946,7 +40916,7 @@ globals.SmalltalkParser = (function() {
   };
 })();
 });
-define("amber_core/SUnit", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions"], function($boot){
+define("amber_core/SUnit", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Classes", "amber_core/Kernel-Infrastructure"], function($boot){
 var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('SUnit');
 smalltalk.packages["SUnit"].transport = {"type":"amd","amdNamespace":"amber_core"};
@@ -42180,6 +42150,49 @@ referencedClasses: []
 }),
 globals.TestSuiteRunner.klass);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isTestClass",
+protocol: '*SUnit',
+fn: function (){
+var self=this;
+function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._includesBehavior_($TestCase()))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._isAbstract())._not();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isTestClass",{},globals.Behavior)})},
+args: [],
+source: "isTestClass\x0a\x09^(self includesBehavior: TestCase) and: [ \x0a\x09\x09\x09self isAbstract not ]",
+messageSends: ["and:", "includesBehavior:", "not", "isAbstract"],
+referencedClasses: ["TestCase"]
+}),
+globals.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isTestPackage",
+protocol: '*SUnit',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._classes())._anySatisfy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._isTestClass();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isTestPackage",{},globals.Package)})},
+args: [],
+source: "isTestPackage\x0a\x09^ self classes anySatisfy: [ :each | each isTestClass ]",
+messageSends: ["anySatisfy:", "classes", "isTestClass"],
+referencedClasses: []
+}),
+globals.Package);
+
 });
 
 define("amber_core/Kernel-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure"], function($boot){
@@ -42771,69 +42784,35 @@ smalltalk.addClass('Exporter', globals.AbstractExporter, [], 'Kernel-ImportExpor
 globals.Exporter.comment="I am responsible for outputting Amber code into a JavaScript string.\x0a\x0aThe generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.\x0a\x0a## Use case\x0a\x0aI am typically used to save code outside of the Amber runtime (committing to disk, etc.).";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "classNameFor:",
-protocol: 'convenience',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
-$2=_st(aClass)._isMetaclass();
-if(smalltalk.assert($2)){
-$3=_st(_st(aClass)._instanceClass())._name();
-$ctx1.sendIdx["name"]=1;
-$1=_st($3).__comma(".klass");
-} else {
-$4=_st(aClass)._isNil();
-if(smalltalk.assert($4)){
-$1="nil";
-} else {
-$1=_st(aClass)._name();
-};
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},globals.Exporter)})},
-args: ["aClass"],
-source: "classNameFor: aClass\x0a\x09^ aClass isMetaclass\x0a\x09\x09ifTrue: [ aClass instanceClass name, '.klass' ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09aClass isNil\x0a\x09\x09\x09\x09ifTrue: [ 'nil' ]\x0a\x09\x09\x09\x09ifFalse: [ aClass name ] ]",
-messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"],
-referencedClasses: []
-}),
-globals.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "exportDefinitionOf:on:",
 protocol: 'output',
 fn: function (aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$5,$4,$6,$8,$7,$9,$11,$10,$12;
+var $2,$1,$3,$4,$6,$5,$7,$9,$8,$10;
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
 _st(aStream)._nextPutAll_("smalltalk.addClass(");
 $ctx1.sendIdx["nextPutAll:"]=1;
-$3=self._classNameFor_(aClass);
-$ctx1.sendIdx["classNameFor:"]=1;
-$2="'".__comma($3);
+$2="'".__comma(self._classNameFor_(aClass));
 $ctx1.sendIdx[","]=2;
 $1=_st($2).__comma("', ");
 $ctx1.sendIdx[","]=1;
 _st(aStream)._nextPutAll_($1);
 $ctx1.sendIdx["nextPutAll:"]=2;
-$5=self._classNameFor_(_st(aClass)._superclass());
-$ctx1.sendIdx["classNameFor:"]=2;
-$4="globals.".__comma($5);
-$ctx1.sendIdx[","]=3;
-_st(aStream)._nextPutAll_($4);
+$3=self._jsClassNameFor_(_st(aClass)._superclass());
+$ctx1.sendIdx["jsClassNameFor:"]=1;
+_st(aStream)._nextPutAll_($3);
 $ctx1.sendIdx["nextPutAll:"]=3;
-$6=_st(aStream)._nextPutAll_(", [");
+$4=_st(aStream)._nextPutAll_(", [");
 $ctx1.sendIdx["nextPutAll:"]=4;
 _st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$8="'".__comma(each);
-$ctx2.sendIdx[","]=5;
-$7=_st($8).__comma("'");
+$6="'".__comma(each);
 $ctx2.sendIdx[","]=4;
-return _st(aStream)._nextPutAll_($7);
+$5=_st($6).__comma("'");
+$ctx2.sendIdx[","]=3;
+return _st(aStream)._nextPutAll_($5);
 $ctx2.sendIdx["nextPutAll:"]=5;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
@@ -42844,30 +42823,28 @@ _st(aStream)._nextPutAll_("], '");
 $ctx1.sendIdx["nextPutAll:"]=7;
 _st(aStream)._nextPutAll_(_st(_st(aClass)._category()).__comma("'"));
 $ctx1.sendIdx["nextPutAll:"]=8;
-$9=_st(aStream)._nextPutAll_(");");
+$7=_st(aStream)._nextPutAll_(");");
 $ctx1.sendIdx["nextPutAll:"]=9;
-$11=_st(aClass)._comment();
+$9=_st(aClass)._comment();
 $ctx1.sendIdx["comment"]=1;
-$10=_st($11)._notEmpty();
-if(smalltalk.assert($10)){
+$8=_st($9)._notEmpty();
+if(smalltalk.assert($8)){
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=2;
-_st(aStream)._nextPutAll_("globals.");
+_st(aStream)._nextPutAll_(self._jsClassNameFor_(aClass));
 $ctx1.sendIdx["nextPutAll:"]=10;
-_st(aStream)._nextPutAll_(self._classNameFor_(aClass));
-$ctx1.sendIdx["nextPutAll:"]=11;
 _st(aStream)._nextPutAll_(".comment=");
-$ctx1.sendIdx["nextPutAll:"]=12;
+$ctx1.sendIdx["nextPutAll:"]=11;
 _st(aStream)._nextPutAll_(_st(_st(aClass)._comment())._asJavascript());
-$ctx1.sendIdx["nextPutAll:"]=13;
-$12=_st(aStream)._nextPutAll_(";");
-$12;
+$ctx1.sendIdx["nextPutAll:"]=12;
+$10=_st(aStream)._nextPutAll_(";");
+$10;
 };
 _st(aStream)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.Exporter)})},
 args: ["aClass", "aStream"],
-source: "exportDefinitionOf: aClass on: aStream\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'smalltalk.addClass(';\x0a\x09\x09nextPutAll: '''', (self classNameFor: aClass), ''', ';\x0a\x09\x09nextPutAll: 'globals.', (self classNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ', ['.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ', ' ].\x0a\x09aStream\x0a\x09\x09nextPutAll: '], ''';\x0a\x09\x09nextPutAll: aClass category, '''';\x0a\x09\x09nextPutAll: ');'.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09\x09lf;\x0a\x09\x09nextPutAll: 'globals.';\x0a\x09\x09nextPutAll: (self classNameFor: aClass);\x0a\x09\x09nextPutAll: '.comment=';\x0a\x09\x09nextPutAll: aClass comment asJavascript;\x0a\x09\x09nextPutAll: ';' ].\x0a\x09aStream lf",
-messageSends: ["lf", "nextPutAll:", ",", "classNameFor:", "superclass", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "asJavascript"],
+source: "exportDefinitionOf: aClass on: aStream\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'smalltalk.addClass(';\x0a\x09\x09nextPutAll: '''', (self classNameFor: aClass), ''', ';\x0a\x09\x09nextPutAll: (self jsClassNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ', ['.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ', ' ].\x0a\x09aStream\x0a\x09\x09nextPutAll: '], ''';\x0a\x09\x09nextPutAll: aClass category, '''';\x0a\x09\x09nextPutAll: ');'.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09\x09lf;\x0a\x09\x09nextPutAll: (self jsClassNameFor: aClass);\x0a\x09\x09nextPutAll: '.comment=';\x0a\x09\x09nextPutAll: aClass comment asJavascript;\x0a\x09\x09nextPutAll: ';' ].\x0a\x09aStream lf",
+messageSends: ["lf", "nextPutAll:", ",", "classNameFor:", "jsClassNameFor:", "superclass", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "asJavascript"],
 referencedClasses: []
 }),
 globals.Exporter);
@@ -42880,7 +42857,7 @@ fn: function (aClass,aStream){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$6,$5,$4,$7,$9,$8;
+var $3,$2,$1,$5,$4,$6,$8,$7;
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
 $3=_st(aClass)._class();
@@ -42889,23 +42866,21 @@ $2=_st($3)._instanceVariableNames();
 $ctx1.sendIdx["instanceVariableNames"]=1;
 $1=_st($2)._isEmpty();
 if(! smalltalk.assert($1)){
-$6=_st(aClass)._class();
+$5=_st(aClass)._class();
 $ctx1.sendIdx["class"]=2;
-$5=self._classNameFor_($6);
-$4="globals.".__comma($5);
-$ctx1.sendIdx[","]=1;
+$4=self._jsClassNameFor_($5);
 _st(aStream)._nextPutAll_($4);
 $ctx1.sendIdx["nextPutAll:"]=1;
-$7=_st(aStream)._nextPutAll_(".iVarNames = [");
+$6=_st(aStream)._nextPutAll_(".iVarNames = [");
 $ctx1.sendIdx["nextPutAll:"]=2;
-$7;
+$6;
 _st(_st(_st(aClass)._class())._instanceVariableNames())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$9="'".__comma(each);
-$ctx2.sendIdx[","]=3;
-$8=_st($9).__comma("'");
+$8="'".__comma(each);
 $ctx2.sendIdx[","]=2;
-return _st(aStream)._nextPutAll_($8);
+$7=_st($8).__comma("'");
+$ctx2.sendIdx[","]=1;
+return _st(aStream)._nextPutAll_($7);
 $ctx2.sendIdx["nextPutAll:"]=3;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
@@ -42916,8 +42891,8 @@ _st(aStream)._nextPutAll_("];".__comma(_st($String())._lf()));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.Exporter)})},
 args: ["aClass", "aStream"],
-source: "exportMetaDefinitionOf: aClass on: aStream\x0a\x09aStream lf.\x0a\x09aClass class instanceVariableNames isEmpty ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09nextPutAll: 'globals.', (self classNameFor: aClass class);\x0a\x09\x09nextPutAll: '.iVarNames = ['.\x0a\x09\x09aClass class instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ',' ].\x0a\x09\x09aStream nextPutAll: '];', String lf ]",
-messageSends: ["lf", "ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", ",", "classNameFor:", "do:separatedBy:"],
+source: "exportMetaDefinitionOf: aClass on: aStream\x0a\x09aStream lf.\x0a\x09aClass class instanceVariableNames isEmpty ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09nextPutAll: (self jsClassNameFor: aClass class);\x0a\x09\x09nextPutAll: '.iVarNames = ['.\x0a\x09\x09aClass class instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ',' ].\x0a\x09\x09aStream nextPutAll: '];', String lf ]",
+messageSends: ["lf", "ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", "jsClassNameFor:", "do:separatedBy:", ","],
 referencedClasses: ["String"]
 }),
 globals.Exporter);
@@ -42929,7 +42904,7 @@ protocol: 'output',
 fn: function (aMethod,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$5,$4,$7,$6,$10,$9,$8,$13,$12,$11,$16,$15,$14,$18,$17,$19;
+var $3,$2,$1,$5,$4,$7,$6,$10,$9,$8,$13,$12,$11,$16,$15,$14,$17,$18;
 _st(aStream)._nextPutAll_("smalltalk.addMethod(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._lf();
@@ -42994,9 +42969,7 @@ _st(aStream)._nextPutAll_($14);
 $ctx1.sendIdx["nextPutAll:"]=8;
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=8;
-$18="referencedClasses: ".__comma(_st(_st(aMethod)._referencedClasses())._asJavascript());
-$ctx1.sendIdx[","]=13;
-$17=_st(aStream)._nextPutAll_($18);
+$17=_st(aStream)._nextPutAll_("referencedClasses: ".__comma(_st(_st(aMethod)._referencedClasses())._asJavascript()));
 $ctx1.sendIdx["nextPutAll:"]=9;
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=9;
@@ -43004,16 +42977,16 @@ _st(aStream)._nextPutAll_("}),");
 $ctx1.sendIdx["nextPutAll:"]=10;
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=10;
-_st(aStream)._nextPutAll_("globals.".__comma(self._classNameFor_(_st(aMethod)._methodClass())));
+_st(aStream)._nextPutAll_(self._jsClassNameFor_(_st(aMethod)._methodClass()));
 $ctx1.sendIdx["nextPutAll:"]=11;
 _st(aStream)._nextPutAll_(");");
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=11;
-$19=_st(aStream)._lf();
+$18=_st(aStream)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},globals.Exporter)})},
 args: ["aMethod", "aStream"],
-source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09\x22nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x22\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: 'globals.', (self classNameFor: aMethod methodClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
-messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "protocol", "compiledSource", "fn", "arguments", "source", "messageSends", "referencedClasses", "classNameFor:", "methodClass"],
+source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09\x22nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x22\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: (self jsClassNameFor: aMethod methodClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
+messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "protocol", "compiledSource", "fn", "arguments", "source", "messageSends", "referencedClasses", "jsClassNameFor:", "methodClass"],
 referencedClasses: []
 }),
 globals.Exporter);
@@ -43142,6 +43115,34 @@ return self}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{a
 args: ["aPackage", "aStream"],
 source: "exportPackageTransportOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.packages[';\x0a\x09\x09nextPutAll: aPackage name asJavascript;\x0a\x09\x09nextPutAll: '].transport = ';\x0a\x09\x09nextPutAll: aPackage transport asJSONString;\x0a\x09\x09nextPutAll: ';';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", "asJavascript", "name", "asJSONString", "transport", "lf"],
+referencedClasses: []
+}),
+globals.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "jsClassNameFor:",
+protocol: 'convenience',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$receiver;
+$2=_st(aClass)._isMetaclass();
+if(smalltalk.assert($2)){
+$1=_st(self._jsClassNameFor_(_st(aClass)._instanceClass())).__comma(".klass");
+$ctx1.sendIdx[","]=1;
+} else {
+if(($receiver = aClass) == null || $receiver.isNil){
+$1="null";
+} else {
+$1="globals.".__comma(_st(aClass)._name());
+};
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"jsClassNameFor:",{aClass:aClass},globals.Exporter)})},
+args: ["aClass"],
+source: "jsClassNameFor: aClass\x0a\x09^ aClass isMetaclass\x0a\x09\x09ifTrue: [ (self jsClassNameFor: aClass instanceClass), '.klass' ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09aClass\x0a\x09\x09\x09\x09ifNil: [ 'null' ]\x0a\x09\x09\x09\x09ifNotNil: [ 'globals.', aClass name ] ]",
+messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "jsClassNameFor:", "instanceClass", "ifNil:ifNotNil:", "name"],
 referencedClasses: []
 }),
 globals.Exporter);
@@ -50518,15 +50519,47 @@ globals.ConsoleTranscriptTest);
 smalltalk.addClass('JSObjectProxyTest', globals.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "jsNull",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return null;
+return self}, function($ctx1) {$ctx1.fill(self,"jsNull",{},globals.JSObjectProxyTest)})},
+args: [],
+source: "jsNull\x0a\x09<return null>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "jsObject",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0};
+return {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0};
 return self}, function($ctx1) {$ctx1.fill(self,"jsObject",{},globals.JSObjectProxyTest)})},
 args: [],
-source: "jsObject\x0a\x09<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0}>",
+source: "jsObject\x0a\x09<return {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0}>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "jsUndefined",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return;
+return self}, function($ctx1) {$ctx1.fill(self,"jsUndefined",{},globals.JSObjectProxyTest)})},
+args: [],
+source: "jsUndefined\x0a\x09<return>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -50858,6 +50891,54 @@ args: [],
 source: "testPropertyThatReturnsUndefined\x0a\x09| object |\x0a\x0a\x09object := self jsObject.\x0a\x09self shouldnt: [ object e ] raise: MessageNotUnderstood.\x0a\x09self assert: object e isNil",
 messageSends: ["jsObject", "shouldnt:raise:", "e", "assert:", "isNil"],
 referencedClasses: ["MessageNotUnderstood"]
+}),
+globals.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testSetPropertyWithFalsyValue",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var jsObject;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5;
+jsObject=self._jsObject();
+$1=_st(jsObject)._a();
+$ctx1.sendIdx["a"]=1;
+self._assert_equals_($1,(1));
+$ctx1.sendIdx["assert:equals:"]=1;
+_st(jsObject)._a_(self._jsNull());
+$ctx1.sendIdx["a:"]=1;
+$2=_st(jsObject)._a();
+$ctx1.sendIdx["a"]=2;
+self._assert_equals_($2,nil);
+$ctx1.sendIdx["assert:equals:"]=2;
+_st(jsObject)._a_((0));
+$ctx1.sendIdx["a:"]=2;
+$3=_st(jsObject)._a();
+$ctx1.sendIdx["a"]=3;
+self._assert_equals_($3,(0));
+$ctx1.sendIdx["assert:equals:"]=3;
+_st(jsObject)._a_(self._jsUndefined());
+$ctx1.sendIdx["a:"]=3;
+$4=_st(jsObject)._a();
+$ctx1.sendIdx["a"]=4;
+self._assert_equals_($4,nil);
+$ctx1.sendIdx["assert:equals:"]=4;
+_st(jsObject)._a_("");
+$ctx1.sendIdx["a:"]=4;
+$5=_st(jsObject)._a();
+$ctx1.sendIdx["a"]=5;
+self._assert_equals_($5,"");
+$ctx1.sendIdx["assert:equals:"]=5;
+_st(jsObject)._a_(false);
+self._assert_equals_(_st(jsObject)._a(),false);
+return self}, function($ctx1) {$ctx1.fill(self,"testSetPropertyWithFalsyValue",{jsObject:jsObject},globals.JSObjectProxyTest)})},
+args: [],
+source: "testSetPropertyWithFalsyValue\x0a\x09| jsObject |\x0a\x09jsObject := self jsObject.\x0a\x09self assert: (jsObject a) equals: 1.\x0a\x0a\x09jsObject a: self jsNull.\x0a\x09self assert: (jsObject a) equals: nil.\x0a\x09jsObject a: 0.\x0a\x09self assert: (jsObject a) equals: 0.\x0a\x09jsObject a: self jsUndefined.\x0a\x09self assert: (jsObject a) equals: nil.\x0a\x09jsObject a: ''.\x0a\x09self assert: (jsObject a) equals: ''.\x0a\x09jsObject a: false.\x0a\x09self assert: (jsObject a) equals: false",
+messageSends: ["jsObject", "assert:equals:", "a", "a:", "jsNull", "jsUndefined"],
+referencedClasses: []
 }),
 globals.JSObjectProxyTest);
 
@@ -56339,6 +56420,23 @@ globals.AmberCli.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "config:",
+protocol: 'commands',
+fn: function (args){
+var self=this;
+function $Configurator(){return globals.Configurator||(typeof Configurator=="undefined"?nil:Configurator)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($Configurator())._new())._start();
+return self}, function($ctx1) {$ctx1.fill(self,"config:",{args:args},globals.AmberCli.klass)})},
+args: ["args"],
+source: "config: args\x0a\x09Configurator new start",
+messageSends: ["start", "new"],
+referencedClasses: ["Configurator"]
+}),
+globals.AmberCli.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "handleArguments:",
 protocol: 'commandline',
 fn: function (args){
@@ -56552,7 +56650,100 @@ referencedClasses: []
 globals.AmberCli.klass);
 
 
-smalltalk.addClass('FileServer', globals.Object, ['path', 'http', 'fs', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'AmberCli');
+smalltalk.addClass('BaseFileManipulator', globals.Object, ['path', 'fs'], 'AmberCli');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "dirname",
+protocol: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return __dirname;
+return self}, function($ctx1) {$ctx1.fill(self,"dirname",{},globals.BaseFileManipulator)})},
+args: [],
+source: "dirname\x0a\x09<return __dirname>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.BaseFileManipulator);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+($ctx1.supercall = true, globals.BaseFileManipulator.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
+self["@path"]=_st(require)._value_("path");
+$ctx1.sendIdx["value:"]=1;
+self["@fs"]=_st(require)._value_("fs");
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.BaseFileManipulator)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09path := require value: 'path'.\x0a\x09fs := require value: 'fs'",
+messageSends: ["initialize", "value:"],
+referencedClasses: []
+}),
+globals.BaseFileManipulator);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rootDirname",
+protocol: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@path"])._join_with_(self._dirname(),"..");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"rootDirname",{},globals.BaseFileManipulator)})},
+args: [],
+source: "rootDirname\x0a\x09^ path join: self dirname with: '..'",
+messageSends: ["join:with:", "dirname"],
+referencedClasses: []
+}),
+globals.BaseFileManipulator);
+
+
+
+smalltalk.addClass('Configurator', globals.BaseFileManipulator, [], 'AmberCli');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+($ctx1.supercall = true, globals.Configurator.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Configurator)})},
+args: [],
+source: "initialize\x0a\x09super initialize",
+messageSends: ["initialize"],
+referencedClasses: []
+}),
+globals.Configurator);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "start",
+protocol: 'action',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(require)._value_("amber-dev/lib/config"))._writeConfig_(_st(process)._cwd());
+return self}, function($ctx1) {$ctx1.fill(self,"start",{},globals.Configurator)})},
+args: [],
+source: "start\x0a\x09(require value: 'amber-dev/lib/config')\x0a\x09\x09writeConfig: process cwd",
+messageSends: ["writeConfig:", "value:", "cwd"],
+referencedClasses: []
+}),
+globals.Configurator);
+
+
+
+smalltalk.addClass('FileServer', globals.BaseFileManipulator, ['http', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'AmberCli');
 globals.FileServer.comment="I am the Amber Smalltalk FileServer.\x0aMy runtime requirement is a functional Node.js executable.\x0a\x0aTo start a FileServer instance on port `4000` use the following code:\x0a\x0a    FileServer new start\x0a\x0aA parameterized instance can be created with the following code:\x0a\x0a    FileServer createServerWithArguments: options\x0a\x0aHere, `options` is an array of commandline style strings each followed by a value e.g. `#('--port', '6000', '--host', '0.0.0.0')`.\x0aA list of all available parameters can be printed to the commandline by passing `--help` as parameter.\x0aSee the `Options` section for further details on how options are mapped to instance methods.\x0a\x0aAfter startup FileServer checks if the directory layout required by Amber is present and logs a warning on absence.\x0a\x0a\x0a## Options\x0a\x0aEach option is of the form `--some-option-string` which is transformed into a selector of the format `someOptionString:`.\x0aThe trailing `--` gets removed, each `-[a-z]` gets transformed into the according uppercase letter, and a `:` is appended to create a selector which takes a single argument.\x0aAfterwards, the selector gets executed on the `FileServer` instance with the value following in the options array as parameter.\x0a\x0a## Adding new commandline parameters\x0a\x0aAdding new commandline parameters to `FileServer` is as easy as adding a new single parameter method to the `accessing` protocol.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -56849,14 +57040,10 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 ($ctx1.supercall = true, globals.FileServer.superclass.fn.prototype._initialize.apply(_st(self), []));
 $ctx1.supercall = false;
-self["@path"]=self._require_("path");
-$ctx1.sendIdx["require:"]=1;
 self["@http"]=self._require_("http");
-$ctx1.sendIdx["require:"]=2;
-self["@fs"]=self._require_("fs");
-$ctx1.sendIdx["require:"]=3;
+$ctx1.sendIdx["require:"]=1;
 self["@util"]=self._require_("util");
-$ctx1.sendIdx["require:"]=4;
+$ctx1.sendIdx["require:"]=2;
 self["@url"]=self._require_("url");
 $1=self._class();
 $ctx1.sendIdx["class"]=1;
@@ -56867,7 +57054,7 @@ self["@password"]=nil;
 self["@fallbackPage"]=nil;
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.FileServer)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09path := self require: 'path'.\x0a\x09http := self require: 'http'.\x0a\x09fs := self require: 'fs'.\x0a\x09util := self require: 'util'.\x0a\x09url := self require: 'url'.\x0a\x09host := self class defaultHost.\x0a\x09port := self class defaultPort.\x0a\x09username := nil.\x0a\x09password := nil.\x0a\x09fallbackPage := nil.",
+source: "initialize\x0a\x09super initialize.\x0a\x09http := self require: 'http'.\x0a\x09util := self require: 'util'.\x0a\x09url := self require: 'url'.\x0a\x09host := self class defaultHost.\x0a\x09port := self class defaultPort.\x0a\x09username := nil.\x0a\x09password := nil.\x0a\x09fallbackPage := nil.",
 messageSends: ["initialize", "require:", "defaultHost", "class", "defaultPort"],
 referencedClasses: []
 }),
@@ -57684,7 +57871,7 @@ referencedClasses: []
 globals.FileServer.klass);
 
 
-smalltalk.addClass('Initer', globals.Object, ['path', 'childProcess', 'nmPath'], 'AmberCli');
+smalltalk.addClass('Initer', globals.BaseFileManipulator, ['childProcess', 'nmPath'], 'AmberCli');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "bowerInstallThenDo:",
@@ -57702,22 +57889,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"bowerInstallThenDo:",{aBlock:aBl
 args: ["aBlock"],
 source: "bowerInstallThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: (path join: nmPath with: '.bin' with: 'bower'), ' install'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
 messageSends: ["exec:thenDo:", ",", "join:with:with:", "pipe:options:", "stdout"],
-referencedClasses: []
-}),
-globals.Initer);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "dirname",
-protocol: 'private',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return __dirname;
-return self}, function($ctx1) {$ctx1.fill(self,"dirname",{},globals.Initer)})},
-args: [],
-source: "dirname\x0a\x09<return __dirname>",
-messageSends: [],
 referencedClasses: []
 }),
 globals.Initer);
@@ -57805,13 +57976,11 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 ($ctx1.supercall = true, globals.Initer.superclass.fn.prototype._initialize.apply(_st(self), []));
 $ctx1.supercall = false;
-self["@path"]=_st(require)._value_("path");
-$ctx1.sendIdx["value:"]=1;
 self["@childProcess"]=_st(require)._value_("child_process");
 self["@nmPath"]=_st(self["@path"])._join_with_(self._rootDirname(),"node_modules");
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Initer)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09path := require value: 'path'.\x0a\x09childProcess := require value: 'child_process'.\x0a\x09nmPath := path join: self rootDirname with: 'node_modules'",
+source: "initialize\x0a\x09super initialize.\x0a\x09childProcess := require value: 'child_process'.\x0a\x09nmPath := path join: self rootDirname with: 'node_modules'",
 messageSends: ["initialize", "value:", "join:with:", "rootDirname"],
 referencedClasses: []
 }),
@@ -57834,24 +58003,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"npmInstallThenDo:",{aBlock:aBloc
 args: ["aBlock"],
 source: "npmInstallThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: 'npm install'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
 messageSends: ["exec:thenDo:", "pipe:options:", "stdout"],
-referencedClasses: []
-}),
-globals.Initer);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "rootDirname",
-protocol: 'private',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self["@path"])._join_with_(self._dirname(),"..");
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"rootDirname",{},globals.Initer)})},
-args: [],
-source: "rootDirname\x0a\x09^ path join: self dirname with: '..'",
-messageSends: ["join:with:", "dirname"],
 referencedClasses: []
 }),
 globals.Initer);

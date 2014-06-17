@@ -448,8 +448,8 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		st.addClass = function(className, superclass, iVarNames, pkgName) {
 			// While subclassing nil is allowed, it might be an error, so
 			// warn about it.
-			if (!superclass || superclass == nil) {
-				console.warn('Creating ' + className + ' as a subclass of `nil`. A dependency might be missing.');
+			if (typeof superclass == 'undefined' || superclass == nil) {
+				console.warn('Compiling ' + className + ' as a subclass of `nil`. A dependency might be missing.');
 			}
 			rawAddClass(pkgName, className, superclass, iVarNames, false, null);
 		};

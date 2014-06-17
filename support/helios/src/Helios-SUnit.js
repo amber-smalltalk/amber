@@ -440,15 +440,14 @@ var $1,$2;
 $1=_st(html)._button();
 _st($1)._class_("button");
 _st($1)._with_("Select all");
-$ctx1.sendIdx["with:"]=1;
-$2=_st($1)._with_((function(){
+$2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._model())._selectAllClasses();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.HLSUnitClassesListWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09class: 'button'; \x0a\x09\x09with: 'Select all';\x0a\x09\x09with: [ self model selectAllClasses ]",
-messageSends: ["class:", "button", "with:", "selectAllClasses", "model"],
+source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09class: 'button'; \x0a\x09\x09with: 'Select all';\x0a\x09\x09onClick: [ self model selectAllClasses ]",
+messageSends: ["class:", "button", "with:", "onClick:", "selectAllClasses", "model"],
 referencedClasses: []
 }),
 globals.HLSUnitClassesListWidget);
@@ -1042,6 +1041,28 @@ args: [],
 source: "resultWidget\x0a\x09^ resultWidget ifNil: [\x0a\x09\x09resultWidget := HLSUnitResults new\x0a\x09\x09\x09model: self model;\x0a\x09\x09\x09yourself]",
 messageSends: ["ifNil:", "model:", "new", "model", "yourself"],
 referencedClasses: ["HLSUnitResults"]
+}),
+globals.HLSUnit);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unregister",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+($ctx1.supercall = true, globals.HLSUnit.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
+$ctx1.sendIdx["unregister"]=1;
+_st([self._packagesListWidget(),self._classesListWidget(),self._resultWidget(),self._errorsWidget(),self._failuresWidget()])._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._unregister();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLSUnit)})},
+args: [],
+source: "unregister\x0a\x09super unregister.\x0a\x0a\x09{ \x0a\x09\x09self packagesListWidget.\x0a\x09\x09self classesListWidget.\x0a\x09\x09self resultWidget.\x0a\x09\x09self errorsWidget.\x0a\x09\x09self failuresWidget\x0a\x09} \x0a\x09\x09do: [ :each | each unregister ]",
+messageSends: ["unregister", "do:", "packagesListWidget", "classesListWidget", "resultWidget", "errorsWidget", "failuresWidget"],
+referencedClasses: []
 }),
 globals.HLSUnit);
 
@@ -1939,6 +1960,24 @@ referencedClasses: []
 }),
 globals.HLSUnitResultStatus);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unregister",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+($ctx1.supercall = true, globals.HLSUnitResultStatus.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
+_st(_st(self._model())._announcer())._unsubscribe_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLSUnitResultStatus)})},
+args: [],
+source: "unregister\x0a\x09super unregister.\x0a\x09self model announcer unsubscribe: self.",
+messageSends: ["unregister", "unsubscribe:", "announcer", "model"],
+referencedClasses: []
+}),
+globals.HLSUnitResultStatus);
+
 
 
 smalltalk.addClass('HLSUnitResults', globals.HLWidget, ['model', 'progressBarWidget', 'resultStatusWidget'], 'Helios-SUnit');
@@ -2119,6 +2158,26 @@ args: [],
 source: "resultStatusWidget\x0a\x09^resultStatusWidget ifNil: [resultStatusWidget := HLSUnitResultStatus new\x0a\x09\x09model: self model;\x0a\x09\x09yourself]",
 messageSends: ["ifNil:", "model:", "new", "model", "yourself"],
 referencedClasses: ["HLSUnitResultStatus"]
+}),
+globals.HLSUnitResults);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unregister",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+($ctx1.supercall = true, globals.HLSUnitResults.superclass.fn.prototype._unregister.apply(_st(self), []));
+$ctx1.supercall = false;
+$ctx1.sendIdx["unregister"]=1;
+_st(_st(self._model())._announcer())._unsubscribe_(self);
+_st(self._resultStatusWidget())._unregister();
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},globals.HLSUnitResults)})},
+args: [],
+source: "unregister\x0a\x09super unregister.\x0a\x09self model announcer unsubscribe: self.\x0a\x09self resultStatusWidget unregister.",
+messageSends: ["unregister", "unsubscribe:", "announcer", "model", "resultStatusWidget"],
+referencedClasses: []
 }),
 globals.HLSUnitResults);
 
