@@ -1,7 +1,7 @@
 {
     "paths": {
         "helios": "src",
-        "helios/all": "all",
+        "helios/set": "set",
         "helios/resources": "resources",
         "helios/index": "index"
     }
