@@ -22,7 +22,7 @@ define([
 	'amber/lang',
 	'amber/codemirror',
 	'amber/devel-inner', // pre-fetch, dep of ./all-inner
-	'./resources/all-inner',
+	'./resources/set-inner',
     'css!./resources/helios',
 	'css!./resources/helios-niflheim',
     'css!./resources/niflheim'
