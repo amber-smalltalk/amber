@@ -40,6 +40,23 @@ globals.AmberCli.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "config:",
+protocol: 'commands',
+fn: function (args){
+var self=this;
+function $Configurator(){return globals.Configurator||(typeof Configurator=="undefined"?nil:Configurator)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($Configurator())._new())._start();
+return self}, function($ctx1) {$ctx1.fill(self,"config:",{args:args},globals.AmberCli.klass)})},
+args: ["args"],
+source: "config: args\x0a\x09Configurator new start",
+messageSends: ["start", "new"],
+referencedClasses: ["Configurator"]
+}),
+globals.AmberCli.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "handleArguments:",
 protocol: 'commandline',
 fn: function (args){
@@ -253,7 +270,100 @@ referencedClasses: []
 globals.AmberCli.klass);
 
 
-smalltalk.addClass('FileServer', globals.Object, ['path', 'http', 'fs', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'AmberCli');
+smalltalk.addClass('BaseFileManipulator', globals.Object, ['path', 'fs'], 'AmberCli');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "dirname",
+protocol: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return __dirname;
+return self}, function($ctx1) {$ctx1.fill(self,"dirname",{},globals.BaseFileManipulator)})},
+args: [],
+source: "dirname\x0a\x09<return __dirname>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.BaseFileManipulator);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+($ctx1.supercall = true, globals.BaseFileManipulator.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
+self["@path"]=_st(require)._value_("path");
+$ctx1.sendIdx["value:"]=1;
+self["@fs"]=_st(require)._value_("fs");
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.BaseFileManipulator)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09path := require value: 'path'.\x0a\x09fs := require value: 'fs'",
+messageSends: ["initialize", "value:"],
+referencedClasses: []
+}),
+globals.BaseFileManipulator);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rootDirname",
+protocol: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@path"])._join_with_(self._dirname(),"..");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"rootDirname",{},globals.BaseFileManipulator)})},
+args: [],
+source: "rootDirname\x0a\x09^ path join: self dirname with: '..'",
+messageSends: ["join:with:", "dirname"],
+referencedClasses: []
+}),
+globals.BaseFileManipulator);
+
+
+
+smalltalk.addClass('Configurator', globals.BaseFileManipulator, [], 'AmberCli');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+($ctx1.supercall = true, globals.Configurator.superclass.fn.prototype._initialize.apply(_st(self), []));
+$ctx1.supercall = false;
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Configurator)})},
+args: [],
+source: "initialize\x0a\x09super initialize",
+messageSends: ["initialize"],
+referencedClasses: []
+}),
+globals.Configurator);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "start",
+protocol: 'action',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(require)._value_("amber-dev/lib/config"))._writeConfig_(_st(process)._cwd());
+return self}, function($ctx1) {$ctx1.fill(self,"start",{},globals.Configurator)})},
+args: [],
+source: "start\x0a\x09(require value: 'amber-dev/lib/config')\x0a\x09\x09writeConfig: process cwd",
+messageSends: ["writeConfig:", "value:", "cwd"],
+referencedClasses: []
+}),
+globals.Configurator);
+
+
+
+smalltalk.addClass('FileServer', globals.BaseFileManipulator, ['http', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'AmberCli');
 globals.FileServer.comment="I am the Amber Smalltalk FileServer.\x0aMy runtime requirement is a functional Node.js executable.\x0a\x0aTo start a FileServer instance on port `4000` use the following code:\x0a\x0a    FileServer new start\x0a\x0aA parameterized instance can be created with the following code:\x0a\x0a    FileServer createServerWithArguments: options\x0a\x0aHere, `options` is an array of commandline style strings each followed by a value e.g. `#('--port', '6000', '--host', '0.0.0.0')`.\x0aA list of all available parameters can be printed to the commandline by passing `--help` as parameter.\x0aSee the `Options` section for further details on how options are mapped to instance methods.\x0a\x0aAfter startup FileServer checks if the directory layout required by Amber is present and logs a warning on absence.\x0a\x0a\x0a## Options\x0a\x0aEach option is of the form `--some-option-string` which is transformed into a selector of the format `someOptionString:`.\x0aThe trailing `--` gets removed, each `-[a-z]` gets transformed into the according uppercase letter, and a `:` is appended to create a selector which takes a single argument.\x0aAfterwards, the selector gets executed on the `FileServer` instance with the value following in the options array as parameter.\x0a\x0a## Adding new commandline parameters\x0a\x0aAdding new commandline parameters to `FileServer` is as easy as adding a new single parameter method to the `accessing` protocol.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -550,14 +660,10 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 ($ctx1.supercall = true, globals.FileServer.superclass.fn.prototype._initialize.apply(_st(self), []));
 $ctx1.supercall = false;
-self["@path"]=self._require_("path");
-$ctx1.sendIdx["require:"]=1;
 self["@http"]=self._require_("http");
-$ctx1.sendIdx["require:"]=2;
-self["@fs"]=self._require_("fs");
-$ctx1.sendIdx["require:"]=3;
+$ctx1.sendIdx["require:"]=1;
 self["@util"]=self._require_("util");
-$ctx1.sendIdx["require:"]=4;
+$ctx1.sendIdx["require:"]=2;
 self["@url"]=self._require_("url");
 $1=self._class();
 $ctx1.sendIdx["class"]=1;
@@ -568,7 +674,7 @@ self["@password"]=nil;
 self["@fallbackPage"]=nil;
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.FileServer)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09path := self require: 'path'.\x0a\x09http := self require: 'http'.\x0a\x09fs := self require: 'fs'.\x0a\x09util := self require: 'util'.\x0a\x09url := self require: 'url'.\x0a\x09host := self class defaultHost.\x0a\x09port := self class defaultPort.\x0a\x09username := nil.\x0a\x09password := nil.\x0a\x09fallbackPage := nil.",
+source: "initialize\x0a\x09super initialize.\x0a\x09http := self require: 'http'.\x0a\x09util := self require: 'util'.\x0a\x09url := self require: 'url'.\x0a\x09host := self class defaultHost.\x0a\x09port := self class defaultPort.\x0a\x09username := nil.\x0a\x09password := nil.\x0a\x09fallbackPage := nil.",
 messageSends: ["initialize", "require:", "defaultHost", "class", "defaultPort"],
 referencedClasses: []
 }),
@@ -1385,7 +1491,7 @@ referencedClasses: []
 globals.FileServer.klass);
 
 
-smalltalk.addClass('Initer', globals.Object, ['path', 'childProcess', 'nmPath'], 'AmberCli');
+smalltalk.addClass('Initer', globals.BaseFileManipulator, ['childProcess', 'nmPath'], 'AmberCli');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "bowerInstallThenDo:",
@@ -1403,22 +1509,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"bowerInstallThenDo:",{aBlock:aBl
 args: ["aBlock"],
 source: "bowerInstallThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: (path join: nmPath with: '.bin' with: 'bower'), ' install'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
 messageSends: ["exec:thenDo:", ",", "join:with:with:", "pipe:options:", "stdout"],
-referencedClasses: []
-}),
-globals.Initer);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "dirname",
-protocol: 'private',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return __dirname;
-return self}, function($ctx1) {$ctx1.fill(self,"dirname",{},globals.Initer)})},
-args: [],
-source: "dirname\x0a\x09<return __dirname>",
-messageSends: [],
 referencedClasses: []
 }),
 globals.Initer);
@@ -1506,13 +1596,11 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 ($ctx1.supercall = true, globals.Initer.superclass.fn.prototype._initialize.apply(_st(self), []));
 $ctx1.supercall = false;
-self["@path"]=_st(require)._value_("path");
-$ctx1.sendIdx["value:"]=1;
 self["@childProcess"]=_st(require)._value_("child_process");
 self["@nmPath"]=_st(self["@path"])._join_with_(self._rootDirname(),"node_modules");
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Initer)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09path := require value: 'path'.\x0a\x09childProcess := require value: 'child_process'.\x0a\x09nmPath := path join: self rootDirname with: 'node_modules'",
+source: "initialize\x0a\x09super initialize.\x0a\x09childProcess := require value: 'child_process'.\x0a\x09nmPath := path join: self rootDirname with: 'node_modules'",
 messageSends: ["initialize", "value:", "join:with:", "rootDirname"],
 referencedClasses: []
 }),
@@ -1535,24 +1623,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"npmInstallThenDo:",{aBlock:aBloc
 args: ["aBlock"],
 source: "npmInstallThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: 'npm install'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
 messageSends: ["exec:thenDo:", "pipe:options:", "stdout"],
-referencedClasses: []
-}),
-globals.Initer);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "rootDirname",
-protocol: 'private',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self["@path"])._join_with_(self._dirname(),"..");
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"rootDirname",{},globals.Initer)})},
-args: [],
-source: "rootDirname\x0a\x09^ path join: self dirname with: '..'",
-messageSends: ["join:with:", "dirname"],
 referencedClasses: []
 }),
 globals.Initer);
