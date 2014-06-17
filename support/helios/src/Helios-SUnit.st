@@ -163,7 +163,7 @@ renderButtonsOn: html
 	html button
 		class: 'button'; 
 		with: 'Select all';
-		with: [ self model selectAllClasses ]
+		onClick: [ self model selectAllClasses ]
 !
 
 renderItemLabel: aClass on: html
@@ -302,6 +302,21 @@ resultSection
 		with: (HLHorizontalSplitter 
 			with: self failuresWidget
 			with: self errorsWidget)
+! !
+
+!HLSUnit methodsFor: 'actions'!
+
+unregister
+	super unregister.
+
+	{ 
+		self packagesListWidget.
+		self classesListWidget.
+		self resultWidget.
+		self errorsWidget.
+		self failuresWidget
+	} 
+		do: [ :each | each unregister ]
 ! !
 
 !HLSUnit methodsFor: 'keybindings'!
@@ -617,6 +632,11 @@ observeModel
 		on: ResultAnnouncement
 		send: #onResultAnnouncement:
 		to: self
+!
+
+unregister
+	super unregister.
+	self model announcer unsubscribe: self.
 ! !
 
 !HLSUnitResultStatus methodsFor: 'printing'!
@@ -683,6 +703,14 @@ resultStatusWidget
 	^resultStatusWidget ifNil: [resultStatusWidget := HLSUnitResultStatus new
 		model: self model;
 		yourself]
+! !
+
+!HLSUnitResults methodsFor: 'actions'!
+
+unregister
+	super unregister.
+	self model announcer unsubscribe: self.
+	self resultStatusWidget unregister.
 ! !
 
 !HLSUnitResults methodsFor: 'initialization'!
