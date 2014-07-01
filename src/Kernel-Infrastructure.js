@@ -3514,10 +3514,10 @@ selector: "version",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "0.12.6";
+return "0.13.0-pre";
 },
 args: [],
-source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.12.6'",
+source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.13.0-pre'",
 messageSends: [],
 referencedClasses: []
 }),
