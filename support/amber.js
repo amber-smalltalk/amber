@@ -86,7 +86,7 @@ require = function (require) {
             'helios/set': amber_home + '/support/helios/set',
             'helios/resources': amber_home + '/support/helios/resources',
             'helios/index': amber_home + '/support/helios/index',
-            'jquery': library_home + '/jquery/jquery.min'
+            'jquery': [ library_home + '/jquery/dist/jquery.min', library_home + '/jquery/jquery.min' ]
         },
         map: {
             '*': {
