@@ -1,4 +1,4 @@
-1st July  2014 - Release 0.12.5
+1st July  2014 - Release 0.12.6
 ===================================
 
 Highlights:
@@ -15,7 +15,7 @@ Highlights:
 * After installing the cli tooling, `amber init` initializes
   new project if run in empty directory.
 
-Commits: https://github.com/amber-smalltalk/amber/compare/0.12.4...0.12.5
+Commits: https://github.com/amber-smalltalk/amber/compare/0.12.4...0.12.6
 Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=13&state=closed
 
 For the most important API related changes see the file API-CHANGES.txt.
