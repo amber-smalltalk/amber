@@ -1,7 +1,10 @@
 require.config({
 	paths: {
 		'bootstrap2.3.2': require.toUrl('amber_lib') + '/bootstrap2.3.2/bootstrap',
-		'jquery-ui': require.toUrl('amber_lib/jquery-ui/ui/minified/jquery-ui.min')
+		'jquery-ui': [
+			require.toUrl('amber_lib/jquery-ui/jquery-ui.min'),
+			require.toUrl('amber_lib/jquery-ui/ui/minified/jquery-ui.min')
+		]
 	},
 	shim: {
 		'jquery-ui': {
@@ -23,7 +26,7 @@ define([
 	'amber/codemirror',
 	'amber/devel-inner', // pre-fetch, dep of ./all-inner
 	'./resources/set-inner',
-    'css!./resources/helios',
+	'css!./resources/helios',
 	'css!./resources/helios-niflheim',
-    'css!./resources/niflheim'
+	'css!./resources/niflheim'
 ], function (smalltalk) { return smalltalk; });
