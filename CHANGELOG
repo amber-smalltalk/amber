@@ -1,4 +1,4 @@
-XXnd XXX 2014 - Release 0.12.5
+1st July  2014 - Release 0.12.6
 ===================================
 
 Highlights:
@@ -6,13 +6,16 @@ Highlights:
 * SUnit Runner in Helios IDE.
 * `amber` and `amberc` cli moved to `external` directory
   and to dedicated npm package.
+* Bootstrap 3 can be used in Amber projects
+  (no more nameclash with Helios' bootstrap 2 using bootstrap2.3.2 name).
+* Wider range of jQuery versions allowed.
 * Amber now parses `$c` character literal.
 * `amber` is not to be installed globally any more.
   Instead, `npm install -g amber-cli` installs cli tooling.
 * After installing the cli tooling, `amber init` initializes
   new project if run in empty directory.
 
-Commits: https://github.com/amber-smalltalk/amber/compare/0.12.4...0.12.5
+Commits: https://github.com/amber-smalltalk/amber/compare/0.12.4...0.12.6
 Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=13&state=closed
 
 For the most important API related changes see the file API-CHANGES.txt.
