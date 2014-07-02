@@ -1,0 +1,14 @@
+{
+    "paths": {
+        "amber": "support",
+        "amber_vm": "support/deprecated-vm-files",
+        "amber_vm/_st": "support/deprecated-vm-files/as-receiver",
+        "amber_css": "support/resources",
+        "amber_core": "src"
+    },
+    "shim": {
+        "ensure-console": {
+            "exports": "console"
+        }
+    }
+}

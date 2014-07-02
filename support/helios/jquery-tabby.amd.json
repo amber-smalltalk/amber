@@ -1,0 +1,10 @@
+{
+    "paths": {
+        "amber_lib/jquery-tabby": "."
+    },
+    "shim": {
+        "amber_lib/jquery-tabby/jquery.textarea": {
+            "deps": [ "jquery" ]
+        }
+    }
+}

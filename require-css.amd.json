@@ -1,0 +1,10 @@
+{
+    "paths": {
+        "require-css": "."
+    },
+    "map": {
+        "*": {
+            "css": "require-css/css"
+        }
+    }
+}
