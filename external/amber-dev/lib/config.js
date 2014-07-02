@@ -15,7 +15,10 @@ exports.writeConfig = function (searchDir, fileForConfig) {
         if (err) throw err;
         var text = "/* DO NOT EDIT! This file is generated. */\n" +
             "\n" +
-            "require.config(" + JSON.stringify(result, null, 2) + ");";
+            "var require;\n" +
+            "(function (config) {\n" +
+            "if (require) require.config(config); else require = config;\n" +
+            "})(" + JSON.stringify(result, null, 2) + ");";
         fs.writeFile(path.join(searchDir, fileForConfig), text, function (err) {
             if (err) throw err;
         });
