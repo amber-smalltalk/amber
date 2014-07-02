@@ -21,7 +21,7 @@ Some highlights:
 Getting Amber
 -------------
 
-Amber is shipped as a [npm](http://npmjs.org) package for its CLI tools and as a [bower](https://github.com/bower/bower) package for the client-side.
+Amber is shipped as a [npm](http://npmjs.org) package for its CLI tools and as a [bower](https://github.com/bower/bower) package for the client-side. For installation to work, you need to install node, npm and git (in Windows, use Git for Windows and select "Run Git from Windows Command Prompt" and "Checkout Windows-style, commit Unix-style" installation options).
 
     # Install the CLI tool `amber-cli`
     npm install -g amber-cli
