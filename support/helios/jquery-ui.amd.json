@@ -1,6 +1,6 @@
 {
     "paths": {
-        "jquery-ui": "ui/minified/jquery-ui.min"
+        "jquery-ui": ["jquery-ui.min", "ui/minified/jquery-ui.min"]
     },
     "shim": {
         "jquery-ui": {
