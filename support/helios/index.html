@@ -11,20 +11,19 @@
 
     <div id="includes">
       <script type='text/javascript' src='../requirejs/require.min.js'></script>
-        <script type='text/javascript' src='../../config.js'></script>
-        <script type='text/javascript'>
-          require.config({baseUrl: '../..'});
-          require(
-                  ["helios/set"],
-                  function (smalltalk) {
-                      window.onbeforeunload = function() {
-                          return 'Do you want to close Amber? All uncommitted changes will be lost.';
-                      };
+      <script type='text/javascript'>
+        var base = decodeURIComponent(window.location.search.slice(1));
+        if (base) require.config({baseUrl: base});
+        require(["require", "config"], function (require) {
+          require(["helios/set"], function (smalltalk) {
+            window.onbeforeunload = function() {
+              return 'Do you want to close Amber? All uncommitted changes will be lost.';
+            };
 
-                      smalltalk.initialize({'transport.defaultAmdNamespace': "amber_core"});
-					  smalltalk.globals.HLManager._setup();
-                  }
-          );
+            smalltalk.initialize({'transport.defaultAmdNamespace': "amber_core"});
+            smalltalk.globals.HLManager._setup();
+          });
+        });
       </script>
     </div>
   </body>
