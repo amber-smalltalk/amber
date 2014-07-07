@@ -1,9 +1,8 @@
 /* DO NOT EDIT! This file is generated. */
 
 var require;
-(function (config) {
-if (require) require.config(config); else require = config;
-})({
+if (!require) require = {config: function (x) {require = x;}};
+require.config({
   "paths": {
     "amber": "support",
     "amber_vm": "support/deprecated-vm-files",
