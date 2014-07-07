@@ -10,20 +10,20 @@
     <div id="helper">Loading Helios...</div>
 
     <div id="includes">
-      <script type='text/javascript' src='../amber.js'></script>
       <script type='text/javascript' src='../requirejs/require.min.js'></script>
       <script type='text/javascript'>
-          require(
-                  ["helios/set"],
-                  function (smalltalk) {
-                      window.onbeforeunload = function() {
-                          return 'Do you want to close Amber? All uncommitted changes will be lost.';
-                      };
+        var base = decodeURIComponent(window.location.search.slice(1));
+        if (base) require.config({baseUrl: base});
+        require(["require", "config"], function (require) {
+          require(["helios/set"], function (smalltalk) {
+            window.onbeforeunload = function() {
+              return 'Do you want to close Amber? All uncommitted changes will be lost.';
+            };
 
-                      smalltalk.initialize({'transport.defaultAmdNamespace': "amber_core"});
-					  smalltalk.globals.HLManager._setup();
-                  }
-          );
+            smalltalk.initialize({'transport.defaultAmdNamespace': "amber_core"});
+            smalltalk.globals.HLManager._setup();
+          });
+        });
       </script>
     </div>
   </body>

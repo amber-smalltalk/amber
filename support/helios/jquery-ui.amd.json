@@ -1,0 +1,10 @@
+{
+    "paths": {
+        "jquery-ui": ["jquery-ui.min", "ui/minified/jquery-ui.min"]
+    },
+    "shim": {
+        "jquery-ui": {
+            "deps": [ "jquery" ]
+        }
+    }
+}

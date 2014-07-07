@@ -1,6 +1,6 @@
 {
   "name": "amber-dev",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Development goodies for Amber Smalltalk",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +17,6 @@
   "dependencies": {
     "amdefine": "0.0.8",
     "es6-promise": "~0.1.1",
-    "amd-config-builder": "~0.1.2"
+    "amd-config-builder": "~0.1.3"
   }
 }
