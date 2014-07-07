@@ -6,6 +6,29 @@ smalltalk.packages["SUnit-Tests"].transport = {"type":"amd","amdNamespace":"ambe
 smalltalk.addClass('AsyncContextTest', globals.TestCase, [], 'SUnit-Tests');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asyncHalt",
+protocol: 'haltTest',
+fn: function (){
+var self=this;
+var $thisMethod=arguments.callee.thisMethod;
+return smalltalk.withContext(function($ctx1) { 
+_st((function(){
+var c;
+return smalltalk.withContext(function($ctx2) {
+c=(1);
+c;
+return self._halt();
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1,1)})}))._valueWithTimeout_((200));
+return self}, function($ctx1) {$ctx1.fill(self,"asyncHalt",{},globals.AsyncContextTest,$thisMethod)})},
+args: [],
+source: "asyncHalt\x0a\x09[|c|\x0a\x09\x09c:=1.\x0a\x09\x09self halt.\x0a\x09] valueWithTimeout: 200",
+messageSends: ["valueWithTimeout:", "halt"],
+referencedClasses: []
+}),
+globals.AsyncContextTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testSetup",
 protocol: 'tests',
 fn: function (){

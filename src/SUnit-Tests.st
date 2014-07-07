@@ -3,6 +3,15 @@ TestCase subclass: #AsyncContextTest
 	instanceVariableNames: ''
 	package: 'SUnit-Tests'!
 
+!AsyncContextTest methodsFor: 'haltTest'!
+
+asyncHalt
+	[|c|
+		c:=1.
+		self halt.
+	] valueWithTimeout: 200
+! !
+
 !AsyncContextTest methodsFor: 'tests'!
 
 testSetup
