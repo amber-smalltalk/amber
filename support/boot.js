@@ -592,6 +592,14 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			that.messageSends      = spec.messageSends || [];
 			that.referencedClasses = spec.referencedClasses || [];
 			that.fn                = spec.fn;
+			Object.defineProperty(that.fn, 
+								  "thisMethod", 
+								  {
+										value: that,
+										enumerable: false, 
+										configurable: false, 
+										writable: false
+								  });
 			return that;
 		};
 
@@ -844,12 +852,14 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			SmalltalkMethodContext.prototype.receiver = null;
 			SmalltalkMethodContext.prototype.selector = null;
 			SmalltalkMethodContext.prototype.lookupClass = null;
+			SmalltalkMethodContext.prototype.compiledMethod = null;
 
-			SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
+			SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass,compiledMethod) {
 				this.receiver    = receiver;
 				this.selector    = selector;
 				this.locals      = locals || {};
 				this.lookupClass = lookupClass;
+				this.compiledMethod	 = compiledMethod;
 				if(this.homeContext) {
 					this.homeContext.evaluatedSelector = selector;
 				}
@@ -857,6 +867,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 			SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx, index) {
 				this.locals        = locals || {};
+				ctx.init();
 				this.outerContext  = ctx;
 				this.index         = index || 0;
 			};
@@ -871,7 +882,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			};
 
 			SmalltalkMethodContext.prototype.method = function() {
-				var method;
+				var method=this.compiledMethod;
 				var lookup = this.lookupClass || this.receiver.klass;
 				while(!method && lookup) {
 					method = lookup.methods[st.convertSelector(this.selector)];

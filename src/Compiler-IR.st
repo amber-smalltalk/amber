@@ -1182,6 +1182,7 @@ nextPutContextFor: aMethod during: aBlock
 	self
 		nextPutAll: '},';
 		nextPutAll: aMethod theClass asJavascript;
+		nextPutAll: ',$thisMethod';
 		nextPutAll: ')})'
 !
 
@@ -1192,6 +1193,7 @@ nextPutFunctionWith: aBlock arguments: anArray
 		separatedBy: [ stream nextPut: ',' ].
 	stream nextPutAll: '){'; lf.
 	stream nextPutAll: 'var self=this;'; lf.
+	stream nextPutAll: 'var $thisMethod=arguments.callee.thisMethod;'; lf.
 	aBlock value.
 	stream nextPutAll: '}'
 !

@@ -1505,6 +1505,7 @@ selector: "asString",
 protocol: 'converting',
 fn: function (){
 var self=this;
+var $thisMethod=arguments.callee.thisMethod;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$5,$7,$6,$4,$11,$10,$9,$8,$12,$16,$15,$14,$13,$1;
 $2=self._isBlockContext();
@@ -1549,7 +1550,7 @@ $ctx1.sendIdx[","]=5;
 };
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asString",{},globals.MethodContext)})},
+}, function($ctx1) {$ctx1.fill(self,"asString",{},globals.MethodContext,$thisMethod)})},
 args: [],
 source: "asString\x0a\x09^ self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext asString, ')' ]\x0a\x09\x09ifFalse: [ \x0a\x09\x09\x09| methodClass |\x0a\x09\x09\x09methodClass := self method methodClass.\x0a\x09\x09\x09methodClass = self receiver class \x0a\x09\x09\x09\x09ifTrue: [ self receiver class name, ' >> ', self selector ]\x0a\x09\x09\x09\x09ifFalse: [ self receiver class name, '(', methodClass name, ') >> ', self selector ] ]",
 messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "methodClass", "method", "=", "class", "receiver", "name", "selector"],
@@ -1568,6 +1569,23 @@ return self.receiver;
 return self}, function($ctx1) {$ctx1.fill(self,"basicReceiver",{},globals.MethodContext)})},
 args: [],
 source: "basicReceiver\x0a\x09<return self.receiver>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.MethodContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compiledMethod",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $thisMethod=arguments.callee.thisMethod;
+return smalltalk.withContext(function($ctx1) { 
+return self.compiledMethod;
+return self}, function($ctx1) {$ctx1.fill(self,"compiledMethod",{},globals.MethodContext,$thisMethod)})},
+args: [],
+source: "compiledMethod\x0a\x09<return self.compiledMethod>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1697,9 +1715,10 @@ selector: "method",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+var $thisMethod=arguments.callee.thisMethod;
 var method,lookupClass,receiverClass,supercall;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4,$6,$5,$7,$9,$8,$receiver;
+var $1,$2,$4,$3,$5,$7,$6,$8,$10,$9,$receiver;
 $1=self._methodContext();
 $ctx1.sendIdx["methodContext"]=1;
 if(($receiver = $1) == null || $receiver.isNil){
@@ -1707,36 +1726,42 @@ return nil;
 } else {
 $1;
 };
-$3=self._methodContext();
+$2=self._compiledMethod();
+if(($receiver = $2) == null || $receiver.isNil){
+$4=self._methodContext();
 $ctx1.sendIdx["methodContext"]=2;
-$2=_st($3)._receiver();
-receiverClass=_st($2)._class();
-$4=receiverClass;
-$6=self._methodContext();
+$3=_st($4)._receiver();
+receiverClass=_st($3)._class();
+receiverClass;
+$5=receiverClass;
+$7=self._methodContext();
 $ctx1.sendIdx["methodContext"]=3;
-$5=_st($6)._selector();
+$6=_st($7)._selector();
 $ctx1.sendIdx["selector"]=1;
-method=_st($4)._lookupSelector_($5);
+method=_st($5)._lookupSelector_($6);
 $ctx1.sendIdx["lookupSelector:"]=1;
-$7=self._outerContext();
-if(($receiver = $7) == null || $receiver.isNil){
+} else {
+method=$2;
+};
+$8=self._outerContext();
+if(($receiver = $8) == null || $receiver.isNil){
 supercall=false;
 } else {
 var outer;
 outer=$receiver;
 supercall=_st(outer)._supercall();
 };
-$9=supercall;
-if(smalltalk.assert($9)){
-$8=_st(_st(_st(method)._methodClass())._superclass())._lookupSelector_(_st(self._methodContext())._selector());
+$10=supercall;
+if(smalltalk.assert($10)){
+$9=_st(_st(_st(method)._methodClass())._superclass())._lookupSelector_(_st(self._methodContext())._selector());
 } else {
-$8=method;
+$9=method;
 };
-return $8;
-}, function($ctx1) {$ctx1.fill(self,"method",{method:method,lookupClass:lookupClass,receiverClass:receiverClass,supercall:supercall},globals.MethodContext)})},
+return $9;
+}, function($ctx1) {$ctx1.fill(self,"method",{method:method,lookupClass:lookupClass,receiverClass:receiverClass,supercall:supercall},globals.MethodContext,$thisMethod)})},
 args: [],
-source: "method\x0a\x09| method lookupClass receiverClass supercall |\x0a\x09\x0a\x09self methodContext ifNil: [ ^ nil ].\x0a\x0a\x09receiverClass := self methodContext receiver class.\x0a\x09method := receiverClass lookupSelector: self methodContext selector.\x0a\x09supercall := self outerContext \x0a\x09\x09ifNil: [ false ]\x0a\x09\x09ifNotNil: [ :outer | outer supercall ].\x0a\x0a\x09^ supercall\x0a\x09\x09ifFalse: [ method ]\x0a\x09\x09ifTrue: [ method methodClass superclass lookupSelector: self methodContext selector ]",
-messageSends: ["ifNil:", "methodContext", "class", "receiver", "lookupSelector:", "selector", "ifNil:ifNotNil:", "outerContext", "supercall", "ifFalse:ifTrue:", "superclass", "methodClass"],
+source: "method\x0a\x09| method lookupClass receiverClass supercall |\x0a\x0a\x09self methodContext ifNil: [ ^ nil ].\x0a\x09method:=self compiledMethod ifNil:[\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09receiverClass := self methodContext receiver class.\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09receiverClass lookupSelector: self methodContext selector.\x0a\x09\x09\x09\x09\x09\x09\x09\x09 ].\x0a\x09\x0a\x09supercall := self outerContext \x0a\x09\x09ifNil: [ false ]\x0a\x09\x09ifNotNil: [ :outer | outer supercall ].\x0a\x0a\x09^ supercall\x0a\x09\x09ifFalse: [ method ]\x0a\x09\x09ifTrue: [ method methodClass superclass lookupSelector: self methodContext selector ]",
+messageSends: ["ifNil:", "methodContext", "compiledMethod", "class", "receiver", "lookupSelector:", "selector", "ifNil:ifNotNil:", "outerContext", "supercall", "ifFalse:ifTrue:", "superclass", "methodClass"],
 referencedClasses: []
 }),
 globals.MethodContext);

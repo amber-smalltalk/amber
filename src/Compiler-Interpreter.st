@@ -100,7 +100,7 @@ forContext: aContext node: aNode
 ! !
 
 MethodContext subclass: #AIContext
-	instanceVariableNames: 'outerContext innerContext pc locals selector index sendIndexes evaluatedSelector ast interpreter supercall'
+	instanceVariableNames: 'outerContext innerContext pc locals selector index sendIndexes evaluatedSelector ast interpreter supercall compiledMethod'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -109,6 +109,14 @@ Unlike a `MethodContext`, my instances are not read-only.
 When debugging, my instances are created by copying the current `MethodContext` (thisContext)!
 
 !AIContext methodsFor: 'accessing'!
+
+compiledMethod
+	^ compiledMethod
+!
+
+compiledMethod:aCompiledMethod
+	compiledMethod:=aCompiledMethod
+!
 
 defineLocal: aString
 	self locals at: aString put: nil
@@ -241,14 +249,14 @@ initializeAST
 !
 
 initializeFromMethodContext: aMethodContext
-
 	self
 		evaluatedSelector: aMethodContext evaluatedSelector;
 		index: aMethodContext index;
 		sendIndexes: aMethodContext sendIndexes;
 		receiver: aMethodContext receiver;
 		supercall: aMethodContext supercall;
-		selector: aMethodContext selector.
+		selector: aMethodContext selector;
+		compiledMethod:aMethodContext compiledMethod.
 		
 	aMethodContext outerContext ifNotNil: [ :outer |
 		"If the method context is nil, the block was defined in JS, so ignore it"

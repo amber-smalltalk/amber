@@ -1,4 +1,64 @@
 Smalltalk createPackage: 'Examples'!
+Object subclass: #AH
+	instanceVariableNames: ''
+	package: 'Examples'!
+
+!AH methodsFor: 'async halting'!
+
+asyncBlockHalt
+	""
+	self createBlock valueWithTimeout:200
+!
+
+create2LevelBlock
+	""
+	|outerLocal|
+	outerLocal:='I am not in your call stack but in your outer context.'.
+	^[|c|
+		[|cc|
+			c:=1.
+			cc:=c*2.
+			self halt.
+			c:=c+5.
+		] valueWithTimeout:200
+	]
+!
+
+createBlock
+	""
+	|outerLocal|
+	outerLocal:='I am not in your call stack but in your outer context.'.
+	^ [|c|
+		c:=1.
+		self halt.
+		c:=c+5.
+	  ]
+!
+
+localAsyncBlockHalt
+	""
+	|outerLocal|
+	outerLocal:='I am not in your call stack but in your outer context.'.
+	[|c|
+		c:=1.
+		self halt.
+		c:=c+5] valueWithTimeout:200
+!
+
+localBlockHalt
+	""
+	|theBlock|
+
+	theBlock:=self createBlock.
+	
+	theBlock value
+!
+
+twoLevelAsyncBlockHalt
+	""
+	self create2LevelBlock valueWithTimeout:200
+! !
+
 Widget subclass: #Counter
 	instanceVariableNames: 'count header'
 	package: 'Examples'!

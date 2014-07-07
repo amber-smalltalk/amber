@@ -1,7 +1,154 @@
-define("amber_core/Examples", ["amber/boot", "amber_core/Web"], function($boot){
+define("amber_core/Examples", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Web"], function($boot){
 var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('Examples');
 smalltalk.packages["Examples"].transport = {"type":"amd","amdNamespace":"amber_core"};
+
+smalltalk.addClass('AH', globals.Object, [], 'Examples');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asyncBlockHalt",
+protocol: 'async halting',
+fn: function (){
+var self=this;
+var $thisMethod=arguments.callee.thisMethod;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._createBlock())._valueWithTimeout_((200));
+return self}, function($ctx1) {$ctx1.fill(self,"asyncBlockHalt",{},globals.AH,$thisMethod)})},
+args: [],
+source: "asyncBlockHalt\x0a\x09\x22\x22\x0a\x09self createBlock valueWithTimeout:200",
+messageSends: ["valueWithTimeout:", "createBlock"],
+referencedClasses: []
+}),
+globals.AH);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "create2LevelBlock",
+protocol: 'async halting',
+fn: function (){
+var self=this;
+var $thisMethod=arguments.callee.thisMethod;
+var outerLocal;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+outerLocal="I am not in your call stack but in your outer context.";
+$1=(function(){
+var c;
+return smalltalk.withContext(function($ctx2) {
+return _st((function(){
+var cc;
+return smalltalk.withContext(function($ctx3) {
+c=(1);
+c;
+cc=_st(c).__star((2));
+cc;
+self._halt();
+c=_st(c).__plus((5));
+return c;
+}, function($ctx3) {$ctx3.fillBlock({cc:cc},$ctx2,2)})}))._valueWithTimeout_((200));
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1,1)})});
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"create2LevelBlock",{outerLocal:outerLocal},globals.AH,$thisMethod)})},
+args: [],
+source: "create2LevelBlock\x0a\x09\x22\x22\x0a\x09|outerLocal|\x0a\x09outerLocal:='I am not in your call stack but in your outer context.'.\x0a\x09^[|c|\x0a\x09\x09[|cc|\x0a\x09\x09\x09c:=1.\x0a\x09\x09\x09cc:=c*2.\x0a\x09\x09\x09self halt.\x0a\x09\x09\x09c:=c+5.\x0a\x09\x09] valueWithTimeout:200\x0a\x09]",
+messageSends: ["valueWithTimeout:", "*", "halt", "+"],
+referencedClasses: []
+}),
+globals.AH);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "createBlock",
+protocol: 'async halting',
+fn: function (){
+var self=this;
+var $thisMethod=arguments.callee.thisMethod;
+var outerLocal;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+outerLocal="I am not in your call stack but in your outer context.";
+$1=(function(){
+var c;
+return smalltalk.withContext(function($ctx2) {
+c=(1);
+c;
+self._halt();
+c=_st(c).__plus((5));
+return c;
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1,1)})});
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"createBlock",{outerLocal:outerLocal},globals.AH,$thisMethod)})},
+args: [],
+source: "createBlock\x0a\x09\x22\x22\x0a\x09|outerLocal|\x0a\x09outerLocal:='I am not in your call stack but in your outer context.'.\x0a\x09^ [|c|\x0a\x09\x09c:=1.\x0a\x09\x09self halt.\x0a\x09\x09c:=c+5.\x0a\x09  ]",
+messageSends: ["halt", "+"],
+referencedClasses: []
+}),
+globals.AH);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "localAsyncBlockHalt",
+protocol: 'async halting',
+fn: function (){
+var self=this;
+var $thisMethod=arguments.callee.thisMethod;
+var outerLocal;
+return smalltalk.withContext(function($ctx1) { 
+outerLocal="I am not in your call stack but in your outer context.";
+_st((function(){
+var c;
+return smalltalk.withContext(function($ctx2) {
+c=(1);
+c;
+self._halt();
+c=_st(c).__plus((5));
+return c;
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1,1)})}))._valueWithTimeout_((200));
+return self}, function($ctx1) {$ctx1.fill(self,"localAsyncBlockHalt",{outerLocal:outerLocal},globals.AH,$thisMethod)})},
+args: [],
+source: "localAsyncBlockHalt\x0a\x09\x22\x22\x0a\x09|outerLocal|\x0a\x09outerLocal:='I am not in your call stack but in your outer context.'.\x0a\x09[|c|\x0a\x09\x09c:=1.\x0a\x09\x09self halt.\x0a\x09\x09c:=c+5] valueWithTimeout:200",
+messageSends: ["valueWithTimeout:", "halt", "+"],
+referencedClasses: []
+}),
+globals.AH);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "localBlockHalt",
+protocol: 'async halting',
+fn: function (){
+var self=this;
+var $thisMethod=arguments.callee.thisMethod;
+var theBlock;
+return smalltalk.withContext(function($ctx1) { 
+theBlock=self._createBlock();
+_st(theBlock)._value();
+return self}, function($ctx1) {$ctx1.fill(self,"localBlockHalt",{theBlock:theBlock},globals.AH,$thisMethod)})},
+args: [],
+source: "localBlockHalt\x0a\x09\x22\x22\x0a\x09|theBlock|\x0a\x0a\x09theBlock:=self createBlock.\x0a\x09\x0a\x09theBlock value",
+messageSends: ["createBlock", "value"],
+referencedClasses: []
+}),
+globals.AH);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "twoLevelAsyncBlockHalt",
+protocol: 'async halting',
+fn: function (){
+var self=this;
+var $thisMethod=arguments.callee.thisMethod;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._create2LevelBlock())._valueWithTimeout_((200));
+return self}, function($ctx1) {$ctx1.fill(self,"twoLevelAsyncBlockHalt",{},globals.AH,$thisMethod)})},
+args: [],
+source: "twoLevelAsyncBlockHalt\x0a\x09\x22\x22\x0a\x09self create2LevelBlock valueWithTimeout:200",
+messageSends: ["valueWithTimeout:", "create2LevelBlock"],
+referencedClasses: []
+}),
+globals.AH);
+
+
 
 smalltalk.addClass('Counter', globals.Widget, ['count', 'header'], 'Examples');
 globals.Counter.comment="This is a trivial Widget example mimicking the classic Counter example in Seaside.\x0aIn order to play with it, just evaluate the doit below in a workspace.\x0aThen take a look in the HTML document above the IDE.\x0a\x0a\x09\x09Counter tryExample";

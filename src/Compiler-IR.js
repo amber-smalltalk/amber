@@ -3646,6 +3646,7 @@ selector: "nextPutContextFor:during:",
 protocol: 'streaming',
 fn: function (aMethod,aBlock){
 var self=this;
+var $thisMethod=arguments.callee.thisMethod;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$6,$5,$4,$3,$7,$12,$11,$10,$9,$8,$16,$15,$14,$13,$17,$18,$19;
 $1=_st(aMethod)._requiresSmalltalkContext();
@@ -3705,10 +3706,12 @@ self._nextPutAll_("},");
 $ctx1.sendIdx["nextPutAll:"]=8;
 self._nextPutAll_(_st(_st(aMethod)._theClass())._asJavascript());
 $ctx1.sendIdx["nextPutAll:"]=9;
+self._nextPutAll_(",$thisMethod");
+$ctx1.sendIdx["nextPutAll:"]=10;
 $19=self._nextPutAll_(")})");
-return self}, function($ctx1) {$ctx1.fill(self,"nextPutContextFor:during:",{aMethod:aMethod,aBlock:aBlock},globals.JSStream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutContextFor:during:",{aMethod:aMethod,aBlock:aBlock},globals.JSStream,(arguments.callee.thisMethod===undefined?null:arguments.callee.thisMethod))})},
 args: ["aMethod", "aBlock"],
-source: "nextPutContextFor: aMethod during: aBlock\x0a\x09aMethod requiresSmalltalkContext ifFalse: [ ^ aBlock value ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; lf.\x0a\x09aBlock value.\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias;\x0a\x09\x09nextPutAll: '.fill(self,', aMethod selector asJavascript, ',{'.\x0a\x0a\x09aMethod locals\x0a\x09\x09do: [ :each |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09nextPutAll: each asVariableName;\x0a\x09\x09\x09\x09nextPutAll: ':';\x0a\x09\x09\x09\x09nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '},';\x0a\x09\x09nextPutAll: aMethod theClass asJavascript;\x0a\x09\x09nextPutAll: ')})'",
+source: "nextPutContextFor: aMethod during: aBlock\x0a\x09aMethod requiresSmalltalkContext ifFalse: [ ^ aBlock value ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; lf.\x0a\x09aBlock value.\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias;\x0a\x09\x09nextPutAll: '.fill(self,', aMethod selector asJavascript, ',{'.\x0a\x0a\x09aMethod locals\x0a\x09\x09do: [ :each |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09nextPutAll: each asVariableName;\x0a\x09\x09\x09\x09nextPutAll: ':';\x0a\x09\x09\x09\x09nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '},';\x0a\x09\x09nextPutAll: aMethod theClass asJavascript;\x0a\x09\x09nextPutAll: ',$thisMethod';\x0a\x09\x09nextPutAll: ')})'",
 messageSends: ["ifFalse:", "requiresSmalltalkContext", "value", "nextPutAll:", ",", "alias", "scope", "lf", "asJavascript", "selector", "do:separatedBy:", "locals", "asVariableName", "theClass"],
 referencedClasses: []
 }),
@@ -3720,8 +3723,9 @@ selector: "nextPutFunctionWith:arguments:",
 protocol: 'streaming',
 fn: function (aBlock,anArray){
 var self=this;
+var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3,$4,$5,$6;
 _st(self["@stream"])._nextPutAll_("fn: function(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(anArray)._do_separatedBy_((function(each){
@@ -3741,11 +3745,16 @@ $3=self["@stream"];
 _st($3)._nextPutAll_("var self=this;");
 $ctx1.sendIdx["nextPutAll:"]=4;
 $4=_st($3)._lf();
+$ctx1.sendIdx["lf"]=2;
+$5=self["@stream"];
+_st($5)._nextPutAll_("var $thisMethod=arguments.callee.thisMethod;");
+$ctx1.sendIdx["nextPutAll:"]=5;
+$6=_st($5)._lf();
 _st(aBlock)._value();
 _st(self["@stream"])._nextPutAll_("}");
-return self}, function($ctx1) {$ctx1.fill(self,"nextPutFunctionWith:arguments:",{aBlock:aBlock,anArray:anArray},globals.JSStream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutFunctionWith:arguments:",{aBlock:aBlock,anArray:anArray},globals.JSStream,(arguments.callee.thisMethod===undefined?null:arguments.callee.thisMethod))})},
 args: ["aBlock", "anArray"],
-source: "nextPutFunctionWith: aBlock arguments: anArray\x0a\x09stream nextPutAll: 'fn: function('.\x0a\x09anArray\x0a\x09\x09do: [ :each | stream nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ stream nextPut: ',' ].\x0a\x09stream nextPutAll: '){'; lf.\x0a\x09stream nextPutAll: 'var self=this;'; lf.\x0a\x09aBlock value.\x0a\x09stream nextPutAll: '}'",
+source: "nextPutFunctionWith: aBlock arguments: anArray\x0a\x09stream nextPutAll: 'fn: function('.\x0a\x09anArray\x0a\x09\x09do: [ :each | stream nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ stream nextPut: ',' ].\x0a\x09stream nextPutAll: '){'; lf.\x0a\x09stream nextPutAll: 'var self=this;'; lf.\x0a\x09stream nextPutAll: 'var $thisMethod=arguments.callee.thisMethod;'; lf.\x0a\x09aBlock value.\x0a\x09stream nextPutAll: '}'",
 messageSends: ["nextPutAll:", "do:separatedBy:", "asVariableName", "nextPut:", "lf", "value"],
 referencedClasses: []
 }),

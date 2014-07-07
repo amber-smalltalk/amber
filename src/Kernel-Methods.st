@@ -566,6 +566,10 @@ basicReceiver
 	<return self.receiver>
 !
 
+compiledMethod
+	<return self.compiledMethod>
+!
+
 evaluatedSelector
 	<return self.evaluatedSelector>
 !
@@ -599,11 +603,13 @@ locals
 
 method
 	| method lookupClass receiverClass supercall |
-	
-	self methodContext ifNil: [ ^ nil ].
 
-	receiverClass := self methodContext receiver class.
-	method := receiverClass lookupSelector: self methodContext selector.
+	self methodContext ifNil: [ ^ nil ].
+	method:=self compiledMethod ifNil:[
+									receiverClass := self methodContext receiver class.
+									receiverClass lookupSelector: self methodContext selector.
+								 ].
+	
 	supercall := self outerContext 
 		ifNil: [ false ]
 		ifNotNil: [ :outer | outer supercall ].
