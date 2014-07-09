@@ -67,6 +67,9 @@ Amber repository contains more parts:
 1. In `internal` directory, there are files that are not part of Amber,
   but are important to developers wanting to contribute to Amber.
 1. A place for other modules cloned in parallel with Amber (`my`).
+  Directory `my` is in .gitignore, so it is not present after clone,
+  but because of being in .gitignore, it is "safe haven"
+  to clone other repos into.
 
 To get your clone, follow this list:
 
@@ -75,7 +78,8 @@ To get your clone, follow this list:
 3. Run ```npm install``` to install dependencies listed in package.json (See [here](https://www.npmjs.org/doc/cli/npm-install.html for more info) for more info)
 4. Run ```bower install``` to install dependencies listed in bower.json (See [here](http://bower.io/) for more info)
   - requires bower to be installed via ```npm install -g bower```.
-4. Get your copy of Helios IDE, depending if you have your fork or want to use stock version:
+4. Get your copy of Helios IDE into directory `my/helios`,
+  depending if you have your fork or want to use stock version:
   ```git clone git@github.com:<amber-smalltalk | your username>/helios.git my/helios```.
 4. Install its dependencies: ```cd my/helios && bower install && cd ../..```.
 5. Install the cli tool: ```npm install -g amber-cli```.
