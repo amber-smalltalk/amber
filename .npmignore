@@ -16,3 +16,6 @@ bower_components/
 # Exclude the externals and internals
 /external/
 /internal/
+
+# Ignoring place dedicated to hand-cloned user modules
+/my/

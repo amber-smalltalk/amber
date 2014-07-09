@@ -10,10 +10,10 @@ require.config({
     "amber_css": "support/resources",
     "amber_core": "src",
     "amber_cli": "external/amber-cli/src",
-    "helios": "support/helios/src",
-    "helios/set": "support/helios/set",
-    "helios/resources": "support/helios/resources",
-    "helios/index": "support/helios/index",
+    "helios": "my/helios/src",
+    "helios/set": "my/helios/set",
+    "helios/resources": "my/helios/resources",
+    "helios/index": "my/helios/index",
     "amber_lib/codemirror": "bower_components/codemirror",
     "amber_lib/es5-shim": "bower_components/es5-shim",
     "amber_lib/jquery-tabby": "bower_components/jquery-tabby",
@@ -24,6 +24,8 @@ require.config({
       "bower_components/jquery-ui/ui/minified/jquery-ui.min"
     ],
     "jquery": [
+      "bower_components/jquery/dist/jquery.min",
+      "bower_components/jquery/jquery.min",
       "bower_components/jquery/dist/jquery.min",
       "bower_components/jquery/jquery.min"
     ],
