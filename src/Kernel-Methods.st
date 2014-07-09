@@ -606,9 +606,9 @@ method
 
 	self methodContext ifNil: [ ^ nil ].
 	method:=self compiledMethod ifNil:[
-									receiverClass := self methodContext receiver class.
-									receiverClass lookupSelector: self methodContext selector.
-								 ].
+						receiverClass := self methodContext receiver class.
+						receiverClass lookupSelector: self methodContext selector.
+					  ].
 	
 	supercall := self outerContext 
 		ifNil: [ false ]
