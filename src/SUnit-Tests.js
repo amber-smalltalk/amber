@@ -6,44 +6,21 @@ smalltalk.packages["SUnit-Tests"].transport = {"type":"amd","amdNamespace":"ambe
 smalltalk.addClass('AsyncContextTest', globals.TestCase, [], 'SUnit-Tests');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "asyncHalt",
-protocol: 'haltTest',
-fn: function (){
-var self=this;
-var $thisMethod=arguments.callee.thisMethod;
-return smalltalk.withContext(function($ctx1) { 
-_st((function(){
-var c;
-return smalltalk.withContext(function($ctx2) {
-c=(1);
-c;
-return self._halt();
-}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1,1)})}))._valueWithTimeout_((200));
-return self}, function($ctx1) {$ctx1.fill(self,"asyncHalt",{},globals.AsyncContextTest,$thisMethod)})},
-args: [],
-source: "asyncHalt\x0a\x09[|c|\x0a\x09\x09c:=1.\x0a\x09\x09self halt.\x0a\x09] valueWithTimeout: 200",
-messageSends: ["valueWithTimeout:", "halt"],
-referencedClasses: []
-}),
-globals.AsyncContextTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testSetup",
+selector: "testOuterContextMethod",
 protocol: 'tests',
 fn: function (){
 var self=this;
-var $thisMethod=arguments.callee.thisMethod;
+var $thisMethod=this._testOuterContextMethod.thisMethod;
 return smalltalk.withContext(function($ctx1) { 
-self._timeout_((500));
+self._timeout_((1500));
 _st(self._async_((function(){
 return smalltalk.withContext(function($ctx2) {
 self._assert_description_(_st(_st(smalltalk.getThisContext()._outerContext())._method())._notNil(),"nil method outer context");
 return self._finished();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))._valueWithTimeout_((5));
-return self}, function($ctx1) {$ctx1.fill(self,"testSetup",{},globals.AsyncContextTest,$thisMethod)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testOuterContextMethod",{},globals.AsyncContextTest,$thisMethod)})},
 args: [],
-source: "testSetup\x0a\x09\x22\x22\x0a\x09self timeout: 500.\x0a\x09(self async: [ \x0a\x09\x09\x09\x09\x09self assert: thisContext outerContext method notNil description:'nil method outer context'. \x0a\x09\x09\x09\x09\x09self finished \x0a\x09\x09\x09\x09]) valueWithTimeout: 5",
+source: "testOuterContextMethod\x0a\x09\x22\x22\x0a\x09self timeout: 1500.\x0a\x09(self async: [ \x0a\x09\x09\x09\x09\x09self assert: thisContext outerContext method notNil description:'nil method outer context'. \x0a\x09\x09\x09\x09\x09self finished \x0a\x09\x09\x09\x09]) valueWithTimeout: 5",
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "assert:description:", "notNil", "method", "outerContext", "finished"],
 referencedClasses: []
 }),

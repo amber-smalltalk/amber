@@ -3,20 +3,11 @@ TestCase subclass: #AsyncContextTest
 	instanceVariableNames: ''
 	package: 'SUnit-Tests'!
 
-!AsyncContextTest methodsFor: 'haltTest'!
-
-asyncHalt
-	[|c|
-		c:=1.
-		self halt.
-	] valueWithTimeout: 200
-! !
-
 !AsyncContextTest methodsFor: 'tests'!
 
-testSetup
+testOuterContextMethod
 	""
-	self timeout: 500.
+	self timeout: 1500.
 	(self async: [ 
 					self assert: thisContext outerContext method notNil description:'nil method outer context'. 
 					self finished 
