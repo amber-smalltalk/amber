@@ -77,6 +77,7 @@ To get your clone, follow this list:
   - requires bower to be installed via ```npm install -g bower```.
 4. Get your copy of Helios IDE, depending if you have your fork or want to use stock version:
   ```git clone git@github.com:<amber-smalltalk | your username>/helios.git my/helios```.
+4. Install its dependencies: ```cd my/helios && bower install && cd ../..```.
 5. Install the cli tool: ```npm install -g amber-cli```.
 6. Run ```amber config```.
 6. Run ```amber serve```.

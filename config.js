@@ -30,8 +30,8 @@ require.config({
       "bower_components/jquery/jquery.min"
     ],
     "require-css": "bower_components/require-css",
-    "bootstrap2.3.2": "bower_components/bootstrap2.3.2/bootstrap",
-    "amber_lib/showdown": "bower_components/showdown"
+    "bootstrap2.3.2": "my/helios/bower_components/bootstrap2.3.2/bootstrap",
+    "amber_lib/showdown": "my/helios/bower_components/showdown"
   },
   "shim": {
     "ensure-console": {
