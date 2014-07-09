@@ -8,6 +8,7 @@
     "bower_components",
     "/external",
     "/internal",
+    "/my",
     "/test_runner.js",
     "test",
     "tests"
