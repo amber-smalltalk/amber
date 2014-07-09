@@ -506,6 +506,10 @@ isMethod
 	^ true
 !
 
+javaScriptSelector
+	<return smalltalk.selector(self._selector());>
+!
+
 messageSends
 	^ self sendIndexes keys
 !
@@ -988,7 +992,7 @@ visitIRMethod: anIRMethod
 						self stream nextPutNonLocalReturnHandlingWith: [
 							super visitIRMethod: anIRMethod ] ]
 					ifFalse: [ super visitIRMethod: anIRMethod ] ]]
-			arguments: anIRMethod arguments ]
+			for: anIRMethod ]
 !
 
 visitIRNonLocalReturn: anIRNonLocalReturn
@@ -1186,14 +1190,14 @@ nextPutContextFor: aMethod during: aBlock
 		nextPutAll: ')})'
 !
 
-nextPutFunctionWith: aBlock arguments: anArray
+nextPutFunctionWith: aBlock for: anIRMethod
 	stream nextPutAll: 'fn: function('.
-	anArray
+	anIRMethod arguments
 		do: [ :each | stream nextPutAll: each asVariableName ]
 		separatedBy: [ stream nextPut: ',' ].
 	stream nextPutAll: '){'; lf.
 	stream nextPutAll: 'var self=this;'; lf.
-	stream nextPutAll: 'var $thisMethod=arguments.callee.thisMethod;'; lf.
+	stream nextPutAll: 'var $thisMethod=this.',anIRMethod javaScriptSelector,'.thisMethod;'; lf.
 	aBlock value.
 	stream nextPutAll: '}'
 !
