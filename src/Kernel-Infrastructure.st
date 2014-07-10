@@ -1124,8 +1124,13 @@ at: aString
 !
 
 at: aKey ifAbsent: aBlock
-	^ (self includesKey: aKey)
-		ifTrue: [ self at: aKey ]
+
+	| foundOrNil |
+
+	foundOrNil := self globals at: aKey.
+
+	^ foundOrNil notNil
+		ifTrue: [ foundOrNil ]
 		ifFalse: [ aBlock value ]
 !
 
