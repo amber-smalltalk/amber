@@ -993,6 +993,14 @@ testAccessing
 
 testDynamicDictionaries
 	self assert: #{'hello' -> 1} asDictionary equals: (Dictionary with: 'hello' -> 1)
+!
+
+testSmalltalkGlobals
+
+	self assert: (Smalltalk at: 'Dictionary') == Dictionary.
+	self deny: 11 = (Smalltalk at: 'Dictionary' ifAbsent: [ 6 + 5 ]).
+	
+	self assert: (Smalltalk at: 'Dictionary' ifAbsent: [ 6 + 5 ]) == Dictionary.
 ! !
 
 !DictionaryTest class methodsFor: 'fixture'!
