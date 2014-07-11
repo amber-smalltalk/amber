@@ -88,7 +88,7 @@ To get your clone, follow this list:
 
 Now you should be able to commit changes to your computer.
 
-You should open `http://localhost:4000/internal/` to start work on Amber.
+You should open `http://localhost:4000/internal/` to start working on Amber.
 
 Creating a Pull Request
 -----------------------
