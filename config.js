@@ -16,7 +16,6 @@ require.config({
     "helios/index": "my/helios/index",
     "amber_lib/codemirror": "bower_components/codemirror",
     "amber_lib/es5-shim": "bower_components/es5-shim",
-    "amber_lib/jquery-tabby": "bower_components/jquery-tabby",
     "jquery-ui": [
       "bower_components/jquery-ui/jquery-ui.min",
       "bower_components/jquery-ui/ui/minified/jquery-ui.min",
@@ -50,12 +49,6 @@ require.config({
     "amber_lib/codemirror/addon/hint/show-hint": {
       "deps": [
         "../../lib/codemirror"
-      ]
-    },
-    "amber_lib/jquery-tabby/jquery.textarea": {
-      "deps": [
-        "jquery",
-        "jquery"
       ]
     },
     "jquery-ui": {
