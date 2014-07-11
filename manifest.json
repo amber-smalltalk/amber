@@ -1,0 +1,13 @@
+{
+    "name": "Amber Smalltalk",
+    "description": "Amberis a Smalltalk that runs on the JS runtime",
+    "version": "0.12.6",
+    "manifest_version": 2,
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "app": {
+        "background": {
+            "scripts": [ "background.js" ]
+        }
+    },
+    "icons": { "16": "amber-16.png", "128": "amber-128.png" }
+}

@@ -34,7 +34,7 @@ define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
     }
 
     function settingsInLocalStorage() {
-        var global = new Function('return this')(),
+        var global = window,
             storage = 'localStorage' in global && global.localStorage;
 
         if (storage) {
