@@ -41,7 +41,7 @@ integer        = neg:"-"?digits:[0-9]+ {return (parseInt((neg || '') +digits.joi
 
 literalArray   = "#(" rest:literalArrayRest {return rest;}
 bareLiteralArray   = "(" rest:literalArrayRest {return rest;}
-literalArrayRest   = ws lits:(lit:(parseTimeLiteral / bareLiteralArray / bareSymbol) ws {return lit._value();})* ws ")" {
+literalArrayRest   = lits:(ws lit:(parseTimeLiteral / bareLiteralArray / bareSymbol) {return lit._value();})* ws ")" {
                      return globals.ValueNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
@@ -82,7 +82,7 @@ variable       = identifier:identifier {
 
 reference      = variable
 
-keywordPair    = key:keyword ws arg:binarySend ws {return {key:key, arg: arg};}
+keywordPair    = ws key:keyword ws arg:binarySend {return {key:key, arg: arg};}
 
 binarySelector = bin:[\\+*/=><,@%~|&-]+ {return bin.join("");}
 unarySelector  = identifier
@@ -122,7 +122,7 @@ ret            = '^' ws expression:expression ws '.'? {
                             ._nodes_([expression]);
                  }
   
-temps          = "|" vars:(ws variable:identifier ws {return variable;})* "|" {return vars;}
+temps          = "|" vars:(ws variable:identifier {return variable;})* ws "|" {return vars;}
 
 blockParamList = params:((ws ":" ws param:identifier {return param;})+) ws "|" {return params;}
 
@@ -150,7 +150,7 @@ stSequence     = temps:temps? ws statements:statements? ws {
 
 jsSequence     = jsStatement
 
-block          = '[' ws params:blockParamList? ws sequence:sequence? ws ']' {
+block          = '[' params:blockParamList? ws sequence:sequence? ws ']' {
                      return globals.BlockNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
@@ -214,7 +214,7 @@ binarySend     = receiver:unarySend tail:binaryTail? {
                  }
 
 
-keywordMessage = ws pairs:(pair:keywordPair ws {return pair;})+ {
+keywordMessage = pairs:keywordPair+ {
                      var selector = [];
                      var args = [];
                       for(var i = 0; i < pairs.length; i++) {
@@ -234,7 +234,7 @@ keywordSend    = receiver:binarySend tail:keywordMessage {
 
 message        = binaryMessage / unaryMessage / keywordMessage
 
-cascade        = ws send:(keywordSend / binarySend) messages:(ws ";" ws mess:message ws {return mess;})+ {
+cascade        = ws send:(keywordSend / binarySend) messages:(ws ";" ws mess:message {return mess;})+ {
                      var cascade = [];
                      cascade.push(send);
                      for(var i = 0; i < messages.length; i++) {
@@ -254,7 +254,7 @@ jsStatement    = "<" val:((">>" {return ">";} / [^>])*) ">" {
                  }
 
 
-method         = ws pattern:(keywordPattern / binaryPattern / unaryPattern) ws sequence:sequence? ws {
+method         = pattern:(keywordPattern / binaryPattern / unaryPattern) ws sequence:sequence? ws {
                       return globals.MethodNode._new()
                              ._position_((line()).__at(column()))
                              ._source_(text())
@@ -268,4 +268,3 @@ associationSend     = send:binarySend & { return send._selector() === "->" } { r
 
 associationList = ws "." ws expression:associationSend {return expression;}
 associations    = first:associationSend others:associationList* { return first.concat.apply(first, others); }
-
