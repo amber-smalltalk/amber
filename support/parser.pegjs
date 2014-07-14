@@ -36,8 +36,8 @@ number         = n:(numberExp / hex / float / integer) {
                  }
 numberExp      = n:((float / integer) "e" integer) {return parseFloat(n.join(""));}
 hex            = neg:"-"? "16r" num:[0-9a-fA-F]+ {return parseInt(((neg || '') + num.join("")), 16);}
-float          = neg:"-"?digits:[0-9]+ "." dec:[0-9]+ {return parseFloat(((neg || '') + digits.join("") + "." + dec.join("")), 10);}
-integer        = neg:"-"?digits:[0-9]+ {return (parseInt((neg || '') +digits.join(""), 10));}
+float          = neg:"-"? digits:[0-9]+ "." dec:[0-9]+ {return parseFloat(((neg || '') + digits.join("") + "." + dec.join("")), 10);}
+integer        = neg:"-"? digits:[0-9]+ {return (parseInt((neg || '') + digits.join(""), 10));}
 
 literalArray   = "#(" rest:literalArrayRest {return rest;}
 bareLiteralArray   = "(" rest:literalArrayRest {return rest;}
@@ -53,7 +53,7 @@ dynamicArray   = "{" ws expressions:expressions? ws "."? "}" {
                             ._source_(text())
                             ._nodes_(expressions || []);
                  }
-dynamicDictionary = "#{" ws expressions: associations? ws "}" {
+dynamicDictionary = "#{" ws expressions:associations? ws "}" {
                         return globals.DynamicDictionaryNode._new()
                                ._position_((line()).__at(column()))
                                ._source_(text())
@@ -82,12 +82,12 @@ variable       = identifier:identifier {
 
 reference      = variable
 
-keywordPair    = ws key:keyword ws arg:binarySend {return {key:key, arg: arg};}
+keywordPair    = ws key:keyword ws arg:binarySend {return {key:key, arg:arg};}
 
 binarySelector = bin:[\\+*/=><,@%~|&-]+ {return bin.join("");}
 unarySelector  = identifier
 
-keywordPattern = pairs:(ws key:keyword ws arg:identifier {return {key:key, arg: arg};})+ {
+keywordPattern = pairs:(ws key:keyword ws arg:identifier {return {key:key, arg:arg};})+ {
                      var keywords = [];
                      var params = [];
                      var i = 0;

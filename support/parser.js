@@ -108,7 +108,7 @@ globals.SmalltalkParser = (function() {
         peg$c51 = ".",
         peg$c52 = { type: "literal", value: ".", description: "\".\"" },
         peg$c53 = function(neg, digits, dec) {return parseFloat(((neg || '') + digits.join("") + "." + dec.join("")), 10);},
-        peg$c54 = function(neg, digits) {return (parseInt((neg || '') +digits.join(""), 10));},
+        peg$c54 = function(neg, digits) {return (parseInt((neg || '') + digits.join(""), 10));},
         peg$c55 = "#(",
         peg$c56 = { type: "literal", value: "#(", description: "\"#(\"" },
         peg$c57 = "(",
@@ -161,7 +161,7 @@ globals.SmalltalkParser = (function() {
                                     ._source_(text())
                                     ._value_(identifier);
                          },
-        peg$c82 = function(key, arg) {return {key:key, arg: arg};},
+        peg$c82 = function(key, arg) {return {key:key, arg:arg};},
         peg$c83 = /^[\\+*\/=><,@%~|&\-]/,
         peg$c84 = { type: "class", value: "[\\\\+*\\/=><,@%~|&\\-]", description: "[\\\\+*\\/=><,@%~|&\\-]" },
         peg$c85 = function(bin) {return bin.join("");},
