@@ -1,17 +1,17 @@
 start = method
 
 separator      = [ \t\v\f\u00A0\uFEFF\n\r\u2028\u2029]+
-comments       = (["][^"]*["])+
+comments       = ('"' [^"]* '"')+
 ws             = (separator / comments)*
 identifier     = first:[a-zA-Z] others:[a-zA-Z0-9]* {return first + others.join("");}
-keyword        = first:identifier last:[:] {return first + last;}
+keyword        = first:identifier last:":" {return first + last;}
 selector      = first:[a-zA-Z] others:[a-zA-Z0-9\:]* {return first + others.join("");}
 className      = first:[A-Z] others:[a-zA-Z0-9]* {return first + others.join("");}
-string         = ['] val:(("''" {return "'";} / [^'])*) ['] {
+string         = "'" val:(("''" {return "'";} / [^'])*) "'" {
                      return globals.ValueNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
-                            ._value_(val.join("").replace(/\"/ig, '"'));
+                            ._value_(val.join(""));
                  }
 character      = "$" char:. 
                   {
@@ -35,9 +35,9 @@ number         = n:(numberExp / hex / float / integer) {
                             ._value_(n);
                  }
 numberExp      = n:((float / integer) "e" integer) {return parseFloat(n.join(""));}
-hex            = neg:[-]? "16r" num:[0-9a-fA-F]+ {return parseInt(((neg || '') + num.join("")), 16);}
-float          = neg:[-]?digits:[0-9]+ "." dec:[0-9]+ {return parseFloat(((neg || '') + digits.join("") + "." + dec.join("")), 10);}
-integer        = neg:[-]?digits:[0-9]+ {return (parseInt((neg || '') +digits.join(""), 10));}
+hex            = neg:"-"? "16r" num:[0-9a-fA-F]+ {return parseInt(((neg || '') + num.join("")), 16);}
+float          = neg:"-"?digits:[0-9]+ "." dec:[0-9]+ {return parseFloat(((neg || '') + digits.join("") + "." + dec.join("")), 10);}
+integer        = neg:"-"?digits:[0-9]+ {return (parseInt((neg || '') +digits.join(""), 10));}
 
 literalArray   = "#(" rest:literalArrayRest {return rest;}
 bareLiteralArray   = "(" rest:literalArrayRest {return rest;}
@@ -128,13 +128,13 @@ blockParamList = params:((ws ":" ws param:identifier {return param;})+) ws "|" {
 
 subexpression  = '(' ws expression:expression ws ')' {return expression;}
 
-statements     = ret:ret [.]* {return [ret];}
-                 / exps:expressions ws [.]+ ws ret:ret [.]* {
+statements     = ret:ret "."* {return [ret];}
+                 / exps:expressions ws "."+ ws ret:ret "."* {
                        var expressions = exps;
                        expressions.push(ret);
                        return expressions;
                    }
-                 / expressions:expressions? [.]* {
+                 / expressions:expressions? "."* {
                        return expressions || [];
                    }
 
@@ -162,7 +162,7 @@ operand        = literal / reference / subexpression
 
 
 
-unaryMessage   = ws selector:unarySelector ![:] {
+unaryMessage   = ws selector:unarySelector !":" {
                      return globals.SendNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
