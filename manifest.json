@@ -15,5 +15,5 @@
         {"fileSystem": ["write", "retainEntries", "directory"]},
         "storage"
     ],
-    "16": "amber-16.png", "128": "amber-128.png" }
+    "16": "amber-16.png", "128": "amber-128.png"
 }
