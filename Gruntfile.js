@@ -10,7 +10,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-execute');
 
   grunt.registerTask('default', ['peg', 'amberc:all']);
-  grunt.registerTask('amberc:all', ['amberc:core', 'amberc:cli', 'amberc:helios']);
+  grunt.registerTask('amberc:all', ['amberc:core', 'amberc:cli']);
   grunt.registerTask('test', ['amberc:test_runner', 'execute:test_runner', 'clean:test_runner']);
 
   grunt.initConfig({
