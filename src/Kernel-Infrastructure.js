@@ -3623,13 +3623,13 @@ protocol: '*Kernel-Infrastructure',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._replace_with_("^([a-zA-Z0-9]*).*$","$1");
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},globals.String)})},
+
+	var colonPosition = self.indexOf(':');
+	return colonPosition === -1 ? self : self.slice(0, colonPosition);;
+return self}, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},globals.String)})},
 args: [],
-source: "asJavaScriptSelector\x0a\x09\x22Return first keyword of the selector, without trailing colon.\x22\x0a\x09^ self replace: '^([a-zA-Z0-9]*).*$' with: '$1'",
-messageSends: ["replace:with:"],
+source: "asJavaScriptSelector\x0a<\x0a\x09var colonPosition = self.indexOf(':');\x0a\x09return colonPosition === -1 ? self : self.slice(0, colonPosition);\x0a>",
+messageSends: [],
 referencedClasses: []
 }),
 globals.String);

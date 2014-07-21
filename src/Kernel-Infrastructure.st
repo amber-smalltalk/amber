@@ -1375,8 +1375,10 @@ do: aBlock displayingProgress: aString
 !String methodsFor: '*Kernel-Infrastructure'!
 
 asJavaScriptSelector
-	"Return first keyword of the selector, without trailing colon."
-	^ self replace: '^([a-zA-Z0-9]*).*$' with: '$1'
+<
+	var colonPosition = self.indexOf(':');
+	return colonPosition === -1 ? self : self.slice(0, colonPosition);
+>
 !
 
 asSetting
