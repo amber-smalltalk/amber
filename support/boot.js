@@ -49,9 +49,11 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		function mixin(src, target, what) {
 			for (var keys = Object.keys(what||src), l=keys.length, i=0; i<l; ++i) {
-				var value = src[keys[i]];
-				if (typeof value !== "undefined") { target[keys[i]] = value; }
-			}
+                if (src == null) { target[keys[i]] = undefined; } else {
+                    var value = src[keys[i]];
+                    if (typeof value !== "undefined") { target[keys[i]] = value; }
+                }
+            }
 			return target;
 		}
 
@@ -61,13 +63,13 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		this.rebuild = function () {
 			Object.keys(backup).forEach(function (key) {
-				mixin({}, api, (backup[key]||0)[apiKey]);
+				mixin(null, api, (backup[key]||0)[apiKey]||{});
 			});
 			var oapi = mixin(api, {}), order = [], chk = {};
 			brikz.ensure = function(key) {
 				if (key in exclude) { return null; }
 				var b = brikz[key], bak = backup[key];
-				mixin({}, api, api);
+				mixin(null, api, api);
 				while (typeof b === "function") { b = new b(brikz, api, bak); }
 				if (b && !chk[key]) { chk[key]=true; order.push(b); }
 				if (b && !b[apiKey]) { b[apiKey] = mixin(api, {}); }
@@ -75,7 +77,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			};
 			Object.keys(brikz).forEach(function (key) { brikz.ensure(key); });
 			brikz.ensure = null;
-			mixin(oapi, mixin({}, api, api));
+			mixin(oapi, mixin(null, api, api));
 			order.forEach(function(brik) { mixin(brik[apiKey] || {}, api); });
 			order.forEach(function(brik) { brik[initKey] && brik[initKey](); });
 			backup = mixin(brikz, {});
