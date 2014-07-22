@@ -49,11 +49,11 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		function mixin(src, target, what) {
 			for (var keys = Object.keys(what||src), l=keys.length, i=0; i<l; ++i) {
-                if (src == null) { target[keys[i]] = undefined; } else {
-                    var value = src[keys[i]];
-                    if (typeof value !== "undefined") { target[keys[i]] = value; }
-                }
-            }
+				if (src == null) { target[keys[i]] = undefined; } else {
+					var value = src[keys[i]];
+					if (typeof value !== "undefined") { target[keys[i]] = value; }
+				}
+			}
 			return target;
 		}
 
