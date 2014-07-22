@@ -1154,8 +1154,8 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 	brikz.methods = MethodsBrik;
 	brikz.stInit = SmalltalkInitBrik;
 	brikz.augments = AugmentsBrik;
-	brikz.amdBrik = AMDBrik;
-	brikz.asReceiverBrik = AsReceiverBrik;
+	brikz.asReceiver = AsReceiverBrik;
+	brikz.amd = AMDBrik;
 
 	brikz.rebuild();
 
@@ -1169,5 +1169,5 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		brikz.rebuild();
 	};
 
-	return { vm: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiverBrik.asReceiver };
+	return { vm: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiver.asReceiver };
 });
