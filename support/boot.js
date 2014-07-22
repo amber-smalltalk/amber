@@ -1012,18 +1012,19 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 if the receiver has no klass, we consider it a JS object (outside of the
 		 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
 		function messageNotUnderstood(receiver, stSelector, args) {
-			return receiver.klass === undefined || receiver.allowJavaScriptCalls ?
-				/* Handles JS method calls. */
-				callJavaScriptMethod(receiver, stSelector, args) :
-				/* Handles not understood messages. Also see the Amber counter-part
-				 Object>>doesNotUnderstand: */
-				invokeDnuMethod(receiver, stSelector, args);
+			if (receiver.klass !== undefined && !receiver.allowJavaScriptCalls) {
+				return invokeDnuMethod(receiver, stSelector, args);
+			}
+			/* Call a method of a JS object, or answer a property if it exists.
+			 Else try wrapping a JSObjectProxy around the receiver. */
+			var accessSelector = stSelector._asJavaScriptSelector();
+			if (!(accessSelector in receiver)) {
+				return invokeDnuMethod(globals.JSObjectProxy._on_(receiver), stSelector, args);
+			}
+			return accessJavaScript(receiver, accessSelector, args);
 		}
 
-		/* Call a method of a JS object, or answer a property if it exists.
-		 Else try wrapping a JSObjectProxy around the receiver.
-
-		 If the object property is a function, then call it, except if it starts with
+		/* If the object property is a function, then call it, except if it starts with
 		 an uppercase character (we probably want to answer the function itself in this
 		 case and send it #new from Amber).
 
@@ -1032,13 +1033,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		 Example:
 		 "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
-		function callJavaScriptMethod(receiver, stSelector, args) {
-			var accessSelector = stSelector._asJavaScriptSelector();
-			return accessSelector in receiver ?
-				accessJavaScript(receiver, accessSelector, args) :
-				invokeDnuMethod(globals.JSObjectProxy._on_(receiver), stSelector, args);
-		}
-
 		function accessJavaScript(receiver, jsSelector, args) {
 			var jsProperty = receiver[jsSelector];
 			if (typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
