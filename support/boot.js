@@ -1000,24 +1000,24 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			}
 		};
 
-		/* Handles #dnu: *and* JavaScript method calls.
-		 if the receiver has no klass, we consider it a JS object (outside of the
-		 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
-
-		function messageNotUnderstood(receiver, selector, args) {
-			/* Handles JS method calls. */
-			if(receiver.klass === undefined || receiver.allowJavaScriptCalls) {
-				return callJavaScriptMethod(receiver, selector, args);
-			}
-
-			/* Handles not understood messages. Also see the Amber counter-part
-			 Object>>doesNotUnderstand: */
-
+		function invokeDnuMethod(receiver, selector, args) {
 			return receiver._doesNotUnderstand_(
 				globals.Message._new()
 					._selector_(st.convertSelector(selector))
 					._arguments_([].slice.call(args))
 			);
+		}
+
+		/* Handles #dnu: *and* JavaScript method calls.
+		 if the receiver has no klass, we consider it a JS object (outside of the
+		 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
+		function messageNotUnderstood(receiver, selector, args) {
+			return receiver.klass === undefined || receiver.allowJavaScriptCalls ?
+				/* Handles JS method calls. */
+				callJavaScriptMethod(receiver, selector, args) :
+				/* Handles not understood messages. Also see the Amber counter-part
+				 Object>>doesNotUnderstand: */
+				invokeDnuMethod(receiver, selector, args);
 		}
 
 		/* Call a method of a JS object, or answer a property if it exists.
@@ -1032,24 +1032,26 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		 Example:
 		 "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
-
 		function callJavaScriptMethod(receiver, selector, args) {
 			var jsSelector = selector._asJavaScriptSelector();
-			if (jsSelector in receiver) {
-				var jsProperty = receiver[jsSelector];
-				if (typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
-					return jsProperty.apply(receiver, args);
-				} else if (args.length > 0) {
-					receiver[jsSelector] = args[0];
-					return nil;
-				} else {
-					return jsProperty;
-				}
-			}
-
-			return st.send(globals.JSObjectProxy._on_(receiver), selector, args);
+			return jsSelector in receiver ?
+				accessJavaScript(receiver, jsSelector, args) :
+				invokeDnuMethod(globals.JSObjectProxy._on_(receiver), selector, args);
 		}
 
+		function accessJavaScript(receiver, jsSelector, args) {
+			var jsProperty = receiver[jsSelector];
+			if (typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
+				return jsProperty.apply(receiver, args);
+			} else if (args.length > 0) {
+				receiver[jsSelector] = args[0];
+				return nil;
+			} else {
+				return jsProperty;
+			}
+		}
+
+		st.accessJavaScript = accessJavaScript;
 		this.messageNotUnderstood = messageNotUnderstood;
 	}
 

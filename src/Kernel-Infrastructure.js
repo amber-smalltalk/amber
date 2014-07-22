@@ -1111,11 +1111,11 @@ fn: function (aString,anArray){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		return smalltalk.send(self._jsObject(), aString, anArray);
+		return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},globals.JSObjectProxy)})},
 args: ["aString", "anArray"],
-source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.send(self._jsObject(), aString, anArray);\x0a\x09>",
+source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
