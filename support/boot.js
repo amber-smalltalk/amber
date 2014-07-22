@@ -191,29 +191,29 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		var methods = [], checker = Object.create(null);
 		this.selectors = [];
 
-		this.get = function (string) {
-			var index = this.selectors.indexOf(string);
+		this.get = function (stSelector) {
+			var index = this.selectors.indexOf(stSelector);
 			if(index !== -1) {
 				return methods[index];
 			}
-			this.selectors.push(string);
-			var selector = st.selector(string);
-			checker[selector] = true;
-			var method = {jsSelector: selector, fn: createHandler(selector)};
+			this.selectors.push(stSelector);
+			var jsSelector = st.selector(stSelector);
+			checker[jsSelector] = true;
+			var method = {jsSelector: jsSelector, fn: createHandler(stSelector)};
 			methods.push(method);
 			manip.installMethod(method, rootAsClass);
 			return method;
 		};
 
-		this.isSelector = function (selector) {
-			return checker[selector];
+		this.isSelector = function (jsSelector) {
+			return checker[jsSelector];
 		};
 
 		/* Dnu handler method */
 
-		function createHandler(selector) {
+		function createHandler(stSelector) {
 			return function() {
-				return brikz.messageSend.messageNotUnderstood(this, selector, arguments);
+				return brikz.messageSend.messageNotUnderstood(this, stSelector, arguments);
 			};
 		}
 
@@ -987,23 +987,23 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		/* Handles unhandled errors during message sends */
 		// simply send the message and handle #dnu:
 
-		st.send = function(receiver, selector, args, klass) {
+		st.send = function(receiver, jsSelector, args, klass) {
 			var method;
 			if(receiver === null) {
 				receiver = nil;
 			}
-			method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
+			method = klass ? klass.fn.prototype[jsSelector] : receiver.klass && receiver[jsSelector];
 			if(method) {
 				return method.apply(receiver, args);
 			} else {
-				return messageNotUnderstood(receiver, selector, args);
+				return messageNotUnderstood(receiver, st.convertSelector(jsSelector), args);
 			}
 		};
 
-		function invokeDnuMethod(receiver, selector, args) {
+		function invokeDnuMethod(receiver, stSelector, args) {
 			return receiver._doesNotUnderstand_(
 				globals.Message._new()
-					._selector_(st.convertSelector(selector))
+					._selector_(stSelector)
 					._arguments_([].slice.call(args))
 			);
 		}
@@ -1011,13 +1011,13 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		/* Handles #dnu: *and* JavaScript method calls.
 		 if the receiver has no klass, we consider it a JS object (outside of the
 		 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
-		function messageNotUnderstood(receiver, selector, args) {
+		function messageNotUnderstood(receiver, stSelector, args) {
 			return receiver.klass === undefined || receiver.allowJavaScriptCalls ?
 				/* Handles JS method calls. */
-				callJavaScriptMethod(receiver, selector, args) :
+				callJavaScriptMethod(receiver, stSelector, args) :
 				/* Handles not understood messages. Also see the Amber counter-part
 				 Object>>doesNotUnderstand: */
-				invokeDnuMethod(receiver, selector, args);
+				invokeDnuMethod(receiver, stSelector, args);
 		}
 
 		/* Call a method of a JS object, or answer a property if it exists.
@@ -1032,11 +1032,11 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		 Example:
 		 "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
-		function callJavaScriptMethod(receiver, selector, args) {
-			var jsSelector = selector._asJavaScriptSelector();
-			return jsSelector in receiver ?
-				accessJavaScript(receiver, jsSelector, args) :
-				invokeDnuMethod(globals.JSObjectProxy._on_(receiver), selector, args);
+		function callJavaScriptMethod(receiver, stSelector, args) {
+			var accessSelector = stSelector._asJavaScriptSelector();
+			return accessSelector in receiver ?
+				accessJavaScript(receiver, accessSelector, args) :
+				invokeDnuMethod(globals.JSObjectProxy._on_(receiver), stSelector, args);
 		}
 
 		function accessJavaScript(receiver, jsSelector, args) {
