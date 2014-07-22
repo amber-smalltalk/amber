@@ -1017,11 +1017,11 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			}
 			/* Call a method of a JS object, or answer a property if it exists.
 			 Else try wrapping a JSObjectProxy around the receiver. */
-			var accessSelector = stSelector._asJavaScriptSelector();
-			if (!(accessSelector in receiver)) {
+			var propertyName = stSelector._asJavaScriptSelector();
+			if (!(propertyName in receiver)) {
 				return invokeDnuMethod(globals.JSObjectProxy._on_(receiver), stSelector, args);
 			}
-			return accessJavaScript(receiver, accessSelector, args);
+			return accessJavaScript(receiver, propertyName, args);
 		}
 
 		/* If the object property is a function, then call it, except if it starts with
@@ -1033,15 +1033,15 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		 Example:
 		 "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
-		function accessJavaScript(receiver, jsSelector, args) {
-			var jsProperty = receiver[jsSelector];
-			if (typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
-				return jsProperty.apply(receiver, args);
+		function accessJavaScript(receiver, propertyName, args) {
+			var propertyValue = receiver[propertyName];
+			if (typeof propertyValue === "function" && !/^[A-Z]/.test(propertyName)) {
+				return propertyValue.apply(receiver, args);
 			} else if (args.length > 0) {
-				receiver[jsSelector] = args[0];
+				receiver[propertyName] = args[0];
 				return nil;
 			} else {
-				return jsProperty;
+				return propertyValue;
 			}
 		}
 
