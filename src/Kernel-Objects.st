@@ -95,7 +95,7 @@ perform: aString
 !
 
 perform: aString withArguments: aCollection
-	<return smalltalk.send(self, aString._asSelector(), aCollection)>
+	<return smalltalk.send(self, aString._asJavaScriptMethodName(), aCollection)>
 ! !
 
 !ProtoObject methodsFor: 'printing'!

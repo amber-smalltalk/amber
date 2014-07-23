@@ -1054,9 +1054,9 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 	}
 
 	function SelectorConversionBrik(brikz, st) {
-		/* Convert a Smalltalk selector into a JS selector */
 
-		st.selector = function(string) {
+		/* Convert a Smalltalk selector into a JS selector */
+		st.st2js = function(string) {
 			var selector = '_' + string;
 			selector = selector.replace(/:/g, '_');
 			selector = selector.replace(/[\&]/g, '_and');
@@ -1076,22 +1076,21 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		};
 
 		/* Convert a string to a valid smalltalk selector.
-		 if you modify the following functions, also change String>>asSelector
+		 if you modify the following functions, also change st2js
 		 accordingly */
-
-		st.convertSelector = function(selector) {
+		st.js2st = function(selector) {
 			if(selector.match(/__/)) {
-				return convertBinarySelector(selector);
+				return binaryJsToSt(selector);
 			} else {
-				return convertKeywordSelector(selector);
+				return keywordJsToSt(selector);
 			}
 		};
 
-		function convertKeywordSelector(selector) {
+		function keywordJsToSt(selector) {
 			return selector.replace(/^_/, '').replace(/_/g, ':');
 		}
 
-		function convertBinarySelector(selector) {
+		function binaryJsToSt(selector) {
 			return selector
 				.replace(/^_/, '')
 				.replace(/_and/g, '&')
@@ -1114,6 +1113,10 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
             var colonPosition = stSelector.indexOf(':');
             return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
         };
+
+        // Backward-compatible names, deprecated.
+        st.selector = st.st2js;
+        st.convertSelector = st.js2st;
 	}
 
 	/* Adds AMD and requirejs related methods to the smalltalk object */

@@ -414,7 +414,7 @@ addObjectVariablesTo: aDictionary
 !
 
 doesNotUnderstand: aMessage
-	^ (self lookupProperty: aMessage selector asJavaScriptSelector)
+	^ (self lookupProperty: aMessage selector asJavaScriptPropertyName)
 		ifNil: [ super doesNotUnderstand: aMessage ]
 		ifNotNil: [ :jsSelector | 
 			self 
@@ -1373,8 +1373,15 @@ do: aBlock displayingProgress: aString
 
 !String methodsFor: '*Kernel-Infrastructure'!
 
-asJavaScriptSelector
+asJavaScriptPropertyName
 <return smalltalk.st2prop(self)>
+!
+
+asJavaScriptSelector
+	"Cannot add next line as it breaks commit:
+	self deprecatedAPI: 'Use #asJavaScriptPropertyName'."
+
+	^ self asJavaScriptPropertyName
 !
 
 asSetting

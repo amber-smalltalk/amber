@@ -4221,6 +4221,22 @@ globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asJavaScriptMethodName",
+protocol: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return smalltalk.st2js(self);
+return self}, function($ctx1) {$ctx1.fill(self,"asJavaScriptMethodName",{},globals.String)})},
+args: [],
+source: "asJavaScriptMethodName\x0a\x09<return smalltalk.st2js(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asJavascript",
 protocol: 'converting',
 fn: function (){
@@ -4320,11 +4336,14 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return smalltalk.selector(self);
-return self}, function($ctx1) {$ctx1.fill(self,"asSelector",{},globals.String)})},
+var $1;
+self._deprecatedAPI_("Use #asJavaScriptMethodName");
+$1=self._asJavaScriptMethodName();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asSelector",{},globals.String)})},
 args: [],
-source: "asSelector\x0a\x09<return smalltalk.selector(self)>",
-messageSends: [],
+source: "asSelector\x0a\x09self deprecatedAPI: 'Use #asJavaScriptMethodName'.\x0a\x09^ self asJavaScriptMethodName",
+messageSends: ["deprecatedAPI:", "asJavaScriptMethodName"],
 referencedClasses: []
 }),
 globals.String);

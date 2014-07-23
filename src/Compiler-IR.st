@@ -1050,7 +1050,7 @@ visitReceiver: anIRInstruction
 
 visitSend: anIRSend
 	self visitReceiver: anIRSend instructions first.
-	self stream nextPutAll: '.', anIRSend selector asSelector, '('.
+	self stream nextPutAll: '.', anIRSend selector asJavaScriptMethodName, '('.
 	anIRSend instructions allButFirst
 		do: [ :each | self visit: each ]
 		separatedBy: [ self stream nextPutAll: ',' ].
@@ -1062,7 +1062,7 @@ visitSuperSend: anIRSend
 		nextPutAll: '(', anIRSend scope alias, '.supercall = true, ';
 		nextPutAll: self currentClass asJavascript;
 		nextPutAll: '.superclass.fn.prototype.';
-		nextPutAll: anIRSend selector asSelector, '.apply(';
+		nextPutAll: anIRSend selector asJavaScriptMethodName, '.apply(';
 		nextPutAll: '_st('.
 	self visit: anIRSend instructions first.
 	self stream nextPutAll: '), ['.
