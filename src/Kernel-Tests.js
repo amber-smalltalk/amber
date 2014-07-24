@@ -2006,7 +2006,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$5,$4,$6,$9,$8,$7,$11,$10,$13,$12,$16,$15,$14,$18,$17,$19;
+var $3,$2,$1,$5,$4,$6,$9,$8,$7,$11,$10,$13,$12,$15,$14,$16,$19,$18,$17,$21,$20,$23,$22,$24,$25,$27,$26,$29,$28;
 $3=self._collectionClass();
 $ctx1.sendIdx["collectionClass"]=1;
 $2=_st($3)._new();
@@ -2045,45 +2045,80 @@ $ctx1.sendIdx["collection"]=3;
 $12=_st($13)._ifNotEmpty_((function(){
 return (42);
 }));
+$ctx1.sendIdx["ifNotEmpty:"]=2;
 self._assert_equals_($12,(42));
 $ctx1.sendIdx["assert:equals:"]=4;
-$16=self._collectionClass();
-$ctx1.sendIdx["collectionClass"]=4;
-$15=_st($16)._new();
-$ctx1.sendIdx["new"]=4;
-$14=_st($15)._ifEmpty_ifNotEmpty_((function(){
-return (42);
-}),(function(){
-return (999);
-}));
-$ctx1.sendIdx["ifEmpty:ifNotEmpty:"]=1;
-self._assert_equals_($14,(42));
-$ctx1.sendIdx["assert:equals:"]=5;
-$18=self._collection();
+$15=self._collection();
 $ctx1.sendIdx["collection"]=4;
+$14=_st($15)._ifNotEmpty_((function(col){
+return col;
+}));
+$16=self._collection();
+$ctx1.sendIdx["collection"]=5;
+self._assert_equals_($14,$16);
+$ctx1.sendIdx["assert:equals:"]=5;
+$19=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=4;
+$18=_st($19)._new();
+$ctx1.sendIdx["new"]=4;
 $17=_st($18)._ifEmpty_ifNotEmpty_((function(){
 return (42);
 }),(function(){
 return (999);
 }));
-self._assert_equals_($17,(999));
+$ctx1.sendIdx["ifEmpty:ifNotEmpty:"]=1;
+self._assert_equals_($17,(42));
 $ctx1.sendIdx["assert:equals:"]=6;
-$19=_st(_st(self._collectionClass())._new())._ifNotEmpty_ifEmpty_((function(){
+$21=self._collection();
+$ctx1.sendIdx["collection"]=6;
+$20=_st($21)._ifEmpty_ifNotEmpty_((function(){
+return (42);
+}),(function(){
+return (999);
+}));
+$ctx1.sendIdx["ifEmpty:ifNotEmpty:"]=2;
+self._assert_equals_($20,(999));
+$ctx1.sendIdx["assert:equals:"]=7;
+$23=self._collection();
+$ctx1.sendIdx["collection"]=7;
+$22=_st($23)._ifEmpty_ifNotEmpty_((function(){
+return (42);
+}),(function(col){
+return col;
+}));
+$24=self._collection();
+$ctx1.sendIdx["collection"]=8;
+self._assert_equals_($22,$24);
+$ctx1.sendIdx["assert:equals:"]=8;
+$25=_st(_st(self._collectionClass())._new())._ifNotEmpty_ifEmpty_((function(){
 return (42);
 }),(function(){
 return (999);
 }));
 $ctx1.sendIdx["ifNotEmpty:ifEmpty:"]=1;
-self._assert_equals_($19,(999));
-$ctx1.sendIdx["assert:equals:"]=7;
-self._assert_equals_(_st(self._collection())._ifNotEmpty_ifEmpty_((function(){
+self._assert_equals_($25,(999));
+$ctx1.sendIdx["assert:equals:"]=9;
+$27=self._collection();
+$ctx1.sendIdx["collection"]=9;
+$26=_st($27)._ifNotEmpty_ifEmpty_((function(){
 return (42);
 }),(function(){
 return (999);
-})),(42));
+}));
+$ctx1.sendIdx["ifNotEmpty:ifEmpty:"]=2;
+self._assert_equals_($26,(42));
+$ctx1.sendIdx["assert:equals:"]=10;
+$29=self._collection();
+$ctx1.sendIdx["collection"]=10;
+$28=_st($29)._ifNotEmpty_ifEmpty_((function(col){
+return col;
+}),(function(){
+return (999);
+}));
+self._assert_equals_($28,self._collection());
 return self}, function($ctx1) {$ctx1.fill(self,"testIfEmptyFamily",{},globals.CollectionTest)})},
 args: [],
-source: "testIfEmptyFamily\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.\x0a\x09\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42",
+source: "testIfEmptyFamily\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifNotEmpty: [ :col | col ]) equals: self collection.\x0a\x09\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.\x0a\x09self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ :col | col ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42.\x0a\x09self assert: (self collection ifNotEmpty: [ :col | col ] ifEmpty: [ 999 ]) equals: self collection.",
 messageSends: ["assert:equals:", "ifEmpty:", "new", "collectionClass", "collection", "ifNotEmpty:", "ifEmpty:ifNotEmpty:", "ifNotEmpty:ifEmpty:"],
 referencedClasses: []
 }),

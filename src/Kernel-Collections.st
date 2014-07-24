@@ -371,18 +371,18 @@ ifEmpty: aBlock
 ifEmpty: aBlock ifNotEmpty: anotherBlock
 	^ self isEmpty
 		ifTrue: aBlock
-		ifFalse: anotherBlock
+		ifFalse: [ anotherBlock value: self ]
 !
 
 ifNotEmpty: aBlock
 	^ self notEmpty
-		ifTrue: aBlock
+		ifTrue: [ aBlock value: self ]
 		ifFalse: [ self ]
 !
 
 ifNotEmpty: aBlock ifEmpty: anotherBlock
 	^ self notEmpty
-		ifTrue: aBlock
+		ifTrue: [ aBlock value: self ]
 		ifFalse: anotherBlock
 !
 

@@ -596,12 +596,15 @@ testIfEmptyFamily
 
 	self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.
 	self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.
+	self assert: (self collection ifNotEmpty: [ :col | col ]) equals: self collection.
 	
 	self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.
 	self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.
+	self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ :col | col ]) equals: self collection.
 
 	self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.
-	self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42
+	self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42.
+	self assert: (self collection ifNotEmpty: [ :col | col ] ifEmpty: [ 999 ]) equals: self collection.
 !
 
 testIsEmpty

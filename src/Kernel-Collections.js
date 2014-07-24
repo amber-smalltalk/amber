@@ -749,12 +749,15 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._isEmpty();
-$1=_st($2)._ifTrue_ifFalse_(aBlock,anotherBlock);
+$1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(anotherBlock)._value_(self);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifEmpty:ifNotEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Collection)})},
 args: ["aBlock", "anotherBlock"],
-source: "ifEmpty: aBlock ifNotEmpty: anotherBlock\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: anotherBlock",
-messageSends: ["ifTrue:ifFalse:", "isEmpty"],
+source: "ifEmpty: aBlock ifNotEmpty: anotherBlock\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: [ anotherBlock value: self ]",
+messageSends: ["ifTrue:ifFalse:", "isEmpty", "value:"],
 referencedClasses: []
 }),
 globals.Collection);
@@ -768,14 +771,16 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._notEmpty();
-$1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
-return self;
-}));
+if(smalltalk.assert($2)){
+$1=_st(aBlock)._value_(self);
+} else {
+$1=self;
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
-source: "ifNotEmpty: aBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: [ self ]",
-messageSends: ["ifTrue:ifFalse:", "notEmpty"],
+source: "ifNotEmpty: aBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: [ aBlock value: self ]\x0a\x09\x09ifFalse: [ self ]",
+messageSends: ["ifTrue:ifFalse:", "notEmpty", "value:"],
 referencedClasses: []
 }),
 globals.Collection);
@@ -789,12 +794,15 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._notEmpty();
-$1=_st($2)._ifTrue_ifFalse_(aBlock,anotherBlock);
+$1=_st($2)._ifTrue_ifFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aBlock)._value_(self);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),anotherBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:ifEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Collection)})},
 args: ["aBlock", "anotherBlock"],
-source: "ifNotEmpty: aBlock ifEmpty: anotherBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: anotherBlock",
-messageSends: ["ifTrue:ifFalse:", "notEmpty"],
+source: "ifNotEmpty: aBlock ifEmpty: anotherBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: [ aBlock value: self ]\x0a\x09\x09ifFalse: anotherBlock",
+messageSends: ["ifTrue:ifFalse:", "notEmpty", "value:"],
 referencedClasses: []
 }),
 globals.Collection);
