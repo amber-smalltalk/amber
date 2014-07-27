@@ -2939,19 +2939,21 @@ selector: "at:ifAbsent:",
 protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
+var foundOrNil;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$2=self._includesKey_(aKey);
+foundOrNil=_st(self._globals())._at_(aKey);
+$2=_st(foundOrNil)._notNil();
 if(smalltalk.assert($2)){
-$1=self._at_(aKey);
+$1=foundOrNil;
 } else {
 $1=_st(aBlock)._value();
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock,foundOrNil:foundOrNil},globals.SmalltalkImage)})},
 args: ["aKey", "aBlock"],
-source: "at: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ self at: aKey ]\x0a\x09\x09ifFalse: [ aBlock value ]",
-messageSends: ["ifTrue:ifFalse:", "includesKey:", "at:", "value"],
+source: "at: aKey ifAbsent: aBlock\x0a\x0a\x09| foundOrNil |\x0a\x0a\x09foundOrNil := self globals at: aKey.\x0a\x0a\x09^ foundOrNil notNil\x0a\x09\x09ifTrue: [ foundOrNil ]\x0a\x09\x09ifFalse: [ aBlock value ]",
+messageSends: ["at:", "globals", "ifTrue:ifFalse:", "notNil", "value"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
