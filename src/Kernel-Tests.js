@@ -6089,6 +6089,37 @@ globals.JSObjectProxyTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testDNURegression1059",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var jsObject;
+function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+jsObject=[];
+_st(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
+$ctx1.sendIdx["basicAt:put:"]=1;
+_st(jsObject)._basicAt_put_("x",(3));
+$ctx1.sendIdx["basicAt:put:"]=2;
+_st(jsObject)._basicAt_put_("x:",(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._error();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+self._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(jsObject)._x_((4));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}),$Error());
+self._assert_equals_(_st(jsObject)._x(),(4));
+return self}, function($ctx1) {$ctx1.fill(self,"testDNURegression1059",{jsObject:jsObject},globals.JSObjectProxyTest)})},
+args: [],
+source: "testDNURegression1059\x0a\x09| jsObject |\x0a\x09jsObject := #().\x0a\x09jsObject basicAt: 'allowJavaScriptCalls' put: true.\x0a\x09jsObject basicAt: 'x' put: 3.\x0a\x09jsObject basicAt: 'x:' put: [ self error ].\x0a\x09self shouldnt: [ jsObject x: 4 ] raise: Error.\x0a\x09self assert: jsObject x equals: 4\x0a\x09",
+messageSends: ["basicAt:put:", "error", "shouldnt:raise:", "x:", "assert:equals:", "x"],
+referencedClasses: ["Error"]
+}),
+globals.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testMessageSend",
 protocol: 'tests',
 fn: function (){
