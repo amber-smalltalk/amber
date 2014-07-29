@@ -1746,6 +1746,17 @@ testDNU
 	self should: [ self jsObject foo ] raise: MessageNotUnderstood
 !
 
+testDNURegression1057
+	| jsObject |
+	jsObject := #().
+	jsObject basicAt: 'allowJavaScriptCalls' put: true.
+	jsObject basicAt: 'foo' put: 3.
+	self shouldnt: [ jsObject foo ] raise: Error.
+	self assert: jsObject foo equals: 3.
+	self shouldnt: [ jsObject foo: 4 ] raise: Error.
+	self assert: jsObject foo equals: 4
+!
+
 testMessageSend
 
 	self assert: self jsObject a equals: 1.
