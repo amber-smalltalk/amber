@@ -329,8 +329,10 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		function mixin(src, target, what) {
 			for (var keys = Object.keys(what||src), l=keys.length, i=0; i<l; ++i) {
-				var value = src[keys[i]];
-				if (typeof value !== "undefined") { target[keys[i]] = value; }
+				if (src == null) { target[keys[i]] = undefined; } else {
+					var value = src[keys[i]];
+					if (typeof value !== "undefined") { target[keys[i]] = value; }
+				}
 			}
 			return target;
 		}
@@ -341,13 +343,13 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		this.rebuild = function () {
 			Object.keys(backup).forEach(function (key) {
-				mixin({}, api, (backup[key]||0)[apiKey]);
+				mixin(null, api, (backup[key]||0)[apiKey]||{});
 			});
 			var oapi = mixin(api, {}), order = [], chk = {};
 			brikz.ensure = function(key) {
 				if (key in exclude) { return null; }
 				var b = brikz[key], bak = backup[key];
-				mixin({}, api, api);
+				mixin(null, api, api);
 				while (typeof b === "function") { b = new b(brikz, api, bak); }
 				if (b && !chk[key]) { chk[key]=true; order.push(b); }
 				if (b && !b[apiKey]) { b[apiKey] = mixin(api, {}); }
@@ -355,7 +357,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			};
 			Object.keys(brikz).forEach(function (key) { brikz.ensure(key); });
 			brikz.ensure = null;
-			mixin(oapi, mixin({}, api, api));
+			mixin(oapi, mixin(null, api, api));
 			order.forEach(function(brik) { mixin(brik[apiKey] || {}, api); });
 			order.forEach(function(brik) { brik[initKey] && brik[initKey](); });
 			backup = mixin(brikz, {});
@@ -1432,8 +1434,8 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 	brikz.methods = MethodsBrik;
 	brikz.stInit = SmalltalkInitBrik;
 	brikz.augments = AugmentsBrik;
-	brikz.amdBrik = AMDBrik;
-	brikz.asReceiverBrik = AsReceiverBrik;
+	brikz.asReceiver = AsReceiverBrik;
+	brikz.amd = AMDBrik;
 
 	brikz.rebuild();
 
@@ -1447,7 +1449,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		brikz.rebuild();
 	};
 
-	return { vm: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiverBrik.asReceiver };
+	return { vm: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiver.asReceiver };
 });
 
 define("amber_vm/smalltalk", ["./boot"], function (boot) {
@@ -1845,21 +1847,6 @@ referencedClasses: []
 }),
 globals.ProtoObject);
 
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "heliosClass",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return "class";
-},
-args: [],
-source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
-messageSends: [],
-referencedClasses: []
-}),
-globals.ProtoObject.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2708,21 +2695,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"accessorsSourceCodesWith:",{aGen
 args: ["aGenerator"],
 source: "accessorsSourceCodesWith: aGenerator\x0a\x09aGenerator accessorsForObject",
 messageSends: ["accessorsForObject"],
-referencedClasses: []
-}),
-globals.Object.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "heliosClass",
-protocol: 'helios',
-fn: function (){
-var self=this;
-return "class";
-},
-args: [],
-source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
-messageSends: [],
 referencedClasses: []
 }),
 globals.Object.klass);
@@ -6938,6 +6910,21 @@ globals.Class);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "heliosClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "class";
+},
+args: [],
+source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Class);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isClass",
 protocol: 'testing',
 fn: function (){
@@ -10986,12 +10973,15 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._isEmpty();
-$1=_st($2)._ifTrue_ifFalse_(aBlock,anotherBlock);
+$1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(anotherBlock)._value_(self);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifEmpty:ifNotEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Collection)})},
 args: ["aBlock", "anotherBlock"],
-source: "ifEmpty: aBlock ifNotEmpty: anotherBlock\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: anotherBlock",
-messageSends: ["ifTrue:ifFalse:", "isEmpty"],
+source: "ifEmpty: aBlock ifNotEmpty: anotherBlock\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: [ anotherBlock value: self ]",
+messageSends: ["ifTrue:ifFalse:", "isEmpty", "value:"],
 referencedClasses: []
 }),
 globals.Collection);
@@ -11005,14 +10995,16 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._notEmpty();
-$1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
-return self;
-}));
+if(smalltalk.assert($2)){
+$1=_st(aBlock)._value_(self);
+} else {
+$1=self;
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
-source: "ifNotEmpty: aBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: [ self ]",
-messageSends: ["ifTrue:ifFalse:", "notEmpty"],
+source: "ifNotEmpty: aBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: [ aBlock value: self ]\x0a\x09\x09ifFalse: [ self ]",
+messageSends: ["ifTrue:ifFalse:", "notEmpty", "value:"],
 referencedClasses: []
 }),
 globals.Collection);
@@ -11026,12 +11018,15 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._notEmpty();
-$1=_st($2)._ifTrue_ifFalse_(aBlock,anotherBlock);
+$1=_st($2)._ifTrue_ifFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aBlock)._value_(self);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),anotherBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:ifEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Collection)})},
 args: ["aBlock", "anotherBlock"],
-source: "ifNotEmpty: aBlock ifEmpty: anotherBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: anotherBlock",
-messageSends: ["ifTrue:ifFalse:", "notEmpty"],
+source: "ifNotEmpty: aBlock ifEmpty: anotherBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: [ aBlock value: self ]\x0a\x09\x09ifFalse: anotherBlock",
+messageSends: ["ifTrue:ifFalse:", "notEmpty", "value:"],
 referencedClasses: []
 }),
 globals.Collection);
@@ -20046,18 +20041,14 @@ protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._includesKey_(aKey);
-if(smalltalk.assert($2)){
-$1=self._at_(aKey);
-} else {
-$1=_st(aBlock)._value();
-};
+var $1;
+self._deprecatedAPI();
+$1=_st(self._globals())._at_ifAbsent_(aKey,aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},globals.SmalltalkImage)})},
 args: ["aKey", "aBlock"],
-source: "at: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ self at: aKey ]\x0a\x09\x09ifFalse: [ aBlock value ]",
-messageSends: ["ifTrue:ifFalse:", "includesKey:", "at:", "value"],
+source: "at: aKey ifAbsent: aBlock\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aKey ifAbsent: aBlock",
+messageSends: ["deprecatedAPI", "at:ifAbsent:", "globals"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
@@ -46661,7 +46652,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$5,$4,$6,$9,$8,$7,$11,$10,$13,$12,$16,$15,$14,$18,$17,$19;
+var $3,$2,$1,$5,$4,$6,$9,$8,$7,$11,$10,$13,$12,$15,$14,$16,$19,$18,$17,$21,$20,$23,$22,$24,$25,$27,$26,$29,$28;
 $3=self._collectionClass();
 $ctx1.sendIdx["collectionClass"]=1;
 $2=_st($3)._new();
@@ -46700,45 +46691,80 @@ $ctx1.sendIdx["collection"]=3;
 $12=_st($13)._ifNotEmpty_((function(){
 return (42);
 }));
+$ctx1.sendIdx["ifNotEmpty:"]=2;
 self._assert_equals_($12,(42));
 $ctx1.sendIdx["assert:equals:"]=4;
-$16=self._collectionClass();
-$ctx1.sendIdx["collectionClass"]=4;
-$15=_st($16)._new();
-$ctx1.sendIdx["new"]=4;
-$14=_st($15)._ifEmpty_ifNotEmpty_((function(){
-return (42);
-}),(function(){
-return (999);
-}));
-$ctx1.sendIdx["ifEmpty:ifNotEmpty:"]=1;
-self._assert_equals_($14,(42));
-$ctx1.sendIdx["assert:equals:"]=5;
-$18=self._collection();
+$15=self._collection();
 $ctx1.sendIdx["collection"]=4;
+$14=_st($15)._ifNotEmpty_((function(col){
+return col;
+}));
+$16=self._collection();
+$ctx1.sendIdx["collection"]=5;
+self._assert_equals_($14,$16);
+$ctx1.sendIdx["assert:equals:"]=5;
+$19=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=4;
+$18=_st($19)._new();
+$ctx1.sendIdx["new"]=4;
 $17=_st($18)._ifEmpty_ifNotEmpty_((function(){
 return (42);
 }),(function(){
 return (999);
 }));
-self._assert_equals_($17,(999));
+$ctx1.sendIdx["ifEmpty:ifNotEmpty:"]=1;
+self._assert_equals_($17,(42));
 $ctx1.sendIdx["assert:equals:"]=6;
-$19=_st(_st(self._collectionClass())._new())._ifNotEmpty_ifEmpty_((function(){
+$21=self._collection();
+$ctx1.sendIdx["collection"]=6;
+$20=_st($21)._ifEmpty_ifNotEmpty_((function(){
+return (42);
+}),(function(){
+return (999);
+}));
+$ctx1.sendIdx["ifEmpty:ifNotEmpty:"]=2;
+self._assert_equals_($20,(999));
+$ctx1.sendIdx["assert:equals:"]=7;
+$23=self._collection();
+$ctx1.sendIdx["collection"]=7;
+$22=_st($23)._ifEmpty_ifNotEmpty_((function(){
+return (42);
+}),(function(col){
+return col;
+}));
+$24=self._collection();
+$ctx1.sendIdx["collection"]=8;
+self._assert_equals_($22,$24);
+$ctx1.sendIdx["assert:equals:"]=8;
+$25=_st(_st(self._collectionClass())._new())._ifNotEmpty_ifEmpty_((function(){
 return (42);
 }),(function(){
 return (999);
 }));
 $ctx1.sendIdx["ifNotEmpty:ifEmpty:"]=1;
-self._assert_equals_($19,(999));
-$ctx1.sendIdx["assert:equals:"]=7;
-self._assert_equals_(_st(self._collection())._ifNotEmpty_ifEmpty_((function(){
+self._assert_equals_($25,(999));
+$ctx1.sendIdx["assert:equals:"]=9;
+$27=self._collection();
+$ctx1.sendIdx["collection"]=9;
+$26=_st($27)._ifNotEmpty_ifEmpty_((function(){
 return (42);
 }),(function(){
 return (999);
-})),(42));
+}));
+$ctx1.sendIdx["ifNotEmpty:ifEmpty:"]=2;
+self._assert_equals_($26,(42));
+$ctx1.sendIdx["assert:equals:"]=10;
+$29=self._collection();
+$ctx1.sendIdx["collection"]=10;
+$28=_st($29)._ifNotEmpty_ifEmpty_((function(col){
+return col;
+}),(function(){
+return (999);
+}));
+self._assert_equals_($28,self._collection());
 return self}, function($ctx1) {$ctx1.fill(self,"testIfEmptyFamily",{},globals.CollectionTest)})},
 args: [],
-source: "testIfEmptyFamily\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.\x0a\x09\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42",
+source: "testIfEmptyFamily\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifNotEmpty: [ :col | col ]) equals: self collection.\x0a\x09\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.\x0a\x09self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ :col | col ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42.\x0a\x09self assert: (self collection ifNotEmpty: [ :col | col ] ifEmpty: [ 999 ]) equals: self collection.",
 messageSends: ["assert:equals:", "ifEmpty:", "new", "collectionClass", "collection", "ifNotEmpty:", "ifEmpty:ifNotEmpty:", "ifNotEmpty:ifEmpty:"],
 referencedClasses: []
 }),
@@ -56538,25 +56564,6 @@ globals.AmberCli.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "tests:",
-protocol: 'commands',
-fn: function (arguments){
-var self=this;
-function $NodeTestRunner(){return globals.NodeTestRunner||(typeof NodeTestRunner=="undefined"?nil:NodeTestRunner)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($NodeTestRunner())._runTestSuite();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"tests:",{arguments:arguments},globals.AmberCli.klass)})},
-args: ["arguments"],
-source: "tests: arguments\x0a\x09^ NodeTestRunner runTestSuite",
-messageSends: ["runTestSuite"],
-referencedClasses: ["NodeTestRunner"]
-}),
-globals.AmberCli.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "version:",
 protocol: 'commands',
 fn: function (arguments){
@@ -58000,129 +58007,6 @@ referencedClasses: []
 }),
 globals.Initer);
 
-
-
-smalltalk.addClass('NodeTestRunner', globals.Object, [], 'AmberCli');
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "runTestSuite",
-protocol: 'not yet classified',
-fn: function (){
-var self=this;
-var suite,worker;
-function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
-function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
-function $TestSuiteRunner(){return globals.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
-function $ResultAnnouncement(){return globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$9,$8,$12,$11,$10,$7,$6,$15,$14,$13,$5,$4,$17,$16,$19,$18,$26,$25,$24,$23,$22,$28,$27,$21,$20,$30,$29,$32,$31,$39,$38,$37,$36,$35,$34,$33;
-suite=_st($OrderedCollection())._new();
-_st(_st(_st($TestCase())._allSubclasses())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._isAbstract())._not();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(suite)._addAll_(_st(each)._buildSuite());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-worker=_st($TestSuiteRunner())._on_(suite);
-_st(_st(worker)._announcer())._on_do_($ResultAnnouncement(),(function(ann){
-var result;
-return smalltalk.withContext(function($ctx2) {
-result=_st(ann)._result();
-result;
-$2=_st(result)._runs();
-$ctx2.sendIdx["runs"]=1;
-$1=_st($2).__eq(_st(result)._total());
-if(smalltalk.assert($1)){
-$3=console;
-$9=_st(_st(result)._runs())._asString();
-$ctx2.sendIdx["asString"]=1;
-$8=_st($9).__comma(" tests run, ");
-$ctx2.sendIdx[","]=5;
-$12=_st(result)._failures();
-$ctx2.sendIdx["failures"]=1;
-$11=_st($12)._size();
-$ctx2.sendIdx["size"]=1;
-$10=_st($11)._asString();
-$ctx2.sendIdx["asString"]=2;
-$7=_st($8).__comma($10);
-$ctx2.sendIdx[","]=4;
-$6=_st($7).__comma(" failures, ");
-$ctx2.sendIdx[","]=3;
-$15=_st(result)._errors();
-$ctx2.sendIdx["errors"]=1;
-$14=_st($15)._size();
-$13=_st($14)._asString();
-$5=_st($6).__comma($13);
-$ctx2.sendIdx[","]=2;
-$4=_st($5).__comma(" errors.");
-$ctx2.sendIdx[","]=1;
-_st($3)._log_($4);
-$17=_st(result)._failures();
-$ctx2.sendIdx["failures"]=2;
-$16=_st($17)._isEmpty();
-$ctx2.sendIdx["isEmpty"]=1;
-if(! smalltalk.assert($16)){
-$19=_st(result)._failures();
-$ctx2.sendIdx["failures"]=3;
-$18=_st($19)._first();
-$ctx2.sendIdx["first"]=1;
-_st($18)._runCase();
-$ctx2.sendIdx["runCase"]=1;
-$26=_st(result)._failures();
-$ctx2.sendIdx["failures"]=4;
-$25=_st($26)._first();
-$ctx2.sendIdx["first"]=2;
-$24=_st($25)._class();
-$ctx2.sendIdx["class"]=1;
-$23=_st($24)._name();
-$ctx2.sendIdx["name"]=1;
-$22=_st($23).__comma(" >> ");
-$ctx2.sendIdx[","]=8;
-$28=_st(_st(result)._failures())._first();
-$ctx2.sendIdx["first"]=3;
-$27=_st($28)._selector();
-$ctx2.sendIdx["selector"]=1;
-$21=_st($22).__comma($27);
-$ctx2.sendIdx[","]=7;
-$20=_st($21).__comma(" is failing!!");
-$ctx2.sendIdx[","]=6;
-self._throw_($20);
-$ctx2.sendIdx["throw:"]=1;
-};
-$30=_st(result)._errors();
-$ctx2.sendIdx["errors"]=2;
-$29=_st($30)._isEmpty();
-if(! smalltalk.assert($29)){
-$32=_st(result)._errors();
-$ctx2.sendIdx["errors"]=3;
-$31=_st($32)._first();
-$ctx2.sendIdx["first"]=4;
-_st($31)._runCase();
-$39=_st(result)._errors();
-$ctx2.sendIdx["errors"]=4;
-$38=_st($39)._first();
-$ctx2.sendIdx["first"]=5;
-$37=_st($38)._class();
-$36=_st($37)._name();
-$35=_st($36).__comma(" >> ");
-$34=_st($35).__comma(_st(_st(_st(result)._errors())._first())._selector());
-$ctx2.sendIdx[","]=10;
-$33=_st($34).__comma(" has errors!!");
-$ctx2.sendIdx[","]=9;
-return self._throw_($33);
-};
-};
-}, function($ctx2) {$ctx2.fillBlock({ann:ann,result:result},$ctx1,3)})}));
-_st(worker)._run();
-return self}, function($ctx1) {$ctx1.fill(self,"runTestSuite",{suite:suite,worker:worker},globals.NodeTestRunner.klass)})},
-args: [],
-source: "runTestSuite\x0a\x09| suite worker |\x0a\x0a\x09suite := OrderedCollection new.\x0a\x09(TestCase allSubclasses select: [ :each | each isAbstract not ])\x0a\x09\x09do: [ :each | suite addAll: each buildSuite ].\x0a\x0a\x09worker := TestSuiteRunner on: suite.\x0a\x09worker announcer on: ResultAnnouncement do:\x0a\x09\x09[ :ann | | result |\x0a\x09\x09\x09result := ann result.\x0a\x09\x09\x09result runs = result total ifTrue: [\x0a\x09\x09\x09\x09console log: result runs asString, ' tests run, ', result failures size asString, ' failures, ', result errors size asString, ' errors.'.\x0a\x0a\x09\x09\x09\x09result failures isEmpty ifFalse: [\x0a\x09\x09\x09\x09\x09result failures first runCase.\x0a\x09\x09\x09\x09\x09\x22the line above should throw, normally, but just in case I leave the line below\x22\x0a\x09\x09\x09\x09\x09self throw: result failures first class name, ' >> ', result failures first selector, ' is failing!!' ].\x0a\x09\x09\x09\x09result errors isEmpty ifFalse: [\x0a\x09\x09\x09\x09\x09result errors first runCase.\x0a\x09\x09\x09\x09\x09\x22the line above should throw, normally, but just in case I leave the line below\x22\x0a\x09\x09\x09\x09\x09self throw: result errors first class name, ' >> ', result errors first selector, ' has errors!!' ].\x0a\x09]].\x0a\x09worker run",
-messageSends: ["new", "do:", "select:", "allSubclasses", "not", "isAbstract", "addAll:", "buildSuite", "on:", "on:do:", "announcer", "result", "ifTrue:", "=", "runs", "total", "log:", ",", "asString", "size", "failures", "errors", "ifFalse:", "isEmpty", "runCase", "first", "throw:", "name", "class", "selector", "run"],
-referencedClasses: ["OrderedCollection", "TestCase", "TestSuiteRunner", "ResultAnnouncement"]
-}),
-globals.NodeTestRunner.klass);
 
 
 smalltalk.addClass('Repl', globals.Object, ['readline', 'interface', 'util', 'session', 'resultCount', 'commands'], 'AmberCli');
