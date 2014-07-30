@@ -2940,18 +2940,14 @@ protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._includesKey_(aKey);
-if(smalltalk.assert($2)){
-$1=self._at_(aKey);
-} else {
-$1=_st(aBlock)._value();
-};
+var $1;
+self._deprecatedAPI();
+$1=_st(self._globals())._at_ifAbsent_(aKey,aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},globals.SmalltalkImage)})},
 args: ["aKey", "aBlock"],
-source: "at: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ self at: aKey ]\x0a\x09\x09ifFalse: [ aBlock value ]",
-messageSends: ["ifTrue:ifFalse:", "includesKey:", "at:", "value"],
+source: "at: aKey ifAbsent: aBlock\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aKey ifAbsent: aBlock",
+messageSends: ["deprecatedAPI", "at:ifAbsent:", "globals"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
