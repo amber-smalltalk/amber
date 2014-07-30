@@ -983,7 +983,7 @@ BaseFileManipulator subclass: #Initer
 bowerInstallThenDo: aBlock
 	| child |
 	child := childProcess
-		exec: (path join: nmPath with: '.bin' with: 'bower'), ' install'
+		exec: '"', (path join: nmPath with: '.bin' with: 'bower'), '" install'
 		thenDo: aBlock.
 	child stdout pipe: process stdout options: #{ 'end' -> false }
 !
@@ -1011,7 +1011,7 @@ finishMessage
 gruntInitThenDo: aBlock
 	| child |
 	child := childProcess
-		exec: (path join: nmPath with: '.bin' with: 'grunt-init'), ' ', (((path join: nmPath with: 'grunt-init-amber') replace: '\\' with: '\\') replace: ':' with: '\:')
+		exec: '"', (path join: nmPath with: '.bin' with: 'grunt-init'), '" "', (((path join: nmPath with: 'grunt-init-amber') replace: '\\' with: '\\') replace: ':' with: '\:'), '"'
 		thenDo: aBlock.
 	child stdout pipe: process stdout options: #{ 'end' -> false }.
 	process stdin resume.
@@ -1021,7 +1021,7 @@ gruntInitThenDo: aBlock
 gruntThenDo: aBlock
 	| child |
 	child := childProcess
-		exec: (path join: nmPath with: '.bin' with: 'grunt')
+		exec: '"', (path join: nmPath with: '.bin' with: 'grunt'), '"'
 		thenDo: aBlock.
 	child stdout pipe: process stdout options: #{ 'end' -> false }
 !

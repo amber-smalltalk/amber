@@ -1481,14 +1481,17 @@ fn: function (aBlock){
 var self=this;
 var child;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-child=_st(self["@childProcess"])._exec_thenDo_(_st(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","bower")).__comma(" install"),aBlock);
-$1=_st(child)._stdout();
+var $1,$2,$3;
+$1=self["@childProcess"];
+$2=_st("\x22".__comma(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","bower"))).__comma("\x22 install");
+$ctx1.sendIdx[","]=1;
+child=_st($1)._exec_thenDo_($2,aBlock);
+$3=_st(child)._stdout();
 $ctx1.sendIdx["stdout"]=1;
-_st($1)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
+_st($3)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
 return self}, function($ctx1) {$ctx1.fill(self,"bowerInstallThenDo:",{aBlock:aBlock,child:child},globals.Initer)})},
 args: ["aBlock"],
-source: "bowerInstallThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: (path join: nmPath with: '.bin' with: 'bower'), ' install'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
+source: "bowerInstallThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: '\x22', (path join: nmPath with: '.bin' with: 'bower'), '\x22 install'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
 messageSends: ["exec:thenDo:", ",", "join:with:with:", "pipe:options:", "stdout"],
 referencedClasses: []
 }),
@@ -1521,27 +1524,30 @@ fn: function (aBlock){
 var self=this;
 var child;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2,$5,$6,$7;
+var $1,$4,$5,$3,$2,$6,$7,$8;
 $1=self["@childProcess"];
-$3=_st(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt-init")).__comma(" ");
-$4=_st(_st(_st(self["@path"])._join_with_(self["@nmPath"],"grunt-init-amber"))._replace_with_("\x5c\x5c","\x5c\x5c"))._replace_with_(":","\x5c:");
+$4=_st("\x22".__comma(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt-init"))).__comma("\x22 \x22");
+$ctx1.sendIdx[","]=3;
+$5=_st(_st(_st(self["@path"])._join_with_(self["@nmPath"],"grunt-init-amber"))._replace_with_("\x5c\x5c","\x5c\x5c"))._replace_with_(":","\x5c:");
 $ctx1.sendIdx["replace:with:"]=1;
-$2=_st($3).__comma($4);
+$3=_st($4).__comma($5);
+$ctx1.sendIdx[","]=2;
+$2=_st($3).__comma("\x22");
 $ctx1.sendIdx[","]=1;
 child=_st($1)._exec_thenDo_($2,aBlock);
-$5=_st(child)._stdout();
+$6=_st(child)._stdout();
 $ctx1.sendIdx["stdout"]=1;
-_st($5)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
+_st($6)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
 $ctx1.sendIdx["pipe:options:"]=1;
-$6=_st(process)._stdin();
-$ctx1.sendIdx["stdin"]=1;
-_st($6)._resume();
 $7=_st(process)._stdin();
+$ctx1.sendIdx["stdin"]=1;
+_st($7)._resume();
+$8=_st(process)._stdin();
 $ctx1.sendIdx["stdin"]=2;
-_st($7)._pipe_options_(_st(child)._stdin(),globals.HashedCollection._newFromPairs_(["end",false]));
+_st($8)._pipe_options_(_st(child)._stdin(),globals.HashedCollection._newFromPairs_(["end",false]));
 return self}, function($ctx1) {$ctx1.fill(self,"gruntInitThenDo:",{aBlock:aBlock,child:child},globals.Initer)})},
 args: ["aBlock"],
-source: "gruntInitThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: (path join: nmPath with: '.bin' with: 'grunt-init'), ' ', (((path join: nmPath with: 'grunt-init-amber') replace: '\x5c\x5c' with: '\x5c\x5c') replace: ':' with: '\x5c:')\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }.\x0a\x09process stdin resume.\x0a\x09process stdin pipe: child stdin options: #{ 'end' -> false }",
+source: "gruntInitThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: '\x22', (path join: nmPath with: '.bin' with: 'grunt-init'), '\x22 \x22', (((path join: nmPath with: 'grunt-init-amber') replace: '\x5c\x5c' with: '\x5c\x5c') replace: ':' with: '\x5c:'), '\x22'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }.\x0a\x09process stdin resume.\x0a\x09process stdin pipe: child stdin options: #{ 'end' -> false }",
 messageSends: ["exec:thenDo:", ",", "join:with:with:", "replace:with:", "join:with:", "pipe:options:", "stdout", "resume", "stdin"],
 referencedClasses: []
 }),
@@ -1555,15 +1561,18 @@ fn: function (aBlock){
 var self=this;
 var child;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-child=_st(self["@childProcess"])._exec_thenDo_(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt"),aBlock);
-$1=_st(child)._stdout();
+var $1,$2,$3;
+$1=self["@childProcess"];
+$2=_st("\x22".__comma(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt"))).__comma("\x22");
+$ctx1.sendIdx[","]=1;
+child=_st($1)._exec_thenDo_($2,aBlock);
+$3=_st(child)._stdout();
 $ctx1.sendIdx["stdout"]=1;
-_st($1)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
+_st($3)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
 return self}, function($ctx1) {$ctx1.fill(self,"gruntThenDo:",{aBlock:aBlock,child:child},globals.Initer)})},
 args: ["aBlock"],
-source: "gruntThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: (path join: nmPath with: '.bin' with: 'grunt')\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
-messageSends: ["exec:thenDo:", "join:with:with:", "pipe:options:", "stdout"],
+source: "gruntThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: '\x22', (path join: nmPath with: '.bin' with: 'grunt'), '\x22'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
+messageSends: ["exec:thenDo:", ",", "join:with:with:", "pipe:options:", "stdout"],
 referencedClasses: []
 }),
 globals.Initer);
