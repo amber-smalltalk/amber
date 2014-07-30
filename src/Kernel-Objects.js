@@ -379,21 +379,6 @@ globals.ProtoObject);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "heliosClass",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return "class";
-},
-args: [],
-source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
-messageSends: [],
-referencedClasses: []
-}),
-globals.ProtoObject.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
@@ -1239,21 +1224,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"accessorsSourceCodesWith:",{aGen
 args: ["aGenerator"],
 source: "accessorsSourceCodesWith: aGenerator\x0a\x09aGenerator accessorsForObject",
 messageSends: ["accessorsForObject"],
-referencedClasses: []
-}),
-globals.Object.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "heliosClass",
-protocol: 'helios',
-fn: function (){
-var self=this;
-return "class";
-},
-args: [],
-source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
-messageSends: [],
 referencedClasses: []
 }),
 globals.Object.klass);

@@ -120,15 +120,6 @@ isKindOf: aClass
 		ifFalse: [ self class inheritsFrom: aClass ]
 ! !
 
-!ProtoObject class methodsFor: 'accessing'!
-
-heliosClass
-	"Should be an Helios extension. Unfortunately, since helios can browse remote
-	environments, we can't extend base classes"
-	
-	^ 'class'
-! !
-
 !ProtoObject class methodsFor: 'initialization'!
 
 initialize
@@ -419,13 +410,6 @@ accessorProtocolWith: aGenerator
 
 accessorsSourceCodesWith: aGenerator
 	aGenerator accessorsForObject
-!
-
-heliosClass
-	"Should be an Helios extension. Unfortunately, since helios can browse remote
-	environments, we can't extend base classes"
-	
-	^ 'class'
 !
 
 initializeProtocolWith: aGenerator

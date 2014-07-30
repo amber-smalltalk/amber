@@ -383,6 +383,13 @@ definition
 			nextPutAll: '''' ]
 !
 
+heliosClass
+	"Should be an Helios extension. Unfortunately, since helios can browse remote
+	environments, we can't extend base classes"
+	
+	^ 'class'
+!
+
 package
 	^ self basicAt: 'pkg'
 !
