@@ -1375,6 +1375,7 @@ do: aBlock displayingProgress: aString
 
 asJavaScriptSelector
 <
+    if (self[0] === '_') return ''; // TODO revert when #1062 root cause fixed
 	var colonPosition = self.indexOf(':');
 	return colonPosition === -1 ? self : self.slice(0, colonPosition);
 >

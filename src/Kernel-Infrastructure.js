@@ -3620,11 +3620,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
+    if (self[0] === '_') return ''; // TODO revert when #1062 root cause fixed
 	var colonPosition = self.indexOf(':');
 	return colonPosition === -1 ? self : self.slice(0, colonPosition);;
 return self}, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},globals.String)})},
 args: [],
-source: "asJavaScriptSelector\x0a<\x0a\x09var colonPosition = self.indexOf(':');\x0a\x09return colonPosition === -1 ? self : self.slice(0, colonPosition);\x0a>",
+source: "asJavaScriptSelector\x0a<\x0a    if (self[0] === '_') return ''; // TODO revert when #1062 root cause fixed\x0a\x09var colonPosition = self.indexOf(':');\x0a\x09return colonPosition === -1 ? self : self.slice(0, colonPosition);\x0a>",
 messageSends: [],
 referencedClasses: []
 }),
