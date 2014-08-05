@@ -1757,6 +1757,16 @@ testDNURegression1057
 	self assert: jsObject foo equals: 4
 !
 
+testDNURegression1059
+	| jsObject |
+	jsObject := #().
+	jsObject basicAt: 'allowJavaScriptCalls' put: true.
+	jsObject basicAt: 'x' put: 3.
+	jsObject basicAt: 'x:' put: [ self error ].
+	self shouldnt: [ jsObject x: 4 ] raise: Error.
+	self assert: jsObject x equals: 4
+!
+
 testMessageSend
 
 	self assert: self jsObject a equals: 1.
