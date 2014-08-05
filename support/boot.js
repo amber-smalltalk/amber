@@ -1017,7 +1017,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			}
 			/* Call a method of a JS object, or answer a property if it exists.
 			 Else try wrapping a JSObjectProxy around the receiver. */
-			var propertyName = stSelector._asJavaScriptSelector();
+			var propertyName = st.st2prop(stSelector);
 			if (!(propertyName in receiver)) {
 				return invokeDnuMethod(globals.JSObjectProxy._on_(receiver), stSelector, args);
 			}
@@ -1104,6 +1104,12 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				.replace(/_comma/g, ',')
 				.replace(/_at/g, '@');
 		}
+
+        st.st2prop = function (stSelector) {
+            if (stSelector[0] === '_') return ''; // TODO revert when #1062 root cause fixed
+            var colonPosition = stSelector.indexOf(':');
+            return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
+        };
 	}
 
 	/* Adds AMD and requirejs related methods to the smalltalk object */

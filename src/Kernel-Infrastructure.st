@@ -1374,10 +1374,7 @@ do: aBlock displayingProgress: aString
 !String methodsFor: '*Kernel-Infrastructure'!
 
 asJavaScriptSelector
-<
-	var colonPosition = self.indexOf(':');
-	return colonPosition === -1 ? self : self.slice(0, colonPosition);
->
+<return smalltalk.st2prop(self)>
 !
 
 asSetting
