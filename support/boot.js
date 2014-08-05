@@ -1034,7 +1034,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
 
 		function callJavaScriptMethod(receiver, selector, args) {
-			var jsSelector = selector._asJavaScriptSelector();
+			var jsSelector = st.st2prop(selector);
 			if (jsSelector in receiver) {
 				var jsProperty = receiver[jsSelector];
 				if (typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
@@ -1108,6 +1108,12 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				.replace(/_comma/g, ',')
 				.replace(/_at/g, '@');
 		}
+
+        st.st2prop = function (stSelector) {
+            if (stSelector[0] === '_') return ''; // TODO revert when #1062 root cause fixed
+            var colonPosition = stSelector.indexOf(':');
+            return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
+        };
 	}
 
 	/* Adds AMD and requirejs related methods to the smalltalk object */
