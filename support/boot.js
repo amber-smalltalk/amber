@@ -1106,7 +1106,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		}
 
         st.st2prop = function (stSelector) {
-            if (stSelector[0] === '_') return ''; // TODO revert when #1062 root cause fixed
             var colonPosition = stSelector.indexOf(':');
             return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
         };
