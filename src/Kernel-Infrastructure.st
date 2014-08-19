@@ -424,7 +424,7 @@ doesNotUnderstand: aMessage
 
 forwardMessage: aString withArguments: anArray
 	<
-		return smalltalk.send(self._jsObject(), aString, anArray);
+		return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);
 	>
 !
 
