@@ -1846,14 +1846,14 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		if(self.selector) {
-			return smalltalk.convertSelector(self.selector);
+			return smalltalk.js2st(self.selector);
 		} else {
 			return nil;
 		}
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"selector",{},globals.MethodContext)})},
 args: [],
-source: "selector\x0a\x09<\x0a\x09\x09if(self.selector) {\x0a\x09\x09\x09return smalltalk.convertSelector(self.selector);\x0a\x09\x09} else {\x0a\x09\x09\x09return nil;\x0a\x09\x09}\x0a\x09>",
+source: "selector\x0a\x09<\x0a\x09\x09if(self.selector) {\x0a\x09\x09\x09return smalltalk.js2st(self.selector);\x0a\x09\x09} else {\x0a\x09\x09\x09return nil;\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

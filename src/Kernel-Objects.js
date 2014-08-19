@@ -263,10 +263,10 @@ protocol: 'message handling',
 fn: function (aString,aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return smalltalk.send(self, aString._asSelector(), aCollection);
+return smalltalk.send(self, aString._asJavaScriptMethodName(), aCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"perform:withArguments:",{aString:aString,aCollection:aCollection},globals.ProtoObject)})},
 args: ["aString", "aCollection"],
-source: "perform: aString withArguments: aCollection\x0a\x09<return smalltalk.send(self, aString._asSelector(), aCollection)>",
+source: "perform: aString withArguments: aCollection\x0a\x09<return smalltalk.send(self, aString._asJavaScriptMethodName(), aCollection)>",
 messageSends: [],
 referencedClasses: []
 }),
