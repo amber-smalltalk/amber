@@ -471,29 +471,29 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		var methods = [], checker = Object.create(null);
 		this.selectors = [];
 
-		this.get = function (string) {
-			var index = this.selectors.indexOf(string);
+		this.get = function (stSelector) {
+			var index = this.selectors.indexOf(stSelector);
 			if(index !== -1) {
 				return methods[index];
 			}
-			this.selectors.push(string);
-			var selector = st.selector(string);
-			checker[selector] = true;
-			var method = {jsSelector: selector, fn: createHandler(selector)};
+			this.selectors.push(stSelector);
+			var jsSelector = st.selector(stSelector);
+			checker[jsSelector] = true;
+			var method = {jsSelector: jsSelector, fn: createHandler(stSelector)};
 			methods.push(method);
 			manip.installMethod(method, rootAsClass);
 			return method;
 		};
 
-		this.isSelector = function (selector) {
-			return checker[selector];
+		this.isSelector = function (jsSelector) {
+			return checker[jsSelector];
 		};
 
 		/* Dnu handler method */
 
-		function createHandler(selector) {
+		function createHandler(stSelector) {
 			return function() {
-				return brikz.messageSend.messageNotUnderstood(this, selector, arguments);
+				return brikz.messageSend.messageNotUnderstood(this, stSelector, arguments);
 			};
 		}
 
@@ -959,18 +959,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 	function AugmentsBrik(brikz, st) {
 
-		/* Make sure that console is defined */
-
-		if(typeof console === "undefined") {
-			this.console = {
-				log: function() {},
-				warn: function() {},
-				info: function() {},
-				debug: function() {},
-				error: function() {}
-			};
-		}
-
 		/* Array extensions */
 
 		Array.prototype.addElement = function(el) {
@@ -1267,43 +1255,44 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		/* Handles unhandled errors during message sends */
 		// simply send the message and handle #dnu:
 
-		st.send = function(receiver, selector, args, klass) {
+		st.send = function(receiver, jsSelector, args, klass) {
 			var method;
 			if(receiver === null) {
 				receiver = nil;
 			}
-			method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
+			method = klass ? klass.fn.prototype[jsSelector] : receiver.klass && receiver[jsSelector];
 			if(method) {
 				return method.apply(receiver, args);
 			} else {
-				return messageNotUnderstood(receiver, selector, args);
+				return messageNotUnderstood(receiver, st.convertSelector(jsSelector), args);
 			}
 		};
 
-		/* Handles #dnu: *and* JavaScript method calls.
-		 if the receiver has no klass, we consider it a JS object (outside of the
-		 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
-
-		function messageNotUnderstood(receiver, selector, args) {
-			/* Handles JS method calls. */
-			if(receiver.klass === undefined || receiver.allowJavaScriptCalls) {
-				return callJavaScriptMethod(receiver, selector, args);
-			}
-
-			/* Handles not understood messages. Also see the Amber counter-part
-			 Object>>doesNotUnderstand: */
-
+		function invokeDnuMethod(receiver, stSelector, args) {
 			return receiver._doesNotUnderstand_(
 				globals.Message._new()
-					._selector_(st.convertSelector(selector))
+					._selector_(stSelector)
 					._arguments_([].slice.call(args))
 			);
 		}
 
-		/* Call a method of a JS object, or answer a property if it exists.
-		 Else try wrapping a JSObjectProxy around the receiver.
+		/* Handles #dnu: *and* JavaScript method calls.
+		 if the receiver has no klass, we consider it a JS object (outside of the
+		 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
+		function messageNotUnderstood(receiver, stSelector, args) {
+			if (receiver.klass !== undefined && !receiver.allowJavaScriptCalls) {
+				return invokeDnuMethod(receiver, stSelector, args);
+			}
+			/* Call a method of a JS object, or answer a property if it exists.
+			 Else try wrapping a JSObjectProxy around the receiver. */
+			var propertyName = st.st2prop(stSelector);
+			if (!(propertyName in receiver)) {
+				return invokeDnuMethod(globals.JSObjectProxy._on_(receiver), stSelector, args);
+			}
+			return accessJavaScript(receiver, propertyName, args);
+		}
 
-		 If the object property is a function, then call it, except if it starts with
+		/* If the object property is a function, then call it, except if it starts with
 		 an uppercase character (we probably want to answer the function itself in this
 		 case and send it #new from Amber).
 
@@ -1312,31 +1301,26 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		 Example:
 		 "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
-
-		function callJavaScriptMethod(receiver, selector, args) {
-			var jsSelector = selector._asJavaScriptSelector();
-			if (jsSelector in receiver) {
-				var jsProperty = receiver[jsSelector];
-				if (typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
-					return jsProperty.apply(receiver, args);
-				} else if (args.length > 0) {
-					receiver[jsSelector] = args[0];
-					return nil;
-				} else {
-					return jsProperty;
-				}
+		function accessJavaScript(receiver, propertyName, args) {
+			var propertyValue = receiver[propertyName];
+			if (typeof propertyValue === "function" && !/^[A-Z]/.test(propertyName)) {
+				return propertyValue.apply(receiver, args);
+			} else if (args.length > 0) {
+				receiver[propertyName] = args[0];
+				return nil;
+			} else {
+				return propertyValue;
 			}
-
-			return st.send(globals.JSObjectProxy._on_(receiver), selector, args);
 		}
 
+		st.accessJavaScript = accessJavaScript;
 		this.messageNotUnderstood = messageNotUnderstood;
 	}
 
 	function SelectorConversionBrik(brikz, st) {
-		/* Convert a Smalltalk selector into a JS selector */
 
-		st.selector = function(string) {
+		/* Convert a Smalltalk selector into a JS selector */
+		st.st2js = function(string) {
 			var selector = '_' + string;
 			selector = selector.replace(/:/g, '_');
 			selector = selector.replace(/[\&]/g, '_and');
@@ -1356,22 +1340,21 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		};
 
 		/* Convert a string to a valid smalltalk selector.
-		 if you modify the following functions, also change String>>asSelector
+		 if you modify the following functions, also change st2js
 		 accordingly */
-
-		st.convertSelector = function(selector) {
+		st.js2st = function(selector) {
 			if(selector.match(/__/)) {
-				return convertBinarySelector(selector);
+				return binaryJsToSt(selector);
 			} else {
-				return convertKeywordSelector(selector);
+				return keywordJsToSt(selector);
 			}
 		};
 
-		function convertKeywordSelector(selector) {
+		function keywordJsToSt(selector) {
 			return selector.replace(/^_/, '').replace(/_/g, ':');
 		}
 
-		function convertBinarySelector(selector) {
+		function binaryJsToSt(selector) {
 			return selector
 				.replace(/^_/, '')
 				.replace(/_and/g, '&')
@@ -1388,6 +1371,15 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				.replace(/_comma/g, ',')
 				.replace(/_at/g, '@');
 		}
+
+        st.st2prop = function (stSelector) {
+            var colonPosition = stSelector.indexOf(':');
+            return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
+        };
+
+        // Backward-compatible names, deprecated.
+        st.selector = st.st2js;
+        st.convertSelector = st.js2st;
 	}
 
 	/* Adds AMD and requirejs related methods to the smalltalk object */
@@ -1734,10 +1726,10 @@ protocol: 'message handling',
 fn: function (aString,aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return smalltalk.send(self, aString._asSelector(), aCollection);
+return smalltalk.send(self, aString._asJavaScriptMethodName(), aCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"perform:withArguments:",{aString:aString,aCollection:aCollection},globals.ProtoObject)})},
 args: ["aString", "aCollection"],
-source: "perform: aString withArguments: aCollection\x0a\x09<return smalltalk.send(self, aString._asSelector(), aCollection)>",
+source: "perform: aString withArguments: aCollection\x0a\x09<return smalltalk.send(self, aString._asJavaScriptMethodName(), aCollection)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -9962,14 +9954,14 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		if(self.selector) {
-			return smalltalk.convertSelector(self.selector);
+			return smalltalk.js2st(self.selector);
 		} else {
 			return nil;
 		}
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"selector",{},globals.MethodContext)})},
 args: [],
-source: "selector\x0a\x09<\x0a\x09\x09if(self.selector) {\x0a\x09\x09\x09return smalltalk.convertSelector(self.selector);\x0a\x09\x09} else {\x0a\x09\x09\x09return nil;\x0a\x09\x09}\x0a\x09>",
+source: "selector\x0a\x09<\x0a\x09\x09if(self.selector) {\x0a\x09\x09\x09return smalltalk.js2st(self.selector);\x0a\x09\x09} else {\x0a\x09\x09\x09return nil;\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -14445,6 +14437,22 @@ globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asJavaScriptMethodName",
+protocol: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return smalltalk.st2js(self);
+return self}, function($ctx1) {$ctx1.fill(self,"asJavaScriptMethodName",{},globals.String)})},
+args: [],
+source: "asJavaScriptMethodName\x0a\x09<return smalltalk.st2js(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asJavascript",
 protocol: 'converting',
 fn: function (){
@@ -14544,11 +14552,14 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return smalltalk.selector(self);
-return self}, function($ctx1) {$ctx1.fill(self,"asSelector",{},globals.String)})},
+var $1;
+self._deprecatedAPI_("Use #asJavaScriptMethodName");
+$1=self._asJavaScriptMethodName();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asSelector",{},globals.String)})},
 args: [],
-source: "asSelector\x0a\x09<return smalltalk.selector(self)>",
-messageSends: [],
+source: "asSelector\x0a\x09self deprecatedAPI: 'Use #asJavaScriptMethodName'.\x0a\x09^ self asJavaScriptMethodName",
+messageSends: ["deprecatedAPI:", "asJavaScriptMethodName"],
 referencedClasses: []
 }),
 globals.String);
@@ -18186,7 +18197,7 @@ fn: function (aMessage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
-$2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
+$2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptPropertyName());
 if(($receiver = $2) == null || $receiver.isNil){
 $1=($ctx1.supercall = true, globals.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]));
 $ctx1.supercall = false;
@@ -18198,8 +18209,8 @@ $1=self._forwardMessage_withArguments_(jsSelector,_st(aMessage)._arguments());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},globals.JSObjectProxy)})},
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09^ (self lookupProperty: aMessage selector asJavaScriptSelector)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments ]",
-messageSends: ["ifNil:ifNotNil:", "lookupProperty:", "asJavaScriptSelector", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments"],
+source: "doesNotUnderstand: aMessage\x0a\x09^ (self lookupProperty: aMessage selector asJavaScriptPropertyName)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments ]",
+messageSends: ["ifNil:ifNotNil:", "lookupProperty:", "asJavaScriptPropertyName", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments"],
 referencedClasses: []
 }),
 globals.JSObjectProxy);
@@ -18212,11 +18223,11 @@ fn: function (aString,anArray){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		return smalltalk.send(self._jsObject(), aString, anArray);
+		return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},globals.JSObjectProxy)})},
 args: ["aString", "anArray"],
-source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.send(self._jsObject(), aString, anArray);\x0a\x09>",
+source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -20715,18 +20726,34 @@ globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asJavaScriptPropertyName",
+protocol: '*Kernel-Infrastructure',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return smalltalk.st2prop(self);
+return self}, function($ctx1) {$ctx1.fill(self,"asJavaScriptPropertyName",{},globals.String)})},
+args: [],
+source: "asJavaScriptPropertyName\x0a<return smalltalk.st2prop(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asJavaScriptSelector",
 protocol: '*Kernel-Infrastructure',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._replace_with_("^([a-zA-Z0-9]*).*$","$1");
+$1=self._asJavaScriptPropertyName();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},globals.String)})},
 args: [],
-source: "asJavaScriptSelector\x0a\x09\x22Return first keyword of the selector, without trailing colon.\x22\x0a\x09^ self replace: '^([a-zA-Z0-9]*).*$' with: '$1'",
-messageSends: ["replace:with:"],
+source: "asJavaScriptSelector\x0a\x09\x22Cannot add next line as it breaks commit:\x0a\x09self deprecatedAPI: 'Use #asJavaScriptPropertyName'.\x22\x0a\x0a\x09^ self asJavaScriptPropertyName",
+messageSends: ["asJavaScriptPropertyName"],
 referencedClasses: []
 }),
 globals.String);
@@ -29758,7 +29785,7 @@ $1=_st($2)._first();
 self._visitReceiver_($1);
 $3=self._stream();
 $ctx1.sendIdx["stream"]=1;
-$4=_st(".".__comma(_st(_st(anIRSend)._selector())._asSelector())).__comma("(");
+$4=_st(".".__comma(_st(_st(anIRSend)._selector())._asJavaScriptMethodName())).__comma("(");
 $ctx1.sendIdx[","]=1;
 _st($3)._nextPutAll_($4);
 $ctx1.sendIdx["nextPutAll:"]=1;
@@ -29775,8 +29802,8 @@ $ctx2.sendIdx["nextPutAll:"]=2;
 _st(self._stream())._nextPutAll_(")");
 return self}, function($ctx1) {$ctx1.fill(self,"visitSend:",{anIRSend:anIRSend},globals.IRJSTranslator)})},
 args: ["anIRSend"],
-source: "visitSend: anIRSend\x0a\x09self visitReceiver: anIRSend instructions first.\x0a\x09self stream nextPutAll: '.', anIRSend selector asSelector, '('.\x0a\x09anIRSend instructions allButFirst\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream nextPutAll: ')'",
-messageSends: ["visitReceiver:", "first", "instructions", "nextPutAll:", "stream", ",", "asSelector", "selector", "do:separatedBy:", "allButFirst", "visit:"],
+source: "visitSend: anIRSend\x0a\x09self visitReceiver: anIRSend instructions first.\x0a\x09self stream nextPutAll: '.', anIRSend selector asJavaScriptMethodName, '('.\x0a\x09anIRSend instructions allButFirst\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream nextPutAll: ')'",
+messageSends: ["visitReceiver:", "first", "instructions", "nextPutAll:", "stream", ",", "asJavaScriptMethodName", "selector", "do:separatedBy:", "allButFirst", "visit:"],
 referencedClasses: []
 }),
 globals.IRJSTranslator);
@@ -29807,7 +29834,7 @@ $ctx1.sendIdx["nextPutAll:"]=2;
 _st($1)._nextPutAll_(".superclass.fn.prototype.");
 $ctx1.sendIdx["nextPutAll:"]=3;
 $7=$1;
-$8=_st(_st(_st(anIRSend)._selector())._asSelector()).__comma(".apply(");
+$8=_st(_st(_st(anIRSend)._selector())._asJavaScriptMethodName()).__comma(".apply(");
 $ctx1.sendIdx[","]=3;
 _st($7)._nextPutAll_($8);
 $ctx1.sendIdx["nextPutAll:"]=4;
@@ -29839,8 +29866,8 @@ _st($14)._lf();
 $15=_st($14)._nextPutAll_(_st(_st(_st(anIRSend)._scope())._alias()).__comma(".supercall = false"));
 return self}, function($ctx1) {$ctx1.fill(self,"visitSuperSend:",{anIRSend:anIRSend},globals.IRJSTranslator)})},
 args: ["anIRSend"],
-source: "visitSuperSend: anIRSend\x0a\x09self stream\x0a\x09\x09nextPutAll: '(', anIRSend scope alias, '.supercall = true, ';\x0a\x09\x09nextPutAll: self currentClass asJavascript;\x0a\x09\x09nextPutAll: '.superclass.fn.prototype.';\x0a\x09\x09nextPutAll: anIRSend selector asSelector, '.apply(';\x0a\x09\x09nextPutAll: '_st('.\x0a\x09self visit: anIRSend instructions first.\x0a\x09self stream nextPutAll: '), ['.\x0a\x09anIRSend instructions allButFirst\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream \x0a\x09\x09nextPutAll: ']));'; lf;\x0a\x09\x09nextPutAll: anIRSend scope alias, '.supercall = false'",
-messageSends: ["nextPutAll:", "stream", ",", "alias", "scope", "asJavascript", "currentClass", "asSelector", "selector", "visit:", "first", "instructions", "do:separatedBy:", "allButFirst", "lf"],
+source: "visitSuperSend: anIRSend\x0a\x09self stream\x0a\x09\x09nextPutAll: '(', anIRSend scope alias, '.supercall = true, ';\x0a\x09\x09nextPutAll: self currentClass asJavascript;\x0a\x09\x09nextPutAll: '.superclass.fn.prototype.';\x0a\x09\x09nextPutAll: anIRSend selector asJavaScriptMethodName, '.apply(';\x0a\x09\x09nextPutAll: '_st('.\x0a\x09self visit: anIRSend instructions first.\x0a\x09self stream nextPutAll: '), ['.\x0a\x09anIRSend instructions allButFirst\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream \x0a\x09\x09nextPutAll: ']));'; lf;\x0a\x09\x09nextPutAll: anIRSend scope alias, '.supercall = false'",
+messageSends: ["nextPutAll:", "stream", ",", "alias", "scope", "asJavascript", "currentClass", "asJavaScriptMethodName", "selector", "visit:", "first", "instructions", "do:separatedBy:", "allButFirst", "lf"],
 referencedClasses: []
 }),
 globals.IRJSTranslator);
@@ -50730,6 +50757,103 @@ args: [],
 source: "testDNU\x0a\x09self should: [ self jsObject foo ] raise: MessageNotUnderstood",
 messageSends: ["should:raise:", "foo", "jsObject"],
 referencedClasses: ["MessageNotUnderstood"]
+}),
+globals.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testDNURegression1057",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var jsObject;
+function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+jsObject=[];
+_st(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
+$ctx1.sendIdx["basicAt:put:"]=1;
+_st(jsObject)._basicAt_put_("foo",(3));
+self._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(jsObject)._foo();
+$ctx2.sendIdx["foo"]=1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
+$ctx1.sendIdx["shouldnt:raise:"]=1;
+$1=_st(jsObject)._foo();
+$ctx1.sendIdx["foo"]=2;
+self._assert_equals_($1,(3));
+$ctx1.sendIdx["assert:equals:"]=1;
+self._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(jsObject)._foo_((4));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}),$Error());
+self._assert_equals_(_st(jsObject)._foo(),(4));
+return self}, function($ctx1) {$ctx1.fill(self,"testDNURegression1057",{jsObject:jsObject},globals.JSObjectProxyTest)})},
+args: [],
+source: "testDNURegression1057\x0a\x09| jsObject |\x0a\x09jsObject := #().\x0a\x09jsObject basicAt: 'allowJavaScriptCalls' put: true.\x0a\x09jsObject basicAt: 'foo' put: 3.\x0a\x09self shouldnt: [ jsObject foo ] raise: Error.\x0a\x09self assert: jsObject foo equals: 3.\x0a\x09self shouldnt: [ jsObject foo: 4 ] raise: Error.\x0a\x09self assert: jsObject foo equals: 4",
+messageSends: ["basicAt:put:", "shouldnt:raise:", "foo", "assert:equals:", "foo:"],
+referencedClasses: ["Error"]
+}),
+globals.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testDNURegression1059",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var jsObject;
+function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+jsObject=[];
+_st(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
+$ctx1.sendIdx["basicAt:put:"]=1;
+_st(jsObject)._basicAt_put_("x",(3));
+$ctx1.sendIdx["basicAt:put:"]=2;
+_st(jsObject)._basicAt_put_("x:",(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._error();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+self._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(jsObject)._x_((4));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}),$Error());
+self._assert_equals_(_st(jsObject)._x(),(4));
+return self}, function($ctx1) {$ctx1.fill(self,"testDNURegression1059",{jsObject:jsObject},globals.JSObjectProxyTest)})},
+args: [],
+source: "testDNURegression1059\x0a\x09| jsObject |\x0a\x09jsObject := #().\x0a\x09jsObject basicAt: 'allowJavaScriptCalls' put: true.\x0a\x09jsObject basicAt: 'x' put: 3.\x0a\x09jsObject basicAt: 'x:' put: [ self error ].\x0a\x09self shouldnt: [ jsObject x: 4 ] raise: Error.\x0a\x09self assert: jsObject x equals: 4",
+messageSends: ["basicAt:put:", "error", "shouldnt:raise:", "x:", "assert:equals:", "x"],
+referencedClasses: ["Error"]
+}),
+globals.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testDNURegression1062",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var jsObject,stored;
+function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+jsObject=[];
+_st(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
+$ctx1.sendIdx["basicAt:put:"]=1;
+_st(jsObject)._basicAt_put_("x",(function(v){
+stored=v;
+return stored;
+}));
+self._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(jsObject)._x_((4));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}),$Error());
+self._assert_equals_(stored,(4));
+return self}, function($ctx1) {$ctx1.fill(self,"testDNURegression1062",{jsObject:jsObject,stored:stored},globals.JSObjectProxyTest)})},
+args: [],
+source: "testDNURegression1062\x0a\x09| jsObject stored |\x0a\x09jsObject := #().\x0a\x09jsObject basicAt: 'allowJavaScriptCalls' put: true.\x0a\x09jsObject basicAt: 'x' put: [ :v | stored := v ].\x0a\x09self shouldnt: [ jsObject x: 4 ] raise: Error.\x0a\x09self assert: stored equals: 4",
+messageSends: ["basicAt:put:", "shouldnt:raise:", "x:", "assert:equals:"],
+referencedClasses: ["Error"]
 }),
 globals.JSObjectProxyTest);
 

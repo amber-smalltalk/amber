@@ -6149,7 +6149,7 @@ return _st(jsObject)._x_((4));
 self._assert_equals_(_st(jsObject)._x(),(4));
 return self}, function($ctx1) {$ctx1.fill(self,"testDNURegression1059",{jsObject:jsObject},globals.JSObjectProxyTest)})},
 args: [],
-source: "testDNURegression1059\x0a\x09| jsObject |\x0a\x09jsObject := #().\x0a\x09jsObject basicAt: 'allowJavaScriptCalls' put: true.\x0a\x09jsObject basicAt: 'x' put: 3.\x0a\x09jsObject basicAt: 'x:' put: [ self error ].\x0a\x09self shouldnt: [ jsObject x: 4 ] raise: Error.\x0a\x09self assert: jsObject x equals: 4\x0a\x09",
+source: "testDNURegression1059\x0a\x09| jsObject |\x0a\x09jsObject := #().\x0a\x09jsObject basicAt: 'allowJavaScriptCalls' put: true.\x0a\x09jsObject basicAt: 'x' put: 3.\x0a\x09jsObject basicAt: 'x:' put: [ self error ].\x0a\x09self shouldnt: [ jsObject x: 4 ] raise: Error.\x0a\x09self assert: jsObject x equals: 4",
 messageSends: ["basicAt:put:", "error", "shouldnt:raise:", "x:", "assert:equals:", "x"],
 referencedClasses: ["Error"]
 }),
