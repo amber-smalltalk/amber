@@ -1085,7 +1085,7 @@ fn: function (aMessage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
-$2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
+$2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptPropertyName());
 if(($receiver = $2) == null || $receiver.isNil){
 $1=($ctx1.supercall = true, globals.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]));
 $ctx1.supercall = false;
@@ -1097,8 +1097,8 @@ $1=self._forwardMessage_withArguments_(jsSelector,_st(aMessage)._arguments());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},globals.JSObjectProxy)})},
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09^ (self lookupProperty: aMessage selector asJavaScriptSelector)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments ]",
-messageSends: ["ifNil:ifNotNil:", "lookupProperty:", "asJavaScriptSelector", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments"],
+source: "doesNotUnderstand: aMessage\x0a\x09^ (self lookupProperty: aMessage selector asJavaScriptPropertyName)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments ]",
+messageSends: ["ifNil:ifNotNil:", "lookupProperty:", "asJavaScriptPropertyName", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments"],
 referencedClasses: []
 }),
 globals.JSObjectProxy);
@@ -1111,11 +1111,11 @@ fn: function (aString,anArray){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		return smalltalk.send(self._jsObject(), aString, anArray);
+		return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},globals.JSObjectProxy)})},
 args: ["aString", "anArray"],
-source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.send(self._jsObject(), aString, anArray);\x0a\x09>",
+source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2940,18 +2940,14 @@ protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._includesKey_(aKey);
-if(smalltalk.assert($2)){
-$1=self._at_(aKey);
-} else {
-$1=_st(aBlock)._value();
-};
+var $1;
+self._deprecatedAPI();
+$1=_st(self._globals())._at_ifAbsent_(aKey,aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},globals.SmalltalkImage)})},
 args: ["aKey", "aBlock"],
-source: "at: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ self at: aKey ]\x0a\x09\x09ifFalse: [ aBlock value ]",
-messageSends: ["ifTrue:ifFalse:", "includesKey:", "at:", "value"],
+source: "at: aKey ifAbsent: aBlock\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aKey ifAbsent: aBlock",
+messageSends: ["deprecatedAPI", "at:ifAbsent:", "globals"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
@@ -3618,18 +3614,34 @@ globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asJavaScriptPropertyName",
+protocol: '*Kernel-Infrastructure',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return smalltalk.st2prop(self);
+return self}, function($ctx1) {$ctx1.fill(self,"asJavaScriptPropertyName",{},globals.String)})},
+args: [],
+source: "asJavaScriptPropertyName\x0a<return smalltalk.st2prop(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asJavaScriptSelector",
 protocol: '*Kernel-Infrastructure',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._replace_with_("^([a-zA-Z0-9]*).*$","$1");
+$1=self._asJavaScriptPropertyName();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},globals.String)})},
 args: [],
-source: "asJavaScriptSelector\x0a\x09\x22Return first keyword of the selector, without trailing colon.\x22\x0a\x09^ self replace: '^([a-zA-Z0-9]*).*$' with: '$1'",
-messageSends: ["replace:with:"],
+source: "asJavaScriptSelector\x0a\x09\x22Cannot add next line as it breaks commit:\x0a\x09self deprecatedAPI: 'Use #asJavaScriptPropertyName'.\x22\x0a\x0a\x09^ self asJavaScriptPropertyName",
+messageSends: ["asJavaScriptPropertyName"],
 referencedClasses: []
 }),
 globals.String);

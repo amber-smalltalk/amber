@@ -1225,6 +1225,21 @@ globals.Class);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "heliosClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "class";
+},
+args: [],
+source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Class);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isClass",
 protocol: 'testing',
 fn: function (){

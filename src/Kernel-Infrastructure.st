@@ -414,7 +414,7 @@ addObjectVariablesTo: aDictionary
 !
 
 doesNotUnderstand: aMessage
-	^ (self lookupProperty: aMessage selector asJavaScriptSelector)
+	^ (self lookupProperty: aMessage selector asJavaScriptPropertyName)
 		ifNil: [ super doesNotUnderstand: aMessage ]
 		ifNotNil: [ :jsSelector | 
 			self 
@@ -424,7 +424,7 @@ doesNotUnderstand: aMessage
 
 forwardMessage: aString withArguments: anArray
 	<
-		return smalltalk.send(self._jsObject(), aString, anArray);
+		return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);
 	>
 !
 
@@ -1124,9 +1124,8 @@ at: aString
 !
 
 at: aKey ifAbsent: aBlock
-	^ (self includesKey: aKey)
-		ifTrue: [ self at: aKey ]
-		ifFalse: [ aBlock value ]
+	self deprecatedAPI.
+	^ self globals at: aKey ifAbsent: aBlock
 !
 
 at: aString put: anObject
@@ -1374,9 +1373,15 @@ do: aBlock displayingProgress: aString
 
 !String methodsFor: '*Kernel-Infrastructure'!
 
+asJavaScriptPropertyName
+<return smalltalk.st2prop(self)>
+!
+
 asJavaScriptSelector
-	"Return first keyword of the selector, without trailing colon."
-	^ self replace: '^([a-zA-Z0-9]*).*$' with: '$1'
+	"Cannot add next line as it breaks commit:
+	self deprecatedAPI: 'Use #asJavaScriptPropertyName'."
+
+	^ self asJavaScriptPropertyName
 !
 
 asSetting

@@ -633,7 +633,7 @@ receiver
 selector
 	<
 		if(self.selector) {
-			return smalltalk.convertSelector(self.selector);
+			return smalltalk.js2st(self.selector);
 		} else {
 			return nil;
 		}

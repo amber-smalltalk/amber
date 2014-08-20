@@ -95,7 +95,7 @@ perform: aString
 !
 
 perform: aString withArguments: aCollection
-	<return smalltalk.send(self, aString._asSelector(), aCollection)>
+	<return smalltalk.send(self, aString._asJavaScriptMethodName(), aCollection)>
 ! !
 
 !ProtoObject methodsFor: 'printing'!
@@ -118,15 +118,6 @@ isKindOf: aClass
 	^ (self isMemberOf: aClass)
 		ifTrue: [ true ]
 		ifFalse: [ self class inheritsFrom: aClass ]
-! !
-
-!ProtoObject class methodsFor: 'accessing'!
-
-heliosClass
-	"Should be an Helios extension. Unfortunately, since helios can browse remote
-	environments, we can't extend base classes"
-	
-	^ 'class'
 ! !
 
 !ProtoObject class methodsFor: 'initialization'!
@@ -419,13 +410,6 @@ accessorProtocolWith: aGenerator
 
 accessorsSourceCodesWith: aGenerator
 	aGenerator accessorsForObject
-!
-
-heliosClass
-	"Should be an Helios extension. Unfortunately, since helios can browse remote
-	environments, we can't extend base classes"
-	
-	^ 'class'
 !
 
 initializeProtocolWith: aGenerator

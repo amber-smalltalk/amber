@@ -191,29 +191,29 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		var methods = [], checker = Object.create(null);
 		this.selectors = [];
 
-		this.get = function (string) {
-			var index = this.selectors.indexOf(string);
+		this.get = function (stSelector) {
+			var index = this.selectors.indexOf(stSelector);
 			if(index !== -1) {
 				return methods[index];
 			}
-			this.selectors.push(string);
-			var selector = st.selector(string);
-			checker[selector] = true;
-			var method = {jsSelector: selector, fn: createHandler(selector)};
+			this.selectors.push(stSelector);
+			var jsSelector = st.selector(stSelector);
+			checker[jsSelector] = true;
+			var method = {jsSelector: jsSelector, fn: createHandler(stSelector)};
 			methods.push(method);
 			manip.installMethod(method, rootAsClass);
 			return method;
 		};
 
-		this.isSelector = function (selector) {
-			return checker[selector];
+		this.isSelector = function (jsSelector) {
+			return checker[jsSelector];
 		};
 
 		/* Dnu handler method */
 
-		function createHandler(selector) {
+		function createHandler(stSelector) {
 			return function() {
-				return brikz.messageSend.messageNotUnderstood(this, selector, arguments);
+				return brikz.messageSend.messageNotUnderstood(this, stSelector, arguments);
 			};
 		}
 
@@ -679,18 +679,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 	function AugmentsBrik(brikz, st) {
 
-		/* Make sure that console is defined */
-
-		if(typeof console === "undefined") {
-			this.console = {
-				log: function() {},
-				warn: function() {},
-				info: function() {},
-				debug: function() {},
-				error: function() {}
-			};
-		}
-
 		/* Array extensions */
 
 		Array.prototype.addElement = function(el) {
@@ -987,43 +975,44 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		/* Handles unhandled errors during message sends */
 		// simply send the message and handle #dnu:
 
-		st.send = function(receiver, selector, args, klass) {
+		st.send = function(receiver, jsSelector, args, klass) {
 			var method;
 			if(receiver === null) {
 				receiver = nil;
 			}
-			method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
+			method = klass ? klass.fn.prototype[jsSelector] : receiver.klass && receiver[jsSelector];
 			if(method) {
 				return method.apply(receiver, args);
 			} else {
-				return messageNotUnderstood(receiver, selector, args);
+				return messageNotUnderstood(receiver, st.convertSelector(jsSelector), args);
 			}
 		};
 
-		/* Handles #dnu: *and* JavaScript method calls.
-		 if the receiver has no klass, we consider it a JS object (outside of the
-		 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
-
-		function messageNotUnderstood(receiver, selector, args) {
-			/* Handles JS method calls. */
-			if(receiver.klass === undefined || receiver.allowJavaScriptCalls) {
-				return callJavaScriptMethod(receiver, selector, args);
-			}
-
-			/* Handles not understood messages. Also see the Amber counter-part
-			 Object>>doesNotUnderstand: */
-
+		function invokeDnuMethod(receiver, stSelector, args) {
 			return receiver._doesNotUnderstand_(
 				globals.Message._new()
-					._selector_(st.convertSelector(selector))
+					._selector_(stSelector)
 					._arguments_([].slice.call(args))
 			);
 		}
 
-		/* Call a method of a JS object, or answer a property if it exists.
-		 Else try wrapping a JSObjectProxy around the receiver.
+		/* Handles #dnu: *and* JavaScript method calls.
+		 if the receiver has no klass, we consider it a JS object (outside of the
+		 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
+		function messageNotUnderstood(receiver, stSelector, args) {
+			if (receiver.klass !== undefined && !receiver.allowJavaScriptCalls) {
+				return invokeDnuMethod(receiver, stSelector, args);
+			}
+			/* Call a method of a JS object, or answer a property if it exists.
+			 Else try wrapping a JSObjectProxy around the receiver. */
+			var propertyName = st.st2prop(stSelector);
+			if (!(propertyName in receiver)) {
+				return invokeDnuMethod(globals.JSObjectProxy._on_(receiver), stSelector, args);
+			}
+			return accessJavaScript(receiver, propertyName, args);
+		}
 
-		 If the object property is a function, then call it, except if it starts with
+		/* If the object property is a function, then call it, except if it starts with
 		 an uppercase character (we probably want to answer the function itself in this
 		 case and send it #new from Amber).
 
@@ -1032,31 +1021,26 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		 Example:
 		 "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
-
-		function callJavaScriptMethod(receiver, selector, args) {
-			var jsSelector = selector._asJavaScriptSelector();
-			if (jsSelector in receiver) {
-				var jsProperty = receiver[jsSelector];
-				if (typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
-					return jsProperty.apply(receiver, args);
-				} else if (args.length > 0) {
-					receiver[jsSelector] = args[0];
-					return nil;
-				} else {
-					return jsProperty;
-				}
+		function accessJavaScript(receiver, propertyName, args) {
+			var propertyValue = receiver[propertyName];
+			if (typeof propertyValue === "function" && !/^[A-Z]/.test(propertyName)) {
+				return propertyValue.apply(receiver, args);
+			} else if (args.length > 0) {
+				receiver[propertyName] = args[0];
+				return nil;
+			} else {
+				return propertyValue;
 			}
-
-			return st.send(globals.JSObjectProxy._on_(receiver), selector, args);
 		}
 
+		st.accessJavaScript = accessJavaScript;
 		this.messageNotUnderstood = messageNotUnderstood;
 	}
 
 	function SelectorConversionBrik(brikz, st) {
-		/* Convert a Smalltalk selector into a JS selector */
 
-		st.selector = function(string) {
+		/* Convert a Smalltalk selector into a JS selector */
+		st.st2js = function(string) {
 			var selector = '_' + string;
 			selector = selector.replace(/:/g, '_');
 			selector = selector.replace(/[\&]/g, '_and');
@@ -1076,22 +1060,21 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		};
 
 		/* Convert a string to a valid smalltalk selector.
-		 if you modify the following functions, also change String>>asSelector
+		 if you modify the following functions, also change st2js
 		 accordingly */
-
-		st.convertSelector = function(selector) {
+		st.js2st = function(selector) {
 			if(selector.match(/__/)) {
-				return convertBinarySelector(selector);
+				return binaryJsToSt(selector);
 			} else {
-				return convertKeywordSelector(selector);
+				return keywordJsToSt(selector);
 			}
 		};
 
-		function convertKeywordSelector(selector) {
+		function keywordJsToSt(selector) {
 			return selector.replace(/^_/, '').replace(/_/g, ':');
 		}
 
-		function convertBinarySelector(selector) {
+		function binaryJsToSt(selector) {
 			return selector
 				.replace(/^_/, '')
 				.replace(/_and/g, '&')
@@ -1108,6 +1091,15 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				.replace(/_comma/g, ',')
 				.replace(/_at/g, '@');
 		}
+
+        st.st2prop = function (stSelector) {
+            var colonPosition = stSelector.indexOf(':');
+            return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
+        };
+
+        // Backward-compatible names, deprecated.
+        st.selector = st.st2js;
+        st.convertSelector = st.js2st;
 	}
 
 	/* Adds AMD and requirejs related methods to the smalltalk object */

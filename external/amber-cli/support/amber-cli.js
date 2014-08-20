@@ -329,8 +329,10 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		function mixin(src, target, what) {
 			for (var keys = Object.keys(what||src), l=keys.length, i=0; i<l; ++i) {
-				var value = src[keys[i]];
-				if (typeof value !== "undefined") { target[keys[i]] = value; }
+				if (src == null) { target[keys[i]] = undefined; } else {
+					var value = src[keys[i]];
+					if (typeof value !== "undefined") { target[keys[i]] = value; }
+				}
 			}
 			return target;
 		}
@@ -341,13 +343,13 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		this.rebuild = function () {
 			Object.keys(backup).forEach(function (key) {
-				mixin({}, api, (backup[key]||0)[apiKey]);
+				mixin(null, api, (backup[key]||0)[apiKey]||{});
 			});
 			var oapi = mixin(api, {}), order = [], chk = {};
 			brikz.ensure = function(key) {
 				if (key in exclude) { return null; }
 				var b = brikz[key], bak = backup[key];
-				mixin({}, api, api);
+				mixin(null, api, api);
 				while (typeof b === "function") { b = new b(brikz, api, bak); }
 				if (b && !chk[key]) { chk[key]=true; order.push(b); }
 				if (b && !b[apiKey]) { b[apiKey] = mixin(api, {}); }
@@ -355,7 +357,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			};
 			Object.keys(brikz).forEach(function (key) { brikz.ensure(key); });
 			brikz.ensure = null;
-			mixin(oapi, mixin({}, api, api));
+			mixin(oapi, mixin(null, api, api));
 			order.forEach(function(brik) { mixin(brik[apiKey] || {}, api); });
 			order.forEach(function(brik) { brik[initKey] && brik[initKey](); });
 			backup = mixin(brikz, {});
@@ -469,29 +471,29 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		var methods = [], checker = Object.create(null);
 		this.selectors = [];
 
-		this.get = function (string) {
-			var index = this.selectors.indexOf(string);
+		this.get = function (stSelector) {
+			var index = this.selectors.indexOf(stSelector);
 			if(index !== -1) {
 				return methods[index];
 			}
-			this.selectors.push(string);
-			var selector = st.selector(string);
-			checker[selector] = true;
-			var method = {jsSelector: selector, fn: createHandler(selector)};
+			this.selectors.push(stSelector);
+			var jsSelector = st.selector(stSelector);
+			checker[jsSelector] = true;
+			var method = {jsSelector: jsSelector, fn: createHandler(stSelector)};
 			methods.push(method);
 			manip.installMethod(method, rootAsClass);
 			return method;
 		};
 
-		this.isSelector = function (selector) {
-			return checker[selector];
+		this.isSelector = function (jsSelector) {
+			return checker[jsSelector];
 		};
 
 		/* Dnu handler method */
 
-		function createHandler(selector) {
+		function createHandler(stSelector) {
 			return function() {
-				return brikz.messageSend.messageNotUnderstood(this, selector, arguments);
+				return brikz.messageSend.messageNotUnderstood(this, stSelector, arguments);
 			};
 		}
 
@@ -957,18 +959,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 	function AugmentsBrik(brikz, st) {
 
-		/* Make sure that console is defined */
-
-		if(typeof console === "undefined") {
-			this.console = {
-				log: function() {},
-				warn: function() {},
-				info: function() {},
-				debug: function() {},
-				error: function() {}
-			};
-		}
-
 		/* Array extensions */
 
 		Array.prototype.addElement = function(el) {
@@ -1265,43 +1255,44 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		/* Handles unhandled errors during message sends */
 		// simply send the message and handle #dnu:
 
-		st.send = function(receiver, selector, args, klass) {
+		st.send = function(receiver, jsSelector, args, klass) {
 			var method;
 			if(receiver === null) {
 				receiver = nil;
 			}
-			method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
+			method = klass ? klass.fn.prototype[jsSelector] : receiver.klass && receiver[jsSelector];
 			if(method) {
 				return method.apply(receiver, args);
 			} else {
-				return messageNotUnderstood(receiver, selector, args);
+				return messageNotUnderstood(receiver, st.convertSelector(jsSelector), args);
 			}
 		};
 
-		/* Handles #dnu: *and* JavaScript method calls.
-		 if the receiver has no klass, we consider it a JS object (outside of the
-		 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
-
-		function messageNotUnderstood(receiver, selector, args) {
-			/* Handles JS method calls. */
-			if(receiver.klass === undefined || receiver.allowJavaScriptCalls) {
-				return callJavaScriptMethod(receiver, selector, args);
-			}
-
-			/* Handles not understood messages. Also see the Amber counter-part
-			 Object>>doesNotUnderstand: */
-
+		function invokeDnuMethod(receiver, stSelector, args) {
 			return receiver._doesNotUnderstand_(
 				globals.Message._new()
-					._selector_(st.convertSelector(selector))
+					._selector_(stSelector)
 					._arguments_([].slice.call(args))
 			);
 		}
 
-		/* Call a method of a JS object, or answer a property if it exists.
-		 Else try wrapping a JSObjectProxy around the receiver.
+		/* Handles #dnu: *and* JavaScript method calls.
+		 if the receiver has no klass, we consider it a JS object (outside of the
+		 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
+		function messageNotUnderstood(receiver, stSelector, args) {
+			if (receiver.klass !== undefined && !receiver.allowJavaScriptCalls) {
+				return invokeDnuMethod(receiver, stSelector, args);
+			}
+			/* Call a method of a JS object, or answer a property if it exists.
+			 Else try wrapping a JSObjectProxy around the receiver. */
+			var propertyName = st.st2prop(stSelector);
+			if (!(propertyName in receiver)) {
+				return invokeDnuMethod(globals.JSObjectProxy._on_(receiver), stSelector, args);
+			}
+			return accessJavaScript(receiver, propertyName, args);
+		}
 
-		 If the object property is a function, then call it, except if it starts with
+		/* If the object property is a function, then call it, except if it starts with
 		 an uppercase character (we probably want to answer the function itself in this
 		 case and send it #new from Amber).
 
@@ -1310,31 +1301,26 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		 Example:
 		 "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
-
-		function callJavaScriptMethod(receiver, selector, args) {
-			var jsSelector = selector._asJavaScriptSelector();
-			if (jsSelector in receiver) {
-				var jsProperty = receiver[jsSelector];
-				if (typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
-					return jsProperty.apply(receiver, args);
-				} else if (args.length > 0) {
-					receiver[jsSelector] = args[0];
-					return nil;
-				} else {
-					return jsProperty;
-				}
+		function accessJavaScript(receiver, propertyName, args) {
+			var propertyValue = receiver[propertyName];
+			if (typeof propertyValue === "function" && !/^[A-Z]/.test(propertyName)) {
+				return propertyValue.apply(receiver, args);
+			} else if (args.length > 0) {
+				receiver[propertyName] = args[0];
+				return nil;
+			} else {
+				return propertyValue;
 			}
-
-			return st.send(globals.JSObjectProxy._on_(receiver), selector, args);
 		}
 
+		st.accessJavaScript = accessJavaScript;
 		this.messageNotUnderstood = messageNotUnderstood;
 	}
 
 	function SelectorConversionBrik(brikz, st) {
-		/* Convert a Smalltalk selector into a JS selector */
 
-		st.selector = function(string) {
+		/* Convert a Smalltalk selector into a JS selector */
+		st.st2js = function(string) {
 			var selector = '_' + string;
 			selector = selector.replace(/:/g, '_');
 			selector = selector.replace(/[\&]/g, '_and');
@@ -1354,22 +1340,21 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		};
 
 		/* Convert a string to a valid smalltalk selector.
-		 if you modify the following functions, also change String>>asSelector
+		 if you modify the following functions, also change st2js
 		 accordingly */
-
-		st.convertSelector = function(selector) {
+		st.js2st = function(selector) {
 			if(selector.match(/__/)) {
-				return convertBinarySelector(selector);
+				return binaryJsToSt(selector);
 			} else {
-				return convertKeywordSelector(selector);
+				return keywordJsToSt(selector);
 			}
 		};
 
-		function convertKeywordSelector(selector) {
+		function keywordJsToSt(selector) {
 			return selector.replace(/^_/, '').replace(/_/g, ':');
 		}
 
-		function convertBinarySelector(selector) {
+		function binaryJsToSt(selector) {
 			return selector
 				.replace(/^_/, '')
 				.replace(/_and/g, '&')
@@ -1386,6 +1371,15 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				.replace(/_comma/g, ',')
 				.replace(/_at/g, '@');
 		}
+
+        st.st2prop = function (stSelector) {
+            var colonPosition = stSelector.indexOf(':');
+            return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
+        };
+
+        // Backward-compatible names, deprecated.
+        st.selector = st.st2js;
+        st.convertSelector = st.js2st;
 	}
 
 	/* Adds AMD and requirejs related methods to the smalltalk object */
@@ -1432,8 +1426,8 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 	brikz.methods = MethodsBrik;
 	brikz.stInit = SmalltalkInitBrik;
 	brikz.augments = AugmentsBrik;
-	brikz.amdBrik = AMDBrik;
-	brikz.asReceiverBrik = AsReceiverBrik;
+	brikz.asReceiver = AsReceiverBrik;
+	brikz.amd = AMDBrik;
 
 	brikz.rebuild();
 
@@ -1447,7 +1441,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		brikz.rebuild();
 	};
 
-	return { vm: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiverBrik.asReceiver };
+	return { vm: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiver.asReceiver };
 });
 
 define("amber_vm/smalltalk", ["./boot"], function (boot) {
@@ -1732,10 +1726,10 @@ protocol: 'message handling',
 fn: function (aString,aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return smalltalk.send(self, aString._asSelector(), aCollection);
+return smalltalk.send(self, aString._asJavaScriptMethodName(), aCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"perform:withArguments:",{aString:aString,aCollection:aCollection},globals.ProtoObject)})},
 args: ["aString", "aCollection"],
-source: "perform: aString withArguments: aCollection\x0a\x09<return smalltalk.send(self, aString._asSelector(), aCollection)>",
+source: "perform: aString withArguments: aCollection\x0a\x09<return smalltalk.send(self, aString._asJavaScriptMethodName(), aCollection)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1845,21 +1839,6 @@ referencedClasses: []
 }),
 globals.ProtoObject);
 
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "heliosClass",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return "class";
-},
-args: [],
-source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
-messageSends: [],
-referencedClasses: []
-}),
-globals.ProtoObject.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2708,21 +2687,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"accessorsSourceCodesWith:",{aGen
 args: ["aGenerator"],
 source: "accessorsSourceCodesWith: aGenerator\x0a\x09aGenerator accessorsForObject",
 messageSends: ["accessorsForObject"],
-referencedClasses: []
-}),
-globals.Object.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "heliosClass",
-protocol: 'helios',
-fn: function (){
-var self=this;
-return "class";
-},
-args: [],
-source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
-messageSends: [],
 referencedClasses: []
 }),
 globals.Object.klass);
@@ -6938,6 +6902,21 @@ globals.Class);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "heliosClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "class";
+},
+args: [],
+source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Class);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isClass",
 protocol: 'testing',
 fn: function (){
@@ -9975,14 +9954,14 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		if(self.selector) {
-			return smalltalk.convertSelector(self.selector);
+			return smalltalk.js2st(self.selector);
 		} else {
 			return nil;
 		}
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"selector",{},globals.MethodContext)})},
 args: [],
-source: "selector\x0a\x09<\x0a\x09\x09if(self.selector) {\x0a\x09\x09\x09return smalltalk.convertSelector(self.selector);\x0a\x09\x09} else {\x0a\x09\x09\x09return nil;\x0a\x09\x09}\x0a\x09>",
+source: "selector\x0a\x09<\x0a\x09\x09if(self.selector) {\x0a\x09\x09\x09return smalltalk.js2st(self.selector);\x0a\x09\x09} else {\x0a\x09\x09\x09return nil;\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -10986,12 +10965,15 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._isEmpty();
-$1=_st($2)._ifTrue_ifFalse_(aBlock,anotherBlock);
+$1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(anotherBlock)._value_(self);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifEmpty:ifNotEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Collection)})},
 args: ["aBlock", "anotherBlock"],
-source: "ifEmpty: aBlock ifNotEmpty: anotherBlock\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: anotherBlock",
-messageSends: ["ifTrue:ifFalse:", "isEmpty"],
+source: "ifEmpty: aBlock ifNotEmpty: anotherBlock\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: [ anotherBlock value: self ]",
+messageSends: ["ifTrue:ifFalse:", "isEmpty", "value:"],
 referencedClasses: []
 }),
 globals.Collection);
@@ -11005,14 +10987,16 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._notEmpty();
-$1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
-return self;
-}));
+if(smalltalk.assert($2)){
+$1=_st(aBlock)._value_(self);
+} else {
+$1=self;
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},globals.Collection)})},
 args: ["aBlock"],
-source: "ifNotEmpty: aBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: [ self ]",
-messageSends: ["ifTrue:ifFalse:", "notEmpty"],
+source: "ifNotEmpty: aBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: [ aBlock value: self ]\x0a\x09\x09ifFalse: [ self ]",
+messageSends: ["ifTrue:ifFalse:", "notEmpty", "value:"],
 referencedClasses: []
 }),
 globals.Collection);
@@ -11026,12 +11010,15 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._notEmpty();
-$1=_st($2)._ifTrue_ifFalse_(aBlock,anotherBlock);
+$1=_st($2)._ifTrue_ifFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aBlock)._value_(self);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),anotherBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:ifEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Collection)})},
 args: ["aBlock", "anotherBlock"],
-source: "ifNotEmpty: aBlock ifEmpty: anotherBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: anotherBlock",
-messageSends: ["ifTrue:ifFalse:", "notEmpty"],
+source: "ifNotEmpty: aBlock ifEmpty: anotherBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: [ aBlock value: self ]\x0a\x09\x09ifFalse: anotherBlock",
+messageSends: ["ifTrue:ifFalse:", "notEmpty", "value:"],
 referencedClasses: []
 }),
 globals.Collection);
@@ -14450,6 +14437,22 @@ globals.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asJavaScriptMethodName",
+protocol: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return smalltalk.st2js(self);
+return self}, function($ctx1) {$ctx1.fill(self,"asJavaScriptMethodName",{},globals.String)})},
+args: [],
+source: "asJavaScriptMethodName\x0a\x09<return smalltalk.st2js(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asJavascript",
 protocol: 'converting',
 fn: function (){
@@ -14549,11 +14552,14 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return smalltalk.selector(self);
-return self}, function($ctx1) {$ctx1.fill(self,"asSelector",{},globals.String)})},
+var $1;
+self._deprecatedAPI_("Use #asJavaScriptMethodName");
+$1=self._asJavaScriptMethodName();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asSelector",{},globals.String)})},
 args: [],
-source: "asSelector\x0a\x09<return smalltalk.selector(self)>",
-messageSends: [],
+source: "asSelector\x0a\x09self deprecatedAPI: 'Use #asJavaScriptMethodName'.\x0a\x09^ self asJavaScriptMethodName",
+messageSends: ["deprecatedAPI:", "asJavaScriptMethodName"],
 referencedClasses: []
 }),
 globals.String);
@@ -18191,7 +18197,7 @@ fn: function (aMessage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1,$receiver;
-$2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
+$2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptPropertyName());
 if(($receiver = $2) == null || $receiver.isNil){
 $1=($ctx1.supercall = true, globals.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]));
 $ctx1.supercall = false;
@@ -18203,8 +18209,8 @@ $1=self._forwardMessage_withArguments_(jsSelector,_st(aMessage)._arguments());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},globals.JSObjectProxy)})},
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09^ (self lookupProperty: aMessage selector asJavaScriptSelector)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments ]",
-messageSends: ["ifNil:ifNotNil:", "lookupProperty:", "asJavaScriptSelector", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments"],
+source: "doesNotUnderstand: aMessage\x0a\x09^ (self lookupProperty: aMessage selector asJavaScriptPropertyName)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments ]",
+messageSends: ["ifNil:ifNotNil:", "lookupProperty:", "asJavaScriptPropertyName", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments"],
 referencedClasses: []
 }),
 globals.JSObjectProxy);
@@ -18217,11 +18223,11 @@ fn: function (aString,anArray){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		return smalltalk.send(self._jsObject(), aString, anArray);
+		return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},globals.JSObjectProxy)})},
 args: ["aString", "anArray"],
-source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.send(self._jsObject(), aString, anArray);\x0a\x09>",
+source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -20046,18 +20052,14 @@ protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._includesKey_(aKey);
-if(smalltalk.assert($2)){
-$1=self._at_(aKey);
-} else {
-$1=_st(aBlock)._value();
-};
+var $1;
+self._deprecatedAPI();
+$1=_st(self._globals())._at_ifAbsent_(aKey,aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},globals.SmalltalkImage)})},
 args: ["aKey", "aBlock"],
-source: "at: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [ self at: aKey ]\x0a\x09\x09ifFalse: [ aBlock value ]",
-messageSends: ["ifTrue:ifFalse:", "includesKey:", "at:", "value"],
+source: "at: aKey ifAbsent: aBlock\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aKey ifAbsent: aBlock",
+messageSends: ["deprecatedAPI", "at:ifAbsent:", "globals"],
 referencedClasses: []
 }),
 globals.SmalltalkImage);
@@ -20724,18 +20726,34 @@ globals.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asJavaScriptPropertyName",
+protocol: '*Kernel-Infrastructure',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return smalltalk.st2prop(self);
+return self}, function($ctx1) {$ctx1.fill(self,"asJavaScriptPropertyName",{},globals.String)})},
+args: [],
+source: "asJavaScriptPropertyName\x0a<return smalltalk.st2prop(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asJavaScriptSelector",
 protocol: '*Kernel-Infrastructure',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._replace_with_("^([a-zA-Z0-9]*).*$","$1");
+$1=self._asJavaScriptPropertyName();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},globals.String)})},
 args: [],
-source: "asJavaScriptSelector\x0a\x09\x22Return first keyword of the selector, without trailing colon.\x22\x0a\x09^ self replace: '^([a-zA-Z0-9]*).*$' with: '$1'",
-messageSends: ["replace:with:"],
+source: "asJavaScriptSelector\x0a\x09\x22Cannot add next line as it breaks commit:\x0a\x09self deprecatedAPI: 'Use #asJavaScriptPropertyName'.\x22\x0a\x0a\x09^ self asJavaScriptPropertyName",
+messageSends: ["asJavaScriptPropertyName"],
 referencedClasses: []
 }),
 globals.String);
@@ -29767,7 +29785,7 @@ $1=_st($2)._first();
 self._visitReceiver_($1);
 $3=self._stream();
 $ctx1.sendIdx["stream"]=1;
-$4=_st(".".__comma(_st(_st(anIRSend)._selector())._asSelector())).__comma("(");
+$4=_st(".".__comma(_st(_st(anIRSend)._selector())._asJavaScriptMethodName())).__comma("(");
 $ctx1.sendIdx[","]=1;
 _st($3)._nextPutAll_($4);
 $ctx1.sendIdx["nextPutAll:"]=1;
@@ -29784,8 +29802,8 @@ $ctx2.sendIdx["nextPutAll:"]=2;
 _st(self._stream())._nextPutAll_(")");
 return self}, function($ctx1) {$ctx1.fill(self,"visitSend:",{anIRSend:anIRSend},globals.IRJSTranslator)})},
 args: ["anIRSend"],
-source: "visitSend: anIRSend\x0a\x09self visitReceiver: anIRSend instructions first.\x0a\x09self stream nextPutAll: '.', anIRSend selector asSelector, '('.\x0a\x09anIRSend instructions allButFirst\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream nextPutAll: ')'",
-messageSends: ["visitReceiver:", "first", "instructions", "nextPutAll:", "stream", ",", "asSelector", "selector", "do:separatedBy:", "allButFirst", "visit:"],
+source: "visitSend: anIRSend\x0a\x09self visitReceiver: anIRSend instructions first.\x0a\x09self stream nextPutAll: '.', anIRSend selector asJavaScriptMethodName, '('.\x0a\x09anIRSend instructions allButFirst\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream nextPutAll: ')'",
+messageSends: ["visitReceiver:", "first", "instructions", "nextPutAll:", "stream", ",", "asJavaScriptMethodName", "selector", "do:separatedBy:", "allButFirst", "visit:"],
 referencedClasses: []
 }),
 globals.IRJSTranslator);
@@ -29816,7 +29834,7 @@ $ctx1.sendIdx["nextPutAll:"]=2;
 _st($1)._nextPutAll_(".superclass.fn.prototype.");
 $ctx1.sendIdx["nextPutAll:"]=3;
 $7=$1;
-$8=_st(_st(_st(anIRSend)._selector())._asSelector()).__comma(".apply(");
+$8=_st(_st(_st(anIRSend)._selector())._asJavaScriptMethodName()).__comma(".apply(");
 $ctx1.sendIdx[","]=3;
 _st($7)._nextPutAll_($8);
 $ctx1.sendIdx["nextPutAll:"]=4;
@@ -29848,8 +29866,8 @@ _st($14)._lf();
 $15=_st($14)._nextPutAll_(_st(_st(_st(anIRSend)._scope())._alias()).__comma(".supercall = false"));
 return self}, function($ctx1) {$ctx1.fill(self,"visitSuperSend:",{anIRSend:anIRSend},globals.IRJSTranslator)})},
 args: ["anIRSend"],
-source: "visitSuperSend: anIRSend\x0a\x09self stream\x0a\x09\x09nextPutAll: '(', anIRSend scope alias, '.supercall = true, ';\x0a\x09\x09nextPutAll: self currentClass asJavascript;\x0a\x09\x09nextPutAll: '.superclass.fn.prototype.';\x0a\x09\x09nextPutAll: anIRSend selector asSelector, '.apply(';\x0a\x09\x09nextPutAll: '_st('.\x0a\x09self visit: anIRSend instructions first.\x0a\x09self stream nextPutAll: '), ['.\x0a\x09anIRSend instructions allButFirst\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream \x0a\x09\x09nextPutAll: ']));'; lf;\x0a\x09\x09nextPutAll: anIRSend scope alias, '.supercall = false'",
-messageSends: ["nextPutAll:", "stream", ",", "alias", "scope", "asJavascript", "currentClass", "asSelector", "selector", "visit:", "first", "instructions", "do:separatedBy:", "allButFirst", "lf"],
+source: "visitSuperSend: anIRSend\x0a\x09self stream\x0a\x09\x09nextPutAll: '(', anIRSend scope alias, '.supercall = true, ';\x0a\x09\x09nextPutAll: self currentClass asJavascript;\x0a\x09\x09nextPutAll: '.superclass.fn.prototype.';\x0a\x09\x09nextPutAll: anIRSend selector asJavaScriptMethodName, '.apply(';\x0a\x09\x09nextPutAll: '_st('.\x0a\x09self visit: anIRSend instructions first.\x0a\x09self stream nextPutAll: '), ['.\x0a\x09anIRSend instructions allButFirst\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream \x0a\x09\x09nextPutAll: ']));'; lf;\x0a\x09\x09nextPutAll: anIRSend scope alias, '.supercall = false'",
+messageSends: ["nextPutAll:", "stream", ",", "alias", "scope", "asJavascript", "currentClass", "asJavaScriptMethodName", "selector", "visit:", "first", "instructions", "do:separatedBy:", "allButFirst", "lf"],
 referencedClasses: []
 }),
 globals.IRJSTranslator);
@@ -46661,7 +46679,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$5,$4,$6,$9,$8,$7,$11,$10,$13,$12,$16,$15,$14,$18,$17,$19;
+var $3,$2,$1,$5,$4,$6,$9,$8,$7,$11,$10,$13,$12,$15,$14,$16,$19,$18,$17,$21,$20,$23,$22,$24,$25,$27,$26,$29,$28;
 $3=self._collectionClass();
 $ctx1.sendIdx["collectionClass"]=1;
 $2=_st($3)._new();
@@ -46700,45 +46718,80 @@ $ctx1.sendIdx["collection"]=3;
 $12=_st($13)._ifNotEmpty_((function(){
 return (42);
 }));
+$ctx1.sendIdx["ifNotEmpty:"]=2;
 self._assert_equals_($12,(42));
 $ctx1.sendIdx["assert:equals:"]=4;
-$16=self._collectionClass();
-$ctx1.sendIdx["collectionClass"]=4;
-$15=_st($16)._new();
-$ctx1.sendIdx["new"]=4;
-$14=_st($15)._ifEmpty_ifNotEmpty_((function(){
-return (42);
-}),(function(){
-return (999);
-}));
-$ctx1.sendIdx["ifEmpty:ifNotEmpty:"]=1;
-self._assert_equals_($14,(42));
-$ctx1.sendIdx["assert:equals:"]=5;
-$18=self._collection();
+$15=self._collection();
 $ctx1.sendIdx["collection"]=4;
+$14=_st($15)._ifNotEmpty_((function(col){
+return col;
+}));
+$16=self._collection();
+$ctx1.sendIdx["collection"]=5;
+self._assert_equals_($14,$16);
+$ctx1.sendIdx["assert:equals:"]=5;
+$19=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=4;
+$18=_st($19)._new();
+$ctx1.sendIdx["new"]=4;
 $17=_st($18)._ifEmpty_ifNotEmpty_((function(){
 return (42);
 }),(function(){
 return (999);
 }));
-self._assert_equals_($17,(999));
+$ctx1.sendIdx["ifEmpty:ifNotEmpty:"]=1;
+self._assert_equals_($17,(42));
 $ctx1.sendIdx["assert:equals:"]=6;
-$19=_st(_st(self._collectionClass())._new())._ifNotEmpty_ifEmpty_((function(){
+$21=self._collection();
+$ctx1.sendIdx["collection"]=6;
+$20=_st($21)._ifEmpty_ifNotEmpty_((function(){
+return (42);
+}),(function(){
+return (999);
+}));
+$ctx1.sendIdx["ifEmpty:ifNotEmpty:"]=2;
+self._assert_equals_($20,(999));
+$ctx1.sendIdx["assert:equals:"]=7;
+$23=self._collection();
+$ctx1.sendIdx["collection"]=7;
+$22=_st($23)._ifEmpty_ifNotEmpty_((function(){
+return (42);
+}),(function(col){
+return col;
+}));
+$24=self._collection();
+$ctx1.sendIdx["collection"]=8;
+self._assert_equals_($22,$24);
+$ctx1.sendIdx["assert:equals:"]=8;
+$25=_st(_st(self._collectionClass())._new())._ifNotEmpty_ifEmpty_((function(){
 return (42);
 }),(function(){
 return (999);
 }));
 $ctx1.sendIdx["ifNotEmpty:ifEmpty:"]=1;
-self._assert_equals_($19,(999));
-$ctx1.sendIdx["assert:equals:"]=7;
-self._assert_equals_(_st(self._collection())._ifNotEmpty_ifEmpty_((function(){
+self._assert_equals_($25,(999));
+$ctx1.sendIdx["assert:equals:"]=9;
+$27=self._collection();
+$ctx1.sendIdx["collection"]=9;
+$26=_st($27)._ifNotEmpty_ifEmpty_((function(){
 return (42);
 }),(function(){
 return (999);
-})),(42));
+}));
+$ctx1.sendIdx["ifNotEmpty:ifEmpty:"]=2;
+self._assert_equals_($26,(42));
+$ctx1.sendIdx["assert:equals:"]=10;
+$29=self._collection();
+$ctx1.sendIdx["collection"]=10;
+$28=_st($29)._ifNotEmpty_ifEmpty_((function(col){
+return col;
+}),(function(){
+return (999);
+}));
+self._assert_equals_($28,self._collection());
 return self}, function($ctx1) {$ctx1.fill(self,"testIfEmptyFamily",{},globals.CollectionTest)})},
 args: [],
-source: "testIfEmptyFamily\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.\x0a\x09\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42",
+source: "testIfEmptyFamily\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifNotEmpty: [ :col | col ]) equals: self collection.\x0a\x09\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.\x0a\x09self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ :col | col ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42.\x0a\x09self assert: (self collection ifNotEmpty: [ :col | col ] ifEmpty: [ 999 ]) equals: self collection.",
 messageSends: ["assert:equals:", "ifEmpty:", "new", "collectionClass", "collection", "ifNotEmpty:", "ifEmpty:ifNotEmpty:", "ifNotEmpty:ifEmpty:"],
 referencedClasses: []
 }),
@@ -50704,6 +50757,103 @@ args: [],
 source: "testDNU\x0a\x09self should: [ self jsObject foo ] raise: MessageNotUnderstood",
 messageSends: ["should:raise:", "foo", "jsObject"],
 referencedClasses: ["MessageNotUnderstood"]
+}),
+globals.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testDNURegression1057",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var jsObject;
+function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+jsObject=[];
+_st(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
+$ctx1.sendIdx["basicAt:put:"]=1;
+_st(jsObject)._basicAt_put_("foo",(3));
+self._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(jsObject)._foo();
+$ctx2.sendIdx["foo"]=1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
+$ctx1.sendIdx["shouldnt:raise:"]=1;
+$1=_st(jsObject)._foo();
+$ctx1.sendIdx["foo"]=2;
+self._assert_equals_($1,(3));
+$ctx1.sendIdx["assert:equals:"]=1;
+self._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(jsObject)._foo_((4));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}),$Error());
+self._assert_equals_(_st(jsObject)._foo(),(4));
+return self}, function($ctx1) {$ctx1.fill(self,"testDNURegression1057",{jsObject:jsObject},globals.JSObjectProxyTest)})},
+args: [],
+source: "testDNURegression1057\x0a\x09| jsObject |\x0a\x09jsObject := #().\x0a\x09jsObject basicAt: 'allowJavaScriptCalls' put: true.\x0a\x09jsObject basicAt: 'foo' put: 3.\x0a\x09self shouldnt: [ jsObject foo ] raise: Error.\x0a\x09self assert: jsObject foo equals: 3.\x0a\x09self shouldnt: [ jsObject foo: 4 ] raise: Error.\x0a\x09self assert: jsObject foo equals: 4",
+messageSends: ["basicAt:put:", "shouldnt:raise:", "foo", "assert:equals:", "foo:"],
+referencedClasses: ["Error"]
+}),
+globals.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testDNURegression1059",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var jsObject;
+function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+jsObject=[];
+_st(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
+$ctx1.sendIdx["basicAt:put:"]=1;
+_st(jsObject)._basicAt_put_("x",(3));
+$ctx1.sendIdx["basicAt:put:"]=2;
+_st(jsObject)._basicAt_put_("x:",(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._error();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+self._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(jsObject)._x_((4));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}),$Error());
+self._assert_equals_(_st(jsObject)._x(),(4));
+return self}, function($ctx1) {$ctx1.fill(self,"testDNURegression1059",{jsObject:jsObject},globals.JSObjectProxyTest)})},
+args: [],
+source: "testDNURegression1059\x0a\x09| jsObject |\x0a\x09jsObject := #().\x0a\x09jsObject basicAt: 'allowJavaScriptCalls' put: true.\x0a\x09jsObject basicAt: 'x' put: 3.\x0a\x09jsObject basicAt: 'x:' put: [ self error ].\x0a\x09self shouldnt: [ jsObject x: 4 ] raise: Error.\x0a\x09self assert: jsObject x equals: 4",
+messageSends: ["basicAt:put:", "error", "shouldnt:raise:", "x:", "assert:equals:", "x"],
+referencedClasses: ["Error"]
+}),
+globals.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testDNURegression1062",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var jsObject,stored;
+function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+jsObject=[];
+_st(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
+$ctx1.sendIdx["basicAt:put:"]=1;
+_st(jsObject)._basicAt_put_("x",(function(v){
+stored=v;
+return stored;
+}));
+self._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(jsObject)._x_((4));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}),$Error());
+self._assert_equals_(stored,(4));
+return self}, function($ctx1) {$ctx1.fill(self,"testDNURegression1062",{jsObject:jsObject,stored:stored},globals.JSObjectProxyTest)})},
+args: [],
+source: "testDNURegression1062\x0a\x09| jsObject stored |\x0a\x09jsObject := #().\x0a\x09jsObject basicAt: 'allowJavaScriptCalls' put: true.\x0a\x09jsObject basicAt: 'x' put: [ :v | stored := v ].\x0a\x09self shouldnt: [ jsObject x: 4 ] raise: Error.\x0a\x09self assert: stored equals: 4",
+messageSends: ["basicAt:put:", "shouldnt:raise:", "x:", "assert:equals:"],
+referencedClasses: ["Error"]
 }),
 globals.JSObjectProxyTest);
 
@@ -56538,25 +56688,6 @@ globals.AmberCli.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "tests:",
-protocol: 'commands',
-fn: function (arguments){
-var self=this;
-function $NodeTestRunner(){return globals.NodeTestRunner||(typeof NodeTestRunner=="undefined"?nil:NodeTestRunner)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($NodeTestRunner())._runTestSuite();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"tests:",{arguments:arguments},globals.AmberCli.klass)})},
-args: ["arguments"],
-source: "tests: arguments\x0a\x09^ NodeTestRunner runTestSuite",
-messageSends: ["runTestSuite"],
-referencedClasses: ["NodeTestRunner"]
-}),
-globals.AmberCli.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "version:",
 protocol: 'commands',
 fn: function (arguments){
@@ -57800,14 +57931,17 @@ fn: function (aBlock){
 var self=this;
 var child;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-child=_st(self["@childProcess"])._exec_thenDo_(_st(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","bower")).__comma(" install"),aBlock);
-$1=_st(child)._stdout();
+var $1,$2,$3;
+$1=self["@childProcess"];
+$2=_st("\x22".__comma(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","bower"))).__comma("\x22 install");
+$ctx1.sendIdx[","]=1;
+child=_st($1)._exec_thenDo_($2,aBlock);
+$3=_st(child)._stdout();
 $ctx1.sendIdx["stdout"]=1;
-_st($1)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
+_st($3)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
 return self}, function($ctx1) {$ctx1.fill(self,"bowerInstallThenDo:",{aBlock:aBlock,child:child},globals.Initer)})},
 args: ["aBlock"],
-source: "bowerInstallThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: (path join: nmPath with: '.bin' with: 'bower'), ' install'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
+source: "bowerInstallThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: '\x22', (path join: nmPath with: '.bin' with: 'bower'), '\x22 install'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
 messageSends: ["exec:thenDo:", ",", "join:with:with:", "pipe:options:", "stdout"],
 referencedClasses: []
 }),
@@ -57840,27 +57974,30 @@ fn: function (aBlock){
 var self=this;
 var child;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2,$5,$6,$7;
+var $1,$4,$5,$3,$2,$6,$7,$8;
 $1=self["@childProcess"];
-$3=_st(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt-init")).__comma(" ");
-$4=_st(_st(_st(self["@path"])._join_with_(self["@nmPath"],"grunt-init-amber"))._replace_with_("\x5c\x5c","\x5c\x5c"))._replace_with_(":","\x5c:");
+$4=_st("\x22".__comma(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt-init"))).__comma("\x22 \x22");
+$ctx1.sendIdx[","]=3;
+$5=_st(_st(_st(self["@path"])._join_with_(self["@nmPath"],"grunt-init-amber"))._replace_with_("\x5c\x5c","\x5c\x5c"))._replace_with_(":","\x5c:");
 $ctx1.sendIdx["replace:with:"]=1;
-$2=_st($3).__comma($4);
+$3=_st($4).__comma($5);
+$ctx1.sendIdx[","]=2;
+$2=_st($3).__comma("\x22");
 $ctx1.sendIdx[","]=1;
 child=_st($1)._exec_thenDo_($2,aBlock);
-$5=_st(child)._stdout();
+$6=_st(child)._stdout();
 $ctx1.sendIdx["stdout"]=1;
-_st($5)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
+_st($6)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
 $ctx1.sendIdx["pipe:options:"]=1;
-$6=_st(process)._stdin();
-$ctx1.sendIdx["stdin"]=1;
-_st($6)._resume();
 $7=_st(process)._stdin();
+$ctx1.sendIdx["stdin"]=1;
+_st($7)._resume();
+$8=_st(process)._stdin();
 $ctx1.sendIdx["stdin"]=2;
-_st($7)._pipe_options_(_st(child)._stdin(),globals.HashedCollection._newFromPairs_(["end",false]));
+_st($8)._pipe_options_(_st(child)._stdin(),globals.HashedCollection._newFromPairs_(["end",false]));
 return self}, function($ctx1) {$ctx1.fill(self,"gruntInitThenDo:",{aBlock:aBlock,child:child},globals.Initer)})},
 args: ["aBlock"],
-source: "gruntInitThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: (path join: nmPath with: '.bin' with: 'grunt-init'), ' ', (((path join: nmPath with: 'grunt-init-amber') replace: '\x5c\x5c' with: '\x5c\x5c') replace: ':' with: '\x5c:')\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }.\x0a\x09process stdin resume.\x0a\x09process stdin pipe: child stdin options: #{ 'end' -> false }",
+source: "gruntInitThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: '\x22', (path join: nmPath with: '.bin' with: 'grunt-init'), '\x22 \x22', (((path join: nmPath with: 'grunt-init-amber') replace: '\x5c\x5c' with: '\x5c\x5c') replace: ':' with: '\x5c:'), '\x22'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }.\x0a\x09process stdin resume.\x0a\x09process stdin pipe: child stdin options: #{ 'end' -> false }",
 messageSends: ["exec:thenDo:", ",", "join:with:with:", "replace:with:", "join:with:", "pipe:options:", "stdout", "resume", "stdin"],
 referencedClasses: []
 }),
@@ -57874,15 +58011,18 @@ fn: function (aBlock){
 var self=this;
 var child;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-child=_st(self["@childProcess"])._exec_thenDo_(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt"),aBlock);
-$1=_st(child)._stdout();
+var $1,$2,$3;
+$1=self["@childProcess"];
+$2=_st("\x22".__comma(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt"))).__comma("\x22");
+$ctx1.sendIdx[","]=1;
+child=_st($1)._exec_thenDo_($2,aBlock);
+$3=_st(child)._stdout();
 $ctx1.sendIdx["stdout"]=1;
-_st($1)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
+_st($3)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
 return self}, function($ctx1) {$ctx1.fill(self,"gruntThenDo:",{aBlock:aBlock,child:child},globals.Initer)})},
 args: ["aBlock"],
-source: "gruntThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: (path join: nmPath with: '.bin' with: 'grunt')\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
-messageSends: ["exec:thenDo:", "join:with:with:", "pipe:options:", "stdout"],
+source: "gruntThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: '\x22', (path join: nmPath with: '.bin' with: 'grunt'), '\x22'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
+messageSends: ["exec:thenDo:", ",", "join:with:with:", "pipe:options:", "stdout"],
 referencedClasses: []
 }),
 globals.Initer);
@@ -58000,129 +58140,6 @@ referencedClasses: []
 }),
 globals.Initer);
 
-
-
-smalltalk.addClass('NodeTestRunner', globals.Object, [], 'AmberCli');
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "runTestSuite",
-protocol: 'not yet classified',
-fn: function (){
-var self=this;
-var suite,worker;
-function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
-function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
-function $TestSuiteRunner(){return globals.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
-function $ResultAnnouncement(){return globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$9,$8,$12,$11,$10,$7,$6,$15,$14,$13,$5,$4,$17,$16,$19,$18,$26,$25,$24,$23,$22,$28,$27,$21,$20,$30,$29,$32,$31,$39,$38,$37,$36,$35,$34,$33;
-suite=_st($OrderedCollection())._new();
-_st(_st(_st($TestCase())._allSubclasses())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._isAbstract())._not();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(suite)._addAll_(_st(each)._buildSuite());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-worker=_st($TestSuiteRunner())._on_(suite);
-_st(_st(worker)._announcer())._on_do_($ResultAnnouncement(),(function(ann){
-var result;
-return smalltalk.withContext(function($ctx2) {
-result=_st(ann)._result();
-result;
-$2=_st(result)._runs();
-$ctx2.sendIdx["runs"]=1;
-$1=_st($2).__eq(_st(result)._total());
-if(smalltalk.assert($1)){
-$3=console;
-$9=_st(_st(result)._runs())._asString();
-$ctx2.sendIdx["asString"]=1;
-$8=_st($9).__comma(" tests run, ");
-$ctx2.sendIdx[","]=5;
-$12=_st(result)._failures();
-$ctx2.sendIdx["failures"]=1;
-$11=_st($12)._size();
-$ctx2.sendIdx["size"]=1;
-$10=_st($11)._asString();
-$ctx2.sendIdx["asString"]=2;
-$7=_st($8).__comma($10);
-$ctx2.sendIdx[","]=4;
-$6=_st($7).__comma(" failures, ");
-$ctx2.sendIdx[","]=3;
-$15=_st(result)._errors();
-$ctx2.sendIdx["errors"]=1;
-$14=_st($15)._size();
-$13=_st($14)._asString();
-$5=_st($6).__comma($13);
-$ctx2.sendIdx[","]=2;
-$4=_st($5).__comma(" errors.");
-$ctx2.sendIdx[","]=1;
-_st($3)._log_($4);
-$17=_st(result)._failures();
-$ctx2.sendIdx["failures"]=2;
-$16=_st($17)._isEmpty();
-$ctx2.sendIdx["isEmpty"]=1;
-if(! smalltalk.assert($16)){
-$19=_st(result)._failures();
-$ctx2.sendIdx["failures"]=3;
-$18=_st($19)._first();
-$ctx2.sendIdx["first"]=1;
-_st($18)._runCase();
-$ctx2.sendIdx["runCase"]=1;
-$26=_st(result)._failures();
-$ctx2.sendIdx["failures"]=4;
-$25=_st($26)._first();
-$ctx2.sendIdx["first"]=2;
-$24=_st($25)._class();
-$ctx2.sendIdx["class"]=1;
-$23=_st($24)._name();
-$ctx2.sendIdx["name"]=1;
-$22=_st($23).__comma(" >> ");
-$ctx2.sendIdx[","]=8;
-$28=_st(_st(result)._failures())._first();
-$ctx2.sendIdx["first"]=3;
-$27=_st($28)._selector();
-$ctx2.sendIdx["selector"]=1;
-$21=_st($22).__comma($27);
-$ctx2.sendIdx[","]=7;
-$20=_st($21).__comma(" is failing!!");
-$ctx2.sendIdx[","]=6;
-self._throw_($20);
-$ctx2.sendIdx["throw:"]=1;
-};
-$30=_st(result)._errors();
-$ctx2.sendIdx["errors"]=2;
-$29=_st($30)._isEmpty();
-if(! smalltalk.assert($29)){
-$32=_st(result)._errors();
-$ctx2.sendIdx["errors"]=3;
-$31=_st($32)._first();
-$ctx2.sendIdx["first"]=4;
-_st($31)._runCase();
-$39=_st(result)._errors();
-$ctx2.sendIdx["errors"]=4;
-$38=_st($39)._first();
-$ctx2.sendIdx["first"]=5;
-$37=_st($38)._class();
-$36=_st($37)._name();
-$35=_st($36).__comma(" >> ");
-$34=_st($35).__comma(_st(_st(_st(result)._errors())._first())._selector());
-$ctx2.sendIdx[","]=10;
-$33=_st($34).__comma(" has errors!!");
-$ctx2.sendIdx[","]=9;
-return self._throw_($33);
-};
-};
-}, function($ctx2) {$ctx2.fillBlock({ann:ann,result:result},$ctx1,3)})}));
-_st(worker)._run();
-return self}, function($ctx1) {$ctx1.fill(self,"runTestSuite",{suite:suite,worker:worker},globals.NodeTestRunner.klass)})},
-args: [],
-source: "runTestSuite\x0a\x09| suite worker |\x0a\x0a\x09suite := OrderedCollection new.\x0a\x09(TestCase allSubclasses select: [ :each | each isAbstract not ])\x0a\x09\x09do: [ :each | suite addAll: each buildSuite ].\x0a\x0a\x09worker := TestSuiteRunner on: suite.\x0a\x09worker announcer on: ResultAnnouncement do:\x0a\x09\x09[ :ann | | result |\x0a\x09\x09\x09result := ann result.\x0a\x09\x09\x09result runs = result total ifTrue: [\x0a\x09\x09\x09\x09console log: result runs asString, ' tests run, ', result failures size asString, ' failures, ', result errors size asString, ' errors.'.\x0a\x0a\x09\x09\x09\x09result failures isEmpty ifFalse: [\x0a\x09\x09\x09\x09\x09result failures first runCase.\x0a\x09\x09\x09\x09\x09\x22the line above should throw, normally, but just in case I leave the line below\x22\x0a\x09\x09\x09\x09\x09self throw: result failures first class name, ' >> ', result failures first selector, ' is failing!!' ].\x0a\x09\x09\x09\x09result errors isEmpty ifFalse: [\x0a\x09\x09\x09\x09\x09result errors first runCase.\x0a\x09\x09\x09\x09\x09\x22the line above should throw, normally, but just in case I leave the line below\x22\x0a\x09\x09\x09\x09\x09self throw: result errors first class name, ' >> ', result errors first selector, ' has errors!!' ].\x0a\x09]].\x0a\x09worker run",
-messageSends: ["new", "do:", "select:", "allSubclasses", "not", "isAbstract", "addAll:", "buildSuite", "on:", "on:do:", "announcer", "result", "ifTrue:", "=", "runs", "total", "log:", ",", "asString", "size", "failures", "errors", "ifFalse:", "isEmpty", "runCase", "first", "throw:", "name", "class", "selector", "run"],
-referencedClasses: ["OrderedCollection", "TestCase", "TestSuiteRunner", "ResultAnnouncement"]
-}),
-globals.NodeTestRunner.klass);
 
 
 smalltalk.addClass('Repl', globals.Object, ['readline', 'interface', 'util', 'session', 'resultCount', 'commands'], 'AmberCli');

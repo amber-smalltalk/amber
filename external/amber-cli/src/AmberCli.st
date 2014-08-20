@@ -76,10 +76,6 @@ serve: args
 	^ (FileServer createServerWithArguments: args) start
 !
 
-tests: arguments
-	^ NodeTestRunner runTestSuite
-!
-
 version: arguments
 ! !
 
@@ -987,7 +983,7 @@ BaseFileManipulator subclass: #Initer
 bowerInstallThenDo: aBlock
 	| child |
 	child := childProcess
-		exec: (path join: nmPath with: '.bin' with: 'bower'), ' install'
+		exec: '"', (path join: nmPath with: '.bin' with: 'bower'), '" install'
 		thenDo: aBlock.
 	child stdout pipe: process stdout options: #{ 'end' -> false }
 !
@@ -1015,7 +1011,7 @@ finishMessage
 gruntInitThenDo: aBlock
 	| child |
 	child := childProcess
-		exec: (path join: nmPath with: '.bin' with: 'grunt-init'), ' ', (((path join: nmPath with: 'grunt-init-amber') replace: '\\' with: '\\') replace: ':' with: '\:')
+		exec: '"', (path join: nmPath with: '.bin' with: 'grunt-init'), '" "', (((path join: nmPath with: 'grunt-init-amber') replace: '\\' with: '\\') replace: ':' with: '\:'), '"'
 		thenDo: aBlock.
 	child stdout pipe: process stdout options: #{ 'end' -> false }.
 	process stdin resume.
@@ -1025,7 +1021,7 @@ gruntInitThenDo: aBlock
 gruntThenDo: aBlock
 	| child |
 	child := childProcess
-		exec: (path join: nmPath with: '.bin' with: 'grunt')
+		exec: '"', (path join: nmPath with: '.bin' with: 'grunt'), '"'
 		thenDo: aBlock.
 	child stdout pipe: process stdout options: #{ 'end' -> false }
 !
@@ -1073,38 +1069,6 @@ initialize
 	super initialize.
 	childProcess := require value: 'child_process'.
 	nmPath := path join: self rootDirname with: 'node_modules'
-! !
-
-Object subclass: #NodeTestRunner
-	instanceVariableNames: ''
-	package: 'AmberCli'!
-
-!NodeTestRunner class methodsFor: 'not yet classified'!
-
-runTestSuite
-	| suite worker |
-
-	suite := OrderedCollection new.
-	(TestCase allSubclasses select: [ :each | each isAbstract not ])
-		do: [ :each | suite addAll: each buildSuite ].
-
-	worker := TestSuiteRunner on: suite.
-	worker announcer on: ResultAnnouncement do:
-		[ :ann | | result |
-			result := ann result.
-			result runs = result total ifTrue: [
-				console log: result runs asString, ' tests run, ', result failures size asString, ' failures, ', result errors size asString, ' errors.'.
-
-				result failures isEmpty ifFalse: [
-					result failures first runCase.
-					"the line above should throw, normally, but just in case I leave the line below"
-					self throw: result failures first class name, ' >> ', result failures first selector, ' is failing!!!!' ].
-				result errors isEmpty ifFalse: [
-					result errors first runCase.
-					"the line above should throw, normally, but just in case I leave the line below"
-					self throw: result errors first class name, ' >> ', result errors first selector, ' has errors!!!!' ].
-	]].
-	worker run
 ! !
 
 Object subclass: #Repl

@@ -19,7 +19,6 @@ require.config({
     ],
     "bootstrap2.3.2": "my/helios/bower_components/bootstrap2.3.2/bootstrap",
     "require-css": "bower_components/require-css",
-    "amber_lib/jquery-tabby": "bower_components/jquery-tabby",
     "amber_lib/es5-shim": "bower_components/es5-shim",
     "amber_lib/codemirror": "bower_components/codemirror",
     "helios": "my/helios/src",
@@ -44,11 +43,6 @@ require.config({
       "deps": [
         "jquery",
         "css!bootstrap2.3.2/css/bootstrap"
-      ]
-    },
-    "amber_lib/jquery-tabby/jquery.textarea": {
-      "deps": [
-        "jquery"
       ]
     },
     "amber_lib/codemirror/lib/codemirror": {

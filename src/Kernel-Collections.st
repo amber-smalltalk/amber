@@ -1496,6 +1496,10 @@ asJSON
 	^ self
 !
 
+asJavaScriptMethodName
+	<return smalltalk.st2js(self)>
+!
+
 asJavascript
 	<
 		if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)
@@ -1526,7 +1530,8 @@ asRegexp
 !
 
 asSelector
-	<return smalltalk.selector(self)>
+	self deprecatedAPI: 'Use #asJavaScriptMethodName'.
+	^ self asJavaScriptMethodName
 !
 
 asString
