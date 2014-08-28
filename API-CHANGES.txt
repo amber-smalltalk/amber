@@ -1,3 +1,10 @@
+0.13.0:
+
++ Object >>
+  + postMessageTo:
+  + postMessageTo:origin:
+
+
 0.12.6:
 
 + String >>
