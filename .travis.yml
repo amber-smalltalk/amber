@@ -1,7 +1,9 @@
 language: node_js
 node_js:
-#  - "0.8" # has npm problems
+  - "0.8"
   - "0.10"
+before_install:
+  - npm -g install npm@1.x.x
 install:
   - npm install -g grunt-cli
   - npm install
