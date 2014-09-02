@@ -3,6 +3,31 @@ var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
 smalltalk.addPackage('SUnit-Tests');
 smalltalk.packages["SUnit-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
+smalltalk.addClass('AsyncContextTest', globals.TestCase, [], 'SUnit-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testOuterContextMethod",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var $thisMethod=this._testOuterContextMethod.thisMethod;
+return smalltalk.withContext(function($ctx1) { 
+self._timeout_((1500));
+_st(self._async_((function(){
+return smalltalk.withContext(function($ctx2) {
+self._assert_description_(_st(_st(smalltalk.getThisContext()._outerContext())._method())._notNil(),"nil method outer context");
+return self._finished();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))._valueWithTimeout_((5));
+return self}, function($ctx1) {$ctx1.fill(self,"testOuterContextMethod",{},globals.AsyncContextTest,$thisMethod)})},
+args: [],
+source: "testOuterContextMethod\x0a\x09\x22\x22\x0a\x09self timeout: 1500.\x0a\x09(self async: [ \x0a\x09\x09\x09\x09\x09self assert: thisContext outerContext method notNil description:'nil method outer context'. \x0a\x09\x09\x09\x09\x09self finished \x0a\x09\x09\x09\x09]) valueWithTimeout: 5",
+messageSends: ["timeout:", "valueWithTimeout:", "async:", "assert:description:", "notNil", "method", "outerContext", "finished"],
+referencedClasses: []
+}),
+globals.AsyncContextTest);
+
+
+
 smalltalk.addClass('ExampleSetTest', globals.TestCase, ['empty', 'full'], 'SUnit-Tests');
 globals.ExampleSetTest.comment="ExampleSetTest is taken from Pharo 1.4.\x0a\x0aTHe purpose of this class is to demonstrate a simple use case of the test framework.";
 smalltalk.addMethod(

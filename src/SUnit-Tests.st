@@ -1,4 +1,19 @@
 Smalltalk createPackage: 'SUnit-Tests'!
+TestCase subclass: #AsyncContextTest
+	instanceVariableNames: ''
+	package: 'SUnit-Tests'!
+
+!AsyncContextTest methodsFor: 'tests'!
+
+testOuterContextMethod
+	""
+	self timeout: 1500.
+	(self async: [ 
+					self assert: thisContext outerContext method notNil description:'nil method outer context'. 
+					self finished 
+				]) valueWithTimeout: 5
+! !
+
 TestCase subclass: #ExampleSetTest
 	instanceVariableNames: 'empty full'
 	package: 'SUnit-Tests'!
