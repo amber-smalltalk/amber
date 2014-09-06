@@ -5,6 +5,8 @@
 * smalltalk.selector is now smalltalk.st2js
 * smalltalk.convertSelector is now smalltalk.js2st
 
++ smalltalk.
+  + accessJavaScript
 + Object >>
   + postMessageTo:
   + postMessageTo:origin:
