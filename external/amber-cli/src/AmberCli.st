@@ -1065,8 +1065,14 @@ start
 		process exit ]
 	ifNil: [
 
+	Configurator new writeConfigThenDo: [ :error5 | error5
+	ifNotNil: [
+		console log: 'amber config exec error:'; log: error5.
+		process exit ]
+	ifNil: [
+
 	self finishMessage.
-	process exit ]]]]]]]]
+	process exit ]]]]]]]]]]
 ! !
 
 !Initer methodsFor: 'initialization'!
