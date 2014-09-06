@@ -10,6 +10,13 @@
 + Object >>
   + postMessageTo:
   + postMessageTo:origin:
++ Class >>
+  + heliosClass
+
+- ProtoObject class >>
+  - heliosClass
+- Object class >>
+  - heliosClass
 
 
 0.12.6:
