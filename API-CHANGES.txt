@@ -4,6 +4,7 @@
 * String >> asJavaScriptSelector is now String >> asJavaScriptPropertyName
 * smalltalk.selector is now smalltalk.st2js
 * smalltalk.convertSelector is now smalltalk.js2st
+* Collection >> ifEmpty:ifNotEmpty: family passes self to ifNotEmpty: block
 
 + smalltalk.
   + accessJavaScript
