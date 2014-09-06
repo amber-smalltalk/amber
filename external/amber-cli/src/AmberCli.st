@@ -133,8 +133,14 @@ BaseFileManipulator subclass: #Configurator
 !Configurator methodsFor: 'action'!
 
 start
+	self writeConfigThenDo: [ process exit ]
+!
+
+writeConfigThenDo: aBlock
 	(require value: 'amber-dev/lib/config')
 		writeConfig: process cwd
+		toFile: 'config.js'
+		thenDo: aBlock
 ! !
 
 !Configurator methodsFor: 'initialization'!

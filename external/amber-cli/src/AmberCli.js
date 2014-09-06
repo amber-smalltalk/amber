@@ -333,11 +333,30 @@ protocol: 'action',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(require)._value_("amber-dev/lib/config"))._writeConfig_(_st(process)._cwd());
+self._writeConfigThenDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(process)._exit();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"start",{},globals.Configurator)})},
 args: [],
-source: "start\x0a\x09(require value: 'amber-dev/lib/config')\x0a\x09\x09writeConfig: process cwd",
-messageSends: ["writeConfig:", "value:", "cwd"],
+source: "start\x0a\x09self writeConfigThenDo: [ process exit ]",
+messageSends: ["writeConfigThenDo:", "exit"],
+referencedClasses: []
+}),
+globals.Configurator);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "writeConfigThenDo:",
+protocol: 'action',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(require)._value_("amber-dev/lib/config"))._writeConfig_toFile_thenDo_(_st(process)._cwd(),"config.js",aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"writeConfigThenDo:",{aBlock:aBlock},globals.Configurator)})},
+args: ["aBlock"],
+source: "writeConfigThenDo: aBlock\x0a\x09(require value: 'amber-dev/lib/config')\x0a\x09\x09writeConfig: process cwd\x0a\x09\x09toFile: 'config.js'\x0a\x09\x09thenDo: aBlock",
+messageSends: ["writeConfig:toFile:thenDo:", "value:", "cwd"],
 referencedClasses: []
 }),
 globals.Configurator);
