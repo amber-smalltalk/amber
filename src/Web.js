@@ -3878,6 +3878,40 @@ globals.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "postMessageTo:",
+protocol: '*Web',
+fn: function (aFrame){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._postMessageTo_origin_(aFrame,"*");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"postMessageTo:",{aFrame:aFrame},globals.Object)})},
+args: ["aFrame"],
+source: "postMessageTo: aFrame\x0a^ self postMessageTo: aFrame origin: '*'",
+messageSends: ["postMessageTo:origin:"],
+referencedClasses: []
+}),
+globals.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "postMessageTo:origin:",
+protocol: '*Web',
+fn: function (aFrame,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return aFrame.postMessage(self, aString);
+return self}, function($ctx1) {$ctx1.fill(self,"postMessageTo:origin:",{aFrame:aFrame,aString:aString},globals.Object)})},
+args: ["aFrame", "aString"],
+source: "postMessageTo: aFrame origin: aString\x0a<return aFrame.postMessage(self, aString)>",
+messageSends: [],
+referencedClasses: []
+}),
+globals.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "appendToBrush:",
 protocol: '*Web',
 fn: function (aTagBrush){

@@ -133,8 +133,14 @@ BaseFileManipulator subclass: #Configurator
 !Configurator methodsFor: 'action'!
 
 start
+	self writeConfigThenDo: [ process exit ]
+!
+
+writeConfigThenDo: aBlock
 	(require value: 'amber-dev/lib/config')
 		writeConfig: process cwd
+		toFile: 'config.js'
+		thenDo: aBlock
 ! !
 
 !Configurator methodsFor: 'initialization'!
@@ -1059,8 +1065,14 @@ start
 		process exit ]
 	ifNil: [
 
+	Configurator new writeConfigThenDo: [ :error5 | error5
+	ifNotNil: [
+		console log: 'amber config exec error:'; log: error5.
+		process exit ]
+	ifNil: [
+
 	self finishMessage.
-	process exit ]]]]]]]]
+	process exit ]]]]]]]]]]
 ! !
 
 !Initer methodsFor: 'initialization'!

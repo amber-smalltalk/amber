@@ -1,4 +1,11 @@
-0.12.5:
+0.13.0:
+
++ Object >>
+  + postMessageTo:
+  + postMessageTo:origin:
+
+
+0.12.6:
 
 + String >>
   + value:
@@ -12,6 +19,7 @@
   + nil
 + amber/helpers exports
   + nil
+
 
 0.12.4:
 
