@@ -1,5 +1,10 @@
 0.13.0:
 
+* String >> asSelector is now String >> asJavaScriptMethodName
+* String >> asJavaScriptSelector is now String >> asJavaScriptPropertyName
+* smalltalk.selector is now smalltalk.st2js
+* smalltalk.convertSelector is now smalltalk.js2st
+
 + Object >>
   + postMessageTo:
   + postMessageTo:origin:
