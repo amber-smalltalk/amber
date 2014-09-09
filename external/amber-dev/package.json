@@ -1,6 +1,6 @@
 {
   "name": "amber-dev",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Development goodies for Amber Smalltalk",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +12,7 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/amber-smalltalk/amber/issues?labels=devkit"
+    "url": "https://github.com/amber-smalltalk/amber/issues?labels=in+devkit"
   },
   "dependencies": {
     "amdefine": "0.0.8",
