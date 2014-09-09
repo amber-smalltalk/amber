@@ -12,8 +12,26 @@ exports.writeConfig = function (searchDir, fileForConfig, callback) {
     fileForConfig = fileForConfig || 'config.js';
     callback = callback || function (err) { if (err) throw err; };
 
+    function tryToFlattenPathsMapping(mapping) {
+        if (Array.isArray(mapping)) {
+            for (var i = 0; i < mapping.length; ++i) {
+                var element = mapping[i];
+                if (element.match(/(^|:)\/\//)) break;
+                try {
+                    var stat = fs.statSync(path.join(searchDir, element + ".js"));
+                    if (stat.isDirectory()) break;
+                    if (stat.isFile()) return element;
+                } catch (e) {}
+            }
+        }
+        return mapping;
+    }
+
     configBuilder.produceConfigObject(searchDir, function (err, result) {
         if (err) return callback(err);
+        for (var p in result.paths) {
+            result.paths[p] = tryToFlattenPathsMapping(result.paths[p]);
+        }
         var text = "/* DO NOT EDIT! This file is generated. */\n" +
             "\n" +
             "var require;\n" +
