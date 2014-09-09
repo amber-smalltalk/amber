@@ -1,8 +1,23 @@
 0.13.0:
 
+* String >> asSelector is now String >> asJavaScriptMethodName
+* String >> asJavaScriptSelector is now String >> asJavaScriptPropertyName
+* smalltalk.selector is now smalltalk.st2js
+* smalltalk.convertSelector is now smalltalk.js2st
+* Collection >> ifEmpty:ifNotEmpty: family passes self to ifNotEmpty: block
+
++ smalltalk.
+  + accessJavaScript
 + Object >>
   + postMessageTo:
   + postMessageTo:origin:
++ Class >>
+  + heliosClass
+
+- ProtoObject class >>
+  - heliosClass
+- Object class >>
+  - heliosClass
 
 
 0.12.6:
