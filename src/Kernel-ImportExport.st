@@ -697,7 +697,7 @@ load: aPackage
 	Smalltalk amdRequire
 		ifNil: [ self error: 'AMD loader not present' ]
 		ifNotNil: [ :require |
-			require value: (Array new: (self namespaceFor: aPackage), '/', aPackage name ) ]
+			require value: (Array with: (self namespaceFor: aPackage), '/', aPackage name ) ]
 ! !
 
 !AmdPackageHandler methodsFor: 'private'!

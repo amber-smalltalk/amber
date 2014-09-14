@@ -1793,13 +1793,13 @@ var require;
 require=$receiver;
 $3=_st(_st(self._namespaceFor_(aPackage)).__comma("/")).__comma(_st(aPackage)._name());
 $ctx1.sendIdx[","]=1;
-$2=_st($Array())._new_($3);
+$2=_st($Array())._with_($3);
 _st(require)._value_($2);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},globals.AmdPackageHandler)})},
 args: ["aPackage"],
-source: "load: aPackage\x0a\x09Smalltalk amdRequire\x0a\x09\x09ifNil: [ self error: 'AMD loader not present' ]\x0a\x09\x09ifNotNil: [ :require |\x0a\x09\x09\x09require value: (Array new: (self namespaceFor: aPackage), '/', aPackage name ) ]",
-messageSends: ["ifNil:ifNotNil:", "amdRequire", "error:", "value:", "new:", ",", "namespaceFor:", "name"],
+source: "load: aPackage\x0a\x09Smalltalk amdRequire\x0a\x09\x09ifNil: [ self error: 'AMD loader not present' ]\x0a\x09\x09ifNotNil: [ :require |\x0a\x09\x09\x09require value: (Array with: (self namespaceFor: aPackage), '/', aPackage name ) ]",
+messageSends: ["ifNil:ifNotNil:", "amdRequire", "error:", "value:", "with:", ",", "namespaceFor:", "name"],
 referencedClasses: ["Smalltalk", "Array"]
 }),
 globals.AmdPackageHandler);
