@@ -1130,7 +1130,7 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 	
 	self
 		nextPutAll: '},';
-		nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')})'
+		nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')});'
 !
 
 nextPutClassRefFunction: aString
@@ -1157,7 +1157,7 @@ nextPutClosureWith: aBlock arguments: anArray
 		separatedBy: [ stream nextPut: ',' ].
 	stream nextPutAll: '){'; lf.
 	aBlock value.
-	stream nextPutAll: '})'
+	stream lf; nextPutAll: '})'
 !
 
 nextPutContextFor: aMethod during: aBlock
@@ -1182,7 +1182,7 @@ nextPutContextFor: aMethod during: aBlock
 	self
 		nextPutAll: '},';
 		nextPutAll: aMethod theClass asJavascript;
-		nextPutAll: ')})'
+		nextPutAll: ')});'
 !
 
 nextPutFunctionWith: aBlock arguments: anArray
@@ -1193,7 +1193,7 @@ nextPutFunctionWith: aBlock arguments: anArray
 	stream nextPutAll: '){'; lf.
 	stream nextPutAll: 'var self=this;'; lf.
 	aBlock value.
-	stream nextPutAll: '}'
+	stream lf; nextPutAll: '}'
 !
 
 nextPutIf: aBlock with: anotherBlock
