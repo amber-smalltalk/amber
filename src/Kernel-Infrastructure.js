@@ -21,7 +21,8 @@ $1;
 self._logErrorContext_(_st(anError)._context());
 };
 self._logError_(anError);
-return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.ConsoleErrorHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.ConsoleErrorHandler)});
+},
 args: ["anError"],
 source: "handleError: anError\x0a\x09anError context ifNotNil: [ self logErrorContext: anError context ].\x0a\x09self logError: anError",
 messageSends: ["ifNotNil:", "context", "logErrorContext:", "logError:"],
@@ -37,7 +38,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(console)._log_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"log:",{aString:aString},globals.ConsoleErrorHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"log:",{aString:aString},globals.ConsoleErrorHandler)});
+},
 args: ["aString"],
 source: "log: aString\x0a\x09console log: aString",
 messageSends: ["log:"],
@@ -61,7 +63,8 @@ $1;
 self._logContext_(_st(aContext)._home());
 };
 self._log_(_st(aContext)._asString());
-return self}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext},globals.ConsoleErrorHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext},globals.ConsoleErrorHandler)});
+},
 args: ["aContext"],
 source: "logContext: aContext\x0a\x09aContext home ifNotNil: [\x0a\x09\x09self logContext: aContext home ].\x0a\x09self log: aContext asString",
 messageSends: ["ifNotNil:", "home", "logContext:", "log:", "asString"],
@@ -77,7 +80,8 @@ fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._log_(_st(anError)._messageText());
-return self}, function($ctx1) {$ctx1.fill(self,"logError:",{anError:anError},globals.ConsoleErrorHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"logError:",{anError:anError},globals.ConsoleErrorHandler)});
+},
 args: ["anError"],
 source: "logError: anError\x0a\x09self log: anError messageText",
 messageSends: ["log:", "messageText"],
@@ -104,7 +108,8 @@ $1;
 self._logContext_(_st(aContext)._home());
 };
 };
-return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext},globals.ConsoleErrorHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext},globals.ConsoleErrorHandler)});
+},
 args: ["aContext"],
 source: "logErrorContext: aContext\x0a\x09aContext ifNotNil: [\x0a\x09\x09aContext home ifNotNil: [\x0a\x09\x09\x09self logContext: aContext home ]]",
 messageSends: ["ifNotNil:", "home", "logContext:"],
@@ -123,7 +128,8 @@ var self=this;
 function $ErrorHandler(){return globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 _st($ErrorHandler())._registerIfNone_(self._new());
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ConsoleErrorHandler.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ConsoleErrorHandler.klass)});
+},
 args: [],
 source: "initialize\x0a\x09ErrorHandler registerIfNone: self new",
 messageSends: ["registerIfNone:", "new"],
@@ -145,7 +151,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($PlatformInterface())._ajax_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},globals.InterfacingObject)})},
+}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},globals.InterfacingObject)});
+},
 args: ["anObject"],
 source: "ajax: anObject\x0a\x09^ PlatformInterface ajax: anObject",
 messageSends: ["ajax:"],
@@ -164,7 +171,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($PlatformInterface())._alert_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},globals.InterfacingObject)})},
+}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},globals.InterfacingObject)});
+},
 args: ["aString"],
 source: "alert: aString\x0a\x09^ PlatformInterface alert: aString",
 messageSends: ["alert:"],
@@ -183,7 +191,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($PlatformInterface())._confirm_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},globals.InterfacingObject)})},
+}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},globals.InterfacingObject)});
+},
 args: ["aString"],
 source: "confirm: aString\x0a\x09^ PlatformInterface confirm: aString",
 messageSends: ["confirm:"],
@@ -202,7 +211,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($PlatformInterface())._prompt_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},globals.InterfacingObject)})},
+}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},globals.InterfacingObject)});
+},
 args: ["aString"],
 source: "prompt: aString\x0a\x09^ PlatformInterface prompt: aString",
 messageSends: ["prompt:"],
@@ -221,7 +231,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($PlatformInterface())._prompt_default_(aString,defaultString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},globals.InterfacingObject)})},
+}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},globals.InterfacingObject)});
+},
 args: ["aString", "defaultString"],
 source: "prompt: aString default: defaultString\x0a\x09^ PlatformInterface prompt: aString default: defaultString",
 messageSends: ["prompt:default:"],
@@ -249,7 +260,8 @@ $4=_st(_st(aClass)._instanceVariableNames())._copy();
 _st($4)._add_(aString);
 $5=_st($4)._yourself();
 _st($1)._addSubclassOf_named_instanceVariableNames_package_($2,$3,$5,_st(_st(aClass)._package())._name());
-return self}, function($ctx1) {$ctx1.fill(self,"addInstVarNamed:to:",{aString:aString,aClass:aClass},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"addInstVarNamed:to:",{aString:aString,aClass:aClass},globals.Environment)});
+},
 args: ["aString", "aClass"],
 source: "addInstVarNamed: aString to: aClass\x0a\x09self classBuilder\x0a\x09\x09addSubclassOf: aClass superclass \x0a\x09\x09named: aClass name \x0a\x09\x09instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)\x0a\x09\x09package: aClass package name",
 messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "classBuilder", "superclass", "name", "add:", "copy", "instanceVariableNames", "yourself", "package"],
@@ -268,7 +280,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st($Smalltalk())._vm())._allSelectors();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"allSelectors",{},globals.Environment)})},
+}, function($ctx1) {$ctx1.fill(self,"allSelectors",{},globals.Environment)});
+},
 args: [],
 source: "allSelectors\x0a\x09^ Smalltalk vm allSelectors",
 messageSends: ["allSelectors", "vm"],
@@ -288,9 +301,11 @@ var $1;
 $1=_st(_st($Smalltalk())._classes())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._name();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"availableClassNames",{},globals.Environment)})},
+}, function($ctx1) {$ctx1.fill(self,"availableClassNames",{},globals.Environment)});
+},
 args: [],
 source: "availableClassNames\x0a\x09^ Smalltalk classes \x0a\x09\x09collect: [ :each | each name ]",
 messageSends: ["collect:", "classes", "name"],
@@ -310,9 +325,11 @@ var $1;
 $1=_st(_st($Smalltalk())._packages())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._name();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"availablePackageNames",{},globals.Environment)})},
+}, function($ctx1) {$ctx1.fill(self,"availablePackageNames",{},globals.Environment)});
+},
 args: [],
 source: "availablePackageNames\x0a\x09^ Smalltalk packages \x0a\x09\x09collect: [ :each | each name ]",
 messageSends: ["collect:", "packages", "name"],
@@ -339,7 +356,8 @@ _st(protocols)._addAll_(self._availableProtocolsFor_(_st(aClass)._superclass()))
 };
 $2=_st(_st(_st(protocols)._asSet())._asArray())._sort();
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"availableProtocolsFor:",{aClass:aClass,protocols:protocols},globals.Environment)})},
+}, function($ctx1) {$ctx1.fill(self,"availableProtocolsFor:",{aClass:aClass,protocols:protocols},globals.Environment)});
+},
 args: ["aClass"],
 source: "availableProtocolsFor: aClass\x0a\x09| protocols |\x0a\x09\x0a\x09protocols := aClass protocols.\x0a\x09aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].\x0a\x09^ protocols asSet asArray sort",
 messageSends: ["protocols", "ifNotNil:", "superclass", "addAll:", "availableProtocolsFor:", "sort", "asArray", "asSet"],
@@ -358,7 +376,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($ClassBuilder())._new();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"classBuilder",{},globals.Environment)})},
+}, function($ctx1) {$ctx1.fill(self,"classBuilder",{},globals.Environment)});
+},
 args: [],
 source: "classBuilder\x0a\x09^ ClassBuilder new",
 messageSends: ["new"],
@@ -382,7 +401,8 @@ $1=self._error_("Invalid class name");
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"classNamed:",{aString:aString},globals.Environment)})},
+}, function($ctx1) {$ctx1.fill(self,"classNamed:",{aString:aString},globals.Environment)});
+},
 args: ["aString"],
 source: "classNamed: aString\x0a\x09^ (Smalltalk globals at: aString asSymbol)\x0a\x09\x09ifNil: [ self error: 'Invalid class name' ]",
 messageSends: ["ifNil:", "at:", "globals", "asSymbol", "error:"],
@@ -401,7 +421,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Smalltalk())._classes();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"classes",{},globals.Environment)})},
+}, function($ctx1) {$ctx1.fill(self,"classes",{},globals.Environment)});
+},
 args: [],
 source: "classes\x0a\x09^ Smalltalk classes",
 messageSends: ["classes"],
@@ -417,7 +438,8 @@ fn: function (aPackage,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(_st(aPackage)._transport())._commitOnSuccess_onError_(aBlock,anotherBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"commitPackage:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"commitPackage:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.Environment)});
+},
 args: ["aPackage", "aBlock", "anotherBlock"],
 source: "commitPackage: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09aPackage transport\x0a\x09\x09commitOnSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
 messageSends: ["commitOnSuccess:onError:", "transport"],
@@ -433,7 +455,8 @@ fn: function (aString,aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aClass)._comment_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"compileClassComment:for:",{aString:aString,aClass:aClass},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"compileClassComment:for:",{aString:aString,aClass:aClass},globals.Environment)});
+},
 args: ["aString", "aClass"],
 source: "compileClassComment: aString for: aClass\x0a\x09aClass comment: aString",
 messageSends: ["comment:"],
@@ -453,11 +476,14 @@ return smalltalk.withContext(function($ctx1) {
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._evaluate_for_(aString,_st($DoIt())._new());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(error){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}))._on_do_($Error(),(function(error){
 return smalltalk.withContext(function($ctx2) {
 return self._alert_(_st(error)._messageText());
-}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"compileClassDefinition:",{aString:aString},globals.Environment)})},
+}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)});
+}));
+return self}, function($ctx1) {$ctx1.fill(self,"compileClassDefinition:",{aString:aString},globals.Environment)});
+},
 args: ["aString"],
 source: "compileClassDefinition: aString\x0a\x09[ self evaluate: aString for: DoIt new ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :error | self alert: error messageText ]",
 messageSends: ["on:do:", "evaluate:for:", "new", "alert:", "messageText"],
@@ -475,7 +501,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(class_)._compile_protocol_(sourceCode,protocol);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"compileMethod:for:protocol:",{sourceCode:sourceCode,class_:class_,protocol:protocol},globals.Environment)})},
+}, function($ctx1) {$ctx1.fill(self,"compileMethod:for:protocol:",{sourceCode:sourceCode,class_:class_,protocol:protocol},globals.Environment)});
+},
 args: ["sourceCode", "class", "protocol"],
 source: "compileMethod: sourceCode for: class protocol: protocol\x0a\x09^ class\x0a\x09\x09compile: sourceCode\x0a\x09\x09protocol: protocol",
 messageSends: ["compile:protocol:"],
@@ -502,7 +529,8 @@ $ctx1.sendIdx[","]=1;
 self._error_($2);
 };
 _st(_st($ClassBuilder())._new())._copyClass_named_(aClass,aClassName);
-return self}, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,aClassName:aClassName},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,aClassName:aClassName},globals.Environment)});
+},
 args: ["aClass", "aClassName"],
 source: "copyClass: aClass to: aClassName\x0a\x09(Smalltalk globals at: aClassName)\x0a\x09\x09ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].\x0a\x09\x09\x0a\x09ClassBuilder new copyClass: aClass named: aClassName",
 messageSends: ["ifNotNil:", "at:", "globals", "error:", ",", "copyClass:named:", "new"],
@@ -521,7 +549,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($DoIt())._new();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"doItReceiver",{},globals.Environment)})},
+}, function($ctx1) {$ctx1.fill(self,"doItReceiver",{},globals.Environment)});
+},
 args: [],
 source: "doItReceiver\x0a\x09^ DoIt new",
 messageSends: ["new"],
@@ -540,7 +569,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Evaluator())._evaluate_for_(aString,anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},globals.Environment)})},
+}, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},globals.Environment)});
+},
 args: ["aString", "anObject"],
 source: "evaluate: aString for: anObject\x0a\x09^ Evaluator evaluate: aString for: anObject",
 messageSends: ["evaluate:for:"],
@@ -564,8 +594,10 @@ return _st(exceptionBlock)._value_(exception);
 } else {
 return _st(exception)._signal();
 };
-}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"evaluate:on:do:",{aBlock:aBlock,anErrorClass:anErrorClass,exceptionBlock:exceptionBlock},globals.Environment)})},
+}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1,1)});
+}));
+return self}, function($ctx1) {$ctx1.fill(self,"evaluate:on:do:",{aBlock:aBlock,anErrorClass:anErrorClass,exceptionBlock:exceptionBlock},globals.Environment)});
+},
 args: ["aBlock", "anErrorClass", "exceptionBlock"],
 source: "evaluate: aBlock on: anErrorClass do: exceptionBlock\x0a\x09\x22Evaluate a block and catch exceptions happening on the environment stack\x22\x0a\x09\x0a\x09aBlock tryCatch: [ :exception | \x0a\x09\x09(exception isKindOf: (self classNamed: anErrorClass name))\x0a\x09\x09\x09ifTrue: [ exceptionBlock value: exception ]\x0a \x09\x09\x09ifFalse: [ exception signal ] ]",
 messageSends: ["tryCatch:", "ifTrue:ifFalse:", "isKindOf:", "classNamed:", "name", "value:", "signal"],
@@ -582,7 +614,8 @@ var self=this;
 function $Inspector(){return globals.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
 return smalltalk.withContext(function($ctx1) { 
 _st($Inspector())._inspect_(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},globals.Environment)});
+},
 args: ["anObject"],
 source: "inspect: anObject\x0a\x09Inspector inspect: anObject",
 messageSends: ["inspect:"],
@@ -612,7 +645,8 @@ if(smalltalk.assert($2)){
 return self;
 };
 _st(aClass)._package_(package_);
-return self}, function($ctx1) {$ctx1.fill(self,"moveClass:toPackage:",{aClass:aClass,aPackageName:aPackageName,package_:package_},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"moveClass:toPackage:",{aClass:aClass,aPackageName:aPackageName,package_:package_},globals.Environment)});
+},
 args: ["aClass", "aPackageName"],
 source: "moveClass: aClass toPackage: aPackageName\x0a\x09| package |\x0a\x09\x0a\x09package := Package named: aPackageName.\x0a\x09package ifNil: [ self error: 'Invalid package name' ].\x0a\x09package == aClass package ifTrue: [ ^ self ].\x0a\x09\x0a\x09aClass package: package",
 messageSends: ["named:", "ifNil:", "error:", "ifTrue:", "==", "package", "package:"],
@@ -646,7 +680,8 @@ destinationClass;
 };
 _st(destinationClass)._compile_protocol_(_st(aMethod)._source(),_st(aMethod)._protocol());
 _st(_st(aMethod)._methodClass())._removeCompiledMethod_(aMethod);
-return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName,destinationClass:destinationClass},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName,destinationClass:destinationClass},globals.Environment)});
+},
 args: ["aMethod", "aClassName"],
 source: "moveMethod: aMethod toClass: aClassName\x0a\x09| destinationClass |\x0a\x09\x0a\x09destinationClass := self classNamed: aClassName.\x0a\x09destinationClass == aMethod methodClass ifTrue: [ ^ self ].\x0a\x09\x0a\x09aMethod methodClass isMetaclass ifTrue: [ \x0a\x09\x09destinationClass := destinationClass class ].\x0a\x09\x0a\x09destinationClass \x0a\x09\x09compile: aMethod source\x0a\x09\x09protocol: aMethod protocol.\x0a\x09aMethod methodClass \x0a\x09\x09removeCompiledMethod: aMethod",
 messageSends: ["classNamed:", "ifTrue:", "==", "methodClass", "isMetaclass", "class", "compile:protocol:", "source", "protocol", "removeCompiledMethod:"],
@@ -662,7 +697,8 @@ fn: function (aMethod,aProtocol){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aMethod)._protocol_(aProtocol);
-return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toProtocol:",{aMethod:aMethod,aProtocol:aProtocol},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toProtocol:",{aMethod:aMethod,aProtocol:aProtocol},globals.Environment)});
+},
 args: ["aMethod", "aProtocol"],
 source: "moveMethod: aMethod toProtocol: aProtocol\x0a\x09aMethod protocol: aProtocol",
 messageSends: ["protocol:"],
@@ -681,7 +717,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Smalltalk())._packages();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"packages",{},globals.Environment)})},
+}, function($ctx1) {$ctx1.fill(self,"packages",{},globals.Environment)});
+},
 args: [],
 source: "packages\x0a\x09^ Smalltalk packages",
 messageSends: ["packages"],
@@ -698,7 +735,8 @@ var self=this;
 function $ErrorHandler(){return globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 _st($ErrorHandler())._register_(anErrorHandler);
-return self}, function($ctx1) {$ctx1.fill(self,"registerErrorHandler:",{anErrorHandler:anErrorHandler},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"registerErrorHandler:",{anErrorHandler:anErrorHandler},globals.Environment)});
+},
 args: ["anErrorHandler"],
 source: "registerErrorHandler: anErrorHandler\x0a\x09ErrorHandler register: anErrorHandler",
 messageSends: ["register:"],
@@ -715,7 +753,8 @@ var self=this;
 function $Finder(){return globals.Finder||(typeof Finder=="undefined"?nil:Finder)}
 return smalltalk.withContext(function($ctx1) { 
 _st($Finder())._register_(aFinder);
-return self}, function($ctx1) {$ctx1.fill(self,"registerFinder:",{aFinder:aFinder},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"registerFinder:",{aFinder:aFinder},globals.Environment)});
+},
 args: ["aFinder"],
 source: "registerFinder: aFinder\x0a\x09Finder register: aFinder",
 messageSends: ["register:"],
@@ -732,7 +771,8 @@ var self=this;
 function $Inspector(){return globals.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
 return smalltalk.withContext(function($ctx1) { 
 _st($Inspector())._register_(anInspector);
-return self}, function($ctx1) {$ctx1.fill(self,"registerInspector:",{anInspector:anInspector},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"registerInspector:",{anInspector:anInspector},globals.Environment)});
+},
 args: ["anInspector"],
 source: "registerInspector: anInspector\x0a\x09Inspector register: anInspector",
 messageSends: ["register:"],
@@ -749,7 +789,8 @@ var self=this;
 function $ProgressHandler(){return globals.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 return smalltalk.withContext(function($ctx1) { 
 _st($ProgressHandler())._register_(aProgressHandler);
-return self}, function($ctx1) {$ctx1.fill(self,"registerProgressHandler:",{aProgressHandler:aProgressHandler},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"registerProgressHandler:",{aProgressHandler:aProgressHandler},globals.Environment)});
+},
 args: ["aProgressHandler"],
 source: "registerProgressHandler: aProgressHandler\x0a\x09ProgressHandler register: aProgressHandler",
 messageSends: ["register:"],
@@ -766,7 +807,8 @@ var self=this;
 function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
 _st($Transcript())._register_(aTranscript);
-return self}, function($ctx1) {$ctx1.fill(self,"registerTranscript:",{aTranscript:aTranscript},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"registerTranscript:",{aTranscript:aTranscript},globals.Environment)});
+},
 args: ["aTranscript"],
 source: "registerTranscript: aTranscript\x0a\x09Transcript register: aTranscript",
 messageSends: ["register:"],
@@ -783,7 +825,8 @@ var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 _st($Smalltalk())._removeClass_(aClass);
-return self}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},globals.Environment)});
+},
 args: ["aClass"],
 source: "removeClass: aClass\x0a\x09Smalltalk removeClass: aClass",
 messageSends: ["removeClass:"],
@@ -799,7 +842,8 @@ fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(_st(aMethod)._methodClass())._removeCompiledMethod_(aMethod);
-return self}, function($ctx1) {$ctx1.fill(self,"removeMethod:",{aMethod:aMethod},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"removeMethod:",{aMethod:aMethod},globals.Environment)});
+},
 args: ["aMethod"],
 source: "removeMethod: aMethod\x0a\x09aMethod methodClass removeCompiledMethod: aMethod",
 messageSends: ["removeCompiledMethod:", "methodClass"],
@@ -817,8 +861,10 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(aClass)._methodsInProtocol_(aString))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(aClass)._removeCompiledMethod_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"removeProtocol:from:",{aString:aString,aClass:aClass},globals.Environment)})},
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
+return self}, function($ctx1) {$ctx1.fill(self,"removeProtocol:from:",{aString:aString,aClass:aClass},globals.Environment)});
+},
 args: ["aString", "aClass"],
 source: "removeProtocol: aString from: aClass\x0a\x09(aClass methodsInProtocol: aString)\x0a\x09\x09do: [ :each | aClass removeCompiledMethod: each ]",
 messageSends: ["do:", "methodsInProtocol:", "removeCompiledMethod:"],
@@ -845,7 +891,8 @@ $ctx1.sendIdx[","]=1;
 self._error_($2);
 };
 _st(_st($ClassBuilder())._new())._renameClass_to_(aClass,aClassName);
-return self}, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,aClassName:aClassName},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,aClassName:aClassName},globals.Environment)});
+},
 args: ["aClass", "aClassName"],
 source: "renameClass: aClass to: aClassName\x0a\x09(Smalltalk globals at: aClassName)\x0a\x09\x09ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].\x0a\x09\x09\x0a\x09ClassBuilder new renameClass: aClass to: aClassName",
 messageSends: ["ifNotNil:", "at:", "globals", "error:", ",", "renameClass:to:", "new"],
@@ -863,8 +910,10 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(aClass)._methodsInProtocol_(aString))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._protocol_(anotherString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renameProtocol:to:in:",{aString:aString,anotherString:anotherString,aClass:aClass},globals.Environment)})},
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
+return self}, function($ctx1) {$ctx1.fill(self,"renameProtocol:to:in:",{aString:aString,anotherString:anotherString,aClass:aClass},globals.Environment)});
+},
 args: ["aString", "anotherString", "aClass"],
 source: "renameProtocol: aString to: anotherString in: aClass\x0a\x09(aClass methodsInProtocol: aString)\x0a\x09\x09do: [ :each | each protocol: anotherString ]",
 messageSends: ["do:", "methodsInProtocol:", "protocol:"],
@@ -880,7 +929,8 @@ fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aClass)._comment_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"setClassCommentOf:to:",{aClass:aClass,aString:aString},globals.Environment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setClassCommentOf:to:",{aClass:aClass,aString:aString},globals.Environment)});
+},
 args: ["aClass", "aString"],
 source: "setClassCommentOf: aClass to: aString\x0a\x09aClass comment: aString",
 messageSends: ["comment:"],
@@ -899,7 +949,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(_st($Smalltalk())._globals())._at_("SystemAnnouncer"))._current();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},globals.Environment)})},
+}, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},globals.Environment)});
+},
 args: [],
 source: "systemAnnouncer\x0a\x09^ (Smalltalk globals at: #SystemAnnouncer) current",
 messageSends: ["current", "at:", "globals"],
@@ -927,7 +978,8 @@ return false;
 };
 $3=self._compareJSObjectWith_(_st(anObject)._jsObject());
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"=",{anObject:anObject},globals.JSObjectProxy)})},
+}, function($ctx1) {$ctx1.fill(self,"=",{anObject:anObject},globals.JSObjectProxy)});
+},
 args: ["anObject"],
 source: "= anObject\x0a\x09anObject class == self class ifFalse: [ ^ false ].\x0a\x09^ self compareJSObjectWith: anObject jsObject",
 messageSends: ["ifFalse:", "==", "class", "compareJSObjectWith:", "jsObject"],
@@ -947,7 +999,8 @@ return smalltalk.withContext(function($ctx1) {
 			aDictionary._at_put_(i, self['@jsObject'][i]);
 		}
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"addObjectVariablesTo:",{aDictionary:aDictionary},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"addObjectVariablesTo:",{aDictionary:aDictionary},globals.JSObjectProxy)});
+},
 args: ["aDictionary"],
 source: "addObjectVariablesTo: aDictionary\x0a\x09<\x0a\x09\x09for(var i in self['@jsObject']) {\x0a\x09\x09\x09aDictionary._at_put_(i, self['@jsObject'][i]);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -964,6 +1017,7 @@ var self=this;
 var $1;
 $1=self["@jsObject"];
 return $1;
+
 },
 args: [],
 source: "asJSON\x0a\x09\x22Answers the receiver in a stringyfy-friendly fashion\x22\x0a\x0a\x09^ jsObject",
@@ -980,7 +1034,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self['@jsObject'][aString];
-return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},globals.JSObjectProxy)});
+},
 args: ["aString"],
 source: "at: aString\x0a\x09<return self['@jsObject'][aString]>",
 messageSends: [],
@@ -999,7 +1054,8 @@ return smalltalk.withContext(function($ctx1) {
 		var obj = self['@jsObject'];
 		return aString in obj ? obj[aString] : aBlock._value();
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},globals.JSObjectProxy)});
+},
 args: ["aString", "aBlock"],
 source: "at: aString ifAbsent: aBlock\x0a\x09\x22return the aString property or evaluate aBlock if the property is not defined on the object\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? obj[aString] : aBlock._value();\x0a\x09>",
 messageSends: [],
@@ -1018,7 +1074,8 @@ return smalltalk.withContext(function($ctx1) {
 		var obj = self['@jsObject'];
 		return aString in obj ? aBlock._value_(obj[aString]) : nil;
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{aString:aString,aBlock:aBlock},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{aString:aString,aBlock:aBlock},globals.JSObjectProxy)});
+},
 args: ["aString", "aBlock"],
 source: "at: aString ifPresent: aBlock\x0a\x09\x22return the evaluation of aBlock with the value if the property is defined or return nil\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? aBlock._value_(obj[aString]) : nil;\x0a\x09>",
 messageSends: [],
@@ -1037,7 +1094,8 @@ return smalltalk.withContext(function($ctx1) {
 		var obj = self['@jsObject'];
 		return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},globals.JSObjectProxy)});
+},
 args: ["aString", "aBlock", "anotherBlock"],
 source: "at: aString ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22return the evaluation of aBlock with the value if the property is defined\x0a\x09or return value of anotherBlock\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();\x0a\x09>",
 messageSends: [],
@@ -1053,7 +1111,8 @@ fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self['@jsObject'][aString] = anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},globals.JSObjectProxy)});
+},
 args: ["aString", "anObject"],
 source: "at: aString put: anObject\x0a\x09<return self['@jsObject'][aString] = anObject>",
 messageSends: [],
@@ -1069,7 +1128,8 @@ fn: function (aJSObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self["@jsObject"] === aJSObject;
-return self}, function($ctx1) {$ctx1.fill(self,"compareJSObjectWith:",{aJSObject:aJSObject},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"compareJSObjectWith:",{aJSObject:aJSObject},globals.JSObjectProxy)});
+},
 args: ["aJSObject"],
 source: "compareJSObjectWith: aJSObject\x0a \x09<return self[\x22@jsObject\x22] === aJSObject>",
 messageSends: [],
@@ -1095,7 +1155,8 @@ jsSelector=$receiver;
 $1=self._forwardMessage_withArguments_(jsSelector,_st(aMessage)._arguments());
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},globals.JSObjectProxy)})},
+}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},globals.JSObjectProxy)});
+},
 args: ["aMessage"],
 source: "doesNotUnderstand: aMessage\x0a\x09^ (self lookupProperty: aMessage selector asJavaScriptPropertyName)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments ]",
 messageSends: ["ifNil:ifNotNil:", "lookupProperty:", "asJavaScriptPropertyName", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments"],
@@ -1113,7 +1174,8 @@ return smalltalk.withContext(function($ctx1) {
 
 		return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},globals.JSObjectProxy)});
+},
 args: ["aString", "anArray"],
 source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);\x0a\x09>",
 messageSends: [],
@@ -1135,7 +1197,8 @@ _st(variables)._at_put_("#self",self._jsObject());
 _st(anInspector)._setLabel_(self._printString());
 self._addObjectVariablesTo_(variables);
 _st(anInspector)._setVariables_(variables);
-return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},globals.JSObjectProxy)});
+},
 args: ["anInspector"],
 source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self jsObject.\x0a\x09anInspector setLabel: self printString.\x0a\x09self addObjectVariablesTo: variables.\x0a\x09anInspector setVariables: variables",
 messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "addObjectVariablesTo:", "setVariables:"],
@@ -1152,6 +1215,7 @@ var self=this;
 var $1;
 $1=self["@jsObject"];
 return $1;
+
 },
 args: [],
 source: "jsObject\x0a\x09^ jsObject",
@@ -1167,7 +1231,8 @@ protocol: 'accessing',
 fn: function (aJSObject){
 var self=this;
 self["@jsObject"]=aJSObject;
-return self},
+return self
+},
 args: ["aJSObject"],
 source: "jsObject: aJSObject\x0a\x09jsObject := aJSObject",
 messageSends: [],
@@ -1188,7 +1253,8 @@ return smalltalk.withContext(function($ctx1) {
 			aBlock._value_value_(i, o[i]);
 		}
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},globals.JSObjectProxy)});
+},
 args: ["aBlock"],
 source: "keysAndValuesDo: aBlock\x0a\x09<\x0a\x09\x09var o = self['@jsObject'];\x0a\x09\x09for(var i in o) {\x0a\x09\x09\x09aBlock._value_value_(i, o[i]);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
@@ -1204,7 +1270,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return aString in self._jsObject() ? aString : nil;
-return self}, function($ctx1) {$ctx1.fill(self,"lookupProperty:",{aString:aString},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"lookupProperty:",{aString:aString},globals.JSObjectProxy)});
+},
 args: ["aString"],
 source: "lookupProperty: aString\x0a\x09\x22Looks up a property in JS object.\x0a\x09Answer the property if it is present, or nil if it is not present.\x22\x0a\x09\x0a\x09<return aString in self._jsObject() ? aString : nil>",
 messageSends: [],
@@ -1220,7 +1287,8 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aStream)._nextPutAll_(self._printString());
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.JSObjectProxy)});
+},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09aStream nextPutAll: self printString",
 messageSends: ["nextPutAll:", "printString"],
@@ -1241,7 +1309,8 @@ return smalltalk.withContext(function($ctx1) {
 			? js.toString()
 			: Object.prototype.toString.call(js)
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"printString",{},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printString",{},globals.JSObjectProxy)});
+},
 args: [],
 source: "printString\x0a\x09<\x0a\x09\x09var js = self['@jsObject'];\x0a\x09\x09return js.toString\x0a\x09\x09\x09? js.toString()\x0a\x09\x09\x09: Object.prototype.toString.call(js)\x0a\x09>",
 messageSends: [],
@@ -1263,7 +1332,8 @@ _st($2)._jsObject_(aJSObject);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{aJSObject:aJSObject},globals.JSObjectProxy.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:",{aJSObject:aJSObject},globals.JSObjectProxy.klass)});
+},
 args: ["aJSObject"],
 source: "on: aJSObject\x0a\x09^ self new\x0a\x09\x09jsObject: aJSObject;\x0a\x09\x09yourself",
 messageSends: ["jsObject:", "new", "yourself"],
@@ -1282,7 +1352,8 @@ fn: function (aBlock,aCollection,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aCollection)._do_(aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},globals.NullProgressHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},globals.NullProgressHandler)});
+},
 args: ["aBlock", "aCollection", "aString"],
 source: "do: aBlock on: aCollection displaying: aString\x0a\x09aCollection do: aBlock",
 messageSends: ["do:"],
@@ -1301,7 +1372,8 @@ var self=this;
 function $ProgressHandler(){return globals.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 return smalltalk.withContext(function($ctx1) { 
 _st($ProgressHandler())._registerIfNone_(self._new());
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.NullProgressHandler.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.NullProgressHandler.klass)});
+},
 args: [],
 source: "initialize\x0a\x09ProgressHandler registerIfNone: self new",
 messageSends: ["registerIfNone:", "new"],
@@ -1320,7 +1392,8 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self.elements.addElement(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{anObject:anObject},globals.Organizer)})},
+return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{anObject:anObject},globals.Organizer)});
+},
 args: ["anObject"],
 source: "addElement: anObject\x0a\x09<self.elements.addElement(anObject)>",
 messageSends: [],
@@ -1338,7 +1411,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._basicAt_("elements"))._copy();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"elements",{},globals.Organizer)})},
+}, function($ctx1) {$ctx1.fill(self,"elements",{},globals.Organizer)});
+},
 args: [],
 source: "elements\x0a\x09^ (self basicAt: 'elements') copy",
 messageSends: ["copy", "basicAt:"],
@@ -1354,7 +1428,8 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self.elements.removeElement(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{anObject:anObject},globals.Organizer)})},
+return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{anObject:anObject},globals.Organizer)});
+},
 args: ["anObject"],
 source: "removeElement: anObject\x0a\x09<self.elements.removeElement(anObject)>",
 messageSends: [],
@@ -1383,7 +1458,8 @@ _st($1)._protocol_(aString);
 _st($1)._theClass_(self._theClass());
 $2=_st($1)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{aString:aString},globals.ClassOrganizer)})},
+return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{aString:aString},globals.ClassOrganizer)});
+},
 args: ["aString"],
 source: "addElement: aString\x0a\x09super addElement: aString.\x0a\x0a\x09SystemAnnouncer current announce: (ProtocolAdded new\x0a\x09\x09protocol: aString;\x0a\x09\x09theClass: self theClass;\x0a\x09\x09yourself)",
 messageSends: ["addElement:", "announce:", "current", "protocol:", "new", "theClass:", "theClass", "yourself"],
@@ -1408,7 +1484,8 @@ _st($1)._protocol_(aString);
 _st($1)._theClass_(self._theClass());
 $2=_st($1)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{aString:aString},globals.ClassOrganizer)})},
+return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{aString:aString},globals.ClassOrganizer)});
+},
 args: ["aString"],
 source: "removeElement: aString\x0a\x09super removeElement: aString.\x0a\x0a\x09SystemAnnouncer current announce: (ProtocolRemoved new\x0a\x09\x09protocol: aString;\x0a\x09\x09theClass: self theClass;\x0a\x09\x09yourself)",
 messageSends: ["removeElement:", "announce:", "current", "protocol:", "new", "theClass:", "theClass", "yourself"],
@@ -1424,7 +1501,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
  return self.theClass ;
-return self}, function($ctx1) {$ctx1.fill(self,"theClass",{},globals.ClassOrganizer)})},
+return self}, function($ctx1) {$ctx1.fill(self,"theClass",{},globals.ClassOrganizer)});
+},
 args: [],
 source: "theClass\x0a\x09< return self.theClass >",
 messageSends: [],
@@ -1448,7 +1526,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self.pkgName = aString;
-return self}, function($ctx1) {$ctx1.fill(self,"basicName:",{aString:aString},globals.Package)})},
+return self}, function($ctx1) {$ctx1.fill(self,"basicName:",{aString:aString},globals.Package)});
+},
 args: ["aString"],
 source: "basicName: aString\x0a\x09<self.pkgName = aString>",
 messageSends: [],
@@ -1464,7 +1543,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self.transport;
-return self}, function($ctx1) {$ctx1.fill(self,"basicTransport",{},globals.Package)})},
+return self}, function($ctx1) {$ctx1.fill(self,"basicTransport",{},globals.Package)});
+},
 args: [],
 source: "basicTransport\x0a\x09\x22Answer the transport literal JavaScript object as setup in the JavaScript file, if any\x22\x0a\x09\x0a\x09<return self.transport>",
 messageSends: [],
@@ -1487,7 +1567,8 @@ $1=_st($PackageClean())._new();
 _st($1)._package_(self);
 $2=_st($1)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"beClean",{},globals.Package)})},
+return self}, function($ctx1) {$ctx1.fill(self,"beClean",{},globals.Package)});
+},
 args: [],
 source: "beClean\x0a\x09dirty := false.\x0a\x09\x0a\x09SystemAnnouncer current announce: (PackageClean new\x0a\x09\x09package: self;\x0a\x09\x09yourself)",
 messageSends: ["announce:", "current", "package:", "new", "yourself"],
@@ -1510,7 +1591,8 @@ $1=_st($PackageDirty())._new();
 _st($1)._package_(self);
 $2=_st($1)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"beDirty",{},globals.Package)})},
+return self}, function($ctx1) {$ctx1.fill(self,"beDirty",{},globals.Package)});
+},
 args: [],
 source: "beDirty\x0a\x09dirty := true.\x0a\x09\x0a\x09SystemAnnouncer current announce: (PackageDirty new\x0a\x09\x09package: self;\x0a\x09\x09yourself)",
 messageSends: ["announce:", "current", "package:", "new", "yourself"],
@@ -1554,9 +1636,11 @@ _st(stream)._nextPutAll_(self._name());
 $ctx2.sendIdx["nextPutAll:"]=7;
 $7=_st(stream)._nextPutAll_("'");
 return $7;
-}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"classTemplate",{},globals.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"classTemplate",{},globals.Package)});
+},
 args: [],
 source: "classTemplate\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream\x0a\x09\x09\x09nextPutAll: 'Object';\x0a\x09\x09\x09nextPutAll: ' subclass: #NameOfSubclass';\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: 'instanceVariableNames: '''''.\x0a\x09\x09stream\x0a\x09\x09\x09nextPutAll: '''', String lf, String tab;\x0a\x09\x09\x09nextPutAll: 'package: ''';\x0a\x09\x09\x09nextPutAll: self name;\x0a\x09\x09\x09nextPutAll: '''' ]",
 messageSends: ["streamContents:", "nextPutAll:", ",", "lf", "tab", "name"],
@@ -1574,7 +1658,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._organization())._elements();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"classes",{},globals.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"classes",{},globals.Package)});
+},
 args: [],
 source: "classes\x0a\x09^ self organization elements",
 messageSends: ["elements", "organization"],
@@ -1621,9 +1706,11 @@ _st(stream)._nextPutAll_(" transport: (");
 $ctx2.sendIdx["nextPutAll:"]=6;
 $9=_st(stream)._nextPutAll_(_st(_st(self._transport())._definition()).__comma(")"));
 return $9;
-}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"definition",{},globals.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"definition",{},globals.Package)});
+},
 args: [],
 source: "definition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream \x0a\x09\x09\x09nextPutAll: self class name;\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: ' named: ';\x0a\x09\x09\x09nextPutAll: '''', self name, '''';\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll:  ' transport: (';\x0a\x09\x09\x09nextPutAll: self transport definition, ')' ]",
 messageSends: ["streamContents:", "nextPutAll:", "name", "class", ",", "lf", "tab", "definition", "transport"],
@@ -1646,7 +1733,8 @@ $1=false;
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isDirty",{},globals.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"isDirty",{},globals.Package)});
+},
 args: [],
 source: "isDirty\x0a\x09^ dirty ifNil: [ false ]",
 messageSends: ["ifNil:"],
@@ -1661,6 +1749,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return true;
+
 },
 args: [],
 source: "isPackage\x0a\x09^ true",
@@ -1682,13 +1771,16 @@ classes=self._loadDependencyClasses();
 $2=_st(_st(classes)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._package();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._asSet();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+})))._asSet();
 _st($2)._remove_ifAbsent_(self,(function(){
+
 }));
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"loadDependencies",{classes:classes,packages:packages},globals.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"loadDependencies",{classes:classes,packages:packages},globals.Package)});
+},
 args: [],
 source: "loadDependencies\x0a\x09\x22Returns list of packages that need to be loaded\x0a\x09before loading this package.\x22\x0a\x09\x0a\x09| classes packages |\x0a\x09classes := self loadDependencyClasses.\x0a\x09^ (classes collect: [ :each | each package ]) asSet\x0a\x09\x09remove: self ifAbsent: [];\x0a\x09\x09yourself",
 messageSends: ["loadDependencyClasses", "remove:ifAbsent:", "asSet", "collect:", "package", "yourself"],
@@ -1713,9 +1805,11 @@ $ctx1.sendIdx["classes"]=1;
 $3=_st($4)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._superclass();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
 $2=_st($3)._asSet();
 _st($2)._remove_ifAbsent_(nil,(function(){
+
 }));
 _st($2)._addAll_(_st(_st($Smalltalk())._classes())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -1723,11 +1817,13 @@ $6=_st(each)._protocols();
 $ctx2.sendIdx["protocols"]=1;
 $5=_st($6).__comma(_st(_st(each)._class())._protocols());
 return _st($5)._includes_(starCategoryName);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})})));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)});
+})));
 $7=_st($2)._yourself();
 $1=$7;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"loadDependencyClasses",{starCategoryName:starCategoryName},globals.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"loadDependencyClasses",{starCategoryName:starCategoryName},globals.Package)});
+},
 args: [],
 source: "loadDependencyClasses\x0a\x09\x22Returns classes needed at the time of loading a package.\x0a\x09These are all that are used to subclass\x0a\x09and to define an extension method\x22\x0a\x09\x0a\x09| starCategoryName |\x0a\x09starCategoryName := '*', self name.\x0a\x09^ (self classes collect: [ :each | each superclass ]) asSet\x0a\x09\x09remove: nil ifAbsent: [];\x0a\x09\x09addAll: (Smalltalk classes select: [ :each | each protocols, each class protocols includes: starCategoryName ]);\x0a\x09\x09yourself",
 messageSends: [",", "name", "remove:ifAbsent:", "asSet", "collect:", "classes", "superclass", "addAll:", "select:", "includes:", "protocols", "class", "yourself"],
@@ -1743,7 +1839,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self.pkgName;
-return self}, function($ctx1) {$ctx1.fill(self,"name",{},globals.Package)})},
+return self}, function($ctx1) {$ctx1.fill(self,"name",{},globals.Package)});
+},
 args: [],
 source: "name\x0a\x09<return self.pkgName>",
 messageSends: [],
@@ -1760,7 +1857,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._basicName_(aString);
 self._beDirty();
-return self}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},globals.Package)})},
+return self}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},globals.Package)});
+},
 args: ["aString"],
 source: "name: aString\x0a\x09self basicName: aString.\x0a\x09self beDirty",
 messageSends: ["basicName:", "beDirty"],
@@ -1778,7 +1876,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._basicAt_("organization");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"organization",{},globals.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"organization",{},globals.Package)});
+},
 args: [],
 source: "organization\x0a\x09^ self basicAt: 'organization'",
 messageSends: ["basicAt:"],
@@ -1801,7 +1900,8 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._name());
 $ctx1.sendIdx["nextPutAll:"]=2;
 $1=_st(aStream)._nextPutAll_(")");
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.Package)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.Package)});
+},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09aStream \x0a\x09\x09nextPutAll: ' (';\x0a\x09\x09nextPutAll: self name;\x0a\x09\x09nextPutAll: ')'",
 messageSends: ["printOn:", "nextPutAll:", "name"],
@@ -1822,13 +1922,16 @@ $1=self._classes();
 _st($1)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($ClassBuilder())._new())._setupClass_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
 $ctx1.sendIdx["do:"]=1;
 $2=_st($1)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._initialize();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"setupClasses",{},globals.Package)})},
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+}));
+return self}, function($ctx1) {$ctx1.fill(self,"setupClasses",{},globals.Package)});
+},
 args: [],
 source: "setupClasses\x0a\x09self classes\x0a\x09\x09do: [ :each | ClassBuilder new setupClass: each ];\x0a\x09\x09do: [ :each | each initialize ]",
 messageSends: ["do:", "classes", "setupClass:", "new", "initialize"],
@@ -1846,7 +1949,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._class())._sortedClasses_(self._classes());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sortedClasses",{},globals.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"sortedClasses",{},globals.Package)});
+},
 args: [],
 source: "sortedClasses\x0a\x09\x22Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143).\x22\x0a\x0a\x09^ self class sortedClasses: self classes",
 messageSends: ["sortedClasses:", "class", "classes"],
@@ -1874,7 +1978,8 @@ $1=self["@transport"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"transport",{},globals.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"transport",{},globals.Package)});
+},
 args: [],
 source: "transport\x0a\x09^ transport ifNil: [ \x0a\x09\x09transport := (PackageTransport fromJson: self basicTransport)\x0a\x09\x09\x09package: self;\x0a\x09\x09\x09yourself ]",
 messageSends: ["ifNil:", "package:", "fromJson:", "basicTransport", "yourself"],
@@ -1891,7 +1996,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@transport"]=aPackageTransport;
 _st(aPackageTransport)._package_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"transport:",{aPackageTransport:aPackageTransport},globals.Package)})},
+return self}, function($ctx1) {$ctx1.fill(self,"transport:",{aPackageTransport:aPackageTransport},globals.Package)});
+},
 args: ["aPackageTransport"],
 source: "transport: aPackageTransport\x0a\x09transport := aPackageTransport.\x0a\x09aPackageTransport package: self",
 messageSends: ["package:"],
@@ -1913,9 +2019,11 @@ var $1;
 $1=_st($Smalltalk())._packageAt_ifAbsent_(aPackageName,(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st($Smalltalk())._createPackage_(aPackageName);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"named:",{aPackageName:aPackageName},globals.Package.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"named:",{aPackageName:aPackageName},globals.Package.klass)});
+},
 args: ["aPackageName"],
 source: "named: aPackageName\x0a\x09^ Smalltalk \x0a\x09\x09packageAt: aPackageName\x0a\x09\x09ifAbsent: [ \x0a\x09\x09\x09Smalltalk createPackage: aPackageName ]",
 messageSends: ["packageAt:ifAbsent:", "createPackage:"],
@@ -1934,7 +2042,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Smalltalk())._packageAt_ifAbsent_(aPackageName,aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"named:ifAbsent:",{aPackageName:aPackageName,aBlock:aBlock},globals.Package.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"named:ifAbsent:",{aPackageName:aPackageName,aBlock:aBlock},globals.Package.klass)});
+},
 args: ["aPackageName", "aBlock"],
 source: "named: aPackageName ifAbsent: aBlock\x0a\x09^ Smalltalk packageAt: aPackageName ifAbsent: aBlock",
 messageSends: ["packageAt:ifAbsent:"],
@@ -1955,7 +2064,8 @@ package_=self._named_(aPackageName);
 _st(package_)._transport_(aTransport);
 $1=package_;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"named:transport:",{aPackageName:aPackageName,aTransport:aTransport,package_:package_},globals.Package.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"named:transport:",{aPackageName:aPackageName,aTransport:aTransport,package_:package_},globals.Package.klass)});
+},
 args: ["aPackageName", "aTransport"],
 source: "named: aPackageName transport: aTransport\x0a\x09| package |\x0a\x09\x0a\x09package := self named: aPackageName.\x0a\x09package transport: aTransport.\x0a\x09\x0a\x09^ package",
 messageSends: ["named:", "transport:"],
@@ -1985,12 +2095,14 @@ return _st(others)._add_(each);
 return _st(children)._add_(each);
 $ctx2.sendIdx["add:"]=1;
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
 $ctx1.sendIdx["do:"]=1;
 nodes=_st(children)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st($ClassSorterNode())._on_classes_level_(each,others,(0));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)});
+}));
 nodes=_st(nodes)._sorted_((function(a,b){
 return smalltalk.withContext(function($ctx2) {
 $3=_st(a)._theClass();
@@ -1998,15 +2110,18 @@ $ctx2.sendIdx["theClass"]=1;
 $2=_st($3)._name();
 $ctx2.sendIdx["name"]=1;
 return _st($2).__lt_eq(_st(_st(b)._theClass())._name());
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,5)})}));
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,5)});
+}));
 expandedClasses=_st($Array())._new();
 _st(nodes)._do_((function(aNode){
 return smalltalk.withContext(function($ctx2) {
 return _st(aNode)._traverseClassesWith_(expandedClasses);
-}, function($ctx2) {$ctx2.fillBlock({aNode:aNode},$ctx1,6)})}));
+}, function($ctx2) {$ctx2.fillBlock({aNode:aNode},$ctx1,6)});
+}));
 $4=expandedClasses;
 return $4;
-}, function($ctx1) {$ctx1.fill(self,"sortedClasses:",{classes:classes,children:children,others:others,nodes:nodes,expandedClasses:expandedClasses},globals.Package.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"sortedClasses:",{classes:classes,children:children,others:others,nodes:nodes,expandedClasses:expandedClasses},globals.Package.klass)});
+},
 args: ["classes"],
 source: "sortedClasses: classes\x0a\x09\x22Answer classes, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)\x22\x0a\x0a\x09| children others nodes expandedClasses |\x0a\x09children := #().\x0a\x09others := #().\x0a\x09classes do: [ :each |\x0a\x09\x09(classes includes: each superclass)\x0a\x09\x09\x09ifFalse: [ children add: each ]\x0a\x09\x09\x09ifTrue: [ others add: each ]].\x0a\x09nodes := children collect: [ :each |\x0a\x09\x09ClassSorterNode on: each classes: others level: 0 ].\x0a\x09nodes := nodes sorted: [ :a :b | a theClass name <= b theClass name ].\x0a\x09expandedClasses := Array new.\x0a\x09nodes do: [ :aNode |\x0a\x09\x09aNode traverseClassesWith: expandedClasses ].\x0a\x09^ expandedClasses",
 messageSends: ["do:", "ifFalse:ifTrue:", "includes:", "superclass", "add:", "collect:", "on:classes:level:", "sorted:", "<=", "name", "theClass", "new", "traverseClassesWith:"],
@@ -2028,7 +2143,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($SystemAnnouncer())._current();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"announcer",{},globals.PackageStateObserver)})},
+}, function($ctx1) {$ctx1.fill(self,"announcer",{},globals.PackageStateObserver)});
+},
 args: [],
 source: "announcer\x0a\x09^ SystemAnnouncer current",
 messageSends: ["current"],
@@ -2056,7 +2172,8 @@ $ctx1.sendIdx["on:send:to:"]=2;
 _st($1)._on_send_to_($MethodAnnouncement(),"onMethodModification:",self);
 $ctx1.sendIdx["on:send:to:"]=3;
 $2=_st($1)._on_send_to_($ProtocolAnnouncement(),"onProtocolModification:",self);
-return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},globals.PackageStateObserver)})},
+return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},globals.PackageStateObserver)});
+},
 args: [],
 source: "observeSystem\x0a\x09self announcer\x0a\x09\x09on: PackageAdded\x0a\x09\x09send: #onPackageAdded:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: ClassAnnouncement\x0a\x09\x09send: #onClassModification:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: MethodAnnouncement\x0a\x09\x09send: #onMethodModification:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: ProtocolAnnouncement\x0a\x09\x09send: #onProtocolModification:\x0a\x09\x09to: self",
 messageSends: ["on:send:to:", "announcer"],
@@ -2080,7 +2197,8 @@ var theClass;
 theClass=$receiver;
 _st(_st(theClass)._package())._beDirty();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"onClassModification:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onClassModification:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)});
+},
 args: ["anAnnouncement"],
 source: "onClassModification: anAnnouncement\x0a\x09anAnnouncement theClass ifNotNil: [ :theClass | theClass package beDirty ]",
 messageSends: ["ifNotNil:", "theClass", "beDirty", "package"],
@@ -2104,7 +2222,8 @@ var package_;
 package_=$receiver;
 _st(package_)._beDirty();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"onMethodModification:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onMethodModification:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)});
+},
 args: ["anAnnouncement"],
 source: "onMethodModification: anAnnouncement\x0a\x09anAnnouncement method package ifNotNil: [ :package | package beDirty ]",
 messageSends: ["ifNotNil:", "package", "method", "beDirty"],
@@ -2120,7 +2239,8 @@ fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(_st(anAnnouncement)._package())._beDirty();
-return self}, function($ctx1) {$ctx1.fill(self,"onPackageAdded:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onPackageAdded:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)});
+},
 args: ["anAnnouncement"],
 source: "onPackageAdded: anAnnouncement\x0a\x09anAnnouncement package beDirty",
 messageSends: ["beDirty", "package"],
@@ -2144,7 +2264,8 @@ var package_;
 package_=$receiver;
 _st(package_)._beDirty();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"onProtocolModification:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onProtocolModification:",{anAnnouncement:anAnnouncement},globals.PackageStateObserver)});
+},
 args: ["anAnnouncement"],
 source: "onProtocolModification: anAnnouncement\x0a\x09anAnnouncement package ifNotNil: [ :package | package beDirty ]",
 messageSends: ["ifNotNil:", "package", "beDirty"],
@@ -2170,7 +2291,8 @@ $1=self["@current"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"current",{},globals.PackageStateObserver.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"current",{},globals.PackageStateObserver.klass)});
+},
 args: [],
 source: "current\x0a\x09^ current ifNil: [ current := self new ]",
 messageSends: ["ifNil:", "new"],
@@ -2186,7 +2308,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._current())._observeSystem();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.PackageStateObserver.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.PackageStateObserver.klass)});
+},
 args: [],
 source: "initialize\x0a\x09self current observeSystem",
 messageSends: ["observeSystem", "current"],
@@ -2214,7 +2337,8 @@ $1=self._error_("ajax: not available");
 $1=_st(self["@worker"])._ajax_(anObject);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},globals.PlatformInterface.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},globals.PlatformInterface.klass)});
+},
 args: ["anObject"],
 source: "ajax: anObject\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker ajax: anObject ]\x0a\x09\x09ifNil: [ self error: 'ajax: not available' ]",
 messageSends: ["ifNotNil:ifNil:", "ajax:", "error:"],
@@ -2237,7 +2361,8 @@ $1=self._error_("alert: not available");
 $1=_st(self["@worker"])._alert_(aString);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},globals.PlatformInterface.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},globals.PlatformInterface.klass)});
+},
 args: ["aString"],
 source: "alert: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker alert: aString ]\x0a\x09\x09ifNil: [ self error: 'alert: not available' ]",
 messageSends: ["ifNotNil:ifNil:", "alert:", "error:"],
@@ -2260,7 +2385,8 @@ $1=self._error_("confirm: not available");
 $1=_st(self["@worker"])._confirm_(aString);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},globals.PlatformInterface.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},globals.PlatformInterface.klass)});
+},
 args: ["aString"],
 source: "confirm: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker confirm: aString ]\x0a\x09\x09ifNil: [ self error: 'confirm: not available' ]",
 messageSends: ["ifNotNil:ifNil:", "confirm:", "error:"],
@@ -2279,11 +2405,14 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
 return true;
+
 }),(function(){
 return false;
+
 }));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},globals.PlatformInterface.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},globals.PlatformInterface.klass)});
+},
 args: ["aString"],
 source: "existsGlobal: aString\x0a\x09^ PlatformInterface globals \x0a\x09\x09at: aString \x0a\x09\x09ifPresent: [ true ] \x0a\x09\x09ifAbsent: [ false ]",
 messageSends: ["at:ifPresent:ifAbsent:", "globals"],
@@ -2299,7 +2428,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return (new Function('return this'))();;
-return self}, function($ctx1) {$ctx1.fill(self,"globals",{},globals.PlatformInterface.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"globals",{},globals.PlatformInterface.klass)});
+},
 args: [],
 source: "globals\x0a\x09<return (new Function('return this'))();>",
 messageSends: [],
@@ -2330,7 +2460,8 @@ self._setWorker_(candidate);
 return self;
 };
 };
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{candidate:candidate},globals.PlatformInterface.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{candidate:candidate},globals.PlatformInterface.klass)});
+},
 args: [],
 source: "initialize\x0a\x09| candidate |\x0a\x09\x0a\x09super initialize.\x0a\x09\x0a\x09BrowserInterface ifNotNil: [\x0a\x09\x09candidate := BrowserInterface new.\x0a\x09\x09candidate isAvailable ifTrue: [ self setWorker: candidate. ^ self ]\x0a\x09]",
 messageSends: ["initialize", "ifNotNil:", "new", "ifTrue:", "isAvailable", "setWorker:"],
@@ -2353,7 +2484,8 @@ $1=self._error_("prompt: not available");
 $1=_st(self["@worker"])._prompt_(aString);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},globals.PlatformInterface.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},globals.PlatformInterface.klass)});
+},
 args: ["aString"],
 source: "prompt: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker prompt: aString ]\x0a\x09\x09ifNil: [ self error: 'prompt: not available' ]",
 messageSends: ["ifNotNil:ifNil:", "prompt:", "error:"],
@@ -2376,7 +2508,8 @@ $1=self._error_("prompt: not available");
 $1=_st(self["@worker"])._prompt_default_(aString,defaultString);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},globals.PlatformInterface.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},globals.PlatformInterface.klass)});
+},
 args: ["aString", "defaultString"],
 source: "prompt: aString default: defaultString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker prompt: aString default: defaultString ]\x0a\x09\x09ifNil: [ self error: 'prompt: not available' ]",
 messageSends: ["ifNotNil:ifNil:", "prompt:default:", "error:"],
@@ -2391,7 +2524,8 @@ protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 self["@worker"]=anObject;
-return self},
+return self
+},
 args: ["anObject"],
 source: "setWorker: anObject\x0a\x09worker := anObject",
 messageSends: [],
@@ -2413,6 +2547,7 @@ var self=this;
 var $1;
 $1=self["@current"];
 return $1;
+
 },
 args: [],
 source: "current\x0a\x09^ current",
@@ -2429,7 +2564,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._shouldNotImplement();
-return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.Service.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.Service.klass)});
+},
 args: [],
 source: "new\x0a\x09self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
@@ -2444,7 +2580,8 @@ protocol: 'registration',
 fn: function (anObject){
 var self=this;
 self["@current"]=anObject;
-return self},
+return self
+},
 args: ["anObject"],
 source: "register: anObject\x0a\x09current := anObject",
 messageSends: [],
@@ -2466,7 +2603,8 @@ self._register_(anObject);
 } else {
 $1;
 };
-return self}, function($ctx1) {$ctx1.fill(self,"registerIfNone:",{anObject:anObject},globals.Service.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"registerIfNone:",{anObject:anObject},globals.Service.klass)});
+},
 args: ["anObject"],
 source: "registerIfNone: anObject\x0a\x09self current ifNil: [ self register: anObject ]",
 messageSends: ["ifNil:", "current", "register:"],
@@ -2486,7 +2624,8 @@ fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._handleUnhandledError_(anError);
-return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.ErrorHandler.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.ErrorHandler.klass)});
+},
 args: ["anError"],
 source: "handleError: anError\x0a\x09self handleUnhandledError: anError",
 messageSends: ["handleUnhandledError:"],
@@ -2508,7 +2647,8 @@ return self;
 };
 $2=_st(self._current())._handleError_(anError);
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"handleUnhandledError:",{anError:anError},globals.ErrorHandler.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"handleUnhandledError:",{anError:anError},globals.ErrorHandler.klass)});
+},
 args: ["anError"],
 source: "handleUnhandledError: anError\x0a\x09anError wasHandled ifTrue: [ ^ self ].\x0a\x09\x0a\x09^ self current handleError: anError",
 messageSends: ["ifTrue:", "wasHandled", "handleError:", "current"],
@@ -2530,7 +2670,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._current())._findClass_(aClass);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"findClass:",{aClass:aClass},globals.Finder.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"findClass:",{aClass:aClass},globals.Finder.klass)});
+},
 args: ["aClass"],
 source: "findClass: aClass\x0a\x09^ self current findClass: aClass",
 messageSends: ["findClass:", "current"],
@@ -2548,7 +2689,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._current())._findMethod_(aCompiledMethod);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"findMethod:",{aCompiledMethod:aCompiledMethod},globals.Finder.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"findMethod:",{aCompiledMethod:aCompiledMethod},globals.Finder.klass)});
+},
 args: ["aCompiledMethod"],
 source: "findMethod: aCompiledMethod\x0a\x09^ self current findMethod: aCompiledMethod",
 messageSends: ["findMethod:", "current"],
@@ -2566,7 +2708,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._current())._findString_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"findString:",{aString:aString},globals.Finder.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"findString:",{aString:aString},globals.Finder.klass)});
+},
 args: ["aString"],
 source: "findString: aString\x0a\x09^ self current findString: aString",
 messageSends: ["findString:", "current"],
@@ -2588,7 +2731,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._current())._inspect_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},globals.Inspector.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},globals.Inspector.klass)});
+},
 args: ["anObject"],
 source: "inspect: anObject\x0a\x09^ self current inspect: anObject",
 messageSends: ["inspect:", "current"],
@@ -2608,7 +2752,8 @@ fn: function (aBlock,aCollection,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._current())._do_on_displaying_(aBlock,aCollection,aString);
-return self}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},globals.ProgressHandler.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},globals.ProgressHandler.klass)});
+},
 args: ["aBlock", "aCollection", "aString"],
 source: "do: aBlock on: aCollection displaying: aString\x0a\x09self current do: aBlock on: aCollection displaying: aString",
 messageSends: ["do:on:displaying:", "current"],
@@ -2628,7 +2773,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._current())._clear();
-return self}, function($ctx1) {$ctx1.fill(self,"clear",{},globals.Transcript.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"clear",{},globals.Transcript.klass)});
+},
 args: [],
 source: "clear\x0a\x09self current clear",
 messageSends: ["clear", "current"],
@@ -2645,7 +2791,8 @@ var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 _st(self._current())._show_(_st($String())._cr());
-return self}, function($ctx1) {$ctx1.fill(self,"cr",{},globals.Transcript.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"cr",{},globals.Transcript.klass)});
+},
 args: [],
 source: "cr\x0a\x09self current show: String cr",
 messageSends: ["show:", "current", "cr"],
@@ -2661,7 +2808,8 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._show_(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},globals.Transcript.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},globals.Transcript.klass)});
+},
 args: ["anObject"],
 source: "inspect: anObject\x0a\x09self show: anObject",
 messageSends: ["show:"],
@@ -2677,7 +2825,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._current())._open();
-return self}, function($ctx1) {$ctx1.fill(self,"open",{},globals.Transcript.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"open",{},globals.Transcript.klass)});
+},
 args: [],
 source: "open\x0a\x09self current open",
 messageSends: ["open", "current"],
@@ -2693,7 +2842,8 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._current())._show_(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},globals.Transcript.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},globals.Transcript.klass)});
+},
 args: ["anObject"],
 source: "show: anObject\x0a\x09self current show: anObject",
 messageSends: ["show:", "current"],
@@ -2713,6 +2863,7 @@ var self=this;
 var $1;
 $1=self["@defaultValue"];
 return $1;
+
 },
 args: [],
 source: "defaultValue\x0a\x09^ defaultValue",
@@ -2728,7 +2879,8 @@ protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 self["@defaultValue"]=anObject;
-return self},
+return self
+},
 args: ["anObject"],
 source: "defaultValue: anObject\x0a\x09defaultValue := anObject",
 messageSends: [],
@@ -2745,6 +2897,7 @@ var self=this;
 var $1;
 $1=self["@key"];
 return $1;
+
 },
 args: [],
 source: "key\x0a\x09^ key",
@@ -2760,7 +2913,8 @@ protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 self["@key"]=anObject;
-return self},
+return self
+},
 args: ["anObject"],
 source: "key: anObject\x0a\x09key := anObject",
 messageSends: [],
@@ -2780,9 +2934,11 @@ var $1;
 $1=_st(_st($Smalltalk())._settings())._at_ifAbsent_(self._key(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._defaultValue();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"value",{},globals.Setting)})},
+}, function($ctx1) {$ctx1.fill(self,"value",{},globals.Setting)});
+},
 args: [],
 source: "value\x0a\x09^ Smalltalk settings at: self key ifAbsent: [ self defaultValue ]",
 messageSends: ["at:ifAbsent:", "settings", "key", "defaultValue"],
@@ -2801,7 +2957,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st($Smalltalk())._settings())._at_put_(self._key(),aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"value:",{aString:aString},globals.Setting)})},
+}, function($ctx1) {$ctx1.fill(self,"value:",{aString:aString},globals.Setting)});
+},
 args: ["aString"],
 source: "value: aString\x0a\x09^ Smalltalk settings at: self key put: aString",
 messageSends: ["at:put:", "settings", "key"],
@@ -2825,7 +2982,8 @@ _st($2)._defaultValue_(anotherString);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,anotherString:anotherString},globals.Setting.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,anotherString:anotherString},globals.Setting.klass)});
+},
 args: ["aString", "anotherString"],
 source: "at: aString ifAbsent: anotherString\x0a\x09^ super new\x0a\x09\x09key: aString;\x0a\x09\x09defaultValue: anotherString;\x0a\x09\x09yourself",
 messageSends: ["key:", "new", "defaultValue:", "yourself"],
@@ -2841,7 +2999,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._shouldNotImplement();
-return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.Setting.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.Setting.klass)});
+},
 args: [],
 source: "new\x0a\x09self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
@@ -2860,7 +3019,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._globalJsVariables())._add_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"addGlobalJsVariable:",{aString:aString},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"addGlobalJsVariable:",{aString:aString},globals.SmalltalkImage)});
+},
 args: ["aString"],
 source: "addGlobalJsVariable: aString\x0a\x09self globalJsVariables add: aString",
 messageSends: ["add:", "globalJsVariables"],
@@ -2878,7 +3038,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._vm())._at_("amdRequire");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"amdRequire",{},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"amdRequire",{},globals.SmalltalkImage)});
+},
 args: [],
 source: "amdRequire\x0a\x09^ self vm at: 'amdRequire'",
 messageSends: ["at:", "vm"],
@@ -2899,14 +3060,16 @@ var $2,$1;
 $2=_st(self._isSmalltalkObject_(anObject))._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(anObject)._isKindOf_($Error());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}));
 if(smalltalk.assert($2)){
 $1=anObject;
 } else {
 $1=_st($JavaScriptException())._on_(anObject);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSmalltalkException:",{anObject:anObject},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"asSmalltalkException:",{anObject:anObject},globals.SmalltalkImage)});
+},
 args: ["anObject"],
 source: "asSmalltalkException: anObject\x0a\x09\x22A JavaScript exception may be thrown.\x0a\x09We then need to convert it back to a Smalltalk object\x22\x0a\x09\x0a\x09^ ((self isSmalltalkObject: anObject) and: [ anObject isKindOf: Error ])\x0a\x09\x09ifTrue: [ anObject ]\x0a\x09\x09ifFalse: [ JavaScriptException on: anObject ]",
 messageSends: ["ifTrue:ifFalse:", "and:", "isSmalltalkObject:", "isKindOf:", "on:"],
@@ -2925,7 +3088,8 @@ var $1;
 self._deprecatedAPI();
 $1=_st(self._globals())._at_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},globals.SmalltalkImage)});
+},
 args: ["aString"],
 source: "at: aString\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aString",
 messageSends: ["deprecatedAPI", "at:", "globals"],
@@ -2944,7 +3108,8 @@ var $1;
 self._deprecatedAPI();
 $1=_st(self._globals())._at_ifAbsent_(aKey,aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},globals.SmalltalkImage)});
+},
 args: ["aKey", "aBlock"],
 source: "at: aKey ifAbsent: aBlock\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aKey ifAbsent: aBlock",
 messageSends: ["deprecatedAPI", "at:ifAbsent:", "globals"],
@@ -2963,7 +3128,8 @@ var $1;
 self._deprecatedAPI();
 $1=_st(self._globals())._at_put_(aString,anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},globals.SmalltalkImage)});
+},
 args: ["aString", "anObject"],
 source: "at: aString put: anObject\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aString put: anObject",
 messageSends: ["deprecatedAPI", "at:put:", "globals"],
@@ -2979,7 +3145,8 @@ fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.addPackage(packageName);
-return self}, function($ctx1) {$ctx1.fill(self,"basicCreatePackage:",{packageName:packageName},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"basicCreatePackage:",{packageName:packageName},globals.SmalltalkImage)});
+},
 args: ["packageName"],
 source: "basicCreatePackage: packageName\x0a\x09\x22Create and bind a new bare package with given name and return it.\x22\x0a\x09<return smalltalk.addPackage(packageName)>",
 messageSends: [],
@@ -2998,7 +3165,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($SmalltalkParser())._parse_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"basicParse:",{aString:aString},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"basicParse:",{aString:aString},globals.SmalltalkImage)});
+},
 args: ["aString"],
 source: "basicParse: aString\x0a\x09^ SmalltalkParser parse: aString",
 messageSends: ["parse:"],
@@ -3014,7 +3182,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.classes();
-return self}, function($ctx1) {$ctx1.fill(self,"classes",{},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"classes",{},globals.SmalltalkImage)});
+},
 args: [],
 source: "classes\x0a\x09<return smalltalk.classes()>",
 messageSends: [],
@@ -3041,7 +3210,8 @@ announcement=$2;
 _st(_st($SystemAnnouncer())._current())._announce_(announcement);
 $3=package_;
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"createPackage:",{packageName:packageName,package_:package_,announcement:announcement},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"createPackage:",{packageName:packageName,package_:package_,announcement:announcement},globals.SmalltalkImage)});
+},
 args: ["packageName"],
 source: "createPackage: packageName\x0a\x09| package announcement |\x0a\x09\x0a\x09package := self basicCreatePackage: packageName.\x0a\x09\x0a\x09announcement := PackageAdded new\x0a\x09\x09package: package;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09SystemAnnouncer current announce: announcement.\x0a\x09\x0a\x09^ package",
 messageSends: ["basicCreatePackage:", "package:", "new", "yourself", "announce:", "current"],
@@ -3064,7 +3234,8 @@ self._error_("createPackage:properties: called with nonempty properties");
 };
 $2=self._createPackage_(packageName);
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"createPackage:properties:",{packageName:packageName,aDict:aDict},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"createPackage:properties:",{packageName:packageName,aDict:aDict},globals.SmalltalkImage)});
+},
 args: ["packageName", "aDict"],
 source: "createPackage: packageName properties: aDict\x0a\x09\x22Needed to import .st files: they begin with this call.\x22\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].\x0a\x09^ self createPackage: packageName",
 messageSends: ["deprecatedAPI", "ifFalse:", "isEmpty", "error:", "createPackage:"],
@@ -3081,7 +3252,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._deprecatedAPI();
 return self;
-}, function($ctx1) {$ctx1.fill(self,"current",{},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"current",{},globals.SmalltalkImage)});
+},
 args: [],
 source: "current\x0a\x09\x22Backward compatibility for Smalltalk current ...\x22\x0a\x09self deprecatedAPI.\x0a\x09^ self",
 messageSends: ["deprecatedAPI"],
@@ -3099,7 +3271,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1="transport.defaultAmdNamespace"._settingValue();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},globals.SmalltalkImage)});
+},
 args: [],
 source: "defaultAmdNamespace\x0a\x09^ 'transport.defaultAmdNamespace' settingValue",
 messageSends: ["settingValue"],
@@ -3115,7 +3288,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 "transport.defaultAmdNamespace"._settingValue_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace:",{aString:aString},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace:",{aString:aString},globals.SmalltalkImage)});
+},
 args: ["aString"],
 source: "defaultAmdNamespace: aString\x0a\x09'transport.defaultAmdNamespace' settingValue: aString",
 messageSends: ["settingValue:"],
@@ -3131,7 +3305,8 @@ fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.removeClass(aClass);
-return self}, function($ctx1) {$ctx1.fill(self,"deleteClass:",{aClass:aClass},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"deleteClass:",{aClass:aClass},globals.SmalltalkImage)});
+},
 args: ["aClass"],
 source: "deleteClass: aClass\x0a\x09\x22Deletes a class by deleting its binding only. Use #removeClass instead\x22\x0a\x09\x0a\x09<smalltalk.removeClass(aClass)>",
 messageSends: [],
@@ -3147,8 +3322,10 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._globalJsVariables())._remove_ifAbsent_(aString,(function(){
+
 }));
-return self}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},globals.SmalltalkImage)});
+},
 args: ["aString"],
 source: "deleteGlobalJsVariable: aString\x0a\x09self globalJsVariables remove: aString ifAbsent:[]",
 messageSends: ["remove:ifAbsent:", "globalJsVariables"],
@@ -3164,7 +3341,8 @@ fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 delete smalltalk.packages[packageName];
-return self}, function($ctx1) {$ctx1.fill(self,"deletePackage:",{packageName:packageName},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"deletePackage:",{packageName:packageName},globals.SmalltalkImage)});
+},
 args: ["packageName"],
 source: "deletePackage: packageName\x0a\x09\x22Deletes a package by deleting its binding, but does not check if it contains classes etc.\x0a\x09To remove a package, use #removePackage instead.\x22\x0a\x0a\x09<delete smalltalk.packages[packageName]>",
 messageSends: [],
@@ -3180,7 +3358,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.globalJsVariables;
-return self}, function($ctx1) {$ctx1.fill(self,"globalJsVariables",{},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"globalJsVariables",{},globals.SmalltalkImage)});
+},
 args: [],
 source: "globalJsVariables\x0a\x09\x22Array of global JavaScript variables\x22\x0a\x09<return smalltalk.globalJsVariables>",
 messageSends: [],
@@ -3196,7 +3375,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return globals;
-return self}, function($ctx1) {$ctx1.fill(self,"globals",{},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"globals",{},globals.SmalltalkImage)});
+},
 args: [],
 source: "globals\x0a\x09\x22Future compatibility to be able to use Smalltalk globals at: ...\x22\x0a\x09<return globals>",
 messageSends: [],
@@ -3212,7 +3392,8 @@ fn: function (aKey){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.hasOwnProperty(aKey);
-return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey},globals.SmalltalkImage)});
+},
 args: ["aKey"],
 source: "includesKey: aKey\x0a\x09<return smalltalk.hasOwnProperty(aKey)>",
 messageSends: [],
@@ -3228,7 +3409,8 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return typeof anObject.klass !== 'undefined';
-return self}, function($ctx1) {$ctx1.fill(self,"isSmalltalkObject:",{anObject:anObject},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"isSmalltalkObject:",{anObject:anObject},globals.SmalltalkImage)});
+},
 args: ["anObject"],
 source: "isSmalltalkObject: anObject\x0a\x09\x22Consider anObject a Smalltalk object if it has a 'klass' property.\x0a\x09Note that this may be unaccurate\x22\x0a\x09\x0a\x09<return typeof anObject.klass !== 'undefined'>",
 messageSends: [],
@@ -3244,7 +3426,8 @@ fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.packages[packageName];
-return self}, function($ctx1) {$ctx1.fill(self,"packageAt:",{packageName:packageName},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"packageAt:",{packageName:packageName},globals.SmalltalkImage)});
+},
 args: ["packageName"],
 source: "packageAt: packageName\x0a\x09<return smalltalk.packages[packageName]>",
 messageSends: [],
@@ -3263,7 +3446,8 @@ var $2,$1;
 $2=self._packageAt_(packageName);
 $1=_st($2)._ifNil_(aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"packageAt:ifAbsent:",{packageName:packageName,aBlock:aBlock},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"packageAt:ifAbsent:",{packageName:packageName,aBlock:aBlock},globals.SmalltalkImage)});
+},
 args: ["packageName", "aBlock"],
 source: "packageAt: packageName ifAbsent: aBlock\x0a\x09^ (self packageAt: packageName) ifNil: aBlock",
 messageSends: ["ifNil:", "packageAt:"],
@@ -3283,7 +3467,8 @@ return smalltalk.withContext(function($ctx1) {
 			return smalltalk.packages[k];
 		})
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"packages",{},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"packages",{},globals.SmalltalkImage)});
+},
 args: [],
 source: "packages\x0a\x09\x22Return all Package instances in the system.\x22\x0a\x0a\x09<\x0a\x09\x09return Object.keys(smalltalk.packages).map(function(k) {\x0a\x09\x09\x09return smalltalk.packages[k];\x0a\x09\x09})\x0a\x09>",
 messageSends: [],
@@ -3304,16 +3489,19 @@ _st((function(){
 return smalltalk.withContext(function($ctx2) {
 result=self._basicParse_(aString);
 return result;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._tryCatch_((function(ex){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}))._tryCatch_((function(ex){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._parseError_parsing_(ex,aString))._signal();
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)});
+}));
 $2=result;
 _st($2)._source_(aString);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString,result:result},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString,result:result},globals.SmalltalkImage)});
+},
 args: ["aString"],
 source: "parse: aString\x0a\x09| result |\x0a\x09\x0a\x09[ result := self basicParse: aString ] \x0a\x09\x09tryCatch: [ :ex | (self parseError: ex parsing: aString) signal ].\x0a\x09\x09\x0a\x09^ result\x0a\x09\x09source: aString;\x0a\x09\x09yourself",
 messageSends: ["tryCatch:", "basicParse:", "signal", "parseError:parsing:", "source:", "yourself"],
@@ -3346,7 +3534,8 @@ $3=_st($4).__comma(_st(anException)._basicAt_("found"));
 $ctx1.sendIdx[","]=1;
 $1=_st($2)._messageText_($3);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parseError:parsing:",{anException:anException,aString:aString},globals.SmalltalkImage)})},
+}, function($ctx1) {$ctx1.fill(self,"parseError:parsing:",{anException:anException,aString:aString},globals.SmalltalkImage)});
+},
 args: ["anException", "aString"],
 source: "parseError: anException parsing: aString\x0a\x09^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')",
 messageSends: ["messageText:", "new", ",", "basicAt:"],
@@ -3363,6 +3552,7 @@ var self=this;
 var $1;
 $1=["self", "super", "nil", "true", "false", "thisContext"];
 return $1;
+
 },
 args: [],
 source: "pseudoVariableNames\x0a\x09^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')",
@@ -3379,7 +3569,8 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.readJSObject(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"readJSObject:",{anObject:anObject},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"readJSObject:",{anObject:anObject},globals.SmalltalkImage)});
+},
 args: ["anObject"],
 source: "readJSObject: anObject\x0a\x09<return smalltalk.readJSObject(anObject)>",
 messageSends: [],
@@ -3406,7 +3597,8 @@ $2=_st($ClassRemoved())._new();
 _st($2)._theClass_(aClass);
 $3=_st($2)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($3);
-return self}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},globals.SmalltalkImage)});
+},
 args: ["aClass"],
 source: "removeClass: aClass\x0a\x09aClass isMetaclass ifTrue: [ self error: aClass asString, ' is a Metaclass and cannot be removed!' ].\x0a\x09\x0a\x09self deleteClass: aClass.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassRemoved new\x0a\x09\x09\x09theClass: aClass;\x0a\x09\x09\x09yourself)",
 messageSends: ["ifTrue:", "isMetaclass", "error:", ",", "asString", "deleteClass:", "announce:", "current", "theClass:", "new", "yourself"],
@@ -3425,13 +3617,16 @@ return smalltalk.withContext(function($ctx1) {
 pkg=self._packageAt_ifAbsent_(packageName,(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._error_("Missing package: ".__comma(packageName));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}));
 _st(_st(pkg)._classes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._removeClass_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+}));
 self._deletePackage_(packageName);
-return self}, function($ctx1) {$ctx1.fill(self,"removePackage:",{packageName:packageName,pkg:pkg},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"removePackage:",{packageName:packageName,pkg:pkg},globals.SmalltalkImage)});
+},
 args: ["packageName"],
 source: "removePackage: packageName\x0a\x09\x22Removes a package and all its classes.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [ self error: 'Missing package: ', packageName ].\x0a\x09pkg classes do: [ :each |\x0a\x09\x09\x09self removeClass: each ].\x0a\x09self deletePackage: packageName",
 messageSends: ["packageAt:ifAbsent:", "error:", ",", "do:", "classes", "removeClass:", "deletePackage:"],
@@ -3454,7 +3649,8 @@ $1="Missing package: ".__comma(packageName);
 $ctx2.sendIdx[","]=1;
 return self._error_($1);
 $ctx2.sendIdx["error:"]=1;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}));
 $2=self._packageAt_(newName);
 if(($receiver = $2) == null || $receiver.isNil){
 $2;
@@ -3464,7 +3660,8 @@ self._error_("Already exists a package called: ".__comma(newName));
 _st(self._at_("packages"))._at_put_(newName,pkg);
 _st(pkg)._name_(newName);
 self._deletePackage_(packageName);
-return self}, function($ctx1) {$ctx1.fill(self,"renamePackage:to:",{packageName:packageName,newName:newName,pkg:pkg},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renamePackage:to:",{packageName:packageName,newName:newName,pkg:pkg},globals.SmalltalkImage)});
+},
 args: ["packageName", "newName"],
 source: "renamePackage: packageName to: newName\x0a\x09\x22Rename a package.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [ self error: 'Missing package: ', packageName ].\x0a\x09(self packageAt: newName) ifNotNil: [ self error: 'Already exists a package called: ', newName ].\x0a\x09(self at: 'packages') at: newName put: pkg.\x0a\x09pkg name: newName.\x0a\x09self deletePackage: packageName.",
 messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "at:put:", "at:", "name:", "deletePackage:"],
@@ -3480,7 +3677,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.reservedWords;
-return self}, function($ctx1) {$ctx1.fill(self,"reservedWords",{},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"reservedWords",{},globals.SmalltalkImage)});
+},
 args: [],
 source: "reservedWords\x0a\x09\x22JavaScript reserved words\x22\x0a\x09<return smalltalk.reservedWords>",
 messageSends: [],
@@ -3496,6 +3694,7 @@ fn: function (){
 var self=this;
 function $SmalltalkSettings(){return globals.SmalltalkSettings||(typeof SmalltalkSettings=="undefined"?nil:SmalltalkSettings)}
 return $SmalltalkSettings();
+
 },
 args: [],
 source: "settings\x0a\x09^ SmalltalkSettings",
@@ -3511,6 +3710,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return "0.13.0-pre";
+
 },
 args: [],
 source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.13.0-pre'",
@@ -3527,7 +3727,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk;
-return self}, function($ctx1) {$ctx1.fill(self,"vm",{},globals.SmalltalkImage)})},
+return self}, function($ctx1) {$ctx1.fill(self,"vm",{},globals.SmalltalkImage)});
+},
 args: [],
 source: "vm\x0a\x09\x22Future compatibility to be able to use Smalltalk vm ...\x22\x0a\x09<return smalltalk>",
 messageSends: [],
@@ -3555,7 +3756,8 @@ self._deprecatedAPI();
 $1=self["@current"];
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"current",{},globals.SmalltalkImage.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"current",{},globals.SmalltalkImage.klass)});
+},
 args: [],
 source: "current\x0a\x09^ current ifNil: [ current := super new ] ifNotNil: [ self deprecatedAPI. current ]",
 messageSends: ["ifNil:ifNotNil:", "new", "deprecatedAPI"],
@@ -3571,7 +3773,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(globals)._at_put_("Smalltalk",self._current());
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.SmalltalkImage.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.SmalltalkImage.klass)});
+},
 args: [],
 source: "initialize\x0a\x09globals at: 'Smalltalk' put: self current",
 messageSends: ["at:put:", "current"],
@@ -3587,7 +3790,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._shouldNotImplement();
-return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.SmalltalkImage.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.SmalltalkImage.klass)});
+},
 args: [],
 source: "new\x0a\x09self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
@@ -3604,7 +3808,8 @@ var self=this;
 function $ProgressHandler(){return globals.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 return smalltalk.withContext(function($ctx1) { 
 _st($ProgressHandler())._do_on_displaying_(aBlock,self,aString);
-return self}, function($ctx1) {$ctx1.fill(self,"do:displayingProgress:",{aBlock:aBlock,aString:aString},globals.SequenceableCollection)})},
+return self}, function($ctx1) {$ctx1.fill(self,"do:displayingProgress:",{aBlock:aBlock,aString:aString},globals.SequenceableCollection)});
+},
 args: ["aBlock", "aString"],
 source: "do: aBlock displayingProgress: aString\x0a\x09ProgressHandler \x0a\x09\x09do: aBlock \x0a\x09\x09on: self \x0a\x09\x09displaying: aString",
 messageSends: ["do:on:displaying:"],
@@ -3620,7 +3825,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.st2prop(self);
-return self}, function($ctx1) {$ctx1.fill(self,"asJavaScriptPropertyName",{},globals.String)})},
+return self}, function($ctx1) {$ctx1.fill(self,"asJavaScriptPropertyName",{},globals.String)});
+},
 args: [],
 source: "asJavaScriptPropertyName\x0a<return smalltalk.st2prop(self)>",
 messageSends: [],
@@ -3638,7 +3844,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._asJavaScriptPropertyName();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},globals.String)})},
+}, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},globals.String)});
+},
 args: [],
 source: "asJavaScriptSelector\x0a\x09\x22Cannot add next line as it breaks commit:\x0a\x09self deprecatedAPI: 'Use #asJavaScriptPropertyName'.\x22\x0a\x0a\x09^ self asJavaScriptPropertyName",
 messageSends: ["asJavaScriptPropertyName"],
@@ -3657,7 +3864,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Setting())._at_ifAbsent_(self,nil);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSetting",{},globals.String)})},
+}, function($ctx1) {$ctx1.fill(self,"asSetting",{},globals.String)});
+},
 args: [],
 source: "asSetting\x0a\x09^ Setting at: self ifAbsent: nil",
 messageSends: ["at:ifAbsent:"],
@@ -3676,7 +3884,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Setting())._at_ifAbsent_(self,aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSettingIfAbsent:",{aString:aString},globals.String)})},
+}, function($ctx1) {$ctx1.fill(self,"asSettingIfAbsent:",{aString:aString},globals.String)});
+},
 args: ["aString"],
 source: "asSettingIfAbsent: aString\x0a\x09^ Setting at: self ifAbsent: aString",
 messageSends: ["at:ifAbsent:"],
@@ -3694,7 +3903,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._asSetting())._value();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"settingValue",{},globals.String)})},
+}, function($ctx1) {$ctx1.fill(self,"settingValue",{},globals.String)});
+},
 args: [],
 source: "settingValue\x0a\x09^ self asSetting value",
 messageSends: ["value", "asSetting"],
@@ -3712,7 +3922,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._asSetting())._value_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"settingValue:",{aString:aString},globals.String)})},
+}, function($ctx1) {$ctx1.fill(self,"settingValue:",{aString:aString},globals.String)});
+},
 args: ["aString"],
 source: "settingValue: aString\x0a\x09^ self asSetting value: aString",
 messageSends: ["value:", "asSetting"],
@@ -3730,7 +3941,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._asSettingIfAbsent_(aString))._value();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"settingValueIfAbsent:",{aString:aString},globals.String)})},
+}, function($ctx1) {$ctx1.fill(self,"settingValueIfAbsent:",{aString:aString},globals.String)});
+},
 args: ["aString"],
 source: "settingValueIfAbsent: aString\x0a\x09^ (self asSettingIfAbsent: aString) value",
 messageSends: ["value", "asSettingIfAbsent:"],

@@ -15,7 +15,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(jQuery)._ajax_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},globals.BrowserInterface)})},
+}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},globals.BrowserInterface)});
+},
 args: ["anObject"],
 source: "ajax: anObject\x0a\x09^ jQuery ajax: anObject",
 messageSends: ["ajax:"],
@@ -33,7 +34,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(window)._alert_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},globals.BrowserInterface)})},
+}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},globals.BrowserInterface)});
+},
 args: ["aString"],
 source: "alert: aString\x0a\x09^ window alert: aString",
 messageSends: ["alert:"],
@@ -51,7 +53,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(window)._confirm_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},globals.BrowserInterface)})},
+}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},globals.BrowserInterface)});
+},
 args: ["aString"],
 source: "confirm: aString\x0a\x09^ window confirm: aString",
 messageSends: ["confirm:"],
@@ -67,7 +70,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return typeof window !== "undefined" && typeof jQuery !== "undefined";
-return self}, function($ctx1) {$ctx1.fill(self,"isAvailable",{},globals.BrowserInterface)})},
+return self}, function($ctx1) {$ctx1.fill(self,"isAvailable",{},globals.BrowserInterface)});
+},
 args: [],
 source: "isAvailable\x0a<return typeof window !== \x22undefined\x22 && typeof jQuery !== \x22undefined\x22>",
 messageSends: [],
@@ -85,7 +89,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(window)._prompt_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},globals.BrowserInterface)})},
+}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},globals.BrowserInterface)});
+},
 args: ["aString"],
 source: "prompt: aString\x0a\x09^ window prompt: aString",
 messageSends: ["prompt:"],
@@ -103,7 +108,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(window)._prompt_default_(aString,defaultString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},globals.BrowserInterface)})},
+}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},globals.BrowserInterface)});
+},
 args: ["aString", "defaultString"],
 source: "prompt: aString default: defaultString\x0a\x09^ window prompt: aString default: defaultString",
 messageSends: ["prompt:default:"],
@@ -125,7 +131,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("a");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"a",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"a",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "a\x0a\x09^ self tag: 'a'",
 messageSends: ["tag:"],
@@ -143,7 +150,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("abbr");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"abbr",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"abbr",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "abbr\x0a\x09^ self tag: 'abbr'",
 messageSends: ["tag:"],
@@ -161,7 +169,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("address");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"address",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"address",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "address\x0a\x09^ self tag: 'address'",
 messageSends: ["tag:"],
@@ -179,7 +188,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("area");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"area",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"area",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "area\x0a\x09^ self tag: 'area'",
 messageSends: ["tag:"],
@@ -197,7 +207,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("article");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"article",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"article",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "article\x0a\x09^ self tag: 'article'",
 messageSends: ["tag:"],
@@ -215,7 +226,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("aside");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"aside",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"aside",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "aside\x0a\x09^ self tag: 'aside'",
 messageSends: ["tag:"],
@@ -233,7 +245,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("audio");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"audio",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"audio",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "audio\x0a\x09^ self tag: 'audio'",
 messageSends: ["tag:"],
@@ -251,7 +264,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("base");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"base",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"base",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "base\x0a\x09^ self tag: 'base'",
 messageSends: ["tag:"],
@@ -269,7 +283,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("blockquote");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"blockquote",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"blockquote",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "blockquote\x0a\x09^ self tag: 'blockquote'",
 messageSends: ["tag:"],
@@ -287,7 +302,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("body");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"body",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"body",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "body\x0a\x09^ self tag: 'body'",
 messageSends: ["tag:"],
@@ -305,7 +321,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("br");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"br",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"br",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "br\x0a\x09^ self tag: 'br'",
 messageSends: ["tag:"],
@@ -323,7 +340,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("button");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"button",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"button",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "button\x0a\x09^ self tag: 'button'",
 messageSends: ["tag:"],
@@ -341,7 +359,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("canvas");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"canvas",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"canvas",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "canvas\x0a\x09^ self tag: 'canvas'",
 messageSends: ["tag:"],
@@ -359,7 +378,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("caption");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"caption",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"caption",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "caption\x0a\x09^ self tag: 'caption'",
 messageSends: ["tag:"],
@@ -377,7 +397,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("cite");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"cite",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"cite",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "cite\x0a\x09^ self tag: 'cite'",
 messageSends: ["tag:"],
@@ -395,7 +416,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("code");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"code",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"code",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "code\x0a\x09^ self tag: 'code'",
 messageSends: ["tag:"],
@@ -413,7 +435,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("col");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"col",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"col",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "col\x0a\x09^ self tag: 'col'",
 messageSends: ["tag:"],
@@ -431,7 +454,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("colgroup");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"colgroup",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"colgroup",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "colgroup\x0a\x09^ self tag: 'colgroup'",
 messageSends: ["tag:"],
@@ -449,7 +473,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("command");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"command",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"command",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "command\x0a\x09^ self tag: 'command'",
 messageSends: ["tag:"],
@@ -467,7 +492,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("datalist");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"datalist",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"datalist",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "datalist\x0a\x09^ self tag: 'datalist'",
 messageSends: ["tag:"],
@@ -485,7 +511,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("dd");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"dd",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"dd",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "dd\x0a\x09^ self tag: 'dd'",
 messageSends: ["tag:"],
@@ -503,7 +530,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("del");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"del",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"del",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "del\x0a\x09^ self tag: 'del'",
 messageSends: ["tag:"],
@@ -521,7 +549,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("details");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"details",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"details",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "details\x0a\x09^ self tag: 'details'",
 messageSends: ["tag:"],
@@ -539,7 +568,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("div");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"div",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"div",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "div\x0a\x09^ self tag: 'div'",
 messageSends: ["tag:"],
@@ -557,7 +587,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._div())._with_(aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"div:",{aBlock:aBlock},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"div:",{aBlock:aBlock},globals.HTMLCanvas)});
+},
 args: ["aBlock"],
 source: "div: aBlock\x0a\x09^ self div with: aBlock",
 messageSends: ["with:", "div"],
@@ -575,7 +606,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("dl");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"dl",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"dl",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "dl\x0a\x09^ self tag: 'dl'",
 messageSends: ["tag:"],
@@ -593,7 +625,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("dt");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"dt",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"dt",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "dt\x0a\x09^ self tag: 'dt'",
 messageSends: ["tag:"],
@@ -611,7 +644,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("em");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"em",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"em",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "em\x0a\x09^ self tag: 'em'",
 messageSends: ["tag:"],
@@ -629,7 +663,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("embed");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"embed",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"embed",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "embed\x0a\x09^ self tag: 'embed'",
 messageSends: ["tag:"],
@@ -658,7 +693,8 @@ if(! smalltalk.assert($5)){
 self._error_("Not an HTML entity: ".__comma(aString));
 };
 self._with_(result);
-return self}, function($ctx1) {$ctx1.fill(self,"entity:",{aString:aString,result:result},globals.HTMLCanvas)})},
+return self}, function($ctx1) {$ctx1.fill(self,"entity:",{aString:aString,result:result},globals.HTMLCanvas)});
+},
 args: ["aString"],
 source: "entity: aString\x0a\x09\x22Adds a character representing html entity, eg.\x0a\x09html entity: 'copy'\x0a\x09adds a copyright sign.\x0a\x09If a name does not represent valid HTML entity, error is raised.\x22\x0a\x09| result |\x0a\x09result := ('<span />' asJQuery html: '&', aString, ';') text.\x0a\x09result size = 1 ifFalse: [ self error: 'Not an HTML entity: ', aString ].\x0a\x09self with: result",
 messageSends: ["text", "html:", "asJQuery", ",", "ifFalse:", "=", "size", "error:", "with:"],
@@ -676,7 +712,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("fieldset");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"fieldset",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"fieldset",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "fieldset\x0a\x09^ self tag: 'fieldset'",
 messageSends: ["tag:"],
@@ -694,7 +731,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("figcaption");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"figcaption",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"figcaption",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "figcaption\x0a\x09^ self tag: 'figcaption'",
 messageSends: ["tag:"],
@@ -712,7 +750,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("figure");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"figure",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"figure",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "figure\x0a\x09^ self tag: 'figure'",
 messageSends: ["tag:"],
@@ -730,7 +769,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("footer");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"footer",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"footer",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "footer\x0a\x09^ self tag: 'footer'",
 messageSends: ["tag:"],
@@ -748,7 +788,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("form");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"form",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"form",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "form\x0a\x09^ self tag: 'form'",
 messageSends: ["tag:"],
@@ -766,7 +807,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("h1");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"h1",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"h1",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "h1\x0a\x09^ self tag: 'h1'",
 messageSends: ["tag:"],
@@ -784,7 +826,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._h1())._with_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"h1:",{anObject:anObject},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"h1:",{anObject:anObject},globals.HTMLCanvas)});
+},
 args: ["anObject"],
 source: "h1: anObject\x0a\x09^ self h1 with: anObject",
 messageSends: ["with:", "h1"],
@@ -802,7 +845,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("h2");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"h2",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"h2",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "h2\x0a\x09^ self tag: 'h2'",
 messageSends: ["tag:"],
@@ -820,7 +864,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._h2())._with_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"h2:",{anObject:anObject},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"h2:",{anObject:anObject},globals.HTMLCanvas)});
+},
 args: ["anObject"],
 source: "h2: anObject\x0a\x09^ self h2 with: anObject",
 messageSends: ["with:", "h2"],
@@ -838,7 +883,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("h3");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"h3",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"h3",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "h3\x0a\x09^ self tag: 'h3'",
 messageSends: ["tag:"],
@@ -856,7 +902,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._h3())._with_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"h3:",{anObject:anObject},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"h3:",{anObject:anObject},globals.HTMLCanvas)});
+},
 args: ["anObject"],
 source: "h3: anObject\x0a\x09^ self h3 with: anObject",
 messageSends: ["with:", "h3"],
@@ -874,7 +921,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("h4");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"h4",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"h4",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "h4\x0a\x09^ self tag: 'h4'",
 messageSends: ["tag:"],
@@ -892,7 +940,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._h4())._with_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"h4:",{anObject:anObject},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"h4:",{anObject:anObject},globals.HTMLCanvas)});
+},
 args: ["anObject"],
 source: "h4: anObject\x0a\x09^ self h4 with: anObject",
 messageSends: ["with:", "h4"],
@@ -910,7 +959,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("h5");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"h5",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"h5",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "h5\x0a\x09^ self tag: 'h5'",
 messageSends: ["tag:"],
@@ -928,7 +978,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._h5())._with_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"h5:",{anObject:anObject},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"h5:",{anObject:anObject},globals.HTMLCanvas)});
+},
 args: ["anObject"],
 source: "h5: anObject\x0a\x09^ self h5 with: anObject",
 messageSends: ["with:", "h5"],
@@ -946,7 +997,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("h6");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"h6",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"h6",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "h6\x0a\x09^ self tag: 'h6'",
 messageSends: ["tag:"],
@@ -964,7 +1016,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._h6())._with_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"h6:",{anObject:anObject},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"h6:",{anObject:anObject},globals.HTMLCanvas)});
+},
 args: ["anObject"],
 source: "h6: anObject\x0a\x09^ self h6 with: anObject",
 messageSends: ["with:", "h6"],
@@ -982,7 +1035,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("head");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"head",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"head",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "head\x0a\x09^ self tag: 'head'",
 messageSends: ["tag:"],
@@ -1000,7 +1054,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("header");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"header",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"header",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "header\x0a\x09^ self tag: 'header'",
 messageSends: ["tag:"],
@@ -1018,7 +1073,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("hgroup");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"hgroup",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"hgroup",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "hgroup\x0a\x09^ self tag: 'hgroup'",
 messageSends: ["tag:"],
@@ -1036,7 +1092,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("hr");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"hr",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"hr",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "hr\x0a\x09^ self tag: 'hr'",
 messageSends: ["tag:"],
@@ -1054,7 +1111,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("html");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"html",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"html",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "html\x0a\x09^ self tag: 'html'",
 messageSends: ["tag:"],
@@ -1072,7 +1130,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("iframe");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"iframe",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"iframe",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "iframe\x0a\x09^ self tag: 'iframe'",
 messageSends: ["tag:"],
@@ -1090,7 +1149,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._iframe())._src_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"iframe:",{aString:aString},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"iframe:",{aString:aString},globals.HTMLCanvas)});
+},
 args: ["aString"],
 source: "iframe: aString\x0a\x09^ self iframe src: aString",
 messageSends: ["src:", "iframe"],
@@ -1108,7 +1168,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("img");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"img",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"img",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "img\x0a\x09^ self tag: 'img'",
 messageSends: ["tag:"],
@@ -1126,7 +1187,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._img())._src_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"img:",{aString:aString},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"img:",{aString:aString},globals.HTMLCanvas)});
+},
 args: ["aString"],
 source: "img: aString\x0a\x09^ self img src: aString",
 messageSends: ["src:", "img"],
@@ -1152,7 +1214,8 @@ self["@root"];
 } else {
 $1;
 };
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HTMLCanvas)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09root ifNil: [ root := TagBrush fromString: 'div' canvas: self ]",
 messageSends: ["initialize", "ifNil:", "fromString:canvas:"],
@@ -1169,7 +1232,8 @@ var self=this;
 function $TagBrush(){return globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 return smalltalk.withContext(function($ctx1) { 
 self["@root"]=_st($TagBrush())._fromJQuery_canvas_(aJQuery,self);
-return self}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery},globals.HTMLCanvas)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery},globals.HTMLCanvas)});
+},
 args: ["aJQuery"],
 source: "initializeFromJQuery: aJQuery\x0a\x09root := TagBrush fromJQuery: aJQuery canvas: self",
 messageSends: ["fromJQuery:canvas:"],
@@ -1187,7 +1251,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("input");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"input",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"input",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "input\x0a\x09^ self tag: 'input'",
 messageSends: ["tag:"],
@@ -1205,7 +1270,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("label");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"label",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"label",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "label\x0a\x09^ self tag: 'label'",
 messageSends: ["tag:"],
@@ -1223,7 +1289,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("legend");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"legend",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"legend",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "legend\x0a\x09^ self tag: 'legend'",
 messageSends: ["tag:"],
@@ -1241,7 +1308,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("li");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"li",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"li",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "li\x0a\x09^ self tag: 'li'",
 messageSends: ["tag:"],
@@ -1259,7 +1327,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._li())._with_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"li:",{anObject:anObject},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"li:",{anObject:anObject},globals.HTMLCanvas)});
+},
 args: ["anObject"],
 source: "li: anObject\x0a\x09^ self li with: anObject",
 messageSends: ["with:", "li"],
@@ -1277,7 +1346,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("link");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"link",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"link",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "link\x0a\x09^ self tag: 'link'",
 messageSends: ["tag:"],
@@ -1295,7 +1365,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("map");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"map",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"map",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "map\x0a\x09^ self tag: 'map'",
 messageSends: ["tag:"],
@@ -1313,7 +1384,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("mark");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"mark",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"mark",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "mark\x0a\x09^ self tag: 'mark'",
 messageSends: ["tag:"],
@@ -1331,7 +1403,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("menu");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"menu",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"menu",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "menu\x0a\x09^ self tag: 'menu'",
 messageSends: ["tag:"],
@@ -1349,7 +1422,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("meta");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"meta",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"meta",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "meta\x0a\x09^ self tag: 'meta'",
 messageSends: ["tag:"],
@@ -1367,7 +1441,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("nav");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"nav",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"nav",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "nav\x0a\x09^ self tag: 'nav'",
 messageSends: ["tag:"],
@@ -1386,7 +1461,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($TagBrush())._fromString_canvas_(aString,self);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"newTag:",{aString:aString},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"newTag:",{aString:aString},globals.HTMLCanvas)});
+},
 args: ["aString"],
 source: "newTag: aString\x0a\x09^ TagBrush fromString: aString canvas: self",
 messageSends: ["fromString:canvas:"],
@@ -1404,7 +1480,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("noscript");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"noscript",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"noscript",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "noscript\x0a\x09^ self tag: 'noscript'",
 messageSends: ["tag:"],
@@ -1422,7 +1499,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("object");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"object",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"object",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "object\x0a\x09^ self tag: 'object'",
 messageSends: ["tag:"],
@@ -1440,7 +1518,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("ol");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ol",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"ol",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "ol\x0a\x09^ self tag: 'ol'",
 messageSends: ["tag:"],
@@ -1458,7 +1537,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._ol())._with_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ol:",{anObject:anObject},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"ol:",{anObject:anObject},globals.HTMLCanvas)});
+},
 args: ["anObject"],
 source: "ol: anObject\x0a\x09^ self ol with: anObject",
 messageSends: ["with:", "ol"],
@@ -1476,7 +1556,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("optgroup");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"optgroup",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"optgroup",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "optgroup\x0a\x09^ self tag: 'optgroup'",
 messageSends: ["tag:"],
@@ -1494,7 +1575,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("option");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"option",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"option",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "option\x0a\x09^ self tag: 'option'",
 messageSends: ["tag:"],
@@ -1512,7 +1594,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("output");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"output",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"output",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "output\x0a\x09^ self tag: 'output'",
 messageSends: ["tag:"],
@@ -1530,7 +1613,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("p");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"p",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"p",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "p\x0a\x09^ self tag: 'p'",
 messageSends: ["tag:"],
@@ -1548,7 +1632,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._p())._with_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"p:",{anObject:anObject},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"p:",{anObject:anObject},globals.HTMLCanvas)});
+},
 args: ["anObject"],
 source: "p: anObject\x0a\x09^ self p with: anObject",
 messageSends: ["with:", "p"],
@@ -1566,7 +1651,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("param");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"param",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"param",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "param\x0a\x09^ self tag: 'param'",
 messageSends: ["tag:"],
@@ -1584,7 +1670,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("pre");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"pre",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"pre",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "pre\x0a\x09^ self tag: 'pre'",
 messageSends: ["tag:"],
@@ -1602,7 +1689,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("progress");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"progress",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"progress",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "progress\x0a\x09^ self tag: 'progress'",
 messageSends: ["tag:"],
@@ -1619,6 +1707,7 @@ var self=this;
 var $1;
 $1=self["@root"];
 return $1;
+
 },
 args: [],
 source: "root\x0a\x09^ root",
@@ -1634,7 +1723,8 @@ protocol: 'accessing',
 fn: function (aTagBrush){
 var self=this;
 self["@root"]=aTagBrush;
-return self},
+return self
+},
 args: ["aTagBrush"],
 source: "root: aTagBrush\x0a\x09root := aTagBrush",
 messageSends: [],
@@ -1652,7 +1742,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("script");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"script",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"script",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "script\x0a\x09^ self tag: 'script'",
 messageSends: ["tag:"],
@@ -1670,7 +1761,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("section");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"section",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"section",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "section\x0a\x09^ self tag: 'section'",
 messageSends: ["tag:"],
@@ -1688,7 +1780,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("select");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"select",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"select",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "select\x0a\x09^ self tag: 'select'",
 messageSends: ["tag:"],
@@ -1706,7 +1799,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("small");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"small",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"small",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "small\x0a\x09^ self tag: 'small'",
 messageSends: ["tag:"],
@@ -1736,7 +1830,8 @@ caret;
 };
 $3=_st($TagBrush())._fromJQuery_canvas_(_st(caret)._removeAttr_("data-snippet"),self);
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"snippet:",{anElement:anElement,clone:clone,caret:caret},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"snippet:",{anElement:anElement,clone:clone,caret:caret},globals.HTMLCanvas)});
+},
 args: ["anElement"],
 source: "snippet: anElement\x0a\x09\x22Adds clone of anElement, finds [data-snippet=\x22\x22*\x22\x22] subelement\x0a\x09and returns TagBrush as if that subelement was just added.\x0a\x09\x0a\x09Rarely needed to use directly, use `html foo` dynamically installed method\x0a\x09for a snippet named foo.\x22\x0a\x09\x0a\x09| clone caret |\x0a\x09\x0a\x09clone := anElement asJQuery clone.\x0a\x09self with: (TagBrush fromJQuery: clone canvas: self).\x0a\x09caret := clone find: '[data-snippet=\x22*\x22]'.\x0a\x09caret toArray isEmpty ifTrue: [ caret := clone ].\x0a\x09^ TagBrush fromJQuery: (caret removeAttr: 'data-snippet') canvas: self",
 messageSends: ["clone", "asJQuery", "with:", "fromJQuery:canvas:", "find:", "ifTrue:", "isEmpty", "toArray", "removeAttr:"],
@@ -1754,7 +1849,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("source");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"source",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"source",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "source\x0a\x09^ self tag: 'source'",
 messageSends: ["tag:"],
@@ -1772,7 +1868,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("span");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"span",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"span",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "span\x0a\x09^ self tag: 'span'",
 messageSends: ["tag:"],
@@ -1790,7 +1887,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._span())._with_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"span:",{anObject:anObject},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"span:",{anObject:anObject},globals.HTMLCanvas)});
+},
 args: ["anObject"],
 source: "span: anObject\x0a\x09^ self span with: anObject",
 messageSends: ["with:", "span"],
@@ -1808,7 +1906,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("strong");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"strong",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"strong",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "strong\x0a\x09^ self tag: 'strong'",
 messageSends: ["tag:"],
@@ -1826,7 +1925,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._strong())._with_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"strong:",{anObject:anObject},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"strong:",{anObject:anObject},globals.HTMLCanvas)});
+},
 args: ["anObject"],
 source: "strong: anObject\x0a\x09^ self strong with: anObject",
 messageSends: ["with:", "strong"],
@@ -1844,7 +1944,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("style");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"style",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"style",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "style\x0a\x09^ self tag: 'style'",
 messageSends: ["tag:"],
@@ -1865,7 +1966,8 @@ _st($2)._with_(aString);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"style:",{aString:aString},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"style:",{aString:aString},globals.HTMLCanvas)});
+},
 args: ["aString"],
 source: "style: aString\x0a\x09^ self style with: aString; yourself",
 messageSends: ["with:", "style", "yourself"],
@@ -1883,7 +1985,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("sub");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sub",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"sub",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "sub\x0a\x09^ self tag: 'sub'",
 messageSends: ["tag:"],
@@ -1901,7 +2004,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("summary");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"summary",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"summary",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "summary\x0a\x09^ self tag: 'summary'",
 messageSends: ["tag:"],
@@ -1919,7 +2023,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("sup");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"sup",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"sup",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "sup\x0a\x09^ self tag: 'sup'",
 messageSends: ["tag:"],
@@ -1937,7 +2042,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("table");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"table",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"table",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "table\x0a\x09^ self tag: 'table'",
 messageSends: ["tag:"],
@@ -1955,7 +2061,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self["@root"])._addBrush_(self._newTag_(aString));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"tag:",{aString:aString},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"tag:",{aString:aString},globals.HTMLCanvas)});
+},
 args: ["aString"],
 source: "tag: aString\x0a\x09^ root addBrush: (self newTag: aString)",
 messageSends: ["addBrush:", "newTag:"],
@@ -1973,7 +2080,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("tbody");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"tbody",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"tbody",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "tbody\x0a\x09^ self tag: 'tbody'",
 messageSends: ["tag:"],
@@ -1991,7 +2099,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("td");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"td",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"td",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "td\x0a\x09^ self tag: 'td'",
 messageSends: ["tag:"],
@@ -2009,7 +2118,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("textarea");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"textarea",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"textarea",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "textarea\x0a\x09^ self tag: 'textarea'",
 messageSends: ["tag:"],
@@ -2027,7 +2137,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("tfoot");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"tfoot",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"tfoot",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "tfoot\x0a\x09^ self tag: 'tfoot'",
 messageSends: ["tag:"],
@@ -2045,7 +2156,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("th");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"th",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"th",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "th\x0a\x09^ self tag: 'th'",
 messageSends: ["tag:"],
@@ -2063,7 +2175,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("thead");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"thead",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"thead",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "thead\x0a\x09^ self tag: 'thead'",
 messageSends: ["tag:"],
@@ -2081,7 +2194,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("time");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"time",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"time",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "time\x0a\x09^ self tag: 'time'",
 messageSends: ["tag:"],
@@ -2099,7 +2213,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("title");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"title",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"title",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "title\x0a\x09^ self tag: 'title'",
 messageSends: ["tag:"],
@@ -2117,7 +2232,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("tr");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"tr",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"tr",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "tr\x0a\x09^ self tag: 'tr'",
 messageSends: ["tag:"],
@@ -2135,7 +2251,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("ul");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ul",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"ul",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "ul\x0a\x09^ self tag: 'ul'",
 messageSends: ["tag:"],
@@ -2153,7 +2270,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._ul())._with_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ul:",{anObject:anObject},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"ul:",{anObject:anObject},globals.HTMLCanvas)});
+},
 args: ["anObject"],
 source: "ul: anObject\x0a\x09^ self ul with: anObject",
 messageSends: ["with:", "ul"],
@@ -2171,7 +2289,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._tag_("video");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"video",{},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"video",{},globals.HTMLCanvas)});
+},
 args: [],
 source: "video\x0a\x09^ self tag: 'video'",
 messageSends: ["tag:"],
@@ -2189,7 +2308,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._root())._with_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},globals.HTMLCanvas)})},
+}, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},globals.HTMLCanvas)});
+},
 args: ["anObject"],
 source: "with: anObject\x0a\x09^ self root with: anObject",
 messageSends: ["with:", "root"],
@@ -2206,7 +2326,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(jQuery)._basicAt_put_("allowJavaScriptCalls",true);
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HTMLCanvas.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HTMLCanvas.klass)});
+},
 args: [],
 source: "initialize\x0a\x09\x22Allow JS method calls for the jQuery object.\x0a\x09See boot.js DNU handling.\x22\x0a\x09\x0a\x09jQuery basicAt: 'allowJavaScriptCalls' put: true",
 messageSends: ["basicAt:put:"],
@@ -2228,7 +2349,8 @@ _st($2)._initialize();
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"onJQuery:",{aJQuery:aJQuery},globals.HTMLCanvas.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"onJQuery:",{aJQuery:aJQuery},globals.HTMLCanvas.klass)});
+},
 args: ["aJQuery"],
 source: "onJQuery: aJQuery\x0a\x09^ self basicNew\x0a\x09\x09initializeFromJQuery: aJQuery;\x0a\x09\x09initialize;\x0a\x09\x09yourself",
 messageSends: ["initializeFromJQuery:", "basicNew", "initialize", "yourself"],
@@ -2249,8 +2371,10 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._snippetsFromJQuery_(aJQuery))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._installSnippetFromJQuery_(_st(each)._asJQuery());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery},globals.HTMLSnippet)})},
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
+return self}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery},globals.HTMLSnippet)});
+},
 args: ["aJQuery"],
 source: "initializeFromJQuery: aJQuery\x0a\x09\x22Finds and takes out all snippets out of aJQuery.\x0a\x09Installs it into self.\x22\x0a\x09\x0a\x09(self snippetsFromJQuery: aJQuery) do: [ :each |\x0a\x09\x09self installSnippetFromJQuery: each asJQuery ]",
 messageSends: ["do:", "snippetsFromJQuery:", "installSnippetFromJQuery:", "asJQuery"],
@@ -2280,7 +2404,8 @@ _st(element)._removeAttr_("data-snippet");
 };
 self._snippetAt_install_(name,_st(_st(element)._detach())._get_((0)));
 };
-return self}, function($ctx1) {$ctx1.fill(self,"installSnippetFromJQuery:",{element:element,name:name},globals.HTMLSnippet)})},
+return self}, function($ctx1) {$ctx1.fill(self,"installSnippetFromJQuery:",{element:element,name:name},globals.HTMLSnippet)});
+},
 args: ["element"],
 source: "installSnippetFromJQuery: element\x0a\x09| name |\x0a\x09name := element attr: 'data-snippet'.\x0a\x09name = '*' ifFalse: [\x0a\x09\x09('^\x5c*' asRegexp test: name)\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09name := name allButFirst.\x0a\x09\x09\x09\x09element attr: 'data-snippet' put: '*' ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09element removeAttr: 'data-snippet' ].\x0a\x09\x09self snippetAt: name install: (element detach get: 0) ]",
 messageSends: ["attr:", "ifFalse:", "=", "ifTrue:ifFalse:", "test:", "asRegexp", "allButFirst", "attr:put:", "removeAttr:", "snippetAt:install:", "get:", "detach"],
@@ -2298,7 +2423,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._snippets())._at_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"snippetAt:",{aString:aString},globals.HTMLSnippet)})},
+}, function($ctx1) {$ctx1.fill(self,"snippetAt:",{aString:aString},globals.HTMLSnippet)});
+},
 args: ["aString"],
 source: "snippetAt: aString\x0a\x09^ self snippets at: aString",
 messageSends: ["at:", "snippets"],
@@ -2318,8 +2444,10 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st($ClassBuilder())._new())._installMethod_forClass_protocol_(_st(_st((function(htmlReceiver){
 return smalltalk.withContext(function($ctx2) {
 return _st(htmlReceiver)._snippet_(anElement);
-}, function($ctx2) {$ctx2.fillBlock({htmlReceiver:htmlReceiver},$ctx1,1)})}))._currySelf())._asCompiledMethod_(aString),$HTMLCanvas(),"**snippets");
-return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:compile:",{aString:aString,anElement:anElement},globals.HTMLSnippet)})},
+}, function($ctx2) {$ctx2.fillBlock({htmlReceiver:htmlReceiver},$ctx1,1)});
+}))._currySelf())._asCompiledMethod_(aString),$HTMLCanvas(),"**snippets");
+return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:compile:",{aString:aString,anElement:anElement},globals.HTMLSnippet)});
+},
 args: ["aString", "anElement"],
 source: "snippetAt: aString compile: anElement\x0a\x09\x22Method generation for the snippet.\x0a\x09The selector is aString, the method block uses anElement\x22\x0a\x09\x0a\x09ClassBuilder new\x0a\x09\x09installMethod: ([ :htmlReceiver | htmlReceiver snippet: anElement ]\x0a\x09\x09\x09currySelf asCompiledMethod: aString)\x0a\x09\x09forClass: HTMLCanvas\x0a\x09\x09protocol: '**snippets'",
 messageSends: ["installMethod:forClass:protocol:", "new", "asCompiledMethod:", "currySelf", "snippet:"],
@@ -2336,7 +2464,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._snippets())._at_put_(aString,anElement);
 self._snippetAt_compile_(aString,anElement);
-return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:install:",{aString:aString,anElement:anElement},globals.HTMLSnippet)})},
+return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:install:",{aString:aString,anElement:anElement},globals.HTMLSnippet)});
+},
 args: ["aString", "anElement"],
 source: "snippetAt: aString install: anElement\x0a\x09self snippets at: aString put: anElement.\x0a\x09self snippetAt: aString compile: anElement",
 messageSends: ["at:put:", "snippets", "snippetAt:compile:"],
@@ -2360,7 +2489,8 @@ $1=self["@snippets"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"snippets",{},globals.HTMLSnippet)})},
+}, function($ctx1) {$ctx1.fill(self,"snippets",{},globals.HTMLSnippet)});
+},
 args: [],
 source: "snippets\x0a\x09^ snippets ifNil: [ snippets := #{} ]",
 messageSends: ["ifNil:"],
@@ -2378,7 +2508,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(aJQuery)._find_("[data-snippet]"))._toArray();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"snippetsFromJQuery:",{aJQuery:aJQuery},globals.HTMLSnippet)})},
+}, function($ctx1) {$ctx1.fill(self,"snippetsFromJQuery:",{aJQuery:aJQuery},globals.HTMLSnippet)});
+},
 args: ["aJQuery"],
 source: "snippetsFromJQuery: aJQuery\x0a\x09^ (aJQuery find: '[data-snippet]') toArray",
 messageSends: ["toArray", "find:"],
@@ -2397,6 +2528,7 @@ var self=this;
 var $1;
 $1=self["@current"];
 return $1;
+
 },
 args: [],
 source: "current\x0a\x09^ current",
@@ -2424,7 +2556,8 @@ self["@current"];
 } else {
 $1;
 };
-return self}, function($ctx1) {$ctx1.fill(self,"ensureCurrent",{},globals.HTMLSnippet.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"ensureCurrent",{},globals.HTMLSnippet.klass)});
+},
 args: [],
 source: "ensureCurrent\x0a\x09current ifNil: [\x0a\x09\x09current := super new\x0a\x09\x09\x09initializeFromJQuery: document asJQuery;\x0a\x09\x09\x09yourself ]",
 messageSends: ["ifNil:", "initializeFromJQuery:", "new", "asJQuery", "yourself"],
@@ -2446,7 +2579,8 @@ $1=self._isDOMAvailable();
 if(smalltalk.assert($1)){
 self._ensureCurrent();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HTMLSnippet.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HTMLSnippet.klass)});
+},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09self isDOMAvailable ifTrue: [\x0a\x09\x09self ensureCurrent ]",
 messageSends: ["initialize", "ifTrue:", "isDOMAvailable", "ensureCurrent"],
@@ -2462,7 +2596,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
  return typeof document !== 'undefined' ;
-return self}, function($ctx1) {$ctx1.fill(self,"isDOMAvailable",{},globals.HTMLSnippet.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"isDOMAvailable",{},globals.HTMLSnippet.klass)});
+},
 args: [],
 source: "isDOMAvailable\x0a\x09< return typeof document !== 'undefined' >",
 messageSends: [],
@@ -2478,7 +2613,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._shouldNotImplement();
-return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.HTMLSnippet.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.HTMLSnippet.klass)});
+},
 args: [],
 source: "new\x0a\x09self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
@@ -2497,7 +2633,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("accesskey",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"accesskey:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"accesskey:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "accesskey: aString\x0a\x09self at: 'accesskey' put: aString",
 messageSends: ["at:put:"],
@@ -2513,7 +2650,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("action",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"action:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"action:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "action: aString\x0a\x09self at: 'action' put: aString",
 messageSends: ["at:put:"],
@@ -2530,7 +2668,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._appendChild_(_st(aTagBrush)._element());
 return aTagBrush;
-}, function($ctx1) {$ctx1.fill(self,"addBrush:",{aTagBrush:aTagBrush},globals.TagBrush)})},
+}, function($ctx1) {$ctx1.fill(self,"addBrush:",{aTagBrush:aTagBrush},globals.TagBrush)});
+},
 args: ["aTagBrush"],
 source: "addBrush: aTagBrush\x0a\x09self appendChild: aTagBrush element.\x0a\x09^ aTagBrush",
 messageSends: ["appendChild:", "element"],
@@ -2546,7 +2685,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("align",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"align:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"align:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "align: aString\x0a\x09self at: 'align' put: aString",
 messageSends: ["at:put:"],
@@ -2562,7 +2702,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("alt",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"alt:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"alt:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "alt: aString\x0a\x09self at: 'alt' put: aString",
 messageSends: ["at:put:"],
@@ -2578,7 +2719,8 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(anObject)._appendToBrush_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"append:",{anObject:anObject},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"append:",{anObject:anObject},globals.TagBrush)});
+},
 args: ["anObject"],
 source: "append: anObject\x0a\x09anObject appendToBrush: self",
 messageSends: ["appendToBrush:"],
@@ -2599,7 +2741,8 @@ _st(self["@canvas"])._root_(self);
 $ctx1.sendIdx["root:"]=1;
 _st(aBlock)._value_(self["@canvas"]);
 _st(self["@canvas"])._root_(root);
-return self}, function($ctx1) {$ctx1.fill(self,"appendBlock:",{aBlock:aBlock,root:root},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendBlock:",{aBlock:aBlock,root:root},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "appendBlock: aBlock\x0a\x09| root |\x0a\x09root := canvas root.\x0a\x09canvas root: self.\x0a\x09aBlock value: canvas.\x0a\x09canvas root: root",
 messageSends: ["root", "root:", "value:"],
@@ -2620,7 +2763,8 @@ var element=self['@element'];
 	} else {
 		element.text = String(element.text) + anElement.innerHTML;
 	} ;
-return self}, function($ctx1) {$ctx1.fill(self,"appendChild:",{anElement:anElement},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendChild:",{anElement:anElement},globals.TagBrush)});
+},
 args: ["anElement"],
 source: "appendChild: anElement\x0a\x09\x22In IE7 and IE8 appendChild fails on several node types. So we need to check\x22\x0a\x09<var element=self['@element'];\x0a\x09if (null == element.canHaveChildren || element.canHaveChildren) {\x0a\x09\x09element.appendChild(anElement);\x0a\x09} else {\x0a\x09\x09element.text = String(element.text) + anElement.innerHTML;\x0a\x09} >",
 messageSends: [],
@@ -2636,7 +2780,8 @@ fn: function (anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var element=self['@element'].appendChild(anElement["@element"]);
-return self}, function($ctx1) {$ctx1.fill(self,"appendDocumentFragment:",{anElement:anElement},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendDocumentFragment:",{anElement:anElement},globals.TagBrush)});
+},
 args: ["anElement"],
 source: "appendDocumentFragment: anElement\x0a\x09<var element=self['@element'].appendChild(anElement[\x22@element\x22])>",
 messageSends: [],
@@ -2652,7 +2797,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._appendChild_(self._createTextNodeFor_(aString));
-return self}, function($ctx1) {$ctx1.fill(self,"appendString:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendString:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "appendString: aString\x0a\x09self appendChild: (self createTextNodeFor: aString)",
 messageSends: ["appendChild:", "createTextNodeFor:"],
@@ -2668,7 +2814,8 @@ fn: function (aTagBrush){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aTagBrush)._addBrush_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.TagBrush)});
+},
 args: ["aTagBrush"],
 source: "appendToBrush: aTagBrush\x0a\x09aTagBrush addBrush: self",
 messageSends: ["addBrush:"],
@@ -2686,7 +2833,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._element())._asJQuery();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},globals.TagBrush)})},
+}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},globals.TagBrush)});
+},
 args: [],
 source: "asJQuery\x0a\x09^ self element asJQuery",
 messageSends: ["asJQuery", "element"],
@@ -2704,7 +2852,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._element())._asJQueryInContext_(aContext);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},globals.TagBrush)})},
+}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},globals.TagBrush)});
+},
 args: ["aContext"],
 source: "asJQueryInContext: aContext\x0a\x09^ self element asJQueryInContext: aContext",
 messageSends: ["asJQueryInContext:", "element"],
@@ -2724,9 +2873,11 @@ var $1;
 $1=self._at_ifAbsent_(aString,(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($Collection())._new())._errorNotFound();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},globals.TagBrush)})},
+}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "at: aString\x0a\x09^ self at: aString ifAbsent: [ Collection new errorNotFound ]",
 messageSends: ["at:ifAbsent:", "errorNotFound", "new"],
@@ -2742,7 +2893,8 @@ fn: function (aString,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self['@element'].hasAttribute(aString) ? self['@element'].getAttribute(aString) : aBlock._value();
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aString", "aBlock"],
 source: "at: aString ifAbsent: aBlock\x0a\x09<return self['@element'].hasAttribute(aString) ? self['@element'].getAttribute(aString) : aBlock._value()>",
 messageSends: [],
@@ -2758,7 +2910,8 @@ fn: function (aString,aValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self['@element'].setAttribute(aString, aValue); return aValue;
-return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,aValue:aValue},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,aValue:aValue},globals.TagBrush)});
+},
 args: ["aString", "aValue"],
 source: "at: aString put: aValue\x0a\x09<self['@element'].setAttribute(aString, aValue); return aValue>",
 messageSends: [],
@@ -2774,7 +2927,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self['@element'].className = aString;
-return self}, function($ctx1) {$ctx1.fill(self,"class:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"class:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "class: aString\x0a\x09<self['@element'].className = aString>",
 messageSends: [],
@@ -2790,7 +2944,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("cols",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"cols:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"cols:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "cols: aString\x0a\x09self at: 'cols' put: aString",
 messageSends: ["at:put:"],
@@ -2806,7 +2961,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("contenteditable",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"contenteditable:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"contenteditable:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "contenteditable: aString\x0a\x09self at: 'contenteditable' put: aString",
 messageSends: ["at:put:"],
@@ -2824,7 +2980,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 self._empty();
 $1=self._append_(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"contents:",{anObject:anObject},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"contents:",{anObject:anObject},globals.TagBrush)});
+},
 args: ["anObject"],
 source: "contents: anObject\x0a\x09self\x0a\x09empty;\x0a\x09append: anObject",
 messageSends: ["empty", "append:"],
@@ -2840,7 +2997,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("contextmenu",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"contextmenu:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"contextmenu:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "contextmenu: aString\x0a\x09self at: 'contextmenu' put: aString",
 messageSends: ["at:put:"],
@@ -2856,7 +3014,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return document.createElement(String(aString));
-return self}, function($ctx1) {$ctx1.fill(self,"createElementFor:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"createElementFor:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "createElementFor: aString\x0a\x09<return document.createElement(String(aString))>",
 messageSends: [],
@@ -2872,7 +3031,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return document.createTextNode(String(aString));
-return self}, function($ctx1) {$ctx1.fill(self,"createTextNodeFor:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"createTextNodeFor:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "createTextNodeFor: aString\x0a\x09<return document.createTextNode(String(aString))>",
 messageSends: [],
@@ -2888,7 +3048,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("draggable",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"draggable:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"draggable:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "draggable: aString\x0a\x09self at: 'draggable' put: aString",
 messageSends: ["at:put:"],
@@ -2905,6 +3066,7 @@ var self=this;
 var $1;
 $1=self["@element"];
 return $1;
+
 },
 args: [],
 source: "element\x0a\x09^ element",
@@ -2921,7 +3083,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._empty();
-return self}, function($ctx1) {$ctx1.fill(self,"empty",{},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"empty",{},globals.TagBrush)});
+},
 args: [],
 source: "empty\x0a\x09self asJQuery empty",
 messageSends: ["empty", "asJQuery"],
@@ -2937,7 +3100,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("for",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "for: aString\x0a\x09self at: 'for' put: aString",
 messageSends: ["at:put:"],
@@ -2953,7 +3117,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("height",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"height:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"height:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "height: aString\x0a\x09self at: 'height' put: aString",
 messageSends: ["at:put:"],
@@ -2969,7 +3134,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("hidden","hidden");
-return self}, function($ctx1) {$ctx1.fill(self,"hidden",{},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"hidden",{},globals.TagBrush)});
+},
 args: [],
 source: "hidden\x0a\x09self at: 'hidden' put: 'hidden'",
 messageSends: ["at:put:"],
@@ -2985,7 +3151,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("href",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"href:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"href:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "href: aString\x0a\x09self at: 'href' put: aString",
 messageSends: ["at:put:"],
@@ -3001,7 +3168,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("id",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"id:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"id:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "id: aString\x0a\x09self at: 'id' put: aString",
 messageSends: ["at:put:"],
@@ -3018,7 +3186,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@element"]=_st(aJQuery)._get_((0));
 self["@canvas"]=aCanvas;
-return self}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:canvas:",{aJQuery:aJQuery,aCanvas:aCanvas},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:canvas:",{aJQuery:aJQuery,aCanvas:aCanvas},globals.TagBrush)});
+},
 args: ["aJQuery", "aCanvas"],
 source: "initializeFromJQuery: aJQuery canvas: aCanvas\x0a\x09element := aJQuery get: 0.\x0a\x09canvas := aCanvas",
 messageSends: ["get:"],
@@ -3035,7 +3204,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@element"]=self._createElementFor_(aString);
 self["@canvas"]=aCanvas;
-return self}, function($ctx1) {$ctx1.fill(self,"initializeFromString:canvas:",{aString:aString,aCanvas:aCanvas},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initializeFromString:canvas:",{aString:aString,aCanvas:aCanvas},globals.TagBrush)});
+},
 args: ["aString", "aCanvas"],
 source: "initializeFromString: aString canvas: aCanvas\x0a\x09element := self createElementFor: aString.\x0a\x09canvas := aCanvas",
 messageSends: ["createElementFor:"],
@@ -3051,7 +3221,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("media",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"media:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"media:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "media: aString\x0a\x09self at: 'media' put: aString",
 messageSends: ["at:put:"],
@@ -3067,7 +3238,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("method",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"method:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"method:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "method: aString\x0a\x09self at: 'method' put: aString",
 messageSends: ["at:put:"],
@@ -3083,7 +3255,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("name",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "name: aString\x0a\x09self at: 'name' put: aString",
 messageSends: ["at:put:"],
@@ -3099,7 +3272,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("blur",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onBlur:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onBlur:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onBlur: aBlock\x0a\x09self asJQuery bind: 'blur' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3115,7 +3289,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("change",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onChange:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onChange:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onChange: aBlock\x0a\x09self asJQuery bind: 'change' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3131,7 +3306,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("click",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onClick:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onClick:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onClick: aBlock\x0a\x09self asJQuery bind: 'click' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3147,7 +3323,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("dblclick",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onDblClick:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onDblClick:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onDblClick: aBlock\x0a\x09self asJQuery bind: 'dblclick' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3163,7 +3340,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("focus",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onFocus:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onFocus:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onFocus: aBlock\x0a\x09self asJQuery bind: 'focus' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3179,7 +3357,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("focusin",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onFocusIn:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onFocusIn:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onFocusIn: aBlock\x0a\x09self asJQuery bind: 'focusin' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3195,7 +3374,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("focusout",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onFocusOut:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onFocusOut:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onFocusOut: aBlock\x0a\x09self asJQuery bind: 'focusout' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3211,7 +3391,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("hover",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onHover:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onHover:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onHover: aBlock\x0a\x09self asJQuery bind: 'hover' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3227,7 +3408,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("keydown",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onKeyDown: aBlock\x0a\x09self asJQuery bind: 'keydown' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3243,7 +3425,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("keypress",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onKeyPress:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyPress:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onKeyPress: aBlock\x0a\x09self asJQuery bind: 'keypress' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3259,7 +3442,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("keyup",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onKeyUp:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyUp:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onKeyUp: aBlock\x0a\x09self asJQuery bind: 'keyup' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3275,7 +3459,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("mousedown",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onMouseDown:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onMouseDown:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onMouseDown: aBlock\x0a\x09self asJQuery bind: 'mousedown' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3291,7 +3476,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("mouseenter",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onMouseEnter:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onMouseEnter:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onMouseEnter: aBlock\x0a\x09self asJQuery bind: 'mouseenter' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3307,7 +3493,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("mouseleave",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onMouseLeave:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onMouseLeave:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onMouseLeave: aBlock\x0a\x09self asJQuery bind: 'mouseleave' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3323,7 +3510,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("mousemove",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onMouseMove:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onMouseMove:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onMouseMove: aBlock\x0a\x09self asJQuery bind: 'mousemove' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3339,7 +3527,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("mouseout",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onMouseOut:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onMouseOut:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onMouseOut: aBlock\x0a\x09self asJQuery bind: 'mouseout' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3355,7 +3544,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("mouseover",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onMouseOver:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onMouseOver:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onMouseOver: aBlock\x0a\x09self asJQuery bind: 'mouseover' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3371,7 +3561,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("mouseup",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onMouseUp:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onMouseUp:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onMouseUp: aBlock\x0a\x09self asJQuery bind: 'mouseup' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3387,7 +3578,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("select",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onSelect:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onSelect:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onSelect: aBlock\x0a\x09self asJQuery bind: 'select' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3403,7 +3595,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("submit",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onSubmit:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onSubmit:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onSubmit: aBlock\x0a\x09self asJQuery bind: 'submit' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3419,7 +3612,8 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._asJQuery())._bind_do_("unload",aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"onUnload:",{aBlock:aBlock},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onUnload:",{aBlock:aBlock},globals.TagBrush)});
+},
 args: ["aBlock"],
 source: "onUnload: aBlock\x0a\x09self asJQuery bind: 'unload' do: aBlock",
 messageSends: ["bind:do:", "asJQuery"],
@@ -3435,7 +3629,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("placeholder",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"placeholder:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"placeholder:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "placeholder: aString\x0a\x09self at: 'placeholder' put: aString",
 messageSends: ["at:put:"],
@@ -3451,7 +3646,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("rel",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"rel:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"rel:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "rel: aString\x0a\x09self at: 'rel' put: aString",
 messageSends: ["at:put:"],
@@ -3467,7 +3663,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self['@element'].removeAttribute(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"removeAt:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"removeAt:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "removeAt: aString\x0a\x09<self['@element'].removeAttribute(aString)>",
 messageSends: [],
@@ -3483,7 +3680,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("rows",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"rows:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"rows:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "rows: aString\x0a\x09self at: 'rows' put: aString",
 messageSends: ["at:put:"],
@@ -3499,7 +3697,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("src",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"src:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"src:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "src: aString\x0a\x09self at: 'src' put: aString",
 messageSends: ["at:put:"],
@@ -3515,7 +3714,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("style",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"style:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"style:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "style: aString\x0a\x09self at: 'style' put: aString",
 messageSends: ["at:put:"],
@@ -3531,7 +3731,8 @@ fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("tabindex",aNumber);
-return self}, function($ctx1) {$ctx1.fill(self,"tabindex:",{aNumber:aNumber},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"tabindex:",{aNumber:aNumber},globals.TagBrush)});
+},
 args: ["aNumber"],
 source: "tabindex: aNumber\x0a\x09self at: 'tabindex' put: aNumber",
 messageSends: ["at:put:"],
@@ -3547,7 +3748,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("target",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"target:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"target:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "target: aString\x0a\x09self at: 'target' put: aString",
 messageSends: ["at:put:"],
@@ -3563,7 +3765,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("title",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"title:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"title:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "title: aString\x0a\x09self at: 'title' put: aString",
 messageSends: ["at:put:"],
@@ -3579,7 +3782,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("type",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"type:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"type:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "type: aString\x0a\x09self at: 'type' put: aString",
 messageSends: ["at:put:"],
@@ -3595,7 +3799,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("valign",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"valign:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"valign:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "valign: aString\x0a\x09self at: 'valign' put: aString",
 messageSends: ["at:put:"],
@@ -3611,7 +3816,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("value",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"value:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"value:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "value: aString\x0a\x09self at: 'value' put: aString",
 messageSends: ["at:put:"],
@@ -3627,7 +3833,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._at_put_("width",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"width:",{aString:aString},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"width:",{aString:aString},globals.TagBrush)});
+},
 args: ["aString"],
 source: "width: aString\x0a\x09self at: 'width' put: aString",
 messageSends: ["at:put:"],
@@ -3643,7 +3850,8 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._append_(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},globals.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},globals.TagBrush)});
+},
 args: ["anObject"],
 source: "with: anObject\x0a\x09self append: anObject",
 messageSends: ["append:"],
@@ -3665,7 +3873,8 @@ _st($2)._initializeFromJQuery_canvas_(aJQuery,aCanvas);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"fromJQuery:canvas:",{aJQuery:aJQuery,aCanvas:aCanvas},globals.TagBrush.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"fromJQuery:canvas:",{aJQuery:aJQuery,aCanvas:aCanvas},globals.TagBrush.klass)});
+},
 args: ["aJQuery", "aCanvas"],
 source: "fromJQuery: aJQuery canvas: aCanvas\x0a\x09^ self new\x0a\x09\x09initializeFromJQuery: aJQuery canvas: aCanvas;\x0a\x09\x09yourself",
 messageSends: ["initializeFromJQuery:canvas:", "new", "yourself"],
@@ -3686,7 +3895,8 @@ _st($2)._initializeFromString_canvas_(aString,aCanvas);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"fromString:canvas:",{aString:aString,aCanvas:aCanvas},globals.TagBrush.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"fromString:canvas:",{aString:aString,aCanvas:aCanvas},globals.TagBrush.klass)});
+},
 args: ["aString", "aCanvas"],
 source: "fromString: aString canvas: aCanvas\x0a\x09^ self new\x0a\x09initializeFromString: aString canvas: aCanvas;\x0a\x09yourself",
 messageSends: ["initializeFromString:canvas:", "new", "yourself"],
@@ -3705,7 +3915,8 @@ fn: function (aTagBrush){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._appendToJQuery_(_st(aTagBrush)._asJQuery());
-return self}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.Widget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.Widget)});
+},
 args: ["aTagBrush"],
 source: "appendToBrush: aTagBrush\x0a\x09self appendToJQuery: aTagBrush asJQuery",
 messageSends: ["appendToJQuery:", "asJQuery"],
@@ -3722,7 +3933,8 @@ var self=this;
 function $HTMLCanvas(){return globals.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 return smalltalk.withContext(function($ctx1) { 
 self._renderOn_(_st($HTMLCanvas())._onJQuery_(aJQuery));
-return self}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.Widget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.Widget)});
+},
 args: ["aJQuery"],
 source: "appendToJQuery: aJQuery\x0a\x09self renderOn: (HTMLCanvas onJQuery: aJQuery)",
 messageSends: ["renderOn:", "onJQuery:"],
@@ -3736,7 +3948,8 @@ selector: "renderOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
-return self},
+return self
+},
 args: ["html"],
 source: "renderOn: html\x0a\x09self",
 messageSends: [],
@@ -3752,6 +3965,7 @@ protocol: 'helios',
 fn: function (){
 var self=this;
 return "widget";
+
 },
 args: [],
 source: "heliosClass\x0a\x09^ 'widget'",
@@ -3768,7 +3982,8 @@ fn: function (aTagBrush){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aTagBrush)._appendBlock_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.BlockClosure)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.BlockClosure)});
+},
 args: ["aTagBrush"],
 source: "appendToBrush: aTagBrush\x0a\x09aTagBrush appendBlock: self",
 messageSends: ["appendBlock:"],
@@ -3785,7 +4000,8 @@ var self=this;
 function $HTMLCanvas(){return globals.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 return smalltalk.withContext(function($ctx1) { 
 self._value_(_st($HTMLCanvas())._onJQuery_(aJQuery));
-return self}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.BlockClosure)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.BlockClosure)});
+},
 args: ["aJQuery"],
 source: "appendToJQuery: aJQuery\x0a\x09self value: (HTMLCanvas onJQuery: aJQuery)",
 messageSends: ["value:", "onJQuery:"],
@@ -3804,7 +4020,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st($HTMLSnippet())._current())._snippetAt_(self._asString());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSnippet",{},globals.CharacterArray)})},
+}, function($ctx1) {$ctx1.fill(self,"asSnippet",{},globals.CharacterArray)});
+},
 args: [],
 source: "asSnippet\x0a\x09^ HTMLSnippet current snippetAt: self asString",
 messageSends: ["snippetAt:", "current", "asString"],
@@ -3820,7 +4037,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return jQuery(self['@jsObject']);
-return self}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},globals.JSObjectProxy)});
+},
 args: [],
 source: "asJQuery\x0a\x09<return jQuery(self['@jsObject'])>",
 messageSends: [],
@@ -3836,7 +4054,8 @@ fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return jQuery(self['@jsObject'], aContext);
-return self}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},globals.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},globals.JSObjectProxy)});
+},
 args: ["aContext"],
 source: "asJQueryInContext: aContext\x0a\x09<return jQuery(self['@jsObject'], aContext)>",
 messageSends: [],
@@ -3852,7 +4071,8 @@ fn: function (aTagBrush){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aTagBrush)._append_(self._asString());
-return self}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.Object)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.Object)});
+},
 args: ["aTagBrush"],
 source: "appendToBrush: aTagBrush\x0a\x09aTagBrush append: self asString",
 messageSends: ["append:", "asString"],
@@ -3868,7 +4088,8 @@ fn: function (aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aJQuery)._append_(self._asString());
-return self}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.Object)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.Object)});
+},
 args: ["aJQuery"],
 source: "appendToJQuery: aJQuery\x0a\x09aJQuery append: self asString",
 messageSends: ["append:", "asString"],
@@ -3886,7 +4107,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._postMessageTo_origin_(aFrame,"*");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"postMessageTo:",{aFrame:aFrame},globals.Object)})},
+}, function($ctx1) {$ctx1.fill(self,"postMessageTo:",{aFrame:aFrame},globals.Object)});
+},
 args: ["aFrame"],
 source: "postMessageTo: aFrame\x0a^ self postMessageTo: aFrame origin: '*'",
 messageSends: ["postMessageTo:origin:"],
@@ -3902,7 +4124,8 @@ fn: function (aFrame,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return aFrame.postMessage(self, aString);
-return self}, function($ctx1) {$ctx1.fill(self,"postMessageTo:origin:",{aFrame:aFrame,aString:aString},globals.Object)})},
+return self}, function($ctx1) {$ctx1.fill(self,"postMessageTo:origin:",{aFrame:aFrame,aString:aString},globals.Object)});
+},
 args: ["aFrame", "aString"],
 source: "postMessageTo: aFrame origin: aString\x0a<return aFrame.postMessage(self, aString)>",
 messageSends: [],
@@ -3918,7 +4141,8 @@ fn: function (aTagBrush){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aTagBrush)._appendString_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.String)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.String)});
+},
 args: ["aTagBrush"],
 source: "appendToBrush: aTagBrush\x0a\x09aTagBrush appendString: self",
 messageSends: ["appendString:"],
@@ -3934,7 +4158,8 @@ fn: function (aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(aJQuery)._append_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.String)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.String)});
+},
 args: ["aJQuery"],
 source: "appendToJQuery: aJQuery\x0a\x09aJQuery append: self",
 messageSends: ["append:"],
@@ -3950,7 +4175,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return jQuery(String(self));
-return self}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},globals.String)})},
+return self}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},globals.String)});
+},
 args: [],
 source: "asJQuery\x0a\x09<return jQuery(String(self))>",
 messageSends: [],
@@ -3966,7 +4192,8 @@ fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return jQuery(String(self), aContext);
-return self}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},globals.String)})},
+return self}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},globals.String)});
+},
 args: ["aContext"],
 source: "asJQueryInContext: aContext\x0a\x09<return jQuery(String(self), aContext)>",
 messageSends: [],

@@ -27,7 +27,8 @@ $1=_st(aClass)._name();
 };
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},globals.AbstractCodeGenerator)})},
+}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},globals.AbstractCodeGenerator)});
+},
 args: ["aClass"],
 source: "classNameFor: aClass\x0a\x09^ aClass isMetaclass\x0a\x09\x09ifTrue: [ aClass instanceClass name, '.klass' ]\x0a\x09\x09ifFalse: [\x0a\x09\x09aClass isNil\x0a\x09\x09\x09ifTrue: [ 'nil' ]\x0a\x09\x09\x09ifFalse: [ aClass name ]]",
 messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"],
@@ -43,7 +44,8 @@ fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode},globals.AbstractCodeGenerator)})},
+return self}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode},globals.AbstractCodeGenerator)});
+},
 args: ["aNode"],
 source: "compileNode: aNode\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
@@ -60,6 +62,7 @@ var self=this;
 var $1;
 $1=self["@currentClass"];
 return $1;
+
 },
 args: [],
 source: "currentClass\x0a\x09^ currentClass",
@@ -75,7 +78,8 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 self["@currentClass"]=aClass;
-return self},
+return self
+},
 args: ["aClass"],
 source: "currentClass: aClass\x0a\x09currentClass := aClass",
 messageSends: [],
@@ -94,7 +98,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Smalltalk())._pseudoVariableNames();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{},globals.AbstractCodeGenerator)})},
+}, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{},globals.AbstractCodeGenerator)});
+},
 args: [],
 source: "pseudoVariables\x0a\x09^ Smalltalk pseudoVariableNames",
 messageSends: ["pseudoVariableNames"],
@@ -117,7 +122,8 @@ $1="";
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"source",{},globals.AbstractCodeGenerator)})},
+}, function($ctx1) {$ctx1.fill(self,"source",{},globals.AbstractCodeGenerator)});
+},
 args: [],
 source: "source\x0a\x09^ source ifNil: [ '' ]",
 messageSends: ["ifNil:"],
@@ -132,7 +138,8 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 self["@source"]=aString;
-return self},
+return self
+},
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
 messageSends: [],
@@ -163,7 +170,8 @@ _st($2)._visit_(ir);
 $3=_st($2)._contents();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream},globals.CodeGenerator)})},
+}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream},globals.CodeGenerator)});
+},
 args: ["aNode"],
 source: "compileNode: aNode\x0a\x09| ir stream |\x0a\x09self semanticAnalyzer visit: aNode.\x0a\x09ir := self translator visit: aNode.\x0a\x09^ self irTranslator\x0a\x09\x09currentClass: self currentClass;\x0a\x09\x09visit: ir;\x0a\x09\x09contents",
 messageSends: ["visit:", "semanticAnalyzer", "translator", "currentClass:", "irTranslator", "currentClass", "contents"],
@@ -182,7 +190,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($IRJSTranslator())._new();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"irTranslator",{},globals.CodeGenerator)})},
+}, function($ctx1) {$ctx1.fill(self,"irTranslator",{},globals.CodeGenerator)});
+},
 args: [],
 source: "irTranslator\x0a\x09^ IRJSTranslator new",
 messageSends: ["new"],
@@ -201,7 +210,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($SemanticAnalyzer())._on_(self._currentClass());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"semanticAnalyzer",{},globals.CodeGenerator)})},
+}, function($ctx1) {$ctx1.fill(self,"semanticAnalyzer",{},globals.CodeGenerator)});
+},
 args: [],
 source: "semanticAnalyzer\x0a\x09^ SemanticAnalyzer on: self currentClass",
 messageSends: ["on:", "currentClass"],
@@ -224,7 +234,8 @@ _st($2)._theClass_(self._currentClass());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"translator",{},globals.CodeGenerator)})},
+}, function($ctx1) {$ctx1.fill(self,"translator",{},globals.CodeGenerator)});
+},
 args: [],
 source: "translator\x0a\x09^ IRASTTranslator new\x0a\x09\x09source: self source;\x0a\x09\x09theClass: self currentClass;\x0a\x09\x09yourself",
 messageSends: ["source:", "new", "source", "theClass:", "currentClass", "yourself"],
@@ -252,7 +263,8 @@ $1=$InliningCodeGenerator();
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{},globals.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{},globals.Compiler)});
+},
 args: [],
 source: "codeGeneratorClass\x0a\x09^ codeGeneratorClass ifNil: [ InliningCodeGenerator ]",
 messageSends: ["ifNil:"],
@@ -267,7 +279,8 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 self["@codeGeneratorClass"]=aClass;
-return self},
+return self
+},
 args: ["aClass"],
 source: "codeGeneratorClass: aClass\x0a\x09codeGeneratorClass := aClass",
 messageSends: [],
@@ -285,7 +298,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._compileNode_(self._parse_(aString));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString},globals.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString},globals.Compiler)});
+},
 args: ["aString"],
 source: "compile: aString\x0a\x09^ self compileNode: (self parse: aString)",
 messageSends: ["compileNode:", "parse:"],
@@ -305,7 +319,8 @@ self._currentClass_(aClass);
 self._source_(aString);
 $1=self._compile_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"compile:forClass:",{aString:aString,aClass:aClass},globals.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"compile:forClass:",{aString:aString,aClass:aClass},globals.Compiler)});
+},
 args: ["aString", "aClass"],
 source: "compile: aString forClass: aClass\x0a\x09self currentClass: aClass.\x0a\x09self source: aString.\x0a\x09^ self compile: aString",
 messageSends: ["currentClass:", "source:", "compile:"],
@@ -328,7 +343,8 @@ $ctx1.sendIdx[","]=1;
 self._source_($1);
 $2=self._compileNode_(self._parse_(self._source()));
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"compileExpression:",{aString:aString},globals.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"compileExpression:",{aString:aString},globals.Compiler)});
+},
 args: ["aString"],
 source: "compileExpression: aString\x0a\x09self currentClass: DoIt.\x0a\x09self source: 'doIt ^ [ ', aString, ' ] value'.\x0a\x09^ self compileNode: (self parse: self source)",
 messageSends: ["currentClass:", "source:", ",", "compileNode:", "parse:", "source"],
@@ -350,7 +366,8 @@ $ctx1.sendIdx[","]=1;
 self._source_($1);
 $2=self._compileNode_(self._parse_(self._source()));
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"compileExpression:on:",{aString:aString,anObject:anObject},globals.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"compileExpression:on:",{aString:aString,anObject:anObject},globals.Compiler)});
+},
 args: ["aString", "anObject"],
 source: "compileExpression: aString on: anObject\x0a\x09self currentClass: anObject class.\x0a\x09self source: 'xxxDoIt ^ [ ', aString, ' ] value'.\x0a\x09^ self compileNode: (self parse: self source)",
 messageSends: ["currentClass:", "class", "source:", ",", "compileNode:", "parse:", "source"],
@@ -375,7 +392,8 @@ result=_st(generator)._compileNode_(aNode);
 self._unknownVariables_([]);
 $3=result;
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,generator:generator,result:result},globals.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,generator:generator,result:result},globals.Compiler)});
+},
 args: ["aNode"],
 source: "compileNode: aNode\x0a\x09| generator result |\x0a\x09generator := self codeGeneratorClass new.\x0a\x09generator\x0a\x09\x09source: self source;\x0a\x09\x09currentClass: self currentClass.\x0a\x09result := generator compileNode: aNode.\x0a\x09self unknownVariables: #().\x0a\x09^ result",
 messageSends: ["new", "codeGeneratorClass", "source:", "source", "currentClass:", "currentClass", "compileNode:", "unknownVariables:"],
@@ -392,6 +410,7 @@ var self=this;
 var $1;
 $1=self["@currentClass"];
 return $1;
+
 },
 args: [],
 source: "currentClass\x0a\x09^ currentClass",
@@ -407,7 +426,8 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 self["@currentClass"]=aClass;
-return self},
+return self
+},
 args: ["aClass"],
 source: "currentClass: aClass\x0a\x09currentClass := aClass",
 messageSends: [],
@@ -423,7 +443,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return eval(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString},globals.Compiler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString},globals.Compiler)});
+},
 args: ["aString"],
 source: "eval: aString\x0a\x09<return eval(aString)>",
 messageSends: [],
@@ -442,7 +463,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._evaluateExpression_on_(aString,_st($DoIt())._new());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString},globals.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString},globals.Compiler)});
+},
 args: ["aString"],
 source: "evaluateExpression: aString\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression and answer the returned object\x22\x0a\x09^ self evaluateExpression: aString on: DoIt new",
 messageSends: ["evaluateExpression:on:", "new"],
@@ -468,7 +490,8 @@ result=_st(anObject)._xxxDoIt();
 _st(_st(anObject)._class())._removeCompiledMethod_(method);
 $2=result;
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:on:",{aString:aString,anObject:anObject,result:result,method:method},globals.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:on:",{aString:aString,anObject:anObject,result:result,method:method},globals.Compiler)});
+},
 args: ["aString", "anObject"],
 source: "evaluateExpression: aString on: anObject\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object\x22\x0a\x09| result method |\x0a\x09method := self eval: (self compileExpression: aString on: anObject).\x0a\x09method protocol: '**xxxDoIt'.\x0a\x09anObject class addCompiledMethod: method.\x0a\x09result := anObject xxxDoIt.\x0a\x09anObject class removeCompiledMethod: method.\x0a\x09^ result",
 messageSends: ["eval:", "compileExpression:on:", "protocol:", "addCompiledMethod:", "class", "xxxDoIt", "removeCompiledMethod:"],
@@ -487,7 +510,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st($ClassBuilder())._new())._installMethod_forClass_protocol_(self._eval_(self._compile_forClass_(aString,aBehavior)),aBehavior,anotherString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"install:forClass:protocol:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString},globals.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"install:forClass:protocol:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString},globals.Compiler)});
+},
 args: ["aString", "aBehavior", "anotherString"],
 source: "install: aString forClass: aBehavior protocol: anotherString\x0a\x09^ ClassBuilder new\x0a\x09\x09installMethod: (self eval: (self compile: aString forClass: aBehavior))\x0a\x09\x09forClass: aBehavior\x0a\x09\x09protocol: anotherString",
 messageSends: ["installMethod:forClass:protocol:", "new", "eval:", "compile:forClass:"],
@@ -506,7 +530,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Smalltalk())._parse_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},globals.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},globals.Compiler)});
+},
 args: ["aString"],
 source: "parse: aString\x0a\x09^ Smalltalk parse: aString",
 messageSends: ["parse:"],
@@ -526,7 +551,8 @@ $2=_st("doIt ^ [ ".__comma(aString)).__comma(" ] value");
 $ctx1.sendIdx[","]=1;
 $1=self._parse_($2);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parseExpression:",{aString:aString},globals.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"parseExpression:",{aString:aString},globals.Compiler)});
+},
 args: ["aString"],
 source: "parseExpression: aString\x0a\x09^ self parse: 'doIt ^ [ ', aString, ' ] value'",
 messageSends: ["parse:", ","],
@@ -545,12 +571,14 @@ var $1;
 _st(_st(_st(aClass)._methodDictionary())._values())._do_displayingProgress_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._install_forClass_protocol_(_st(each)._source(),aClass,_st(each)._protocol());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),"Recompiling ".__comma(_st(aClass)._name()));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}),"Recompiling ".__comma(_st(aClass)._name()));
 $1=_st(aClass)._isMetaclass();
 if(! smalltalk.assert($1)){
 self._recompile_(_st(aClass)._class());
 };
-return self}, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass},globals.Compiler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass},globals.Compiler)});
+},
 args: ["aClass"],
 source: "recompile: aClass\x0a\x09aClass methodDictionary values\x0a\x09\x09do: [ :each | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09install: each source \x0a\x09\x09\x09\x09forClass: aClass \x0a\x09\x09\x09\x09protocol: each protocol ]\x0a\x09\x09displayingProgress: 'Recompiling ', aClass name.\x0a\x09aClass isMetaclass ifFalse: [ self recompile: aClass class ]",
 messageSends: ["do:displayingProgress:", "values", "methodDictionary", "install:forClass:protocol:", "source", "protocol", ",", "name", "ifFalse:", "isMetaclass", "recompile:", "class"],
@@ -569,8 +597,10 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st($Smalltalk())._classes())._do_displayingProgress_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._recompile_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),"Compiling all classes...");
-return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{},globals.Compiler)})},
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}),"Compiling all classes...");
+return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{},globals.Compiler)});
+},
 args: [],
 source: "recompileAll\x0a\x09Smalltalk classes \x0a\x09\x09do: [ :each | self recompile: each ]\x0a\x09\x09displayingProgress: 'Compiling all classes...'",
 messageSends: ["do:displayingProgress:", "classes", "recompile:"],
@@ -593,7 +623,8 @@ $1="";
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"source",{},globals.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"source",{},globals.Compiler)});
+},
 args: [],
 source: "source\x0a\x09^ source ifNil: [ '' ]",
 messageSends: ["ifNil:"],
@@ -608,7 +639,8 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 self["@source"]=aString;
-return self},
+return self
+},
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
 messageSends: [],
@@ -625,6 +657,7 @@ var self=this;
 var $1;
 $1=self["@unknownVariables"];
 return $1;
+
 },
 args: [],
 source: "unknownVariables\x0a\x09^ unknownVariables",
@@ -640,7 +673,8 @@ protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 self["@unknownVariables"]=aCollection;
-return self},
+return self
+},
 args: ["aCollection"],
 source: "unknownVariables: aCollection\x0a\x09unknownVariables := aCollection",
 messageSends: [],
@@ -657,7 +691,8 @@ fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._new())._recompile_(aClass);
-return self}, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass},globals.Compiler.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass},globals.Compiler.klass)});
+},
 args: ["aClass"],
 source: "recompile: aClass\x0a\x09self new recompile: aClass",
 messageSends: ["recompile:", "new"],
@@ -676,8 +711,10 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st($Smalltalk())._classes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._recompile_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{},globals.Compiler.klass)})},
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
+return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{},globals.Compiler.klass)});
+},
 args: [],
 source: "recompileAll\x0a\x09Smalltalk classes do: [ :each |\x0a\x09\x09self recompile: each ]",
 messageSends: ["do:", "classes", "recompile:"],
@@ -711,11 +748,13 @@ _st((function(){
 return smalltalk.withContext(function($ctx2) {
 ast=_st(compiler)._parseExpression_(aString);
 return ast;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(ex){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}))._on_do_($Error(),(function(ex){
 return smalltalk.withContext(function($ctx2) {
 $1=self._alert_(_st(ex)._messageText());
 throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)});
+}));
 $2=_st($AISemanticAnalyzer())._on_(_st(_st(aContext)._receiver())._class());
 _st($2)._context_(aContext);
 $3=_st($2)._visit_(ast);
@@ -723,7 +762,8 @@ $4=_st(aContext)._evaluateNode_(ast);
 return $4;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"evaluate:context:",{aString:aString,aContext:aContext,compiler:compiler,ast:ast},globals.Evaluator)})},
+}, function($ctx1) {$ctx1.fill(self,"evaluate:context:",{aString:aString,aContext:aContext,compiler:compiler,ast:ast},globals.Evaluator)});
+},
 args: ["aString", "aContext"],
 source: "evaluate: aString context: aContext\x0a\x09\x22Similar to #evaluate:for:, with the following differences:\x0a\x09- instead of compiling and running `aString`, `aString` is interpreted using an `ASTInterpreter`\x0a\x09- instead of evaluating against a receiver, evaluate in the context of `aContext`\x22\x0a\x0a\x09| compiler ast |\x0a\x09\x0a\x09compiler := Compiler new.\x0a\x09[ ast := compiler parseExpression: aString ] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :ex | ^ self alert: ex messageText ].\x0a\x09\x09\x0a\x09(AISemanticAnalyzer on: aContext receiver class)\x0a\x09\x09context: aContext;\x0a\x09\x09visit: ast.\x0a\x0a\x09^ aContext evaluateNode: ast",
 messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "context:", "on:", "class", "receiver", "visit:", "evaluateNode:"],
@@ -741,7 +781,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(anObject)._evaluate_on_(aString,self);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},globals.Evaluator)})},
+}, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},globals.Evaluator)});
+},
 args: ["aString", "anObject"],
 source: "evaluate: aString for: anObject\x0a\x09^ anObject evaluate: aString on: self",
 messageSends: ["evaluate:on:"],
@@ -766,16 +807,19 @@ compiler=_st($Compiler())._new();
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(compiler)._parseExpression_(aString);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(ex){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}))._on_do_($Error(),(function(ex){
 return smalltalk.withContext(function($ctx2) {
 $1=self._alert_(_st(ex)._messageText());
 throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)});
+}));
 $2=_st(compiler)._evaluateExpression_on_(aString,anObject);
 return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"evaluate:receiver:",{aString:aString,anObject:anObject,compiler:compiler},globals.Evaluator)})},
+}, function($ctx1) {$ctx1.fill(self,"evaluate:receiver:",{aString:aString,anObject:anObject,compiler:compiler},globals.Evaluator)});
+},
 args: ["aString", "anObject"],
 source: "evaluate: aString receiver: anObject\x0a\x09| compiler |\x0a\x09\x0a\x09compiler := Compiler new.\x0a\x09[ compiler parseExpression: aString ] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :ex | ^ self alert: ex messageText ].\x0a\x0a\x09^ compiler evaluateExpression: aString on: anObject",
 messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "evaluateExpression:on:"],
@@ -794,7 +838,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._new())._evaluate_for_(aString,anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},globals.Evaluator.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},globals.Evaluator.klass)});
+},
 args: ["aString", "anObject"],
 source: "evaluate: aString for: anObject\x0a\x09^ self new evaluate: aString for: anObject",
 messageSends: ["evaluate:for:", "new"],
@@ -815,7 +860,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(aNode)._accept_(self);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visit: aNode\x0a\x09^ aNode accept: self",
 messageSends: ["accept:"],
@@ -834,9 +880,11 @@ var $1;
 $1=_st(aCollection)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._visit_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitAll:",{aCollection:aCollection},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitAll:",{aCollection:aCollection},globals.NodeVisitor)});
+},
 args: ["aCollection"],
 source: "visitAll: aCollection\x0a\x09^ aCollection collect: [ :each | self visit: each ]",
 messageSends: ["collect:", "visit:"],
@@ -854,7 +902,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitAssignmentNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
@@ -872,7 +921,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitBlockNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
@@ -890,7 +940,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitSequenceNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitBlockSequenceNode: aNode\x0a\x09^ self visitSequenceNode: aNode",
 messageSends: ["visitSequenceNode:"],
@@ -908,7 +959,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitCascadeNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
@@ -926,7 +978,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitDynamicArrayNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
@@ -944,7 +997,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitDynamicDictionaryNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
@@ -962,7 +1016,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitJSStatementNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
@@ -980,7 +1035,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitMethodNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
@@ -998,7 +1054,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitAll_(_st(aNode)._nodes());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitNode: aNode\x0a\x09^ self visitAll: aNode nodes",
 messageSends: ["visitAll:", "nodes"],
@@ -1016,7 +1073,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitReturnNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
@@ -1034,7 +1092,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitSendNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
@@ -1052,7 +1111,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitSequenceNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
@@ -1070,7 +1130,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitValueNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
@@ -1088,7 +1149,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},globals.NodeVisitor)})},
+}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},globals.NodeVisitor)});
+},
 args: ["aNode"],
 source: "visitVariableNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
@@ -1113,7 +1175,8 @@ $1=self.__comma("_");
 $1=self;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asVariableName",{},globals.String)})},
+}, function($ctx1) {$ctx1.fill(self,"asVariableName",{},globals.String)});
+},
 args: [],
 source: "asVariableName\x0a\x09^ (Smalltalk reservedWords includes: self)\x0a\x09\x09ifTrue: [ self, '_' ]\x0a\x09\x09ifFalse: [ self ]",
 messageSends: ["ifTrue:ifFalse:", "includes:", "reservedWords", ","],

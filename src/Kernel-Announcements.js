@@ -14,6 +14,7 @@ var self=this;
 var $1;
 $1=self["@announcementClass"];
 return $1;
+
 },
 args: [],
 source: "announcementClass\x0a\x09^ announcementClass",
@@ -29,7 +30,8 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 self["@announcementClass"]=aClass;
-return self},
+return self
+},
 args: ["aClass"],
 source: "announcementClass: aClass\x0a\x09announcementClass := aClass",
 messageSends: [],
@@ -48,7 +50,8 @@ var $1;
 self._deprecatedAPI();
 $1=self._valuable();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"block",{},globals.AnnouncementSubscription)})},
+}, function($ctx1) {$ctx1.fill(self,"block",{},globals.AnnouncementSubscription)});
+},
 args: [],
 source: "block\x0a\x09\x22Use #valuable instead\x22\x0a\x09\x0a\x09self deprecatedAPI.\x0a\x09^ self valuable",
 messageSends: ["deprecatedAPI", "valuable"],
@@ -65,7 +68,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._deprecatedAPI();
 self._valuable_(aValuable);
-return self}, function($ctx1) {$ctx1.fill(self,"block:",{aValuable:aValuable},globals.AnnouncementSubscription)})},
+return self}, function($ctx1) {$ctx1.fill(self,"block:",{aValuable:aValuable},globals.AnnouncementSubscription)});
+},
 args: ["aValuable"],
 source: "block: aValuable\x0a\x09\x22Use #valuable instead\x22\x0a\x09\x0a\x09self deprecatedAPI.\x0a\x09self valuable: aValuable",
 messageSends: ["deprecatedAPI", "valuable:"],
@@ -85,7 +89,8 @@ $1=self._handlesAnnouncement_(anAnnouncement);
 if(smalltalk.assert($1)){
 _st(self._valuable())._value_(anAnnouncement);
 };
-return self}, function($ctx1) {$ctx1.fill(self,"deliver:",{anAnnouncement:anAnnouncement},globals.AnnouncementSubscription)})},
+return self}, function($ctx1) {$ctx1.fill(self,"deliver:",{anAnnouncement:anAnnouncement},globals.AnnouncementSubscription)});
+},
 args: ["anAnnouncement"],
 source: "deliver: anAnnouncement\x0a\x09(self handlesAnnouncement: anAnnouncement)\x0a\x09\x09ifTrue: [ self valuable value: anAnnouncement ]",
 messageSends: ["ifTrue:", "handlesAnnouncement:", "value:", "valuable"],
@@ -116,7 +121,8 @@ class_=$receiver;
 $1=_st(_st(_st($Smalltalk())._globals())._at_(_st(_st(_st(anAnnouncement)._class())._theNonMetaClass())._name()))._includesBehavior_(class_);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},globals.AnnouncementSubscription)})},
+}, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},globals.AnnouncementSubscription)});
+},
 args: ["anAnnouncement"],
 source: "handlesAnnouncement: anAnnouncement\x0a\x09\x22anAnnouncement might be announced from within another Amber environment\x22\x0a\x09\x0a\x09^ (Smalltalk globals at: self announcementClass name)\x0a\x09\x09ifNil: [ ^ false ]\x0a\x09\x09ifNotNil: [ :class |\x0a\x09\x09(Smalltalk globals at: anAnnouncement class theNonMetaClass name) includesBehavior: class ]",
 messageSends: ["ifNil:ifNotNil:", "at:", "globals", "name", "announcementClass", "includesBehavior:", "theNonMetaClass", "class"],
@@ -134,7 +140,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._valuable())._receiver();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"receiver",{},globals.AnnouncementSubscription)})},
+}, function($ctx1) {$ctx1.fill(self,"receiver",{},globals.AnnouncementSubscription)});
+},
 args: [],
 source: "receiver\x0a\x09^ self valuable receiver",
 messageSends: ["receiver", "valuable"],
@@ -151,6 +158,7 @@ var self=this;
 var $1;
 $1=self["@valuable"];
 return $1;
+
 },
 args: [],
 source: "valuable\x0a\x09^ valuable",
@@ -166,7 +174,8 @@ protocol: 'accessing',
 fn: function (aValuable){
 var self=this;
 self["@valuable"]=aValuable;
-return self},
+return self
+},
 args: ["aValuable"],
 source: "valuable: aValuable\x0a\x09valuable := aValuable",
 messageSends: [],
@@ -187,6 +196,7 @@ var self=this;
 var $1;
 $1=self["@receiver"];
 return $1;
+
 },
 args: [],
 source: "receiver\x0a\x09^ receiver",
@@ -202,7 +212,8 @@ protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 self["@receiver"]=anObject;
-return self},
+return self
+},
 args: ["anObject"],
 source: "receiver: anObject\x0a\x09receiver := anObject",
 messageSends: [],
@@ -219,6 +230,7 @@ var self=this;
 var $1;
 $1=self["@valuable"];
 return $1;
+
 },
 args: [],
 source: "valuable\x0a\x09^ valuable",
@@ -234,7 +246,8 @@ protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 self["@valuable"]=anObject;
-return self},
+return self
+},
 args: ["anObject"],
 source: "valuable: anObject\x0a\x09valuable := anObject",
 messageSends: [],
@@ -252,7 +265,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._valuable())._value();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"value",{},globals.AnnouncementValuable)})},
+}, function($ctx1) {$ctx1.fill(self,"value",{},globals.AnnouncementValuable)});
+},
 args: [],
 source: "value\x0a\x09^ self valuable value",
 messageSends: ["value", "valuable"],
@@ -270,7 +284,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._valuable())._value_(anObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},globals.AnnouncementValuable)})},
+}, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},globals.AnnouncementValuable)});
+},
 args: ["anObject"],
 source: "value: anObject\x0a\x09^ self valuable value: anObject",
 messageSends: ["value:", "valuable"],
@@ -292,8 +307,10 @@ return smalltalk.withContext(function($ctx1) {
 _st(self["@subscriptions"])._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._deliver_(anAnnouncement);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"announce:",{anAnnouncement:anAnnouncement},globals.Announcer)})},
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
+return self}, function($ctx1) {$ctx1.fill(self,"announce:",{anAnnouncement:anAnnouncement},globals.Announcer)});
+},
 args: ["anAnnouncement"],
 source: "announce: anAnnouncement\x0a\x09subscriptions do: [ :each |\x0a\x09\x09each deliver: anAnnouncement ]",
 messageSends: ["do:", "deliver:"],
@@ -312,7 +329,8 @@ return smalltalk.withContext(function($ctx1) {
 ($ctx1.supercall = true, globals.Announcer.superclass.fn.prototype._initialize.apply(_st(self), []));
 $ctx1.supercall = false;
 self["@subscriptions"]=_st($OrderedCollection())._new();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Announcer)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Announcer)});
+},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09subscriptions := OrderedCollection new",
 messageSends: ["initialize", "new"],
@@ -328,7 +346,8 @@ fn: function (aClass,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._on_do_for_(aClass,aBlock,nil);
-return self}, function($ctx1) {$ctx1.fill(self,"on:do:",{aClass:aClass,aBlock:aBlock},globals.Announcer)})},
+return self}, function($ctx1) {$ctx1.fill(self,"on:do:",{aClass:aClass,aBlock:aBlock},globals.Announcer)});
+},
 args: ["aClass", "aBlock"],
 source: "on: aClass do: aBlock\x0a\x09self on: aClass do: aBlock for: nil",
 messageSends: ["on:do:for:"],
@@ -362,7 +381,8 @@ _st($3)._announcementClass_(aClass);
 $8=_st($3)._yourself();
 $2=$8;
 _st($1)._add_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"on:do:for:",{aClass:aClass,aBlock:aBlock,aReceiver:aReceiver},globals.Announcer)})},
+return self}, function($ctx1) {$ctx1.fill(self,"on:do:for:",{aClass:aClass,aBlock:aBlock,aReceiver:aReceiver},globals.Announcer)});
+},
 args: ["aClass", "aBlock", "aReceiver"],
 source: "on: aClass do: aBlock for: aReceiver\x0a\x09subscriptions add: (AnnouncementSubscription new\x0a\x09\x09valuable: (AnnouncementValuable new\x0a\x09\x09\x09valuable: aBlock;\x0a\x09\x09\x09receiver: aReceiver;\x0a\x09\x09\x09yourself);\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself)",
 messageSends: ["add:", "valuable:", "new", "receiver:", "yourself", "announcementClass:"],
@@ -388,9 +408,11 @@ _st(subscription)._valuable_((function(ann){
 return smalltalk.withContext(function($ctx2) {
 _st(self["@subscriptions"])._remove_(subscription);
 return _st(aBlock)._value_(ann);
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1,1)});
+}));
 _st(self["@subscriptions"])._add_(subscription);
-return self}, function($ctx1) {$ctx1.fill(self,"on:doOnce:",{aClass:aClass,aBlock:aBlock,subscription:subscription},globals.Announcer)})},
+return self}, function($ctx1) {$ctx1.fill(self,"on:doOnce:",{aClass:aClass,aBlock:aBlock,subscription:subscription},globals.Announcer)});
+},
 args: ["aClass", "aBlock"],
 source: "on: aClass doOnce: aBlock\x0a\x09| subscription |\x0a\x09\x0a\x09subscription := AnnouncementSubscription new\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself.\x0a\x09subscription valuable: [ :ann |\x0a\x09\x09subscriptions remove: subscription.\x0a\x09\x09aBlock value: ann ].\x0a\x0a\x09subscriptions add: subscription",
 messageSends: ["announcementClass:", "new", "yourself", "valuable:", "remove:", "value:", "add:"],
@@ -423,7 +445,8 @@ _st($3)._announcementClass_(aClass);
 $8=_st($3)._yourself();
 $2=$8;
 _st($1)._add_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"on:send:to:",{aClass:aClass,aSelector:aSelector,anObject:anObject},globals.Announcer)})},
+return self}, function($ctx1) {$ctx1.fill(self,"on:send:to:",{aClass:aClass,aSelector:aSelector,anObject:anObject},globals.Announcer)});
+},
 args: ["aClass", "aSelector", "anObject"],
 source: "on: aClass send: aSelector to: anObject\x0a\x09subscriptions add: (AnnouncementSubscription new\x0a\x09\x09valuable: (MessageSend new\x0a\x09\x09\x09receiver: anObject;\x0a\x09\x09\x09selector: aSelector;\x0a\x09\x09\x09yourself);\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself)",
 messageSends: ["add:", "valuable:", "new", "receiver:", "selector:", "yourself", "announcementClass:"],
@@ -441,8 +464,10 @@ return smalltalk.withContext(function($ctx1) {
 self["@subscriptions"]=_st(self["@subscriptions"])._reject_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._receiver()).__eq(anObject);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"unsubscribe:",{anObject:anObject},globals.Announcer)})},
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
+return self}, function($ctx1) {$ctx1.fill(self,"unsubscribe:",{anObject:anObject},globals.Announcer)});
+},
 args: ["anObject"],
 source: "unsubscribe: anObject\x0a\x09subscriptions := subscriptions reject: [ :each |\x0a\x09\x09each receiver = anObject ]",
 messageSends: ["reject:", "=", "receiver"],
@@ -473,7 +498,8 @@ $1=self["@current"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"current",{},globals.SystemAnnouncer.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"current",{},globals.SystemAnnouncer.klass)});
+},
 args: [],
 source: "current\x0a\x09^ current ifNil: [ current := super new ]",
 messageSends: ["ifNil:", "new"],
@@ -489,7 +515,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._shouldNotImplement();
-return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.SystemAnnouncer.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"new",{},globals.SystemAnnouncer.klass)});
+},
 args: [],
 source: "new\x0a\x09self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
@@ -508,6 +535,7 @@ protocol: 'helios',
 fn: function (){
 var self=this;
 return "announcement";
+
 },
 args: [],
 source: "heliosClass\x0a\x09^ 'announcement'",
@@ -528,6 +556,7 @@ var self=this;
 var $1;
 $1=self["@theClass"];
 return $1;
+
 },
 args: [],
 source: "theClass\x0a\x09^ theClass",
@@ -543,7 +572,8 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 self["@theClass"]=aClass;
-return self},
+return self
+},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
 messageSends: [],
@@ -576,6 +606,7 @@ var self=this;
 var $1;
 $1=self["@oldClass"];
 return $1;
+
 },
 args: [],
 source: "oldClass\x0a\x09^ oldClass",
@@ -591,7 +622,8 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 self["@oldClass"]=aClass;
-return self},
+return self
+},
 args: ["aClass"],
 source: "oldClass: aClass\x0a\x09oldClass := aClass",
 messageSends: [],
@@ -612,6 +644,7 @@ var self=this;
 var $1;
 $1=self["@oldPackage"];
 return $1;
+
 },
 args: [],
 source: "oldPackage\x0a\x09^ oldPackage",
@@ -627,7 +660,8 @@ protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 self["@oldPackage"]=aPackage;
-return self},
+return self
+},
 args: ["aPackage"],
 source: "oldPackage: aPackage\x0a\x09oldPackage := aPackage",
 messageSends: [],
@@ -656,6 +690,7 @@ var self=this;
 var $1;
 $1=self["@method"];
 return $1;
+
 },
 args: [],
 source: "method\x0a\x09^ method",
@@ -671,7 +706,8 @@ protocol: 'accessing',
 fn: function (aCompiledMethod){
 var self=this;
 self["@method"]=aCompiledMethod;
-return self},
+return self
+},
 args: ["aCompiledMethod"],
 source: "method: aCompiledMethod\x0a\x09method := aCompiledMethod",
 messageSends: [],
@@ -696,6 +732,7 @@ var self=this;
 var $1;
 $1=self["@oldMethod"];
 return $1;
+
 },
 args: [],
 source: "oldMethod\x0a\x09^ oldMethod",
@@ -711,7 +748,8 @@ protocol: 'accessing',
 fn: function (aMethod){
 var self=this;
 self["@oldMethod"]=aMethod;
-return self},
+return self
+},
 args: ["aMethod"],
 source: "oldMethod: aMethod\x0a\x09oldMethod := aMethod",
 messageSends: [],
@@ -732,6 +770,7 @@ var self=this;
 var $1;
 $1=self["@oldProtocol"];
 return $1;
+
 },
 args: [],
 source: "oldProtocol\x0a\x09^ oldProtocol",
@@ -747,7 +786,8 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 self["@oldProtocol"]=aString;
-return self},
+return self
+},
 args: ["aString"],
 source: "oldProtocol: aString\x0a\x09oldProtocol := aString",
 messageSends: [],
@@ -772,6 +812,7 @@ var self=this;
 var $1;
 $1=self["@package"];
 return $1;
+
 },
 args: [],
 source: "package\x0a\x09^ package",
@@ -787,7 +828,8 @@ protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 self["@package"]=aPackage;
-return self},
+return self
+},
 args: ["aPackage"],
 source: "package: aPackage\x0a\x09package := aPackage",
 messageSends: [],
@@ -833,9 +875,11 @@ return $3;
 };
 $4=_st($Package())._named_ifAbsent_(_st(self._protocol())._allButFirst(),(function(){
 return nil;
+
 }));
 return $4;
-}, function($ctx1) {$ctx1.fill(self,"package",{},globals.ProtocolAnnouncement)})},
+}, function($ctx1) {$ctx1.fill(self,"package",{},globals.ProtocolAnnouncement)});
+},
 args: [],
 source: "package\x0a\x0a\x09(self protocol beginsWith: '*') ifFalse: [\x0a\x09\x09^ self theClass package ].\x0a\x09\x09\x0a\x09^ Package \x0a\x09\x09named: self protocol allButFirst\x0a\x09\x09ifAbsent: [ nil ]",
 messageSends: ["ifFalse:", "beginsWith:", "protocol", "package", "theClass", "named:ifAbsent:", "allButFirst"],
@@ -852,6 +896,7 @@ var self=this;
 var $1;
 $1=self["@protocol"];
 return $1;
+
 },
 args: [],
 source: "protocol\x0a\x09^ protocol",
@@ -867,7 +912,8 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 self["@protocol"]=aString;
-return self},
+return self
+},
 args: ["aString"],
 source: "protocol: aString\x0a\x09protocol := aString",
 messageSends: [],
@@ -884,6 +930,7 @@ var self=this;
 var $1;
 $1=self["@theClass"];
 return $1;
+
 },
 args: [],
 source: "theClass\x0a\x09^ theClass",
@@ -899,7 +946,8 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 self["@theClass"]=aClass;
-return self},
+return self
+},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
 messageSends: [],

@@ -31,7 +31,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=" Invalid assignment to variable: ".__comma(self._variableName());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.InvalidAssignmentError)})},
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.InvalidAssignmentError)});
+},
 args: [],
 source: "messageText\x0a\x09^ ' Invalid assignment to variable: ', self variableName",
 messageSends: [",", "variableName"],
@@ -48,6 +49,7 @@ var self=this;
 var $1;
 $1=self["@variableName"];
 return $1;
+
 },
 args: [],
 source: "variableName\x0a\x09^ variableName",
@@ -63,7 +65,8 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 self["@variableName"]=aString;
-return self},
+return self
+},
 args: ["aString"],
 source: "variableName: aString\x0a\x09variableName := aString",
 messageSends: [],
@@ -86,7 +89,8 @@ var $1;
 $1=_st("Variable shadowing error: ".__comma(self._variableName())).__comma(" is already defined");
 $ctx1.sendIdx[","]=1;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.ShadowingVariableError)})},
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.ShadowingVariableError)});
+},
 args: [],
 source: "messageText\x0a\x09^ 'Variable shadowing error: ', self variableName, ' is already defined'",
 messageSends: [",", "variableName"],
@@ -103,6 +107,7 @@ var self=this;
 var $1;
 $1=self["@variableName"];
 return $1;
+
 },
 args: [],
 source: "variableName\x0a\x09^ variableName",
@@ -118,7 +123,8 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 self["@variableName"]=aString;
-return self},
+return self
+},
 args: ["aString"],
 source: "variableName: aString\x0a\x09variableName := aString",
 messageSends: [],
@@ -141,7 +147,8 @@ var $1;
 $1=_st("Unknown Variable error: ".__comma(self._variableName())).__comma(" is not defined");
 $ctx1.sendIdx[","]=1;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.UnknownVariableError)})},
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.UnknownVariableError)});
+},
 args: [],
 source: "messageText\x0a\x09^ 'Unknown Variable error: ', self variableName, ' is not defined'",
 messageSends: [",", "variableName"],
@@ -158,6 +165,7 @@ var self=this;
 var $1;
 $1=self["@variableName"];
 return $1;
+
 },
 args: [],
 source: "variableName\x0a\x09^ variableName",
@@ -173,7 +181,8 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 self["@variableName"]=aString;
-return self},
+return self
+},
 args: ["aString"],
 source: "variableName: aString\x0a\x09variableName := aString",
 messageSends: [],
@@ -193,7 +202,8 @@ fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 throw anError;
-return self}, function($ctx1) {$ctx1.fill(self,"basicSignal:",{anError:anError},globals.RethrowErrorHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"basicSignal:",{anError:anError},globals.RethrowErrorHandler)});
+},
 args: ["anError"],
 source: "basicSignal: anError\x0a        <throw anError>",
 messageSends: [],
@@ -209,7 +219,8 @@ fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._basicSignal_(anError);
-return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.RethrowErrorHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.RethrowErrorHandler)});
+},
 args: ["anError"],
 source: "handleError: anError\x0a        self basicSignal: anError",
 messageSends: ["basicSignal:"],

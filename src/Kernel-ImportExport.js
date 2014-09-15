@@ -15,7 +15,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(aString)._replace_with_("!","!!"))._trimBoth();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"chunkEscape:",{aString:aString},globals.AbstractExporter)})},
+}, function($ctx1) {$ctx1.fill(self,"chunkEscape:",{aString:aString},globals.AbstractExporter)});
+},
 args: ["aString"],
 source: "chunkEscape: aString\x0a\x09\x22Replace all occurrences of ! with !! and trim at both ends.\x22\x0a\x0a\x09^ (aString replace: '!' with: '!!') trimBoth",
 messageSends: ["trimBoth", "replace:with:"],
@@ -45,7 +46,8 @@ $1=_st(aClass)._name();
 };
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},globals.AbstractExporter)})},
+}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},globals.AbstractExporter)});
+},
 args: ["aClass"],
 source: "classNameFor: aClass\x0a\x09^ aClass isMetaclass\x0a\x09\x09ifTrue: [ aClass instanceClass name, ' class' ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09aClass isNil\x0a\x09\x09\x09\x09ifTrue: [ 'nil' ]\x0a\x09\x09\x09\x09ifFalse: [ aClass name ] ]",
 messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"],
@@ -61,7 +63,8 @@ fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.AbstractExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.AbstractExporter)});
+},
 args: ["aPackage", "aStream"],
 source: "exportPackage: aPackage on: aStream\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
@@ -83,10 +86,12 @@ result=_st($OrderedCollection())._new();
 _st(self._extensionProtocolsOfPackage_(aPackage))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(result)._addAll_(_st(each)._methods());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
 $1=result;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"extensionMethodsOfPackage:",{aPackage:aPackage,result:result},globals.AbstractExporter)})},
+}, function($ctx1) {$ctx1.fill(self,"extensionMethodsOfPackage:",{aPackage:aPackage,result:result},globals.AbstractExporter)});
+},
 args: ["aPackage"],
 source: "extensionMethodsOfPackage: aPackage\x0a\x09| result |\x0a\x09\x0a\x09result := OrderedCollection new.\x0a\x09\x0a\x09(self extensionProtocolsOfPackage: aPackage) do: [ :each |\x0a\x09\x09result addAll: each methods ].\x0a\x09\x09\x0a\x09^ result",
 messageSends: ["new", "do:", "extensionProtocolsOfPackage:", "addAll:", "methods"],
@@ -115,7 +120,8 @@ return smalltalk.withContext(function($ctx2) {
 $2=_st(a)._name();
 $ctx2.sendIdx["name"]=2;
 return _st($2).__lt(_st(b)._name());
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})})))._do_((function(each){
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)});
+})))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st([each,_st(each)._class()])._do_((function(behavior){
 return smalltalk.withContext(function($ctx3) {
@@ -123,12 +129,15 @@ $3=_st(_st(behavior)._protocols())._includes_(extensionName);
 if(smalltalk.assert($3)){
 return _st(result)._add_(_st($ExportMethodProtocol())._name_theClass_(extensionName,behavior));
 };
-}, function($ctx3) {$ctx3.fillBlock({behavior:behavior},$ctx2,3)})}));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+}, function($ctx3) {$ctx3.fillBlock({behavior:behavior},$ctx2,3)});
+}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+}));
 $ctx1.sendIdx["do:"]=1;
 $4=result;
 return $4;
-}, function($ctx1) {$ctx1.fill(self,"extensionProtocolsOfPackage:",{aPackage:aPackage,extensionName:extensionName,result:result},globals.AbstractExporter)})},
+}, function($ctx1) {$ctx1.fill(self,"extensionProtocolsOfPackage:",{aPackage:aPackage,extensionName:extensionName,result:result},globals.AbstractExporter)});
+},
 args: ["aPackage"],
 source: "extensionProtocolsOfPackage: aPackage\x0a\x09| extensionName result |\x0a\x09\x0a\x09extensionName := '*', aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09\x0a\x09\x22The classes must be loaded since it is extensions only.\x0a\x09Therefore topological sorting (dependency resolution) does not matter here.\x0a\x09Not sorting topologically improves the speed by a number of magnitude.\x0a\x09\x0a\x09Not to shuffle diffs, classes are sorted by their name.\x22\x0a\x09\x0a\x09(Smalltalk classes asArray sorted: [ :a :b | a name < b name ]) do: [ :each |\x0a\x09\x09{each. each class} do: [ :behavior |\x0a\x09\x09\x09(behavior protocols includes: extensionName) ifTrue: [\x0a\x09\x09\x09\x09result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].\x0a\x0a\x09^ result",
 messageSends: [",", "name", "new", "do:", "sorted:", "asArray", "classes", "<", "class", "ifTrue:", "includes:", "protocols", "add:", "name:theClass:"],
@@ -152,7 +161,8 @@ _st(aStream)._nextPutAll_(" !");
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportCategoryEpilogueOf:on:",{aCategory:aCategory,aStream:aStream},globals.ChunkExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportCategoryEpilogueOf:on:",{aCategory:aCategory,aStream:aStream},globals.ChunkExporter)});
+},
 args: ["aCategory", "aStream"],
 source: "exportCategoryEpilogueOf: aCategory on: aStream\x0a\x09aStream nextPutAll: ' !'; lf; lf",
 messageSends: ["nextPutAll:", "lf"],
@@ -175,7 +185,8 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 $3=_st(" methodsFor: '".__comma(_st(aCategory)._name())).__comma("'!");
 $ctx1.sendIdx[","]=2;
 $2=_st(aStream)._nextPutAll_($3);
-return self}, function($ctx1) {$ctx1.fill(self,"exportCategoryPrologueOf:on:",{aCategory:aCategory,aStream:aStream},globals.ChunkExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportCategoryPrologueOf:on:",{aCategory:aCategory,aStream:aStream},globals.ChunkExporter)});
+},
 args: ["aCategory", "aStream"],
 source: "exportCategoryPrologueOf: aCategory on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: aCategory theClass);\x0a\x09\x09nextPutAll: ' methodsFor: ''', aCategory name, '''!'",
 messageSends: ["nextPutAll:", ",", "classNameFor:", "theClass", "name"],
@@ -211,11 +222,13 @@ _st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(aStream)._nextPutAll_(each);
 $ctx2.sendIdx["nextPutAll:"]=4;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(aStream)._nextPutAll_(" ");
 $ctx2.sendIdx["nextPutAll:"]=5;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
+}));
 _st(aStream)._nextPutAll_("'");
 $ctx1.sendIdx["nextPutAll:"]=6;
 _st(aStream)._lf();
@@ -247,7 +260,8 @@ $ctx1.sendIdx["lf"]=5;
 $12;
 };
 _st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.ChunkExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.ChunkExporter)});
+},
 args: ["aClass", "aStream"],
 source: "exportDefinitionOf: aClass on: aStream\x0a\x09\x22Chunk format.\x22\x0a\x0a\x09aStream\x0a\x09\x09nextPutAll: (self classNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;\x0a\x09\x09tab; nextPutAll: 'instanceVariableNames: '''.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: each ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ' ' ].\x0a\x09aStream\x0a\x09\x09nextPutAll: ''''; lf;\x0a\x09\x09tab; nextPutAll: 'package: ''', aClass category, '''!'; lf.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: aClass), ' commentStamp!';lf;\x0a\x09\x09nextPutAll: (self chunkEscape: aClass comment), '!';lf ].\x0a\x09aStream lf",
 messageSends: ["nextPutAll:", "classNameFor:", "superclass", ",", "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "chunkEscape:"],
@@ -281,18 +295,21 @@ _st(_st(_st(aClass)._class())._instanceVariableNames())._do_separatedBy_((functi
 return smalltalk.withContext(function($ctx2) {
 return _st(aStream)._nextPutAll_(each);
 $ctx2.sendIdx["nextPutAll:"]=3;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(aStream)._nextPutAll_(" ");
 $ctx2.sendIdx["nextPutAll:"]=4;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
+}));
 _st(aStream)._nextPutAll_("'!");
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
 $7=_st(aStream)._lf();
 $7;
 };
-return self}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.ChunkExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.ChunkExporter)});
+},
 args: ["aClass", "aStream"],
 source: "exportMetaDefinitionOf: aClass on: aStream\x0a\x0a\x09aClass class instanceVariableNames isEmpty ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: (self classNameFor: aClass class);\x0a\x09\x09\x09nextPutAll: ' instanceVariableNames: '''.\x0a\x09\x09aClass class instanceVariableNames\x0a\x09\x09\x09do: [ :each | aStream nextPutAll: each ]\x0a\x09\x09\x09separatedBy: [ aStream nextPutAll: ' ' ].\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: '''!'; lf; lf ]",
 messageSends: ["ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", "classNameFor:", "do:separatedBy:", "lf"],
@@ -316,7 +333,8 @@ _st(aStream)._nextPutAll_(self._chunkEscape_(_st(aMethod)._source()));
 $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._lf();
 $1=_st(aStream)._nextPutAll_("!");
-return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},globals.ChunkExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},globals.ChunkExporter)});
+},
 args: ["aMethod", "aStream"],
 source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09lf; lf; nextPutAll: (self chunkEscape: aMethod source); lf;\x0a\x09\x09nextPutAll: '!'",
 messageSends: ["lf", "nextPutAll:", "chunkEscape:", "source"],
@@ -343,9 +361,11 @@ $ctx2.sendIdx["exportProtocols:on:"]=1;
 self._exportMetaDefinitionOf_on_(each,aStream);
 return self._exportProtocols_on_(self._ownMethodProtocolsOfClass_(_st(each)._class()),aStream);
 $ctx2.sendIdx["exportProtocols:on:"]=2;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
 self._exportProtocols_on_(self._extensionProtocolsOfPackage_(aPackage),aStream);
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.ChunkExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.ChunkExporter)});
+},
 args: ["aPackage", "aStream"],
 source: "exportPackage: aPackage on: aStream\x0a\x0a\x09self exportPackageDefinitionOf: aPackage on: aStream.\x0a\x09\x0a\x09aPackage sortedClasses do: [ :each |\x0a\x09\x09self exportDefinitionOf: each on: aStream.\x0a\x09\x09\x0a\x09\x09self \x0a\x09\x09\x09exportProtocols: (self ownMethodProtocolsOfClass: each)\x0a\x09\x09\x09on: aStream.\x0a\x09\x09\x09\x0a\x09\x09self exportMetaDefinitionOf: each on: aStream.\x0a\x09\x09\x0a\x09\x09self \x0a\x09\x09\x09exportProtocols: (self ownMethodProtocolsOfClass: each class)\x0a\x09\x09\x09on: aStream ].\x0a\x09\x09\x09\x0a\x09self \x0a\x09\x09exportProtocols: (self extensionProtocolsOfPackage: aPackage)\x0a\x09\x09on: aStream",
 messageSends: ["exportPackageDefinitionOf:on:", "do:", "sortedClasses", "exportDefinitionOf:on:", "exportProtocols:on:", "ownMethodProtocolsOfClass:", "exportMetaDefinitionOf:on:", "class", "extensionProtocolsOfPackage:"],
@@ -365,7 +385,8 @@ $1=_st("Smalltalk createPackage: '".__comma(_st(aPackage)._name())).__comma("'!"
 $ctx1.sendIdx[","]=1;
 _st(aStream)._nextPutAll_($1);
 $2=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},globals.ChunkExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},globals.ChunkExporter)});
+},
 args: ["aPackage", "aStream"],
 source: "exportPackageDefinitionOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'Smalltalk createPackage: ''', aPackage name, '''!';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", ",", "name", "lf"],
@@ -384,9 +405,11 @@ self._exportProtocolPrologueOf_on_(aProtocol,aStream);
 _st(_st(aProtocol)._methods())._do_((function(method){
 return smalltalk.withContext(function($ctx2) {
 return self._exportMethod_on_(method,aStream);
-}, function($ctx2) {$ctx2.fillBlock({method:method},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({method:method},$ctx1,1)});
+}));
 self._exportProtocolEpilogueOf_on_(aProtocol,aStream);
-return self}, function($ctx1) {$ctx1.fill(self,"exportProtocol:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportProtocol:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)});
+},
 args: ["aProtocol", "aStream"],
 source: "exportProtocol: aProtocol on: aStream\x0a\x09self exportProtocolPrologueOf: aProtocol on: aStream.\x0a\x09aProtocol methods do: [ :method | \x0a\x09\x09self exportMethod: method on: aStream ].\x0a\x09self exportProtocolEpilogueOf: aProtocol on: aStream",
 messageSends: ["exportProtocolPrologueOf:on:", "do:", "methods", "exportMethod:on:", "exportProtocolEpilogueOf:on:"],
@@ -406,7 +429,8 @@ _st(aStream)._nextPutAll_(" !");
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportProtocolEpilogueOf:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportProtocolEpilogueOf:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)});
+},
 args: ["aProtocol", "aStream"],
 source: "exportProtocolEpilogueOf: aProtocol on: aStream\x0a\x09aStream nextPutAll: ' !'; lf; lf",
 messageSends: ["nextPutAll:", "lf"],
@@ -429,7 +453,8 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 $3=_st(" methodsFor: '".__comma(_st(aProtocol)._name())).__comma("'!");
 $ctx1.sendIdx[","]=2;
 $2=_st(aStream)._nextPutAll_($3);
-return self}, function($ctx1) {$ctx1.fill(self,"exportProtocolPrologueOf:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportProtocolPrologueOf:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)});
+},
 args: ["aProtocol", "aStream"],
 source: "exportProtocolPrologueOf: aProtocol on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: aProtocol theClass);\x0a\x09\x09nextPutAll: ' methodsFor: ''', aProtocol name, '''!'",
 messageSends: ["nextPutAll:", ",", "classNameFor:", "theClass", "name"],
@@ -447,8 +472,10 @@ return smalltalk.withContext(function($ctx1) {
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._exportProtocol_on_(each,aStream);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"exportProtocols:on:",{aCollection:aCollection,aStream:aStream},globals.ChunkExporter)})},
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
+return self}, function($ctx1) {$ctx1.fill(self,"exportProtocols:on:",{aCollection:aCollection,aStream:aStream},globals.ChunkExporter)});
+},
 args: ["aCollection", "aStream"],
 source: "exportProtocols: aCollection on: aStream\x0a\x09aCollection do: [ :each |\x0a\x09\x09self exportProtocol: each on: aStream ]",
 messageSends: ["do:", "exportProtocol:on:"],
@@ -485,20 +512,26 @@ $1=_st(category).__eq("*".__comma(name));
 if(smalltalk.assert($1)){
 return _st(map)._at_put_(category,methods);
 };
-}, function($ctx4) {$ctx4.fillBlock({category:category,methods:methods},$ctx3,3)})}));
+}, function($ctx4) {$ctx4.fillBlock({category:category,methods:methods},$ctx3,3)});
+}));
 return _st(result)._addAll_(_st(_st(_st(map)._keys())._sorted_((function(a,b){
 return smalltalk.withContext(function($ctx4) {
 return _st(a).__lt_eq(b);
-}, function($ctx4) {$ctx4.fillBlock({a:a,b:b},$ctx3,5)})})))._collect_((function(category){
+}, function($ctx4) {$ctx4.fillBlock({a:a,b:b},$ctx3,5)});
+})))._collect_((function(category){
 return smalltalk.withContext(function($ctx4) {
 return _st($MethodCategory())._name_theClass_methods_(category,aClass,_st(map)._at_(category));
-}, function($ctx4) {$ctx4.fillBlock({category:category},$ctx3,6)})})));
-}, function($ctx3) {$ctx3.fillBlock({aClass:aClass},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx4) {$ctx4.fillBlock({category:category},$ctx3,6)});
+})));
+}, function($ctx3) {$ctx3.fillBlock({aClass:aClass},$ctx2,2)});
+}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
 $ctx1.sendIdx["do:"]=1;
 $2=result;
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"extensionCategoriesOfPackage:",{aPackage:aPackage,name:name,map:map,result:result},globals.ChunkExporter)})},
+}, function($ctx1) {$ctx1.fill(self,"extensionCategoriesOfPackage:",{aPackage:aPackage,name:name,map:map,result:result},globals.ChunkExporter)});
+},
 args: ["aPackage"],
 source: "extensionCategoriesOfPackage: aPackage\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| name map result |\x0a\x09name := aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09(Package sortedClasses: Smalltalk classes) do: [ :each |\x0a\x09\x09{each. each class} do: [ :aClass |\x0a\x09\x09\x09map := Dictionary new.\x0a\x09\x09\x09aClass protocolsDo: [ :category :methods |\x0a\x09\x09\x09\x09category = ('*', name) ifTrue: [ map at: category put: methods ] ].\x0a\x09\x09\x09result addAll: ((map keys sorted: [ :a :b | a <= b ]) collect: [ :category |\x0a\x09\x09\x09\x09MethodCategory name: category theClass: aClass methods: (map at: category) ]) ] ].\x0a\x09^ result",
 messageSends: ["name", "new", "do:", "sortedClasses:", "classes", "class", "protocolsDo:", "ifTrue:", "=", ",", "at:put:", "addAll:", "collect:", "sorted:", "keys", "<=", "name:theClass:methods:", "at:"],
@@ -524,16 +557,20 @@ $1=_st(each)._match_("^\x5c*");
 if(! smalltalk.assert($1)){
 return _st(map)._at_put_(each,methods);
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each,methods:methods},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each,methods:methods},$ctx1,1)});
+}));
 $2=_st(_st(_st(map)._keys())._sorted_((function(a,b){
 return smalltalk.withContext(function($ctx2) {
 return _st(a).__lt_eq(b);
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,3)})})))._collect_((function(each){
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,3)});
+})))._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st($MethodCategory())._name_theClass_methods_(each,aClass,_st(map)._at_(each));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)});
+}));
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfClass:",{aClass:aClass,map:map},globals.ChunkExporter)})},
+}, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfClass:",{aClass:aClass,map:map},globals.ChunkExporter)});
+},
 args: ["aClass"],
 source: "ownCategoriesOfClass: aClass\x0a\x09\x22Answer the protocols of aClass that are not package extensions\x22\x0a\x09\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| map |\x0a\x09map := Dictionary new.\x0a\x09aClass protocolsDo: [ :each :methods |\x0a\x09\x09(each match: '^\x5c*') ifFalse: [ map at: each put: methods ] ].\x0a\x09^ (map keys sorted: [ :a :b | a <= b ]) collect: [ :each |\x0a\x09\x09MethodCategory name: each theClass: aClass methods: (map at: each) ]",
 messageSends: ["new", "protocolsDo:", "ifFalse:", "match:", "at:put:", "collect:", "sorted:", "keys", "<=", "name:theClass:methods:", "at:"],
@@ -551,7 +588,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._ownCategoriesOfClass_(_st(aClass)._class());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfMetaClass:",{aClass:aClass},globals.ChunkExporter)})},
+}, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfMetaClass:",{aClass:aClass},globals.ChunkExporter)});
+},
 args: ["aClass"],
 source: "ownCategoriesOfMetaClass: aClass\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09^ self ownCategoriesOfClass: aClass class",
 messageSends: ["ownCategoriesOfClass:", "class"],
@@ -571,9 +609,11 @@ var $1;
 $1=_st(_st(aClass)._ownProtocols())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st($ExportMethodProtocol())._name_theClass_(each,aClass);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ownMethodProtocolsOfClass:",{aClass:aClass},globals.ChunkExporter)})},
+}, function($ctx1) {$ctx1.fill(self,"ownMethodProtocolsOfClass:",{aClass:aClass},globals.ChunkExporter)});
+},
 args: ["aClass"],
 source: "ownMethodProtocolsOfClass: aClass\x0a\x09\x22Answer a collection of ExportMethodProtocol object of aClass that are not package extensions\x22\x0a\x09\x0a\x09^ aClass ownProtocols collect: [ :each |\x0a\x09\x09ExportMethodProtocol name: each theClass: aClass ]",
 messageSends: ["collect:", "ownProtocols", "name:theClass:"],
@@ -617,11 +657,13 @@ $5=_st($6).__comma("'");
 $ctx2.sendIdx[","]=3;
 return _st(aStream)._nextPutAll_($5);
 $ctx2.sendIdx["nextPutAll:"]=5;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(aStream)._nextPutAll_(", ");
 $ctx2.sendIdx["nextPutAll:"]=6;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
+}));
 _st(aStream)._nextPutAll_("], '");
 $ctx1.sendIdx["nextPutAll:"]=7;
 _st(aStream)._nextPutAll_(_st(_st(aClass)._category()).__comma("'"));
@@ -644,7 +686,8 @@ $10=_st(aStream)._nextPutAll_(";");
 $10;
 };
 _st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.Exporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.Exporter)});
+},
 args: ["aClass", "aStream"],
 source: "exportDefinitionOf: aClass on: aStream\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'smalltalk.addClass(';\x0a\x09\x09nextPutAll: '''', (self classNameFor: aClass), ''', ';\x0a\x09\x09nextPutAll: (self jsClassNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ', ['.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ', ' ].\x0a\x09aStream\x0a\x09\x09nextPutAll: '], ''';\x0a\x09\x09nextPutAll: aClass category, '''';\x0a\x09\x09nextPutAll: ');'.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09\x09lf;\x0a\x09\x09nextPutAll: (self jsClassNameFor: aClass);\x0a\x09\x09nextPutAll: '.comment=';\x0a\x09\x09nextPutAll: aClass comment asJavascript;\x0a\x09\x09nextPutAll: ';' ].\x0a\x09aStream lf",
 messageSends: ["lf", "nextPutAll:", ",", "classNameFor:", "jsClassNameFor:", "superclass", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "asJavascript"],
@@ -685,14 +728,17 @@ $7=_st($8).__comma("'");
 $ctx2.sendIdx[","]=1;
 return _st(aStream)._nextPutAll_($7);
 $ctx2.sendIdx["nextPutAll:"]=3;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(aStream)._nextPutAll_(",");
 $ctx2.sendIdx["nextPutAll:"]=4;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
+}));
 _st(aStream)._nextPutAll_("];".__comma(_st($String())._lf()));
 };
-return self}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.Exporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.Exporter)});
+},
 args: ["aClass", "aStream"],
 source: "exportMetaDefinitionOf: aClass on: aStream\x0a\x09aStream lf.\x0a\x09aClass class instanceVariableNames isEmpty ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09nextPutAll: (self jsClassNameFor: aClass class);\x0a\x09\x09nextPutAll: '.iVarNames = ['.\x0a\x09\x09aClass class instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ',' ].\x0a\x09\x09aStream nextPutAll: '];', String lf ]",
 messageSends: ["lf", "ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", "jsClassNameFor:", "do:separatedBy:", ","],
@@ -786,7 +832,8 @@ _st(aStream)._nextPutAll_(");");
 _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=11;
 $18=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},globals.Exporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},globals.Exporter)});
+},
 args: ["aMethod", "aStream"],
 source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09\x22nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x22\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: (self jsClassNameFor: aMethod methodClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
 messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "protocol", "compiledSource", "fn", "arguments", "source", "messageSends", "referencedClasses", "jsClassNameFor:", "methodClass"],
@@ -814,23 +861,28 @@ _st($2)._do_((function(method){
 return smalltalk.withContext(function($ctx3) {
 return self._exportMethod_on_(method,aStream);
 $ctx3.sendIdx["exportMethod:on:"]=1;
-}, function($ctx3) {$ctx3.fillBlock({method:method},$ctx2,2)})}));
+}, function($ctx3) {$ctx3.fillBlock({method:method},$ctx2,2)});
+}));
 $ctx2.sendIdx["do:"]=2;
 self._exportMetaDefinitionOf_on_(each,aStream);
 return _st(_st(_st(each)._class())._ownMethods())._do_((function(method){
 return smalltalk.withContext(function($ctx3) {
 return self._exportMethod_on_(method,aStream);
 $ctx3.sendIdx["exportMethod:on:"]=2;
-}, function($ctx3) {$ctx3.fillBlock({method:method},$ctx2,3)})}));
+}, function($ctx3) {$ctx3.fillBlock({method:method},$ctx2,3)});
+}));
 $ctx2.sendIdx["do:"]=3;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
 $ctx1.sendIdx["do:"]=1;
 _st(self._extensionMethodsOfPackage_(aPackage))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._exportMethod_on_(each,aStream);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)});
+}));
 self._exportPackageEpilogueOf_on_(aPackage,aStream);
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+},
 args: ["aPackage", "aStream"],
 source: "exportPackage: aPackage on: aStream\x0a\x09\x0a\x09self \x0a\x09\x09exportPackagePrologueOf: aPackage on: aStream;\x0a\x09\x09exportPackageDefinitionOf: aPackage on: aStream;\x0a\x09\x09exportPackageTransportOf: aPackage on: aStream.\x0a\x09\x0a\x09aPackage sortedClasses do: [ :each |\x0a\x09\x09self exportDefinitionOf: each on: aStream.\x0a\x09\x09each ownMethods do: [ :method |\x0a\x09\x09\x09self exportMethod: method on: aStream ].\x0a\x09\x09\x09\x0a\x09\x09self exportMetaDefinitionOf: each on: aStream.\x0a\x09\x09each class ownMethods do: [ :method |\x0a\x09\x09\x09self exportMethod: method on: aStream ] ].\x0a\x09\x09\x09\x0a\x09(self extensionMethodsOfPackage: aPackage) do: [ :each |\x0a\x09\x09self exportMethod: each on: aStream ].\x0a\x09\x09\x0a\x09self exportPackageEpilogueOf: aPackage on: aStream",
 messageSends: ["exportPackagePrologueOf:on:", "exportPackageDefinitionOf:on:", "exportPackageTransportOf:on:", "do:", "sortedClasses", "exportDefinitionOf:on:", "ownMethods", "exportMethod:on:", "exportMetaDefinitionOf:on:", "class", "extensionMethodsOfPackage:", "exportPackageEpilogueOf:on:"],
@@ -852,7 +904,8 @@ $1=_st("'".__comma(_st(aPackage)._name())).__comma("');");
 $ctx1.sendIdx[","]=1;
 _st(aStream)._nextPutAll_($1);
 $2=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+},
 args: ["aPackage", "aStream"],
 source: "exportPackageDefinitionOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addPackage(';\x0a\x09\x09nextPutAll: '''', aPackage name, ''');';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", ",", "name", "lf"],
@@ -870,7 +923,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 _st(aStream)._nextPutAll_("})(global_smalltalk,global_nil,global__st);");
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+},
 args: ["aPackage", "aStream"],
 source: "exportPackageEpilogueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '})(global_smalltalk,global_nil,global__st);';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", "lf"],
@@ -888,7 +942,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 _st(aStream)._nextPutAll_("(function(smalltalk,nil,_st){");
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+},
 args: ["aPackage", "aStream"],
 source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '(function(smalltalk,nil,_st){';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", "lf"],
@@ -914,7 +969,8 @@ _st(aStream)._nextPutAll_(_st(_st(aPackage)._transport())._asJSONString());
 $ctx1.sendIdx["nextPutAll:"]=4;
 _st(aStream)._nextPutAll_(";");
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+},
 args: ["aPackage", "aStream"],
 source: "exportPackageTransportOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.packages[';\x0a\x09\x09nextPutAll: aPackage name asJavascript;\x0a\x09\x09nextPutAll: '].transport = ';\x0a\x09\x09nextPutAll: aPackage transport asJSONString;\x0a\x09\x09nextPutAll: ';';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", "asJavascript", "name", "asJSONString", "transport", "lf"],
@@ -942,7 +998,8 @@ $1="globals.".__comma(_st(aClass)._name());
 };
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"jsClassNameFor:",{aClass:aClass},globals.Exporter)})},
+}, function($ctx1) {$ctx1.fill(self,"jsClassNameFor:",{aClass:aClass},globals.Exporter)});
+},
 args: ["aClass"],
 source: "jsClassNameFor: aClass\x0a\x09^ aClass isMetaclass\x0a\x09\x09ifTrue: [ (self jsClassNameFor: aClass instanceClass), '.klass' ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09aClass\x0a\x09\x09\x09\x09ifNil: [ 'null' ]\x0a\x09\x09\x09\x09ifNotNil: [ 'globals.', aClass name ] ]",
 messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "jsClassNameFor:", "instanceClass", "ifNil:ifNotNil:", "name"],
@@ -963,12 +1020,15 @@ return smalltalk.withContext(function($ctx2) {
 $2=_st(a)._selector();
 $ctx2.sendIdx["selector"]=1;
 return _st($2).__lt_eq(_st(b)._selector());
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})})))._reject_((function(each){
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)});
+})))._reject_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._protocol())._match_("^\x5c*");
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ownMethodsOfClass:",{aClass:aClass},globals.Exporter)})},
+}, function($ctx1) {$ctx1.fill(self,"ownMethodsOfClass:",{aClass:aClass},globals.Exporter)});
+},
 args: ["aClass"],
 source: "ownMethodsOfClass: aClass\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09^ ((aClass methodDictionary values) sorted: [ :a :b | a selector <= b selector ])\x0a\x09\x09reject: [ :each | (each protocol match: '^\x5c*') ]",
 messageSends: ["reject:", "sorted:", "values", "methodDictionary", "<=", "selector", "match:", "protocol"],
@@ -986,7 +1046,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._ownMethodsOfClass_(_st(aClass)._class());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"ownMethodsOfMetaClass:",{aClass:aClass},globals.Exporter)})},
+}, function($ctx1) {$ctx1.fill(self,"ownMethodsOfMetaClass:",{aClass:aClass},globals.Exporter)});
+},
 args: ["aClass"],
 source: "ownMethodsOfMetaClass: aClass\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09^ self ownMethodsOfClass: aClass class",
 messageSends: ["ownMethodsOfClass:", "class"],
@@ -1011,13 +1072,16 @@ return smalltalk.withContext(function($ctx2) {
 $2=self._amdNamespaceOfPackage_(each);
 $ctx2.sendIdx["amdNamespaceOfPackage:"]=1;
 return _st($2)._notNil();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._collect_((function(each){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+})))._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self._amdNamespaceOfPackage_(each)).__comma("/")).__comma(_st(each)._name());
 $ctx2.sendIdx[","]=1;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"amdNamesOfPackages:",{anArray:anArray},globals.AmdExporter)})},
+}, function($ctx1) {$ctx1.fill(self,"amdNamesOfPackages:",{anArray:anArray},globals.AmdExporter)});
+},
 args: ["anArray"],
 source: "amdNamesOfPackages: anArray\x0a\x09^ (anArray\x0a\x09\x09select: [ :each | (self amdNamespaceOfPackage: each) notNil ])\x0a\x09\x09collect: [ :each | (self amdNamespaceOfPackage: each), '/', each name ]",
 messageSends: ["collect:", "select:", "notNil", "amdNamespaceOfPackage:", ",", "name"],
@@ -1043,7 +1107,8 @@ $1=_st(_st(aPackage)._transport())._namespace();
 $1=nil;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"amdNamespaceOfPackage:",{aPackage:aPackage},globals.AmdExporter)})},
+}, function($ctx1) {$ctx1.fill(self,"amdNamespaceOfPackage:",{aPackage:aPackage},globals.AmdExporter)});
+},
 args: ["aPackage"],
 source: "amdNamespaceOfPackage: aPackage\x0a\x09^ (aPackage transport type = 'amd')\x0a\x09\x09ifTrue: [ aPackage transport namespace ]\x0a\x09\x09ifFalse: [ nil ]",
 messageSends: ["ifTrue:ifFalse:", "=", "type", "transport", "namespace"],
@@ -1061,7 +1126,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 _st(aStream)._nextPutAll_("});");
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},globals.AmdExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},globals.AmdExporter)});
+},
 args: ["aPackage", "aStream"],
 source: "exportPackageEpilogueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '});';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", "lf"],
@@ -1095,7 +1161,8 @@ _st(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
 _st(aStream)._nextPutAll_("var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;");
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},globals.AmdExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},globals.AmdExporter)});
+},
 args: ["aPackage", "aStream"],
 source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (#('amber/boot'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;\x0a\x09\x09nextPutAll: ', function($boot){';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", "amdNamespaceOfPackage:", "name", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"],
@@ -1116,6 +1183,7 @@ var self=this;
 var $1;
 $1=self["@last"];
 return $1;
+
 },
 args: [],
 source: "last\x0a\x09^ last",
@@ -1142,7 +1210,8 @@ char=_st(self["@stream"])._next();
 $ctx2.sendIdx["next"]=1;
 char;
 return _st(char)._notNil();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileTrue_((function(){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}))._whileTrue_((function(){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(char).__eq("!");
 $ctx2.sendIdx["="]=1;
@@ -1157,13 +1226,15 @@ throw $early=[$3];
 };
 };
 return _st(result)._nextPut_(char);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
+}));
 self["@last"]=nil;
 $4=self["@last"];
 return $4;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"nextChunk",{char:char,result:result,chunk:chunk},globals.ChunkParser)})},
+}, function($ctx1) {$ctx1.fill(self,"nextChunk",{char:char,result:result,chunk:chunk},globals.ChunkParser)});
+},
 args: [],
 source: "nextChunk\x0a\x09\x22The chunk format (Smalltalk Interchange Format or Fileout format)\x0a\x09is a trivial format but can be a bit tricky to understand:\x0a\x09\x09- Uses the exclamation mark as delimiter of chunks.\x0a\x09\x09- Inside a chunk a normal exclamation mark must be doubled.\x0a\x09\x09- A non empty chunk must be a valid Smalltalk expression.\x0a\x09\x09- A chunk on top level with a preceding empty chunk is an instruction chunk:\x0a\x09\x09\x09- The object created by the expression then takes over reading chunks.\x0a\x0a\x09This method returns next chunk as a String (trimmed), empty String (all whitespace) or nil.\x22\x0a\x0a\x09| char result chunk |\x0a\x09result := '' writeStream.\x0a\x09\x09[ char := stream next.\x0a\x09\x09char notNil ] whileTrue: [\x0a\x09\x09\x09\x09char = '!' ifTrue: [\x0a\x09\x09\x09\x09\x09\x09stream peek = '!'\x0a\x09\x09\x09\x09\x09\x09\x09\x09ifTrue: [ stream next \x22skipping the escape double\x22 ]\x0a\x09\x09\x09\x09\x09\x09\x09\x09ifFalse: [ ^ last := result contents trimBoth \x22chunk end marker found\x22 ]].\x0a\x09\x09\x09\x09result nextPut: char ].\x0a\x09^ last := nil \x22a chunk needs to end with !\x22",
 messageSends: ["writeStream", "whileTrue:", "next", "notNil", "ifTrue:", "=", "ifTrue:ifFalse:", "peek", "trimBoth", "contents", "nextPut:"],
@@ -1178,7 +1249,8 @@ protocol: 'accessing',
 fn: function (aStream){
 var self=this;
 self["@stream"]=aStream;
-return self},
+return self
+},
 args: ["aStream"],
 source: "stream: aStream\x0a\x09stream := aStream",
 messageSends: [],
@@ -1197,7 +1269,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._new())._stream_(aStream);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{aStream:aStream},globals.ChunkParser.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:",{aStream:aStream},globals.ChunkParser.klass)});
+},
 args: ["aStream"],
 source: "on: aStream\x0a\x09^ self new stream: aStream",
 messageSends: ["stream:", "new"],
@@ -1221,9 +1294,11 @@ return smalltalk.withContext(function($ctx2) {
 $2=_st(a)._selector();
 $ctx2.sendIdx["selector"]=1;
 return _st($2).__lt_eq(_st(b)._selector());
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"methods",{},globals.ExportMethodProtocol)})},
+}, function($ctx1) {$ctx1.fill(self,"methods",{},globals.ExportMethodProtocol)});
+},
 args: [],
 source: "methods\x0a\x09^ (self theClass methodsInProtocol: self name)\x0a\x09\x09sorted: [ :a :b | a selector <= b selector ]",
 messageSends: ["sorted:", "methodsInProtocol:", "theClass", "name", "<=", "selector"],
@@ -1240,6 +1315,7 @@ var self=this;
 var $1;
 $1=self["@name"];
 return $1;
+
 },
 args: [],
 source: "name\x0a\x09^ name",
@@ -1255,7 +1331,8 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 self["@name"]=aString;
-return self},
+return self
+},
 args: ["aString"],
 source: "name: aString\x0a\x09name := aString",
 messageSends: [],
@@ -1272,6 +1349,7 @@ var self=this;
 var $1;
 $1=self["@theClass"];
 return $1;
+
 },
 args: [],
 source: "theClass\x0a\x09^ theClass",
@@ -1287,7 +1365,8 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 self["@theClass"]=aClass;
-return self},
+return self
+},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
 messageSends: [],
@@ -1310,7 +1389,8 @@ _st($2)._theClass_(aClass);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"name:theClass:",{aString:aString,aClass:aClass},globals.ExportMethodProtocol.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"name:theClass:",{aString:aString,aClass:aClass},globals.ExportMethodProtocol.klass)});
+},
 args: ["aString", "aClass"],
 source: "name: aString theClass: aClass\x0a\x09^ self new\x0a\x09\x09name: aString;\x0a\x09\x09theClass: aClass;\x0a\x09\x09yourself",
 messageSends: ["name:", "new", "theClass:", "yourself"],
@@ -1344,7 +1424,8 @@ return smalltalk.withContext(function($ctx3) {
 chunk=_st(parser)._nextChunk();
 chunk;
 return _st(chunk)._isNil();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}))._whileFalse_((function(){
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
+}))._whileFalse_((function(){
 return smalltalk.withContext(function($ctx3) {
 $1=_st(chunk)._isEmpty();
 if(smalltalk.assert($1)){
@@ -1362,16 +1443,20 @@ lastEmpty;
 return _st(result)._scanFrom_(parser);
 };
 };
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)});
+}));
 self["@lastSection"]="n/a, finished";
 return self["@lastSection"];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(e){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}))._on_do_($Error(),(function(e){
 return smalltalk.withContext(function($ctx2) {
 self["@lastChunk"]=_st(parser)._last();
 self["@lastChunk"];
 return _st(e)._signal();
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,7)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"import:",{aStream:aStream,chunk:chunk,result:result,parser:parser,lastEmpty:lastEmpty},globals.Importer)})},
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,7)});
+}));
+return self}, function($ctx1) {$ctx1.fill(self,"import:",{aStream:aStream,chunk:chunk,result:result,parser:parser,lastEmpty:lastEmpty},globals.Importer)});
+},
 args: ["aStream"],
 source: "import: aStream\x0a\x09| chunk result parser lastEmpty |\x0a\x09parser := ChunkParser on: aStream.\x0a\x09lastEmpty := false.\x0a\x09lastSection := 'n/a, not started'.\x0a\x09lastChunk := nil.\x0a\x09[\x0a\x09[ chunk := parser nextChunk.\x0a\x09chunk isNil ] whileFalse: [\x0a\x09\x09chunk isEmpty\x0a\x09\x09\x09ifTrue: [ lastEmpty := true ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09lastSection := chunk.\x0a\x09\x09\x09\x09result := Compiler new evaluateExpression: chunk.\x0a\x09\x09\x09\x09lastEmpty\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09lastEmpty := false.\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09result scanFrom: parser ]] ].\x0a\x09lastSection := 'n/a, finished'\x0a\x09] on: Error do: [:e | lastChunk := parser last. e signal ].",
 messageSends: ["on:", "on:do:", "whileFalse:", "nextChunk", "isNil", "ifTrue:ifFalse:", "isEmpty", "evaluateExpression:", "new", "ifTrue:", "scanFrom:", "last", "signal"],
@@ -1388,6 +1473,7 @@ var self=this;
 var $1;
 $1=self["@lastChunk"];
 return $1;
+
 },
 args: [],
 source: "lastChunk\x0a\x09^ lastChunk",
@@ -1405,6 +1491,7 @@ var self=this;
 var $1;
 $1=self["@lastSection"];
 return $1;
+
 },
 args: [],
 source: "lastSection\x0a\x09^ lastSection",
@@ -1425,7 +1512,8 @@ fn: function (aURL,aString,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._ajax_(globals.HashedCollection._newFromPairs_(["url",aURL,"type","PUT","data",aString,"contentType","text/plain;charset=UTF-8","success",aBlock,"error",anotherBlock]));
-return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:onSuccess:onError:",{aURL:aURL,aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:onSuccess:onError:",{aURL:aURL,aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
+},
 args: ["aURL", "aString", "aBlock", "anotherBlock"],
 source: "ajaxPutAt: aURL data: aString onSuccess: aBlock onError: anotherBlock\x0a\x09self\x0a\x09\x09ajax: #{\x0a\x09\x09\x09'url' -> aURL.\x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'success' -> aBlock.\x0a\x09\x09\x09'error' -> anotherBlock\x0a\x09\x09}",
 messageSends: ["ajax:"],
@@ -1445,9 +1533,11 @@ var $1;
 $1=_st($String())._streamContents_((function(str){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._chunkExporter())._exportPackage_on_(aPackage,str);
-}, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"chunkContentsFor:",{aPackage:aPackage},globals.PackageHandler)})},
+}, function($ctx1) {$ctx1.fill(self,"chunkContentsFor:",{aPackage:aPackage},globals.PackageHandler)});
+},
 args: ["aPackage"],
 source: "chunkContentsFor: aPackage\x0a\x09^ String streamContents: [ :str |\x0a\x09\x09self chunkExporter exportPackage: aPackage on: str ]",
 messageSends: ["streamContents:", "exportPackage:on:", "chunkExporter"],
@@ -1465,7 +1555,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._chunkExporterClass())._new();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"chunkExporter",{},globals.PackageHandler)})},
+}, function($ctx1) {$ctx1.fill(self,"chunkExporter",{},globals.PackageHandler)});
+},
 args: [],
 source: "chunkExporter\x0a\x09^ self chunkExporterClass new",
 messageSends: ["new", "chunkExporterClass"],
@@ -1481,6 +1572,7 @@ fn: function (){
 var self=this;
 function $ChunkExporter(){return globals.ChunkExporter||(typeof ChunkExporter=="undefined"?nil:ChunkExporter)}
 return $ChunkExporter();
+
 },
 args: [],
 source: "chunkExporterClass\x0a\x09^ ChunkExporter",
@@ -1499,6 +1591,7 @@ function $PackageCommitError(){return globals.PackageCommitError||(typeof Packag
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
 self._commit_onSuccess_onError_(aPackage,(function(){
+
 }),(function(error){
 return smalltalk.withContext(function($ctx2) {
 $1=_st($PackageCommitError())._new();
@@ -1508,8 +1601,10 @@ $ctx2.sendIdx[","]=1;
 _st($2)._messageText_($3);
 $4=_st($1)._signal();
 return $4;
-}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},globals.PackageHandler)})},
+}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)});
+}));
+return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},globals.PackageHandler)});
+},
 args: ["aPackage"],
 source: "commit: aPackage\x0a\x09self \x0a\x09\x09commit: aPackage\x0a\x09\x09onSuccess: []\x0a\x09\x09onError: [ :error |\x0a\x09\x09\x09PackageCommitError new\x0a\x09\x09\x09\x09messageText: 'Commiting failed with reason: \x22' , (error responseText) , '\x22';\x0a\x09\x09\x09\x09signal ]",
 messageSends: ["commit:onSuccess:onError:", "messageText:", "new", ",", "responseText", "signal"],
@@ -1530,9 +1625,12 @@ return self._commitStFileFor_onSuccess_onError_(aPackage,(function(){
 return smalltalk.withContext(function($ctx3) {
 _st(aPackage)._beClean();
 return _st(aBlock)._value();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}),anotherBlock);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),anotherBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"commit:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)})},
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
+}),anotherBlock);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}),anotherBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"commit:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
+},
 args: ["aPackage", "aBlock", "anotherBlock"],
 source: "commit: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09commitJsFileFor: aPackage \x0a\x09\x09onSuccess: [\x0a\x09\x09\x09self \x0a\x09\x09\x09\x09commitStFileFor: aPackage \x0a\x09\x09\x09\x09onSuccess: [ aPackage beClean. aBlock value ]\x0a\x09\x09\x09\x09onError: anotherBlock ] \x0a\x09\x09onError: anotherBlock",
 messageSends: ["commitJsFileFor:onSuccess:onError:", "commitStFileFor:onSuccess:onError:", "beClean", "value"],
@@ -1553,7 +1651,8 @@ $ctx1.sendIdx[","]=2;
 $1=_st($2).__comma(".js");
 $ctx1.sendIdx[","]=1;
 self._ajaxPutAt_data_onSuccess_onError_($1,self._contentsFor_(aPackage),aBlock,anotherBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"commitJsFileFor:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"commitJsFileFor:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
+},
 args: ["aPackage", "aBlock", "anotherBlock"],
 source: "commitJsFileFor: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09ajaxPutAt: (self commitPathJsFor: aPackage), '/', aPackage name, '.js'\x0a\x09\x09data: (self contentsFor: aPackage)\x0a\x09\x09onSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
 messageSends: ["ajaxPutAt:data:onSuccess:onError:", ",", "commitPathJsFor:", "name", "contentsFor:"],
@@ -1569,7 +1668,8 @@ fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"commitPathJsFor:",{aPackage:aPackage},globals.PackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"commitPathJsFor:",{aPackage:aPackage},globals.PackageHandler)});
+},
 args: ["aPackage"],
 source: "commitPathJsFor: aPackage\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
@@ -1585,7 +1685,8 @@ fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage},globals.PackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage},globals.PackageHandler)});
+},
 args: ["aPackage"],
 source: "commitPathStFor: aPackage\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
@@ -1606,7 +1707,8 @@ $ctx1.sendIdx[","]=2;
 $1=_st($2).__comma(".st");
 $ctx1.sendIdx[","]=1;
 self._ajaxPutAt_data_onSuccess_onError_($1,self._chunkContentsFor_(aPackage),aBlock,anotherBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"commitStFileFor:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"commitStFileFor:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
+},
 args: ["aPackage", "aBlock", "anotherBlock"],
 source: "commitStFileFor: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09ajaxPutAt: (self commitPathStFor: aPackage), '/', aPackage name, '.st'\x0a\x09\x09data: (self chunkContentsFor: aPackage)\x0a\x09\x09onSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
 messageSends: ["ajaxPutAt:data:onSuccess:onError:", ",", "commitPathStFor:", "name", "chunkContentsFor:"],
@@ -1626,9 +1728,11 @@ var $1;
 $1=_st($String())._streamContents_((function(str){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._exporter())._exportPackage_on_(aPackage,str);
-}, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"contentsFor:",{aPackage:aPackage},globals.PackageHandler)})},
+}, function($ctx1) {$ctx1.fill(self,"contentsFor:",{aPackage:aPackage},globals.PackageHandler)});
+},
 args: ["aPackage"],
 source: "contentsFor: aPackage\x0a\x09^ String streamContents: [ :str |\x0a\x09\x09self exporter exportPackage: aPackage on: str ]",
 messageSends: ["streamContents:", "exportPackage:on:", "exporter"],
@@ -1646,7 +1750,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._exporterClass())._new();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"exporter",{},globals.PackageHandler)})},
+}, function($ctx1) {$ctx1.fill(self,"exporter",{},globals.PackageHandler)});
+},
 args: [],
 source: "exporter\x0a\x09^ self exporterClass new",
 messageSends: ["new", "exporterClass"],
@@ -1662,6 +1767,7 @@ fn: function (){
 var self=this;
 function $Exporter(){return globals.Exporter||(typeof Exporter=="undefined"?nil:Exporter)}
 return $Exporter();
+
 },
 args: [],
 source: "exporterClass\x0a\x09^ Exporter",
@@ -1678,7 +1784,8 @@ fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},globals.PackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},globals.PackageHandler)});
+},
 args: ["aPackage"],
 source: "load: aPackage\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
@@ -1701,7 +1808,8 @@ $3=_st("Commiting failed with reason: \x22".__comma(_st(anError)._responseText()
 $ctx1.sendIdx[","]=1;
 _st($2)._messageText_($3);
 $4=_st($1)._signal();
-return self}, function($ctx1) {$ctx1.fill(self,"onCommitError:",{anError:anError},globals.PackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onCommitError:",{anError:anError},globals.PackageHandler)});
+},
 args: ["anError"],
 source: "onCommitError: anError\x0a\x09PackageCommitError new\x0a\x09\x09messageText: 'Commiting failed with reason: \x22' , (anError responseText) , '\x22';\x0a\x09\x09signal",
 messageSends: ["messageText:", "new", ",", "responseText", "signal"],
@@ -1723,7 +1831,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._toUrl_(self._namespaceFor_(aPackage));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"commitPathJsFor:",{aPackage:aPackage},globals.AmdPackageHandler)})},
+}, function($ctx1) {$ctx1.fill(self,"commitPathJsFor:",{aPackage:aPackage},globals.AmdPackageHandler)});
+},
 args: ["aPackage"],
 source: "commitPathJsFor: aPackage\x0a\x09^ self toUrl: (self namespaceFor: aPackage)",
 messageSends: ["toUrl:", "namespaceFor:"],
@@ -1751,7 +1860,8 @@ $2=pathWithout;
 $2=path;
 };
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage,path:path,pathWithout:pathWithout},globals.AmdPackageHandler)})},
+}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage,path:path,pathWithout:pathWithout},globals.AmdPackageHandler)});
+},
 args: ["aPackage"],
 source: "commitPathStFor: aPackage\x0a\x09\x22If _source is not mapped, .st will be committed to .js path.\x0a\x09It is recommended not to use _source as it can be deprecated.\x22\x0a\x09\x0a\x09| path pathWithout |\x0a\x09path := self toUrl: (self namespaceFor: aPackage), '/_source'.\x0a\x09pathWithout := self commitPathJsFor: aPackage.\x0a\x09^ path = (pathWithout, '/_source') ifTrue: [ pathWithout ] ifFalse: [ path ]",
 messageSends: ["toUrl:", ",", "namespaceFor:", "commitPathJsFor:", "ifTrue:ifFalse:", "="],
@@ -1767,6 +1877,7 @@ fn: function (){
 var self=this;
 function $AmdExporter(){return globals.AmdExporter||(typeof AmdExporter=="undefined"?nil:AmdExporter)}
 return $AmdExporter();
+
 },
 args: [],
 source: "exporterClass\x0a\x09^ AmdExporter",
@@ -1796,7 +1907,8 @@ $ctx1.sendIdx[","]=1;
 $2=_st($Array())._with_($3);
 _st(require)._value_($2);
 };
-return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},globals.AmdPackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},globals.AmdPackageHandler)});
+},
 args: ["aPackage"],
 source: "load: aPackage\x0a\x09Smalltalk amdRequire\x0a\x09\x09ifNil: [ self error: 'AMD loader not present' ]\x0a\x09\x09ifNotNil: [ :require |\x0a\x09\x09\x09require value: (Array with: (self namespaceFor: aPackage), '/', aPackage name ) ]",
 messageSends: ["ifNil:ifNotNil:", "amdRequire", "error:", "value:", "with:", ",", "namespaceFor:", "name"],
@@ -1814,7 +1926,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(aPackage)._transport())._namespace();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"namespaceFor:",{aPackage:aPackage},globals.AmdPackageHandler)})},
+}, function($ctx1) {$ctx1.fill(self,"namespaceFor:",{aPackage:aPackage},globals.AmdPackageHandler)});
+},
 args: ["aPackage"],
 source: "namespaceFor: aPackage\x0a\x09^ aPackage transport namespace",
 messageSends: ["namespace", "transport"],
@@ -1840,7 +1953,8 @@ require=$receiver;
 $1=_st(_st(require)._basicAt_("toUrl"))._value_(aString);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"toUrl:",{aString:aString},globals.AmdPackageHandler)})},
+}, function($ctx1) {$ctx1.fill(self,"toUrl:",{aString:aString},globals.AmdPackageHandler)});
+},
 args: ["aString"],
 source: "toUrl: aString\x0a\x09^ Smalltalk amdRequire\x0a\x09\x09ifNil: [ self error: 'AMD loader not present' ]\x0a\x09\x09ifNotNil: [ :require | (require basicAt: 'toUrl') value: aString ]",
 messageSends: ["ifNil:ifNotNil:", "amdRequire", "error:", "value:", "basicAt:"],
@@ -1860,7 +1974,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Smalltalk())._defaultAmdNamespace();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultNamespace",{},globals.AmdPackageHandler.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"defaultNamespace",{},globals.AmdPackageHandler.klass)});
+},
 args: [],
 source: "defaultNamespace\x0a\x09^ Smalltalk defaultAmdNamespace",
 messageSends: ["defaultAmdNamespace"],
@@ -1877,7 +1992,8 @@ var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 _st($Smalltalk())._defaultAmdNamespace_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"defaultNamespace:",{aString:aString},globals.AmdPackageHandler.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"defaultNamespace:",{aString:aString},globals.AmdPackageHandler.klass)});
+},
 args: ["aString"],
 source: "defaultNamespace: aString\x0a\x09Smalltalk defaultAmdNamespace: aString",
 messageSends: ["defaultAmdNamespace:"],
@@ -1898,7 +2014,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=globals.HashedCollection._newFromPairs_(["type",self._type()]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJSON",{},globals.PackageTransport)})},
+}, function($ctx1) {$ctx1.fill(self,"asJSON",{},globals.PackageTransport)});
+},
 args: [],
 source: "asJSON\x0a\x09^ #{ 'type' -> self type }",
 messageSends: ["type"],
@@ -1914,7 +2031,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._commitHandler())._commit_(self._package());
-return self}, function($ctx1) {$ctx1.fill(self,"commit",{},globals.PackageTransport)})},
+return self}, function($ctx1) {$ctx1.fill(self,"commit",{},globals.PackageTransport)});
+},
 args: [],
 source: "commit\x0a\x09self commitHandler commit: self package",
 messageSends: ["commit:", "commitHandler", "package"],
@@ -1932,7 +2050,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._commitHandlerClass())._new();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"commitHandler",{},globals.PackageTransport)})},
+}, function($ctx1) {$ctx1.fill(self,"commitHandler",{},globals.PackageTransport)});
+},
 args: [],
 source: "commitHandler\x0a\x09^ self commitHandlerClass new",
 messageSends: ["new", "commitHandlerClass"],
@@ -1948,7 +2067,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"commitHandlerClass",{},globals.PackageTransport)})},
+return self}, function($ctx1) {$ctx1.fill(self,"commitHandlerClass",{},globals.PackageTransport)});
+},
 args: [],
 source: "commitHandlerClass\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
@@ -1964,7 +2084,8 @@ fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._commitHandler())._commit_onSuccess_onError_(self._package(),aBlock,anotherBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"commitOnSuccess:onError:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageTransport)})},
+return self}, function($ctx1) {$ctx1.fill(self,"commitOnSuccess:onError:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageTransport)});
+},
 args: ["aBlock", "anotherBlock"],
 source: "commitOnSuccess: aBlock onError: anotherBlock\x0a\x09self commitHandler \x0a\x09\x09commit: self package\x0a\x09\x09onSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
 messageSends: ["commit:onSuccess:onError:", "commitHandler", "package"],
@@ -1979,6 +2100,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return "";
+
 },
 args: [],
 source: "definition\x0a\x09^ ''",
@@ -1995,7 +2117,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._commitHandler())._load_(self._package());
-return self}, function($ctx1) {$ctx1.fill(self,"load",{},globals.PackageTransport)})},
+return self}, function($ctx1) {$ctx1.fill(self,"load",{},globals.PackageTransport)});
+},
 args: [],
 source: "load\x0a\x09self commitHandler load: self package",
 messageSends: ["load:", "commitHandler", "package"],
@@ -2012,6 +2135,7 @@ var self=this;
 var $1;
 $1=self["@package"];
 return $1;
+
 },
 args: [],
 source: "package\x0a\x09^ package",
@@ -2027,7 +2151,8 @@ protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 self["@package"]=aPackage;
-return self},
+return self
+},
 args: ["aPackage"],
 source: "package: aPackage\x0a\x09package := aPackage",
 messageSends: [],
@@ -2041,7 +2166,8 @@ selector: "setupFromJson:",
 protocol: 'initialization',
 fn: function (anObject){
 var self=this;
-return self},
+return self
+},
 args: ["anObject"],
 source: "setupFromJson: anObject\x0a\x09\x22no op. override if needed in subclasses\x22",
 messageSends: [],
@@ -2059,7 +2185,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._class())._type();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"type",{},globals.PackageTransport)})},
+}, function($ctx1) {$ctx1.fill(self,"type",{},globals.PackageTransport)});
+},
 args: [],
 source: "type\x0a\x09^ self class type",
 messageSends: ["type", "class"],
@@ -2079,7 +2206,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self["@registry"])._at_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"classRegisteredFor:",{aString:aString},globals.PackageTransport.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"classRegisteredFor:",{aString:aString},globals.PackageTransport.klass)});
+},
 args: ["aString"],
 source: "classRegisteredFor: aString\x0a\x09^ registry at: aString",
 messageSends: ["at:"],
@@ -2098,7 +2226,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($AmdPackageTransport())._type();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultType",{},globals.PackageTransport.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"defaultType",{},globals.PackageTransport.klass)});
+},
 args: [],
 source: "defaultType\x0a\x09^ AmdPackageTransport type",
 messageSends: ["type"],
@@ -2116,7 +2245,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._classRegisteredFor_(aString))._new();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},globals.PackageTransport.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},globals.PackageTransport.klass)});
+},
 args: ["aString"],
 source: "for: aString\x0a\x09^ (self classRegisteredFor: aString) new",
 messageSends: ["new", "classRegisteredFor:"],
@@ -2144,7 +2274,8 @@ _st($3)._setupFromJson_(anObject);
 $4=_st($3)._yourself();
 $2=$4;
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"fromJson:",{anObject:anObject},globals.PackageTransport.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"fromJson:",{anObject:anObject},globals.PackageTransport.klass)});
+},
 args: ["anObject"],
 source: "fromJson: anObject\x0a\x09anObject ifNil: [ ^ self for: self defaultType ].\x0a\x09\x0a\x09^ (self for: anObject type)\x0a\x09\x09setupFromJson: anObject;\x0a\x09\x09yourself",
 messageSends: ["ifNil:", "for:", "defaultType", "setupFromJson:", "type", "yourself"],
@@ -2163,7 +2294,8 @@ return smalltalk.withContext(function($ctx1) {
 $ctx1.supercall = false;
 self["@registry"]=globals.HashedCollection._newFromPairs_([]);
 self._register();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.PackageTransport.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.PackageTransport.klass)});
+},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09registry := #{}.\x0a\x09self register",
 messageSends: ["initialize", "register"],
@@ -2180,7 +2312,8 @@ var self=this;
 function $PackageTransport(){return globals.PackageTransport||(typeof PackageTransport=="undefined"?nil:PackageTransport)}
 return smalltalk.withContext(function($ctx1) { 
 _st($PackageTransport())._register_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"register",{},globals.PackageTransport.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"register",{},globals.PackageTransport.klass)});
+},
 args: [],
 source: "register\x0a\x09PackageTransport register: self",
 messageSends: ["register:"],
@@ -2203,7 +2336,8 @@ $1;
 } else {
 _st(self["@registry"])._at_put_(_st(aClass)._type(),aClass);
 };
-return self}, function($ctx1) {$ctx1.fill(self,"register:",{aClass:aClass},globals.PackageTransport.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"register:",{aClass:aClass},globals.PackageTransport.klass)});
+},
 args: ["aClass"],
 source: "register: aClass\x0a\x09aClass type ifNotNil: [\x0a\x09\x09registry at: aClass type put: aClass ]",
 messageSends: ["ifNotNil:", "type", "at:put:"],
@@ -2218,6 +2352,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return nil;
+
 },
 args: [],
 source: "type\x0a\x09\x22Override in subclasses\x22\x0a\x09^ nil",
@@ -2243,7 +2378,8 @@ _st($2)._at_put_("amdNamespace",self._namespace());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJSON",{},globals.AmdPackageTransport)})},
+}, function($ctx1) {$ctx1.fill(self,"asJSON",{},globals.AmdPackageTransport)});
+},
 args: [],
 source: "asJSON\x0a\x09^ super asJSON\x0a\x09\x09at: 'amdNamespace' put: self namespace;\x0a\x09\x09yourself",
 messageSends: ["at:put:", "asJSON", "namespace", "yourself"],
@@ -2259,6 +2395,7 @@ fn: function (){
 var self=this;
 function $AmdPackageHandler(){return globals.AmdPackageHandler||(typeof AmdPackageHandler=="undefined"?nil:AmdPackageHandler)}
 return $AmdPackageHandler();
+
 },
 args: [],
 source: "commitHandlerClass\x0a\x09^ AmdPackageHandler",
@@ -2278,7 +2415,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Smalltalk())._defaultAmdNamespace();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultNamespace",{},globals.AmdPackageTransport)})},
+}, function($ctx1) {$ctx1.fill(self,"defaultNamespace",{},globals.AmdPackageTransport)});
+},
 args: [],
 source: "defaultNamespace\x0a\x09^ Smalltalk defaultAmdNamespace",
 messageSends: ["defaultAmdNamespace"],
@@ -2305,9 +2443,11 @@ $3=_st("'".__comma(self._namespace())).__comma("'");
 $ctx2.sendIdx[","]=1;
 $2=_st(stream)._nextPutAll_($3);
 return $2;
-}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
+}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"definition",{},globals.AmdPackageTransport)})},
+}, function($ctx1) {$ctx1.fill(self,"definition",{},globals.AmdPackageTransport)});
+},
 args: [],
 source: "definition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream \x0a\x09\x09\x09nextPutAll: self class name;\x0a\x09\x09\x09nextPutAll: ' namespace: ';\x0a\x09\x09\x09nextPutAll: '''', self namespace, '''' ]",
 messageSends: ["streamContents:", "nextPutAll:", "name", "class", ",", "namespace"],
@@ -2330,7 +2470,8 @@ $1=self._defaultNamespace();
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"namespace",{},globals.AmdPackageTransport)})},
+}, function($ctx1) {$ctx1.fill(self,"namespace",{},globals.AmdPackageTransport)});
+},
 args: [],
 source: "namespace\x0a\x09^ namespace ifNil: [ self defaultNamespace ]",
 messageSends: ["ifNil:", "defaultNamespace"],
@@ -2345,7 +2486,8 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 self["@namespace"]=aString;
-return self},
+return self
+},
 args: ["aString"],
 source: "namespace: aString\x0a\x09namespace := aString",
 messageSends: [],
@@ -2368,7 +2510,8 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 _st(aStream)._nextPutAll_(self._namespace());
 $ctx1.sendIdx["nextPutAll:"]=2;
 $1=_st(aStream)._nextPutAll_(")");
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.AmdPackageTransport)})},
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.AmdPackageTransport)});
+},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09aStream\x0a\x09\x09nextPutAll: ' (AMD Namespace: ';\x0a\x09\x09nextPutAll: self namespace;\x0a\x09\x09nextPutAll: ')'",
 messageSends: ["printOn:", "nextPutAll:", "namespace"],
@@ -2384,7 +2527,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(_st(require)._basicAt_("config"))._value_(globals.HashedCollection._newFromPairs_(["paths",globals.HashedCollection._newFromPairs_([self._namespace(),aString])]));
-return self}, function($ctx1) {$ctx1.fill(self,"setPath:",{aString:aString},globals.AmdPackageTransport)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setPath:",{aString:aString},globals.AmdPackageTransport)});
+},
 args: ["aString"],
 source: "setPath: aString\x0a\x09\x22Set the path the the receiver's `namespace`\x22\x0a\x09\x0a\x09(require basicAt: 'config') value: #{\x0a\x09\x09'paths' -> #{\x0a\x09\x09\x09self namespace -> aString\x0a\x09\x09}\x0a\x09}.",
 messageSends: ["value:", "basicAt:", "namespace"],
@@ -2400,7 +2544,8 @@ fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._namespace_(_st(anObject)._at_("amdNamespace"));
-return self}, function($ctx1) {$ctx1.fill(self,"setupFromJson:",{anObject:anObject},globals.AmdPackageTransport)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setupFromJson:",{anObject:anObject},globals.AmdPackageTransport)});
+},
 args: ["anObject"],
 source: "setupFromJson: anObject\x0a\x09self namespace: (anObject at: 'amdNamespace')",
 messageSends: ["namespace:", "at:"],
@@ -2422,7 +2567,8 @@ _st($2)._namespace_(aString);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"namespace:",{aString:aString},globals.AmdPackageTransport.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"namespace:",{aString:aString},globals.AmdPackageTransport.klass)});
+},
 args: ["aString"],
 source: "namespace: aString\x0a\x09^ self new\x0a\x09\x09namespace: aString;\x0a\x09\x09yourself",
 messageSends: ["namespace:", "new", "yourself"],
@@ -2437,6 +2583,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return "amd";
+
 },
 args: [],
 source: "type\x0a\x09^ 'amd'",
@@ -2455,7 +2602,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._transport())._commit();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"commit",{},globals.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"commit",{},globals.Package)});
+},
 args: [],
 source: "commit\x0a\x09^ self transport commit",
 messageSends: ["commit", "transport"],
@@ -2473,7 +2621,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._transport())._load();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"load",{},globals.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"load",{},globals.Package)});
+},
 args: [],
 source: "load\x0a\x09^ self transport load",
 messageSends: ["load", "transport"],
@@ -2494,7 +2643,8 @@ _st($2)._namespace_(aString);
 $3=_st($2)._load();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"loadFromNamespace:",{aString:aString},globals.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"loadFromNamespace:",{aString:aString},globals.Package)});
+},
 args: ["aString"],
 source: "loadFromNamespace: aString\x0a\x09^ self transport\x0a\x09\x09namespace: aString;\x0a\x09\x09load",
 messageSends: ["namespace:", "transport", "load"],
@@ -2510,7 +2660,8 @@ fn: function (aPackageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._named_(aPackageName))._load();
-return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackageName:aPackageName},globals.Package.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackageName:aPackageName},globals.Package.klass)});
+},
 args: ["aPackageName"],
 source: "load: aPackageName\x0a\x09(self named: aPackageName) load",
 messageSends: ["load", "named:"],
@@ -2526,7 +2677,8 @@ fn: function (aPackageName,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._named_(aPackageName))._loadFromNamespace_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"load:fromNamespace:",{aPackageName:aPackageName,aString:aString},globals.Package.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"load:fromNamespace:",{aPackageName:aPackageName,aString:aString},globals.Package.klass)});
+},
 args: ["aPackageName", "aString"],
 source: "load: aPackageName fromNamespace: aString\x0a\x09(self named: aPackageName) loadFromNamespace: aString",
 messageSends: ["loadFromNamespace:", "named:"],
