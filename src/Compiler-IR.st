@@ -197,10 +197,13 @@ visitMethodNode: aNode
 
 	aNode nodes do: [ :each | self method add: (self visit: each) ].
 
-	aNode scope hasLocalReturn ifFalse: [
-		(self method add: IRReturn new) add: (IRVariable new
-			variable: (aNode scope pseudoVars at: 'self');
-			yourself) ].
+	aNode scope hasLocalReturn ifFalse: [self method
+		add: (IRReturn new
+			add: (IRVariable new
+				variable: (aNode scope pseudoVars at: 'self');
+				yourself);
+			yourself);
+		add: (IRVerbatim new source: ''; yourself) ].
 
 	^ self method
 !
@@ -1112,11 +1115,18 @@ nextPutAssignment
 nextPutBlockContextFor: anIRClosure during: aBlock
 	anIRClosure requiresSmalltalkContext ifFalse: [ ^ aBlock value ].
 	self
-		nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; lf.
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);';
+		lf;
+		nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {';
+		lf;
+		nextPutAll: '//>>excludeEnd("ctx");';
+		lf.
 	
 	aBlock value.
 	
 	self
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);';
+		lf;
 		nextPutAll: '}, function(', anIRClosure scope alias, ') {';
 		nextPutAll: anIRClosure scope alias, '.fillBlock({'.
 	
@@ -1130,7 +1140,9 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 	
 	self
 		nextPutAll: '},';
-		nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')});'
+		nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')});';
+		lf;
+		nextPutAll: '//>>excludeEnd("ctx");'
 !
 
 nextPutClassRefFunction: aString
@@ -1164,10 +1176,18 @@ nextPutContextFor: aMethod during: aBlock
 	aMethod requiresSmalltalkContext ifFalse: [ ^ aBlock value ].
 	
 	self
-		nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; lf.
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);';
+		lf;
+		nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { ';
+		lf;
+		nextPutAll: '//>>excludeEnd("ctx");';
+		lf.
+
 	aBlock value.
 	
 	self
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);';
+		lf;
 		nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias;
 		nextPutAll: '.fill(self,', aMethod selector asJavascript, ',{'.
 
@@ -1182,7 +1202,9 @@ nextPutContextFor: aMethod during: aBlock
 	self
 		nextPutAll: '},';
 		nextPutAll: aMethod theClass asJavascript;
-		nextPutAll: ')});'
+		nextPutAll: ')});';
+		lf;
+		nextPutAll: '//>>excludeEnd("ctx");'
 !
 
 nextPutFunctionWith: aBlock arguments: anArray
