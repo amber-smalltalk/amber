@@ -13,11 +13,15 @@ selector: "chunkEscape:",
 protocol: 'convenience',
 fn: function (aString){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(aString)._replace_with_("!","!!"))._trimBoth();
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"chunkEscape:",{aString:aString},globals.AbstractExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["trimBoth", "replace:with:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -34,12 +38,16 @@ selector: "classNameFor:",
 protocol: 'convenience',
 fn: function (aClass){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $2,$3,$4,$1;
 $2=_st(aClass)._isMetaclass();
 if(smalltalk.assert($2)){
 $3=_st(_st(aClass)._instanceClass())._name();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["name"]=1;
+//>>excludeEnd("ctx");
 $1=_st($3).__comma(" class");
 } else {
 $4=_st(aClass)._isNil();
@@ -50,7 +58,9 @@ $1=_st(aClass)._name();
 };
 };
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},globals.AbstractExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -67,9 +77,14 @@ selector: "exportPackage:on:",
 protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.AbstractExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.AbstractExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -88,17 +103,25 @@ fn: function (aPackage){
 var self=this;
 var result;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 result=_st($OrderedCollection())._new();
 _st(self._extensionProtocolsOfPackage_(aPackage))._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st(result)._addAll_(_st(each)._methods());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
 }));
 $1=result;
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"extensionMethodsOfPackage:",{aPackage:aPackage,result:result},globals.AbstractExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["new", "do:", "extensionProtocolsOfPackage:", "addAll:", "methods"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -119,34 +142,56 @@ var extensionName,result;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ExportMethodProtocol(){return globals.ExportMethodProtocol||(typeof ExportMethodProtocol=="undefined"?nil:ExportMethodProtocol)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 $1=_st(aPackage)._name();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["name"]=1;
+//>>excludeEnd("ctx");
 extensionName="*".__comma($1);
 result=_st($OrderedCollection())._new();
 _st(_st(_st(_st($Smalltalk())._classes())._asArray())._sorted_((function(a,b){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 $2=_st(a)._name();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["name"]=2;
+//>>excludeEnd("ctx");
 return _st($2).__lt(_st(b)._name());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)});
+//>>excludeEnd("ctx");
 })))._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st([each,_st(each)._class()])._do_((function(behavior){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
 $3=_st(_st(behavior)._protocols())._includes_(extensionName);
 if(smalltalk.assert($3)){
 return _st(result)._add_(_st($ExportMethodProtocol())._name_theClass_(extensionName,behavior));
 };
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({behavior:behavior},$ctx2,3)});
+//>>excludeEnd("ctx");
 }));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+//>>excludeEnd("ctx");
 }));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["do:"]=1;
+//>>excludeEnd("ctx");
 $4=result;
 return $4;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"extensionProtocolsOfPackage:",{aPackage:aPackage,extensionName:extensionName,result:result},globals.AbstractExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: [",", "name", "new", "do:", "sorted:", "asArray", "classes", "<", "class", "ifTrue:", "includes:", "protocols", "add:", "name:theClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -169,13 +214,20 @@ selector: "exportCategoryEpilogueOf:on:",
 protocol: 'output',
 fn: function (aCategory,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 _st(aStream)._nextPutAll_(" !");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=1;
+//>>excludeEnd("ctx");
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportCategoryEpilogueOf:on:",{aCategory:aCategory,aStream:aStream},globals.ChunkExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportCategoryEpilogueOf:on:",{aCategory:aCategory,aStream:aStream},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["nextPutAll:", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -192,16 +244,27 @@ selector: "exportCategoryPrologueOf:on:",
 protocol: 'output',
 fn: function (aCategory,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$3,$2;
 $1="!".__comma(self._classNameFor_(_st(aCategory)._theClass()));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($1);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
 $3=_st(" methodsFor: '".__comma(_st(aCategory)._name())).__comma("'!");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
+//>>excludeEnd("ctx");
 $2=_st(aStream)._nextPutAll_($3);
-return self}, function($ctx1) {$ctx1.fill(self,"exportCategoryPrologueOf:on:",{aCategory:aCategory,aStream:aStream},globals.ChunkExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportCategoryPrologueOf:on:",{aCategory:aCategory,aStream:aStream},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["nextPutAll:", ",", "classNameFor:", "theClass", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -218,67 +281,124 @@ selector: "exportDefinitionOf:on:",
 protocol: 'output',
 fn: function (aClass,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$3,$2,$4,$6,$5,$7,$9,$8,$11,$10,$12;
 $1=self._classNameFor_(_st(aClass)._superclass());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["classNameFor:"]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($1);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
 $3=self._classNameFor_(aClass);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["classNameFor:"]=2;
+//>>excludeEnd("ctx");
 $2=" subclass: #".__comma($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($2);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._tab();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["tab"]=1;
+//>>excludeEnd("ctx");
 $4=_st(aStream)._nextPutAll_("instanceVariableNames: '");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=3;
+//>>excludeEnd("ctx");
 _st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st(aStream)._nextPutAll_(each);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=4;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
 }),(function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st(aStream)._nextPutAll_(" ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=5;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
+//>>excludeEnd("ctx");
 }));
 _st(aStream)._nextPutAll_("'");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=6;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=2;
+//>>excludeEnd("ctx");
 _st(aStream)._tab();
 $6="package: '".__comma(_st(aClass)._category());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=3;
+//>>excludeEnd("ctx");
 $5=_st($6).__comma("'!");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($5);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=7;
+//>>excludeEnd("ctx");
 $7=_st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=3;
+//>>excludeEnd("ctx");
 $9=_st(aClass)._comment();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["comment"]=1;
+//>>excludeEnd("ctx");
 $8=_st($9)._notEmpty();
 if(smalltalk.assert($8)){
 $11="!".__comma(self._classNameFor_(aClass));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=5;
+//>>excludeEnd("ctx");
 $10=_st($11).__comma(" commentStamp!");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=4;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($10);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=8;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=4;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(_st(self._chunkEscape_(_st(aClass)._comment())).__comma("!"));
 $12=_st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=5;
+//>>excludeEnd("ctx");
 $12;
 };
 _st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.ChunkExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["nextPutAll:", "classNameFor:", "superclass", ",", "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "chunkEscape:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -295,40 +415,69 @@ selector: "exportMetaDefinitionOf:on:",
 protocol: 'output',
 fn: function (aClass,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $3,$2,$1,$5,$4,$6,$7;
 $3=_st(aClass)._class();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=1;
+//>>excludeEnd("ctx");
 $2=_st($3)._instanceVariableNames();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["instanceVariableNames"]=1;
+//>>excludeEnd("ctx");
 $1=_st($2)._isEmpty();
 if(! smalltalk.assert($1)){
 $5=_st(aClass)._class();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=2;
+//>>excludeEnd("ctx");
 $4=self._classNameFor_($5);
 _st(aStream)._nextPutAll_($4);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
 $6=_st(aStream)._nextPutAll_(" instanceVariableNames: '");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
 $6;
 _st(_st(_st(aClass)._class())._instanceVariableNames())._do_separatedBy_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st(aStream)._nextPutAll_(each);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=3;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+//>>excludeEnd("ctx");
 }),(function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st(aStream)._nextPutAll_(" ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=4;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
+//>>excludeEnd("ctx");
 }));
 _st(aStream)._nextPutAll_("'!");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=1;
+//>>excludeEnd("ctx");
 $7=_st(aStream)._lf();
 $7;
 };
-return self}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.ChunkExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", "classNameFor:", "do:separatedBy:", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -345,17 +494,28 @@ selector: "exportMethod:on:",
 protocol: 'output',
 fn: function (aMethod,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=2;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(self._chunkEscape_(_st(aMethod)._source()));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
 $1=_st(aStream)._nextPutAll_("!");
-return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},globals.ChunkExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["lf", "nextPutAll:", "chunkEscape:", "source"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -372,23 +532,38 @@ selector: "exportPackage:on:",
 protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 self._exportPackageDefinitionOf_on_(aPackage,aStream);
 _st(_st(aPackage)._sortedClasses())._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 self._exportDefinitionOf_on_(each,aStream);
 $1=self._ownMethodProtocolsOfClass_(each);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["ownMethodProtocolsOfClass:"]=1;
+//>>excludeEnd("ctx");
 self._exportProtocols_on_($1,aStream);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["exportProtocols:on:"]=1;
+//>>excludeEnd("ctx");
 self._exportMetaDefinitionOf_on_(each,aStream);
 return self._exportProtocols_on_(self._ownMethodProtocolsOfClass_(_st(each)._class()),aStream);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["exportProtocols:on:"]=2;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
 }));
 self._exportProtocols_on_(self._extensionProtocolsOfPackage_(aPackage),aStream);
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.ChunkExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["exportPackageDefinitionOf:on:", "do:", "sortedClasses", "exportDefinitionOf:on:", "exportProtocols:on:", "ownMethodProtocolsOfClass:", "exportMetaDefinitionOf:on:", "class", "extensionProtocolsOfPackage:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -405,13 +580,20 @@ selector: "exportPackageDefinitionOf:on:",
 protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$2;
 $1=_st("Smalltalk createPackage: '".__comma(_st(aPackage)._name())).__comma("'!");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($1);
 $2=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},globals.ChunkExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["nextPutAll:", ",", "name", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -428,15 +610,24 @@ selector: "exportProtocol:on:",
 protocol: 'output',
 fn: function (aProtocol,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 self._exportProtocolPrologueOf_on_(aProtocol,aStream);
 _st(_st(aProtocol)._methods())._do_((function(method){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return self._exportMethod_on_(method,aStream);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({method:method},$ctx1,1)});
+//>>excludeEnd("ctx");
 }));
 self._exportProtocolEpilogueOf_on_(aProtocol,aStream);
-return self}, function($ctx1) {$ctx1.fill(self,"exportProtocol:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportProtocol:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["exportProtocolPrologueOf:on:", "do:", "methods", "exportMethod:on:", "exportProtocolEpilogueOf:on:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -453,13 +644,20 @@ selector: "exportProtocolEpilogueOf:on:",
 protocol: 'output',
 fn: function (aProtocol,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 _st(aStream)._nextPutAll_(" !");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=1;
+//>>excludeEnd("ctx");
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportProtocolEpilogueOf:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportProtocolEpilogueOf:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["nextPutAll:", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -476,16 +674,27 @@ selector: "exportProtocolPrologueOf:on:",
 protocol: 'output',
 fn: function (aProtocol,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$3,$2;
 $1="!".__comma(self._classNameFor_(_st(aProtocol)._theClass()));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($1);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
 $3=_st(" methodsFor: '".__comma(_st(aProtocol)._name())).__comma("'!");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
+//>>excludeEnd("ctx");
 $2=_st(aStream)._nextPutAll_($3);
-return self}, function($ctx1) {$ctx1.fill(self,"exportProtocolPrologueOf:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportProtocolPrologueOf:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["nextPutAll:", ",", "classNameFor:", "theClass", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -502,13 +711,22 @@ selector: "exportProtocols:on:",
 protocol: 'output',
 fn: function (aCollection,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 _st(aCollection)._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return self._exportProtocol_on_(each,aStream);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
 }));
-return self}, function($ctx1) {$ctx1.fill(self,"exportProtocols:on:",{aCollection:aCollection,aStream:aStream},globals.ChunkExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportProtocols:on:",{aCollection:aCollection,aStream:aStream},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["do:", "exportProtocol:on:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -531,42 +749,70 @@ function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Pac
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 function $MethodCategory(){return globals.MethodCategory||(typeof MethodCategory=="undefined"?nil:MethodCategory)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$2;
 name=_st(aPackage)._name();
 result=_st($OrderedCollection())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
+//>>excludeEnd("ctx");
 _st(_st($Package())._sortedClasses_(_st($Smalltalk())._classes()))._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st([each,_st(each)._class()])._do_((function(aClass){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
 map=_st($Dictionary())._new();
 map;
 _st(aClass)._protocolsDo_((function(category,methods){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx4) {
+//>>excludeEnd("ctx");
 $1=_st(category).__eq("*".__comma(name));
 if(smalltalk.assert($1)){
 return _st(map)._at_put_(category,methods);
 };
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx4) {$ctx4.fillBlock({category:category,methods:methods},$ctx3,3)});
+//>>excludeEnd("ctx");
 }));
 return _st(result)._addAll_(_st(_st(_st(map)._keys())._sorted_((function(a,b){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx4) {
+//>>excludeEnd("ctx");
 return _st(a).__lt_eq(b);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx4) {$ctx4.fillBlock({a:a,b:b},$ctx3,5)});
+//>>excludeEnd("ctx");
 })))._collect_((function(category){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx4) {
+//>>excludeEnd("ctx");
 return _st($MethodCategory())._name_theClass_methods_(category,aClass,_st(map)._at_(category));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx4) {$ctx4.fillBlock({category:category},$ctx3,6)});
+//>>excludeEnd("ctx");
 })));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({aClass:aClass},$ctx2,2)});
+//>>excludeEnd("ctx");
 }));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
 }));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["do:"]=1;
+//>>excludeEnd("ctx");
 $2=result;
 return $2;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"extensionCategoriesOfPackage:",{aPackage:aPackage,name:name,map:map,result:result},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["name", "new", "do:", "sortedClasses:", "classes", "class", "protocolsDo:", "ifTrue:", "=", ",", "at:put:", "addAll:", "collect:", "sorted:", "keys", "<=", "name:theClass:methods:", "at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -586,28 +832,44 @@ var self=this;
 var map;
 function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 function $MethodCategory(){return globals.MethodCategory||(typeof MethodCategory=="undefined"?nil:MethodCategory)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$2;
 map=_st($Dictionary())._new();
 _st(aClass)._protocolsDo_((function(each,methods){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 $1=_st(each)._match_("^\x5c*");
 if(! smalltalk.assert($1)){
 return _st(map)._at_put_(each,methods);
 };
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each,methods:methods},$ctx1,1)});
+//>>excludeEnd("ctx");
 }));
 $2=_st(_st(_st(map)._keys())._sorted_((function(a,b){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st(a).__lt_eq(b);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,3)});
+//>>excludeEnd("ctx");
 })))._collect_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st($MethodCategory())._name_theClass_methods_(each,aClass,_st(map)._at_(each));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)});
+//>>excludeEnd("ctx");
 }));
 return $2;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfClass:",{aClass:aClass,map:map},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["new", "protocolsDo:", "ifFalse:", "match:", "at:put:", "collect:", "sorted:", "keys", "<=", "name:theClass:methods:", "at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -624,11 +886,15 @@ selector: "ownCategoriesOfMetaClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=self._ownCategoriesOfClass_(_st(aClass)._class());
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfMetaClass:",{aClass:aClass},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ownCategoriesOfClass:", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -646,15 +912,23 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 function $ExportMethodProtocol(){return globals.ExportMethodProtocol||(typeof ExportMethodProtocol=="undefined"?nil:ExportMethodProtocol)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(aClass)._ownProtocols())._collect_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st($ExportMethodProtocol())._name_theClass_(each,aClass);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
 }));
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ownMethodProtocolsOfClass:",{aClass:aClass},globals.ChunkExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["collect:", "ownProtocols", "name:theClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -682,31 +956,53 @@ return smalltalk.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$3,$4,$6,$5,$7,$9,$8,$10;
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_("smalltalk.addClass(");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
 $2="'".__comma(self._classNameFor_(aClass));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
+//>>excludeEnd("ctx");
 $1=_st($2).__comma("', ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($1);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
 $3=self._jsClassNameFor_(_st(aClass)._superclass());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["jsClassNameFor:"]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=3;
+//>>excludeEnd("ctx");
 $4=_st(aStream)._nextPutAll_(", [");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=4;
+//>>excludeEnd("ctx");
 _st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $6="'".__comma(each);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=4;
+//>>excludeEnd("ctx");
 $5=_st($6).__comma("'");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=3;
+//>>excludeEnd("ctx");
 return _st(aStream)._nextPutAll_($5);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=5;
+//>>excludeEnd("ctx");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -715,37 +1011,63 @@ $ctx2.sendIdx["nextPutAll:"]=5;
 return smalltalk.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aStream)._nextPutAll_(", ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=6;
+//>>excludeEnd("ctx");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
 _st(aStream)._nextPutAll_("], '");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=7;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(_st(_st(aClass)._category()).__comma("'"));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=8;
+//>>excludeEnd("ctx");
 $7=_st(aStream)._nextPutAll_(");");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=9;
+//>>excludeEnd("ctx");
 $9=_st(aClass)._comment();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["comment"]=1;
+//>>excludeEnd("ctx");
 $8=_st($9)._notEmpty();
 if(smalltalk.assert($8)){
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=2;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_("//>>excludeStart(\x22ide\x22, pragmas.excludeIdeData);");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=10;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=3;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(self._jsClassNameFor_(aClass));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=11;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(".comment=");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=12;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(_st(_st(aClass)._comment())._asJavascript());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=13;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(";");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=14;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=4;
+//>>excludeEnd("ctx");
 $10=_st(aStream)._nextPutAll_("//>>excludeEnd(\x22ide\x22);");
 $10;
 };
@@ -771,42 +1093,75 @@ protocol: 'output',
 fn: function (aClass,aStream){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $3,$2,$1,$5,$4,$6,$8,$7;
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=1;
+//>>excludeEnd("ctx");
 $3=_st(aClass)._class();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=1;
+//>>excludeEnd("ctx");
 $2=_st($3)._instanceVariableNames();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["instanceVariableNames"]=1;
+//>>excludeEnd("ctx");
 $1=_st($2)._isEmpty();
 if(! smalltalk.assert($1)){
 $5=_st(aClass)._class();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=2;
+//>>excludeEnd("ctx");
 $4=self._jsClassNameFor_($5);
 _st(aStream)._nextPutAll_($4);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
 $6=_st(aStream)._nextPutAll_(".iVarNames = [");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
 $6;
 _st(_st(_st(aClass)._class())._instanceVariableNames())._do_separatedBy_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 $8="'".__comma(each);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=2;
+//>>excludeEnd("ctx");
 $7=_st($8).__comma("'");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 return _st(aStream)._nextPutAll_($7);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=3;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+//>>excludeEnd("ctx");
 }),(function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st(aStream)._nextPutAll_(",");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=4;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
+//>>excludeEnd("ctx");
 }));
 _st(aStream)._nextPutAll_("];".__comma(_st($String())._lf()));
 };
-return self}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.Exporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.Exporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["lf", "ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", "jsClassNameFor:", "do:separatedBy:", ","],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -828,90 +1183,174 @@ return smalltalk.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $3,$2,$1,$5,$4,$7,$6,$10,$9,$8,$13,$12,$11,$16,$15,$14,$17;
 _st(aStream)._nextPutAll_("smalltalk.addMethod(");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_("smalltalk.method({");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=2;
+//>>excludeEnd("ctx");
 $3=_st(_st(aMethod)._selector())._asJavascript();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJavascript"]=1;
+//>>excludeEnd("ctx");
 $2="selector: ".__comma($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
+//>>excludeEnd("ctx");
 $1=_st($2).__comma(",");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($1);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=3;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=3;
+//>>excludeEnd("ctx");
 $5="protocol: '".__comma(_st(aMethod)._protocol());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=4;
+//>>excludeEnd("ctx");
 $4=_st($5).__comma("',");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=3;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($4);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=4;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=4;
+//>>excludeEnd("ctx");
 $7="fn: ".__comma(_st(_st(aMethod)._fn())._compiledSource());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=6;
+//>>excludeEnd("ctx");
 $6=_st($7).__comma(",");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=5;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($6);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=5;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=5;
+//>>excludeEnd("ctx");
 $10=_st(_st(aMethod)._messageSends())._asJavascript();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJavascript"]=2;
+//>>excludeEnd("ctx");
 $9="messageSends: ".__comma($10);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=8;
+//>>excludeEnd("ctx");
 $8=_st($9).__comma(",");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=7;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($8);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=6;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=6;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_("//>>excludeStart(\x22ide\x22, pragmas.excludeIdeData);");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=7;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=7;
+//>>excludeEnd("ctx");
 $13=_st(_st(aMethod)._arguments())._asJavascript();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJavascript"]=3;
+//>>excludeEnd("ctx");
 $12="args: ".__comma($13);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=10;
+//>>excludeEnd("ctx");
 $11=_st($12).__comma(",");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=9;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($11);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=8;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=8;
+//>>excludeEnd("ctx");
 $16=_st(_st(aMethod)._source())._asJavascript();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJavascript"]=4;
+//>>excludeEnd("ctx");
 $15="source: ".__comma($16);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=12;
+//>>excludeEnd("ctx");
 $14=_st($15).__comma(",");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=11;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($14);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=9;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=9;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_("referencedClasses: ".__comma(_st(_st(aMethod)._referencedClasses())._asJavascript()));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=10;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=10;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_("//>>excludeEnd(\x22ide\x22);");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=11;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=11;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_("}),");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=12;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=12;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(self._jsClassNameFor_(_st(aMethod)._methodClass()));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=13;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(");");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=13;
+//>>excludeEnd("ctx");
 $17=_st(aStream)._lf();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -933,41 +1372,74 @@ selector: "exportPackage:on:",
 protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$2;
 self._exportPackagePrologueOf_on_(aPackage,aStream);
 self._exportPackageDefinitionOf_on_(aPackage,aStream);
 $1=self._exportPackageTransportOf_on_(aPackage,aStream);
 _st(_st(aPackage)._sortedClasses())._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 self._exportDefinitionOf_on_(each,aStream);
 $2=_st(each)._ownMethods();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["ownMethods"]=1;
+//>>excludeEnd("ctx");
 _st($2)._do_((function(method){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
 return self._exportMethod_on_(method,aStream);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["exportMethod:on:"]=1;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({method:method},$ctx2,2)});
+//>>excludeEnd("ctx");
 }));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["do:"]=2;
+//>>excludeEnd("ctx");
 self._exportMetaDefinitionOf_on_(each,aStream);
 return _st(_st(_st(each)._class())._ownMethods())._do_((function(method){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
 return self._exportMethod_on_(method,aStream);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["exportMethod:on:"]=2;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({method:method},$ctx2,3)});
+//>>excludeEnd("ctx");
 }));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["do:"]=3;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
 }));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["do:"]=1;
+//>>excludeEnd("ctx");
 _st(self._extensionMethodsOfPackage_(aPackage))._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return self._exportMethod_on_(each,aStream);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)});
+//>>excludeEnd("ctx");
 }));
 self._exportPackageEpilogueOf_on_(aPackage,aStream);
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["exportPackagePrologueOf:on:", "exportPackageDefinitionOf:on:", "exportPackageTransportOf:on:", "do:", "sortedClasses", "exportDefinitionOf:on:", "ownMethods", "exportMethod:on:", "exportMetaDefinitionOf:on:", "class", "extensionMethodsOfPackage:", "exportPackageEpilogueOf:on:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -984,15 +1456,24 @@ selector: "exportPackageDefinitionOf:on:",
 protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$2;
 _st(aStream)._nextPutAll_("smalltalk.addPackage(");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
 $1=_st("'".__comma(_st(aPackage)._name())).__comma("');");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($1);
 $2=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["nextPutAll:", ",", "name", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1009,11 +1490,16 @@ selector: "exportPackageEpilogueOf:on:",
 protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 _st(aStream)._nextPutAll_("})(global_smalltalk,global_nil,global__st);");
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["nextPutAll:", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1030,11 +1516,16 @@ selector: "exportPackagePrologueOf:on:",
 protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 _st(aStream)._nextPutAll_("(function(smalltalk,nil,_st){");
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["nextPutAll:", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1051,19 +1542,32 @@ selector: "exportPackageTransportOf:on:",
 protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 _st(aStream)._nextPutAll_("smalltalk.packages[");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(_st(_st(aPackage)._name())._asJavascript());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_("].transport = ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=3;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(_st(_st(aPackage)._transport())._asJSONString());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=4;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(";");
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["nextPutAll:", "asJavascript", "name", "asJSONString", "transport", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1080,12 +1584,16 @@ selector: "jsClassNameFor:",
 protocol: 'convenience',
 fn: function (aClass){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=_st(aClass)._isMetaclass();
 if(smalltalk.assert($2)){
 $1=_st(self._jsClassNameFor_(_st(aClass)._instanceClass())).__comma(".klass");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 } else {
 if(($receiver = aClass) == null || $receiver.isNil){
 $1="null";
@@ -1094,7 +1602,9 @@ $1="globals.".__comma(_st(aClass)._name());
 };
 };
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"jsClassNameFor:",{aClass:aClass},globals.Exporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "jsClassNameFor:", "instanceClass", "ifNil:ifNotNil:", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1111,21 +1621,35 @@ selector: "ownMethodsOfClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $2,$1;
 $1=_st(_st(_st(_st(aClass)._methodDictionary())._values())._sorted_((function(a,b){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 $2=_st(a)._selector();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["selector"]=1;
+//>>excludeEnd("ctx");
 return _st($2).__lt_eq(_st(b)._selector());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)});
+//>>excludeEnd("ctx");
 })))._reject_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st(_st(each)._protocol())._match_("^\x5c*");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+//>>excludeEnd("ctx");
 }));
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ownMethodsOfClass:",{aClass:aClass},globals.Exporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["reject:", "sorted:", "values", "methodDictionary", "<=", "selector", "match:", "protocol"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1142,11 +1666,15 @@ selector: "ownMethodsOfMetaClass:",
 protocol: 'accessing',
 fn: function (aClass){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=self._ownMethodsOfClass_(_st(aClass)._class());
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ownMethodsOfMetaClass:",{aClass:aClass},globals.Exporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ownMethodsOfClass:", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1169,22 +1697,38 @@ selector: "amdNamesOfPackages:",
 protocol: 'private',
 fn: function (anArray){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $2,$1;
 $1=_st(_st(anArray)._select_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 $2=self._amdNamespaceOfPackage_(each);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["amdNamespaceOfPackage:"]=1;
+//>>excludeEnd("ctx");
 return _st($2)._notNil();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
 })))._collect_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st(_st(self._amdNamespaceOfPackage_(each)).__comma("/")).__comma(_st(each)._name());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+//>>excludeEnd("ctx");
 }));
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"amdNamesOfPackages:",{anArray:anArray},globals.AmdExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["collect:", "select:", "notNil", "amdNamespaceOfPackage:", ",", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1201,10 +1745,14 @@ selector: "amdNamespaceOfPackage:",
 protocol: 'private',
 fn: function (aPackage){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 $4=_st(aPackage)._transport();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["transport"]=1;
+//>>excludeEnd("ctx");
 $3=_st($4)._type();
 $2=_st($3).__eq("amd");
 if(smalltalk.assert($2)){
@@ -1213,7 +1761,9 @@ $1=_st(_st(aPackage)._transport())._namespace();
 $1=nil;
 };
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"amdNamespaceOfPackage:",{aPackage:aPackage},globals.AmdExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ifTrue:ifFalse:", "=", "type", "transport", "namespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1230,11 +1780,16 @@ selector: "exportPackageEpilogueOf:on:",
 protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 _st(aStream)._nextPutAll_("});");
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},globals.AmdExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},globals.AmdExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["nextPutAll:", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1251,27 +1806,48 @@ selector: "exportPackagePrologueOf:on:",
 protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 _st(aStream)._nextPutAll_("define(\x22");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(self._amdNamespaceOfPackage_(aPackage));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_("/");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=3;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(_st(aPackage)._name());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=4;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_("\x22, ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=5;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(_st(["amber/boot"].__comma(self._amdNamesOfPackages_(_st(aPackage)._loadDependencies())))._asJavascript());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=6;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(", function($boot){");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=7;
+//>>excludeEnd("ctx");
 _st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_("var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;");
 $1=_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},globals.AmdExporter)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},globals.AmdExporter)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["nextPutAll:", "amdNamespaceOfPackage:", "name", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1315,22 +1891,34 @@ protocol: 'reading',
 fn: function (){
 var self=this;
 var char,result,chunk;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 var $early={};
 try {
 result=""._writeStream();
 _st((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 char=_st(self["@stream"])._next();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["next"]=1;
+//>>excludeEnd("ctx");
 char;
 return _st(char)._notNil();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
 }))._whileTrue_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 $1=_st(char).__eq("!");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["="]=1;
+//>>excludeEnd("ctx");
 if(smalltalk.assert($1)){
 $2=_st(_st(self["@stream"])._peek()).__eq("!");
 if(smalltalk.assert($2)){
@@ -1342,14 +1930,18 @@ throw $early=[$3];
 };
 };
 return _st(result)._nextPut_(char);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
+//>>excludeEnd("ctx");
 }));
 self["@last"]=nil;
 $4=self["@last"];
 return $4;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"nextChunk",{char:char,result:result,chunk:chunk},globals.ChunkParser)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["writeStream", "whileTrue:", "next", "notNil", "ifTrue:", "=", "ifTrue:ifFalse:", "peek", "trimBoth", "contents", "nextPut:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1367,7 +1959,8 @@ protocol: 'accessing',
 fn: function (aStream){
 var self=this;
 self["@stream"]=aStream;
-return self
+return self;
+
 },
 messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1385,11 +1978,15 @@ selector: "on:",
 protocol: 'instance creation',
 fn: function (aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st(self._new())._stream_(aStream);
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"on:",{aStream:aStream},globals.ChunkParser.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["stream:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1411,17 +2008,27 @@ selector: "methods",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $2,$1;
 $1=_st(_st(self._theClass())._methodsInProtocol_(self._name()))._sorted_((function(a,b){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 $2=_st(a)._selector();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["selector"]=1;
+//>>excludeEnd("ctx");
 return _st($2).__lt_eq(_st(b)._selector());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)});
+//>>excludeEnd("ctx");
 }));
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"methods",{},globals.ExportMethodProtocol)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["sorted:", "methodsInProtocol:", "theClass", "name", "<=", "selector"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1459,7 +2066,8 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 self["@name"]=aString;
-return self
+return self;
+
 },
 messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1497,7 +2105,8 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 self["@theClass"]=aClass;
-return self
+return self;
+
 },
 messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1515,7 +2124,9 @@ selector: "name:theClass:",
 protocol: 'instance creation',
 fn: function (aString,aClass){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
 _st($2)._name_(aString);
@@ -1523,7 +2134,9 @@ _st($2)._theClass_(aClass);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"name:theClass:",{aString:aString,aClass:aClass},globals.ExportMethodProtocol.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["name:", "new", "theClass:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1549,22 +2162,32 @@ var chunk,result,parser,lastEmpty;
 function $ChunkParser(){return globals.ChunkParser||(typeof ChunkParser=="undefined"?nil:ChunkParser)}
 function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$2;
 parser=_st($ChunkParser())._on_(aStream);
 lastEmpty=false;
 self["@lastSection"]="n/a, not started";
 self["@lastChunk"]=nil;
 _st((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 _st((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
 chunk=_st(parser)._nextChunk();
 chunk;
 return _st(chunk)._isNil();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
+//>>excludeEnd("ctx");
 }))._whileFalse_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
 $1=_st(chunk)._isEmpty();
 if(smalltalk.assert($1)){
 lastEmpty=true;
@@ -1581,19 +2204,30 @@ lastEmpty;
 return _st(result)._scanFrom_(parser);
 };
 };
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)});
+//>>excludeEnd("ctx");
 }));
 self["@lastSection"]="n/a, finished";
 return self["@lastSection"];
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
 }))._on_do_($Error(),(function(e){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 self["@lastChunk"]=_st(parser)._last();
 self["@lastChunk"];
 return _st(e)._signal();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,7)});
+//>>excludeEnd("ctx");
 }));
-return self}, function($ctx1) {$ctx1.fill(self,"import:",{aStream:aStream,chunk:chunk,result:result,parser:parser,lastEmpty:lastEmpty},globals.Importer)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"import:",{aStream:aStream,chunk:chunk,result:result,parser:parser,lastEmpty:lastEmpty},globals.Importer)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["on:", "on:do:", "whileFalse:", "nextChunk", "isNil", "ifTrue:ifFalse:", "isEmpty", "evaluateExpression:", "new", "ifTrue:", "scanFrom:", "last", "signal"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1656,9 +2290,14 @@ selector: "ajaxPutAt:data:onSuccess:onError:",
 protocol: 'private',
 fn: function (aURL,aString,aBlock,anotherBlock){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 self._ajax_(globals.HashedCollection._newFromPairs_(["url",aURL,"type","PUT","data",aString,"contentType","text/plain;charset=UTF-8","success",aBlock,"error",anotherBlock]));
-return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:onSuccess:onError:",{aURL:aURL,aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:onSuccess:onError:",{aURL:aURL,aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ajax:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1676,15 +2315,23 @@ protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st($String())._streamContents_((function(str){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st(self._chunkExporter())._exportPackage_on_(aPackage,str);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)});
+//>>excludeEnd("ctx");
 }));
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"chunkContentsFor:",{aPackage:aPackage},globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["streamContents:", "exportPackage:on:", "chunkExporter"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1701,11 +2348,15 @@ selector: "chunkExporter",
 protocol: 'factory',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st(self._chunkExporterClass())._new();
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"chunkExporter",{},globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["new", "chunkExporterClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1742,22 +2393,33 @@ protocol: 'committing',
 fn: function (aPackage){
 var self=this;
 function $PackageCommitError(){return globals.PackageCommitError||(typeof PackageCommitError=="undefined"?nil:PackageCommitError)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 self._commit_onSuccess_onError_(aPackage,(function(){
 
 }),(function(error){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 $1=_st($PackageCommitError())._new();
 $2=$1;
 $3=_st("Commiting failed with reason: \x22".__comma(_st(error)._responseText())).__comma("\x22");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 _st($2)._messageText_($3);
 $4=_st($1)._signal();
 return $4;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)});
+//>>excludeEnd("ctx");
 }));
-return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},globals.PackageHandler)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["commit:onSuccess:onError:", "messageText:", "new", ",", "responseText", "signal"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1774,18 +2436,31 @@ selector: "commit:onSuccess:onError:",
 protocol: 'committing',
 fn: function (aPackage,aBlock,anotherBlock){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 self._commitJsFileFor_onSuccess_onError_(aPackage,(function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return self._commitStFileFor_onSuccess_onError_(aPackage,(function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
 _st(aPackage)._beClean();
 return _st(aBlock)._value();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
+//>>excludeEnd("ctx");
 }),anotherBlock);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
 }),anotherBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"commit:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"commit:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["commitJsFileFor:onSuccess:onError:", "commitStFileFor:onSuccess:onError:", "beClean", "value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1802,14 +2477,23 @@ selector: "commitJsFileFor:onSuccess:onError:",
 protocol: 'committing',
 fn: function (aPackage,aBlock,anotherBlock){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $2,$1;
 $2=_st(_st(self._commitPathJsFor_(aPackage)).__comma("/")).__comma(_st(aPackage)._name());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
+//>>excludeEnd("ctx");
 $1=_st($2).__comma(".js");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 self._ajaxPutAt_data_onSuccess_onError_($1,self._contentsFor_(aPackage),aBlock,anotherBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"commitJsFileFor:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"commitJsFileFor:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ajaxPutAt:data:onSuccess:onError:", ",", "commitPathJsFor:", "name", "contentsFor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1826,9 +2510,14 @@ selector: "commitPathJsFor:",
 protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"commitPathJsFor:",{aPackage:aPackage},globals.PackageHandler)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"commitPathJsFor:",{aPackage:aPackage},globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1845,9 +2534,14 @@ selector: "commitPathStFor:",
 protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage},globals.PackageHandler)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage},globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1864,14 +2558,23 @@ selector: "commitStFileFor:onSuccess:onError:",
 protocol: 'committing',
 fn: function (aPackage,aBlock,anotherBlock){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $2,$1;
 $2=_st(_st(self._commitPathStFor_(aPackage)).__comma("/")).__comma(_st(aPackage)._name());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
+//>>excludeEnd("ctx");
 $1=_st($2).__comma(".st");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 self._ajaxPutAt_data_onSuccess_onError_($1,self._chunkContentsFor_(aPackage),aBlock,anotherBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"commitStFileFor:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"commitStFileFor:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ajaxPutAt:data:onSuccess:onError:", ",", "commitPathStFor:", "name", "chunkContentsFor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1889,15 +2592,23 @@ protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st($String())._streamContents_((function(str){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 return _st(self._exporter())._exportPackage_on_(aPackage,str);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)});
+//>>excludeEnd("ctx");
 }));
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"contentsFor:",{aPackage:aPackage},globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["streamContents:", "exportPackage:on:", "exporter"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1914,11 +2625,15 @@ selector: "exporter",
 protocol: 'factory',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st(self._exporterClass())._new();
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"exporter",{},globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["new", "exporterClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1954,9 +2669,14 @@ selector: "load:",
 protocol: 'loading',
 fn: function (aPackage){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},globals.PackageHandler)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1974,15 +2694,22 @@ protocol: 'error handling',
 fn: function (anError){
 var self=this;
 function $PackageCommitError(){return globals.PackageCommitError||(typeof PackageCommitError=="undefined"?nil:PackageCommitError)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 $1=_st($PackageCommitError())._new();
 $2=$1;
 $3=_st("Commiting failed with reason: \x22".__comma(_st(anError)._responseText())).__comma("\x22");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 _st($2)._messageText_($3);
 $4=_st($1)._signal();
-return self}, function($ctx1) {$ctx1.fill(self,"onCommitError:",{anError:anError},globals.PackageHandler)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"onCommitError:",{anError:anError},globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["messageText:", "new", ",", "responseText", "signal"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2005,11 +2732,15 @@ selector: "commitPathJsFor:",
 protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=self._toUrl_(self._namespaceFor_(aPackage));
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"commitPathJsFor:",{aPackage:aPackage},globals.AmdPackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["toUrl:", "namespaceFor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2027,10 +2758,14 @@ protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 var path,pathWithout;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$3,$2;
 $1=_st(self._namespaceFor_(aPackage)).__comma("/_source");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 path=self._toUrl_($1);
 pathWithout=self._commitPathJsFor_(aPackage);
 $3=_st(path).__eq(_st(pathWithout).__comma("/_source"));
@@ -2040,7 +2775,9 @@ $2=pathWithout;
 $2=path;
 };
 return $2;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage,path:path,pathWithout:pathWithout},globals.AmdPackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["toUrl:", ",", "namespaceFor:", "commitPathJsFor:", "ifTrue:ifFalse:", "="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2078,7 +2815,9 @@ fn: function (aPackage){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$3,$2,$receiver;
 $1=_st($Smalltalk())._amdRequire();
 if(($receiver = $1) == null || $receiver.isNil){
@@ -2087,11 +2826,16 @@ self._error_("AMD loader not present");
 var require;
 require=$receiver;
 $3=_st(_st(self._namespaceFor_(aPackage)).__comma("/")).__comma(_st(aPackage)._name());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 $2=_st($Array())._with_($3);
 _st(require)._value_($2);
 };
-return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},globals.AmdPackageHandler)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},globals.AmdPackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ifNil:ifNotNil:", "amdRequire", "error:", "value:", "with:", ",", "namespaceFor:", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2108,11 +2852,15 @@ selector: "namespaceFor:",
 protocol: 'committing',
 fn: function (aPackage){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(aPackage)._transport())._namespace();
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"namespaceFor:",{aPackage:aPackage},globals.AmdPackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["namespace", "transport"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2130,7 +2878,9 @@ protocol: 'private',
 fn: function (aString){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=_st($Smalltalk())._amdRequire();
 if(($receiver = $2) == null || $receiver.isNil){
@@ -2141,7 +2891,9 @@ require=$receiver;
 $1=_st(_st(require)._basicAt_("toUrl"))._value_(aString);
 };
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"toUrl:",{aString:aString},globals.AmdPackageHandler)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ifNil:ifNotNil:", "amdRequire", "error:", "value:", "basicAt:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2160,11 +2912,15 @@ protocol: 'commit paths',
 fn: function (){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st($Smalltalk())._defaultAmdNamespace();
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"defaultNamespace",{},globals.AmdPackageHandler.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["defaultAmdNamespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2182,9 +2938,14 @@ protocol: 'commit paths',
 fn: function (aString){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 _st($Smalltalk())._defaultAmdNamespace_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"defaultNamespace:",{aString:aString},globals.AmdPackageHandler.klass)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"defaultNamespace:",{aString:aString},globals.AmdPackageHandler.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["defaultAmdNamespace:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2206,11 +2967,15 @@ selector: "asJSON",
 protocol: 'converting',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=globals.HashedCollection._newFromPairs_(["type",self._type()]);
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{},globals.PackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["type"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2227,9 +2992,14 @@ selector: "commit",
 protocol: 'committing',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 _st(self._commitHandler())._commit_(self._package());
-return self}, function($ctx1) {$ctx1.fill(self,"commit",{},globals.PackageTransport)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"commit",{},globals.PackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["commit:", "commitHandler", "package"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2246,11 +3016,15 @@ selector: "commitHandler",
 protocol: 'factory',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st(self._commitHandlerClass())._new();
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"commitHandler",{},globals.PackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["new", "commitHandlerClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2267,9 +3041,14 @@ selector: "commitHandlerClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"commitHandlerClass",{},globals.PackageTransport)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"commitHandlerClass",{},globals.PackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2286,9 +3065,14 @@ selector: "commitOnSuccess:onError:",
 protocol: 'committing',
 fn: function (aBlock,anotherBlock){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 _st(self._commitHandler())._commit_onSuccess_onError_(self._package(),aBlock,anotherBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"commitOnSuccess:onError:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageTransport)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"commitOnSuccess:onError:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["commit:onSuccess:onError:", "commitHandler", "package"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2323,9 +3107,14 @@ selector: "load",
 protocol: 'loading',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 _st(self._commitHandler())._load_(self._package());
-return self}, function($ctx1) {$ctx1.fill(self,"load",{},globals.PackageTransport)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"load",{},globals.PackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["load:", "commitHandler", "package"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2363,7 +3152,8 @@ protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 self["@package"]=aPackage;
-return self
+return self;
+
 },
 messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2380,7 +3170,8 @@ selector: "setupFromJson:",
 protocol: 'initialization',
 fn: function (anObject){
 var self=this;
-return self
+return self;
+
 },
 messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2397,11 +3188,15 @@ selector: "type",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st(self._class())._type();
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"type",{},globals.PackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["type", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2420,11 +3215,15 @@ selector: "classRegisteredFor:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@registry"])._at_(aString);
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"classRegisteredFor:",{aString:aString},globals.PackageTransport.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2442,11 +3241,15 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $AmdPackageTransport(){return globals.AmdPackageTransport||(typeof AmdPackageTransport=="undefined"?nil:AmdPackageTransport)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st($AmdPackageTransport())._type();
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"defaultType",{},globals.PackageTransport.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["type"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2463,11 +3266,15 @@ selector: "for:",
 protocol: 'instance creation',
 fn: function (aString){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st(self._classRegisteredFor_(aString))._new();
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},globals.PackageTransport.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["new", "classRegisteredFor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2484,11 +3291,15 @@ selector: "fromJson:",
 protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$3,$4,$2,$receiver;
 if(($receiver = anObject) == null || $receiver.isNil){
 $1=self._for_(self._defaultType());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["for:"]=1;
+//>>excludeEnd("ctx");
 return $1;
 } else {
 anObject;
@@ -2498,7 +3309,9 @@ _st($3)._setupFromJson_(anObject);
 $4=_st($3)._yourself();
 $2=$4;
 return $2;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"fromJson:",{anObject:anObject},globals.PackageTransport.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ifNil:", "for:", "defaultType", "setupFromJson:", "type", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2515,12 +3328,23 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
-($ctx1.supercall = true, globals.PackageTransport.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+//>>excludeEnd("ctx");
+(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true, 
+//>>excludeEnd("ctx");
+globals.PackageTransport.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
+//>>excludeEnd("ctx");;
 self["@registry"]=globals.HashedCollection._newFromPairs_([]);
 self._register();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.PackageTransport.klass)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.PackageTransport.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["initialize", "register"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2538,9 +3362,14 @@ protocol: 'registration',
 fn: function (){
 var self=this;
 function $PackageTransport(){return globals.PackageTransport||(typeof PackageTransport=="undefined"?nil:PackageTransport)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 _st($PackageTransport())._register_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"register",{},globals.PackageTransport.klass)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"register",{},globals.PackageTransport.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["register:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2557,16 +3386,23 @@ selector: "register:",
 protocol: 'registration',
 fn: function (aClass){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1,$receiver;
 $1=_st(aClass)._type();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["type"]=1;
+//>>excludeEnd("ctx");
 if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 _st(self["@registry"])._at_put_(_st(aClass)._type(),aClass);
 };
-return self}, function($ctx1) {$ctx1.fill(self,"register:",{aClass:aClass},globals.PackageTransport.klass)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"register:",{aClass:aClass},globals.PackageTransport.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ifNotNil:", "type", "at:put:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2606,15 +3442,25 @@ selector: "asJSON",
 protocol: 'converting',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=($ctx1.supercall = true, globals.AmdPackageTransport.superclass.fn.prototype._asJSON.apply(_st(self), []));
+$2=(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true, 
+//>>excludeEnd("ctx");
+globals.AmdPackageTransport.superclass.fn.prototype._asJSON.apply(_st(self), []));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
+//>>excludeEnd("ctx");;
 _st($2)._at_put_("amdNamespace",self._namespace());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{},globals.AmdPackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["at:put:", "asJSON", "namespace", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2651,11 +3497,15 @@ protocol: 'defaults',
 fn: function (){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st($Smalltalk())._defaultAmdNamespace();
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"defaultNamespace",{},globals.AmdPackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["defaultAmdNamespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2673,22 +3523,36 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $3,$2,$1;
 $1=_st($String())._streamContents_((function(stream){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 _st(stream)._nextPutAll_(_st(self._class())._name());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
 _st(stream)._nextPutAll_(" namespace: ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
 $3=_st("'".__comma(self._namespace())).__comma("'");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=1;
+//>>excludeEnd("ctx");
 $2=_st(stream)._nextPutAll_($3);
 return $2;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
+//>>excludeEnd("ctx");
 }));
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"definition",{},globals.AmdPackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["streamContents:", "nextPutAll:", "name", "class", ",", "namespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2705,7 +3569,9 @@ selector: "namespace",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@namespace"];
 if(($receiver = $2) == null || $receiver.isNil){
@@ -2714,7 +3580,9 @@ $1=self._defaultNamespace();
 $1=$2;
 };
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"namespace",{},globals.AmdPackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["ifNil:", "defaultNamespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2732,7 +3600,8 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 self["@namespace"]=aString;
-return self
+return self;
+
 },
 messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2749,16 +3618,31 @@ selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
-($ctx1.supercall = true, globals.AmdPackageTransport.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true, 
+//>>excludeEnd("ctx");
+globals.AmdPackageTransport.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
+//>>excludeEnd("ctx");;
 _st(aStream)._nextPutAll_(" (AMD Namespace: ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(self._namespace());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
 $1=_st(aStream)._nextPutAll_(")");
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.AmdPackageTransport)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.AmdPackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["printOn:", "nextPutAll:", "namespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2775,9 +3659,14 @@ selector: "setPath:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 _st(_st(require)._basicAt_("config"))._value_(globals.HashedCollection._newFromPairs_(["paths",globals.HashedCollection._newFromPairs_([self._namespace(),aString])]));
-return self}, function($ctx1) {$ctx1.fill(self,"setPath:",{aString:aString},globals.AmdPackageTransport)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"setPath:",{aString:aString},globals.AmdPackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["value:", "basicAt:", "namespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2794,9 +3683,14 @@ selector: "setupFromJson:",
 protocol: 'initialization',
 fn: function (anObject){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 self._namespace_(_st(anObject)._at_("amdNamespace"));
-return self}, function($ctx1) {$ctx1.fill(self,"setupFromJson:",{anObject:anObject},globals.AmdPackageTransport)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"setupFromJson:",{anObject:anObject},globals.AmdPackageTransport)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["namespace:", "at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2814,14 +3708,18 @@ selector: "namespace:",
 protocol: 'instance creation',
 fn: function (aString){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
 _st($2)._namespace_(aString);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"namespace:",{aString:aString},globals.AmdPackageTransport.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["namespace:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2856,11 +3754,15 @@ selector: "commit",
 protocol: '*Kernel-ImportExport',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st(self._transport())._commit();
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"commit",{},globals.Package)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["commit", "transport"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2877,11 +3779,15 @@ selector: "load",
 protocol: '*Kernel-ImportExport',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $1;
 $1=_st(self._transport())._load();
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"load",{},globals.Package)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["load", "transport"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2898,14 +3804,18 @@ selector: "loadFromNamespace:",
 protocol: '*Kernel-ImportExport',
 fn: function (aString){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._transport();
 _st($2)._namespace_(aString);
 $3=_st($2)._load();
 $1=$3;
 return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"loadFromNamespace:",{aString:aString},globals.Package)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["namespace:", "transport", "load"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2922,9 +3832,14 @@ selector: "load:",
 protocol: '*Kernel-ImportExport',
 fn: function (aPackageName){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 _st(self._named_(aPackageName))._load();
-return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackageName:aPackageName},globals.Package.klass)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"load:",{aPackageName:aPackageName},globals.Package.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["load", "named:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2941,9 +3856,14 @@ selector: "load:fromNamespace:",
 protocol: '*Kernel-ImportExport',
 fn: function (aPackageName,aString){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
 _st(self._named_(aPackageName))._loadFromNamespace_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"load:fromNamespace:",{aPackageName:aPackageName,aString:aString},globals.Package.klass)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"load:fromNamespace:",{aPackageName:aPackageName,aString:aString},globals.Package.klass)});
+//>>excludeEnd("ctx");
 },
 messageSends: ["loadFromNamespace:", "named:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
