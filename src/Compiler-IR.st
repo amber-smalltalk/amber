@@ -1283,11 +1283,14 @@ nextPutReturnWith: aBlock
 nextPutSendIndexFor: anIRSend
 	self 
 		nextPutAll: ';'; lf;
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);'; lf;
 		nextPutAll: anIRSend scope alias;
 		nextPutAll: '.sendIdx[';
 		nextPutAll: anIRSend selector asJavascript;
 		nextPutAll: ']=';
-		nextPutAll: anIRSend index asString
+		nextPutAll: anIRSend index asString;
+		nextPutAll: ';'; lf;
+		nextPutAll: '//>>excludeEnd("ctx")'
 !
 
 nextPutSequenceWith: aBlock
