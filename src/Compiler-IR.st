@@ -1062,7 +1062,10 @@ visitSend: anIRSend
 
 visitSuperSend: anIRSend
 	self stream
-		nextPutAll: '(', anIRSend scope alias, '.supercall = true, ';
+		nextPutAll: '('; lf;
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);'; lf;
+		nextPutAll: anIRSend scope alias, '.supercall = true, '; lf;
+		nextPutAll: '//>>excludeEnd("ctx");'; lf;
 		nextPutAll: self currentClass asJavascript;
 		nextPutAll: '.superclass.fn.prototype.';
 		nextPutAll: anIRSend selector asJavaScriptMethodName, '.apply(';
@@ -1074,7 +1077,9 @@ visitSuperSend: anIRSend
 		separatedBy: [ self stream nextPutAll: ',' ].
 	self stream 
 		nextPutAll: ']));'; lf;
-		nextPutAll: anIRSend scope alias, '.supercall = false'
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);'; lf;
+		nextPutAll: anIRSend scope alias, '.supercall = false;'; lf;
+		nextPutAll: '//>>excludeEnd("ctx");'
 ! !
 
 Object subclass: #JSStream
