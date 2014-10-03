@@ -1,4 +1,4 @@
-Amber [![Travis CI Status](https://secure.travis-ci.org/amber-smalltalk/amber.png)](https://travis-ci.org/#!/amber-smalltalk/amber)
+Amber [![Travis CI Status](https://secure.travis-ci.org/amber-smalltalk/amber.png)](https://travis-ci.org/#!/amber-smalltalk/amber) [![devDependency status](https://david-dm.org/amber-smalltalk/amber/dev-status.svg?style=flat)](https://david-dm.org/amber-smalltalk/amber#info=devDependencies)
 =====
 
 By Nicolas Petton <petton.nicolas@gmail.com> and [Amber contributors](https://github.com/amber-smalltalk/amber/contributors)

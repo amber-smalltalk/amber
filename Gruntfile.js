@@ -10,7 +10,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-execute');
 
   grunt.registerTask('default', ['peg', 'amberc:all']);
-  grunt.registerTask('amberc:all', ['amberc:core', 'amberc:cli']);
+  grunt.registerTask('amberc:all', ['amberc:amber', 'amberc:cli']);
   grunt.registerTask('test', ['amberc:test_runner', 'execute:test_runner', 'clean:test_runner']);
 
   grunt.initConfig({
@@ -21,13 +21,13 @@ module.exports = function(grunt) {
     },
 
     peg: {
-      amber_parser: {
+      parser: {
         options: {
           cache: true,
           export_var: 'globals.SmalltalkParser'
         },
         src: 'support/parser.pegjs',
-        dest: 'support/parser.js',
+        dest: 'support/parser.js'
       }
     },
 
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
         amber_dir: process.cwd(),
         closure_jar: ''
       },
-      core: {
+      amber: {
         output_dir : 'src',
         src: ['src/Kernel-Objects.st', 'src/Kernel-Classes.st', 'src/Kernel-Methods.st', 'src/Kernel-Collections.st',
               'src/Kernel-Infrastructure.st', 'src/Kernel-Exceptions.st', 'src/Kernel-Transcript.st', 'src/Kernel-Announcements.st',
@@ -47,25 +47,6 @@ module.exports = function(grunt) {
               'src/Benchfib.st', 'src/Examples.st'
               ],
         jsGlobals: ['navigator']
-      },
-      amber_kernel: {
-        output_dir : 'src',
-        src: ['src/Kernel-Objects.st', 'src/Kernel-Classes.st', 'src/Kernel-Methods.st', 'src/Kernel-Collections.st',
-              'src/Kernel-Infrastructure.st', 'src/Kernel-Exceptions.st', 'src/Kernel-Transcript.st', 'src/Kernel-Announcements.st']
-      },
-      amber_web: {
-        output_dir : 'src',
-        src: ['src/Web.st', 'src/SUnit.st']
-      },
-      amber_IDE: {
-        output_dir : 'src',
-        src: ['src/IDE.st'],
-        libraries: ['Web']
-      },
-      amber_tests: {
-        output_dir : 'src',
-        src: ['src/Kernel-Tests.st', 'src/Compiler-Tests.st', 'src/SUnit-Tests.st'],
-        libraries: ['SUnit']
       },
       cli: {
         output_dir: 'external/amber-cli/src',
