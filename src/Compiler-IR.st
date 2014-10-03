@@ -197,10 +197,13 @@ visitMethodNode: aNode
 
 	aNode nodes do: [ :each | self method add: (self visit: each) ].
 
-	aNode scope hasLocalReturn ifFalse: [
-		(self method add: IRReturn new) add: (IRVariable new
-			variable: (aNode scope pseudoVars at: 'self');
-			yourself) ].
+	aNode scope hasLocalReturn ifFalse: [self method
+		add: (IRReturn new
+			add: (IRVariable new
+				variable: (aNode scope pseudoVars at: 'self');
+				yourself);
+			yourself);
+		add: (IRVerbatim new source: ''; yourself) ].
 
 	^ self method
 !
@@ -1059,7 +1062,10 @@ visitSend: anIRSend
 
 visitSuperSend: anIRSend
 	self stream
-		nextPutAll: '(', anIRSend scope alias, '.supercall = true, ';
+		nextPutAll: '('; lf;
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);'; lf;
+		nextPutAll: anIRSend scope alias, '.supercall = true, '; lf;
+		nextPutAll: '//>>excludeEnd("ctx");'; lf;
 		nextPutAll: self currentClass asJavascript;
 		nextPutAll: '.superclass.fn.prototype.';
 		nextPutAll: anIRSend selector asJavaScriptMethodName, '.apply(';
@@ -1071,7 +1077,9 @@ visitSuperSend: anIRSend
 		separatedBy: [ self stream nextPutAll: ',' ].
 	self stream 
 		nextPutAll: ']));'; lf;
-		nextPutAll: anIRSend scope alias, '.supercall = false'
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);'; lf;
+		nextPutAll: anIRSend scope alias, '.supercall = false;'; lf;
+		nextPutAll: '//>>excludeEnd("ctx");'
 ! !
 
 Object subclass: #JSStream
@@ -1112,11 +1120,18 @@ nextPutAssignment
 nextPutBlockContextFor: anIRClosure during: aBlock
 	anIRClosure requiresSmalltalkContext ifFalse: [ ^ aBlock value ].
 	self
-		nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; lf.
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);';
+		lf;
+		nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {';
+		lf;
+		nextPutAll: '//>>excludeEnd("ctx");';
+		lf.
 	
 	aBlock value.
 	
 	self
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);';
+		lf;
 		nextPutAll: '}, function(', anIRClosure scope alias, ') {';
 		nextPutAll: anIRClosure scope alias, '.fillBlock({'.
 	
@@ -1130,7 +1145,9 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 	
 	self
 		nextPutAll: '},';
-		nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')});'
+		nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')});';
+		lf;
+		nextPutAll: '//>>excludeEnd("ctx");'
 !
 
 nextPutClassRefFunction: aString
@@ -1164,10 +1181,18 @@ nextPutContextFor: aMethod during: aBlock
 	aMethod requiresSmalltalkContext ifFalse: [ ^ aBlock value ].
 	
 	self
-		nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; lf.
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);';
+		lf;
+		nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { ';
+		lf;
+		nextPutAll: '//>>excludeEnd("ctx");';
+		lf.
+
 	aBlock value.
 	
 	self
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);';
+		lf;
 		nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias;
 		nextPutAll: '.fill(self,', aMethod selector asJavascript, ',{'.
 
@@ -1182,7 +1207,9 @@ nextPutContextFor: aMethod during: aBlock
 	self
 		nextPutAll: '},';
 		nextPutAll: aMethod theClass asJavascript;
-		nextPutAll: ')});'
+		nextPutAll: ')});';
+		lf;
+		nextPutAll: '//>>excludeEnd("ctx");'
 !
 
 nextPutFunctionWith: aBlock arguments: anArray
@@ -1261,11 +1288,14 @@ nextPutReturnWith: aBlock
 nextPutSendIndexFor: anIRSend
 	self 
 		nextPutAll: ';'; lf;
+		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);'; lf;
 		nextPutAll: anIRSend scope alias;
 		nextPutAll: '.sendIdx[';
 		nextPutAll: anIRSend selector asJavascript;
 		nextPutAll: ']=';
-		nextPutAll: anIRSend index asString
+		nextPutAll: anIRSend index asString;
+		nextPutAll: ';'; lf;
+		nextPutAll: '//>>excludeEnd("ctx")'
 !
 
 nextPutSequenceWith: aBlock

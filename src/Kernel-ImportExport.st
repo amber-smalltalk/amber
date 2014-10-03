@@ -275,10 +275,14 @@ exportDefinitionOf: aClass on: aStream
 	aClass comment notEmpty ifTrue: [
 		aStream
 			lf;
-		nextPutAll: (self jsClassNameFor: aClass);
-		nextPutAll: '.comment=';
-		nextPutAll: aClass comment asJavascript;
-		nextPutAll: ';' ].
+			nextPutAll: '//>>excludeStart("ide", pragmas.excludeIdeData);';
+			lf;
+			nextPutAll: (self jsClassNameFor: aClass);
+			nextPutAll: '.comment=';
+			nextPutAll: aClass comment asJavascript;
+			nextPutAll: ';';
+			lf;
+			nextPutAll: '//>>excludeEnd("ide");' ].
 	aStream lf
 !
 
@@ -297,17 +301,16 @@ exportMetaDefinitionOf: aClass on: aStream
 exportMethod: aMethod on: aStream
 	aStream
 		nextPutAll: 'smalltalk.addMethod(';lf;
-		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
 		nextPutAll: 'smalltalk.method({';lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
 		nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
+		nextPutAll: '//>>excludeStart("ide", pragmas.excludeIdeData);';lf;
 		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
 		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;
-		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;
-		nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.
-	aStream
-		lf;
+		nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript, ',';lf;
+		nextPutAll: '//>>excludeEnd("ide");';lf;
+		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript;lf;
 		nextPutAll: '}),';lf;
 		nextPutAll: (self jsClassNameFor: aMethod methodClass);
 		nextPutAll: ');';lf;lf
