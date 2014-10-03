@@ -22,12 +22,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"beHandled",{},globals.Error)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "beHandled\x0a\x09<self.amberHandled = true>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Error);
 
@@ -46,12 +46,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"beUnhandled",{},globals.Error)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "beUnhandled\x0a\x09<self.amberHandled = false>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Error);
 
@@ -70,12 +70,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"context",{},globals.Error)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "context\x0a\x09<return self.context>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Error);
 
@@ -94,12 +94,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Error)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["messageText:", ",", "name", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09self messageText: 'Errorclass: ', (self class name).",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["messageText:", ",", "name", "class"]
 }),
 globals.Error);
 
@@ -118,12 +118,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"isSmalltalkError",{},globals.Error)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isSmalltalkError\x0a\x09<return self.smalltalkError === true>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Error);
 
@@ -142,12 +142,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"jsStack",{},globals.Error)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "jsStack\x0a\x09<return self.stack>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Error);
 
@@ -162,12 +162,12 @@ $1=self["@messageText"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "messageText\x0a\x09^ messageText",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Error);
 
@@ -181,12 +181,12 @@ self["@messageText"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "messageText: aString\x0a\x09messageText := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Error);
 
@@ -208,12 +208,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"resignal",{},globals.Error)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "resignal\x0a\x09\x22Resignal the receiver without changing its exception context\x22\x0a\x09\x0a\x09<\x0a\x09\x09self.amberHandled = false;\x0a\x09\x09throw(self);\x0a\x09>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Error);
 
@@ -236,12 +236,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"signal",{},globals.Error)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "signal\x0a\x09<\x0a\x09\x09self.amberHandled = false;\x0a\x09\x09self.context = smalltalk.getThisContext(); \x0a\x09\x09self.smalltalkError = true; throw(self)\x0a\x09>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Error);
 
@@ -261,12 +261,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},globals.Error)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["messageText:", "signal"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "signal: aString\x0a\x09self messageText: aString.\x0a\x09self signal",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["messageText:", "signal"]
 }),
 globals.Error);
 
@@ -286,12 +286,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"signalerContext",{},globals.Error)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["signalerContextFrom:", "context"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "signalerContext\x0a\x09^ self signalerContextFrom: self context",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["signalerContextFrom:", "context"]
 }),
 globals.Error);
 
@@ -336,12 +336,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},globals.Error)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aContext"],
 source: "signalerContextFrom: aContext\x0a\x09\x22Find the first sender of signal(:), the first context which is neither \x0a\x09for an instance method nor for a class side method of Exception (or subclass).\x0a\x09This will make sure that the same context is found for both, `Error signal` \x0a\x09and `Error new signal`\x22\x0a\x0a\x09^ aContext findContextSuchThat: [ :context |\x0a\x09\x09(context receiver == self \x0a\x09\x09or: [ context receiver == self class ]) not ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class"]
 }),
 globals.Error);
 
@@ -360,12 +360,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"wasHandled",{},globals.Error)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "wasHandled\x0a\x09<return self.amberHandled || false>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Error);
 
@@ -379,12 +379,12 @@ var self=this;
 return "exception";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "heliosClass\x0a\x09^ 'exception'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Error.klass);
 
@@ -404,12 +404,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"signal",{},globals.Error.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["signal", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "signal\x0a\x09^ self new signal",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["signal", "new"]
 }),
 globals.Error.klass);
 
@@ -429,12 +429,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},globals.Error.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["signal:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "signal: aString\x0a\x09^ self new\x0a\x09\x09signal: aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["signal:", "new"]
 }),
 globals.Error.klass);
 
@@ -452,12 +452,12 @@ var self=this;
 return "Halt encountered";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "messageText\x0a\x09^ 'Halt encountered'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Halt);
 
@@ -513,12 +513,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},globals.Halt)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class", "=", "selector", "method"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aContext"],
 source: "signalerContextFrom: aContext\x0a\x09\x22specialized version to find the proper context to open the debugger on.\x0a\x09This will find the first context whose method is no longer on `Halt` or \x0a\x09`Halt class` nor is `#halt` method itself.\x22\x0a\x09\x0a\x09^ aContext findContextSuchThat: [ :context |\x0a\x09\x09(context receiver == self \x0a\x09\x09or: [ (context receiver == self class) \x0a\x09\x09or: [ context method selector = #halt ]]) not ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class", "=", "selector", "method"]
 }),
 globals.Halt);
 
@@ -543,12 +543,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"context:",{aMethodContext:aMethodContext},globals.JavaScriptException)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMethodContext"],
 source: "context: aMethodContext\x0a\x09\x22Set the context from the outside.\x0a\x09See boot.js `inContext()` exception handling\x22\x0a\x09\x0a\x09<self.context = aMethodContext>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.JavaScriptException);
 
@@ -563,12 +563,12 @@ $1=self["@exception"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "exception\x0a\x09^ exception",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.JavaScriptException);
 
@@ -582,12 +582,12 @@ self["@exception"]=anException;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anException"],
 source: "exception: anException\x0a\x09exception := anException",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.JavaScriptException);
 
@@ -606,12 +606,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.JavaScriptException)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "messageText\x0a\x09<return 'JavaScript exception: ' + self[\x22@exception\x22].toString()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.JavaScriptException);
 
@@ -635,12 +635,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{anException:anException},globals.JavaScriptException.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["exception:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anException"],
 source: "on: anException\x0a\x09^ self new\x0a\x09\x09exception: anException;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["exception:", "new", "yourself"]
 }),
 globals.JavaScriptException.klass);
 
@@ -664,12 +664,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:context:",{anException:anException,aMethodContext:aMethodContext},globals.JavaScriptException.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["exception:", "new", "context:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anException", "aMethodContext"],
 source: "on: anException context: aMethodContext\x0a\x09^ self new\x0a\x09\x09exception: anException;\x0a\x09\x09context: aMethodContext;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["exception:", "new", "context:", "yourself"]
 }),
 globals.JavaScriptException.klass);
 
@@ -689,12 +689,12 @@ $1=self["@message"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "message\x0a\x09^ message",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MessageNotUnderstood);
 
@@ -708,12 +708,12 @@ self["@message"]=aMessage;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMessage"],
 source: "message: aMessage\x0a\x09message := aMessage",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MessageNotUnderstood);
 
@@ -736,12 +736,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.MessageNotUnderstood)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "asString", "receiver", "selector", "message"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "messageText\x0a\x09^ self receiver asString, ' does not understand #', self message selector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: [",", "asString", "receiver", "selector", "message"]
 }),
 globals.MessageNotUnderstood);
 
@@ -756,12 +756,12 @@ $1=self["@receiver"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "receiver\x0a\x09^ receiver",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MessageNotUnderstood);
 
@@ -775,12 +775,12 @@ self["@receiver"]=anObject;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "receiver: anObject\x0a\x09receiver := anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MessageNotUnderstood);
 
@@ -801,12 +801,12 @@ $1=self["@object"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "object\x0a\x09^ object",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.NonBooleanReceiver);
 
@@ -820,12 +820,12 @@ self["@object"]=anObject;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "object: anObject\x0a\x09object := anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.NonBooleanReceiver);
 

@@ -20,12 +20,12 @@ return aNode;
 }, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass},globals.ASTParsingTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visit:", "on:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode", "aClass"],
 source: "analyze: aNode forClass: aClass\x0a\x09(SemanticAnalyzer on: aClass) visit: aNode.\x0a\x09^ aNode",
-referencedClasses: ["SemanticAnalyzer"]
+referencedClasses: ["SemanticAnalyzer"],
 //>>excludeEnd("ide");
+messageSends: ["visit:", "on:"]
 }),
 globals.ASTParsingTest);
 
@@ -46,12 +46,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},globals.ASTParsingTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "parse: aString\x0a\x09^ Smalltalk parse: aString",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["parse:"]
 }),
 globals.ASTParsingTest);
 
@@ -71,12 +71,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},globals.ASTParsingTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["analyze:forClass:", "parse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aClass"],
 source: "parse: aString forClass: aClass\x0a\x09^ self analyze: (self parse: aString) forClass: aClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["analyze:forClass:", "parse:"]
 }),
 globals.ASTParsingTest);
 
@@ -112,12 +112,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitor",{},globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["context:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "astPCNodeVisitor\x0a\x09^ ASTPCNodeVisitor new\x0a\x09\x09context: (AIContext new\x0a\x09\x09\x09yourself);\x0a\x09\x09yourself",
-referencedClasses: ["ASTPCNodeVisitor", "AIContext"]
+referencedClasses: ["ASTPCNodeVisitor", "AIContext"],
 //>>excludeEnd("ide");
+messageSends: ["context:", "new", "yourself"]
 }),
 globals.ASTPCNodeVisitorTest);
 
@@ -151,12 +151,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitorForSelector:",{aString:aString},globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["selector:", "new", "context:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "astPCNodeVisitorForSelector: aString\x0a\x09^ ASTPCNodeVisitor new\x0a\x09\x09selector: aString;\x0a\x09\x09context: (AIContext new\x0a\x09\x09\x09yourself);\x0a\x09\x09yourself",
-referencedClasses: ["ASTPCNodeVisitor", "AIContext"]
+referencedClasses: ["ASTPCNodeVisitor", "AIContext"],
 //>>excludeEnd("ide");
+messageSends: ["selector:", "new", "context:", "yourself"]
 }),
 globals.ASTPCNodeVisitorTest);
 
@@ -182,12 +182,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testJSStatementNode",{ast:ast,visitor:visitor},globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:forClass:", "assert:", "isJSStatementNode", "visit:", "astPCNodeVisitor", "currentNode"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testJSStatementNode\x0a\x09| ast visitor |\x0a\x09\x0a\x09ast := self parse: 'foo <consolee.log(1)>' forClass: Object.\x0a\x09self assert: (self astPCNodeVisitor\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) isJSStatementNode",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["parse:forClass:", "assert:", "isJSStatementNode", "visit:", "astPCNodeVisitor", "currentNode"]
 }),
 globals.ASTPCNodeVisitorTest);
 
@@ -213,12 +213,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testMessageSend",{ast:ast},globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForSelector:", "currentNode"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testMessageSend\x0a\x09| ast |\x0a\x09\x0a\x09ast := self parse: 'foo self asString yourself. ^ self asBoolean' forClass: Object.\x0a\x09self assert: ((self astPCNodeVisitorForSelector: 'yourself')\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) selector equals: 'yourself'",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForSelector:", "currentNode"]
 }),
 globals.ASTPCNodeVisitorTest);
 
@@ -244,12 +244,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testMessageSendWithBlocks",{ast:ast},globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForSelector:", "currentNode"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testMessageSendWithBlocks\x0a\x09| ast |\x0a\x09\x0a\x09ast := self parse: 'foo true ifTrue: [ [ self asString yourself ] value.  ]. ^ self asBoolean' forClass: Object.\x0a\x09self assert: ((self astPCNodeVisitorForSelector: 'yourself')\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) selector equals: 'yourself'",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForSelector:", "currentNode"]
 }),
 globals.ASTPCNodeVisitorTest);
 
@@ -300,12 +300,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testMessageSendWithInlining",{ast:ast},globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForSelector:", "currentNode"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testMessageSendWithInlining\x0a\x09| ast |\x0a\x09\x0a\x09ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.\x0a\x09self assert: ((self astPCNodeVisitorForSelector: 'yourself')\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) selector equals: 'yourself'.\x0a\x09\x09\x0a\x09ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.\x0a\x09self assert: ((self astPCNodeVisitorForSelector: 'asBoolean')\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) selector equals: 'asBoolean'",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForSelector:", "currentNode"]
 }),
 globals.ASTPCNodeVisitorTest);
 
@@ -331,12 +331,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNoMessageSend",{ast:ast},globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:forClass:", "assert:", "isNil", "visit:", "astPCNodeVisitor", "currentNode"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNoMessageSend\x0a\x09| ast |\x0a\x09\x0a\x09ast := self parse: 'foo ^ self' forClass: Object.\x0a\x09self assert: (self astPCNodeVisitor\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) isNil",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["parse:forClass:", "assert:", "isNil", "visit:", "astPCNodeVisitor", "currentNode"]
 }),
 globals.ASTPCNodeVisitorTest);
 
@@ -362,12 +362,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testPC",{ast:ast,visitor:visitor},globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:forClass:", "assert:", "isJSStatementNode", "visit:", "astPCNodeVisitor", "currentNode"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testPC\x0a\x09| ast visitor |\x0a\x09\x0a\x09ast := self parse: 'foo <console.log(1)>' forClass: Object.\x0a\x09self assert: (self astPCNodeVisitor\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) isJSStatementNode",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["parse:forClass:", "assert:", "isJSStatementNode", "visit:", "astPCNodeVisitor", "currentNode"]
 }),
 globals.ASTPCNodeVisitorTest);
 
@@ -440,12 +440,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNodeAtPosition",{node:node},globals.ASTPositionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "assert:equals:", "source", "navigationNodeAt:ifAbsent:", "@", "selector"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNodeAtPosition\x0a\x09| node |\x0a\x09\x0a\x09node := self parse: 'yourself\x0a\x09^ self'.\x0a\x09\x0a\x09self assert: (node navigationNodeAt: 2@4 ifAbsent: [ nil ]) source equals: 'self'.\x0a\x09\x0a\x09node := self parse: 'foo\x0a\x09true ifTrue: [ 1 ]'.\x0a\x09\x0a\x09self assert: (node navigationNodeAt: 2@7 ifAbsent: [ nil ]) selector equals: 'ifTrue:'.\x0a\x09\x0a\x09node := self parse: 'foo\x0a\x09self foo; bar; baz'.\x0a\x09\x0a\x09self assert: (node navigationNodeAt: 2@8 ifAbsent: [ nil ]) selector equals: 'foo'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "assert:equals:", "source", "navigationNodeAt:ifAbsent:", "@", "selector"]
 }),
 globals.ASTPositionTest);
 
@@ -462,12 +462,12 @@ function $CodeGenerator(){return globals.CodeGenerator||(typeof CodeGenerator=="
 return $CodeGenerator();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "codeGeneratorClass\x0a\x09^ CodeGenerator",
-referencedClasses: ["CodeGenerator"]
+referencedClasses: ["CodeGenerator"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.CodeGeneratorTest);
 
@@ -491,12 +491,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"compiler",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["codeGeneratorClass:", "new", "codeGeneratorClass", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "compiler\x0a\x09^ Compiler new\x0a\x09\x09codeGeneratorClass: self codeGeneratorClass;\x0a\x09\x09yourself",
-referencedClasses: ["Compiler"]
+referencedClasses: ["Compiler"],
 //>>excludeEnd("ide");
+messageSends: ["codeGeneratorClass:", "new", "codeGeneratorClass", "yourself"]
 }),
 globals.CodeGeneratorTest);
 
@@ -516,12 +516,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "setUp\x0a\x09receiver := DoIt new",
-referencedClasses: ["DoIt"]
+referencedClasses: ["DoIt"],
 //>>excludeEnd("ide");
+messageSends: ["new"]
 }),
 globals.CodeGeneratorTest);
 
@@ -551,12 +551,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult,method:method,result:result},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["install:forClass:protocol:", "compiler", "class", "perform:", "selector", "removeCompiledMethod:", "assert:equals:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject", "aResult"],
 source: "should: aString receiver: anObject return: aResult\x0a\x09| method result |\x0a\x0a\x09receiver := anObject.\x0a\x09method := self compiler install: aString forClass: anObject class protocol: 'tests'.\x0a\x09result := receiver perform: method selector.\x0a\x09anObject class removeCompiledMethod: method.\x0a\x09self assert: aResult equals: result",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["install:forClass:protocol:", "compiler", "class", "perform:", "selector", "removeCompiledMethod:", "assert:equals:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -576,12 +576,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:receiver:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
 source: "should: aString return: anObject\x0a\x09^ self \x0a\x09\x09should: aString \x0a\x09\x09receiver: receiver \x0a\x09\x09return: anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:receiver:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -594,12 +594,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "tearDown\x0a\x09\x22receiver := nil\x22",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.CodeGeneratorTest);
 
@@ -626,12 +626,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAssignment",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAssignment\x0a\x09self should: 'foo | a | a := true ifTrue: [ 1 ]. ^ a' return: 1.\x0a\x09self should: 'foo | a | a := false ifTrue: [ 1 ]. ^ a' return: nil.\x0a\x0a\x09self should: 'foo | a | ^ a := true ifTrue: [ 1 ]' return: 1",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -654,12 +654,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testBackslashSelectors",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testBackslashSelectors\x0a\x09\x0a\x09self should: '\x5c arg ^ 4' return: 4.\x0a\x09self should: '\x5c\x5c arg ^ 42' return: 42",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -686,12 +686,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testBlockReturn",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testBlockReturn\x0a\x09self should: 'foo ^ #(1 2 3) collect: [ :each | true ifTrue: [ each + 1 ] ]' return: #(2 3 4).\x0a\x09self should: 'foo ^ #(1 2 3) collect: [ :each | false ifFalse: [ each + 1 ] ]' return: #(2 3 4).\x0a\x09self should: 'foo ^ #(1 2 3) collect: [ :each | each odd ifTrue: [ each + 1 ] ifFalse: [ each - 1 ] ]' return: #(2 1 4).",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -710,12 +710,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCascades",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCascades\x0a\x09\x0a\x09self should: 'foo ^ Array new add: 3; add: 4; yourself' return: #(3 4)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -738,12 +738,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCascadesWithInlining",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCascadesWithInlining\x0a\x09\x0a\x09self should: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 1.\x0a\x09self should: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 2",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -766,12 +766,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDynamicArrayElementsOrdered",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDynamicArrayElementsOrdered\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ { x. x := 2 }\x0a' return: #(1 2).\x0a\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ { x. true ifTrue: [ x := 2 ] }\x0a' return: #(1 2).",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -790,12 +790,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaryElementsOrdered",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDynamicDictionaryElementsOrdered\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := ''foo''.\x0a\x09^ #{ x->1. ''bar''->(true ifTrue: [ 2 ]) }\x0a' return: #{'foo'->1. 'bar'->2}.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -821,12 +821,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaryWithMoreArrows",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:", "with:", "->"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDynamicDictionaryWithMoreArrows\x0a\x09self should: 'foo ^ #{1->2->3}' return: (HashedCollection with: 1->2->3)",
-referencedClasses: ["HashedCollection"]
+referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
+messageSends: ["should:return:", "with:", "->"]
 }),
 globals.CodeGeneratorTest);
 
@@ -854,12 +854,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testGlobalVar",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testGlobalVar\x0a\x09self should: 'foo ^ eval class' return: BlockClosure.\x0a\x09self should: 'foo ^ Math cos: 0' return: 1.\x0a\x09self should: 'foo ^ NonExistingVar' return: nil",
-referencedClasses: ["BlockClosure"]
+referencedClasses: ["BlockClosure"],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -928,12 +928,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testInnerTemporalDependentElementsOrdered",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:", "->"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testInnerTemporalDependentElementsOrdered\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := Array.\x0a\x09^ x with: ''foo''->x with: ''bar''->(x := 2)\x0a' return: {'foo'->Array. 'bar'->2}.\x0a\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := Array.\x0a\x09^ x with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])\x0a' return: {'foo'->Array. 'bar'->2}.\x0a\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ Array with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])\x0a' return: {'foo'->1. 'bar'->2}.\x0a\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ { ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }\x0a' return: {'foo'->1. 'bar'->2}.\x0a\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ #{ ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }\x0a' return: #{'foo'->1. 'bar'->2}.",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["should:return:", "->"]
 }),
 globals.CodeGeneratorTest);
 
@@ -952,12 +952,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testJSStatement",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testJSStatement\x0a\x09self should: 'foo <return 2+3>' return: 5",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -976,12 +976,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testLexicalScope",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testLexicalScope\x0a\x09self should: 'foo | a | a := 1. [ a := 2 ] value. ^ a' return: 2",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1040,12 +1040,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testLiterals",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testLiterals\x0a\x09self should: 'foo ^ 1' return: 1.\x0a\x09self should: 'foo ^ ''hello''' return: 'hello'.\x0a\x09self should: 'foo ^ #(1 2 3 4)' return: #(1 2 3 4).\x0a\x09self should: 'foo ^ {1. [:x | x ] value: 2. 3. [4] value}' return: #(1 2 3 4).\x0a\x09self should: 'foo ^ true' return: true.\x0a\x09self should: 'foo ^ false' return: false.\x0a\x09self should: 'foo ^ #{1->2. 3->4}' return: #{1->2. 3->4}.\x0a\x09self should: 'foo ^ #hello' return: #hello.\x0a\x09self should: 'foo ^ $h' return: 'h'.\x0a\x09self should: 'foo ^ -123.456' return: -123.456.\x0a\x09self should: 'foo ^ -2.5e4' return: -25000.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1080,12 +1080,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testLocalReturn",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testLocalReturn\x0a\x09self should: 'foo ^ 1' return: 1.\x0a\x09self should: 'foo ^ 1 + 1' return: 2.\x0a\x09self should: 'foo ' return: receiver.\x0a\x09self should: 'foo self asString' return: receiver.\x0a\x09self should: 'foo | a b | a := 1. b := 2. ^ a + b' return: 3",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1120,12 +1120,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testMessageSends",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testMessageSends\x0a\x09self should: 'foo ^ 1 asString' return: '1'.\x0a\x0a\x09self should: 'foo ^ 1 + 1' return: 2.\x0a\x09self should: 'foo ^ 1 + 2 * 3' return: 9.\x0a\x0a\x09self should: 'foo ^ 1 to: 3' return: #(1 2 3).\x0a\x09self should: 'foo ^ 1 to: 5 by: 2' return: #(1 3 5)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1144,12 +1144,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testMultipleSequences",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testMultipleSequences\x0a\x09self should: 'foo | a b c | a := 2. b := 3. c := a + b. ^ c * 6' return: 30",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1168,12 +1168,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testMutableLiterals",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testMutableLiterals\x0a\x09\x22Mutable literals must be aliased in cascades.\x0a\x09See https://github.com/amber-smalltalk/amber/issues/428\x22\x0a\x09\x0a\x09self \x0a\x09\x09should: 'foo ^ #( 1 2 ) at: 1 put: 3; yourself' \x0a\x09\x09return: #(3 2)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1204,12 +1204,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNestedIfTrue",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNestedIfTrue\x0a\x09self should: 'foo ^ true ifTrue: [ false ifFalse: [ 1 ] ]' return: 1.\x0a\x09self should: 'foo ^ true ifTrue: [ false ifTrue: [ 1 ] ]' return: nil.\x0a\x0a\x09self should: 'foo true ifTrue: [ false ifFalse: [ ^ 1 ] ]' return: 1.\x0a\x09self should: 'foo true ifTrue: [ false ifTrue: [ ^ 1 ] ]' return: receiver.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1229,12 +1229,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNestedSends",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:", "asString", "x:y:", "@"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNestedSends\x0a\x09self should: 'foo ^ (Point x: (Point x: 2 y: 3) y: 4) asString' return: (Point x: (2@3) y: 4) asString",
-referencedClasses: ["Point"]
+referencedClasses: ["Point"],
 //>>excludeEnd("ide");
+messageSends: ["should:return:", "asString", "x:y:", "@"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1265,12 +1265,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNonLocalReturn\x0a\x09self should: 'foo [ ^ 1 ] value' return: 1.\x0a\x09self should: 'foo [ ^ 1 + 1 ] value' return: 2.\x0a\x09self should: 'foo | a b | a := 1. b := 2. [ ^ a + b ] value. self halt' return: 3.\x0a\x09self should: 'foo [ :x | ^ x + x ] value: 4. ^ 2' return: 8",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1294,12 +1294,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testPascalCaseGlobal",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:", "at:", "globals"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testPascalCaseGlobal\x0a\x09self should: 'foo ^Object' return: (Smalltalk globals at: 'Object').\x0a\x09self should: 'foo ^NonExistent' return: nil",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["should:return:", "at:", "globals"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1323,12 +1323,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testSendReceiverAndArgumentsOrdered",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testSendReceiverAndArgumentsOrdered\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ Array with: x with: (true ifTrue: [ x := 2 ])\x0a' return: #(1 2).\x0a\x0a\x09self should: 'foo\x0a\x09| x |\x0a\x09x := Array.\x0a\x09^ x with: x with: (true ifTrue: [ x := 2 ])\x0a' return: {Array. 2}.",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1347,12 +1347,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testSuperSend",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:receiver:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testSuperSend\x0a\x09self \x0a\x09\x09should: 'foo ^ super isBoolean' \x0a\x09\x09receiver: true\x0a\x09\x09return: false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:receiver:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1391,12 +1391,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testTempVariables",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testTempVariables\x0a\x09self should: 'foo | a | ^ a' return: nil.\x0a\x09self should: 'foo | AVariable | ^ AVariable' return: nil.\x0a\x09self should: 'foo | a b c | ^ c' return: nil.\x0a\x09self should: 'foo | a | [ | d | ^ d ] value' return: nil.\x0a\x09\x0a\x09self should: 'foo | a | a:= 1. ^ a' return: 1.\x0a\x09self should: 'foo | AVariable | AVariable := 1. ^ AVariable' return: 1.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1415,12 +1415,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testThisContext",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testThisContext\x0a\x09self should: 'foo ^ [ thisContext ] value outerContext == thisContext' return: true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1451,12 +1451,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testifFalse",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testifFalse\x0a\x09self should: 'foo true ifFalse: [ ^ 1 ]' return: receiver.\x0a\x09self should: 'foo false ifFalse: [ ^ 2 ]' return: 2.\x0a\x09\x0a\x09self should: 'foo ^ true ifFalse: [ 1 ]' return: nil.\x0a\x09self should: 'foo ^ false ifFalse: [ 2 ]' return: 2.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1487,12 +1487,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testifFalseIfTrue",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testifFalseIfTrue\x0a\x09self should: 'foo true ifFalse: [ ^ 1 ] ifTrue: [ ^ 2 ]' return: 2.\x0a\x09self should: 'foo false ifFalse: [ ^ 2 ] ifTrue: [ ^1 ]' return: 2.\x0a\x09\x0a\x09self should: 'foo ^ true ifFalse: [ 1 ] ifTrue: [ 2 ]' return: 2.\x0a\x09self should: 'foo ^ false ifFalse: [ 2 ] ifTrue: [ 1 ]' return: 2.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1523,12 +1523,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testifNil",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testifNil\x0a\x09self should: 'foo ^ 1 ifNil: [ 2 ]' return: 1.\x0a\x09self should: 'foo ^ nil ifNil: [ 2 ]' return: 2.\x0a\x0a\x09self should: 'foo 1 ifNil: [ ^ 2 ]' return: receiver.\x0a\x09self should: 'foo nil ifNil: [ ^ 2 ]' return: 2.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1559,12 +1559,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testifNilIfNotNil",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testifNilIfNotNil\x0a\x09self should: 'foo ^ 1 ifNil: [ 2 ] ifNotNil: [ 3 ]' return: 3.\x0a\x09self should: 'foo ^ nil ifNil: [ 2 ] ifNotNil: [ 3 ]' return: 2.\x0a\x0a\x09self should: 'foo 1 ifNil: [ ^ 2 ] ifNotNil: [ ^3 ]' return: 3.\x0a\x09self should: 'foo nil ifNil: [ ^ 2 ] ifNotNil: [ ^3 ]' return: 2.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1595,12 +1595,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testifNotNil",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testifNotNil\x0a\x09self should: 'foo ^ 1 ifNotNil: [ 2 ]' return: 2.\x0a\x09self should: 'foo ^ nil ifNotNil: [ 2 ]' return: nil.\x0a\x0a\x09self should: 'foo 1 ifNotNil: [ ^ 2 ]' return: 2.\x0a\x09self should: 'foo nil ifNotNil: [ ^ 2 ]' return: receiver.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1639,12 +1639,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testifNotNilWithArgument",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testifNotNilWithArgument\x0a\x09self should: 'foo ^ 1 ifNotNil: [ :val | val + 2 ]' return: 3.\x0a\x09self should: 'foo ^ nil ifNotNil: [ :val | val + 2 ]' return: nil.\x0a\x09\x0a\x09self should: 'foo ^ 1 ifNil: [ 5 ] ifNotNil: [ :val | val + 2 ]' return: 3.\x0a\x09self should: 'foo ^ nil ifNil: [ 5 ] ifNotNil: [ :val | val + 2 ]' return: 5.\x0a\x09\x0a\x09self should: 'foo ^ 1 ifNotNil: [ :val | val + 2 ] ifNil: [ 5 ]' return: 3.\x0a\x09self should: 'foo ^ nil ifNotNil: [ :val | val + 2 ] ifNil: [ 5 ]' return: 5",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1675,12 +1675,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testifTrue",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testifTrue\x0a\x09self should: 'foo false ifTrue: [ ^ 1 ]' return: receiver.\x0a\x09self should: 'foo true ifTrue: [ ^ 2 ]' return: 2.\x0a\x09\x0a\x09self should: 'foo ^ false ifTrue: [ 1 ]' return: nil.\x0a\x09self should: 'foo ^ true ifTrue: [ 2 ]' return: 2.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1711,12 +1711,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testifTrueIfFalse",{},globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testifTrueIfFalse\x0a\x09self should: 'foo false ifTrue: [ ^ 1 ] ifFalse: [ ^2 ]' return: 2.\x0a\x09self should: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ ^ 2 ]' return: 1.\x0a\x09\x0a\x09self should: 'foo ^ false ifTrue: [ 2 ] ifFalse: [ 1 ]' return: 1.\x0a\x09self should: 'foo ^ true ifTrue: [ 2 ] ifFalse: [ 1 ]' return: 2.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
@@ -1739,12 +1739,12 @@ return aNode;
 }, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass},globals.ASTInterpreterTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visit:", "on:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode", "aClass"],
 source: "analyze: aNode forClass: aClass\x0a\x09(SemanticAnalyzer on: aClass) visit: aNode.\x0a\x09^ aNode",
-referencedClasses: ["SemanticAnalyzer"]
+referencedClasses: ["SemanticAnalyzer"],
 //>>excludeEnd("ide");
+messageSends: ["visit:", "on:"]
 }),
 globals.ASTInterpreterTest);
 
@@ -1807,12 +1807,12 @@ return $4;
 }, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,ast:ast,interpreter:interpreter},globals.ASTInterpreterTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "parse:forClass:", "class", "receiver:", "interpreter:", "yourself", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpret:", "nextChild", "proceed", "result"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject", "aDictionary"],
 source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a\x09\x0a\x09| ctx ast interpreter |\x0a\x09\x0a\x09interpreter := ASTInterpreter new.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: interpreter;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09\x0a\x09^ interpreter\x0a\x09\x09context: ctx;\x0a\x09\x09interpret: ast nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
-referencedClasses: ["ASTInterpreter", "AIContext"]
+referencedClasses: ["ASTInterpreter", "AIContext"],
 //>>excludeEnd("ide");
+messageSends: ["new", "parse:forClass:", "class", "receiver:", "interpreter:", "yourself", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpret:", "nextChild", "proceed", "result"]
 }),
 globals.ASTInterpreterTest);
 
@@ -1833,12 +1833,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},globals.ASTInterpreterTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "parse: aString\x0a\x09^ Smalltalk parse: aString",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["parse:"]
 }),
 globals.ASTInterpreterTest);
 
@@ -1858,12 +1858,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},globals.ASTInterpreterTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["analyze:forClass:", "parse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aClass"],
 source: "parse: aString forClass: aClass\x0a\x09^ self analyze: (self parse: aString) forClass: aClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["analyze:forClass:", "parse:"]
 }),
 globals.ASTInterpreterTest);
 
@@ -1884,12 +1884,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult},globals.ASTInterpreterTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "interpret:receiver:withArguments:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject", "aResult"],
 source: "should: aString receiver: anObject return: aResult\x0a\x09receiver := anObject.\x0a\x09\x0a\x09^ self \x0a\x09\x09assert: (self interpret: aString receiver: receiver withArguments: #{})\x0a\x09\x09equals: aResult",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "interpret:receiver:withArguments:"]
 }),
 globals.ASTInterpreterTest);
 
@@ -1909,12 +1909,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject},globals.ASTInterpreterTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:receiver:return:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
 source: "should: aString return: anObject\x0a\x09^ self \x0a\x09\x09should: aString\x0a\x09\x09receiver: receiver\x0a\x09\x09return: anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["should:receiver:return:"]
 }),
 globals.ASTInterpreterTest);
 
@@ -1988,12 +1988,12 @@ return $5;
 }, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,ast:ast,debugger_:debugger_},globals.ASTDebuggerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["receiver:", "new", "interpreter:", "yourself", "parse:forClass:", "class", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "node:", "nextChild", "proceed", "result"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject", "aDictionary"],
 source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09| ctx ast debugger |\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: ASTInterpreter new;\x0a\x09\x09yourself.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09ctx interpreter context: ctx.\x0a\x09\x0a\x09ctx interpreter node: ast nextChild.\x0a\x09\x0a\x09debugger := ASTDebugger context: ctx.\x0a\x09\x0a\x09^ debugger \x0a\x09\x09proceed; \x0a\x09\x09result",
-referencedClasses: ["AIContext", "ASTInterpreter", "ASTDebugger"]
+referencedClasses: ["AIContext", "ASTInterpreter", "ASTDebugger"],
 //>>excludeEnd("ide");
+messageSends: ["receiver:", "new", "interpreter:", "yourself", "parse:forClass:", "class", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "node:", "nextChild", "proceed", "result"]
 }),
 globals.ASTDebuggerTest);
 
@@ -2010,12 +2010,12 @@ function $InliningCodeGenerator(){return globals.InliningCodeGenerator||(typeof 
 return $InliningCodeGenerator();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "codeGeneratorClass\x0a\x09^ InliningCodeGenerator",
-referencedClasses: ["InliningCodeGenerator"]
+referencedClasses: ["InliningCodeGenerator"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.InliningCodeGeneratorTest);
 
@@ -2055,12 +2055,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testClassRefVar",{node:node},globals.ScopeVarTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:", "new", "yourself", "pushScope:", "visit:", "assert:", "isClassRefVar", "binding"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testClassRefVar\x0a\x09| node |\x0a\x09node := VariableNode new\x0a\x09\x09value: 'Object';\x0a\x09\x09yourself.\x0a\x09SemanticAnalyzer new \x0a\x09\x09pushScope: MethodLexicalScope new;\x0a\x09\x09visit: node.\x0a\x09self assert: node binding isClassRefVar",
-referencedClasses: ["VariableNode", "SemanticAnalyzer", "MethodLexicalScope"]
+referencedClasses: ["VariableNode", "SemanticAnalyzer", "MethodLexicalScope"],
 //>>excludeEnd("ide");
+messageSends: ["value:", "new", "yourself", "pushScope:", "visit:", "assert:", "isClassRefVar", "binding"]
 }),
 globals.ScopeVarTest);
 
@@ -2092,12 +2092,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testInstanceVar",{node:node,scope:scope},globals.ScopeVarTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:", "new", "yourself", "addIVar:", "assert:", "isInstanceVar", "bindingFor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testInstanceVar\x0a\x09| node scope |\x0a\x09node := VariableNode new\x0a\x09\x09value: 'bzzz';\x0a\x09\x09yourself.\x0a\x09scope := MethodLexicalScope new.\x0a\x09scope addIVar: 'bzzz'.\x0a\x09self assert: (scope bindingFor: node) isInstanceVar",
-referencedClasses: ["VariableNode", "MethodLexicalScope"]
+referencedClasses: ["VariableNode", "MethodLexicalScope"],
 //>>excludeEnd("ide");
+messageSends: ["value:", "new", "yourself", "addIVar:", "assert:", "isInstanceVar", "bindingFor:"]
 }),
 globals.ScopeVarTest);
 
@@ -2137,12 +2137,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testPseudoVar",{node:node,pseudoVars:pseudoVars},globals.ScopeVarTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "value:", "new", "yourself", "assert:", "isPseudoVar", "bindingFor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testPseudoVar\x0a\x09| node pseudoVars |\x0a\x09pseudoVars := #('self' 'super' 'true' 'false' 'nil').\x0a\x09pseudoVars do: [:each |\x0a\x09\x09node := VariableNode new\x0a\x09\x09value: each;\x0a\x09\x09yourself.\x0a\x09\x09self assert: (MethodLexicalScope new bindingFor: node) isPseudoVar ]",
-referencedClasses: ["VariableNode", "MethodLexicalScope"]
+referencedClasses: ["VariableNode", "MethodLexicalScope"],
 //>>excludeEnd("ide");
+messageSends: ["do:", "value:", "new", "yourself", "assert:", "isPseudoVar", "bindingFor:"]
 }),
 globals.ScopeVarTest);
 
@@ -2174,12 +2174,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testTempVar",{node:node,scope:scope},globals.ScopeVarTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:", "new", "yourself", "addTemp:", "assert:", "isTempVar", "bindingFor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testTempVar\x0a\x09| node scope |\x0a\x09node := VariableNode new\x0a\x09\x09value: 'bzzz';\x0a\x09\x09yourself.\x0a\x09scope := MethodLexicalScope new.\x0a\x09scope addTemp: 'bzzz'.\x0a\x09self assert: (scope bindingFor: node) isTempVar",
-referencedClasses: ["VariableNode", "MethodLexicalScope"]
+referencedClasses: ["VariableNode", "MethodLexicalScope"],
 //>>excludeEnd("ide");
+messageSends: ["value:", "new", "yourself", "addTemp:", "assert:", "isTempVar", "bindingFor:"]
 }),
 globals.ScopeVarTest);
 
@@ -2209,12 +2209,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testUnknownVar",{node:node},globals.ScopeVarTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:", "new", "yourself", "assert:", "isNil", "bindingFor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testUnknownVar\x0a\x09| node |\x0a\x09node := VariableNode new\x0a\x09\x09value: 'bzzz';\x0a\x09\x09yourself.\x0a\x09self assert: (MethodLexicalScope new bindingFor: node) isNil",
-referencedClasses: ["VariableNode", "MethodLexicalScope"]
+referencedClasses: ["VariableNode", "MethodLexicalScope"],
 //>>excludeEnd("ide");
+messageSends: ["value:", "new", "yourself", "assert:", "isNil", "bindingFor:"]
 }),
 globals.ScopeVarTest);
 
@@ -2238,12 +2238,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["on:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "setUp\x0a\x09analyzer := SemanticAnalyzer on: Object",
-referencedClasses: ["SemanticAnalyzer", "Object"]
+referencedClasses: ["SemanticAnalyzer", "Object"],
 //>>excludeEnd("ide");
+messageSends: ["on:"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2275,12 +2275,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAssignment",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "should:raise:", "visit:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAssignment\x0a\x09| src ast |\x0a\x0a\x09src := 'foo self := 1'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09self should: [analyzer visit: ast] raise: InvalidAssignmentError",
-referencedClasses: ["Smalltalk", "InvalidAssignmentError"]
+referencedClasses: ["Smalltalk", "InvalidAssignmentError"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "should:raise:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2304,12 +2304,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "visit:", "deny:", "hasNonLocalReturn", "scope"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNonLocalReturn\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. ^ a'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self deny: ast scope hasNonLocalReturn",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "visit:", "deny:", "hasNonLocalReturn", "scope"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2333,12 +2333,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn2",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "visit:", "assert:", "hasNonLocalReturn", "scope"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNonLocalReturn2\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ ^ a] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope hasNonLocalReturn",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "visit:", "assert:", "hasNonLocalReturn", "scope"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2373,12 +2373,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testScope",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "visit:", "deny:", "==", "scope", "last", "nodes", "first"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testScope\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ | b | b := a ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self deny: ast nodes first nodes last scope == ast scope.",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "visit:", "deny:", "==", "scope", "last", "nodes", "first"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2429,12 +2429,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testScope2",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "visit:", "deny:", "==", "scope", "first", "nodes", "last"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testScope2\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self deny: ast nodes first nodes last nodes first nodes first scope == ast scope.",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "visit:", "deny:", "==", "scope", "first", "nodes", "last"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2494,12 +2494,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testScopeLevel",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "visit:", "assert:equals:", "scopeLevel", "scope", "first", "nodes", "last"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testScopeLevel\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope scopeLevel equals: 1.\x0a\x09self assert: ast nodes first nodes last nodes first nodes first scope scopeLevel equals: 3",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "visit:", "assert:equals:", "scopeLevel", "scope", "first", "nodes", "last"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2531,12 +2531,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testUnknownVariables",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "should:raise:", "visit:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testUnknownVariables\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | b + a'.\x0a\x09ast := Smalltalk parse: src.\x0a\x0a\x09self should: [ analyzer visit: ast ] raise: UnknownVariableError",
-referencedClasses: ["Smalltalk", "UnknownVariableError"]
+referencedClasses: ["Smalltalk", "UnknownVariableError"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "should:raise:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2568,12 +2568,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testUnknownVariablesWithScope",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "should:raise:", "visit:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testUnknownVariablesWithScope\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a b | [ c + 1. [ a + 1. d + 1 ]]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09\x0a\x09self should: [ analyzer visit: ast ] raise: UnknownVariableError",
-referencedClasses: ["Smalltalk", "UnknownVariableError"]
+referencedClasses: ["Smalltalk", "UnknownVariableError"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "should:raise:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2596,12 +2596,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testVariableShadowing",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "visit:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testVariableShadowing\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2633,12 +2633,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testVariableShadowing2",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "should:raise:", "visit:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testVariableShadowing2\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ | a | a := 2 ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09self should: [analyzer visit: ast] raise: ShadowingVariableError",
-referencedClasses: ["Smalltalk", "ShadowingVariableError"]
+referencedClasses: ["Smalltalk", "ShadowingVariableError"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "should:raise:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2661,12 +2661,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testVariableShadowing3",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "visit:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testVariableShadowing3\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ | b | b := 2 ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2689,12 +2689,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testVariableShadowing4",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "visit:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testVariableShadowing4\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2726,12 +2726,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testVariableShadowing5",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "should:raise:", "visit:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testVariableShadowing5\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09self should: [analyzer visit: ast] raise: ShadowingVariableError",
-referencedClasses: ["Smalltalk", "ShadowingVariableError"]
+referencedClasses: ["Smalltalk", "ShadowingVariableError"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "should:raise:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2915,12 +2915,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testVariablesLookup",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "visit:", "assert:", "isTempVar", "binding", "receiver", "first", "nodes", "==", "scope", "left", "last"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testVariablesLookup\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ | b | b := a ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09\x22Binding for `a` in the message send\x22\x0a\x09self assert: ast nodes first nodes first receiver binding isTempVar.\x0a\x09self assert: ast nodes first nodes first receiver binding scope == ast scope.\x0a\x0a\x09\x22Binding for `b`\x22\x0a\x09self assert: ast nodes first nodes last nodes first nodes first left binding isTempVar.\x0a\x09self assert: ast nodes first nodes last nodes first nodes first left binding scope == ast nodes first nodes last scope.",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "visit:", "assert:", "isTempVar", "binding", "receiver", "first", "nodes", "==", "scope", "left", "last"]
 }),
 globals.SemanticAnalyzerTest);
 
@@ -2958,12 +2958,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.AISemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["context:", "on:", "defineLocal:", "new", "localAt:put:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "setUp\x0a\x09analyzer := (AISemanticAnalyzer on: Object)\x0a\x09\x09context: (AIContext new\x0a\x09\x09\x09defineLocal: 'local';\x0a\x09\x09\x09localAt: 'local' put: 3;\x0a\x09\x09\x09yourself);\x0a\x09\x09yourself",
-referencedClasses: ["AISemanticAnalyzer", "Object", "AIContext"]
+referencedClasses: ["AISemanticAnalyzer", "Object", "AIContext"],
 //>>excludeEnd("ide");
+messageSends: ["context:", "on:", "defineLocal:", "new", "localAt:put:", "yourself"]
 }),
 globals.AISemanticAnalyzerTest);
 
@@ -2995,12 +2995,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testContextVariables",{src:src,ast:ast},globals.AISemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "shouldnt:raise:", "visit:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testContextVariables\x0a\x09| src ast |\x0a\x09\x0a\x09src := 'foo | a | local + a'.\x0a\x09ast := Smalltalk parse: src.\x0a\x0a\x09self shouldnt: [ analyzer visit: ast ] raise: UnknownVariableError",
-referencedClasses: ["Smalltalk", "UnknownVariableError"]
+referencedClasses: ["Smalltalk", "UnknownVariableError"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "shouldnt:raise:", "visit:"]
 }),
 globals.AISemanticAnalyzerTest);
 

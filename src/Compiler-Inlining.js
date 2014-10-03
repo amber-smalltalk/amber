@@ -23,12 +23,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedAssignment)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitIRInlinedAssignment:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRInlinedAssignment: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitIRInlinedAssignment:"]
 }),
 globals.IRInlinedAssignment);
 
@@ -41,12 +41,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isInlined\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRInlinedAssignment);
 
@@ -71,12 +71,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedClosure)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitIRInlinedClosure:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09aVisitor visitIRInlinedClosure: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitIRInlinedClosure:"]
 }),
 globals.IRInlinedClosure);
 
@@ -89,12 +89,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isInlined\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRInlinedClosure);
 
@@ -120,12 +120,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedReturn)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitIRInlinedReturn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRInlinedReturn: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitIRInlinedReturn:"]
 }),
 globals.IRInlinedReturn);
 
@@ -138,12 +138,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isInlined\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRInlinedReturn);
 
@@ -168,12 +168,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedSend)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitInlinedSend:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09aVisitor visitInlinedSend: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitInlinedSend:"]
 }),
 globals.IRInlinedSend);
 
@@ -188,12 +188,12 @@ $1=[];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "internalVariables\x0a\x09\x22Answer a collection of internal variables required \x0a\x09to perform the inlining\x22\x0a\x09\x0a\x09^ #()",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRInlinedSend);
 
@@ -206,12 +206,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isInlined\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRInlinedSend);
 
@@ -236,12 +236,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedIfFalse)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitIRInlinedIfFalse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09aVisitor visitIRInlinedIfFalse: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitIRInlinedIfFalse:"]
 }),
 globals.IRInlinedIfFalse);
 
@@ -266,12 +266,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedIfNilIfNotNil)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitIRInlinedIfNilIfNotNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09aVisitor visitIRInlinedIfNilIfNotNil: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitIRInlinedIfNilIfNotNil:"]
 }),
 globals.IRInlinedIfNilIfNotNil);
 
@@ -292,12 +292,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"internalVariables",{},globals.IRInlinedIfNilIfNotNil)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["with:", "receiverInternalVariable"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "internalVariables\x0a\x09^ Array with: self receiverInternalVariable",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["with:", "receiverInternalVariable"]
 }),
 globals.IRInlinedIfNilIfNotNil);
 
@@ -325,12 +325,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"receiverInternalVariable",{},globals.IRInlinedIfNilIfNotNil)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["variable:", "new", "name:", "receiverInternalVariableName", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "receiverInternalVariable\x0a\x09^ IRVariable new\x0a\x09\x09variable: (AliasVar new name: self receiverInternalVariableName);\x0a\x09\x09yourself.",
-referencedClasses: ["IRVariable", "AliasVar"]
+referencedClasses: ["IRVariable", "AliasVar"],
 //>>excludeEnd("ide");
+messageSends: ["variable:", "new", "name:", "receiverInternalVariableName", "yourself"]
 }),
 globals.IRInlinedIfNilIfNotNil);
 
@@ -343,12 +343,12 @@ var self=this;
 return "$receiver";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "receiverInternalVariableName\x0a\x09^ '$receiver'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRInlinedIfNilIfNotNil);
 
@@ -373,12 +373,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedIfTrue)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitIRInlinedIfTrue:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09aVisitor visitIRInlinedIfTrue: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitIRInlinedIfTrue:"]
 }),
 globals.IRInlinedIfTrue);
 
@@ -403,12 +403,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedIfTrueIfFalse)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitIRInlinedIfTrueIfFalse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09aVisitor visitIRInlinedIfTrueIfFalse: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitIRInlinedIfTrueIfFalse:"]
 }),
 globals.IRInlinedIfTrueIfFalse);
 
@@ -433,12 +433,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedSequence)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitIRInlinedSequence:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09aVisitor visitIRInlinedSequence: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitIRInlinedSequence:"]
 }),
 globals.IRInlinedSequence);
 
@@ -451,12 +451,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isInlined\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRInlinedSequence);
 
@@ -486,12 +486,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"assignmentInliner",{},globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["translator:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "assignmentInliner\x0a\x09^ IRAssignmentInliner new\x0a\x09\x09translator: self;\x0a\x09\x09yourself",
-referencedClasses: ["IRAssignmentInliner"]
+referencedClasses: ["IRAssignmentInliner"],
 //>>excludeEnd("ide");
+messageSends: ["translator:", "new", "yourself"]
 }),
 globals.IRInliner);
 
@@ -515,12 +515,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"returnInliner",{},globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["translator:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "returnInliner\x0a\x09^ IRReturnInliner new\x0a\x09\x09translator: self;\x0a\x09\x09yourself",
-referencedClasses: ["IRReturnInliner"]
+referencedClasses: ["IRReturnInliner"],
 //>>excludeEnd("ide");
+messageSends: ["translator:", "new", "yourself"]
 }),
 globals.IRInliner);
 
@@ -544,12 +544,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"sendInliner",{},globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["translator:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sendInliner\x0a\x09^ IRSendInliner new\x0a\x09\x09translator: self;\x0a\x09\x09yourself",
-referencedClasses: ["IRSendInliner"]
+referencedClasses: ["IRSendInliner"],
 //>>excludeEnd("ide");
+messageSends: ["translator:", "new", "yourself"]
 }),
 globals.IRInliner);
 
@@ -597,12 +597,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldInlineAssignment:",{anIRAssignment:anIRAssignment},globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["and:", "not", "isInlined", "isSend", "last", "instructions", "shouldInlineSend:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRAssignment"],
 source: "shouldInlineAssignment: anIRAssignment\x0a\x09^ anIRAssignment isInlined not and: [\x0a\x09\x09anIRAssignment instructions last isSend and: [\x0a\x09\x09\x09self shouldInlineSend: (anIRAssignment instructions last) ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["and:", "not", "isInlined", "isSend", "last", "instructions", "shouldInlineSend:"]
 }),
 globals.IRInliner);
 
@@ -650,12 +650,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldInlineReturn:",{anIRReturn:anIRReturn},globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["and:", "not", "isInlined", "isSend", "first", "instructions", "shouldInlineSend:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRReturn"],
 source: "shouldInlineReturn: anIRReturn\x0a\x09^ anIRReturn isInlined not and: [\x0a\x09\x09anIRReturn instructions first isSend and: [\x0a\x09\x09\x09self shouldInlineSend: (anIRReturn instructions first) ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["and:", "not", "isInlined", "isSend", "first", "instructions", "shouldInlineSend:"]
 }),
 globals.IRInliner);
 
@@ -684,12 +684,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldInlineSend:",{anIRSend:anIRSend},globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["and:", "not", "isInlined", "shouldInline:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRSend"],
 source: "shouldInlineSend: anIRSend\x0a\x09^ anIRSend isInlined not and: [\x0a\x09\x09IRSendInliner shouldInline: anIRSend ]",
-referencedClasses: ["IRSendInliner"]
+referencedClasses: ["IRSendInliner"],
 //>>excludeEnd("ide");
+messageSends: ["and:", "not", "isInlined", "shouldInline:"]
 }),
 globals.IRInliner);
 
@@ -752,12 +752,12 @@ return $9;
 }, function($ctx1) {$ctx1.fill(self,"transformNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn,localReturn:localReturn},globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "canInlineNonLocalReturns", "scope", "removeNonLocalReturn:", "methodScope", "scope:", "new", "yourself", "do:", "instructions", "add:", "replaceWith:", "visitIRNonLocalReturn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRNonLocalReturn"],
 source: "transformNonLocalReturn: anIRNonLocalReturn\x0a\x09\x22Replace a non local return into a local return\x22\x0a\x0a\x09| localReturn |\x0a\x09anIRNonLocalReturn scope canInlineNonLocalReturns ifTrue: [\x0a\x09\x09anIRNonLocalReturn scope methodScope removeNonLocalReturn: anIRNonLocalReturn scope.\x0a\x09\x09localReturn := IRReturn new\x0a\x09\x09\x09scope: anIRNonLocalReturn scope;\x0a\x09\x09\x09yourself.\x0a\x09\x09anIRNonLocalReturn instructions do: [ :each |\x0a\x09\x09\x09localReturn add: each ].\x0a\x09\x09anIRNonLocalReturn replaceWith: localReturn.\x0a\x09\x09^ localReturn ].\x0a\x09^ super visitIRNonLocalReturn: anIRNonLocalReturn",
-referencedClasses: ["IRReturn"]
+referencedClasses: ["IRReturn"],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "canInlineNonLocalReturns", "scope", "removeNonLocalReturn:", "methodScope", "scope:", "new", "yourself", "do:", "instructions", "add:", "replaceWith:", "visitIRNonLocalReturn:"]
 }),
 globals.IRInliner);
 
@@ -789,12 +789,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitIRAssignment:",{anIRAssignment:anIRAssignment},globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "shouldInlineAssignment:", "inlineAssignment:", "assignmentInliner", "visitIRAssignment:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRAssignment"],
 source: "visitIRAssignment: anIRAssignment\x0a\x09^ (self shouldInlineAssignment: anIRAssignment)\x0a\x09\x09ifTrue: [ self assignmentInliner inlineAssignment: anIRAssignment ]\x0a\x09\x09ifFalse: [ super visitIRAssignment: anIRAssignment ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "shouldInlineAssignment:", "inlineAssignment:", "assignmentInliner", "visitIRAssignment:"]
 }),
 globals.IRInliner);
 
@@ -814,12 +814,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn},globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["transformNonLocalReturn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRNonLocalReturn"],
 source: "visitIRNonLocalReturn: anIRNonLocalReturn\x0a\x09^ self transformNonLocalReturn: anIRNonLocalReturn",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["transformNonLocalReturn:"]
 }),
 globals.IRInliner);
 
@@ -851,12 +851,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitIRReturn:",{anIRReturn:anIRReturn},globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "shouldInlineReturn:", "inlineReturn:", "returnInliner", "visitIRReturn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRReturn"],
 source: "visitIRReturn: anIRReturn\x0a\x09^ (self shouldInlineReturn: anIRReturn)\x0a\x09\x09ifTrue: [ self returnInliner inlineReturn: anIRReturn ]\x0a\x09\x09ifFalse: [ super visitIRReturn: anIRReturn ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "shouldInlineReturn:", "inlineReturn:", "returnInliner", "visitIRReturn:"]
 }),
 globals.IRInliner);
 
@@ -888,12 +888,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend},globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "shouldInlineSend:", "inlineSend:", "sendInliner", "visitIRSend:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRSend"],
 source: "visitIRSend: anIRSend\x0a\x09^ (self shouldInlineSend: anIRSend)\x0a\x09\x09ifTrue: [ self sendInliner inlineSend: anIRSend ]\x0a\x09\x09ifFalse: [ super visitIRSend: anIRSend ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "shouldInlineSend:", "inlineSend:", "sendInliner", "visitIRSend:"]
 }),
 globals.IRInliner);
 
@@ -918,12 +918,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedAssignment:",{anIRInlinedAssignment:anIRInlinedAssignment},globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visit:", "last", "instructions"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInlinedAssignment"],
 source: "visitIRInlinedAssignment: anIRInlinedAssignment\x0a\x09self visit: anIRInlinedAssignment instructions last",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visit:", "last", "instructions"]
 }),
 globals.IRInliningJSTranslator);
 
@@ -959,12 +959,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedClosure:",{anIRInlinedClosure:anIRInlinedClosure},globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutVars:", "stream", "collect:", "tempDeclarations", "asVariableName", "name", "do:", "instructions", "visit:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInlinedClosure"],
 source: "visitIRInlinedClosure: anIRInlinedClosure\x0a\x09self stream nextPutVars: (anIRInlinedClosure tempDeclarations collect: [ :each |\x0a\x09\x09each name asVariableName ]).\x0a\x09anIRInlinedClosure instructions do: [ :each |\x0a\x09\x09self visit: each ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutVars:", "stream", "collect:", "tempDeclarations", "asVariableName", "name", "do:", "instructions", "visit:"]
 }),
 globals.IRInliningJSTranslator);
 
@@ -1021,12 +1021,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfFalse:",{anIRInlinedIfFalse:anIRInlinedIfFalse},globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutIf:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "last"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInlinedIfFalse"],
 source: "visitIRInlinedIfFalse: anIRInlinedIfFalse\x0a\x09self stream nextPutIf: [\x0a\x09\x09self stream nextPutAll: '! smalltalk.assert('.\x0a\x09\x09self visit: anIRInlinedIfFalse instructions first.\x0a\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfFalse instructions last ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutIf:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "last"]
 }),
 globals.IRInliningJSTranslator);
 
@@ -1103,12 +1103,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfNilIfNotNil:",{anIRInlinedIfNilIfNotNil:anIRInlinedIfNilIfNotNil},globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutIfElse:with:with:", "stream", "nextPutAll:", ",", "receiverInternalVariableName", "visit:", "first", "instructions", "second", "third"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInlinedIfNilIfNotNil"],
 source: "visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil\x0a\x09self stream\x0a\x09\x09nextPutIfElse: [\x0a\x09\x09\x09self stream nextPutAll: '(', anIRInlinedIfNilIfNotNil receiverInternalVariableName, ' = '.\x0a\x09\x09\x09self visit: anIRInlinedIfNilIfNotNil instructions first.\x0a\x09\x09\x09self stream nextPutAll: ') == null || $receiver.isNil' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutIfElse:with:with:", "stream", "nextPutAll:", ",", "receiverInternalVariableName", "visit:", "first", "instructions", "second", "third"]
 }),
 globals.IRInliningJSTranslator);
 
@@ -1165,12 +1165,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfTrue:",{anIRInlinedIfTrue:anIRInlinedIfTrue},globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutIf:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "last"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInlinedIfTrue"],
 source: "visitIRInlinedIfTrue: anIRInlinedIfTrue\x0a\x09self stream nextPutIf: [\x0a\x09\x09self stream nextPutAll: 'smalltalk.assert('.\x0a\x09\x09self visit: anIRInlinedIfTrue instructions first.\x0a\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrue instructions last ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutIf:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "last"]
 }),
 globals.IRInliningJSTranslator);
 
@@ -1243,12 +1243,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfTrueIfFalse:",{anIRInlinedIfTrueIfFalse:anIRInlinedIfTrueIfFalse},globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutIfElse:with:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "second", "third"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInlinedIfTrueIfFalse"],
 source: "visitIRInlinedIfTrueIfFalse: anIRInlinedIfTrueIfFalse\x0a\x09self stream\x0a\x09\x09nextPutIfElse: [\x0a\x09\x09\x09self stream nextPutAll: 'smalltalk.assert('.\x0a\x09\x09\x09self visit: anIRInlinedIfTrueIfFalse instructions first.\x0a\x09\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrueIfFalse instructions second ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrueIfFalse instructions third ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutIfElse:with:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "second", "third"]
 }),
 globals.IRInliningJSTranslator);
 
@@ -1283,12 +1283,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedNonLocalReturn:",{anIRInlinedReturn:anIRInlinedReturn},globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutStatementWith:", "stream", "visit:", "last", "instructions", "nextPutNonLocalReturnWith:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInlinedReturn"],
 source: "visitIRInlinedNonLocalReturn: anIRInlinedReturn\x0a\x09self stream nextPutStatementWith: [\x0a\x09\x09self visit: anIRInlinedReturn instructions last ].\x0a\x09self stream nextPutNonLocalReturnWith: [ ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutStatementWith:", "stream", "visit:", "last", "instructions", "nextPutNonLocalReturnWith:"]
 }),
 globals.IRInliningJSTranslator);
 
@@ -1307,12 +1307,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedReturn:",{anIRInlinedReturn:anIRInlinedReturn},globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visit:", "last", "instructions"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInlinedReturn"],
 source: "visitIRInlinedReturn: anIRInlinedReturn\x0a\x09self visit: anIRInlinedReturn instructions last",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visit:", "last", "instructions"]
 }),
 globals.IRInliningJSTranslator);
 
@@ -1347,12 +1347,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedSequence:",{anIRInlinedSequence:anIRInlinedSequence},globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "instructions", "nextPutStatementWith:", "stream", "visit:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInlinedSequence"],
 source: "visitIRInlinedSequence: anIRInlinedSequence\x0a\x09anIRInlinedSequence instructions do: [ :each |\x0a\x09\x09self stream nextPutStatementWith: [ self visit: each ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "instructions", "nextPutStatementWith:", "stream", "visit:"]
 }),
 globals.IRInliningJSTranslator);
 
@@ -1379,12 +1379,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifFalse:",{anIRInstruction:anIRInstruction},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inlinedSend:with:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction"],
 source: "ifFalse: anIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfFalse new with: anIRInstruction",
-referencedClasses: ["IRInlinedIfFalse"]
+referencedClasses: ["IRInlinedIfFalse"],
 //>>excludeEnd("ide");
+messageSends: ["inlinedSend:with:", "new"]
 }),
 globals.IRSendInliner);
 
@@ -1404,12 +1404,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifFalse:ifTrue:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["perform:withArguments:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction", "anotherIRInstruction"],
 source: "ifFalse: anIRInstruction ifTrue: anotherIRInstruction\x0a\x09^ self perform: #ifTrue:ifFalse: withArguments: { anotherIRInstruction. anIRInstruction }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["perform:withArguments:"]
 }),
 globals.IRSendInliner);
 
@@ -1455,12 +1455,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNil:",{anIRInstruction:anIRInstruction},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inlinedSend:with:with:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction"],
 source: "ifNil: anIRInstruction\x0a\x09^ self\x0a\x09\x09inlinedSend: IRInlinedIfNilIfNotNil new\x0a\x09\x09with: anIRInstruction\x0a\x09\x09with: (IRClosure new\x0a\x09\x09\x09scope: anIRInstruction scope copy;\x0a\x09\x09\x09add: (IRBlockSequence new\x0a\x09\x09\x09\x09add: self send instructions first;\x0a\x09\x09\x09\x09yourself);\x0a\x09\x09\x09yourself)",
-referencedClasses: ["IRInlinedIfNilIfNotNil", "IRClosure", "IRBlockSequence"]
+referencedClasses: ["IRInlinedIfNilIfNotNil", "IRClosure", "IRBlockSequence"],
 //>>excludeEnd("ide");
+messageSends: ["inlinedSend:with:with:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"]
 }),
 globals.IRSendInliner);
 
@@ -1481,12 +1481,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inlinedSend:with:with:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction", "anotherIRInstruction"],
 source: "ifNil: anIRInstruction ifNotNil: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfNilIfNotNil new with: anIRInstruction with: anotherIRInstruction",
-referencedClasses: ["IRInlinedIfNilIfNotNil"]
+referencedClasses: ["IRInlinedIfNilIfNotNil"],
 //>>excludeEnd("ide");
+messageSends: ["inlinedSend:with:with:", "new"]
 }),
 globals.IRSendInliner);
 
@@ -1532,12 +1532,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{anIRInstruction:anIRInstruction},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inlinedSend:with:with:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction"],
 source: "ifNotNil: anIRInstruction\x0a\x09^ self\x0a\x09\x09inlinedSend: IRInlinedIfNilIfNotNil new\x0a\x09\x09with: (IRClosure new\x0a\x09\x09\x09scope: anIRInstruction scope copy;\x0a\x09\x09\x09add: (IRBlockSequence new\x0a\x09\x09\x09\x09add: self send instructions first;\x0a\x09\x09\x09\x09yourself);\x0a\x09\x09\x09yourself)\x0a\x09\x09with: anIRInstruction",
-referencedClasses: ["IRInlinedIfNilIfNotNil", "IRClosure", "IRBlockSequence"]
+referencedClasses: ["IRInlinedIfNilIfNotNil", "IRClosure", "IRBlockSequence"],
 //>>excludeEnd("ide");
+messageSends: ["inlinedSend:with:with:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"]
 }),
 globals.IRSendInliner);
 
@@ -1558,12 +1558,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inlinedSend:with:with:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction", "anotherIRInstruction"],
 source: "ifNotNil: anIRInstruction ifNil: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfNilIfNotNil new with: anotherIRInstruction with: anIRInstruction",
-referencedClasses: ["IRInlinedIfNilIfNotNil"]
+referencedClasses: ["IRInlinedIfNilIfNotNil"],
 //>>excludeEnd("ide");
+messageSends: ["inlinedSend:with:with:", "new"]
 }),
 globals.IRSendInliner);
 
@@ -1584,12 +1584,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifTrue:",{anIRInstruction:anIRInstruction},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inlinedSend:with:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction"],
 source: "ifTrue: anIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfTrue new with: anIRInstruction",
-referencedClasses: ["IRInlinedIfTrue"]
+referencedClasses: ["IRInlinedIfTrue"],
 //>>excludeEnd("ide");
+messageSends: ["inlinedSend:with:", "new"]
 }),
 globals.IRSendInliner);
 
@@ -1610,12 +1610,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifTrue:ifFalse:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inlinedSend:with:with:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction", "anotherIRInstruction"],
 source: "ifTrue: anIRInstruction ifFalse: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfTrueIfFalse new with: anIRInstruction with: anotherIRInstruction",
-referencedClasses: ["IRInlinedIfTrueIfFalse"]
+referencedClasses: ["IRInlinedIfTrueIfFalse"],
 //>>excludeEnd("ide");
+messageSends: ["inlinedSend:with:with:", "new"]
 }),
 globals.IRSendInliner);
 
@@ -1830,12 +1830,12 @@ return $37;
 }, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,inlinedClosure:inlinedClosure,sequence:sequence,statements:statements},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inlinedClosure", "scope:", "scope", "parent:", "parent", "do:", "tempDeclarations", "add:", "inlinedSequence", "arguments", "name:", "new", "yourself", "variable:", "instructions", "last", "ifNotEmpty:", "allButLast", "ifTrue:ifFalse:", "and:", "isReturn", "isBlockReturn", "first"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRClosure"],
 source: "inlineClosure: anIRClosure\x0a\x09| inlinedClosure sequence statements |\x0a\x0a\x09inlinedClosure := self inlinedClosure.\x0a\x09inlinedClosure \x0a\x09\x09scope: anIRClosure scope;\x0a\x09\x09parent: anIRClosure parent.\x0a\x0a\x09\x22Add the possible temp declarations\x22\x0a\x09anIRClosure tempDeclarations do: [ :each |\x0a\x09\x09\x09inlinedClosure add: each ].\x0a\x0a\x09\x22Add a block sequence\x22\x0a\x09sequence := self inlinedSequence.\x0a\x0a\x09\x22Map the closure arguments to the receiver of the message send\x22\x0a\x09anIRClosure arguments do: [ :each |\x0a\x09\x09inlinedClosure add: (IRTempDeclaration new name: each; yourself).\x0a\x09\x09sequence add: (IRAssignment new\x0a\x09\x09\x09add: (IRVariable new variable: (AliasVar new scope: inlinedClosure scope; name: each; yourself));\x0a\x09\x09\x09add: (IRVariable new variable: (AliasVar new scope: inlinedClosure scope; name: '$receiver'; yourself));\x0a\x09\x09\x09yourself) ].\x0a\x09\x09\x09\x0a\x09\x22To ensure the correct order of the closure instructions: first the temps then the sequence\x22\x0a\x09inlinedClosure add: sequence.\x0a\x0a\x09\x22Get all the statements\x22\x0a\x09statements := anIRClosure instructions last instructions.\x0a\x09\x0a\x09statements ifNotEmpty: [\x0a\x09\x09statements allButLast do: [ :each | sequence add: each ].\x0a\x0a\x09\x09\x22Inlined closures don't have implicit local returns\x22\x0a\x09\x09(statements last isReturn and: [ statements last isBlockReturn ])\x0a\x09\x09\x09ifTrue: [ sequence add: statements last instructions first ]\x0a\x09\x09\x09ifFalse: [ sequence add: statements last ] ].\x0a\x0a\x09^ inlinedClosure",
-referencedClasses: ["IRTempDeclaration", "IRAssignment", "IRVariable", "AliasVar"]
+referencedClasses: ["IRTempDeclaration", "IRAssignment", "IRVariable", "AliasVar"],
 //>>excludeEnd("ide");
+messageSends: ["inlinedClosure", "scope:", "scope", "parent:", "parent", "do:", "tempDeclarations", "add:", "inlinedSequence", "arguments", "name:", "new", "yourself", "variable:", "instructions", "last", "ifNotEmpty:", "allButLast", "ifTrue:ifFalse:", "and:", "isReturn", "isBlockReturn", "first"]
 }),
 globals.IRSendInliner);
 
@@ -1861,12 +1861,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"inlineSend:",{anIRSend:anIRSend},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["send:", "perform:withArguments:", "selector", "send", "allButFirst", "instructions"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRSend"],
 source: "inlineSend: anIRSend\x0a\x09self send: anIRSend.\x0a\x09^ self\x0a\x09\x09perform: self send selector\x0a\x09\x09withArguments: self send instructions allButFirst",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["send:", "perform:withArguments:", "selector", "send", "allButFirst", "instructions"]
 }),
 globals.IRSendInliner);
 
@@ -1887,12 +1887,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"inlinedClosure",{},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "inlinedClosure\x0a\x09^ IRInlinedClosure new",
-referencedClasses: ["IRInlinedClosure"]
+referencedClasses: ["IRInlinedClosure"],
 //>>excludeEnd("ide");
+messageSends: ["new"]
 }),
 globals.IRSendInliner);
 
@@ -1941,12 +1941,12 @@ return inlinedSend;
 }, function($ctx1) {$ctx1.fill(self,"inlinedSend:with:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,inlinedClosure:inlinedClosure},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:", "isClosure", "inliningError:", "=", "size", "arguments", "visit:", "translator", "inlineClosure:", "add:", "first", "instructions", "send", "replaceWith:", "addAll:", "internalVariables", "method"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["inlinedSend", "anIRInstruction"],
 source: "inlinedSend: inlinedSend with: anIRInstruction\x0a\x09| inlinedClosure |\x0a\x0a\x09anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x09anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].\x0a\x0a\x09inlinedClosure := self translator visit: (self inlineClosure: anIRInstruction).\x0a\x0a\x09inlinedSend\x0a\x09\x09add: self send instructions first;\x0a\x09\x09add: inlinedClosure.\x0a\x0a\x09self send replaceWith: inlinedSend.\x0a\x09inlinedSend method internalVariables \x0a\x09\x09addAll: inlinedSend internalVariables.\x0a\x0a\x09^ inlinedSend",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:", "isClosure", "inliningError:", "=", "size", "arguments", "visit:", "translator", "inlineClosure:", "add:", "first", "instructions", "send", "replaceWith:", "addAll:", "internalVariables", "method"]
 }),
 globals.IRSendInliner);
 
@@ -2014,12 +2014,12 @@ return inlinedSend;
 }, function($ctx1) {$ctx1.fill(self,"inlinedSend:with:with:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction,inlinedClosure1:inlinedClosure1,inlinedClosure2:inlinedClosure2},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:", "isClosure", "inliningError:", "visit:", "translator", "inlineClosure:", "add:", "first", "instructions", "send", "replaceWith:", "addAll:", "internalVariables", "method"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["inlinedSend", "anIRInstruction", "anotherIRInstruction"],
 source: "inlinedSend: inlinedSend with: anIRInstruction with: anotherIRInstruction\x0a\x09| inlinedClosure1 inlinedClosure2 |\x0a\x0a\x09anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x09anotherIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x0a\x09inlinedClosure1 := self translator visit: (self inlineClosure: anIRInstruction).\x0a\x09inlinedClosure2 := self translator visit: (self inlineClosure: anotherIRInstruction).\x0a\x0a\x09inlinedSend\x0a\x09\x09add: self send instructions first;\x0a\x09\x09add: inlinedClosure1;\x0a\x09\x09add: inlinedClosure2.\x0a\x0a\x09self send replaceWith: inlinedSend.\x0a\x09inlinedSend method internalVariables \x0a\x09\x09addAll: inlinedSend internalVariables.\x0a\x09\x09\x0a\x09^ inlinedSend",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:", "isClosure", "inliningError:", "visit:", "translator", "inlineClosure:", "add:", "first", "instructions", "send", "replaceWith:", "addAll:", "internalVariables", "method"]
 }),
 globals.IRSendInliner);
 
@@ -2040,12 +2040,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"inlinedSequence",{},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "inlinedSequence\x0a\x09^ IRInlinedSequence new",
-referencedClasses: ["IRInlinedSequence"]
+referencedClasses: ["IRInlinedSequence"],
 //>>excludeEnd("ide");
+messageSends: ["new"]
 }),
 globals.IRSendInliner);
 
@@ -2065,12 +2065,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"inliningError:",{aString:aString},globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["signal:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "inliningError: aString\x0a\x09InliningError signal: aString",
-referencedClasses: ["InliningError"]
+referencedClasses: ["InliningError"],
 //>>excludeEnd("ide");
+messageSends: ["signal:"]
 }),
 globals.IRSendInliner);
 
@@ -2085,12 +2085,12 @@ $1=self["@send"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "send\x0a\x09^ send",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRSendInliner);
 
@@ -2104,12 +2104,12 @@ self["@send"]=anIRSend;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRSend"],
 source: "send: anIRSend\x0a\x09send := anIRSend",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRSendInliner);
 
@@ -2124,12 +2124,12 @@ $1=self["@translator"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "translator\x0a\x09^ translator",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRSendInliner);
 
@@ -2143,12 +2143,12 @@ self["@translator"]=anASTTranslator;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anASTTranslator"],
 source: "translator: anASTTranslator\x0a\x09translator := anASTTranslator",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRSendInliner);
 
@@ -2164,12 +2164,12 @@ $1=["ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:", "ifNil:", "ifNo
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "inlinedSelectors\x0a\x09^ #('ifTrue:' 'ifFalse:' 'ifTrue:ifFalse:' 'ifFalse:ifTrue:' 'ifNil:' 'ifNotNil:' 'ifNil:ifNotNil:' 'ifNotNil:ifNil:')",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRSendInliner.klass);
 
@@ -2208,12 +2208,12 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"shouldInline:",{anIRInstruction:anIRInstruction},globals.IRSendInliner.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:", "includes:", "inlinedSelectors", "selector", "do:", "allButFirst", "instructions", "isClosure"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction"],
 source: "shouldInline: anIRInstruction\x0a\x09(self inlinedSelectors includes: anIRInstruction selector) ifFalse: [ ^ false ].\x0a\x09anIRInstruction instructions allButFirst do: [ :each |\x0a\x09\x09each isClosure ifFalse: [ ^ false ]].\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:", "includes:", "inlinedSelectors", "selector", "do:", "allButFirst", "instructions", "isClosure"]
 }),
 globals.IRSendInliner.klass);
 
@@ -2233,12 +2233,12 @@ $1=self["@assignment"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "assignment\x0a\x09^ assignment",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRAssignmentInliner);
 
@@ -2252,12 +2252,12 @@ self["@assignment"]=aNode;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "assignment: aNode\x0a\x09assignment := aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IRAssignmentInliner);
 
@@ -2296,12 +2296,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"inlineAssignment:",{anIRAssignment:anIRAssignment,inlinedAssignment:inlinedAssignment},globals.IRAssignmentInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assignment:", "new", "do:", "instructions", "add:", "replaceWith:", "inlineSend:", "last"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRAssignment"],
 source: "inlineAssignment: anIRAssignment\x0a\x09| inlinedAssignment |\x0a\x09self assignment: anIRAssignment.\x0a\x09inlinedAssignment := IRInlinedAssignment new.\x0a\x09anIRAssignment instructions do: [ :each |\x0a\x09\x09inlinedAssignment add: each ].\x0a\x09anIRAssignment replaceWith: inlinedAssignment.\x0a\x09self inlineSend: inlinedAssignment instructions last.\x0a\x09^ inlinedAssignment",
-referencedClasses: ["IRInlinedAssignment"]
+referencedClasses: ["IRInlinedAssignment"],
 //>>excludeEnd("ide");
+messageSends: ["assignment:", "new", "do:", "instructions", "add:", "replaceWith:", "inlineSend:", "last"]
 }),
 globals.IRAssignmentInliner);
 
@@ -2371,12 +2371,12 @@ return $9;
 }, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,inlinedClosure:inlinedClosure,statements:statements},globals.IRAssignmentInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inlineClosure:", "instructions", "last", "ifNotEmpty:", "ifTrue:", "canBeAssigned", "replaceWith:", "add:", "new", "first", "assignment", "copy", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRClosure"],
 source: "inlineClosure: anIRClosure\x0a\x09| inlinedClosure statements |\x0a\x0a\x09inlinedClosure := super inlineClosure: anIRClosure.\x0a\x09statements := inlinedClosure instructions last instructions.\x0a\x09\x0a\x09statements ifNotEmpty: [\x0a\x09\x09statements last canBeAssigned ifTrue: [\x0a\x09\x09\x09statements last replaceWith: (IRAssignment new\x0a\x09\x09\x09\x09add: self assignment instructions first;\x0a\x09\x09\x09\x09add: statements last copy;\x0a\x09\x09\x09\x09yourself) ] ].\x0a\x0a\x09^ inlinedClosure",
-referencedClasses: ["IRAssignment"]
+referencedClasses: ["IRAssignment"],
 //>>excludeEnd("ide");
+messageSends: ["inlineClosure:", "instructions", "last", "ifNotEmpty:", "ifTrue:", "canBeAssigned", "replaceWith:", "add:", "new", "first", "assignment", "copy", "yourself"]
 }),
 globals.IRAssignmentInliner);
 
@@ -2443,12 +2443,12 @@ return $7;
 }, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,closure:closure,statements:statements},globals.IRReturnInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inlineClosure:", "instructions", "last", "ifNotEmpty:", "ifFalse:", "isReturn", "replaceWith:", "add:", "new", "copy", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRClosure"],
 source: "inlineClosure: anIRClosure\x0a\x09| closure statements |\x0a\x0a\x09closure := super inlineClosure: anIRClosure.\x0a\x09statements := closure instructions last instructions.\x0a\x09\x0a\x09statements ifNotEmpty: [\x0a\x09\x09statements last isReturn\x0a\x09\x09\x09ifFalse: [ statements last replaceWith: (IRReturn new\x0a\x09\x09\x09\x09add: statements last copy;\x0a\x09\x09\x09\x09yourself)] ].\x0a\x0a\x09^ closure",
-referencedClasses: ["IRReturn"]
+referencedClasses: ["IRReturn"],
 //>>excludeEnd("ide");
+messageSends: ["inlineClosure:", "instructions", "last", "ifNotEmpty:", "ifFalse:", "isReturn", "replaceWith:", "add:", "new", "copy", "yourself"]
 }),
 globals.IRReturnInliner);
 
@@ -2485,12 +2485,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"inlineReturn:",{anIRReturn:anIRReturn,return_:return_},globals.IRReturnInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inlinedReturn", "do:", "instructions", "add:", "replaceWith:", "inlineSend:", "last"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRReturn"],
 source: "inlineReturn: anIRReturn\x0a\x09| return |\x0a\x09return := self inlinedReturn.\x0a\x09anIRReturn instructions do: [ :each |\x0a\x09\x09return add: each ].\x0a\x09anIRReturn replaceWith: return.\x0a\x09self inlineSend: return instructions last.\x0a\x09^ return",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["inlinedReturn", "do:", "instructions", "add:", "replaceWith:", "inlineSend:", "last"]
 }),
 globals.IRReturnInliner);
 
@@ -2511,12 +2511,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"inlinedReturn",{},globals.IRReturnInliner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "inlinedReturn\x0a\x09^ IRInlinedReturn new",
-referencedClasses: ["IRInlinedReturn"]
+referencedClasses: ["IRInlinedReturn"],
 //>>excludeEnd("ide");
+messageSends: ["new"]
 }),
 globals.IRReturnInliner);
 
@@ -2559,12 +2559,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream},globals.InliningCodeGenerator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visit:", "semanticAnalyzer", "translator", "inliner", "currentClass:", "irTranslator", "currentClass", "contents"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "compileNode: aNode\x0a\x09| ir stream |\x0a\x0a\x09self semanticAnalyzer visit: aNode.\x0a\x09ir := self translator visit: aNode.\x0a\x09self inliner visit: ir.\x0a\x0a\x09^ self irTranslator\x0a\x09\x09currentClass: self currentClass;\x0a\x09\x09visit: ir;\x0a\x09\x09contents",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visit:", "semanticAnalyzer", "translator", "inliner", "currentClass:", "irTranslator", "currentClass", "contents"]
 }),
 globals.InliningCodeGenerator);
 
@@ -2585,12 +2585,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"inliner",{},globals.InliningCodeGenerator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "inliner\x0a\x09^ IRInliner new",
-referencedClasses: ["IRInliner"]
+referencedClasses: ["IRInliner"],
 //>>excludeEnd("ide");
+messageSends: ["new"]
 }),
 globals.InliningCodeGenerator);
 
@@ -2611,12 +2611,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"irTranslator",{},globals.InliningCodeGenerator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "irTranslator\x0a\x09^ IRInliningJSTranslator new",
-referencedClasses: ["IRInliningJSTranslator"]
+referencedClasses: ["IRInliningJSTranslator"],
 //>>excludeEnd("ide");
+messageSends: ["new"]
 }),
 globals.InliningCodeGenerator);
 

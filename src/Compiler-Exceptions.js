@@ -47,12 +47,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.InvalidAssignmentError)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "variableName"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "messageText\x0a\x09^ ' Invalid assignment to variable: ', self variableName",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: [",", "variableName"]
 }),
 globals.InvalidAssignmentError);
 
@@ -67,12 +67,12 @@ $1=self["@variableName"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "variableName\x0a\x09^ variableName",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.InvalidAssignmentError);
 
@@ -86,12 +86,12 @@ self["@variableName"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "variableName: aString\x0a\x09variableName := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.InvalidAssignmentError);
 
@@ -120,12 +120,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.ShadowingVariableError)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "variableName"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "messageText\x0a\x09^ 'Variable shadowing error: ', self variableName, ' is already defined'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: [",", "variableName"]
 }),
 globals.ShadowingVariableError);
 
@@ -140,12 +140,12 @@ $1=self["@variableName"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "variableName\x0a\x09^ variableName",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ShadowingVariableError);
 
@@ -159,12 +159,12 @@ self["@variableName"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "variableName: aString\x0a\x09variableName := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ShadowingVariableError);
 
@@ -193,12 +193,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.UnknownVariableError)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "variableName"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "messageText\x0a\x09^ 'Unknown Variable error: ', self variableName, ' is not defined'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: [",", "variableName"]
 }),
 globals.UnknownVariableError);
 
@@ -213,12 +213,12 @@ $1=self["@variableName"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "variableName\x0a\x09^ variableName",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.UnknownVariableError);
 
@@ -232,12 +232,12 @@ self["@variableName"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "variableName: aString\x0a\x09variableName := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.UnknownVariableError);
 
@@ -262,12 +262,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"basicSignal:",{anError:anError},globals.RethrowErrorHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anError"],
 source: "basicSignal: anError\x0a        <throw anError>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.RethrowErrorHandler);
 
@@ -286,12 +286,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.RethrowErrorHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["basicSignal:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anError"],
 source: "handleError: anError\x0a        self basicSignal: anError",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["basicSignal:"]
 }),
 globals.RethrowErrorHandler);
 

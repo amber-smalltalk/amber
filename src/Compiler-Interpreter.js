@@ -22,12 +22,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"applyTo:arguments:",{anObject:anObject,aCollection:aCollection},globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["interpreterError"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject", "aCollection"],
 source: "applyTo: anObject arguments: aCollection\x0a\x09self interpreterError",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["interpreterError"]
 }),
 globals.AIBlockClosure);
 
@@ -40,12 +40,12 @@ var self=this;
 return "[ AST Block closure ]";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "compiledSource\x0a\x09\x22Unlike blocks, the receiver doesn't represent a JS function\x22\x0a\x09\x0a\x09^ '[ AST Block closure ]'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AIBlockClosure);
 
@@ -64,12 +64,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"currySelf",{},globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["interpreterError"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "currySelf\x0a\x09self interpreterError",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["interpreterError"]
 }),
 globals.AIBlockClosure);
 
@@ -84,12 +84,12 @@ self["@outerContext"]=aContext;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aContext", "aNode"],
 source: "initializeWithContext: aContext node: aNode\x0a\x09node := aNode.\x0a\x09outerContext := aContext",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AIBlockClosure);
 
@@ -109,12 +109,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"interpreterError",{},globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["signal:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "interpreterError\x0a\x09ASTInterpreterError signal: 'Method cannot be interpreted by the interpreter.'",
-referencedClasses: ["ASTInterpreterError"]
+referencedClasses: ["ASTInterpreterError"],
 //>>excludeEnd("ide");
+messageSends: ["signal:"]
 }),
 globals.AIBlockClosure);
 
@@ -134,12 +134,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"numArgs",{},globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["size", "temps"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "numArgs\x0a\x09^ node temps size",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["size", "temps"]
 }),
 globals.AIBlockClosure);
 
@@ -159,12 +159,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"value",{},globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["valueWithPossibleArguments:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "value\x0a\x09^ self valueWithPossibleArguments: #()",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["valueWithPossibleArguments:"]
 }),
 globals.AIBlockClosure);
 
@@ -184,12 +184,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"value:",{anArgument:anArgument},globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["valueWithPossibleArguments:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anArgument"],
 source: "value: anArgument\x0a\x09^ self valueWithPossibleArguments: {anArgument}",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["valueWithPossibleArguments:"]
 }),
 globals.AIBlockClosure);
 
@@ -209,12 +209,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArgument:firstArgument,secondArgument:secondArgument},globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["valueWithPossibleArguments:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["firstArgument", "secondArgument"],
 source: "value: firstArgument value: secondArgument\x0a\x09^ self valueWithPossibleArguments: {firstArgument . secondArgument}",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["valueWithPossibleArguments:"]
 }),
 globals.AIBlockClosure);
 
@@ -234,12 +234,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArgument:firstArgument,secondArgument:secondArgument,thirdArgument:thirdArgument},globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["valueWithPossibleArguments:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["firstArgument", "secondArgument", "thirdArgument"],
 source: "value: firstArgument value: secondArgument value: thirdArgument\x0a\x09^ self valueWithPossibleArguments: {firstArgument . secondArgument . thirdArgument}",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["valueWithPossibleArguments:"]
 }),
 globals.AIBlockClosure);
 
@@ -301,12 +301,12 @@ return $6;
 }, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection,context:context,sequenceNode:sequenceNode},globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["newInnerContext", "parent:", "copy", "first", "nodes", "yourself", "do:", "temps", "defineLocal:", "withIndexDo:", "parameters", "localAt:put:", "at:ifAbsent:", "node:", "interpreter", "nextChild", "proceed", "setNonLocalReturnFromContext:", "pop"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "valueWithPossibleArguments: aCollection\x0a\x09| context sequenceNode |\x0a\x09context := outerContext newInnerContext.\x0a\x0a\x09\x22Interpret a copy of the sequence node to avoid creating a new AIBlockClosure\x22\x0a\x09sequenceNode := node nodes first copy\x0a\x09\x09parent: nil;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09\x22Define locals in the context\x22\x0a\x09sequenceNode temps do: [ :each |\x0a\x09\x09context defineLocal: each ].\x0a\x09\x09\x0a\x09\x22Populate the arguments into the context locals\x22\x09\x0a\x09node parameters withIndexDo: [ :each :index |\x0a\x09\x09context defineLocal: each.\x0a\x09\x09context localAt: each put: (aCollection at: index ifAbsent: [ nil ]) ].\x0a\x0a\x09\x22Interpret the first node of the BlockSequenceNode\x22\x0a\x09context interpreter\x0a\x09\x09node: sequenceNode nextChild;\x0a\x09\x09proceed.\x0a\x09\x09\x0a\x09outerContext interpreter\x0a\x09\x09setNonLocalReturnFromContext: context.\x0a\x09\x09\x0a\x09^ context interpreter pop",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["newInnerContext", "parent:", "copy", "first", "nodes", "yourself", "do:", "temps", "defineLocal:", "withIndexDo:", "parameters", "localAt:put:", "at:ifAbsent:", "node:", "interpreter", "nextChild", "proceed", "setNonLocalReturnFromContext:", "pop"]
 }),
 globals.AIBlockClosure);
 
@@ -330,12 +330,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"forContext:node:",{aContext:aContext,aNode:aNode},globals.AIBlockClosure.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initializeWithContext:node:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aContext", "aNode"],
 source: "forContext: aContext node: aNode\x0a\x09^ self new\x0a\x09\x09initializeWithContext: aContext node: aNode;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["initializeWithContext:node:", "new", "yourself"]
 }),
 globals.AIBlockClosure.klass);
 
@@ -376,12 +376,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collect:", "arguments", "ast", "localAt:ifAbsent:", "error:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "arguments\x0a\x09^ self ast arguments collect: [ :each |\x0a\x09\x09self localAt: each ifAbsent: [ self error: 'Argument not in context' ] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collect:", "arguments", "ast", "localAt:ifAbsent:", "error:"]
 }),
 globals.AIContext);
 
@@ -419,12 +419,12 @@ return $5;
 }, function($ctx1) {$ctx1.fill(self,"ast",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "isBlockContext", "ifNotNil:", "outerContext", "ast", "ifNil:", "initializeAST"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "ast\x0a\x09self isBlockContext ifTrue: [ \x0a\x09\x09^ self outerContext ifNotNil: [ :context | context ast ] ].\x0a\x0a\x09ast ifNil: [ self initializeAST ].\x0a\x09^ ast",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "isBlockContext", "ifNotNil:", "outerContext", "ast", "ifNil:", "initializeAST"]
 }),
 globals.AIContext);
 
@@ -444,12 +444,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"basicLocalAt:",{aString:aString},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:", "locals"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "basicLocalAt: aString\x0a\x09^ self locals at: aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["at:", "locals"]
 }),
 globals.AIContext);
 
@@ -468,12 +468,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"basicLocalAt:put:",{aString:aString,anObject:anObject},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:put:", "locals"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
 source: "basicLocalAt: aString put: anObject\x0a\x09self locals at: aString put: anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["at:put:", "locals"]
 }),
 globals.AIContext);
 
@@ -493,12 +493,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"basicReceiver",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["localAt:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "basicReceiver\x0a\x09^ self localAt: 'self'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["localAt:"]
 }),
 globals.AIContext);
 
@@ -517,12 +517,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"defineLocal:",{aString:aString},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:put:", "locals"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "defineLocal: aString\x0a\x09self locals at: aString put: nil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["at:put:", "locals"]
 }),
 globals.AIContext);
 
@@ -542,12 +542,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"evaluate:on:",{aString:aString,anEvaluator:anEvaluator},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["evaluate:context:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anEvaluator"],
 source: "evaluate: aString on: anEvaluator\x0a\x09^ anEvaluator evaluate: aString context: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["evaluate:context:"]
 }),
 globals.AIContext);
 
@@ -573,12 +573,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"evaluateNode:",{aNode:aNode},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["context:", "new", "node:", "nextChild", "proceed", "result"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "evaluateNode: aNode\x0a\x09^ ASTInterpreter new\x0a\x09\x09context: self;\x0a\x09\x09node: aNode nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
-referencedClasses: ["ASTInterpreter"]
+referencedClasses: ["ASTInterpreter"],
 //>>excludeEnd("ide");
+messageSends: ["context:", "new", "node:", "nextChild", "proceed", "result"]
 }),
 globals.AIContext);
 
@@ -593,12 +593,12 @@ $1=self["@evaluatedSelector"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "evaluatedSelector\x0a\x09^ evaluatedSelector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AIContext);
 
@@ -612,12 +612,12 @@ self["@evaluatedSelector"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "evaluatedSelector: aString\x0a\x09evaluatedSelector := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AIContext);
 
@@ -642,12 +642,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"index",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "index\x0a\x09^ index ifNil: [ 0 ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.AIContext);
 
@@ -661,12 +661,12 @@ self["@index"]=anInteger;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInteger"],
 source: "index: anInteger\x0a\x09index := anInteger",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AIContext);
 
@@ -692,12 +692,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initializeAST",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ast", "method", "visit:", "on:", "methodClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initializeAST\x0a\x09ast := self method ast.\x0a\x09(SemanticAnalyzer on: self method methodClass)\x0a\x09\x09visit: ast",
-referencedClasses: ["SemanticAnalyzer"]
+referencedClasses: ["SemanticAnalyzer"],
 //>>excludeEnd("ide");
+messageSends: ["ast", "method", "visit:", "on:", "methodClass"]
 }),
 globals.AIContext);
 
@@ -751,12 +751,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:",{aMethodContext:aMethodContext},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["evaluatedSelector:", "evaluatedSelector", "index:", "index", "sendIndexes:", "sendIndexes", "receiver:", "receiver", "supercall:", "supercall", "selector:", "selector", "ifNotNil:", "outerContext", "methodContext", "outerContext:", "fromMethodContext:", "class", "keysAndValuesDo:", "locals", "at:put:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMethodContext"],
 source: "initializeFromMethodContext: aMethodContext\x0a\x0a\x09self\x0a\x09\x09evaluatedSelector: aMethodContext evaluatedSelector;\x0a\x09\x09index: aMethodContext index;\x0a\x09\x09sendIndexes: aMethodContext sendIndexes;\x0a\x09\x09receiver: aMethodContext receiver;\x0a\x09\x09supercall: aMethodContext supercall;\x0a\x09\x09selector: aMethodContext selector.\x0a\x09\x09\x0a\x09aMethodContext outerContext ifNotNil: [ :outer |\x0a\x09\x09\x22If the method context is nil, the block was defined in JS, so ignore it\x22\x0a\x09\x09outer methodContext ifNotNil: [\x0a\x09\x09\x09self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].\x0a\x09\x09\x09aMethodContext locals keysAndValuesDo: [ :key :value |\x0a\x09\x09\x09\x09self locals at: key put: value ] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["evaluatedSelector:", "evaluatedSelector", "index:", "index", "sendIndexes:", "sendIndexes", "receiver:", "receiver", "supercall:", "supercall", "selector:", "selector", "ifNotNil:", "outerContext", "methodContext", "outerContext:", "fromMethodContext:", "class", "keysAndValuesDo:", "locals", "at:put:"]
 }),
 globals.AIContext);
 
@@ -786,12 +786,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initializeInterpreter",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["context:", "new", "yourself", "ifNotNil:", "innerContext", "setupInterpreter:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initializeInterpreter\x0a\x09interpreter := ASTInterpreter new\x0a\x09\x09context: self;\x0a\x09\x09yourself.\x0a\x09\x0a\x09self innerContext ifNotNil: [\x0a\x09\x09self setupInterpreter: interpreter ]",
-referencedClasses: ["ASTInterpreter"]
+referencedClasses: ["ASTInterpreter"],
 //>>excludeEnd("ide");
+messageSends: ["context:", "new", "yourself", "ifNotNil:", "innerContext", "setupInterpreter:"]
 }),
 globals.AIContext);
 
@@ -812,12 +812,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initializeLocals",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "at:put:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initializeLocals\x0a\x09locals := Dictionary new.\x0a\x09locals at: 'thisContext' put: self.",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["new", "at:put:"]
 }),
 globals.AIContext);
 
@@ -832,12 +832,12 @@ $1=self["@innerContext"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "innerContext\x0a\x09^ innerContext",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AIContext);
 
@@ -851,12 +851,12 @@ self["@innerContext"]=anAIContext;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anAIContext"],
 source: "innerContext: anAIContext\x0a\x09innerContext := anAIContext",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AIContext);
 
@@ -882,12 +882,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"interpreter",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "initializeInterpreter"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "interpreter\x0a\x09interpreter ifNil: [ self initializeInterpreter ].\x0a\x09^ interpreter",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "initializeInterpreter"]
 }),
 globals.AIContext);
 
@@ -901,12 +901,12 @@ self["@interpreter"]=anInterpreter;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInterpreter"],
 source: "interpreter: anInterpreter\x0a\x09interpreter := anInterpreter",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AIContext);
 
@@ -926,12 +926,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isTopContext",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["isNil", "innerContext"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isTopContext\x0a\x09^ self innerContext isNil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["isNil", "innerContext"]
 }),
 globals.AIContext);
 
@@ -953,12 +953,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"localAt:",{aString:aString,context:context},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["lookupContextForLocal:", "basicLocalAt:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "localAt: aString\x0a\x09\x22Lookup the local value up to the method context\x22\x0a\x0a\x09| context |\x0a\x09\x0a\x09context := self lookupContextForLocal: aString.\x0a\x09^ context basicLocalAt: aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["lookupContextForLocal:", "basicLocalAt:"]
 }),
 globals.AIContext);
 
@@ -993,12 +993,12 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"localAt:ifAbsent:",{aString:aString,aBlock:aBlock,context:context},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["lookupContextForLocal:ifNone:", "value", "basicLocalAt:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aBlock"],
 source: "localAt: aString ifAbsent: aBlock\x0a\x09\x22Lookup the local value up to the method context\x22\x0a\x0a\x09| context |\x0a\x09\x0a\x09context := self \x09\x0a\x09\x09lookupContextForLocal: aString \x0a\x09\x09ifNone: [ ^ aBlock value ].\x0a\x09\x0a\x09^ context basicLocalAt: aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["lookupContextForLocal:ifNone:", "value", "basicLocalAt:"]
 }),
 globals.AIContext);
 
@@ -1019,12 +1019,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"localAt:put:",{aString:aString,anObject:anObject,context:context},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["lookupContextForLocal:", "basicLocalAt:put:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
 source: "localAt: aString put: anObject\x0a\x09| context |\x0a\x09\x0a\x09context := self lookupContextForLocal: aString.\x0a\x09context basicLocalAt: aString put: anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["lookupContextForLocal:", "basicLocalAt:put:"]
 }),
 globals.AIContext);
 
@@ -1050,12 +1050,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"locals",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "initializeLocals"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "locals\x0a\x09locals ifNil: [ self initializeLocals ].\x0a\x09\x0a\x09^ locals",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "initializeLocals"]
 }),
 globals.AIContext);
 
@@ -1083,12 +1083,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"lookupContextForLocal:",{aString:aString},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["lookupContextForLocal:ifNone:", "variableNotFound"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "lookupContextForLocal: aString\x0a\x09\x22Lookup the context defining the local named `aString` \x0a\x09up to the method context\x22\x0a\x0a\x09^ self \x0a\x09\x09lookupContextForLocal: aString \x0a\x09\x09ifNone: [ self variableNotFound ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["lookupContextForLocal:ifNone:", "variableNotFound"]
 }),
 globals.AIContext);
 
@@ -1128,12 +1128,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"lookupContextForLocal:ifNone:",{aString:aString,aBlock:aBlock},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:ifPresent:ifAbsent:", "locals", "ifNil:ifNotNil:", "outerContext", "lookupContextForLocal:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aBlock"],
 source: "lookupContextForLocal: aString ifNone: aBlock\x0a\x09\x22Lookup the context defining the local named `aString` \x0a\x09up to the method context\x22\x0a\x0a\x09^ self locals \x0a\x09\x09at: aString\x0a\x09\x09ifPresent: [ self ]\x0a\x09\x09ifAbsent: [ \x0a\x09\x09\x09self outerContext \x0a\x09\x09\x09\x09ifNil: aBlock\x0a\x09\x09\x09\x09ifNotNil: [ :context | \x0a\x09\x09\x09\x09\x09context lookupContextForLocal: aString ] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["at:ifPresent:ifAbsent:", "locals", "ifNil:ifNotNil:", "outerContext", "lookupContextForLocal:"]
 }),
 globals.AIContext);
 
@@ -1156,12 +1156,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"newInnerContext",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["outerContext:", "new", "class", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "newInnerContext\x0a\x09^ self class new\x0a\x09\x09outerContext: self;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["outerContext:", "new", "class", "yourself"]
 }),
 globals.AIContext);
 
@@ -1176,12 +1176,12 @@ $1=self["@outerContext"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "outerContext\x0a\x09^ outerContext",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AIContext);
 
@@ -1209,12 +1209,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"outerContext:",{anAIContext:anAIContext},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNotNil:", "innerContext:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anAIContext"],
 source: "outerContext: anAIContext\x0a\x09outerContext := anAIContext.\x0a\x09outerContext ifNotNil: [ :context | \x0a\x09\x09context innerContext: self ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "innerContext:"]
 }),
 globals.AIContext);
 
@@ -1233,12 +1233,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"receiver:",{anObject:anObject},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:put:", "locals"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "receiver: anObject\x0a\x09self locals at: 'self' put: anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["at:put:", "locals"]
 }),
 globals.AIContext);
 
@@ -1253,12 +1253,12 @@ $1=self["@selector"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selector\x0a\x09^ selector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AIContext);
 
@@ -1272,12 +1272,12 @@ self["@selector"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AIContext);
 
@@ -1300,12 +1300,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"sendIndexAt:",{aString:aString},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:ifAbsent:", "sendIndexes"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "sendIndexAt: aString\x0a\x09^ self sendIndexes at: aString ifAbsent: [ 0 ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["at:ifAbsent:", "sendIndexes"]
 }),
 globals.AIContext);
 
@@ -1331,12 +1331,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"sendIndexes",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sendIndexes\x0a\x09^ sendIndexes ifNil: [ Dictionary new ]",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.AIContext);
 
@@ -1350,12 +1350,12 @@ self["@sendIndexes"]=aDictionary;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aDictionary"],
 source: "sendIndexes: aDictionary\x0a\x09sendIndexes := aDictionary",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AIContext);
 
@@ -1426,12 +1426,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setupInterpreter:",{anInterpreter:anInterpreter,currentNode:currentNode},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["selector:", "new", "evaluatedSelector", "context:", "visit:", "ast", "currentNode", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "node:", "reversed", "arguments", "innerContext", "push:", "receiver"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInterpreter"],
 source: "setupInterpreter: anInterpreter\x0a\x09| currentNode |\x0a\x09\x0a\x09\x22Retrieve the current node\x22\x0a\x09currentNode := ASTPCNodeVisitor new\x0a\x09\x09\x09selector: self evaluatedSelector;\x0a\x09\x09\x09context: self;\x0a\x09\x09\x09visit: self ast;\x0a\x09\x09\x09currentNode.\x0a\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09self ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09self defineLocal: each ] ].\x0a\x09\x0a\x09anInterpreter node: currentNode.\x0a\x0a\x09\x22Push the send args and receiver to the interpreter stack\x22\x09\x0a\x09self innerContext arguments reversed do: [ :each | \x0a\x09\x09anInterpreter push: each ].\x0a\x09\x09\x0a\x09anInterpreter push: (self innerContext receiver)",
-referencedClasses: ["ASTPCNodeVisitor"]
+referencedClasses: ["ASTPCNodeVisitor"],
 //>>excludeEnd("ide");
+messageSends: ["selector:", "new", "evaluatedSelector", "context:", "visit:", "ast", "currentNode", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "node:", "reversed", "arguments", "innerContext", "push:", "receiver"]
 }),
 globals.AIContext);
 
@@ -1456,12 +1456,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"supercall",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "supercall\x0a\x09^ supercall ifNil: [ false ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.AIContext);
 
@@ -1475,12 +1475,12 @@ self["@supercall"]=aBoolean;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean"],
 source: "supercall: aBoolean\x0a\x09supercall := aBoolean",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AIContext);
 
@@ -1499,12 +1499,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"variableNotFound",{},globals.AIContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["error:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "variableNotFound\x0a\x09\x22Error thrown whenever a variable lookup fails\x22\x0a\x09\x0a\x09self error: 'Variable missing'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["error:"]
 }),
 globals.AIContext);
 
@@ -1528,12 +1528,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"fromMethodContext:",{aMethodContext:aMethodContext},globals.AIContext.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initializeFromMethodContext:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMethodContext"],
 source: "fromMethodContext: aMethodContext\x0a\x09^ self new\x0a\x09\x09initializeFromMethodContext: aMethodContext;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["initializeFromMethodContext:", "new", "yourself"]
 }),
 globals.AIContext.klass);
 
@@ -1553,12 +1553,12 @@ $1=self["@context"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "context\x0a\x09^ context",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AISemanticAnalyzer);
 
@@ -1572,12 +1572,12 @@ self["@context"]=anAIContext;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anAIContext"],
 source: "context: anAIContext\x0a\x09context := anAIContext",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AISemanticAnalyzer);
 
@@ -1619,12 +1619,12 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},globals.AISemanticAnalyzer)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["localAt:ifAbsent:", "context", "value", "visitVariableNode:", "binding:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitVariableNode: aNode\x0a\x09self context \x0a\x09\x09localAt: aNode value \x0a\x09\x09ifAbsent: [ ^ super visitVariableNode: aNode ].\x0a\x0a\x09aNode binding: ASTContextVar new",
-referencedClasses: ["ASTContextVar"]
+referencedClasses: ["ASTContextVar"],
 //>>excludeEnd("ide");
+messageSends: ["localAt:ifAbsent:", "context", "value", "visitVariableNode:", "binding:", "new"]
 }),
 globals.AISemanticAnalyzer);
 
@@ -1645,12 +1645,12 @@ $1=self["@context"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "context\x0a\x09^ context",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTContextVar);
 
@@ -1664,12 +1664,12 @@ self["@context"]=anObject;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "context: anObject\x0a\x09context := anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTContextVar);
 
@@ -1712,12 +1712,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"atEnd",{},globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "context", "and:", "atEnd", "interpreter", "isTopContext"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "atEnd\x09\x0a\x09self context ifNil: [ ^ true ].\x0a\x09\x0a\x09^ self interpreter atEnd and: [ \x0a\x09\x09self context isTopContext ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "context", "and:", "atEnd", "interpreter", "isTopContext"]
 }),
 globals.ASTDebugger);
 
@@ -1732,12 +1732,12 @@ $1=self["@context"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "context\x0a\x09^ context",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTDebugger);
 
@@ -1751,12 +1751,12 @@ self["@context"]=aContext;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aContext"],
 source: "context: aContext\x0a\x09context := aContext",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTDebugger);
 
@@ -1783,12 +1783,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"flushInnerContexts",{},globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNotNil:", "context", "innerContext:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "flushInnerContexts\x0a\x09\x22When stepping, the inner contexts are not relevent anymore,\x0a\x09and can be flushed\x22\x0a\x09\x0a\x09self context ifNotNil: [ :cxt | \x0a\x09\x09cxt innerContext: nil ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "context", "innerContext:"]
 }),
 globals.ASTDebugger);
 
@@ -1815,12 +1815,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"interpreter",{},globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNotNil:", "context", "interpreter"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "interpreter\x0a\x09^ self context ifNotNil: [ :ctx | \x0a\x09\x09ctx interpreter ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "context", "interpreter"]
 }),
 globals.ASTDebugger);
 
@@ -1840,12 +1840,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["method", "context"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "method\x0a\x09^ self context method",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["method", "context"]
 }),
 globals.ASTDebugger);
 
@@ -1873,12 +1873,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"node",{},globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNotNil:", "interpreter", "node"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "node\x0a\x09^ self interpreter ifNotNil: [\x0a\x09\x09self interpreter node ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "interpreter", "node"]
 }),
 globals.ASTDebugger);
 
@@ -1929,12 +1929,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"onStep",{},globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["result", "interpreter", "ifTrue:", "atEnd", "ifNotNil:", "outerContext", "context", "context:", "ifFalse:", "skip", "flushInnerContexts"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "onStep\x0a\x09\x22After each step, check if the interpreter is at the end,\x0a\x09and if it is move to its outer context if any, skipping its \x0a\x09current node (which was just evaluated by the current \x0a\x09interpreter).\x0a\x09\x0a\x09After each step we also flush inner contexts.\x22\x0a\x09\x0a\x09result := self interpreter result.\x0a\x09\x0a\x09self interpreter atEnd ifTrue: [\x0a\x09\x09self context outerContext ifNotNil: [ :outerContext | \x0a\x09\x09\x09self context: outerContext ].\x0a\x09\x09self interpreter atEnd ifFalse: [ self interpreter skip ] ].\x0a\x09\x09\x0a\x09self flushInnerContexts",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["result", "interpreter", "ifTrue:", "atEnd", "ifNotNil:", "outerContext", "context", "context:", "ifFalse:", "skip", "flushInnerContexts"]
 }),
 globals.ASTDebugger);
 
@@ -1969,12 +1969,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"proceed",{},globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["whileFalse:", "atEnd", "stepOver"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "proceed\x0a\x09[ self atEnd ] whileFalse: [ self stepOver ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["whileFalse:", "atEnd", "stepOver"]
 }),
 globals.ASTDebugger);
 
@@ -1994,12 +1994,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"restart",{},globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["restart", "interpreter", "flushInnerContexts"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "restart\x0a\x09self interpreter restart.\x0a\x09self flushInnerContexts",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["restart", "interpreter", "flushInnerContexts"]
 }),
 globals.ASTDebugger);
 
@@ -2014,12 +2014,12 @@ $1=self["@result"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "result\x0a\x09^ result",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTDebugger);
 
@@ -2038,12 +2038,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"stepInto",{},globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["shouldBeImplemented"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "stepInto\x0a\x09self shouldBeImplemented",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["shouldBeImplemented"]
 }),
 globals.ASTDebugger);
 
@@ -2073,12 +2073,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"stepOver",{},globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:ifTrue:", "isTopContext", "context", "skip", "interpreter", "stepOver", "onStep"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "stepOver\x0a\x09self context isTopContext \x0a\x09\x09ifFalse: [ self interpreter skip ]\x0a\x09\x09ifTrue: [ self interpreter stepOver ].\x0a\x09self onStep",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:ifTrue:", "isTopContext", "context", "skip", "interpreter", "stepOver", "onStep"]
 }),
 globals.ASTDebugger);
 
@@ -2102,12 +2102,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},globals.ASTDebugger.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["context:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aContext"],
 source: "context: aContext\x0a\x09^ self new\x0a\x09\x09context: aContext;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["context:", "new", "yourself"]
 }),
 globals.ASTDebugger.klass);
 
@@ -2146,12 +2146,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"assign:to:",{aNode:aNode,anObject:anObject},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "isInstanceVar", "binding", "instVarAt:put:", "receiver", "context", "value", "localAt:put:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode", "anObject"],
 source: "assign: aNode to: anObject\x0a\x09aNode binding isInstanceVar\x0a\x09\x09ifTrue: [ self context receiver instVarAt: aNode value put: anObject ]\x0a\x09\x09ifFalse: [ self context localAt: aNode value put: anObject ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "isInstanceVar", "binding", "instVarAt:put:", "receiver", "context", "value", "localAt:put:"]
 }),
 globals.ASTInterpreter);
 
@@ -2183,12 +2183,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"atEnd",{},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "or:", "hasReturned", "isNil", "node"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "atEnd\x0a\x09forceAtEnd ifTrue: [ ^ true ].\x0a\x09\x0a\x09^ self hasReturned or: [ self node isNil ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "or:", "hasReturned", "isNil", "node"]
 }),
 globals.ASTInterpreter);
 
@@ -2203,12 +2203,12 @@ $1=self["@context"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "context\x0a\x09^ context",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTInterpreter);
 
@@ -2222,12 +2222,12 @@ self["@context"]=aContext;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aContext"],
 source: "context: aContext\x0a\x09context := aContext",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTInterpreter);
 
@@ -2305,12 +2305,12 @@ return $5;
 }, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString,source:source,function_:function_},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["streamContents:", "nextPutAll:", "do:separatedBy:", "keys", "locals", "context", "eval:", "new", "valueWithPossibleArguments:", "values"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "eval: aString\x0a\x09\x22Evaluate aString as JS source inside an JS function.\x0a\x09aString is not sandboxed.\x22\x0a\x09\x0a\x09| source function |\x0a\x09\x0a\x09source := String streamContents: [ :str |\x0a\x09\x09str nextPutAll: '(function('.\x0a\x09\x09self context locals keys\x0a\x09\x09\x09do: [ :each | str nextPutAll: each ]\x0a\x09\x09\x09separatedBy: [ str nextPutAll: ',' ].\x0a\x09\x09str\x0a\x09\x09\x09nextPutAll: '){ return (function() {';\x0a\x09\x09\x09nextPutAll: aString;\x0a\x09\x09\x09nextPutAll: '})() })' ].\x0a\x09\x09\x09\x0a\x09function := Compiler new eval: source.\x0a\x09\x0a\x09^ function valueWithPossibleArguments: self context locals values",
-referencedClasses: ["String", "Compiler"]
+referencedClasses: ["String", "Compiler"],
 //>>excludeEnd("ide");
+messageSends: ["streamContents:", "nextPutAll:", "do:separatedBy:", "keys", "locals", "context", "eval:", "new", "valueWithPossibleArguments:", "values"]
 }),
 globals.ASTInterpreter);
 
@@ -2335,12 +2335,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"hasReturned",{},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "hasReturned\x0a\x09^ returned ifNil: [ false ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.ASTInterpreter);
 
@@ -2367,12 +2367,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initialize"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x0a\x09forceAtEnd := false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["initialize"]
 }),
 globals.ASTInterpreter);
 
@@ -2391,12 +2391,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"interpret",{},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visit:", "node"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "interpret\x0a\x09\x22Interpret the next node to be evaluated\x22\x0a\x09\x0a\x09self visit: self node",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visit:", "node"]
 }),
 globals.ASTInterpreter);
 
@@ -2416,12 +2416,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"interpret:",{aNode:aNode},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["node:", "interpret"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "interpret: aNode\x0a\x09self node: aNode.\x0a\x09self interpret",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["node:", "interpret"]
 }),
 globals.ASTInterpreter);
 
@@ -2446,12 +2446,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageFromSendNode:arguments:",{aSendNode:aSendNode,aCollection:aCollection},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["selector:", "new", "selector", "arguments:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aSendNode", "aCollection"],
 source: "messageFromSendNode: aSendNode arguments: aCollection\x0a\x09^ Message new\x0a\x09\x09selector: aSendNode selector;\x0a\x09\x09arguments: aCollection;\x0a\x09\x09yourself",
-referencedClasses: ["Message"]
+referencedClasses: ["Message"],
 //>>excludeEnd("ide");
+messageSends: ["selector:", "new", "selector", "arguments:", "yourself"]
 }),
 globals.ASTInterpreter);
 
@@ -2475,12 +2475,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"messageNotUnderstood:receiver:",{aMessage:aMessage,anObject:anObject},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["meesage:", "new", "receiver:", "signal"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMessage", "anObject"],
 source: "messageNotUnderstood: aMessage receiver: anObject\x0a\x09MessageNotUnderstood new\x0a\x09\x09meesage: aMessage;\x0a\x09\x09receiver: anObject;\x0a\x09\x09signal",
-referencedClasses: ["MessageNotUnderstood"]
+referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
+messageSends: ["meesage:", "new", "receiver:", "signal"]
 }),
 globals.ASTInterpreter);
 
@@ -2499,12 +2499,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"next",{},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["node:", "nextNode", "node"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "next\x0a\x09self node: self node nextNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["node:", "nextNode", "node"]
 }),
 globals.ASTInterpreter);
 
@@ -2519,12 +2519,12 @@ $1=self["@node"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "node\x0a\x09\x22Answer the next node, ie the node to be evaluated in the next step\x22\x0a\x09\x0a\x09^ node",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTInterpreter);
 
@@ -2538,12 +2538,12 @@ self["@node"]=aNode;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "node: aNode\x0a\x09node := aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTInterpreter);
 
@@ -2575,12 +2575,12 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"peek",{},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifEmpty:", "stack", "last"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "peek\x0a\x09\x22Peek the top object of the context stack\x22\x0a\x09\x0a\x09self stack ifEmpty: [ ^ nil ].\x0a\x09\x0a\x09^ self stack last",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifEmpty:", "stack", "last"]
 }),
 globals.ASTInterpreter);
 
@@ -2603,12 +2603,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"pop",{peekedValue:peekedValue},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["peek", "removeLast", "stack"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "pop\x0a\x09\x22Pop an object from the context stack\x22\x0a\x09\x0a\x09| peekedValue |\x0a\x09\x0a\x09peekedValue := self peek.\x0a\x09self stack removeLast.\x0a\x09^ peekedValue",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["peek", "removeLast", "stack"]
 }),
 globals.ASTInterpreter);
 
@@ -2643,12 +2643,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"proceed",{},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["whileFalse:", "atEnd", "step"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "proceed\x0a\x09\x22Eagerly evaluate the ast\x22\x0a\x09\x0a\x09[ self atEnd ] \x0a\x09\x09whileFalse: [ self step ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["whileFalse:", "atEnd", "step"]
 }),
 globals.ASTInterpreter);
 
@@ -2668,12 +2668,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"push:",{anObject:anObject},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["add:", "stack"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "push: anObject\x0a\x09\x22Push an object to the context stack\x22\x0a\x09\x0a\x09^ self stack add: anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["add:", "stack"]
 }),
 globals.ASTInterpreter);
 
@@ -2692,12 +2692,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"restart",{},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["node:", "nextChild", "ast", "context"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "restart\x0a\x09self node: self context ast nextChild",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["node:", "nextChild", "ast", "context"]
 }),
 globals.ASTInterpreter);
 
@@ -2722,12 +2722,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"result",{},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "hasReturned", "returnValue", "receiver", "context"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "result\x0a\x09^ self hasReturned \x0a\x09\x09ifTrue: [ self returnValue ] \x0a\x09\x09ifFalse: [ self context receiver ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "hasReturned", "returnValue", "receiver", "context"]
 }),
 globals.ASTInterpreter);
 
@@ -2742,12 +2742,12 @@ $1=self["@returnValue"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "returnValue\x0a\x09^ returnValue",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTInterpreter);
 
@@ -2761,12 +2761,12 @@ self["@returnValue"]=anObject;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "returnValue: anObject\x0a\x09returnValue := anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTInterpreter);
 
@@ -2822,12 +2822,12 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"sendMessage:to:superSend:",{aMessage:aMessage,anObject:anObject,aBoolean:aBoolean,method:method},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:", "sendTo:", "ifNil:", "superclass", "class", "messageNotUnderstood:receiver:", "at:ifAbsent:", "methodDictionary", "selector", "sendTo:arguments:", "arguments"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMessage", "anObject", "aBoolean"],
 source: "sendMessage: aMessage to: anObject superSend: aBoolean\x0a\x09| method |\x0a\x09\x0a\x09aBoolean ifFalse: [ ^ aMessage sendTo: anObject ].\x0a\x09anObject class superclass ifNil: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].\x0a\x09\x0a\x09method := anObject class superclass methodDictionary\x0a\x09\x09at: aMessage selector\x0a\x09\x09ifAbsent: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].\x0a\x09\x09\x0a\x09^ method sendTo: anObject arguments: aMessage arguments",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:", "sendTo:", "ifNil:", "superclass", "class", "messageNotUnderstood:receiver:", "at:ifAbsent:", "methodDictionary", "selector", "sendTo:arguments:", "arguments"]
 }),
 globals.ASTInterpreter);
 
@@ -2856,12 +2856,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setNonLocalReturnFromContext:",{aContext:aContext},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "hasReturned", "interpreter", "returnValue:", "returnValue"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aContext"],
 source: "setNonLocalReturnFromContext: aContext\x0a\x09aContext interpreter hasReturned ifTrue: [\x0a\x09\x09returned := true.\x0a\x09\x09self returnValue: aContext interpreter returnValue ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "hasReturned", "interpreter", "returnValue:", "returnValue"]
 }),
 globals.ASTInterpreter);
 
@@ -2880,12 +2880,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"skip",{},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["next"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "skip\x0a\x09self next",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["next"]
 }),
 globals.ASTInterpreter);
 
@@ -2912,12 +2912,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"stack",{},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "stack\x0a\x09^ stack ifNil: [ stack := OrderedCollection new ]",
-referencedClasses: ["OrderedCollection"]
+referencedClasses: ["OrderedCollection"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.ASTInterpreter);
 
@@ -2938,12 +2938,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"step",{},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["interpret", "next"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "step\x0a\x09self \x0a\x09\x09interpret; \x0a\x09\x09next",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["interpret", "next"]
 }),
 globals.ASTInterpreter);
 
@@ -2996,12 +2996,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"stepOver",{},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["step", "whileFalse:", "or:", "isNil", "node", "isSteppingNode"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "stepOver\x0a\x09self step.\x0a\x09\x0a\x09[ self node isNil or: [ self node isSteppingNode ] ] whileFalse: [ \x0a\x09\x09self step ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["step", "whileFalse:", "or:", "isNil", "node", "isSteppingNode"]
 }),
 globals.ASTInterpreter);
 
@@ -3031,12 +3031,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:", "hasReturned", "visit:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visit: aNode\x0a\x09self hasReturned ifFalse: [ super visit: aNode ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:", "hasReturned", "visit:"]
 }),
 globals.ASTInterpreter);
 
@@ -3062,12 +3062,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode,poppedValue:poppedValue},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["pop", "push:", "assign:to:", "left"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitAssignmentNode: aNode\x0a\x09| poppedValue |\x0a\x09\x0a\x09poppedValue := self pop.\x0a\x09\x0a\x09\x22Pop the left side of the assignment.\x0a\x09It already has been visited, and we don't need its value.\x22\x0a\x09self pop.\x0a\x09\x0a\x09self push: poppedValue.\x0a\x09self assign: aNode left to: poppedValue",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["pop", "push:", "assign:to:", "left"]
 }),
 globals.ASTInterpreter);
 
@@ -3089,12 +3089,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode,block:block},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["forContext:node:", "context", "push:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitBlockNode: aNode\x0a\x09\x22Do not evaluate the block node.\x0a\x09Instead, put all instructions into a block that we push to the stack for later evaluation\x22\x0a\x09\x0a\x09| block |\x0a\x09\x0a\x09block := AIBlockClosure forContext: self context node: aNode.\x0a\x09\x0a\x09self push: block",
-referencedClasses: ["AIBlockClosure"]
+referencedClasses: ["AIBlockClosure"],
 //>>excludeEnd("ide");
+messageSends: ["forContext:node:", "context", "push:"]
 }),
 globals.ASTInterpreter);
 
@@ -3121,12 +3121,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitBlockSequenceNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitBlockSequenceNode: aNode\x0a\x09\x22If the receiver is actually visiting a BlockSequenceNode,\x0a\x09it means the the context is a block context. Evaluation should \x0a\x09stop right after evaluating the block sequence and the outer\x0a\x09context's interpreter should take over. \x0a\x09Therefore we force #atEnd.\x22\x0a\x09\x0a\x09super visitBlockSequenceNode: aNode.\x0a\x09forceAtEnd := true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitBlockSequenceNode:"]
 }),
 globals.ASTInterpreter);
 
@@ -3156,12 +3156,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode,array:array},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "nodes", "addFirst:", "pop", "push:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitDynamicArrayNode: aNode\x0a\x09| array |\x0a\x09\x0a\x09array := #().\x0a\x09aNode nodes do: [ :each |\x0a\x09\x09array addFirst: self pop ].\x0a\x09\x0a\x09self push: array",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "nodes", "addFirst:", "pop", "push:"]
 }),
 globals.ASTInterpreter);
 
@@ -3193,12 +3193,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,keyValueList:keyValueList},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "do:", "nodes", "add:", "pop", "push:", "newFromPairs:", "reversed"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitDynamicDictionaryNode: aNode\x0a\x09| keyValueList |\x0a\x09\x0a\x09keyValueList := OrderedCollection new.\x0a\x09\x0a\x09aNode nodes do: [ :each | \x0a\x09\x09keyValueList add: self pop ].\x0a\x09\x0a\x09self push: (HashedCollection newFromPairs: keyValueList reversed)",
-referencedClasses: ["OrderedCollection", "HashedCollection"]
+referencedClasses: ["OrderedCollection", "HashedCollection"],
 //>>excludeEnd("ide");
+messageSends: ["new", "do:", "nodes", "add:", "pop", "push:", "newFromPairs:", "reversed"]
 }),
 globals.ASTInterpreter);
 
@@ -3218,12 +3218,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["returnValue:", "eval:", "source"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitJSStatementNode: aNode\x0a\x09returned := true.\x0a\x09self returnValue: (self eval: aNode source)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["returnValue:", "eval:", "source"]
 }),
 globals.ASTInterpreter);
 
@@ -3236,12 +3236,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitNode: aNode\x0a\x09\x22Do nothing by default. Especially, do not visit children recursively.\x22",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTInterpreter);
 
@@ -3261,12 +3261,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["returnValue:", "pop"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitReturnNode: aNode\x0a\x09returned := true.\x0a\x09self returnValue: self pop",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["returnValue:", "pop"]
 }),
 globals.ASTInterpreter);
 
@@ -3318,12 +3318,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,receiver:receiver,args:args,message:message,result:result},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collect:", "arguments", "pop", "messageFromSendNode:arguments:", "reversed", "sendMessage:to:superSend:", "superSend", "ifTrue:ifFalse:", "and:", "isCascadeSendNode", "not", "isLastChild", "push:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitSendNode: aNode\x0a\x09| receiver args message result |\x0a\x09\x0a\x09args := aNode arguments collect: [ :each | self pop ].\x0a\x09receiver := self pop.\x0a\x09\x0a\x09message := self\x0a\x09\x09messageFromSendNode: aNode\x0a\x09\x09arguments: args reversed.\x0a\x09\x0a\x09result := self sendMessage: message to: receiver superSend: aNode superSend.\x0a\x09\x0a\x09\x22For cascade sends, push the reciever if the send is not the last one\x22\x0a\x09(aNode isCascadeSendNode and: [ aNode isLastChild not ])\x0a\x09\x09ifTrue: [ self push: receiver ]\x0a\x09\x09ifFalse: [ self push: result ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collect:", "arguments", "pop", "messageFromSendNode:arguments:", "reversed", "sendMessage:to:superSend:", "superSend", "ifTrue:ifFalse:", "and:", "isCascadeSendNode", "not", "isLastChild", "push:"]
 }),
 globals.ASTInterpreter);
 
@@ -3350,12 +3350,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "temps", "defineLocal:", "context"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitSequenceNode: aNode\x0a\x09aNode temps do: [ :each |\x0a\x09\x09self context defineLocal: each ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "temps", "defineLocal:", "context"]
 }),
 globals.ASTInterpreter);
 
@@ -3374,12 +3374,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["push:", "value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitValueNode: aNode\x0a\x09self push: aNode value",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["push:", "value"]
 }),
 globals.ASTInterpreter);
 
@@ -3484,12 +3484,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "globals", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:ifAbsent:", "isCapitalized", "at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitVariableNode: aNode\x0a\x09aNode binding isUnknownVar ifTrue: [\x0a\x09\x09^ self push: (PlatformInterface globals at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].\x0a\x09\x09\x0a\x09self push: (aNode binding isInstanceVar\x0a\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09ifFalse: [ self context \x0a\x09\x09\x09localAt: aNode value\x0a\x09\x09\x09ifAbsent: [\x0a\x09\x09\x09\x09aNode value isCapitalized\x0a\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09Smalltalk globals \x0a\x09\x09\x09\x09\x09\x09\x09at: aNode value \x0a\x09\x09\x09\x09\x09\x09\x09ifAbsent: [ PlatformInterface globals at: aNode value ] ] ] ])",
-referencedClasses: ["PlatformInterface", "Smalltalk"]
+referencedClasses: ["PlatformInterface", "Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "globals", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:ifAbsent:", "isCapitalized", "at:"]
 }),
 globals.ASTInterpreter);
 
@@ -3516,12 +3516,12 @@ $1=self["@context"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "context\x0a\x09^ context",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTPCNodeVisitor);
 
@@ -3535,12 +3535,12 @@ self["@context"]=aContext;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aContext"],
 source: "context: aContext\x0a\x09context := aContext",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTPCNodeVisitor);
 
@@ -3555,12 +3555,12 @@ $1=self["@currentNode"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "currentNode\x0a\x09^ currentNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTPCNodeVisitor);
 
@@ -3579,12 +3579,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"increaseIndex",{},globals.ASTPCNodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["+", "index"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "increaseIndex\x0a\x09index := self index + 1",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["+", "index"]
 }),
 globals.ASTPCNodeVisitor);
 
@@ -3610,12 +3610,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"index",{},globals.ASTPCNodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "index\x0a\x09^ index ifNil: [ index := 0 ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.ASTPCNodeVisitor);
 
@@ -3630,12 +3630,12 @@ $1=self["@selector"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selector\x0a\x09^ selector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTPCNodeVisitor);
 
@@ -3649,12 +3649,12 @@ self["@selector"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTPCNodeVisitor);
 
@@ -3668,12 +3668,12 @@ self["@currentNode"]=aNode;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitJSStatementNode: aNode\x0a\x09\x22If a JSStatementNode is encountered, it always is the current node.\x0a\x09Stop visiting the AST there\x22\x0a\x09\x0a\x09currentNode := aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ASTPCNodeVisitor);
 
@@ -3723,12 +3723,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,sendIndex:sendIndex},globals.ASTPCNodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["sendIndexAt:", "context", "selector", "visitSendNode:", "ifTrue:", "=", "index", "increaseIndex"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitSendNode: aNode\x0a\x09| sendIndex |\x0a\x09sendIndex := self context sendIndexAt: self selector.\x0a\x09\x0a\x09super visitSendNode: aNode.\x0a\x09\x0a\x09self selector = aNode selector ifTrue: [\x0a\x09\x09self index = sendIndex ifTrue: [ currentNode := aNode ].\x0a\x09\x09self increaseIndex ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["sendIndexAt:", "context", "selector", "visitSendNode:", "ifTrue:", "=", "index", "increaseIndex"]
 }),
 globals.ASTPCNodeVisitor);
 
@@ -3742,12 +3742,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isSteppingNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AssignmentNode);
 
@@ -3760,12 +3760,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isSteppingNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.BlockNode);
 
@@ -3778,12 +3778,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isSteppingNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.DynamicArrayNode);
 
@@ -3796,12 +3796,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isSteppingNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.DynamicDictionaryNode);
 
@@ -3814,12 +3814,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isSteppingNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.JSStatementNode);
 
@@ -3832,12 +3832,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isSteppingNode\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -3850,12 +3850,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isSteppingNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SendNode);
 

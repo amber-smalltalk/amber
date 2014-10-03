@@ -65,12 +65,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAddExtensionMethod",{method:method,dirty:dirty},globals.AnnouncementSubscriptionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["isDirty", "package", "class", "beClean", "compile:protocol:", "deny:", "removeCompiledMethod:", "ifTrue:", "beDirty"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAddExtensionMethod\x0a\x09| method dirty |\x0a\x09dirty := self class package isDirty.\x0a\x09self class package beClean.\x0a\x09method := self class compile: 'doNothing' protocol: '**not-a-package'.\x0a\x09self deny: self class package isDirty.\x0a\x09\x0a\x09self class removeCompiledMethod: method.\x0a\x09dirty ifTrue: [ self class package beDirty ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["isDirty", "package", "class", "beClean", "compile:protocol:", "deny:", "removeCompiledMethod:", "ifTrue:", "beDirty"]
 }),
 globals.AnnouncementSubscriptionTest);
 
@@ -118,12 +118,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testHandlesAnnouncement",{subscription:subscription,announcementClass1:announcementClass1,announcementClass2:announcementClass2,classBuilder:classBuilder},globals.AnnouncementSubscriptionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "basicAddSubclassOf:named:instanceVariableNames:package:", "announcementClass:", "assert:equals:", "handlesAnnouncement:", "basicRemoveClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testHandlesAnnouncement\x0a\x09| subscription announcementClass1 announcementClass2 classBuilder |\x0a\x09\x0a\x09classBuilder := ClassBuilder new.\x0a\x09announcementClass1 := classBuilder basicAddSubclassOf: SystemAnnouncement named: 'TestAnnouncement1' instanceVariableNames: #() package: 'Kernel-Tests'.\x0a\x09\x0a\x09subscription := AnnouncementSubscription new announcementClass: SystemAnnouncement.\x0a\x09\x22Test whether the same class triggers the announcement\x22\x0a\x09self assert: (subscription handlesAnnouncement: SystemAnnouncement) equals: true.\x0a\x09\x22Test whether a subclass triggers the announcement\x22\x0a\x09self assert: (subscription handlesAnnouncement: announcementClass1) equals: true.\x0a\x09\x22Test whether an unrelated class does not trigger the announcement\x22\x0a\x09self assert: (subscription handlesAnnouncement: Object) equals: false.\x0a\x09\x0a\x09classBuilder basicRemoveClass: announcementClass1.",
-referencedClasses: ["ClassBuilder", "SystemAnnouncement", "AnnouncementSubscription", "Object"]
+referencedClasses: ["ClassBuilder", "SystemAnnouncement", "AnnouncementSubscription", "Object"],
 //>>excludeEnd("ide");
+messageSends: ["new", "basicAddSubclassOf:named:instanceVariableNames:package:", "announcementClass:", "assert:equals:", "handlesAnnouncement:", "basicRemoveClass:"]
 }),
 globals.AnnouncementSubscriptionTest);
 
@@ -178,12 +178,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testOnDo",{counter:counter,announcer:announcer},globals.AnnouncerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "on:do:", "+", "announce:", "assert:equals:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testOnDo\x0a\x09| counter announcer |\x0a\x09\x0a\x09counter := 0.\x0a\x09announcer := Announcer new.\x0a\x09announcer on: SystemAnnouncement do: [ counter := counter + 1 ].\x0a\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 1.\x0a\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 2.",
-referencedClasses: ["Announcer", "SystemAnnouncement"]
+referencedClasses: ["Announcer", "SystemAnnouncement"],
 //>>excludeEnd("ide");
+messageSends: ["new", "on:do:", "+", "announce:", "assert:equals:"]
 }),
 globals.AnnouncerTest);
 
@@ -249,12 +249,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testOnDoFor",{counter:counter,announcer:announcer},globals.AnnouncerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "on:do:for:", "+", "announce:", "assert:equals:", "unsubscribe:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testOnDoFor\x0a\x09| counter announcer |\x0a\x09\x0a\x09counter := 0.\x0a\x09announcer := Announcer new.\x0a\x09announcer on: SystemAnnouncement do: [ counter := counter + 1 ] for: self.\x0a\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 1.\x0a\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 2.\x0a\x09\x0a\x09announcer unsubscribe: self.\x0a\x09\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 2.",
-referencedClasses: ["Announcer", "SystemAnnouncement"]
+referencedClasses: ["Announcer", "SystemAnnouncement"],
 //>>excludeEnd("ide");
+messageSends: ["new", "on:do:for:", "+", "announce:", "assert:equals:", "unsubscribe:"]
 }),
 globals.AnnouncerTest);
 
@@ -306,12 +306,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testOnDoOnce",{counter:counter,announcer:announcer},globals.AnnouncerTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "on:doOnce:", "+", "announce:", "assert:equals:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testOnDoOnce\x0a\x09| counter announcer |\x0a\x09\x0a\x09counter := 0.\x0a\x09announcer := Announcer new.\x0a\x09announcer on: SystemAnnouncement doOnce: [ counter := counter + 1 ].\x0a\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 1.\x0a\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 1.",
-referencedClasses: ["Announcer", "SystemAnnouncement"]
+referencedClasses: ["Announcer", "SystemAnnouncement"],
 //>>excludeEnd("ide");
+messageSends: ["new", "on:doOnce:", "+", "announce:", "assert:equals:"]
 }),
 globals.AnnouncerTest);
 
@@ -350,12 +350,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCanClearInterval",{},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["shouldnt:raise:", "clearInterval", "valueWithInterval:", "signal", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCanClearInterval\x0a\x09self shouldnt: [ ([ Error new signal ] valueWithInterval: 0) clearInterval ] raise: Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["shouldnt:raise:", "clearInterval", "valueWithInterval:", "signal", "new"]
 }),
 globals.BlockClosureTest);
 
@@ -391,12 +391,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCanClearTimeout",{},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["shouldnt:raise:", "clearTimeout", "valueWithTimeout:", "signal", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCanClearTimeout\x0a\x09self shouldnt: [ ([ Error new signal ] valueWithTimeout: 0) clearTimeout ] raise: Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["shouldnt:raise:", "clearTimeout", "valueWithTimeout:", "signal", "new"]
 }),
 globals.BlockClosureTest);
 
@@ -423,12 +423,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCompiledSource",{},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "includesSubString:", "compiledSource", "+"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCompiledSource\x0a\x09self assert: ([ 1+1 ] compiledSource includesSubString: 'function')",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "includesSubString:", "compiledSource", "+"]
 }),
 globals.BlockClosureTest);
 
@@ -477,12 +477,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCurrySelf",{curriedMethod:curriedMethod,array:array},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["asCompiledMethod:", "currySelf", "at:", "installMethod:forClass:protocol:", "new", "ensure:", "assert:equals:", "foo:", "removeCompiledMethod:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCurrySelf\x0a\x09| curriedMethod array |\x0a\x09curriedMethod := [ :selfarg :x | selfarg at: x ] currySelf asCompiledMethod: 'foo:'.\x0a\x09array := #(3 1 4).\x0a\x09ClassBuilder new installMethod: curriedMethod forClass: Array protocol: '**test helper'.\x0a\x09[ self assert: (array foo: 2) equals: 1 ]\x0a\x09ensure: [ Array removeCompiledMethod: curriedMethod ]",
-referencedClasses: ["ClassBuilder", "Array"]
+referencedClasses: ["ClassBuilder", "Array"],
 //>>excludeEnd("ide");
+messageSends: ["asCompiledMethod:", "currySelf", "at:", "installMethod:forClass:protocol:", "new", "ensure:", "assert:equals:", "foo:", "removeCompiledMethod:"]
 }),
 globals.BlockClosureTest);
 
@@ -507,12 +507,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testEnsure",{},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "ensure:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testEnsure\x0a\x09self assert: ([ 3 ] ensure: [ 4 ]) equals: 3",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "ensure:"]
 }),
 globals.BlockClosureTest);
 
@@ -551,12 +551,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testEnsureRaises",{},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "ensure:", "signal", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testEnsureRaises\x0a\x09self should: [ [Error new signal ] ensure: [ true ]] raise: Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "ensure:", "signal", "new"]
 }),
 globals.BlockClosureTest);
 
@@ -607,12 +607,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testExceptionSemantics",{},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["timeout:", "valueWithTimeout:", "async:", "on:do:", "assert:", "signal", "deny:", "finished"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testExceptionSemantics\x0a\x09\x22See https://github.com/NicolasPetton/amber/issues/314\x22\x0a\x09self timeout: 100.\x0a\x09\x0a\x09(self async: [\x0a\x09\x09[\x0a\x09\x09\x09self assert: true.\x0a\x09\x09\x09Error signal.\x0a\x09\x09\x09\x22The following should *not* be run\x22\x0a\x09\x09\x09self deny: true.\x0a\x09\x09\x09self finished.\x0a\x09\x09] on: Error do: [ :ex | self finished ]\x0a\x09]) valueWithTimeout: 0",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["timeout:", "valueWithTimeout:", "async:", "on:do:", "assert:", "signal", "deny:", "finished"]
 }),
 globals.BlockClosureTest);
 
@@ -641,12 +641,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNewWithValues",{},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNewWithValues\x0a<\x0a\x09function TestConstructor(arg1, arg2, arg3) {}\x0a\x09TestConstructor.prototype.name = 'theTestPrototype';\x0a\x0a\x09var wrappedConstructor = _st(TestConstructor);\x0a\x09var result = wrappedConstructor._newWithValues_([1, 2, 3 ]);\x0a\x09self._assert_(result instanceof TestConstructor);\x0a\x09self._assert_equals_(result.name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, globals.Error);\x0a>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.BlockClosureTest);
 
@@ -678,12 +678,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNumArgs",{},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "numArgs"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNumArgs\x0a\x09self assert: [] numArgs equals: 0.\x0a\x09self assert: [ :a :b | ] numArgs equals: 2",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "numArgs"]
 }),
 globals.BlockClosureTest);
 
@@ -714,12 +714,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testOnDo",{},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "on:do:", "signal", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testOnDo\x0a\x09self assert: ([ Error new signal ] on: Error do: [ :ex | true ])",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "on:do:", "signal", "new"]
 }),
 globals.BlockClosureTest);
 
@@ -785,12 +785,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testValue",{},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "value", "+", "value:", "value:value:", "*"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testValue\x0a\x09self assert: ([ 1+1 ] value) equals: 2.\x0a\x09self assert: ([ :x | x +1 ] value: 2) equals: 3.\x0a\x09self assert: ([ :x :y | x*y ] value: 2 value: 4) equals: 8.\x0a\x0a\x09\x22Arguments are optional in Amber. This isn't ANSI compliant.\x22\x0a\x0a\x09self assert: ([ :a :b :c | 1 ] value) equals: 1",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "value", "+", "value:", "value:value:", "*"]
 }),
 globals.BlockClosureTest);
 
@@ -848,12 +848,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testValueWithPossibleArguments",{},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "valueWithPossibleArguments:", "+"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testValueWithPossibleArguments\x0a\x09self assert: ([ 1 ] valueWithPossibleArguments: #(3 4)) equals: 1.\x0a\x09self assert: ([ :a | a + 4 ] valueWithPossibleArguments: #(3 4)) equals: 7.\x0a\x09self assert: ([ :a :b | a + b ] valueWithPossibleArguments: #(3 4 5)) equals: 7.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "valueWithPossibleArguments:", "+"]
 }),
 globals.BlockClosureTest);
 
@@ -914,12 +914,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testWhileFalse",{i:i},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["whileFalse:", ">", "+", "assert:equals:", "whileFalse"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testWhileFalse\x0a\x09| i |\x0a\x09i := 0.\x0a\x09[ i > 5 ] whileFalse: [ i := i + 1 ].\x0a\x09self assert: i equals: 6.\x0a\x0a\x09i := 0.\x0a\x09[ i := i + 1. i > 5 ] whileFalse.\x0a\x09self assert: i equals: 6",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["whileFalse:", ">", "+", "assert:equals:", "whileFalse"]
 }),
 globals.BlockClosureTest);
 
@@ -980,12 +980,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testWhileTrue",{i:i},globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["whileTrue:", "<", "+", "assert:equals:", "whileTrue"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testWhileTrue\x0a\x09| i |\x0a\x09i := 0.\x0a\x09[ i < 5 ] whileTrue: [ i := i + 1 ].\x0a\x09self assert: i equals: 5.\x0a\x0a\x09i := 0.\x0a\x09[ i := i + 1. i < 5 ] whileTrue.\x0a\x09self assert: i equals: 5",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["whileTrue:", "<", "+", "assert:equals:", "whileTrue"]
 }),
 globals.BlockClosureTest);
 
@@ -1086,12 +1086,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testEquality",{},globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["deny:", "=", "assert:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testEquality\x0a\x09\x22We're on top of JS...just be sure to check the basics!\x22\x0a\x0a\x09self deny: 0 = false.\x0a\x09self deny: false = 0.\x0a\x09self deny: '' = false.\x0a\x09self deny: false = ''.\x0a\x0a\x09self assert: (true = true).\x0a\x09self deny: false = true.\x0a\x09self deny: true = false.\x0a\x09self assert: (false = false).\x0a\x0a\x09\x22JS may do some type coercing after sending a message\x22\x0a\x09self assert: (true yourself = true).\x0a\x09self assert: (true yourself = true yourself)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["deny:", "=", "assert:", "yourself"]
 }),
 globals.BooleanTest);
 
@@ -1189,12 +1189,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIdentity",{},globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["deny:", "==", "assert:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIdentity\x0a\x09\x22We're on top of JS...just be sure to check the basics!\x22\x0a\x0a\x09self deny: 0 == false.\x0a\x09self deny: false == 0.\x0a\x09self deny: '' == false.\x0a\x09self deny: false == ''.\x0a\x0a\x09self assert: true == true.\x0a\x09self deny: false == true.\x0a\x09self deny: true == false.\x0a\x09self assert: false == false.\x0a\x0a\x09\x22JS may do some type coercing after sending a message\x22\x0a\x09self assert: true yourself == true.\x0a\x09self assert: true yourself == true yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["deny:", "==", "assert:", "yourself"]
 }),
 globals.BooleanTest);
 
@@ -1274,12 +1274,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalse",{},globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIfTrueIfFalse\x0a\x0a\x09self assert: (true ifTrue: [ 'alternative block' ]) equals: 'alternative block'.\x0a\x09self assert: (true ifFalse: [ 'alternative block' ]) equals: nil.\x0a\x0a\x09self assert: (false ifTrue: [ 'alternative block' ]) equals: nil.\x0a\x09self assert: (false ifFalse: [ 'alternative block' ]) equals: 'alternative block'.\x0a\x0a\x09self assert: (false ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block2'.\x0a\x09self assert: (false ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block'.\x0a\x0a\x09self assert: (true ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block'.\x0a\x09self assert: (true ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block2'.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:"]
 }),
 globals.BooleanTest);
 
@@ -1388,12 +1388,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalseWithBoxing",{},globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "ifTrue:", "yourself", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIfTrueIfFalseWithBoxing\x0a\x0a\x09self assert: (true yourself ifTrue: [ 'alternative block' ]) equals: 'alternative block'.\x0a\x09self assert: (true yourself ifFalse: [ 'alternative block' ]) equals: nil.\x0a\x0a\x09self assert: (false yourself ifTrue: [ 'alternative block' ]) equals: nil.\x0a\x09self assert: (false yourself ifFalse: [ 'alternative block' ]) equals: 'alternative block'.\x0a\x0a\x09self assert: (false yourself ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block2'.\x0a\x09self assert: (false yourself ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block'.\x0a\x0a\x09self assert: (true yourself ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block'.\x0a\x09self assert: (true yourself ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block2'.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "ifTrue:", "yourself", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:"]
 }),
 globals.BooleanTest);
 
@@ -1540,12 +1540,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testLogic",{},globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "&", "deny:", "|", ">"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testLogic\x0a\x09\x22Trivial logic table\x22\x0a\x09self assert: (true & true);\x0a\x09\x09deny: (true & false);\x0a\x09\x09deny: (false & true);\x0a\x09\x09deny: (false & false).\x0a\x09self assert: (true | true);\x0a\x09\x09assert: (true | false);\x0a\x09\x09assert: (false | true);\x0a\x09\x09deny: (false | false).\x0a\x09\x22Checking that expressions work fine too\x22\x0a\x09self assert: (true & (1 > 0));\x0a\x09\x09deny: ((1 > 0) & false);\x0a\x09\x09deny: ((1 > 0) & (1 > 2)).\x0a\x09self assert: (false | (1 > 0));\x0a\x09\x09assert: ((1 > 0) | false);\x0a\x09\x09assert: ((1 > 0) | (1 > 2))",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "&", "deny:", "|", ">"]
 }),
 globals.BooleanTest);
 
@@ -1751,12 +1751,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testLogicKeywords",{},globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "and:", "deny:", "or:", ">"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testLogicKeywords\x0a\x09\x22Trivial logic table\x22\x0a\x09self\x0a\x09\x09assert: (true and: [ true ]);\x0a\x09\x09deny: (true and: [ false ]);\x0a\x09\x09deny: (false and: [ true ]);\x0a\x09\x09deny: (false and: [ false ]).\x0a\x09self\x0a\x09\x09assert: (true or: [ true ]);\x0a\x09\x09assert: (true or: [ false ]);\x0a\x09\x09assert: (false or: [ true ]);\x0a\x09\x09deny: (false or: [ false ]).\x0a\x09\x09\x0a\x09\x22Checking that expressions work fine too\x22\x0a\x09self\x0a\x09\x09assert: (true and: [ 1 > 0 ]);\x0a\x09\x09deny: ((1 > 0) and: [ false ]);\x0a\x09\x09deny: ((1 > 0) and: [ 1 > 2 ]).\x0a\x09self\x0a\x09\x09assert: (false or: [ 1 > 0 ]);\x0a\x09\x09assert: ((1 > 0) or: [ false ]);\x0a\x09\x09assert: ((1 > 0) or: [ 1 > 2 ])",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "and:", "deny:", "or:", ">"]
 }),
 globals.BooleanTest);
 
@@ -1786,12 +1786,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNonBooleanError",{},globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "ifTrue:ifFalse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNonBooleanError\x0a\x09self should: [ '' ifTrue: [] ifFalse: [] ] raise: NonBooleanReceiver",
-referencedClasses: ["NonBooleanReceiver"]
+referencedClasses: ["NonBooleanReceiver"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "ifTrue:ifFalse:"]
 }),
 globals.BooleanTest);
 
@@ -1814,12 +1814,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "setUp\x0a\x09builder := ClassBuilder new",
-referencedClasses: ["ClassBuilder"]
+referencedClasses: ["ClassBuilder"],
 //>>excludeEnd("ide");
+messageSends: ["new"]
 }),
 globals.ClassBuilderTest);
 
@@ -1847,12 +1847,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"tearDown",{},globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNotNil:", "removeClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "tearDown\x0a\x09theClass ifNotNil: [ Smalltalk removeClass: theClass. theClass := nil ]",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "removeClass:"]
 }),
 globals.ClassBuilderTest);
 
@@ -1916,12 +1916,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testClassCopy",{},globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["copyClass:named:", "assert:", "==", "superclass", "instanceVariableNames", "assert:equals:", "name", "package", "keys", "methodDictionary"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testClassCopy\x0a\x09theClass := builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09self assert: theClass superclass == ObjectMock superclass.\x0a\x09self assert: theClass instanceVariableNames == ObjectMock instanceVariableNames.\x0a\x09self assert: theClass name equals: 'ObjectMock2'.\x0a\x09self assert: theClass package == ObjectMock package.\x0a\x09self assert: theClass methodDictionary keys equals: ObjectMock methodDictionary keys",
-referencedClasses: ["ObjectMock"]
+referencedClasses: ["ObjectMock"],
 //>>excludeEnd("ide");
+messageSends: ["copyClass:named:", "assert:", "==", "superclass", "instanceVariableNames", "assert:equals:", "name", "package", "keys", "methodDictionary"]
 }),
 globals.ClassBuilderTest);
 
@@ -2012,12 +2012,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testClassMigration",{instance:instance,oldClass:oldClass},globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["copyClass:named:", "new", "at:", "globals", "subclass:instanceVariableNames:package:", "deny:", "==", "assert:", "superclass", "isEmpty", "instanceVariableNames", "assert:equals:", "selectors", "comment", "name", "package", "class", "isNil", "removeClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testClassMigration\x0a\x09| instance oldClass |\x0a\x09\x0a\x09oldClass := builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09instance := (Smalltalk globals at: 'ObjectMock2') new.\x0a\x09\x0a\x09\x22Change the superclass of ObjectMock2\x22\x0a\x09ObjectMock subclass: (Smalltalk globals at: 'ObjectMock2')\x0a\x09\x09instanceVariableNames: ''\x0a\x09\x09package: 'Kernel-Tests'.\x0a\x09\x0a\x09self deny: oldClass == ObjectMock2.\x0a\x09\x0a\x09self assert: ObjectMock2 superclass == ObjectMock.\x0a\x09self assert: ObjectMock2 instanceVariableNames isEmpty.\x0a\x09self assert: ObjectMock2 selectors equals: oldClass selectors.\x0a\x09self assert: ObjectMock2 comment equals: oldClass comment.\x0a\x09self assert: ObjectMock2 package name equals: 'Kernel-Tests'.\x0a\x09\x0a\x09self deny: instance class == ObjectMock2.\x0a\x09\x22Commeting this out. Tests implementation detail.\x22\x0a\x09\x22self assert: instance class name equals: 'OldObjectMock2'.\x22\x0a\x09\x0a\x09self assert: (Smalltalk globals at: instance class name) isNil.\x0a\x09\x0a\x09Smalltalk removeClass: ObjectMock2",
-referencedClasses: ["ObjectMock", "Smalltalk", "ObjectMock2"]
+referencedClasses: ["ObjectMock", "Smalltalk", "ObjectMock2"],
 //>>excludeEnd("ide");
+messageSends: ["copyClass:named:", "new", "at:", "globals", "subclass:instanceVariableNames:package:", "deny:", "==", "assert:", "superclass", "isEmpty", "instanceVariableNames", "assert:equals:", "selectors", "comment", "name", "package", "class", "isNil", "removeClass:"]
 }),
 globals.ClassBuilderTest);
 
@@ -2048,12 +2048,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithClassInstanceVariables",{},globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["copyClass:named:", "instanceVariableNames:", "class", "subclass:instanceVariableNames:package:", "at:", "globals", "assert:equals:", "instanceVariableNames", "removeClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testClassMigrationWithClassInstanceVariables\x0a\x09\x0a\x09builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09ObjectMock2 class instanceVariableNames: 'foo bar'.\x0a\x09\x0a\x09\x22Change the superclass of ObjectMock2\x22\x0a\x09ObjectMock subclass: (Smalltalk globals at: 'ObjectMock2')\x0a\x09\x09instanceVariableNames: ''\x0a\x09\x09package: 'Kernel-Tests'.\x0a\x09\x0a\x09self assert: ObjectMock2 class instanceVariableNames equals: #('foo' 'bar').\x0a\x09\x0a\x09Smalltalk removeClass: ObjectMock2",
-referencedClasses: ["ObjectMock", "ObjectMock2", "Smalltalk"]
+referencedClasses: ["ObjectMock", "ObjectMock2", "Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["copyClass:named:", "instanceVariableNames:", "class", "subclass:instanceVariableNames:package:", "at:", "globals", "assert:equals:", "instanceVariableNames", "removeClass:"]
 }),
 globals.ClassBuilderTest);
 
@@ -2121,12 +2121,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithSubclasses",{},globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["copyClass:named:", "subclass:instanceVariableNames:package:", "at:", "globals", "assert:", "includes:", "subclasses", "do:", "allSubclasses", "removeClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testClassMigrationWithSubclasses\x0a\x09\x0a\x09builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09ObjectMock2 subclass: 'ObjectMock3' instanceVariableNames: '' package: 'Kernel-Tests'.\x0a\x09ObjectMock3 subclass: 'ObjectMock4' instanceVariableNames: '' package: 'Kernel-Tests'.\x0a\x09\x0a\x09\x22Change the superclass of ObjectMock2\x22\x0a\x09ObjectMock subclass: (Smalltalk globals at: 'ObjectMock2')\x0a\x09\x09instanceVariableNames: ''\x0a\x09\x09package: 'Kernel-Tests'.\x0a\x09\x0a\x09self assert: (ObjectMock subclasses includes: ObjectMock2).\x0a\x09self assert: (ObjectMock2 subclasses includes: ObjectMock3).\x0a\x09self assert: (ObjectMock3 subclasses includes: ObjectMock4).\x0a\x09\x0a\x09ObjectMock allSubclasses do: [ :each | Smalltalk removeClass: each ]",
-referencedClasses: ["ObjectMock", "ObjectMock2", "ObjectMock3", "Smalltalk", "ObjectMock4"]
+referencedClasses: ["ObjectMock", "ObjectMock2", "ObjectMock3", "Smalltalk", "ObjectMock4"],
 //>>excludeEnd("ide");
+messageSends: ["copyClass:named:", "subclass:instanceVariableNames:package:", "at:", "globals", "assert:", "includes:", "subclasses", "do:", "allSubclasses", "removeClass:"]
 }),
 globals.ClassBuilderTest);
 
@@ -2145,12 +2145,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testInstanceVariableNames",{},globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "instanceVariableNamesFor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testInstanceVariableNames\x0a\x09self assert: (builder instanceVariableNamesFor: '  hello   world   ') equals: #('hello' 'world')",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "instanceVariableNamesFor:"]
 }),
 globals.ClassBuilderTest);
 
@@ -2198,12 +2198,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"assertSameContents:as:",{aCollection:aCollection,anotherCollection:anotherCollection},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "=", "size", "do:", "occurrencesOf:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection", "anotherCollection"],
 source: "assertSameContents: aCollection as: anotherCollection\x0a\x09self assert: (aCollection size = anotherCollection size).\x0a\x09aCollection do: [ :each |\x0a\x09\x09self assert: ((aCollection occurrencesOf: each) = (anotherCollection occurrencesOf: each)) ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "=", "size", "do:", "occurrencesOf:"]
 }),
 globals.CollectionTest);
 
@@ -2222,12 +2222,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"collection",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collection\x0a\x09\x22Answers pre-filled collection of type tested.\x22\x0a\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.CollectionTest);
 
@@ -2247,12 +2247,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collectionClass", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionClass\x0a\x09\x22Answers class of collection type tested\x22\x0a\x0a\x09^ self class collectionClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collectionClass", "class"]
 }),
 globals.CollectionTest);
 
@@ -2271,12 +2271,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionOfPrintStrings\x0a\x09\x22Answers self collection but with values\x0a\x09changed to their printStrings\x22\x0a\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.CollectionTest);
 
@@ -2295,12 +2295,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"collectionSize",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionSize\x0a\x09\x22Answers size of self collection.\x22\x0a\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.CollectionTest);
 
@@ -2319,12 +2319,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionWithDuplicates\x0a\x09\x22Answers pre-filled collection of type tested,\x0a\x09with exactly five distinct elements,\x0a\x09some of them appearing multiple times, if possible.\x22\x0a\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.CollectionTest);
 
@@ -2343,12 +2343,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionWithNewValue\x0a\x09\x22Answers a collection which shows how\x0a\x09self collection would look after adding\x0a\x09self sampleNewValue\x22\x0a\x09\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.CollectionTest);
 
@@ -2361,12 +2361,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isCollectionReadOnly\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.CollectionTest);
 
@@ -2379,12 +2379,12 @@ var self=this;
 return "N";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sampleNewValue\x0a\x09\x22Answers a value that is not yet there\x0a\x09and can be put into a tested collection\x22\x0a\x09\x0a\x09^ 'N'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.CollectionTest);
 
@@ -2404,12 +2404,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["with:", "collectionClass", "sampleNewValue"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sampleNewValueAsCollection\x0a\x09\x22Answers self sampleNewValue\x0a\x09wrapped in single element collection\x0a\x09of tested type\x22\x0a\x09\x0a\x09^ self collectionClass with: self sampleNewValue",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["with:", "collectionClass", "sampleNewValue"]
 }),
 globals.CollectionTest);
 
@@ -2545,12 +2545,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAddAll",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "addAll:", "collection", "new", "collectionClass", "yourself", "sampleNewValueAsCollection", "collectionWithNewValue", "assertSameContents:as:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAddAll\x0a\x09self assert: (self collection addAll: self collectionClass new; yourself) equals: self collection.\x0a\x09self assert: (self collectionClass new addAll: self collection; yourself) equals: self collection.\x0a\x09self assert: (self collectionClass new addAll: self collectionClass new; yourself) equals: self collectionClass new.\x0a\x09self assert: (self collection addAll: self sampleNewValueAsCollection; yourself) equals: self collectionWithNewValue.\x0a\x09self assertSameContents: (self sampleNewValueAsCollection addAll: self collection; yourself) as: self collectionWithNewValue",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "addAll:", "collection", "new", "collectionClass", "yourself", "sampleNewValueAsCollection", "collectionWithNewValue", "assertSameContents:as:"]
 }),
 globals.CollectionTest);
 
@@ -2594,12 +2594,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAllSatisfy",{collection:collection,anyOne:anyOne},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collection", "anyOne", "assert:", "allSatisfy:", "includes:", "deny:", "~="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAllSatisfy\x0a\x09| collection anyOne |\x0a\x09collection := self collection.\x0a\x09anyOne := collection anyOne.\x0a\x09self assert: (collection allSatisfy: [ :each | collection includes: each ]).\x0a\x09self deny: (collection allSatisfy: [ :each | each ~= anyOne ])",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collection", "anyOne", "assert:", "allSatisfy:", "includes:", "deny:", "~="]
 }),
 globals.CollectionTest);
 
@@ -2637,12 +2637,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAnyOne",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "anyOne", "new", "collectionClass", "assert:", "includes:", "collection"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAnyOne\x0a\x09self should: [ self collectionClass new anyOne ] raise: Error.\x0a\x09self assert: (self collection includes: self collection anyOne)",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "anyOne", "new", "collectionClass", "assert:", "includes:", "collection"]
 }),
 globals.CollectionTest);
 
@@ -2697,12 +2697,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAnySatisfy",{anyOne:anyOne},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["anyOne", "collection", "assert:", "anySatisfy:", "=", "deny:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAnySatisfy\x0a\x09| anyOne |\x0a\x09anyOne := self collection anyOne.\x0a\x09self assert: (self collection anySatisfy: [ :each | each = anyOne ]).\x0a\x09self deny: (self collection anySatisfy: [ :each | each = Object new ])",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["anyOne", "collection", "assert:", "anySatisfy:", "=", "deny:", "new"]
 }),
 globals.CollectionTest);
 
@@ -2726,12 +2726,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAsArray",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assertSameContents:as:", "collection", "asArray"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAsArray\x0a\x09self\x0a\x09\x09assertSameContents: self collection\x0a\x09\x09as: self collection asArray",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assertSameContents:as:", "collection", "asArray"]
 }),
 globals.CollectionTest);
 
@@ -2755,12 +2755,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAsOrderedCollection",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assertSameContents:as:", "collection", "asOrderedCollection"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAsOrderedCollection\x0a\x09self\x0a\x09\x09assertSameContents: self collection\x0a\x09\x09as: self collection asOrderedCollection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assertSameContents:as:", "collection", "asOrderedCollection"]
 }),
 globals.CollectionTest);
 
@@ -2791,12 +2791,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAsSet",{c:c,set:set},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collectionWithDuplicates", "asSet", "assert:equals:", "size", "do:", "assert:", "includes:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAsSet\x0a\x09| c set |\x0a\x09c := self collectionWithDuplicates.\x0a\x09set := c asSet.\x0a\x09self assert: set size equals: 5.\x0a\x09c do: [ :each |\x0a\x09\x09self assert: (set includes: each) ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collectionWithDuplicates", "asSet", "assert:equals:", "size", "do:", "assert:", "includes:"]
 }),
 globals.CollectionTest);
 
@@ -2912,12 +2912,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCollect",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "collect:", "collection", "collectionWithNewValue", "new", "collectionClass", "printString", "detect:", "sampleNewValue", "collectionOfPrintStrings"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCollect\x0a\x09self assert: (self collection collect: [ :each | each ]) equals: self collection.\x0a\x09self assert: (self collectionWithNewValue collect: [ :each | each ]) equals: self collectionWithNewValue.\x0a\x09self assert: (self collectionClass new collect: [ :each | each printString ]) equals: self collectionClass new.\x0a\x09self assert: ((self collection collect: [ self sampleNewValue ]) detect: [ true ]) equals: self sampleNewValue.\x0a\x09self assert: (self collection collect: [ :each | each printString ]) equals: self collectionOfPrintStrings",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "collect:", "collection", "collectionWithNewValue", "new", "collectionClass", "printString", "detect:", "sampleNewValue", "collectionOfPrintStrings"]
 }),
 globals.CollectionTest);
 
@@ -3026,12 +3026,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testComma",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", ",", "collection", "new", "collectionClass", "sampleNewValueAsCollection", "collectionWithNewValue", "assertSameContents:as:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testComma\x0a\x09self assert: self collection, self collectionClass new equals: self collection.\x0a\x09self assert: self collectionClass new, self collection equals: self collection.\x0a\x09self assert: self collectionClass new, self collectionClass new equals: self collectionClass new.\x0a\x09self assert: self collection, self sampleNewValueAsCollection equals: self collectionWithNewValue.\x0a\x09self assertSameContents: self sampleNewValueAsCollection, self collection as: self collectionWithNewValue",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", ",", "collection", "new", "collectionClass", "sampleNewValueAsCollection", "collectionWithNewValue", "assertSameContents:as:"]
 }),
 globals.CollectionTest);
 
@@ -3148,12 +3148,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDetect",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["shouldnt:raise:", "detect:", "collection", "should:raise:", "assert:equals:", "sampleNewValueAsCollection", "sampleNewValue", "collectionWithNewValue", "="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDetect\x0a\x09self\x0a\x09\x09shouldnt: [ self collection detect: [ true ] ]\x0a\x09\x09raise: Error.\x0a\x09self\x0a\x09\x09should: [ self collection detect: [ false ] ]\x0a\x09\x09raise: Error.\x0a\x09self assert: (self sampleNewValueAsCollection detect: [ true ]) equals: self sampleNewValue.\x0a\x09self assert: (self collectionWithNewValue detect: [ :each | each = self sampleNewValue ]) equals: self sampleNewValue.\x0a\x09self\x0a\x09\x09should: [ self collection detect: [ :each | each = self sampleNewValue ] ]\x0a\x09\x09raise: Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["shouldnt:raise:", "detect:", "collection", "should:raise:", "assert:equals:", "sampleNewValueAsCollection", "sampleNewValue", "collectionWithNewValue", "="]
 }),
 globals.CollectionTest);
 
@@ -3269,12 +3269,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDetectIfNone",{sentinel:sentinel},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "assert:", "~=", "detect:ifNone:", "collection", "assert:equals:", "sampleNewValueAsCollection", "sampleNewValue", "collectionWithNewValue", "="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDetectIfNone\x0a\x09| sentinel |\x0a\x09sentinel := Object new.\x0a\x09self assert: (self collection detect: [ true ] ifNone: [ sentinel ]) ~= sentinel.\x0a\x09self assert: (self collection detect: [ false ] ifNone: [ sentinel ]) equals: sentinel.\x0a\x09self assert: (self sampleNewValueAsCollection detect: [ true ] ifNone: [ sentinel ]) equals: self sampleNewValue.\x0a\x09self assert: (self collectionWithNewValue detect: [ :each | each = self sampleNewValue ] ifNone: [ sentinel ]) equals: self sampleNewValue.\x0a\x09self assert: (self collection detect: [ :each | each = self sampleNewValue ] ifNone: [ sentinel ]) equals: sentinel",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["new", "assert:", "~=", "detect:ifNone:", "collection", "assert:equals:", "sampleNewValueAsCollection", "sampleNewValue", "collectionWithNewValue", "="]
 }),
 globals.CollectionTest);
 
@@ -3337,12 +3337,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDo",{newCollection:newCollection},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "do:", "collection", "add:", "assertSameContents:as:", "collectionWithDuplicates"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDo\x0a\x09| newCollection |\x0a\x09newCollection := OrderedCollection new.\x0a\x09self collection do: [ :each |\x0a\x09\x09newCollection add: each ].\x0a\x09self\x0a\x09\x09assertSameContents: self collection\x0a\x09\x09as: newCollection.\x0a\x09newCollection := OrderedCollection new.\x0a\x09self collectionWithDuplicates do: [ :each |\x0a\x09\x09newCollection add: each ].\x0a\x09self\x0a\x09\x09assertSameContents: self collectionWithDuplicates\x0a\x09\x09as: newCollection",
-referencedClasses: ["OrderedCollection"]
+referencedClasses: ["OrderedCollection"],
 //>>excludeEnd("ide");
+messageSends: ["new", "do:", "collection", "add:", "assertSameContents:as:", "collectionWithDuplicates"]
 }),
 globals.CollectionTest);
 
@@ -3557,12 +3557,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIfEmptyFamily",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "ifEmpty:", "new", "collectionClass", "collection", "ifNotEmpty:", "ifEmpty:ifNotEmpty:", "ifNotEmpty:ifEmpty:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIfEmptyFamily\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifNotEmpty: [ :col | col ]) equals: self collection.\x0a\x09\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.\x0a\x09self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ :col | col ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42.\x0a\x09self assert: (self collection ifNotEmpty: [ :col | col ] ifEmpty: [ 999 ]) equals: self collection.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "ifEmpty:", "new", "collectionClass", "collection", "ifNotEmpty:", "ifEmpty:ifNotEmpty:", "ifNotEmpty:ifEmpty:"]
 }),
 globals.CollectionTest);
 
@@ -3587,12 +3587,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "isEmpty", "new", "collectionClass", "deny:", "collection"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIsEmpty\x0a\x09self assert: self collectionClass new isEmpty.\x0a\x09self deny: self collection isEmpty",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "isEmpty", "new", "collectionClass", "deny:", "collection"]
 }),
 globals.CollectionTest);
 
@@ -3647,12 +3647,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNoneSatisfy",{anyOne:anyOne},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["anyOne", "collection", "deny:", "noneSatisfy:", "=", "assert:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNoneSatisfy\x0a\x09| anyOne |\x0a\x09anyOne := self collection anyOne.\x0a\x09self deny: (self collection noneSatisfy: [ :each | each = anyOne ]).\x0a\x09self assert: (self collection noneSatisfy: [ :each | each = Object new ])",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["anyOne", "collection", "deny:", "noneSatisfy:", "=", "assert:", "new"]
 }),
 globals.CollectionTest);
 
@@ -3675,12 +3675,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "removeAll", "collection", "yourself", "new", "collectionClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testRemoveAll\x0a\x09self assert: (self collection removeAll; yourself) equals: self collectionClass new",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "removeAll", "collection", "yourself", "new", "collectionClass"]
 }),
 globals.CollectionTest);
 
@@ -3832,12 +3832,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testSelect",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "select:", "collection", "new", "collectionClass", "collectionWithNewValue", "=", "sampleNewValue", "sampleNewValueAsCollection", "~="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testSelect\x0a\x09self assert: (self collection select: [ false ]) equals: self collectionClass new.\x0a\x09self assert: (self collection select: [ true ]) equals: self collection.\x0a\x09self assert: (self collectionWithNewValue select: [ :each | each = self sampleNewValue ]) equals: self sampleNewValueAsCollection.\x0a\x09self assert: (self collectionWithNewValue select: [ :each | each ~= self sampleNewValue ]) equals: self collection.\x0a\x09self assert: (self collection select: [ :each | each = self sampleNewValue ]) equals: self collectionClass new.\x0a\x09self assert: (self collectionWithNewValue select: [ :each | each ~= self sampleNewValue ]) equals: self collection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "select:", "collection", "new", "collectionClass", "collectionWithNewValue", "=", "sampleNewValue", "sampleNewValueAsCollection", "~="]
 }),
 globals.CollectionTest);
 
@@ -3873,12 +3873,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testSize",{},globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "size", "new", "collectionClass", "sampleNewValueAsCollection", "collection", "collectionSize"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testSize\x0a\x09self assert: self collectionClass new size equals: 0.\x0a\x09self assert: self sampleNewValueAsCollection size equals: 1.\x0a\x09self assert: self collection size equals: self collectionSize",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "size", "new", "collectionClass", "sampleNewValueAsCollection", "collection", "collectionSize"]
 }),
 globals.CollectionTest);
 
@@ -3892,12 +3892,12 @@ var self=this;
 return nil;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionClass\x0a\x09\x22Answers class of collection type tested,\x0a\x09or nil if test is abstract\x22\x0a\x0a\x09^ nil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.CollectionTest.klass);
 
@@ -3917,12 +3917,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isAbstract",{},globals.CollectionTest.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["isNil", "collectionClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isAbstract\x0a\x09^ self collectionClass isNil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["isNil", "collectionClass"]
 }),
 globals.CollectionTest.klass);
 
@@ -3943,12 +3943,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionWithNewValue\x0a\x09\x22Answers a collection which shows how\x0a\x09self collection would look after adding\x0a\x09self sampleNewValue at self sampleNewIndex\x22\x0a\x09\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.IndexableCollectionTest);
 
@@ -3967,12 +3967,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"sampleNewIndex",{},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sampleNewIndex\x0a\x09\x22Answers a value that can be used as index in at:put: or at:ifAbsentPut:\x22\x0a\x09\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.IndexableCollectionTest);
 
@@ -3991,12 +3991,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"sampleNonIndexesDo:",{aBlock:aBlock},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "sampleNonIndexesDo: aBlock\x0a\x09\x22Executes block a few times,\x0a\x09each time passing value that is known\x0a\x09not to be an index, as the first parameter\x22\x0a\x09\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.IndexableCollectionTest);
 
@@ -4015,12 +4015,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "samplesDo: aBlock\x0a\x09\x22Executes block a few times,\x0a\x09each time passing known index and value stored\x0a\x09under that index as the parameters\x22\x0a\x09\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.IndexableCollectionTest);
 
@@ -4073,12 +4073,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAt",{},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nonIndexesDo:", "should:raise:", "at:", "collection", "samplesDo:", "assert:equals:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAt\x0a\x09self nonIndexesDo: [ :each |\x0a\x09\x09self should: [ self collection at: each ] raise: Error ].\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09self assert: (self collection at: index) equals: value ]",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["nonIndexesDo:", "should:raise:", "at:", "collection", "samplesDo:", "assert:equals:"]
 }),
 globals.IndexableCollectionTest);
 
@@ -4149,12 +4149,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nonIndexesDo:", "assert:equals:", "at:ifAbsent:", "collection", "sampleNewValue", "samplesDo:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtIfAbsent\x0a\x09self nonIndexesDo: [ :each |\x0a\x09\x09self assert: (self collection at: each ifAbsent: [ self sampleNewValue ]) equals: self sampleNewValue ].\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09self assert: (self collection at: index ifAbsent: [ self sampleNewValue ]) equals: value ].",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nonIndexesDo:", "assert:equals:", "at:ifAbsent:", "collection", "sampleNewValue", "samplesDo:"]
 }),
 globals.IndexableCollectionTest);
 
@@ -4225,12 +4225,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtIfAbsentPut",{newCollection:newCollection},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collection", "samplesDo:", "assert:equals:", "at:ifAbsentPut:", "sampleNewValue", "sampleNewIndex", "collectionWithNewValue"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtIfAbsentPut\x0a\x09| newCollection |\x0a\x09newCollection := self collection.\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09self assert: (newCollection at: index ifAbsentPut: [ self sampleNewValue ]) equals: value ].\x0a\x09self assert: newCollection equals: self collection.\x0a\x09self assert: (newCollection at: self sampleNewIndex ifAbsentPut: [ self sampleNewValue ]) equals: self sampleNewValue.\x0a\x09self assert: newCollection equals: self collectionWithNewValue",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collection", "samplesDo:", "assert:equals:", "at:ifAbsentPut:", "sampleNewValue", "sampleNewIndex", "collectionWithNewValue"]
 }),
 globals.IndexableCollectionTest);
 
@@ -4305,12 +4305,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{visited:visited,sentinel:sentinel},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "nonIndexesDo:", "assert:equals:", "at:ifPresent:", "collection", "assert:", "isNil", "samplesDo:", "at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtIfPresent\x0a\x09| visited sentinel |\x0a\x09sentinel := Object new.\x0a\x09self nonIndexesDo: [ :each |\x0a\x09\x09visited := nil.\x0a\x09\x09self assert: (self collection at: each ifPresent: [ :value1 | visited := value1. sentinel ]) equals: nil.\x0a\x09\x09self assert: visited isNil ].\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09visited := nil.\x0a\x09\x09self assert: (self collection at: index ifPresent: [ :value2 | visited := value2. sentinel ]) equals: sentinel.\x0a\x09\x09self assert: visited equals: (self collection at: index) ]",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["new", "nonIndexesDo:", "assert:equals:", "at:ifPresent:", "collection", "assert:", "isNil", "samplesDo:", "at:"]
 }),
 globals.IndexableCollectionTest);
 
@@ -4408,12 +4408,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{visited:visited,sentinel:sentinel},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "nonIndexesDo:", "assert:equals:", "at:ifPresent:ifAbsent:", "collection", "sampleNewValue", "assert:", "isNil", "samplesDo:", "at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtIfPresentIfAbsent\x0a\x09| visited sentinel |\x0a\x09sentinel := Object new.\x0a\x09self nonIndexesDo: [ :each |\x0a\x09\x09visited := nil.\x0a\x09\x09self assert: (self collection at: each ifPresent: [ :value1 | visited := value1. sentinel ] ifAbsent: [ self sampleNewValue ] ) equals: self sampleNewValue.\x0a\x09\x09self assert: visited isNil ].\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09visited := nil.\x0a\x09\x09self assert: (self collection at: index ifPresent: [ :value2 | visited := value2. sentinel ] ifAbsent: [ self sampleNewValue ]) equals: sentinel.\x0a\x09\x09self assert: visited equals: (self collection at: index) ]",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["new", "nonIndexesDo:", "assert:equals:", "at:ifPresent:ifAbsent:", "collection", "sampleNewValue", "assert:", "isNil", "samplesDo:", "at:"]
 }),
 globals.IndexableCollectionTest);
 
@@ -4454,12 +4454,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtPut",{newCollection:newCollection},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collection", "samplesDo:", "at:put:", "assert:equals:", "sampleNewIndex", "sampleNewValue", "collectionWithNewValue"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtPut\x0a\x09| newCollection |\x0a\x09newCollection := self collection.\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09newCollection at: index put: value ].\x0a\x09self assert: newCollection equals: self collection.\x0a\x09newCollection at: self sampleNewIndex put: self sampleNewValue.\x0a\x09self assert: newCollection equals: self collectionWithNewValue",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collection", "samplesDo:", "at:put:", "assert:equals:", "sampleNewIndex", "sampleNewValue", "collectionWithNewValue"]
 }),
 globals.IndexableCollectionTest);
 
@@ -4536,12 +4536,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testEquality",{},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "new", "collectionClass", "collection", "collectionWithNewValue", "deny:", "="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testEquality\x0a\x09self assert: self collectionClass new equals: self collectionClass new.\x0a\x09self assert: self collection equals: self collection.\x0a\x09self assert: self collectionWithNewValue equals: self collectionWithNewValue.\x0a\x09\x0a\x09self deny: self collectionClass new = self collection.\x0a\x09self deny: self collection = self collectionClass new",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "new", "collectionClass", "collection", "collectionWithNewValue", "deny:", "="]
 }),
 globals.IndexableCollectionTest);
 
@@ -4586,12 +4586,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "indexOf:", "collection", "sampleNewValue", "samplesDo:", "assert:equals:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIndexOf\x0a\x09self should: [ self collection indexOf: self sampleNewValue ] raise: Error.\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09self assert: (self collection indexOf: value) equals: index ]",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "indexOf:", "collection", "sampleNewValue", "samplesDo:", "assert:equals:"]
 }),
 globals.IndexableCollectionTest);
 
@@ -4625,12 +4625,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIndexOfWithNull",{jsNull:jsNull},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "samplesDo:", "assert:equals:", "at:put:", "collection", "indexOf:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIndexOfWithNull\x0a\x09| jsNull |\x0a\x09jsNull := JSON parse: 'null'.\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09self assert: (self collection at: index put: jsNull; indexOf: jsNull) equals: index ]",
-referencedClasses: ["JSON"]
+referencedClasses: ["JSON"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "samplesDo:", "assert:equals:", "at:put:", "collection", "indexOf:"]
 }),
 globals.IndexableCollectionTest);
 
@@ -4662,12 +4662,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testWithIndexDo",{collection:collection},globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collection", "withIndexDo:", "assert:equals:", "at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testWithIndexDo\x0a\x09| collection |\x0a\x09collection := self collection.\x0a\x09\x0a\x09self collection withIndexDo: [ :each :index |\x0a\x09\x09self assert: (collection at: index) equals: each ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collection", "withIndexDo:", "assert:equals:", "at:"]
 }),
 globals.IndexableCollectionTest);
 
@@ -4689,12 +4689,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionKeys\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -4713,12 +4713,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"collectionValues",{},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionValues\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -4741,12 +4741,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"nonIndexesDo:",{aBlock:aBlock},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "nonIndexesDo: aBlock\x0a\x09aBlock value: 5.\x0a\x09aBlock value: 'z'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["value:"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -4759,12 +4759,12 @@ var self=this;
 return "new";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sampleNewIndex\x0a\x09^ 'new'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AssociativeCollectionTest);
 
@@ -4783,12 +4783,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:value:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "samplesDo: aBlock\x0a\x09aBlock value: 'a' value: 2",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["value:value:"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -4875,12 +4875,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAddAll",{},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["testAddAll", "assert:equals:", "addAll:", "collection", "yourself", "collectionWithNewValue"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAddAll\x0a\x09super testAddAll.\x0a\x09self assert: (self collection addAll: self collection; yourself) equals: self collection.\x0a\x09self assert: (self collection addAll: self collectionWithNewValue; yourself) equals: self collectionWithNewValue.\x0a\x09self assert: (self collectionWithNewValue addAll: self collection; yourself) equals: self collectionWithNewValue",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["testAddAll", "assert:equals:", "addAll:", "collection", "yourself", "collectionWithNewValue"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -4900,12 +4900,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAsDictionary",{},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "isMemberOf:", "asDictionary", "new", "collectionClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAsDictionary\x0aself assert: ( self collectionClass new asDictionary isMemberOf: Dictionary ).",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "isMemberOf:", "asDictionary", "new", "collectionClass"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -4925,12 +4925,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAsHashedCollection",{},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "isMemberOf:", "asHashedCollection", "new", "collectionClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAsHashedCollection\x0aself assert: ( self collectionClass new asHashedCollection isMemberOf: HashedCollection ).",
-referencedClasses: ["HashedCollection"]
+referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "isMemberOf:", "asHashedCollection", "new", "collectionClass"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -5003,12 +5003,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testComma",{},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["testComma", "assert:equals:", ",", "collection", "collectionWithNewValue"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testComma\x0a\x09super testComma.\x0a\x09self assert: self collection, self collection equals: self collection.\x0a\x09self assert: self collection, self collectionWithNewValue equals: self collectionWithNewValue.\x0a\x09self assert: self collectionWithNewValue, self collection equals: self collectionWithNewValue",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["testComma", "assert:equals:", ",", "collection", "collectionWithNewValue"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -5034,12 +5034,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testFrom",{associations:associations},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["->", "assertSameContents:as:", "from:", "collectionClass", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testFrom\x0a\x22Accept a collection of associations.\x22\x0a| associations |\x0aassociations := { 'a' -> 1. 'b' -> 2 }.\x0aself assertSameContents: ( self class collectionClass from: associations ) as: #{ 'a' -> 1. 'b' -> 2 }.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["->", "assertSameContents:as:", "from:", "collectionClass", "class"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -5077,12 +5077,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testKeys",{},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "isEmpty", "keys", "new", "collectionClass", "assertSameContents:as:", "collection", "collectionKeys", "collectionWithNewValue", ",", "sampleNewIndex"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testKeys\x0a\x09self assert:self collectionClass new keys isEmpty.\x0a\x09self assertSameContents:self collection keys as: self collectionKeys.\x0a\x09self assertSameContents:self collectionWithNewValue keys as: self collectionKeys, { self sampleNewIndex }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "isEmpty", "keys", "new", "collectionClass", "assertSameContents:as:", "collection", "collectionKeys", "collectionWithNewValue", ",", "sampleNewIndex"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -5103,12 +5103,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNewFromPairs",{flattenedAssociations:flattenedAssociations},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assertSameContents:as:", "newFromPairs:", "collectionClass", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNewFromPairs\x0a\x22Accept an array in which all odd indexes are keys and evens are values.\x22\x0a| flattenedAssociations |\x0aflattenedAssociations := { 'a'. 1. 'b'. 2 }.\x0aself assertSameContents: ( self class collectionClass newFromPairs: flattenedAssociations ) as: #{ 'a' -> 1. 'b' -> 2 }.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assertSameContents:as:", "newFromPairs:", "collectionClass", "class"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -5144,12 +5144,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testPrintString",{},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "at:put:", "new", "collectionClass", "printString", ",", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testPrintString\x0a\x09self\x0a\x09\x09assert: (self collectionClass new\x0a\x09\x09\x09\x09\x09\x09\x09at:'firstname' put: 'James';\x0a\x09\x09\x09\x09\x09\x09\x09at:'lastname' put: 'Bond';\x0a\x09\x09\x09\x09\x09\x09\x09printString)\x0a\x09\x09equals: 'a ', self collectionClass name, ' (''firstname'' -> ''James'' , ''lastname'' -> ''Bond'')'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "at:put:", "new", "collectionClass", "printString", ",", "name"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -5237,12 +5237,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testRemoveKey",{},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nonIndexesDo:", "collection", "should:raise:", "removeKey:", "assert:equals:", "samplesDo:", "deny:", "=", "collectionWithNewValue", "sampleNewIndex", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testRemoveKey\x0a\x09self nonIndexesDo: [ :each |\x0a\x09\x09| collection |\x0a\x09\x09collection := self collection.\x0a\x09\x09self should: [ collection removeKey: each ] raise: Error.\x0a\x09\x09self assert: collection equals: self collection ].\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09| collection |\x0a\x09\x09collection := self collection.\x0a\x09\x09self assert: (collection removeKey: index) equals: value.\x0a\x09\x09self deny: collection = self collection ].\x0a\x09self\x0a\x09\x09assert: (self collectionWithNewValue removeKey: self sampleNewIndex; yourself)\x0a\x09\x09equals: self collection",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["nonIndexesDo:", "collection", "should:raise:", "removeKey:", "assert:equals:", "samplesDo:", "deny:", "=", "collectionWithNewValue", "sampleNewIndex", "yourself"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -5356,12 +5356,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testRemoveKeyIfAbsent",{},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nonIndexesDo:", "collection", "assert:equals:", "removeKey:ifAbsent:", "sampleNewValue", "samplesDo:", "deny:", "=", "collectionWithNewValue", "sampleNewIndex", "assert:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testRemoveKeyIfAbsent\x0a\x09self nonIndexesDo: [ :each |\x0a\x09\x09| collection |\x0a\x09\x09collection := self collection.\x0a\x09\x09self assert: (collection removeKey: each ifAbsent: [ self sampleNewValue ]) equals: self sampleNewValue.\x0a\x09\x09self assert: collection equals: self collection ].\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09| collection |\x0a\x09\x09collection := self collection.\x0a\x09\x09self assert: (collection removeKey: index ifAbsent: [ self sampleNewValue ]) equals: value.\x0a\x09\x09self deny: collection = self collection ].\x0a\x09self\x0a\x09\x09assert: (self collectionWithNewValue removeKey: self sampleNewIndex ifAbsent: [ self assert: false ]; yourself)\x0a\x09\x09equals: self collection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nonIndexesDo:", "collection", "assert:equals:", "removeKey:ifAbsent:", "sampleNewValue", "samplesDo:", "deny:", "=", "collectionWithNewValue", "sampleNewIndex", "assert:", "yourself"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -5399,12 +5399,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testValues",{},globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "isEmpty", "values", "new", "collectionClass", "assertSameContents:as:", "collection", "collectionValues", "collectionWithNewValue", ",", "sampleNewValue"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testValues\x0a\x09self assert:self collectionClass new values isEmpty.\x0a\x09self assertSameContents:self collection values as: self collectionValues.\x0a\x09self assertSameContents:self collectionWithNewValue values as: self collectionValues, { self sampleNewValue }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "isEmpty", "values", "new", "collectionClass", "assertSameContents:as:", "collection", "collectionValues", "collectionWithNewValue", ",", "sampleNewValue"]
 }),
 globals.AssociativeCollectionTest);
 
@@ -5443,12 +5443,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"collection",{},globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:put:", "new", "@", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collection\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 1@3 put: -4;\x0a\x09\x09yourself",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["at:put:", "new", "@", "yourself"]
 }),
 globals.DictionaryTest);
 
@@ -5468,12 +5468,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["@"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionKeys\x0a\x09^ {1. 'a'. true. 1@3}",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["@"]
 }),
 globals.DictionaryTest);
 
@@ -5509,12 +5509,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:put:", "new", "@", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionOfPrintStrings\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: '1';\x0a\x09\x09at: 'a' put: '2';\x0a\x09\x09at: true put: '3';\x0a\x09\x09at: 1@3 put: '-4';\x0a\x09\x09yourself",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["at:put:", "new", "@", "yourself"]
 }),
 globals.DictionaryTest);
 
@@ -5527,12 +5527,12 @@ var self=this;
 return (4);
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionSize\x0a\x09^ 4",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.DictionaryTest);
 
@@ -5547,12 +5547,12 @@ $1=[(1),(2),(3),(-4)];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionValues\x0a\x09^ {1. 2. 3. -4}",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.DictionaryTest);
 
@@ -5600,12 +5600,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:put:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionWithDuplicates\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 4 put: -4;\x0a\x09\x09at: 'b' put: 1;\x0a\x09\x09at: 3 put: 3;\x0a\x09\x09at: false put: 12;\x0a\x09\x09yourself",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["at:put:", "new", "yourself"]
 }),
 globals.DictionaryTest);
 
@@ -5645,12 +5645,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:put:", "new", "@", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionWithNewValue\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 1@3 put: -4;\x0a\x09\x09at: 'new' put: 'N';\x0a\x09\x09yourself",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["at:put:", "new", "@", "yourself"]
 }),
 globals.DictionaryTest);
 
@@ -5674,12 +5674,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:put:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sampleNewValueAsCollection\x0a\x09^ Dictionary new\x0a\x09\x09at: 'new' put: 'N';\x0a\x09\x09yourself",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["at:put:", "new", "yourself"]
 }),
 globals.DictionaryTest);
 
@@ -5710,12 +5710,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["samplesDo:", "value:value:", "@"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "samplesDo: aBlock\x0a\x09super samplesDo: aBlock.\x0a\x09aBlock value: true value: 3.\x0a\x09aBlock value: 1@3 value: -4",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["samplesDo:", "value:value:", "@"]
 }),
 globals.DictionaryTest);
 
@@ -5819,12 +5819,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAccessing",{d:d},globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "at:put:", "assert:equals:", "at:", "at:ifAbsent:", "deny:", "=", "assert:", "includesKey:", "@"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAccessing\x0a\x09| d |\x0a\x0a\x09d := Dictionary new.\x0a\x0a\x09d at: 'hello' put: 'world'.\x0a\x09self assert: (d at: 'hello') equals: 'world'.\x0a\x09self assert: (d at: 'hello' ifAbsent: [ nil ]) equals: 'world'.\x0a\x09self deny: (d at: 'foo' ifAbsent: [ nil ]) = 'world'.\x0a\x0a\x09self assert: (d includesKey: 'hello').\x0a\x09self deny: (d includesKey: 'foo').\x0a\x0a\x09d at: 1 put: 2.\x0a\x09self assert: (d at: 1) equals: 2.\x0a\x0a\x09d at: 1@3 put: 3.\x0a\x09self assert: (d at: 1@3) equals: 3.\x0a\x0a\x09self assert: (d includesKey: 1@3).\x0a\x09self deny: (d includesKey: 3@1)",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["new", "at:put:", "assert:equals:", "at:", "at:ifAbsent:", "deny:", "=", "assert:", "includesKey:", "@"]
 }),
 globals.DictionaryTest);
 
@@ -5844,12 +5844,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "asDictionary", "with:", "->"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDynamicDictionaries\x0a\x09self assert: #{'hello' -> 1} asDictionary equals: (Dictionary with: 'hello' -> 1)",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "asDictionary", "with:", "->"]
 }),
 globals.DictionaryTest);
 
@@ -5864,12 +5864,12 @@ function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined
 return $Dictionary();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionClass\x0a\x09^ Dictionary",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.DictionaryTest.klass);
 
@@ -5886,12 +5886,12 @@ $1=globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4)]);
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collection\x0a\x09^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4 }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.HashedCollectionTest);
 
@@ -5906,12 +5906,12 @@ $1=["b","a","c","d"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionKeys\x0a\x09^ { 'b'. 'a'. 'c'. 'd' }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.HashedCollectionTest);
 
@@ -5926,12 +5926,12 @@ $1=globals.HashedCollection._newFromPairs_(["b","1","a","2","c","3","d","-4"]);
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionOfPrintStrings\x0a\x09^ #{ 'b' -> '1'. 'a' -> '2'. 'c' -> '3'. 'd' -> '-4' }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.HashedCollectionTest);
 
@@ -5944,12 +5944,12 @@ var self=this;
 return (4);
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionSize\x0a\x09^ 4",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.HashedCollectionTest);
 
@@ -5964,12 +5964,12 @@ $1=[(1),(2),(3),(-4)];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionValues\x0a\x09^ { 1. 2. 3. -4 }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.HashedCollectionTest);
 
@@ -5984,12 +5984,12 @@ $1=globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"e"
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionWithDuplicates\x0a\x09^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.HashedCollectionTest);
 
@@ -6004,12 +6004,12 @@ $1=globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"ne
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionWithNewValue\x0a\x09^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'new' -> 'N' }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.HashedCollectionTest);
 
@@ -6024,12 +6024,12 @@ $1=globals.HashedCollection._newFromPairs_(["new","N"]);
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sampleNewValueAsCollection\x0a\x09^ #{ 'new' -> 'N' }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.HashedCollectionTest);
 
@@ -6049,12 +6049,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},globals.HashedCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "asHashedCollection", "with:", "->"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDynamicDictionaries\x0a\x09self assert: #{'hello' -> 1} asHashedCollection equals: (HashedCollection with: 'hello' -> 1)",
-referencedClasses: ["HashedCollection"]
+referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "asHashedCollection", "with:", "->"]
 }),
 globals.HashedCollectionTest);
 
@@ -6069,12 +6069,12 @@ function $HashedCollection(){return globals.HashedCollection||(typeof HashedColl
 return $HashedCollection();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionClass\x0a\x09^ HashedCollection",
-referencedClasses: ["HashedCollection"]
+referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.HashedCollectionTest.klass);
 
@@ -6095,12 +6095,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"collectionFirst",{},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionFirst\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6119,12 +6119,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"collectionFirstTwo",{},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionFirstTwo\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6143,12 +6143,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"collectionLast",{},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionLast\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6167,12 +6167,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"collectionLastTwo",{},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionLastTwo\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6199,12 +6199,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"nonIndexesDo:",{aBlock:aBlock},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:", "+", "collectionSize"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "nonIndexesDo: aBlock\x0a\x09aBlock value: 0.\x0a\x09aBlock value: self collectionSize + 1.\x0a\x09aBlock value: 'z'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["value:", "+", "collectionSize"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6227,12 +6227,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:value:", "collectionFirst", "collectionSize", "collectionLast"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "samplesDo: aBlock\x0a\x09aBlock value: 1 value: self collectionFirst.\x0a\x09aBlock value: self collectionSize value: self collectionLast",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["value:value:", "collectionFirst", "collectionSize", "collectionLast"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6289,12 +6289,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testBeginsWith",{},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "beginsWith:", "collection", "new", "collectionClass", "collectionFirstTwo", "deny:", "collectionLastTwo"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testBeginsWith\x0a\x09self assert: (self collection beginsWith: self collectionClass new).\x0a\x09self assert: (self collection beginsWith: self collection).\x0a\x09self assert: (self collection beginsWith: self collectionFirstTwo).\x0a\x09self deny: (self collection beginsWith: self collectionLastTwo)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "beginsWith:", "collection", "new", "collectionClass", "collectionFirstTwo", "deny:", "collectionLastTwo"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6351,12 +6351,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testEndsWith",{},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "endsWith:", "collection", "new", "collectionClass", "collectionLastTwo", "deny:", "collectionFirstTwo"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testEndsWith\x0a\x09self assert: (self collection endsWith: self collectionClass new).\x0a\x09self assert: (self collection endsWith: self collection).\x0a\x09self assert: (self collection endsWith: self collectionLastTwo).\x0a\x09self deny: (self collection endsWith: self collectionFirstTwo)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "endsWith:", "collection", "new", "collectionClass", "collectionLastTwo", "deny:", "collectionFirstTwo"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6375,12 +6375,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testFirst",{},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "first", "collection", "collectionFirst"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testFirst\x0a\x09self assert: self collection first equals: self collectionFirst",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "first", "collection", "collectionFirst"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6446,12 +6446,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testFirstN",{},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "first:", "collection", "collectionFirstTwo", "new", "collectionClass", "collectionSize", "should:raise:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testFirstN\x0a\x09self \x0a\x09\x09assert: (self collection first: 2)\x0a\x09\x09equals: self collectionFirstTwo.\x0a\x09\x09\x0a\x09self\x0a\x09\x09assert: (self collection first: 0)\x0a\x09\x09equals: self collectionClass new.\x0a\x09\x09\x0a\x09self\x0a\x09\x09assert: (self collection first: self collectionSize)\x0a\x09\x09equals: self collection.\x0a\x09\x09\x0a\x09self should: [ self collection first: 33 ] raise: Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "first:", "collection", "collectionFirstTwo", "new", "collectionClass", "collectionSize", "should:raise:"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6476,12 +6476,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testFourth",{},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "fourth", "collection", "at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testFourth\x0a\x09self assert: (self collection fourth) equals: (self collection at: 4)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "fourth", "collection", "at:"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6536,12 +6536,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAt",{jsNull:jsNull},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "samplesDo:", "assert:equals:", "indexOf:startingAt:", "collection", "+"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIndexOfStartingAt\x0a\x09| jsNull |\x0a\x09jsNull := JSON parse: 'null'.\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09self assert: (self collection indexOf: value startingAt: 1) equals: index.\x0a\x09\x09self assert: (self collection indexOf: value startingAt: index) equals: index.\x0a\x09\x09self assert: (self collection indexOf: value startingAt: index+1) equals: 0 ]",
-referencedClasses: ["JSON"]
+referencedClasses: ["JSON"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "samplesDo:", "assert:equals:", "indexOf:startingAt:", "collection", "+"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6592,12 +6592,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAtWithNull",{jsNull:jsNull},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", "samplesDo:", "collection", "at:put:", "assert:equals:", "indexOf:startingAt:", "+"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIndexOfStartingAtWithNull\x0a\x09| jsNull |\x0a\x09jsNull := JSON parse: 'null'.\x0a\x09self samplesDo: [ :index :value | | collection |\x0a\x09\x09collection := self collection.\x0a\x09\x09collection at: index put: jsNull.\x0a\x09\x09self assert: (collection indexOf: jsNull startingAt: 1) equals: index.\x0a\x09\x09self assert: (collection indexOf: jsNull startingAt: index) equals: index.\x0a\x09\x09self assert: (collection indexOf: jsNull startingAt: index+1) equals: 0 ]",
-referencedClasses: ["JSON"]
+referencedClasses: ["JSON"],
 //>>excludeEnd("ide");
+messageSends: ["parse:", "samplesDo:", "collection", "at:put:", "assert:equals:", "indexOf:startingAt:", "+"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6616,12 +6616,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testLast",{},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "last", "collection", "collectionLast"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testLast\x0a\x09self assert: self collection last equals: self collectionLast",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "last", "collection", "collectionLast"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6687,12 +6687,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testLastN",{},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "last:", "collection", "collectionLastTwo", "new", "collectionClass", "collectionSize", "should:raise:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testLastN\x0a\x09self \x0a\x09\x09assert: (self collection last: 2) \x0a\x09\x09equals: self collectionLastTwo.\x0a\x09\x09\x0a\x09self\x0a\x09\x09assert: (self collection last: 0)\x0a\x09\x09equals: self collectionClass new.\x0a\x0a\x09self\x0a\x09\x09assert: (self collection last: self collectionSize)\x0a\x09\x09equals: self collection.\x0a\x0a\x09self should: [ self collection last: 33 ] raise: Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "last:", "collection", "collectionLastTwo", "new", "collectionClass", "collectionSize", "should:raise:"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6717,12 +6717,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testSecond",{},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "second", "collection", "at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testSecond\x0a\x09self assert: (self collection second) equals: (self collection at: 2)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "second", "collection", "at:"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6747,12 +6747,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testThird",{},globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "third", "collection", "at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testThird\x0a\x09self assert: (self collection third) equals: (self collection at: 3)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "third", "collection", "at:"]
 }),
 globals.SequenceableCollectionTest);
 
@@ -6770,12 +6770,12 @@ $1=[(1), (2), (3), (-4)];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collection\x0a\x09^ #(1 2 3 -4)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ArrayTest);
 
@@ -6788,12 +6788,12 @@ var self=this;
 return (1);
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionFirst\x0a\x09^ 1",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ArrayTest);
 
@@ -6808,12 +6808,12 @@ $1=[(1), (2)];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionFirstTwo\x0a\x09^ #(1 2)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ArrayTest);
 
@@ -6826,12 +6826,12 @@ var self=this;
 return (-4);
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionLast\x0a\x09^ -4",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ArrayTest);
 
@@ -6846,12 +6846,12 @@ $1=[(3), (-4)];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionLastTwo\x0a\x09^ #(3 -4)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ArrayTest);
 
@@ -6866,12 +6866,12 @@ $1=["1", "2", "3", "-4"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionOfPrintStrings\x0a\x09^ #('1' '2' '3' '-4')",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ArrayTest);
 
@@ -6884,12 +6884,12 @@ var self=this;
 return (4);
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionSize\x0a\x09^ 4",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ArrayTest);
 
@@ -6904,12 +6904,12 @@ $1=["a", "b", "c", (1), (2), (1), "a"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionWithDuplicates\x0a\x09^ #('a' 'b' 'c' 1 2 1 'a')",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ArrayTest);
 
@@ -6924,12 +6924,12 @@ $1=[(1), (2), (3), (-4), "N"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionWithNewValue\x0a\x09^ #(1 2 3 -4 'N')",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ArrayTest);
 
@@ -6942,12 +6942,12 @@ var self=this;
 return (5);
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sampleNewIndex\x0a\x09^ 5",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ArrayTest);
 
@@ -6974,12 +6974,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["samplesDo:", "value:value:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "samplesDo: aBlock\x0a\x09super samplesDo: aBlock.\x0a\x09aBlock value: 3 value: 3.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["samplesDo:", "value:value:"]
 }),
 globals.ArrayTest);
 
@@ -7001,12 +7001,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAdd",{array:array},globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collection", "add:", "assert:equals:", "last"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAdd \x0a\x09| array | \x0a\x09array := self collection. \x0a\x09array add: 6.\x0a\x09\x0a\x09self assert: array last equals: 6",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collection", "add:", "assert:equals:", "last"]
 }),
 globals.ArrayTest);
 
@@ -7029,12 +7029,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAddFirst",{},globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "first", "addFirst:", "collection", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAddFirst\x0a\x09self assert: (self collection addFirst: 0; yourself) first equals: 0",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "first", "addFirst:", "collection", "yourself"]
 }),
 globals.ArrayTest);
 
@@ -7118,12 +7118,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testPrintString",{array:array},globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "assert:equals:", "printString", "add:", "remove:", "addLast:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testPrintString\x0a\x09| array |\x0a\x09array := Array new.\x0a\x09self assert: array printString equals: 'an Array ()'.\x0a\x09array add: 1; add: 3.\x0a\x09self assert: array printString equals: 'an Array (1 3)'.\x0a\x09array add: 'foo'.\x0a\x09self assert: array printString equals: 'an Array (1 3 ''foo'')'.\x0a\x09array remove: 1; remove: 3.\x0a\x09self assert: array printString equals: 'an Array (''foo'')'.\x0a\x09array addLast: 3.\x0a\x09self assert: array printString equals: 'an Array (''foo'' 3)'.\x0a\x09array addLast: 3.\x0a\x09self assert: array printString equals: 'an Array (''foo'' 3 3)'.",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["new", "assert:equals:", "printString", "add:", "remove:", "addLast:"]
 }),
 globals.ArrayTest);
 
@@ -7158,12 +7158,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testRemove",{array:array},globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["remove:", "assert:equals:", "should:raise:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testRemove \x0a\x09| array |\x0a\x09array := #(1 2 3 4 5). \x0a\x09array remove: 3.\x0a\x0a\x09self assert: array equals: #(1 2 4 5).\x0a\x09self should: [ array remove: 3 ] raise: Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["remove:", "assert:equals:", "should:raise:"]
 }),
 globals.ArrayTest);
 
@@ -7199,12 +7199,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testRemoveFromTo",{},globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "removeFrom:to:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testRemoveFromTo\x0a\x09\x0a\x09self assert: (#(1 2 3 4) removeFrom: 1 to: 3) equals: #(4).\x0a\x09self assert: (#(1 2 3 4) removeFrom: 2 to: 3) equals: #(1 4).\x0a\x09self assert: (#(1 2 3 4) removeFrom: 2 to: 4) equals: #(1)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "removeFrom:to:"]
 }),
 globals.ArrayTest);
 
@@ -7240,12 +7240,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testRemoveIndex",{},globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "removeIndex:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testRemoveIndex\x0a\x09\x0a\x09self assert: (#(1 2 3 4) removeIndex: 2) equals: #(1 3 4).\x0a\x09self assert: (#(1 2 3 4) removeIndex: 1) equals: #(2 3 4).\x0a\x09self assert: (#('hello') removeIndex: 1) equals: #()",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "removeIndex:"]
 }),
 globals.ArrayTest);
 
@@ -7267,12 +7267,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testRemoveLast",{array:array},globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["removeLast", "assert:equals:", "last"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testRemoveLast \x0a\x09| array |\x0a\x09array := #(1 2). \x0a\x09array removeLast.\x0a\x09\x0a\x09self assert: array last equals: 1",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["removeLast", "assert:equals:", "last"]
 }),
 globals.ArrayTest);
 
@@ -7293,12 +7293,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testReversed",{array:array},globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "reversed"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testReversed\x0a\x09|array|\x0a\x09array := #(5 4 3 2 1). \x0a\x09self assert: (array reversed) equals: #(1 2 3 4 5)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "reversed"]
 }),
 globals.ArrayTest);
 
@@ -7320,12 +7320,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testSort",{array:array},globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["sort", "assert:equals:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testSort\x0a\x09| array |\x0a\x09array := #(10 1 5). \x0a\x09array sort.\x0a\x09self assert: array equals: #(1 5 10)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["sort", "assert:equals:"]
 }),
 globals.ArrayTest);
 
@@ -7340,12 +7340,12 @@ function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $Array();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionClass\x0a\x09^ Array",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ArrayTest.klass);
 
@@ -7360,12 +7360,12 @@ var self=this;
 return "helLo";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collection\x0a\x09^ 'helLo'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringTest);
 
@@ -7378,12 +7378,12 @@ var self=this;
 return "h";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionFirst\x0a\x09^ 'h'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringTest);
 
@@ -7396,12 +7396,12 @@ var self=this;
 return "he";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionFirstTwo\x0a\x09^ 'he'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringTest);
 
@@ -7414,12 +7414,12 @@ var self=this;
 return "o";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionLast\x0a\x09^ 'o'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringTest);
 
@@ -7432,12 +7432,12 @@ var self=this;
 return "Lo";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionLastTwo\x0a\x09^ 'Lo'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringTest);
 
@@ -7450,12 +7450,12 @@ var self=this;
 return "'h''e''l''L''o'";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionOfPrintStrings\x0a\x09^ '''h''''e''''l''''L''''o'''",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringTest);
 
@@ -7468,12 +7468,12 @@ var self=this;
 return (5);
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionSize\x0a\x09^ 5",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringTest);
 
@@ -7486,12 +7486,12 @@ var self=this;
 return "abbaerte";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionWithDuplicates\x0a\x09^ 'abbaerte'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringTest);
 
@@ -7504,12 +7504,12 @@ var self=this;
 return "helLoN";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionWithNewValue\x0a\x09^ 'helLoN'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringTest);
 
@@ -7522,12 +7522,12 @@ var self=this;
 return "N";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sampleNewValueAsCollection\x0a\x09^ 'N'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringTest);
 
@@ -7554,12 +7554,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["samplesDo:", "value:value:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "samplesDo: aBlock\x0a\x09super samplesDo: aBlock.\x0a\x09aBlock value: 3 value: 'l'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["samplesDo:", "value:value:"]
 }),
 globals.StringTest);
 
@@ -7592,12 +7592,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAddAll",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "addAll:", "collection"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAddAll\x0a\x09\x22String instances are read-only\x22\x0a\x09self should: [ self collection addAll: self collection ] raise: Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "addAll:", "collection"]
 }),
 globals.StringTest);
 
@@ -7637,12 +7637,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAddRemove",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "add:", "remove:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAddRemove\x0a\x09self should: [ 'hello' add: 'a' ] raise: Error.\x0a\x09self should: [ 'hello' remove: 'h' ] raise: Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "add:", "remove:"]
 }),
 globals.StringTest);
 
@@ -7661,12 +7661,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAsArray",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "asArray"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAsArray\x0a\x09self assert: 'hello' asArray equals: #('h' 'e' 'l' 'l' 'o').",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "asArray"]
 }),
 globals.StringTest);
 
@@ -7685,12 +7685,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAsLowerCase",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "asLowercase"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAsLowerCase\x0a\x09self assert: 'JACKIE' asLowercase equals: 'jackie'.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "asLowercase"]
 }),
 globals.StringTest);
 
@@ -7726,12 +7726,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "asNumber"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAsNumber\x0a\x09self assert: '3' asNumber equals: 3.\x0a\x09self assert: '-3' asNumber equals: -3.\x0a\x09self assert: '-1.5' asNumber equals: -1.5.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "asNumber"]
 }),
 globals.StringTest);
 
@@ -7750,12 +7750,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAsUpperCase",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "asUppercase"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAsUpperCase\x0a\x09self assert: 'jackie' asUppercase equals: 'JACKIE'.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "asUppercase"]
 }),
 globals.StringTest);
 
@@ -7786,12 +7786,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAsciiValue",{characterA:characterA,characterU:characterU},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "asciiValue"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAsciiValue\x0a    | characterA characterU |\x0a    characterA := 'A'.\x0a    characterU := 'U'.\x0a    self assert: (characterA asciiValue) equals:65.\x0a    self assert: (characterU asciiValue) equals:85",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "asciiValue"]
 }),
 globals.StringTest);
 
@@ -7822,12 +7822,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtIfAbsentPut",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "at:ifAbsentPut:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtIfAbsentPut\x0a\x09\x22String instances are read-only\x22\x0a\x09self should: [ 'hello' at: 6 ifAbsentPut: [ 'a' ] ] raise: Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "at:ifAbsentPut:"]
 }),
 globals.StringTest);
 
@@ -7855,12 +7855,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtPut",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "at:put:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtPut\x0a\x09\x22String instances are read-only\x22\x0a\x09self should: [ 'hello' at: 1 put: 'a' ] raise: Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "at:put:"]
 }),
 globals.StringTest);
 
@@ -7908,12 +7908,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCapitalized",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "capitalized", "isCapitalized"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCapitalized\x0a\x09self assert: 'test' capitalized equals: 'Test'.\x0a\x09self assert: 'Test' capitalized equals: 'Test'.\x0a\x09self assert: '' capitalized equals: ''.\x0a\x09self assert: 'Test' isCapitalized equals: true.\x0a\x09self assert: 'test' isCapitalized equals: false.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "capitalized", "isCapitalized"]
 }),
 globals.StringTest);
 
@@ -7973,12 +7973,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCharCodeAt",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "charCodeAt:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCharCodeAt\x0a\x09self assert: ('jackie' charCodeAt:1) equals: 106.\x0a\x09self assert: ('jackie' charCodeAt:2) equals: 97.\x0a\x09self assert: ('jackie' charCodeAt:3) equals: 99.\x0a\x09self assert: ('jackie' charCodeAt:4) equals: 107.\x0a\x09self assert: ('jackie' charCodeAt:5) equals: 105.\x0a\x09self assert: ('jackie' charCodeAt:6) equals: 101",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "charCodeAt:"]
 }),
 globals.StringTest);
 
@@ -8006,12 +8006,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCopyFromTo",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "copyFrom:to:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCopyFromTo\x0a\x09self assert: ('jackie' copyFrom: 1 to: 3) equals: 'jac'.\x0a\x09self assert: ('jackie' copyFrom: 4 to: 6) equals: 'kie'.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "copyFrom:to:"]
 }),
 globals.StringTest);
 
@@ -8030,12 +8030,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCopyWithoutAll",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "copyWithoutAll:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCopyWithoutAll\x0a\x09self\x0a\x09\x09assert: ('*hello* *world*' copyWithoutAll: '*')\x0a\x09\x09equals: 'hello world'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "copyWithoutAll:"]
 }),
 globals.StringTest);
 
@@ -8086,12 +8086,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testEquality",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "deny:", "=", "at:ifAbsent:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testEquality\x0a\x09self assert: 'hello' equals: 'hello'.\x0a\x09self deny: 'hello' = 'world'.\x0a\x09\x0a\x09\x22Test for issue 459\x22\x0a\x09self deny: 'hello' = (#() at: 1 ifAbsent: [ ]).\x0a\x0a\x09self assert: 'hello' equals: 'hello' yourself.\x0a\x09self assert: 'hello' yourself equals: 'hello'.\x0a\x0a\x09\x22test JS falsy value\x22\x0a\x09self deny: '' = 0",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "deny:", "=", "at:ifAbsent:", "yourself"]
 }),
 globals.StringTest);
 
@@ -8144,12 +8144,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIdentity",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "==", "deny:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIdentity\x0a\x09self assert: 'hello' == 'hello'.\x0a\x09self deny: 'hello' == 'world'.\x0a\x0a\x09self assert: 'hello' == 'hello' yourself.\x0a\x09self assert: 'hello' yourself == 'hello'.\x0a\x0a\x09\x22test JS falsy value\x22\x0a\x09self deny: '' == 0",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "==", "deny:", "yourself"]
 }),
 globals.StringTest);
 
@@ -8183,12 +8183,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIdentityHash",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "identityHash", "deny:", "="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIdentityHash\x0a\x09self assert: 'foo' identityHash equals: 'foo' identityHash.\x0a\x09self deny: ('foo' identityHash = 'bar' identityHash)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "identityHash", "deny:", "="]
 }),
 globals.StringTest);
 
@@ -8213,12 +8213,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIncludesSubString",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "includesSubString:", "deny:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIncludesSubString\x0a\x09self assert: ('amber' includesSubString: 'ber').\x0a\x09self deny: ('amber' includesSubString: 'zork').",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "includesSubString:", "deny:"]
 }),
 globals.StringTest);
 
@@ -8231,12 +8231,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIndexOfStartingAtWithNull\x0a\x09\x22String cannot hold JS null\x22",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringTest);
 
@@ -8249,12 +8249,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIndexOfWithNull\x0a\x09\x22String cannot hold JS null\x22",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringTest);
 
@@ -8285,12 +8285,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIsVowel",{vowel:vowel,consonant:consonant},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "isVowel"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIsVowel\x0a    |vowel consonant|\x0a    vowel := 'u'.\x0a    consonant := 'z'.\x0a    self assert: vowel isVowel equals: true.\x0a    self assert: consonant isVowel equals: false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "isVowel"]
 }),
 globals.StringTest);
 
@@ -8309,12 +8309,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testJoin",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "join:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testJoin\x0a\x09self assert: (',' join: #('hello' 'world')) equals: 'hello,world'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "join:"]
 }),
 globals.StringTest);
 
@@ -8342,12 +8342,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "removeAll", "collection"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testRemoveAll\x0a\x09self should: [ self collection removeAll ] raise: Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "removeAll", "collection"]
 }),
 globals.StringTest);
 
@@ -8366,12 +8366,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testReversed",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "reversed"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testReversed\x0a\x09self assert: 'jackiechan' reversed equals: 'nahceikcaj'.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "reversed"]
 }),
 globals.StringTest);
 
@@ -8406,12 +8406,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testStreamContents",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "streamContents:", "nextPutAll:", "space"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testStreamContents\x0a\x09self\x0a\x09\x09assert: (String streamContents: [ :aStream |\x0a\x09\x09\x09aStream\x0a\x09\x09\x09\x09nextPutAll: 'hello'; space;\x0a\x09\x09\x09\x09nextPutAll: 'world' ])\x0a\x09\x09equals: 'hello world'",
-referencedClasses: ["String"]
+referencedClasses: ["String"],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "streamContents:", "nextPutAll:", "space"]
 }),
 globals.StringTest);
 
@@ -8430,12 +8430,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testSubStrings",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "subStrings:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testSubStrings\x0a\x09self assert: ('jackiechan' subStrings: 'ie') equals: #( 'jack' 'chan' ).",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "subStrings:"]
 }),
 globals.StringTest);
 
@@ -8458,12 +8458,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testTrim",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "trimLeft", "trimRight"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testTrim\x0a\x09self assert: '       jackie' trimLeft equals: 'jackie'.\x0a\x09self assert: 'jackie               ' trimRight equals: 'jackie'.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "trimLeft", "trimRight"]
 }),
 globals.StringTest);
 
@@ -8486,12 +8486,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testValue",{},globals.StringTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "value:", "collect:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testValue\x0a\x0a\x09self assert: (#asString value: 1) equals: '1'.\x0a\x0a\x09\x22Which (since String and BlockClosure are now polymorphic) enables the nice idiom...\x22\x0a\x09self assert: (#(1 2 3) collect: #asString) equals: #('1' '2' '3')",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "value:", "collect:"]
 }),
 globals.StringTest);
 
@@ -8506,12 +8506,12 @@ function $String(){return globals.String||(typeof String=="undefined"?nil:String
 return $String();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionClass\x0a\x09^ String",
-referencedClasses: ["String"]
+referencedClasses: ["String"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringTest.klass);
 
@@ -8550,12 +8550,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"collection",{},globals.SetTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["add:", "new", "@", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collection\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: false;\x0a\x09\x09yourself",
-referencedClasses: ["Set", "Smalltalk"]
+referencedClasses: ["Set", "Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["add:", "new", "@", "yourself"]
 }),
 globals.SetTest);
 
@@ -8591,12 +8591,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},globals.SetTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["add:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionOfPrintStrings\x0a\x09^ Set new\x0a\x09\x09add: 'a SmalltalkImage';\x0a\x09\x09add: 'nil';\x0a\x09\x09add: '3@3';\x0a\x09\x09add: 'false';\x0a\x09\x09yourself",
-referencedClasses: ["Set"]
+referencedClasses: ["Set"],
 //>>excludeEnd("ide");
+messageSends: ["add:", "new", "yourself"]
 }),
 globals.SetTest);
 
@@ -8609,12 +8609,12 @@ var self=this;
 return (4);
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionSize\x0a\x09^ 4",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SetTest);
 
@@ -8637,12 +8637,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},globals.SetTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["add:", "collection", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionWithDuplicates\x0a\x09\x22Set has no duplicates\x22\x0a\x09^ self collection add: 0; yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["add:", "collection", "yourself"]
 }),
 globals.SetTest);
 
@@ -8683,12 +8683,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.SetTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["add:", "new", "@", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionWithNewValue\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: 'N';\x0a\x09\x09add: false;\x0a\x09\x09yourself",
-referencedClasses: ["Set", "Smalltalk"]
+referencedClasses: ["Set", "Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["add:", "new", "@", "yourself"]
 }),
 globals.SetTest);
 
@@ -8775,12 +8775,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAddAll",{},globals.SetTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["testAddAll", "assert:equals:", "addAll:", "collection", "yourself", "collectionWithNewValue"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAddAll\x0a\x09super testAddAll.\x0a\x09self assert: (self collection addAll: self collection; yourself) equals: self collection.\x0a\x09self assert: (self collection addAll: self collectionWithNewValue; yourself) equals: self collectionWithNewValue.\x0a\x09self assert: (self collectionWithNewValue addAll: self collection; yourself) equals: self collectionWithNewValue",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["testAddAll", "assert:equals:", "addAll:", "collection", "yourself", "collectionWithNewValue"]
 }),
 globals.SetTest);
 
@@ -8826,12 +8826,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAddRemove",{set:set},globals.SetTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "assert:", "isEmpty", "add:", "includes:", "remove:", "deny:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAddRemove\x0a\x09| set |\x0a\x09set := Set new.\x0a\x09\x0a\x09self assert: set isEmpty.\x0a\x0a\x09set add: 3.\x0a\x09self assert: (set includes: 3).\x0a\x0a\x09set add: 5.\x0a\x09self assert: (set includes: 5).\x0a\x0a\x09set remove: 3.\x0a\x09self deny: (set includes: 3)",
-referencedClasses: ["Set"]
+referencedClasses: ["Set"],
 //>>excludeEnd("ide");
+messageSends: ["new", "assert:", "isEmpty", "add:", "includes:", "remove:", "deny:"]
 }),
 globals.SetTest);
 
@@ -8860,12 +8860,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAt",{},globals.SetTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "at:put:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAt\x0a\x09self should: [ Set new at: 1 put: 2 ] raise: Error",
-referencedClasses: ["Set", "Error"]
+referencedClasses: ["Set", "Error"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "at:put:", "new"]
 }),
 globals.SetTest);
 
@@ -8906,12 +8906,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCollect",{},globals.SetTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["testCollect", "assert:equals:", "collect:", "asSet", "\x5c\x5c"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCollect\x0a\x09super testCollect.\x0a\x09self assert: (#(5 6 8) asSet collect: [ :x | x \x5c\x5c 3 ]) equals: #(0 2) asSet",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["testCollect", "assert:equals:", "collect:", "asSet", "\x5c\x5c"]
 }),
 globals.SetTest);
 
@@ -8984,12 +8984,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testComma",{},globals.SetTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["testComma", "assert:equals:", ",", "collection", "collectionWithNewValue"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testComma\x0a\x09super testComma.\x0a\x09self assert: self collection, self collection equals: self collection.\x0a\x09self assert: self collection, self collectionWithNewValue equals: self collectionWithNewValue.\x0a\x09self assert: self collectionWithNewValue, self collection equals: self collectionWithNewValue",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["testComma", "assert:equals:", ",", "collection", "collectionWithNewValue"]
 }),
 globals.SetTest);
 
@@ -9051,12 +9051,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testComparing",{},globals.SetTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "asSet", "deny:", "="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testComparing\x0a\x09self assert: #(0 2) asSet equals: #(0 2) asSet.\x0a\x09self assert: #(2 0) asSet equals: #(0 2) asSet.\x0a\x09self deny: #(0 2 3) asSet = #(0 2) asSet.\x0a\x09self deny: #(1 2) asSet = #(0 2) asSet",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "asSet", "deny:", "="]
 }),
 globals.SetTest);
 
@@ -9143,12 +9143,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testPrintString",{set:set},globals.SetTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "assert:equals:", "printString", "add:", "remove:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testPrintString\x0a\x09| set |\x0a\x09set := Set new.\x0a\x09self assert: set printString equals: 'a Set ()'.\x0a\x09set add: 1; add: 3.\x0a\x09self assert: set printString equals: 'a Set (1 3)'.\x0a\x09set add: 'foo'.\x0a\x09self assert: set printString equals: 'a Set (1 3 ''foo'')'.\x0a\x09set remove: 1; remove: 3.\x0a\x09self assert: set printString equals: 'a Set (''foo'')'.\x0a\x09set add: 3.\x0a\x09self assert: set printString equals: 'a Set (3 ''foo'')'.\x0a\x09set add: 3.\x0a\x09self assert: set printString equals: 'a Set (3 ''foo'')'",
-referencedClasses: ["Set"]
+referencedClasses: ["Set"],
 //>>excludeEnd("ide");
+messageSends: ["new", "assert:equals:", "printString", "add:", "remove:"]
 }),
 globals.SetTest);
 
@@ -9175,12 +9175,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testUnboxedObjects",{},globals.SetTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "asArray", "asSet", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testUnboxedObjects\x0a\x09self assert: {'foo' yourself. 'foo' yourself} asSet asArray equals: #('foo')",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "asArray", "asSet", "yourself"]
 }),
 globals.SetTest);
 
@@ -9228,12 +9228,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testUnicity",{set:set},globals.SetTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "add:", "assert:equals:", "size", "asArray"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testUnicity\x0a\x09| set |\x0a\x09set := Set new.\x0a\x09set add: 21.\x0a\x09set add: 'hello'.\x0a\x0a\x09set add: 21.\x0a\x09self assert: set size equals: 2.\x0a\x09\x0a\x09set add: 'hello'.\x0a\x09self assert: set size equals: 2.\x0a\x0a\x09self assert: set asArray equals: #(21 'hello')",
-referencedClasses: ["Set"]
+referencedClasses: ["Set"],
 //>>excludeEnd("ide");
+messageSends: ["new", "add:", "assert:equals:", "size", "asArray"]
 }),
 globals.SetTest);
 
@@ -9248,12 +9248,12 @@ function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
 return $Set();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionClass\x0a\x09^ Set",
-referencedClasses: ["Set"]
+referencedClasses: ["Set"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SetTest.klass);
 
@@ -9307,12 +9307,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testShow",{originalTranscript:originalTranscript},globals.ConsoleTranscriptTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["current", "register:", "new", "shouldnt:raise:", "show:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testShow\x0a| originalTranscript |\x0aoriginalTranscript := Transcript current.\x0aTranscript register: ConsoleTranscript new.\x0a\x0aself shouldnt: [ Transcript show: 'Hello console!' ] raise: Error.\x0aself shouldnt: [ Transcript show: console ] raise: Error.\x0a\x0aTranscript register: originalTranscript.",
-referencedClasses: ["Transcript", "ConsoleTranscript", "Error"]
+referencedClasses: ["Transcript", "ConsoleTranscript", "Error"],
 //>>excludeEnd("ide");
+messageSends: ["current", "register:", "new", "shouldnt:raise:", "show:"]
 }),
 globals.ConsoleTranscriptTest);
 
@@ -9334,12 +9334,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"jsNull",{},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "jsNull\x0a\x09<return null>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.JSObjectProxyTest);
 
@@ -9358,12 +9358,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"jsObject",{},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "jsObject\x0a\x09<return {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0}>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.JSObjectProxyTest);
 
@@ -9382,12 +9382,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"jsUndefined",{},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "jsUndefined\x0a\x09<return>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.JSObjectProxyTest);
 
@@ -9445,12 +9445,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{testObject:testObject},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["jsObject", "assert:equals:", "at:ifAbsent:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtIfAbsent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifAbsent: [ 'Property does not exist' ]) equals: 'Property does not exist'.\x0a\x09self assert: (testObject at: 'e' ifAbsent: [ 'Property does not exist' ]) equals: nil.\x0a\x09self assert: (testObject at: 'a' ifAbsent: [ 'Property does not exist' ]) equals: 1.\x0a\x09self assert: (testObject at: 'f' ifAbsent: [ 'Property does not exist' ]) equals: nil.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["jsObject", "assert:equals:", "at:ifAbsent:"]
 }),
 globals.JSObjectProxyTest);
 
@@ -9549,12 +9549,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{testObject:testObject},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["jsObject", "assert:equals:", "at:ifPresent:", ",", "asString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtIfPresent\x0a\x09| testObject |\x0a\x09\x0a\x09testObject := self jsObject.\x0a\x09\x0a\x09self assert: (testObject at: 'abc' ifPresent: [ :x | 'hello ',x asString ]) equals: nil.\x0a\x09self assert: (testObject at: 'e' ifPresent: [ :x | 'hello ',x asString ]) equals: 'hello nil'.\x0a\x09self assert: (testObject at: 'a' ifPresent: [ :x | 'hello ',x asString ]) equals: 'hello 1'.\x0a\x09self assert: (testObject at: 'f' ifPresent: [ :x | 'hello ',x asString ]) equals: 'hello nil'.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["jsObject", "assert:equals:", "at:ifPresent:", ",", "asString"]
 }),
 globals.JSObjectProxyTest);
 
@@ -9665,12 +9665,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{testObject:testObject},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["jsObject", "assert:equals:", "at:ifPresent:ifAbsent:", ",", "asString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtIfPresentIfAbsent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'not present'.\x0a\x09self assert: (testObject at: 'e' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello nil'.\x0a\x09self assert: (testObject at: 'a' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello 1'.\x0a\x09self assert: (testObject at: 'f' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello nil'.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["jsObject", "assert:equals:", "at:ifPresent:ifAbsent:", ",", "asString"]
 }),
 globals.JSObjectProxyTest);
 
@@ -9702,12 +9702,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtPut",{testObject:testObject},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["jsObject", "assert:", "~=", "at:", "assert:equals:", "at:put:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtPut\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09\x0a\x09self assert: (testObject at: 'abc') ~= 'xyz'.\x0a\x09self assert: (testObject at: 'abc' put: 'xyz') equals: 'xyz'.\x0a\x09self assert: (testObject at: 'abc') equals: 'xyz'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["jsObject", "assert:", "~=", "at:", "assert:equals:", "at:put:"]
 }),
 globals.JSObjectProxyTest);
 
@@ -9742,12 +9742,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testComparison",{},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "indexOf:", "assert:", "=", "deny:", "new", "jsObject"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testComparison\x0a\x09self assert: ({ console. 2 } indexOf: console) equals: 1.\x0a\x09self assert: console = console.\x0a\x09self deny: console = Object new.\x0a\x09self deny: console = self jsObject",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "indexOf:", "assert:", "=", "deny:", "new", "jsObject"]
 }),
 globals.JSObjectProxyTest);
 
@@ -9775,12 +9775,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDNU",{},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "foo", "jsObject"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDNU\x0a\x09self should: [ self jsObject foo ] raise: MessageNotUnderstood",
-referencedClasses: ["MessageNotUnderstood"]
+referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "foo", "jsObject"]
 }),
 globals.JSObjectProxyTest);
 
@@ -9840,12 +9840,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDNURegression1057",{jsObject:jsObject},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["basicAt:put:", "shouldnt:raise:", "foo", "assert:equals:", "foo:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDNURegression1057\x0a\x09| jsObject |\x0a\x09jsObject := #().\x0a\x09jsObject basicAt: 'allowJavaScriptCalls' put: true.\x0a\x09jsObject basicAt: 'foo' put: 3.\x0a\x09self shouldnt: [ jsObject foo ] raise: Error.\x0a\x09self assert: jsObject foo equals: 3.\x0a\x09self shouldnt: [ jsObject foo: 4 ] raise: Error.\x0a\x09self assert: jsObject foo equals: 4",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["basicAt:put:", "shouldnt:raise:", "foo", "assert:equals:", "foo:"]
 }),
 globals.JSObjectProxyTest);
 
@@ -9893,12 +9893,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDNURegression1059",{jsObject:jsObject},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["basicAt:put:", "error", "shouldnt:raise:", "x:", "assert:equals:", "x"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDNURegression1059\x0a\x09| jsObject |\x0a\x09jsObject := #().\x0a\x09jsObject basicAt: 'allowJavaScriptCalls' put: true.\x0a\x09jsObject basicAt: 'x' put: 3.\x0a\x09jsObject basicAt: 'x:' put: [ self error ].\x0a\x09self shouldnt: [ jsObject x: 4 ] raise: Error.\x0a\x09self assert: jsObject x equals: 4",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["basicAt:put:", "error", "shouldnt:raise:", "x:", "assert:equals:", "x"]
 }),
 globals.JSObjectProxyTest);
 
@@ -9938,12 +9938,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDNURegression1062",{jsObject:jsObject,stored:stored},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["basicAt:put:", "shouldnt:raise:", "x:", "assert:equals:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDNURegression1062\x0a\x09| jsObject stored |\x0a\x09jsObject := #().\x0a\x09jsObject basicAt: 'allowJavaScriptCalls' put: true.\x0a\x09jsObject basicAt: 'x' put: [ :v | stored := v ].\x0a\x09self shouldnt: [ jsObject x: 4 ] raise: Error.\x0a\x09self assert: stored equals: 4",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["basicAt:put:", "shouldnt:raise:", "x:", "assert:equals:"]
 }),
 globals.JSObjectProxyTest);
 
@@ -9981,12 +9981,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testMessageSend",{},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "a", "jsObject", "b", "c:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testMessageSend\x0a\x0a\x09self assert: self jsObject a equals: 1.\x0a\x09self assert: self jsObject b equals: 2.\x0a\x09self assert: (self jsObject c: 3) equals: 3",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "a", "jsObject", "b", "c:"]
 }),
 globals.JSObjectProxyTest);
 
@@ -10005,12 +10005,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testMethodWithArguments",{},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "c:", "jsObject"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testMethodWithArguments\x0a\x09self assert: (self jsObject c: 1) equals: 1",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "c:", "jsObject"]
 }),
 globals.JSObjectProxyTest);
 
@@ -10029,12 +10029,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testPrinting",{},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "printString", "jsObject"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testPrinting\x0a\x09self assert: self jsObject printString equals: '[object Object]'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "printString", "jsObject"]
 }),
 globals.JSObjectProxyTest);
 
@@ -10065,12 +10065,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsEmptyString",{object:object},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["jsObject", "assert:equals:", "d", "d:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testPropertyThatReturnsEmptyString\x0a\x09| object |\x0a\x0a\x09object := self jsObject.\x0a\x09self assert: object d equals: ''.\x0a\x0a\x09object d: 'hello'.\x0a\x09self assert: object d equals: 'hello'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["jsObject", "assert:equals:", "d", "d:"]
 }),
 globals.JSObjectProxyTest);
 
@@ -10104,12 +10104,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsUndefined",{object:object},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["jsObject", "shouldnt:raise:", "e", "assert:", "isNil"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testPropertyThatReturnsUndefined\x0a\x09| object |\x0a\x0a\x09object := self jsObject.\x0a\x09self shouldnt: [ object e ] raise: MessageNotUnderstood.\x0a\x09self assert: object e isNil",
-referencedClasses: ["MessageNotUnderstood"]
+referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
+messageSends: ["jsObject", "shouldnt:raise:", "e", "assert:", "isNil"]
 }),
 globals.JSObjectProxyTest);
 
@@ -10188,12 +10188,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testSetPropertyWithFalsyValue",{jsObject:jsObject},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["jsObject", "assert:equals:", "a", "a:", "jsNull", "jsUndefined"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testSetPropertyWithFalsyValue\x0a\x09| jsObject |\x0a\x09jsObject := self jsObject.\x0a\x09self assert: (jsObject a) equals: 1.\x0a\x0a\x09jsObject a: self jsNull.\x0a\x09self assert: (jsObject a) equals: nil.\x0a\x09jsObject a: 0.\x0a\x09self assert: (jsObject a) equals: 0.\x0a\x09jsObject a: self jsUndefined.\x0a\x09self assert: (jsObject a) equals: nil.\x0a\x09jsObject a: ''.\x0a\x09self assert: (jsObject a) equals: ''.\x0a\x09jsObject a: false.\x0a\x09self assert: (jsObject a) equals: false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["jsObject", "assert:equals:", "a", "a:", "jsNull", "jsUndefined"]
 }),
 globals.JSObjectProxyTest);
 
@@ -10215,12 +10215,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testValue",{testObject:testObject},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["jsObject", "at:put:", "assert:equals:", "value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testValue\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09testObject at: 'value' put: 'aValue'.\x0a\x09self assert: testObject value equals: 'aValue'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["jsObject", "at:put:", "assert:equals:", "value"]
 }),
 globals.JSObjectProxyTest);
 
@@ -10245,12 +10245,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testYourself",{object:object},globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["d:", "jsObject", "yourself", "assert:equals:", "d"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testYourself\x0a\x09| object |\x0a\x09object := self jsObject\x0a\x09\x09d: 'test';\x0a\x09\x09yourself.\x0a\x0a\x09self assert: object d equals: 'test'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["d:", "jsObject", "yourself", "assert:equals:", "d"]
 }),
 globals.JSObjectProxyTest);
 
@@ -10289,12 +10289,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCatchingException",{},globals.JavaScriptExceptionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["on:do:", "throwException", "assert:", "=", "exception"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCatchingException\x0a\x09[ self throwException ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :error |\x0a\x09\x09\x09self assert: error exception = 'test' ]",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["on:do:", "throwException", "assert:", "=", "exception"]
 }),
 globals.JavaScriptExceptionTest);
 
@@ -10322,12 +10322,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testRaisingException",{},globals.JavaScriptExceptionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "throwException"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testRaisingException\x0a\x09self should: [ self throwException ] raise: JavaScriptException",
-referencedClasses: ["JavaScriptException"]
+referencedClasses: ["JavaScriptException"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "throwException"]
 }),
 globals.JavaScriptExceptionTest);
 
@@ -10346,12 +10346,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"throwException",{},globals.JavaScriptExceptionTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "throwException\x0a\x09<throw 'test'>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.JavaScriptExceptionTest);
 
@@ -10385,12 +10385,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testValue",{messageSend:messageSend},globals.MessageSendTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["receiver:", "new", "selector:", "yourself", "assert:equals:", "value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testValue\x0a\x09| messageSend |\x0a\x09\x0a\x09messageSend := MessageSend new\x0a\x09\x09receiver: Object new;\x0a\x09\x09selector: #asString;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09self assert: messageSend value equals: 'an Object'",
-referencedClasses: ["MessageSend", "Object"]
+referencedClasses: ["MessageSend", "Object"],
 //>>excludeEnd("ide");
+messageSends: ["receiver:", "new", "selector:", "yourself", "assert:equals:", "value"]
 }),
 globals.MessageSendTest);
 
@@ -10421,12 +10421,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testValueWithArguments",{messageSend:messageSend},globals.MessageSendTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["receiver:", "new", "selector:", "yourself", "assert:equals:", "value:", "valueWithPossibleArguments:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testValueWithArguments\x0a\x09| messageSend |\x0a\x09\x0a\x09messageSend := MessageSend new\x0a\x09\x09receiver: 2;\x0a\x09\x09selector: '+';\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09self assert: (messageSend value: 3) equals: 5.\x0a\x09\x0a\x09self assert: (messageSend valueWithPossibleArguments: #(4)) equals: 6",
-referencedClasses: ["MessageSend"]
+referencedClasses: ["MessageSend"],
 //>>excludeEnd("ide");
+messageSends: ["receiver:", "new", "selector:", "yourself", "assert:equals:", "value:", "valueWithPossibleArguments:"]
 }),
 globals.MessageSendTest);
 
@@ -10443,12 +10443,12 @@ function $CodeGenerator(){return globals.CodeGenerator||(typeof CodeGenerator=="
 return $CodeGenerator();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "codeGeneratorClass\x0a\x09^ CodeGenerator",
-referencedClasses: ["CodeGenerator"]
+referencedClasses: ["CodeGenerator"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodInheritanceTest);
 
@@ -10472,12 +10472,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"compiler",{},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["codeGeneratorClass:", "new", "codeGeneratorClass", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "compiler\x0a\x09^ Compiler new\x0a\x09\x09codeGeneratorClass: self codeGeneratorClass;\x0a\x09\x09yourself",
-referencedClasses: ["Compiler"]
+referencedClasses: ["Compiler"],
 //>>excludeEnd("ide");
+messageSends: ["codeGeneratorClass:", "new", "codeGeneratorClass", "yourself"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10496,12 +10496,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"deinstallBottom",{},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["removeCompiledMethod:", "targetClassBottom"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "deinstallBottom\x0a\x09self targetClassBottom removeCompiledMethod: method",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["removeCompiledMethod:", "targetClassBottom"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10520,12 +10520,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"deinstallMiddle",{},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["removeCompiledMethod:", "targetClassMiddle"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "deinstallMiddle\x0a\x09self targetClassMiddle removeCompiledMethod: method",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["removeCompiledMethod:", "targetClassMiddle"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10544,12 +10544,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"deinstallTop",{},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["removeCompiledMethod:", "targetClassTop"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "deinstallTop\x0a\x09self targetClassTop removeCompiledMethod: method",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["removeCompiledMethod:", "targetClassTop"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10568,12 +10568,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"installBottom:",{aString:aString},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["install:forClass:protocol:", "compiler", "targetClassBottom"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "installBottom: aString\x0a\x09method := self compiler install: aString forClass: self targetClassBottom protocol: 'tests'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["install:forClass:protocol:", "compiler", "targetClassBottom"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10592,12 +10592,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"installMiddle:",{aString:aString},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["install:forClass:protocol:", "compiler", "targetClassMiddle"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "installMiddle: aString\x0a\x09method := self compiler install: aString forClass: self targetClassMiddle protocol: 'tests'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["install:forClass:protocol:", "compiler", "targetClassMiddle"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10616,12 +10616,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"installTop:",{aString:aString},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["install:forClass:protocol:", "compiler", "targetClassTop"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "installTop: aString\x0a\x09method := self compiler install: aString forClass: self targetClassTop protocol: 'tests'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["install:forClass:protocol:", "compiler", "targetClassTop"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10658,12 +10658,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "targetClassTop", "targetClassMiddle", "targetClassBottom", "error:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "setUp\x0a\x09receiverTop := self targetClassTop new.\x0a\x09receiverMiddle := self targetClassMiddle new.\x0a\x09receiverBottom := self targetClassBottom new.\x0a\x09method := nil.\x0a\x09performBlock := [ self error: 'performBlock not initialized' ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["new", "targetClassTop", "targetClassMiddle", "targetClassBottom", "error:"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10684,12 +10684,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"shouldMNU",{},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["shouldMNUTop", "shouldMNUMiddle", "shouldMNUBottom"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "shouldMNU\x0a\x09self shouldMNUTop.\x0a\x09self shouldMNUMiddle.\x0a\x09self shouldMNUBottom",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["shouldMNUTop", "shouldMNUMiddle", "shouldMNUBottom"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10717,12 +10717,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"shouldMNUBottom",{},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "value:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "shouldMNUBottom\x0a\x09self should: [ performBlock value: receiverBottom ] raise: MessageNotUnderstood",
-referencedClasses: ["MessageNotUnderstood"]
+referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "value:"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10750,12 +10750,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"shouldMNUMiddle",{},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "value:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "shouldMNUMiddle\x0a\x09self should: [ performBlock value: receiverMiddle ] raise: MessageNotUnderstood",
-referencedClasses: ["MessageNotUnderstood"]
+referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "value:"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10783,12 +10783,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"shouldMNUTop",{},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "value:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "shouldMNUTop\x0a\x09self should: [ performBlock value: receiverTop ] raise: MessageNotUnderstood",
-referencedClasses: ["MessageNotUnderstood"]
+referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "value:"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10825,12 +10825,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"shouldReturn:",{anObject:anObject,result:result},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:", "assert:equals:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "shouldReturn: anObject\x0a\x09| result |\x0a\x0a\x09result := performBlock value: receiverTop.\x0a\x09self assert: { 'top'. anObject } equals: { 'top'. result }.\x0a\x09result := performBlock value: receiverMiddle.\x0a\x09self assert: { 'middle'. anObject } equals: { 'middle'. result }.\x0a\x09result := performBlock value: receiverBottom.\x0a\x09self assert: { 'bottom'. anObject } equals: { 'bottom'. result }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["value:", "assert:equals:"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10867,12 +10867,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"shouldReturn:and:and:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3,result:result},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:", "assert:equals:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject", "anObject2", "anObject3"],
 source: "shouldReturn: anObject and: anObject2 and: anObject3\x0a\x09| result |\x0a\x0a\x09result := performBlock value: receiverTop.\x0a\x09self assert: { 'top'. anObject } equals: { 'top'. result }.\x0a\x09result := performBlock value: receiverMiddle.\x0a\x09self assert: { 'middle'. anObject2 } equals: { 'middle'. result }.\x0a\x09result := performBlock value: receiverBottom.\x0a\x09self assert: { 'bottom'. anObject3 } equals: { 'bottom'. result }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["value:", "assert:equals:"]
 }),
 globals.MethodInheritanceTest);
 
@@ -10886,12 +10886,12 @@ function $JavaScriptException(){return globals.JavaScriptException||(typeof Java
 return $JavaScriptException();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "targetClassBottom\x0a\x09^ JavaScriptException",
-referencedClasses: ["JavaScriptException"]
+referencedClasses: ["JavaScriptException"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodInheritanceTest);
 
@@ -10905,12 +10905,12 @@ function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 return $Error();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "targetClassMiddle\x0a\x09^ Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodInheritanceTest);
 
@@ -10924,12 +10924,12 @@ function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object
 return $Object();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "targetClassTop\x0a\x09^ Object",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodInheritanceTest);
 
@@ -10987,12 +10987,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"tearDown",{},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["on:do:", "deinstallTop", "deinstallMiddle", "deinstallBottom"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "tearDown\x0a\x09[ self deinstallTop ] on: Error do: [ ].\x0a\x09[ self deinstallMiddle ] on: Error do: [ ].\x0a\x09[ self deinstallBottom ] on: Error do: [ ]",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["on:do:", "deinstallTop", "deinstallMiddle", "deinstallBottom"]
 }),
 globals.MethodInheritanceTest);
 
@@ -11030,12 +11030,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testMNU11",{},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["foo", "shouldMNU", "installTop:", "deinstallTop"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testMNU11\x0a\x09performBlock := [ :x | x foo ].\x0a\x09self shouldMNU.\x0a\x09self installTop: 'foo ^ false'.\x0a\x09self installTop: 'foo ^ true'.\x0a\x09self deinstallTop.\x0a\x09self shouldMNU",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["foo", "shouldMNU", "installTop:", "deinstallTop"]
 }),
 globals.MethodInheritanceTest);
 
@@ -11073,12 +11073,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testMNU22",{},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["foo", "shouldMNU", "installMiddle:", "deinstallMiddle"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testMNU22\x0a\x09performBlock := [ :x | x foo ].\x0a\x09self shouldMNU.\x0a\x09self installMiddle: 'foo ^ false'.\x0a\x09self installMiddle: 'foo ^ true'.\x0a\x09self deinstallMiddle.\x0a\x09self shouldMNU",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["foo", "shouldMNU", "installMiddle:", "deinstallMiddle"]
 }),
 globals.MethodInheritanceTest);
 
@@ -11115,12 +11115,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testReturns1",{},globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["foo", "installTop:", "shouldReturn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testReturns1\x0a\x09performBlock := [ :x | x foo ].\x0a\x09self installTop: 'foo ^ false'.\x0a\x09self shouldReturn: false.\x0a\x09self installTop: 'foo ^ true'.\x0a\x09self shouldReturn: true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["foo", "installTop:", "shouldReturn:"]
 }),
 globals.MethodInheritanceTest);
 
@@ -11151,12 +11151,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAbs",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "abs"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAbs\x0a\x09self assert: 4 abs equals: 4.\x0a\x09self assert: -4 abs equals: 4",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "abs"]
 }),
 globals.NumberTest);
 
@@ -11228,12 +11228,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "+", "-", "/", "*", "//", "\x5c\x5c"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testArithmetic\x0a\x09\x0a\x09\x22We rely on JS here, so we won't test complex behavior, just check if\x0a\x09message sends are corrects\x22\x0a\x0a\x09self assert: 1.5 + 1 equals: 2.5.\x0a\x09self assert: 2 - 1 equals: 1.\x0a\x09self assert: -2 - 1 equals: -3.\x0a\x09self assert: 12 / 2 equals: 6.\x0a\x09self assert: 3 * 4 equals: 12.\x0a\x09self assert: 7 // 2 equals: 3.\x0a\x09self assert: 7 \x5c\x5c 2 equals: 1.\x0a\x0a\x09\x22Simple parenthesis and execution order\x22\x0a\x09self assert: 1 + 2 * 3 equals: 9.\x0a\x09self assert: 1 + (2 * 3) equals: 7",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "+", "-", "/", "*", "//", "\x5c\x5c"]
 }),
 globals.NumberTest);
 
@@ -11252,12 +11252,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "asNumber"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAsNumber\x0a\x09self assert: 3 asNumber equals: 3.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "asNumber"]
 }),
 globals.NumberTest);
 
@@ -11293,12 +11293,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCeiling",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "ceiling"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCeiling\x0a\x09self assert: 1.2 ceiling equals: 2.\x0a\x09self assert: -1.2 ceiling equals: -1.\x0a\x09self assert: 1.0 ceiling equals: 1.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "ceiling"]
 }),
 globals.NumberTest);
 
@@ -11359,12 +11359,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testComparison",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", ">", "<", "deny:", ">=", "<="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testComparison\x0a\x0a\x09self assert: 3 > 2.\x0a\x09self assert: 2 < 3.\x0a\x09\x0a\x09self deny: 3 < 2.\x0a\x09self deny: 2 > 3.\x0a\x0a\x09self assert: 3 >= 3.\x0a\x09self assert: 3.1 >= 3.\x0a\x09self assert: 3 <= 3.\x0a\x09self assert: 3 <= 3.1",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", ">", "<", "deny:", ">=", "<="]
 }),
 globals.NumberTest);
 
@@ -11392,12 +11392,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCopying",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "==", "copy", "deepCopy"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCopying\x0a\x09self assert: 1 copy == 1.\x0a\x09self assert: 1 deepCopy == 1",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "==", "copy", "deepCopy"]
 }),
 globals.NumberTest);
 
@@ -11498,12 +11498,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testEquality",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "=", "deny:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testEquality\x0a\x09self assert: (1 = 1).\x0a\x09self assert: (0 = 0).\x0a\x09self deny: (1 = 0).\x0a\x0a\x09self assert: (1 yourself = 1).\x0a\x09self assert: (1 = 1 yourself).\x0a\x09self assert: (1 yourself = 1 yourself).\x0a\x09\x0a\x09self deny: 0 = false.\x0a\x09self deny: false = 0.\x0a\x09self deny: '' = 0.\x0a\x09self deny: 0 = ''",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "=", "deny:", "yourself"]
 }),
 globals.NumberTest);
 
@@ -11539,12 +11539,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testFloor",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "floor"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testFloor\x0a\x09self assert: 1.2 floor equals: 1.\x0a\x09self assert: -1.2 floor equals: -2.\x0a\x09self assert: 1.0 floor equals: 1.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "floor"]
 }),
 globals.NumberTest);
 
@@ -11608,12 +11608,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testHexNumbers",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "truncated"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testHexNumbers\x0a\x0a\x09self assert: 16r9 equals: 9.\x0a\x09self assert: 16rA truncated equals: 10.\x0a\x09self assert: 16rB truncated equals: 11.\x0a\x09self assert: 16rC truncated equals: 12.\x0a\x09self assert: 16rD truncated equals: 13.\x0a\x09self assert: 16rE truncated equals: 14.\x0a\x09self assert: 16rF truncated equals: 15",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "truncated"]
 }),
 globals.NumberTest);
 
@@ -11690,12 +11690,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIdentity",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "==", "deny:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIdentity\x0a\x09self assert: 1 == 1.\x0a\x09self assert: 0 == 0.\x0a\x09self deny: 1 == 0.\x0a\x0a\x09self assert: 1 yourself == 1.\x0a\x09self assert: 1 == 1 yourself.\x0a\x09self assert: 1 yourself == 1 yourself.\x0a\x09\x0a\x09self deny: 1 == 2",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "==", "deny:", "yourself"]
 }),
 globals.NumberTest);
 
@@ -12203,12 +12203,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testInvalidHexNumbers",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "rG", "rg", "rH", "rh", "rI", "ri", "rJ", "rj", "rK", "rk", "rL", "rl", "rM", "rm", "rN", "rn", "rO", "ro", "rP", "rp", "rQ", "rq", "rR", "rr", "rS", "rs", "rT", "rt", "rU", "ru", "rV", "rv", "rW", "rw", "rX", "rx", "rY", "ry", "rZ", "rz", "Z"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testInvalidHexNumbers\x0a\x0a\x09self should: [ 16rG ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rg ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rH ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rh ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rI ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16ri ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rJ ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rj ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rK ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rk ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rL ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rl ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rM ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rm ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rN ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rn ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rO ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16ro ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rP ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rp ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rQ ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rq ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rR ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rr ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rS ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rs ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rT ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rt ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rU ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16ru ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rV ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rv ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rW ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rw ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rX ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rx ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rY ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16ry ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rZ ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rz ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rABcdEfZ ] raise: MessageNotUnderstood.",
-referencedClasses: ["MessageNotUnderstood"]
+referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "rG", "rg", "rH", "rh", "rI", "ri", "rJ", "rj", "rK", "rk", "rL", "rl", "rM", "rm", "rN", "rn", "rO", "ro", "rP", "rp", "rQ", "rq", "rR", "rr", "rS", "rs", "rT", "rt", "rU", "ru", "rV", "rv", "rW", "rw", "rX", "rx", "rY", "ry", "rZ", "rz", "Z"]
 }),
 globals.NumberTest);
 
@@ -12236,12 +12236,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testLog",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "log", "log:", "ln", "e"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testLog\x0a\x09self assert: 10000 log equals: 4.\x0a\x09self assert: (512 log: 2) equals: 9.\x0a\x09self assert: Number e ln equals: 1.",
-referencedClasses: ["Number"]
+referencedClasses: ["Number"],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "log", "log:", "ln", "e"]
 }),
 globals.NumberTest);
 
@@ -12264,12 +12264,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testMinMax",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "max:", "min:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testMinMax\x0a\x09\x0a\x09self assert: (2 max: 5) equals: 5.\x0a\x09self assert: (2 min: 5) equals: 2",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "max:", "min:"]
 }),
 globals.NumberTest);
 
@@ -12297,12 +12297,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNegated",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "negated"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNegated\x0a\x09self assert: 3 negated equals: -3.\x0a\x09self assert: -3 negated equals: 3",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "negated"]
 }),
 globals.NumberTest);
 
@@ -12430,12 +12430,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testPrintShowingDecimalPlaces",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "printShowingDecimalPlaces:", "negated"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testPrintShowingDecimalPlaces\x0a\x09self assert: (23 printShowingDecimalPlaces: 2) equals: '23.00'.\x0a\x09self assert: (23.5698 printShowingDecimalPlaces: 2) equals: '23.57'.\x0a\x09self assert: (234.567 negated printShowingDecimalPlaces: 5) equals: '-234.56700'.\x0a\x09self assert: (23.4567 printShowingDecimalPlaces: 0) equals: '23'.\x0a\x09self assert: (23.5567 printShowingDecimalPlaces: 0) equals: '24'.\x0a\x09self assert: (23.4567 negated printShowingDecimalPlaces: 0) equals: '-23'.\x0a\x09self assert: (23.5567 negated printShowingDecimalPlaces: 0) equals: '-24'.\x0a\x09self assert: (100000000 printShowingDecimalPlaces: 1) equals: '100000000.0'.\x0a\x09self assert: (0.98 printShowingDecimalPlaces: 5) equals: '0.98000'.\x0a\x09self assert: (0.98 negated printShowingDecimalPlaces: 2) equals: '-0.98'.\x0a\x09self assert: (2.567 printShowingDecimalPlaces: 2) equals: '2.57'.\x0a\x09self assert: (-2.567 printShowingDecimalPlaces: 2) equals: '-2.57'.\x0a\x09self assert: (0 printShowingDecimalPlaces: 2) equals: '0.00'.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "printShowingDecimalPlaces:", "negated"]
 }),
 globals.NumberTest);
 
@@ -12483,12 +12483,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testRaisedTo",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "raisedTo:", "**"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testRaisedTo\x0a\x09self assert: (2 raisedTo: 4) equals: 16.\x0a\x09self assert: (2 raisedTo: 0) equals: 1.\x0a\x09self assert: (2 raisedTo: -3) equals: 0.125.\x0a\x09self assert: (4 raisedTo: 0.5) equals: 2.\x0a\x09\x0a\x09self assert: 2 ** 4 equals: 16.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "raisedTo:", "**"]
 }),
 globals.NumberTest);
 
@@ -12524,12 +12524,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testRounded",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "rounded"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testRounded\x0a\x09\x0a\x09self assert: 3 rounded equals: 3.\x0a\x09self assert: 3.212 rounded equals: 3.\x0a\x09self assert: 3.51 rounded equals: 4",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "rounded"]
 }),
 globals.NumberTest);
 
@@ -12565,12 +12565,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testSign",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "sign"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testSign\x0a\x09self assert: 5 sign equals: 1.\x0a\x09self assert: 0 sign equals: 0.\x0a\x09self assert: -1.4 sign equals: -1.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "sign"]
 }),
 globals.NumberTest);
 
@@ -12598,12 +12598,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testSqrt",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "sqrt"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testSqrt\x0a\x09\x0a\x09self assert: 4 sqrt equals: 2.\x0a\x09self assert: 16 sqrt equals: 4",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "sqrt"]
 }),
 globals.NumberTest);
 
@@ -12622,12 +12622,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testSquared",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "squared"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testSquared\x0a\x09\x0a\x09self assert: 4 squared equals: 16",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "squared"]
 }),
 globals.NumberTest);
 
@@ -12678,12 +12678,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testTimesRepeat",{i:i},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["timesRepeat:", "+", "assert:equals:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testTimesRepeat\x0a\x09| i |\x0a\x0a\x09i := 0.\x0a\x090 timesRepeat: [ i := i + 1 ].\x0a\x09self assert: i equals: 0.\x0a\x0a\x095 timesRepeat: [ i := i + 1 ].\x0a\x09self assert: i equals: 5",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["timesRepeat:", "+", "assert:equals:"]
 }),
 globals.NumberTest);
 
@@ -12702,12 +12702,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testTo",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "to:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testTo\x0a\x09self assert: (1 to: 5) equals: #(1 2 3 4 5)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "to:"]
 }),
 globals.NumberTest);
 
@@ -12741,12 +12741,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testToBy",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "to:by:", "should:raise:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testToBy\x0a\x09self assert: (0 to: 6 by: 2) equals: #(0 2 4 6).\x0a\x0a\x09self should: [ 1 to: 4 by: 0 ] raise: Error",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "to:by:", "should:raise:"]
 }),
 globals.NumberTest);
 
@@ -12785,12 +12785,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testTrigonometry",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "cos", "sin", "tan", "arcCos", "arcSin", "arcTan"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testTrigonometry\x0a\x09self assert: 0 cos equals: 1.\x0a\x09self assert: 0 sin equals: 0.\x0a\x09self assert: 0 tan equals: 0.\x0a\x09self assert: 1 arcCos equals: 0.\x0a\x09self assert: 0 arcSin equals: 0.\x0a\x09self assert: 0 arcTan equals: 0.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "cos", "sin", "tan", "arcCos", "arcSin", "arcTan"]
 }),
 globals.NumberTest);
 
@@ -12826,12 +12826,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testTruncated",{},globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "truncated"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testTruncated\x0a\x09\x0a\x09self assert: 3 truncated equals: 3.\x0a\x09self assert: 3.212 truncated equals: 3.\x0a\x09self assert: 3.51 truncated equals: 3",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "truncated"]
 }),
 globals.NumberTest);
 
@@ -12852,12 +12852,12 @@ $1=self["@foo"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "foo\x0a\x09^ foo",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ObjectMock);
 
@@ -12871,12 +12871,12 @@ self["@foo"]=anObject;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "foo: anObject\x0a\x09foo := anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ObjectMock);
 
@@ -12898,12 +12898,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"notDefined",{},globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "notDefined\x0a\x09<return void 0;>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ObjectTest);
 
@@ -12935,12 +12935,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testBasicAccess",{o:o},globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "basicAt:put:", "assert:equals:", "basicAt:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testBasicAccess\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09o basicAt: 'a' put: 1.\x0a\x09self assert: (o basicAt: 'a') equals: 1.\x0a\x09self assert: (o basicAt: 'b') equals: nil",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["new", "basicAt:put:", "assert:equals:", "basicAt:"]
 }),
 globals.ObjectTest);
 
@@ -12982,12 +12982,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testBasicPerform",{o:o},globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "basicAt:put:", "+", "assert:equals:", "basicPerform:", "basicPerform:withArguments:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testBasicPerform\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09o basicAt: 'func' put: [ 'hello' ].\x0a\x09o basicAt: 'func2' put: [ :a | a + 1 ].\x0a\x0a\x09self assert: (o basicPerform: 'func') equals: 'hello'.\x0a\x09self assert: (o basicPerform: 'func2' withArguments: #(3)) equals: 4",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["new", "basicAt:put:", "+", "assert:equals:", "basicPerform:", "basicPerform:withArguments:"]
 }),
 globals.ObjectTest);
 
@@ -13016,12 +13016,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDNU",{},globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "foo", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDNU\x0a\x09self should: [ Object new foo ] raise: MessageNotUnderstood",
-referencedClasses: ["Object", "MessageNotUnderstood"]
+referencedClasses: ["Object", "MessageNotUnderstood"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "foo", "new"]
 }),
 globals.ObjectTest);
 
@@ -13072,12 +13072,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testEquality",{o:o},globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "deny:", "=", "assert:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testEquality\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09self deny: o = Object new.\x0a\x09self assert: (o = o).\x0a\x09self assert: (o yourself = o).\x0a\x09self assert: (o = o yourself)",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["new", "deny:", "=", "assert:", "yourself"]
 }),
 globals.ObjectTest);
 
@@ -13106,12 +13106,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testHalt",{},globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["should:raise:", "halt", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testHalt\x0a\x09self should: [ Object new halt ] raise: Error",
-referencedClasses: ["Object", "Error"]
+referencedClasses: ["Object", "Error"],
 //>>excludeEnd("ide");
+messageSends: ["should:raise:", "halt", "new"]
 }),
 globals.ObjectTest);
 
@@ -13162,12 +13162,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIdentity",{o:o},globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "deny:", "==", "assert:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIdentity\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09self deny: o == Object new.\x0a\x09self assert: o == o.\x0a\x09self assert: o yourself == o.\x0a\x09self assert: o == o yourself",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["new", "deny:", "==", "assert:", "yourself"]
 }),
 globals.ObjectTest);
 
@@ -13240,12 +13240,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIfNil",{},globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["deny:", "isNil", "new", "=", "ifNil:", "assert:equals:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIfNil\x0a\x09self deny: Object new isNil.\x0a\x09self deny: (Object new ifNil: [ true ]) = true.\x0a\x09self assert: (Object new ifNotNil: [ true ]) equals: true.\x0a\x0a\x09self assert: (Object new ifNil: [ false ] ifNotNil: [ true ]) equals: true.\x0a\x09self assert: (Object new ifNotNil: [ true ] ifNil: [ false ]) equals: true",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["deny:", "isNil", "new", "=", "ifNil:", "assert:equals:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"]
 }),
 globals.ObjectTest);
 
@@ -13285,12 +13285,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testInstVars",{o:o},globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "assert:equals:", "instVarAt:", "instVarAt:put:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testInstVars\x0a\x09| o |\x0a\x09o := ObjectMock new.\x0a\x09self assert: (o instVarAt: #foo) equals: nil.\x0a\x0a\x09o instVarAt: #foo put: 1.\x0a\x09self assert: (o instVarAt: #foo) equals: 1.\x0a\x09self assert: (o instVarAt: 'foo') equals: 1",
-referencedClasses: ["ObjectMock"]
+referencedClasses: ["ObjectMock"],
 //>>excludeEnd("ide");
+messageSends: ["new", "assert:equals:", "instVarAt:", "instVarAt:put:"]
 }),
 globals.ObjectTest);
 
@@ -13309,12 +13309,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNilUndefined",{},globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "notDefined"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNilUndefined\x0a\x09\x22nil in Smalltalk is the undefined object in JS\x22\x0a\x0a\x09self assert: self notDefined equals: nil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "notDefined"]
 }),
 globals.ObjectTest);
 
@@ -13336,12 +13336,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testYourself",{o:o},globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "assert:", "==", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testYourself\x0a\x09| o |\x0a\x09o := ObjectMock new.\x0a\x09self assert: o yourself == o",
-referencedClasses: ["ObjectMock"]
+referencedClasses: ["ObjectMock"],
 //>>excludeEnd("ide");
+messageSends: ["new", "assert:", "==", "yourself"]
 }),
 globals.ObjectTest);
 
@@ -13386,12 +13386,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testidentityHash",{o1:o1,o2:o2},globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "assert:", "==", "identityHash", "deny:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testidentityHash\x0a\x09| o1 o2 |\x0a\x09\x0a\x09o1 := Object new.\x0a\x09o2 := Object new.\x0a\x0a\x09self assert: o1 identityHash == o1 identityHash.\x0a\x09self deny: o1 identityHash == o2 identityHash",
-referencedClasses: ["Object"]
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
+messageSends: ["new", "assert:", "==", "identityHash", "deny:"]
 }),
 globals.ObjectTest);
 
@@ -13445,12 +13445,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAccessing",{},globals.PointTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "x", "x:y:", "y", "x:", "new", "y:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAccessing\x0a\x09self assert: (Point x: 3 y: 4) x equals: 3.\x0a\x09self assert: (Point x: 3 y: 4) y equals: 4.\x0a\x09self assert: (Point new x: 3) x equals: 3.\x0a\x09self assert: (Point new y: 4) y equals: 4",
-referencedClasses: ["Point"]
+referencedClasses: ["Point"],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "x", "x:y:", "y", "x:", "new", "y:"]
 }),
 globals.PointTest);
 
@@ -13527,12 +13527,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},globals.PointTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "*", "@", "x:y:", "+", "-", "/"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testArithmetic\x0a\x09self assert: 3@4 * (3@4 ) equals: (Point x: 9 y: 16).\x0a\x09self assert: 3@4 + (3@4 ) equals: (Point x: 6 y: 8).\x0a\x09self assert: 3@4 - (3@4 ) equals: (Point x: 0 y: 0).\x0a\x09self assert: 6@8 / (3@4 ) equals: (Point x: 2 y: 2)",
-referencedClasses: ["Point"]
+referencedClasses: ["Point"],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "*", "@", "x:y:", "+", "-", "/"]
 }),
 globals.PointTest);
 
@@ -13552,12 +13552,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAt",{},globals.PointTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "@", "x:y:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAt\x0a\x09self assert: 3@4 equals: (Point x: 3 y: 4)",
-referencedClasses: ["Point"]
+referencedClasses: ["Point"],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "@", "x:y:"]
 }),
 globals.PointTest);
 
@@ -13682,12 +13682,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testComparison",{},globals.PointTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "<", "@", "deny:", "<=", ">", ">="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testComparison\x0a\x09self assert: 3@4 < (4@5).\x0a\x09self deny: 3@4 < (4@4).\x0a\x09\x0a\x09self assert: 4@5 <= (4@5).\x0a\x09self deny: 4@5 <= (3@5).\x0a\x09\x0a\x09self assert: 5@6 > (4@5).\x0a\x09self deny: 5@6 > (6@6).\x0a\x09\x0a\x09self assert: 4@5 >= (4@5).\x0a\x09self deny: 4@5 >= (5@5)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "<", "@", "deny:", "<=", ">", ">="]
 }),
 globals.PointTest);
 
@@ -13725,12 +13725,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testEgality",{},globals.PointTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "=", "@", "deny:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testEgality\x0a\x09self assert: (3@4 = (3@4)).\x0a\x09self deny: 3@5 = (3@6)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "=", "@", "deny:"]
 }),
 globals.PointTest);
 
@@ -13794,12 +13794,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNew",{},globals.PointTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "y", "x:", "new", "deny:", "=", "x", "y:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNew\x0a\x0a\x09self assert: (Point new x: 3) y equals: nil.\x0a\x09self deny: (Point new x: 3) x = 0.\x0a\x09self assert: (Point new y: 4) x equals: nil.\x0a\x09self deny: (Point new y: 4) y = 0",
-referencedClasses: ["Point"]
+referencedClasses: ["Point"],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "y", "x:", "new", "deny:", "=", "x", "y:"]
 }),
 globals.PointTest);
 
@@ -13892,12 +13892,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testTranslateBy",{},globals.PointTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "translateBy:", "@", "negated"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testTranslateBy\x0a\x09self assert: (3@3 translateBy: 0@1) equals: 3@4.\x0a\x09self assert: (3@3 translateBy: 0@1 negated) equals: 3@2.\x0a\x09self assert: (3@3 translateBy: 2@3) equals: 5@6.\x0a\x09self assert: (3@3 translateBy: 3 negated @0) equals: 0@3.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "translateBy:", "@", "negated"]
 }),
 globals.PointTest);
 
@@ -13933,12 +13933,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testNextIfAbsent",{queue:queue},globals.QueueTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "nextPut:", "assert:", "=", "nextIfAbsent:", "deny:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testNextIfAbsent\x0a\x09| queue |\x0a\x09queue := Queue new.\x0a\x09queue nextPut: 'index1'. \x0a\x0a\x09self assert: (queue  nextIfAbsent: 'empty') = 'index1'.\x0a\x09self deny: (queue  nextIfAbsent: 'empty') = 'index1'",
-referencedClasses: ["Queue"]
+referencedClasses: ["Queue"],
 //>>excludeEnd("ide");
+messageSends: ["new", "nextPut:", "assert:", "=", "nextIfAbsent:", "deny:"]
 }),
 globals.QueueTest);
 
@@ -13991,12 +13991,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testQueueNext",{queue:queue},globals.QueueTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "nextPut:", "assert:", "=", "next", "deny:", "should:raise:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testQueueNext\x0a\x09| queue |               \x0a\x09queue := Queue new.\x0a\x09queue \x0a\x09\x09nextPut: 'index1';\x0a\x09\x09nextPut: 'index2'.\x0a\x0a\x09self assert: queue next = 'index1'.\x0a\x09self deny: queue next = 'index'.\x0a\x09self should: [ queue next ] raise: Error",
-referencedClasses: ["Queue", "Error"]
+referencedClasses: ["Queue", "Error"],
 //>>excludeEnd("ide");
+messageSends: ["new", "nextPut:", "assert:", "=", "next", "deny:", "should:raise:"]
 }),
 globals.QueueTest);
 
@@ -14033,12 +14033,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtRandomNumber",{val:val},globals.RandomTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["timesRepeat:", "atRandom", "assert:", ">", "<"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtRandomNumber\x0a\x09|val|\x09\x0a\x0a\x09100 timesRepeat: [\x0a\x09\x09val := 10 atRandom.\x09\x0a\x09\x09self assert: (val > 0).\x0a\x09\x09self assert: (val <11)\x0a\x09]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["timesRepeat:", "atRandom", "assert:", ">", "<"]
 }),
 globals.RandomTest);
 
@@ -14082,12 +14082,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtRandomSequenceableCollection",{val:val},globals.RandomTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["timesRepeat:", "atRandom", "assert:", "|", "="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtRandomSequenceableCollection\x0a\x09|val|\x0a\x09\x0a\x09100 timesRepeat: [\x0a\x09\x09val := 'abc' atRandom.\x0a\x09\x09self assert: ((val = 'a') | (val = 'b') | (val = 'c' )).\x0a\x09].",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["timesRepeat:", "atRandom", "assert:", "|", "="]
 }),
 globals.RandomTest);
 
@@ -14129,12 +14129,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"textNext",{},globals.RandomTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["timesRepeat:", "next", "new", "assert:", ">=", "<", "deny:", "="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "textNext\x0a\x0a\x0910000 timesRepeat: [\x0a\x09\x09\x09| current next |\x0a\x09\x09\x09next := Random new next.\x0a\x09\x09\x09self assert: (next >= 0).\x0a\x09\x09\x09self assert: (next < 1).\x0a\x09\x09\x09self deny: current = next.\x0a\x09\x09\x09next = current ]",
-referencedClasses: ["Random"]
+referencedClasses: ["Random"],
 //>>excludeEnd("ide");
+messageSends: ["timesRepeat:", "next", "new", "assert:", ">=", "<", "deny:", "="]
 }),
 globals.RandomTest);
 
@@ -14157,12 +14157,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{},globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collectionClass", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionClass\x0a\x09^ self class collectionClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collectionClass", "class"]
 }),
 globals.StreamTest);
 
@@ -14182,12 +14182,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"newCollection",{},globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "collectionClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "newCollection\x0a\x09^ self collectionClass new",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["new", "collectionClass"]
 }),
 globals.StreamTest);
 
@@ -14207,12 +14207,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"newStream",{},globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["stream", "new", "collectionClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "newStream\x0a\x09^ self collectionClass new stream",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["stream", "new", "collectionClass"]
 }),
 globals.StreamTest);
 
@@ -14269,12 +14269,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAtStartAtEnd",{stream:stream},globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["newStream", "assert:", "atStart", "atEnd", "nextPutAll:", "newCollection", "deny:", "position:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testAtStartAtEnd\x0a\x09| stream |\x0a\x09\x0a\x09stream := self newStream.\x0a\x09self assert: stream atStart.\x0a\x09self assert: stream atEnd.\x0a\x09\x0a\x09stream nextPutAll: self newCollection.\x0a\x09self assert: stream atEnd.\x0a\x09self deny: stream atStart.\x0a\x09\x0a\x09stream position: 1.\x0a\x09self deny: stream atEnd.\x0a\x09self deny: stream atStart",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["newStream", "assert:", "atStart", "atEnd", "nextPutAll:", "newCollection", "deny:", "position:"]
 }),
 globals.StreamTest);
 
@@ -14302,12 +14302,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testContents",{stream:stream},globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["newStream", "nextPutAll:", "newCollection", "assert:equals:", "contents"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testContents\x0a\x09| stream |\x0a\x09\x0a\x09stream := self newStream.\x0a\x09stream nextPutAll: self newCollection.\x0a\x09\x0a\x09self assert: stream contents equals: self newCollection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["newStream", "nextPutAll:", "newCollection", "assert:equals:", "contents"]
 }),
 globals.StreamTest);
 
@@ -14335,12 +14335,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{stream:stream},globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["newStream", "assert:", "isEmpty", "nextPutAll:", "newCollection", "deny:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIsEmpty\x0a\x09| stream |\x0a\x09\x0a\x09stream := self newStream.\x0a\x09self assert: stream isEmpty.\x0a\x09\x0a\x09stream nextPutAll: self newCollection.\x0a\x09self deny: stream isEmpty",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["newStream", "assert:", "isEmpty", "nextPutAll:", "newCollection", "deny:"]
 }),
 globals.StreamTest);
 
@@ -14394,12 +14394,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testPosition",{collection:collection,stream:stream},globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["newCollection", "newStream", "nextPutAll:", "assert:equals:", "position", "size", "position:", "next"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testPosition\x0a\x09| collection stream |\x0a\x09\x0a\x09collection := self newCollection.\x0a\x09stream := self newStream.\x0a\x09\x0a\x09stream nextPutAll: collection.\x0a\x09self assert: stream position equals: collection size.\x0a\x09\x0a\x09stream position: 0.\x0a\x09self assert: stream position equals: 0.\x0a\x09\x0a\x09stream next.\x0a\x09self assert: stream position equals: 1.\x0a\x09\x0a\x09stream next.\x0a\x09self assert: stream position equals: 2",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["newCollection", "newStream", "nextPutAll:", "assert:equals:", "position", "size", "position:", "next"]
 }),
 globals.StreamTest);
 
@@ -14438,12 +14438,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testReading",{stream:stream,collection:collection},globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["newCollection", "newStream", "nextPutAll:", "position:", "do:", "assert:equals:", "next", "assert:", "isNil"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testReading\x0a\x09| stream collection |\x0a\x09\x0a\x09collection := self newCollection.\x0a\x09stream := self newStream.\x0a\x09\x0a\x09stream \x0a\x09\x09nextPutAll: collection;\x0a\x09\x09position: 0.\x0a\x09\x0a\x09collection do: [ :each |\x0a\x09\x09self assert: stream next equals: each ].\x0a\x09\x09\x0a\x09self assert: stream next isNil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["newCollection", "newStream", "nextPutAll:", "position:", "do:", "assert:equals:", "next", "assert:", "isNil"]
 }),
 globals.StreamTest);
 
@@ -14456,12 +14456,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testStreamContents",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StreamTest);
 
@@ -14492,12 +14492,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testWrite",{stream:stream,collection:collection},globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["newCollection", "newStream", "do:", "<<", "assert:equals:", "contents"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testWrite\x0a\x09| stream collection |\x0a\x09\x0a\x09collection := self newCollection.\x0a\x09stream := self newStream.\x0a\x09\x0a\x09collection do: [ :each | stream << each ].\x0a\x09self assert: stream contents equals: collection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["newCollection", "newStream", "do:", "<<", "assert:equals:", "contents"]
 }),
 globals.StreamTest);
 
@@ -14542,12 +14542,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testWriting",{stream:stream,collection:collection},globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["newCollection", "newStream", "do:", "nextPut:", "assert:equals:", "contents", "nextPutAll:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testWriting\x0a\x09| stream collection |\x0a\x09\x0a\x09collection := self newCollection.\x0a\x09stream := self newStream.\x0a\x09\x0a\x09collection do: [ :each | stream nextPut: each ].\x0a\x09self assert: stream contents equals: collection.\x0a\x09\x0a\x09stream := self newStream.\x0a\x09stream nextPutAll: collection.\x0a\x09self assert: stream contents equals: collection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["newCollection", "newStream", "do:", "nextPut:", "assert:equals:", "contents", "nextPutAll:"]
 }),
 globals.StreamTest);
 
@@ -14561,12 +14561,12 @@ var self=this;
 return nil;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionClass\x0a\x09^ nil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StreamTest.klass);
 
@@ -14586,12 +14586,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isAbstract",{},globals.StreamTest.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["isNil", "collectionClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isAbstract\x0a\x09^ self collectionClass isNil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["isNil", "collectionClass"]
 }),
 globals.StreamTest.klass);
 
@@ -14613,12 +14613,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"newCollection",{},globals.ArrayStreamTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["@"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "newCollection\x0a\x09^ { true. 1. 3@4. 'foo' }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["@"]
 }),
 globals.ArrayStreamTest);
 
@@ -14633,12 +14633,12 @@ function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $Array();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionClass\x0a\x09^ Array",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ArrayStreamTest.klass);
 
@@ -14653,12 +14653,12 @@ var self=this;
 return "hello world";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "newCollection\x0a\x09^ 'hello world'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringStreamTest);
 
@@ -14673,12 +14673,12 @@ function $String(){return globals.String||(typeof String=="undefined"?nil:String
 return $String();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "collectionClass\x0a\x09^ String",
-referencedClasses: ["String"]
+referencedClasses: ["String"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.StringStreamTest.klass);
 
@@ -14699,12 +14699,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testCopying",{},globals.UndefinedTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "copy"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCopying\x0a\x09self assert: nil copy equals: nil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "copy"]
 }),
 globals.UndefinedTest);
 
@@ -14723,12 +14723,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testDeepCopy",{},globals.UndefinedTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "=", "deepCopy"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testDeepCopy\x0a\x09self assert: nil deepCopy = nil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "=", "deepCopy"]
 }),
 globals.UndefinedTest);
 
@@ -14782,12 +14782,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIfNil",{},globals.UndefinedTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:equals:", "ifNil:", "deny:", "=", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIfNil\x0a\x09self assert: (nil ifNil: [ true ]) equals: true.\x0a\x09self deny: (nil ifNotNil: [ true ]) = true.\x0a\x09self assert: (nil ifNil: [ true ] ifNotNil: [ false ]) equals: true.\x0a\x09self deny: (nil ifNotNil: [ true ] ifNil: [ false ]) = true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:equals:", "ifNil:", "deny:", "=", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"]
 }),
 globals.UndefinedTest);
 
@@ -14807,12 +14807,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testIsNil",{},globals.UndefinedTest)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "isNil", "deny:", "notNil"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testIsNil\x0a\x09self assert: nil isNil.\x0a\x09self deny: nil notNil.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "isNil", "deny:", "notNil"]
 }),
 globals.UndefinedTest);
 

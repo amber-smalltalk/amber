@@ -23,12 +23,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"chunkEscape:",{aString:aString},globals.AbstractExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["trimBoth", "replace:with:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "chunkEscape: aString\x0a\x09\x22Replace all occurrences of ! with !! and trim at both ends.\x22\x0a\x0a\x09^ (aString replace: '!' with: '!!') trimBoth",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["trimBoth", "replace:with:"]
 }),
 globals.AbstractExporter);
 
@@ -62,12 +62,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},globals.AbstractExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "classNameFor: aClass\x0a\x09^ aClass isMetaclass\x0a\x09\x09ifTrue: [ aClass instanceClass name, ' class' ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09aClass isNil\x0a\x09\x09\x09\x09ifTrue: [ 'nil' ]\x0a\x09\x09\x09\x09ifFalse: [ aClass name ] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"]
 }),
 globals.AbstractExporter);
 
@@ -86,12 +86,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.AbstractExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
 source: "exportPackage: aPackage on: aStream\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.AbstractExporter);
 
@@ -123,12 +123,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"extensionMethodsOfPackage:",{aPackage:aPackage,result:result},globals.AbstractExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "do:", "extensionProtocolsOfPackage:", "addAll:", "methods"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "extensionMethodsOfPackage: aPackage\x0a\x09| result |\x0a\x09\x0a\x09result := OrderedCollection new.\x0a\x09\x0a\x09(self extensionProtocolsOfPackage: aPackage) do: [ :each |\x0a\x09\x09result addAll: each methods ].\x0a\x09\x09\x0a\x09^ result",
-referencedClasses: ["OrderedCollection"]
+referencedClasses: ["OrderedCollection"],
 //>>excludeEnd("ide");
+messageSends: ["new", "do:", "extensionProtocolsOfPackage:", "addAll:", "methods"]
 }),
 globals.AbstractExporter);
 
@@ -193,12 +193,12 @@ return $4;
 }, function($ctx1) {$ctx1.fill(self,"extensionProtocolsOfPackage:",{aPackage:aPackage,extensionName:extensionName,result:result},globals.AbstractExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "name", "new", "do:", "sorted:", "asArray", "classes", "<", "class", "ifTrue:", "includes:", "protocols", "add:", "name:theClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "extensionProtocolsOfPackage: aPackage\x0a\x09| extensionName result |\x0a\x09\x0a\x09extensionName := '*', aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09\x0a\x09\x22The classes must be loaded since it is extensions only.\x0a\x09Therefore topological sorting (dependency resolution) does not matter here.\x0a\x09Not sorting topologically improves the speed by a number of magnitude.\x0a\x09\x0a\x09Not to shuffle diffs, classes are sorted by their name.\x22\x0a\x09\x0a\x09(Smalltalk classes asArray sorted: [ :a :b | a name < b name ]) do: [ :each |\x0a\x09\x09{each. each class} do: [ :behavior |\x0a\x09\x09\x09(behavior protocols includes: extensionName) ifTrue: [\x0a\x09\x09\x09\x09result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].\x0a\x0a\x09^ result",
-referencedClasses: ["OrderedCollection", "Smalltalk", "ExportMethodProtocol"]
+referencedClasses: ["OrderedCollection", "Smalltalk", "ExportMethodProtocol"],
 //>>excludeEnd("ide");
+messageSends: [",", "name", "new", "do:", "sorted:", "asArray", "classes", "<", "class", "ifTrue:", "includes:", "protocols", "add:", "name:theClass:"]
 }),
 globals.AbstractExporter);
 
@@ -229,12 +229,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportCategoryEpilogueOf:on:",{aCategory:aCategory,aStream:aStream},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCategory", "aStream"],
 source: "exportCategoryEpilogueOf: aCategory on: aStream\x0a\x09aStream nextPutAll: ' !'; lf; lf",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "lf"]
 }),
 globals.ChunkExporter);
 
@@ -266,12 +266,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportCategoryPrologueOf:on:",{aCategory:aCategory,aStream:aStream},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", ",", "classNameFor:", "theClass", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCategory", "aStream"],
 source: "exportCategoryPrologueOf: aCategory on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: aCategory theClass);\x0a\x09\x09nextPutAll: ' methodsFor: ''', aCategory name, '''!'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", ",", "classNameFor:", "theClass", "name"]
 }),
 globals.ChunkExporter);
 
@@ -400,12 +400,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", "classNameFor:", "superclass", ",", "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "chunkEscape:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass", "aStream"],
 source: "exportDefinitionOf: aClass on: aStream\x0a\x09\x22Chunk format.\x22\x0a\x0a\x09aStream\x0a\x09\x09nextPutAll: (self classNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;\x0a\x09\x09tab; nextPutAll: 'instanceVariableNames: '''.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: each ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ' ' ].\x0a\x09aStream\x0a\x09\x09nextPutAll: ''''; lf;\x0a\x09\x09tab; nextPutAll: 'package: ''', aClass category, '''!'; lf.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: aClass), ' commentStamp!';lf;\x0a\x09\x09nextPutAll: (self chunkEscape: aClass comment), '!';lf ].\x0a\x09aStream lf",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "classNameFor:", "superclass", ",", "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "chunkEscape:"]
 }),
 globals.ChunkExporter);
 
@@ -479,12 +479,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", "classNameFor:", "do:separatedBy:", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass", "aStream"],
 source: "exportMetaDefinitionOf: aClass on: aStream\x0a\x0a\x09aClass class instanceVariableNames isEmpty ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: (self classNameFor: aClass class);\x0a\x09\x09\x09nextPutAll: ' instanceVariableNames: '''.\x0a\x09\x09aClass class instanceVariableNames\x0a\x09\x09\x09do: [ :each | aStream nextPutAll: each ]\x0a\x09\x09\x09separatedBy: [ aStream nextPutAll: ' ' ].\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: '''!'; lf; lf ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", "classNameFor:", "do:separatedBy:", "lf"]
 }),
 globals.ChunkExporter);
 
@@ -517,12 +517,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["lf", "nextPutAll:", "chunkEscape:", "source"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMethod", "aStream"],
 source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09lf; lf; nextPutAll: (self chunkEscape: aMethod source); lf;\x0a\x09\x09nextPutAll: '!'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["lf", "nextPutAll:", "chunkEscape:", "source"]
 }),
 globals.ChunkExporter);
 
@@ -565,12 +565,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["exportPackageDefinitionOf:on:", "do:", "sortedClasses", "exportDefinitionOf:on:", "exportProtocols:on:", "ownMethodProtocolsOfClass:", "exportMetaDefinitionOf:on:", "class", "extensionProtocolsOfPackage:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
 source: "exportPackage: aPackage on: aStream\x0a\x0a\x09self exportPackageDefinitionOf: aPackage on: aStream.\x0a\x09\x0a\x09aPackage sortedClasses do: [ :each |\x0a\x09\x09self exportDefinitionOf: each on: aStream.\x0a\x09\x09\x0a\x09\x09self \x0a\x09\x09\x09exportProtocols: (self ownMethodProtocolsOfClass: each)\x0a\x09\x09\x09on: aStream.\x0a\x09\x09\x09\x0a\x09\x09self exportMetaDefinitionOf: each on: aStream.\x0a\x09\x09\x0a\x09\x09self \x0a\x09\x09\x09exportProtocols: (self ownMethodProtocolsOfClass: each class)\x0a\x09\x09\x09on: aStream ].\x0a\x09\x09\x09\x0a\x09self \x0a\x09\x09exportProtocols: (self extensionProtocolsOfPackage: aPackage)\x0a\x09\x09on: aStream",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["exportPackageDefinitionOf:on:", "do:", "sortedClasses", "exportDefinitionOf:on:", "exportProtocols:on:", "ownMethodProtocolsOfClass:", "exportMetaDefinitionOf:on:", "class", "extensionProtocolsOfPackage:"]
 }),
 globals.ChunkExporter);
 
@@ -595,12 +595,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", ",", "name", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
 source: "exportPackageDefinitionOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'Smalltalk createPackage: ''', aPackage name, '''!';\x0a\x09\x09lf",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", ",", "name", "lf"]
 }),
 globals.ChunkExporter);
 
@@ -629,12 +629,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportProtocol:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["exportProtocolPrologueOf:on:", "do:", "methods", "exportMethod:on:", "exportProtocolEpilogueOf:on:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aProtocol", "aStream"],
 source: "exportProtocol: aProtocol on: aStream\x0a\x09self exportProtocolPrologueOf: aProtocol on: aStream.\x0a\x09aProtocol methods do: [ :method | \x0a\x09\x09self exportMethod: method on: aStream ].\x0a\x09self exportProtocolEpilogueOf: aProtocol on: aStream",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["exportProtocolPrologueOf:on:", "do:", "methods", "exportMethod:on:", "exportProtocolEpilogueOf:on:"]
 }),
 globals.ChunkExporter);
 
@@ -659,12 +659,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportProtocolEpilogueOf:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aProtocol", "aStream"],
 source: "exportProtocolEpilogueOf: aProtocol on: aStream\x0a\x09aStream nextPutAll: ' !'; lf; lf",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "lf"]
 }),
 globals.ChunkExporter);
 
@@ -696,12 +696,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportProtocolPrologueOf:on:",{aProtocol:aProtocol,aStream:aStream},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", ",", "classNameFor:", "theClass", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aProtocol", "aStream"],
 source: "exportProtocolPrologueOf: aProtocol on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: aProtocol theClass);\x0a\x09\x09nextPutAll: ' methodsFor: ''', aProtocol name, '''!'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", ",", "classNameFor:", "theClass", "name"]
 }),
 globals.ChunkExporter);
 
@@ -728,12 +728,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportProtocols:on:",{aCollection:aCollection,aStream:aStream},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "exportProtocol:on:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection", "aStream"],
 source: "exportProtocols: aCollection on: aStream\x0a\x09aCollection do: [ :each |\x0a\x09\x09self exportProtocol: each on: aStream ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "exportProtocol:on:"]
 }),
 globals.ChunkExporter);
 
@@ -814,12 +814,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"extensionCategoriesOfPackage:",{aPackage:aPackage,name:name,map:map,result:result},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["name", "new", "do:", "sortedClasses:", "classes", "class", "protocolsDo:", "ifTrue:", "=", ",", "at:put:", "addAll:", "collect:", "sorted:", "keys", "<=", "name:theClass:methods:", "at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "extensionCategoriesOfPackage: aPackage\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| name map result |\x0a\x09name := aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09(Package sortedClasses: Smalltalk classes) do: [ :each |\x0a\x09\x09{each. each class} do: [ :aClass |\x0a\x09\x09\x09map := Dictionary new.\x0a\x09\x09\x09aClass protocolsDo: [ :category :methods |\x0a\x09\x09\x09\x09category = ('*', name) ifTrue: [ map at: category put: methods ] ].\x0a\x09\x09\x09result addAll: ((map keys sorted: [ :a :b | a <= b ]) collect: [ :category |\x0a\x09\x09\x09\x09MethodCategory name: category theClass: aClass methods: (map at: category) ]) ] ].\x0a\x09^ result",
-referencedClasses: ["OrderedCollection", "Package", "Smalltalk", "Dictionary", "MethodCategory"]
+referencedClasses: ["OrderedCollection", "Package", "Smalltalk", "Dictionary", "MethodCategory"],
 //>>excludeEnd("ide");
+messageSends: ["name", "new", "do:", "sortedClasses:", "classes", "class", "protocolsDo:", "ifTrue:", "=", ",", "at:put:", "addAll:", "collect:", "sorted:", "keys", "<=", "name:theClass:methods:", "at:"]
 }),
 globals.ChunkExporter);
 
@@ -871,12 +871,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfClass:",{aClass:aClass,map:map},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "protocolsDo:", "ifFalse:", "match:", "at:put:", "collect:", "sorted:", "keys", "<=", "name:theClass:methods:", "at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "ownCategoriesOfClass: aClass\x0a\x09\x22Answer the protocols of aClass that are not package extensions\x22\x0a\x09\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| map |\x0a\x09map := Dictionary new.\x0a\x09aClass protocolsDo: [ :each :methods |\x0a\x09\x09(each match: '^\x5c*') ifFalse: [ map at: each put: methods ] ].\x0a\x09^ (map keys sorted: [ :a :b | a <= b ]) collect: [ :each |\x0a\x09\x09MethodCategory name: each theClass: aClass methods: (map at: each) ]",
-referencedClasses: ["Dictionary", "MethodCategory"]
+referencedClasses: ["Dictionary", "MethodCategory"],
 //>>excludeEnd("ide");
+messageSends: ["new", "protocolsDo:", "ifFalse:", "match:", "at:put:", "collect:", "sorted:", "keys", "<=", "name:theClass:methods:", "at:"]
 }),
 globals.ChunkExporter);
 
@@ -896,12 +896,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfMetaClass:",{aClass:aClass},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ownCategoriesOfClass:", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "ownCategoriesOfMetaClass: aClass\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09^ self ownCategoriesOfClass: aClass class",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ownCategoriesOfClass:", "class"]
 }),
 globals.ChunkExporter);
 
@@ -930,12 +930,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ownMethodProtocolsOfClass:",{aClass:aClass},globals.ChunkExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collect:", "ownProtocols", "name:theClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "ownMethodProtocolsOfClass: aClass\x0a\x09\x22Answer a collection of ExportMethodProtocol object of aClass that are not package extensions\x22\x0a\x09\x0a\x09^ aClass ownProtocols collect: [ :each |\x0a\x09\x09ExportMethodProtocol name: each theClass: aClass ]",
-referencedClasses: ["ExportMethodProtocol"]
+referencedClasses: ["ExportMethodProtocol"],
 //>>excludeEnd("ide");
+messageSends: ["collect:", "ownProtocols", "name:theClass:"]
 }),
 globals.ChunkExporter);
 
@@ -1077,12 +1077,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.Exporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["lf", "nextPutAll:", ",", "classNameFor:", "jsClassNameFor:", "superclass", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "asJavascript"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass", "aStream"],
 source: "exportDefinitionOf: aClass on: aStream\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'smalltalk.addClass(';\x0a\x09\x09nextPutAll: '''', (self classNameFor: aClass), ''', ';\x0a\x09\x09nextPutAll: (self jsClassNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ', ['.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ', ' ].\x0a\x09aStream\x0a\x09\x09nextPutAll: '], ''';\x0a\x09\x09nextPutAll: aClass category, '''';\x0a\x09\x09nextPutAll: ');'.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09\x09lf;\x0a\x09\x09\x09nextPutAll: '//>>excludeStart(\x22ide\x22, pragmas.excludeIdeData);';\x0a\x09\x09\x09lf;\x0a\x09\x09\x09nextPutAll: (self jsClassNameFor: aClass);\x0a\x09\x09\x09nextPutAll: '.comment=';\x0a\x09\x09\x09nextPutAll: aClass comment asJavascript;\x0a\x09\x09\x09nextPutAll: ';';\x0a\x09\x09\x09lf;\x0a\x09\x09\x09nextPutAll: '//>>excludeEnd(\x22ide\x22);' ].\x0a\x09aStream lf",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["lf", "nextPutAll:", ",", "classNameFor:", "jsClassNameFor:", "superclass", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "asJavascript"]
 }),
 globals.Exporter);
 
@@ -1163,12 +1163,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},globals.Exporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["lf", "ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", "jsClassNameFor:", "do:separatedBy:", ","],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass", "aStream"],
 source: "exportMetaDefinitionOf: aClass on: aStream\x0a\x09aStream lf.\x0a\x09aClass class instanceVariableNames isEmpty ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09nextPutAll: (self jsClassNameFor: aClass class);\x0a\x09\x09nextPutAll: '.iVarNames = ['.\x0a\x09\x09aClass class instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ',' ].\x0a\x09\x09aStream nextPutAll: '];', String lf ]",
-referencedClasses: ["String"]
+referencedClasses: ["String"],
 //>>excludeEnd("ide");
+messageSends: ["lf", "ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", "jsClassNameFor:", "do:separatedBy:", ","]
 }),
 globals.Exporter);
 
@@ -1250,11 +1250,19 @@ _st(aStream)._lf();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=5;
 //>>excludeEnd("ctx");
-$10=_st(_st(aMethod)._messageSends())._asJavascript();
+_st(aStream)._nextPutAll_("//>>excludeStart(\x22ide\x22, pragmas.excludeIdeData);");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=6;
+//>>excludeEnd("ctx");
+_st(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["lf"]=6;
+//>>excludeEnd("ctx");
+$10=_st(_st(aMethod)._arguments())._asJavascript();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJavascript"]=2;
 //>>excludeEnd("ctx");
-$9="messageSends: ".__comma($10);
+$9="args: ".__comma($10);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=8;
 //>>excludeEnd("ctx");
@@ -1264,25 +1272,17 @@ $ctx1.sendIdx[","]=7;
 //>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_($8);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nextPutAll:"]=6;
-//>>excludeEnd("ctx");
-_st(aStream)._lf();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["lf"]=6;
-//>>excludeEnd("ctx");
-_st(aStream)._nextPutAll_("//>>excludeStart(\x22ide\x22, pragmas.excludeIdeData);");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=7;
 //>>excludeEnd("ctx");
 _st(aStream)._lf();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=7;
 //>>excludeEnd("ctx");
-$13=_st(_st(aMethod)._arguments())._asJavascript();
+$13=_st(_st(aMethod)._source())._asJavascript();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJavascript"]=3;
 //>>excludeEnd("ctx");
-$12="args: ".__comma($13);
+$12="source: ".__comma($13);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=10;
 //>>excludeEnd("ctx");
@@ -1298,11 +1298,11 @@ _st(aStream)._lf();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=8;
 //>>excludeEnd("ctx");
-$16=_st(_st(aMethod)._source())._asJavascript();
+$16=_st(_st(aMethod)._referencedClasses())._asJavascript();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJavascript"]=4;
 //>>excludeEnd("ctx");
-$15="source: ".__comma($16);
+$15="referencedClasses: ".__comma($16);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=12;
 //>>excludeEnd("ctx");
@@ -1318,7 +1318,7 @@ _st(aStream)._lf();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=9;
 //>>excludeEnd("ctx");
-_st(aStream)._nextPutAll_("referencedClasses: ".__comma(_st(_st(aMethod)._referencedClasses())._asJavascript()));
+_st(aStream)._nextPutAll_("//>>excludeEnd(\x22ide\x22);");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=10;
 //>>excludeEnd("ctx");
@@ -1326,7 +1326,7 @@ _st(aStream)._lf();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=10;
 //>>excludeEnd("ctx");
-_st(aStream)._nextPutAll_("//>>excludeEnd(\x22ide\x22);");
+_st(aStream)._nextPutAll_("messageSends: ".__comma(_st(_st(aMethod)._messageSends())._asJavascript()));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=11;
 //>>excludeEnd("ctx");
@@ -1357,12 +1357,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},globals.Exporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "protocol", "compiledSource", "fn", "messageSends", "arguments", "source", "referencedClasses", "jsClassNameFor:", "methodClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMethod", "aStream"],
-source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ide\x22, pragmas.excludeIdeData);';lf;\x0a\x09\x09nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript;lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ide\x22);';lf;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: (self jsClassNameFor: aMethod methodClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
-referencedClasses: []
+source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ide\x22, pragmas.excludeIdeData);';lf;\x0a\x09\x09nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript, ',';lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ide\x22);';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript;lf;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: (self jsClassNameFor: aMethod methodClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "protocol", "compiledSource", "fn", "arguments", "source", "referencedClasses", "messageSends", "jsClassNameFor:", "methodClass"]
 }),
 globals.Exporter);
 
@@ -1441,12 +1441,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["exportPackagePrologueOf:on:", "exportPackageDefinitionOf:on:", "exportPackageTransportOf:on:", "do:", "sortedClasses", "exportDefinitionOf:on:", "ownMethods", "exportMethod:on:", "exportMetaDefinitionOf:on:", "class", "extensionMethodsOfPackage:", "exportPackageEpilogueOf:on:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
 source: "exportPackage: aPackage on: aStream\x0a\x09\x0a\x09self \x0a\x09\x09exportPackagePrologueOf: aPackage on: aStream;\x0a\x09\x09exportPackageDefinitionOf: aPackage on: aStream;\x0a\x09\x09exportPackageTransportOf: aPackage on: aStream.\x0a\x09\x0a\x09aPackage sortedClasses do: [ :each |\x0a\x09\x09self exportDefinitionOf: each on: aStream.\x0a\x09\x09each ownMethods do: [ :method |\x0a\x09\x09\x09self exportMethod: method on: aStream ].\x0a\x09\x09\x09\x0a\x09\x09self exportMetaDefinitionOf: each on: aStream.\x0a\x09\x09each class ownMethods do: [ :method |\x0a\x09\x09\x09self exportMethod: method on: aStream ] ].\x0a\x09\x09\x09\x0a\x09(self extensionMethodsOfPackage: aPackage) do: [ :each |\x0a\x09\x09self exportMethod: each on: aStream ].\x0a\x09\x09\x0a\x09self exportPackageEpilogueOf: aPackage on: aStream",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["exportPackagePrologueOf:on:", "exportPackageDefinitionOf:on:", "exportPackageTransportOf:on:", "do:", "sortedClasses", "exportDefinitionOf:on:", "ownMethods", "exportMethod:on:", "exportMetaDefinitionOf:on:", "class", "extensionMethodsOfPackage:", "exportPackageEpilogueOf:on:"]
 }),
 globals.Exporter);
 
@@ -1475,12 +1475,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", ",", "name", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
 source: "exportPackageDefinitionOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addPackage(';\x0a\x09\x09nextPutAll: '''', aPackage name, ''');';\x0a\x09\x09lf",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", ",", "name", "lf"]
 }),
 globals.Exporter);
 
@@ -1501,12 +1501,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
 source: "exportPackageEpilogueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '})(global_smalltalk,global_nil,global__st);';\x0a\x09\x09lf",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "lf"]
 }),
 globals.Exporter);
 
@@ -1527,12 +1527,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
 source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '(function(smalltalk,nil,_st){';\x0a\x09\x09lf",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "lf"]
 }),
 globals.Exporter);
 
@@ -1569,12 +1569,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream},globals.Exporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", "asJavascript", "name", "asJSONString", "transport", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
 source: "exportPackageTransportOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.packages[';\x0a\x09\x09nextPutAll: aPackage name asJavascript;\x0a\x09\x09nextPutAll: '].transport = ';\x0a\x09\x09nextPutAll: aPackage transport asJSONString;\x0a\x09\x09nextPutAll: ';';\x0a\x09\x09lf",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "asJavascript", "name", "asJSONString", "transport", "lf"]
 }),
 globals.Exporter);
 
@@ -1606,12 +1606,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"jsClassNameFor:",{aClass:aClass},globals.Exporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "jsClassNameFor:", "instanceClass", "ifNil:ifNotNil:", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "jsClassNameFor: aClass\x0a\x09^ aClass isMetaclass\x0a\x09\x09ifTrue: [ (self jsClassNameFor: aClass instanceClass), '.klass' ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09aClass\x0a\x09\x09\x09\x09ifNil: [ 'null' ]\x0a\x09\x09\x09\x09ifNotNil: [ 'globals.', aClass name ] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "jsClassNameFor:", "instanceClass", "ifNil:ifNotNil:", "name"]
 }),
 globals.Exporter);
 
@@ -1651,12 +1651,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ownMethodsOfClass:",{aClass:aClass},globals.Exporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["reject:", "sorted:", "values", "methodDictionary", "<=", "selector", "match:", "protocol"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "ownMethodsOfClass: aClass\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09^ ((aClass methodDictionary values) sorted: [ :a :b | a selector <= b selector ])\x0a\x09\x09reject: [ :each | (each protocol match: '^\x5c*') ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["reject:", "sorted:", "values", "methodDictionary", "<=", "selector", "match:", "protocol"]
 }),
 globals.Exporter);
 
@@ -1676,12 +1676,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ownMethodsOfMetaClass:",{aClass:aClass},globals.Exporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ownMethodsOfClass:", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "ownMethodsOfMetaClass: aClass\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09^ self ownMethodsOfClass: aClass class",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ownMethodsOfClass:", "class"]
 }),
 globals.Exporter);
 
@@ -1730,12 +1730,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"amdNamesOfPackages:",{anArray:anArray},globals.AmdExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collect:", "select:", "notNil", "amdNamespaceOfPackage:", ",", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anArray"],
 source: "amdNamesOfPackages: anArray\x0a\x09^ (anArray\x0a\x09\x09select: [ :each | (self amdNamespaceOfPackage: each) notNil ])\x0a\x09\x09collect: [ :each | (self amdNamespaceOfPackage: each), '/', each name ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collect:", "select:", "notNil", "amdNamespaceOfPackage:", ",", "name"]
 }),
 globals.AmdExporter);
 
@@ -1765,12 +1765,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"amdNamespaceOfPackage:",{aPackage:aPackage},globals.AmdExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "=", "type", "transport", "namespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "amdNamespaceOfPackage: aPackage\x0a\x09^ (aPackage transport type = 'amd')\x0a\x09\x09ifTrue: [ aPackage transport namespace ]\x0a\x09\x09ifFalse: [ nil ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "=", "type", "transport", "namespace"]
 }),
 globals.AmdExporter);
 
@@ -1791,12 +1791,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},globals.AmdExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
 source: "exportPackageEpilogueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '});';\x0a\x09\x09lf",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "lf"]
 }),
 globals.AmdExporter);
 
@@ -1849,12 +1849,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},globals.AmdExporter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", "amdNamespaceOfPackage:", "name", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
 source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (#('amber/boot'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;\x0a\x09\x09nextPutAll: ', function($boot){';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;';\x0a\x09\x09lf",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "amdNamespaceOfPackage:", "name", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"]
 }),
 globals.AmdExporter);
 
@@ -1875,12 +1875,12 @@ $1=self["@last"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "last\x0a\x09^ last",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ChunkParser);
 
@@ -1943,12 +1943,12 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"nextChunk",{char:char,result:result,chunk:chunk},globals.ChunkParser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["writeStream", "whileTrue:", "next", "notNil", "ifTrue:", "=", "ifTrue:ifFalse:", "peek", "trimBoth", "contents", "nextPut:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "nextChunk\x0a\x09\x22The chunk format (Smalltalk Interchange Format or Fileout format)\x0a\x09is a trivial format but can be a bit tricky to understand:\x0a\x09\x09- Uses the exclamation mark as delimiter of chunks.\x0a\x09\x09- Inside a chunk a normal exclamation mark must be doubled.\x0a\x09\x09- A non empty chunk must be a valid Smalltalk expression.\x0a\x09\x09- A chunk on top level with a preceding empty chunk is an instruction chunk:\x0a\x09\x09\x09- The object created by the expression then takes over reading chunks.\x0a\x0a\x09This method returns next chunk as a String (trimmed), empty String (all whitespace) or nil.\x22\x0a\x0a\x09| char result chunk |\x0a\x09result := '' writeStream.\x0a\x09\x09[ char := stream next.\x0a\x09\x09char notNil ] whileTrue: [\x0a\x09\x09\x09\x09char = '!' ifTrue: [\x0a\x09\x09\x09\x09\x09\x09stream peek = '!'\x0a\x09\x09\x09\x09\x09\x09\x09\x09ifTrue: [ stream next \x22skipping the escape double\x22 ]\x0a\x09\x09\x09\x09\x09\x09\x09\x09ifFalse: [ ^ last := result contents trimBoth \x22chunk end marker found\x22 ]].\x0a\x09\x09\x09\x09result nextPut: char ].\x0a\x09^ last := nil \x22a chunk needs to end with !\x22",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["writeStream", "whileTrue:", "next", "notNil", "ifTrue:", "=", "ifTrue:ifFalse:", "peek", "trimBoth", "contents", "nextPut:"]
 }),
 globals.ChunkParser);
 
@@ -1962,12 +1962,12 @@ self["@stream"]=aStream;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStream"],
 source: "stream: aStream\x0a\x09stream := aStream",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ChunkParser);
 
@@ -1988,12 +1988,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{aStream:aStream},globals.ChunkParser.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["stream:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStream"],
 source: "on: aStream\x0a\x09^ self new stream: aStream",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["stream:", "new"]
 }),
 globals.ChunkParser.klass);
 
@@ -2030,12 +2030,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"methods",{},globals.ExportMethodProtocol)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["sorted:", "methodsInProtocol:", "theClass", "name", "<=", "selector"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "methods\x0a\x09^ (self theClass methodsInProtocol: self name)\x0a\x09\x09sorted: [ :a :b | a selector <= b selector ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["sorted:", "methodsInProtocol:", "theClass", "name", "<=", "selector"]
 }),
 globals.ExportMethodProtocol);
 
@@ -2050,12 +2050,12 @@ $1=self["@name"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "name\x0a\x09^ name",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ExportMethodProtocol);
 
@@ -2069,12 +2069,12 @@ self["@name"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "name: aString\x0a\x09name := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ExportMethodProtocol);
 
@@ -2089,12 +2089,12 @@ $1=self["@theClass"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "theClass\x0a\x09^ theClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ExportMethodProtocol);
 
@@ -2108,12 +2108,12 @@ self["@theClass"]=aClass;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ExportMethodProtocol);
 
@@ -2138,12 +2138,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"name:theClass:",{aString:aString,aClass:aClass},globals.ExportMethodProtocol.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["name:", "new", "theClass:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aClass"],
 source: "name: aString theClass: aClass\x0a\x09^ self new\x0a\x09\x09name: aString;\x0a\x09\x09theClass: aClass;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["name:", "new", "theClass:", "yourself"]
 }),
 globals.ExportMethodProtocol.klass);
 
@@ -2229,12 +2229,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"import:",{aStream:aStream,chunk:chunk,result:result,parser:parser,lastEmpty:lastEmpty},globals.Importer)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["on:", "on:do:", "whileFalse:", "nextChunk", "isNil", "ifTrue:ifFalse:", "isEmpty", "evaluateExpression:", "new", "ifTrue:", "scanFrom:", "last", "signal"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStream"],
 source: "import: aStream\x0a\x09| chunk result parser lastEmpty |\x0a\x09parser := ChunkParser on: aStream.\x0a\x09lastEmpty := false.\x0a\x09lastSection := 'n/a, not started'.\x0a\x09lastChunk := nil.\x0a\x09[\x0a\x09[ chunk := parser nextChunk.\x0a\x09chunk isNil ] whileFalse: [\x0a\x09\x09chunk isEmpty\x0a\x09\x09\x09ifTrue: [ lastEmpty := true ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09lastSection := chunk.\x0a\x09\x09\x09\x09result := Compiler new evaluateExpression: chunk.\x0a\x09\x09\x09\x09lastEmpty\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09lastEmpty := false.\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09result scanFrom: parser ]] ].\x0a\x09lastSection := 'n/a, finished'\x0a\x09] on: Error do: [:e | lastChunk := parser last. e signal ].",
-referencedClasses: ["ChunkParser", "Compiler", "Error"]
+referencedClasses: ["ChunkParser", "Compiler", "Error"],
 //>>excludeEnd("ide");
+messageSends: ["on:", "on:do:", "whileFalse:", "nextChunk", "isNil", "ifTrue:ifFalse:", "isEmpty", "evaluateExpression:", "new", "ifTrue:", "scanFrom:", "last", "signal"]
 }),
 globals.Importer);
 
@@ -2249,12 +2249,12 @@ $1=self["@lastChunk"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "lastChunk\x0a\x09^ lastChunk",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Importer);
 
@@ -2269,12 +2269,12 @@ $1=self["@lastSection"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "lastSection\x0a\x09^ lastSection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Importer);
 
@@ -2299,12 +2299,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:onSuccess:onError:",{aURL:aURL,aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ajax:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aURL", "aString", "aBlock", "anotherBlock"],
 source: "ajaxPutAt: aURL data: aString onSuccess: aBlock onError: anotherBlock\x0a\x09self\x0a\x09\x09ajax: #{\x0a\x09\x09\x09'url' -> aURL.\x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'success' -> aBlock.\x0a\x09\x09\x09'error' -> anotherBlock\x0a\x09\x09}",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ajax:"]
 }),
 globals.PackageHandler);
 
@@ -2333,12 +2333,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"chunkContentsFor:",{aPackage:aPackage},globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["streamContents:", "exportPackage:on:", "chunkExporter"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "chunkContentsFor: aPackage\x0a\x09^ String streamContents: [ :str |\x0a\x09\x09self chunkExporter exportPackage: aPackage on: str ]",
-referencedClasses: ["String"]
+referencedClasses: ["String"],
 //>>excludeEnd("ide");
+messageSends: ["streamContents:", "exportPackage:on:", "chunkExporter"]
 }),
 globals.PackageHandler);
 
@@ -2358,12 +2358,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"chunkExporter",{},globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "chunkExporterClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "chunkExporter\x0a\x09^ self chunkExporterClass new",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["new", "chunkExporterClass"]
 }),
 globals.PackageHandler);
 
@@ -2377,12 +2377,12 @@ function $ChunkExporter(){return globals.ChunkExporter||(typeof ChunkExporter=="
 return $ChunkExporter();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "chunkExporterClass\x0a\x09^ ChunkExporter",
-referencedClasses: ["ChunkExporter"]
+referencedClasses: ["ChunkExporter"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.PackageHandler);
 
@@ -2421,12 +2421,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["commit:onSuccess:onError:", "messageText:", "new", ",", "responseText", "signal"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "commit: aPackage\x0a\x09self \x0a\x09\x09commit: aPackage\x0a\x09\x09onSuccess: []\x0a\x09\x09onError: [ :error |\x0a\x09\x09\x09PackageCommitError new\x0a\x09\x09\x09\x09messageText: 'Commiting failed with reason: \x22' , (error responseText) , '\x22';\x0a\x09\x09\x09\x09signal ]",
-referencedClasses: ["PackageCommitError"]
+referencedClasses: ["PackageCommitError"],
 //>>excludeEnd("ide");
+messageSends: ["commit:onSuccess:onError:", "messageText:", "new", ",", "responseText", "signal"]
 }),
 globals.PackageHandler);
 
@@ -2462,12 +2462,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"commit:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["commitJsFileFor:onSuccess:onError:", "commitStFileFor:onSuccess:onError:", "beClean", "value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aBlock", "anotherBlock"],
 source: "commit: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09commitJsFileFor: aPackage \x0a\x09\x09onSuccess: [\x0a\x09\x09\x09self \x0a\x09\x09\x09\x09commitStFileFor: aPackage \x0a\x09\x09\x09\x09onSuccess: [ aPackage beClean. aBlock value ]\x0a\x09\x09\x09\x09onError: anotherBlock ] \x0a\x09\x09onError: anotherBlock",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["commitJsFileFor:onSuccess:onError:", "commitStFileFor:onSuccess:onError:", "beClean", "value"]
 }),
 globals.PackageHandler);
 
@@ -2495,12 +2495,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"commitJsFileFor:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ajaxPutAt:data:onSuccess:onError:", ",", "commitPathJsFor:", "name", "contentsFor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aBlock", "anotherBlock"],
 source: "commitJsFileFor: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09ajaxPutAt: (self commitPathJsFor: aPackage), '/', aPackage name, '.js'\x0a\x09\x09data: (self contentsFor: aPackage)\x0a\x09\x09onSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ajaxPutAt:data:onSuccess:onError:", ",", "commitPathJsFor:", "name", "contentsFor:"]
 }),
 globals.PackageHandler);
 
@@ -2519,12 +2519,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"commitPathJsFor:",{aPackage:aPackage},globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "commitPathJsFor: aPackage\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.PackageHandler);
 
@@ -2543,12 +2543,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage},globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "commitPathStFor: aPackage\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.PackageHandler);
 
@@ -2576,12 +2576,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"commitStFileFor:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ajaxPutAt:data:onSuccess:onError:", ",", "commitPathStFor:", "name", "chunkContentsFor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aBlock", "anotherBlock"],
 source: "commitStFileFor: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09ajaxPutAt: (self commitPathStFor: aPackage), '/', aPackage name, '.st'\x0a\x09\x09data: (self chunkContentsFor: aPackage)\x0a\x09\x09onSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ajaxPutAt:data:onSuccess:onError:", ",", "commitPathStFor:", "name", "chunkContentsFor:"]
 }),
 globals.PackageHandler);
 
@@ -2610,12 +2610,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"contentsFor:",{aPackage:aPackage},globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["streamContents:", "exportPackage:on:", "exporter"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "contentsFor: aPackage\x0a\x09^ String streamContents: [ :str |\x0a\x09\x09self exporter exportPackage: aPackage on: str ]",
-referencedClasses: ["String"]
+referencedClasses: ["String"],
 //>>excludeEnd("ide");
+messageSends: ["streamContents:", "exportPackage:on:", "exporter"]
 }),
 globals.PackageHandler);
 
@@ -2635,12 +2635,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"exporter",{},globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "exporterClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "exporter\x0a\x09^ self exporterClass new",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["new", "exporterClass"]
 }),
 globals.PackageHandler);
 
@@ -2654,12 +2654,12 @@ function $Exporter(){return globals.Exporter||(typeof Exporter=="undefined"?nil:
 return $Exporter();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "exporterClass\x0a\x09^ Exporter",
-referencedClasses: ["Exporter"]
+referencedClasses: ["Exporter"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.PackageHandler);
 
@@ -2678,12 +2678,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "load: aPackage\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.PackageHandler);
 
@@ -2711,12 +2711,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"onCommitError:",{anError:anError},globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["messageText:", "new", ",", "responseText", "signal"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anError"],
 source: "onCommitError: anError\x0a\x09PackageCommitError new\x0a\x09\x09messageText: 'Commiting failed with reason: \x22' , (anError responseText) , '\x22';\x0a\x09\x09signal",
-referencedClasses: ["PackageCommitError"]
+referencedClasses: ["PackageCommitError"],
 //>>excludeEnd("ide");
+messageSends: ["messageText:", "new", ",", "responseText", "signal"]
 }),
 globals.PackageHandler);
 
@@ -2742,12 +2742,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"commitPathJsFor:",{aPackage:aPackage},globals.AmdPackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["toUrl:", "namespaceFor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "commitPathJsFor: aPackage\x0a\x09^ self toUrl: (self namespaceFor: aPackage)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["toUrl:", "namespaceFor:"]
 }),
 globals.AmdPackageHandler);
 
@@ -2779,12 +2779,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage,path:path,pathWithout:pathWithout},globals.AmdPackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["toUrl:", ",", "namespaceFor:", "commitPathJsFor:", "ifTrue:ifFalse:", "="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "commitPathStFor: aPackage\x0a\x09\x22If _source is not mapped, .st will be committed to .js path.\x0a\x09It is recommended not to use _source as it can be deprecated.\x22\x0a\x09\x0a\x09| path pathWithout |\x0a\x09path := self toUrl: (self namespaceFor: aPackage), '/_source'.\x0a\x09pathWithout := self commitPathJsFor: aPackage.\x0a\x09^ path = (pathWithout, '/_source') ifTrue: [ pathWithout ] ifFalse: [ path ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["toUrl:", ",", "namespaceFor:", "commitPathJsFor:", "ifTrue:ifFalse:", "="]
 }),
 globals.AmdPackageHandler);
 
@@ -2798,12 +2798,12 @@ function $AmdExporter(){return globals.AmdExporter||(typeof AmdExporter=="undefi
 return $AmdExporter();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "exporterClass\x0a\x09^ AmdExporter",
-referencedClasses: ["AmdExporter"]
+referencedClasses: ["AmdExporter"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AmdPackageHandler);
 
@@ -2837,12 +2837,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},globals.AmdPackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:ifNotNil:", "amdRequire", "error:", "value:", "with:", ",", "namespaceFor:", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "load: aPackage\x0a\x09Smalltalk amdRequire\x0a\x09\x09ifNil: [ self error: 'AMD loader not present' ]\x0a\x09\x09ifNotNil: [ :require |\x0a\x09\x09\x09require value: (Array with: (self namespaceFor: aPackage), '/', aPackage name ) ]",
-referencedClasses: ["Smalltalk", "Array"]
+referencedClasses: ["Smalltalk", "Array"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:ifNotNil:", "amdRequire", "error:", "value:", "with:", ",", "namespaceFor:", "name"]
 }),
 globals.AmdPackageHandler);
 
@@ -2862,12 +2862,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"namespaceFor:",{aPackage:aPackage},globals.AmdPackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["namespace", "transport"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "namespaceFor: aPackage\x0a\x09^ aPackage transport namespace",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["namespace", "transport"]
 }),
 globals.AmdPackageHandler);
 
@@ -2895,12 +2895,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"toUrl:",{aString:aString},globals.AmdPackageHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:ifNotNil:", "amdRequire", "error:", "value:", "basicAt:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "toUrl: aString\x0a\x09^ Smalltalk amdRequire\x0a\x09\x09ifNil: [ self error: 'AMD loader not present' ]\x0a\x09\x09ifNotNil: [ :require | (require basicAt: 'toUrl') value: aString ]",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:ifNotNil:", "amdRequire", "error:", "value:", "basicAt:"]
 }),
 globals.AmdPackageHandler);
 
@@ -2922,12 +2922,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultNamespace",{},globals.AmdPackageHandler.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["defaultAmdNamespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "defaultNamespace\x0a\x09^ Smalltalk defaultAmdNamespace",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["defaultAmdNamespace"]
 }),
 globals.AmdPackageHandler.klass);
 
@@ -2947,12 +2947,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"defaultNamespace:",{aString:aString},globals.AmdPackageHandler.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["defaultAmdNamespace:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "defaultNamespace: aString\x0a\x09Smalltalk defaultAmdNamespace: aString",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["defaultAmdNamespace:"]
 }),
 globals.AmdPackageHandler.klass);
 
@@ -2977,12 +2977,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{},globals.PackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["type"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asJSON\x0a\x09^ #{ 'type' -> self type }",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["type"]
 }),
 globals.PackageTransport);
 
@@ -3001,12 +3001,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"commit",{},globals.PackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["commit:", "commitHandler", "package"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "commit\x0a\x09self commitHandler commit: self package",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["commit:", "commitHandler", "package"]
 }),
 globals.PackageTransport);
 
@@ -3026,12 +3026,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"commitHandler",{},globals.PackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "commitHandlerClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "commitHandler\x0a\x09^ self commitHandlerClass new",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["new", "commitHandlerClass"]
 }),
 globals.PackageTransport);
 
@@ -3050,12 +3050,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"commitHandlerClass",{},globals.PackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "commitHandlerClass\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.PackageTransport);
 
@@ -3074,12 +3074,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"commitOnSuccess:onError:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.PackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["commit:onSuccess:onError:", "commitHandler", "package"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "anotherBlock"],
 source: "commitOnSuccess: aBlock onError: anotherBlock\x0a\x09self commitHandler \x0a\x09\x09commit: self package\x0a\x09\x09onSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["commit:onSuccess:onError:", "commitHandler", "package"]
 }),
 globals.PackageTransport);
 
@@ -3092,12 +3092,12 @@ var self=this;
 return "";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "definition\x0a\x09^ ''",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.PackageTransport);
 
@@ -3116,12 +3116,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"load",{},globals.PackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["load:", "commitHandler", "package"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "load\x0a\x09self commitHandler load: self package",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["load:", "commitHandler", "package"]
 }),
 globals.PackageTransport);
 
@@ -3136,12 +3136,12 @@ $1=self["@package"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "package\x0a\x09^ package",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.PackageTransport);
 
@@ -3155,12 +3155,12 @@ self["@package"]=aPackage;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
 source: "package: aPackage\x0a\x09package := aPackage",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.PackageTransport);
 
@@ -3173,12 +3173,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "setupFromJson: anObject\x0a\x09\x22no op. override if needed in subclasses\x22",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.PackageTransport);
 
@@ -3198,12 +3198,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"type",{},globals.PackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["type", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "type\x0a\x09^ self class type",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["type", "class"]
 }),
 globals.PackageTransport);
 
@@ -3225,12 +3225,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"classRegisteredFor:",{aString:aString},globals.PackageTransport.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "classRegisteredFor: aString\x0a\x09^ registry at: aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["at:"]
 }),
 globals.PackageTransport.klass);
 
@@ -3251,12 +3251,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultType",{},globals.PackageTransport.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["type"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "defaultType\x0a\x09^ AmdPackageTransport type",
-referencedClasses: ["AmdPackageTransport"]
+referencedClasses: ["AmdPackageTransport"],
 //>>excludeEnd("ide");
+messageSends: ["type"]
 }),
 globals.PackageTransport.klass);
 
@@ -3276,12 +3276,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},globals.PackageTransport.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "classRegisteredFor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "for: aString\x0a\x09^ (self classRegisteredFor: aString) new",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["new", "classRegisteredFor:"]
 }),
 globals.PackageTransport.klass);
 
@@ -3313,12 +3313,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"fromJson:",{anObject:anObject},globals.PackageTransport.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "for:", "defaultType", "setupFromJson:", "type", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "fromJson: anObject\x0a\x09anObject ifNil: [ ^ self for: self defaultType ].\x0a\x09\x0a\x09^ (self for: anObject type)\x0a\x09\x09setupFromJson: anObject;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "for:", "defaultType", "setupFromJson:", "type", "yourself"]
 }),
 globals.PackageTransport.klass);
 
@@ -3346,12 +3346,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.PackageTransport.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initialize", "register"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09registry := #{}.\x0a\x09self register",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["initialize", "register"]
 }),
 globals.PackageTransport.klass);
 
@@ -3371,12 +3371,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"register",{},globals.PackageTransport.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["register:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "register\x0a\x09PackageTransport register: self",
-referencedClasses: ["PackageTransport"]
+referencedClasses: ["PackageTransport"],
 //>>excludeEnd("ide");
+messageSends: ["register:"]
 }),
 globals.PackageTransport.klass);
 
@@ -3404,12 +3404,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"register:",{aClass:aClass},globals.PackageTransport.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNotNil:", "type", "at:put:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "register: aClass\x0a\x09aClass type ifNotNil: [\x0a\x09\x09registry at: aClass type put: aClass ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "type", "at:put:"]
 }),
 globals.PackageTransport.klass);
 
@@ -3422,12 +3422,12 @@ var self=this;
 return nil;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "type\x0a\x09\x22Override in subclasses\x22\x0a\x09^ nil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.PackageTransport.klass);
 
@@ -3462,12 +3462,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{},globals.AmdPackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:put:", "asJSON", "namespace", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asJSON\x0a\x09^ super asJSON\x0a\x09\x09at: 'amdNamespace' put: self namespace;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["at:put:", "asJSON", "namespace", "yourself"]
 }),
 globals.AmdPackageTransport);
 
@@ -3481,12 +3481,12 @@ function $AmdPackageHandler(){return globals.AmdPackageHandler||(typeof AmdPacka
 return $AmdPackageHandler();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "commitHandlerClass\x0a\x09^ AmdPackageHandler",
-referencedClasses: ["AmdPackageHandler"]
+referencedClasses: ["AmdPackageHandler"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AmdPackageTransport);
 
@@ -3507,12 +3507,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultNamespace",{},globals.AmdPackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["defaultAmdNamespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "defaultNamespace\x0a\x09^ Smalltalk defaultAmdNamespace",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["defaultAmdNamespace"]
 }),
 globals.AmdPackageTransport);
 
@@ -3554,12 +3554,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"definition",{},globals.AmdPackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["streamContents:", "nextPutAll:", "name", "class", ",", "namespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "definition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream \x0a\x09\x09\x09nextPutAll: self class name;\x0a\x09\x09\x09nextPutAll: ' namespace: ';\x0a\x09\x09\x09nextPutAll: '''', self namespace, '''' ]",
-referencedClasses: ["String"]
+referencedClasses: ["String"],
 //>>excludeEnd("ide");
+messageSends: ["streamContents:", "nextPutAll:", "name", "class", ",", "namespace"]
 }),
 globals.AmdPackageTransport);
 
@@ -3584,12 +3584,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"namespace",{},globals.AmdPackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "defaultNamespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "namespace\x0a\x09^ namespace ifNil: [ self defaultNamespace ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "defaultNamespace"]
 }),
 globals.AmdPackageTransport);
 
@@ -3603,12 +3603,12 @@ self["@namespace"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "namespace: aString\x0a\x09namespace := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AmdPackageTransport);
 
@@ -3644,12 +3644,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.AmdPackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["printOn:", "nextPutAll:", "namespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09aStream\x0a\x09\x09nextPutAll: ' (AMD Namespace: ';\x0a\x09\x09nextPutAll: self namespace;\x0a\x09\x09nextPutAll: ')'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["printOn:", "nextPutAll:", "namespace"]
 }),
 globals.AmdPackageTransport);
 
@@ -3668,12 +3668,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setPath:",{aString:aString},globals.AmdPackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:", "basicAt:", "namespace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "setPath: aString\x0a\x09\x22Set the path the the receiver's `namespace`\x22\x0a\x09\x0a\x09(require basicAt: 'config') value: #{\x0a\x09\x09'paths' -> #{\x0a\x09\x09\x09self namespace -> aString\x0a\x09\x09}\x0a\x09}.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["value:", "basicAt:", "namespace"]
 }),
 globals.AmdPackageTransport);
 
@@ -3692,12 +3692,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setupFromJson:",{anObject:anObject},globals.AmdPackageTransport)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["namespace:", "at:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "setupFromJson: anObject\x0a\x09self namespace: (anObject at: 'amdNamespace')",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["namespace:", "at:"]
 }),
 globals.AmdPackageTransport);
 
@@ -3721,12 +3721,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"namespace:",{aString:aString},globals.AmdPackageTransport.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["namespace:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "namespace: aString\x0a\x09^ self new\x0a\x09\x09namespace: aString;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["namespace:", "new", "yourself"]
 }),
 globals.AmdPackageTransport.klass);
 
@@ -3739,12 +3739,12 @@ var self=this;
 return "amd";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "type\x0a\x09^ 'amd'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AmdPackageTransport.klass);
 
@@ -3764,12 +3764,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"commit",{},globals.Package)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["commit", "transport"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "commit\x0a\x09^ self transport commit",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["commit", "transport"]
 }),
 globals.Package);
 
@@ -3789,12 +3789,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"load",{},globals.Package)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["load", "transport"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "load\x0a\x09^ self transport load",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["load", "transport"]
 }),
 globals.Package);
 
@@ -3817,12 +3817,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"loadFromNamespace:",{aString:aString},globals.Package)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["namespace:", "transport", "load"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "loadFromNamespace: aString\x0a\x09^ self transport\x0a\x09\x09namespace: aString;\x0a\x09\x09load",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["namespace:", "transport", "load"]
 }),
 globals.Package);
 
@@ -3841,12 +3841,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"load:",{aPackageName:aPackageName},globals.Package.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["load", "named:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackageName"],
 source: "load: aPackageName\x0a\x09(self named: aPackageName) load",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["load", "named:"]
 }),
 globals.Package.klass);
 
@@ -3865,12 +3865,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"load:fromNamespace:",{aPackageName:aPackageName,aString:aString},globals.Package.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["loadFromNamespace:", "named:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackageName", "aString"],
 source: "load: aPackageName fromNamespace: aString\x0a\x09(self named: aPackageName) loadFromNamespace: aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["loadFromNamespace:", "named:"]
 }),
 globals.Package.klass);
 

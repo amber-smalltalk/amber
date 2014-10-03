@@ -23,12 +23,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 globals.Node);
 
@@ -48,12 +48,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"addNode:",{aNode:aNode},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["add:", "nodes", "parent:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "addNode: aNode\x0a\x09self nodes add: aNode.\x0a\x09aNode parent: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["add:", "nodes", "parent:"]
 }),
 globals.Node);
 
@@ -88,12 +88,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"allNodes",{allNodes:allNodes},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["asSet", "nodes", "do:", "addAll:", "allNodes"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "allNodes\x0a\x09| allNodes |\x0a\x09\x0a\x09allNodes := self nodes asSet.\x0a\x09self nodes do: [ :each | \x0a\x09\x09allNodes addAll: each allNodes ].\x0a\x09\x0a\x09^ allNodes",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["asSet", "nodes", "do:", "addAll:", "allNodes"]
 }),
 globals.Node);
 
@@ -121,12 +121,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"inPosition:",{aPoint:aPoint},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["and:", "<=", "positionStart", ">=", "positionEnd"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPoint"],
 source: "inPosition: aPoint\x0a\x09^ (self positionStart <= aPoint and: [\x0a\x09\x09self positionEnd >= aPoint ])",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["and:", "<=", "positionStart", ">=", "positionEnd"]
 }),
 globals.Node);
 
@@ -139,12 +139,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isAssignmentNode\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -157,12 +157,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isBlockNode\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -175,12 +175,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isBlockSequenceNode\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -193,12 +193,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isCascadeNode\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -211,12 +211,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isImmutable\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -229,12 +229,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isJSStatementNode\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -254,12 +254,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isLastChild",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["=", "last", "nodes", "parent"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isLastChild\x0a\x09^ self parent nodes last = self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["=", "last", "nodes", "parent"]
 }),
 globals.Node);
 
@@ -272,12 +272,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isNavigationNode\x0a\x09\x22Answer true if the node can be navigated to\x22\x0a\x09\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -290,12 +290,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -329,12 +329,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isReferenced",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["not", "or:", "isSequenceNode", "parent", "isAssignmentNode"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isReferenced\x0a\x09\x22Answer true if the receiver is referenced by other nodes.\x0a\x09Do not take sequences or assignments into account\x22\x0a\x09\x0a\x09^ (self parent isSequenceNode or: [\x0a\x09\x09self parent isAssignmentNode ]) not",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["not", "or:", "isSequenceNode", "parent", "isAssignmentNode"]
 }),
 globals.Node);
 
@@ -347,12 +347,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isReturnNode\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -365,12 +365,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isSendNode\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -383,12 +383,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isSequenceNode\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -401,12 +401,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isValueNode\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -419,12 +419,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isVariableNode\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -451,12 +451,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNotNil:", "parent", "method"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "method\x0a\x09^ self parent ifNotNil: [ :node | node method ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "parent", "method"]
 }),
 globals.Node);
 
@@ -524,12 +524,12 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"navigationNodeAt:ifAbsent:",{aPoint:aPoint,aBlock:aBlock,children:children},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["select:", "allNodes", "and:", "isNavigationNode", "inPosition:", "ifEmpty:", "value", "first", "sort:", "asArray", "<=", "dist:", "positionStart"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPoint", "aBlock"],
 source: "navigationNodeAt: aPoint ifAbsent: aBlock\x0a\x09\x22Answer the navigation node in the receiver's tree at aPoint \x0a\x09or nil if no navigation node was found.\x0a\x09\x0a\x09See `node >> isNaviationNode`\x22\x0a\x09\x0a\x09| children |\x0a\x09\x0a\x09children := self allNodes select: [ :each | \x0a\x09\x09each isNavigationNode and: [ each inPosition: aPoint ] ].\x0a\x09\x0a\x09children ifEmpty: [ ^ aBlock value ].\x0a\x09\x0a\x09^ (children asArray sort: [ :a :b | \x0a\x09\x09(a positionStart dist: aPoint) <= \x0a\x09\x09(b positionStart dist: aPoint) ]) first",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["select:", "allNodes", "and:", "isNavigationNode", "inPosition:", "ifEmpty:", "value", "first", "sort:", "asArray", "<=", "dist:", "positionStart"]
 }),
 globals.Node);
 
@@ -558,12 +558,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextChild",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "isEmpty", "nodes", "nextChild", "first"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "nextChild\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the receiver to answer the next node to be evaluated\x22\x0a\x09\x0a\x09^ self nodes isEmpty\x0a\x09\x09ifTrue: [ self ]\x0a\x09\x09ifFalse: [ self nodes first nextChild ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "isEmpty", "nodes", "nextChild", "first"]
 }),
 globals.Node);
 
@@ -590,12 +590,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextNode",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNotNil:", "parent", "nextNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "nextNode\x0a\x09^ self parent ifNotNil: [ :node |\x0a\x09\x09node nextNode: self ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "parent", "nextNode:"]
 }),
 globals.Node);
 
@@ -628,12 +628,12 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode,next:next},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:", "nextChild"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "nextNode: aNode\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the next node to answer the next node to be evaluated\x22\x0a\x09\x0a\x09| next |\x0a\x09\x0a\x09next := self nodes \x0a\x09\x09at: (self nodes indexOf: aNode) + 1\x0a\x09\x09ifAbsent: [ ^ self ].\x0a\x09\x0a\x09^ next nextChild",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:", "nextChild"]
 }),
 globals.Node);
 
@@ -660,12 +660,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "nodes\x0a\x09^ nodes ifNil: [ nodes := Array new ]",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.Node);
 
@@ -693,12 +693,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"nodes:",{aCollection:aCollection},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "parent:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "nodes: aCollection\x0a\x09nodes := aCollection.\x0a\x09aCollection do: [ :each | each parent: self ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "parent:"]
 }),
 globals.Node);
 
@@ -713,12 +713,12 @@ $1=self["@parent"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "parent\x0a\x09^ parent",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -732,12 +732,12 @@ self["@parent"]=aNode;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "parent: aNode\x0a\x09parent := aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -769,12 +769,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"position",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "ifNotNil:", "parent", "position"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "position\x0a\x09\x22answer the line and column of the receiver in the source code\x22\x0a\x09\x0a\x09^ position ifNil: [ \x0a\x09\x09self parent ifNotNil: [ :node | node position ] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "ifNotNil:", "parent", "position"]
 }),
 globals.Node);
 
@@ -788,12 +788,12 @@ self["@position"]=aPosition;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPosition"],
 source: "position: aPosition\x0a\x09position := aPosition",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -831,12 +831,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"positionEnd",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["+", "positionStart", "@", "-", "size", "lines", "source", "last"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "positionEnd\x0a\x09^ self positionStart + ((self source lines size - 1) @ (self source lines last size - 1))",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["+", "positionStart", "@", "-", "size", "lines", "source", "last"]
 }),
 globals.Node);
 
@@ -856,12 +856,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"positionStart",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["position"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "positionStart\x0a\x09^ self position",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["position"]
 }),
 globals.Node);
 
@@ -896,12 +896,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"postCopy",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["postCopy", "do:", "nodes", "parent:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "postCopy\x0a\x09super postCopy.\x0a\x09self nodes do: [ :each | each parent: self ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["postCopy", "do:", "nodes", "parent:"]
 }),
 globals.Node);
 
@@ -932,12 +932,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"requiresSmalltalkContext",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["notNil", "detect:ifNone:", "nodes", "requiresSmalltalkContext"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "requiresSmalltalkContext\x0a\x09\x22Answer true if the receiver requires a smalltalk context.\x0a\x09Only send nodes require a context.\x0a\x09\x0a\x09If no node requires a context, the method will be compiled without one.\x0a\x09See `IRJSTranslator` and `JSStream` for context creation\x22\x0a\x09\x0a\x09^ (self nodes \x0a\x09\x09detect: [ :each | each requiresSmalltalkContext ]\x0a\x09\x09ifNone: [ nil ]) notNil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["notNil", "detect:ifNone:", "nodes", "requiresSmalltalkContext"]
 }),
 globals.Node);
 
@@ -962,12 +962,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldBeAliased",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "shouldBeAliased\x0a\x09^ shouldBeAliased ifNil: [ false ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.Node);
 
@@ -981,12 +981,12 @@ self["@shouldBeAliased"]=aBoolean;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean"],
 source: "shouldBeAliased: aBoolean\x0a\x09shouldBeAliased := aBoolean",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -1011,12 +1011,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldBeInlined",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "shouldBeInlined\x0a\x09^ shouldBeInlined ifNil: [ false ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.Node);
 
@@ -1030,12 +1030,12 @@ self["@shouldBeInlined"]=aBoolean;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean"],
 source: "shouldBeInlined: aBoolean\x0a\x09shouldBeInlined := aBoolean",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -1055,12 +1055,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"size",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["size", "source"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "size\x0a\x09^ self source size",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["size", "source"]
 }),
 globals.Node);
 
@@ -1085,12 +1085,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"source",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "source\x0a\x09^ source ifNil: [ '' ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.Node);
 
@@ -1104,12 +1104,12 @@ self["@source"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -1122,12 +1122,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "stopOnStepping\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Node);
 
@@ -1174,12 +1174,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{},globals.Node)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["or:", "shouldBeAliased", "shouldBeInlined", "anySatisfy:", "nodes", "subtreeNeedsAliasing"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "subtreeNeedsAliasing\x0a\x09^ (self shouldBeAliased or: [ self shouldBeInlined ]) or: [\x0a\x09\x09self nodes anySatisfy: [ :each | each subtreeNeedsAliasing ] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["or:", "shouldBeAliased", "shouldBeInlined", "anySatisfy:", "nodes", "subtreeNeedsAliasing"]
 }),
 globals.Node);
 
@@ -1205,12 +1205,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.AssignmentNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitAssignmentNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitAssignmentNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitAssignmentNode:"]
 }),
 globals.AssignmentNode);
 
@@ -1223,12 +1223,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isAssignmentNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AssignmentNode);
 
@@ -1243,12 +1243,12 @@ $1=self["@left"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "left\x0a\x09^ left",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AssignmentNode);
 
@@ -1268,12 +1268,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"left:",{aNode:aNode},globals.AssignmentNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parent:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "left: aNode\x0a\x09left := aNode.\x0a\x09aNode parent: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["parent:"]
 }),
 globals.AssignmentNode);
 
@@ -1294,12 +1294,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},globals.AssignmentNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["with:with:", "left", "right"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "nodes\x0a\x09^ Array with: self left with: self right",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["with:with:", "left", "right"]
 }),
 globals.AssignmentNode);
 
@@ -1314,12 +1314,12 @@ $1=self["@right"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "right\x0a\x09^ right",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AssignmentNode);
 
@@ -1339,12 +1339,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"right:",{aNode:aNode},globals.AssignmentNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parent:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "right: aNode\x0a\x09right := aNode.\x0a\x09aNode parent: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["parent:"]
 }),
 globals.AssignmentNode);
 
@@ -1380,12 +1380,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldBeAliased",{},globals.AssignmentNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["or:", "shouldBeAliased", "isReferenced"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "shouldBeAliased\x0a\x09^ super shouldBeAliased or: [ self isReferenced ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["or:", "shouldBeAliased", "isReferenced"]
 }),
 globals.AssignmentNode);
 
@@ -1411,12 +1411,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.BlockNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitBlockNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitBlockNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitBlockNode:"]
 }),
 globals.BlockNode);
 
@@ -1429,12 +1429,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isBlockNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.BlockNode);
 
@@ -1447,12 +1447,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "nextChild\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.BlockNode);
 
@@ -1465,12 +1465,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "nextNode: aNode\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.BlockNode);
 
@@ -1497,12 +1497,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"parameters",{},globals.BlockNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "parameters\x0a\x09^ parameters ifNil: [ parameters := Array new ]",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.BlockNode);
 
@@ -1516,12 +1516,12 @@ self["@parameters"]=aCollection;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "parameters: aCollection\x0a\x09parameters := aCollection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.BlockNode);
 
@@ -1536,12 +1536,12 @@ $1=self["@scope"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "scope\x0a\x09^ scope",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.BlockNode);
 
@@ -1555,12 +1555,12 @@ self["@scope"]=aLexicalScope;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aLexicalScope"],
 source: "scope: aLexicalScope\x0a\x09scope := aLexicalScope",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.BlockNode);
 
@@ -1588,12 +1588,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{},globals.BlockNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["or:", "shouldBeAliased", "shouldBeInlined"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "subtreeNeedsAliasing\x0a\x09^ self shouldBeAliased or: [ self shouldBeInlined ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["or:", "shouldBeAliased", "shouldBeInlined"]
 }),
 globals.BlockNode);
 
@@ -1619,12 +1619,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.CascadeNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitCascadeNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitCascadeNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitCascadeNode:"]
 }),
 globals.CascadeNode);
 
@@ -1637,12 +1637,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isCascadeNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.CascadeNode);
 
@@ -1657,12 +1657,12 @@ $1=self["@receiver"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "receiver\x0a\x09^ receiver",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.CascadeNode);
 
@@ -1676,12 +1676,12 @@ self["@receiver"]=aNode;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "receiver: aNode\x0a\x09receiver := aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.CascadeNode);
 
@@ -1707,12 +1707,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.DynamicArrayNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitDynamicArrayNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitDynamicArrayNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitDynamicArrayNode:"]
 }),
 globals.DynamicArrayNode);
 
@@ -1738,12 +1738,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.DynamicDictionaryNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitDynamicDictionaryNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitDynamicDictionaryNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitDynamicDictionaryNode:"]
 }),
 globals.DynamicDictionaryNode);
 
@@ -1769,12 +1769,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.JSStatementNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitJSStatementNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitJSStatementNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitJSStatementNode:"]
 }),
 globals.JSStatementNode);
 
@@ -1787,12 +1787,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isJSStatementNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.JSStatementNode);
 
@@ -1805,12 +1805,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "requiresSmalltalkContext\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.JSStatementNode);
 
@@ -1836,12 +1836,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.MethodNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitMethodNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitMethodNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitMethodNode:"]
 }),
 globals.MethodNode);
 
@@ -1866,12 +1866,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},globals.MethodNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "arguments\x0a\x09^ arguments ifNil: [ #() ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.MethodNode);
 
@@ -1885,12 +1885,12 @@ self["@arguments"]=aCollection;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "arguments: aCollection\x0a\x09arguments := aCollection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -1905,12 +1905,12 @@ $1=self["@classReferences"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "classReferences\x0a\x09^ classReferences",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -1924,12 +1924,12 @@ self["@classReferences"]=aCollection;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "classReferences: aCollection\x0a\x09classReferences := aCollection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -1949,12 +1949,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageSends",{},globals.MethodNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["keys", "sendIndexes"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "messageSends\x0a\x09^ self sendIndexes keys",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["keys", "sendIndexes"]
 }),
 globals.MethodNode);
 
@@ -1967,12 +1967,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "method\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -1987,12 +1987,12 @@ $1=self["@scope"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "scope\x0a\x09^ scope",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -2006,12 +2006,12 @@ self["@scope"]=aMethodScope;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMethodScope"],
 source: "scope: aMethodScope\x0a\x09scope := aMethodScope",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -2026,12 +2026,12 @@ $1=self["@selector"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selector\x0a\x09^ selector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -2045,12 +2045,12 @@ self["@selector"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -2065,12 +2065,12 @@ $1=self["@sendIndexes"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sendIndexes\x0a\x09^ sendIndexes",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -2084,12 +2084,12 @@ self["@sendIndexes"]=aDictionary;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aDictionary"],
 source: "sendIndexes: aDictionary\x0a\x09sendIndexes := aDictionary",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -2124,12 +2124,12 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"sequenceNode",{},globals.MethodNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "nodes", "ifTrue:", "isSequenceNode"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sequenceNode\x0a\x09self nodes do: [ :each |\x0a\x09\x09each isSequenceNode ifTrue: [ ^ each ] ].\x0a\x09\x09\x0a\x09^ nil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "nodes", "ifTrue:", "isSequenceNode"]
 }),
 globals.MethodNode);
 
@@ -2144,12 +2144,12 @@ $1=self["@source"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "source\x0a\x09^ source",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -2163,12 +2163,12 @@ self["@source"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -2183,12 +2183,12 @@ $1=self["@superSends"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "superSends\x0a\x09^ superSends",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -2202,12 +2202,12 @@ self["@superSends"]=aCollection;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "superSends: aCollection\x0a\x09superSends := aCollection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.MethodNode);
 
@@ -2233,12 +2233,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.ReturnNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitReturnNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitReturnNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitReturnNode:"]
 }),
 globals.ReturnNode);
 
@@ -2251,12 +2251,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isReturnNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ReturnNode);
 
@@ -2276,12 +2276,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"nonLocalReturn",{},globals.ReturnNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["not", "isMethodScope", "scope"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "nonLocalReturn\x0a\x09^ self scope isMethodScope not",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["not", "isMethodScope", "scope"]
 }),
 globals.ReturnNode);
 
@@ -2296,12 +2296,12 @@ $1=self["@scope"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "scope\x0a\x09^ scope",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ReturnNode);
 
@@ -2315,12 +2315,12 @@ self["@scope"]=aLexicalScope;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aLexicalScope"],
 source: "scope: aLexicalScope\x0a\x09scope := aLexicalScope",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ReturnNode);
 
@@ -2346,12 +2346,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.SendNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitSendNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitSendNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitSendNode:"]
 }),
 globals.SendNode);
 
@@ -2377,12 +2377,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},globals.SendNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "arguments\x0a\x09^ arguments ifNil: [ arguments := #() ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.SendNode);
 
@@ -2410,12 +2410,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"arguments:",{aCollection:aCollection},globals.SendNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "parent:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "arguments: aCollection\x0a\x09arguments := aCollection.\x0a\x09aCollection do: [ :each | each parent: self ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "parent:"]
 }),
 globals.SendNode);
 
@@ -2454,12 +2454,12 @@ return $3;
 }, function($ctx1) {$ctx1.fill(self,"cascadeNodeWithMessages:",{aCollection:aCollection,first:first},globals.SendNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["selector:", "new", "selector", "arguments:", "arguments", "yourself", "receiver:", "receiver", "nodes:", ",", "with:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "cascadeNodeWithMessages: aCollection\x0a\x09| first |\x0a\x09first := SendNode new\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself.\x0a\x09^ CascadeNode new\x0a\x09\x09receiver: self receiver;\x0a\x09\x09nodes: (Array with: first), aCollection;\x0a\x09\x09yourself",
-referencedClasses: ["SendNode", "CascadeNode", "Array"]
+referencedClasses: ["SendNode", "CascadeNode", "Array"],
 //>>excludeEnd("ide");
+messageSends: ["selector:", "new", "selector", "arguments:", "arguments", "yourself", "receiver:", "receiver", "nodes:", ",", "with:"]
 }),
 globals.SendNode);
 
@@ -2474,12 +2474,12 @@ $1=self["@index"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "index\x0a\x09^ index",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SendNode);
 
@@ -2493,12 +2493,12 @@ self["@index"]=anInteger;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInteger"],
 source: "index: anInteger\x0a\x09index := anInteger",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SendNode);
 
@@ -2518,12 +2518,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isCascadeSendNode",{},globals.SendNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["isCascadeNode", "parent"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isCascadeSendNode\x0a\x09^ self parent isCascadeNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["isCascadeNode", "parent"]
 }),
 globals.SendNode);
 
@@ -2536,12 +2536,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isNavigationNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SendNode);
 
@@ -2554,12 +2554,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isSendNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SendNode);
 
@@ -2579,12 +2579,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"navigationLink",{},globals.SendNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["selector"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "navigationLink\x0a\x09^ self selector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["selector"]
 }),
 globals.SendNode);
 
@@ -2622,12 +2622,12 @@ return $4;
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},globals.SendNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "receiver", "copy", "arguments", "addAll:", "with:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "nodes\x0a\x09self receiver ifNil: [ ^ self arguments copy ].\x0a\x09\x0a\x09^ (Array with: self receiver)\x0a\x09\x09addAll: self arguments;\x0a\x09\x09yourself",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "receiver", "copy", "arguments", "addAll:", "with:", "yourself"]
 }),
 globals.SendNode);
 
@@ -2642,12 +2642,12 @@ $1=self["@receiver"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "receiver\x0a\x09^ receiver",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SendNode);
 
@@ -2671,12 +2671,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"receiver:",{aNode:aNode},globals.SendNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "isNode", "parent:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "receiver: aNode\x0a\x09receiver := aNode.\x0a\x09aNode isNode ifTrue: [\x0a\x09\x09aNode parent: self ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "isNode", "parent:"]
 }),
 globals.SendNode);
 
@@ -2689,12 +2689,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "requiresSmalltalkContext\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SendNode);
 
@@ -2709,12 +2709,12 @@ $1=self["@selector"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selector\x0a\x09^ selector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SendNode);
 
@@ -2728,12 +2728,12 @@ self["@selector"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SendNode);
 
@@ -2801,12 +2801,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldBeAliased",{sends:sends},globals.SendNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["size", "at:", "sendIndexes", "method", "selector", "or:", "shouldBeAliased", "and:", "isReferenced", ">", "<", "index", "superSend"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "shouldBeAliased\x0a\x09\x22Because we keep track of send indexes, some send nodes need additional care for aliasing. \x0a\x09See IRJSVisitor >> visitIRSend:\x22\x0a\x09\x0a\x09| sends |\x0a\x09\x0a\x09sends := (self method sendIndexes at: self selector) size.\x0a\x09\x0a\x09^ (super shouldBeAliased or: [\x0a\x09\x09self isReferenced and: [\x0a\x09\x09\x09(sends > 1 and: [ self index < sends ])\x0a\x09\x09\x09\x09or: [ self superSend ] ] ])",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["size", "at:", "sendIndexes", "method", "selector", "or:", "shouldBeAliased", "and:", "isReferenced", ">", "<", "index", "superSend"]
 }),
 globals.SendNode);
 
@@ -2819,12 +2819,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "stopOnStepping\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SendNode);
 
@@ -2849,12 +2849,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"superSend",{},globals.SendNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "superSend\x0a\x09^ superSend ifNil: [ false ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.SendNode);
 
@@ -2868,12 +2868,12 @@ self["@superSend"]=aBoolean;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean"],
 source: "superSend: aBoolean\x0a\x09superSend := aBoolean",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SendNode);
 
@@ -2911,12 +2911,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"valueForReceiver:",{anObject:anObject},globals.SendNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["position:", "new", "position", "source:", "source", "receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "valueForReceiver: anObject\x0a\x09^ SendNode new\x0a\x09\x09position: self position;\x0a\x09\x09source: self source;\x0a\x09\x09receiver: (self receiver\x0a\x09\x09ifNil: [ anObject ] \x0a\x09\x09ifNotNil: [ self receiver valueForReceiver: anObject ]);\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself",
-referencedClasses: ["SendNode"]
+referencedClasses: ["SendNode"],
 //>>excludeEnd("ide");
+messageSends: ["position:", "new", "position", "source:", "source", "receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself"]
 }),
 globals.SendNode);
 
@@ -2942,12 +2942,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.SequenceNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitSequenceNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitSequenceNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitSequenceNode:"]
 }),
 globals.SequenceNode);
 
@@ -2974,12 +2974,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asBlockSequenceNode",{},globals.SequenceNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["position:", "new", "position", "source:", "source", "nodes:", "nodes", "temps:", "temps", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asBlockSequenceNode\x0a\x09^ BlockSequenceNode new\x0a\x09\x09position: self position;\x0a\x09\x09source: self source;\x0a\x09\x09nodes: self nodes;\x0a\x09\x09temps: self temps;\x0a\x09\x09yourself",
-referencedClasses: ["BlockSequenceNode"]
+referencedClasses: ["BlockSequenceNode"],
 //>>excludeEnd("ide");
+messageSends: ["position:", "new", "position", "source:", "source", "nodes:", "nodes", "temps:", "temps", "yourself"]
 }),
 globals.SequenceNode);
 
@@ -2992,12 +2992,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isSequenceNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SequenceNode);
 
@@ -3012,12 +3012,12 @@ $1=self["@scope"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "scope\x0a\x09^ scope",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SequenceNode);
 
@@ -3031,12 +3031,12 @@ self["@scope"]=aLexicalScope;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aLexicalScope"],
 source: "scope: aLexicalScope\x0a\x09scope := aLexicalScope",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SequenceNode);
 
@@ -3061,12 +3061,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"temps",{},globals.SequenceNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "temps\x0a\x09^ temps ifNil: [ #() ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.SequenceNode);
 
@@ -3080,12 +3080,12 @@ self["@temps"]=aCollection;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "temps: aCollection\x0a\x09temps := aCollection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SequenceNode);
 
@@ -3111,12 +3111,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.BlockSequenceNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitBlockSequenceNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitBlockSequenceNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitBlockSequenceNode:"]
 }),
 globals.BlockSequenceNode);
 
@@ -3129,12 +3129,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isBlockSequenceNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.BlockSequenceNode);
 
@@ -3160,12 +3160,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.ValueNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitValueNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitValueNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitValueNode:"]
 }),
 globals.ValueNode);
 
@@ -3185,12 +3185,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isImmutable",{},globals.ValueNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["isImmutable", "value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isImmutable\x0a\x09^ self value isImmutable",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["isImmutable", "value"]
 }),
 globals.ValueNode);
 
@@ -3203,12 +3203,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isValueNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ValueNode);
 
@@ -3223,12 +3223,12 @@ $1=self["@value"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "value\x0a\x09^ value",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ValueNode);
 
@@ -3242,12 +3242,12 @@ self["@value"]=anObject;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "value: anObject\x0a\x09value := anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ValueNode);
 
@@ -3273,12 +3273,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.VariableNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitVariableNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitVariableNode: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitVariableNode:"]
 }),
 globals.VariableNode);
 
@@ -3298,12 +3298,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"alias",{},globals.VariableNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["alias", "binding"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "alias\x0a\x09^ self binding alias",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["alias", "binding"]
 }),
 globals.VariableNode);
 
@@ -3328,12 +3328,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"assigned",{},globals.VariableNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "assigned\x0a\x09^ assigned ifNil: [ false ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.VariableNode);
 
@@ -3347,12 +3347,12 @@ self["@assigned"]=aBoolean;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean"],
 source: "assigned: aBoolean\x0a\x09assigned := aBoolean",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.VariableNode);
 
@@ -3372,12 +3372,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"beAssigned",{},globals.VariableNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["validateAssignment", "binding"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "beAssigned\x0a\x09self binding validateAssignment.\x0a\x09assigned := true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["validateAssignment", "binding"]
 }),
 globals.VariableNode);
 
@@ -3392,12 +3392,12 @@ $1=self["@binding"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "binding\x0a\x09^ binding",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.VariableNode);
 
@@ -3411,12 +3411,12 @@ self["@binding"]=aScopeVar;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aScopeVar"],
 source: "binding: aScopeVar\x0a\x09binding := aScopeVar",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.VariableNode);
 
@@ -3436,12 +3436,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isArgument",{},globals.VariableNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["isArgVar", "binding"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isArgument\x0a\x09^ self binding isArgVar",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["isArgVar", "binding"]
 }),
 globals.VariableNode);
 
@@ -3461,12 +3461,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isImmutable",{},globals.VariableNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["isImmutable", "binding"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isImmutable\x0a\x09^ self binding isImmutable",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["isImmutable", "binding"]
 }),
 globals.VariableNode);
 
@@ -3479,12 +3479,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isNavigationNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.VariableNode);
 
@@ -3497,12 +3497,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isVariableNode\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.VariableNode);
 
@@ -3522,12 +3522,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"navigationLink",{},globals.VariableNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "navigationLink\x0a\x09^ self value",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["value"]
 }),
 globals.VariableNode);
 
@@ -3562,12 +3562,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"ast",{},globals.CompiledMethod)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifEmpty:", "source", "error:", "parse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "ast\x0a\x09self source ifEmpty: [ self error: 'Method source is empty' ].\x0a\x09\x0a\x09^ Smalltalk parse: self source",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["ifEmpty:", "source", "error:", "parse:"]
 }),
 globals.CompiledMethod);
 
@@ -3580,12 +3580,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isNode\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 

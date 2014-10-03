@@ -18,12 +18,12 @@ $1=self["@result"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "result\x0a\x09^ result",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ResultAnnouncement);
 
@@ -37,12 +37,12 @@ self["@result"]=aTestResult;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aTestResult"],
 source: "result: aTestResult\x0a\x09result := aTestResult",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ResultAnnouncement);
 
@@ -67,12 +67,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"assert:",{aBoolean:aBoolean},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:description:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean"],
 source: "assert: aBoolean\x0a\x09self assert: aBoolean description: 'Assertion failed'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:description:"]
 }),
 globals.TestCase);
 
@@ -93,12 +93,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"assert:description:",{aBoolean:aBoolean,aString:aString},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:", "signalFailure:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean", "aString"],
 source: "assert: aBoolean description: aString\x0a\x09aBoolean ifFalse: [ self signalFailure: aString ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:", "signalFailure:"]
 }),
 globals.TestCase);
 
@@ -132,12 +132,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"assert:equals:",{actual:actual,expected:expected},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:description:", "=", ",", "printString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["actual", "expected"],
 source: "assert: actual equals: expected\x0a\x09^ self assert: (actual = expected) description: 'Expected: ', expected printString, ' but was: ', actual printString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:description:", "=", ",", "printString"]
 }),
 globals.TestCase);
 
@@ -171,12 +171,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"async:",{aBlock:aBlock,c:c},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["errorIfNotAsync:", "ifTrue:", "isAsync", "execute:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "async: aBlock\x0a\x09| c |\x0a\x09self errorIfNotAsync: '#async'.\x0a\x09c := context.\x0a\x09^ [ self isAsync ifTrue: [ c execute: aBlock ] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["errorIfNotAsync:", "ifTrue:", "isAsync", "execute:"]
 }),
 globals.TestCase);
 
@@ -190,12 +190,12 @@ self["@context"]=aRunningTestContext;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aRunningTestContext"],
 source: "context: aRunningTestContext\x0a\x09context := aRunningTestContext",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestCase);
 
@@ -214,12 +214,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"deny:",{aBoolean:aBoolean},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "not"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean"],
 source: "deny: aBoolean\x0a\x09self assert: aBoolean not",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "not"]
 }),
 globals.TestCase);
 
@@ -242,12 +242,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"errorIfNotAsync:",{aString:aString},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:", "isAsync", "error:", ","],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "errorIfNotAsync: aString\x0a\x09self isAsync ifFalse: [\x0a\x09\x09self error: aString, ' used without prior #timeout:' ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:", "isAsync", "error:", ","]
 }),
 globals.TestCase);
 
@@ -267,12 +267,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"finished",{},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["errorIfNotAsync:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "finished\x0a\x09self errorIfNotAsync: '#finished'.\x0a\x09asyncTimeout := nil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["errorIfNotAsync:"]
 }),
 globals.TestCase);
 
@@ -292,12 +292,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isAsync",{},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["notNil"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isAsync\x0a\x09^ asyncTimeout notNil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["notNil"]
 }),
 globals.TestCase);
 
@@ -317,12 +317,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"performTest",{},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["perform:", "selector"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "performTest\x0a\x09asyncTimeout := nil.\x0a\x09self perform: self selector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["perform:", "selector"]
 }),
 globals.TestCase);
 
@@ -342,12 +342,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"runCase",{},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["start", "testCase:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "runCase\x0a\x09\x22Runs a test case in isolated context, leaking all errors.\x22\x0a\x0a\x09(TestContext testCase: self) start",
-referencedClasses: ["TestContext"]
+referencedClasses: ["TestContext"],
 //>>excludeEnd("ide");
+messageSends: ["start", "testCase:"]
 }),
 globals.TestCase);
 
@@ -362,12 +362,12 @@ $1=self["@testSelector"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selector\x0a\x09^ testSelector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestCase);
 
@@ -381,12 +381,12 @@ self["@testSelector"]=aSelector;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aSelector"],
 source: "setTestSelector: aSelector\x0a\x09testSelector := aSelector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestCase);
 
@@ -399,12 +399,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "setUp",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestCase);
 
@@ -423,12 +423,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"should:",{aBlock:aBlock},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "should: aBlock\x0a\x09self assert: aBlock value",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "value"]
 }),
 globals.TestCase);
 
@@ -459,12 +459,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"should:raise:",{aBlock:aBlock,anExceptionClass:anExceptionClass},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "on:do:", "value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "anExceptionClass"],
 source: "should: aBlock raise: anExceptionClass\x0a\x09self assert: ([ aBlock value. false ]\x0a\x09\x09on: anExceptionClass\x0a\x09\x09do: [ :ex | true ])",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "on:do:", "value"]
 }),
 globals.TestCase);
 
@@ -495,12 +495,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"shouldnt:raise:",{aBlock:aBlock,anExceptionClass:anExceptionClass},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["assert:", "on:do:", "value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "anExceptionClass"],
 source: "shouldnt: aBlock raise: anExceptionClass\x0a\x09self assert: ([ aBlock value. true ]\x0a\x09\x09on: anExceptionClass\x0a\x09\x09do: [ :ex | false ])",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["assert:", "on:do:", "value"]
 }),
 globals.TestCase);
 
@@ -523,12 +523,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"signalFailure:",{aString:aString},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["messageText:", "new", "signal"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "signalFailure: aString\x0a\x09TestFailure new\x0a\x09\x09messageText: aString;\x0a\x09\x09signal",
-referencedClasses: ["TestFailure"]
+referencedClasses: ["TestFailure"],
 //>>excludeEnd("ide");
+messageSends: ["messageText:", "new", "signal"]
 }),
 globals.TestCase);
 
@@ -541,12 +541,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "tearDown",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestCase);
 
@@ -581,12 +581,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"timeout:",{aNumber:aNumber},globals.TestCase)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNotNil:", "clearTimeout", "valueWithTimeout:", "async:", "assert:description:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "timeout: aNumber\x0a\x09\x22Set a grace time timeout in milliseconds to run the test asynchronously\x22\x0a\x09\x0a\x09asyncTimeout ifNotNil: [ asyncTimeout clearTimeout ].\x0a\x09\x0a\x09\x22to allow #async: message send without throwing an error\x22\x0a\x09asyncTimeout := 0.\x0a\x09\x0a\x09asyncTimeout := (self async: [\x0a\x09\x09self assert: false description: 'SUnit grace time exhausted' ])\x0a\x09\x09\x09valueWithTimeout: aNumber",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "clearTimeout", "valueWithTimeout:", "async:", "assert:description:"]
 }),
 globals.TestCase);
 
@@ -613,12 +613,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"allTestSelectors",{selectors:selectors},globals.TestCase.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["testSelectors", "ifTrue:", "shouldInheritSelectors", "addAll:", "allTestSelectors", "superclass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "allTestSelectors\x0a\x09| selectors |\x0a\x09selectors := self testSelectors.\x0a\x09self shouldInheritSelectors ifTrue: [\x0a\x09\x09selectors addAll: self superclass allTestSelectors ].\x0a\x09^ selectors",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["testSelectors", "ifTrue:", "shouldInheritSelectors", "addAll:", "allTestSelectors", "superclass"]
 }),
 globals.TestCase.klass);
 
@@ -646,12 +646,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"buildSuite",{},globals.TestCase.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collect:", "allTestSelectors", "selector:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "buildSuite\x0a\x09^ self allTestSelectors collect: [ :each | self selector: each ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collect:", "allTestSelectors", "selector:"]
 }),
 globals.TestCase.klass);
 
@@ -664,12 +664,12 @@ var self=this;
 return "test";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "heliosClass\x0a\x09^ 'test'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestCase.klass);
 
@@ -689,12 +689,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isAbstract",{},globals.TestCase.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["=", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isAbstract\x0a\x09^ self name = 'TestCase'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["=", "name"]
 }),
 globals.TestCase.klass);
 
@@ -708,12 +708,12 @@ function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:
 return $TestCase();
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "lookupHierarchyRoot\x0a\x09^ TestCase",
-referencedClasses: ["TestCase"]
+referencedClasses: ["TestCase"],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestCase.klass);
 
@@ -736,12 +736,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector:",{aSelector:aSelector},globals.TestCase.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["setTestSelector:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aSelector"],
 source: "selector: aSelector\x0a\x09^ self new\x0a\x09\x09setTestSelector: aSelector;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["setTestSelector:", "new", "yourself"]
 }),
 globals.TestCase.klass);
 
@@ -761,12 +761,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldInheritSelectors",{},globals.TestCase.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["~=", "lookupHierarchyRoot"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "shouldInheritSelectors\x0a\x09^ self ~= self lookupHierarchyRoot",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["~=", "lookupHierarchyRoot"]
 }),
 globals.TestCase.klass);
 
@@ -794,12 +794,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"testSelectors",{},globals.TestCase.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["select:", "keys", "methodDictionary", "match:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testSelectors\x0a\x09^ self methodDictionary keys select: [ :each | each match: '^test' ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["select:", "keys", "methodDictionary", "match:"]
 }),
 globals.TestCase.klass);
 
@@ -868,12 +868,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"execute:",{aBlock:aBlock,failed:failed},globals.TestContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["context:", "ensure:", "value", "ifTrue:", "and:", "isAsync", "finished", "ifFalse:", "tearDown"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "execute: aBlock\x0a\x09| failed |\x0a\x09\x0a\x09testCase context: self.\x0a\x09[\x0a\x09\x09failed := true.\x0a\x09\x09aBlock value.\x0a\x09\x09failed := false\x0a\x09]\x0a\x09\x09ensure: [\x0a\x09\x09\x09testCase context: nil.\x0a\x09\x09\x09\x0a\x09\x09\x09(failed and: [ testCase isAsync ]) ifTrue: [\x0a\x09\x09\x09\x09testCase finished ].\x0a\x09\x09\x09testCase isAsync ifFalse: [\x0a\x09\x09\x09\x09testCase tearDown ] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["context:", "ensure:", "value", "ifTrue:", "and:", "isAsync", "finished", "ifFalse:", "tearDown"]
 }),
 globals.TestContext);
 
@@ -901,12 +901,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"start",{},globals.TestContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["execute:", "setUp", "performTest"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "start\x0a\x09self execute: [\x0a\x09\x09testCase setUp.\x0a\x09\x09testCase performTest ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["execute:", "setUp", "performTest"]
 }),
 globals.TestContext);
 
@@ -920,12 +920,12 @@ self["@testCase"]=aTestCase;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aTestCase"],
 source: "testCase: aTestCase\x0a\x09testCase := aTestCase",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestContext);
 
@@ -949,12 +949,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"testCase:",{aTestCase:aTestCase},globals.TestContext.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["testCase:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aTestCase"],
 source: "testCase: aTestCase\x0a\x09^ self new\x0a\x09\x09testCase: aTestCase;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["testCase:", "new", "yourself"]
 }),
 globals.TestContext.klass);
 
@@ -1014,12 +1014,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"execute:",{aBlock:aBlock},globals.ReportingTestContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ensure:", "withErrorReporting:", "execute:", "ifFalse:", "isAsync", "increaseRuns", "value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "execute: aBlock\x0a\x09[\x0a\x09\x09self withErrorReporting: [ super execute: aBlock ]\x0a\x09]\x0a\x09\x09ensure: [\x0a\x09\x09\x09testCase isAsync ifFalse: [\x0a\x09\x09\x09\x09result increaseRuns. finished value ] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ensure:", "withErrorReporting:", "execute:", "ifFalse:", "isAsync", "increaseRuns", "value"]
 }),
 globals.ReportingTestContext);
 
@@ -1033,12 +1033,12 @@ self["@finished"]=aBlock;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "finished: aBlock\x0a\x09finished := aBlock",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ReportingTestContext);
 
@@ -1052,12 +1052,12 @@ self["@result"]=aTestResult;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aTestResult"],
 source: "result: aTestResult\x0a\x09result := aTestResult",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ReportingTestContext);
 
@@ -1105,12 +1105,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"withErrorReporting:",{aBlock:aBlock},globals.ReportingTestContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["on:do:", "addFailure:", "addError:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "withErrorReporting: aBlock\x0a\x09[ aBlock\x0a\x09\x09on: TestFailure\x0a\x09\x09do: [ :ex | result addFailure: testCase ]\x0a\x09]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :ex | result addError: testCase ]",
-referencedClasses: ["TestFailure", "Error"]
+referencedClasses: ["TestFailure", "Error"],
 //>>excludeEnd("ide");
+messageSends: ["on:do:", "addFailure:", "addError:"]
 }),
 globals.ReportingTestContext);
 
@@ -1142,12 +1142,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"testCase:result:finished:",{aTestCase:aTestCase,aTestResult:aTestResult,aBlock:aBlock},globals.ReportingTestContext.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["result:", "testCase:", "finished:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aTestCase", "aTestResult", "aBlock"],
 source: "testCase: aTestCase result: aTestResult finished: aBlock\x0a\x09^ (super testCase: aTestCase)\x0a\x09\x09result: aTestResult;\x0a\x09\x09finished: aBlock;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["result:", "testCase:", "finished:", "yourself"]
 }),
 globals.ReportingTestContext.klass);
 
@@ -1177,12 +1177,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"addError:",{anError:anError},globals.TestResult)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["add:", "errors"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anError"],
 source: "addError: anError\x0a\x09self errors add: anError",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["add:", "errors"]
 }),
 globals.TestResult);
 
@@ -1201,12 +1201,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"addFailure:",{aFailure:aFailure},globals.TestResult)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["add:", "failures"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aFailure"],
 source: "addFailure: aFailure\x0a\x09self failures add: aFailure",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["add:", "failures"]
 }),
 globals.TestResult);
 
@@ -1221,12 +1221,12 @@ $1=self["@errors"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "errors\x0a\x09^ errors",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestResult);
 
@@ -1241,12 +1241,12 @@ $1=self["@failures"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "failures\x0a\x09^ failures",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestResult);
 
@@ -1265,12 +1265,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"increaseRuns",{},globals.TestResult)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["+"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "increaseRuns\x0a\x09runs := runs + 1",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["+"]
 }),
 globals.TestResult);
 
@@ -1306,12 +1306,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.TestResult)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initialize", "now", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09timestamp := Date now.\x0a\x09runs := 0.\x0a\x09errors := Array new.\x0a\x09failures := Array new.\x0a\x09total := 0",
-referencedClasses: ["Date", "Array"]
+referencedClasses: ["Date", "Array"],
 //>>excludeEnd("ide");
+messageSends: ["initialize", "now", "new"]
 }),
 globals.TestResult);
 
@@ -1338,12 +1338,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextRunDo:",{aBlock:aBlock},globals.TestResult)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:", "==", "runs", "total", "value:", "+"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "nextRunDo: aBlock\x0a\x09\x22Runs aBlock with index of next run or does nothing if no more runs\x22\x0a\x09^ self runs == self total\x0a\x09\x09ifFalse: [ aBlock value: self runs + 1 ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:", "==", "runs", "total", "value:", "+"]
 }),
 globals.TestResult);
 
@@ -1400,12 +1400,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"runCase:",{aTestCase:aTestCase},globals.TestResult)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["on:do:", "increaseRuns", "runCase", "addFailure:", "addError:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aTestCase"],
 source: "runCase: aTestCase\x0a\x09[ [ self increaseRuns.\x0a\x09\x09aTestCase runCase ]\x0a\x09on: TestFailure do: [ :ex | self addFailure: aTestCase ]]\x0a\x09on: Error do: [ :ex | self addError: aTestCase ]",
-referencedClasses: ["TestFailure", "Error"]
+referencedClasses: ["TestFailure", "Error"],
 //>>excludeEnd("ide");
+messageSends: ["on:do:", "increaseRuns", "runCase", "addFailure:", "addError:"]
 }),
 globals.TestResult);
 
@@ -1420,12 +1420,12 @@ $1=self["@runs"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "runs\x0a\x09^ runs",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestResult);
 
@@ -1458,12 +1458,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"status",{},globals.TestResult)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "isEmpty", "errors", "failures"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "status\x0a\x09^ self errors isEmpty\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self failures isEmpty\x0a\x09\x09\x09\x09ifTrue: [ 'success' ]\x0a\x09\x09\x09\x09ifFalse: [ 'failure' ]]\x0a\x09\x09ifFalse: [ 'error' ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "isEmpty", "errors", "failures"]
 }),
 globals.TestResult);
 
@@ -1478,12 +1478,12 @@ $1=self["@timestamp"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "timestamp\x0a\x09^ timestamp",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestResult);
 
@@ -1498,12 +1498,12 @@ $1=self["@total"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "total\x0a\x09^ total",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestResult);
 
@@ -1517,12 +1517,12 @@ self["@total"]=aNumber;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "total: aNumber\x0a\x09total := aNumber",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestResult);
 
@@ -1543,12 +1543,12 @@ $1=self["@announcer"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "announcer\x0a\x09^ announcer",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestSuiteRunner);
 
@@ -1577,12 +1577,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"contextOf:",{anInteger:anInteger},globals.TestSuiteRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["testCase:result:finished:", "at:", "resume"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInteger"],
 source: "contextOf: anInteger\x0a\x09^ ReportingTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]",
-referencedClasses: ["ReportingTestContext"]
+referencedClasses: ["ReportingTestContext"],
 //>>excludeEnd("ide");
+messageSends: ["testCase:result:finished:", "at:", "resume"]
 }),
 globals.TestSuiteRunner);
 
@@ -1631,12 +1631,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.TestSuiteRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initialize", "new", "runs", "ifTrue:", "<", "total", "start", "contextOf:", "+"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09announcer := Announcer new.\x0a\x09result := TestResult new.\x0a\x09runNextTest := [ | runs | runs := result runs. runs < result total ifTrue: [ (self contextOf: runs + 1) start ] ].",
-referencedClasses: ["Announcer", "TestResult"]
+referencedClasses: ["Announcer", "TestResult"],
 //>>excludeEnd("ide");
+messageSends: ["initialize", "new", "runs", "ifTrue:", "<", "total", "start", "contextOf:", "+"]
 }),
 globals.TestSuiteRunner);
 
@@ -1651,12 +1651,12 @@ $1=self["@result"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "result\x0a\x09^ result",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestSuiteRunner);
 
@@ -1677,12 +1677,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"resume",{},globals.TestSuiteRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["fork", "announce:", "result:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "resume\x0a\x09runNextTest fork.\x0a\x09announcer announce: (ResultAnnouncement new result: result)",
-referencedClasses: ["ResultAnnouncement"]
+referencedClasses: ["ResultAnnouncement"],
 //>>excludeEnd("ide");
+messageSends: ["fork", "announce:", "result:", "new"]
 }),
 globals.TestSuiteRunner);
 
@@ -1702,12 +1702,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"run",{},globals.TestSuiteRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["total:", "size", "resume"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "run\x0a\x09result total: suite size.\x0a\x09self resume",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["total:", "size", "resume"]
 }),
 globals.TestSuiteRunner);
 
@@ -1721,12 +1721,12 @@ self["@suite"]=aCollection;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "suite: aCollection\x0a\x09suite := aCollection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestSuiteRunner);
 
@@ -1746,12 +1746,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"new",{},globals.TestSuiteRunner.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["shouldNotImplement"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "new\x0a\x09self shouldNotImplement",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["shouldNotImplement"]
 }),
 globals.TestSuiteRunner.klass);
 
@@ -1779,12 +1779,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{aCollection:aCollection},globals.TestSuiteRunner.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["suite:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "on: aCollection\x0a\x09^ super new suite: aCollection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["suite:", "new"]
 }),
 globals.TestSuiteRunner.klass);
 
@@ -1813,12 +1813,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isTestClass",{},globals.Behavior)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["and:", "includesBehavior:", "not", "isAbstract"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isTestClass\x0a\x09^(self includesBehavior: TestCase) and: [ \x0a\x09\x09\x09self isAbstract not ]",
-referencedClasses: ["TestCase"]
+referencedClasses: ["TestCase"],
 //>>excludeEnd("ide");
+messageSends: ["and:", "includesBehavior:", "not", "isAbstract"]
 }),
 globals.Behavior);
 
@@ -1846,12 +1846,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isTestPackage",{},globals.Package)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["anySatisfy:", "classes", "isTestClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isTestPackage\x0a\x09^ self classes anySatisfy: [ :each | each isTestClass ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["anySatisfy:", "classes", "isTestClass"]
 }),
 globals.Package);
 

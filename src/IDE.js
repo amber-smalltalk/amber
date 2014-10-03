@@ -15,12 +15,12 @@ $1=self["@browser"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "browser\x0a\x09^ browser",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ClassesList);
 
@@ -34,12 +34,12 @@ self["@browser"]=aBrowser;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBrowser"],
 source: "browser: aBrowser\x0a\x09browser := aBrowser",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ClassesList);
 
@@ -59,12 +59,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"category",{},globals.ClassesList)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["selectedPackage", "browser"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "category\x0a\x09^ self browser selectedPackage",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["selectedPackage", "browser"]
 }),
 globals.ClassesList);
 
@@ -118,12 +118,12 @@ return $3;
 }, function($ctx1) {$ctx1.fill(self,"getNodes",{classes:classes,children:children,others:others},globals.ClassesList)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["classes", "browser", "do:", "ifFalse:ifTrue:", "includes:", "superclass", "add:", "collect:", "on:browser:classes:level:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "getNodes\x0a\x09| classes children others |\x0a\x09classes := self browser classes.\x0a\x09children := #().\x0a\x09others := #().\x0a\x09classes do: [ :each |\x0a\x09\x09(classes includes: each superclass)\x0a\x09\x09\x09ifFalse: [ children add: each ]\x0a\x09\x09\x09ifTrue: [ others add: each ]].\x0a\x09^ children collect: [ :each |\x0a\x09\x09ClassesListNode on: each browser: self browser classes: others level: 0 ]",
-referencedClasses: ["ClassesListNode"]
+referencedClasses: ["ClassesListNode"],
 //>>excludeEnd("ide");
+messageSends: ["classes", "browser", "do:", "ifFalse:ifTrue:", "includes:", "superclass", "add:", "collect:", "on:browser:classes:level:"]
 }),
 globals.ClassesList);
 
@@ -150,12 +150,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},globals.ClassesList)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "getNodes"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "nodes\x0a\x09nodes ifNil: [ nodes := self getNodes ].\x0a\x09^ nodes",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "getNodes"]
 }),
 globals.ClassesList);
 
@@ -179,12 +179,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.ClassesList)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "ul", "yourself", "updateNodes"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderOn: html\x0a\x09ul := html ul\x0a\x09\x09class: 'amber_column browser classes';\x0a\x09\x09yourself.\x0a\x09self updateNodes",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", "ul", "yourself", "updateNodes"]
 }),
 globals.ClassesList);
 
@@ -198,12 +198,12 @@ self["@nodes"]=nil;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "resetNodes\x0a\x09nodes := nil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ClassesList);
 
@@ -238,12 +238,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateNodes",{},globals.ClassesList)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "do:", "nodes", "renderOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateNodes\x0a\x09ul contents: [ :html |\x0a\x09\x09self nodes do: [ :each |\x0a\x09\x09\x09each renderOn: html ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "do:", "nodes", "renderOn:"]
 }),
 globals.ClassesList);
 
@@ -267,12 +267,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{aBrowser:aBrowser},globals.ClassesList.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["browser:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBrowser"],
 source: "on: aBrowser\x0a\x09^ self new\x0a\x09\x09browser: aBrowser;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["browser:", "new", "yourself"]
 }),
 globals.ClassesList.klass);
 
@@ -289,12 +289,12 @@ $1=self["@browser"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "browser\x0a\x09^ browser",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ClassesListNode);
 
@@ -308,12 +308,12 @@ self["@browser"]=aBrowser;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBrowser"],
 source: "browser: aBrowser\x0a\x09browser := aBrowser",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ClassesListNode);
 
@@ -362,12 +362,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"getNodesFrom:",{aCollection:aCollection,children:children,others:others},globals.ClassesListNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "ifTrue:ifFalse:", "=", "superclass", "theClass", "add:", "collect:", "on:browser:classes:level:", "browser", "+", "level"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "getNodesFrom: aCollection\x0a\x09| children others |\x0a\x09children := #().\x0a\x09others := #().\x0a\x09aCollection do: [ :each |\x0a\x09\x09(each superclass = self theClass)\x0a\x09\x09\x09ifTrue: [ children add: each ]\x0a\x09\x09\x09ifFalse: [ others add: each ]].\x0a\x09nodes:= children collect: [ :each |\x0a\x09\x09ClassesListNode on: each browser: self browser classes: others level: self level + 1 ]",
-referencedClasses: ["ClassesListNode"]
+referencedClasses: ["ClassesListNode"],
 //>>excludeEnd("ide");
+messageSends: ["do:", "ifTrue:ifFalse:", "=", "superclass", "theClass", "add:", "collect:", "on:browser:classes:level:", "browser", "+", "level"]
 }),
 globals.ClassesListNode);
 
@@ -403,12 +403,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"label",{str:str},globals.ClassesListNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["writeStream", "new", "timesRepeat:", "level", "nextPutAll:", "name", "theClass", "contents"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "label\x0a\x09| str |\x0a\x09str := String new writeStream.\x0a\x09self level timesRepeat: [\x0a\x09\x09str nextPutAll: '&nbsp;&nbsp;&nbsp;&nbsp;' ].\x0a\x09str nextPutAll: self theClass name.\x0a\x09^ str contents",
-referencedClasses: ["String"]
+referencedClasses: ["String"],
 //>>excludeEnd("ide");
+messageSends: ["writeStream", "new", "timesRepeat:", "level", "nextPutAll:", "name", "theClass", "contents"]
 }),
 globals.ClassesListNode);
 
@@ -423,12 +423,12 @@ $1=self["@level"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "level\x0a\x09^ level",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ClassesListNode);
 
@@ -442,12 +442,12 @@ self["@level"]=anInteger;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInteger"],
 source: "level: anInteger\x0a\x09level := anInteger",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ClassesListNode);
 
@@ -462,12 +462,12 @@ $1=self["@nodes"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "nodes\x0a\x09^ nodes",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ClassesListNode);
 
@@ -534,12 +534,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html,li:li,cssClass:cssClass},globals.ClassesListNode)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["onClick:", "li", "selectClass:", "browser", "theClass", "html:", "asJQuery", "label", "ifTrue:", "=", "selectedClass", ",", "ifFalse:", "isEmpty", "comment", "class:", "do:", "nodes", "renderOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderOn: html\x0a\x09| li cssClass |\x0a\x09cssClass := ''.\x0a\x09li := html li\x0a\x09\x09onClick: [ self browser selectClass: self theClass ].\x0a\x09li asJQuery html: self label.\x0a\x0a\x09self browser selectedClass = self theClass ifTrue: [\x0a\x09\x09cssClass := cssClass, ' selected' ].\x0a\x0a\x09self theClass comment isEmpty ifFalse: [\x0a\x09\x09cssClass := cssClass, ' commented' ].\x0a\x0a\x09li class: cssClass.\x0a\x0a\x09self nodes do: [ :each |\x0a\x09\x09each renderOn: html ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["onClick:", "li", "selectClass:", "browser", "theClass", "html:", "asJQuery", "label", "ifTrue:", "=", "selectedClass", ",", "ifFalse:", "isEmpty", "comment", "class:", "do:", "nodes", "renderOn:"]
 }),
 globals.ClassesListNode);
 
@@ -554,12 +554,12 @@ $1=self["@theClass"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "theClass\x0a\x09^ theClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ClassesListNode);
 
@@ -573,12 +573,12 @@ self["@theClass"]=aClass;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ClassesListNode);
 
@@ -605,12 +605,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:browser:classes:level:",{aClass:aClass,aBrowser:aBrowser,aCollection:aCollection,anInteger:anInteger},globals.ClassesListNode.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["theClass:", "new", "browser:", "level:", "getNodesFrom:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass", "aBrowser", "aCollection", "anInteger"],
 source: "on: aClass browser: aBrowser classes: aCollection level: anInteger\x0a\x09^ self new\x0a\x09\x09theClass: aClass;\x0a\x09\x09browser: aBrowser;\x0a\x09\x09level: anInteger;\x0a\x09\x09getNodesFrom: aCollection;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["theClass:", "new", "browser:", "level:", "getNodesFrom:", "yourself"]
 }),
 globals.ClassesListNode.klass);
 
@@ -657,12 +657,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},globals.DebugErrorHandler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["on:do:", "error:", "new", "open", "handleError:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anError"],
 source: "handleError: anError\x0a\x09[ Debugger new\x0a\x09\x09error: anError;\x0a\x09\x09open ] on: Error do: [ :error |\x0a\x09\x09\x09ConsoleErrorHandler new handleError: error ]",
-referencedClasses: ["Debugger", "Error", "ConsoleErrorHandler"]
+referencedClasses: ["Debugger", "Error", "ConsoleErrorHandler"],
 //>>excludeEnd("ide");
+messageSends: ["on:do:", "error:", "new", "open", "handleError:"]
 }),
 globals.DebugErrorHandler);
 
@@ -683,12 +683,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.DebugErrorHandler.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["register:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09ErrorHandler register: self new",
-referencedClasses: ["ErrorHandler"]
+referencedClasses: ["ErrorHandler"],
 //>>excludeEnd("ide");
+messageSends: ["register:", "new"]
 }),
 globals.DebugErrorHandler.klass);
 
@@ -709,12 +709,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"clear",{},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["val:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "clear\x0a\x09self val: ''",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["val:"]
 }),
 globals.SourceArea);
 
@@ -734,12 +734,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"currentLine",{},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["getLine:", "line", "getCursor"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "currentLine\x0a\x09^ editor getLine: (editor getCursor line)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["getLine:", "line", "getCursor"]
 }),
 globals.SourceArea);
 
@@ -764,12 +764,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"currentLineOrSelection",{},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:ifTrue:", "somethingSelected", "currentLine", "selection"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "currentLineOrSelection\x0a\x09^ editor somethingSelected\x0a\x09ifFalse: [ self currentLine ]\x0a\x09ifTrue: [ self selection ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:ifTrue:", "somethingSelected", "currentLine", "selection"]
 }),
 globals.SourceArea);
 
@@ -800,12 +800,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"doIt",{result:result},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["eval:", "currentLineOrSelection", "ifNotNil:", "onDoIt", "value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "doIt\x0a\x09| result |\x0a\x09result := self eval: self currentLineOrSelection.\x0a\x09self onDoIt ifNotNil: [ self onDoIt value ].\x0a\x09^ result",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["eval:", "currentLineOrSelection", "ifNotNil:", "onDoIt", "value"]
 }),
 globals.SourceArea);
 
@@ -820,12 +820,12 @@ $1=self["@editor"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "editor\x0a\x09^ editor",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SourceArea);
 
@@ -871,12 +871,12 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString,compiler:compiler},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "evaluateExpression:on:", "receiver"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "eval: aString\x0a\x09| compiler |\x0a\x09compiler := Compiler new.\x0a\x09[ compiler parseExpression: aString ] on: Error do: [ :ex |\x0a\x09\x09^ self alert: ex messageText ].\x0a\x09^ compiler evaluateExpression: aString on: self receiver",
-referencedClasses: ["Compiler", "Error"]
+referencedClasses: ["Compiler", "Error"],
 //>>excludeEnd("ide");
+messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "evaluateExpression:on:", "receiver"]
 }),
 globals.SourceArea);
 
@@ -896,12 +896,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"fileIn",{},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["import:", "new", "readStream", "currentLineOrSelection"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "fileIn\x0a\x09Importer new import: self currentLineOrSelection readStream",
-referencedClasses: ["Importer"]
+referencedClasses: ["Importer"],
 //>>excludeEnd("ide");
+messageSends: ["import:", "new", "readStream", "currentLineOrSelection"]
 }),
 globals.SourceArea);
 
@@ -920,12 +920,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"focus",{},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["focus", "editor"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "focus\x0a\x09self editor focus.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["focus", "editor"]
 }),
 globals.SourceArea);
 
@@ -960,12 +960,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"handleKeyDown:",{anEvent:anEvent},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anEvent"],
 source: "handleKeyDown: anEvent\x0a\x09<if(anEvent.ctrlKey) {\x0a\x09\x09if(anEvent.keyCode === 80) { //ctrl+p\x0a\x09\x09\x09self._printIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 68) { //ctrl+d\x0a\x09\x09\x09self._doIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 73) { //ctrl+i\x0a\x09\x09\x09self._inspectIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09}>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SourceArea);
 
@@ -984,12 +984,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectIt",{},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inspect", "doIt"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "inspectIt\x0a\x09self doIt inspect",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["inspect", "doIt"]
 }),
 globals.SourceArea);
 
@@ -1004,12 +1004,12 @@ $1=self["@onDoIt"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "onDoIt\x0a\x09^ onDoIt",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SourceArea);
 
@@ -1023,12 +1023,12 @@ self["@onDoIt"]=aBlock;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "onDoIt: aBlock\x0a\x09onDoIt := aBlock",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SourceArea);
 
@@ -1047,12 +1047,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{aBlock:aBlock},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["onKeyDown:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "onKeyDown: aBlock\x0a\x09div onKeyDown: aBlock",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["onKeyDown:"]
 }),
 globals.SourceArea);
 
@@ -1071,12 +1071,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"onKeyUp:",{aBlock:aBlock},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["onKeyUp:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "onKeyUp: aBlock\x0a\x09div onKeyUp: aBlock",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["onKeyUp:"]
 }),
 globals.SourceArea);
 
@@ -1168,12 +1168,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"print:",{aString:aString,start:start,stop:stop,currentLine:currentLine},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["line", "getCursor:", "new", "at:put:", "ch", "ifEmpty:", "getSelection", "size", "getLine:", "setSelection:end:", "+", "at:", "replaceSelection:", ",", "setCursor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "print: aString\x0a\x09| start stop currentLine |\x0a\x09currentLine := (editor getCursor: false) line.\x0a\x09start := HashedCollection new.\x0a\x09start at: 'line' put: currentLine.\x0a\x09start at: 'ch' put: (editor getCursor: false) ch.\x0a\x09(editor getSelection) ifEmpty: [\x0a\x09\x09\x22select current line if selection is empty\x22\x0a\x09\x09start at: 'ch' put: (editor getLine: currentLine) size.\x0a\x09\x09editor setSelection: #{'line' -> currentLine. 'ch' -> 0} end: start.\x0a\x09].\x0a\x09stop := HashedCollection new.\x0a\x09stop at: 'line' put: currentLine.\x0a\x09stop at: 'ch' put: ((start at: 'ch') + aString size + 2).\x0a\x0a\x09editor replaceSelection: (editor getSelection, ' ', aString, ' ').\x0a\x09editor setCursor: (editor getCursor: true).\x0a\x09editor setSelection: stop end: start",
-referencedClasses: ["HashedCollection"]
+referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
+messageSends: ["line", "getCursor:", "new", "at:put:", "ch", "ifEmpty:", "getSelection", "size", "getLine:", "setSelection:end:", "+", "at:", "replaceSelection:", ",", "setCursor:"]
 }),
 globals.SourceArea);
 
@@ -1193,12 +1193,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"printIt",{},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["print:", "printString", "doIt", "focus"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "printIt\x0a\x09self print: self doIt printString.\x0a\x09self focus.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["print:", "printString", "doIt", "focus"]
 }),
 globals.SourceArea);
 
@@ -1224,12 +1224,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"receiver",{},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "receiver\x0a\x09^ receiver ifNil: [ DoIt new ]",
-referencedClasses: ["DoIt"]
+referencedClasses: ["DoIt"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.SourceArea);
 
@@ -1243,12 +1243,12 @@ self["@receiver"]=anObject;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "receiver: anObject\x0a\x09receiver := anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SourceArea);
 
@@ -1288,12 +1288,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html,textarea:textarea},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "div", "with:", "textarea", "setEditorOn:", "element", "onKeyDown:", "handleKeyDown:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderOn: html\x0a\x09| textarea |\x0a\x09div := html div class: 'source'.\x0a\x09div with: [ textarea := html textarea ].\x0a\x09self setEditorOn: textarea element.\x0a\x09div onKeyDown: [ :e | self handleKeyDown: e ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", "div", "with:", "textarea", "setEditorOn:", "element", "onKeyDown:", "handleKeyDown:"]
 }),
 globals.SourceArea);
 
@@ -1313,12 +1313,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"selection",{},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["getSelection"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selection\x0a\x09^ editor getSelection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["getSelection"]
 }),
 globals.SourceArea);
 
@@ -1346,12 +1346,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aTextarea"],
 source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'ide.codeMirrorTheme'._settingValueIfAbsent_('default'),\x0a\x09\x09mode: 'text/x-stsrc',\x0a\x09\x09lineNumbers: true,\x0a\x09\x09enterMode: 'flat',\x0a\x09\x09indentWithTabs: true,\x0a\x09\x09indentUnit: 4,\x0a\x09\x09matchBrackets: true,\x0a\x09\x09electricChars: false\x0a\x09})>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SourceArea);
 
@@ -1371,12 +1371,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"val",{},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["getValue"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "val\x0a\x09^ editor getValue",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["getValue"]
 }),
 globals.SourceArea);
 
@@ -1395,12 +1395,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"val:",{aString:aString},globals.SourceArea)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["setValue:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "val: aString\x0a\x09editor setValue: aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["setValue:"]
 }),
 globals.SourceArea);
 
@@ -1428,12 +1428,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.SourceArea.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initialize", "setupCodeMirror"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09self setupCodeMirror",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["initialize", "setupCodeMirror"]
 }),
 globals.SourceArea.klass);
 
@@ -1452,12 +1452,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{},globals.SourceArea.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "setupCodeMirror\x0a\x09< CodeMirror.keyMap[\x22default\x22].fallthrough = [\x22basic\x22] >",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.SourceArea.klass);
 
@@ -1480,12 +1480,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"addTab:",{aWidget:aWidget},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["add:", "tabs", "appendToJQuery:", "asJQuery", "hide"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aWidget"],
 source: "addTab: aWidget\x0a\x09self tabs add: aWidget.\x0a\x09aWidget appendToJQuery: '#amber' asJQuery.\x0a\x09aWidget hide",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["add:", "tabs", "appendToJQuery:", "asJQuery", "hide"]
 }),
 globals.TabManager);
 
@@ -1528,12 +1528,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"close",{},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "hide", "asJQuery", "removeBodyMargin", "removeClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "close\x0a\x09opened ifTrue: [\x0a\x09'#amber' asJQuery hide.\x0a\x09ul asJQuery hide.\x0a\x09selectedTab hide.\x0a\x09self removeBodyMargin.\x0a\x09'body' asJQuery removeClass: 'amberBody'.\x0a\x09opened := false ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "hide", "asJQuery", "removeBodyMargin", "removeClass:"]
 }),
 globals.TabManager);
 
@@ -1555,12 +1555,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"closeTab:",{aWidget:aWidget},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["removeTab:", "selectTab:", "last", "tabs", "remove", "update"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aWidget"],
 source: "closeTab: aWidget\x0a\x09self removeTab: aWidget.\x0a\x09self selectTab: self tabs last.\x0a\x09aWidget remove.\x0a\x09self update",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["removeTab:", "selectTab:", "last", "tabs", "remove", "update"]
 }),
 globals.TabManager);
 
@@ -1654,12 +1654,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initialize", "register:", "appendToJQuery:", "id:", "div", "asJQuery", "addClass:", "addTab:", "current", "new", "selectTab:", "last", "tabs", "onResize:", "updateBodyMargin", "updatePosition", "onWindowResize:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09Inspector register: IDEInspector.\x0a\x09opened := true.\x0a\x09[ :html | html div id: 'amber' ] appendToJQuery: 'body' asJQuery.\x0a\x09'body' asJQuery\x0a\x09addClass: 'amberBody'.\x0a\x09self appendToJQuery: '#amber' asJQuery.\x0a\x09self\x0a\x09addTab: IDETranscript current;\x0a\x09addTab: Workspace new;\x0a\x09addTab: TestRunner new.\x0a\x09self selectTab: self tabs last.\x0a\x09self\x0a\x09onResize: [ self updateBodyMargin; updatePosition ];\x0a\x09onWindowResize: [ self updatePosition ]",
-referencedClasses: ["Inspector", "IDEInspector", "IDETranscript", "Workspace", "TestRunner"]
+referencedClasses: ["Inspector", "IDEInspector", "IDETranscript", "Workspace", "TestRunner"],
 //>>excludeEnd("ide");
+messageSends: ["initialize", "register:", "appendToJQuery:", "id:", "div", "asJQuery", "addClass:", "addTab:", "current", "new", "selectTab:", "last", "tabs", "onResize:", "updateBodyMargin", "updatePosition", "onWindowResize:"]
 }),
 globals.TabManager);
 
@@ -1700,12 +1700,12 @@ return $6;
 }, function($ctx1) {$ctx1.fill(self,"labelFor:",{aWidget:aWidget,label:label,maxSize:maxSize},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["copyFrom:to:", "label", "min:", "size", "ifTrue:", ">", ","],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aWidget"],
 source: "labelFor: aWidget\x0a\x09| label maxSize |\x0a\x09maxSize := 15.\x0a\x09label := aWidget label copyFrom: 0 to: (aWidget label size min: maxSize).\x0a\x09aWidget label size > maxSize ifTrue: [\x0a\x09\x09label := label, '...' ].\x0a\x09^ label",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["copyFrom:to:", "label", "min:", "size", "ifTrue:", ">", ","]
 }),
 globals.TabManager);
 
@@ -1725,12 +1725,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"newBrowserTab",{},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["open"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "newBrowserTab\x0a\x09Browser open",
-referencedClasses: ["Browser"]
+referencedClasses: ["Browser"],
 //>>excludeEnd("ide");
+messageSends: ["open"]
 }),
 globals.TabManager);
 
@@ -1749,12 +1749,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"onResize:",{aBlock:aBlock},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["resizable:", "asJQuery"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "onResize: aBlock\x0a\x09'#amber' asJQuery resizable: #{\x0a\x09\x09'handles' -> 'n'.\x0a\x09\x09'resize' -> aBlock.\x0a\x09\x09'minHeight' -> 230\x0a\x09}",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["resizable:", "asJQuery"]
 }),
 globals.TabManager);
 
@@ -1773,12 +1773,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"onWindowResize:",{aBlock:aBlock},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["resize:", "asJQuery"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "onWindowResize: aBlock\x0a\x09window asJQuery resize: aBlock",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["resize:", "asJQuery"]
 }),
 globals.TabManager);
 
@@ -1821,12 +1821,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"open",{},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:", "addClass:", "asJQuery", "show", "updateBodyMargin"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "open\x0a\x09opened ifFalse: [\x0a\x09'body' asJQuery addClass: 'amberBody'.\x0a\x09'#amber' asJQuery show.\x0a\x09ul asJQuery show.\x0a\x09self updateBodyMargin.\x0a\x09selectedTab show.\x0a\x09opened := true ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:", "addClass:", "asJQuery", "show", "updateBodyMargin"]
 }),
 globals.TabManager);
 
@@ -1845,12 +1845,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"removeBodyMargin",{},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["setBodyMargin:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "removeBodyMargin\x0a\x09self setBodyMargin: 0",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["setBodyMargin:"]
 }),
 globals.TabManager);
 
@@ -1870,12 +1870,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"removeTab:",{aWidget:aWidget},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["remove:", "tabs", "update"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aWidget"],
 source: "removeTab: aWidget\x0a\x09self tabs remove: aWidget.\x0a\x09self update",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["remove:", "tabs", "update"]
 }),
 globals.TabManager);
 
@@ -1904,12 +1904,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["id:", "div", "renderToolbarOn:", "ul", "yourself", "renderTabs"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderOn: html\x0a\x09html div id: 'logo'.\x0a\x09self renderToolbarOn: html.\x0a\x09ul := html ul\x0a\x09\x09id: 'amberTabs';\x0a\x09\x09yourself.\x0a\x09self renderTabs",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["id:", "div", "renderToolbarOn:", "ul", "yourself", "renderTabs"]
 }),
 globals.TabManager);
 
@@ -2020,12 +2020,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderTabFor:on:",{aWidget:aWidget,html:html,li:li},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["li", "ifTrue:", "=", "class:", "with:", "span", "canBeClosed", "onClick:", "closeTab:", "labelFor:", "selectTab:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aWidget", "html"],
 source: "renderTabFor: aWidget on: html\x0a\x09| li |\x0a\x09li := html li.\x0a\x09selectedTab = aWidget ifTrue: [\x0a\x09li class: 'selected' ].\x0a\x09li with: [\x0a\x09\x09html span class: 'ltab'.\x0a\x09\x09html span\x0a\x09\x09\x09class: 'mtab';\x0a\x09\x09\x09with: [\x0a\x09\x09\x09\x09aWidget canBeClosed ifTrue: [\x0a\x09\x09\x09\x09\x09html span\x0a\x09\x09\x09\x09\x09\x09class: 'close';\x0a\x09\x09\x09\x09\x09\x09with: 'x';\x0a\x09\x09\x09\x09\x09onClick: [ self closeTab: aWidget ]].\x0a\x09\x09\x09html span with: (self labelFor: aWidget) ].\x0a\x09\x09html span class: 'rtab' ];\x0a\x09onClick: [ self selectTab: aWidget ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["li", "ifTrue:", "=", "class:", "with:", "span", "canBeClosed", "onClick:", "closeTab:", "labelFor:", "selectTab:"]
 }),
 globals.TabManager);
 
@@ -2106,12 +2106,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderTabs",{},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "do:", "tabs", "renderTabFor:on:", "class:", "li", "with:", "span", "onClick:", "newBrowserTab"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "renderTabs\x0a\x09ul contents: [ :html |\x0a\x09\x09self tabs do: [ :each |\x0a\x09\x09self renderTabFor: each on: html ].\x0a\x09\x09html li\x0a\x09\x09class: 'newtab';\x0a\x09\x09with: [\x0a\x09\x09\x09html span class: 'ltab'.\x0a\x09\x09\x09html span class: 'mtab'; with: ' + '.\x0a\x09\x09\x09html span class: 'rtab' ];\x0a\x09\x09onClick: [ self newBrowserTab ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "do:", "tabs", "renderTabFor:on:", "class:", "li", "with:", "span", "onClick:", "newBrowserTab"]
 }),
 globals.TabManager);
 
@@ -2175,12 +2175,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderToolbarOn:",{html:html},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["id:", "div", "with:", "class:", "input", "yourself", "onKeyPress:", "ifTrue:", "=", "keyCode", "search:", "val", "asJQuery", "onClick:", "close"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderToolbarOn: html\x0a\x09html div\x0a\x09\x09id: 'amber_toolbar';\x0a\x09\x09with: [\x0a\x09\x09\x09input := html input\x0a\x09\x09\x09\x09class: 'implementors';\x0a\x09\x09\x09\x09yourself.\x0a\x09\x09\x09input onKeyPress: [ :event |\x0a\x09\x09\x09\x09event keyCode = 13 ifTrue: [\x0a\x09\x09\x09\x09self search: input asJQuery val ]].\x0a\x09\x09\x09html div id: 'amber_close'; onClick: [ self close ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["id:", "div", "with:", "class:", "input", "yourself", "onKeyPress:", "ifTrue:", "=", "keyCode", "search:", "val", "asJQuery", "onClick:", "close"]
 }),
 globals.TabManager);
 
@@ -2210,12 +2210,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString,searchedClass:searchedClass},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["at:", "globals", "ifTrue:ifFalse:", "isClass", "openOn:", "search:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "search: aString\x0a\x09| searchedClass |\x0a\x09searchedClass := Smalltalk globals at: aString.\x0a\x09\x09searchedClass isClass\x0a\x09\x09\x09ifTrue: [ Browser openOn: searchedClass ]\x0a\x09\x09\x09ifFalse: [ ReferencesBrowser search: aString ]",
-referencedClasses: ["Smalltalk", "Browser", "ReferencesBrowser"]
+referencedClasses: ["Smalltalk", "Browser", "ReferencesBrowser"],
 //>>excludeEnd("ide");
+messageSends: ["at:", "globals", "ifTrue:ifFalse:", "isClass", "openOn:", "search:"]
 }),
 globals.TabManager);
 
@@ -2246,12 +2246,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"selectTab:",{aWidget:aWidget},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["open", "do:", "tabs", "hide", "show", "update"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aWidget"],
 source: "selectTab: aWidget\x0a\x09self open.\x0a\x09selectedTab := aWidget.\x0a\x09self tabs do: [ :each |\x0a\x09each hide ].\x0a\x09aWidget show.\x0a\x09\x0a\x09self update",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["open", "do:", "tabs", "hide", "show", "update"]
 }),
 globals.TabManager);
 
@@ -2270,12 +2270,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setBodyMargin:",{anInteger:anInteger},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["css:put:", "asJQuery", ",", "asString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInteger"],
 source: "setBodyMargin: anInteger\x0a\x09'.amberBody' asJQuery css: 'margin-bottom' put: anInteger asString, 'px'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["css:put:", "asJQuery", ",", "asString"]
 }),
 globals.TabManager);
 
@@ -2302,12 +2302,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"tabs",{},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "tabs\x0a\x09^ tabs ifNil: [ tabs := Array new ]",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.TabManager);
 
@@ -2326,12 +2326,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"update",{},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["renderTabs"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "update\x0a\x09self renderTabs",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["renderTabs"]
 }),
 globals.TabManager);
 
@@ -2350,12 +2350,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateBodyMargin",{},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["setBodyMargin:", "height", "asJQuery"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateBodyMargin\x0a\x09self setBodyMargin: '#amber' asJQuery height",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["setBodyMargin:", "height", "asJQuery"]
 }),
 globals.TabManager);
 
@@ -2380,12 +2380,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updatePosition",{},globals.TabManager)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["css:put:", "asJQuery"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updatePosition\x0a\x09'#amber' asJQuery\x0a\x09\x09css: 'top' put: '';\x0a\x09\x09css: 'bottom' put: '0px'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["css:put:", "asJQuery"]
 }),
 globals.TabManager);
 
@@ -2420,12 +2420,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"current",{},globals.TabManager.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "current\x0a\x09^ current ifNil: [ current := super new ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.TabManager.klass);
 
@@ -2444,12 +2444,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"new",{},globals.TabManager.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["shouldNotImplement"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "new\x0a\x09self shouldNotImplement",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["shouldNotImplement"]
 }),
 globals.TabManager.klass);
 
@@ -2493,12 +2493,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"toggleAmberIDE",{},globals.TabManager.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "=", "length", "asJQuery", "open", "is:", "close", "current"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "toggleAmberIDE\x0a\x09'#amber' asJQuery length = 0\x0a\x09\x09ifTrue: [ Browser open ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09('#amber' asJQuery is: ':visible')\x0a\x09\x09\x09\x09ifTrue: [ TabManager current close ]\x0a\x09\x09\x09\x09ifFalse: [ TabManager current open ] ]",
-referencedClasses: ["Browser", "TabManager"]
+referencedClasses: ["Browser", "TabManager"],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "=", "length", "asJQuery", "open", "is:", "close", "current"]
 }),
 globals.TabManager.klass);
 
@@ -2513,12 +2513,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "canBeClosed\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TabWidget);
 
@@ -2538,12 +2538,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"close",{},globals.TabWidget)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["closeTab:", "current"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "close\x0a\x09TabManager current closeTab: self",
-referencedClasses: ["TabManager"]
+referencedClasses: ["TabManager"],
 //>>excludeEnd("ide");
+messageSends: ["closeTab:", "current"]
 }),
 globals.TabWidget);
 
@@ -2562,12 +2562,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"hide",{},globals.TabWidget)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["hide", "asJQuery"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "hide\x0a\x09div asJQuery hide",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["hide", "asJQuery"]
 }),
 globals.TabWidget);
 
@@ -2586,12 +2586,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"label",{},globals.TabWidget)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "label\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.TabWidget);
 
@@ -2617,12 +2617,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"open",{},globals.TabWidget)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["addTab:", "current", "selectTab:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "open\x0a\x09TabManager current addTab: self.\x0a\x09TabManager current selectTab: self",
-referencedClasses: ["TabManager"]
+referencedClasses: ["TabManager"],
 //>>excludeEnd("ide");
+messageSends: ["addTab:", "current", "selectTab:"]
 }),
 globals.TabWidget);
 
@@ -2641,12 +2641,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"remove",{},globals.TabWidget)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["remove", "asJQuery"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "remove\x0a\x09div asJQuery remove",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["remove", "asJQuery"]
 }),
 globals.TabWidget);
 
@@ -2659,12 +2659,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderBoxOn: html",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TabWidget);
 
@@ -2677,12 +2677,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderButtonsOn: html",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TabWidget);
 
@@ -2706,12 +2706,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.TabWidget)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "div", "yourself", "renderTab"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderOn: html\x0a\x09div := html div\x0a\x09\x09class: 'amberTool';\x0a\x09\x09yourself.\x0a\x09self renderTab",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", "div", "yourself", "renderTab"]
 }),
 globals.TabWidget);
 
@@ -2771,12 +2771,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderTab",{},globals.TabWidget)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "class:", "div", "with:", "renderBoxOn:", "renderButtonsOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "renderTab\x0a\x09div contents: [ :html |\x0a\x09\x09html div\x0a\x09\x09class: 'amber_box';\x0a\x09\x09with: [ self renderBoxOn: html ].\x0a\x09\x09html div\x0a\x09\x09class: 'amber_buttons';\x0a\x09\x09with: [ self renderButtonsOn: html ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "class:", "div", "with:", "renderBoxOn:", "renderButtonsOn:"]
 }),
 globals.TabWidget);
 
@@ -2795,12 +2795,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"show",{},globals.TabWidget)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["show", "asJQuery"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "show\x0a\x09div asJQuery show",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["show", "asJQuery"]
 }),
 globals.TabWidget);
 
@@ -2819,12 +2819,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"update",{},globals.TabWidget)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["renderTab"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "update\x0a\x09self renderTab",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["renderTab"]
 }),
 globals.TabWidget);
 
@@ -2845,12 +2845,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"open",{},globals.TabWidget.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["open", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "open\x0a\x09^ self new open",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["open", "new"]
 }),
 globals.TabWidget.klass);
 
@@ -2882,12 +2882,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"addInstanceVariableNamed:toClass:",{aString:aString,aClass:aClass},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "new", "superclass", "name", "add:", "copy", "instanceVariableNames", "yourself", "package"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aClass"],
 source: "addInstanceVariableNamed: aString toClass: aClass\x0a\x09ClassBuilder new\x0a\x09\x09addSubclassOf: aClass superclass\x0a\x09\x09named: aClass name\x0a\x09\x09instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)\x0a\x09\x09package: aClass package name",
-referencedClasses: ["ClassBuilder"]
+referencedClasses: ["ClassBuilder"],
 //>>excludeEnd("ide");
+messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "new", "superclass", "name", "add:", "copy", "instanceVariableNames", "yourself", "package"]
 }),
 globals.Browser);
 
@@ -2926,12 +2926,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"addNewClass",{className:className},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "subclass:instanceVariableNames:package:", "selectedPackage", "resetClassesList", "updateClassesList", "selectClass:", "at:", "globals"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "addNewClass\x0a\x09| className |\x0a\x09className := self prompt: 'New class'.\x0a\x09(className notNil and: [ className notEmpty ]) ifTrue: [\x0a\x09\x09Object subclass: className instanceVariableNames: '' package: self selectedPackage.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk globals at: className) ]",
-referencedClasses: ["Object", "Smalltalk"]
+referencedClasses: ["Object", "Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "subclass:instanceVariableNames:package:", "selectedPackage", "resetClassesList", "updateClassesList", "selectClass:", "at:", "globals"]
 }),
 globals.Browser);
 
@@ -2965,12 +2965,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"addNewProtocol",{newProtocol:newProtocol},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "protocol:", "setMethodProtocol:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "addNewProtocol\x0a\x09| newProtocol |\x0a\x09\x0a\x09newProtocol := self prompt: 'New method protocol'.\x0a\x09\x0a\x09(newProtocol notNil and: [ newProtocol notEmpty ]) ifTrue: [\x0a\x09\x09selectedMethod protocol: newProtocol.\x0a\x09\x09self setMethodProtocol: newProtocol ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "protocol:", "setMethodProtocol:"]
 }),
 globals.Browser);
 
@@ -2983,12 +2983,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "canBeClosed\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Browser);
 
@@ -3013,12 +3013,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"cancelChanges",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "confirm:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "cancelChanges\x0a\x09^ unsavedChanges\x0a\x09ifTrue: [ self confirm: 'Cancel changes?' ]\x0a\x09ifFalse: [ true ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "confirm:"]
 }),
 globals.Browser);
 
@@ -3038,12 +3038,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"classCommentSource",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["comment"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "classCommentSource\x0a\x09^ selectedClass comment",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["comment"]
 }),
 globals.Browser);
 
@@ -3149,12 +3149,12 @@ return $13;
 }, function($ctx1) {$ctx1.fill(self,"classDeclarationSource",{stream:stream},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["writeStream", "ifNil:", "classDeclarationTemplate", "nextPutAll:", "asString", "superclass", "name", ",", "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category", "contents"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "classDeclarationSource\x0a\x09| stream |\x0a\x09stream := '' writeStream.\x0a\x09selectedClass ifNil: [ ^ self classDeclarationTemplate ].\x0a\x09stream\x0a\x09\x09nextPutAll: selectedClass superclass asString;\x0a\x09\x09nextPutAll: ' subclass: #';\x0a\x09\x09nextPutAll: selectedClass name;\x0a\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09nextPutAll: 'instanceVariableNames: '''.\x0a\x09selectedClass instanceVariableNames\x0a\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ' ' ].\x0a\x09stream\x0a\x09\x09nextPutAll: '''', String lf, String tab;\x0a\x09\x09nextPutAll: 'package: ''';\x0a\x09\x09nextPutAll: selectedClass category;\x0a\x09\x09nextPutAll: ''''.\x0a\x09^ stream contents",
-referencedClasses: ["String"]
+referencedClasses: ["String"],
 //>>excludeEnd("ide");
+messageSends: ["writeStream", "ifNil:", "classDeclarationTemplate", "nextPutAll:", "asString", "superclass", "name", ",", "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category", "contents"]
 }),
 globals.Browser);
 
@@ -3177,12 +3177,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"classDeclarationTemplate",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "selectedPackage"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "classDeclarationTemplate\x0a\x09^ 'Object subclass: #NameOfSubclass\x0a\x09instanceVariableNames: ''''\x0a\x09package: ''', self selectedPackage, ''''",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: [",", "selectedPackage"]
 }),
 globals.Browser);
 
@@ -3223,12 +3223,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"classes",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["asSet", "sort:", "select:", "classes", "=", "category", "<", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "classes\x0a\x09^ ((Smalltalk classes\x0a\x09select: [ :each | each category = selectedPackage ])\x0a\x09sort: [ :a :b | a name < b name ]) asSet",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["asSet", "sort:", "select:", "classes", "=", "category", "<", "name"]
 }),
 globals.Browser);
 
@@ -3254,12 +3254,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"commitPackage",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNotNil:", "commit", "named:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "commitPackage\x0a\x09selectedPackage ifNotNil: [\x0a\x09\x09(Package named: selectedPackage) commit ]",
-referencedClasses: ["Package"]
+referencedClasses: ["Package"],
 //>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "commit", "named:"]
 }),
 globals.Browser);
 
@@ -3314,12 +3314,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"compile",{currentEditLine:currentEditLine},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["disableSaveButton", "getCursor", "editor", "ifTrue:ifFalse:", "=", "ifNotNil:", "compileClassComment", "ifFalse:ifTrue:", "or:", "notNil", "compileDefinition", "compileMethodDefinition", "setCursor:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "compile\x0a\x09| currentEditLine |\x0a\x09self disableSaveButton.\x0a\x09currentEditLine := sourceArea editor getCursor.\x0a\x09selectedTab = #comment\x0a\x09ifTrue: [\x0a\x09\x09\x09selectedClass ifNotNil: [\x0a\x09\x09\x09\x09self compileClassComment ]]\x0a\x09ifFalse: [\x0a\x09\x09\x09(selectedProtocol notNil or: [ selectedMethod notNil ])\x0a\x09\x09\x09\x09ifFalse: [ self compileDefinition ]\x0a\x09\x09\x09\x09ifTrue: [ self compileMethodDefinition ]].\x0a\x09sourceArea editor setCursor: currentEditLine.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["disableSaveButton", "getCursor", "editor", "ifTrue:ifFalse:", "=", "ifNotNil:", "compileClassComment", "ifFalse:ifTrue:", "or:", "notNil", "compileDefinition", "compileMethodDefinition", "setCursor:"]
 }),
 globals.Browser);
 
@@ -3338,12 +3338,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"compileClassComment",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["comment:", "val"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "compileClassComment\x0a\x09selectedClass comment: sourceArea val",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["comment:", "val"]
 }),
 globals.Browser);
 
@@ -3369,12 +3369,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"compileDefinition",{newClass:newClass},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["evaluateExpression:", "new", "val", "resetClassesList", "updateCategoriesList", "updateClassesList", "selectClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "compileDefinition\x0a\x09| newClass |\x0a\x09newClass := Compiler new evaluateExpression: sourceArea val.\x0a\x09self\x0a\x09resetClassesList;\x0a\x09updateCategoriesList;\x0a\x09updateClassesList.\x0a\x09self selectClass: newClass",
-referencedClasses: ["Compiler"]
+referencedClasses: ["Compiler"],
 //>>excludeEnd("ide");
+messageSends: ["evaluateExpression:", "new", "val", "resetClassesList", "updateCategoriesList", "updateClassesList", "selectClass:"]
 }),
 globals.Browser);
 
@@ -3402,12 +3402,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"compileMethodDefinition",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "=", "compileMethodDefinitionFor:", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "compileMethodDefinition\x0a\x09selectedTab = #instance\x0a\x09ifTrue: [ self compileMethodDefinitionFor: selectedClass ]\x0a\x09ifFalse: [ self compileMethodDefinitionFor: selectedClass class ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "=", "compileMethodDefinitionFor:", "class"]
 }),
 globals.Browser);
 
@@ -3491,12 +3491,12 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"compileMethodDefinitionFor:",{aClass:aClass,compiler:compiler,method:method,source:source,node:node},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["val", "ifNil:", "protocol", "new", "source:", "parse:", "ifTrue:", "isParseFailure", "alert:", ",", "reason", "asString", "position", "currentClass:", "eval:", "compileNode:", "do:", "unknownVariables", "ifFalse:", "existsGlobal:", "confirm:", "addInstanceVariableNamed:toClass:", "compileMethodDefinitionFor:", "installMethod:forClass:protocol:", "updateMethodsList", "selectMethod:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "compileMethodDefinitionFor: aClass\x0a\x09| compiler method source node |\x0a\x09source := sourceArea val.\x0a\x09selectedProtocol ifNil: [ selectedProtocol := selectedMethod protocol ].\x0a\x09compiler := Compiler new.\x0a\x09compiler source: source.\x0a\x09node := compiler parse: source.\x0a\x09node isParseFailure ifTrue: [\x0a\x09^ self alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString ].\x0a\x09compiler currentClass: aClass.\x0a\x09method := compiler eval: (compiler compileNode: node).\x0a\x09compiler unknownVariables do: [ :each |\x0a\x09\x09\x22Do not try to redeclare javascript's objects\x22\x0a\x09\x09(PlatformInterface existsGlobal: each) ifFalse: [\x0a\x09\x09(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [\x0a\x09\x09\x09self addInstanceVariableNamed: each toClass: aClass.\x0a\x09\x09\x09^ self compileMethodDefinitionFor: aClass ]] ].\x0a\x09ClassBuilder new installMethod: method forClass: aClass protocol: selectedProtocol.\x0a\x09self updateMethodsList.\x0a\x09self selectMethod: method",
-referencedClasses: ["Compiler", "PlatformInterface", "ClassBuilder"]
+referencedClasses: ["Compiler", "PlatformInterface", "ClassBuilder"],
 //>>excludeEnd("ide");
+messageSends: ["val", "ifNil:", "protocol", "new", "source:", "parse:", "ifTrue:", "isParseFailure", "alert:", ",", "reason", "asString", "position", "currentClass:", "eval:", "compileNode:", "do:", "unknownVariables", "ifFalse:", "existsGlobal:", "confirm:", "addInstanceVariableNamed:toClass:", "compileMethodDefinitionFor:", "installMethod:forClass:protocol:", "updateMethodsList", "selectMethod:"]
 }),
 globals.Browser);
 
@@ -3535,12 +3535,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"copyClass",{className:className},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "copyClass:named:", "new", "selectedClass", "resetClassesList", "updateClassesList", "selectClass:", "at:", "globals"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "copyClass\x0a\x09| className |\x0a\x09className := self prompt: 'Copy class'.\x0a\x09(className notNil and: [ className notEmpty ]) ifTrue: [\x0a\x09\x09ClassBuilder new copyClass: self selectedClass named: className.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk globals at: className) ]",
-referencedClasses: ["ClassBuilder", "Smalltalk"]
+referencedClasses: ["ClassBuilder", "Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "copyClass:named:", "new", "selectedClass", "resetClassesList", "updateClassesList", "selectClass:", "at:", "globals"]
 }),
 globals.Browser);
 
@@ -3565,12 +3565,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"declarationSource",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "=", "classDeclarationSource", "metaclassDeclarationSource"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "declarationSource\x0a\x09^ selectedTab = #instance\x0a\x09ifTrue: [ self classDeclarationSource ]\x0a\x09ifFalse: [ self metaclassDeclarationSource ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "=", "classDeclarationSource", "metaclassDeclarationSource"]
 }),
 globals.Browser);
 
@@ -3596,12 +3596,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"disableSaveButton",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNotNil:", "at:put:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "disableSaveButton\x0a\x09saveButton ifNotNil: [\x0a\x09saveButton at: 'disabled' put: true ].\x0a\x09unsavedChanges := false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "at:put:"]
 }),
 globals.Browser);
 
@@ -3614,12 +3614,12 @@ var self=this;
 return "messageSelectorAndArgumentNames\x0a\x09\x22comment stating purpose of message\x22\x0a\x0a\x09| temporary variable names |\x0a\x09statements";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "dummyMethodSource\x0a\x09^ 'messageSelectorAndArgumentNames\x0a\x09\x22comment stating purpose of message\x22\x0a\x0a\x09| temporary variable names |\x0a\x09statements'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Browser);
 
@@ -3645,12 +3645,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"handleSourceAreaKeyDown:",{anEvent:anEvent},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anEvent"],
 source: "handleSourceAreaKeyDown: anEvent\x0a\x09<if(anEvent.ctrlKey) {\x0a\x09\x09if(anEvent.keyCode === 83) { //ctrl+s\x0a\x09\x09\x09self._compile();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09}\x0a\x09>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Browser);
 
@@ -3669,12 +3669,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"hideClassButtons",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["hide", "asJQuery"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "hideClassButtons\x0a\x09classButtons asJQuery hide",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["hide", "asJQuery"]
 }),
 globals.Browser);
 
@@ -3693,12 +3693,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"hideMethodButtons",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["hide", "asJQuery"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "hideMethodButtons\x0a\x09methodButtons asJQuery hide",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["hide", "asJQuery"]
 }),
 globals.Browser);
 
@@ -3727,12 +3727,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initialize", "first", "packages"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09selectedTab := #instance.\x0a\x09selectedPackage := self packages first.\x0a\x09unsavedChanges := false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["initialize", "first", "packages"]
 }),
 globals.Browser);
 
@@ -3757,12 +3757,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"label",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:ifNotNil:", ",", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "label\x0a\x09^ selectedClass\x0a\x09ifNil: [ 'Browser (nil)' ]\x0a\x09ifNotNil: [ 'Browser: ', selectedClass name ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:ifNotNil:", ",", "name"]
 }),
 globals.Browser);
 
@@ -3827,12 +3827,12 @@ return $4;
 }, function($ctx1) {$ctx1.fill(self,"metaclassDeclarationSource",{stream:stream},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["writeStream", "ifNotNil:", "nextPutAll:", "asString", "do:separatedBy:", "instanceVariableNames", "class", "contents"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "metaclassDeclarationSource\x0a\x09| stream |\x0a\x09stream := '' writeStream.\x0a\x09selectedClass ifNotNil: [\x0a\x09stream\x0a\x09\x09nextPutAll: selectedClass asString;\x0a\x09\x09nextPutAll: ' class ';\x0a\x09\x09nextPutAll: 'instanceVariableNames: '''.\x0a\x09selectedClass class instanceVariableNames\x0a\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ' ' ].\x0a\x09stream nextPutAll: '''' ].\x0a\x09^ stream contents",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["writeStream", "ifNotNil:", "nextPutAll:", "asString", "do:separatedBy:", "instanceVariableNames", "class", "contents"]
 }),
 globals.Browser);
 
@@ -3857,12 +3857,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodSource",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:ifNotNil:", "dummyMethodSource", "source"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "methodSource\x0a\x09^ selectedMethod\x0a\x09ifNil: [ self dummyMethodSource ]\x0a\x09ifNotNil: [ selectedMethod source ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:ifNotNil:", "dummyMethodSource", "source"]
 }),
 globals.Browser);
 
@@ -3926,12 +3926,12 @@ return $5;
 }, function($ctx1) {$ctx1.fill(self,"methods",{klass:klass},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "=", "ifNotNil:", "ifTrue:ifFalse:", "class", "sort:", "ifNil:ifNotNil:", "values", "methodDictionary", "methodsInProtocol:", "<", "selector"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "methods\x0a\x09| klass |\x0a\x09selectedTab = #comment ifTrue: [ ^ #() ].\x0a\x09selectedClass ifNotNil: [\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [ selectedClass ]\x0a\x09\x09ifFalse: [ selectedClass class ]].\x0a\x09^ (selectedProtocol\x0a\x09ifNil: [\x0a\x09\x09klass\x0a\x09\x09ifNil: [ #() ]\x0a\x09\x09ifNotNil: [ klass methodDictionary values ]]\x0a\x09ifNotNil: [\x0a\x09\x09klass methodsInProtocol: selectedProtocol ]) \x0a\x09\x09\x09\x09sort: [ :a :b | a selector < b selector ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "=", "ifNotNil:", "ifTrue:ifFalse:", "class", "sort:", "ifNil:ifNotNil:", "values", "methodDictionary", "methodsInProtocol:", "<", "selector"]
 }),
 globals.Browser);
 
@@ -3972,12 +3972,12 @@ return $4;
 }, function($ctx1) {$ctx1.fill(self,"packages",{packages:packages},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "do:", "classes", "ifFalse:", "includes:", "category", "add:", "sort"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "packages\x0a\x09| packages |\x0a\x09packages := Array new.\x0a\x09Smalltalk classes do: [ :each |\x0a\x09(packages includes: each category) ifFalse: [\x0a\x09\x09packages add: each category ]].\x0a\x09^ packages sort",
-referencedClasses: ["Array", "Smalltalk"]
+referencedClasses: ["Array", "Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["new", "do:", "classes", "ifFalse:", "includes:", "category", "add:", "sort"]
 }),
 globals.Browser);
 
@@ -4026,12 +4026,12 @@ return $8;
 }, function($ctx1) {$ctx1.fill(self,"protocols",{klass:klass},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNotNil:", "ifTrue:", "=", "ifTrue:ifFalse:", "class", "isEmpty", "methodDictionary", "with:", "protocols", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "protocols\x0a\x09| klass |\x0a\x09selectedClass ifNotNil: [\x0a\x09selectedTab = #comment ifTrue: [ ^ #() ].\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [ selectedClass ]\x0a\x09\x09ifFalse: [ selectedClass class ].\x0a\x09klass methodDictionary isEmpty ifTrue: [\x0a\x09\x09^ Array with: 'not yet classified' ].\x0a\x09^ klass protocols ].\x0a\x09^ Array new",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "ifTrue:", "=", "ifTrue:ifFalse:", "class", "isEmpty", "methodDictionary", "with:", "protocols", "new"]
 }),
 globals.Browser);
 
@@ -4061,12 +4061,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"removeClass",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "confirm:", ",", "name", "removeClass:", "resetClassesList", "selectClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "removeClass\x0a\x09(self confirm: 'Do you really want to remove ', selectedClass name, '?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk removeClass: selectedClass.\x0a\x09\x09self resetClassesList.\x0a\x09\x09self selectClass: nil ]",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "confirm:", ",", "name", "removeClass:", "resetClassesList", "selectClass:"]
 }),
 globals.Browser);
 
@@ -4105,12 +4105,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"removeMethod",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "cancelChanges", "confirm:", ",", "selector", "ifTrue:ifFalse:", "=", "removeCompiledMethod:", "class", "selectMethod:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "removeMethod\x0a\x09self cancelChanges ifTrue: [\x0a\x09(self confirm: 'Do you really want to remove #', selectedMethod selector, '?')\x0a\x09\x09ifTrue: [\x0a\x09\x09selectedTab = #instance\x0a\x09\x09\x09ifTrue: [ selectedClass removeCompiledMethod: selectedMethod ]\x0a\x09\x09\x09ifFalse: [ selectedClass class removeCompiledMethod: selectedMethod ].\x0a\x09\x09self selectMethod: nil ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "cancelChanges", "confirm:", ",", "selector", "ifTrue:ifFalse:", "=", "removeCompiledMethod:", "class", "selectMethod:"]
 }),
 globals.Browser);
 
@@ -4139,12 +4139,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"removePackage",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "confirm:", ",", "removePackage:", "updateCategoriesList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "removePackage\x0a\x0a\x09(self confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk removePackage: selectedPackage.\x0a\x09\x09self updateCategoriesList ]",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "confirm:", ",", "removePackage:", "updateCategoriesList"]
 }),
 globals.Browser);
 
@@ -4180,12 +4180,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renameClass",{newName:newName},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["prompt:", ",", "name", "ifTrue:", "and:", "notNil", "notEmpty", "rename:", "updateClassesList", "updateSourceAndButtons"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "renameClass\x0a\x09| newName |\x0a\x09newName := self prompt: 'Rename class ', selectedClass name.\x0a\x09(newName notNil and: [ newName notEmpty ]) ifTrue: [\x0a\x09selectedClass rename: newName.\x0a\x09self\x0a\x09\x09updateClassesList;\x0a\x09\x09updateSourceAndButtons ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["prompt:", ",", "name", "ifTrue:", "and:", "notNil", "notEmpty", "rename:", "updateClassesList", "updateSourceAndButtons"]
 }),
 globals.Browser);
 
@@ -4217,12 +4217,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renamePackage",{newName:newName},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["prompt:", ",", "ifNotNil:", "ifTrue:", "notEmpty", "renamePackage:to:", "updateCategoriesList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "renamePackage\x0a\x0a\x09| newName |\x0a\x09newName := self prompt: 'Rename package ', selectedPackage.\x0a\x09newName ifNotNil: [\x0a\x09newName notEmpty ifTrue: [\x0a\x09Smalltalk renamePackage: selectedPackage to: newName.\x0a\x09self updateCategoriesList ]]",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["prompt:", ",", "ifNotNil:", "ifTrue:", "notEmpty", "renamePackage:to:", "updateCategoriesList"]
 }),
 globals.Browser);
 
@@ -4273,12 +4273,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderBottomPanelOn:",{html:html},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "div", "with:", "new", "renderOn:", "onKeyDown:", "handleSourceAreaKeyDown:", "onKeyUp:", "updateStatus"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderBottomPanelOn: html\x0a\x09html div\x0a\x09class: 'amber_sourceCode';\x0a\x09with: [\x0a\x09\x09sourceArea := SourceArea new.\x0a\x09\x09sourceArea renderOn: html.\x0a\x09\x09\x09sourceArea onKeyDown: [ :e |\x0a\x09\x09\x09\x09self handleSourceAreaKeyDown: e ].\x0a\x09\x09sourceArea onKeyUp: [ self updateStatus ]]",
-referencedClasses: ["SourceArea"]
+referencedClasses: ["SourceArea"],
 //>>excludeEnd("ide");
+messageSends: ["class:", "div", "with:", "new", "renderOn:", "onKeyDown:", "handleSourceAreaKeyDown:", "onKeyUp:", "updateStatus"]
 }),
 globals.Browser);
 
@@ -4300,12 +4300,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["renderTopPanelOn:", "renderTabsOn:", "renderBottomPanelOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderBoxOn: html\x0a\x09self\x0a\x09renderTopPanelOn: html;\x0a\x09renderTabsOn: html;\x0a\x09renderBottomPanelOn: html",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["renderTopPanelOn:", "renderTabsOn:", "renderBottomPanelOn:"]
 }),
 globals.Browser);
 
@@ -4418,12 +4418,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["button", "with:", "onClick:", "compile", "span", "class:", "div", "doIt", "printIt", "inspectIt", "updateSourceAndButtons"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderButtonsOn: html\x0a\x09saveButton := html button.\x0a\x09saveButton\x0a\x09with: 'Save';\x0a\x09onClick: [ self compile ].\x0a\x09methodButtons := html span.\x0a\x09classButtons := html span.\x0a\x09html div\x0a\x09class: 'right';\x0a\x09with: [\x0a\x09\x09html button\x0a\x09\x09\x09with: 'DoIt';\x0a\x09\x09\x09onClick: [ sourceArea doIt ].\x0a\x09\x09html button\x0a\x09\x09\x09with: 'PrintIt';\x0a\x09\x09\x09onClick: [ sourceArea printIt ].\x0a\x09\x09html button with: 'InspectIt';\x0a\x09\x09\x09onClick: [ sourceArea inspectIt ]].\x0a\x09self updateSourceAndButtons",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["button", "with:", "onClick:", "compile", "span", "class:", "div", "doIt", "printIt", "inspectIt", "updateSourceAndButtons"]
 }),
 globals.Browser);
 
@@ -4443,12 +4443,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderTabsOn:",{html:html},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "ul", "updateTabsList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderTabsOn: html\x0a\x09tabsList := html ul class: 'amber_tabs amber_browser'.\x0a\x09self updateTabsList.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", "ul", "updateTabsList"]
 }),
 globals.Browser);
 
@@ -4602,12 +4602,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderTopPanelOn:",{html:html},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "div", "with:", "ul", "title:", "button", "onClick:", "commitPackage", "renamePackage", "removePackage", "on:", "renderOn:", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderTopPanelOn: html\x0a\x09html div\x0a\x09\x09class: 'top';\x0a\x09\x09with: [\x0a\x09\x09\x09packagesList := html ul class: 'amber_column browser packages'.\x0a\x09\x09\x09\x09html div class: 'amber_packagesButtons'; with: [\x0a\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09title: 'Commit classes in this package to disk';\x0a\x09\x09\x09\x09\x09onClick: [ self commitPackage ];\x0a\x09\x09\x09\x09\x09with: 'Commit'.\x0a\x09\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09title: 'Rename package';\x0a\x09\x09\x09\x09\x09onClick: [ self renamePackage ];\x0a\x09\x09\x09\x09\x09with: 'Rename'.\x0a\x09\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09title: 'Remove this package from the system';\x0a\x09\x09\x09\x09\x09onClick: [ self removePackage ];\x0a\x09\x09\x09\x09\x09with: 'Remove' ].\x0a\x09\x09\x09classesList := ClassesList on: self.\x0a\x09\x09\x09classesList renderOn: html.\x0a\x09\x09\x09protocolsList := html ul class: 'amber_column browser protocols'.\x0a\x09\x09\x09methodsList := html ul class: 'amber_column browser methods'.\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09updateCategoriesList;\x0a\x09\x09\x09\x09updateClassesList;\x0a\x09\x09\x09\x09updateProtocolsList;\x0a\x09\x09\x09\x09updateMethodsList.\x0a\x09\x09\x09html div class: 'amber_clear' ]",
-referencedClasses: ["ClassesList"]
+referencedClasses: ["ClassesList"],
 //>>excludeEnd("ide");
+messageSends: ["class:", "div", "with:", "ul", "title:", "button", "onClick:", "commitPackage", "renamePackage", "removePackage", "on:", "renderOn:", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList"]
 }),
 globals.Browser);
 
@@ -4626,12 +4626,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"resetClassesList",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["resetNodes"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "resetClassesList\x0a\x09classesList resetNodes",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["resetNodes"]
 }),
 globals.Browser);
 
@@ -4663,12 +4663,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "cancelChanges", "at:", "globals", "ifTrue:ifFalse:", "isClass", "openOn:", "class", "searchReferencesOf:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "search: aString\x0a\x09self cancelChanges ifTrue: [ | searchedClass |\x0a\x09\x09searchedClass := Smalltalk globals at: aString.\x0a\x09\x09searchedClass isClass\x0a\x09\x09\x09ifTrue: [ self class openOn: searchedClass ]\x0a\x09\x09\x09ifFalse: [ self searchReferencesOf: aString ]]",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "cancelChanges", "at:", "globals", "ifTrue:ifFalse:", "isClass", "openOn:", "class", "searchReferencesOf:"]
 }),
 globals.Browser);
 
@@ -4688,12 +4688,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"searchClassReferences",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["search:", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "searchClassReferences\x0a\x09ReferencesBrowser search: selectedClass name",
-referencedClasses: ["ReferencesBrowser"]
+referencedClasses: ["ReferencesBrowser"],
 //>>excludeEnd("ide");
+messageSends: ["search:", "name"]
 }),
 globals.Browser);
 
@@ -4713,12 +4713,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"searchReferencesOf:",{aString:aString},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["search:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "searchReferencesOf: aString\x0a\x09ReferencesBrowser search: aString",
-referencedClasses: ["ReferencesBrowser"]
+referencedClasses: ["ReferencesBrowser"],
 //>>excludeEnd("ide");
+messageSends: ["search:"]
 }),
 globals.Browser);
 
@@ -4753,12 +4753,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"selectCategory:",{aCategory:aCategory},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "cancelChanges", "resetClassesList", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCategory"],
 source: "selectCategory: aCategory\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedPackage := aCategory.\x0a\x09selectedClass := selectedProtocol := selectedMethod := nil.\x0a\x09self resetClassesList.\x0a\x09self\x0a\x09\x09updateCategoriesList;\x0a\x09\x09updateClassesList;\x0a\x09\x09updateProtocolsList;\x0a\x09\x09updateMethodsList;\x0a\x09\x09updateSourceAndButtons ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "cancelChanges", "resetClassesList", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"]
 }),
 globals.Browser);
 
@@ -4790,12 +4790,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"selectClass:",{aClass:aClass},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "cancelChanges", "updateClassesList", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "selectClass: aClass\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedClass := aClass.\x0a\x09selectedProtocol := selectedMethod := nil.\x0a\x09self\x0a\x09\x09updateClassesList;\x0a\x09\x09updateProtocolsList;\x0a\x09\x09updateMethodsList;\x0a\x09\x09updateSourceAndButtons ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "cancelChanges", "updateClassesList", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"]
 }),
 globals.Browser);
 
@@ -4823,12 +4823,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"selectMethod:",{aMethod:aMethod},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "cancelChanges", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMethod"],
 source: "selectMethod: aMethod\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedMethod := aMethod.\x0a\x09self\x0a\x09\x09updateProtocolsList;\x0a\x09\x09updateMethodsList;\x0a\x09\x09updateSourceAndButtons ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "cancelChanges", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"]
 }),
 globals.Browser);
 
@@ -4858,12 +4858,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"selectProtocol:",{aString:aString},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "cancelChanges", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "selectProtocol: aString\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedProtocol := aString.\x0a\x09selectedMethod := nil.\x0a\x09self\x0a\x09\x09updateProtocolsList;\x0a\x09\x09updateMethodsList;\x0a\x09\x09updateSourceAndButtons ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "cancelChanges", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"]
 }),
 globals.Browser);
 
@@ -4889,12 +4889,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"selectTab:",{aString:aString},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "cancelChanges", "selectProtocol:", "updateTabsList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "selectTab: aString\x0a\x09self cancelChanges ifTrue: [\x0a\x09selectedTab := aString.\x0a\x09self selectProtocol: nil.\x0a\x09self updateTabsList ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "cancelChanges", "selectProtocol:", "updateTabsList"]
 }),
 globals.Browser);
 
@@ -4909,12 +4909,12 @@ $1=self["@selectedClass"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selectedClass\x0a\x09^ selectedClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Browser);
 
@@ -4929,12 +4929,12 @@ $1=self["@selectedPackage"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selectedPackage\x0a\x09^ selectedPackage",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Browser);
 
@@ -4970,12 +4970,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setMethodProtocol:",{aString:aString},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "cancelChanges", "ifFalse:ifTrue:", "includes:", "protocols", "addNewProtocol", "protocol:", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "setMethodProtocol: aString\x0a\x09self cancelChanges ifTrue: [\x0a\x09(self protocols includes: aString)\x0a\x09\x09ifFalse: [ self addNewProtocol ]\x0a\x09\x09ifTrue: [\x0a\x09\x09selectedMethod protocol: aString.\x0a\x09\x09selectedProtocol := aString.\x0a\x09\x09selectedMethod := selectedMethod.\x0a\x09\x09self\x0a\x09\x09\x09updateProtocolsList;\x0a\x09\x09\x09updateMethodsList;\x0a\x09\x09\x09updateSourceAndButtons ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "cancelChanges", "ifFalse:ifTrue:", "includes:", "protocols", "addNewProtocol", "protocol:", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"]
 }),
 globals.Browser);
 
@@ -4994,12 +4994,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"showClassButtons",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["show", "asJQuery"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "showClassButtons\x0a\x09classButtons asJQuery show",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["show", "asJQuery"]
 }),
 globals.Browser);
 
@@ -5018,12 +5018,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"showMethodButtons",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["show", "asJQuery"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "showMethodButtons\x0a\x09methodButtons asJQuery show",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["show", "asJQuery"]
 }),
 globals.Browser);
 
@@ -5070,12 +5070,12 @@ return $5;
 }, function($ctx1) {$ctx1.fill(self,"source",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:", "=", "ifFalse:ifTrue:", "or:", "notNil", "declarationSource", "methodSource", "ifNil:ifNotNil:", "classCommentSource"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "source\x0a\x09selectedTab = #comment ifFalse: [\x0a\x09^ (selectedProtocol notNil or: [ selectedMethod notNil ])\x0a\x09\x09ifFalse: [ self declarationSource ]\x0a\x09\x09ifTrue: [ self methodSource ]].\x0a\x09^ selectedClass\x0a\x09ifNil: [ '' ]\x0a\x09ifNotNil: [ self classCommentSource ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:", "=", "ifFalse:ifTrue:", "or:", "notNil", "declarationSource", "methodSource", "ifNil:ifNotNil:", "classCommentSource"]
 }),
 globals.Browser);
 
@@ -5137,12 +5137,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateCategoriesList",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "do:", "packages", "ifTrue:ifFalse:", "isEmpty", "li", "ifTrue:", "=", "class:", "with:", "onClick:", "selectCategory:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateCategoriesList\x0a\x09packagesList contents: [ :html |\x0a\x09self packages do: [ :each || li label |\x0a\x09\x09each isEmpty\x0a\x09\x09ifTrue: [ label := 'Unclassified' ]\x0a\x09\x09ifFalse: [ label := each ].\x0a\x09\x09li := html li.\x0a\x09\x09selectedPackage = each ifTrue: [\x0a\x09\x09li class: 'selected' ].\x0a\x09\x09li\x0a\x09\x09with: label;\x0a\x09\x09onClick: [ self selectCategory: each ]] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "do:", "packages", "ifTrue:ifFalse:", "isEmpty", "li", "ifTrue:", "=", "class:", "with:", "onClick:", "selectCategory:"]
 }),
 globals.Browser);
 
@@ -5163,12 +5163,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateClassesList",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["update", "current", "updateNodes"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateClassesList\x0a\x09TabManager current update.\x0a\x09classesList updateNodes",
-referencedClasses: ["TabManager"]
+referencedClasses: ["TabManager"],
 //>>excludeEnd("ide");
+messageSends: ["update", "current", "updateNodes"]
 }),
 globals.Browser);
 
@@ -5222,12 +5222,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateMethodsList",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "do:", "methods", "li", "ifTrue:", "=", "class:", "with:", "selector", "onClick:", "selectMethod:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateMethodsList\x0a\x09methodsList contents: [ :html |\x0a\x09self methods do: [ :each || li |\x0a\x09\x09li := html li.\x0a\x09\x09selectedMethod = each ifTrue: [\x0a\x09\x09li class: 'selected' ].\x0a\x09\x09li\x0a\x09\x09with: each selector;\x0a\x09\x09onClick: [ self selectMethod: each ]] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "do:", "methods", "li", "ifTrue:", "=", "class:", "with:", "selector", "onClick:", "selectMethod:"]
 }),
 globals.Browser);
 
@@ -5281,12 +5281,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateProtocolsList",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "do:", "protocols", "li", "ifTrue:", "=", "class:", "with:", "onClick:", "selectProtocol:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateProtocolsList\x0a\x09protocolsList contents: [ :html |\x0a\x09self protocols do: [ :each || li |\x0a\x09\x09li := html li.\x0a\x09\x09selectedProtocol = each ifTrue: [\x0a\x09\x09li class: 'selected' ].\x0a\x09\x09li\x0a\x09\x09with: each;\x0a\x09\x09onClick: [ self selectProtocol: each ]] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "do:", "protocols", "li", "ifTrue:", "=", "class:", "with:", "onClick:", "selectProtocol:"]
 }),
 globals.Browser);
 
@@ -5654,12 +5654,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateSourceAndButtons",{currentProtocol:currentProtocol},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["disableSaveButton", "contents:", "title:", "button", "onClick:", "addNewClass", "with:", "renameClass", "copyClass", "removeClass", "searchClassReferences", "removeMethod", "select", "onChange:", "setMethodProtocol:", "val", "asJQuery", "option", "at:put:", "class:", "ifTrue:", "and:", "isNil", "notNil", "category", "do:", "protocols", "=", "ifFalse:", "searchReferencesOf:", "selector", "sorted", "messageSends", "ifTrue:ifFalse:", "hideMethodButtons", "or:", "hideClassButtons", "showClassButtons", "showMethodButtons", "val:", "source"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateSourceAndButtons\x0a\x09| currentProtocol |\x0a\x0a\x09self disableSaveButton.\x0a\x09classButtons contents: [ :html |\x0a\x09\x09html button\x0a\x09\x09\x09title: 'Create a new class';\x0a\x09\x09\x09onClick: [ self addNewClass ];\x0a\x09\x09\x09with: 'New class'.\x0a\x09\x09html button\x0a\x09\x09\x09with: 'Rename class';\x0a\x09\x09\x09onClick: [ self renameClass ].\x0a\x09\x09html button\x0a\x09\x09\x09with: 'Copy class';\x0a\x09\x09\x09onClick: [ self copyClass ].\x0a\x09\x09html button\x0a\x09\x09\x09with: 'Remove class';\x0a\x09\x09\x09onClick: [ self removeClass ].\x0a\x09\x09html button\x0a\x09\x09\x09with: 'References';\x0a\x09\x09\x09onClick: [ self searchClassReferences ]].\x0a\x09methodButtons contents: [ :html | | protocolSelect referencesSelect |\x0a\x09\x09html button\x0a\x09\x09\x09with: 'Remove method';\x0a\x09\x09\x09onClick: [ self removeMethod ].\x0a\x09\x09protocolSelect := html select.\x0a\x09\x09\x09\x09protocolSelect\x0a\x09\x09\x09onChange: [ self setMethodProtocol: protocolSelect asJQuery val ];\x0a\x09\x09\x09with: [\x0a\x09\x09\x09\x09html option\x0a\x09\x09\x09\x09\x09with: 'Method protocol';\x0a\x09\x09\x09\x09\x09at: 'disabled' put: 'disabled'.\x0a\x09\x09\x09\x09html option\x0a\x09\x09\x09\x09\x09class: 'important';\x0a\x09\x09\x09\x09\x09with: 'New...'.\x0a\x09\x09\x09\x09currentProtocol := selectedProtocol.\x0a\x09\x09\x09\x09(currentProtocol isNil and: [ selectedMethod notNil ])\x0a\x09\x09\x09\x09\x09ifTrue: [ currentProtocol := selectedMethod category ].\x0a\x09\x09\x09\x09self protocols do: [ :each | | option |\x0a\x09\x09\x09\x09\x09option := html option with: each.\x0a\x09\x09\x09\x09\x09currentProtocol = each ifTrue: [ option at: 'selected' put: 'selected' ] ] ].\x0a\x09\x09selectedMethod isNil ifFalse: [\x0a\x09\x09\x09referencesSelect := html select.\x0a\x09\x09\x09\x09\x09\x09referencesSelect\x0a\x09\x09\x09\x09onChange: [ self searchReferencesOf: referencesSelect asJQuery val ];\x0a\x09\x09\x09\x09with: [ |option|\x0a\x09\x09\x09\x09\x09html option\x0a\x09\x09\x09\x09\x09\x09with: 'References';\x0a\x09\x09\x09\x09\x09\x09at: 'disabled' put: 'disabled';\x0a\x09\x09\x09\x09\x09\x09at: 'selected' put: 'selected'.\x0a\x09\x09\x09\x09\x09html option\x0a\x09\x09\x09\x09\x09\x09class: 'important';\x0a\x09\x09\x09\x09\x09\x09with: selectedMethod selector.\x0a\x09\x09\x09\x09\x09selectedMethod messageSends sorted do: [ :each |\x0a\x09\x09\x09\x09\x09\x09html option with: each ]] ]].\x0a\x09selectedMethod isNil\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self hideMethodButtons.\x0a\x09\x09\x09\x09(selectedClass isNil or: [ selectedProtocol notNil ])\x0a\x09\x09\x09\x09\x09ifTrue: [ self hideClassButtons ]\x0a\x09\x09\x09\x09\x09ifFalse: [ self showClassButtons ]]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09self hideClassButtons.\x0a\x09\x09\x09self showMethodButtons ].\x0a\x09sourceArea val: self source",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["disableSaveButton", "contents:", "title:", "button", "onClick:", "addNewClass", "with:", "renameClass", "copyClass", "removeClass", "searchClassReferences", "removeMethod", "select", "onChange:", "setMethodProtocol:", "val", "asJQuery", "option", "at:put:", "class:", "ifTrue:", "and:", "isNil", "notNil", "category", "do:", "protocols", "=", "ifFalse:", "searchReferencesOf:", "selector", "sorted", "messageSends", "ifTrue:ifFalse:", "hideMethodButtons", "or:", "hideClassButtons", "showClassButtons", "showMethodButtons", "val:", "source"]
 }),
 globals.Browser);
 
@@ -5698,12 +5698,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateStatus",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "=", "val", "source", "ifNotNil:", "at:put:", "removeAt:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateStatus\x0a\x09sourceArea val = self source\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09saveButton ifNotNil: [\x0a\x09\x09\x09\x09saveButton at: 'disabled' put: true ].\x0a\x09\x09\x09\x09unsavedChanges := false ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09saveButton ifNotNil: [\x0a\x09\x09\x09\x09saveButton removeAt: 'disabled' ].\x0a\x09\x09\x09unsavedChanges := true ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "=", "val", "source", "ifNotNil:", "at:put:", "removeAt:"]
 }),
 globals.Browser);
 
@@ -5925,12 +5925,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateTabsList",{},globals.Browser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "li", "ifTrue:", "=", "class:", "with:", "span", "onClick:", "selectTab:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateTabsList\x0a\x09tabsList contents: [ :html || li |\x0a\x09li := html li.\x0a\x09selectedTab = #instance ifTrue: [ li class: 'selected' ].\x0a\x09li\x0a\x09\x09with: [\x0a\x09\x09html span class: 'ltab'.\x0a\x09\x09html span class: 'mtab'; with: 'Instance'.\x0a\x09\x09html span class: 'rtab' ];\x0a\x09\x09onClick: [ self selectTab: #instance ].\x0a\x09li := html li.\x0a\x09selectedTab = #class ifTrue: [ li class: 'selected' ].\x0a\x09li\x0a\x09\x09with: [\x0a\x09\x09html span class: 'ltab'.\x0a\x09\x09html span class: 'mtab'; with: 'Class'.\x0a\x09\x09html span class: 'rtab' ];\x0a\x09\x09onClick: [ self selectTab: #class ].\x0a\x09li := html li.\x0a\x09selectedTab = #comment ifTrue: [ li class: 'selected' ].\x0a\x09li\x0a\x09\x09with: [\x0a\x09\x09html span class: 'ltab'.\x0a\x09\x09html span class: 'mtab'; with: 'Comment'.\x0a\x09\x09html span class: 'rtab' ];\x0a\x09\x09onClick: [ self selectTab: #comment ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "li", "ifTrue:", "=", "class:", "with:", "span", "onClick:", "selectTab:"]
 }),
 globals.Browser);
 
@@ -5950,12 +5950,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"open",{},globals.Browser.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["open", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "open\x0a\x09self new open",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["open", "new"]
 }),
 globals.Browser.klass);
 
@@ -5979,12 +5979,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"openOn:",{aClass:aClass},globals.Browser.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["open", "new", "selectCategory:", "category", "selectClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "openOn: aClass\x0a\x09^ self new\x0a\x09open;\x0a\x09selectCategory: aClass category;\x0a\x09selectClass: aClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["open", "new", "selectCategory:", "category", "selectClass:"]
 }),
 globals.Browser.klass);
 
@@ -6036,12 +6036,12 @@ return $4;
 }, function($ctx1) {$ctx1.fill(self,"allVariables",{all:all},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "do:", "allInstanceVariableNames", "class", "receiver", "at:put:", "instVarAt:", "keysAndValuesDo:", "locals"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "allVariables\x0a\x09| all |\x0a\x09all := Dictionary new.\x0a\x0a\x09self receiver class allInstanceVariableNames do: [ :each |\x0a\x09\x09all at: each put: (self receiver instVarAt: each) ].\x0a\x09\x0a\x09selectedContext locals keysAndValuesDo: [ :key :value |\x0a\x09\x09all at: key put: value ].\x0a\x09\x0a\x09^ all",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["new", "do:", "allInstanceVariableNames", "class", "receiver", "at:put:", "instVarAt:", "keysAndValuesDo:", "locals"]
 }),
 globals.Debugger);
 
@@ -6054,12 +6054,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "canBeClosed\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Debugger);
 
@@ -6074,12 +6074,12 @@ $1=self["@error"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "error\x0a\x09^ error",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Debugger);
 
@@ -6093,12 +6093,12 @@ self["@error"]=anError;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anError"],
 source: "error: anError\x0a\x09error := anError",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Debugger);
 
@@ -6125,12 +6125,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initialize", "="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09unsavedChanges = false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["initialize", "="]
 }),
 globals.Debugger);
 
@@ -6149,12 +6149,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectSelectedVariable",{},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inspect"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "inspectSelectedVariable\x0a\x09selectedVariable inspect",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["inspect"]
 }),
 globals.Debugger);
 
@@ -6167,12 +6167,12 @@ var self=this;
 return "[ Debugger ]";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "label\x0a\x09^ '[ Debugger ]'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Debugger);
 
@@ -6192,12 +6192,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["method"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "method\x0a\x09^ selectedContext method",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["method"]
 }),
 globals.Debugger);
 
@@ -6217,12 +6217,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"proceed",{},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["close", "perform:withArguments:", "receiver", "selector", "temps"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "proceed\x0a\x09self close.\x0a\x09selectedContext receiver perform: selectedContext selector withArguments: selectedContext temps",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["close", "perform:withArguments:", "receiver", "selector", "temps"]
 }),
 globals.Debugger);
 
@@ -6242,12 +6242,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"receiver",{},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["receiver"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "receiver\x0a\x09^ selectedContext receiver",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["receiver"]
 }),
 globals.Debugger);
 
@@ -6300,12 +6300,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderBottomPanelOn:",{html:html},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "div", "with:", "new", "renderOn:", "ul", "onKeyUp:", "updateStatus"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderBottomPanelOn: html\x0a\x09html div\x0a\x09\x09class: 'amber_sourceCode debugger';\x0a\x09\x09with: [\x0a\x09\x09\x09sourceArea := SourceArea new.\x0a\x09\x09\x09sourceArea renderOn: html ].\x0a\x09ul2 := html ul class: 'amber_column debugger variables'.\x0a\x09inspector := html div class: 'amber_column debugger inspector'.\x0a\x09sourceArea\x0a\x09\x09onKeyUp: [ self updateStatus ]",
-referencedClasses: ["SourceArea"]
+referencedClasses: ["SourceArea"],
 //>>excludeEnd("ide");
+messageSends: ["class:", "div", "with:", "new", "renderOn:", "ul", "onKeyUp:", "updateStatus"]
 }),
 globals.Debugger);
 
@@ -6326,12 +6326,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["renderTopPanelOn:", "renderBottomPanelOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderBoxOn: html\x0a\x09self\x0a\x09\x09renderTopPanelOn: html;\x0a\x09\x09renderBottomPanelOn: html",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["renderTopPanelOn:", "renderBottomPanelOn:"]
 }),
 globals.Debugger);
 
@@ -6488,12 +6488,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["with:", "button", "onClick:", "save", "doIt", "printIt", "inspectIt", "proceed", "close", "class:", "inspectSelectedVariable", "updateSourceArea", "updateStatus", "updateVariablesList", "updateInspector"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderButtonsOn: html\x0a\x09saveButton := html button\x0a\x09\x09with: 'Save';\x0a\x09\x09onClick: [ self save ].\x0a\x09html button\x0a\x09\x09with: 'DoIt';\x0a\x09\x09onClick: [ sourceArea doIt ].\x0a\x09html button\x0a\x09\x09with: 'PrintIt';\x0a\x09\x09onClick: [ sourceArea printIt ].\x0a\x09html button\x0a\x09\x09with: 'InspectIt';\x0a\x09\x09onClick: [ sourceArea inspectIt ].\x0a\x09html button\x0a\x09\x09with: 'Proceed';\x0a\x09\x09onClick: [ self proceed ].\x0a\x09html button\x0a\x09\x09with: 'Abandon';\x0a\x09\x09onClick: [ self close ].\x0a\x09inspectButton := html button\x0a\x09\x09class: 'amber_button debugger inspect';\x0a\x09\x09with: 'Inspect';\x0a\x09\x09onClick: [ self inspectSelectedVariable ].\x0a\x09self\x0a\x09\x09updateSourceArea;\x0a\x09\x09updateStatus;\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateInspector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["with:", "button", "onClick:", "save", "doIt", "printIt", "inspectIt", "proceed", "close", "class:", "inspectSelectedVariable", "updateSourceArea", "updateStatus", "updateVariablesList", "updateInspector"]
 }),
 globals.Debugger);
 
@@ -6538,12 +6538,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderContext:on:",{aContext:aContext,html:html,li:li},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["li", "ifTrue:", "=", "class:", "with:", "asString", "onClick:", "selectContext:", "ifNotNil:", "outerContext", "renderContext:on:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aContext", "html"],
 source: "renderContext: aContext on: html\x0a\x09| li |\x0a\x09li := html li.\x0a\x09selectedContext = aContext ifTrue: [\x0a\x09\x09li class: 'selected' ].\x0a\x09li\x0a\x09\x09with: aContext asString;\x0a\x09\x09onClick: [ self selectContext: aContext ].\x0a\x09aContext outerContext ifNotNil: [ self renderContext: aContext outerContext on: html ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["li", "ifTrue:", "=", "class:", "with:", "asString", "onClick:", "selectContext:", "ifNotNil:", "outerContext", "renderContext:on:"]
 }),
 globals.Debugger);
 
@@ -6618,12 +6618,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderTopPanelOn:",{html:html},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["context", "error", "class:", "div", "with:", "messageText", "ul", "renderContext:on:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderTopPanelOn: html\x0a\x09selectedContext := self error context.\x0a\x09html div\x0a\x09\x09class: 'top';\x0a\x09\x09with: [\x0a\x09\x09\x09html div\x0a\x09\x09\x09\x09class: 'label';\x0a\x09\x09\x09\x09with: self error messageText.\x0a\x09\x09\x09ul := html ul\x0a\x09\x09\x09\x09class: 'amber_column debugger contexts';\x0a\x09\x09\x09\x09with: [ self renderContext: self error context on: html ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["context", "error", "class:", "div", "with:", "messageText", "ul", "renderContext:on:"]
 }),
 globals.Debugger);
 
@@ -6656,12 +6656,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"save",{protocol:protocol},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["category", "at:", "methodDictionary", "class", "receiver", "selector", "compile:category:", "val", "updateStatus"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "save\x0a\x09| protocol |\x0a\x09protocol := (selectedContext receiver class methodDictionary at: selectedContext selector) category.\x0a\x09selectedContext receiver class compile: sourceArea val category: protocol.\x0a\x09self updateStatus",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["category", "at:", "methodDictionary", "class", "receiver", "selector", "compile:category:", "val", "updateStatus"]
 }),
 globals.Debugger);
 
@@ -6688,12 +6688,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"selectContext:",{aContext:aContext},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["updateContextsList", "updateSourceArea", "updateInspector", "updateVariablesList", "updateStatus"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aContext"],
 source: "selectContext: aContext\x0a\x09selectedContext := aContext.\x0a\x09selectedVariable := nil.\x0a\x09selectedVariableName := nil.\x0a\x09self\x0a\x09\x09updateContextsList;\x0a\x09\x09updateSourceArea;\x0a\x09\x09updateInspector;\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateStatus",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["updateContextsList", "updateSourceArea", "updateInspector", "updateVariablesList", "updateStatus"]
 }),
 globals.Debugger);
 
@@ -6723,12 +6723,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"selectVariable:named:",{anObject:anObject,aString:aString},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "with:", "printString", "updateVariablesList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject", "aString"],
 source: "selectVariable: anObject named: aString\x0a\x09\x0a\x09selectedVariable := anObject.\x0a\x09selectedVariableName := aString.\x0a\x09inspector contents: [ :html | html with: anObject printString ].\x0a\x09self updateVariablesList",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "with:", "printString", "updateVariablesList"]
 }),
 globals.Debugger);
 
@@ -6756,12 +6756,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"source",{},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:ifNotNil:", "method", "source"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "source\x0a\x09^ self method\x0a\x09\x09ifNil: [ 'Method doesn''t exist!' ]\x0a\x09\x09ifNotNil: [ self method source ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:ifNotNil:", "method", "source"]
 }),
 globals.Debugger);
 
@@ -6788,12 +6788,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateContextsList",{},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "renderContext:on:", "context", "error"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateContextsList\x0a\x09ul contents: [ :html |\x0a\x09\x09self renderContext: self error context on: html ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "renderContext:on:", "context", "error"]
 }),
 globals.Debugger);
 
@@ -6814,12 +6814,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateInspector",{},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateInspector\x0a\x09inspector contents: [ :html | ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:"]
 }),
 globals.Debugger);
 
@@ -6838,12 +6838,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateSourceArea",{},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["val:", "source"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateSourceArea\x0a\x09sourceArea val: self source",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["val:", "source"]
 }),
 globals.Debugger);
 
@@ -6882,12 +6882,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateStatus",{},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "=", "val", "source", "ifNotNil:", "at:put:", "removeAt:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateStatus\x0a\x09sourceArea val = self source\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09saveButton ifNotNil: [\x0a\x09\x09\x09\x09saveButton at: 'disabled' put: true ].\x0a\x09\x09\x09unsavedChanges := false ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09saveButton ifNotNil: [\x0a\x09\x09\x09\x09saveButton removeAt: 'disabled' ].\x0a\x09\x09\x09unsavedChanges := true ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "=", "val", "source", "ifNotNil:", "at:put:", "removeAt:"]
 }),
 globals.Debugger);
 
@@ -6981,12 +6981,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateVariablesList",{},globals.Debugger)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "with:", "li", "onClick:", "selectVariable:named:", "receiver", "ifTrue:", "=", "class:", "keysAndValuesDo:", "allVariables", "ifNil:ifNotNil:", "at:put:", "removeAt:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateVariablesList\x0a\x09ul2 contents: [ :html | | li |\x0a\x09\x09li := html li\x0a\x09\x09\x09with: 'self';\x0a\x09\x09\x09onClick: [ self selectVariable: self receiver named: 'self' ].\x0a\x09\x09\x09\x09selectedVariableName = 'self' ifTrue: [ li class: 'selected' ].\x0a\x09\x09\x0a\x09\x09self allVariables keysAndValuesDo: [ :key :value |\x0a\x09\x09\x09\x09\x09\x09li := html li\x0a\x09\x09\x09\x09\x09\x09\x09with: key;\x0a\x09\x09\x09\x09\x09\x09\x09onClick: [ self selectVariable: value named: key ].\x0a\x09\x09\x09\x09\x09\x09selectedVariableName = key ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09li class: 'selected' ] ] ].\x0a\x09\x09\x09\x09\x09\x09\x09\x0a\x09selectedVariable\x0a\x09\x09ifNil: [ inspectButton at: 'disabled' put: true ]\x0a\x09\x09ifNotNil: [ inspectButton removeAt: 'disabled' ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "with:", "li", "onClick:", "selectVariable:named:", "receiver", "ifTrue:", "=", "class:", "keysAndValuesDo:", "allVariables", "ifNil:ifNotNil:", "at:put:", "removeAt:"]
 }),
 globals.Debugger);
 
@@ -7002,12 +7002,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "canBeClosed\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IDEInspector);
 
@@ -7026,12 +7026,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"dive",{},globals.IDEInspector)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inspect", "at:", "variables", "selectedVariable"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "dive\x0a\x09(self variables at: self selectedVariable) inspect",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["inspect", "at:", "variables", "selectedVariable"]
 }),
 globals.IDEInspector);
 
@@ -7052,12 +7052,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},globals.IDEInspector)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inspectOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "inspect: anObject\x0a\x09object := anObject.\x0a\x09variables := #().\x0a\x09object inspectOn: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["inspectOn:"]
 }),
 globals.IDEInspector);
 
@@ -7082,12 +7082,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"label",{},globals.IDEInspector)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "label\x0a\x09^ label ifNil: [ 'Inspector (nil)' ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.IDEInspector);
 
@@ -7109,12 +7109,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"refresh",{},globals.IDEInspector)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inspect:", "updateVariablesList", "updateValueTextarea"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "refresh\x0a\x09self\x0a\x09\x09inspect: object;\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateValueTextarea",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["inspect:", "updateVariablesList", "updateValueTextarea"]
 }),
 globals.IDEInspector);
 
@@ -7159,12 +7159,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderBottomPanelOn:",{html:html},globals.IDEInspector)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "div", "with:", "receiver:", "new", "onDoIt:", "refresh", "yourself", "renderOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderBottomPanelOn: html\x0a\x09html div\x0a\x09class: 'amber_sourceCode';\x0a\x09with: [\x0a\x09\x09sourceArea := SourceArea new\x0a\x09\x09receiver: object;\x0a\x09\x09onDoIt: [ self refresh ];\x0a\x09\x09yourself.\x0a\x09\x09\x09sourceArea renderOn: html ]",
-referencedClasses: ["SourceArea"]
+referencedClasses: ["SourceArea"],
 //>>excludeEnd("ide");
+messageSends: ["class:", "div", "with:", "receiver:", "new", "onDoIt:", "refresh", "yourself", "renderOn:"]
 }),
 globals.IDEInspector);
 
@@ -7185,12 +7185,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},globals.IDEInspector)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["renderTopPanelOn:", "renderBottomPanelOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderBoxOn: html\x0a\x09self\x0a\x09\x09renderTopPanelOn: html;\x0a\x09\x09renderBottomPanelOn: html",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["renderTopPanelOn:", "renderBottomPanelOn:"]
 }),
 globals.IDEInspector);
 
@@ -7269,12 +7269,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.IDEInspector)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["with:", "button", "onClick:", "doIt", "sourceArea", "printIt", "inspectIt", "updateButtons"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09with: 'DoIt';\x0a\x09\x09onClick: [ self sourceArea doIt ].\x0a\x09html button\x0a\x09\x09with: 'PrintIt';\x0a\x09\x09onClick: [ self sourceArea printIt ].\x0a\x09html button\x0a\x09\x09with: 'InspectIt';\x0a\x09\x09onClick: [ self sourceArea inspectIt ].\x0a\x09self updateButtons",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["with:", "button", "onClick:", "doIt", "sourceArea", "printIt", "inspectIt", "updateButtons"]
 }),
 globals.IDEInspector);
 
@@ -7391,12 +7391,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderTopPanelOn:",{html:html},globals.IDEInspector)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "div", "with:", "ul", "textarea", "at:put:", "yourself", "button", "onClick:", "refresh", "dive", "updateVariablesList", "updateValueTextarea"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderTopPanelOn: html\x0a\x09html div\x0a\x09\x09class: 'top';\x0a\x09\x09with: [\x0a\x09\x09\x09variablesList := html ul class: 'amber_column variables'.\x0a\x09\x09\x09valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'; yourself.\x0a\x09\x09\x09html div class: 'amber_tabs inspector'; with: [\x0a\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09class: 'amber_button inspector refresh';\x0a\x09\x09\x09\x09\x09with: 'Refresh';\x0a\x09\x09\x09\x09\x09onClick: [ self refresh ].\x0a\x09\x09\x09\x09diveButton := html button\x0a\x09\x09\x09\x09\x09class: 'amber_button inspector dive';\x0a\x09\x09\x09\x09\x09with: 'Dive';\x0a\x09\x09\x09\x09\x09onClick: [ self dive ]].\x0a\x09\x09\x09html div class: 'amber_clear' ].\x0a\x09self\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateValueTextarea.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", "div", "with:", "ul", "textarea", "at:put:", "yourself", "button", "onClick:", "refresh", "dive", "updateVariablesList", "updateValueTextarea"]
 }),
 globals.IDEInspector);
 
@@ -7419,12 +7419,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"selectVariable:",{aString:aString},globals.IDEInspector)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["selectedVariable:", "updateVariablesList", "updateValueTextarea", "updateButtons"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "selectVariable: aString\x0a\x09self selectedVariable: aString.\x0a\x09self\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateValueTextarea;\x0a\x09\x09updateButtons",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["selectedVariable:", "updateVariablesList", "updateValueTextarea", "updateButtons"]
 }),
 globals.IDEInspector);
 
@@ -7439,12 +7439,12 @@ $1=self["@selectedVariable"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selectedVariable\x0a\x09^ selectedVariable",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IDEInspector);
 
@@ -7458,12 +7458,12 @@ self["@selectedVariable"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "selectedVariable: aString\x0a\x09selectedVariable := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IDEInspector);
 
@@ -7477,12 +7477,12 @@ self["@label"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "setLabel: aString\x0a\x09label := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IDEInspector);
 
@@ -7496,12 +7496,12 @@ self["@variables"]=aCollection;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "setVariables: aCollection\x0a\x09variables := aCollection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IDEInspector);
 
@@ -7516,12 +7516,12 @@ $1=self["@sourceArea"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sourceArea\x0a\x09^ sourceArea",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IDEInspector);
 
@@ -7562,12 +7562,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateButtons",{},globals.IDEInspector)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:ifTrue:", "and:", "notNil", "selectedVariable", "at:", "variables", "at:put:", "removeAt:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateButtons\x0a\x09(self selectedVariable notNil and: [ (self variables at: self selectedVariable) notNil ])\x0a\x09\x09ifFalse: [ diveButton at: 'disabled' put: true ]\x0a\x09\x09ifTrue: [ diveButton removeAt: 'disabled' ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:ifTrue:", "and:", "notNil", "selectedVariable", "at:", "variables", "at:put:", "removeAt:"]
 }),
 globals.IDEInspector);
 
@@ -7598,12 +7598,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateValueTextarea",{},globals.IDEInspector)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["val:", "asJQuery", "ifTrue:ifFalse:", "isNil", "selectedVariable", "printString", "at:", "variables"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateValueTextarea\x0a\x09valueTextarea asJQuery val: (self selectedVariable isNil\x0a\x09\x09ifTrue: [ '' ]\x0a\x09\x09ifFalse: [ (self variables at: self selectedVariable) printString ])",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["val:", "asJQuery", "ifTrue:ifFalse:", "isNil", "selectedVariable", "printString", "at:", "variables"]
 }),
 globals.IDEInspector);
 
@@ -7657,12 +7657,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateVariablesList",{},globals.IDEInspector)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "keysDo:", "variables", "li", "with:", "onClick:", "selectVariable:", "ifTrue:", "=", "selectedVariable", "class:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateVariablesList\x0a\x09variablesList contents: [ :html |\x0a\x09\x09self variables keysDo: [ :each || li |\x0a\x09\x09\x09li := html li.\x0a\x09\x09\x09li\x0a\x09\x09\x09\x09with: each;\x0a\x09\x09\x09\x09onClick: [ self selectVariable: each ].\x0a\x09\x09\x09self selectedVariable = each ifTrue: [\x0a\x09\x09\x09\x09li class: 'selected' ]] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "keysDo:", "variables", "li", "with:", "onClick:", "selectVariable:", "ifTrue:", "=", "selectedVariable", "class:"]
 }),
 globals.IDEInspector);
 
@@ -7677,12 +7677,12 @@ $1=self["@variables"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "variables\x0a\x09^ variables",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IDEInspector);
 
@@ -7707,12 +7707,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},globals.IDEInspector.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inspect:", "new", "open", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "inspect: anObject\x0a\x09^ self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09open;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["inspect:", "new", "open", "yourself"]
 }),
 globals.IDEInspector.klass);
 
@@ -7735,12 +7735,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},globals.IDEInspector.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inspect:", "new", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "on: anObject\x0a\x09^ self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["inspect:", "new", "yourself"]
 }),
 globals.IDEInspector.klass);
 
@@ -7761,12 +7761,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"clear",{},globals.IDETranscript)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["val:", "asJQuery"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "clear\x0a\x09textarea asJQuery val: ''",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["val:", "asJQuery"]
 }),
 globals.IDETranscript);
 
@@ -7791,12 +7791,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"cr",{},globals.IDETranscript)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["val:", "asJQuery", ",", "val", "cr"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "cr\x0a\x09textarea asJQuery val: textarea asJQuery val, String cr.",
-referencedClasses: ["String"]
+referencedClasses: ["String"],
 //>>excludeEnd("ide");
+messageSends: ["val:", "asJQuery", ",", "val", "cr"]
 }),
 globals.IDETranscript);
 
@@ -7809,12 +7809,12 @@ var self=this;
 return "Transcript";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "label\x0a\x09^ 'Transcript'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.IDETranscript);
 
@@ -7837,12 +7837,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"open",{},globals.IDETranscript)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["open", "current", "selectTab:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "open\x0a\x09TabManager current\x0a\x09open;\x0a\x09selectTab: self",
-referencedClasses: ["TabManager"]
+referencedClasses: ["TabManager"],
 //>>excludeEnd("ide");
+messageSends: ["open", "current", "selectTab:"]
 }),
 globals.IDETranscript);
 
@@ -7865,12 +7865,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},globals.IDETranscript)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["textarea", "class:", "at:put:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderBoxOn: html\x0a\x09textarea := html textarea.\x0a\x09textarea\x0a\x09class: 'amber_transcript';\x0a\x09at: 'spellcheck' put: 'false'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["textarea", "class:", "at:put:"]
 }),
 globals.IDETranscript);
 
@@ -7900,12 +7900,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.IDETranscript)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["with:", "button", "onClick:", "clear"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderButtonsOn: html\x0a\x09html button\x0a\x09with: 'Clear transcript';\x0a\x09onClick: [ self clear ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["with:", "button", "onClick:", "clear"]
 }),
 globals.IDETranscript);
 
@@ -7935,12 +7935,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},globals.IDETranscript)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "open", "val:", "asJQuery", ",", "val", "asString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "show: anObject\x0a\x09textarea ifNil: [ self open ].\x0a\x09textarea asJQuery val: textarea asJQuery val, anObject asString.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "open", "val:", "asJQuery", ",", "val", "asString"]
 }),
 globals.IDETranscript);
 
@@ -7975,12 +7975,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"current",{},globals.IDETranscript.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "current\x0a\x09^ current ifNil: [ current := super new ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.IDETranscript.klass);
 
@@ -8000,12 +8000,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.IDETranscript.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["register:", "current"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09Transcript register: self current",
-referencedClasses: ["Transcript"]
+referencedClasses: ["Transcript"],
 //>>excludeEnd("ide");
+messageSends: ["register:", "current"]
 }),
 globals.IDETranscript.klass);
 
@@ -8024,12 +8024,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"new",{},globals.IDETranscript.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["shouldNotImplement"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "new\x0a\x09self shouldNotImplement",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["shouldNotImplement"]
 }),
 globals.IDETranscript.klass);
 
@@ -8055,12 +8055,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"open",{},globals.IDETranscript.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["open", "current", "selectTab:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "open\x0a\x09TabManager current\x0a\x09\x09open;\x0a\x09\x09selectTab: self current",
-referencedClasses: ["TabManager"]
+referencedClasses: ["TabManager"],
 //>>excludeEnd("ide");
+messageSends: ["open", "current", "selectTab:"]
 }),
 globals.IDETranscript.klass);
 
@@ -8087,12 +8087,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"percent",{},globals.ProgressBar)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "percent\x0a\x09^ percent ifNil: [ 0 ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.ProgressBar);
 
@@ -8106,12 +8106,12 @@ self["@percent"]=aNumber;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "percent: aNumber\x0a\x09percent := aNumber",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ProgressBar);
 
@@ -8135,12 +8135,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.ProgressBar)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "div", "yourself", "renderProgressBar"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderOn: html\x0a\x09div := html div\x0a\x09\x09class: 'progress_bar';\x0a\x09\x09yourself.\x0a\x09self renderProgressBar",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", "div", "yourself", "renderProgressBar"]
 }),
 globals.ProgressBar);
 
@@ -8176,12 +8176,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderProgressBar",{},globals.ProgressBar)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "class:", "div", "style:", ",", "asString", "percent"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "renderProgressBar\x0a\x09div contents: [ :html |\x0a\x09\x09html div\x0a\x09\x09\x09class: 'progress';\x0a\x09\x09\x09style: 'width:', self percent asString, '%' ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "class:", "div", "style:", ",", "asString", "percent"]
 }),
 globals.ProgressBar);
 
@@ -8201,12 +8201,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updatePercent:",{aNumber:aNumber},globals.ProgressBar)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["percent:", "renderProgressBar"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "updatePercent: aNumber\x0a\x09self percent: aNumber.\x0a\x09self renderProgressBar",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["percent:", "renderProgressBar"]
 }),
 globals.ProgressBar);
 
@@ -8222,12 +8222,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "canBeClosed\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ReferencesBrowser);
 
@@ -8260,12 +8260,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"classesAndMetaclasses",{},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "classes", "collect:", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "classesAndMetaclasses\x0a\x09^ Smalltalk classes, (Smalltalk classes collect: [ :each | each class ])",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: [",", "classes", "collect:", "class"]
 }),
 globals.ReferencesBrowser);
 
@@ -8292,12 +8292,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"implementors",{},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "implementors\x0a\x09^ implementors ifNil: [ implementors := Array new ]",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.ReferencesBrowser);
 
@@ -8324,12 +8324,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initialize"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09selector := ''",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["initialize"]
 }),
 globals.ReferencesBrowser);
 
@@ -8342,12 +8342,12 @@ var self=this;
 return "[ References ]";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "label\x0a\x09^ '[ References ]'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ReferencesBrowser);
 
@@ -8374,12 +8374,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"matches",{},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "matches\x0a\x09^ matches ifNil: [ matches := Array new ]",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.ReferencesBrowser);
 
@@ -8428,12 +8428,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"openBrowserOn:",{aMethod:aMethod,browser:browser},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["openOn:", "ifTrue:ifFalse:", "isMetaclass", "methodClass", "instanceClass", "ifTrue:", "selectTab:", "selectProtocol:", "category", "selectMethod:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMethod"],
 source: "openBrowserOn: aMethod\x0a\x09| browser |\x0a\x09browser := Browser openOn: (aMethod methodClass isMetaclass\x0a\x09\x09ifTrue: [ aMethod methodClass instanceClass ] ifFalse: [ aMethod methodClass ]).\x0a\x09aMethod methodClass isMetaclass ifTrue: [ browser selectTab: #class ].\x0a\x09browser\x0a\x09\x09selectProtocol: aMethod category;\x0a\x09\x09selectMethod: aMethod",
-referencedClasses: ["Browser"]
+referencedClasses: ["Browser"],
 //>>excludeEnd("ide");
+messageSends: ["openOn:", "ifTrue:ifFalse:", "isMetaclass", "methodClass", "instanceClass", "ifTrue:", "selectTab:", "selectProtocol:", "category", "selectMethod:"]
 }),
 globals.ReferencesBrowser);
 
@@ -8460,12 +8460,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"referencedClasses",{},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "referencedClasses\x0a\x09^ referencedClasses ifNil: [ referencedClasses := Array new ]",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.ReferencesBrowser);
 
@@ -8489,12 +8489,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["renderInputOn:", "renderImplementorsOn:", "renderSendersOn:", "renderReferencedClassesOn:", "renderMatchesOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderBoxOn: html\x0a\x09self\x0a\x09\x09renderInputOn: html;\x0a\x09\x09renderImplementorsOn: html;\x0a\x09\x09renderSendersOn: html;\x0a\x09\x09renderReferencedClassesOn: html;\x0a\x09\x09renderMatchesOn: html",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["renderInputOn:", "renderImplementorsOn:", "renderSendersOn:", "renderReferencedClassesOn:", "renderMatchesOn:"]
 }),
 globals.ReferencesBrowser);
 
@@ -8514,12 +8514,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderImplementorsOn:",{html:html},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "ul", "updateImplementorsList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderImplementorsOn: html\x0a\x09implementorsList := html ul class: 'amber_column implementors'.\x0a\x09self updateImplementorsList",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", "ul", "updateImplementorsList"]
 }),
 globals.ReferencesBrowser);
 
@@ -8544,12 +8544,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderInputOn:",{html:html},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "input", "yourself", "val:", "asJQuery", "setInputEvents"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderInputOn: html\x0a\x09input := html input\x0a\x09\x09class: 'implementors';\x0a\x09\x09yourself.\x0a\x09input asJQuery val: selector.\x0a\x09self setInputEvents",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", "input", "yourself", "val:", "asJQuery", "setInputEvents"]
 }),
 globals.ReferencesBrowser);
 
@@ -8569,12 +8569,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderMatchesOn:",{html:html},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "ul", "updateMatchesList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderMatchesOn: html\x0a\x09matchesList := html ul class: 'amber_column matches'.\x0a\x09self updateMatchesList",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", "ul", "updateMatchesList"]
 }),
 globals.ReferencesBrowser);
 
@@ -8594,12 +8594,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderReferencedClassesOn:",{html:html},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "ul", "updateReferencedClassesList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderReferencedClassesOn: html\x0a\x09referencedClassesList := html ul class: 'amber_column referenced_classes'.\x0a\x09self updateReferencedClassesList",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", "ul", "updateReferencedClassesList"]
 }),
 globals.ReferencesBrowser);
 
@@ -8619,12 +8619,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderSendersOn:",{html:html},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "ul", "updateSendersList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderSendersOn: html\x0a\x09sendersList := html ul class: 'amber_column senders'.\x0a\x09self updateSendersList",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", "ul", "updateSendersList"]
 }),
 globals.ReferencesBrowser);
 
@@ -8648,12 +8648,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["searchReferencesFor:", "updateImplementorsList", "updateSendersList", "updateReferencedClassesList", "updateMatchesList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "search: aString\x0a\x09self\x0a\x09\x09searchReferencesFor: aString;\x0a\x09\x09updateImplementorsList;\x0a\x09\x09updateSendersList;\x0a\x09\x09updateReferencedClassesList;\x0a\x09\x09updateMatchesList",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["searchReferencesFor:", "updateImplementorsList", "updateSendersList", "updateReferencedClassesList", "updateMatchesList"]
 }),
 globals.ReferencesBrowser);
 
@@ -8694,12 +8694,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"searchMethodSource",{regex:regex},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["allButFirst", "do:", "classesAndMetaclasses", "valuesDo:", "methodDictionary", "ifTrue:", "match:", "source", "add:", "matches"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "searchMethodSource\x0a\x09| regex |\x0a\x09regex := selector allButFirst.\x0a\x09self classesAndMetaclasses do: [ :each |\x0a\x09\x09each methodDictionary valuesDo: [ :value |\x0a\x09\x09\x09(value source match: regex) ifTrue: [\x0a\x09\x09\x09\x09self matches add: value ]] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["allButFirst", "do:", "classesAndMetaclasses", "valuesDo:", "methodDictionary", "ifTrue:", "match:", "source", "add:", "matches"]
 }),
 globals.ReferencesBrowser);
 
@@ -8742,12 +8742,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"searchReferencedClasses",{},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "classesAndMetaclasses", "valuesDo:", "methodDictionary", "ifTrue:", "includes:", "referencedClasses", "add:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "searchReferencedClasses\x0a\x09self classesAndMetaclasses do: [ :each |\x0a\x09\x09each methodDictionary valuesDo: [ :value |\x0a\x09\x09\x09(value referencedClasses includes: selector) ifTrue: [\x0a\x09\x09\x09\x09self referencedClasses add: value ]] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "classesAndMetaclasses", "valuesDo:", "methodDictionary", "ifTrue:", "includes:", "referencedClasses", "add:"]
 }),
 globals.ReferencesBrowser);
 
@@ -8788,12 +8788,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"searchReferencesFor:",{aString:aString},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "searchMethodSource", "ifFalse:ifTrue:", "match:", "searchSelectorReferences", "searchReferencedClasses"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "searchReferencesFor: aString\x0a\x09selector := aString.\x0a\x09implementors := Array new.\x0a\x09senders := Array new.\x0a\x09referencedClasses := Array new.\x0a\x09matches := Array new.\x0a\x09self searchMethodSource.\x0a\x09(selector match: '^[A-Z]')\x0a\x09\x09ifFalse: [ self searchSelectorReferences ]\x0a\x09\x09ifTrue: [ self searchReferencedClasses ]",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["new", "searchMethodSource", "ifFalse:ifTrue:", "match:", "searchSelectorReferences", "searchReferencedClasses"]
 }),
 globals.ReferencesBrowser);
 
@@ -8839,12 +8839,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"searchSelectorReferences",{},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "classesAndMetaclasses", "keysAndValuesDo:", "methodDictionary", "ifTrue:", "=", "add:", "implementors", "includes:", "messageSends", "senders"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "searchSelectorReferences\x0a\x09self classesAndMetaclasses do: [ :each |\x0a\x09\x09each methodDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09\x09key = selector ifTrue: [ self implementors add: value ].\x0a\x09\x09\x09(value messageSends includes: selector) ifTrue: [\x0a\x09\x09\x09\x09self senders add: value ]] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "classesAndMetaclasses", "keysAndValuesDo:", "methodDictionary", "ifTrue:", "=", "add:", "implementors", "includes:", "messageSends", "senders"]
 }),
 globals.ReferencesBrowser);
 
@@ -8859,12 +8859,12 @@ $1=self["@selector"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selector\x0a\x09^ selector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ReferencesBrowser);
 
@@ -8891,12 +8891,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"senders",{},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "senders\x0a\x09^ senders ifNil: [ senders := Array new ]",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.ReferencesBrowser);
 
@@ -8948,12 +8948,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"setInputEvents",{},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["onKeyUp:", "valueWithTimeout:", "search:", "val", "asJQuery", "onKeyDown:", "ifNotNil:", "clearTimeout"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "setInputEvents\x0a\x09input\x0a\x09\x09onKeyUp: [ timer := [ self search: input asJQuery val ] valueWithTimeout: 100 ];\x0a\x09\x09onKeyDown: [ timer ifNotNil: [ timer clearTimeout ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["onKeyUp:", "valueWithTimeout:", "search:", "val", "asJQuery", "onKeyDown:", "ifNotNil:", "clearTimeout"]
 }),
 globals.ReferencesBrowser);
 
@@ -9037,12 +9037,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateImplementorsList",{},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "class:", "li", "with:", ",", "asString", "size", "implementors", "style:", "do:", "methodClass", "selector", "onClick:", "openBrowserOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateImplementorsList\x0a\x09implementorsList contents: [ :html |\x0a\x09html li\x0a\x09\x09class: 'column_label';\x0a\x09\x09with: 'Implementors (', self implementors size asString, ')';\x0a\x09\x09style: 'font-weight: bold'.\x0a\x09self implementors do: [ :each || li |\x0a\x09\x09li := html li.\x0a\x09\x09li\x0a\x09\x09with: (each methodClass asString, ' >> ', self selector);\x0a\x09\x09onClick: [ self openBrowserOn: each ]] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "class:", "li", "with:", ",", "asString", "size", "implementors", "style:", "do:", "methodClass", "selector", "onClick:", "openBrowserOn:"]
 }),
 globals.ReferencesBrowser);
 
@@ -9126,12 +9126,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateMatchesList",{},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "class:", "li", "with:", ",", "asString", "size", "matches", "style:", "do:", "methodClass", "selector", "onClick:", "openBrowserOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateMatchesList\x0a\x09matchesList contents: [ :html |\x0a\x09html li\x0a\x09\x09class: 'column_label';\x0a\x09\x09with: 'Regex matches (', self matches size asString, ')';\x0a\x09\x09style: 'font-weight: bold'.\x0a\x09self matches do: [ :each || li |\x0a\x09\x09li := html li.\x0a\x09\x09li\x0a\x09\x09with: (each methodClass asString, ' >> ', each selector);\x0a\x09\x09onClick: [ self openBrowserOn: each ]] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "class:", "li", "with:", ",", "asString", "size", "matches", "style:", "do:", "methodClass", "selector", "onClick:", "openBrowserOn:"]
 }),
 globals.ReferencesBrowser);
 
@@ -9212,12 +9212,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateReferencedClassesList",{},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "class:", "li", "with:", ",", "asString", "size", "referencedClasses", "style:", "do:", "methodClass", "selector", "onClick:", "openBrowserOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateReferencedClassesList\x0a\x09referencedClassesList contents: [ :html |\x0a\x09html li\x0a\x09\x09class: 'column_label';\x0a\x09\x09with: 'Class references (', self referencedClasses size asString, ')';\x0a\x09\x09style: 'font-weight: bold'.\x0a\x09self referencedClasses do: [ :each |\x0a\x09\x09html li\x0a\x09\x09\x09with: (each methodClass asString, ' >> ', each selector);\x0a\x09\x09\x09onClick: [ self openBrowserOn: each ]] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "class:", "li", "with:", ",", "asString", "size", "referencedClasses", "style:", "do:", "methodClass", "selector", "onClick:", "openBrowserOn:"]
 }),
 globals.ReferencesBrowser);
 
@@ -9298,12 +9298,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateSendersList",{},globals.ReferencesBrowser)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "class:", "li", "with:", ",", "asString", "size", "senders", "style:", "do:", "methodClass", "selector", "onClick:", "openBrowserOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateSendersList\x0a\x09sendersList contents: [ :html |\x0a\x09html li\x0a\x09\x09class: 'column_label';\x0a\x09\x09with: 'Senders (', self senders size asString, ')';\x0a\x09\x09style: 'font-weight: bold'.\x0a\x09self senders do: [ :each |\x0a\x09\x09html li\x0a\x09\x09\x09with: (each methodClass asString, ' >> ', each selector);\x0a\x09\x09\x09onClick: [ self openBrowserOn: each ]] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "class:", "li", "with:", ",", "asString", "size", "senders", "style:", "do:", "methodClass", "selector", "onClick:", "openBrowserOn:"]
 }),
 globals.ReferencesBrowser);
 
@@ -9327,12 +9327,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString},globals.ReferencesBrowser.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["searchReferencesFor:", "new", "open"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "search: aString\x0a\x09^ self new\x0a\x09\x09searchReferencesFor: aString;\x0a\x09\x09open",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["searchReferencesFor:", "new", "open"]
 }),
 globals.ReferencesBrowser.klass);
 
@@ -9363,12 +9363,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"allClasses",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["select:", "allSubclasses", "not", "isAbstract"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "allClasses\x0a\x09^ TestCase allSubclasses select: [ :each | each isAbstract not ]",
-referencedClasses: ["TestCase"]
+referencedClasses: ["TestCase"],
 //>>excludeEnd("ide");
+messageSends: ["select:", "allSubclasses", "not", "isAbstract"]
 }),
 globals.TestRunner);
 
@@ -9408,12 +9408,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"classes",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["sort:", "select:", "allClasses", "includes:", "selectedCategories", "category", ">", "name"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "classes\x0a\x09^ (self allClasses\x0a\x09select: [ :each | self selectedCategories includes: each category ])\x0a\x09sort: [ :a :b | a name > b name ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["sort:", "select:", "allClasses", "includes:", "selectedCategories", "category", ">", "name"]
 }),
 globals.TestRunner);
 
@@ -9441,12 +9441,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initialize", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09result := TestResult new",
-referencedClasses: ["TestResult"]
+referencedClasses: ["TestResult"],
 //>>excludeEnd("ide");
+messageSends: ["initialize", "new"]
 }),
 globals.TestRunner);
 
@@ -9466,12 +9466,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isSelectedCategory:",{aCategory:aCategory},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["includes:", "selectedCategories"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCategory"],
 source: "isSelectedCategory: aCategory\x0a\x09^ (self selectedCategories includes: aCategory)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["includes:", "selectedCategories"]
 }),
 globals.TestRunner);
 
@@ -9491,12 +9491,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isSelectedClass:",{aClass:aClass},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["includes:", "selectedClasses"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "isSelectedClass: aClass\x0a\x09^ (self selectedClasses includes: aClass)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["includes:", "selectedClasses"]
 }),
 globals.TestRunner);
 
@@ -9509,12 +9509,12 @@ var self=this;
 return "SUnit";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "label\x0a\x09^ 'SUnit'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestRunner);
 
@@ -9554,12 +9554,12 @@ return $4;
 }, function($ctx1) {$ctx1.fill(self,"packages",{packages:packages},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "do:", "allClasses", "ifFalse:", "includes:", "category", "add:", "sort"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "packages\x0a\x09| packages |\x0a\x09packages := Array new.\x0a\x09self allClasses do: [ :each |\x0a\x09(packages includes: each category) ifFalse: [\x0a\x09\x09packages add: each category ]].\x0a\x09^ packages sort",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["new", "do:", "allClasses", "ifFalse:", "includes:", "category", "add:", "sort"]
 }),
 globals.TestRunner);
 
@@ -9578,12 +9578,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"performFailure:",{aTestCase:aTestCase},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["runCase"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aTestCase"],
 source: "performFailure: aTestCase\x0a\x09aTestCase runCase",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["runCase"]
 }),
 globals.TestRunner);
 
@@ -9603,12 +9603,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"printErrors",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "asString", "size", "errors", "result"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "printErrors\x0a\x09^ self result errors size asString , ' errors, '",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: [",", "asString", "size", "errors", "result"]
 }),
 globals.TestRunner);
 
@@ -9628,12 +9628,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"printFailures",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "asString", "size", "failures", "result"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "printFailures\x0a\x09^ self result failures size asString, ' failures'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: [",", "asString", "size", "failures", "result"]
 }),
 globals.TestRunner);
 
@@ -9673,12 +9673,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"printPasses",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "asString", "-", "runs", "result", "size", "errors", "failures"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "printPasses\x0a\x09^ (self result runs - self result errors size - self result failures size) asString , ' passes, '",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: [",", "asString", "-", "runs", "result", "size", "errors", "failures"]
 }),
 globals.TestRunner);
 
@@ -9698,12 +9698,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"printTotal",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "asString", "total", "result"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "printTotal\x0a\x09^ self result total asString, ' runs, '",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: [",", "asString", "total", "result"]
 }),
 globals.TestRunner);
 
@@ -9730,12 +9730,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"progressBar",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "progressBar\x0a\x09^ progressBar ifNil: [ progressBar := ProgressBar new ]",
-referencedClasses: ["ProgressBar"]
+referencedClasses: ["ProgressBar"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.TestRunner);
 
@@ -9757,12 +9757,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["renderCategoriesOn:", "renderClassesOn:", "renderResultsOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderBoxOn: html\x0a\x09self\x0a\x09renderCategoriesOn: html;\x0a\x09renderClassesOn: html;\x0a\x09renderResultsOn: html",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["renderCategoriesOn:", "renderClassesOn:", "renderResultsOn:"]
 }),
 globals.TestRunner);
 
@@ -9792,12 +9792,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["with:", "button", "onClick:", "run:", "testCases"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderButtonsOn: html\x0a\x09html button\x0a\x09with: 'Run selected';\x0a\x09onClick: [ self run: self testCases ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["with:", "button", "onClick:", "run:", "testCases"]
 }),
 globals.TestRunner);
 
@@ -9817,12 +9817,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderCategoriesOn:",{html:html},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "ul", "updateCategoriesList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderCategoriesOn: html\x0a\x09packagesList := html ul class: 'amber_column sunit packages'.\x0a\x09self updateCategoriesList",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", "ul", "updateCategoriesList"]
 }),
 globals.TestRunner);
 
@@ -9842,12 +9842,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderClassesOn:",{html:html},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", "ul", "updateClassesList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderClassesOn: html\x0a\x09classesList := html ul class: 'amber_column sunit classes'.\x0a\x09self updateClassesList",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", "ul", "updateClassesList"]
 }),
 globals.TestRunner);
 
@@ -9892,12 +9892,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderErrorsOn:",{html:html},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "errors", "result", "class:", "li", "with:", ",", "name", "class", "selector", "onClick:", "performFailure:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderErrorsOn: html\x0a\x09self result errors do: [ :each |\x0a\x09\x09html li\x0a\x09\x09\x09class: 'errors';\x0a\x09\x09\x09with: each class name, ' >> ', each selector;\x0a\x09\x09\x09\x09\x09\x09onClick: [ self performFailure: each ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "errors", "result", "class:", "li", "with:", ",", "name", "class", "selector", "onClick:", "performFailure:"]
 }),
 globals.TestRunner);
 
@@ -9942,12 +9942,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderFailuresOn:",{html:html},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "failures", "result", "class:", "li", "with:", ",", "name", "class", "selector", "onClick:", "performFailure:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderFailuresOn: html\x0a\x09self result failures do: [ :each |\x0a\x09\x09html li\x0a\x09\x09\x09class: 'failures';\x0a\x09\x09\x09with: each class name, ' >> ', each selector;\x0a\x09\x09\x09\x09\x09\x09onClick: [ self performFailure: each ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "failures", "result", "class:", "li", "with:", ",", "name", "class", "selector", "onClick:", "performFailure:"]
 }),
 globals.TestRunner);
 
@@ -9970,12 +9970,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderResultsOn:",{html:html},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["div", "with:", "progressBar", "class:", "ul", "updateMethodsList", "updateStatusDiv"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderResultsOn: html\x0a\x09statusDiv := html div.\x0a\x09html with: self progressBar.\x0a\x09methodsList := html ul class: 'amber_column sunit results'.\x0a\x09self updateMethodsList.\x0a\x09self updateStatusDiv",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["div", "with:", "progressBar", "class:", "ul", "updateMethodsList", "updateStatusDiv"]
 }),
 globals.TestRunner);
 
@@ -9990,12 +9990,12 @@ $1=self["@result"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "result\x0a\x09^ result",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.TestRunner);
 
@@ -10037,12 +10037,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"run:",{aCollection:aCollection,worker:worker},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["on:", "result", "on:do:", "announcer", "ifTrue:", "==", "updatePercent:", "progressBar", "*", "/", "runs", "total", "updateStatusDiv", "updateMethodsList", "run"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "run: aCollection\x0a| worker |\x0a\x09worker := TestSuiteRunner on: aCollection.\x0a\x09result := worker result.\x0a\x09worker announcer on: ResultAnnouncement do: [ :ann |\x0a\x09\x09ann result == result ifTrue: [\x0a\x09\x09\x09self progressBar updatePercent: result runs / result total * 100.\x0a\x09\x09\x09self updateStatusDiv.\x0a\x09\x09\x09self updateMethodsList\x0a\x09\x09]\x0a\x09].\x0a\x09worker run",
-referencedClasses: ["TestSuiteRunner", "ResultAnnouncement"]
+referencedClasses: ["TestSuiteRunner", "ResultAnnouncement"],
 //>>excludeEnd("ide");
+messageSends: ["on:", "result", "on:do:", "announcer", "ifTrue:", "==", "updatePercent:", "progressBar", "*", "/", "runs", "total", "updateStatusDiv", "updateMethodsList", "run"]
 }),
 globals.TestRunner);
 
@@ -10075,12 +10075,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"selectAllCategories",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "packages", "ifFalse:", "includes:", "add:", "selectedCategories", "updateCategoriesList", "updateClassesList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selectAllCategories\x0a\x09self packages do: [ :each |\x0a\x09\x09(selectedCategories includes: each) ifFalse: [\x0a\x09\x09\x09self selectedCategories add: each ]].\x0a\x09self\x0a\x09\x09updateCategoriesList;\x0a\x09\x09updateClassesList",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "packages", "ifFalse:", "includes:", "add:", "selectedCategories", "updateCategoriesList", "updateClassesList"]
 }),
 globals.TestRunner);
 
@@ -10113,12 +10113,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"selectAllClasses",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "classes", "ifFalse:", "includes:", "add:", "selectedClasses", "updateCategoriesList", "updateClassesList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selectAllClasses\x0a\x09self classes do: [ :each |\x0a\x09\x09(selectedClasses includes: each) ifFalse: [\x0a\x09\x09\x09self selectedClasses add: each ]].\x0a\x09self\x0a\x09\x09updateCategoriesList;\x0a\x09\x09updateClassesList",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "classes", "ifFalse:", "includes:", "add:", "selectedClasses", "updateCategoriesList", "updateClassesList"]
 }),
 globals.TestRunner);
 
@@ -10145,12 +10145,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedCategories",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selectedCategories\x0a\x09^ selectedCategories ifNil: [ selectedCategories := Array new ]",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.TestRunner);
 
@@ -10177,12 +10177,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedClasses",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "selectedClasses\x0a\x09^ selectedClasses ifNil: [ selectedClasses := Array new ]",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:", "new"]
 }),
 globals.TestRunner);
 
@@ -10209,12 +10209,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"statusInfo",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "printTotal", "printPasses", "printErrors", "printFailures"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "statusInfo\x0a\x09^ self printTotal, self printPasses, self printErrors, self printFailures",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: [",", "printTotal", "printPasses", "printErrors", "printFailures"]
 }),
 globals.TestRunner);
 
@@ -10253,12 +10253,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"testCases",{testCases:testCases},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "select:", "selectedClasses", "includes:", "selectedCategories", "category", "addAll:", "buildSuite"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "testCases\x0a\x09| testCases |\x0a\x09testCases := #().\x0a\x09(self selectedClasses\x0a\x09\x09select: [ :each | self selectedCategories includes: each category ])\x0a\x09\x09do: [ :each | testCases addAll: each buildSuite ].\x0a\x09^ testCases",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:", "select:", "selectedClasses", "includes:", "selectedCategories", "category", "addAll:", "buildSuite"]
 }),
 globals.TestRunner);
 
@@ -10285,12 +10285,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"toggleCategory:",{aCategory:aCategory},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:ifTrue:", "isSelectedCategory:", "add:", "remove:", "updateCategoriesList", "updateClassesList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCategory"],
 source: "toggleCategory: aCategory\x0a\x09(self isSelectedCategory: aCategory)\x0a\x09\x09ifFalse: [ selectedCategories add: aCategory ]\x0a\x09\x09ifTrue: [ selectedCategories remove: aCategory ].\x0a\x09self\x0a\x09\x09updateCategoriesList;\x0a\x09\x09updateClassesList",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:ifTrue:", "isSelectedCategory:", "add:", "remove:", "updateCategoriesList", "updateClassesList"]
 }),
 globals.TestRunner);
 
@@ -10316,12 +10316,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"toggleClass:",{aClass:aClass},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifFalse:ifTrue:", "isSelectedClass:", "add:", "remove:", "updateClassesList"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "toggleClass: aClass\x0a\x09(self isSelectedClass: aClass)\x0a\x09\x09ifFalse: [ selectedClasses add: aClass ]\x0a\x09\x09ifTrue: [ selectedClasses remove: aClass ].\x0a\x09self\x0a\x09\x09updateClassesList",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifFalse:ifTrue:", "isSelectedClass:", "add:", "remove:", "updateClassesList"]
 }),
 globals.TestRunner);
 
@@ -10400,12 +10400,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateCategoriesList",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "class:", "li", "with:", "onClick:", "selectAllCategories", "do:", "packages", "ifTrue:", "includes:", "selectedCategories", "toggleCategory:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateCategoriesList\x0a\x09packagesList contents: [ :html |\x0a\x09\x09html li\x0a\x09\x09class: 'all';\x0a\x09\x09with: 'All';\x0a\x09\x09onClick: [ self selectAllCategories ].\x0a\x09self packages do: [ :each || li |\x0a\x09\x09li := html li.\x0a\x09\x09(self selectedCategories includes: each) ifTrue: [\x0a\x09\x09li class: 'selected' ].\x0a\x09\x09li\x0a\x09\x09with: each;\x0a\x09\x09onClick: [ self toggleCategory: each ]] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "class:", "li", "with:", "onClick:", "selectAllCategories", "do:", "packages", "ifTrue:", "includes:", "selectedCategories", "toggleCategory:"]
 }),
 globals.TestRunner);
 
@@ -10487,12 +10487,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateClassesList",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "ifFalse:", "isEmpty", "selectedCategories", "class:", "li", "with:", "onClick:", "selectAllClasses", "do:", "classes", "ifTrue:", "includes:", "selectedClasses", "name", "toggleClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateClassesList\x0a\x09classesList contents: [ :html |\x0a\x09(self selectedCategories isEmpty) ifFalse: [\x0a\x09\x09html li\x0a\x09\x09\x09class: 'all';\x0a\x09\x09\x09with: 'All';\x0a\x09\x09\x09onClick: [ self selectAllClasses ]].\x0a\x09self classes do: [ :each || li |\x0a\x09\x09li := html li.\x0a\x09\x09(self selectedClasses includes: each) ifTrue: [\x0a\x09\x09\x09li class: 'selected' ].\x0a\x09\x09li\x0a\x09\x09\x09with: each name;\x0a\x09\x09\x09onClick: [ self toggleClass: each ]] ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "ifFalse:", "isEmpty", "selectedCategories", "class:", "li", "with:", "onClick:", "selectAllClasses", "do:", "classes", "ifTrue:", "includes:", "selectedClasses", "name", "toggleClass:"]
 }),
 globals.TestRunner);
 
@@ -10520,12 +10520,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateMethodsList",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["contents:", "renderErrorsOn:", "renderFailuresOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateMethodsList\x0a\x09methodsList contents: [ :html |\x0a\x09\x09self renderErrorsOn: html.\x0a\x09\x09\x09\x09self renderFailuresOn: html ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["contents:", "renderErrorsOn:", "renderFailuresOn:"]
 }),
 globals.TestRunner);
 
@@ -10553,12 +10553,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"updateStatusDiv",{},globals.TestRunner)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["class:", ",", "status", "contents:", "with:", "span", "statusInfo"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "updateStatusDiv\x0a\x09statusDiv class: 'sunit status ', result status.\x0a\x09statusDiv contents: [ :html |\x0a\x09\x09html span with: self statusInfo ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["class:", ",", "status", "contents:", "with:", "span", "statusInfo"]
 }),
 globals.TestRunner);
 
@@ -10580,12 +10580,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"clearWorkspace",{},globals.Workspace)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["clear"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "clearWorkspace\x0a\x09sourceArea clear",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["clear"]
 }),
 globals.Workspace);
 
@@ -10604,12 +10604,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"doIt",{},globals.Workspace)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["doIt"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "doIt\x0a\x09sourceArea doIt",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["doIt"]
 }),
 globals.Workspace);
 
@@ -10628,12 +10628,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"fileIn",{},globals.Workspace)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["fileIn"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "fileIn\x0a\x09sourceArea fileIn",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["fileIn"]
 }),
 globals.Workspace);
 
@@ -10652,12 +10652,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectIt",{},globals.Workspace)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inspectIt"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "inspectIt\x0a\x09sourceArea inspectIt",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["inspectIt"]
 }),
 globals.Workspace);
 
@@ -10670,12 +10670,12 @@ var self=this;
 return "Workspace";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "label\x0a\x09^ 'Workspace'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Workspace);
 
@@ -10694,12 +10694,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"printIt",{},globals.Workspace)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["printIt"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "printIt\x0a\x09sourceArea printIt",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["printIt"]
 }),
 globals.Workspace);
 
@@ -10720,12 +10720,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},globals.Workspace)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "renderOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderBoxOn: html\x0a\x09sourceArea := SourceArea new.\x0a\x09sourceArea renderOn: html",
-referencedClasses: ["SourceArea"]
+referencedClasses: ["SourceArea"],
 //>>excludeEnd("ide");
+messageSends: ["new", "renderOn:"]
 }),
 globals.Workspace);
 
@@ -10848,12 +10848,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},globals.Workspace)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["with:", "button", "title:", "onClick:", "doIt", "printIt", "inspectIt", "fileIn", "clearWorkspace"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderButtonsOn: html\x0a\x09html button\x0a\x09with: 'DoIt';\x0a\x09title: 'ctrl+d';\x0a\x09onClick: [ self doIt ].\x0a\x09html button\x0a\x09with: 'PrintIt';\x0a\x09title: 'ctrl+p';\x0a\x09onClick: [ self printIt ].\x0a\x09html button\x0a\x09with: 'InspectIt';\x0a\x09title: 'ctrl+i';\x0a\x09onClick: [ self inspectIt ].\x0a\x09html button\x0a\x09with: 'FileIn';\x0a\x09title: 'ctrl+f';\x0a\x09onClick: [ self fileIn ].\x0a\x09html button\x0a\x09with: 'Clear workspace';\x0a\x09onClick: [ self clearWorkspace ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["with:", "button", "title:", "onClick:", "doIt", "printIt", "inspectIt", "fileIn", "clearWorkspace"]
 }),
 globals.Workspace);
 
@@ -10880,12 +10880,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"show",{},globals.Workspace)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["show", "focus"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "show\x0a\x09super show.\x0a\x09sourceArea focus.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["show", "focus"]
 }),
 globals.Workspace);
 
@@ -10927,12 +10927,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},globals.AssociativeCollection)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "at:put:", "keys", "keysAndValuesDo:", "setLabel:", "printString", "setVariables:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInspector"],
 source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#keys' put: self keys.\x0a\x09self keysAndValuesDo: [ :key :value |\x0a\x09\x09variables at: key put: value ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["new", "at:put:", "keys", "keysAndValuesDo:", "setLabel:", "printString", "setVariables:"]
 }),
 globals.AssociativeCollection);
 
@@ -10969,12 +10969,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},globals.Collection)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "at:put:", "withIndexDo:", "setLabel:", "printString", "setVariables:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInspector"],
 source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09self withIndexDo: [ :each :i |\x0a\x09\x09variables at: i put: each ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["new", "at:put:", "withIndexDo:", "setLabel:", "printString", "setVariables:"]
 }),
 globals.Collection);
 
@@ -11027,12 +11027,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "at:put:", "year", "month", "day", "hours", "minutes", "seconds", "milliseconds", "setLabel:", "printString", "setVariables:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInspector"],
 source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#year' put: self year.\x0a\x09variables at: '#month' put: self month.\x0a\x09variables at: '#day' put: self day.\x0a\x09variables at: '#hours' put: self hours.\x0a\x09variables at: '#minutes' put: self minutes.\x0a\x09variables at: '#seconds' put: self seconds.\x0a\x09variables at: '#milliseconds' put: self milliseconds.\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["new", "at:put:", "year", "month", "day", "hours", "minutes", "seconds", "milliseconds", "setLabel:", "printString", "setVariables:"]
 }),
 globals.Date);
 
@@ -11085,12 +11085,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},globals.MethodContext)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "at:put:", "home", "receiver", "selector", "locals", "do:", "instanceVariableNames", "class", "instVarAt:", "setLabel:", "printString", "setVariables:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInspector"],
 source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#home' put: self home.\x0a\x09variables at: '#receiver' put: self receiver.\x0a\x09variables at: '#selector' put: self selector.\x0a\x09variables at: '#locals' put: self locals.\x0a\x09self class instanceVariableNames do: [ :each |\x0a\x09\x09variables at: each put: (self instVarAt: each) ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["new", "at:put:", "home", "receiver", "selector", "locals", "do:", "instanceVariableNames", "class", "instVarAt:", "setLabel:", "printString", "setVariables:"]
 }),
 globals.MethodContext);
 
@@ -11130,12 +11130,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables,i:i},globals.Set)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "at:put:", "do:", "+", "setLabel:", "printString", "setVariables:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInspector"],
 source: "inspectOn: anInspector\x0a\x09| variables i |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09i := 1.\x0a\x09self do: [ :each |\x0a\x09\x09variables at: i put: each.\x0a\x09\x09i := i + 1 ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["new", "at:put:", "do:", "+", "setLabel:", "printString", "setVariables:"]
 }),
 globals.Set);
 
@@ -11182,12 +11182,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,label:label},globals.String)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inspectOn:", "ifTrue:ifFalse:", ">", "size", "printString", ",", "copyFrom:to:", "setLabel:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInspector"],
 source: "inspectOn: anInspector\x0a\x09| label |\x0a\x09super inspectOn: anInspector.\x0a\x09self printString size > 30\x0a\x09\x09ifTrue: [ label := (self printString copyFrom: 1 to: 30), '...''' ]\x0a\x09\x09ifFalse: [ label := self printString ].\x0a\x09anInspector setLabel: label",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["inspectOn:", "ifTrue:ifFalse:", ">", "size", "printString", ",", "copyFrom:to:", "setLabel:"]
 }),
 globals.String);
 

@@ -305,12 +305,12 @@ exportMethod: aMethod on: aStream
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
 		nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
-		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;
 		nextPutAll: '//>>excludeStart("ide", pragmas.excludeIdeData);';lf;
 		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
 		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;
-		nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript;lf;
+		nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript, ',';lf;
 		nextPutAll: '//>>excludeEnd("ide");';lf;
+		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript;lf;
 		nextPutAll: '}),';lf;
 		nextPutAll: (self jsClassNameFor: aMethod methodClass);
 		nextPutAll: ');';lf;lf

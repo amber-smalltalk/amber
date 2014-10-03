@@ -31,12 +31,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"decrease",{},globals.Counter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["-", "contents:", "with:", "asString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "decrease\x0a\x09count := count - 1.\x0a\x09header contents: [ :html | html with: count asString ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["-", "contents:", "with:", "asString"]
 }),
 globals.Counter);
 
@@ -64,12 +64,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"increase",{},globals.Counter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["+", "contents:", "with:", "asString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "increase\x0a\x09count := count + 1.\x0a\x09header contents: [ :html | html with: count asString ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["+", "contents:", "with:", "asString"]
 }),
 globals.Counter);
 
@@ -96,12 +96,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Counter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initialize"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09count := 0",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["initialize"]
 }),
 globals.Counter);
 
@@ -158,12 +158,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.Counter)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["with:", "h1", "asString", "yourself", "button", "onClick:", "increase", "decrease"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["html"],
 source: "renderOn: html\x0a\x09header := html h1\x0a\x09\x09with: count asString;\x0a\x09\x09yourself.\x0a\x09html button\x0a\x09\x09with: '++';\x0a\x09\x09onClick: [ self increase ].\x0a\x09html button\x0a\x09\x09with: '--';\x0a\x09\x09onClick: [ self decrease ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["with:", "h1", "asString", "yourself", "button", "onClick:", "increase", "decrease"]
 }),
 globals.Counter);
 
@@ -183,12 +183,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"tryExample",{},globals.Counter.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["appendToJQuery:", "new", "asJQuery"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "tryExample\x0a\x09\x22In order to play with the Counter, just select the\x0a\x09doit below and press the Do it button. Then take a\x0a\x09look in the HTML document above the IDE.\x22\x0a\x0a\x09\x22Counter tryExample\x22\x0a\x09\x09self new appendToJQuery: 'body' asJQuery",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["appendToJQuery:", "new", "asJQuery"]
 }),
 globals.Counter.klass);
 

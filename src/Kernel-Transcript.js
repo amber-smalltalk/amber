@@ -16,12 +16,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "clear\x0a\x09\x22no op\x22",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ConsoleTranscript);
 
@@ -34,12 +34,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "cr\x0a\x09\x22no op\x22",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ConsoleTranscript);
 
@@ -52,12 +52,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "open",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ConsoleTranscript);
 
@@ -76,12 +76,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},globals.ConsoleTranscript)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "show: anObject\x0a\x22Smalltalk objects should have no trouble displaying themselves on the Transcript; Javascript objects don't know how, so must be wrapped in a JSObectProxy.\x22\x0a<console.log(String(_st(anObject)._asString()))>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ConsoleTranscript);
 
@@ -102,12 +102,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ConsoleTranscript.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["registerIfNone:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09Transcript registerIfNone: self new",
-referencedClasses: ["Transcript"]
+referencedClasses: ["Transcript"],
 //>>excludeEnd("ide");
+messageSends: ["registerIfNone:", "new"]
 }),
 globals.ConsoleTranscript.klass);
 

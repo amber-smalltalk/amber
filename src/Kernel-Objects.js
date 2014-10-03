@@ -23,12 +23,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"=",{anObject:anObject},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["=="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "= anObject\x0a\x09^ self == anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["=="]
 }),
 globals.ProtoObject);
 
@@ -52,12 +52,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"==",{anObject:anObject},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["=", "identityHash"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "== anObject\x0a\x09^ self identityHash = anObject identityHash",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["=", "identityHash"]
 }),
 globals.ProtoObject);
 
@@ -77,12 +77,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["printString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asString\x0a\x09^ self printString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["printString"]
 }),
 globals.ProtoObject);
 
@@ -101,12 +101,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"class",{},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "class\x0a\x09<return self.klass>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ProtoObject);
 
@@ -130,12 +130,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["receiver:", "new", "message:", "signal"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMessage"],
 source: "doesNotUnderstand: aMessage\x0a\x09MessageNotUnderstood new\x0a\x09\x09receiver: self;\x0a\x09\x09message: aMessage;\x0a\x09\x09signal",
-referencedClasses: ["MessageNotUnderstood"]
+referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
+messageSends: ["receiver:", "new", "message:", "signal"]
 }),
 globals.ProtoObject);
 
@@ -155,12 +155,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"evaluate:on:",{aString:aString,anEvaluator:anEvaluator},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["evaluate:receiver:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anEvaluator"],
 source: "evaluate: aString on: anEvaluator\x0a\x09^ anEvaluator evaluate: aString receiver: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["evaluate:receiver:"]
 }),
 globals.ProtoObject);
 
@@ -185,12 +185,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"identityHash",{},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "identityHash\x0a\x09<\x0a\x09\x09var hash=self.identityHash;\x0a\x09\x09if (hash) return hash;\x0a\x09\x09hash=smalltalk.nextId();\x0a\x09\x09Object.defineProperty(self, 'identityHash', {value:hash});\x0a\x09\x09return hash;\x0a\x09>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ProtoObject);
 
@@ -203,12 +203,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ProtoObject);
 
@@ -228,12 +228,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"inspect",{},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["inspect:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "inspect\x0a\x09Inspector inspect: self",
-referencedClasses: ["Inspector"]
+referencedClasses: ["Inspector"],
 //>>excludeEnd("ide");
+messageSends: ["inspect:"]
 }),
 globals.ProtoObject);
 
@@ -246,12 +246,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInspector"],
 source: "inspectOn: anInspector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ProtoObject);
 
@@ -270,12 +270,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"instVarAt:",{aString:aString},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "instVarAt: aString\x0a\x09< return self['@'+aString] >",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ProtoObject);
 
@@ -294,12 +294,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"instVarAt:put:",{aString:aString,anObject:anObject},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
 source: "instVarAt: aString put: anObject\x0a\x09< self['@' + aString] = anObject >",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ProtoObject);
 
@@ -324,12 +324,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isKindOf:",{aClass:aClass},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "isMemberOf:", "inheritsFrom:", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "isKindOf: aClass\x0a\x09^ (self isMemberOf: aClass)\x0a\x09\x09ifTrue: [ true ]\x0a\x09\x09ifFalse: [ self class inheritsFrom: aClass ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "isMemberOf:", "inheritsFrom:", "class"]
 }),
 globals.ProtoObject);
 
@@ -349,12 +349,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"perform:",{aString:aString},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["perform:withArguments:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "perform: aString\x0a\x09^ self perform: aString withArguments: #()",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["perform:withArguments:"]
 }),
 globals.ProtoObject);
 
@@ -373,12 +373,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"perform:withArguments:",{aString:aString,aCollection:aCollection},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aCollection"],
 source: "perform: aString withArguments: aCollection\x0a\x09<return smalltalk.send(self, aString._asJavaScriptMethodName(), aCollection)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ProtoObject);
 
@@ -417,12 +417,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", "ifTrue:ifFalse:", "isVowel", "first", "name", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09aStream nextPutAll: (self class name first isVowel\x0a\x09\x09ifTrue: [ 'an ' ]\x0a\x09\x09ifFalse: [ 'a ' ]).\x0a\x09aStream nextPutAll: self class name",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "ifTrue:ifFalse:", "isVowel", "first", "name", "class"]
 }),
 globals.ProtoObject);
 
@@ -451,12 +451,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"printString",{},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["streamContents:", "printOn:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "printString\x0a\x09^ String streamContents: [ :str | \x0a\x09\x09self printOn: str ]",
-referencedClasses: ["String"]
+referencedClasses: ["String"],
 //>>excludeEnd("ide");
+messageSends: ["streamContents:", "printOn:"]
 }),
 globals.ProtoObject);
 
@@ -469,12 +469,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "yourself\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ProtoObject);
 
@@ -497,12 +497,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"~=",{anObject:anObject},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "~= anObject\x0a\x09^ (self = anObject) = false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["="]
 }),
 globals.ProtoObject);
 
@@ -522,12 +522,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"~~",{anObject:anObject},globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["=", "=="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "~~ anObject\x0a\x09^ (self == anObject) = false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["=", "=="]
 }),
 globals.ProtoObject);
 
@@ -541,12 +541,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.ProtoObject.klass);
 
@@ -572,12 +572,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"->",{anObject:anObject},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["key:value:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "-> anObject\x0a\x09^ Association key: self value: anObject",
-referencedClasses: ["Association"]
+referencedClasses: ["Association"],
 //>>excludeEnd("ide");
+messageSends: ["key:value:"]
 }),
 globals.Object);
 
@@ -609,12 +609,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{variables:variables},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "do:", "allInstanceVariableNames", "class", "at:put:", "asJSON", "instVarAt:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asJSON\x0a\x09| variables |\x0a\x09variables := HashedCollection new.\x0a\x09self class allInstanceVariableNames do: [ :each |\x0a\x09\x09variables at: each put: (self instVarAt: each) asJSON ].\x0a\x09^ variables",
-referencedClasses: ["HashedCollection"]
+referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
+messageSends: ["new", "do:", "allInstanceVariableNames", "class", "at:put:", "asJSON", "instVarAt:"]
 }),
 globals.Object);
 
@@ -635,12 +635,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJSONString",{},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["stringify:", "asJSON"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asJSONString\x0a\x09^ JSON stringify: self asJSON",
-referencedClasses: ["JSON"]
+referencedClasses: ["JSON"],
 //>>excludeEnd("ide");
+messageSends: ["stringify:", "asJSON"]
 }),
 globals.Object);
 
@@ -660,12 +660,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJavascript",{},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["asString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asJavascript\x0a\x09^ self asString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["asString"]
 }),
 globals.Object);
 
@@ -684,12 +684,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"basicAt:",{aString:aString},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "basicAt: aString\x0a\x09<return self[aString]>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -708,12 +708,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"basicAt:put:",{aString:aString,anObject:anObject},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
 source: "basicAt: aString put: anObject\x0a\x09<return self[aString] = anObject>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -732,12 +732,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"basicDelete:",{aString:aString},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "basicDelete: aString\x0a\x09<delete self[aString]; return aString>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -757,12 +757,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"basicPerform:",{aString:aString},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["basicPerform:withArguments:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "basicPerform: aString\x0a\x09^ self basicPerform: aString withArguments: #()",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["basicPerform:withArguments:"]
 }),
 globals.Object);
 
@@ -781,12 +781,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"basicPerform:withArguments:",{aString:aString,aCollection:aCollection},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aCollection"],
 source: "basicPerform: aString withArguments: aCollection\x0a\x09<return self[aString].apply(self, aCollection);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -806,12 +806,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"browse",{},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["findClass:", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "browse\x0a\x09Finder findClass: self class",
-referencedClasses: ["Finder"]
+referencedClasses: ["Finder"],
 //>>excludeEnd("ide");
+messageSends: ["findClass:", "class"]
 }),
 globals.Object);
 
@@ -831,12 +831,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"copy",{},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["postCopy", "shallowCopy"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "copy\x0a\x09^ self shallowCopy postCopy",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["postCopy", "shallowCopy"]
 }),
 globals.Object);
 
@@ -863,12 +863,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"deepCopy",{},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "deepCopy\x0a\x09<\x0a\x09\x09var copy = self.klass._new();\x0a\x09\x09Object.keys(self).forEach(function (i) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09\x09copy[i] = self[i]._deepCopy();\x0a\x09\x09}\x0a\x09\x09});\x0a\x09\x09return copy;\x0a\x09>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -911,12 +911,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"deprecatedAPI",{},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["warn:", ",", "asString", "home"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "deprecatedAPI\x0a\x09\x22Just a simple way to deprecate methods.\x0a\x09#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,\x0a\x09but it could in the future.\x22\x0a\x09console warn: thisContext home asString, ' is deprecated! (in ', thisContext home home asString, ')'.",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["warn:", ",", "asString", "home"]
 }),
 globals.Object);
 
@@ -963,12 +963,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"deprecatedAPI:",{aString:aString},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["warn:", ",", "asString", "home"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "deprecatedAPI: aString\x0a\x09\x22Just a simple way to deprecate methods.\x0a\x09#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,\x0a\x09but it could in the future.\x22\x0a\x09console warn: thisContext home asString, ' is deprecated! (in ', thisContext home home asString, ')'.\x0a\x09console warn: aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["warn:", ",", "asString", "home"]
 }),
 globals.Object);
 
@@ -988,12 +988,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"error:",{aString:aString},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["signal:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "error: aString\x0a\x09Error signal: aString",
-referencedClasses: ["Error"]
+referencedClasses: ["Error"],
 //>>excludeEnd("ide");
+messageSends: ["signal:"]
 }),
 globals.Object);
 
@@ -1013,12 +1013,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"halt",{},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["signal"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "halt\x0a\x09Halt signal",
-referencedClasses: ["Halt"]
+referencedClasses: ["Halt"],
 //>>excludeEnd("ide");
+messageSends: ["signal"]
 }),
 globals.Object);
 
@@ -1031,12 +1031,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "ifNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1056,12 +1056,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "anotherBlock"],
 source: "ifNil: aBlock ifNotNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ anotherBlock value: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["value:"]
 }),
 globals.Object);
 
@@ -1081,12 +1081,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{aBlock:aBlock},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "ifNotNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ aBlock value: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["value:"]
 }),
 globals.Object);
 
@@ -1106,12 +1106,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "anotherBlock"],
 source: "ifNotNil: aBlock ifNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ aBlock value: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["value:"]
 }),
 globals.Object);
 
@@ -1148,12 +1148,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "at:put:", "do:", "allInstanceVariableNames", "class", "instVarAt:", "setLabel:", "printString", "setVariables:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInspector"],
 source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09self class allInstanceVariableNames do: [ :each |\x0a\x09\x09variables at: each put: (self instVarAt: each) ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
+messageSends: ["new", "at:put:", "do:", "allInstanceVariableNames", "class", "instVarAt:", "setLabel:", "printString", "setVariables:"]
 }),
 globals.Object);
 
@@ -1166,12 +1166,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isBehavior\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1184,12 +1184,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isBoolean\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1202,12 +1202,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isClass\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1220,12 +1220,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isCompiledMethod\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1238,12 +1238,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isImmutable\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1263,12 +1263,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isMemberOf:",{aClass:aClass},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["=", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "isMemberOf: aClass\x0a\x09^ self class = aClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["=", "class"]
 }),
 globals.Object);
 
@@ -1281,12 +1281,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isMetaclass\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1299,12 +1299,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isNil\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1317,12 +1317,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isNumber\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1335,12 +1335,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isPackage\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1353,12 +1353,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isParseFailure\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1371,12 +1371,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isString\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1389,12 +1389,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isSymbol\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1414,12 +1414,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"notNil",{},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["not", "isNil"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "notNil\x0a\x09^ self isNil not",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["not", "isNil"]
 }),
 globals.Object);
 
@@ -1432,12 +1432,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "postCopy",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1456,12 +1456,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPut:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStream"],
 source: "putOn: aStream\x0a\x09aStream nextPut: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPut:"]
 }),
 globals.Object);
 
@@ -1481,12 +1481,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"respondsTo:",{aSelector:aSelector},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["canUnderstand:", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aSelector"],
 source: "respondsTo: aSelector\x0a\x09^ self class canUnderstand: aSelector",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["canUnderstand:", "class"]
 }),
 globals.Object);
 
@@ -1513,12 +1513,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "shallowCopy\x0a\x09<\x0a\x09\x09var copy = self.klass._new();\x0a\x09\x09Object.keys(self).forEach(function(i) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09\x09copy[i] = self[i];\x0a\x09\x09}\x0a\x09\x09});\x0a\x09\x09return copy;\x0a\x09>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1537,12 +1537,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"shouldNotImplement",{},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["error:", ",", "name", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "shouldNotImplement\x0a\x09self error: 'This method should not be implemented in ', self class name",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["error:", ",", "name", "class"]
 }),
 globals.Object);
 
@@ -1561,12 +1561,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"size",{},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["error:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "size\x0a\x09self error: 'Object not indexable'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["error:"]
 }),
 globals.Object);
 
@@ -1585,12 +1585,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"subclassResponsibility",{},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["error:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "subclassResponsibility\x0a\x09self error: 'This method is a responsibility of a subclass'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["error:"]
 }),
 globals.Object);
 
@@ -1609,12 +1609,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"throw:",{anObject:anObject},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "throw: anObject\x0a\x09< throw anObject >",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1635,12 +1635,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"try:catch:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["deprecatedAPI", "tryCatch:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "anotherBlock"],
 source: "try: aBlock catch: anotherBlock\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09^ aBlock tryCatch: anotherBlock",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["deprecatedAPI", "tryCatch:"]
 }),
 globals.Object);
 
@@ -1659,12 +1659,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"value",{},globals.Object)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "value\x0a\x09<return self.valueOf()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object);
 
@@ -1684,12 +1684,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"accessorProtocolWith:",{aGenerator:aGenerator},globals.Object.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["accessorProtocolForObject"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aGenerator"],
 source: "accessorProtocolWith: aGenerator\x0a\x09aGenerator accessorProtocolForObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["accessorProtocolForObject"]
 }),
 globals.Object.klass);
 
@@ -1708,12 +1708,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"accessorsSourceCodesWith:",{aGenerator:aGenerator},globals.Object.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["accessorsForObject"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aGenerator"],
 source: "accessorsSourceCodesWith: aGenerator\x0a\x09aGenerator accessorsForObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["accessorsForObject"]
 }),
 globals.Object.klass);
 
@@ -1726,12 +1726,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09\x22no op\x22",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Object.klass);
 
@@ -1750,12 +1750,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initializeProtocolWith:",{aGenerator:aGenerator},globals.Object.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initializeProtocolForObject"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aGenerator"],
 source: "initializeProtocolWith: aGenerator\x0a\x09aGenerator initializeProtocolForObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["initializeProtocolForObject"]
 }),
 globals.Object.klass);
 
@@ -1774,12 +1774,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"initializeSourceCodesWith:",{aGenerator:aGenerator},globals.Object.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["initializeForObject"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aGenerator"],
 source: "initializeSourceCodesWith: aGenerator\x0a\x09aGenerator initializeForObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["initializeForObject"]
 }),
 globals.Object.klass);
 
@@ -1809,12 +1809,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"&",{aBoolean:aBoolean},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean"],
 source: "& aBoolean\x0a\x09<\x0a\x09\x09if(self == true) {\x0a\x09\x09return aBoolean;\x0a\x09\x09} else {\x0a\x09\x09return false;\x0a\x09\x09}\x0a\x09>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Boolean);
 
@@ -1838,12 +1838,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"=",{aBoolean:aBoolean},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean"],
 source: "= aBoolean\x0a\x09<\x0a\x09\x09return aBoolean != null &&\x0a\x09\x09\x09typeof aBoolean._isBoolean === \x22function\x22 &&\x0a\x09\x09\x09aBoolean._isBoolean() &&\x0a\x09\x09\x09Boolean(self == true) == aBoolean\x0a\x09>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Boolean);
 
@@ -1863,12 +1863,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"==",{aBoolean:aBoolean},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean"],
 source: "== aBoolean\x0a\x09^ self = aBoolean",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["="]
 }),
 globals.Boolean);
 
@@ -1892,12 +1892,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"and:",{aBlock:aBlock},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "and: aBlock\x0a\x09^ self = true\x0a\x09\x09ifTrue: aBlock\x0a\x09\x09ifFalse: [ false ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "="]
 }),
 globals.Boolean);
 
@@ -1921,12 +1921,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asBit",{},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asBit\x0a\x09^ self ifTrue: [ 1 ] ifFalse: [ 0 ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:"]
 }),
 globals.Boolean);
 
@@ -1939,12 +1939,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asJSON\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Boolean);
 
@@ -1963,12 +1963,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asString\x0a\x09< return self.toString() >",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Boolean);
 
@@ -1981,12 +1981,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "deepCopy\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Boolean);
 
@@ -2008,12 +2008,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifFalse:",{aBlock:aBlock},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "ifFalse: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ self ifTrue: [] ifFalse: aBlock",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:"]
 }),
 globals.Boolean);
 
@@ -2033,12 +2033,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifFalse:ifTrue:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "anotherBlock"],
 source: "ifFalse: aBlock ifTrue: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ self ifTrue: anotherBlock ifFalse: aBlock",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:"]
 }),
 globals.Boolean);
 
@@ -2060,12 +2060,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifTrue:",{aBlock:aBlock},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "ifTrue: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ self ifTrue: aBlock ifFalse: []",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:"]
 }),
 globals.Boolean);
 
@@ -2090,12 +2090,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"ifTrue:ifFalse:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "anotherBlock"],
 source: "ifTrue: aBlock ifFalse: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<\x0a\x09\x09if(self == true) {\x0a\x09\x09return aBlock._value();\x0a\x09\x09} else {\x0a\x09\x09return anotherBlock._value();\x0a\x09\x09}\x0a\x09>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Boolean);
 
@@ -2108,12 +2108,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isBoolean\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Boolean);
 
@@ -2126,12 +2126,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isImmutable\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Boolean);
 
@@ -2151,12 +2151,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"not",{},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "not\x0a\x09^ self = false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["="]
 }),
 globals.Boolean);
 
@@ -2180,12 +2180,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"or:",{aBlock:aBlock},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "or: aBlock\x0a\x09^ self = true\x0a\x09\x09ifTrue: [ true ]\x0a\x09\x09ifFalse: aBlock",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "="]
 }),
 globals.Boolean);
 
@@ -2204,12 +2204,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", "asString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09aStream nextPutAll: self asString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "asString"]
 }),
 globals.Boolean);
 
@@ -2222,12 +2222,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "shallowCopy\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Boolean);
 
@@ -2252,12 +2252,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"|",{aBoolean:aBoolean},globals.Boolean)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean"],
 source: "| aBoolean\x0a\x09<\x0a\x09\x09if(self == true) {\x0a\x09\x09return true;\x0a\x09\x09} else {\x0a\x09\x09return aBoolean;\x0a\x09\x09}\x0a\x09>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Boolean);
 
@@ -2282,12 +2282,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"+",{aDate:aDate},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aDate"],
 source: "+ aDate\x0a\x09<return self + aDate>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2306,12 +2306,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"-",{aDate:aDate},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aDate"],
 source: "- aDate\x0a\x09<return self - aDate>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2330,12 +2330,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"<",{aDate:aDate},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aDate"],
 source: "< aDate\x0a\x09<return self < aDate>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2354,12 +2354,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"<=",{aDate:aDate},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aDate"],
 source: "<= aDate\x0a\x09<return self <= aDate>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2378,12 +2378,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,">",{aDate:aDate},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aDate"],
 source: "> aDate\x0a\x09<return self >> aDate>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2402,12 +2402,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,">=",{aDate:aDate},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aDate"],
 source: ">= aDate\x0a\x09<return self >>= aDate>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2426,12 +2426,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"asDateString",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asDateString\x0a\x09<return self.toDateString()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2450,12 +2450,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"asLocaleString",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asLocaleString\x0a\x09<return self.toLocaleString()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2475,12 +2475,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asMilliseconds",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["time"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asMilliseconds\x0a\x09^ self time",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["time"]
 }),
 globals.Date);
 
@@ -2500,12 +2500,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asNumber",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["asMilliseconds"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asNumber\x0a\x09^ self asMilliseconds",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["asMilliseconds"]
 }),
 globals.Date);
 
@@ -2524,12 +2524,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asString\x0a\x09<return self.toString()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2548,12 +2548,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"asTimeString",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asTimeString\x0a\x09<return self.toTimeString()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2573,12 +2573,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"day",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["dayOfWeek"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "day\x0a\x09^ self dayOfWeek",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["dayOfWeek"]
 }),
 globals.Date);
 
@@ -2597,12 +2597,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"day:",{aNumber:aNumber},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["dayOfWeek:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "day: aNumber\x0a\x09self dayOfWeek: aNumber",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["dayOfWeek:"]
 }),
 globals.Date);
 
@@ -2621,12 +2621,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"dayOfMonth",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "dayOfMonth\x0a\x09<return self.getDate()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2645,12 +2645,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"dayOfMonth:",{aNumber:aNumber},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "dayOfMonth: aNumber\x0a\x09<self.setDate(aNumber)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2669,12 +2669,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"dayOfWeek",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "dayOfWeek\x0a\x09<return self.getDay() + 1>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2693,12 +2693,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"dayOfWeek:",{aNumber:aNumber},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "dayOfWeek: aNumber\x0a\x09<return self.setDay(aNumber - 1)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2717,12 +2717,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"hours",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "hours\x0a\x09<return self.getHours()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2741,12 +2741,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"hours:",{aNumber:aNumber},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "hours: aNumber\x0a\x09<self.setHours(aNumber)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2765,12 +2765,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"milliseconds",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "milliseconds\x0a\x09<return self.getMilliseconds()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2789,12 +2789,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"milliseconds:",{aNumber:aNumber},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "milliseconds: aNumber\x0a\x09<self.setMilliseconds(aNumber)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2813,12 +2813,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"minutes",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "minutes\x0a\x09<return self.getMinutes()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2837,12 +2837,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"minutes:",{aNumber:aNumber},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "minutes: aNumber\x0a\x09<self.setMinutes(aNumber)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2861,12 +2861,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"month",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "month\x0a\x09<return self.getMonth() + 1>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2885,12 +2885,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"month:",{aNumber:aNumber},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "month: aNumber\x0a\x09<self.setMonth(aNumber - 1)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2909,12 +2909,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", "asString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09aStream nextPutAll: self asString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "asString"]
 }),
 globals.Date);
 
@@ -2933,12 +2933,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"seconds",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "seconds\x0a\x09<return self.getSeconds()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2957,12 +2957,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"seconds:",{aNumber:aNumber},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "seconds: aNumber\x0a\x09<self.setSeconds(aNumber)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -2981,12 +2981,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"time",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "time\x0a\x09<return self.getTime()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -3005,12 +3005,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"time:",{aNumber:aNumber},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "time: aNumber\x0a\x09<self.setTime(aNumber)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -3029,12 +3029,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"year",{},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "year\x0a\x09<return self.getFullYear()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -3053,12 +3053,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"year:",{aNumber:aNumber},globals.Date)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "year: aNumber\x0a\x09<self.setFullYear(aNumber)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date);
 
@@ -3079,12 +3079,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"fromMilliseconds:",{aNumber:aNumber},globals.Date.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "fromMilliseconds: aNumber\x0a\x09^ self new: aNumber",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["new:"]
 }),
 globals.Date.klass);
 
@@ -3104,12 +3104,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"fromSeconds:",{aNumber:aNumber},globals.Date.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["fromMilliseconds:", "*"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "fromSeconds: aNumber\x0a\x09^ self fromMilliseconds: aNumber * 1000",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["fromMilliseconds:", "*"]
 }),
 globals.Date.klass);
 
@@ -3129,12 +3129,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"fromString:",{aString:aString},globals.Date.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "fromString: aString\x0a\x09\x22Example: Date fromString('2011/04/15 00:00:00')\x22\x0a\x09^ self new: aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["new:"]
 }),
 globals.Date.klass);
 
@@ -3147,12 +3147,12 @@ var self=this;
 return "magnitude";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "heliosClass\x0a\x09^ 'magnitude'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date.klass);
 
@@ -3179,12 +3179,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"millisecondsToRun:",{aBlock:aBlock,t:t},globals.Date.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["now", "value", "-"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "millisecondsToRun: aBlock\x0a\x09| t |\x0a\x09t := Date now.\x0a\x09aBlock value.\x0a\x09^ Date now - t",
-referencedClasses: ["Date"]
+referencedClasses: ["Date"],
 //>>excludeEnd("ide");
+messageSends: ["now", "value", "-"]
 }),
 globals.Date.klass);
 
@@ -3203,12 +3203,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"new:",{anObject:anObject},globals.Date.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "new: anObject\x0a\x09<return new Date(anObject)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Date.klass);
 
@@ -3228,12 +3228,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"now",{},globals.Date.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["today"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "now\x0a\x09^ self today",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["today"]
 }),
 globals.Date.klass);
 
@@ -3253,12 +3253,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"today",{},globals.Date.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "today\x0a\x09^ self new",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["new"]
 }),
 globals.Date.klass);
 
@@ -3282,12 +3282,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"&",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "& aNumber\x0a\x09<return self & aNumber>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3306,12 +3306,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"*",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "* aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self * aNumber>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3331,12 +3331,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"**",{exponent:exponent},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["raisedTo:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["exponent"],
 source: "** exponent\x0a\x09^ self raisedTo: exponent",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["raisedTo:"]
 }),
 globals.Number);
 
@@ -3355,12 +3355,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"+",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "+ aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self + aNumber>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3379,12 +3379,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"-",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "- aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self - aNumber>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3403,12 +3403,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"/",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "/ aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self / aNumber>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3428,12 +3428,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"//",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["floor", "/"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "// aNumber\x0a\x09^ (self / aNumber) floor",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["floor", "/"]
 }),
 globals.Number);
 
@@ -3452,12 +3452,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"<",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "< aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self < aNumber>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3476,12 +3476,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"<=",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "<= aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self <= aNumber>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3505,12 +3505,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"=",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "= aNumber\x0a\x09<\x0a\x09\x09return aNumber != null &&\x0a\x09\x09\x09typeof aNumber._isNumber === \x22function\x22 &&\x0a\x09\x09\x09aNumber._isNumber() &&\x0a\x09\x09\x09Number(self) == aNumber\x0a\x09>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3529,12 +3529,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,">",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "> aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self >> aNumber>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3553,12 +3553,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,">=",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: ">= aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self >>= aNumber>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3579,12 +3579,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"@",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["x:y:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "@ aNumber\x0a\x09^ Point x: self y: aNumber",
-referencedClasses: ["Point"]
+referencedClasses: ["Point"],
 //>>excludeEnd("ide");
+messageSends: ["x:y:"]
 }),
 globals.Number);
 
@@ -3603,12 +3603,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"\x5c\x5c",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "\x5c\x5c aNumber\x0a\x09<return self % aNumber>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3627,12 +3627,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"abs",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "abs\x0a\x09<return Math.abs(self);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3651,12 +3651,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"arcCos",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "arcCos\x0a\x09<return Math.acos(self);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3675,12 +3675,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"arcSin",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "arcSin\x0a\x09<return Math.asin(self);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3699,12 +3699,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"arcTan",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "arcTan\x0a\x09<return Math.atan(self);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3717,12 +3717,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asJSON\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3745,12 +3745,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJavascript",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "printString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asJavascript\x0a\x09^ '(', self printString, ')'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: [",", "printString"]
 }),
 globals.Number);
 
@@ -3763,12 +3763,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asNumber\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3789,12 +3789,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asPoint",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["x:y:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asPoint\x0a\x09^ Point x: self y: self",
-referencedClasses: ["Point"]
+referencedClasses: ["Point"],
 //>>excludeEnd("ide");
+messageSends: ["x:y:"]
 }),
 globals.Number);
 
@@ -3813,12 +3813,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asString\x0a\x09< return String(self) >",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3839,12 +3839,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"atRandom",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["+", "truncated", "*", "next", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "atRandom\x0a\x09^ (Random new next * self) truncated + 1",
-referencedClasses: ["Random"]
+referencedClasses: ["Random"],
 //>>excludeEnd("ide");
+messageSends: ["+", "truncated", "*", "next", "new"]
 }),
 globals.Number);
 
@@ -3863,12 +3863,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"ceiling",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "ceiling\x0a\x09<return Math.ceil(self);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3881,12 +3881,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "copy\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3905,12 +3905,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"cos",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "cos\x0a\x09<return Math.cos(self);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -3930,12 +3930,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"deepCopy",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["copy"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "deepCopy\x0a\x09^ self copy",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["copy"]
 }),
 globals.Number);
 
@@ -3955,12 +3955,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"even",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["=", "\x5c\x5c"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "even\x0a\x09^ 0 = (self \x5c\x5c 2)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["=", "\x5c\x5c"]
 }),
 globals.Number);
 
@@ -3979,12 +3979,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"floor",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "floor\x0a\x09<return Math.floor(self);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4004,12 +4004,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"identityHash",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [",", "asString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "identityHash\x0a\x09^ self asString, 'n'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: [",", "asString"]
 }),
 globals.Number);
 
@@ -4022,12 +4022,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isImmutable\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4040,12 +4040,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isNumber\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4065,12 +4065,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"isZero",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isZero\x0a\x09^ self = 0",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["="]
 }),
 globals.Number);
 
@@ -4089,12 +4089,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"ln",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "ln\x0a\x09<return Math.log(self);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4113,12 +4113,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"log",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "log\x0a\x09<return Math.log(self) / Math.LN10;>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4137,12 +4137,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"log:",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "log: aNumber\x0a\x09<return Math.log(self) / Math.log(aNumber);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4161,12 +4161,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"max:",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "max: aNumber\x0a\x09<return Math.max(self, aNumber);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4185,12 +4185,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"min:",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "min: aNumber\x0a\x09<return Math.min(self, aNumber);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4210,12 +4210,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"negated",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["-"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "negated\x0a\x09^ 0 - self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["-"]
 }),
 globals.Number);
 
@@ -4235,12 +4235,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"negative",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["<"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "negative\x0a\x09\x22Answer whether the receiver is mathematically negative.\x22\x0a\x0a\x09^ self < 0",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["<"]
 }),
 globals.Number);
 
@@ -4260,12 +4260,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"odd",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["not", "even"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "odd\x0a\x09^ self even not",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["not", "even"]
 }),
 globals.Number);
 
@@ -4285,12 +4285,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"positive",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [">="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "positive\x0a\x09\x22Answer whether the receiver is positive or equal to 0. (ST-80 protocol).\x22\x0a\x0a\x09^ self >= 0",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: [">="]
 }),
 globals.Number);
 
@@ -4309,12 +4309,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:", "asString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09aStream nextPutAll: self asString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "asString"]
 }),
 globals.Number);
 
@@ -4333,12 +4333,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"printShowingDecimalPlaces:",{placesDesired:placesDesired},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["placesDesired"],
 source: "printShowingDecimalPlaces: placesDesired\x0a\x09<return self.toFixed(placesDesired)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4357,12 +4357,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"raisedTo:",{exponent:exponent},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["exponent"],
 source: "raisedTo: exponent\x0a\x09<return Math.pow(self, exponent);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4381,12 +4381,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"rounded",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "rounded\x0a\x09<return Math.round(self);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4415,12 +4415,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"sign",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "isZero", "ifTrue:ifFalse:", "positive"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sign\x0a\x09self isZero \x0a\x09\x09ifTrue: [ ^ 0 ].\x0a\x09self positive\x0a\x09\x09ifTrue: [ ^ 1 ]\x0a\x09\x09ifFalse: [ ^ -1 ].",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "isZero", "ifTrue:ifFalse:", "positive"]
 }),
 globals.Number);
 
@@ -4439,12 +4439,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"sin",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sin\x0a\x09<return Math.sin(self);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4463,12 +4463,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"sqrt",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "sqrt\x0a\x09<return Math.sqrt(self)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4488,12 +4488,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"squared",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["*"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "squared\x0a\x09^ self * self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["*"]
 }),
 globals.Number);
 
@@ -4512,12 +4512,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"tan",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "tan\x0a\x09<return Math.tan(self);>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4556,12 +4556,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"timesRepeat:",{aBlock:aBlock,count:count},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["whileFalse:", ">", "value", "+"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "timesRepeat: aBlock\x0a\x09| count |\x0a\x09count := 1.\x0a\x09[ count > self ] whileFalse: [\x0a\x09\x09aBlock value.\x0a\x09\x09count := count + 1 ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["whileFalse:", ">", "value", "+"]
 }),
 globals.Number);
 
@@ -4609,12 +4609,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"to:",{aNumber:aNumber,array:array,first:first,last:last,count:count},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["truncated", "+", "new", "timesRepeat:", "-", "at:put:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "to: aNumber\x0a\x09| array first last count |\x0a\x09first := self truncated.\x0a\x09last := aNumber truncated + 1.\x0a\x09count := 1.\x0a\x09array := Array new.\x0a\x09(last - first) timesRepeat: [\x0a\x09\x09array at: count put: first.\x0a\x09\x09count := count + 1.\x0a\x09\x09first := first + 1 ].\x0a\x09^ array",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["truncated", "+", "new", "timesRepeat:", "-", "at:put:"]
 }),
 globals.Number);
 
@@ -4704,12 +4704,12 @@ return $3;
 }, function($ctx1) {$ctx1.fill(self,"to:by:",{stop:stop,step:step,array:array,value:value,pos:pos},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "ifTrue:", "=", "error:", "ifTrue:ifFalse:", "<", "whileTrue:", ">=", "at:put:", "+", "<="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["stop", "step"],
 source: "to: stop by: step\x0a\x09| array value pos |\x0a\x09value := self.\x0a\x09array := Array new.\x0a\x09pos := 1.\x0a\x09step = 0 ifTrue: [ self error: 'step must be non-zero' ].\x0a\x09step < 0\x0a\x09\x09ifTrue: [ [ value >= stop ] whileTrue: [\x0a\x09\x09\x09\x09\x09array at: pos put: value.\x0a\x09\x09\x09\x09\x09pos := pos + 1.\x0a\x09\x09\x09\x09\x09value := value + step ]]\x0a\x09\x09ifFalse: [ [ value <= stop ] whileTrue: [\x0a\x09\x09\x09\x09\x09array at: pos put: value.\x0a\x09\x09\x09\x09pos := pos + 1.\x0a\x09\x09\x09\x09\x09value := value + step ]].\x0a\x09^ array",
-referencedClasses: ["Array"]
+referencedClasses: ["Array"],
 //>>excludeEnd("ide");
+messageSends: ["new", "ifTrue:", "=", "error:", "ifTrue:ifFalse:", "<", "whileTrue:", ">=", "at:put:", "+", "<="]
 }),
 globals.Number);
 
@@ -4785,12 +4785,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"to:by:do:",{stop:stop,step:step,aBlock:aBlock,value:value},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:", "=", "error:", "ifTrue:ifFalse:", "<", "whileTrue:", ">=", "value:", "+", "<="],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["stop", "step", "aBlock"],
 source: "to: stop by: step do: aBlock\x0a\x09| value |\x0a\x09value := self.\x0a\x09step = 0 ifTrue: [ self error: 'step must be non-zero' ].\x0a\x09step < 0\x0a\x09\x09ifTrue: [ [ value >= stop ] whileTrue: [\x0a\x09\x09\x09\x09\x09aBlock value: value.\x0a\x09\x09\x09\x09\x09value := value + step ]]\x0a\x09\x09ifFalse: [ [ value <= stop ] whileTrue: [\x0a\x09\x09\x09\x09\x09aBlock value: value.\x0a\x09\x09\x09\x09\x09value := value + step ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:", "=", "error:", "ifTrue:ifFalse:", "<", "whileTrue:", ">=", "value:", "+", "<="]
 }),
 globals.Number);
 
@@ -4829,12 +4829,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"to:do:",{stop:stop,aBlock:aBlock,nextValue:nextValue},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["whileTrue:", "<=", "value:", "+"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["stop", "aBlock"],
 source: "to: stop do: aBlock\x0a\x09\x22Evaluate aBlock for each number from self to aNumber.\x22\x0a\x09| nextValue |\x0a\x09nextValue := self.\x0a\x09[ nextValue <= stop ]\x0a\x09\x09whileTrue:\x0a\x09\x09\x09[ aBlock value: nextValue.\x0a\x09\x09\x09nextValue := nextValue + 1 ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["whileTrue:", "<=", "value:", "+"]
 }),
 globals.Number);
 
@@ -4859,12 +4859,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"truncated",{},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "truncated\x0a\x09<\x0a\x09\x09if(self >>= 0) {\x0a\x09\x09\x09return Math.floor(self);\x0a\x09\x09} else {\x0a\x09\x09\x09return Math.floor(self * (-1)) * (-1);\x0a\x09\x09};\x0a\x09>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4883,12 +4883,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"|",{aNumber:aNumber},globals.Number)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "| aNumber\x0a\x09<return self | aNumber>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number);
 
@@ -4908,12 +4908,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"e",{},globals.Number.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "e\x0a\x09<return Math.E;>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number.klass);
 
@@ -4926,12 +4926,12 @@ var self=this;
 return "magnitude";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "heliosClass\x0a\x09^ 'magnitude'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number.klass);
 
@@ -4950,12 +4950,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"pi",{},globals.Number.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "pi\x0a\x09<return Math.PI>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Number.klass);
 
@@ -4999,12 +4999,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"*",{aPoint:aPoint},globals.Point)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["x:y:", "*", "x", "asPoint", "y"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPoint"],
 source: "* aPoint\x0a\x09^ Point x: self x * aPoint asPoint x y: self y * aPoint asPoint y",
-referencedClasses: ["Point"]
+referencedClasses: ["Point"],
 //>>excludeEnd("ide");
+messageSends: ["x:y:", "*", "x", "asPoint", "y"]
 }),
 globals.Point);
 
@@ -5043,12 +5043,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"+",{aPoint:aPoint},globals.Point)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["x:y:", "+", "x", "asPoint", "y"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPoint"],
 source: "+ aPoint\x0a\x09^ Point x: self x + aPoint asPoint x y: self y + aPoint asPoint y",
-referencedClasses: ["Point"]
+referencedClasses: ["Point"],
 //>>excludeEnd("ide");
+messageSends: ["x:y:", "+", "x", "asPoint", "y"]
 }),
 globals.Point);
 
@@ -5087,12 +5087,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"-",{aPoint:aPoint},globals.Point)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["x:y:", "-", "x", "asPoint", "y"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPoint"],
 source: "- aPoint\x0a\x09^ Point x: self x - aPoint asPoint x y: self y - aPoint asPoint y",
-referencedClasses: ["Point"]
+referencedClasses: ["Point"],
 //>>excludeEnd("ide");
+messageSends: ["x:y:", "-", "x", "asPoint", "y"]
 }),
 globals.Point);
 
@@ -5131,12 +5131,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"/",{aPoint:aPoint},globals.Point)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["x:y:", "/", "x", "asPoint", "y"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPoint"],
 source: "/ aPoint\x0a\x09^ Point x: self x / aPoint asPoint x y: self y / aPoint asPoint y",
-referencedClasses: ["Point"]
+referencedClasses: ["Point"],
 //>>excludeEnd("ide");
+messageSends: ["x:y:", "/", "x", "asPoint", "y"]
 }),
 globals.Point);
 
@@ -5176,12 +5176,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"<",{aPoint:aPoint},globals.Point)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["and:", "<", "x", "y"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPoint"],
 source: "< aPoint\x0a\x09^ self x < aPoint x and: [\x0a\x09\x09self y < aPoint y ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["and:", "<", "x", "y"]
 }),
 globals.Point);
 
@@ -5221,12 +5221,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"<=",{aPoint:aPoint},globals.Point)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["and:", "<=", "x", "y"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPoint"],
 source: "<= aPoint\x0a\x09^ self x <= aPoint x and: [\x0a\x09\x09self y <= aPoint y ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["and:", "<=", "x", "y"]
 }),
 globals.Point);
 
@@ -5275,12 +5275,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"=",{aPoint:aPoint},globals.Point)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["and:", "=", "class", "&", "x", "y"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPoint"],
 source: "= aPoint\x0a\x09^ aPoint class = self class and: [\x0a\x09\x09(aPoint x = self x) & (aPoint y = self y) ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["and:", "=", "class", "&", "x", "y"]
 }),
 globals.Point);
 
@@ -5320,12 +5320,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,">",{aPoint:aPoint},globals.Point)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["and:", ">", "x", "y"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPoint"],
 source: "> aPoint\x0a\x09^ self x > aPoint x and: [\x0a\x09\x09self y > aPoint y ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["and:", ">", "x", "y"]
 }),
 globals.Point);
 
@@ -5365,12 +5365,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,">=",{aPoint:aPoint},globals.Point)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["and:", ">=", "x", "y"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPoint"],
 source: ">= aPoint\x0a\x09^ self x >= aPoint x and: [\x0a\x09\x09self y >= aPoint y ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["and:", ">=", "x", "y"]
 }),
 globals.Point);
 
@@ -5383,12 +5383,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asPoint\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Point);
 
@@ -5419,12 +5419,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"dist:",{aPoint:aPoint,dx:dx,dy:dy},globals.Point)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["-", "x", "y", "sqrt", "+", "*"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPoint"],
 source: "dist: aPoint \x0a\x09\x22Answer the distance between aPoint and the receiver.\x22\x0a\x09| dx dy |\x0a\x09dx := aPoint x - x.\x0a\x09dy := aPoint y - y.\x0a\x09^ (dx * dx + (dy * dy)) sqrt",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["-", "x", "y", "sqrt", "+", "*"]
 }),
 globals.Point);
 
@@ -5461,12 +5461,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.Point)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["printOn:", "nextPutAll:", "ifTrue:", "and:", "notNil", "negative", "space"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09\x22Print receiver in classic x@y notation.\x22\x0a\x0a\x09x printOn: aStream.\x0a\x09\x0a\x09aStream nextPutAll: '@'.\x0a\x09(y notNil and: [ y negative ]) ifTrue: [\x0a\x09\x09\x09\x22Avoid ambiguous @- construct\x22\x0a\x09\x09\x09aStream space ].\x0a\x09\x0a\x09y printOn: aStream",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["printOn:", "nextPutAll:", "ifTrue:", "and:", "notNil", "negative", "space"]
 }),
 globals.Point);
 
@@ -5490,12 +5490,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"translateBy:",{delta:delta},globals.Point)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["@", "+", "x", "y"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["delta"],
 source: "translateBy: delta\x0a\x09\x22Answer a Point translated by delta (an instance of Point).\x22\x0a\x09^ (delta x + x) @ (delta y + y)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["@", "+", "x", "y"]
 }),
 globals.Point);
 
@@ -5510,12 +5510,12 @@ $1=self["@x"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "x\x0a\x09^ x",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Point);
 
@@ -5529,12 +5529,12 @@ self["@x"]=aNumber;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "x: aNumber\x0a\x09x := aNumber",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Point);
 
@@ -5549,12 +5549,12 @@ $1=self["@y"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "y\x0a\x09^ y",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Point);
 
@@ -5568,12 +5568,12 @@ self["@y"]=aNumber;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
 source: "y: aNumber\x0a\x09y := aNumber",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Point);
 
@@ -5587,12 +5587,12 @@ var self=this;
 return "magnitude";
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "heliosClass\x0a\x09^ 'magnitude'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Point.klass);
 
@@ -5616,12 +5616,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"x:y:",{aNumber:aNumber,anotherNumber:anotherNumber},globals.Point.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["x:", "new", "y:", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber", "anotherNumber"],
 source: "x: aNumber y: anotherNumber\x0a\x09^ self new\x0a\x09\x09x: aNumber;\x0a\x09\x09y: anotherNumber;\x0a\x09\x09yourself",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["x:", "new", "y:", "yourself"]
 }),
 globals.Point.klass);
 
@@ -5645,12 +5645,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"next",{},globals.Random)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "next\x0a\x09<return Math.random()>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Random);
 
@@ -5678,12 +5678,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"next:",{anInteger:anInteger},globals.Random)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collect:", "to:", "next"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInteger"],
 source: "next: anInteger\x0a\x09^ (1 to: anInteger) collect: [ :each | self next ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collect:", "to:", "next"]
 }),
 globals.Random);
 
@@ -5704,12 +5704,12 @@ $1=null;
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asJSON\x0a\x09^ null",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.UndefinedObject);
 
@@ -5722,12 +5722,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "deepCopy\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.UndefinedObject);
 
@@ -5749,12 +5749,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNil:",{aBlock:aBlock},globals.UndefinedObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:ifNotNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "ifNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ self ifNil: aBlock ifNotNil: []",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:ifNotNil:"]
 }),
 globals.UndefinedObject);
 
@@ -5774,12 +5774,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.UndefinedObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "anotherBlock"],
 source: "ifNil: aBlock ifNotNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ aBlock value",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["value"]
 }),
 globals.UndefinedObject);
 
@@ -5792,12 +5792,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "ifNotNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.UndefinedObject);
 
@@ -5817,12 +5817,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.UndefinedObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["value"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "anotherBlock"],
 source: "ifNotNil: aBlock ifNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ anotherBlock value",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["value"]
 }),
 globals.UndefinedObject);
 
@@ -5835,12 +5835,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isImmutable\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.UndefinedObject);
 
@@ -5853,12 +5853,12 @@ var self=this;
 return true;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isNil\x0a\x09^ true",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.UndefinedObject);
 
@@ -5871,12 +5871,12 @@ var self=this;
 return false;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "notNil\x0a\x09^ false",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.UndefinedObject);
 
@@ -5895,12 +5895,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},globals.UndefinedObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["nextPutAll:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09aStream nextPutAll: 'nil'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["nextPutAll:"]
 }),
 globals.UndefinedObject);
 
@@ -5913,12 +5913,12 @@ var self=this;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "shallowCopy\x0a\x09^ self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.UndefinedObject);
 
@@ -5938,12 +5938,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:",{aString:aString,anotherString:anotherString},globals.UndefinedObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclass:instanceVariableNames:package:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anotherString"],
 source: "subclass: aString instanceVariableNames: anotherString\x0a\x09^ self subclass: aString instanceVariableNames: anotherString package: nil",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclass:instanceVariableNames:package:"]
 }),
 globals.UndefinedObject);
 
@@ -5964,12 +5964,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:category:",{aString:aString,aString2:aString2,aString3:aString3},globals.UndefinedObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aString2", "aString3"],
 source: "subclass: aString instanceVariableNames: aString2 category: aString3\x0a\x09\x22Kept for compatibility.\x22\x0a\x09self deprecatedAPI.\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"]
 }),
 globals.UndefinedObject);
 
@@ -5990,12 +5990,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:package:",{aString:aString,aString2:aString2,aString3:aString3},globals.UndefinedObject)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["superclass:subclass:instanceVariableNames:package:", "new", "asString"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aString2", "aString3"],
 source: "subclass: aString instanceVariableNames: aString2 package: aString3\x0a\x09^ ClassBuilder new\x0a\x09\x09superclass: self subclass: aString asString instanceVariableNames: aString2 package: aString3",
-referencedClasses: ["ClassBuilder"]
+referencedClasses: ["ClassBuilder"],
 //>>excludeEnd("ide");
+messageSends: ["superclass:subclass:instanceVariableNames:package:", "new", "asString"]
 }),
 globals.UndefinedObject);
 
@@ -6015,12 +6015,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"new",{},globals.UndefinedObject.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["error:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "new\x0a\x09\x09self error: 'You cannot create new instances of UndefinedObject. Use nil'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["error:"]
 }),
 globals.UndefinedObject.klass);
 

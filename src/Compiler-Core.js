@@ -37,12 +37,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},globals.AbstractCodeGenerator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "classNameFor: aClass\x0a\x09^ aClass isMetaclass\x0a\x09\x09ifTrue: [ aClass instanceClass name, '.klass' ]\x0a\x09\x09ifFalse: [\x0a\x09\x09aClass isNil\x0a\x09\x09\x09ifTrue: [ 'nil' ]\x0a\x09\x09\x09ifFalse: [ aClass name ]]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"]
 }),
 globals.AbstractCodeGenerator);
 
@@ -61,12 +61,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode},globals.AbstractCodeGenerator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["subclassResponsibility"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "compileNode: aNode\x0a\x09self subclassResponsibility",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["subclassResponsibility"]
 }),
 globals.AbstractCodeGenerator);
 
@@ -81,12 +81,12 @@ $1=self["@currentClass"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "currentClass\x0a\x09^ currentClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AbstractCodeGenerator);
 
@@ -100,12 +100,12 @@ self["@currentClass"]=aClass;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "currentClass: aClass\x0a\x09currentClass := aClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AbstractCodeGenerator);
 
@@ -126,12 +126,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{},globals.AbstractCodeGenerator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["pseudoVariableNames"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "pseudoVariables\x0a\x09^ Smalltalk pseudoVariableNames",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["pseudoVariableNames"]
 }),
 globals.AbstractCodeGenerator);
 
@@ -156,12 +156,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"source",{},globals.AbstractCodeGenerator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "source\x0a\x09^ source ifNil: [ '' ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.AbstractCodeGenerator);
 
@@ -175,12 +175,12 @@ self["@source"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.AbstractCodeGenerator);
 
@@ -219,12 +219,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream},globals.CodeGenerator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visit:", "semanticAnalyzer", "translator", "currentClass:", "irTranslator", "currentClass", "contents"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "compileNode: aNode\x0a\x09| ir stream |\x0a\x09self semanticAnalyzer visit: aNode.\x0a\x09ir := self translator visit: aNode.\x0a\x09^ self irTranslator\x0a\x09\x09currentClass: self currentClass;\x0a\x09\x09visit: ir;\x0a\x09\x09contents",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visit:", "semanticAnalyzer", "translator", "currentClass:", "irTranslator", "currentClass", "contents"]
 }),
 globals.CodeGenerator);
 
@@ -245,12 +245,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"irTranslator",{},globals.CodeGenerator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "irTranslator\x0a\x09^ IRJSTranslator new",
-referencedClasses: ["IRJSTranslator"]
+referencedClasses: ["IRJSTranslator"],
 //>>excludeEnd("ide");
+messageSends: ["new"]
 }),
 globals.CodeGenerator);
 
@@ -271,12 +271,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"semanticAnalyzer",{},globals.CodeGenerator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["on:", "currentClass"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "semanticAnalyzer\x0a\x09^ SemanticAnalyzer on: self currentClass",
-referencedClasses: ["SemanticAnalyzer"]
+referencedClasses: ["SemanticAnalyzer"],
 //>>excludeEnd("ide");
+messageSends: ["on:", "currentClass"]
 }),
 globals.CodeGenerator);
 
@@ -301,12 +301,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"translator",{},globals.CodeGenerator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["source:", "new", "source", "theClass:", "currentClass", "yourself"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "translator\x0a\x09^ IRASTTranslator new\x0a\x09\x09source: self source;\x0a\x09\x09theClass: self currentClass;\x0a\x09\x09yourself",
-referencedClasses: ["IRASTTranslator"]
+referencedClasses: ["IRASTTranslator"],
 //>>excludeEnd("ide");
+messageSends: ["source:", "new", "source", "theClass:", "currentClass", "yourself"]
 }),
 globals.CodeGenerator);
 
@@ -338,12 +338,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "codeGeneratorClass\x0a\x09^ codeGeneratorClass ifNil: [ InliningCodeGenerator ]",
-referencedClasses: ["InliningCodeGenerator"]
+referencedClasses: ["InliningCodeGenerator"],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.Compiler);
 
@@ -357,12 +357,12 @@ self["@codeGeneratorClass"]=aClass;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "codeGeneratorClass: aClass\x0a\x09codeGeneratorClass := aClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Compiler);
 
@@ -382,12 +382,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["compileNode:", "parse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "compile: aString\x0a\x09^ self compileNode: (self parse: aString)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["compileNode:", "parse:"]
 }),
 globals.Compiler);
 
@@ -409,12 +409,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"compile:forClass:",{aString:aString,aClass:aClass},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["currentClass:", "source:", "compile:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aClass"],
 source: "compile: aString forClass: aClass\x0a\x09self currentClass: aClass.\x0a\x09self source: aString.\x0a\x09^ self compile: aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["currentClass:", "source:", "compile:"]
 }),
 globals.Compiler);
 
@@ -441,12 +441,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"compileExpression:",{aString:aString},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["currentClass:", "source:", ",", "compileNode:", "parse:", "source"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "compileExpression: aString\x0a\x09self currentClass: DoIt.\x0a\x09self source: 'doIt ^ [ ', aString, ' ] value'.\x0a\x09^ self compileNode: (self parse: self source)",
-referencedClasses: ["DoIt"]
+referencedClasses: ["DoIt"],
 //>>excludeEnd("ide");
+messageSends: ["currentClass:", "source:", ",", "compileNode:", "parse:", "source"]
 }),
 globals.Compiler);
 
@@ -472,12 +472,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"compileExpression:on:",{aString:aString,anObject:anObject},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["currentClass:", "class", "source:", ",", "compileNode:", "parse:", "source"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
 source: "compileExpression: aString on: anObject\x0a\x09self currentClass: anObject class.\x0a\x09self source: 'xxxDoIt ^ [ ', aString, ' ] value'.\x0a\x09^ self compileNode: (self parse: self source)",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["currentClass:", "class", "source:", ",", "compileNode:", "parse:", "source"]
 }),
 globals.Compiler);
 
@@ -504,12 +504,12 @@ return $3;
 }, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,generator:generator,result:result},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "codeGeneratorClass", "source:", "source", "currentClass:", "currentClass", "compileNode:", "unknownVariables:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "compileNode: aNode\x0a\x09| generator result |\x0a\x09generator := self codeGeneratorClass new.\x0a\x09generator\x0a\x09\x09source: self source;\x0a\x09\x09currentClass: self currentClass.\x0a\x09result := generator compileNode: aNode.\x0a\x09self unknownVariables: #().\x0a\x09^ result",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["new", "codeGeneratorClass", "source:", "source", "currentClass:", "currentClass", "compileNode:", "unknownVariables:"]
 }),
 globals.Compiler);
 
@@ -524,12 +524,12 @@ $1=self["@currentClass"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "currentClass\x0a\x09^ currentClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Compiler);
 
@@ -543,12 +543,12 @@ self["@currentClass"]=aClass;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "currentClass: aClass\x0a\x09currentClass := aClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Compiler);
 
@@ -567,12 +567,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "eval: aString\x0a\x09<return eval(aString)>",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Compiler);
 
@@ -593,12 +593,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["evaluateExpression:on:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "evaluateExpression: aString\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression and answer the returned object\x22\x0a\x09^ self evaluateExpression: aString on: DoIt new",
-referencedClasses: ["DoIt"]
+referencedClasses: ["DoIt"],
 //>>excludeEnd("ide");
+messageSends: ["evaluateExpression:on:", "new"]
 }),
 globals.Compiler);
 
@@ -628,12 +628,12 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"evaluateExpression:on:",{aString:aString,anObject:anObject,result:result,method:method},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["eval:", "compileExpression:on:", "protocol:", "addCompiledMethod:", "class", "xxxDoIt", "removeCompiledMethod:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
 source: "evaluateExpression: aString on: anObject\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object\x22\x0a\x09| result method |\x0a\x09method := self eval: (self compileExpression: aString on: anObject).\x0a\x09method protocol: '**xxxDoIt'.\x0a\x09anObject class addCompiledMethod: method.\x0a\x09result := anObject xxxDoIt.\x0a\x09anObject class removeCompiledMethod: method.\x0a\x09^ result",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["eval:", "compileExpression:on:", "protocol:", "addCompiledMethod:", "class", "xxxDoIt", "removeCompiledMethod:"]
 }),
 globals.Compiler);
 
@@ -654,12 +654,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"install:forClass:protocol:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["installMethod:forClass:protocol:", "new", "eval:", "compile:forClass:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aBehavior", "anotherString"],
 source: "install: aString forClass: aBehavior protocol: anotherString\x0a\x09^ ClassBuilder new\x0a\x09\x09installMethod: (self eval: (self compile: aString forClass: aBehavior))\x0a\x09\x09forClass: aBehavior\x0a\x09\x09protocol: anotherString",
-referencedClasses: ["ClassBuilder"]
+referencedClasses: ["ClassBuilder"],
 //>>excludeEnd("ide");
+messageSends: ["installMethod:forClass:protocol:", "new", "eval:", "compile:forClass:"]
 }),
 globals.Compiler);
 
@@ -680,12 +680,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "parse: aString\x0a\x09^ Smalltalk parse: aString",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["parse:"]
 }),
 globals.Compiler);
 
@@ -709,12 +709,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"parseExpression:",{aString:aString},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["parse:", ","],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "parseExpression: aString\x0a\x09^ self parse: 'doIt ^ [ ', aString, ' ] value'",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["parse:", ","]
 }),
 globals.Compiler);
 
@@ -746,12 +746,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:displayingProgress:", "values", "methodDictionary", "install:forClass:protocol:", "source", "protocol", ",", "name", "ifFalse:", "isMetaclass", "recompile:", "class"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "recompile: aClass\x0a\x09aClass methodDictionary values\x0a\x09\x09do: [ :each | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09install: each source \x0a\x09\x09\x09\x09forClass: aClass \x0a\x09\x09\x09\x09protocol: each protocol ]\x0a\x09\x09displayingProgress: 'Recompiling ', aClass name.\x0a\x09aClass isMetaclass ifFalse: [ self recompile: aClass class ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["do:displayingProgress:", "values", "methodDictionary", "install:forClass:protocol:", "source", "protocol", ",", "name", "ifFalse:", "isMetaclass", "recompile:", "class"]
 }),
 globals.Compiler);
 
@@ -779,12 +779,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"recompileAll",{},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:displayingProgress:", "classes", "recompile:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "recompileAll\x0a\x09Smalltalk classes \x0a\x09\x09do: [ :each | self recompile: each ]\x0a\x09\x09displayingProgress: 'Compiling all classes...'",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["do:displayingProgress:", "classes", "recompile:"]
 }),
 globals.Compiler);
 
@@ -809,12 +809,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"source",{},globals.Compiler)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifNil:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "source\x0a\x09^ source ifNil: [ '' ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["ifNil:"]
 }),
 globals.Compiler);
 
@@ -828,12 +828,12 @@ self["@source"]=aString;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Compiler);
 
@@ -848,12 +848,12 @@ $1=self["@unknownVariables"];
 return $1;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "unknownVariables\x0a\x09^ unknownVariables",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Compiler);
 
@@ -867,12 +867,12 @@ self["@unknownVariables"]=aCollection;
 return self;
 
 },
-messageSends: [],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "unknownVariables: aCollection\x0a\x09unknownVariables := aCollection",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: []
 }),
 globals.Compiler);
 
@@ -892,12 +892,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass},globals.Compiler.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["recompile:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "recompile: aClass\x0a\x09self new recompile: aClass",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["recompile:", "new"]
 }),
 globals.Compiler.klass);
 
@@ -925,12 +925,12 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"recompileAll",{},globals.Compiler.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["do:", "classes", "recompile:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "recompileAll\x0a\x09Smalltalk classes do: [ :each |\x0a\x09\x09self recompile: each ]",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["do:", "classes", "recompile:"]
 }),
 globals.Compiler.klass);
 
@@ -992,12 +992,12 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"evaluate:context:",{aString:aString,aContext:aContext,compiler:compiler,ast:ast},globals.Evaluator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "context:", "on:", "class", "receiver", "visit:", "evaluateNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aContext"],
 source: "evaluate: aString context: aContext\x0a\x09\x22Similar to #evaluate:for:, with the following differences:\x0a\x09- instead of compiling and running `aString`, `aString` is interpreted using an `ASTInterpreter`\x0a\x09- instead of evaluating against a receiver, evaluate in the context of `aContext`\x22\x0a\x0a\x09| compiler ast |\x0a\x09\x0a\x09compiler := Compiler new.\x0a\x09[ ast := compiler parseExpression: aString ] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :ex | ^ self alert: ex messageText ].\x0a\x09\x09\x0a\x09(AISemanticAnalyzer on: aContext receiver class)\x0a\x09\x09context: aContext;\x0a\x09\x09visit: ast.\x0a\x0a\x09^ aContext evaluateNode: ast",
-referencedClasses: ["Compiler", "Error", "AISemanticAnalyzer"]
+referencedClasses: ["Compiler", "Error", "AISemanticAnalyzer"],
 //>>excludeEnd("ide");
+messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "context:", "on:", "class", "receiver", "visit:", "evaluateNode:"]
 }),
 globals.Evaluator);
 
@@ -1017,12 +1017,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},globals.Evaluator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["evaluate:on:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
 source: "evaluate: aString for: anObject\x0a\x09^ anObject evaluate: aString on: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["evaluate:on:"]
 }),
 globals.Evaluator);
 
@@ -1068,12 +1068,12 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"evaluate:receiver:",{aString:aString,anObject:anObject,compiler:compiler},globals.Evaluator)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "evaluateExpression:on:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
 source: "evaluate: aString receiver: anObject\x0a\x09| compiler |\x0a\x09\x0a\x09compiler := Compiler new.\x0a\x09[ compiler parseExpression: aString ] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :ex | ^ self alert: ex messageText ].\x0a\x0a\x09^ compiler evaluateExpression: aString on: anObject",
-referencedClasses: ["Compiler", "Error"]
+referencedClasses: ["Compiler", "Error"],
 //>>excludeEnd("ide");
+messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "evaluateExpression:on:"]
 }),
 globals.Evaluator);
 
@@ -1094,12 +1094,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},globals.Evaluator.klass)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["evaluate:for:", "new"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
 source: "evaluate: aString for: anObject\x0a\x09^ self new evaluate: aString for: anObject",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["evaluate:for:", "new"]
 }),
 globals.Evaluator.klass);
 
@@ -1124,12 +1124,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["accept:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visit: aNode\x0a\x09^ aNode accept: self",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["accept:"]
 }),
 globals.NodeVisitor);
 
@@ -1157,12 +1157,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitAll:",{aCollection:aCollection},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["collect:", "visit:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
 source: "visitAll: aCollection\x0a\x09^ aCollection collect: [ :each | self visit: each ]",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["collect:", "visit:"]
 }),
 globals.NodeVisitor);
 
@@ -1182,12 +1182,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitAssignmentNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 globals.NodeVisitor);
 
@@ -1207,12 +1207,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitBlockNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 globals.NodeVisitor);
 
@@ -1232,12 +1232,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitSequenceNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitBlockSequenceNode: aNode\x0a\x09^ self visitSequenceNode: aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitSequenceNode:"]
 }),
 globals.NodeVisitor);
 
@@ -1257,12 +1257,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitCascadeNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 globals.NodeVisitor);
 
@@ -1282,12 +1282,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitDynamicArrayNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 globals.NodeVisitor);
 
@@ -1307,12 +1307,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitDynamicDictionaryNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 globals.NodeVisitor);
 
@@ -1332,12 +1332,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitJSStatementNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 globals.NodeVisitor);
 
@@ -1357,12 +1357,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitMethodNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 globals.NodeVisitor);
 
@@ -1382,12 +1382,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitAll:", "nodes"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitNode: aNode\x0a\x09^ self visitAll: aNode nodes",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitAll:", "nodes"]
 }),
 globals.NodeVisitor);
 
@@ -1407,12 +1407,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitReturnNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 globals.NodeVisitor);
 
@@ -1432,12 +1432,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitSendNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 globals.NodeVisitor);
 
@@ -1457,12 +1457,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitSequenceNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 globals.NodeVisitor);
 
@@ -1482,12 +1482,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitValueNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 globals.NodeVisitor);
 
@@ -1507,12 +1507,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},globals.NodeVisitor)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["visitNode:"],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
 source: "visitVariableNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: []
+referencedClasses: [],
 //>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 globals.NodeVisitor);
 
@@ -1539,12 +1539,12 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asVariableName",{},globals.String)});
 //>>excludeEnd("ctx");
 },
-messageSends: ["ifTrue:ifFalse:", "includes:", "reservedWords", ","],
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "asVariableName\x0a\x09^ (Smalltalk reservedWords includes: self)\x0a\x09\x09ifTrue: [ self, '_' ]\x0a\x09\x09ifFalse: [ self ]",
-referencedClasses: ["Smalltalk"]
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "includes:", "reservedWords", ","]
 }),
 globals.String);
 
