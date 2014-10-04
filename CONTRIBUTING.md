@@ -83,7 +83,8 @@ To get your clone, follow this list:
   ```git clone git@github.com:<amber-smalltalk | your username>/helios.git my/helios```.
 4. Install its dependencies: ```cd my/helios && bower install && cd ../..```.
 5. Install the cli tool: ```npm install -g amber-cli```.
-6. Run ```amber config```.
+6. Install the grunt cli runner: ```npm install -g grunt-cli```.
+6. Run ```grunt amdconfig```.
 6. Run ```amber serve```.
 
 Now you should be able to commit changes to your computer.
