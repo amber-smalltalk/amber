@@ -10,6 +10,7 @@ require.config({
     "amber_lib/es5-shim": "bower_components/es5-shim",
     "amber_lib/codemirror": "bower_components/codemirror",
     "amber_lib/showdown": "my/helios/bower_components/showdown",
+    "requireJS": "node_modules/requirejs/require",
     "bootstrap2.3.2": "my/helios/bower_components/bootstrap2.3.2/bootstrap",
     "amber": "support",
     "amber_vm": "support/deprecated-vm-files",
