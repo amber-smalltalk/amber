@@ -1027,7 +1027,7 @@ gruntInitThenDo: aBlock
 gruntThenDo: aBlock
 	| child |
 	child := childProcess
-		exec: '"', (path join: nmPath with: '.bin' with: 'grunt'), '"'
+		exec: '"', (path join: nmPath with: '.bin' with: 'grunt'), '" default devel'
 		thenDo: aBlock.
 	child stdout pipe: process stdout options: #{ 'end' -> false }
 !
@@ -1065,14 +1065,8 @@ start
 		process exit ]
 	ifNil: [
 
-	Configurator new writeConfigThenDo: [ :error5 | error5
-	ifNotNil: [
-		console log: 'amber config exec error:'; log: error5.
-		process exit ]
-	ifNil: [
-
 	self finishMessage.
-	process exit ]]]]]]]]]]
+	process exit ]]]]]]]]
 ! !
 
 !Initer methodsFor: 'initialization'!

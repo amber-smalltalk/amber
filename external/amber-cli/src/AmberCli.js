@@ -2343,7 +2343,7 @@ return smalltalk.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 $1=self["@childProcess"];
-$2=_st("\x22".__comma(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt"))).__comma("\x22");
+$2=_st("\x22".__comma(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt"))).__comma("\x22 default devel");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
@@ -2360,7 +2360,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "gruntThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: '\x22', (path join: nmPath with: '.bin' with: 'grunt'), '\x22'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
+source: "gruntThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: '\x22', (path join: nmPath with: '.bin' with: 'grunt'), '\x22 default devel'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["exec:thenDo:", ",", "join:with:with:", "pipe:options:", "stdout"]
@@ -2437,11 +2437,10 @@ selector: "start",
 protocol: 'action',
 fn: function (){
 var self=this;
-function $Configurator(){return globals.Configurator||(typeof Configurator=="undefined"?nil:Configurator)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$receiver;
+var $1,$2,$3,$4,$5,$6,$7,$8,$receiver;
 self._gruntInitThenDo_((function(error){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
@@ -2462,30 +2461,8 @@ return self._gruntThenDo_((function(error4){
 return smalltalk.withContext(function($ctx5) {
 //>>excludeEnd("ctx");
 if(($receiver = error4) == null || $receiver.isNil){
-return _st(_st($Configurator())._new())._writeConfigThenDo_((function(error5){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx6) {
-//>>excludeEnd("ctx");
-if(($receiver = error5) == null || $receiver.isNil){
 self._finishMessage();
 return _st(process)._exit();
-} else {
-$9=console;
-_st($9)._log_("amber config exec error:");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx6.sendIdx["log:"]=9;
-//>>excludeEnd("ctx");
-$10=_st($9)._log_(error5);
-$10;
-return _st(process)._exit();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx6.sendIdx["exit"]=5;
-//>>excludeEnd("ctx");
-};
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx6) {$ctx6.fillBlock({error5:error5},$ctx5,13)});
-//>>excludeEnd("ctx");
-}));
 } else {
 $7=console;
 _st($7)._log_("grunt exec error:");
@@ -2493,9 +2470,6 @@ _st($7)._log_("grunt exec error:");
 $ctx5.sendIdx["log:"]=7;
 //>>excludeEnd("ctx");
 $8=_st($7)._log_(error4);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx5.sendIdx["log:"]=8;
-//>>excludeEnd("ctx");
 $8;
 return _st(process)._exit();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2573,10 +2547,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "start\x0a\x09self gruntInitThenDo: [ :error | error\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'grunt-init exec error:'; log: error.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self bowerInstallThenDo: [ :error2 | error2\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'bower install exec error:'; log: error2.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self npmInstallThenDo: [ :error3 | error3\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'npm install exec error:'; log: error3.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self gruntThenDo: [ :error4 | error4\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'grunt exec error:'; log: error4.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09Configurator new writeConfigThenDo: [ :error5 | error5\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'amber config exec error:'; log: error5.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self finishMessage.\x0a\x09process exit ]]]]]]]]]]",
-referencedClasses: ["Configurator"],
+source: "start\x0a\x09self gruntInitThenDo: [ :error | error\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'grunt-init exec error:'; log: error.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self bowerInstallThenDo: [ :error2 | error2\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'bower install exec error:'; log: error2.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self npmInstallThenDo: [ :error3 | error3\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'npm install exec error:'; log: error3.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self gruntThenDo: [ :error4 | error4\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'grunt exec error:'; log: error4.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self finishMessage.\x0a\x09process exit ]]]]]]]]",
+referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["gruntInitThenDo:", "ifNotNil:ifNil:", "log:", "exit", "bowerInstallThenDo:", "npmInstallThenDo:", "gruntThenDo:", "writeConfigThenDo:", "new", "finishMessage"]
+messageSends: ["gruntInitThenDo:", "ifNotNil:ifNil:", "log:", "exit", "bowerInstallThenDo:", "npmInstallThenDo:", "gruntThenDo:", "finishMessage"]
 }),
 globals.Initer);
 
