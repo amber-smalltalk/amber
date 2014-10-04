@@ -31,6 +31,8 @@ module.exports = function(grunt) {
       }
     },
 
+    amdconfig: {amber: {dest: 'config.js'}},
+
     amberc: {
       options: {
         amber_dir: process.cwd(),
