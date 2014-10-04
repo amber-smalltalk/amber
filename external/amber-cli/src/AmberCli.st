@@ -133,7 +133,9 @@ BaseFileManipulator subclass: #Configurator
 !Configurator methodsFor: 'action'!
 
 start
-	self writeConfigThenDo: [ process exit ]
+	self writeConfigThenDo: [ :err | err
+		ifNotNil: [ process exit: 111 ]
+		ifNil: [ process exit ]]
 !
 
 writeConfigThenDo: aBlock
@@ -1044,25 +1046,25 @@ start
 	self gruntInitThenDo: [ :error | error
 	ifNotNil: [
 		console log: 'grunt-init exec error:'; log: error.
-		process exit ]
+		process exit: 101 ]
 	ifNil: [
 
 	self bowerInstallThenDo: [ :error2 | error2
 	ifNotNil: [
 		console log: 'bower install exec error:'; log: error2.
-		process exit ]
+		process exit: 102 ]
 	ifNil: [
 
 	self npmInstallThenDo: [ :error3 | error3
 	ifNotNil: [
 		console log: 'npm install exec error:'; log: error3.
-		process exit ]
+		process exit: 103 ]
 	ifNil: [
 
 	self gruntThenDo: [ :error4 | error4
 	ifNotNil: [
 		console log: 'grunt exec error:'; log: error4.
-		process exit ]
+		process exit: 104 ]
 	ifNil: [
 
 	self finishMessage.

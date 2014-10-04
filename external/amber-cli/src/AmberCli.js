@@ -499,13 +499,18 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._writeConfigThenDo_((function(){
+var $receiver;
+self._writeConfigThenDo_((function(err){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
+if(($receiver = err) == null || $receiver.isNil){
 return _st(process)._exit();
+} else {
+return _st(process)._exit_((111));
+};
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}, function($ctx2) {$ctx2.fillBlock({err:err},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 return self;
@@ -515,10 +520,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "start\x0a\x09self writeConfigThenDo: [ process exit ]",
+source: "start\x0a\x09self writeConfigThenDo: [ :err | err\x0a\x09\x09ifNotNil: [ process exit: 111 ]\x0a\x09\x09ifNil: [ process exit ]]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["writeConfigThenDo:", "exit"]
+messageSends: ["writeConfigThenDo:", "ifNotNil:ifNil:", "exit:", "exit"]
 }),
 globals.Configurator);
 
@@ -2471,10 +2476,7 @@ $ctx5.sendIdx["log:"]=7;
 //>>excludeEnd("ctx");
 $8=_st($7)._log_(error4);
 $8;
-return _st(process)._exit();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx5.sendIdx["exit"]=4;
-//>>excludeEnd("ctx");
+return _st(process)._exit_((104));
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx5) {$ctx5.fillBlock({error4:error4},$ctx4,10)});
@@ -2491,9 +2493,9 @@ $6=_st($5)._log_(error3);
 $ctx4.sendIdx["log:"]=6;
 //>>excludeEnd("ctx");
 $6;
-return _st(process)._exit();
+return _st(process)._exit_((103));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx4.sendIdx["exit"]=3;
+$ctx4.sendIdx["exit:"]=3;
 //>>excludeEnd("ctx");
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2511,9 +2513,9 @@ $4=_st($3)._log_(error2);
 $ctx3.sendIdx["log:"]=4;
 //>>excludeEnd("ctx");
 $4;
-return _st(process)._exit();
+return _st(process)._exit_((102));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx3.sendIdx["exit"]=2;
+$ctx3.sendIdx["exit:"]=2;
 //>>excludeEnd("ctx");
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2531,9 +2533,9 @@ $2=_st($1)._log_(error);
 $ctx2.sendIdx["log:"]=2;
 //>>excludeEnd("ctx");
 $2;
-return _st(process)._exit();
+return _st(process)._exit_((101));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["exit"]=1;
+$ctx2.sendIdx["exit:"]=1;
 //>>excludeEnd("ctx");
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2547,10 +2549,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "start\x0a\x09self gruntInitThenDo: [ :error | error\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'grunt-init exec error:'; log: error.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self bowerInstallThenDo: [ :error2 | error2\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'bower install exec error:'; log: error2.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self npmInstallThenDo: [ :error3 | error3\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'npm install exec error:'; log: error3.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self gruntThenDo: [ :error4 | error4\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'grunt exec error:'; log: error4.\x0a\x09\x09process exit ]\x0a\x09ifNil: [\x0a\x0a\x09self finishMessage.\x0a\x09process exit ]]]]]]]]",
+source: "start\x0a\x09self gruntInitThenDo: [ :error | error\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'grunt-init exec error:'; log: error.\x0a\x09\x09process exit: 101 ]\x0a\x09ifNil: [\x0a\x0a\x09self bowerInstallThenDo: [ :error2 | error2\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'bower install exec error:'; log: error2.\x0a\x09\x09process exit: 102 ]\x0a\x09ifNil: [\x0a\x0a\x09self npmInstallThenDo: [ :error3 | error3\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'npm install exec error:'; log: error3.\x0a\x09\x09process exit: 103 ]\x0a\x09ifNil: [\x0a\x0a\x09self gruntThenDo: [ :error4 | error4\x0a\x09ifNotNil: [\x0a\x09\x09console log: 'grunt exec error:'; log: error4.\x0a\x09\x09process exit: 104 ]\x0a\x09ifNil: [\x0a\x0a\x09self finishMessage.\x0a\x09process exit ]]]]]]]]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["gruntInitThenDo:", "ifNotNil:ifNil:", "log:", "exit", "bowerInstallThenDo:", "npmInstallThenDo:", "gruntThenDo:", "finishMessage"]
+messageSends: ["gruntInitThenDo:", "ifNotNil:ifNil:", "log:", "exit:", "bowerInstallThenDo:", "npmInstallThenDo:", "gruntThenDo:", "finishMessage", "exit"]
 }),
 globals.Initer);
 
