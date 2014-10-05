@@ -1089,20 +1089,18 @@ Object subclass: #SmalltalkImage
 	package: 'Kernel-Infrastructure'!
 !SmalltalkImage commentStamp!
 I represent the Smalltalk system, wrapping
-operations of variable `smalltalk` declared in `support/boot.js`.
+operations of variable `$vm` declared in `support/boot.js`.
 
 ## API
 
 I have only one instance, accessed with global variable `Smalltalk`.
-
-The `smalltalk` object holds all class and packages defined in the system.
 
 ## Classes
 
 Classes can be accessed using the following methods:
 
 - `#classes` answers the full list of Smalltalk classes in the system
-- `#at:` answers a specific class or `nil`
+- `#globals #at:` answers a specific global (usually, a class) or `nil`
 
 ## Packages
 
@@ -1184,7 +1182,7 @@ version
 
 vm
 	"Future compatibility to be able to use Smalltalk vm ..."
-	<return smalltalk>
+	<return $vm>
 ! !
 
 !SmalltalkImage methodsFor: 'accessing amd'!
