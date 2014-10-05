@@ -1,45 +1,45 @@
 define("amber_core/Compiler-Exceptions", ["amber/boot", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Objects"], function($boot){
 var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$vm,_st=$recv,globals=$globals;
-smalltalk.addPackage('Compiler-Exceptions');
-smalltalk.packages["Compiler-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$vm.addPackage('Compiler-Exceptions');
+$vm.packages["Compiler-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('CompilerError', globals.Error, [], 'Compiler-Exceptions');
+$vm.addClass('CompilerError', globals.Error, [], 'Compiler-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.CompilerError.comment="I am the common superclass of all compiling errors.";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('ParseError', globals.CompilerError, [], 'Compiler-Exceptions');
+$vm.addClass('ParseError', globals.CompilerError, [], 'Compiler-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ParseError.comment="Instance of ParseError are signaled on any parsing error.\x0aSee `Smalltalk >> #parse:`";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('SemanticError', globals.CompilerError, [], 'Compiler-Exceptions');
+$vm.addClass('SemanticError', globals.CompilerError, [], 'Compiler-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.SemanticError.comment="I represent an abstract semantic error thrown by the SemanticAnalyzer.\x0aSemantic errors can be unknown variable errors, etc.\x0aSee my subclasses for concrete errors.\x0a\x0aThe IDE should catch instances of Semantic error to deal with them when compiling";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('InliningError', globals.SemanticError, [], 'Compiler-Exceptions');
+$vm.addClass('InliningError', globals.SemanticError, [], 'Compiler-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.InliningError.comment="Instances of InliningError are signaled when using an `InliningCodeGenerator`in a `Compiler`.";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('InvalidAssignmentError', globals.SemanticError, ['variableName'], 'Compiler-Exceptions');
+$vm.addClass('InvalidAssignmentError', globals.SemanticError, ['variableName'], 'Compiler-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.InvalidAssignmentError.comment="I get signaled when a pseudo variable gets assigned.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "messageText",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=" Invalid assignment to variable: ".__comma(self._variableName());
@@ -57,8 +57,8 @@ messageSends: [",", "variableName"]
 }),
 globals.InvalidAssignmentError);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "variableName",
 protocol: 'accessing',
 fn: function (){
@@ -77,8 +77,8 @@ messageSends: []
 }),
 globals.InvalidAssignmentError);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "variableName:",
 protocol: 'accessing',
 fn: function (aString){
@@ -98,18 +98,18 @@ globals.InvalidAssignmentError);
 
 
 
-smalltalk.addClass('ShadowingVariableError', globals.SemanticError, ['variableName'], 'Compiler-Exceptions');
+$vm.addClass('ShadowingVariableError', globals.SemanticError, ['variableName'], 'Compiler-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ShadowingVariableError.comment="I get signaled when a variable in a block or method scope shadows a variable of the same name in an outer scope.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "messageText",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st("Variable shadowing error: ".__comma(self._variableName())).__comma(" is already defined");
@@ -130,8 +130,8 @@ messageSends: [",", "variableName"]
 }),
 globals.ShadowingVariableError);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "variableName",
 protocol: 'accessing',
 fn: function (){
@@ -150,8 +150,8 @@ messageSends: []
 }),
 globals.ShadowingVariableError);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "variableName:",
 protocol: 'accessing',
 fn: function (aString){
@@ -171,18 +171,18 @@ globals.ShadowingVariableError);
 
 
 
-smalltalk.addClass('UnknownVariableError', globals.SemanticError, ['variableName'], 'Compiler-Exceptions');
+$vm.addClass('UnknownVariableError', globals.SemanticError, ['variableName'], 'Compiler-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.UnknownVariableError.comment="I get signaled when a variable is not defined.\x0aThe default behavior is to allow it, as this is how Amber currently is able to seamlessly send messages to JavaScript objects.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "messageText",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st("Unknown Variable error: ".__comma(self._variableName())).__comma(" is not defined");
@@ -203,8 +203,8 @@ messageSends: [",", "variableName"]
 }),
 globals.UnknownVariableError);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "variableName",
 protocol: 'accessing',
 fn: function (){
@@ -223,8 +223,8 @@ messageSends: []
 }),
 globals.UnknownVariableError);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "variableName:",
 protocol: 'accessing',
 fn: function (aString){
@@ -244,18 +244,18 @@ globals.UnknownVariableError);
 
 
 
-smalltalk.addClass('RethrowErrorHandler', globals.Object, [], 'Compiler-Exceptions');
+$vm.addClass('RethrowErrorHandler', globals.Object, [], 'Compiler-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.RethrowErrorHandler.comment="This class is used in the commandline version of the compiler.\x0aIt uses the handleError: message of ErrorHandler for printing the stacktrace and throws the error again as JS exception.\x0aAs a result Smalltalk errors are not swallowd by the Amber runtime and compilation can be aborted.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicSignal:",
 protocol: 'error handling',
 fn: function (anError){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 throw anError;
 return self;
@@ -272,14 +272,14 @@ messageSends: []
 }),
 globals.RethrowErrorHandler);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "handleError:",
 protocol: 'error handling',
 fn: function (anError){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._basicSignal_(anError);
 return self;

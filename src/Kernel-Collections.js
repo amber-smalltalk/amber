@@ -1,21 +1,21 @@
 define("amber_core/Kernel-Collections", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$vm,_st=$recv,globals=$globals;
-smalltalk.addPackage('Kernel-Collections');
-smalltalk.packages["Kernel-Collections"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$vm.addPackage('Kernel-Collections');
+$vm.packages["Kernel-Collections"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('Association', globals.Object, ['key', 'value'], 'Kernel-Collections');
+$vm.addClass('Association', globals.Object, ['key', 'value'], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Association.comment="I represent a pair of associated objects, a key and a value. My instances can serve as entries in a dictionary.\x0a\x0aInstances can be created with the class-side method `#key:value:`";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "=",
 protocol: 'comparing',
 fn: function (anAssociation){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$5,$4,$6,$1;
 $3=self._class();
@@ -28,7 +28,7 @@ $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $5=self._key();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -40,7 +40,7 @@ $ctx2.sendIdx["="]=2;
 //>>excludeEnd("ctx");
 return _st($4)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $6=self._value();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -72,8 +72,8 @@ messageSends: ["and:", "=", "class", "key", "value"]
 }),
 globals.Association);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "key",
 protocol: 'accessing',
 fn: function (){
@@ -92,8 +92,8 @@ messageSends: []
 }),
 globals.Association);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "key:",
 protocol: 'accessing',
 fn: function (aKey){
@@ -111,14 +111,14 @@ messageSends: []
 }),
 globals.Association);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._key())._printOn_(aStream);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -140,8 +140,8 @@ messageSends: ["printOn:", "key", "nextPutAll:", "value"]
 }),
 globals.Association);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "value",
 protocol: 'accessing',
 fn: function (){
@@ -160,8 +160,8 @@ messageSends: []
 }),
 globals.Association);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "value:",
 protocol: 'accessing',
 fn: function (aValue){
@@ -180,14 +180,14 @@ messageSends: []
 globals.Association);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "key:value:",
 protocol: 'instance creation',
 fn: function (aKey,aValue){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -210,18 +210,18 @@ messageSends: ["key:", "new", "value:", "yourself"]
 globals.Association.klass);
 
 
-smalltalk.addClass('BucketStore', globals.Object, ['buckets', 'hashBlock'], 'Kernel-Collections');
+$vm.addClass('BucketStore', globals.Object, ['buckets', 'hashBlock'], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.BucketStore.comment="I am an helper class for hash-based stores.\x0a\x0aI hold buckets which are selected by a hash, specified using `#hashBlock:`.\x0aThe hash can be any object, and\x0ait is used as a JS property (that is, in ES5\x0aits toString() value counts).\x0a\x0a## API\x0aI maintain a list of buckets. Client code can use this API:\x0a - `#bucketOfElement:` (to ask a bucket for element, I can return JS null if n/a)\x0a - `#do:` (to enumerate all elements of all buckets)\x0a - `#removeAll` (to remove all buckets)\x0a\x0aClient code itself should add/remove elements\x0ain a bucket. The `nil` object should not be put into any bucket.\x0a\x0aTypes of buckets are the responsibility of subclasses via `#newBucket`.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "bucketOfElement:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var hash = self['@hashBlock'](anObject);
@@ -245,14 +245,14 @@ messageSends: []
 }),
 globals.BucketStore);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "do:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var buckets = self['@buckets'];
@@ -273,8 +273,8 @@ messageSends: []
 }),
 globals.BucketStore);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "hashBlock:",
 protocol: 'accessing',
 fn: function (aBlock){
@@ -292,14 +292,14 @@ messageSends: []
 }),
 globals.BucketStore);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -324,14 +324,14 @@ messageSends: ["initialize", "removeAll"]
 }),
 globals.BucketStore);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "newBucket",
 protocol: 'private',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -348,14 +348,14 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.BucketStore);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeAll",
 protocol: 'adding/removing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self['@buckets'] = Object.create(null);;
 return self;
@@ -373,14 +373,14 @@ messageSends: []
 globals.BucketStore);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "hashBlock:",
 protocol: 'instance creation',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -402,12 +402,12 @@ messageSends: ["hashBlock:", "new", "yourself"]
 globals.BucketStore.klass);
 
 
-smalltalk.addClass('ArrayBucketStore', globals.BucketStore, [], 'Kernel-Collections');
+$vm.addClass('ArrayBucketStore', globals.BucketStore, [], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ArrayBucketStore.comment="I am a concrete `BucketStore` with buckets being instance of `Array`.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "newBucket",
 protocol: 'private',
 fn: function (){
@@ -428,18 +428,18 @@ globals.ArrayBucketStore);
 
 
 
-smalltalk.addClass('Collection', globals.Object, [], 'Kernel-Collections');
+$vm.addClass('Collection', globals.Object, [], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Collection.comment="I am the abstract superclass of all classes that represent a group of elements.\x0a\x0aI provide a set of useful methods to the Collection hierarchy such as enumerating and converting methods.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: ",",
 protocol: 'copying',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._copy();
@@ -460,14 +460,14 @@ messageSends: ["addAll:", "copy", "yourself"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "add:",
 protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -484,18 +484,18 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "addAll:",
 protocol: 'adding/removing',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aCollection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -516,24 +516,24 @@ messageSends: ["do:", "add:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "allSatisfy:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 var $early={};
 try {
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(aBlock)._value_(each);
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 throw $early=[false];
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -556,20 +556,20 @@ messageSends: ["do:", "ifFalse:", "value:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "anyOne",
 protocol: 'adding/removing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $early={};
 try {
 self._ifEmpty_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._error_("Collection is empty");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -596,24 +596,24 @@ messageSends: ["ifEmpty:", "error:", "do:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "anySatisfy:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 var $early={};
 try {
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(aBlock)._value_(each);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 throw $early=[true];
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -636,15 +636,15 @@ messageSends: ["do:", "ifTrue:", "value:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asArray",
 protocol: 'converting',
 fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($Array())._withAll_(self);
@@ -662,19 +662,19 @@ messageSends: ["withAll:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJSON",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._asArray())._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._asJSON();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -695,14 +695,14 @@ messageSends: ["collect:", "asArray", "asJSON"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asOrderedCollection",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._asArray();
@@ -720,15 +720,15 @@ messageSends: ["asArray"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asSet",
 protocol: 'converting',
 fn: function (){
 var self=this;
 function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($Set())._withAll_(self);
@@ -746,21 +746,21 @@ messageSends: ["withAll:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "collect:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var stream;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 stream=_st(_st(self._class())._new())._writeStream();
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(stream)._nextPut_(_st(aBlock)._value_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -782,14 +782,14 @@ messageSends: ["writeStream", "new", "class", "do:", "nextPut:", "value:", "cont
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "contains:",
 protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._deprecatedAPI();
@@ -808,14 +808,14 @@ messageSends: ["deprecatedAPI", "anySatisfy:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "copyWith:",
 protocol: 'copying',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._copy();
@@ -836,14 +836,14 @@ messageSends: ["add:", "copy", "yourself"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "copyWithAll:",
 protocol: 'copying',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._copy();
@@ -864,19 +864,19 @@ messageSends: ["addAll:", "copy", "yourself"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "copyWithoutAll:",
 protocol: 'copying',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._reject_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aCollection)._includes_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -897,19 +897,19 @@ messageSends: ["reject:", "includes:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "detect:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._detect_ifNone_(aBlock,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._errorNotFound();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -930,14 +930,14 @@ messageSends: ["detect:ifNone:", "errorNotFound"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "detect:ifNone:",
 protocol: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -954,14 +954,14 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "do:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -978,15 +978,15 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "do:separatedBy:",
 protocol: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
 var actionBeforeElement;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 actionBeforeElement=(function(){
 actionBeforeElement=anotherBlock;
@@ -995,7 +995,7 @@ return actionBeforeElement;
 });
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(actionBeforeElement)._value();
 return _st(aBlock)._value_(each);
@@ -1017,14 +1017,14 @@ messageSends: ["do:", "value", "value:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "errorNotFound",
 protocol: 'error handling',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._error_("Object is not in the collection");
 return self;
@@ -1041,14 +1041,14 @@ messageSends: ["error:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifEmpty:",
 protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._isEmpty();
@@ -1070,20 +1070,20 @@ messageSends: ["ifTrue:ifFalse:", "isEmpty"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifEmpty:ifNotEmpty:",
 protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._isEmpty();
 $1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(anotherBlock)._value_(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1104,18 +1104,18 @@ messageSends: ["ifTrue:ifFalse:", "isEmpty", "value:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNotEmpty:",
 protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._notEmpty();
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $1=_st(aBlock)._value_(self);
 } else {
 $1=self;
@@ -1134,20 +1134,20 @@ messageSends: ["ifTrue:ifFalse:", "notEmpty", "value:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNotEmpty:ifEmpty:",
 protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._notEmpty();
 $1=_st($2)._ifTrue_ifFalse_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aBlock)._value_(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1168,19 +1168,19 @@ messageSends: ["ifTrue:ifFalse:", "notEmpty", "value:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "includes:",
 protocol: 'testing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._anySatisfy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each).__eq(anObject);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1201,21 +1201,21 @@ messageSends: ["anySatisfy:", "="]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inject:into:",
 protocol: 'enumerating',
 fn: function (anObject,aBlock){
 var self=this;
 var result;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 result=anObject;
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 result=_st(aBlock)._value_value_(result,each);
 return result;
@@ -1238,8 +1238,8 @@ messageSends: ["do:", "value:value:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "intersection:",
 protocol: 'enumerating',
 fn: function (aCollection){
@@ -1247,14 +1247,14 @@ var self=this;
 var set,outputSet;
 function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3;
 set=self._asSet();
 outputSet=_st($Set())._new();
 _st(aCollection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=_st(set)._includes_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1262,14 +1262,14 @@ $ctx2.sendIdx["includes:"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(_st(outputSet)._includes_(each))._not();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
 }));
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 return _st(outputSet)._add_(each);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1291,14 +1291,14 @@ messageSends: ["asSet", "new", "do:", "ifTrue:", "and:", "includes:", "not", "ad
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isEmpty",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._size()).__eq((0));
@@ -1316,24 +1316,24 @@ messageSends: ["=", "size"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "noneSatisfy:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 var $early={};
 try {
 self._do_((function(item){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(aBlock)._value_(item);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 throw $early=[false];
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1356,14 +1356,14 @@ messageSends: ["do:", "ifTrue:", "value:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "notEmpty",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._isEmpty())._not();
@@ -1381,24 +1381,24 @@ messageSends: ["not", "isEmpty"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "occurrencesOf:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 var tally;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 tally=(0);
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(anObject).__eq(each);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 tally=_st(tally).__plus((1));
 return tally;
 };
@@ -1421,18 +1421,18 @@ messageSends: ["do:", "ifTrue:", "=", "+"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "putOn:",
 protocol: 'streaming',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._putOn_(aStream);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1453,19 +1453,19 @@ messageSends: ["do:", "putOn:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "reject:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(aBlock)._value_(each)).__eq(false);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1486,19 +1486,19 @@ messageSends: ["select:", "=", "value:"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "remove:",
 protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._remove_ifAbsent_(anObject,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._errorNotFound();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1519,14 +1519,14 @@ messageSends: ["remove:ifAbsent:", "errorNotFound"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "remove:ifAbsent:",
 protocol: 'adding/removing',
 fn: function (anObject,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -1543,14 +1543,14 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeAll",
 protocol: 'adding/removing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -1567,24 +1567,24 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "select:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var stream;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 stream=_st(_st(self._class())._new())._writeStream();
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(aBlock)._value_(each);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 return _st(stream)._nextPut_(each);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1606,27 +1606,27 @@ messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "value:", "nextP
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "select:thenCollect:",
 protocol: 'enumerating',
 fn: function (selectBlock,collectBlock){
 var self=this;
 var stream;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 stream=_st(_st(self._class())._new())._writeStream();
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(selectBlock)._value_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["value:"]=1;
 //>>excludeEnd("ctx");
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 return _st(stream)._nextPut_(_st(collectBlock)._value_(each));
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1648,14 +1648,14 @@ messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "value:", "nextP
 }),
 globals.Collection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "size",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -1673,8 +1673,8 @@ messageSends: ["subclassResponsibility"]
 globals.Collection);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
@@ -1691,14 +1691,14 @@ messageSends: []
 }),
 globals.Collection.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "new:",
 protocol: 'instance creation',
 fn: function (anInteger){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._new();
@@ -1716,14 +1716,14 @@ messageSends: ["new"]
 }),
 globals.Collection.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "with:",
 protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -1744,14 +1744,14 @@ messageSends: ["add:", "new", "yourself"]
 }),
 globals.Collection.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "with:with:",
 protocol: 'instance creation',
 fn: function (anObject,anotherObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -1776,14 +1776,14 @@ messageSends: ["add:", "new", "yourself"]
 }),
 globals.Collection.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "with:with:with:",
 protocol: 'instance creation',
 fn: function (firstObject,secondObject,thirdObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -1812,14 +1812,14 @@ messageSends: ["add:", "new", "yourself"]
 }),
 globals.Collection.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "withAll:",
 protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -1841,23 +1841,23 @@ messageSends: ["addAll:", "new", "yourself"]
 globals.Collection.klass);
 
 
-smalltalk.addClass('IndexableCollection', globals.Collection, [], 'Kernel-Collections');
+$vm.addClass('IndexableCollection', globals.Collection, [], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IndexableCollection.comment="I am a key-value store collection, that is,\x0aI store values under indexes.\x0a\x0aAs a rule of thumb, if a collection has `#at:` and `#at:put:`,\x0ait is an IndexableCollection.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:",
 protocol: 'accessing',
 fn: function (anIndex){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._at_ifAbsent_(anIndex,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._errorNotFound();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1878,14 +1878,14 @@ messageSends: ["at:ifAbsent:", "errorNotFound"]
 }),
 globals.IndexableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:ifAbsent:",
 protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -1902,19 +1902,19 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.IndexableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:ifAbsentPut:",
 protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._at_ifAbsent_(aKey,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._at_put_(aKey,_st(aBlock)._value());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1935,14 +1935,14 @@ messageSends: ["at:ifAbsent:", "at:put:", "value"]
 }),
 globals.IndexableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:ifPresent:",
 protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._at_ifPresent_ifAbsent_(anIndex,aBlock,(function(){
@@ -1963,14 +1963,14 @@ messageSends: ["at:ifPresent:ifAbsent:"]
 }),
 globals.IndexableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:ifPresent:ifAbsent:",
 protocol: 'accessing',
 fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -1987,14 +1987,14 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.IndexableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:put:",
 protocol: 'accessing',
 fn: function (anIndex,anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -2011,19 +2011,19 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.IndexableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "indexOf:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._indexOf_ifAbsent_(anObject,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._errorNotFound();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2044,14 +2044,14 @@ messageSends: ["indexOf:ifAbsent:", "errorNotFound"]
 }),
 globals.IndexableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "indexOf:ifAbsent:",
 protocol: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -2068,18 +2068,18 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.IndexableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "with:do:",
 protocol: 'enumerating',
 fn: function (anotherCollection,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._withIndexDo_((function(each,index){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aBlock)._value_value_(each,_st(anotherCollection)._at_(index));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2100,14 +2100,14 @@ messageSends: ["withIndexDo:", "value:value:", "at:"]
 }),
 globals.IndexableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "withIndexDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -2126,18 +2126,18 @@ globals.IndexableCollection);
 
 
 
-smalltalk.addClass('AssociativeCollection', globals.IndexableCollection, [], 'Kernel-Collections');
+$vm.addClass('AssociativeCollection', globals.IndexableCollection, [], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.AssociativeCollection.comment="I am a base class for object-indexed collections (Dictionary et.al.).";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "=",
 protocol: 'comparing',
 fn: function (anAssocitativeCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$6,$5;
 $2=self._class();
@@ -2148,7 +2148,7 @@ $1=_st($2).__eq(_st(anAssocitativeCollection)._class());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 return false;
 };
 $4=self._size();
@@ -2159,7 +2159,7 @@ $3=_st($4).__eq(_st(anAssocitativeCollection)._size());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=2;
 //>>excludeEnd("ctx");
-if(! smalltalk.assert($3)){
+if(!$vm.assert($3)){
 return false;
 };
 $6=self._associations();
@@ -2181,14 +2181,14 @@ messageSends: ["ifFalse:", "=", "class", "size", "associations"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "add:",
 protocol: 'adding/removing',
 fn: function (anAssociation){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_(_st(anAssociation)._key(),_st(anAssociation)._value());
 return self;
@@ -2205,14 +2205,14 @@ messageSends: ["at:put:", "key", "value"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "addAll:",
 protocol: 'adding/removing',
 fn: function (anAssociativeCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2236,15 +2236,15 @@ messageSends: ["addAll:", "associations"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asDictionary",
 protocol: 'converting',
 fn: function (){
 var self=this;
 function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($Dictionary())._from_(self._associations());
@@ -2262,15 +2262,15 @@ messageSends: ["from:", "associations"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asHashedCollection",
 protocol: 'converting',
 fn: function (){
 var self=this;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($HashedCollection())._from_(self._associations());
@@ -2288,8 +2288,8 @@ messageSends: ["from:", "associations"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJSON",
 protocol: 'converting',
 fn: function (){
@@ -2297,13 +2297,13 @@ var self=this;
 var hash;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 hash=_st($HashedCollection())._new();
 self._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(hash)._at_put_(key,_st(value)._asJSON());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2325,21 +2325,21 @@ messageSends: ["new", "keysAndValuesDo:", "at:put:", "asJSON"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "associations",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 var associations;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 associations=[];
 self._associationsDo_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(associations)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2361,19 +2361,19 @@ messageSends: ["associationsDo:", "add:"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "associationsDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 function $Association(){return globals.Association||(typeof Association=="undefined"?nil:Association)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aBlock)._value_(_st($Association())._key_value_(key,value));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2394,18 +2394,18 @@ messageSends: ["keysAndValuesDo:", "value:", "key:value:"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:ifPresent:ifAbsent:",
 protocol: 'accessing',
 fn: function (aKey,aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._includesKey_(aKey);
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $1=_st(aBlock)._value_(self._at_(aKey));
 } else {
 $1=_st(anotherBlock)._value();
@@ -2424,21 +2424,21 @@ messageSends: ["ifTrue:ifFalse:", "includesKey:", "value:", "at:", "value"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "collect:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var newDict;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 newDict=_st(self._class())._new();
 self._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(newDict)._at_put_(key,_st(aBlock)._value_(value));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2460,21 +2460,21 @@ messageSends: ["new", "class", "keysAndValuesDo:", "at:put:", "value:"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "deepCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
 var copy;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 copy=_st(self._class())._new();
 self._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(copy)._at_put_(key,_st(value)._deepCopy());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2496,14 +2496,14 @@ messageSends: ["new", "class", "keysAndValuesDo:", "at:put:", "deepCopy"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "detect:ifNone:",
 protocol: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._values())._detect_ifNone_(aBlock,anotherBlock);
@@ -2521,14 +2521,14 @@ messageSends: ["detect:ifNone:", "values"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "do:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._valuesDo_(aBlock);
 return self;
@@ -2545,14 +2545,14 @@ messageSends: ["valuesDo:"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "includes:",
 protocol: 'enumerating',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._values())._includes_(anObject);
@@ -2570,14 +2570,14 @@ messageSends: ["includes:", "values"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "includesKey:",
 protocol: 'testing',
 fn: function (aKey){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -2594,19 +2594,19 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "indexOf:ifAbsent:",
 protocol: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._keys())._detect_ifNone_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._at_(each)).__eq(anObject);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2627,19 +2627,19 @@ messageSends: ["detect:ifNone:", "keys", "=", "at:"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "keyAtValue:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._keyAtValue_ifAbsent_(anObject,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._errorNotFound();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2660,14 +2660,14 @@ messageSends: ["keyAtValue:ifAbsent:", "errorNotFound"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "keyAtValue:ifAbsent:",
 protocol: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._indexOf_ifAbsent_(anObject,aBlock);
@@ -2685,14 +2685,14 @@ messageSends: ["indexOf:ifAbsent:"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "keys",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -2709,18 +2709,18 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "keysAndValuesDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._keysDo_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aBlock)._value_value_(each,self._at_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2741,14 +2741,14 @@ messageSends: ["keysDo:", "value:value:", "at:"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "keysDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -2765,14 +2765,14 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2791,7 +2791,7 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
 _st(self._associations())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._printOn_(aStream);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2799,7 +2799,7 @@ return _st(each)._printOn_(aStream);
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aStream)._nextPutAll_(" , ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2824,14 +2824,14 @@ messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:", "associations"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "remove:ifAbsent:",
 protocol: 'adding/removing',
 fn: function (aKey,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._removeKey_ifAbsent_(aKey,aBlock);
@@ -2849,19 +2849,19 @@ messageSends: ["removeKey:ifAbsent:"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeAll",
 protocol: 'adding/removing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._keys())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._removeKey_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2882,14 +2882,14 @@ messageSends: ["do:", "keys", "removeKey:"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeKey:",
 protocol: 'adding/removing',
 fn: function (aKey){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._remove_(aKey);
@@ -2907,14 +2907,14 @@ messageSends: ["remove:"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeKey:ifAbsent:",
 protocol: 'adding/removing',
 fn: function (aKey,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -2931,24 +2931,24 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "select:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var newDict;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 newDict=_st(self._class())._new();
 self._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(aBlock)._value_(value);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 return _st(newDict)._at_put_(key,value);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2970,21 +2970,21 @@ messageSends: ["new", "class", "keysAndValuesDo:", "ifTrue:", "value:", "at:put:
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "shallowCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
 var copy;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 copy=_st(self._class())._new();
 self._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(copy)._at_put_(key,value);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3006,14 +3006,14 @@ messageSends: ["new", "class", "keysAndValuesDo:", "at:put:"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "size",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._keys())._size();
@@ -3031,14 +3031,14 @@ messageSends: ["size", "keys"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "values",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -3055,14 +3055,14 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "valuesDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -3079,18 +3079,18 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.AssociativeCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "withIndexDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aBlock)._value_value_(value,key);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3112,21 +3112,21 @@ messageSends: ["keysAndValuesDo:", "value:value:"]
 globals.AssociativeCollection);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "from:",
 protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 var newCollection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 newCollection=self._new();
 _st(aCollection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(newCollection)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3148,14 +3148,14 @@ messageSends: ["new", "do:", "add:"]
 }),
 globals.AssociativeCollection.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fromPairs:",
 protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._from_(aCollection);
@@ -3173,15 +3173,15 @@ messageSends: ["from:"]
 }),
 globals.AssociativeCollection.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "newFromPairs:",
 protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 var newCollection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$4,$5;
 $2=_st(aCollection)._size();
@@ -3189,13 +3189,13 @@ $2=_st(aCollection)._size();
 $ctx1.sendIdx["size"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._even();
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 self._error_("#newFromPairs only accepts arrays of an even length");
 };
 newCollection=self._new();
 _st((1)._to_by_(_st(aCollection)._size(),(2)))._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $3=newCollection;
 $4=_st(aCollection)._at_(each);
@@ -3223,18 +3223,18 @@ messageSends: ["ifFalse:", "even", "size", "error:", "new", "do:", "to:by:", "at
 globals.AssociativeCollection.klass);
 
 
-smalltalk.addClass('Dictionary', globals.AssociativeCollection, ['keys', 'values'], 'Kernel-Collections');
+$vm.addClass('Dictionary', globals.AssociativeCollection, ['keys', 'values'], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Dictionary.comment="I represent a set of elements that can be viewed from one of two perspectives: a set of associations,\x0aor a container of values that are externally named where the name can be any object that responds to `=`.\x0a\x0aThe external name is referred to as the key.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:ifAbsent:",
 protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var index = self._positionOfKey_(aKey);
@@ -3254,14 +3254,14 @@ messageSends: []
 }),
 globals.Dictionary);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:put:",
 protocol: 'accessing',
 fn: function (aKey,aValue){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var index = self._positionOfKey_(aKey);
@@ -3287,14 +3287,14 @@ messageSends: []
 }),
 globals.Dictionary);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "includesKey:",
 protocol: 'testing',
 fn: function (aKey){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
  return self._positionOfKey_(aKey) >= 0; ;
 return self;
@@ -3311,15 +3311,15 @@ messageSends: []
 }),
 globals.Dictionary);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "indexOf:ifAbsent:",
 protocol: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
 var index;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 index=_st(self["@values"])._indexOf_ifAbsent_(anObject,(function(){
@@ -3327,7 +3327,7 @@ return (0);
 
 }));
 $2=_st(index).__eq((0));
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $1=_st(aBlock)._value();
 } else {
 $1=_st(self["@keys"])._at_(index);
@@ -3346,14 +3346,14 @@ messageSends: ["indexOf:ifAbsent:", "ifTrue:ifFalse:", "=", "value", "at:"]
 }),
 globals.Dictionary);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3379,14 +3379,14 @@ messageSends: ["initialize"]
 }),
 globals.Dictionary);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "keys",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@keys"])._copy();
@@ -3404,14 +3404,14 @@ messageSends: ["copy"]
 }),
 globals.Dictionary);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "keysAndValuesDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@keys"])._with_do_(self["@values"],aBlock);
@@ -3429,14 +3429,14 @@ messageSends: ["with:do:"]
 }),
 globals.Dictionary);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "keysDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@keys"])._do_(aBlock);
@@ -3454,14 +3454,14 @@ messageSends: ["do:"]
 }),
 globals.Dictionary);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "positionOfKey:",
 protocol: 'private',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var keys = self['@keys'];
@@ -3484,14 +3484,14 @@ messageSends: []
 }),
 globals.Dictionary);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeAll",
 protocol: 'adding/removing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@keys"])._removeAll();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3512,14 +3512,14 @@ messageSends: ["removeAll"]
 }),
 globals.Dictionary);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeKey:ifAbsent:",
 protocol: 'adding/removing',
 fn: function (aKey,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var index = self._positionOfKey_(aKey);
@@ -3549,8 +3549,8 @@ messageSends: []
 }),
 globals.Dictionary);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "values",
 protocol: 'accessing',
 fn: function (){
@@ -3569,14 +3569,14 @@ messageSends: []
 }),
 globals.Dictionary);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "valuesDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@values"])._do_(aBlock);
@@ -3596,22 +3596,22 @@ globals.Dictionary);
 
 
 
-smalltalk.addClass('HashedCollection', globals.AssociativeCollection, [], 'Kernel-Collections');
+$vm.addClass('HashedCollection', globals.AssociativeCollection, [], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.HashedCollection.comment="I am a traditional JavaScript object, or a Smalltalk `Dictionary`.\x0a\x0aUnlike a `Dictionary`, I can only have strings as keys.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:ifAbsent:",
 protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._includesKey_(aKey);
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $1=self._basicAt_(aKey);
 } else {
 $1=_st(aBlock)._value();
@@ -3630,14 +3630,14 @@ messageSends: ["ifTrue:ifFalse:", "includesKey:", "basicAt:", "value"]
 }),
 globals.HashedCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:put:",
 protocol: 'accessing',
 fn: function (aKey,aValue){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._basicAt_put_(aKey,aValue);
@@ -3655,14 +3655,14 @@ messageSends: ["basicAt:put:"]
 }),
 globals.HashedCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "includesKey:",
 protocol: 'testing',
 fn: function (aKey){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.hasOwnProperty(aKey);
 return self;
@@ -3679,14 +3679,14 @@ messageSends: []
 }),
 globals.HashedCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "keys",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Object.keys(self);
 return self;
@@ -3703,14 +3703,14 @@ messageSends: []
 }),
 globals.HashedCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "keysDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._keys())._do_(aBlock);
 return self;
@@ -3727,19 +3727,19 @@ messageSends: ["do:", "keys"]
 }),
 globals.HashedCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeKey:ifAbsent:",
 protocol: 'adding/removing',
 fn: function (aKey,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._at_ifPresent_ifAbsent_(aKey,(function(removed){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._basicDelete_(aKey);
 return removed;
@@ -3748,7 +3748,7 @@ return removed;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aBlock)._value();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3769,14 +3769,14 @@ messageSends: ["at:ifPresent:ifAbsent:", "basicDelete:", "value"]
 }),
 globals.HashedCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "values",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		return self._keys().map(function(key){
@@ -3797,14 +3797,14 @@ messageSends: []
 }),
 globals.HashedCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "valuesDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._values())._do_(aBlock);
 return self;
@@ -3823,18 +3823,18 @@ globals.HashedCollection);
 
 
 
-smalltalk.addClass('SequenceableCollection', globals.IndexableCollection, [], 'Kernel-Collections');
+$vm.addClass('SequenceableCollection', globals.IndexableCollection, [], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.SequenceableCollection.comment="I am an IndexableCollection\x0awith numeric indexes starting with 1.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "=",
 protocol: 'comparing',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$4,$1,$5;
 var $early={};
@@ -3849,7 +3849,7 @@ $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=self._size();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3863,15 +3863,15 @@ $ctx2.sendIdx["="]=2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 return false;
 };
 self._withIndexDo_((function(each,i){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $5=_st(_st(aCollection)._at_(i)).__eq(each);
-if(! smalltalk.assert($5)){
+if(!$vm.assert($5)){
 throw $early=[false];
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3894,14 +3894,14 @@ messageSends: ["ifFalse:", "and:", "=", "class", "size", "withIndexDo:", "at:"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "addLast:",
 protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._add_(anObject);
 return self;
@@ -3918,14 +3918,14 @@ messageSends: ["add:"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "allButFirst",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._copyFrom_to_((2),self._size());
@@ -3943,14 +3943,14 @@ messageSends: ["copyFrom:to:", "size"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "allButLast",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._copyFrom_to_((1),_st(self._size()).__minus((1)));
@@ -3968,14 +3968,14 @@ messageSends: ["copyFrom:to:", "-", "size"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "atRandom",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._at_(_st(self._size())._atRandom());
@@ -3993,14 +3993,14 @@ messageSends: ["at:", "atRandom", "size"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "beginsWith:",
 protocol: 'testing',
 fn: function (prefix){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$4;
 $2=self._size();
@@ -4012,7 +4012,7 @@ $3=_st(prefix)._size();
 $ctx1.sendIdx["size"]=2;
 //>>excludeEnd("ctx");
 $1=_st($2).__lt($3);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 return false;
 };
 $4=_st(self._first_(_st(prefix)._size())).__eq(prefix);
@@ -4030,22 +4030,22 @@ messageSends: ["ifTrue:", "<", "size", "=", "first:"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "copyFrom:to:",
 protocol: 'copying',
 fn: function (anIndex,anotherIndex){
 var self=this;
 var range,newCollection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 range=_st(anIndex)._to_(anotherIndex);
 newCollection=_st(self._class())._new_(_st(range)._size());
 _st(range)._withIndexDo_((function(each,i){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(newCollection)._at_put_(i,self._at_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4067,21 +4067,21 @@ messageSends: ["to:", "new:", "class", "size", "withIndexDo:", "at:put:", "at:"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "deepCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
 var newCollection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 newCollection=_st(self._class())._new_(self._size());
 self._withIndexDo_((function(each,index){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(newCollection)._at_put_(index,_st(each)._deepCopy());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4103,14 +4103,14 @@ messageSends: ["new:", "class", "size", "withIndexDo:", "at:put:", "deepCopy"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "detect:ifNone:",
 protocol: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		self = self._numericallyIndexable();
@@ -4133,14 +4133,14 @@ messageSends: []
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "do:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		self = self._numericallyIndexable();
@@ -4162,14 +4162,14 @@ messageSends: []
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "endsWith:",
 protocol: 'testing',
 fn: function (suffix){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$4;
 $2=self._size();
@@ -4181,7 +4181,7 @@ $3=_st(suffix)._size();
 $ctx1.sendIdx["size"]=2;
 //>>excludeEnd("ctx");
 $1=_st($2).__lt($3);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 return false;
 };
 $4=_st(self._last_(_st(suffix)._size())).__eq(suffix);
@@ -4199,14 +4199,14 @@ messageSends: ["ifTrue:", "<", "size", "=", "last:"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "first",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._at_((1));
@@ -4224,18 +4224,18 @@ messageSends: ["at:"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "first:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st(self._size()).__lt(aNumber);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 self._error_("Invalid number of elements");
 };
 $2=self._copyFrom_to_((1),aNumber);
@@ -4253,14 +4253,14 @@ messageSends: ["ifTrue:", "<", "size", "error:", "copyFrom:to:"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fourth",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._at_((4));
@@ -4278,14 +4278,14 @@ messageSends: ["at:"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "includes:",
 protocol: 'testing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._indexOf_ifAbsent_(anObject,(function(){
@@ -4306,14 +4306,14 @@ messageSends: ["notNil", "indexOf:ifAbsent:"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "indexOf:ifAbsent:",
 protocol: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		self = self._numericallyIndexable();
@@ -4336,14 +4336,14 @@ messageSends: []
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "indexOf:startingAt:",
 protocol: 'accessing',
 fn: function (anObject,start){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._indexOf_startingAt_ifAbsent_(anObject,start,(function(){
@@ -4364,14 +4364,14 @@ messageSends: ["indexOf:startingAt:ifAbsent:"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "indexOf:startingAt:ifAbsent:",
 protocol: 'accessing',
 fn: function (anObject,start,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		self = self._numericallyIndexable();
@@ -4394,14 +4394,14 @@ messageSends: []
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "last",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._at_(self._size());
@@ -4419,14 +4419,14 @@ messageSends: ["at:", "size"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "last:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$6,$5,$4,$3;
 $2=self._size();
@@ -4434,7 +4434,7 @@ $2=self._size();
 $ctx1.sendIdx["size"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2).__lt(aNumber);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 self._error_("Invalid number of elements");
 };
 $6=self._size();
@@ -4458,14 +4458,14 @@ messageSends: ["ifTrue:", "<", "size", "error:", "copyFrom:to:", "+", "-"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "newStream",
 protocol: 'streaming',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._streamClass())._on_(self);
@@ -4483,14 +4483,14 @@ messageSends: ["on:", "streamClass"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "numericallyIndexable",
 protocol: 'private',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -4507,14 +4507,14 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "readStream",
 protocol: 'streaming',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._stream();
@@ -4532,14 +4532,14 @@ messageSends: ["stream"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeLast",
 protocol: 'adding/removing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._remove_(self._last());
@@ -4557,14 +4557,14 @@ messageSends: ["remove:", "last"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "reversed",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -4581,14 +4581,14 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "second",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._at_((2));
@@ -4606,21 +4606,21 @@ messageSends: ["at:"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "shallowCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
 var newCollection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 newCollection=_st(self._class())._new_(self._size());
 self._withIndexDo_((function(each,index){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(newCollection)._at_put_(index,each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4642,14 +4642,14 @@ messageSends: ["new:", "class", "size", "withIndexDo:", "at:put:"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "stream",
 protocol: 'streaming',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._newStream();
@@ -4667,14 +4667,14 @@ messageSends: ["newStream"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "streamClass",
 protocol: 'streaming',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._class())._streamClass();
@@ -4692,14 +4692,14 @@ messageSends: ["streamClass", "class"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "third",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._at_((3));
@@ -4717,14 +4717,14 @@ messageSends: ["at:"]
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "with:do:",
 protocol: 'enumerating',
 fn: function (anotherCollection,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		self = self._numericallyIndexable();
@@ -4747,14 +4747,14 @@ messageSends: []
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "withIndexDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		self = self._numericallyIndexable();
@@ -4776,14 +4776,14 @@ messageSends: []
 }),
 globals.SequenceableCollection);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "writeStream",
 protocol: 'streaming',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._stream();
@@ -4802,8 +4802,8 @@ messageSends: ["stream"]
 globals.SequenceableCollection);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "streamClass",
 protocol: 'accessing',
 fn: function (){
@@ -4821,15 +4821,15 @@ messageSends: []
 }),
 globals.SequenceableCollection.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "streamContents:",
 protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 var stream;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 stream=_st(self._streamClass())._on_(self._new());
@@ -4850,18 +4850,18 @@ messageSends: ["on:", "streamClass", "new", "value:", "contents"]
 globals.SequenceableCollection.klass);
 
 
-smalltalk.addClass('Array', globals.SequenceableCollection, [], 'Kernel-Collections');
+$vm.addClass('Array', globals.SequenceableCollection, [], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Array.comment="I represent a collection of objects ordered by the collector. The size of arrays is dynamic.\x0a\x0aI am directly mapped to JavaScript Number.\x0a\x0a*Note* In Amber, `OrderedCollection` is an alias for `Array`.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "add:",
 protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.push(anObject); return anObject;;
 return self;
@@ -4878,14 +4878,14 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "addFirst:",
 protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.unshift(anObject); return anObject;;
 return self;
@@ -4902,19 +4902,19 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJavascript",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st("[".__comma(_st(self._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._asJavascript();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4938,14 +4938,14 @@ messageSends: [",", "join:", "collect:", "asJavascript"]
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:ifAbsent:",
 protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		return anIndex >= 1 && anIndex <= self.length
@@ -4966,14 +4966,14 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:ifPresent:ifAbsent:",
 protocol: 'accessing',
 fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		return anIndex >= 1 && anIndex <= self.length
@@ -4994,14 +4994,14 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:put:",
 protocol: 'accessing',
 fn: function (anIndex,anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self[anIndex - 1] = anObject;
 return self;
@@ -5018,14 +5018,14 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "collect:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.map(function(each) {return aBlock._value_(each)});
 return self;
@@ -5042,14 +5042,14 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "join:",
 protocol: 'enumerating',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.join(aString);
 return self;
@@ -5066,8 +5066,8 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "numericallyIndexable",
 protocol: 'private',
 fn: function (){
@@ -5084,14 +5084,14 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5110,7 +5110,7 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
 self._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._printOn_(aStream);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5118,7 +5118,7 @@ return _st(each)._printOn_(aStream);
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aStream)._nextPutAll_(" ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5143,15 +5143,15 @@ messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:"]
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "remove:ifAbsent:",
 protocol: 'adding/removing',
 fn: function (anObject,aBlock){
 var self=this;
 var index;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 index=self._indexOf_ifAbsent_(anObject,(function(){
@@ -5159,7 +5159,7 @@ return (0);
 
 }));
 $2=_st(index).__eq((0));
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $1=_st(aBlock)._value();
 } else {
 self._removeIndex_(index);
@@ -5179,14 +5179,14 @@ messageSends: ["indexOf:ifAbsent:", "ifFalse:ifTrue:", "=", "removeIndex:", "val
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeAll",
 protocol: 'adding/removing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.length = 0;
 return self;
@@ -5203,14 +5203,14 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeFrom:to:",
 protocol: 'adding/removing',
 fn: function (aNumber,anotherNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.splice(aNumber -1, anotherNumber - aNumber + 1);
 return self;
@@ -5227,14 +5227,14 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeIndex:",
 protocol: 'adding/removing',
 fn: function (anInteger){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.splice(anInteger - 1, 1);
 return self;
@@ -5251,14 +5251,14 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeLast",
 protocol: 'adding/removing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.pop();;
 return self;
@@ -5275,14 +5275,14 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "reversed",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self._copy().reverse();
 return self;
@@ -5299,14 +5299,14 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "select:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var result = self.klass._new();
@@ -5331,14 +5331,14 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "size",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.length;
 return self;
@@ -5355,19 +5355,19 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sort",
 protocol: 'enumerating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._sort_((function(a,b){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(a).__lt(b);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5388,14 +5388,14 @@ messageSends: ["sort:", "<"]
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sort:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		return self.sort(function(a, b) {
@@ -5416,14 +5416,14 @@ messageSends: []
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sorted",
 protocol: 'enumerating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._copy())._sort();
@@ -5441,14 +5441,14 @@ messageSends: ["sort", "copy"]
 }),
 globals.Array);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sorted:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._copy())._sort_(aBlock);
@@ -5467,14 +5467,14 @@ messageSends: ["sort:", "copy"]
 globals.Array);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "new:",
 protocol: 'instance creation',
 fn: function (anInteger){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return new Array(anInteger);
 return self;
@@ -5491,14 +5491,14 @@ messageSends: []
 }),
 globals.Array.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "with:",
 protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new_((1));
@@ -5519,14 +5519,14 @@ messageSends: ["at:put:", "new:", "yourself"]
 }),
 globals.Array.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "with:with:",
 protocol: 'instance creation',
 fn: function (anObject,anObject2){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new_((2));
@@ -5551,14 +5551,14 @@ messageSends: ["at:put:", "new:", "yourself"]
 }),
 globals.Array.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "with:with:with:",
 protocol: 'instance creation',
 fn: function (anObject,anObject2,anObject3){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new_((3));
@@ -5587,22 +5587,22 @@ messageSends: ["at:put:", "new:", "yourself"]
 }),
 globals.Array.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "withAll:",
 protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 var instance,index;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 index=(1);
 instance=self._new_(_st(aCollection)._size());
 _st(aCollection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(instance)._at_put_(index,each);
 index=_st(index).__plus((1));
@@ -5627,18 +5627,18 @@ messageSends: ["new:", "size", "do:", "at:put:", "+"]
 globals.Array.klass);
 
 
-smalltalk.addClass('CharacterArray', globals.SequenceableCollection, [], 'Kernel-Collections');
+$vm.addClass('CharacterArray', globals.SequenceableCollection, [], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.CharacterArray.comment="I am the abstract superclass of string-like collections.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: ",",
 protocol: 'copying',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._asString();
@@ -5660,14 +5660,14 @@ messageSends: [",", "asString"]
 }),
 globals.CharacterArray);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "add:",
 protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._errorReadOnly();
 return self;
@@ -5684,14 +5684,14 @@ messageSends: ["errorReadOnly"]
 }),
 globals.CharacterArray);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asLowercase",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._class())._fromString_(_st(self._asString())._asLowercase());
@@ -5709,14 +5709,14 @@ messageSends: ["fromString:", "class", "asLowercase", "asString"]
 }),
 globals.CharacterArray);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asNumber",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._asString())._asNumber();
@@ -5734,14 +5734,14 @@ messageSends: ["asNumber", "asString"]
 }),
 globals.CharacterArray);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asString",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._subclassResponsibility();
@@ -5759,14 +5759,14 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.CharacterArray);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asSymbol",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._asString();
@@ -5784,14 +5784,14 @@ messageSends: ["asString"]
 }),
 globals.CharacterArray);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asUppercase",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._class())._fromString_(_st(self._asString())._asUppercase());
@@ -5809,14 +5809,14 @@ messageSends: ["fromString:", "class", "asUppercase", "asString"]
 }),
 globals.CharacterArray);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:put:",
 protocol: 'accessing',
 fn: function (anIndex,anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._errorReadOnly();
 return self;
@@ -5833,14 +5833,14 @@ messageSends: ["errorReadOnly"]
 }),
 globals.CharacterArray);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "errorReadOnly",
 protocol: 'error handling',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._error_("Object is read-only");
 return self;
@@ -5857,14 +5857,14 @@ messageSends: ["error:"]
 }),
 globals.CharacterArray);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asString())._printOn_(aStream);
 return self;
@@ -5881,14 +5881,14 @@ messageSends: ["printOn:", "asString"]
 }),
 globals.CharacterArray);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "putOn:",
 protocol: 'streaming',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aStream)._nextPutString_(self);
 return self;
@@ -5905,14 +5905,14 @@ messageSends: ["nextPutString:"]
 }),
 globals.CharacterArray);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "remove:",
 protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._errorReadOnly();
 return self;
@@ -5930,14 +5930,14 @@ messageSends: ["errorReadOnly"]
 globals.CharacterArray);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fromString:",
 protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -5955,18 +5955,18 @@ messageSends: ["subclassResponsibility"]
 globals.CharacterArray.klass);
 
 
-smalltalk.addClass('String', globals.CharacterArray, [], 'Kernel-Collections');
+$vm.addClass('String', globals.CharacterArray, [], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.String.comment="I am an indexed collection of Characters. Unlike most Smalltalk dialects, Amber doesn't provide the Character class. Instead, elements of a String are single character strings.\x0a\x0aString inherits many useful methods from its hierarchy, such as\x0a\x09`Collection >> #,`";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: ",",
 protocol: 'copying',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return String(self) + aString;
 return self;
@@ -5983,14 +5983,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "<",
 protocol: 'comparing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return String(self) < aString._asString();
 return self;
@@ -6007,14 +6007,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "<=",
 protocol: 'comparing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return String(self) <= aString._asString();
 return self;
@@ -6031,14 +6031,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "=",
 protocol: 'comparing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		return aString != null &&
@@ -6060,14 +6060,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "==",
 protocol: 'comparing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self.__eq(aString);
@@ -6085,14 +6085,14 @@ messageSends: ["="]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: ">",
 protocol: 'comparing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return String(self) > aString._asString();
 return self;
@@ -6109,14 +6109,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: ">=",
 protocol: 'comparing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return String(self) >= aString._asString();
 return self;
@@ -6133,8 +6133,8 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJSON",
 protocol: 'converting',
 fn: function (){
@@ -6151,16 +6151,16 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJavaScriptMethodName",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-return smalltalk.st2js(self);
+return $vm.st2js(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"asJavaScriptMethodName",{},globals.String)});
@@ -6168,21 +6168,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "asJavaScriptMethodName\x0a\x09<return smalltalk.st2js(self)>",
+source: "asJavaScriptMethodName\x0a\x09<return $vm.st2js(self)>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJavascript",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)
@@ -6204,14 +6204,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asLowercase",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.toLowerCase();
 return self;
@@ -6228,18 +6228,18 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asMutator",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st(self._last()).__eq(":");
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 $2=self.__comma(":");
 return $2;
 };
@@ -6257,14 +6257,14 @@ messageSends: ["ifFalse:", "=", "last", ","]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asNumber",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Number(self);
 return self;
@@ -6281,15 +6281,15 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asRegexp",
 protocol: 'converting',
 fn: function (){
 var self=this;
 function $RegularExpression(){return globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($RegularExpression())._fromString_(self);
@@ -6307,14 +6307,14 @@ messageSends: ["fromString:"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asSelector",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._deprecatedAPI_("Use #asJavaScriptMethodName");
@@ -6333,8 +6333,8 @@ messageSends: ["deprecatedAPI:", "asJavaScriptMethodName"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asString",
 protocol: 'converting',
 fn: function (){
@@ -6351,8 +6351,8 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asSymbol",
 protocol: 'converting',
 fn: function (){
@@ -6369,14 +6369,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asUppercase",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.toUpperCase();
 return self;
@@ -6393,14 +6393,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asciiValue",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.charCodeAt(0);;
 return self;
@@ -6417,14 +6417,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:ifAbsent:",
 protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return String(self)[anIndex - 1] || aBlock._value();
 return self;
@@ -6441,14 +6441,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:ifPresent:ifAbsent:",
 protocol: 'accessing',
 fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var result = String(self)[anIndex - 1];
@@ -6468,18 +6468,18 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "capitalized",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._isEmpty();
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $1=self;
 } else {
 $1=_st(_st(self._first())._asUppercase()).__comma(self._allButFirst());
@@ -6498,14 +6498,14 @@ messageSends: ["ifTrue:ifFalse:", "isEmpty", ",", "asUppercase", "first", "allBu
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "charCodeAt:",
 protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.charCodeAt(anInteger - 1);
 return self;
@@ -6522,14 +6522,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "copyFrom:to:",
 protocol: 'copying',
 fn: function (anIndex,anotherIndex){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.substring(anIndex - 1, anotherIndex);
 return self;
@@ -6546,15 +6546,15 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "crlfSanitized",
 protocol: 'converting',
 fn: function (){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._lines())._join_(_st($String())._lf());
@@ -6572,14 +6572,14 @@ messageSends: ["join:", "lines", "lf"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "deepCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._shallowCopy();
@@ -6597,14 +6597,14 @@ messageSends: ["shallowCopy"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "escaped",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return escape(self);
 return self;
@@ -6621,14 +6621,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "identityHash",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self.__comma("s");
@@ -6646,14 +6646,14 @@ messageSends: [","]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "includesSubString:",
 protocol: 'testing',
 fn: function (subString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.indexOf(subString) != -1;
 return self;
@@ -6670,14 +6670,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isCapitalized",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 $3=self._first();
@@ -6700,8 +6700,8 @@ messageSends: ["==", "asUppercase", "first"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
@@ -6718,8 +6718,8 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isString",
 protocol: 'testing',
 fn: function (){
@@ -6736,19 +6736,19 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isVowel",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(self._size()).__eq((1)))._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return "aeiou"._includes_(self._asLowercase());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6769,24 +6769,24 @@ messageSends: ["and:", "=", "size", "includes:", "asLowercase"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "join:",
 protocol: 'split join',
 fn: function (aCollection){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($String())._streamContents_((function(stream){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aCollection)._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(stream)._nextPutAll_(_st(each)._asString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6797,7 +6797,7 @@ $ctx3.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(stream)._nextPutAll_(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6822,8 +6822,8 @@ messageSends: ["streamContents:", "do:separatedBy:", "nextPutAll:", "asString"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "lineIndicesDo:",
 protocol: 'split join',
 fn: function (aBlock){
@@ -6831,7 +6831,7 @@ var self=this;
 var cr,lf,start,sz,nextLF,nextCR;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$5,$3,$6,$7,$9,$8,$10,$11;
 var $early={};
@@ -6850,7 +6850,7 @@ $ctx1.sendIdx["indexOf:startingAt:"]=2;
 //>>excludeEnd("ctx");
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(start).__lt_eq(sz);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6858,7 +6858,7 @@ return _st(start).__lt_eq(sz);
 //>>excludeEnd("ctx");
 }))._whileTrue_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=_st(nextLF).__eq((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6866,7 +6866,7 @@ $ctx2.sendIdx["="]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(nextCR).__eq((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6879,7 +6879,7 @@ $ctx3.sendIdx["="]=2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["and:"]=1;
 //>>excludeEnd("ctx");
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 _st(aBlock)._value_value_value_(start,sz,sz);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["value:value:value:"]=1;
@@ -6892,7 +6892,7 @@ $ctx2.sendIdx["="]=3;
 //>>excludeEnd("ctx");
 $3=_st($4)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $5=(0).__lt(nextLF);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6900,7 +6900,7 @@ $ctx3.sendIdx["<"]=1;
 //>>excludeEnd("ctx");
 return _st($5)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx4) {
+return $vm.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return _st(nextLF).__lt(nextCR);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6911,7 +6911,7 @@ return _st(nextLF).__lt(nextCR);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)});
 //>>excludeEnd("ctx");
 }));
-if(smalltalk.assert($3)){
+if($vm.assert($3)){
 $6=start;
 $7=_st(nextLF).__minus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6937,7 +6937,7 @@ $9=(1).__plus(nextCR);
 $ctx2.sendIdx["+"]=2;
 //>>excludeEnd("ctx");
 $8=_st($9).__eq(nextLF);
-if(smalltalk.assert($8)){
+if($vm.assert($8)){
 $10=start;
 $11=_st(nextCR).__minus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6990,15 +6990,15 @@ messageSends: ["size", "cr", "indexOf:startingAt:", "lf", "whileTrue:", "<=", "i
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "lineNumber:",
 protocol: 'split join',
 fn: function (anIndex){
 var self=this;
 var lineCount;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3;
 var $early={};
@@ -7006,12 +7006,12 @@ try {
 lineCount=(0);
 self._lineIndicesDo_((function(start,endWithoutDelimiters,end){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 lineCount=_st(lineCount).__plus((1));
 $2=lineCount;
 $1=_st($2).__eq(anIndex);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 $3=self._copyFrom_to_(start,endWithoutDelimiters);
 throw $early=[$3];
 };
@@ -7035,8 +7035,8 @@ messageSends: ["lineIndicesDo:", "ifTrue:", "=", "+", "copyFrom:to:"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "lines",
 protocol: 'split join',
 fn: function (){
@@ -7044,13 +7044,13 @@ var self=this;
 var lines;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 lines=_st($Array())._new();
 self._linesDo_((function(aLine){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(lines)._add_(aLine);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7072,18 +7072,18 @@ messageSends: ["new", "linesDo:", "add:"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "linesDo:",
 protocol: 'split join',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._lineIndicesDo_((function(start,endWithoutDelimiters,end){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aBlock)._value_(self._copyFrom_to_(start,endWithoutDelimiters));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7104,14 +7104,14 @@ messageSends: ["lineIndicesDo:", "value:", "copyFrom:to:"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "match:",
 protocol: 'regular expressions',
 fn: function (aRegexp){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.search(aRegexp) != -1;
 return self;
@@ -7128,14 +7128,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "matchesOf:",
 protocol: 'regular expressions',
 fn: function (aRegularExpression){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.match(aRegularExpression);
 return self;
@@ -7152,14 +7152,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "numericallyIndexable",
 protocol: 'private',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return String(self);
 return self;
@@ -7176,14 +7176,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printNl",
 protocol: 'printing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 console.log(self);
 return self;
@@ -7200,14 +7200,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st(aStream)._nextPutAll_("'");
@@ -7233,15 +7233,15 @@ messageSends: ["nextPutAll:"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "replace:with:",
 protocol: 'regular expressions',
 fn: function (aString,anotherString){
 var self=this;
 function $RegularExpression(){return globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._replaceRegexp_with_(_st($RegularExpression())._fromString_flag_(aString,"g"),anotherString);
@@ -7259,14 +7259,14 @@ messageSends: ["replaceRegexp:with:", "fromString:flag:"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "replaceRegexp:with:",
 protocol: 'regular expressions',
 fn: function (aRegexp,aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.replace(aRegexp, aString);
 return self;
@@ -7283,14 +7283,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "reversed",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.split("").reverse().join("");
 return self;
@@ -7307,14 +7307,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "shallowCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._class())._fromString_(self);
@@ -7332,14 +7332,14 @@ messageSends: ["fromString:", "class"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "size",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.length;
 return self;
@@ -7356,14 +7356,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "subStrings:",
 protocol: 'split join',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tokenize_(aString);
@@ -7381,14 +7381,14 @@ messageSends: ["tokenize:"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "tokenize:",
 protocol: 'split join',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.split(aString);
 return self;
@@ -7405,14 +7405,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "trimBoth",
 protocol: 'regular expressions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._trimBoth_("\x5cs");
@@ -7430,14 +7430,14 @@ messageSends: ["trimBoth:"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "trimBoth:",
 protocol: 'regular expressions',
 fn: function (separators){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._trimLeft_(separators))._trimRight_(separators);
@@ -7455,14 +7455,14 @@ messageSends: ["trimRight:", "trimLeft:"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "trimLeft",
 protocol: 'regular expressions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._trimLeft_("\x5cs");
@@ -7480,15 +7480,15 @@ messageSends: ["trimLeft:"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "trimLeft:",
 protocol: 'regular expressions',
 fn: function (separators){
 var self=this;
 function $RegularExpression(){return globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 $3=_st("^[".__comma(separators)).__comma("]+");
@@ -7511,14 +7511,14 @@ messageSends: ["replaceRegexp:with:", "fromString:flag:", ","]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "trimRight",
 protocol: 'regular expressions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._trimRight_("\x5cs");
@@ -7536,15 +7536,15 @@ messageSends: ["trimRight:"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "trimRight:",
 protocol: 'regular expressions',
 fn: function (separators){
 var self=this;
 function $RegularExpression(){return globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 $3=_st("[".__comma(separators)).__comma("]+$");
@@ -7567,14 +7567,14 @@ messageSends: ["replaceRegexp:with:", "fromString:flag:", ","]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "unescaped",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return unescape(self);
 return self;
@@ -7591,14 +7591,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "uriComponentDecoded",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return decodeURIComponent(self);
 return self;
@@ -7615,14 +7615,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "uriComponentEncoded",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return encodeURIComponent(self);
 return self;
@@ -7639,14 +7639,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "uriDecoded",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return decodeURI(self);
 return self;
@@ -7663,14 +7663,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "uriEncoded",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return encodeURI(self);
 return self;
@@ -7687,14 +7687,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "value:",
 protocol: 'evaluating',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(anObject)._perform_(self);
@@ -7713,14 +7713,14 @@ messageSends: ["perform:"]
 globals.String);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "cr",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return '\r';
 return self;
@@ -7737,14 +7737,14 @@ messageSends: []
 }),
 globals.String.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "crlf",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return '\r\n';
 return self;
@@ -7761,14 +7761,14 @@ messageSends: []
 }),
 globals.String.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "esc",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._fromCharCode_((27));
@@ -7786,14 +7786,14 @@ messageSends: ["fromCharCode:"]
 }),
 globals.String.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fromCharCode:",
 protocol: 'instance creation',
 fn: function (anInteger){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return String.fromCharCode(anInteger);
 return self;
@@ -7810,14 +7810,14 @@ messageSends: []
 }),
 globals.String.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fromString:",
 protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return String(aString);
 return self;
@@ -7834,14 +7834,14 @@ messageSends: []
 }),
 globals.String.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "lf",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return '\n';
 return self;
@@ -7858,14 +7858,14 @@ messageSends: []
 }),
 globals.String.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "random",
 protocol: 'random',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return (Math.random()*(22/32)+(10/32)).toString(32).slice(2);;
 return self;
@@ -7882,20 +7882,20 @@ messageSends: []
 }),
 globals.String.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "randomNotIn:",
 protocol: 'random',
 fn: function (aString){
 var self=this;
 var result;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 result=self._random();
 result;
@@ -7919,14 +7919,14 @@ messageSends: ["whileTrue", "random", "includesSubString:"]
 }),
 globals.String.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "space",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return ' ';
 return self;
@@ -7943,8 +7943,8 @@ messageSends: []
 }),
 globals.String.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "streamClass",
 protocol: 'accessing',
 fn: function (){
@@ -7962,14 +7962,14 @@ messageSends: []
 }),
 globals.String.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "tab",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return '\t';
 return self;
@@ -7986,14 +7986,14 @@ messageSends: []
 }),
 globals.String.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "value:",
 protocol: 'instance creation',
 fn: function (aUTFCharCode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return String.fromCharCode(aUTFCharCode);;
 return self;
@@ -8011,18 +8011,18 @@ messageSends: []
 globals.String.klass);
 
 
-smalltalk.addClass('Set', globals.Collection, ['defaultBucket', 'slowBucketStores', 'fastBuckets', 'size'], 'Kernel-Collections');
+$vm.addClass('Set', globals.Collection, ['defaultBucket', 'slowBucketStores', 'fastBuckets', 'size'], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Set.comment="I represent an unordered set of objects without duplicates.\x0a\x0a## Implementation notes\x0a\x0aI put elements into different stores based on their type.\x0aThe goal is to store some elements into native JS object property names to be fast.\x0a\x0aIf an unboxed element has typeof 'string', 'boolean' or 'number', or an element is nil, null or undefined,\x0aI store it as a property name in an empty (== Object.create(null)) JS object, different for each type\x0a(for simplicity, nil/null/undefined is treated as one and included with the two booleans).\x0a\x0aIf element happen to be an object, I try to store them in `ArrayBucketStore`. I have two of them by default,\x0aone hashed using the Smalltalk class name, the other one using the JS constructor name. It is possible to have more or less\x0ainstances of `ArrayBucketStores`, see `#initializeSlowBucketStores`.\x0a\x0aAs a last resort, if none of the `ArrayBucketStore` instances can find a suitable bucket, the `defaultBucket` is used,\x0awhich is an `Array`.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "=",
 protocol: 'comparing',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$5;
 var $early={};
@@ -8035,7 +8035,7 @@ $1=_st($2).__eq(_st(aCollection)._class());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 return false;
 };
 $4=self._size();
@@ -8043,15 +8043,15 @@ $4=self._size();
 $ctx1.sendIdx["size"]=1;
 //>>excludeEnd("ctx");
 $3=_st($4).__eq(_st(aCollection)._size());
-if(! smalltalk.assert($3)){
+if(!$vm.assert($3)){
 return false;
 };
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $5=_st(aCollection)._includes_(each);
-if(! smalltalk.assert($5)){
+if(!$vm.assert($5)){
 throw $early=[false];
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8074,15 +8074,15 @@ messageSends: ["ifFalse:", "=", "class", "size", "do:", "includes:"]
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "add:",
 protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 var bucket;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 bucket=self._bucketsOfElement_(anObject);
@@ -8098,7 +8098,7 @@ slowBucket=_st(bucket)._third();
 slowBucket;
 _st(slowBucket)._indexOf_ifAbsent_(object,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(slowBucket)._add_(object);
 self["@size"]=_st(self["@size"]).__plus((1));
@@ -8127,14 +8127,14 @@ messageSends: ["bucketsOfElement:", "ifNil:ifNotNil:", "second", "first", "third
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "add:in:",
 protocol: 'private',
 fn: function (anObject,anotherObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		if (anObject in anotherObject.store) { return false; }
@@ -8155,14 +8155,14 @@ messageSends: []
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "bucketsOfElement:",
 protocol: 'private',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
@@ -8195,14 +8195,14 @@ messageSends: []
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "classNameOf:",
 protocol: 'private',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return anObject.klass && anObject.klass.className;
 return self;
@@ -8219,21 +8219,21 @@ messageSends: []
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "collect:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 collection=_st(self._class())._new();
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(collection)._add_(_st(aBlock)._value_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8255,24 +8255,24 @@ messageSends: ["new", "class", "do:", "add:", "value:"]
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "detect:ifNone:",
 protocol: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 var $early={};
 try {
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(aBlock)._value_(each);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 throw $early=[each];
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8296,14 +8296,14 @@ messageSends: ["do:", "ifTrue:", "value:", "value"]
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "do:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var el, keys, i;
@@ -8332,15 +8332,15 @@ messageSends: []
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "includes:",
 protocol: 'testing',
 fn: function (anObject){
 var self=this;
 var bucket;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$4,$1,$receiver;
 bucket=self._bucketsOfElement_(anObject);
@@ -8371,14 +8371,14 @@ messageSends: ["bucketsOfElement:", "ifNil:ifNotNil:", "second", "includes:", "t
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "includes:in:",
 protocol: 'private',
 fn: function (anObject,anotherObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return anObject in anotherObject.store;
 return self;
@@ -8395,14 +8395,14 @@ messageSends: []
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 (
@@ -8430,20 +8430,20 @@ messageSends: ["initialize", "initializeSlowBucketStores", "removeAll"]
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initializeSlowBucketStores",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 function $ArrayBucketStore(){return globals.ArrayBucketStore||(typeof ArrayBucketStore=="undefined"?nil:ArrayBucketStore)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($ArrayBucketStore())._hashBlock_((function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._classNameOf_(x);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8455,7 +8455,7 @@ $ctx1.sendIdx["hashBlock:"]=1;
 //>>excludeEnd("ctx");
 self["@slowBucketStores"]=[$1,_st($ArrayBucketStore())._hashBlock_((function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._jsConstructorNameOf_(x);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8476,14 +8476,14 @@ messageSends: ["hashBlock:", "classNameOf:", "jsConstructorNameOf:"]
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "jsConstructorNameOf:",
 protocol: 'private',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return anObject.constructor && anObject.constructor.name;
 return self;
@@ -8500,14 +8500,14 @@ messageSends: []
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8526,7 +8526,7 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
 self._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._printOn_(aStream);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8534,7 +8534,7 @@ return _st(each)._printOn_(aStream);
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aStream)._nextPutAll_(" ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8559,15 +8559,15 @@ messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:"]
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "remove:ifAbsent:",
 protocol: 'adding/removing',
 fn: function (anObject,aBlock){
 var self=this;
 var bucket;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$4,$5,$1,$receiver;
 var $early={};
@@ -8582,7 +8582,7 @@ $ctx1.sendIdx["first"]=1;
 //>>excludeEnd("ctx");
 _st($3)._remove_ifAbsent_($4,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $5=_st(aBlock)._value();
 throw $early=[$5];
@@ -8613,14 +8613,14 @@ messageSends: ["bucketsOfElement:", "ifNil:ifNotNil:", "second", "remove:ifAbsen
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "remove:in:",
 protocol: 'private',
 fn: function (anObject,anotherObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 if (delete anotherObject.store[anObject]) self['@size']--;
 return self;
@@ -8637,14 +8637,14 @@ messageSends: []
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeAll",
 protocol: 'adding/removing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		self['@fastBuckets'] = {
@@ -8670,24 +8670,24 @@ messageSends: []
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "select:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 collection=_st(self._class())._new();
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(aBlock)._value_(each);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 return _st(collection)._add_(each);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8709,8 +8709,8 @@ messageSends: ["new", "class", "do:", "ifTrue:", "value:", "add:"]
 }),
 globals.Set);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "size",
 protocol: 'accessing',
 fn: function (){
@@ -8731,19 +8731,19 @@ globals.Set);
 
 
 
-smalltalk.addClass('Queue', globals.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
+$vm.addClass('Queue', globals.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Queue.comment="I am a one-sided queue.\x0a\x0a## Usage\x0a\x0aUse `#nextPut:` to add items to the queue.\x0aUse `#next` or `#nextIfAbsent:` to get (and remove) the next item in the queue.\x0a\x0a## Implementation notes\x0a\x0aA Queue uses two OrderedCollections inside,\x0a`read` is at the front, is not modified and only read using `readIndex`.\x0a`write` is at the back and is appended new items.\x0aWhen `read` is exhausted, `write` is promoted to `read` and new `write` is created.\x0a\x0aAs a consequence, no data moving is done by me, write appending may do data moving\x0awhen growing `write`, but this is left to engine to implement as good as it chooses to.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8773,19 +8773,19 @@ messageSends: ["initialize", "new"]
 }),
 globals.Queue);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "next",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._nextIfAbsent_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._error_("Cannot read from empty Queue.");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8806,8 +8806,8 @@ messageSends: ["nextIfAbsent:", "error:"]
 }),
 globals.Queue);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextIfAbsent:",
 protocol: 'accessing',
 fn: function (aBlock){
@@ -8815,19 +8815,19 @@ var self=this;
 var result;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 var $early={};
 try {
 result=_st(self["@read"])._at_ifAbsent_(self["@readIndex"],(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(self["@write"])._isEmpty();
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 $2=_st(self["@readIndex"]).__gt((1));
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 self["@read"]=[];
 self["@read"];
 self["@readIndex"]=(1);
@@ -8866,14 +8866,14 @@ messageSends: ["at:ifAbsent:", "ifTrue:", "isEmpty", ">", "value", "new", "first
 }),
 globals.Queue);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPut:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@write"])._add_(anObject);
 return self;
@@ -8892,18 +8892,18 @@ globals.Queue);
 
 
 
-smalltalk.addClass('RegularExpression', globals.Object, [], 'Kernel-Collections');
+$vm.addClass('RegularExpression', globals.Object, [], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.RegularExpression.comment="I represent a regular expression object. My instances are JavaScript `RegExp` object.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "compile:",
 protocol: 'evaluating',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.compile(aString);
 return self;
@@ -8920,14 +8920,14 @@ messageSends: []
 }),
 globals.RegularExpression);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "exec:",
 protocol: 'evaluating',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.exec(aString) || nil;
 return self;
@@ -8944,14 +8944,14 @@ messageSends: []
 }),
 globals.RegularExpression);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "test:",
 protocol: 'evaluating',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.test(aString);
 return self;
@@ -8969,14 +8969,14 @@ messageSends: []
 globals.RegularExpression);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fromString:",
 protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._fromString_flag_(aString,"");
@@ -8994,14 +8994,14 @@ messageSends: ["fromString:flag:"]
 }),
 globals.RegularExpression.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fromString:flag:",
 protocol: 'instance creation',
 fn: function (aString,anotherString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return new RegExp(aString, anotherString);
 return self;
@@ -9019,18 +9019,18 @@ messageSends: []
 globals.RegularExpression.klass);
 
 
-smalltalk.addClass('Stream', globals.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
+$vm.addClass('Stream', globals.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Stream.comment="I represent an accessor for a sequence of objects. This sequence is referred to as my \x22contents\x22.\x0aMy instances are read/write streams to the contents sequence collection.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "<<",
 protocol: 'writing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._write_(anObject);
 return self;
@@ -9047,14 +9047,14 @@ messageSends: ["write:"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "atEnd",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._position()).__eq(self._size());
@@ -9072,14 +9072,14 @@ messageSends: ["=", "position", "size"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "atStart",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._position()).__eq((0));
@@ -9097,8 +9097,8 @@ messageSends: ["=", "position"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "close",
 protocol: 'actions',
 fn: function (){
@@ -9115,8 +9115,8 @@ messageSends: []
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "collection",
 protocol: 'accessing',
 fn: function (){
@@ -9135,14 +9135,14 @@ messageSends: []
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "contents",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._collection())._copyFrom_to_((1),self._streamSize());
@@ -9160,18 +9160,18 @@ messageSends: ["copyFrom:to:", "collection", "streamSize"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "do:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._atEnd();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9179,7 +9179,7 @@ return self._atEnd();
 //>>excludeEnd("ctx");
 }))._whileFalse_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aBlock)._value_(self._next());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9200,8 +9200,8 @@ messageSends: ["whileFalse:", "atEnd", "value:", "next"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "flush",
 protocol: 'actions',
 fn: function (){
@@ -9218,14 +9218,14 @@ messageSends: []
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isEmpty",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._size()).__eq((0));
@@ -9243,18 +9243,18 @@ messageSends: ["=", "size"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "next",
 protocol: 'reading',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$4,$3,$1;
 $2=self._atEnd();
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $1=nil;
 } else {
 $4=self._position();
@@ -9279,24 +9279,24 @@ messageSends: ["ifTrue:ifFalse:", "atEnd", "position:", "+", "position", "at:"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "next:",
 protocol: 'reading',
 fn: function (anInteger){
 var self=this;
 var tempCollection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 tempCollection=_st(_st(self._collection())._class())._new();
 _st(anInteger)._timesRepeat_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=self._atEnd();
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 return _st(tempCollection)._add_(self._next());
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9318,14 +9318,14 @@ messageSends: ["new", "class", "collection", "timesRepeat:", "ifFalse:", "atEnd"
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPut:",
 protocol: 'writing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$4;
 $2=self._position();
@@ -9355,18 +9355,18 @@ messageSends: ["position:", "+", "position", "at:put:", "collection", "setStream
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutAll:",
 protocol: 'writing',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aCollection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._nextPut_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9387,14 +9387,14 @@ messageSends: ["do:", "nextPut:"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutString:",
 protocol: 'writing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._nextPut_(aString);
 return self;
@@ -9411,18 +9411,18 @@ messageSends: ["nextPut:"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "peek",
 protocol: 'reading',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._atEnd();
-if(! smalltalk.assert($2)){
+if(!$vm.assert($2)){
 $1=_st(self._collection())._at_(_st(self._position()).__plus((1)));
 };
 return $1;
@@ -9439,14 +9439,14 @@ messageSends: ["ifFalse:", "atEnd", "at:", "collection", "+", "position"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "position",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@position"];
@@ -9470,8 +9470,8 @@ messageSends: ["ifNil:"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "position:",
 protocol: 'accessing',
 fn: function (anInteger){
@@ -9489,14 +9489,14 @@ messageSends: []
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "reset",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._position_((0));
 return self;
@@ -9513,14 +9513,14 @@ messageSends: ["position:"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "resetContents",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._reset();
 self._setStreamSize_((0));
@@ -9538,8 +9538,8 @@ messageSends: ["reset", "setStreamSize:"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "setCollection:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -9557,8 +9557,8 @@ messageSends: []
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "setStreamSize:",
 protocol: 'accessing',
 fn: function (anInteger){
@@ -9576,14 +9576,14 @@ messageSends: []
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "setToEnd",
 protocol: 'positioning',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._position_(self._size());
 return self;
@@ -9600,14 +9600,14 @@ messageSends: ["position:", "size"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "size",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._streamSize();
@@ -9625,14 +9625,14 @@ messageSends: ["streamSize"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "skip:",
 protocol: 'positioning',
 fn: function (anInteger){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._position_(_st(_st(self._position()).__plus(anInteger))._min_max_(self._size(),(0)));
 return self;
@@ -9649,8 +9649,8 @@ messageSends: ["position:", "min:max:", "+", "position", "size"]
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "streamSize",
 protocol: 'accessing',
 fn: function (){
@@ -9669,14 +9669,14 @@ messageSends: []
 }),
 globals.Stream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "write:",
 protocol: 'writing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(anObject)._putOn_(self);
 return self;
@@ -9694,14 +9694,14 @@ messageSends: ["putOn:"]
 globals.Stream);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "on:",
 protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -9724,19 +9724,19 @@ messageSends: ["setCollection:", "new", "setStreamSize:", "size", "yourself"]
 globals.Stream.klass);
 
 
-smalltalk.addClass('StringStream', globals.Stream, [], 'Kernel-Collections');
+$vm.addClass('StringStream', globals.Stream, [], 'Kernel-Collections');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.StringStream.comment="I am a Stream specific to `String` objects.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "cr",
 protocol: 'writing',
 fn: function (){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._nextPutAll_(_st($String())._cr());
@@ -9754,15 +9754,15 @@ messageSends: ["nextPutAll:", "cr"]
 }),
 globals.StringStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "crlf",
 protocol: 'writing',
 fn: function (){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._nextPutAll_(_st($String())._crlf());
@@ -9780,15 +9780,15 @@ messageSends: ["nextPutAll:", "crlf"]
 }),
 globals.StringStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "lf",
 protocol: 'writing',
 fn: function (){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._nextPutAll_(_st($String())._lf());
@@ -9806,24 +9806,24 @@ messageSends: ["nextPutAll:", "lf"]
 }),
 globals.StringStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "next:",
 protocol: 'reading',
 fn: function (anInteger){
 var self=this;
 var tempCollection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 tempCollection=_st(_st(self._collection())._class())._new();
 _st(anInteger)._timesRepeat_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=self._atEnd();
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 tempCollection=_st(tempCollection).__comma(self._next());
 return tempCollection;
 };
@@ -9846,14 +9846,14 @@ messageSends: ["new", "class", "collection", "timesRepeat:", "ifFalse:", "atEnd"
 }),
 globals.StringStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPut:",
 protocol: 'writing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._nextPutAll_(aString);
 return self;
@@ -9870,19 +9870,19 @@ messageSends: ["nextPutAll:"]
 }),
 globals.StringStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutAll:",
 protocol: 'writing',
 fn: function (aString){
 var self=this;
 var pre,post;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$2,$4,$5,$6,$9,$8,$10,$7,$11,$12,$14,$13;
 $1=self._atEnd();
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 $3=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
@@ -9962,14 +9962,14 @@ messageSends: ["ifTrue:ifFalse:", "atEnd", "setCollection:", ",", "collection", 
 }),
 globals.StringStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutString:",
 protocol: 'writing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._nextPutAll_(aString);
 return self;
@@ -9986,14 +9986,14 @@ messageSends: ["nextPutAll:"]
 }),
 globals.StringStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "space",
 protocol: 'writing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._nextPut_(" ");
 return self;
@@ -10010,15 +10010,15 @@ messageSends: ["nextPut:"]
 }),
 globals.StringStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "tab",
 protocol: 'writing',
 fn: function (){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._nextPutAll_(_st($String())._tab());

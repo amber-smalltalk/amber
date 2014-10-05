@@ -1,15 +1,15 @@
 define("amber_core/Kernel-Announcements", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$vm,_st=$recv,globals=$globals;
-smalltalk.addPackage('Kernel-Announcements');
-smalltalk.packages["Kernel-Announcements"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$vm.addPackage('Kernel-Announcements');
+$vm.packages["Kernel-Announcements"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('AnnouncementSubscription', globals.Object, ['valuable', 'announcementClass'], 'Kernel-Announcements');
+$vm.addClass('AnnouncementSubscription', globals.Object, ['valuable', 'announcementClass'], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.AnnouncementSubscription.comment="I am a single entry in a subscription registry of an `Announcer`.\x0aSeveral subscriptions by the same object is possible.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "announcementClass",
 protocol: 'accessing',
 fn: function (){
@@ -28,8 +28,8 @@ messageSends: []
 }),
 globals.AnnouncementSubscription);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "announcementClass:",
 protocol: 'accessing',
 fn: function (aClass){
@@ -47,14 +47,14 @@ messageSends: []
 }),
 globals.AnnouncementSubscription);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "block",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._deprecatedAPI();
@@ -73,14 +73,14 @@ messageSends: ["deprecatedAPI", "valuable"]
 }),
 globals.AnnouncementSubscription);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "block:",
 protocol: 'accessing',
 fn: function (aValuable){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._deprecatedAPI();
 self._valuable_(aValuable);
@@ -98,18 +98,18 @@ messageSends: ["deprecatedAPI", "valuable:"]
 }),
 globals.AnnouncementSubscription);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "deliver:",
 protocol: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._handlesAnnouncement_(anAnnouncement);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 _st(self._valuable())._value_(anAnnouncement);
 };
 return self;
@@ -126,15 +126,15 @@ messageSends: ["ifTrue:", "handlesAnnouncement:", "value:", "valuable"]
 }),
 globals.AnnouncementSubscription);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "handlesAnnouncement:",
 protocol: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$4,$2,$1,$receiver;
 $3=_st($Smalltalk())._globals();
@@ -170,14 +170,14 @@ messageSends: ["ifNil:ifNotNil:", "at:", "globals", "name", "announcementClass",
 }),
 globals.AnnouncementSubscription);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "receiver",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._valuable())._receiver();
@@ -195,8 +195,8 @@ messageSends: ["receiver", "valuable"]
 }),
 globals.AnnouncementSubscription);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "valuable",
 protocol: 'accessing',
 fn: function (){
@@ -215,8 +215,8 @@ messageSends: []
 }),
 globals.AnnouncementSubscription);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "valuable:",
 protocol: 'accessing',
 fn: function (aValuable){
@@ -236,12 +236,12 @@ globals.AnnouncementSubscription);
 
 
 
-smalltalk.addClass('AnnouncementValuable', globals.Object, ['valuable', 'receiver'], 'Kernel-Announcements');
+$vm.addClass('AnnouncementValuable', globals.Object, ['valuable', 'receiver'], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.AnnouncementValuable.comment="I wrap `valuable` objects (typically instances of `BlockClosure`) with a `receiver` to be able to unregister subscriptions based on a `receiver`.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "receiver",
 protocol: 'accessing',
 fn: function (){
@@ -260,8 +260,8 @@ messageSends: []
 }),
 globals.AnnouncementValuable);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "receiver:",
 protocol: 'accessing',
 fn: function (anObject){
@@ -279,8 +279,8 @@ messageSends: []
 }),
 globals.AnnouncementValuable);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "valuable",
 protocol: 'accessing',
 fn: function (){
@@ -299,8 +299,8 @@ messageSends: []
 }),
 globals.AnnouncementValuable);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "valuable:",
 protocol: 'accessing',
 fn: function (anObject){
@@ -318,14 +318,14 @@ messageSends: []
 }),
 globals.AnnouncementValuable);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "value",
 protocol: 'evaluating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._valuable())._value();
@@ -343,14 +343,14 @@ messageSends: ["value", "valuable"]
 }),
 globals.AnnouncementValuable);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "value:",
 protocol: 'evaluating',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._valuable())._value_(anObject);
@@ -370,22 +370,22 @@ globals.AnnouncementValuable);
 
 
 
-smalltalk.addClass('Announcer', globals.Object, ['registry', 'subscriptions'], 'Kernel-Announcements');
+$vm.addClass('Announcer', globals.Object, ['registry', 'subscriptions'], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Announcer.comment="I hold annoncement subscriptions (instances of `AnnouncementSubscription`) in a private registry.\x0aI announce (trigger) announces, which are then dispatched to all subscriptions.\x0a\x0aThe code is based on the announcements as [described by Vassili Bykov](http://www.cincomsmalltalk.com/userblogs/vbykov/blogView?searchCategory=Announcements%20Framework).\x0a\x0a## API\x0a\x0aUse `#announce:` to trigger an announcement.\x0a\x0aUse `#on:do:` or `#on:send:to:` to register subscriptions.\x0a\x0aWhen using `#on:send:to:`, unregistration can be done with `#unregister:`.\x0a\x0a## Usage example:\x0a\x0a    SystemAnnouncer current\x0a        on: ClassAdded\x0a        do: [ :ann | window alert: ann theClass name, ' added' ].";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "announce:",
 protocol: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@subscriptions"])._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._deliver_(anAnnouncement);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -406,15 +406,15 @@ messageSends: ["do:", "deliver:"]
 }),
 globals.Announcer);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -439,14 +439,14 @@ messageSends: ["initialize", "new"]
 }),
 globals.Announcer);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "on:do:",
 protocol: 'subscribing',
 fn: function (aClass,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._on_do_for_(aClass,aBlock,nil);
 return self;
@@ -463,8 +463,8 @@ messageSends: ["on:do:for:"]
 }),
 globals.Announcer);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "on:do:for:",
 protocol: 'subscribing',
 fn: function (aClass,aBlock,aReceiver){
@@ -472,7 +472,7 @@ var self=this;
 function $AnnouncementSubscription(){return globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 function $AnnouncementValuable(){return globals.AnnouncementValuable||(typeof AnnouncementValuable=="undefined"?nil:AnnouncementValuable)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$4,$6,$7,$5,$8,$2;
 $1=self["@subscriptions"];
@@ -511,8 +511,8 @@ messageSends: ["add:", "valuable:", "new", "receiver:", "yourself", "announcemen
 }),
 globals.Announcer);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "on:doOnce:",
 protocol: 'subscribing',
 fn: function (aClass,aBlock){
@@ -520,7 +520,7 @@ var self=this;
 var subscription;
 function $AnnouncementSubscription(){return globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st($AnnouncementSubscription())._new();
@@ -529,7 +529,7 @@ $2=_st($1)._yourself();
 subscription=$2;
 _st(subscription)._valuable_((function(ann){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(self["@subscriptions"])._remove_(subscription);
 return _st(aBlock)._value_(ann);
@@ -552,8 +552,8 @@ messageSends: ["announcementClass:", "new", "yourself", "valuable:", "remove:", 
 }),
 globals.Announcer);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "on:send:to:",
 protocol: 'subscribing',
 fn: function (aClass,aSelector,anObject){
@@ -561,7 +561,7 @@ var self=this;
 function $AnnouncementSubscription(){return globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 function $MessageSend(){return globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$4,$6,$7,$5,$8,$2;
 $1=self["@subscriptions"];
@@ -597,18 +597,18 @@ messageSends: ["add:", "valuable:", "new", "receiver:", "selector:", "yourself",
 }),
 globals.Announcer);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "unsubscribe:",
 protocol: 'subscribing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@subscriptions"]=_st(self["@subscriptions"])._reject_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._receiver()).__eq(anObject);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -631,20 +631,20 @@ globals.Announcer);
 
 
 
-smalltalk.addClass('SystemAnnouncer', globals.Announcer, [], 'Kernel-Announcements');
+$vm.addClass('SystemAnnouncer', globals.Announcer, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.SystemAnnouncer.comment="My unique instance is the global announcer handling all Amber system-related announces.\x0a\x0a## API\x0a\x0aAccess to the unique instance is done via `#current`";
 //>>excludeEnd("ide");
 
 globals.SystemAnnouncer.klass.iVarNames = ['current'];
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "current",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@current"];
@@ -675,14 +675,14 @@ messageSends: ["ifNil:", "new"]
 }),
 globals.SystemAnnouncer.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "new",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._shouldNotImplement();
 return self;
@@ -700,13 +700,13 @@ messageSends: ["shouldNotImplement"]
 globals.SystemAnnouncer.klass);
 
 
-smalltalk.addClass('SystemAnnouncement', globals.Object, [], 'Kernel-Announcements');
+$vm.addClass('SystemAnnouncement', globals.Object, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.SystemAnnouncement.comment="I am the superclass of all system announcements";
 //>>excludeEnd("ide");
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
@@ -724,12 +724,12 @@ messageSends: []
 globals.SystemAnnouncement.klass);
 
 
-smalltalk.addClass('ClassAnnouncement', globals.SystemAnnouncement, ['theClass'], 'Kernel-Announcements');
+$vm.addClass('ClassAnnouncement', globals.SystemAnnouncement, ['theClass'], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ClassAnnouncement.comment="I am the abstract superclass of class-related announcements.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theClass",
 protocol: 'accessing',
 fn: function (){
@@ -748,8 +748,8 @@ messageSends: []
 }),
 globals.ClassAnnouncement);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theClass:",
 protocol: 'accessing',
 fn: function (aClass){
@@ -769,30 +769,30 @@ globals.ClassAnnouncement);
 
 
 
-smalltalk.addClass('ClassAdded', globals.ClassAnnouncement, [], 'Kernel-Announcements');
+$vm.addClass('ClassAdded', globals.ClassAnnouncement, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ClassAdded.comment="I am emitted when a class is added to the system.\x0aSee ClassBuilder >> #addSubclassOf:... methods";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('ClassCommentChanged', globals.ClassAnnouncement, [], 'Kernel-Announcements');
+$vm.addClass('ClassCommentChanged', globals.ClassAnnouncement, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ClassCommentChanged.comment="I am emitted when the comment of a class changes. (Behavior >> #comment)";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('ClassDefinitionChanged', globals.ClassAnnouncement, [], 'Kernel-Announcements');
+$vm.addClass('ClassDefinitionChanged', globals.ClassAnnouncement, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ClassDefinitionChanged.comment="I am emitted when the definition of a class changes.\x0aSee ClassBuilder >> #class:instanceVariableNames:";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('ClassMigrated', globals.ClassAnnouncement, ['oldClass'], 'Kernel-Announcements');
+$vm.addClass('ClassMigrated', globals.ClassAnnouncement, ['oldClass'], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ClassMigrated.comment="I am emitted when a class is migrated.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "oldClass",
 protocol: 'accessing',
 fn: function (){
@@ -811,8 +811,8 @@ messageSends: []
 }),
 globals.ClassMigrated);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "oldClass:",
 protocol: 'accessing',
 fn: function (aClass){
@@ -832,12 +832,12 @@ globals.ClassMigrated);
 
 
 
-smalltalk.addClass('ClassMoved', globals.ClassAnnouncement, ['oldPackage'], 'Kernel-Announcements');
+$vm.addClass('ClassMoved', globals.ClassAnnouncement, ['oldPackage'], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ClassMoved.comment="I am emitted when a class is moved from one package to another.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "oldPackage",
 protocol: 'accessing',
 fn: function (){
@@ -856,8 +856,8 @@ messageSends: []
 }),
 globals.ClassMoved);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "oldPackage:",
 protocol: 'accessing',
 fn: function (aPackage){
@@ -877,24 +877,24 @@ globals.ClassMoved);
 
 
 
-smalltalk.addClass('ClassRemoved', globals.ClassAnnouncement, [], 'Kernel-Announcements');
+$vm.addClass('ClassRemoved', globals.ClassAnnouncement, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ClassRemoved.comment="I am emitted when a class is removed.\x0aSee Smalltalk >> #removeClass:";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('ClassRenamed', globals.ClassAnnouncement, [], 'Kernel-Announcements');
+$vm.addClass('ClassRenamed', globals.ClassAnnouncement, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ClassRenamed.comment="I am emitted when a class is renamed.\x0aSee ClassBuilder >> #renameClass:to:";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('MethodAnnouncement', globals.SystemAnnouncement, ['method'], 'Kernel-Announcements');
+$vm.addClass('MethodAnnouncement', globals.SystemAnnouncement, ['method'], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.MethodAnnouncement.comment="I am the abstract superclass of method-related announcements.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "method",
 protocol: 'accessing',
 fn: function (){
@@ -913,8 +913,8 @@ messageSends: []
 }),
 globals.MethodAnnouncement);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "method:",
 protocol: 'accessing',
 fn: function (aCompiledMethod){
@@ -934,18 +934,18 @@ globals.MethodAnnouncement);
 
 
 
-smalltalk.addClass('MethodAdded', globals.MethodAnnouncement, [], 'Kernel-Announcements');
+$vm.addClass('MethodAdded', globals.MethodAnnouncement, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.MethodAdded.comment="I am emitted when a `CompiledMethod` is added to a class.";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('MethodModified', globals.MethodAnnouncement, ['oldMethod'], 'Kernel-Announcements');
+$vm.addClass('MethodModified', globals.MethodAnnouncement, ['oldMethod'], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.MethodModified.comment="I am emitted when a `CompiledMethod` is modified (a new method is installed). I hold a reference to the old method being replaced.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "oldMethod",
 protocol: 'accessing',
 fn: function (){
@@ -964,8 +964,8 @@ messageSends: []
 }),
 globals.MethodModified);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "oldMethod:",
 protocol: 'accessing',
 fn: function (aMethod){
@@ -985,12 +985,12 @@ globals.MethodModified);
 
 
 
-smalltalk.addClass('MethodMoved', globals.MethodAnnouncement, ['oldProtocol'], 'Kernel-Announcements');
+$vm.addClass('MethodMoved', globals.MethodAnnouncement, ['oldProtocol'], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.MethodMoved.comment="I am emitted when a `CompiledMethod` is moved to another protocol. I hold a refernce to the old protocol of the method.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "oldProtocol",
 protocol: 'accessing',
 fn: function (){
@@ -1009,8 +1009,8 @@ messageSends: []
 }),
 globals.MethodMoved);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "oldProtocol:",
 protocol: 'accessing',
 fn: function (aString){
@@ -1030,18 +1030,18 @@ globals.MethodMoved);
 
 
 
-smalltalk.addClass('MethodRemoved', globals.MethodAnnouncement, [], 'Kernel-Announcements');
+$vm.addClass('MethodRemoved', globals.MethodAnnouncement, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.MethodRemoved.comment="I am emitted when a `CompiledMethod` is removed from a class.";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('PackageAnnouncement', globals.SystemAnnouncement, ['package'], 'Kernel-Announcements');
+$vm.addClass('PackageAnnouncement', globals.SystemAnnouncement, ['package'], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.PackageAnnouncement.comment="I am the abstract superclass of package-related announcements.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "package",
 protocol: 'accessing',
 fn: function (){
@@ -1060,8 +1060,8 @@ messageSends: []
 }),
 globals.PackageAnnouncement);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "package:",
 protocol: 'accessing',
 fn: function (aPackage){
@@ -1081,43 +1081,43 @@ globals.PackageAnnouncement);
 
 
 
-smalltalk.addClass('PackageAdded', globals.PackageAnnouncement, [], 'Kernel-Announcements');
+$vm.addClass('PackageAdded', globals.PackageAnnouncement, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.PackageAdded.comment="I am emitted when a `Package` is added to the system.";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('PackageClean', globals.PackageAnnouncement, [], 'Kernel-Announcements');
+$vm.addClass('PackageClean', globals.PackageAnnouncement, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.PackageClean.comment="I am emitted when a package is committed and becomes clean.";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('PackageDirty', globals.PackageAnnouncement, [], 'Kernel-Announcements');
+$vm.addClass('PackageDirty', globals.PackageAnnouncement, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.PackageDirty.comment="I am emitted when a package becomes dirty.";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('PackageRemoved', globals.PackageAnnouncement, [], 'Kernel-Announcements');
+$vm.addClass('PackageRemoved', globals.PackageAnnouncement, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.PackageRemoved.comment="I am emitted when a `Package` is removed from the system.";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('ProtocolAnnouncement', globals.SystemAnnouncement, ['theClass', 'protocol'], 'Kernel-Announcements');
+$vm.addClass('ProtocolAnnouncement', globals.SystemAnnouncement, ['theClass', 'protocol'], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ProtocolAnnouncement.comment="I am the abstract superclass of protocol-related announcements.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "package",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$4;
 $2=self._protocol();
@@ -1125,7 +1125,7 @@ $2=self._protocol();
 $ctx1.sendIdx["protocol"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._beginsWith_("*");
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 $3=_st(self._theClass())._package();
 return $3;
 };
@@ -1147,8 +1147,8 @@ messageSends: ["ifFalse:", "beginsWith:", "protocol", "package", "theClass", "na
 }),
 globals.ProtocolAnnouncement);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "protocol",
 protocol: 'accessing',
 fn: function (){
@@ -1167,8 +1167,8 @@ messageSends: []
 }),
 globals.ProtocolAnnouncement);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "protocol:",
 protocol: 'accessing',
 fn: function (aString){
@@ -1186,8 +1186,8 @@ messageSends: []
 }),
 globals.ProtocolAnnouncement);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theClass",
 protocol: 'accessing',
 fn: function (){
@@ -1206,8 +1206,8 @@ messageSends: []
 }),
 globals.ProtocolAnnouncement);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theClass:",
 protocol: 'accessing',
 fn: function (aClass){
@@ -1227,13 +1227,13 @@ globals.ProtocolAnnouncement);
 
 
 
-smalltalk.addClass('ProtocolAdded', globals.ProtocolAnnouncement, [], 'Kernel-Announcements');
+$vm.addClass('ProtocolAdded', globals.ProtocolAnnouncement, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ProtocolAdded.comment="I am emitted when a protocol is added to a class.";
 //>>excludeEnd("ide");
 
 
-smalltalk.addClass('ProtocolRemoved', globals.ProtocolAnnouncement, [], 'Kernel-Announcements');
+$vm.addClass('ProtocolRemoved', globals.ProtocolAnnouncement, [], 'Kernel-Announcements');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ProtocolRemoved.comment="I am emitted when a protocol is removed from a class.";
 //>>excludeEnd("ide");

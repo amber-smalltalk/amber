@@ -1,19 +1,19 @@
 define("amber_core/Compiler-Tests", ["amber/boot", "amber_core/SUnit"], function($boot){
 var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$vm,_st=$recv,globals=$globals;
-smalltalk.addPackage('Compiler-Tests');
-smalltalk.packages["Compiler-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$vm.addPackage('Compiler-Tests');
+$vm.packages["Compiler-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('ASTParsingTest', globals.TestCase, [], 'Compiler-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('ASTParsingTest', globals.TestCase, [], 'Compiler-Tests');
+$vm.addMethod(
+$vm.method({
 selector: "analyze:forClass:",
 protocol: 'convenience',
 fn: function (aNode,aClass){
 var self=this;
 function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($SemanticAnalyzer())._on_(aClass))._visit_(aNode);
 return aNode;
@@ -30,15 +30,15 @@ messageSends: ["visit:", "on:"]
 }),
 globals.ASTParsingTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "parse:",
 protocol: 'parsing',
 fn: function (aString){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($Smalltalk())._parse_(aString);
@@ -56,14 +56,14 @@ messageSends: ["parse:"]
 }),
 globals.ASTParsingTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "parse:forClass:",
 protocol: 'parsing',
 fn: function (aString,aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._analyze_forClass_(self._parse_(aString),aClass);
@@ -83,9 +83,9 @@ globals.ASTParsingTest);
 
 
 
-smalltalk.addClass('ASTPCNodeVisitorTest', globals.ASTParsingTest, [], 'Compiler-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('ASTPCNodeVisitorTest', globals.ASTParsingTest, [], 'Compiler-Tests');
+$vm.addMethod(
+$vm.method({
 selector: "astPCNodeVisitor",
 protocol: 'factory',
 fn: function (){
@@ -93,7 +93,7 @@ var self=this;
 function $ASTPCNodeVisitor(){return globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
 function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$4,$5,$1;
 $2=_st($ASTPCNodeVisitor())._new();
@@ -122,8 +122,8 @@ messageSends: ["context:", "new", "yourself"]
 }),
 globals.ASTPCNodeVisitorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "astPCNodeVisitorForSelector:",
 protocol: 'factory',
 fn: function (aString){
@@ -131,7 +131,7 @@ var self=this;
 function $ASTPCNodeVisitor(){return globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
 function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$4,$5,$1;
 $2=_st($ASTPCNodeVisitor())._new();
@@ -161,8 +161,8 @@ messageSends: ["selector:", "new", "context:", "yourself"]
 }),
 globals.ASTPCNodeVisitorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testJSStatementNode",
 protocol: 'tests',
 fn: function (){
@@ -170,7 +170,7 @@ var self=this;
 var ast,visitor;
 function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 ast=self._parse_forClass_("foo <consolee.log(1)>",$Object());
@@ -192,8 +192,8 @@ messageSends: ["parse:forClass:", "assert:", "isJSStatementNode", "visit:", "ast
 }),
 globals.ASTPCNodeVisitorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testMessageSend",
 protocol: 'tests',
 fn: function (){
@@ -201,7 +201,7 @@ var self=this;
 var ast;
 function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 ast=self._parse_forClass_("foo self asString yourself. ^ self asBoolean",$Object());
@@ -223,8 +223,8 @@ messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPC
 }),
 globals.ASTPCNodeVisitorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testMessageSendWithBlocks",
 protocol: 'tests',
 fn: function (){
@@ -232,7 +232,7 @@ var self=this;
 var ast;
 function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 ast=self._parse_forClass_("foo true ifTrue: [ [ self asString yourself ] value.  ]. ^ self asBoolean",$Object());
@@ -254,8 +254,8 @@ messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPC
 }),
 globals.ASTPCNodeVisitorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testMessageSendWithInlining",
 protocol: 'tests',
 fn: function (){
@@ -263,7 +263,7 @@ var self=this;
 var ast;
 function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$4,$2,$1,$5,$6;
 ast=self._parse_forClass_("foo true ifTrue: [ self asString yourself ]. ^ self asBoolean",$Object());
@@ -310,8 +310,8 @@ messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPC
 }),
 globals.ASTPCNodeVisitorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testNoMessageSend",
 protocol: 'tests',
 fn: function (){
@@ -319,7 +319,7 @@ var self=this;
 var ast;
 function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 ast=self._parse_forClass_("foo ^ self",$Object());
@@ -341,8 +341,8 @@ messageSends: ["parse:forClass:", "assert:", "isNil", "visit:", "astPCNodeVisito
 }),
 globals.ASTPCNodeVisitorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testPC",
 protocol: 'tests',
 fn: function (){
@@ -350,7 +350,7 @@ var self=this;
 var ast,visitor;
 function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 ast=self._parse_forClass_("foo <console.log(1)>",$Object());
@@ -374,16 +374,16 @@ globals.ASTPCNodeVisitorTest);
 
 
 
-smalltalk.addClass('ASTPositionTest', globals.ASTParsingTest, [], 'Compiler-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('ASTPositionTest', globals.ASTParsingTest, [], 'Compiler-Tests');
+$vm.addMethod(
+$vm.method({
 selector: "testNodeAtPosition",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var node;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$4,$2,$1,$7,$8,$6,$5;
 node=self._parse_("yourself\x0a\x09^ self");
@@ -452,9 +452,9 @@ globals.ASTPositionTest);
 
 
 
-smalltalk.addClass('CodeGeneratorTest', globals.ASTParsingTest, ['receiver'], 'Compiler-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('CodeGeneratorTest', globals.ASTParsingTest, ['receiver'], 'Compiler-Tests');
+$vm.addMethod(
+$vm.method({
 selector: "codeGeneratorClass",
 protocol: 'accessing',
 fn: function (){
@@ -472,15 +472,15 @@ messageSends: []
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "compiler",
 protocol: 'factory',
 fn: function (){
 var self=this;
 function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st($Compiler())._new();
@@ -501,15 +501,15 @@ messageSends: ["codeGeneratorClass:", "new", "codeGeneratorClass", "yourself"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "setUp",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 function $DoIt(){return globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@receiver"]=_st($DoIt())._new();
 return self;
@@ -526,15 +526,15 @@ messageSends: ["new"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "should:receiver:return:",
 protocol: 'testing',
 fn: function (aString,anObject,aResult){
 var self=this;
 var method,result;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 self["@receiver"]=anObject;
@@ -561,14 +561,14 @@ messageSends: ["install:forClass:protocol:", "compiler", "class", "perform:", "s
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "should:return:",
 protocol: 'testing',
 fn: function (aString,anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._should_receiver_return_(aString,self["@receiver"],anObject);
@@ -586,8 +586,8 @@ messageSends: ["should:receiver:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "tearDown",
 protocol: 'initialization',
 fn: function (){
@@ -604,14 +604,14 @@ messageSends: []
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testAssignment",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo | a | a := true ifTrue: [ 1 ]. ^ a",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -636,14 +636,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testBackslashSelectors",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("\x5c arg ^ 4",(4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -664,14 +664,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testBlockReturn",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ #(1 2 3) collect: [ :each | true ifTrue: [ each + 1 ] ]",[(2), (3), (4)]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -696,14 +696,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testCascades",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ Array new add: 3; add: 4; yourself",[(3), (4)]);
 return self;
@@ -720,14 +720,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testCascadesWithInlining",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -748,14 +748,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testDynamicArrayElementsOrdered",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ { x. x := 2 }\x0a",[(1), (2)]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -776,14 +776,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testDynamicDictionaryElementsOrdered",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := 'foo'.\x0a\x09^ #{ x->1. 'bar'->(true ifTrue: [ 2 ]) }\x0a",globals.HashedCollection._newFromPairs_(["foo",(1),"bar",(2)]));
 return self;
@@ -800,15 +800,15 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testDynamicDictionaryWithMoreArrows",
 protocol: 'tests',
 fn: function (){
 var self=this;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st((1).__minus_gt((2))).__minus_gt((3));
@@ -831,15 +831,15 @@ messageSends: ["should:return:", "with:", "->"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testGlobalVar",
 protocol: 'tests',
 fn: function (){
 var self=this;
 function $BlockClosure(){return globals.BlockClosure||(typeof BlockClosure=="undefined"?nil:BlockClosure)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ eval class",$BlockClosure());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -864,15 +864,15 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testInnerTemporalDependentElementsOrdered",
 protocol: 'tests',
 fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$5,$6,$4,$8,$9,$7,$11,$10;
 $2="foo".__minus_gt($Array());
@@ -938,14 +938,14 @@ messageSends: ["should:return:", "->"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testJSStatement",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo <return 2+3>",(5));
 return self;
@@ -962,14 +962,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testLexicalScope",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo | a | a := 1. [ a := 2 ] value. ^ a",(2));
 return self;
@@ -986,14 +986,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testLiterals",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1050,14 +1050,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testLocalReturn",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1090,14 +1090,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testMessageSends",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1 asString","1");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1130,14 +1130,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testMultipleSequences",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo | a b c | a := 2. b := 3. c := a + b. ^ c * 6",(30));
 return self;
@@ -1154,14 +1154,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testMutableLiterals",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ #( 1 2 ) at: 1 put: 3; yourself",[(3), (2)]);
 return self;
@@ -1178,14 +1178,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testNestedIfTrue",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ true ifTrue: [ false ifFalse: [ 1 ] ]",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1214,15 +1214,15 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testNestedSends",
 protocol: 'tests',
 fn: function (){
 var self=this;
 function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ (Point x: (Point x: 2 y: 3) y: 4) asString",_st(_st($Point())._x_y_((2).__at((3)),(4)))._asString());
 return self;
@@ -1239,14 +1239,14 @@ messageSends: ["should:return:", "asString", "x:y:", "@"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testNonLocalReturn",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo [ ^ 1 ] value",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1275,15 +1275,15 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testPascalCaseGlobal",
 protocol: 'tests',
 fn: function (){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^Object",_st(_st($Smalltalk())._globals())._at_("Object"));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1304,15 +1304,15 @@ messageSends: ["should:return:", "at:", "globals"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testSendReceiverAndArgumentsOrdered",
 protocol: 'tests',
 fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ Array with: x with: (true ifTrue: [ x := 2 ])\x0a",[(1), (2)]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1333,14 +1333,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testSuperSend",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_receiver_return_("foo ^ super isBoolean",true,false);
 return self;
@@ -1357,14 +1357,14 @@ messageSends: ["should:receiver:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testTempVariables",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo | a | ^ a",nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1401,14 +1401,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testThisContext",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ [ thisContext ] value outerContext == thisContext",true);
 return self;
@@ -1425,14 +1425,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testifFalse",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo true ifFalse: [ ^ 1 ]",self["@receiver"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1461,14 +1461,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testifFalseIfTrue",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo true ifFalse: [ ^ 1 ] ifTrue: [ ^ 2 ]",(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1497,14 +1497,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testifNil",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1 ifNil: [ 2 ]",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1533,14 +1533,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testifNilIfNotNil",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1 ifNil: [ 2 ] ifNotNil: [ 3 ]",(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1569,14 +1569,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testifNotNil",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1 ifNotNil: [ 2 ]",(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1605,14 +1605,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testifNotNilWithArgument",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1 ifNotNil: [ :val | val + 2 ]",(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1649,14 +1649,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testifTrue",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo false ifTrue: [ ^ 1 ]",self["@receiver"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1685,14 +1685,14 @@ messageSends: ["should:return:"]
 }),
 globals.CodeGeneratorTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testifTrueIfFalse",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo false ifTrue: [ ^ 1 ] ifFalse: [ ^2 ]",(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1723,16 +1723,16 @@ globals.CodeGeneratorTest);
 
 
 
-smalltalk.addClass('ASTInterpreterTest', globals.CodeGeneratorTest, [], 'Compiler-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('ASTInterpreterTest', globals.CodeGeneratorTest, [], 'Compiler-Tests');
+$vm.addMethod(
+$vm.method({
 selector: "analyze:forClass:",
 protocol: 'parsing',
 fn: function (aNode,aClass){
 var self=this;
 function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($SemanticAnalyzer())._on_(aClass))._visit_(aNode);
 return aNode;
@@ -1749,8 +1749,8 @@ messageSends: ["visit:", "on:"]
 }),
 globals.ASTInterpreterTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "interpret:receiver:withArguments:",
 protocol: 'private',
 fn: function (aString,anObject,aDictionary){
@@ -1759,7 +1759,7 @@ var ctx,ast,interpreter;
 function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
 function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$6,$4,$receiver;
 interpreter=_st($ASTInterpreter())._new();
@@ -1780,7 +1780,7 @@ var sequence;
 sequence=$receiver;
 _st(_st(sequence)._temps())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(ctx)._defineLocal_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1790,7 +1790,7 @@ return _st(ctx)._defineLocal_(each);
 };
 _st(aDictionary)._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(ctx)._localAt_put_(key,value);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1817,15 +1817,15 @@ messageSends: ["new", "parse:forClass:", "class", "receiver:", "interpreter:", "
 }),
 globals.ASTInterpreterTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "parse:",
 protocol: 'parsing',
 fn: function (aString){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($Smalltalk())._parse_(aString);
@@ -1843,14 +1843,14 @@ messageSends: ["parse:"]
 }),
 globals.ASTInterpreterTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "parse:forClass:",
 protocol: 'parsing',
 fn: function (aString,aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._analyze_forClass_(self._parse_(aString),aClass);
@@ -1868,14 +1868,14 @@ messageSends: ["analyze:forClass:", "parse:"]
 }),
 globals.ASTInterpreterTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "should:receiver:return:",
 protocol: 'testing',
 fn: function (aString,anObject,aResult){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self["@receiver"]=anObject;
@@ -1894,14 +1894,14 @@ messageSends: ["assert:equals:", "interpret:receiver:withArguments:"]
 }),
 globals.ASTInterpreterTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "should:return:",
 protocol: 'testing',
 fn: function (aString,anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._should_receiver_return_(aString,self["@receiver"],anObject);
@@ -1921,9 +1921,9 @@ globals.ASTInterpreterTest);
 
 
 
-smalltalk.addClass('ASTDebuggerTest', globals.ASTInterpreterTest, [], 'Compiler-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('ASTDebuggerTest', globals.ASTInterpreterTest, [], 'Compiler-Tests');
+$vm.addMethod(
+$vm.method({
 selector: "interpret:receiver:withArguments:",
 protocol: 'private',
 fn: function (aString,anObject,aDictionary){
@@ -1933,7 +1933,7 @@ function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?n
 function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
 function $ASTDebugger(){return globals.ASTDebugger||(typeof ASTDebugger=="undefined"?nil:ASTDebugger)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$6,$7,$5,$receiver;
 $1=_st($AIContext())._new();
@@ -1953,7 +1953,7 @@ var sequence;
 sequence=$receiver;
 _st(_st(sequence)._temps())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(ctx)._defineLocal_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1963,7 +1963,7 @@ return _st(ctx)._defineLocal_(each);
 };
 _st(aDictionary)._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(ctx)._localAt_put_(key,value);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2000,9 +2000,9 @@ globals.ASTDebuggerTest);
 
 
 
-smalltalk.addClass('InliningCodeGeneratorTest', globals.CodeGeneratorTest, [], 'Compiler-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('InliningCodeGeneratorTest', globals.CodeGeneratorTest, [], 'Compiler-Tests');
+$vm.addMethod(
+$vm.method({
 selector: "codeGeneratorClass",
 protocol: 'accessing',
 fn: function (){
@@ -2022,9 +2022,9 @@ globals.InliningCodeGeneratorTest);
 
 
 
-smalltalk.addClass('ScopeVarTest', globals.TestCase, [], 'Compiler-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('ScopeVarTest', globals.TestCase, [], 'Compiler-Tests');
+$vm.addMethod(
+$vm.method({
 selector: "testClassRefVar",
 protocol: 'tests',
 fn: function (){
@@ -2034,7 +2034,7 @@ function $VariableNode(){return globals.VariableNode||(typeof VariableNode=="und
 function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 function $MethodLexicalScope(){return globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 $1=_st($VariableNode())._new();
@@ -2065,8 +2065,8 @@ messageSends: ["value:", "new", "yourself", "pushScope:", "visit:", "assert:", "
 }),
 globals.ScopeVarTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testInstanceVar",
 protocol: 'tests',
 fn: function (){
@@ -2075,7 +2075,7 @@ var node,scope;
 function $VariableNode(){return globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 function $MethodLexicalScope(){return globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st($VariableNode())._new();
@@ -2102,8 +2102,8 @@ messageSends: ["value:", "new", "yourself", "addIVar:", "assert:", "isInstanceVa
 }),
 globals.ScopeVarTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testPseudoVar",
 protocol: 'tests',
 fn: function (){
@@ -2112,13 +2112,13 @@ var node,pseudoVars;
 function $VariableNode(){return globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 function $MethodLexicalScope(){return globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 pseudoVars=["self", "super", "true", "false", "nil"];
 _st(pseudoVars)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st($VariableNode())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2147,8 +2147,8 @@ messageSends: ["do:", "value:", "new", "yourself", "assert:", "isPseudoVar", "bi
 }),
 globals.ScopeVarTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testTempVar",
 protocol: 'tests',
 fn: function (){
@@ -2157,7 +2157,7 @@ var node,scope;
 function $VariableNode(){return globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 function $MethodLexicalScope(){return globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st($VariableNode())._new();
@@ -2184,8 +2184,8 @@ messageSends: ["value:", "new", "yourself", "addTemp:", "assert:", "isTempVar", 
 }),
 globals.ScopeVarTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testUnknownVar",
 protocol: 'tests',
 fn: function (){
@@ -2194,7 +2194,7 @@ var node;
 function $VariableNode(){return globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 function $MethodLexicalScope(){return globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st($VariableNode())._new();
@@ -2221,9 +2221,9 @@ globals.ScopeVarTest);
 
 
 
-smalltalk.addClass('SemanticAnalyzerTest', globals.TestCase, ['analyzer'], 'Compiler-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('SemanticAnalyzerTest', globals.TestCase, ['analyzer'], 'Compiler-Tests');
+$vm.addMethod(
+$vm.method({
 selector: "setUp",
 protocol: 'running',
 fn: function (){
@@ -2231,7 +2231,7 @@ var self=this;
 function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@analyzer"]=_st($SemanticAnalyzer())._on_($Object());
 return self;
@@ -2248,8 +2248,8 @@ messageSends: ["on:"]
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testAssignment",
 protocol: 'tests',
 fn: function (){
@@ -2258,13 +2258,13 @@ var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $InvalidAssignmentError(){return globals.InvalidAssignmentError||(typeof InvalidAssignmentError=="undefined"?nil:InvalidAssignmentError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 src="foo self := 1";
 ast=_st($Smalltalk())._parse_(src);
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@analyzer"])._visit_(ast);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2285,8 +2285,8 @@ messageSends: ["parse:", "should:raise:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testNonLocalReturn",
 protocol: 'tests',
 fn: function (){
@@ -2294,7 +2294,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 src="foo | a | a + 1. ^ a";
 ast=_st($Smalltalk())._parse_(src);
@@ -2314,8 +2314,8 @@ messageSends: ["parse:", "visit:", "deny:", "hasNonLocalReturn", "scope"]
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testNonLocalReturn2",
 protocol: 'tests',
 fn: function (){
@@ -2323,7 +2323,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 src="foo | a | a + 1. [ [ ^ a] ]";
 ast=_st($Smalltalk())._parse_(src);
@@ -2343,8 +2343,8 @@ messageSends: ["parse:", "visit:", "assert:", "hasNonLocalReturn", "scope"]
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testScope",
 protocol: 'tests',
 fn: function (){
@@ -2352,7 +2352,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 src="foo | a | a + 1. [ | b | b := a ]";
@@ -2383,8 +2383,8 @@ messageSends: ["parse:", "visit:", "deny:", "==", "scope", "last", "nodes", "fir
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testScope2",
 protocol: 'tests',
 fn: function (){
@@ -2392,7 +2392,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $8,$7,$6,$5,$4,$3,$2,$1;
 src="foo | a | a + 1. [ [ | b | b := a ] ]";
@@ -2439,8 +2439,8 @@ messageSends: ["parse:", "visit:", "deny:", "==", "scope", "first", "nodes", "la
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testScopeLevel",
 protocol: 'tests',
 fn: function (){
@@ -2448,7 +2448,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$10,$9,$8,$7,$6,$5,$4,$3;
 src="foo | a | a + 1. [ [ | b | b := a ] ]";
@@ -2504,8 +2504,8 @@ messageSends: ["parse:", "visit:", "assert:equals:", "scopeLevel", "scope", "fir
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testUnknownVariables",
 protocol: 'tests',
 fn: function (){
@@ -2514,13 +2514,13 @@ var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $UnknownVariableError(){return globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 src="foo | a | b + a";
 ast=_st($Smalltalk())._parse_(src);
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@analyzer"])._visit_(ast);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2541,8 +2541,8 @@ messageSends: ["parse:", "should:raise:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testUnknownVariablesWithScope",
 protocol: 'tests',
 fn: function (){
@@ -2551,13 +2551,13 @@ var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $UnknownVariableError(){return globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 src="foo | a b | [ c + 1. [ a + 1. d + 1 ]]";
 ast=_st($Smalltalk())._parse_(src);
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@analyzer"])._visit_(ast);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2578,8 +2578,8 @@ messageSends: ["parse:", "should:raise:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testVariableShadowing",
 protocol: 'tests',
 fn: function (){
@@ -2587,7 +2587,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 src="foo | a | a + 1";
 ast=_st($Smalltalk())._parse_(src);
@@ -2606,8 +2606,8 @@ messageSends: ["parse:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testVariableShadowing2",
 protocol: 'tests',
 fn: function (){
@@ -2616,13 +2616,13 @@ var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ShadowingVariableError(){return globals.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 src="foo | a | a + 1. [ | a | a := 2 ]";
 ast=_st($Smalltalk())._parse_(src);
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@analyzer"])._visit_(ast);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2643,8 +2643,8 @@ messageSends: ["parse:", "should:raise:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testVariableShadowing3",
 protocol: 'tests',
 fn: function (){
@@ -2652,7 +2652,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 src="foo | a | a + 1. [ | b | b := 2 ]";
 ast=_st($Smalltalk())._parse_(src);
@@ -2671,8 +2671,8 @@ messageSends: ["parse:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testVariableShadowing4",
 protocol: 'tests',
 fn: function (){
@@ -2680,7 +2680,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 src="foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]";
 ast=_st($Smalltalk())._parse_(src);
@@ -2699,8 +2699,8 @@ messageSends: ["parse:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testVariableShadowing5",
 protocol: 'tests',
 fn: function (){
@@ -2709,13 +2709,13 @@ var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ShadowingVariableError(){return globals.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 src="foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]";
 ast=_st($Smalltalk())._parse_(src);
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@analyzer"])._visit_(ast);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2736,8 +2736,8 @@ messageSends: ["parse:", "should:raise:", "visit:"]
 }),
 globals.SemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testVariablesLookup",
 protocol: 'tests',
 fn: function (){
@@ -2745,7 +2745,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $7,$6,$5,$4,$3,$2,$1,$15,$14,$13,$12,$11,$10,$9,$16,$8,$27,$26,$25,$24,$23,$22,$21,$20,$19,$18,$17,$39,$38,$37,$36,$35,$34,$33,$32,$31,$30,$29,$42,$41,$40,$28;
 src="foo | a | a + 1. [ | b | b := a ]";
@@ -2927,9 +2927,9 @@ globals.SemanticAnalyzerTest);
 
 
 
-smalltalk.addClass('AISemanticAnalyzerTest', globals.SemanticAnalyzerTest, [], 'Compiler-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('AISemanticAnalyzerTest', globals.SemanticAnalyzerTest, [], 'Compiler-Tests');
+$vm.addMethod(
+$vm.method({
 selector: "setUp",
 protocol: 'running',
 fn: function (){
@@ -2938,7 +2938,7 @@ function $AISemanticAnalyzer(){return globals.AISemanticAnalyzer||(typeof AISema
 function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
 function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$5,$3,$6;
 $1=_st($AISemanticAnalyzer())._on_($Object());
@@ -2968,8 +2968,8 @@ messageSends: ["context:", "on:", "defineLocal:", "new", "localAt:put:", "yourse
 }),
 globals.AISemanticAnalyzerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testContextVariables",
 protocol: 'tests',
 fn: function (){
@@ -2978,13 +2978,13 @@ var src,ast;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $UnknownVariableError(){return globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 src="foo | a | local + a";
 ast=_st($Smalltalk())._parse_(src);
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@analyzer"])._visit_(ast);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

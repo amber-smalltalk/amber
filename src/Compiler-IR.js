@@ -1,15 +1,15 @@
 define("amber_core/Compiler-IR", ["amber/boot", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){
 var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$vm,_st=$recv,globals=$globals;
-smalltalk.addPackage('Compiler-IR');
-smalltalk.packages["Compiler-IR"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$vm.addPackage('Compiler-IR');
+$vm.packages["Compiler-IR"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('IRASTTranslator', globals.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
+$vm.addClass('IRASTTranslator', globals.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRASTTranslator.comment="I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "alias:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -19,11 +19,11 @@ function $IRVariable(){return globals.IRVariable||(typeof IRVariable=="undefined
 function $AliasVar(){return globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
 function $IRAssignment(){return globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$6,$5,$7,$8,$10,$11,$9,$12;
 $1=_st(aNode)._isImmutable();
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 $2=self._visit_(aNode);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["visit:"]=1;
@@ -78,8 +78,8 @@ messageSends: ["ifTrue:", "isImmutable", "visit:", "variable:", "new", "name:", 
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "aliasTemporally:",
 protocol: 'visiting',
 fn: function (aCollection){
@@ -87,16 +87,16 @@ var self=this;
 var threshold,result;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3,$5;
 threshold=(0);
 _st(aCollection)._withIndexDo_((function(each,i){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(each)._subtreeNeedsAliasing();
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 threshold=i;
 return threshold;
 };
@@ -110,11 +110,11 @@ $ctx1.sendIdx["withIndexDo:"]=1;
 result=_st($OrderedCollection())._new();
 _st(aCollection)._withIndexDo_((function(each,i){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=result;
 $4=_st(i).__lt_eq(threshold);
-if(smalltalk.assert($4)){
+if($vm.assert($4)){
 $3=self._alias_(each);
 } else {
 $3=self._visit_(each);
@@ -139,8 +139,8 @@ messageSends: ["withIndexDo:", "ifTrue:", "subtreeNeedsAliasing", "new", "add:",
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "method",
 protocol: 'accessing',
 fn: function (){
@@ -159,8 +159,8 @@ messageSends: []
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "method:",
 protocol: 'accessing',
 fn: function (anIRMethod){
@@ -178,14 +178,14 @@ messageSends: []
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextAlias",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
 $1=self["@nextAlias"];
@@ -211,8 +211,8 @@ messageSends: ["ifNil:", "+", "asString"]
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sequence",
 protocol: 'accessing',
 fn: function (){
@@ -231,8 +231,8 @@ messageSends: []
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sequence:",
 protocol: 'accessing',
 fn: function (anIRSequence){
@@ -250,8 +250,8 @@ messageSends: []
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "source",
 protocol: 'accessing',
 fn: function (){
@@ -270,8 +270,8 @@ messageSends: []
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "source:",
 protocol: 'accessing',
 fn: function (aString){
@@ -289,8 +289,8 @@ messageSends: []
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theClass",
 protocol: 'accessing',
 fn: function (){
@@ -309,8 +309,8 @@ messageSends: []
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theClass:",
 protocol: 'accessing',
 fn: function (aClass){
@@ -328,8 +328,8 @@ messageSends: []
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitAssignmentNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -337,7 +337,7 @@ var self=this;
 var left,right,assignment;
 function $IRAssignment(){return globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$4,$2,$5;
 right=self._visit_(_st(aNode)._right());
@@ -373,8 +373,8 @@ messageSends: ["visit:", "right", "left", "add:", "sequence", "new", "yourself"]
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitBlockNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -383,7 +383,7 @@ var closure;
 function $IRClosure(){return globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
 function $IRTempDeclaration(){return globals.IRTempDeclaration||(typeof IRTempDeclaration=="undefined"?nil:IRTempDeclaration)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$6,$5,$7,$8,$9;
 $1=_st($IRClosure())._new();
@@ -413,7 +413,7 @@ $ctx1.sendIdx["scope"]=2;
 $5=_st($6)._temps();
 _st($5)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $7=_st($IRTempDeclaration())._new();
 _st($7)._name_(_st(each)._name());
@@ -432,7 +432,7 @@ $ctx1.sendIdx["do:"]=1;
 //>>excludeEnd("ctx");
 _st(_st(aNode)._nodes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(closure)._add_(self._visit_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -454,8 +454,8 @@ messageSends: ["arguments:", "new", "parameters", "requiresSmalltalkContext:", "
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitBlockSequenceNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -463,7 +463,7 @@ var self=this;
 function $IRBlockSequence(){return globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
 function $IRBlockReturn(){return globals.IRBlockReturn||(typeof IRBlockReturn=="undefined"?nil:IRBlockReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$5,$4,$6,$7,$10,$9,$8,$11,$13,$14,$17,$16,$15,$18,$12,$1;
 $2=_st($IRBlockSequence())._new();
@@ -472,7 +472,7 @@ $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
 $1=self._withSequence_do_($2,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $3=_st(aNode)._nodes();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -480,7 +480,7 @@ $ctx2.sendIdx["nodes"]=1;
 //>>excludeEnd("ctx");
 return _st($3)._ifNotEmpty_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $5=_st(aNode)._nodes();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -489,7 +489,7 @@ $ctx3.sendIdx["nodes"]=2;
 $4=_st($5)._allButLast();
 _st($4)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx4) {
+return $vm.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 $6=self._sequence();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -516,7 +516,7 @@ $9=_st($10)._last();
 $ctx3.sendIdx["last"]=1;
 //>>excludeEnd("ctx");
 $8=_st($9)._isReturnNode();
-if(smalltalk.assert($8)){
+if($vm.assert($8)){
 return _st(self._sequence())._add_(self._visitOrAlias_(_st(_st(aNode)._nodes())._last()));
 } else {
 $11=self._sequence();
@@ -570,8 +570,8 @@ messageSends: ["withSequence:do:", "new", "ifNotEmpty:", "nodes", "do:", "allBut
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitCascadeNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -579,7 +579,7 @@ var self=this;
 var alias,receiver;
 function $VariableNode(){return globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$5,$4,$6;
 $2=_st(aNode)._receiver();
@@ -587,7 +587,7 @@ $2=_st(aNode)._receiver();
 $ctx1.sendIdx["receiver"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._isImmutable();
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 receiver=_st(aNode)._receiver();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["receiver"]=2;
@@ -608,7 +608,7 @@ $ctx1.sendIdx["nodes"]=1;
 //>>excludeEnd("ctx");
 _st($3)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._receiver_(receiver);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -625,7 +625,7 @@ $ctx1.sendIdx["nodes"]=2;
 $4=_st($5)._allButLast();
 _st($4)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._sequence())._add_(self._visit_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -647,8 +647,8 @@ messageSends: ["ifTrue:ifFalse:", "isImmutable", "receiver", "alias:", "binding:
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitDynamicArrayNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -656,13 +656,13 @@ var self=this;
 var array;
 function $IRDynamicArray(){return globals.IRDynamicArray||(typeof IRDynamicArray=="undefined"?nil:IRDynamicArray)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 array=_st($IRDynamicArray())._new();
 _st(self._aliasTemporally_(_st(aNode)._nodes()))._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(array)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -684,8 +684,8 @@ messageSends: ["new", "do:", "aliasTemporally:", "nodes", "add:"]
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitDynamicDictionaryNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -693,13 +693,13 @@ var self=this;
 var dictionary;
 function $IRDynamicDictionary(){return globals.IRDynamicDictionary||(typeof IRDynamicDictionary=="undefined"?nil:IRDynamicDictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 dictionary=_st($IRDynamicDictionary())._new();
 _st(self._aliasTemporally_(_st(aNode)._nodes()))._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(dictionary)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -721,15 +721,15 @@ messageSends: ["new", "do:", "aliasTemporally:", "nodes", "add:"]
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitJSStatementNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 function $IRVerbatim(){return globals.IRVerbatim||(typeof IRVerbatim=="undefined"?nil:IRVerbatim)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st($IRVerbatim())._new();
@@ -750,8 +750,8 @@ messageSends: ["source:", "new", "crlfSanitized", "source", "yourself"]
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitMethodNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -762,7 +762,7 @@ function $IRReturn(){return globals.IRReturn||(typeof IRReturn=="undefined"?nil:
 function $IRVariable(){return globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
 function $IRVerbatim(){return globals.IRVerbatim||(typeof IRVerbatim=="undefined"?nil:IRVerbatim)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$4,$5,$1,$7,$6,$8,$10,$11,$12,$13,$9,$14,$16,$15,$17,$18,$20,$21,$23,$24,$22,$25,$19,$27,$28,$26,$29;
 $2=_st($IRMethod())._new();
@@ -802,7 +802,7 @@ $ctx1.sendIdx["scope"]=2;
 $6=_st($7)._temps();
 _st($6)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $8=self._method();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -837,7 +837,7 @@ $ctx1.sendIdx["do:"]=1;
 //>>excludeEnd("ctx");
 _st(_st(aNode)._nodes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $14=self._method();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -856,7 +856,7 @@ $16=_st(aNode)._scope();
 $ctx1.sendIdx["scope"]=4;
 //>>excludeEnd("ctx");
 $15=_st($16)._hasLocalReturn();
-if(! smalltalk.assert($15)){
+if(!$vm.assert($15)){
 $17=self._method();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["method"]=3;
@@ -911,18 +911,18 @@ messageSends: ["method:", "source:", "new", "crlfSanitized", "source", "theClass
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitOrAlias:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st(aNode)._shouldBeAliased();
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $1=self._alias_(aNode);
 } else {
 $1=self._visit_(aNode);
@@ -941,8 +941,8 @@ messageSends: ["ifTrue:ifFalse:", "shouldBeAliased", "alias:", "visit:"]
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitReturnNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -951,11 +951,11 @@ var return_;
 function $IRNonLocalReturn(){return globals.IRNonLocalReturn||(typeof IRNonLocalReturn=="undefined"?nil:IRNonLocalReturn)}
 function $IRReturn(){return globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st(aNode)._nonLocalReturn();
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 return_=_st($IRNonLocalReturn())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
@@ -966,7 +966,7 @@ return_=_st($IRReturn())._new();
 _st(return_)._scope_(_st(aNode)._scope());
 _st(_st(aNode)._nodes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(return_)._add_(self._alias_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -988,8 +988,8 @@ messageSends: ["ifTrue:ifFalse:", "nonLocalReturn", "new", "scope:", "scope", "d
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitSendNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -997,7 +997,7 @@ var self=this;
 var send,all,receiver,arguments;
 function $IRSend(){return globals.IRSend||(typeof IRSend=="undefined"?nil:IRSend)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 send=_st($IRSend())._new();
@@ -1005,7 +1005,7 @@ $1=send;
 _st($1)._selector_(_st(aNode)._selector());
 $2=_st($1)._index_(_st(aNode)._index());
 $3=_st(aNode)._superSend();
-if(smalltalk.assert($3)){
+if($vm.assert($3)){
 _st(send)._classSend_(_st(self._theClass())._superclass());
 };
 all=self._aliasTemporally_(_st([_st(aNode)._receiver()]).__comma(_st(aNode)._arguments()));
@@ -1017,7 +1017,7 @@ $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
 _st(arguments)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(send)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1039,30 +1039,30 @@ messageSends: ["new", "selector:", "selector", "index:", "index", "ifTrue:", "su
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitSequenceNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 function $IRSequence(){return globals.IRSequence||(typeof IRSequence=="undefined"?nil:IRSequence)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $1=self._withSequence_do_(_st($IRSequence())._new(),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(aNode)._nodes())._do_((function(each){
 var instruction;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 instruction=self._visitOrAlias_(each);
 instruction;
 $2=_st(instruction)._isVariable();
-if(! smalltalk.assert($2)){
+if(!$vm.assert($2)){
 return _st(self._sequence())._add_(instruction);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1087,15 +1087,15 @@ messageSends: ["withSequence:do:", "new", "do:", "nodes", "visitOrAlias:", "ifFa
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitValueNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 function $IRValue(){return globals.IRValue||(typeof IRValue=="undefined"?nil:IRValue)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st($IRValue())._new();
@@ -1116,15 +1116,15 @@ messageSends: ["value:", "new", "value", "yourself"]
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitVariableNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 function $IRVariable(){return globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st($IRVariable())._new();
@@ -1145,15 +1145,15 @@ messageSends: ["variable:", "new", "binding", "yourself"]
 }),
 globals.IRASTTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "withSequence:do:",
 protocol: 'accessing',
 fn: function (aSequence,aBlock){
 var self=this;
 var outerSequence;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 outerSequence=self._sequence();
 self._sequence_(aSequence);
@@ -1178,18 +1178,18 @@ globals.IRASTTranslator);
 
 
 
-smalltalk.addClass('IRInstruction', globals.Object, ['parent', 'instructions'], 'Compiler-IR');
+$vm.addClass('IRInstruction', globals.Object, ['parent', 'instructions'], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRInstruction.comment="I am the abstract root class of the IR (intermediate representation) instructions class hierarchy.\x0aThe IR graph is used to emit JavaScript code using a JSStream.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRInstruction_(self);
@@ -1207,14 +1207,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "add:",
 protocol: 'building',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st(anObject)._parent_(self);
@@ -1233,8 +1233,8 @@ messageSends: ["parent:", "add:", "instructions"]
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "canBeAssigned",
 protocol: 'testing',
 fn: function (){
@@ -1251,15 +1251,15 @@ messageSends: []
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "instructions",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@instructions"];
@@ -1283,8 +1283,8 @@ messageSends: ["ifNil:", "new"]
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isClosure",
 protocol: 'testing',
 fn: function (){
@@ -1301,8 +1301,8 @@ messageSends: []
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isInlined",
 protocol: 'testing',
 fn: function (){
@@ -1319,8 +1319,8 @@ messageSends: []
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isLocalReturn",
 protocol: 'testing',
 fn: function (){
@@ -1337,8 +1337,8 @@ messageSends: []
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isMethod",
 protocol: 'testing',
 fn: function (){
@@ -1355,8 +1355,8 @@ messageSends: []
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isReturn",
 protocol: 'testing',
 fn: function (){
@@ -1373,8 +1373,8 @@ messageSends: []
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isSend",
 protocol: 'testing',
 fn: function (){
@@ -1391,8 +1391,8 @@ messageSends: []
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isSequence",
 protocol: 'testing',
 fn: function (){
@@ -1409,8 +1409,8 @@ messageSends: []
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isTempDeclaration",
 protocol: 'testing',
 fn: function (){
@@ -1427,8 +1427,8 @@ messageSends: []
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isVariable",
 protocol: 'testing',
 fn: function (){
@@ -1445,14 +1445,14 @@ messageSends: []
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "method",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._parent())._method();
@@ -1470,8 +1470,8 @@ messageSends: ["method", "parent"]
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "needsBoxingAsReceiver",
 protocol: 'testing',
 fn: function (){
@@ -1488,8 +1488,8 @@ messageSends: []
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "parent",
 protocol: 'accessing',
 fn: function (){
@@ -1508,8 +1508,8 @@ messageSends: []
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "parent:",
 protocol: 'accessing',
 fn: function (anIRInstruction){
@@ -1527,14 +1527,14 @@ messageSends: []
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "remove",
 protocol: 'building',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._parent())._remove_(self);
 return self;
@@ -1551,14 +1551,14 @@ messageSends: ["remove:", "parent"]
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "remove:",
 protocol: 'building',
 fn: function (anIRInstruction){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._instructions())._remove_(anIRInstruction);
 return self;
@@ -1575,14 +1575,14 @@ messageSends: ["remove:", "instructions"]
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "replace:with:",
 protocol: 'building',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st(anotherIRInstruction)._parent_(self);
@@ -1605,14 +1605,14 @@ messageSends: ["parent:", "at:put:", "instructions", "indexOf:"]
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "replaceWith:",
 protocol: 'building',
 fn: function (anIRInstruction){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._parent())._replace_with_(self,anIRInstruction);
 return self;
@@ -1629,14 +1629,14 @@ messageSends: ["replace:with:", "parent"]
 }),
 globals.IRInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "scope",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self._parent();
@@ -1662,14 +1662,14 @@ messageSends: ["ifNotNil:", "parent", "scope"]
 globals.IRInstruction);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "on:",
 protocol: 'instance creation',
 fn: function (aBuilder){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -1691,15 +1691,15 @@ messageSends: ["builder:", "new", "yourself"]
 globals.IRInstruction.klass);
 
 
-smalltalk.addClass('IRAssignment', globals.IRInstruction, [], 'Compiler-IR');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('IRAssignment', globals.IRInstruction, [], 'Compiler-IR');
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRAssignment_(self);
@@ -1719,15 +1719,15 @@ globals.IRAssignment);
 
 
 
-smalltalk.addClass('IRDynamicArray', globals.IRInstruction, [], 'Compiler-IR');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('IRDynamicArray', globals.IRInstruction, [], 'Compiler-IR');
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRDynamicArray_(self);
@@ -1747,15 +1747,15 @@ globals.IRDynamicArray);
 
 
 
-smalltalk.addClass('IRDynamicDictionary', globals.IRInstruction, [], 'Compiler-IR');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('IRDynamicDictionary', globals.IRInstruction, [], 'Compiler-IR');
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRDynamicDictionary_(self);
@@ -1775,9 +1775,9 @@ globals.IRDynamicDictionary);
 
 
 
-smalltalk.addClass('IRScopedInstruction', globals.IRInstruction, ['scope'], 'Compiler-IR');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('IRScopedInstruction', globals.IRInstruction, ['scope'], 'Compiler-IR');
+$vm.addMethod(
+$vm.method({
 selector: "scope",
 protocol: 'accessing',
 fn: function (){
@@ -1796,8 +1796,8 @@ messageSends: []
 }),
 globals.IRScopedInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "scope:",
 protocol: 'accessing',
 fn: function (aScope){
@@ -1817,15 +1817,15 @@ globals.IRScopedInstruction);
 
 
 
-smalltalk.addClass('IRClosureInstruction', globals.IRScopedInstruction, ['arguments', 'requiresSmalltalkContext'], 'Compiler-IR');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('IRClosureInstruction', globals.IRScopedInstruction, ['arguments', 'requiresSmalltalkContext'], 'Compiler-IR');
+$vm.addMethod(
+$vm.method({
 selector: "arguments",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@arguments"];
@@ -1848,8 +1848,8 @@ messageSends: ["ifNil:"]
 }),
 globals.IRClosureInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "arguments:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -1867,20 +1867,20 @@ messageSends: []
 }),
 globals.IRClosureInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "locals",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st(self._arguments())._copy();
 _st($2)._addAll_(_st(self._tempDeclarations())._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._name();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1903,14 +1903,14 @@ messageSends: ["addAll:", "copy", "arguments", "collect:", "tempDeclarations", "
 }),
 globals.IRClosureInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "requiresSmalltalkContext",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@requiresSmalltalkContext"];
@@ -1933,8 +1933,8 @@ messageSends: ["ifNil:"]
 }),
 globals.IRClosureInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "requiresSmalltalkContext:",
 protocol: 'accessing',
 fn: function (anObject){
@@ -1952,14 +1952,14 @@ messageSends: []
 }),
 globals.IRClosureInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "scope:",
 protocol: 'accessing',
 fn: function (aScope){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1984,19 +1984,19 @@ messageSends: ["scope:", "instruction:"]
 }),
 globals.IRClosureInstruction);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "tempDeclarations",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._instructions())._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._isTempDeclaration();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2019,15 +2019,15 @@ globals.IRClosureInstruction);
 
 
 
-smalltalk.addClass('IRClosure', globals.IRClosureInstruction, [], 'Compiler-IR');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('IRClosure', globals.IRClosureInstruction, [], 'Compiler-IR');
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRClosure_(self);
@@ -2045,8 +2045,8 @@ messageSends: ["visitIRClosure:"]
 }),
 globals.IRClosure);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isClosure",
 protocol: 'testing',
 fn: function (){
@@ -2063,14 +2063,14 @@ messageSends: []
 }),
 globals.IRClosure);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sequence",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._instructions())._last();
@@ -2090,18 +2090,18 @@ globals.IRClosure);
 
 
 
-smalltalk.addClass('IRMethod', globals.IRClosureInstruction, ['theClass', 'source', 'selector', 'classReferences', 'sendIndexes', 'superSends', 'requiresSmalltalkContext', 'internalVariables'], 'Compiler-IR');
+$vm.addClass('IRMethod', globals.IRClosureInstruction, ['theClass', 'source', 'selector', 'classReferences', 'sendIndexes', 'superSends', 'requiresSmalltalkContext', 'internalVariables'], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRMethod.comment="I am a method instruction";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRMethod_(self);
@@ -2119,8 +2119,8 @@ messageSends: ["visitIRMethod:"]
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "classReferences",
 protocol: 'accessing',
 fn: function (){
@@ -2139,8 +2139,8 @@ messageSends: []
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "classReferences:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -2158,15 +2158,15 @@ messageSends: []
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "internalVariables",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@internalVariables"];
@@ -2190,8 +2190,8 @@ messageSends: ["ifNil:", "new"]
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isMethod",
 protocol: 'accessing',
 fn: function (){
@@ -2208,14 +2208,14 @@ messageSends: []
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "messageSends",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._sendIndexes())._keys();
@@ -2233,8 +2233,8 @@ messageSends: ["keys", "sendIndexes"]
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "method",
 protocol: 'accessing',
 fn: function (){
@@ -2251,8 +2251,8 @@ messageSends: []
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "selector",
 protocol: 'accessing',
 fn: function (){
@@ -2271,8 +2271,8 @@ messageSends: []
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "selector:",
 protocol: 'accessing',
 fn: function (aString){
@@ -2290,8 +2290,8 @@ messageSends: []
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sendIndexes",
 protocol: 'accessing',
 fn: function (){
@@ -2310,8 +2310,8 @@ messageSends: []
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sendIndexes:",
 protocol: 'accessing',
 fn: function (aDictionary){
@@ -2329,8 +2329,8 @@ messageSends: []
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "source",
 protocol: 'accessing',
 fn: function (){
@@ -2349,8 +2349,8 @@ messageSends: []
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "source:",
 protocol: 'accessing',
 fn: function (aString){
@@ -2368,8 +2368,8 @@ messageSends: []
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "superSends",
 protocol: 'accessing',
 fn: function (){
@@ -2388,8 +2388,8 @@ messageSends: []
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "superSends:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -2407,8 +2407,8 @@ messageSends: []
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theClass",
 protocol: 'accessing',
 fn: function (){
@@ -2427,8 +2427,8 @@ messageSends: []
 }),
 globals.IRMethod);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theClass:",
 protocol: 'accessing',
 fn: function (aClass){
@@ -2448,18 +2448,18 @@ globals.IRMethod);
 
 
 
-smalltalk.addClass('IRReturn', globals.IRScopedInstruction, [], 'Compiler-IR');
+$vm.addClass('IRReturn', globals.IRScopedInstruction, [], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRReturn.comment="I am a local return instruction.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRReturn_(self);
@@ -2477,8 +2477,8 @@ messageSends: ["visitIRReturn:"]
 }),
 globals.IRReturn);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "canBeAssigned",
 protocol: 'testing',
 fn: function (){
@@ -2495,8 +2495,8 @@ messageSends: []
 }),
 globals.IRReturn);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isBlockReturn",
 protocol: 'testing',
 fn: function (){
@@ -2513,8 +2513,8 @@ messageSends: []
 }),
 globals.IRReturn);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isLocalReturn",
 protocol: 'testing',
 fn: function (){
@@ -2531,14 +2531,14 @@ messageSends: []
 }),
 globals.IRReturn);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isNonLocalReturn",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._isLocalReturn())._not();
@@ -2556,8 +2556,8 @@ messageSends: ["not", "isLocalReturn"]
 }),
 globals.IRReturn);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isReturn",
 protocol: 'testing',
 fn: function (){
@@ -2574,14 +2574,14 @@ messageSends: []
 }),
 globals.IRReturn);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "scope",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@scope"];
@@ -2606,18 +2606,18 @@ globals.IRReturn);
 
 
 
-smalltalk.addClass('IRBlockReturn', globals.IRReturn, [], 'Compiler-IR');
+$vm.addClass('IRBlockReturn', globals.IRReturn, [], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRBlockReturn.comment="Smalltalk blocks return their last statement. I am a implicit block return instruction.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRBlockReturn_(self);
@@ -2635,8 +2635,8 @@ messageSends: ["visitIRBlockReturn:"]
 }),
 globals.IRBlockReturn);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isBlockReturn",
 protocol: 'testing',
 fn: function (){
@@ -2655,18 +2655,18 @@ globals.IRBlockReturn);
 
 
 
-smalltalk.addClass('IRNonLocalReturn', globals.IRReturn, [], 'Compiler-IR');
+$vm.addClass('IRNonLocalReturn', globals.IRReturn, [], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRNonLocalReturn.comment="I am a non local return instruction.\x0aNon local returns are handled using a try/catch JavaScript statement.\x0a\x0aSee `IRNonLocalReturnHandling` class.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRNonLocalReturn_(self);
@@ -2684,8 +2684,8 @@ messageSends: ["visitIRNonLocalReturn:"]
 }),
 globals.IRNonLocalReturn);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isLocalReturn",
 protocol: 'testing',
 fn: function (){
@@ -2704,15 +2704,15 @@ globals.IRNonLocalReturn);
 
 
 
-smalltalk.addClass('IRTempDeclaration', globals.IRScopedInstruction, ['name'], 'Compiler-IR');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('IRTempDeclaration', globals.IRScopedInstruction, ['name'], 'Compiler-IR');
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRTempDeclaration_(self);
@@ -2730,8 +2730,8 @@ messageSends: ["visitIRTempDeclaration:"]
 }),
 globals.IRTempDeclaration);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isTempDeclaration",
 protocol: 'testing',
 fn: function (){
@@ -2748,8 +2748,8 @@ messageSends: []
 }),
 globals.IRTempDeclaration);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "name",
 protocol: 'accessing',
 fn: function (){
@@ -2768,8 +2768,8 @@ messageSends: []
 }),
 globals.IRTempDeclaration);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "name:",
 protocol: 'accessing',
 fn: function (aString){
@@ -2789,18 +2789,18 @@ globals.IRTempDeclaration);
 
 
 
-smalltalk.addClass('IRSend', globals.IRInstruction, ['selector', 'classSend', 'index'], 'Compiler-IR');
+$vm.addClass('IRSend', globals.IRInstruction, ['selector', 'classSend', 'index'], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRSend.comment="I am a message send instruction.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRSend_(self);
@@ -2818,8 +2818,8 @@ messageSends: ["visitIRSend:"]
 }),
 globals.IRSend);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "classSend",
 protocol: 'accessing',
 fn: function (){
@@ -2838,8 +2838,8 @@ messageSends: []
 }),
 globals.IRSend);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "classSend:",
 protocol: 'accessing',
 fn: function (aClass){
@@ -2857,8 +2857,8 @@ messageSends: []
 }),
 globals.IRSend);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "index",
 protocol: 'accessing',
 fn: function (){
@@ -2877,8 +2877,8 @@ messageSends: []
 }),
 globals.IRSend);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "index:",
 protocol: 'accessing',
 fn: function (anInteger){
@@ -2896,8 +2896,8 @@ messageSends: []
 }),
 globals.IRSend);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isSend",
 protocol: 'testing',
 fn: function (){
@@ -2914,8 +2914,8 @@ messageSends: []
 }),
 globals.IRSend);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "selector",
 protocol: 'accessing',
 fn: function (){
@@ -2934,8 +2934,8 @@ messageSends: []
 }),
 globals.IRSend);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "selector:",
 protocol: 'accessing',
 fn: function (aString){
@@ -2955,15 +2955,15 @@ globals.IRSend);
 
 
 
-smalltalk.addClass('IRSequence', globals.IRInstruction, [], 'Compiler-IR');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('IRSequence', globals.IRInstruction, [], 'Compiler-IR');
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRSequence_(self);
@@ -2981,8 +2981,8 @@ messageSends: ["visitIRSequence:"]
 }),
 globals.IRSequence);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isSequence",
 protocol: 'testing',
 fn: function (){
@@ -3001,15 +3001,15 @@ globals.IRSequence);
 
 
 
-smalltalk.addClass('IRBlockSequence', globals.IRSequence, [], 'Compiler-IR');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('IRBlockSequence', globals.IRSequence, [], 'Compiler-IR');
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRBlockSequence_(self);
@@ -3029,18 +3029,18 @@ globals.IRBlockSequence);
 
 
 
-smalltalk.addClass('IRValue', globals.IRInstruction, ['value'], 'Compiler-IR');
+$vm.addClass('IRValue', globals.IRInstruction, ['value'], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRValue.comment="I am the simplest possible instruction. I represent a value.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRValue_(self);
@@ -3058,8 +3058,8 @@ messageSends: ["visitIRValue:"]
 }),
 globals.IRValue);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "needsBoxingAsReceiver",
 protocol: 'testing',
 fn: function (){
@@ -3076,8 +3076,8 @@ messageSends: []
 }),
 globals.IRValue);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "value",
 protocol: 'accessing',
 fn: function (){
@@ -3096,8 +3096,8 @@ messageSends: []
 }),
 globals.IRValue);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "value:",
 protocol: 'accessing',
 fn: function (aString){
@@ -3117,18 +3117,18 @@ globals.IRValue);
 
 
 
-smalltalk.addClass('IRVariable', globals.IRInstruction, ['variable'], 'Compiler-IR');
+$vm.addClass('IRVariable', globals.IRInstruction, ['variable'], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRVariable.comment="I am a variable instruction.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRVariable_(self);
@@ -3146,8 +3146,8 @@ messageSends: ["visitIRVariable:"]
 }),
 globals.IRVariable);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isVariable",
 protocol: 'testing',
 fn: function (){
@@ -3164,14 +3164,14 @@ messageSends: []
 }),
 globals.IRVariable);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "needsBoxingAsReceiver",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(self._variable())._isPseudoVar())._not();
@@ -3189,8 +3189,8 @@ messageSends: ["not", "isPseudoVar", "variable"]
 }),
 globals.IRVariable);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "variable",
 protocol: 'accessing',
 fn: function (){
@@ -3209,8 +3209,8 @@ messageSends: []
 }),
 globals.IRVariable);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "variable:",
 protocol: 'accessing',
 fn: function (aScopeVariable){
@@ -3230,15 +3230,15 @@ globals.IRVariable);
 
 
 
-smalltalk.addClass('IRVerbatim', globals.IRInstruction, ['source'], 'Compiler-IR');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('IRVerbatim', globals.IRInstruction, ['source'], 'Compiler-IR');
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRVerbatim_(self);
@@ -3256,8 +3256,8 @@ messageSends: ["visitIRVerbatim:"]
 }),
 globals.IRVerbatim);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "source",
 protocol: 'accessing',
 fn: function (){
@@ -3276,8 +3276,8 @@ messageSends: []
 }),
 globals.IRVerbatim);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "source:",
 protocol: 'accessing',
 fn: function (aString){
@@ -3297,15 +3297,15 @@ globals.IRVerbatim);
 
 
 
-smalltalk.addClass('IRVisitor', globals.Object, [], 'Compiler-IR');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('IRVisitor', globals.Object, [], 'Compiler-IR');
+$vm.addMethod(
+$vm.method({
 selector: "visit:",
 protocol: 'visiting',
 fn: function (anIRInstruction){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(anIRInstruction)._accept_(self);
@@ -3323,14 +3323,14 @@ messageSends: ["accept:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRAssignment:",
 protocol: 'visiting',
 fn: function (anIRAssignment){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRAssignment);
@@ -3348,14 +3348,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRBlockReturn:",
 protocol: 'visiting',
 fn: function (anIRBlockReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRReturn_(anIRBlockReturn);
@@ -3373,14 +3373,14 @@ messageSends: ["visitIRReturn:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRBlockSequence:",
 protocol: 'visiting',
 fn: function (anIRBlockSequence){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRSequence_(anIRBlockSequence);
@@ -3398,14 +3398,14 @@ messageSends: ["visitIRSequence:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRClosure:",
 protocol: 'visiting',
 fn: function (anIRClosure){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRClosure);
@@ -3423,14 +3423,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRDynamicArray:",
 protocol: 'visiting',
 fn: function (anIRDynamicArray){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRDynamicArray);
@@ -3448,14 +3448,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRDynamicDictionary:",
 protocol: 'visiting',
 fn: function (anIRDynamicDictionary){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRDynamicDictionary);
@@ -3473,14 +3473,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRInlinedClosure:",
 protocol: 'visiting',
 fn: function (anIRInlinedClosure){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRClosure_(anIRInlinedClosure);
@@ -3498,14 +3498,14 @@ messageSends: ["visitIRClosure:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRInlinedSequence:",
 protocol: 'visiting',
 fn: function (anIRInlinedSequence){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRSequence_(anIRInlinedSequence);
@@ -3523,18 +3523,18 @@ messageSends: ["visitIRSequence:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRInstruction:",
 protocol: 'visiting',
 fn: function (anIRInstruction){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(anIRInstruction)._instructions())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._visit_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3555,14 +3555,14 @@ messageSends: ["do:", "instructions", "visit:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRMethod:",
 protocol: 'visiting',
 fn: function (anIRMethod){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRMethod);
@@ -3580,14 +3580,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRNonLocalReturn:",
 protocol: 'visiting',
 fn: function (anIRNonLocalReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRNonLocalReturn);
@@ -3605,14 +3605,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRNonLocalReturnHandling:",
 protocol: 'visiting',
 fn: function (anIRNonLocalReturnHandling){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRNonLocalReturnHandling);
@@ -3630,14 +3630,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRReturn:",
 protocol: 'visiting',
 fn: function (anIRReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRReturn);
@@ -3655,14 +3655,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRSend:",
 protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRSend);
@@ -3680,14 +3680,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRSequence:",
 protocol: 'visiting',
 fn: function (anIRSequence){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRSequence);
@@ -3705,14 +3705,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRTempDeclaration:",
 protocol: 'visiting',
 fn: function (anIRTempDeclaration){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRTempDeclaration);
@@ -3730,14 +3730,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRValue:",
 protocol: 'visiting',
 fn: function (anIRValue){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRValue);
@@ -3755,14 +3755,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRVariable:",
 protocol: 'visiting',
 fn: function (anIRVariable){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRVariable);
@@ -3780,14 +3780,14 @@ messageSends: ["visitIRInstruction:"]
 }),
 globals.IRVisitor);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRVerbatim:",
 protocol: 'visiting',
 fn: function (anIRVerbatim){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._visitIRInstruction_(anIRVerbatim);
@@ -3807,15 +3807,15 @@ globals.IRVisitor);
 
 
 
-smalltalk.addClass('IRJSTranslator', globals.IRVisitor, ['stream', 'currentClass'], 'Compiler-IR');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('IRJSTranslator', globals.IRVisitor, ['stream', 'currentClass'], 'Compiler-IR');
+$vm.addMethod(
+$vm.method({
 selector: "contents",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._stream())._contents();
@@ -3833,8 +3833,8 @@ messageSends: ["contents", "stream"]
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "currentClass",
 protocol: 'accessing',
 fn: function (){
@@ -3853,8 +3853,8 @@ messageSends: []
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "currentClass:",
 protocol: 'accessing',
 fn: function (aClass){
@@ -3872,15 +3872,15 @@ messageSends: []
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 function $JSStream(){return globals.JSStream||(typeof JSStream=="undefined"?nil:JSStream)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3905,8 +3905,8 @@ messageSends: ["initialize", "new"]
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "stream",
 protocol: 'accessing',
 fn: function (){
@@ -3925,8 +3925,8 @@ messageSends: []
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "stream:",
 protocol: 'accessing',
 fn: function (aStream){
@@ -3944,14 +3944,14 @@ messageSends: []
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRAssignment:",
 protocol: 'visiting',
 fn: function (anIRAssignment){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st(anIRAssignment)._instructions();
@@ -3979,14 +3979,14 @@ messageSends: ["visit:", "first", "instructions", "nextPutAssignment", "stream",
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRClosure:",
 protocol: 'visiting',
 fn: function (anIRClosure){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._stream();
@@ -3995,7 +3995,7 @@ $ctx1.sendIdx["stream"]=1;
 //>>excludeEnd("ctx");
 _st($1)._nextPutClosureWith_arguments_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4003,7 +4003,7 @@ $ctx2.sendIdx["stream"]=2;
 //>>excludeEnd("ctx");
 _st($2)._nextPutVars_(_st(_st(anIRClosure)._tempDeclarations())._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._name())._asVariableName();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4012,7 +4012,7 @@ return _st(_st(each)._name())._asVariableName();
 })));
 return _st(self._stream())._nextPutBlockContextFor_during_(anIRClosure,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4044,14 +4044,14 @@ messageSends: ["nextPutClosureWith:arguments:", "stream", "nextPutVars:", "colle
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRDynamicArray:",
 protocol: 'visiting',
 fn: function (anIRDynamicArray){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._stream();
@@ -4064,7 +4064,7 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
 _st(_st(anIRDynamicArray)._instructions())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._visit_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4072,7 +4072,7 @@ return self._visit_(each);
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._stream())._nextPutAll_(",");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4097,14 +4097,14 @@ messageSends: ["nextPutAll:", "stream", "do:separatedBy:", "instructions", "visi
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRDynamicDictionary:",
 protocol: 'visiting',
 fn: function (anIRDynamicDictionary){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._stream();
@@ -4117,7 +4117,7 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
 _st(_st(anIRDynamicDictionary)._instructions())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._visit_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4125,7 +4125,7 @@ return self._visit_(each);
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4154,14 +4154,14 @@ messageSends: ["nextPutAll:", "stream", "do:separatedBy:", "instructions", "visi
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRMethod:",
 protocol: 'visiting',
 fn: function (anIRMethod){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$8,$7,$9,$10;
 $1=self._stream();
@@ -4170,7 +4170,7 @@ $ctx1.sendIdx["stream"]=1;
 //>>excludeEnd("ctx");
 _st($1)._nextPutMethodDeclaration_with_(anIRMethod,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4178,7 +4178,7 @@ $ctx2.sendIdx["stream"]=2;
 //>>excludeEnd("ctx");
 return _st($2)._nextPutFunctionWith_arguments_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $3=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4186,7 +4186,7 @@ $ctx3.sendIdx["stream"]=3;
 //>>excludeEnd("ctx");
 $4=_st(_st(anIRMethod)._tempDeclarations())._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx4) {
+return $vm.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._name())._asVariableName();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4202,7 +4202,7 @@ $ctx3.sendIdx["nextPutVars:"]=1;
 //>>excludeEnd("ctx");
 _st(_st(anIRMethod)._classReferences())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx4) {
+return $vm.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 $5=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4219,21 +4219,21 @@ $ctx3.sendIdx["stream"]=5;
 //>>excludeEnd("ctx");
 return _st($6)._nextPutContextFor_during_(anIRMethod,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx4) {
+return $vm.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 $8=_st(anIRMethod)._internalVariables();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx4.sendIdx["internalVariables"]=1;
 //>>excludeEnd("ctx");
 $7=_st($8)._notEmpty();
-if(smalltalk.assert($7)){
+if($vm.assert($7)){
 $9=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx4.sendIdx["stream"]=6;
 //>>excludeEnd("ctx");
 _st($9)._nextPutVars_(_st(_st(_st(anIRMethod)._internalVariables())._asSet())._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx5) {
+return $vm.withContext(function($ctx5) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._variable())._alias();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4242,10 +4242,10 @@ return _st(_st(each)._variable())._alias();
 })));
 };
 $10=_st(_st(anIRMethod)._scope())._hasNonLocalReturn();
-if(smalltalk.assert($10)){
+if($vm.assert($10)){
 return _st(self._stream())._nextPutNonLocalReturnHandlingWith_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx5) {
+return $vm.withContext(function($ctx5) {
 //>>excludeEnd("ctx");
 return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4298,18 +4298,18 @@ messageSends: ["nextPutMethodDeclaration:with:", "stream", "nextPutFunctionWith:
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRNonLocalReturn:",
 protocol: 'visiting',
 fn: function (anIRNonLocalReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._stream())._nextPutNonLocalReturnWith_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4337,18 +4337,18 @@ messageSends: ["nextPutNonLocalReturnWith:", "stream", "visitIRNonLocalReturn:"]
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRReturn:",
 protocol: 'visiting',
 fn: function (anIRReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._stream())._nextPutReturnWith_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4376,15 +4376,15 @@ messageSends: ["nextPutReturnWith:", "stream", "visitIRReturn:"]
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRSend:",
 protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 var sends;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
 sends=_st(_st(_st(_st(anIRSend)._method())._sendIndexes())._at_(_st(anIRSend)._selector()))._size();
@@ -4396,14 +4396,14 @@ self._visitSuperSend_(anIRSend);
 };
 $2=_st(_st(sends).__gt((1)))._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(anIRSend)._index()).__lt(sends);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 //>>excludeEnd("ctx");
 }));
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 _st(self._stream())._nextPutSendIndexFor_(anIRSend);
 };
 return self;
@@ -4420,14 +4420,14 @@ messageSends: ["size", "at:", "sendIndexes", "method", "selector", "ifNil:ifNotN
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRSequence:",
 protocol: 'visiting',
 fn: function (anIRSequence){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._stream();
@@ -4436,11 +4436,11 @@ $ctx1.sendIdx["stream"]=1;
 //>>excludeEnd("ctx");
 _st($1)._nextPutSequenceWith_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(anIRSequence)._instructions())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(self._stream())._nextPutStatementWith_(self._visit_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4465,8 +4465,8 @@ messageSends: ["nextPutSequenceWith:", "stream", "do:", "instructions", "nextPut
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRTempDeclaration:",
 protocol: 'visiting',
 fn: function (anIRTempDeclaration){
@@ -4483,14 +4483,14 @@ messageSends: []
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRValue:",
 protocol: 'visiting',
 fn: function (anIRValue){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._stream())._nextPutAll_(_st(_st(anIRValue)._value())._asJavascript());
 return self;
@@ -4507,14 +4507,14 @@ messageSends: ["nextPutAll:", "stream", "asJavascript", "value"]
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRVariable:",
 protocol: 'visiting',
 fn: function (anIRVariable){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1,$4;
 $3=_st(anIRVariable)._variable();
@@ -4523,12 +4523,12 @@ $ctx1.sendIdx["variable"]=1;
 //>>excludeEnd("ctx");
 $2=_st($3)._name();
 $1=_st($2).__eq("thisContext");
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 $4=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["stream"]=1;
 //>>excludeEnd("ctx");
-_st($4)._nextPutAll_("smalltalk.getThisContext()");
+_st($4)._nextPutAll_("$vm.getThisContext()");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
@@ -4542,21 +4542,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRVariable"],
-source: "visitIRVariable: anIRVariable\x0a\x09anIRVariable variable name = 'thisContext'\x0a\x09\x09ifTrue: [ self stream nextPutAll: 'smalltalk.getThisContext()' ]\x0a\x09\x09ifFalse: [ self stream nextPutAll: anIRVariable variable alias ]",
+source: "visitIRVariable: anIRVariable\x0a\x09anIRVariable variable name = 'thisContext'\x0a\x09\x09ifTrue: [ self stream nextPutAll: '$vm.getThisContext()' ]\x0a\x09\x09ifFalse: [ self stream nextPutAll: anIRVariable variable alias ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "=", "name", "variable", "nextPutAll:", "stream", "alias"]
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRVerbatim:",
 protocol: 'visiting',
 fn: function (anIRVerbatim){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._stream();
@@ -4565,7 +4565,7 @@ $ctx1.sendIdx["stream"]=1;
 //>>excludeEnd("ctx");
 _st($1)._nextPutStatementWith_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._stream())._nextPutAll_(_st(anIRVerbatim)._source());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4586,18 +4586,18 @@ messageSends: ["nextPutStatementWith:", "stream", "nextPutAll:", "source"]
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitReceiver:",
 protocol: 'visiting',
 fn: function (anIRInstruction){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 $1=_st(anIRInstruction)._needsBoxingAsReceiver();
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 $2=self._visit_(anIRInstruction);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["visit:"]=1;
@@ -4628,14 +4628,14 @@ messageSends: ["ifFalse:", "needsBoxingAsReceiver", "visit:", "nextPutAll:", "st
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitSend:",
 protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$4,$5;
 $2=_st(anIRSend)._instructions();
@@ -4658,7 +4658,7 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
 _st(_st(_st(anIRSend)._instructions())._allButFirst())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._visit_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4666,7 +4666,7 @@ return self._visit_(each);
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $5=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4695,14 +4695,14 @@ messageSends: ["visitReceiver:", "first", "instructions", "nextPutAll:", "stream
 }),
 globals.IRJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitSuperSend:",
 protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$5,$4,$3,$6,$7,$8,$10,$9,$11,$12,$13,$14;
 $1=self._stream();
@@ -4794,7 +4794,7 @@ $ctx1.sendIdx["nextPutAll:"]=9;
 //>>excludeEnd("ctx");
 _st(_st(_st(anIRSend)._instructions())._allButFirst())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._visit_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4802,7 +4802,7 @@ return self._visit_(each);
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $12=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4855,15 +4855,15 @@ globals.IRJSTranslator);
 
 
 
-smalltalk.addClass('JSStream', globals.Object, ['stream'], 'Compiler-IR');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('JSStream', globals.Object, ['stream'], 'Compiler-IR');
+$vm.addMethod(
+$vm.method({
 selector: "contents",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@stream"])._contents();
@@ -4881,14 +4881,14 @@ messageSends: ["contents"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4913,14 +4913,14 @@ messageSends: ["initialize", "writeStream"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "lf",
 protocol: 'streaming',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@stream"])._lf();
 return self;
@@ -4937,14 +4937,14 @@ messageSends: ["lf"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPut:",
 protocol: 'streaming',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@stream"])._nextPut_(aString);
 return self;
@@ -4961,14 +4961,14 @@ messageSends: ["nextPut:"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutAll:",
 protocol: 'streaming',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@stream"])._nextPutAll_(aString);
 return self;
@@ -4985,14 +4985,14 @@ messageSends: ["nextPutAll:"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutAssignment",
 protocol: 'streaming',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@stream"])._nextPutAll_("=");
 return self;
@@ -5009,18 +5009,18 @@ messageSends: ["nextPutAll:"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutBlockContextFor:during:",
 protocol: 'streaming',
 fn: function (anIRClosure,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$6,$5,$4,$3,$7,$11,$10,$9,$8,$15,$14,$13,$12,$16,$17,$23,$22,$21,$20,$19,$18,$24;
 $1=_st(anIRClosure)._requiresSmalltalkContext();
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 $2=_st(aBlock)._value();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value"]=1;
@@ -5043,7 +5043,7 @@ $5=_st($6)._alias();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["alias"]=1;
 //>>excludeEnd("ctx");
-$4="return smalltalk.withContext(function(".__comma($5);
+$4="return $vm.withContext(function(".__comma($5);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
 //>>excludeEnd("ctx");
@@ -5114,7 +5114,7 @@ $ctx1.sendIdx["nextPutAll:"]=6;
 //>>excludeEnd("ctx");
 _st(_st(anIRClosure)._locals())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $16=_st(each)._asVariableName();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5138,7 +5138,7 @@ return $17;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._nextPutAll_(",");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5180,21 +5180,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRClosure", "aBlock"],
-source: "nextPutBlockContextFor: anIRClosure during: aBlock\x0a\x09anIRClosure requiresSmalltalkContext ifFalse: [ ^ aBlock value ].\x0a\x09self\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ctx\x22);';\x0a\x09\x09lf.\x0a\x09\x0a\x09aBlock value.\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}, function(', anIRClosure scope alias, ') {';\x0a\x09\x09nextPutAll: anIRClosure scope alias, '.fillBlock({'.\x0a\x09\x0a\x09anIRClosure locals\x0a\x09\x09do: [ :each |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09nextPutAll: each asVariableName;\x0a\x09\x09\x09\x09nextPutAll: ':';\x0a\x09\x09\x09\x09nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '},';\x0a\x09\x09nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')});';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ctx\x22);'",
+source: "nextPutBlockContextFor: anIRClosure during: aBlock\x0a\x09anIRClosure requiresSmalltalkContext ifFalse: [ ^ aBlock value ].\x0a\x09self\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'return $vm.withContext(function(', anIRClosure scope alias, ') {';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ctx\x22);';\x0a\x09\x09lf.\x0a\x09\x0a\x09aBlock value.\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}, function(', anIRClosure scope alias, ') {';\x0a\x09\x09nextPutAll: anIRClosure scope alias, '.fillBlock({'.\x0a\x09\x0a\x09anIRClosure locals\x0a\x09\x09do: [ :each |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09nextPutAll: each asVariableName;\x0a\x09\x09\x09\x09nextPutAll: ':';\x0a\x09\x09\x09\x09nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '},';\x0a\x09\x09nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')});';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ctx\x22);'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "requiresSmalltalkContext", "value", "nextPutAll:", "lf", ",", "alias", "scope", "do:separatedBy:", "locals", "asVariableName", "outerScope", "asString", "blockIndex"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutClassRefFunction:",
 protocol: 'streaming',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self["@stream"];
@@ -5246,14 +5246,14 @@ messageSends: ["nextPutAll:", "lf"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutClosureWith:arguments:",
 protocol: 'streaming',
 fn: function (aBlock,anArray){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 _st(self["@stream"])._nextPutAll_("(function(");
@@ -5262,7 +5262,7 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
 _st(anArray)._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@stream"])._nextPutAll_(_st(each)._asVariableName());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5273,7 +5273,7 @@ $ctx2.sendIdx["nextPutAll:"]=2;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@stream"])._nextPut_(",");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5307,18 +5307,18 @@ messageSends: ["nextPutAll:", "do:separatedBy:", "asVariableName", "nextPut:", "
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutContextFor:during:",
 protocol: 'streaming',
 fn: function (aMethod,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$6,$5,$4,$3,$7,$12,$11,$10,$9,$8,$16,$15,$14,$13,$17,$18,$19;
 $1=_st(aMethod)._requiresSmalltalkContext();
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 $2=_st(aBlock)._value();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value"]=1;
@@ -5341,7 +5341,7 @@ $5=_st($6)._alias();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["alias"]=1;
 //>>excludeEnd("ctx");
-$4="return smalltalk.withContext(function(".__comma($5);
+$4="return $vm.withContext(function(".__comma($5);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
 //>>excludeEnd("ctx");
@@ -5413,7 +5413,7 @@ $ctx1.sendIdx["nextPutAll:"]=6;
 //>>excludeEnd("ctx");
 _st(_st(aMethod)._locals())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $17=_st(each)._asVariableName();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5437,7 +5437,7 @@ return $18;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._nextPutAll_(",");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5468,21 +5468,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMethod", "aBlock"],
-source: "nextPutContextFor: aMethod during: aBlock\x0a\x09aMethod requiresSmalltalkContext ifFalse: [ ^ aBlock value ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { ';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ctx\x22);';\x0a\x09\x09lf.\x0a\x0a\x09aBlock value.\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias;\x0a\x09\x09nextPutAll: '.fill(self,', aMethod selector asJavascript, ',{'.\x0a\x0a\x09aMethod locals\x0a\x09\x09do: [ :each |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09nextPutAll: each asVariableName;\x0a\x09\x09\x09\x09nextPutAll: ':';\x0a\x09\x09\x09\x09nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '},';\x0a\x09\x09nextPutAll: aMethod theClass asJavascript;\x0a\x09\x09nextPutAll: ')});';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ctx\x22);'",
+source: "nextPutContextFor: aMethod during: aBlock\x0a\x09aMethod requiresSmalltalkContext ifFalse: [ ^ aBlock value ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'return $vm.withContext(function(', aMethod scope alias, ') { ';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ctx\x22);';\x0a\x09\x09lf.\x0a\x0a\x09aBlock value.\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias;\x0a\x09\x09nextPutAll: '.fill(self,', aMethod selector asJavascript, ',{'.\x0a\x0a\x09aMethod locals\x0a\x09\x09do: [ :each |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09nextPutAll: each asVariableName;\x0a\x09\x09\x09\x09nextPutAll: ':';\x0a\x09\x09\x09\x09nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '},';\x0a\x09\x09nextPutAll: aMethod theClass asJavascript;\x0a\x09\x09nextPutAll: ')});';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ctx\x22);'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "requiresSmalltalkContext", "value", "nextPutAll:", "lf", ",", "alias", "scope", "asJavascript", "selector", "do:separatedBy:", "locals", "asVariableName", "theClass"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutFunctionWith:arguments:",
 protocol: 'streaming',
 fn: function (aBlock,anArray){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6;
 _st(self["@stream"])._nextPutAll_("fn: function(");
@@ -5491,7 +5491,7 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
 _st(anArray)._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@stream"])._nextPutAll_(_st(each)._asVariableName());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5502,7 +5502,7 @@ $ctx2.sendIdx["nextPutAll:"]=2;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@stream"])._nextPut_(",");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5545,14 +5545,14 @@ messageSends: ["nextPutAll:", "do:separatedBy:", "asVariableName", "nextPut:", "
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutIf:with:",
 protocol: 'streaming',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 _st(self["@stream"])._nextPutAll_("if(");
@@ -5585,14 +5585,14 @@ messageSends: ["nextPutAll:", "value", "lf"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutIfElse:with:with:",
 protocol: 'streaming',
 fn: function (aBlock,ifBlock,elseBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 _st(self["@stream"])._nextPutAll_("if(");
@@ -5638,19 +5638,19 @@ messageSends: ["nextPutAll:", "value", "lf"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutMethodDeclaration:with:",
 protocol: 'streaming',
 fn: function (aMethod,aBlock){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$5,$4,$3,$6,$9,$8,$7,$10,$11,$12,$15,$14,$13,$16,$19,$18,$17,$20,$23,$22,$21,$24,$25,$26;
 $1=self["@stream"];
-_st($1)._nextPutAll_("smalltalk.method({");
+_st($1)._nextPutAll_("$vm.method({");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
@@ -5746,7 +5746,7 @@ $ctx1.sendIdx["lf"]=5;
 $20=$11;
 $23=_st(_st(_st(_st(aMethod)._arguments())._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._value();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5772,7 +5772,7 @@ $ctx1.sendIdx["nextPutAll:"]=7;
 //>>excludeEnd("ctx");
 _st(_st(aMethod)._classReferences())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@stream"])._nextPutAll_(_st(each)._asJavascript());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5783,7 +5783,7 @@ $ctx2.sendIdx["nextPutAll:"]=8;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@stream"])._nextPutAll_(",");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5806,21 +5806,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMethod", "aBlock"],
-source: "nextPutMethodDeclaration: aMethod with: aBlock\x0a\x09stream\x0a\x09\x09nextPutAll: 'smalltalk.method({'; lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.\x0a\x09aBlock value.\x0a\x09stream\x0a\x09\x09nextPutAll: ',', String lf, 'messageSends: ';\x0a\x09\x09nextPutAll: aMethod messageSends asArray asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ['.\x0a\x09aMethod classReferences\x0a\x09\x09do: [ :each | stream nextPutAll: each asJavascript ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ',' ].\x0a\x09stream\x0a\x09\x09nextPutAll: ']';\x0a\x09\x09nextPutAll: '})'",
+source: "nextPutMethodDeclaration: aMethod with: aBlock\x0a\x09stream\x0a\x09\x09nextPutAll: '$vm.method({'; lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.\x0a\x09aBlock value.\x0a\x09stream\x0a\x09\x09nextPutAll: ',', String lf, 'messageSends: ';\x0a\x09\x09nextPutAll: aMethod messageSends asArray asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ['.\x0a\x09aMethod classReferences\x0a\x09\x09do: [ :each | stream nextPutAll: each asJavascript ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ',' ].\x0a\x09stream\x0a\x09\x09nextPutAll: ']';\x0a\x09\x09nextPutAll: '})'",
 referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "source", "value", "asArray", "messageSends", "collect:", "arguments", "do:separatedBy:", "classReferences"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutNonLocalReturnHandlingWith:",
 protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 $1=self["@stream"];
@@ -5866,14 +5866,14 @@ messageSends: ["nextPutAll:", "lf", "value"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutNonLocalReturnWith:",
 protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@stream"])._nextPutAll_("throw $early=[");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5895,14 +5895,14 @@ messageSends: ["nextPutAll:", "value"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutReturn",
 protocol: 'streaming',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@stream"])._nextPutAll_("return ");
 return self;
@@ -5919,14 +5919,14 @@ messageSends: ["nextPutAll:"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutReturnWith:",
 protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._nextPutReturn();
 _st(aBlock)._value();
@@ -5944,14 +5944,14 @@ messageSends: ["nextPutReturn", "value"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutSendIndexFor:",
 protocol: 'streaming',
 fn: function (anIRSend){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._nextPutAll_(";");
@@ -6010,14 +6010,14 @@ messageSends: ["nextPutAll:", "lf", "alias", "scope", "asJavascript", "selector"
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutSequenceWith:",
 protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aBlock)._value();
 return self;
@@ -6027,21 +6027,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "nextPutSequenceWith: aBlock\x0a\x09\x22stream\x0a\x09\x09nextPutAll: 'switch(smalltalk.thisContext.pc){'; lf.\x22\x0a\x09aBlock value.\x0a\x09\x22stream\x0a\x09\x09nextPutAll: '};'; lf\x22",
+source: "nextPutSequenceWith: aBlock\x0a\x09\x22stream\x0a\x09\x09nextPutAll: 'switch($vm.thisContext.pc){'; lf.\x22\x0a\x09aBlock value.\x0a\x09\x22stream\x0a\x09\x09nextPutAll: '};'; lf\x22",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutStatementWith:",
 protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 _st(aBlock)._value();
@@ -6062,14 +6062,14 @@ messageSends: ["value", "nextPutAll:", "lf"]
 }),
 globals.JSStream);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nextPutVars:",
 protocol: 'streaming',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 var $early={};
@@ -6084,7 +6084,7 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
 _st(aCollection)._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@stream"])._nextPutAll_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6095,7 +6095,7 @@ $ctx2.sendIdx["nextPutAll:"]=2;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@stream"])._nextPutAll_(",");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6125,14 +6125,14 @@ messageSends: ["ifEmpty:", "nextPutAll:", "do:separatedBy:", "lf"]
 globals.JSStream);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendToInstruction:",
 protocol: '*Compiler-IR',
 fn: function (anIRInstruction){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(anIRInstruction)._appendBlock_(self);
 return self;

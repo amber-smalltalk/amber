@@ -1,21 +1,21 @@
 define("amber_core/Kernel-Objects", ["amber/boot"], function($boot){
 var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$vm,_st=$recv,globals=$globals;
-smalltalk.addPackage('Kernel-Objects');
-smalltalk.packages["Kernel-Objects"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$vm.addPackage('Kernel-Objects');
+$vm.packages["Kernel-Objects"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('ProtoObject', null, [], 'Kernel-Objects');
+$vm.addClass('ProtoObject', null, [], 'Kernel-Objects');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ProtoObject.comment="I implement the basic behavior required for any object in Amber.\x0a\x0aIn most cases, subclassing `ProtoObject` is wrong and `Object` should be used instead. However subclassing `ProtoObject` can be useful in some special cases like proxy implementations.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "=",
 protocol: 'comparing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self.__eq_eq(anObject);
@@ -33,14 +33,14 @@ messageSends: ["=="]
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "==",
 protocol: 'comparing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._identityHash();
@@ -62,14 +62,14 @@ messageSends: ["=", "identityHash"]
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asString",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._printString();
@@ -87,14 +87,14 @@ messageSends: ["printString"]
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "class",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.klass;
 return self;
@@ -111,15 +111,15 @@ messageSends: []
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "doesNotUnderstand:",
 protocol: 'error handling',
 fn: function (aMessage){
 var self=this;
 function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st($MessageNotUnderstood())._new();
@@ -140,14 +140,14 @@ messageSends: ["receiver:", "new", "message:", "signal"]
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "evaluate:on:",
 protocol: 'evaluating',
 fn: function (aString,anEvaluator){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(anEvaluator)._evaluate_receiver_(aString,self);
@@ -165,19 +165,19 @@ messageSends: ["evaluate:receiver:"]
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "identityHash",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var hash=self.identityHash;
 		if (hash) return hash;
-		hash=smalltalk.nextId();
+		hash=$vm.nextId();
 		Object.defineProperty(self, 'identityHash', {value:hash});
 		return hash;
 	;
@@ -188,15 +188,15 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "identityHash\x0a\x09<\x0a\x09\x09var hash=self.identityHash;\x0a\x09\x09if (hash) return hash;\x0a\x09\x09hash=smalltalk.nextId();\x0a\x09\x09Object.defineProperty(self, 'identityHash', {value:hash});\x0a\x09\x09return hash;\x0a\x09>",
+source: "identityHash\x0a\x09<\x0a\x09\x09var hash=self.identityHash;\x0a\x09\x09if (hash) return hash;\x0a\x09\x09hash=$vm.nextId();\x0a\x09\x09Object.defineProperty(self, 'identityHash', {value:hash});\x0a\x09\x09return hash;\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
@@ -213,15 +213,15 @@ messageSends: []
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inspect",
 protocol: 'inspecting',
 fn: function (){
 var self=this;
 function $Inspector(){return globals.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($Inspector())._inspect_(self);
 return self;
@@ -238,8 +238,8 @@ messageSends: ["inspect:"]
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inspectOn:",
 protocol: 'inspecting',
 fn: function (anInspector){
@@ -256,14 +256,14 @@ messageSends: []
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "instVarAt:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
  return self['@'+aString] ;
 return self;
@@ -280,14 +280,14 @@ messageSends: []
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "instVarAt:put:",
 protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
  self['@' + aString] = anObject ;
 return self;
@@ -304,18 +304,18 @@ messageSends: []
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isKindOf:",
 protocol: 'testing',
 fn: function (aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._isMemberOf_(aClass);
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $1=true;
 } else {
 $1=_st(self._class())._inheritsFrom_(aClass);
@@ -334,14 +334,14 @@ messageSends: ["ifTrue:ifFalse:", "isMemberOf:", "inheritsFrom:", "class"]
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "perform:",
 protocol: 'message handling',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._perform_withArguments_(aString,[]);
@@ -359,16 +359,16 @@ messageSends: ["perform:withArguments:"]
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "perform:withArguments:",
 protocol: 'message handling',
 fn: function (aString,aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-return smalltalk.send(self, aString._asJavaScriptMethodName(), aCollection);
+return $vm.send(self, aString._asJavaScriptMethodName(), aCollection);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"perform:withArguments:",{aString:aString,aCollection:aCollection},globals.ProtoObject)});
@@ -376,21 +376,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aCollection"],
-source: "perform: aString withArguments: aCollection\x0a\x09<return smalltalk.send(self, aString._asJavaScriptMethodName(), aCollection)>",
+source: "perform: aString withArguments: aCollection\x0a\x09<return $vm.send(self, aString._asJavaScriptMethodName(), aCollection)>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $5,$4,$3,$2,$1;
 $5=self._class();
@@ -403,7 +403,7 @@ $ctx1.sendIdx["name"]=1;
 //>>excludeEnd("ctx");
 $3=_st($4)._first();
 $2=_st($3)._isVowel();
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $1="an ";
 } else {
 $1="a ";
@@ -427,20 +427,20 @@ messageSends: ["nextPutAll:", "ifTrue:ifFalse:", "isVowel", "first", "name", "cl
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printString",
 protocol: 'printing',
 fn: function (){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($String())._streamContents_((function(str){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._printOn_(str);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -461,8 +461,8 @@ messageSends: ["streamContents:", "printOn:"]
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "yourself",
 protocol: 'accessing',
 fn: function (){
@@ -479,14 +479,14 @@ messageSends: []
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "~=",
 protocol: 'comparing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self.__eq(anObject)).__eq(false);
@@ -507,14 +507,14 @@ messageSends: ["="]
 }),
 globals.ProtoObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "~~",
 protocol: 'comparing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self.__eq_eq(anObject)).__eq(false);
@@ -533,8 +533,8 @@ messageSends: ["=", "=="]
 globals.ProtoObject);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
@@ -552,19 +552,19 @@ messageSends: []
 globals.ProtoObject.klass);
 
 
-smalltalk.addClass('Object', globals.ProtoObject, [], 'Kernel-Objects');
+$vm.addClass('Object', globals.ProtoObject, [], 'Kernel-Objects');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Object.comment="**I am the root of the Smalltalk class system**. With the exception of unual subclasses of `ProtoObject`, all other classes in the system are subclasses of me.\x0a\x0aI provide default behavior common to all normal objects (some of it inherited from `ProtoObject`), such as:\x0a\x0a- accessing\x0a- copying\x0a- comparison\x0a- error handling\x0a- message sending\x0a- reflection\x0a\x0aAlso utility messages that all objects should respond to are defined here.\x0a\x0aI have no instance variable.\x0a\x0a##Access\x0a\x0aInstance variables can be accessed with `#instVarAt:` and `#instVarAt:put:`. `#instanceVariableNames` answers a collection of all instance variable names.\x0aAccessing JavaScript properties of an object is done through `#basicAt:`, `#basicAt:put:` and `basicDelete:`.\x0a\x0a##Copying\x0a\x0aCopying an object is handled by `#copy` and `#deepCopy`. The first one performs a shallow copy of the receiver, while the second one performs a deep copy.\x0aThe hook method `#postCopy` can be overriden in subclasses to copy fields as necessary to complete the full copy. It will be sent by the copy of the receiver.\x0a\x0a##Comparison\x0a\x0aI understand equality `#=` and identity `#==` comparison.\x0a\x0a##Error handling\x0a\x0a- `#halt` is the typical message to use for inserting breakpoints during debugging.\x0a- `#error:` throws a generic error exception\x0a- `#doesNotUnderstand:` handles the fact that there was an attempt to send the given message to the receiver but the receiver does not understand this message.\x0a\x09Overriding this message can be useful to implement proxies for example.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "->",
 protocol: 'converting',
 fn: function (anObject){
 var self=this;
 function $Association(){return globals.Association||(typeof Association=="undefined"?nil:Association)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($Association())._key_value_(self,anObject);
@@ -582,8 +582,8 @@ messageSends: ["key:value:"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJSON",
 protocol: 'converting',
 fn: function (){
@@ -591,13 +591,13 @@ var self=this;
 var variables;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 variables=_st($HashedCollection())._new();
 _st(_st(self._class())._allInstanceVariableNames())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(variables)._at_put_(each,_st(self._instVarAt_(each))._asJSON());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -619,15 +619,15 @@ messageSends: ["new", "do:", "allInstanceVariableNames", "class", "at:put:", "as
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJSONString",
 protocol: 'converting',
 fn: function (){
 var self=this;
 function $JSON(){return globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($JSON())._stringify_(self._asJSON());
@@ -645,14 +645,14 @@ messageSends: ["stringify:", "asJSON"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJavascript",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._asString();
@@ -670,14 +670,14 @@ messageSends: ["asString"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicAt:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self[aString];
 return self;
@@ -694,14 +694,14 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicAt:put:",
 protocol: 'accessing',
 fn: function (aString,anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self[aString] = anObject;
 return self;
@@ -718,14 +718,14 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicDelete:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 delete self[aString]; return aString;
 return self;
@@ -742,14 +742,14 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicPerform:",
 protocol: 'message handling',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._basicPerform_withArguments_(aString,[]);
@@ -767,14 +767,14 @@ messageSends: ["basicPerform:withArguments:"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicPerform:withArguments:",
 protocol: 'message handling',
 fn: function (aString,aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self[aString].apply(self, aCollection);;
 return self;
@@ -791,15 +791,15 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "browse",
 protocol: 'browsing',
 fn: function (){
 var self=this;
 function $Finder(){return globals.Finder||(typeof Finder=="undefined"?nil:Finder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($Finder())._findClass_(self._class());
 return self;
@@ -816,14 +816,14 @@ messageSends: ["findClass:", "class"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "copy",
 protocol: 'copying',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._shallowCopy())._postCopy();
@@ -841,14 +841,14 @@ messageSends: ["postCopy", "shallowCopy"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "deepCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var copy = self.klass._new();
@@ -873,18 +873,18 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "deprecatedAPI",
 protocol: 'error handling',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$6,$5,$4,$8,$7,$3,$2;
 $1=console;
-$6=smalltalk.getThisContext()._home();
+$6=$vm.getThisContext()._home();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["home"]=1;
 //>>excludeEnd("ctx");
@@ -893,7 +893,7 @@ $5=_st($6)._asString();
 $ctx1.sendIdx["asString"]=1;
 //>>excludeEnd("ctx");
 $4=_st($5).__comma(" is deprecated! (in ");
-$8=_st(smalltalk.getThisContext()._home())._home();
+$8=_st($vm.getThisContext()._home())._home();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["home"]=2;
 //>>excludeEnd("ctx");
@@ -921,18 +921,18 @@ messageSends: ["warn:", ",", "asString", "home"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "deprecatedAPI:",
 protocol: 'error handling',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$6,$5,$4,$8,$7,$3,$2;
 $1=console;
-$6=smalltalk.getThisContext()._home();
+$6=$vm.getThisContext()._home();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["home"]=1;
 //>>excludeEnd("ctx");
@@ -941,7 +941,7 @@ $5=_st($6)._asString();
 $ctx1.sendIdx["asString"]=1;
 //>>excludeEnd("ctx");
 $4=_st($5).__comma(" is deprecated! (in ");
-$8=_st(smalltalk.getThisContext()._home())._home();
+$8=_st($vm.getThisContext()._home())._home();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["home"]=2;
 //>>excludeEnd("ctx");
@@ -973,15 +973,15 @@ messageSends: ["warn:", ",", "asString", "home"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "error:",
 protocol: 'error handling',
 fn: function (aString){
 var self=this;
 function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($Error())._signal_(aString);
 return self;
@@ -998,15 +998,15 @@ messageSends: ["signal:"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "halt",
 protocol: 'error handling',
 fn: function (){
 var self=this;
 function $Halt(){return globals.Halt||(typeof Halt=="undefined"?nil:Halt)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($Halt())._signal();
 return self;
@@ -1023,8 +1023,8 @@ messageSends: ["signal"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNil:",
 protocol: 'testing',
 fn: function (aBlock){
@@ -1041,14 +1041,14 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNil:ifNotNil:",
 protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(anotherBlock)._value_(self);
@@ -1066,14 +1066,14 @@ messageSends: ["value:"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNotNil:",
 protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aBlock)._value_(self);
@@ -1091,14 +1091,14 @@ messageSends: ["value:"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNotNil:ifNil:",
 protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aBlock)._value_(self);
@@ -1116,8 +1116,8 @@ messageSends: ["value:"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inspectOn:",
 protocol: 'inspecting',
 fn: function (anInspector){
@@ -1125,7 +1125,7 @@ var self=this;
 var variables;
 function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 variables=_st($Dictionary())._new();
@@ -1135,7 +1135,7 @@ $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
 _st(_st(self._class())._allInstanceVariableNames())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(variables)._at_put_(each,self._instVarAt_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1158,8 +1158,8 @@ messageSends: ["new", "at:put:", "do:", "allInstanceVariableNames", "class", "in
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isBehavior",
 protocol: 'testing',
 fn: function (){
@@ -1176,8 +1176,8 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isBoolean",
 protocol: 'testing',
 fn: function (){
@@ -1194,8 +1194,8 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isClass",
 protocol: 'testing',
 fn: function (){
@@ -1212,8 +1212,8 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isCompiledMethod",
 protocol: 'testing',
 fn: function (){
@@ -1230,8 +1230,8 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
@@ -1248,14 +1248,14 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isMemberOf:",
 protocol: 'testing',
 fn: function (aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._class()).__eq(aClass);
@@ -1273,8 +1273,8 @@ messageSends: ["=", "class"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isMetaclass",
 protocol: 'testing',
 fn: function (){
@@ -1291,8 +1291,8 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isNil",
 protocol: 'testing',
 fn: function (){
@@ -1309,8 +1309,8 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isNumber",
 protocol: 'testing',
 fn: function (){
@@ -1327,8 +1327,8 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isPackage",
 protocol: 'testing',
 fn: function (){
@@ -1345,8 +1345,8 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isParseFailure",
 protocol: 'testing',
 fn: function (){
@@ -1363,8 +1363,8 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isString",
 protocol: 'testing',
 fn: function (){
@@ -1381,8 +1381,8 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isSymbol",
 protocol: 'testing',
 fn: function (){
@@ -1399,14 +1399,14 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "notNil",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._isNil())._not();
@@ -1424,8 +1424,8 @@ messageSends: ["not", "isNil"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "postCopy",
 protocol: 'copying',
 fn: function (){
@@ -1442,14 +1442,14 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "putOn:",
 protocol: 'streaming',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aStream)._nextPut_(self);
 return self;
@@ -1466,14 +1466,14 @@ messageSends: ["nextPut:"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "respondsTo:",
 protocol: 'testing',
 fn: function (aSelector){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._class())._canUnderstand_(aSelector);
@@ -1491,14 +1491,14 @@ messageSends: ["canUnderstand:", "class"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "shallowCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var copy = self.klass._new();
@@ -1523,14 +1523,14 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "shouldNotImplement",
 protocol: 'error handling',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._error_("This method should not be implemented in ".__comma(_st(self._class())._name()));
 return self;
@@ -1547,14 +1547,14 @@ messageSends: ["error:", ",", "name", "class"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "size",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._error_("Object not indexable");
 return self;
@@ -1571,14 +1571,14 @@ messageSends: ["error:"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "subclassResponsibility",
 protocol: 'error handling',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._error_("This method is a responsibility of a subclass");
 return self;
@@ -1595,14 +1595,14 @@ messageSends: ["error:"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "throw:",
 protocol: 'error handling',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
  throw anObject ;
 return self;
@@ -1619,14 +1619,14 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "try:catch:",
 protocol: 'error handling',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._deprecatedAPI();
@@ -1645,14 +1645,14 @@ messageSends: ["deprecatedAPI", "tryCatch:"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "value",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.valueOf();
 return self;
@@ -1670,14 +1670,14 @@ messageSends: []
 globals.Object);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accessorProtocolWith:",
 protocol: 'helios',
 fn: function (aGenerator){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aGenerator)._accessorProtocolForObject();
 return self;
@@ -1694,14 +1694,14 @@ messageSends: ["accessorProtocolForObject"]
 }),
 globals.Object.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accessorsSourceCodesWith:",
 protocol: 'helios',
 fn: function (aGenerator){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aGenerator)._accessorsForObject();
 return self;
@@ -1718,8 +1718,8 @@ messageSends: ["accessorsForObject"]
 }),
 globals.Object.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
@@ -1736,14 +1736,14 @@ messageSends: []
 }),
 globals.Object.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initializeProtocolWith:",
 protocol: 'helios',
 fn: function (aGenerator){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aGenerator)._initializeProtocolForObject();
 return self;
@@ -1760,14 +1760,14 @@ messageSends: ["initializeProtocolForObject"]
 }),
 globals.Object.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initializeSourceCodesWith:",
 protocol: 'helios',
 fn: function (aGenerator){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aGenerator)._initializeForObject();
 return self;
@@ -1785,18 +1785,18 @@ messageSends: ["initializeForObject"]
 globals.Object.klass);
 
 
-smalltalk.addClass('Boolean', globals.Object, [], 'Kernel-Objects');
+$vm.addClass('Boolean', globals.Object, [], 'Kernel-Objects');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Boolean.comment="I define the protocol for logic testing operations and conditional control structures for the logical values (see the `controlling` protocol).\x0a\x0aI have two instances, `true` and `false`.\x0a\x0aI am directly mapped to JavaScript Boolean. The `true` and `false` objects are the JavaScript boolean objects.\x0a\x0a## Usage Example:\x0a\x0a    aBoolean not ifTrue: [ ... ] ifFalse: [ ... ]";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "&",
 protocol: 'controlling',
 fn: function (aBoolean){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		if(self == true) {
@@ -1819,14 +1819,14 @@ messageSends: []
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "=",
 protocol: 'comparing',
 fn: function (aBoolean){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		return aBoolean != null &&
@@ -1848,14 +1848,14 @@ messageSends: []
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "==",
 protocol: 'comparing',
 fn: function (aBoolean){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self.__eq(aBoolean);
@@ -1873,14 +1873,14 @@ messageSends: ["="]
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "and:",
 protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self.__eq(true);
@@ -1902,17 +1902,17 @@ messageSends: ["ifTrue:ifFalse:", "="]
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asBit",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-if(smalltalk.assert(self)){
+if($vm.assert(self)){
 $1=(1);
 } else {
 $1=(0);
@@ -1931,8 +1931,8 @@ messageSends: ["ifTrue:ifFalse:"]
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJSON",
 protocol: 'converting',
 fn: function (){
@@ -1949,14 +1949,14 @@ messageSends: []
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asString",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
  return self.toString() ;
 return self;
@@ -1973,8 +1973,8 @@ messageSends: []
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "deepCopy",
 protocol: 'copying',
 fn: function (){
@@ -1991,14 +1991,14 @@ messageSends: []
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifFalse:",
 protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._ifTrue_ifFalse_((function(){
@@ -2018,14 +2018,14 @@ messageSends: ["ifTrue:ifFalse:"]
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifFalse:ifTrue:",
 protocol: 'controlling',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._ifTrue_ifFalse_(anotherBlock,aBlock);
@@ -2043,14 +2043,14 @@ messageSends: ["ifTrue:ifFalse:"]
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifTrue:",
 protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._ifTrue_ifFalse_(aBlock,(function(){
@@ -2070,14 +2070,14 @@ messageSends: ["ifTrue:ifFalse:"]
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifTrue:ifFalse:",
 protocol: 'controlling',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		if(self == true) {
@@ -2100,8 +2100,8 @@ messageSends: []
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isBoolean",
 protocol: 'testing',
 fn: function (){
@@ -2118,8 +2118,8 @@ messageSends: []
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
@@ -2136,14 +2136,14 @@ messageSends: []
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "not",
 protocol: 'controlling',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self.__eq(false);
@@ -2161,14 +2161,14 @@ messageSends: ["="]
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "or:",
 protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self.__eq(true);
@@ -2190,14 +2190,14 @@ messageSends: ["ifTrue:ifFalse:", "="]
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(self._asString());
 return self;
@@ -2214,8 +2214,8 @@ messageSends: ["nextPutAll:", "asString"]
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "shallowCopy",
 protocol: 'copying',
 fn: function (){
@@ -2232,14 +2232,14 @@ messageSends: []
 }),
 globals.Boolean);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "|",
 protocol: 'controlling',
 fn: function (aBoolean){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		if(self == true) {
@@ -2264,18 +2264,18 @@ globals.Boolean);
 
 
 
-smalltalk.addClass('Date', globals.Object, [], 'Kernel-Objects');
+$vm.addClass('Date', globals.Object, [], 'Kernel-Objects');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Date.comment="I am used to work with both dates and times. Therefore `Date today` and `Date now` are both valid in\x0aAmber and answer the same date object.\x0a\x0aDate directly maps to the `Date()` JavaScript constructor, and Amber date objects are JavaScript date objects.\x0a\x0a## API\x0a\x0aThe class-side `instance creation` protocol contains some convenience methods for creating date/time objects such as `#fromSeconds:`.\x0a\x0aArithmetic and comparison is supported (see the `comparing` and `arithmetic` protocols).\x0a\x0aThe `converting` protocol provides convenience methods for various convertions (to numbers, strings, etc.).";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "+",
 protocol: 'arithmetic',
 fn: function (aDate){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self + aDate;
 return self;
@@ -2292,14 +2292,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "-",
 protocol: 'arithmetic',
 fn: function (aDate){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self - aDate;
 return self;
@@ -2316,14 +2316,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "<",
 protocol: 'comparing',
 fn: function (aDate){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self < aDate;
 return self;
@@ -2340,14 +2340,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "<=",
 protocol: 'comparing',
 fn: function (aDate){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self <= aDate;
 return self;
@@ -2364,14 +2364,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: ">",
 protocol: 'comparing',
 fn: function (aDate){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self > aDate;
 return self;
@@ -2388,14 +2388,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: ">=",
 protocol: 'comparing',
 fn: function (aDate){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self >= aDate;
 return self;
@@ -2412,14 +2412,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asDateString",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.toDateString();
 return self;
@@ -2436,14 +2436,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asLocaleString",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.toLocaleString();
 return self;
@@ -2460,14 +2460,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asMilliseconds",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._time();
@@ -2485,14 +2485,14 @@ messageSends: ["time"]
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asNumber",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._asMilliseconds();
@@ -2510,14 +2510,14 @@ messageSends: ["asMilliseconds"]
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asString",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.toString();
 return self;
@@ -2534,14 +2534,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asTimeString",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.toTimeString();
 return self;
@@ -2558,14 +2558,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "day",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._dayOfWeek();
@@ -2583,14 +2583,14 @@ messageSends: ["dayOfWeek"]
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "day:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._dayOfWeek_(aNumber);
 return self;
@@ -2607,14 +2607,14 @@ messageSends: ["dayOfWeek:"]
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "dayOfMonth",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.getDate();
 return self;
@@ -2631,14 +2631,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "dayOfMonth:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.setDate(aNumber);
 return self;
@@ -2655,14 +2655,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "dayOfWeek",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.getDay() + 1;
 return self;
@@ -2679,14 +2679,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "dayOfWeek:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.setDay(aNumber - 1);
 return self;
@@ -2703,14 +2703,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "hours",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.getHours();
 return self;
@@ -2727,14 +2727,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "hours:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.setHours(aNumber);
 return self;
@@ -2751,14 +2751,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "milliseconds",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.getMilliseconds();
 return self;
@@ -2775,14 +2775,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "milliseconds:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.setMilliseconds(aNumber);
 return self;
@@ -2799,14 +2799,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "minutes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.getMinutes();
 return self;
@@ -2823,14 +2823,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "minutes:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.setMinutes(aNumber);
 return self;
@@ -2847,14 +2847,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "month",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.getMonth() + 1;
 return self;
@@ -2871,14 +2871,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "month:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.setMonth(aNumber - 1);
 return self;
@@ -2895,14 +2895,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(self._asString());
 return self;
@@ -2919,14 +2919,14 @@ messageSends: ["nextPutAll:", "asString"]
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "seconds",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.getSeconds();
 return self;
@@ -2943,14 +2943,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "seconds:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.setSeconds(aNumber);
 return self;
@@ -2967,14 +2967,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "time",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.getTime();
 return self;
@@ -2991,14 +2991,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "time:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.setTime(aNumber);
 return self;
@@ -3015,14 +3015,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "year",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.getFullYear();
 return self;
@@ -3039,14 +3039,14 @@ messageSends: []
 }),
 globals.Date);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "year:",
 protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.setFullYear(aNumber);
 return self;
@@ -3064,14 +3064,14 @@ messageSends: []
 globals.Date);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fromMilliseconds:",
 protocol: 'instance creation',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._new_(aNumber);
@@ -3089,14 +3089,14 @@ messageSends: ["new:"]
 }),
 globals.Date.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fromSeconds:",
 protocol: 'instance creation',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._fromMilliseconds_(_st(aNumber).__star((1000)));
@@ -3114,14 +3114,14 @@ messageSends: ["fromMilliseconds:", "*"]
 }),
 globals.Date.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fromString:",
 protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._new_(aString);
@@ -3139,8 +3139,8 @@ messageSends: ["new:"]
 }),
 globals.Date.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
@@ -3157,8 +3157,8 @@ messageSends: []
 }),
 globals.Date.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "millisecondsToRun:",
 protocol: 'instance creation',
 fn: function (aBlock){
@@ -3166,7 +3166,7 @@ var self=this;
 var t;
 function $Date(){return globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 t=_st($Date())._now();
@@ -3189,14 +3189,14 @@ messageSends: ["now", "value", "-"]
 }),
 globals.Date.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "new:",
 protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return new Date(anObject);
 return self;
@@ -3213,14 +3213,14 @@ messageSends: []
 }),
 globals.Date.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "now",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._today();
@@ -3238,14 +3238,14 @@ messageSends: ["today"]
 }),
 globals.Date.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "today",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._new();
@@ -3264,18 +3264,18 @@ messageSends: ["new"]
 globals.Date.klass);
 
 
-smalltalk.addClass('Number', globals.Object, [], 'Kernel-Objects');
+$vm.addClass('Number', globals.Object, [], 'Kernel-Objects');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Number.comment="I am the Amber representation for all numbers.\x0aI am directly mapped to JavaScript Number.\x0a\x0a## API\x0a\x0aI provide all necessary methods for arithmetic operations, comparison, conversion and so on with numbers.\x0a\x0aMy instances can also be used to evaluate a block a fixed number of times:\x0a\x0a\x095 timesRepeat: [ Transcript show: 'This will be printed 5 times'; cr ].\x0a\x09\x0a\x091 to: 5 do: [ :aNumber| Transcript show: aNumber asString; cr ].\x0a\x09\x0a\x091 to: 10 by: 2 do: [ :aNumber| Transcript show: aNumber asString; cr ].";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "&",
 protocol: 'converting',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self & aNumber;
 return self;
@@ -3292,14 +3292,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "*",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self * aNumber;
 return self;
@@ -3316,14 +3316,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "**",
 protocol: 'mathematical functions',
 fn: function (exponent){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._raisedTo_(exponent);
@@ -3341,14 +3341,14 @@ messageSends: ["raisedTo:"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "+",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self + aNumber;
 return self;
@@ -3365,14 +3365,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "-",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self - aNumber;
 return self;
@@ -3389,14 +3389,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "/",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self / aNumber;
 return self;
@@ -3413,14 +3413,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "//",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self.__slash(aNumber))._floor();
@@ -3438,14 +3438,14 @@ messageSends: ["floor", "/"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "<",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self < aNumber;
 return self;
@@ -3462,14 +3462,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "<=",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self <= aNumber;
 return self;
@@ -3486,14 +3486,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "=",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		return aNumber != null &&
@@ -3515,14 +3515,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: ">",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self > aNumber;
 return self;
@@ -3539,14 +3539,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: ">=",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self >= aNumber;
 return self;
@@ -3563,15 +3563,15 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "@",
 protocol: 'converting',
 fn: function (aNumber){
 var self=this;
 function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($Point())._x_y_(self,aNumber);
@@ -3589,14 +3589,14 @@ messageSends: ["x:y:"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "\x5c\x5c",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self % aNumber;
 return self;
@@ -3613,14 +3613,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "abs",
 protocol: 'arithmetic',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.abs(self);;
 return self;
@@ -3637,14 +3637,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "arcCos",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.acos(self);;
 return self;
@@ -3661,14 +3661,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "arcSin",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.asin(self);;
 return self;
@@ -3685,14 +3685,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "arcTan",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.atan(self);;
 return self;
@@ -3709,8 +3709,8 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJSON",
 protocol: 'converting',
 fn: function (){
@@ -3727,14 +3727,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJavascript",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st("(".__comma(self._printString())).__comma(")");
@@ -3755,8 +3755,8 @@ messageSends: [",", "printString"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asNumber",
 protocol: 'converting',
 fn: function (){
@@ -3773,15 +3773,15 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asPoint",
 protocol: 'converting',
 fn: function (){
 var self=this;
 function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($Point())._x_y_(self,self);
@@ -3799,14 +3799,14 @@ messageSends: ["x:y:"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asString",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
  return String(self) ;
 return self;
@@ -3823,15 +3823,15 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "atRandom",
 protocol: 'converting',
 fn: function (){
 var self=this;
 function $Random(){return globals.Random||(typeof Random=="undefined"?nil:Random)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(_st(_st(_st($Random())._new())._next()).__star(self))._truncated()).__plus((1));
@@ -3849,14 +3849,14 @@ messageSends: ["+", "truncated", "*", "next", "new"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ceiling",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.ceil(self);;
 return self;
@@ -3873,8 +3873,8 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "copy",
 protocol: 'copying',
 fn: function (){
@@ -3891,14 +3891,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "cos",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.cos(self);;
 return self;
@@ -3915,14 +3915,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "deepCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._copy();
@@ -3940,14 +3940,14 @@ messageSends: ["copy"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "even",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=(0).__eq(self.__backslash_backslash((2)));
@@ -3965,14 +3965,14 @@ messageSends: ["=", "\x5c\x5c"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "floor",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.floor(self);;
 return self;
@@ -3989,14 +3989,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "identityHash",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._asString()).__comma("n");
@@ -4014,8 +4014,8 @@ messageSends: [",", "asString"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
@@ -4032,8 +4032,8 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isNumber",
 protocol: 'testing',
 fn: function (){
@@ -4050,14 +4050,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isZero",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self.__eq((0));
@@ -4075,14 +4075,14 @@ messageSends: ["="]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ln",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.log(self);;
 return self;
@@ -4099,14 +4099,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "log",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.log(self) / Math.LN10;;
 return self;
@@ -4123,14 +4123,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "log:",
 protocol: 'mathematical functions',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.log(self) / Math.log(aNumber);;
 return self;
@@ -4147,14 +4147,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "max:",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.max(self, aNumber);;
 return self;
@@ -4171,14 +4171,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "min:",
 protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.min(self, aNumber);;
 return self;
@@ -4195,14 +4195,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "negated",
 protocol: 'arithmetic',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=(0).__minus(self);
@@ -4220,14 +4220,14 @@ messageSends: ["-"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "negative",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self.__lt((0));
@@ -4245,14 +4245,14 @@ messageSends: ["<"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "odd",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._even())._not();
@@ -4270,14 +4270,14 @@ messageSends: ["not", "even"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "positive",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self.__gt_eq((0));
@@ -4295,14 +4295,14 @@ messageSends: [">="]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(self._asString());
 return self;
@@ -4319,14 +4319,14 @@ messageSends: ["nextPutAll:", "asString"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printShowingDecimalPlaces:",
 protocol: 'printing',
 fn: function (placesDesired){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.toFixed(placesDesired);
 return self;
@@ -4343,14 +4343,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "raisedTo:",
 protocol: 'mathematical functions',
 fn: function (exponent){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.pow(self, exponent);;
 return self;
@@ -4367,14 +4367,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "rounded",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.round(self);;
 return self;
@@ -4391,22 +4391,22 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sign",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._isZero();
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 return (0);
 };
 $2=self._positive();
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 return (1);
 } else {
 return (-1);
@@ -4425,14 +4425,14 @@ messageSends: ["ifTrue:", "isZero", "ifTrue:ifFalse:", "positive"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sin",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.sin(self);;
 return self;
@@ -4449,14 +4449,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sqrt",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.sqrt(self);
 return self;
@@ -4473,14 +4473,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "squared",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self.__star(self);
@@ -4498,14 +4498,14 @@ messageSends: ["*"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "tan",
 protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.tan(self);;
 return self;
@@ -4522,20 +4522,20 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "timesRepeat:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var count;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 count=(1);
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(count).__gt(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4543,7 +4543,7 @@ return _st(count).__gt(self);
 //>>excludeEnd("ctx");
 }))._whileFalse_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(aBlock)._value();
 count=_st(count).__plus((1));
@@ -4566,8 +4566,8 @@ messageSends: ["whileFalse:", ">", "value", "+"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "to:",
 protocol: 'converting',
 fn: function (aNumber){
@@ -4575,7 +4575,7 @@ var self=this;
 var array,first,last,count;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 first=self._truncated();
@@ -4590,7 +4590,7 @@ count=(1);
 array=_st($Array())._new();
 _st(_st(last).__minus(first))._timesRepeat_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(array)._at_put_(count,first);
 count=_st(count).__plus((1));
@@ -4619,8 +4619,8 @@ messageSends: ["truncated", "+", "new", "timesRepeat:", "-", "at:put:"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "to:by:",
 protocol: 'converting',
 fn: function (stop,step){
@@ -4628,21 +4628,21 @@ var self=this;
 var array,value,pos;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 value=self;
 array=_st($Array())._new();
 pos=(1);
 $1=_st(step).__eq((0));
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 self._error_("step must be non-zero");
 };
 $2=_st(step).__lt((0));
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(value).__gt_eq(stop);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4650,7 +4650,7 @@ return _st(value).__gt_eq(stop);
 //>>excludeEnd("ctx");
 }))._whileTrue_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(array)._at_put_(pos,value);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4676,7 +4676,7 @@ $ctx1.sendIdx["whileTrue:"]=1;
 } else {
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(value).__lt_eq(stop);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4684,7 +4684,7 @@ return _st(value).__lt_eq(stop);
 //>>excludeEnd("ctx");
 }))._whileTrue_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(array)._at_put_(pos,value);
 pos=_st(pos).__plus((1));
@@ -4714,27 +4714,27 @@ messageSends: ["new", "ifTrue:", "=", "error:", "ifTrue:ifFalse:", "<", "whileTr
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "to:by:do:",
 protocol: 'enumerating',
 fn: function (stop,step,aBlock){
 var self=this;
 var value;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 value=self;
 $1=_st(step).__eq((0));
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 self._error_("step must be non-zero");
 };
 $2=_st(step).__lt((0));
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(value).__gt_eq(stop);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4742,7 +4742,7 @@ return _st(value).__gt_eq(stop);
 //>>excludeEnd("ctx");
 }))._whileTrue_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(aBlock)._value_(value);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4763,7 +4763,7 @@ $ctx1.sendIdx["whileTrue:"]=1;
 } else {
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(value).__lt_eq(stop);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4771,7 +4771,7 @@ return _st(value).__lt_eq(stop);
 //>>excludeEnd("ctx");
 }))._whileTrue_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(aBlock)._value_(value);
 value=_st(value).__plus(step);
@@ -4795,20 +4795,20 @@ messageSends: ["ifTrue:", "=", "error:", "ifTrue:ifFalse:", "<", "whileTrue:", "
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "to:do:",
 protocol: 'enumerating',
 fn: function (stop,aBlock){
 var self=this;
 var nextValue;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 nextValue=self;
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(nextValue).__lt_eq(stop);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4816,7 +4816,7 @@ return _st(nextValue).__lt_eq(stop);
 //>>excludeEnd("ctx");
 }))._whileTrue_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(aBlock)._value_(nextValue);
 nextValue=_st(nextValue).__plus((1));
@@ -4839,14 +4839,14 @@ messageSends: ["whileTrue:", "<=", "value:", "+"]
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "truncated",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		if(self >= 0) {
@@ -4869,14 +4869,14 @@ messageSends: []
 }),
 globals.Number);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "|",
 protocol: 'converting',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self | aNumber;
 return self;
@@ -4894,14 +4894,14 @@ messageSends: []
 globals.Number);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "e",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.E;;
 return self;
@@ -4918,8 +4918,8 @@ messageSends: []
 }),
 globals.Number.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
@@ -4936,14 +4936,14 @@ messageSends: []
 }),
 globals.Number.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "pi",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.PI;
 return self;
@@ -4961,19 +4961,19 @@ messageSends: []
 globals.Number.klass);
 
 
-smalltalk.addClass('Point', globals.Object, ['x', 'y'], 'Kernel-Objects');
+$vm.addClass('Point', globals.Object, ['x', 'y'], 'Kernel-Objects');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Point.comment="I represent an x-y pair of numbers usually designating a geometric coordinate.\x0a\x0a## API\x0a\x0aInstances are traditionally created using the binary `#@` message to a number:\x0a\x0a\x09100@120\x0a\x0aPoints can then be arithmetically manipulated:\x0a\x0a\x09100@100 + (10@10)\x0a\x0a...or for example:\x0a\x0a\x09(100@100) * 2\x0a\x0a**NOTE:** Creating a point with a negative y-value will need a space after `@` in order to avoid a parsing error:\x0a\x0a\x09100@ -100 \x22but 100@-100 would not parse\x22";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "*",
 protocol: 'arithmetic',
 fn: function (aPoint){
 var self=this;
 function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$5,$4,$2,$7,$6,$1;
 $3=self._x();
@@ -5009,15 +5009,15 @@ messageSends: ["x:y:", "*", "x", "asPoint", "y"]
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "+",
 protocol: 'arithmetic',
 fn: function (aPoint){
 var self=this;
 function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$5,$4,$2,$7,$6,$1;
 $3=self._x();
@@ -5053,15 +5053,15 @@ messageSends: ["x:y:", "+", "x", "asPoint", "y"]
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "-",
 protocol: 'arithmetic',
 fn: function (aPoint){
 var self=this;
 function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$5,$4,$2,$7,$6,$1;
 $3=self._x();
@@ -5097,15 +5097,15 @@ messageSends: ["x:y:", "-", "x", "asPoint", "y"]
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "/",
 protocol: 'arithmetic',
 fn: function (aPoint){
 var self=this;
 function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$5,$4,$2,$7,$6,$1;
 $3=self._x();
@@ -5141,14 +5141,14 @@ messageSends: ["x:y:", "/", "x", "asPoint", "y"]
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "<",
 protocol: 'comparing',
 fn: function (aPoint){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$4,$1;
 $3=self._x();
@@ -5161,7 +5161,7 @@ $ctx1.sendIdx["<"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=self._y();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5186,14 +5186,14 @@ messageSends: ["and:", "<", "x", "y"]
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "<=",
 protocol: 'comparing',
 fn: function (aPoint){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$4,$1;
 $3=self._x();
@@ -5206,7 +5206,7 @@ $ctx1.sendIdx["<="]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=self._y();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5231,14 +5231,14 @@ messageSends: ["and:", "<=", "x", "y"]
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "=",
 protocol: 'comparing',
 fn: function (aPoint){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$5,$4,$7,$6,$1;
 $3=_st(aPoint)._class();
@@ -5251,7 +5251,7 @@ $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $5=_st(aPoint)._x();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5285,14 +5285,14 @@ messageSends: ["and:", "=", "class", "&", "x", "y"]
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: ">",
 protocol: 'comparing',
 fn: function (aPoint){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$4,$1;
 $3=self._x();
@@ -5305,7 +5305,7 @@ $ctx1.sendIdx[">"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=self._y();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5330,14 +5330,14 @@ messageSends: ["and:", ">", "x", "y"]
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: ">=",
 protocol: 'comparing',
 fn: function (aPoint){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$4,$1;
 $3=self._x();
@@ -5350,7 +5350,7 @@ $ctx1.sendIdx[">="]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=self._y();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5375,8 +5375,8 @@ messageSends: ["and:", ">=", "x", "y"]
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asPoint",
 protocol: 'converting',
 fn: function (){
@@ -5393,15 +5393,15 @@ messageSends: []
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "dist:",
 protocol: 'transforming',
 fn: function (aPoint){
 var self=this;
 var dx,dy;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 dx=_st(_st(aPoint)._x()).__minus(self["@x"]);
@@ -5429,14 +5429,14 @@ messageSends: ["-", "x", "y", "sqrt", "+", "*"]
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st(self["@x"])._printOn_(aStream);
@@ -5446,14 +5446,14 @@ $ctx1.sendIdx["printOn:"]=1;
 _st(aStream)._nextPutAll_("@");
 $1=_st(_st(self["@y"])._notNil())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@y"])._negative();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 _st(aStream)._space();
 };
 _st(self["@y"])._printOn_(aStream);
@@ -5471,14 +5471,14 @@ messageSends: ["printOn:", "nextPutAll:", "ifTrue:", "and:", "notNil", "negative
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "translateBy:",
 protocol: 'transforming',
 fn: function (delta){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st(_st(delta)._x()).__plus(self["@x"]);
@@ -5500,8 +5500,8 @@ messageSends: ["@", "+", "x", "y"]
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "x",
 protocol: 'accessing',
 fn: function (){
@@ -5520,8 +5520,8 @@ messageSends: []
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "x:",
 protocol: 'accessing',
 fn: function (aNumber){
@@ -5539,8 +5539,8 @@ messageSends: []
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "y",
 protocol: 'accessing',
 fn: function (){
@@ -5559,8 +5559,8 @@ messageSends: []
 }),
 globals.Point);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "y:",
 protocol: 'accessing',
 fn: function (aNumber){
@@ -5579,8 +5579,8 @@ messageSends: []
 globals.Point);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
@@ -5597,14 +5597,14 @@ messageSends: []
 }),
 globals.Point.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "x:y:",
 protocol: 'instance creation',
 fn: function (aNumber,anotherNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -5627,18 +5627,18 @@ messageSends: ["x:", "new", "y:", "yourself"]
 globals.Point.klass);
 
 
-smalltalk.addClass('Random', globals.Object, [], 'Kernel-Objects');
+$vm.addClass('Random', globals.Object, [], 'Kernel-Objects');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Random.comment="I an used to generate a random number and I am implemented as a trivial wrapper around javascript `Math.random()`.\x0a\x0a## API\x0a\x0aThe typical use case it to use the `#next` method like the following:\x0a\x0a\x09Random new next\x0a\x0aThis will return a float x where x < 1 and x > 0. If you want a random integer from 1 to 10 you can use `#atRandom`\x0a\x0a\x0910 atRandom\x0a\x0aA random number in a specific interval can be obtained with the following:\x0a\x0a\x09(3 to: 7) atRandom\x0a\x0aBe aware that `#to:` does not create an Interval as in other Smalltalk implementations but in fact an `Array` of numbers, so it's better to use:\x0a\x0a\x095 atRandom + 2\x0a\x0aSince `#atRandom` is implemented in `SequencableCollection` you can easy pick an element at random:\x0a\x0a\x09#('a' 'b' 'c') atRandom\x0a\x0aAs well as letter from a `String`:\x0a\x0a\x09'abc' atRandom\x0a\x0aSince Amber does not have Characters this will return a `String` of length 1 like for example `'b'`.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "next",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return Math.random();
 return self;
@@ -5655,19 +5655,19 @@ messageSends: []
 }),
 globals.Random);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "next:",
 protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st((1)._to_(anInteger))._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._next();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5690,12 +5690,12 @@ globals.Random);
 
 
 
-smalltalk.addClass('UndefinedObject', globals.Object, [], 'Kernel-Objects');
+$vm.addClass('UndefinedObject', globals.Object, [], 'Kernel-Objects');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.UndefinedObject.comment="I describe the behavior of my sole instance, `nil`. `nil` represents a prior value for variables that have not been initialized, or for results which are meaningless.\x0a\x0a`nil` is the Smalltalk equivalent of the `undefined` JavaScript object.\x0a\x0a__note:__ When sending messages to the `undefined` JavaScript object, it will be replaced by `nil`.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJSON",
 protocol: 'converting',
 fn: function (){
@@ -5714,8 +5714,8 @@ messageSends: []
 }),
 globals.UndefinedObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "deepCopy",
 protocol: 'copying',
 fn: function (){
@@ -5732,14 +5732,14 @@ messageSends: []
 }),
 globals.UndefinedObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNil:",
 protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._ifNil_ifNotNil_(aBlock,(function(){
@@ -5759,14 +5759,14 @@ messageSends: ["ifNil:ifNotNil:"]
 }),
 globals.UndefinedObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNil:ifNotNil:",
 protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aBlock)._value();
@@ -5784,8 +5784,8 @@ messageSends: ["value"]
 }),
 globals.UndefinedObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNotNil:",
 protocol: 'testing',
 fn: function (aBlock){
@@ -5802,14 +5802,14 @@ messageSends: []
 }),
 globals.UndefinedObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNotNil:ifNil:",
 protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(anotherBlock)._value();
@@ -5827,8 +5827,8 @@ messageSends: ["value"]
 }),
 globals.UndefinedObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
@@ -5845,8 +5845,8 @@ messageSends: []
 }),
 globals.UndefinedObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isNil",
 protocol: 'testing',
 fn: function (){
@@ -5863,8 +5863,8 @@ messageSends: []
 }),
 globals.UndefinedObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "notNil",
 protocol: 'testing',
 fn: function (){
@@ -5881,14 +5881,14 @@ messageSends: []
 }),
 globals.UndefinedObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_("nil");
 return self;
@@ -5905,8 +5905,8 @@ messageSends: ["nextPutAll:"]
 }),
 globals.UndefinedObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "shallowCopy",
 protocol: 'copying',
 fn: function (){
@@ -5923,14 +5923,14 @@ messageSends: []
 }),
 globals.UndefinedObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "subclass:instanceVariableNames:",
 protocol: 'class creation',
 fn: function (aString,anotherString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._subclass_instanceVariableNames_package_(aString,anotherString,nil);
@@ -5948,14 +5948,14 @@ messageSends: ["subclass:instanceVariableNames:package:"]
 }),
 globals.UndefinedObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "subclass:instanceVariableNames:category:",
 protocol: 'class creation',
 fn: function (aString,aString2,aString3){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._deprecatedAPI();
@@ -5974,15 +5974,15 @@ messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"]
 }),
 globals.UndefinedObject);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "subclass:instanceVariableNames:package:",
 protocol: 'class creation',
 fn: function (aString,aString2,aString3){
 var self=this;
 function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st($ClassBuilder())._new())._superclass_subclass_instanceVariableNames_package_(self,_st(aString)._asString(),aString2,aString3);
@@ -6001,14 +6001,14 @@ messageSends: ["superclass:subclass:instanceVariableNames:package:", "new", "asS
 globals.UndefinedObject);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "new",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._error_("You cannot create new instances of UndefinedObject. Use nil");
 return self;

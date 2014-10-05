@@ -261,7 +261,7 @@ jsClassNameFor: aClass
 exportDefinitionOf: aClass on: aStream
 	aStream
 		lf;
-		nextPutAll: 'smalltalk.addClass(';
+		nextPutAll: '$vm.addClass(';
 		nextPutAll: '''', (self classNameFor: aClass), ''', ';
 		nextPutAll: (self jsClassNameFor: aClass superclass);
 		nextPutAll: ', ['.
@@ -300,8 +300,8 @@ exportMetaDefinitionOf: aClass on: aStream
 
 exportMethod: aMethod on: aStream
 	aStream
-		nextPutAll: 'smalltalk.addMethod(';lf;
-		nextPutAll: 'smalltalk.method({';lf;
+		nextPutAll: '$vm.addMethod(';lf;
+		nextPutAll: '$vm.method({';lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
 		nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
@@ -340,7 +340,7 @@ exportPackage: aPackage on: aStream
 
 exportPackageDefinitionOf: aPackage on: aStream
 	aStream
-		nextPutAll: 'smalltalk.addPackage(';
+		nextPutAll: '$vm.addPackage(';
 		nextPutAll: '''', aPackage name, ''');';
 		lf
 !
@@ -359,7 +359,7 @@ exportPackagePrologueOf: aPackage on: aStream
 
 exportPackageTransportOf: aPackage on: aStream
 	aStream
-		nextPutAll: 'smalltalk.packages[';
+		nextPutAll: '$vm.packages[';
 		nextPutAll: aPackage name asJavascript;
 		nextPutAll: '].transport = ';
 		nextPutAll: aPackage transport asJSONString;

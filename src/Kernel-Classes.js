@@ -1,21 +1,21 @@
 define("amber_core/Kernel-Classes", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$vm,_st=$recv,globals=$globals;
-smalltalk.addPackage('Kernel-Classes');
-smalltalk.packages["Kernel-Classes"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$vm.addPackage('Kernel-Classes');
+$vm.packages["Kernel-Classes"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('Behavior', globals.Object, [], 'Kernel-Classes');
+$vm.addClass('Behavior', globals.Object, [], 'Kernel-Classes');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Behavior.comment="I am the superclass of all class objects.\x0a\x0aI define the protocol for creating instances of a class with `#basicNew` and `#new` (see `boot.js` for class constructors details).\x0a\x0aMy instances know about the subclass/superclass relationships between classes, contain the description that instances are created from,\x0aand hold the method dictionary that's associated with each class.\x0a\x0aI also provides methods for compiling methods, examining the method dictionary, and iterating over the class hierarchy.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: ">>",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._methodAt_(aString);
@@ -33,8 +33,8 @@ messageSends: ["methodAt:"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "addCompiledMethod:",
 protocol: 'compiling',
 fn: function (aMethod){
@@ -44,7 +44,7 @@ function $MethodAdded(){return globals.MethodAdded||(typeof MethodAdded=="undefi
 function $MethodModified(){return globals.MethodModified||(typeof MethodModified=="undefined"?nil:MethodModified)}
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11,$receiver;
 oldMethod=_st(self._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
@@ -57,7 +57,7 @@ $3=_st(aMethod)._protocol();
 $ctx1.sendIdx["protocol"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._includes_($3);
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 $4=self._organization();
 $5=_st(aMethod)._protocol();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -109,15 +109,15 @@ messageSends: ["at:ifAbsent:", "methodDictionary", "selector", "ifFalse:", "incl
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "allInstanceVariableNames",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 var result;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
 result=_st(self._instanceVariableNames())._copy();
@@ -145,14 +145,14 @@ messageSends: ["copy", "instanceVariableNames", "ifNotNil:", "superclass", "addA
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "allSelectors",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$4,$1;
 $2=self._allSuperclasses();
@@ -162,7 +162,7 @@ $ctx1.sendIdx["selectors"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._inject_into_($3,(function(acc,each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(acc)._addAll_(_st(each)._selectors());
 $4=_st(acc)._yourself();
@@ -185,15 +185,15 @@ messageSends: ["inject:into:", "allSuperclasses", "selectors", "addAll:", "yours
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "allSubclasses",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 var subclasses,index;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 subclasses=self._subclasses();
@@ -203,7 +203,7 @@ $ctx1.sendIdx["subclasses"]=1;
 index=(1);
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(index).__gt(_st(subclasses)._size());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -211,7 +211,7 @@ return _st(index).__gt(_st(subclasses)._size());
 //>>excludeEnd("ctx");
 }))._whileFalse_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(subclasses)._addAll_(_st(_st(subclasses)._at_(index))._subclasses());
 index=_st(index).__plus((1));
@@ -235,18 +235,18 @@ messageSends: ["subclasses", "whileFalse:", ">", "size", "addAll:", "at:", "+"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "allSubclassesDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._allSubclasses())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aBlock)._value_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -267,15 +267,15 @@ messageSends: ["do:", "allSubclasses", "value:"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "allSuperclasses",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$5,$4,$6,$3,$receiver;
 $1=self._superclass();
@@ -310,16 +310,16 @@ messageSends: ["ifNil:", "superclass", "addAll:", "with:", "allSuperclasses", "y
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicAddCompiledMethod:",
 protocol: 'private',
 fn: function (aMethod){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-smalltalk.addMethod(aMethod, self);
+$vm.addMethod(aMethod, self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"basicAddCompiledMethod:",{aMethod:aMethod},globals.Behavior)});
@@ -327,21 +327,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMethod"],
-source: "basicAddCompiledMethod: aMethod\x0a\x09<smalltalk.addMethod(aMethod, self)>",
+source: "basicAddCompiledMethod: aMethod\x0a\x09<$vm.addMethod(aMethod, self)>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicNew",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return new self.fn();
 return self;
@@ -358,16 +358,16 @@ messageSends: []
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicRemoveCompiledMethod:",
 protocol: 'private',
 fn: function (aMethod){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-smalltalk.removeMethod(aMethod,self);
+$vm.removeMethod(aMethod,self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"basicRemoveCompiledMethod:",{aMethod:aMethod},globals.Behavior)});
@@ -375,26 +375,26 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMethod"],
-source: "basicRemoveCompiledMethod: aMethod\x0a\x09<smalltalk.removeMethod(aMethod,self)>",
+source: "basicRemoveCompiledMethod: aMethod\x0a\x09<$vm.removeMethod(aMethod,self)>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "canUnderstand:",
 protocol: 'testing',
 fn: function (aSelector){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 $1=_st(self._includesSelector_(_st(aSelector)._asString()))._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $3=self._superclass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -403,7 +403,7 @@ $ctx2.sendIdx["superclass"]=1;
 $2=_st($3)._notNil();
 return _st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(self._superclass())._canUnderstand_(aSelector);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -428,14 +428,14 @@ messageSends: ["or:", "includesSelector:", "asString", "and:", "notNil", "superc
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "comment",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self._basicAt_("comment");
@@ -458,8 +458,8 @@ messageSends: ["ifNil:", "basicAt:"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "comment:",
 protocol: 'accessing',
 fn: function (aString){
@@ -467,7 +467,7 @@ var self=this;
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassCommentChanged(){return globals.ClassCommentChanged||(typeof ClassCommentChanged=="undefined"?nil:ClassCommentChanged)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 self._basicAt_put_("comment",aString);
@@ -489,15 +489,15 @@ messageSends: ["basicAt:put:", "announce:", "current", "theClass:", "new", "your
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "commentStamp",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $ClassCommentReader(){return globals.ClassCommentReader||(typeof ClassCommentReader=="undefined"?nil:ClassCommentReader)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st($ClassCommentReader())._new();
@@ -518,14 +518,14 @@ messageSends: ["class:", "new", "yourself"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "commentStamp:prior:",
 protocol: 'accessing',
 fn: function (aStamp,prior){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._commentStamp();
@@ -543,14 +543,14 @@ messageSends: ["commentStamp"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "compile:",
 protocol: 'compiling',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._compile_protocol_(aString,"");
@@ -568,15 +568,15 @@ messageSends: ["compile:protocol:"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "compile:protocol:",
 protocol: 'compiling',
 fn: function (aString,anotherString){
 var self=this;
 function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st($Compiler())._new())._install_forClass_protocol_(aString,self,anotherString);
@@ -594,8 +594,8 @@ messageSends: ["install:forClass:protocol:", "new"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "definition",
 protocol: 'accessing',
 fn: function (){
@@ -612,19 +612,19 @@ messageSends: []
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "includesBehavior:",
 protocol: 'testing',
 fn: function (aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self.__eq_eq(aClass))._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._inheritsFrom_(aClass);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -645,14 +645,14 @@ messageSends: ["or:", "==", "inheritsFrom:"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "includesSelector:",
 protocol: 'testing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._methodDictionary())._includesKey_(aString);
@@ -670,14 +670,14 @@ messageSends: ["includesKey:", "methodDictionary"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inheritsFrom:",
 protocol: 'testing',
 fn: function (aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2,$receiver;
 $1=self._superclass();
@@ -696,7 +696,7 @@ $ctx1.sendIdx["superclass"]=2;
 $3=_st(aClass).__eq_eq($4);
 $2=_st($3)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._superclass())._inheritsFrom_(aClass);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -717,14 +717,14 @@ messageSends: ["ifNil:", "superclass", "or:", "==", "inheritsFrom:"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "instanceVariableNames",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.iVarNames;
 return self;
@@ -741,8 +741,8 @@ messageSends: []
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isBehavior",
 protocol: 'testing',
 fn: function (){
@@ -759,14 +759,14 @@ messageSends: []
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "javascriptConstructor",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.fn;
 return self;
@@ -783,16 +783,16 @@ messageSends: []
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "javascriptConstructor:",
 protocol: 'accessing',
 fn: function (aJavaScriptFunction){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-smalltalk.setClassConstructor(self, aJavaScriptFunction);;
+$vm.setClassConstructor(self, aJavaScriptFunction);;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"javascriptConstructor:",{aJavaScriptFunction:aJavaScriptFunction},globals.Behavior)});
@@ -800,22 +800,22 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aJavaScriptFunction"],
-source: "javascriptConstructor: aJavaScriptFunction\x0a\x09\x22Set the JS constructor used to instantiate.\x0a\x09See the JS counter-part in boot.js `smalltalk.setClassConstructor'\x22\x0a\x09\x0a\x09<smalltalk.setClassConstructor(self, aJavaScriptFunction);>",
+source: "javascriptConstructor: aJavaScriptFunction\x0a\x09\x22Set the JS constructor used to instantiate.\x0a\x09See the JS counter-part in boot.js `$vm.setClassConstructor'\x22\x0a\x09\x0a\x09<$vm.setClassConstructor(self, aJavaScriptFunction);>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "lookupSelector:",
 protocol: 'accessing',
 fn: function (selector){
 var self=this;
 var lookupClass;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 var $early={};
@@ -823,7 +823,7 @@ try {
 lookupClass=self;
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(lookupClass).__eq(nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -831,10 +831,10 @@ return _st(lookupClass).__eq(nil);
 //>>excludeEnd("ctx");
 }))._whileFalse_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(lookupClass)._includesSelector_(selector);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 $2=_st(lookupClass)._methodAt_(selector);
 throw $early=[$2];
 };
@@ -860,14 +860,14 @@ messageSends: ["whileFalse:", "=", "ifTrue:", "includesSelector:", "methodAt:", 
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "methodAt:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._methodDictionary())._at_(aString);
@@ -885,14 +885,14 @@ messageSends: ["at:", "methodDictionary"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "methodDictionary",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var dict = globals.HashedCollection._new();
 	var methods = self.methods;
@@ -916,20 +916,20 @@ messageSends: []
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "methodTemplate",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$4,$2,$7,$8,$6,$9,$5,$10,$1;
 $1=_st($String())._streamContents_((function(stream){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(stream)._nextPutAll_("messageSelectorAndArgumentNames");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1007,14 +1007,14 @@ messageSends: ["streamContents:", "nextPutAll:", ",", "lf", "tab"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "methods",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._methodDictionary())._values();
@@ -1032,15 +1032,15 @@ messageSends: ["values", "methodDictionary"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "methodsFor:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 function $ClassCategoryReader(){return globals.ClassCategoryReader||(typeof ClassCategoryReader=="undefined"?nil:ClassCategoryReader)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st($ClassCategoryReader())._new();
@@ -1061,14 +1061,14 @@ messageSends: ["class:category:", "new", "yourself"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "methodsFor:stamp:",
 protocol: 'accessing',
 fn: function (aString,aStamp){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._methodsFor_(aString);
@@ -1086,19 +1086,19 @@ messageSends: ["methodsFor:"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "methodsInProtocol:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._methods())._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._protocol()).__eq(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1119,14 +1119,14 @@ messageSends: ["select:", "methods", "=", "protocol"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "name",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.className || nil;
 return self;
@@ -1143,14 +1143,14 @@ messageSends: []
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "new",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._basicNew())._initialize();
@@ -1168,14 +1168,14 @@ messageSends: ["initialize", "basicNew"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "organization",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._basicAt_("organization");
@@ -1193,20 +1193,20 @@ messageSends: ["basicAt:"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ownMethods",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $1=_st(_st(self._ownProtocols())._inject_into_(_st($OrderedCollection())._new(),(function(acc,each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(acc).__comma(self._methodsInProtocol_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1214,7 +1214,7 @@ return _st(acc).__comma(self._methodsInProtocol_(each));
 //>>excludeEnd("ctx");
 })))._sorted_((function(a,b){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=_st(a)._selector();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1239,19 +1239,19 @@ messageSends: ["sorted:", "inject:into:", "ownProtocols", "new", ",", "methodsIn
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ownProtocols",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._protocols())._reject_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._match_("^\x5c*");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1272,14 +1272,14 @@ messageSends: ["reject:", "protocols", "match:"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "protocols",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(self._organization())._elements())._sorted();
@@ -1297,8 +1297,8 @@ messageSends: ["sorted", "elements", "organization"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "protocolsDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
@@ -1307,7 +1307,7 @@ var methodsByProtocol;
 function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 methodsByProtocol=_st($HashedCollection())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1315,11 +1315,11 @@ $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
 _st(self._methodDictionary())._valuesDo_((function(m){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(methodsByProtocol)._at_ifAbsentPut_(_st(m)._protocol(),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st($Array())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1332,7 +1332,7 @@ return _st($Array())._new();
 }));
 _st(self._protocols())._do_((function(protocol){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aBlock)._value_value_(protocol,_st(methodsByProtocol)._at_(protocol));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1353,14 +1353,14 @@ messageSends: ["new", "valuesDo:", "methodDictionary", "add:", "at:ifAbsentPut:"
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "prototype",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.fn.prototype;
 return self;
@@ -1377,15 +1377,15 @@ messageSends: []
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "recompile",
 protocol: 'compiling',
 fn: function (){
 var self=this;
 function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st($Compiler())._new())._recompile_(self);
@@ -1403,8 +1403,8 @@ messageSends: ["recompile:", "new"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeCompiledMethod:",
 protocol: 'compiling',
 fn: function (aMethod){
@@ -1412,7 +1412,7 @@ var self=this;
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $MethodRemoved(){return globals.MethodRemoved||(typeof MethodRemoved=="undefined"?nil:MethodRemoved)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 self._basicRemoveCompiledMethod_(aMethod);
@@ -1435,18 +1435,18 @@ messageSends: ["basicRemoveCompiledMethod:", "removeProtocolIfEmpty:", "protocol
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeProtocolIfEmpty:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._methods())._detect_ifNone_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._protocol()).__eq(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1454,7 +1454,7 @@ return _st(_st(each)._protocol()).__eq(aString);
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._organization())._removeElement_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1475,14 +1475,14 @@ messageSends: ["detect:ifNone:", "methods", "=", "protocol", "removeElement:", "
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "selectors",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._methodDictionary())._keys();
@@ -1500,14 +1500,14 @@ messageSends: ["keys", "methodDictionary"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "subclasses",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -1524,14 +1524,14 @@ messageSends: ["subclassResponsibility"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "superclass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.superclass || nil;
 return self;
@@ -1548,14 +1548,14 @@ messageSends: []
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theMetaClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._class();
@@ -1573,8 +1573,8 @@ messageSends: ["class"]
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theNonMetaClass",
 protocol: 'accessing',
 fn: function (){
@@ -1591,15 +1591,15 @@ messageSends: []
 }),
 globals.Behavior);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "withAllSubclasses",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st($Array())._with_(self);
@@ -1622,18 +1622,18 @@ globals.Behavior);
 
 
 
-smalltalk.addClass('Class', globals.Behavior, [], 'Kernel-Classes');
+$vm.addClass('Class', globals.Behavior, [], 'Kernel-Classes');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Class.comment="I am __the__ class object.\x0a\x0aMy instances are the classes of the system.\x0aClass creation is done throught a `ClassBuilder` instance.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJavascript",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1="globals.".__comma(self._name());
@@ -1651,15 +1651,15 @@ messageSends: [",", "name"]
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "browse",
 protocol: 'browsing',
 fn: function (){
 var self=this;
 function $Finder(){return globals.Finder||(typeof Finder=="undefined"?nil:Finder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($Finder())._findClass_(self);
 return self;
@@ -1676,14 +1676,14 @@ messageSends: ["findClass:"]
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "category",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self._package();
@@ -1709,20 +1709,20 @@ messageSends: ["ifNil:ifNotNil:", "package", "name"]
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "definition",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$4,$2,$5,$6,$7,$1;
 $1=_st($String())._streamContents_((function(stream){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(stream)._nextPutAll_(_st(self._superclass())._asString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1759,7 +1759,7 @@ $ctx2.sendIdx["nextPutAll:"]=5;
 $5;
 _st(self._instanceVariableNames())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(stream)._nextPutAll_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1770,7 +1770,7 @@ $ctx3.sendIdx["nextPutAll:"]=6;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(stream)._nextPutAll_(" ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1816,8 +1816,8 @@ messageSends: ["streamContents:", "nextPutAll:", "asString", "superclass", "name
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "heliosClass",
 protocol: 'accessing',
 fn: function (){
@@ -1834,8 +1834,8 @@ messageSends: []
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isClass",
 protocol: 'testing',
 fn: function (){
@@ -1852,14 +1852,14 @@ messageSends: []
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "package",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._basicAt_("pkg");
@@ -1877,8 +1877,8 @@ messageSends: ["basicAt:"]
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "package:",
 protocol: 'accessing',
 fn: function (aPackage){
@@ -1887,7 +1887,7 @@ var oldPackage;
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassMoved(){return globals.ClassMoved||(typeof ClassMoved=="undefined"?nil:ClassMoved)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$4,$5;
 $2=self._package();
@@ -1895,7 +1895,7 @@ $2=self._package();
 $ctx1.sendIdx["package"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2).__eq(aPackage);
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 return self;
 };
 oldPackage=self._package();
@@ -1925,14 +1925,14 @@ messageSends: ["ifTrue:", "=", "package", "basicAt:put:", "removeElement:", "org
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aStream)._nextPutAll_(self._name());
 return self;
@@ -1949,15 +1949,15 @@ messageSends: ["nextPutAll:", "name"]
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "rename:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($ClassBuilder())._new())._renameClass_to_(self,aString);
 return self;
@@ -1974,14 +1974,14 @@ messageSends: ["renameClass:to:", "new"]
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "subclass:instanceVariableNames:",
 protocol: 'class creation',
 fn: function (aString,anotherString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._subclass_instanceVariableNames_package_(aString,anotherString,nil);
@@ -1999,14 +1999,14 @@ messageSends: ["subclass:instanceVariableNames:package:"]
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "subclass:instanceVariableNames:category:",
 protocol: 'class creation',
 fn: function (aString,aString2,aString3){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._deprecatedAPI();
@@ -2025,14 +2025,14 @@ messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"]
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:",
 protocol: 'class creation',
 fn: function (aString,aString2,classVars,pools,aString3){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
@@ -2050,15 +2050,15 @@ messageSends: ["subclass:instanceVariableNames:package:"]
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "subclass:instanceVariableNames:package:",
 protocol: 'class creation',
 fn: function (aString,aString2,aString3){
 var self=this;
 function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st($ClassBuilder())._new())._superclass_subclass_instanceVariableNames_package_(self,_st(aString)._asString(),aString2,aString3);
@@ -2076,14 +2076,14 @@ messageSends: ["superclass:subclass:instanceVariableNames:package:", "new", "asS
 }),
 globals.Class);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "subclasses",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.subclasses._copy();
 return self;
@@ -2102,18 +2102,18 @@ globals.Class);
 
 
 
-smalltalk.addClass('Metaclass', globals.Behavior, [], 'Kernel-Classes');
+$vm.addClass('Metaclass', globals.Behavior, [], 'Kernel-Classes');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Metaclass.comment="I am the root of the class hierarchy.\x0a\x0aMy instances are metaclasses, one for each real class, and have a single instance, which they hold onto: the class that they are the metaclass of.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJavascript",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st("globals.".__comma(_st(self._instanceClass())._name())).__comma(".klass");
@@ -2134,20 +2134,20 @@ messageSends: [",", "name", "instanceClass"]
 }),
 globals.Metaclass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "definition",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $1=_st($String())._streamContents_((function(stream){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(stream)._nextPutAll_(self._asString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2160,7 +2160,7 @@ $ctx2.sendIdx["nextPutAll:"]=2;
 $2;
 _st(self._instanceVariableNames())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(stream)._nextPutAll_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2171,7 +2171,7 @@ $ctx3.sendIdx["nextPutAll:"]=3;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(stream)._nextPutAll_(" ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2200,14 +2200,14 @@ messageSends: ["streamContents:", "nextPutAll:", "asString", "do:separatedBy:", 
 }),
 globals.Metaclass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "instanceClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.instanceClass;
 return self;
@@ -2224,15 +2224,15 @@ messageSends: []
 }),
 globals.Metaclass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "instanceVariableNames:",
 protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($ClassBuilder())._new())._class_instanceVariableNames_(self,aCollection);
 return self;
@@ -2249,8 +2249,8 @@ messageSends: ["class:instanceVariableNames:", "new"]
 }),
 globals.Metaclass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isMetaclass",
 protocol: 'testing',
 fn: function (){
@@ -2267,14 +2267,14 @@ messageSends: []
 }),
 globals.Metaclass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "package",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._instanceClass())._package();
@@ -2292,14 +2292,14 @@ messageSends: ["package", "instanceClass"]
 }),
 globals.Metaclass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "printOn:",
 protocol: 'printing',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st(aStream)._nextPutAll_(_st(self._instanceClass())._name());
@@ -2321,19 +2321,19 @@ messageSends: ["nextPutAll:", "name", "instanceClass"]
 }),
 globals.Metaclass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "subclasses",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(_st(self._instanceClass())._subclasses())._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._isMetaclass())._not();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2341,7 +2341,7 @@ return _st(_st(each)._isMetaclass())._not();
 //>>excludeEnd("ctx");
 })))._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._theMetaClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2362,8 +2362,8 @@ messageSends: ["collect:", "select:", "subclasses", "instanceClass", "not", "isM
 }),
 globals.Metaclass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theMetaClass",
 protocol: 'accessing',
 fn: function (){
@@ -2380,14 +2380,14 @@ messageSends: []
 }),
 globals.Metaclass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theNonMetaClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._instanceClass();
@@ -2407,12 +2407,12 @@ globals.Metaclass);
 
 
 
-smalltalk.addClass('ClassBuilder', globals.Object, [], 'Kernel-Classes');
+$vm.addClass('ClassBuilder', globals.Object, [], 'Kernel-Classes');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ClassBuilder.comment="I am responsible for compiling new classes or modifying existing classes in the system.\x0a\x0aRather than using me directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "addSubclassOf:named:instanceVariableNames:package:",
 protocol: 'class definition',
 fn: function (aClass,className,aCollection,packageName){
@@ -2421,7 +2421,7 @@ var theClass,thePackage;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $Package(){return globals.Package||(typeof Package=="undefined"?nil:Package)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$receiver;
 theClass=_st(_st($Smalltalk())._globals())._at_(className);
@@ -2432,7 +2432,7 @@ $1;
 } else {
 _st(theClass)._package_(thePackage);
 $2=_st(_st(theClass)._superclass()).__eq_eq(aClass);
-if(! smalltalk.assert($2)){
+if(!$vm.assert($2)){
 $3=self._migrateClassNamed_superclass_instanceVariableNames_package_(className,aClass,aCollection,packageName);
 return $3;
 };
@@ -2452,17 +2452,17 @@ messageSends: ["at:", "globals", "named:", "ifNotNil:", "package:", "ifFalse:", 
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicAddSubclassOf:named:instanceVariableNames:package:",
 protocol: 'private',
 fn: function (aClass,aString,aCollection,packageName){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
-		smalltalk.addClass(aString, aClass, aCollection, packageName);
+		$vm.addClass(aString, aClass, aCollection, packageName);
 		return globals[aString]
 	;
 return self;
@@ -2472,21 +2472,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass", "aString", "aCollection", "packageName"],
-source: "basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a\x09<\x0a\x09\x09smalltalk.addClass(aString, aClass, aCollection, packageName);\x0a\x09\x09return globals[aString]\x0a\x09>",
+source: "basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a\x09<\x0a\x09\x09$vm.addClass(aString, aClass, aCollection, packageName);\x0a\x09\x09return globals[aString]\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicClass:instanceVariableNames:",
 protocol: 'private',
 fn: function (aClass,aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._basicClass_instanceVariables_(aClass,self._instanceVariableNamesFor_(aString));
 return self;
@@ -2503,18 +2503,18 @@ messageSends: ["basicClass:instanceVariables:", "instanceVariableNamesFor:"]
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicClass:instanceVariables:",
 protocol: 'private',
 fn: function (aClass,aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aClass)._isMetaclass();
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 self._error_(_st(_st(aClass)._name()).__comma(" is not a metaclass"));
 };
 _st(aClass)._basicAt_put_("iVarNames",aCollection);
@@ -2532,16 +2532,16 @@ messageSends: ["ifFalse:", "isMetaclass", "error:", ",", "name", "basicAt:put:"]
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicRemoveClass:",
 protocol: 'private',
 fn: function (aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-smalltalk.removeClass(aClass);
+$vm.removeClass(aClass);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"basicRemoveClass:",{aClass:aClass},globals.ClassBuilder)});
@@ -2549,21 +2549,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
-source: "basicRemoveClass: aClass\x0a\x09<smalltalk.removeClass(aClass)>",
+source: "basicRemoveClass: aClass\x0a\x09<$vm.removeClass(aClass)>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicRenameClass:to:",
 protocol: 'private',
 fn: function (aClass,aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		globals[aString] = aClass;
@@ -2584,14 +2584,14 @@ messageSends: []
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "basicSwapClassNames:with:",
 protocol: 'private',
 fn: function (aClass,anotherClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		var tmp = aClass.className;
@@ -2612,8 +2612,8 @@ messageSends: []
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "class:instanceVariableNames:",
 protocol: 'class definition',
 fn: function (aClass,ivarNames){
@@ -2621,7 +2621,7 @@ var self=this;
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassDefinitionChanged(){return globals.ClassDefinitionChanged||(typeof ClassDefinitionChanged=="undefined"?nil:ClassDefinitionChanged)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 self._basicClass_instanceVariableNames_(aClass,ivarNames);
@@ -2644,8 +2644,8 @@ messageSends: ["basicClass:instanceVariableNames:", "setupClass:", "announce:", 
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "copyClass:named:",
 protocol: 'copying',
 fn: function (aClass,className){
@@ -2654,7 +2654,7 @@ var newClass;
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassAdded(){return globals.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 newClass=self._addSubclassOf_named_instanceVariableNames_package_(_st(aClass)._superclass(),className,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
@@ -2678,15 +2678,15 @@ messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "superclass
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "copyClass:to:",
 protocol: 'copying',
 fn: function (aClass,anotherClass){
 var self=this;
 function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$7,$6,$9,$8;
 _st(anotherClass)._comment_(_st(aClass)._comment());
@@ -2696,7 +2696,7 @@ $ctx1.sendIdx["methodDictionary"]=1;
 //>>excludeEnd("ctx");
 _st($1)._valuesDo_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=_st($Compiler())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2738,7 +2738,7 @@ $ctx1.sendIdx["class"]=3;
 $8=_st($9)._methodDictionary();
 _st($8)._valuesDo_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st($Compiler())._new())._install_forClass_protocol_(_st(each)._source(),_st(anotherClass)._class(),_st(each)._protocol());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2760,14 +2760,14 @@ messageSends: ["comment:", "comment", "valuesDo:", "methodDictionary", "install:
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "installMethod:forClass:protocol:",
 protocol: 'method definition',
 fn: function (aCompiledMethod,aBehavior,aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aCompiledMethod)._protocol_(aString);
 _st(aBehavior)._addCompiledMethod_(aCompiledMethod);
@@ -2786,19 +2786,19 @@ messageSends: ["protocol:", "addCompiledMethod:", "setupClass:"]
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "instanceVariableNamesFor:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(aString)._tokenize_(" "))._reject_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._isEmpty();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2819,14 +2819,14 @@ messageSends: ["reject:", "tokenize:", "isEmpty"]
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "migrateClass:superclass:",
 protocol: 'class migration',
 fn: function (aClass,anotherClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st(aClass)._name();
@@ -2848,8 +2848,8 @@ messageSends: ["migrateClassNamed:superclass:instanceVariableNames:package:", "n
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "migrateClassNamed:superclass:instanceVariableNames:package:",
 protocol: 'class migration',
 fn: function (className,aClass,aCollection,packageName){
@@ -2860,7 +2860,7 @@ function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassMigrated(){return globals.ClassMigrated||(typeof ClassMigrated=="undefined"?nil:ClassMigrated)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5;
 tmp="new*".__comma(className);
@@ -2872,7 +2872,7 @@ $ctx1.sendIdx["basicSwapClassNames:with:"]=1;
 //>>excludeEnd("ctx");
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._copyClass_to_(oldClass,newClass);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2880,7 +2880,7 @@ return self._copyClass_to_(oldClass,newClass);
 //>>excludeEnd("ctx");
 }))._on_do_($Error(),(function(exception){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._basicSwapClassNames_with_(oldClass,newClass);
 $1=self._basicRemoveClass_(newClass);
@@ -2900,7 +2900,7 @@ $ctx1.sendIdx["rawRenameClass:to:"]=1;
 $2=self._rawRenameClass_to_(newClass,className);
 _st(_st(oldClass)._subclasses())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._migrateClass_superclass_(each,newClass);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2928,14 +2928,14 @@ messageSends: [",", "at:", "globals", "addSubclassOf:named:instanceVariableNames
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "rawRenameClass:to:",
 protocol: 'private',
 fn: function (aClass,aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		globals[aString] = aClass;
@@ -2954,8 +2954,8 @@ messageSends: []
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "renameClass:to:",
 protocol: 'class migration',
 fn: function (aClass,className){
@@ -2963,7 +2963,7 @@ var self=this;
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassRenamed(){return globals.ClassRenamed||(typeof ClassRenamed=="undefined"?nil:ClassRenamed)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 self._basicRenameClass_to_(aClass,className);
@@ -2986,16 +2986,16 @@ messageSends: ["basicRenameClass:to:", "recompile", "announce:", "current", "the
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "setupClass:",
 protocol: 'public',
 fn: function (aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-smalltalk.init(aClass);;
+$vm.init(aClass);;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"setupClass:",{aClass:aClass},globals.ClassBuilder)});
@@ -3003,21 +3003,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
-source: "setupClass: aClass\x0a\x09<smalltalk.init(aClass);>",
+source: "setupClass: aClass\x0a\x09<$vm.init(aClass);>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "superclass:subclass:",
 protocol: 'class definition',
 fn: function (aClass,className){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._superclass_subclass_instanceVariableNames_package_(aClass,className,"",nil);
@@ -3035,8 +3035,8 @@ messageSends: ["superclass:subclass:instanceVariableNames:package:"]
 }),
 globals.ClassBuilder);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "superclass:subclass:instanceVariableNames:package:",
 protocol: 'class definition',
 fn: function (aClass,className,ivarNames,packageName){
@@ -3045,7 +3045,7 @@ var newClass;
 function $SystemAnnouncer(){return globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassAdded(){return globals.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$receiver;
 $1=self._instanceVariableNamesFor_(ivarNames);
@@ -3077,12 +3077,12 @@ globals.ClassBuilder);
 
 
 
-smalltalk.addClass('ClassCategoryReader', globals.Object, ['class', 'category'], 'Kernel-Classes');
+$vm.addClass('ClassCategoryReader', globals.Object, ['class', 'category'], 'Kernel-Classes');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ClassCategoryReader.comment="I provide a mechanism for retrieving class descriptions stored on a file in the Smalltalk chunk format.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "class:category:",
 protocol: 'accessing',
 fn: function (aClass,aString){
@@ -3101,15 +3101,15 @@ messageSends: []
 }),
 globals.ClassCategoryReader);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "compileMethod:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
 function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($Compiler())._new())._install_forClass_protocol_(aString,self["@class"],self["@category"]);
 return self;
@@ -3126,14 +3126,14 @@ messageSends: ["install:forClass:protocol:", "new"]
 }),
 globals.ClassCategoryReader);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3157,8 +3157,8 @@ messageSends: ["initialize"]
 }),
 globals.ClassCategoryReader);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "scanFrom:",
 protocol: 'fileIn',
 fn: function (aChunkParser){
@@ -3166,11 +3166,11 @@ var self=this;
 var chunk;
 function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 chunk=_st(aChunkParser)._nextChunk();
 chunk;
@@ -3180,7 +3180,7 @@ return _st(chunk)._isEmpty();
 //>>excludeEnd("ctx");
 }))._whileFalse_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._compileMethod_(chunk);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3204,12 +3204,12 @@ globals.ClassCategoryReader);
 
 
 
-smalltalk.addClass('ClassCommentReader', globals.Object, ['class'], 'Kernel-Classes');
+$vm.addClass('ClassCommentReader', globals.Object, ['class'], 'Kernel-Classes');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ClassCommentReader.comment="I provide a mechanism for retrieving class comments stored on a file.\x0a\x0aSee also `ClassCategoryReader`.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "class:",
 protocol: 'accessing',
 fn: function (aClass){
@@ -3227,14 +3227,14 @@ messageSends: []
 }),
 globals.ClassCommentReader);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3258,20 +3258,20 @@ messageSends: ["initialize"]
 }),
 globals.ClassCommentReader);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "scanFrom:",
 protocol: 'fileIn',
 fn: function (aChunkParser){
 var self=this;
 var chunk;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 chunk=_st(aChunkParser)._nextChunk();
 $1=_st(chunk)._isEmpty();
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 self._setComment_(chunk);
 };
 return self;
@@ -3288,14 +3288,14 @@ messageSends: ["nextChunk", "ifFalse:", "isEmpty", "setComment:"]
 }),
 globals.ClassCommentReader);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "setComment:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@class"])._comment_(aString);
 return self;
@@ -3314,12 +3314,12 @@ globals.ClassCommentReader);
 
 
 
-smalltalk.addClass('ClassSorterNode', globals.Object, ['theClass', 'level', 'nodes'], 'Kernel-Classes');
+$vm.addClass('ClassSorterNode', globals.Object, ['theClass', 'level', 'nodes'], 'Kernel-Classes');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ClassSorterNode.comment="I provide an algorithm for sorting classes alphabetically.\x0a\x0aSee [Issue #143](https://github.com/amber-smalltalk/amber/issues/143) on GitHub.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "getNodesFrom:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -3327,17 +3327,17 @@ var self=this;
 var children,others;
 function $ClassSorterNode(){return globals.ClassSorterNode||(typeof ClassSorterNode=="undefined"?nil:ClassSorterNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 children=[];
 others=[];
 _st(aCollection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(_st(each)._superclass()).__eq(self._theClass());
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 return _st(children)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["add:"]=1;
@@ -3351,7 +3351,7 @@ return _st(others)._add_(each);
 }));
 self["@nodes"]=_st(children)._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st($ClassSorterNode())._on_classes_level_(each,others,_st(self._level()).__plus((1)));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3372,8 +3372,8 @@ messageSends: ["do:", "ifTrue:ifFalse:", "=", "superclass", "theClass", "add:", 
 }),
 globals.ClassSorterNode);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "level",
 protocol: 'accessing',
 fn: function (){
@@ -3392,8 +3392,8 @@ messageSends: []
 }),
 globals.ClassSorterNode);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "level:",
 protocol: 'accessing',
 fn: function (anInteger){
@@ -3411,8 +3411,8 @@ messageSends: []
 }),
 globals.ClassSorterNode);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nodes",
 protocol: 'accessing',
 fn: function (){
@@ -3431,8 +3431,8 @@ messageSends: []
 }),
 globals.ClassSorterNode);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theClass",
 protocol: 'accessing',
 fn: function (){
@@ -3451,8 +3451,8 @@ messageSends: []
 }),
 globals.ClassSorterNode);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "theClass:",
 protocol: 'accessing',
 fn: function (aClass){
@@ -3470,14 +3470,14 @@ messageSends: []
 }),
 globals.ClassSorterNode);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "traverseClassesWith:",
 protocol: 'visiting',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$2;
 $1=self._theClass();
@@ -3487,7 +3487,7 @@ $ctx1.sendIdx["theClass"]=1;
 _st(aCollection)._add_($1);
 _st(_st(self._nodes())._sorted_((function(a,b){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $3=_st(a)._theClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3503,7 +3503,7 @@ return _st($2).__lt_eq(_st(_st(b)._theClass())._name());
 //>>excludeEnd("ctx");
 })))._do_((function(aNode){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aNode)._traverseClassesWith_(aCollection);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3525,14 +3525,14 @@ messageSends: ["add:", "theClass", "do:", "sorted:", "nodes", "<=", "name", "tra
 globals.ClassSorterNode);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "on:classes:level:",
 protocol: 'instance creation',
 fn: function (aClass,aCollection,anInteger){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();

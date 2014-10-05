@@ -1497,7 +1497,7 @@ asJSON
 !
 
 asJavaScriptMethodName
-	<return smalltalk.st2js(self)>
+	<return $vm.st2js(self)>
 !
 
 asJavascript

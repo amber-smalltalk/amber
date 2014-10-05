@@ -1,22 +1,22 @@
 define("amber_core/SUnit-Tests", ["amber/boot", "amber_core/SUnit"], function($boot){
 var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$vm,_st=$recv,globals=$globals;
-smalltalk.addPackage('SUnit-Tests');
-smalltalk.packages["SUnit-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$vm.addPackage('SUnit-Tests');
+$vm.packages["SUnit-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('ExampleSetTest', globals.TestCase, ['empty', 'full'], 'SUnit-Tests');
+$vm.addClass('ExampleSetTest', globals.TestCase, ['empty', 'full'], 'SUnit-Tests');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.ExampleSetTest.comment="ExampleSetTest is taken from Pharo 1.4.\x0a\x0aTHe purpose of this class is to demonstrate a simple use case of the test framework.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "setUp",
 protocol: 'running',
 fn: function (){
 var self=this;
 function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@empty"]=_st($Set())._new();
 self["@full"]=_st($Set())._with_with_((5),"abc");
@@ -34,14 +34,14 @@ messageSends: ["new", "with:with:"]
 }),
 globals.ExampleSetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testAdd",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@empty"])._add_((5));
 self._assert_(_st(self["@empty"])._includes_((5)));
@@ -59,14 +59,14 @@ messageSends: ["add:", "assert:", "includes:"]
 }),
 globals.ExampleSetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testGrow",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@empty"])._addAll_((1)._to_((100)));
 self._assert_equals_(_st(self["@empty"])._size(),(100));
@@ -84,19 +84,19 @@ messageSends: ["addAll:", "to:", "assert:equals:", "size"]
 }),
 globals.ExampleSetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testIllegal",
 protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@empty"])._at_((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -108,7 +108,7 @@ $ctx1.sendIdx["should:raise:"]=1;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@empty"])._at_put_((5),"abc");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -129,14 +129,14 @@ messageSends: ["should:raise:", "at:", "at:put:"]
 }),
 globals.ExampleSetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testIncludes",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@full"])._includes_((5));
@@ -162,14 +162,14 @@ messageSends: ["assert:", "includes:"]
 }),
 globals.ExampleSetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testOccurrences",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st(self["@empty"])._occurrencesOf_((0));
@@ -204,14 +204,14 @@ messageSends: ["assert:equals:", "occurrencesOf:", "add:"]
 }),
 globals.ExampleSetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testRemove",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st(self["@full"])._remove_((5));
@@ -237,21 +237,21 @@ globals.ExampleSetTest);
 
 
 
-smalltalk.addClass('SUnitAsyncTest', globals.TestCase, ['flag'], 'SUnit-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addClass('SUnitAsyncTest', globals.TestCase, ['flag'], 'SUnit-Tests');
+$vm.addMethod(
+$vm.method({
 selector: "fakeError",
 protocol: 'helpers',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@flag"]="bad";
 self._timeout_((30));
 self["@flag"]=_st(self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self["@flag"]="ok";
 self["@flag"];
@@ -274,20 +274,20 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "error:"]
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fakeErrorFailingInTearDown",
 protocol: 'helpers',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@flag"]="bad";
 self._timeout_((30));
 self["@flag"]=_st(self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._error_("Intentional");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -308,20 +308,20 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "error:"]
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fakeFailure",
 protocol: 'helpers',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@flag"]="bad";
 self._timeout_((30));
 self["@flag"]=_st(self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self["@flag"]="ok";
 self["@flag"];
@@ -344,14 +344,14 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "assert:"]
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fakeMultipleTimeoutFailing",
 protocol: 'helpers',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._timeout_((100));
@@ -360,12 +360,12 @@ $ctx1.sendIdx["timeout:"]=1;
 //>>excludeEnd("ctx");
 $1=self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._timeout_((20));
 return _st(self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._finished();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -397,14 +397,14 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"]
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fakeMultipleTimeoutPassing",
 protocol: 'helpers',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._timeout_((20));
@@ -413,12 +413,12 @@ $ctx1.sendIdx["timeout:"]=1;
 //>>excludeEnd("ctx");
 $1=self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._timeout_((40));
 return _st(self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._finished();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -450,19 +450,19 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"]
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fakeTimeout",
 protocol: 'helpers',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._timeout_((10));
 _st(self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._finished();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -483,19 +483,19 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"]
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "selectorSetOf:",
 protocol: 'private',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(aCollection)._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._selector();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -516,8 +516,8 @@ messageSends: ["asSet", "collect:", "selector"]
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "setUp",
 protocol: 'running',
 fn: function (){
@@ -535,14 +535,14 @@ messageSends: []
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "tearDown",
 protocol: 'running',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_("ok",self["@flag"]);
 return self;
@@ -559,8 +559,8 @@ messageSends: ["assert:equals:"]
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testAsyncErrorsAndFailures",
 protocol: 'tests',
 fn: function (){
@@ -569,12 +569,12 @@ var suite,runner,result,assertBlock;
 function $TestSuiteRunner(){return globals.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
 function $ResultAnnouncement(){return globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 suite=["fakeError", "fakeErrorFailingInTearDown", "fakeFailure", "testPass"]._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._class())._selector_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -589,7 +589,7 @@ $ctx1.sendIdx["result"]=1;
 //>>excludeEnd("ctx");
 assertBlock=self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=self._selectorSetOf_(_st(result)._errors());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -611,10 +611,10 @@ return self._finished();
 }));
 _st(_st(runner)._announcer())._on_do_($ResultAnnouncement(),(function(ann){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $3=_st(_st(ann)._result()).__eq_eq(result);
-if(smalltalk.assert($3)){
+if($vm.assert($3)){
 $4=_st(_st(result)._runs()).__eq(_st(result)._total());
 return _st($4)._ifTrue_(assertBlock);
 };
@@ -637,19 +637,19 @@ messageSends: ["collect:", "selector:", "class", "on:", "timeout:", "result", "a
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testAsyncNeedsTimeout",
 protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._async_((function(){
 
@@ -664,7 +664,7 @@ $ctx2.sendIdx["async:"]=1;
 self._timeout_((0));
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._async_((function(){
 
@@ -688,19 +688,19 @@ messageSends: ["should:raise:", "async:", "timeout:", "shouldnt:raise:", "finish
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testFinishedNeedsTimeout",
 protocol: 'tests',
 fn: function (){
 var self=this;
 function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._finished();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -713,7 +713,7 @@ $ctx2.sendIdx["finished"]=1;
 self._timeout_((0));
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._finished();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -734,14 +734,14 @@ messageSends: ["should:raise:", "finished", "timeout:", "shouldnt:raise:"]
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testIsAsyncReturnsCorrectValues",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._isAsync();
@@ -774,20 +774,20 @@ messageSends: ["deny:", "isAsync", "timeout:", "assert:", "finished"]
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testPass",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@flag"]="bad";
 self._timeout_((10));
 self["@flag"]=_st(self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._assert_(true);
 self._finished();
@@ -811,8 +811,8 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "assert:", "finished"]
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testTimeouts",
 protocol: 'tests',
 fn: function (){
@@ -822,12 +822,12 @@ function $TestSuiteRunner(){return globals.TestSuiteRunner||(typeof TestSuiteRun
 function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
 function $ResultAnnouncement(){return globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 suite=["fakeTimeout", "fakeMultipleTimeoutFailing", "fakeMultipleTimeoutPassing", "testPass"]._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._class())._selector_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -842,7 +842,7 @@ $ctx1.sendIdx["result"]=1;
 //>>excludeEnd("ctx");
 assertBlock=self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=self._selectorSetOf_(_st(result)._errors());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -860,10 +860,10 @@ return self._finished();
 }));
 _st(_st(runner)._announcer())._on_do_($ResultAnnouncement(),(function(ann){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=_st(_st(ann)._result()).__eq_eq(result);
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $3=_st(_st(result)._runs()).__eq(_st(result)._total());
 return _st($3)._ifTrue_(assertBlock);
 };
@@ -886,15 +886,15 @@ messageSends: ["collect:", "selector:", "class", "on:", "timeout:", "result", "a
 }),
 globals.SUnitAsyncTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "testTwoAsyncPassesWithFinishedOnlyOneIsRun",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var x;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self["@flag"]="bad";
@@ -902,7 +902,7 @@ self._timeout_((10));
 x=(0);
 $1=self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._finished();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -932,7 +932,7 @@ $ctx1.sendIdx["valueWithTimeout:"]=1;
 //>>excludeEnd("ctx");
 self["@flag"]=_st(self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._finished();
 self["@flag"]="ok";

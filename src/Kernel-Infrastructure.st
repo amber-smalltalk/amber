@@ -424,7 +424,7 @@ doesNotUnderstand: aMessage
 
 forwardMessage: aString withArguments: anArray
 	<
-		return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);
+		return $vm.accessJavaScript(self._jsObject(), aString, anArray);
 	>
 !
 
@@ -1145,7 +1145,7 @@ globals
 !
 
 includesKey: aKey
-	<return smalltalk.hasOwnProperty(aKey)>
+	<return $vm.hasOwnProperty(aKey)>
 !
 
 parse: aString
@@ -1164,12 +1164,12 @@ pseudoVariableNames
 !
 
 readJSObject: anObject
-	<return smalltalk.readJSObject(anObject)>
+	<return $vm.readJSObject(anObject)>
 !
 
 reservedWords
 	"JavaScript reserved words"
-	<return smalltalk.reservedWords>
+	<return $vm.reservedWords>
 !
 
 settings
@@ -1204,7 +1204,7 @@ defaultAmdNamespace: aString
 !SmalltalkImage methodsFor: 'classes'!
 
 classes
-	<return smalltalk.classes()>
+	<return $vm.classes()>
 !
 
 removeClass: aClass
@@ -1245,7 +1245,7 @@ deleteGlobalJsVariable: aString
 
 globalJsVariables
 	"Array of global JavaScript variables"
-	<return smalltalk.globalJsVariables>
+	<return $vm.globalJsVariables>
 ! !
 
 !SmalltalkImage methodsFor: 'packages'!
@@ -1265,7 +1265,7 @@ createPackage: packageName
 !
 
 packageAt: packageName
-	<return smalltalk.packages[packageName]>
+	<return $vm.packages[packageName]>
 !
 
 packageAt: packageName ifAbsent: aBlock
@@ -1276,8 +1276,8 @@ packages
 	"Return all Package instances in the system."
 
 	<
-		return Object.keys(smalltalk.packages).map(function(k) {
-			return smalltalk.packages[k];
+		return Object.keys($vm.packages).map(function(k) {
+			return $vm.packages[k];
 		})
 	>
 !
@@ -1307,7 +1307,7 @@ renamePackage: packageName to: newName
 
 basicCreatePackage: packageName
 	"Create and bind a new bare package with given name and return it."
-	<return smalltalk.addPackage(packageName)>
+	<return $vm.addPackage(packageName)>
 !
 
 basicParse: aString
@@ -1325,14 +1325,14 @@ createPackage: packageName properties: aDict
 deleteClass: aClass
 	"Deletes a class by deleting its binding only. Use #removeClass instead"
 	
-	<smalltalk.removeClass(aClass)>
+	<$vm.removeClass(aClass)>
 !
 
 deletePackage: packageName
 	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
 	To remove a package, use #removePackage instead."
 
-	<delete smalltalk.packages[packageName]>
+	<delete $vm.packages[packageName]>
 ! !
 
 !SmalltalkImage methodsFor: 'testing'!
@@ -1374,7 +1374,7 @@ do: aBlock displayingProgress: aString
 !String methodsFor: '*Kernel-Infrastructure'!
 
 asJavaScriptPropertyName
-<return smalltalk.st2prop(self)>
+<return $vm.st2prop(self)>
 !
 
 asJavaScriptSelector

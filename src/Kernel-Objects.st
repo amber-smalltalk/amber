@@ -17,7 +17,7 @@ identityHash
 	<
 		var hash=self.identityHash;
 		if (hash) return hash;
-		hash=smalltalk.nextId();
+		hash=$vm.nextId();
 		Object.defineProperty(self, 'identityHash', {value:hash});
 		return hash;
 	>
@@ -95,7 +95,7 @@ perform: aString
 !
 
 perform: aString withArguments: aCollection
-	<return smalltalk.send(self, aString._asJavaScriptMethodName(), aCollection)>
+	<return $vm.send(self, aString._asJavaScriptMethodName(), aCollection)>
 ! !
 
 !ProtoObject methodsFor: 'printing'!

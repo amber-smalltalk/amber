@@ -1,21 +1,21 @@
 define("amber_core/Compiler-Inlining", ["amber/boot", "amber_core/Compiler-IR", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){
 var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$vm,_st=$recv,globals=$globals;
-smalltalk.addPackage('Compiler-Inlining');
-smalltalk.packages["Compiler-Inlining"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$vm.addPackage('Compiler-Inlining');
+$vm.packages["Compiler-Inlining"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('IRInlinedAssignment', globals.IRAssignment, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedAssignment', globals.IRAssignment, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRInlinedAssignment.comment="I represent an inlined assignment instruction.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRInlinedAssignment_(self);
@@ -33,8 +33,8 @@ messageSends: ["visitIRInlinedAssignment:"]
 }),
 globals.IRInlinedAssignment);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isInlined",
 protocol: 'testing',
 fn: function (){
@@ -53,18 +53,18 @@ globals.IRInlinedAssignment);
 
 
 
-smalltalk.addClass('IRInlinedClosure', globals.IRClosure, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedClosure', globals.IRClosure, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRInlinedClosure.comment="I represent an inlined closure instruction.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aVisitor)._visitIRInlinedClosure_(self);
 return self;
@@ -81,8 +81,8 @@ messageSends: ["visitIRInlinedClosure:"]
 }),
 globals.IRInlinedClosure);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isInlined",
 protocol: 'testing',
 fn: function (){
@@ -101,18 +101,18 @@ globals.IRInlinedClosure);
 
 
 
-smalltalk.addClass('IRInlinedReturn', globals.IRReturn, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedReturn', globals.IRReturn, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRInlinedReturn.comment="I represent an inlined local return instruction.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitIRInlinedReturn_(self);
@@ -130,8 +130,8 @@ messageSends: ["visitIRInlinedReturn:"]
 }),
 globals.IRInlinedReturn);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isInlined",
 protocol: 'testing',
 fn: function (){
@@ -150,18 +150,18 @@ globals.IRInlinedReturn);
 
 
 
-smalltalk.addClass('IRInlinedSend', globals.IRSend, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedSend', globals.IRSend, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRInlinedSend.comment="I am the abstract super class of inlined message send instructions.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aVisitor)._visitInlinedSend_(self);
 return self;
@@ -178,8 +178,8 @@ messageSends: ["visitInlinedSend:"]
 }),
 globals.IRInlinedSend);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "internalVariables",
 protocol: 'accessing',
 fn: function (){
@@ -198,8 +198,8 @@ messageSends: []
 }),
 globals.IRInlinedSend);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isInlined",
 protocol: 'testing',
 fn: function (){
@@ -218,18 +218,18 @@ globals.IRInlinedSend);
 
 
 
-smalltalk.addClass('IRInlinedIfFalse', globals.IRInlinedSend, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedIfFalse', globals.IRInlinedSend, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRInlinedIfFalse.comment="I represent an inlined `#ifFalse:` message send instruction.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aVisitor)._visitIRInlinedIfFalse_(self);
 return self;
@@ -248,18 +248,18 @@ globals.IRInlinedIfFalse);
 
 
 
-smalltalk.addClass('IRInlinedIfNilIfNotNil', globals.IRInlinedSend, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedIfNilIfNotNil', globals.IRInlinedSend, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRInlinedIfNilIfNotNil.comment="I represent an inlined `#ifNil:ifNotNil:` message send instruction.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aVisitor)._visitIRInlinedIfNilIfNotNil_(self);
 return self;
@@ -276,15 +276,15 @@ messageSends: ["visitIRInlinedIfNilIfNotNil:"]
 }),
 globals.IRInlinedIfNilIfNotNil);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "internalVariables",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($Array())._with_(self._receiverInternalVariable());
@@ -302,8 +302,8 @@ messageSends: ["with:", "receiverInternalVariable"]
 }),
 globals.IRInlinedIfNilIfNotNil);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "receiverInternalVariable",
 protocol: 'accessing',
 fn: function (){
@@ -311,7 +311,7 @@ var self=this;
 function $IRVariable(){return globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
 function $AliasVar(){return globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st($IRVariable())._new();
@@ -335,8 +335,8 @@ messageSends: ["variable:", "new", "name:", "receiverInternalVariableName", "you
 }),
 globals.IRInlinedIfNilIfNotNil);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "receiverInternalVariableName",
 protocol: 'accessing',
 fn: function (){
@@ -355,18 +355,18 @@ globals.IRInlinedIfNilIfNotNil);
 
 
 
-smalltalk.addClass('IRInlinedIfTrue', globals.IRInlinedSend, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedIfTrue', globals.IRInlinedSend, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRInlinedIfTrue.comment="I represent an inlined `#ifTrue:` message send instruction.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aVisitor)._visitIRInlinedIfTrue_(self);
 return self;
@@ -385,18 +385,18 @@ globals.IRInlinedIfTrue);
 
 
 
-smalltalk.addClass('IRInlinedIfTrueIfFalse', globals.IRInlinedSend, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedIfTrueIfFalse', globals.IRInlinedSend, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRInlinedIfTrueIfFalse.comment="I represent an inlined `#ifTrue:ifFalse:` message send instruction.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aVisitor)._visitIRInlinedIfTrueIfFalse_(self);
 return self;
@@ -415,18 +415,18 @@ globals.IRInlinedIfTrueIfFalse);
 
 
 
-smalltalk.addClass('IRInlinedSequence', globals.IRBlockSequence, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedSequence', globals.IRBlockSequence, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRInlinedSequence.comment="I represent a (block) sequence inside an inlined closure instruction (instance of `IRInlinedClosure`).";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aVisitor)._visitIRInlinedSequence_(self);
 return self;
@@ -443,8 +443,8 @@ messageSends: ["visitIRInlinedSequence:"]
 }),
 globals.IRInlinedSequence);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isInlined",
 protocol: 'testing',
 fn: function (){
@@ -463,19 +463,19 @@ globals.IRInlinedSequence);
 
 
 
-smalltalk.addClass('IRInliner', globals.IRVisitor, [], 'Compiler-Inlining');
+$vm.addClass('IRInliner', globals.IRVisitor, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRInliner.comment="I visit an IR tree, inlining message sends and block closures.\x0a\x0aMessage selectors that can be inlined are answered by `IRSendInliner >> #inlinedSelectors`";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "assignmentInliner",
 protocol: 'factory',
 fn: function (){
 var self=this;
 function $IRAssignmentInliner(){return globals.IRAssignmentInliner||(typeof IRAssignmentInliner=="undefined"?nil:IRAssignmentInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st($IRAssignmentInliner())._new();
@@ -496,15 +496,15 @@ messageSends: ["translator:", "new", "yourself"]
 }),
 globals.IRInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "returnInliner",
 protocol: 'factory',
 fn: function (){
 var self=this;
 function $IRReturnInliner(){return globals.IRReturnInliner||(typeof IRReturnInliner=="undefined"?nil:IRReturnInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st($IRReturnInliner())._new();
@@ -525,15 +525,15 @@ messageSends: ["translator:", "new", "yourself"]
 }),
 globals.IRInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sendInliner",
 protocol: 'factory',
 fn: function (){
 var self=this;
 function $IRSendInliner(){return globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st($IRSendInliner())._new();
@@ -554,19 +554,19 @@ messageSends: ["translator:", "new", "yourself"]
 }),
 globals.IRInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "shouldInlineAssignment:",
 protocol: 'testing',
 fn: function (anIRAssignment){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 $1=_st(_st(_st(anIRAssignment)._isInlined())._not())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=_st(anIRAssignment)._instructions();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -579,7 +579,7 @@ $ctx2.sendIdx["last"]=1;
 $2=_st($3)._isSend();
 return _st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._shouldInlineSend_(_st(_st(anIRAssignment)._instructions())._last());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -607,19 +607,19 @@ messageSends: ["and:", "not", "isInlined", "isSend", "last", "instructions", "sh
 }),
 globals.IRInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "shouldInlineReturn:",
 protocol: 'testing',
 fn: function (anIRReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 $1=_st(_st(_st(anIRReturn)._isInlined())._not())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=_st(anIRReturn)._instructions();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -632,7 +632,7 @@ $ctx2.sendIdx["first"]=1;
 $2=_st($3)._isSend();
 return _st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._shouldInlineSend_(_st(_st(anIRReturn)._instructions())._first());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -660,20 +660,20 @@ messageSends: ["and:", "not", "isInlined", "isSend", "first", "instructions", "s
 }),
 globals.IRInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "shouldInlineSend:",
 protocol: 'testing',
 fn: function (anIRSend){
 var self=this;
 function $IRSendInliner(){return globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(_st(anIRSend)._isInlined())._not())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st($IRSendInliner())._shouldInline_(anIRSend);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -694,8 +694,8 @@ messageSends: ["and:", "not", "isInlined", "shouldInline:"]
 }),
 globals.IRInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "transformNonLocalReturn:",
 protocol: 'visiting',
 fn: function (anIRNonLocalReturn){
@@ -703,7 +703,7 @@ var self=this;
 var localReturn;
 function $IRReturn(){return globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$5,$6,$7,$8,$9;
 $2=_st(anIRNonLocalReturn)._scope();
@@ -711,7 +711,7 @@ $2=_st(anIRNonLocalReturn)._scope();
 $ctx1.sendIdx["scope"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._canInlineNonLocalReturns();
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 $4=_st(anIRNonLocalReturn)._scope();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["scope"]=2;
@@ -729,7 +729,7 @@ localReturn=$7;
 localReturn;
 _st(_st(anIRNonLocalReturn)._instructions())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(localReturn)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -762,18 +762,18 @@ messageSends: ["ifTrue:", "canInlineNonLocalReturns", "scope", "removeNonLocalRe
 }),
 globals.IRInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRAssignment:",
 protocol: 'visiting',
 fn: function (anIRAssignment){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._shouldInlineAssignment_(anIRAssignment);
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $1=_st(self._assignmentInliner())._inlineAssignment_(anIRAssignment);
 } else {
 $1=(
@@ -799,14 +799,14 @@ messageSends: ["ifTrue:ifFalse:", "shouldInlineAssignment:", "inlineAssignment:"
 }),
 globals.IRInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRNonLocalReturn:",
 protocol: 'visiting',
 fn: function (anIRNonLocalReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._transformNonLocalReturn_(anIRNonLocalReturn);
@@ -824,18 +824,18 @@ messageSends: ["transformNonLocalReturn:"]
 }),
 globals.IRInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRReturn:",
 protocol: 'visiting',
 fn: function (anIRReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._shouldInlineReturn_(anIRReturn);
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $1=_st(self._returnInliner())._inlineReturn_(anIRReturn);
 } else {
 $1=(
@@ -861,18 +861,18 @@ messageSends: ["ifTrue:ifFalse:", "shouldInlineReturn:", "inlineReturn:", "retur
 }),
 globals.IRInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRSend:",
 protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._shouldInlineSend_(anIRSend);
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 $1=_st(self._sendInliner())._inlineSend_(anIRSend);
 } else {
 $1=(
@@ -900,18 +900,18 @@ globals.IRInliner);
 
 
 
-smalltalk.addClass('IRInliningJSTranslator', globals.IRJSTranslator, [], 'Compiler-Inlining');
+$vm.addClass('IRInliningJSTranslator', globals.IRJSTranslator, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRInliningJSTranslator.comment="I am a specialized JavaScript translator able to write inlined IR instructions to JavaScript stream (`JSStream` instance).";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRInlinedAssignment:",
 protocol: 'visiting',
 fn: function (anIRInlinedAssignment){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._visit_(_st(_st(anIRInlinedAssignment)._instructions())._last());
 return self;
@@ -928,18 +928,18 @@ messageSends: ["visit:", "last", "instructions"]
 }),
 globals.IRInliningJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRInlinedClosure:",
 protocol: 'visiting',
 fn: function (anIRInlinedClosure){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._stream())._nextPutVars_(_st(_st(anIRInlinedClosure)._tempDeclarations())._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._name())._asVariableName();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -948,7 +948,7 @@ return _st(_st(each)._name())._asVariableName();
 })));
 _st(_st(anIRInlinedClosure)._instructions())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._visit_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -969,14 +969,14 @@ messageSends: ["nextPutVars:", "stream", "collect:", "tempDeclarations", "asVari
 }),
 globals.IRInliningJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRInlinedIfFalse:",
 protocol: 'visiting',
 fn: function (anIRInlinedIfFalse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3;
 $1=self._stream();
@@ -985,13 +985,13 @@ $ctx1.sendIdx["stream"]=1;
 //>>excludeEnd("ctx");
 _st($1)._nextPutIf_with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["stream"]=2;
 //>>excludeEnd("ctx");
-_st($2)._nextPutAll_("! smalltalk.assert(");
+_st($2)._nextPutAll_("!$vm.assert(");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
@@ -1010,7 +1010,7 @@ return _st(self._stream())._nextPutAll_(")");
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._visit_(_st(_st(anIRInlinedIfFalse)._instructions())._last());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1024,21 +1024,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInlinedIfFalse"],
-source: "visitIRInlinedIfFalse: anIRInlinedIfFalse\x0a\x09self stream nextPutIf: [\x0a\x09\x09self stream nextPutAll: '! smalltalk.assert('.\x0a\x09\x09self visit: anIRInlinedIfFalse instructions first.\x0a\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfFalse instructions last ]",
+source: "visitIRInlinedIfFalse: anIRInlinedIfFalse\x0a\x09self stream nextPutIf: [\x0a\x09\x09self stream nextPutAll: '!$vm.assert('.\x0a\x09\x09self visit: anIRInlinedIfFalse instructions first.\x0a\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfFalse instructions last ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutIf:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "last"]
 }),
 globals.IRInliningJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRInlinedIfNilIfNotNil:",
 protocol: 'visiting',
 fn: function (anIRInlinedIfNilIfNotNil){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$4,$7,$6;
 $1=self._stream();
@@ -1047,7 +1047,7 @@ $ctx1.sendIdx["stream"]=1;
 //>>excludeEnd("ctx");
 _st($1)._nextPutIfElse_with_with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1076,7 +1076,7 @@ return _st(self._stream())._nextPutAll_(") == null || $receiver.isNil");
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $7=_st(anIRInlinedIfNilIfNotNil)._instructions();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1092,7 +1092,7 @@ $ctx2.sendIdx["visit:"]=2;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._visit_(_st(_st(anIRInlinedIfNilIfNotNil)._instructions())._third());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1113,14 +1113,14 @@ messageSends: ["nextPutIfElse:with:with:", "stream", "nextPutAll:", ",", "receiv
 }),
 globals.IRInliningJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRInlinedIfTrue:",
 protocol: 'visiting',
 fn: function (anIRInlinedIfTrue){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3;
 $1=self._stream();
@@ -1129,13 +1129,13 @@ $ctx1.sendIdx["stream"]=1;
 //>>excludeEnd("ctx");
 _st($1)._nextPutIf_with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["stream"]=2;
 //>>excludeEnd("ctx");
-_st($2)._nextPutAll_("smalltalk.assert(");
+_st($2)._nextPutAll_("$vm.assert(");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
@@ -1154,7 +1154,7 @@ return _st(self._stream())._nextPutAll_(")");
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._visit_(_st(_st(anIRInlinedIfTrue)._instructions())._last());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1168,21 +1168,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInlinedIfTrue"],
-source: "visitIRInlinedIfTrue: anIRInlinedIfTrue\x0a\x09self stream nextPutIf: [\x0a\x09\x09self stream nextPutAll: 'smalltalk.assert('.\x0a\x09\x09self visit: anIRInlinedIfTrue instructions first.\x0a\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrue instructions last ]",
+source: "visitIRInlinedIfTrue: anIRInlinedIfTrue\x0a\x09self stream nextPutIf: [\x0a\x09\x09self stream nextPutAll: '$vm.assert('.\x0a\x09\x09self visit: anIRInlinedIfTrue instructions first.\x0a\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrue instructions last ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutIf:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "last"]
 }),
 globals.IRInliningJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRInlinedIfTrueIfFalse:",
 protocol: 'visiting',
 fn: function (anIRInlinedIfTrueIfFalse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3,$6,$5;
 $1=self._stream();
@@ -1191,13 +1191,13 @@ $ctx1.sendIdx["stream"]=1;
 //>>excludeEnd("ctx");
 _st($1)._nextPutIfElse_with_with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["stream"]=2;
 //>>excludeEnd("ctx");
-_st($2)._nextPutAll_("smalltalk.assert(");
+_st($2)._nextPutAll_("$vm.assert(");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
@@ -1216,7 +1216,7 @@ return _st(self._stream())._nextPutAll_(")");
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $6=_st(anIRInlinedIfTrueIfFalse)._instructions();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1232,7 +1232,7 @@ $ctx2.sendIdx["visit:"]=2;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._visit_(_st(_st(anIRInlinedIfTrueIfFalse)._instructions())._third());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1246,21 +1246,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInlinedIfTrueIfFalse"],
-source: "visitIRInlinedIfTrueIfFalse: anIRInlinedIfTrueIfFalse\x0a\x09self stream\x0a\x09\x09nextPutIfElse: [\x0a\x09\x09\x09self stream nextPutAll: 'smalltalk.assert('.\x0a\x09\x09\x09self visit: anIRInlinedIfTrueIfFalse instructions first.\x0a\x09\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrueIfFalse instructions second ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrueIfFalse instructions third ]",
+source: "visitIRInlinedIfTrueIfFalse: anIRInlinedIfTrueIfFalse\x0a\x09self stream\x0a\x09\x09nextPutIfElse: [\x0a\x09\x09\x09self stream nextPutAll: '$vm.assert('.\x0a\x09\x09\x09self visit: anIRInlinedIfTrueIfFalse instructions first.\x0a\x09\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrueIfFalse instructions second ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrueIfFalse instructions third ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutIfElse:with:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "second", "third"]
 }),
 globals.IRInliningJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRInlinedNonLocalReturn:",
 protocol: 'visiting',
 fn: function (anIRInlinedReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._stream();
@@ -1269,7 +1269,7 @@ $ctx1.sendIdx["stream"]=1;
 //>>excludeEnd("ctx");
 _st($1)._nextPutStatementWith_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._visit_(_st(_st(anIRInlinedReturn)._instructions())._last());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1293,14 +1293,14 @@ messageSends: ["nextPutStatementWith:", "stream", "visit:", "last", "instruction
 }),
 globals.IRInliningJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRInlinedReturn:",
 protocol: 'visiting',
 fn: function (anIRInlinedReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._visit_(_st(_st(anIRInlinedReturn)._instructions())._last());
 return self;
@@ -1317,22 +1317,22 @@ messageSends: ["visit:", "last", "instructions"]
 }),
 globals.IRInliningJSTranslator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "visitIRInlinedSequence:",
 protocol: 'visiting',
 fn: function (anIRInlinedSequence){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(anIRInlinedSequence)._instructions())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._stream())._nextPutStatementWith_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._visit_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1359,19 +1359,19 @@ globals.IRInliningJSTranslator);
 
 
 
-smalltalk.addClass('IRSendInliner', globals.Object, ['send', 'translator'], 'Compiler-Inlining');
+$vm.addClass('IRSendInliner', globals.Object, ['send', 'translator'], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRSendInliner.comment="I inline some message sends and block closure arguments. I heavily rely on #perform: to dispatch inlining methods.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifFalse:",
 protocol: 'inlining',
 fn: function (anIRInstruction){
 var self=this;
 function $IRInlinedIfFalse(){return globals.IRInlinedIfFalse||(typeof IRInlinedIfFalse=="undefined"?nil:IRInlinedIfFalse)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._inlinedSend_with_(_st($IRInlinedIfFalse())._new(),anIRInstruction);
@@ -1389,14 +1389,14 @@ messageSends: ["inlinedSend:with:", "new"]
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifFalse:ifTrue:",
 protocol: 'inlining',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._perform_withArguments_("ifTrue:ifFalse:",[anotherIRInstruction,anIRInstruction]);
@@ -1414,8 +1414,8 @@ messageSends: ["perform:withArguments:"]
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNil:",
 protocol: 'inlining',
 fn: function (anIRInstruction){
@@ -1424,7 +1424,7 @@ function $IRInlinedIfNilIfNotNil(){return globals.IRInlinedIfNilIfNotNil||(typeo
 function $IRClosure(){return globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
 function $IRBlockSequence(){return globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$4,$5,$7,$8,$6,$9,$3,$1;
 $2=_st($IRInlinedIfNilIfNotNil())._new();
@@ -1465,15 +1465,15 @@ messageSends: ["inlinedSend:with:with:", "new", "scope:", "copy", "scope", "add:
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNil:ifNotNil:",
 protocol: 'inlining',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 function $IRInlinedIfNilIfNotNil(){return globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._inlinedSend_with_with_(_st($IRInlinedIfNilIfNotNil())._new(),anIRInstruction,anotherIRInstruction);
@@ -1491,8 +1491,8 @@ messageSends: ["inlinedSend:with:with:", "new"]
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNotNil:",
 protocol: 'inlining',
 fn: function (anIRInstruction){
@@ -1501,7 +1501,7 @@ function $IRInlinedIfNilIfNotNil(){return globals.IRInlinedIfNilIfNotNil||(typeo
 function $IRClosure(){return globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
 function $IRBlockSequence(){return globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$4,$5,$7,$8,$6,$9,$3,$1;
 $2=_st($IRInlinedIfNilIfNotNil())._new();
@@ -1542,15 +1542,15 @@ messageSends: ["inlinedSend:with:with:", "new", "scope:", "copy", "scope", "add:
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifNotNil:ifNil:",
 protocol: 'inlining',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 function $IRInlinedIfNilIfNotNil(){return globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._inlinedSend_with_with_(_st($IRInlinedIfNilIfNotNil())._new(),anotherIRInstruction,anIRInstruction);
@@ -1568,15 +1568,15 @@ messageSends: ["inlinedSend:with:with:", "new"]
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifTrue:",
 protocol: 'inlining',
 fn: function (anIRInstruction){
 var self=this;
 function $IRInlinedIfTrue(){return globals.IRInlinedIfTrue||(typeof IRInlinedIfTrue=="undefined"?nil:IRInlinedIfTrue)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._inlinedSend_with_(_st($IRInlinedIfTrue())._new(),anIRInstruction);
@@ -1594,15 +1594,15 @@ messageSends: ["inlinedSend:with:", "new"]
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ifTrue:ifFalse:",
 protocol: 'inlining',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 function $IRInlinedIfTrueIfFalse(){return globals.IRInlinedIfTrueIfFalse||(typeof IRInlinedIfTrueIfFalse=="undefined"?nil:IRInlinedIfTrueIfFalse)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._inlinedSend_with_with_(_st($IRInlinedIfTrueIfFalse())._new(),anIRInstruction,anotherIRInstruction);
@@ -1620,8 +1620,8 @@ messageSends: ["inlinedSend:with:with:", "new"]
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inlineClosure:",
 protocol: 'inlining',
 fn: function (anIRClosure){
@@ -1632,7 +1632,7 @@ function $IRAssignment(){return globals.IRAssignment||(typeof IRAssignment=="und
 function $IRVariable(){return globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
 function $AliasVar(){return globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$7,$8,$6,$9,$11,$12,$14,$16,$17,$18,$19,$15,$13,$20,$22,$24,$25,$23,$21,$26,$10,$28,$27,$31,$30,$32,$29,$33,$36,$35,$34,$37;
 inlinedClosure=self._inlinedClosure();
@@ -1649,7 +1649,7 @@ $ctx1.sendIdx["scope:"]=1;
 $4=_st($1)._parent_(_st(anIRClosure)._parent());
 _st(_st(anIRClosure)._tempDeclarations())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(inlinedClosure)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1665,7 +1665,7 @@ $ctx1.sendIdx["do:"]=1;
 sequence=self._inlinedSequence();
 _st(_st(anIRClosure)._arguments())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $5=inlinedClosure;
 $7=_st($IRTempDeclaration())._new();
@@ -1774,11 +1774,11 @@ $ctx1.sendIdx["instructions"]=1;
 //>>excludeEnd("ctx");
 _st(statements)._ifNotEmpty_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(_st(statements)._allButLast())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(sequence)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1795,7 +1795,7 @@ $ctx2.sendIdx["last"]=2;
 $30=_st($31)._isReturn();
 $29=_st($30)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $vm.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $32=_st(statements)._last();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1806,7 +1806,7 @@ return _st($32)._isBlockReturn();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)});
 //>>excludeEnd("ctx");
 }));
-if(smalltalk.assert($29)){
+if($vm.assert($29)){
 $33=sequence;
 $36=_st(statements)._last();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1840,14 +1840,14 @@ messageSends: ["inlinedClosure", "scope:", "scope", "parent:", "parent", "do:", 
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inlineSend:",
 protocol: 'inlining',
 fn: function (anIRSend){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 self._send_(anIRSend);
@@ -1871,15 +1871,15 @@ messageSends: ["send:", "perform:withArguments:", "selector", "send", "allButFir
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inlinedClosure",
 protocol: 'factory',
 fn: function (){
 var self=this;
 function $IRInlinedClosure(){return globals.IRInlinedClosure||(typeof IRInlinedClosure=="undefined"?nil:IRInlinedClosure)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($IRInlinedClosure())._new();
@@ -1897,26 +1897,26 @@ messageSends: ["new"]
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inlinedSend:with:",
 protocol: 'inlining',
 fn: function (inlinedSend,anIRInstruction){
 var self=this;
 var inlinedClosure;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$5,$4,$3,$6,$7;
 $1=_st(anIRInstruction)._isClosure();
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 self._inliningError_("Message argument should be a block");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["inliningError:"]=1;
 //>>excludeEnd("ctx");
 };
 $2=_st(_st(_st(anIRInstruction)._arguments())._size()).__eq((0));
-if(! smalltalk.assert($2)){
+if(!$vm.assert($2)){
 self._inliningError_("Inlined block should have zero argument");
 };
 inlinedClosure=_st(self._translator())._visit_(self._inlineClosure_(anIRInstruction));
@@ -1951,29 +1951,29 @@ messageSends: ["ifFalse:", "isClosure", "inliningError:", "=", "size", "argument
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inlinedSend:with:with:",
 protocol: 'inlining',
 fn: function (inlinedSend,anIRInstruction,anotherIRInstruction){
 var self=this;
 var inlinedClosure1,inlinedClosure2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$7,$6,$5,$8,$9;
 $1=_st(anIRInstruction)._isClosure();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["isClosure"]=1;
 //>>excludeEnd("ctx");
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 self._inliningError_("Message argument should be a block");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["inliningError:"]=1;
 //>>excludeEnd("ctx");
 };
 $2=_st(anotherIRInstruction)._isClosure();
-if(! smalltalk.assert($2)){
+if(!$vm.assert($2)){
 self._inliningError_("Message argument should be a block");
 };
 $3=self._translator();
@@ -2024,15 +2024,15 @@ messageSends: ["ifFalse:", "isClosure", "inliningError:", "visit:", "translator"
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inlinedSequence",
 protocol: 'factory',
 fn: function (){
 var self=this;
 function $IRInlinedSequence(){return globals.IRInlinedSequence||(typeof IRInlinedSequence=="undefined"?nil:IRInlinedSequence)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($IRInlinedSequence())._new();
@@ -2050,15 +2050,15 @@ messageSends: ["new"]
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inliningError:",
 protocol: 'error handling',
 fn: function (aString){
 var self=this;
 function $InliningError(){return globals.InliningError||(typeof InliningError=="undefined"?nil:InliningError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($InliningError())._signal_(aString);
 return self;
@@ -2075,8 +2075,8 @@ messageSends: ["signal:"]
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "send",
 protocol: 'accessing',
 fn: function (){
@@ -2095,8 +2095,8 @@ messageSends: []
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "send:",
 protocol: 'accessing',
 fn: function (anIRSend){
@@ -2114,8 +2114,8 @@ messageSends: []
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "translator",
 protocol: 'accessing',
 fn: function (){
@@ -2134,8 +2134,8 @@ messageSends: []
 }),
 globals.IRSendInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "translator:",
 protocol: 'accessing',
 fn: function (anASTTranslator){
@@ -2154,8 +2154,8 @@ messageSends: []
 globals.IRSendInliner);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inlinedSelectors",
 protocol: 'accessing',
 fn: function (){
@@ -2174,28 +2174,28 @@ messageSends: []
 }),
 globals.IRSendInliner.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "shouldInline:",
 protocol: 'accessing',
 fn: function (anIRInstruction){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 var $early={};
 try {
 $1=_st(self._inlinedSelectors())._includes_(_st(anIRInstruction)._selector());
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 return false;
 };
 _st(_st(_st(anIRInstruction)._instructions())._allButFirst())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=_st(each)._isClosure();
-if(! smalltalk.assert($2)){
+if(!$vm.assert($2)){
 throw $early=[false];
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2219,12 +2219,12 @@ messageSends: ["ifFalse:", "includes:", "inlinedSelectors", "selector", "do:", "
 globals.IRSendInliner.klass);
 
 
-smalltalk.addClass('IRAssignmentInliner', globals.IRSendInliner, ['assignment'], 'Compiler-Inlining');
+$vm.addClass('IRAssignmentInliner', globals.IRSendInliner, ['assignment'], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRAssignmentInliner.comment="I inline message sends together with assignments by moving them around into the inline closure instructions.\x0a\x0a##Example\x0a\x0a\x09foo\x0a\x09\x09| a |\x0a\x09\x09a := true ifTrue: [ 1 ]\x0a\x0aWill produce:\x0a\x0a\x09if(smalltalk.assert(true) {\x0a\x09\x09a = 1;\x0a\x09};";
+globals.IRAssignmentInliner.comment="I inline message sends together with assignments by moving them around into the inline closure instructions.\x0a\x0a##Example\x0a\x0a\x09foo\x0a\x09\x09| a |\x0a\x09\x09a := true ifTrue: [ 1 ]\x0a\x0aWill produce:\x0a\x0a\x09if($vm.assert(true) {\x0a\x09\x09a = 1;\x0a\x09};";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "assignment",
 protocol: 'accessing',
 fn: function (){
@@ -2243,8 +2243,8 @@ messageSends: []
 }),
 globals.IRAssignmentInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "assignment:",
 protocol: 'accessing',
 fn: function (aNode){
@@ -2262,8 +2262,8 @@ messageSends: []
 }),
 globals.IRAssignmentInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inlineAssignment:",
 protocol: 'inlining',
 fn: function (anIRAssignment){
@@ -2271,7 +2271,7 @@ var self=this;
 var inlinedAssignment;
 function $IRInlinedAssignment(){return globals.IRInlinedAssignment||(typeof IRInlinedAssignment=="undefined"?nil:IRInlinedAssignment)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 self._assignment_(anIRAssignment);
@@ -2282,7 +2282,7 @@ $ctx1.sendIdx["instructions"]=1;
 //>>excludeEnd("ctx");
 _st($1)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(inlinedAssignment)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2306,8 +2306,8 @@ messageSends: ["assignment:", "new", "do:", "instructions", "add:", "replaceWith
 }),
 globals.IRAssignmentInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inlineClosure:",
 protocol: 'inlining',
 fn: function (anIRClosure){
@@ -2315,7 +2315,7 @@ var self=this;
 var inlinedClosure,statements;
 function $IRAssignment(){return globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$5,$7,$8,$6,$9;
 inlinedClosure=(
@@ -2340,14 +2340,14 @@ $ctx1.sendIdx["instructions"]=1;
 //>>excludeEnd("ctx");
 _st(statements)._ifNotEmpty_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=_st(statements)._last();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["last"]=2;
 //>>excludeEnd("ctx");
 $3=_st($4)._canBeAssigned();
-if(smalltalk.assert($3)){
+if($vm.assert($3)){
 $5=_st(statements)._last();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["last"]=3;
@@ -2383,12 +2383,12 @@ globals.IRAssignmentInliner);
 
 
 
-smalltalk.addClass('IRReturnInliner', globals.IRSendInliner, [], 'Compiler-Inlining');
+$vm.addClass('IRReturnInliner', globals.IRSendInliner, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.IRReturnInliner.comment="I inline message sends with inlined closure together with a return instruction.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inlineClosure:",
 protocol: 'inlining',
 fn: function (anIRClosure){
@@ -2396,7 +2396,7 @@ var self=this;
 var closure,statements;
 function $IRReturn(){return globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$2,$4,$5,$6,$7;
 closure=(
@@ -2417,14 +2417,14 @@ $ctx1.sendIdx["instructions"]=1;
 //>>excludeEnd("ctx");
 _st(statements)._ifNotEmpty_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $3=_st(statements)._last();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["last"]=2;
 //>>excludeEnd("ctx");
 $2=_st($3)._isReturn();
-if(! smalltalk.assert($2)){
+if(!$vm.assert($2)){
 $4=_st(statements)._last();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["last"]=3;
@@ -2453,15 +2453,15 @@ messageSends: ["inlineClosure:", "instructions", "last", "ifNotEmpty:", "ifFalse
 }),
 globals.IRReturnInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inlineReturn:",
 protocol: 'inlining',
 fn: function (anIRReturn){
 var self=this;
 var return_;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 return_=self._inlinedReturn();
@@ -2471,7 +2471,7 @@ $ctx1.sendIdx["instructions"]=1;
 //>>excludeEnd("ctx");
 _st($1)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(return_)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2495,15 +2495,15 @@ messageSends: ["inlinedReturn", "do:", "instructions", "add:", "replaceWith:", "
 }),
 globals.IRReturnInliner);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inlinedReturn",
 protocol: 'factory',
 fn: function (){
 var self=this;
 function $IRInlinedReturn(){return globals.IRInlinedReturn||(typeof IRInlinedReturn=="undefined"?nil:IRInlinedReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($IRInlinedReturn())._new();
@@ -2523,19 +2523,19 @@ globals.IRReturnInliner);
 
 
 
-smalltalk.addClass('InliningCodeGenerator', globals.CodeGenerator, [], 'Compiler-Inlining');
+$vm.addClass('InliningCodeGenerator', globals.CodeGenerator, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.InliningCodeGenerator.comment="I am a specialized code generator that uses inlining to produce more optimized JavaScript output";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "compileNode:",
 protocol: 'compiling',
 fn: function (aNode){
 var self=this;
 var ir,stream;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 _st(self._semanticAnalyzer())._visit_(aNode);
@@ -2569,15 +2569,15 @@ messageSends: ["visit:", "semanticAnalyzer", "translator", "inliner", "currentCl
 }),
 globals.InliningCodeGenerator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "inliner",
 protocol: 'compiling',
 fn: function (){
 var self=this;
 function $IRInliner(){return globals.IRInliner||(typeof IRInliner=="undefined"?nil:IRInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($IRInliner())._new();
@@ -2595,15 +2595,15 @@ messageSends: ["new"]
 }),
 globals.InliningCodeGenerator);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "irTranslator",
 protocol: 'compiling',
 fn: function (){
 var self=this;
 function $IRInliningJSTranslator(){return globals.IRInliningJSTranslator||(typeof IRInliningJSTranslator=="undefined"?nil:IRInliningJSTranslator)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($IRInliningJSTranslator())._new();

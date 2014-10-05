@@ -1,21 +1,21 @@
 define("amber_core/Web", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function($boot){
 var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$vm,_st=$recv,globals=$globals;
-smalltalk.addPackage('Web');
-smalltalk.packages["Web"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$vm.addPackage('Web');
+$vm.packages["Web"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('BrowserInterface', globals.Object, [], 'Web');
+$vm.addClass('BrowserInterface', globals.Object, [], 'Web');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.BrowserInterface.comment="I am platform interface class that tries to use window and jQuery; that is, one for browser environment.\x0a\x0a## API\x0a\x0a    self isAvailable. \x22true if window and jQuery exist\x22.\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ajax:",
 protocol: 'actions',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(jQuery)._ajax_(anObject);
@@ -33,14 +33,14 @@ messageSends: ["ajax:"]
 }),
 globals.BrowserInterface);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "alert:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(window)._alert_(aString);
@@ -58,14 +58,14 @@ messageSends: ["alert:"]
 }),
 globals.BrowserInterface);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "confirm:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(window)._confirm_(aString);
@@ -83,14 +83,14 @@ messageSends: ["confirm:"]
 }),
 globals.BrowserInterface);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isAvailable",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return typeof window !== "undefined" && typeof jQuery !== "undefined";
 return self;
@@ -107,14 +107,14 @@ messageSends: []
 }),
 globals.BrowserInterface);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "prompt:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(window)._prompt_(aString);
@@ -132,14 +132,14 @@ messageSends: ["prompt:"]
 }),
 globals.BrowserInterface);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "prompt:default:",
 protocol: 'actions',
 fn: function (aString,defaultString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(window)._prompt_default_(aString,defaultString);
@@ -159,18 +159,18 @@ globals.BrowserInterface);
 
 
 
-smalltalk.addClass('HTMLCanvas', globals.Object, ['root'], 'Web');
+$vm.addClass('HTMLCanvas', globals.Object, ['root'], 'Web');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.HTMLCanvas.comment="I am a canvas for building HTML.\x0a\x0aI provide the `#tag:` method to create a `TagBrush` (wrapping a DOM element) and convenience methods in the `tags` protocol.\x0a\x0a## API\x0a\x0aMy instances are used as the argument of the `#renderOn:` method of `Widget` objects.\x0a\x0aThe `#with:` method is used to compose HTML, nesting tags. `#with:` can take a `TagBrush`, a `String`, a `BlockClosure` or a `Widget` as argument.\x0a\x0a## Usage example:\x0a\x0a    aCanvas a \x0a        with: [ aCanvas span with: 'click me' ];\x0a        onClick: [ window alert: 'clicked!' ]";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "a",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("a");
@@ -188,14 +188,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "abbr",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("abbr");
@@ -213,14 +213,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "address",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("address");
@@ -238,14 +238,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "area",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("area");
@@ -263,14 +263,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "article",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("article");
@@ -288,14 +288,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "aside",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("aside");
@@ -313,14 +313,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "audio",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("audio");
@@ -338,14 +338,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "base",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("base");
@@ -363,14 +363,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "blockquote",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("blockquote");
@@ -388,14 +388,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "body",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("body");
@@ -413,14 +413,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "br",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("br");
@@ -438,14 +438,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "button",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("button");
@@ -463,14 +463,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "canvas",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("canvas");
@@ -488,14 +488,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "caption",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("caption");
@@ -513,14 +513,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "cite",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("cite");
@@ -538,14 +538,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "code",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("code");
@@ -563,14 +563,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "col",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("col");
@@ -588,14 +588,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "colgroup",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("colgroup");
@@ -613,14 +613,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "command",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("command");
@@ -638,14 +638,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "datalist",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("datalist");
@@ -663,14 +663,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "dd",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("dd");
@@ -688,14 +688,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "del",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("del");
@@ -713,14 +713,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "details",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("details");
@@ -738,14 +738,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "div",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("div");
@@ -763,14 +763,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "div:",
 protocol: 'tags',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._div())._with_(aBlock);
@@ -788,14 +788,14 @@ messageSends: ["with:", "div"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "dl",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("dl");
@@ -813,14 +813,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "dt",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("dt");
@@ -838,14 +838,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "em",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("em");
@@ -863,14 +863,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "embed",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("embed");
@@ -888,15 +888,15 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "entity:",
 protocol: 'adding',
 fn: function (aString){
 var self=this;
 var result;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$4,$3,$1,$5;
 $2="<span />"._asJQuery();
@@ -911,7 +911,7 @@ $ctx1.sendIdx[","]=1;
 $1=_st($2)._html_($3);
 result=_st($1)._text();
 $5=_st(_st(result)._size()).__eq((1));
-if(! smalltalk.assert($5)){
+if(!$vm.assert($5)){
 self._error_("Not an HTML entity: ".__comma(aString));
 };
 self._with_(result);
@@ -929,14 +929,14 @@ messageSends: ["text", "html:", "asJQuery", ",", "ifFalse:", "=", "size", "error
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fieldset",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("fieldset");
@@ -954,14 +954,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "figcaption",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("figcaption");
@@ -979,14 +979,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "figure",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("figure");
@@ -1004,14 +1004,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "footer",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("footer");
@@ -1029,14 +1029,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "form",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("form");
@@ -1054,14 +1054,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "h1",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("h1");
@@ -1079,14 +1079,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "h1:",
 protocol: 'tags',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._h1())._with_(anObject);
@@ -1104,14 +1104,14 @@ messageSends: ["with:", "h1"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "h2",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("h2");
@@ -1129,14 +1129,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "h2:",
 protocol: 'tags',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._h2())._with_(anObject);
@@ -1154,14 +1154,14 @@ messageSends: ["with:", "h2"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "h3",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("h3");
@@ -1179,14 +1179,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "h3:",
 protocol: 'tags',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._h3())._with_(anObject);
@@ -1204,14 +1204,14 @@ messageSends: ["with:", "h3"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "h4",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("h4");
@@ -1229,14 +1229,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "h4:",
 protocol: 'tags',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._h4())._with_(anObject);
@@ -1254,14 +1254,14 @@ messageSends: ["with:", "h4"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "h5",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("h5");
@@ -1279,14 +1279,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "h5:",
 protocol: 'tags',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._h5())._with_(anObject);
@@ -1304,14 +1304,14 @@ messageSends: ["with:", "h5"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "h6",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("h6");
@@ -1329,14 +1329,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "h6:",
 protocol: 'tags',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._h6())._with_(anObject);
@@ -1354,14 +1354,14 @@ messageSends: ["with:", "h6"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "head",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("head");
@@ -1379,14 +1379,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "header",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("header");
@@ -1404,14 +1404,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "hgroup",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("hgroup");
@@ -1429,14 +1429,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "hr",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("hr");
@@ -1454,14 +1454,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "html",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("html");
@@ -1479,14 +1479,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "iframe",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("iframe");
@@ -1504,14 +1504,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "iframe:",
 protocol: 'tags',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._iframe())._src_(aString);
@@ -1529,14 +1529,14 @@ messageSends: ["src:", "iframe"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "img",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("img");
@@ -1554,14 +1554,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "img:",
 protocol: 'tags',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._img())._src_(aString);
@@ -1579,15 +1579,15 @@ messageSends: ["src:", "img"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 function $TagBrush(){return globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$receiver;
 (
@@ -1619,15 +1619,15 @@ messageSends: ["initialize", "ifNil:", "fromString:canvas:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initializeFromJQuery:",
 protocol: 'initialization',
 fn: function (aJQuery){
 var self=this;
 function $TagBrush(){return globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@root"]=_st($TagBrush())._fromJQuery_canvas_(aJQuery,self);
 return self;
@@ -1644,14 +1644,14 @@ messageSends: ["fromJQuery:canvas:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "input",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("input");
@@ -1669,14 +1669,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "label",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("label");
@@ -1694,14 +1694,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "legend",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("legend");
@@ -1719,14 +1719,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "li",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("li");
@@ -1744,14 +1744,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "li:",
 protocol: 'tags',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._li())._with_(anObject);
@@ -1769,14 +1769,14 @@ messageSends: ["with:", "li"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "link",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("link");
@@ -1794,14 +1794,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "map",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("map");
@@ -1819,14 +1819,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "mark",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("mark");
@@ -1844,14 +1844,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "menu",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("menu");
@@ -1869,14 +1869,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "meta",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("meta");
@@ -1894,14 +1894,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "nav",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("nav");
@@ -1919,15 +1919,15 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "newTag:",
 protocol: 'tags',
 fn: function (aString){
 var self=this;
 function $TagBrush(){return globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($TagBrush())._fromString_canvas_(aString,self);
@@ -1945,14 +1945,14 @@ messageSends: ["fromString:canvas:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "noscript",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("noscript");
@@ -1970,14 +1970,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "object",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("object");
@@ -1995,14 +1995,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ol",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("ol");
@@ -2020,14 +2020,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ol:",
 protocol: 'tags',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._ol())._with_(anObject);
@@ -2045,14 +2045,14 @@ messageSends: ["with:", "ol"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "optgroup",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("optgroup");
@@ -2070,14 +2070,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "option",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("option");
@@ -2095,14 +2095,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "output",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("output");
@@ -2120,14 +2120,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "p",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("p");
@@ -2145,14 +2145,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "p:",
 protocol: 'tags',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._p())._with_(anObject);
@@ -2170,14 +2170,14 @@ messageSends: ["with:", "p"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "param",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("param");
@@ -2195,14 +2195,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "pre",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("pre");
@@ -2220,14 +2220,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "progress",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("progress");
@@ -2245,8 +2245,8 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "root",
 protocol: 'accessing',
 fn: function (){
@@ -2265,8 +2265,8 @@ messageSends: []
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "root:",
 protocol: 'accessing',
 fn: function (aTagBrush){
@@ -2284,14 +2284,14 @@ messageSends: []
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "script",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("script");
@@ -2309,14 +2309,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "section",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("section");
@@ -2334,14 +2334,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "select",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("select");
@@ -2359,14 +2359,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "small",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("small");
@@ -2384,8 +2384,8 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "snippet:",
 protocol: 'accessing',
 fn: function (anElement){
@@ -2393,7 +2393,7 @@ var self=this;
 var clone,caret;
 function $TagBrush(){return globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 clone=_st(_st(anElement)._asJQuery())._clone();
@@ -2404,7 +2404,7 @@ $ctx1.sendIdx["fromJQuery:canvas:"]=1;
 self._with_($1);
 caret=_st(clone)._find_("[data-snippet=\x22*\x22]");
 $2=_st(_st(caret)._toArray())._isEmpty();
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 caret=clone;
 caret;
 };
@@ -2423,14 +2423,14 @@ messageSends: ["clone", "asJQuery", "with:", "fromJQuery:canvas:", "find:", "ifT
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "source",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("source");
@@ -2448,14 +2448,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "span",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("span");
@@ -2473,14 +2473,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "span:",
 protocol: 'tags',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._span())._with_(anObject);
@@ -2498,14 +2498,14 @@ messageSends: ["with:", "span"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "strong",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("strong");
@@ -2523,14 +2523,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "strong:",
 protocol: 'tags',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._strong())._with_(anObject);
@@ -2548,14 +2548,14 @@ messageSends: ["with:", "strong"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "style",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("style");
@@ -2573,14 +2573,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "style:",
 protocol: 'tags',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._style();
@@ -2601,14 +2601,14 @@ messageSends: ["with:", "style", "yourself"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sub",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("sub");
@@ -2626,14 +2626,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "summary",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("summary");
@@ -2651,14 +2651,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "sup",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("sup");
@@ -2676,14 +2676,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "table",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("table");
@@ -2701,14 +2701,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "tag:",
 protocol: 'tags',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@root"])._addBrush_(self._newTag_(aString));
@@ -2726,14 +2726,14 @@ messageSends: ["addBrush:", "newTag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "tbody",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("tbody");
@@ -2751,14 +2751,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "td",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("td");
@@ -2776,14 +2776,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "textarea",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("textarea");
@@ -2801,14 +2801,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "tfoot",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("tfoot");
@@ -2826,14 +2826,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "th",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("th");
@@ -2851,14 +2851,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "thead",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("thead");
@@ -2876,14 +2876,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "time",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("time");
@@ -2901,14 +2901,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "title",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("title");
@@ -2926,14 +2926,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "tr",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("tr");
@@ -2951,14 +2951,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ul",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("ul");
@@ -2976,14 +2976,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ul:",
 protocol: 'tags',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._ul())._with_(anObject);
@@ -3001,14 +3001,14 @@ messageSends: ["with:", "ul"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "video",
 protocol: 'tags',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._tag_("video");
@@ -3026,14 +3026,14 @@ messageSends: ["tag:"]
 }),
 globals.HTMLCanvas);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "with:",
 protocol: 'adding',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._root())._with_(anObject);
@@ -3052,14 +3052,14 @@ messageSends: ["with:", "root"]
 globals.HTMLCanvas);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(jQuery)._basicAt_put_("allowJavaScriptCalls",true);
 return self;
@@ -3076,14 +3076,14 @@ messageSends: ["basicAt:put:"]
 }),
 globals.HTMLCanvas.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onJQuery:",
 protocol: 'instance creation',
 fn: function (aJQuery){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._basicNew();
@@ -3106,22 +3106,22 @@ messageSends: ["initializeFromJQuery:", "basicNew", "initialize", "yourself"]
 globals.HTMLCanvas.klass);
 
 
-smalltalk.addClass('HTMLSnippet', globals.Object, ['snippets'], 'Web');
+$vm.addClass('HTMLSnippet', globals.Object, ['snippets'], 'Web');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.HTMLSnippet.comment="My sole instance is the registry of html snippets.\x0a`HTMLSnippet current` is the public singleton instance.\x0a\x0aOn startup, it scans the document for any html elements\x0awith `'data-snippet=\x22foo\x22'` attribute and takes them off the document,\x0aremembering them in the store under the specified name.\x0aIt also install method #foo into HTMLCanvas dynamically.\x0a\x0aEvery html snippet should mark a 'caret', a place where contents\x0acan be inserted, by 'data-snippet=\x22*\x22' (a special name for caret).\x0aFor example:\x0a\x0a`<li data-snippet='menuelement' class='...'><a data-snippet='*'></a></li>`\x0a\x0adefines a list element with a link inside; the link itself is marked as a caret.\x0a\x0aYou can later issue\x0a\x0a`html menuelement href: '/foo'; with: 'A foo'`\x0a\x0ato insert the whole snippet and directly manipulate the caret, so it renders:\x0a\x0a`<li class='...'><a href='/foo'>A foo</a></li>`\x0a\x0aFor a self-careting tags (not very useful, but you do not need to fill class etc.\x0ayou can use\x0a\x0a`<div class='lots of classes' attr1='one' attr2='two' data-snippet='*bar'></div>`\x0a\x0aand in code later do:\x0a\x0a`html bar with: [ xxx ]`\x0a\x0ato render\x0a\x0a`<div class='lots of classes' attr1='one' attr2='two'>...added by xxx...</div>`";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initializeFromJQuery:",
 protocol: 'initialization',
 fn: function (aJQuery){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._snippetsFromJQuery_(aJQuery))._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._installSnippetFromJQuery_(_st(each)._asJQuery());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3142,22 +3142,22 @@ messageSends: ["do:", "snippetsFromJQuery:", "installSnippetFromJQuery:", "asJQu
 }),
 globals.HTMLSnippet);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "installSnippetFromJQuery:",
 protocol: 'snippet installation',
 fn: function (element){
 var self=this;
 var name;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 name=_st(element)._attr_("data-snippet");
 $1=_st(name).__eq("*");
-if(! smalltalk.assert($1)){
+if(!$vm.assert($1)){
 $2=_st("^\x5c*"._asRegexp())._test_(name);
-if(smalltalk.assert($2)){
+if($vm.assert($2)){
 name=_st(name)._allButFirst();
 name;
 _st(element)._attr_put_("data-snippet","*");
@@ -3180,14 +3180,14 @@ messageSends: ["attr:", "ifFalse:", "=", "ifTrue:ifFalse:", "test:", "asRegexp",
 }),
 globals.HTMLSnippet);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "snippetAt:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._snippets())._at_(aString);
@@ -3205,8 +3205,8 @@ messageSends: ["at:", "snippets"]
 }),
 globals.HTMLSnippet);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "snippetAt:compile:",
 protocol: 'method generation',
 fn: function (aString,anElement){
@@ -3214,11 +3214,11 @@ var self=this;
 function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 function $HTMLCanvas(){return globals.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($ClassBuilder())._new())._installMethod_forClass_protocol_(_st(_st((function(htmlReceiver){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(htmlReceiver)._snippet_(anElement);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3239,14 +3239,14 @@ messageSends: ["installMethod:forClass:protocol:", "new", "asCompiledMethod:", "
 }),
 globals.HTMLSnippet);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "snippetAt:install:",
 protocol: 'snippet installation',
 fn: function (aString,anElement){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._snippets())._at_put_(aString,anElement);
 self._snippetAt_compile_(aString,anElement);
@@ -3264,14 +3264,14 @@ messageSends: ["at:put:", "snippets", "snippetAt:compile:"]
 }),
 globals.HTMLSnippet);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "snippets",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@snippets"];
@@ -3295,14 +3295,14 @@ messageSends: ["ifNil:"]
 }),
 globals.HTMLSnippet);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "snippetsFromJQuery:",
 protocol: 'private',
 fn: function (aJQuery){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(aJQuery)._find_("[data-snippet]"))._toArray();
@@ -3322,8 +3322,8 @@ globals.HTMLSnippet);
 
 
 globals.HTMLSnippet.klass.iVarNames = ['current'];
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "current",
 protocol: 'instance creation',
 fn: function (){
@@ -3342,14 +3342,14 @@ messageSends: []
 }),
 globals.HTMLSnippet.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "ensureCurrent",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$receiver;
 $1=self["@current"];
@@ -3383,14 +3383,14 @@ messageSends: ["ifNil:", "initializeFromJQuery:", "new", "asJQuery", "yourself"]
 }),
 globals.HTMLSnippet.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 (
@@ -3402,7 +3402,7 @@ globals.HTMLSnippet.klass.superclass.fn.prototype._initialize.apply(_st(self), [
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 $1=self._isDOMAvailable();
-if(smalltalk.assert($1)){
+if($vm.assert($1)){
 self._ensureCurrent();
 };
 return self;
@@ -3419,14 +3419,14 @@ messageSends: ["initialize", "ifTrue:", "isDOMAvailable", "ensureCurrent"]
 }),
 globals.HTMLSnippet.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "isDOMAvailable",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
  return typeof document !== 'undefined' ;
 return self;
@@ -3443,14 +3443,14 @@ messageSends: []
 }),
 globals.HTMLSnippet.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "new",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._shouldNotImplement();
 return self;
@@ -3468,18 +3468,18 @@ messageSends: ["shouldNotImplement"]
 globals.HTMLSnippet.klass);
 
 
-smalltalk.addClass('TagBrush', globals.Object, ['canvas', 'element'], 'Web');
+$vm.addClass('TagBrush', globals.Object, ['canvas', 'element'], 'Web');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.TagBrush.comment="I am a brush for building a single DOM element (which I hold onto).\x0a\x0aAll tags but `<style>` are instances of me (see the `StyleBrush` class).\x0a\x0a## API\x0a\x0a1. Nesting\x0a\x0a    Use `#with:` to nest tags. `#with:` can take aString, `TagBrush` instance, a `Widget` or block closure as parameter.\x0a\x0a    Example: `aTag with: aString with: aCanvas div`\x0a\x0a2. Events\x0a\x0a    The `events` protocol contains all methods related to events (delegating event handling to jQuery).\x0a\x0a    Example: `aTag onClick: [ window alert: 'clicked' ]`\x0a\x0a3. Attributes\x0a\x0a    The `attribute` protocol contains methods for attribute manipulation (delegating to jQuery too).\x0a\x0a    Example: `aTag at: 'value' put: 'hello world'`\x0a\x0a4. Raw access and jQuery\x0a\x0a    The `#element` method can be used to access to JavaScript DOM element object.\x0a\x0a    Example: `aTag element cssStyle`\x0a\x0a    Use `#asJQuery` to access to the receiver converted into a jQuery object.\x0a\x0a    Example: `aTag asJQuery css: 'color' value: 'red'`";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "accesskey:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("accesskey",aString);
 return self;
@@ -3496,14 +3496,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "action:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("action",aString);
 return self;
@@ -3520,14 +3520,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "addBrush:",
 protocol: 'adding',
 fn: function (aTagBrush){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._appendChild_(_st(aTagBrush)._element());
 return aTagBrush;
@@ -3544,14 +3544,14 @@ messageSends: ["appendChild:", "element"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "align:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("align",aString);
 return self;
@@ -3568,14 +3568,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "alt:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("alt",aString);
 return self;
@@ -3592,14 +3592,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "append:",
 protocol: 'adding',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(anObject)._appendToBrush_(self);
 return self;
@@ -3616,15 +3616,15 @@ messageSends: ["appendToBrush:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendBlock:",
 protocol: 'adding',
 fn: function (aBlock){
 var self=this;
 var root;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 root=_st(self["@canvas"])._root();
 _st(self["@canvas"])._root_(self);
@@ -3647,14 +3647,14 @@ messageSends: ["root", "root:", "value:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendChild:",
 protocol: 'adding',
 fn: function (anElement){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var element=self['@element'];
 	if (null == element.canHaveChildren || element.canHaveChildren) {
@@ -3676,14 +3676,14 @@ messageSends: []
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendDocumentFragment:",
 protocol: 'private',
 fn: function (anElement){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var element=self['@element'].appendChild(anElement["@element"]);
 return self;
@@ -3700,14 +3700,14 @@ messageSends: []
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendString:",
 protocol: 'adding',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._appendChild_(self._createTextNodeFor_(aString));
 return self;
@@ -3724,14 +3724,14 @@ messageSends: ["appendChild:", "createTextNodeFor:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendToBrush:",
 protocol: 'adding',
 fn: function (aTagBrush){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aTagBrush)._addBrush_(self);
 return self;
@@ -3748,14 +3748,14 @@ messageSends: ["addBrush:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJQuery",
 protocol: 'converting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._element())._asJQuery();
@@ -3773,14 +3773,14 @@ messageSends: ["asJQuery", "element"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJQueryInContext:",
 protocol: 'converting',
 fn: function (aContext){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._element())._asJQueryInContext_(aContext);
@@ -3798,20 +3798,20 @@ messageSends: ["asJQueryInContext:", "element"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 function $Collection(){return globals.Collection||(typeof Collection=="undefined"?nil:Collection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._at_ifAbsent_(aString,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $vm.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st($Collection())._new())._errorNotFound();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3832,14 +3832,14 @@ messageSends: ["at:ifAbsent:", "errorNotFound", "new"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:ifAbsent:",
 protocol: 'attributes',
 fn: function (aString,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self['@element'].hasAttribute(aString) ? self['@element'].getAttribute(aString) : aBlock._value();
 return self;
@@ -3856,14 +3856,14 @@ messageSends: []
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "at:put:",
 protocol: 'attributes',
 fn: function (aString,aValue){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self['@element'].setAttribute(aString, aValue); return aValue;
 return self;
@@ -3880,14 +3880,14 @@ messageSends: []
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "class:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self['@element'].className = aString;
 return self;
@@ -3904,14 +3904,14 @@ messageSends: []
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "cols:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("cols",aString);
 return self;
@@ -3928,14 +3928,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "contenteditable:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("contenteditable",aString);
 return self;
@@ -3952,14 +3952,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "contents:",
 protocol: 'adding',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._empty();
@@ -3978,14 +3978,14 @@ messageSends: ["empty", "append:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "contextmenu:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("contextmenu",aString);
 return self;
@@ -4002,14 +4002,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "createElementFor:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return document.createElement(String(aString));
 return self;
@@ -4026,14 +4026,14 @@ messageSends: []
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "createTextNodeFor:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return document.createTextNode(String(aString));
 return self;
@@ -4050,14 +4050,14 @@ messageSends: []
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "draggable:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("draggable",aString);
 return self;
@@ -4074,8 +4074,8 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "element",
 protocol: 'accessing',
 fn: function (){
@@ -4094,14 +4094,14 @@ messageSends: []
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "empty",
 protocol: 'adding',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._empty();
 return self;
@@ -4118,14 +4118,14 @@ messageSends: ["empty", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "for:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("for",aString);
 return self;
@@ -4142,14 +4142,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "height:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("height",aString);
 return self;
@@ -4166,14 +4166,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "hidden",
 protocol: 'attributes',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("hidden","hidden");
 return self;
@@ -4190,14 +4190,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "href:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("href",aString);
 return self;
@@ -4214,14 +4214,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "id:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("id",aString);
 return self;
@@ -4238,14 +4238,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initializeFromJQuery:canvas:",
 protocol: 'initialization',
 fn: function (aJQuery,aCanvas){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@element"]=_st(aJQuery)._get_((0));
 self["@canvas"]=aCanvas;
@@ -4263,14 +4263,14 @@ messageSends: ["get:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "initializeFromString:canvas:",
 protocol: 'initialization',
 fn: function (aString,aCanvas){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@element"]=self._createElementFor_(aString);
 self["@canvas"]=aCanvas;
@@ -4288,14 +4288,14 @@ messageSends: ["createElementFor:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "media:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("media",aString);
 return self;
@@ -4312,14 +4312,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "method:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("method",aString);
 return self;
@@ -4336,14 +4336,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "name:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("name",aString);
 return self;
@@ -4360,14 +4360,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onBlur:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("blur",aBlock);
 return self;
@@ -4384,14 +4384,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onChange:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("change",aBlock);
 return self;
@@ -4408,14 +4408,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onClick:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("click",aBlock);
 return self;
@@ -4432,14 +4432,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onDblClick:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("dblclick",aBlock);
 return self;
@@ -4456,14 +4456,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onFocus:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("focus",aBlock);
 return self;
@@ -4480,14 +4480,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onFocusIn:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("focusin",aBlock);
 return self;
@@ -4504,14 +4504,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onFocusOut:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("focusout",aBlock);
 return self;
@@ -4528,14 +4528,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onHover:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("hover",aBlock);
 return self;
@@ -4552,14 +4552,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onKeyDown:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("keydown",aBlock);
 return self;
@@ -4576,14 +4576,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onKeyPress:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("keypress",aBlock);
 return self;
@@ -4600,14 +4600,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onKeyUp:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("keyup",aBlock);
 return self;
@@ -4624,14 +4624,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onMouseDown:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("mousedown",aBlock);
 return self;
@@ -4648,14 +4648,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onMouseEnter:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("mouseenter",aBlock);
 return self;
@@ -4672,14 +4672,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onMouseLeave:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("mouseleave",aBlock);
 return self;
@@ -4696,14 +4696,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onMouseMove:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("mousemove",aBlock);
 return self;
@@ -4720,14 +4720,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onMouseOut:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("mouseout",aBlock);
 return self;
@@ -4744,14 +4744,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onMouseOver:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("mouseover",aBlock);
 return self;
@@ -4768,14 +4768,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onMouseUp:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("mouseup",aBlock);
 return self;
@@ -4792,14 +4792,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onSelect:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("select",aBlock);
 return self;
@@ -4816,14 +4816,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onSubmit:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("submit",aBlock);
 return self;
@@ -4840,14 +4840,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "onUnload:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._asJQuery())._bind_do_("unload",aBlock);
 return self;
@@ -4864,14 +4864,14 @@ messageSends: ["bind:do:", "asJQuery"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "placeholder:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("placeholder",aString);
 return self;
@@ -4888,14 +4888,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "rel:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("rel",aString);
 return self;
@@ -4912,14 +4912,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "removeAt:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self['@element'].removeAttribute(aString);
 return self;
@@ -4936,14 +4936,14 @@ messageSends: []
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "rows:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("rows",aString);
 return self;
@@ -4960,14 +4960,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "src:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("src",aString);
 return self;
@@ -4984,14 +4984,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "style:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("style",aString);
 return self;
@@ -5008,14 +5008,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "tabindex:",
 protocol: 'attributes',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("tabindex",aNumber);
 return self;
@@ -5032,14 +5032,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "target:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("target",aString);
 return self;
@@ -5056,14 +5056,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "title:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("title",aString);
 return self;
@@ -5080,14 +5080,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "type:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("type",aString);
 return self;
@@ -5104,14 +5104,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "valign:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("valign",aString);
 return self;
@@ -5128,14 +5128,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "value:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("value",aString);
 return self;
@@ -5152,14 +5152,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "width:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._at_put_("width",aString);
 return self;
@@ -5176,14 +5176,14 @@ messageSends: ["at:put:"]
 }),
 globals.TagBrush);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "with:",
 protocol: 'adding',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._append_(anObject);
 return self;
@@ -5201,14 +5201,14 @@ messageSends: ["append:"]
 globals.TagBrush);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fromJQuery:canvas:",
 protocol: 'instance creation',
 fn: function (aJQuery,aCanvas){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -5229,14 +5229,14 @@ messageSends: ["initializeFromJQuery:canvas:", "new", "yourself"]
 }),
 globals.TagBrush.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "fromString:canvas:",
 protocol: 'instance creation',
 fn: function (aString,aCanvas){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -5258,18 +5258,18 @@ messageSends: ["initializeFromString:canvas:", "new", "yourself"]
 globals.TagBrush.klass);
 
 
-smalltalk.addClass('Widget', globals.InterfacingObject, [], 'Web');
+$vm.addClass('Widget', globals.InterfacingObject, [], 'Web');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 globals.Widget.comment="I am a presenter building HTML. Subclasses are typically reusable components.\x0a\x0a## API\x0a\x0aUse `#renderContentOn:` to build HTML. (See `HTMLCanvas` and `TagBrush` classes for more about building HTML).\x0a\x0aTo add a widget to the page, the convenience method `#appendToJQuery:` is very useful.\x0a\x0aExemple: \x0a\x0a    Counter new appendToJQuery: 'body' asJQuery";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendToBrush:",
 protocol: 'adding',
 fn: function (aTagBrush){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._appendToJQuery_(_st(aTagBrush)._asJQuery());
 return self;
@@ -5286,15 +5286,15 @@ messageSends: ["appendToJQuery:", "asJQuery"]
 }),
 globals.Widget);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendToJQuery:",
 protocol: 'adding',
 fn: function (aJQuery){
 var self=this;
 function $HTMLCanvas(){return globals.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._renderOn_(_st($HTMLCanvas())._onJQuery_(aJQuery));
 return self;
@@ -5311,8 +5311,8 @@ messageSends: ["renderOn:", "onJQuery:"]
 }),
 globals.Widget);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "renderOn:",
 protocol: 'rendering',
 fn: function (html){
@@ -5330,8 +5330,8 @@ messageSends: []
 globals.Widget);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
@@ -5348,14 +5348,14 @@ messageSends: []
 }),
 globals.Widget.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendToBrush:",
 protocol: '*Web',
 fn: function (aTagBrush){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aTagBrush)._appendBlock_(self);
 return self;
@@ -5372,15 +5372,15 @@ messageSends: ["appendBlock:"]
 }),
 globals.BlockClosure);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendToJQuery:",
 protocol: '*Web',
 fn: function (aJQuery){
 var self=this;
 function $HTMLCanvas(){return globals.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._value_(_st($HTMLCanvas())._onJQuery_(aJQuery));
 return self;
@@ -5397,15 +5397,15 @@ messageSends: ["value:", "onJQuery:"]
 }),
 globals.BlockClosure);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asSnippet",
 protocol: '*Web',
 fn: function (){
 var self=this;
 function $HTMLSnippet(){return globals.HTMLSnippet||(typeof HTMLSnippet=="undefined"?nil:HTMLSnippet)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st($HTMLSnippet())._current())._snippetAt_(self._asString());
@@ -5423,14 +5423,14 @@ messageSends: ["snippetAt:", "current", "asString"]
 }),
 globals.CharacterArray);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJQuery",
 protocol: '*Web',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return jQuery(self['@jsObject']);
 return self;
@@ -5447,14 +5447,14 @@ messageSends: []
 }),
 globals.JSObjectProxy);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJQueryInContext:",
 protocol: '*Web',
 fn: function (aContext){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return jQuery(self['@jsObject'], aContext);
 return self;
@@ -5471,14 +5471,14 @@ messageSends: []
 }),
 globals.JSObjectProxy);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendToBrush:",
 protocol: '*Web',
 fn: function (aTagBrush){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aTagBrush)._append_(self._asString());
 return self;
@@ -5495,14 +5495,14 @@ messageSends: ["append:", "asString"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendToJQuery:",
 protocol: '*Web',
 fn: function (aJQuery){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aJQuery)._append_(self._asString());
 return self;
@@ -5519,14 +5519,14 @@ messageSends: ["append:", "asString"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "postMessageTo:",
 protocol: '*Web',
 fn: function (aFrame){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._postMessageTo_origin_(aFrame,"*");
@@ -5544,14 +5544,14 @@ messageSends: ["postMessageTo:origin:"]
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "postMessageTo:origin:",
 protocol: '*Web',
 fn: function (aFrame,aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return aFrame.postMessage(self, aString);
 return self;
@@ -5568,14 +5568,14 @@ messageSends: []
 }),
 globals.Object);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendToBrush:",
 protocol: '*Web',
 fn: function (aTagBrush){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aTagBrush)._appendString_(self);
 return self;
@@ -5592,14 +5592,14 @@ messageSends: ["appendString:"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "appendToJQuery:",
 protocol: '*Web',
 fn: function (aJQuery){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aJQuery)._append_(self);
 return self;
@@ -5616,14 +5616,14 @@ messageSends: ["append:"]
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJQuery",
 protocol: '*Web',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return jQuery(String(self));
 return self;
@@ -5640,14 +5640,14 @@ messageSends: []
 }),
 globals.String);
 
-smalltalk.addMethod(
-smalltalk.method({
+$vm.addMethod(
+$vm.method({
 selector: "asJQueryInContext:",
 protocol: '*Web',
 fn: function (aContext){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return jQuery(String(self), aContext);
 return self;

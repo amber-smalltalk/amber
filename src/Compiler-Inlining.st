@@ -270,7 +270,7 @@ visitIRInlinedClosure: anIRInlinedClosure
 
 visitIRInlinedIfFalse: anIRInlinedIfFalse
 	self stream nextPutIf: [
-		self stream nextPutAll: '!! smalltalk.assert('.
+		self stream nextPutAll: '!!$vm.assert('.
 		self visit: anIRInlinedIfFalse instructions first.
 		self stream nextPutAll: ')' ]
 		with: [ self visit: anIRInlinedIfFalse instructions last ]
@@ -288,7 +288,7 @@ visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil
 
 visitIRInlinedIfTrue: anIRInlinedIfTrue
 	self stream nextPutIf: [
-		self stream nextPutAll: 'smalltalk.assert('.
+		self stream nextPutAll: '$vm.assert('.
 		self visit: anIRInlinedIfTrue instructions first.
 		self stream nextPutAll: ')' ]
 		with: [ self visit: anIRInlinedIfTrue instructions last ]
@@ -297,7 +297,7 @@ visitIRInlinedIfTrue: anIRInlinedIfTrue
 visitIRInlinedIfTrueIfFalse: anIRInlinedIfTrueIfFalse
 	self stream
 		nextPutIfElse: [
-			self stream nextPutAll: 'smalltalk.assert('.
+			self stream nextPutAll: '$vm.assert('.
 			self visit: anIRInlinedIfTrueIfFalse instructions first.
 			self stream nextPutAll: ')' ]
 		with: [ self visit: anIRInlinedIfTrueIfFalse instructions second ]
@@ -523,7 +523,7 @@ I inline message sends together with assignments by moving them around into the 
 
 Will produce:
 
-	if(smalltalk.assert(true) {
+	if($vm.assert(true) {
 		a = 1;
 	};!
 

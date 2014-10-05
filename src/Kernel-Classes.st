@@ -93,9 +93,9 @@ javascriptConstructor
 
 javascriptConstructor: aJavaScriptFunction
 	"Set the JS constructor used to instantiate.
-	See the JS counter-part in boot.js `smalltalk.setClassConstructor'"
+	See the JS counter-part in boot.js `$vm.setClassConstructor'"
 	
-	<smalltalk.setClassConstructor(self, aJavaScriptFunction);>
+	<$vm.setClassConstructor(self, aJavaScriptFunction);>
 !
 
 lookupSelector: selector
@@ -316,11 +316,11 @@ new
 !Behavior methodsFor: 'private'!
 
 basicAddCompiledMethod: aMethod
-	<smalltalk.addMethod(aMethod, self)>
+	<$vm.addMethod(aMethod, self)>
 !
 
 basicRemoveCompiledMethod: aMethod
-	<smalltalk.removeMethod(aMethod,self)>
+	<$vm.removeMethod(aMethod,self)>
 ! !
 
 !Behavior methodsFor: 'testing'!
@@ -712,7 +712,7 @@ installMethod: aCompiledMethod forClass: aBehavior protocol: aString
 
 basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
 	<
-		smalltalk.addClass(aString, aClass, aCollection, packageName);
+		$vm.addClass(aString, aClass, aCollection, packageName);
 		return globals[aString]
 	>
 !
@@ -728,7 +728,7 @@ basicClass: aClass instanceVariables: aCollection
 !
 
 basicRemoveClass: aClass
-	<smalltalk.removeClass(aClass)>
+	<$vm.removeClass(aClass)>
 !
 
 basicRenameClass: aClass to: aString
@@ -756,7 +756,7 @@ rawRenameClass: aClass to: aString
 !ClassBuilder methodsFor: 'public'!
 
 setupClass: aClass
-	<smalltalk.init(aClass);>
+	<$vm.init(aClass);>
 ! !
 
 Object subclass: #ClassCategoryReader
