@@ -1,5 +1,6 @@
 define("amber_core/Compiler-Tests", ["amber/boot", "amber_core/SUnit"], function($boot){
-var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
+var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var smalltalk=$vm,_st=$recv,globals=$globals;
 smalltalk.addPackage('Compiler-Tests');
 smalltalk.packages["Compiler-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 

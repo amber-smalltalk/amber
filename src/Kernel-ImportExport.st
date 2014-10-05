@@ -391,7 +391,9 @@ exportPackagePrologueOf: aPackage on: aStream
 		nextPutAll: (#('amber/boot'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;
 		nextPutAll: ', function($boot){';
 		lf;
-		nextPutAll: 'var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;';
+		nextPutAll: 'var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';
+		lf;
+		nextPutAll: 'var smalltalk=$vm,_st=$recv,globals=$globals;';
 		lf
 ! !
 
