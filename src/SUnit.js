@@ -4,9 +4,9 @@ var smalltalk=$vm,_st=$recv,globals=$globals;
 $vm.addPackage('SUnit');
 $vm.packages["SUnit"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('ResultAnnouncement', globals.Object, ['result'], 'SUnit');
+$vm.addClass('ResultAnnouncement', $globals.Object, ['result'], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.ResultAnnouncement.comment="I get signaled when a `TestCase` has been run.\x0a\x0aMy instances hold the result (instance of `TestResult`) of the test run.";
+$globals.ResultAnnouncement.comment="I get signaled when a `TestCase` has been run.\x0a\x0aMy instances hold the result (instance of `TestResult`) of the test run.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -26,7 +26,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ResultAnnouncement);
+$globals.ResultAnnouncement);
 
 $vm.addMethod(
 $vm.method({
@@ -45,13 +45,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ResultAnnouncement);
+$globals.ResultAnnouncement);
 
 
 
-$vm.addClass('TestCase', globals.Object, ['testSelector', 'asyncTimeout', 'context'], 'SUnit');
+$vm.addClass('TestCase', $globals.Object, ['testSelector', 'asyncTimeout', 'context'], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.TestCase.comment="I am an implementation of the command pattern to run a test.\x0a\x0a## API\x0a\x0aMy instances are created with the class method `#selector:`,\x0apassing the symbol that names the method to be executed when the test case runs.\x0a\x0aWhen you discover a new fixture, subclass `TestCase` and create a `#test...` method for the first test.\x0aAs that method develops and more `#test...` methods are added, you will find yourself refactoring temps\x0ainto instance variables for the objects in the fixture and overriding `#setUp` to initialize these variables.\x0aAs required, override `#tearDown` to nil references, release objects and deallocate.";
+$globals.TestCase.comment="I am an implementation of the command pattern to run a test.\x0a\x0a## API\x0a\x0aMy instances are created with the class method `#selector:`,\x0apassing the symbol that names the method to be executed when the test case runs.\x0a\x0aWhen you discover a new fixture, subclass `TestCase` and create a `#test...` method for the first test.\x0aAs that method develops and more `#test...` methods are added, you will find yourself refactoring temps\x0ainto instance variables for the objects in the fixture and overriding `#setUp` to initialize these variables.\x0aAs required, override `#tearDown` to nil references, release objects and deallocate.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -65,7 +65,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_description_(aBoolean,"Assertion failed");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"assert:",{aBoolean:aBoolean},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"assert:",{aBoolean:aBoolean},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -75,7 +75,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:description:"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -91,7 +91,7 @@ self._signalFailure_(aString);
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"assert:description:",{aBoolean:aBoolean,aString:aString},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"assert:description:",{aBoolean:aBoolean,aString:aString},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -101,7 +101,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "signalFailure:"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -130,7 +130,7 @@ $ctx1.sendIdx[","]=1;
 $1=self._assert_description_($2,$3);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"assert:equals:",{actual:actual,expected:expected},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"assert:equals:",{actual:actual,expected:expected},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -140,7 +140,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:description:", "=", ",", "printString"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -169,7 +169,7 @@ return _st(c)._execute_(aBlock);
 });
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"async:",{aBlock:aBlock,c:c},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"async:",{aBlock:aBlock,c:c},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -179,7 +179,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["errorIfNotAsync:", "ifTrue:", "isAsync", "execute:"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -198,7 +198,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -212,7 +212,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_(_st(aBoolean)._not());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"deny:",{aBoolean:aBoolean},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"deny:",{aBoolean:aBoolean},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -222,7 +222,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "not"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -240,7 +240,7 @@ self._error_(_st(aString).__comma(" used without prior #timeout:"));
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"errorIfNotAsync:",{aString:aString},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"errorIfNotAsync:",{aString:aString},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -250,7 +250,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "isAsync", "error:", ","]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -265,7 +265,7 @@ self._errorIfNotAsync_("#finished");
 self["@asyncTimeout"]=nil;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"finished",{},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"finished",{},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -275,7 +275,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["errorIfNotAsync:"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -290,7 +290,7 @@ var $1;
 $1=_st(self["@asyncTimeout"])._notNil();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isAsync",{},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"isAsync",{},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -300,7 +300,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["notNil"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -315,7 +315,7 @@ self["@asyncTimeout"]=nil;
 self._perform_(self._selector());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"performTest",{},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"performTest",{},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -325,7 +325,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["perform:", "selector"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -333,14 +333,14 @@ selector: "runCase",
 protocol: 'running',
 fn: function (){
 var self=this;
-function $TestContext(){return globals.TestContext||(typeof TestContext=="undefined"?nil:TestContext)}
+function $TestContext(){return $globals.TestContext||(typeof TestContext=="undefined"?nil:TestContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($TestContext())._testCase_(self))._start();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"runCase",{},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"runCase",{},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -350,7 +350,7 @@ referencedClasses: ["TestContext"],
 //>>excludeEnd("ide");
 messageSends: ["start", "testCase:"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -370,7 +370,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -389,7 +389,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -407,7 +407,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -421,7 +421,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_(_st(aBlock)._value());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"should:",{aBlock:aBlock},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"should:",{aBlock:aBlock},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -431,7 +431,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "value"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -457,7 +457,7 @@ return true;
 })));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"should:raise:",{aBlock:aBlock,anExceptionClass:anExceptionClass},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"should:raise:",{aBlock:aBlock,anExceptionClass:anExceptionClass},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -467,7 +467,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "on:do:", "value"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -493,7 +493,7 @@ return false;
 })));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldnt:raise:",{aBlock:aBlock,anExceptionClass:anExceptionClass},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"shouldnt:raise:",{aBlock:aBlock,anExceptionClass:anExceptionClass},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -503,7 +503,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "on:do:", "value"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -511,7 +511,7 @@ selector: "signalFailure:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
-function $TestFailure(){return globals.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
+function $TestFailure(){return $globals.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -521,7 +521,7 @@ _st($1)._messageText_(aString);
 $2=_st($1)._signal();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"signalFailure:",{aString:aString},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"signalFailure:",{aString:aString},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -531,7 +531,7 @@ referencedClasses: ["TestFailure"],
 //>>excludeEnd("ide");
 messageSends: ["messageText:", "new", "signal"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -549,7 +549,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestCase);
+$globals.TestCase);
 
 $vm.addMethod(
 $vm.method({
@@ -579,7 +579,7 @@ return self._assert_description_(false,"SUnit grace time exhausted");
 })))._valueWithTimeout_(aNumber);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"timeout:",{aNumber:aNumber},globals.TestCase)});
+}, function($ctx1) {$ctx1.fill(self,"timeout:",{aNumber:aNumber},$globals.TestCase)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -589,7 +589,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNotNil:", "clearTimeout", "valueWithTimeout:", "async:", "assert:description:"]
 }),
-globals.TestCase);
+$globals.TestCase);
 
 
 $vm.addMethod(
@@ -611,7 +611,7 @@ _st(selectors)._addAll_(_st(self._superclass())._allTestSelectors());
 $2=selectors;
 return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"allTestSelectors",{selectors:selectors},globals.TestCase.klass)});
+}, function($ctx1) {$ctx1.fill(self,"allTestSelectors",{selectors:selectors},$globals.TestCase.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -621,7 +621,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["testSelectors", "ifTrue:", "shouldInheritSelectors", "addAll:", "allTestSelectors", "superclass"]
 }),
-globals.TestCase.klass);
+$globals.TestCase.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -644,7 +644,7 @@ return self._selector_(each);
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"buildSuite",{},globals.TestCase.klass)});
+}, function($ctx1) {$ctx1.fill(self,"buildSuite",{},$globals.TestCase.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -654,7 +654,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collect:", "allTestSelectors", "selector:"]
 }),
-globals.TestCase.klass);
+$globals.TestCase.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -672,7 +672,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestCase.klass);
+$globals.TestCase.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -687,7 +687,7 @@ var $1;
 $1=_st(self._name()).__eq("TestCase");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},globals.TestCase.klass)});
+}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},$globals.TestCase.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -697,7 +697,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["=", "name"]
 }),
-globals.TestCase.klass);
+$globals.TestCase.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -705,7 +705,7 @@ selector: "lookupHierarchyRoot",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
+function $TestCase(){return $globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
 return $TestCase();
 
 },
@@ -716,7 +716,7 @@ referencedClasses: ["TestCase"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestCase.klass);
+$globals.TestCase.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -734,7 +734,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"selector:",{aSelector:aSelector},globals.TestCase.klass)});
+}, function($ctx1) {$ctx1.fill(self,"selector:",{aSelector:aSelector},$globals.TestCase.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -744,7 +744,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["setTestSelector:", "new", "yourself"]
 }),
-globals.TestCase.klass);
+$globals.TestCase.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -759,7 +759,7 @@ var $1;
 $1=self.__tild_eq(self._lookupHierarchyRoot());
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldInheritSelectors",{},globals.TestCase.klass)});
+}, function($ctx1) {$ctx1.fill(self,"shouldInheritSelectors",{},$globals.TestCase.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -769,7 +769,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["~=", "lookupHierarchyRoot"]
 }),
-globals.TestCase.klass);
+$globals.TestCase.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -792,7 +792,7 @@ return _st(each)._match_("^test");
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSelectors",{},globals.TestCase.klass)});
+}, function($ctx1) {$ctx1.fill(self,"testSelectors",{},$globals.TestCase.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -802,12 +802,12 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["select:", "keys", "methodDictionary", "match:"]
 }),
-globals.TestCase.klass);
+$globals.TestCase.klass);
 
 
-$vm.addClass('TestContext', globals.Object, ['testCase'], 'SUnit');
+$vm.addClass('TestContext', $globals.Object, ['testCase'], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.TestContext.comment="I govern running a particular test case.\x0a\x0aMy main added value is `#execute:` method which runs a block as a part of test case (restores context, nilling it afterwards, cleaning/calling `#tearDown` as appropriate for sync/async scenario).";
+$globals.TestContext.comment="I govern running a particular test case.\x0a\x0aMy main added value is `#execute:` method which runs a block as a part of test case (restores context, nilling it afterwards, cleaning/calling `#tearDown` as appropriate for sync/async scenario).";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -866,7 +866,7 @@ return _st(self["@testCase"])._tearDown();
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"execute:",{aBlock:aBlock,failed:failed},globals.TestContext)});
+}, function($ctx1) {$ctx1.fill(self,"execute:",{aBlock:aBlock,failed:failed},$globals.TestContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -876,7 +876,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["context:", "ensure:", "value", "ifTrue:", "and:", "isAsync", "finished", "ifFalse:", "tearDown"]
 }),
-globals.TestContext);
+$globals.TestContext);
 
 $vm.addMethod(
 $vm.method({
@@ -899,7 +899,7 @@ return _st(self["@testCase"])._performTest();
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"start",{},globals.TestContext)});
+}, function($ctx1) {$ctx1.fill(self,"start",{},$globals.TestContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -909,7 +909,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["execute:", "setUp", "performTest"]
 }),
-globals.TestContext);
+$globals.TestContext);
 
 $vm.addMethod(
 $vm.method({
@@ -928,7 +928,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestContext);
+$globals.TestContext);
 
 
 $vm.addMethod(
@@ -947,7 +947,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCase:",{aTestCase:aTestCase},globals.TestContext.klass)});
+}, function($ctx1) {$ctx1.fill(self,"testCase:",{aTestCase:aTestCase},$globals.TestContext.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -957,12 +957,12 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["testCase:", "new", "yourself"]
 }),
-globals.TestContext.klass);
+$globals.TestContext.klass);
 
 
-$vm.addClass('ReportingTestContext', globals.TestContext, ['finished', 'result'], 'SUnit');
+$vm.addClass('ReportingTestContext', $globals.TestContext, ['finished', 'result'], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.ReportingTestContext.comment="I add `TestResult` reporting to `TestContext`.\x0a\x0aErrors are caught and save into a `TestResult`,\x0aWhen test case is finished (which can be later for async tests), a callback block is executed; this is used by a `TestSuiteRunner`.";
+$globals.ReportingTestContext.comment="I add `TestResult` reporting to `TestContext`.\x0a\x0aErrors are caught and save into a `TestResult`,\x0aWhen test case is finished (which can be later for async tests), a callback block is executed; this is used by a `TestSuiteRunner`.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -986,7 +986,7 @@ return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.supercall = true, 
 //>>excludeEnd("ctx");
-globals.ReportingTestContext.superclass.fn.prototype._execute_.apply(_st(self), [aBlock]));
+$globals.ReportingTestContext.superclass.fn.prototype._execute_.apply(_st(self), [aBlock]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.supercall = false;
 //>>excludeEnd("ctx");;
@@ -1012,7 +1012,7 @@ return _st(self["@finished"])._value();
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"execute:",{aBlock:aBlock},globals.ReportingTestContext)});
+}, function($ctx1) {$ctx1.fill(self,"execute:",{aBlock:aBlock},$globals.ReportingTestContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1022,7 +1022,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ensure:", "withErrorReporting:", "execute:", "ifFalse:", "isAsync", "increaseRuns", "value"]
 }),
-globals.ReportingTestContext);
+$globals.ReportingTestContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1041,7 +1041,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ReportingTestContext);
+$globals.ReportingTestContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1060,7 +1060,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ReportingTestContext);
+$globals.ReportingTestContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1068,8 +1068,8 @@ selector: "withErrorReporting:",
 protocol: 'private',
 fn: function (aBlock){
 var self=this;
-function $TestFailure(){return globals.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $TestFailure(){return $globals.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1103,7 +1103,7 @@ $ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"withErrorReporting:",{aBlock:aBlock},globals.ReportingTestContext)});
+}, function($ctx1) {$ctx1.fill(self,"withErrorReporting:",{aBlock:aBlock},$globals.ReportingTestContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1113,7 +1113,7 @@ referencedClasses: ["TestFailure", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["on:do:", "addFailure:", "addError:"]
 }),
-globals.ReportingTestContext);
+$globals.ReportingTestContext);
 
 
 $vm.addMethod(
@@ -1130,7 +1130,7 @@ $2=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.ReportingTestContext.klass.superclass.fn.prototype._testCase_.apply(_st(self), [aTestCase]));
+$globals.ReportingTestContext.klass.superclass.fn.prototype._testCase_.apply(_st(self), [aTestCase]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -1140,7 +1140,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCase:result:finished:",{aTestCase:aTestCase,aTestResult:aTestResult,aBlock:aBlock},globals.ReportingTestContext.klass)});
+}, function($ctx1) {$ctx1.fill(self,"testCase:result:finished:",{aTestCase:aTestCase,aTestResult:aTestResult,aBlock:aBlock},$globals.ReportingTestContext.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1150,18 +1150,18 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["result:", "testCase:", "finished:", "yourself"]
 }),
-globals.ReportingTestContext.klass);
+$globals.ReportingTestContext.klass);
 
 
-$vm.addClass('TestFailure', globals.Error, [], 'SUnit');
+$vm.addClass('TestFailure', $globals.Error, [], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.TestFailure.comment="I am raised when the boolean parameter of an #`assert:` or `#deny:` call is the opposite of what the assertion claims.\x0a\x0aThe test framework distinguishes between failures and errors.\x0aA failure is an event whose possibiity is explicitly anticipated and checked for in an assertion,\x0awhereas an error is an unanticipated problem like a division by 0 or an index out of bounds.";
+$globals.TestFailure.comment="I am raised when the boolean parameter of an #`assert:` or `#deny:` call is the opposite of what the assertion claims.\x0a\x0aThe test framework distinguishes between failures and errors.\x0aA failure is an event whose possibiity is explicitly anticipated and checked for in an assertion,\x0awhereas an error is an unanticipated problem like a division by 0 or an index out of bounds.";
 //>>excludeEnd("ide");
 
 
-$vm.addClass('TestResult', globals.Object, ['timestamp', 'runs', 'errors', 'failures', 'total'], 'SUnit');
+$vm.addClass('TestResult', $globals.Object, ['timestamp', 'runs', 'errors', 'failures', 'total'], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.TestResult.comment="I implement the collecting parameter pattern for running a bunch of tests.\x0a\x0aMy instances hold tests that have run, sorted into the result categories of passed, failures and errors.\x0a\x0a`TestResult` is an interesting object to subclass or substitute. `#runCase:` is the external protocol you need to reproduce";
+$globals.TestResult.comment="I implement the collecting parameter pattern for running a bunch of tests.\x0a\x0aMy instances hold tests that have run, sorted into the result categories of passed, failures and errors.\x0a\x0a`TestResult` is an interesting object to subclass or substitute. `#runCase:` is the external protocol you need to reproduce";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -1175,7 +1175,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._errors())._add_(anError);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"addError:",{anError:anError},globals.TestResult)});
+}, function($ctx1) {$ctx1.fill(self,"addError:",{anError:anError},$globals.TestResult)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1185,7 +1185,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["add:", "errors"]
 }),
-globals.TestResult);
+$globals.TestResult);
 
 $vm.addMethod(
 $vm.method({
@@ -1199,7 +1199,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._failures())._add_(aFailure);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"addFailure:",{aFailure:aFailure},globals.TestResult)});
+}, function($ctx1) {$ctx1.fill(self,"addFailure:",{aFailure:aFailure},$globals.TestResult)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1209,7 +1209,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["add:", "failures"]
 }),
-globals.TestResult);
+$globals.TestResult);
 
 $vm.addMethod(
 $vm.method({
@@ -1229,7 +1229,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestResult);
+$globals.TestResult);
 
 $vm.addMethod(
 $vm.method({
@@ -1249,7 +1249,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestResult);
+$globals.TestResult);
 
 $vm.addMethod(
 $vm.method({
@@ -1263,7 +1263,7 @@ return $vm.withContext(function($ctx1) {
 self["@runs"]=_st(self["@runs"]).__plus((1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"increaseRuns",{},globals.TestResult)});
+}, function($ctx1) {$ctx1.fill(self,"increaseRuns",{},$globals.TestResult)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1273,7 +1273,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["+"]
 }),
-globals.TestResult);
+$globals.TestResult);
 
 $vm.addMethod(
 $vm.method({
@@ -1281,8 +1281,8 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Date(){return globals.Date||(typeof Date=="undefined"?nil:Date)}
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1290,7 +1290,7 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.TestResult.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.TestResult.superclass.fn.prototype._initialize.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -1304,7 +1304,7 @@ self["@failures"]=_st($Array())._new();
 self["@total"]=(0);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.TestResult)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.TestResult)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1314,7 +1314,7 @@ referencedClasses: ["Date", "Array"],
 //>>excludeEnd("ide");
 messageSends: ["initialize", "now", "new"]
 }),
-globals.TestResult);
+$globals.TestResult);
 
 $vm.addMethod(
 $vm.method({
@@ -1336,7 +1336,7 @@ $1=_st(aBlock)._value_(_st(self._runs()).__plus((1)));
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextRunDo:",{aBlock:aBlock},globals.TestResult)});
+}, function($ctx1) {$ctx1.fill(self,"nextRunDo:",{aBlock:aBlock},$globals.TestResult)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1346,7 +1346,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "==", "runs", "total", "value:", "+"]
 }),
-globals.TestResult);
+$globals.TestResult);
 
 $vm.addMethod(
 $vm.method({
@@ -1354,8 +1354,8 @@ selector: "runCase:",
 protocol: 'running',
 fn: function (aTestCase){
 var self=this;
-function $TestFailure(){return globals.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $TestFailure(){return $globals.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1398,7 +1398,7 @@ $ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"runCase:",{aTestCase:aTestCase},globals.TestResult)});
+}, function($ctx1) {$ctx1.fill(self,"runCase:",{aTestCase:aTestCase},$globals.TestResult)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1408,7 +1408,7 @@ referencedClasses: ["TestFailure", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["on:do:", "increaseRuns", "runCase", "addFailure:", "addError:"]
 }),
-globals.TestResult);
+$globals.TestResult);
 
 $vm.addMethod(
 $vm.method({
@@ -1428,7 +1428,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestResult);
+$globals.TestResult);
 
 $vm.addMethod(
 $vm.method({
@@ -1456,7 +1456,7 @@ $1="error";
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"status",{},globals.TestResult)});
+}, function($ctx1) {$ctx1.fill(self,"status",{},$globals.TestResult)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1466,7 +1466,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "isEmpty", "errors", "failures"]
 }),
-globals.TestResult);
+$globals.TestResult);
 
 $vm.addMethod(
 $vm.method({
@@ -1486,7 +1486,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestResult);
+$globals.TestResult);
 
 $vm.addMethod(
 $vm.method({
@@ -1506,7 +1506,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestResult);
+$globals.TestResult);
 
 $vm.addMethod(
 $vm.method({
@@ -1525,13 +1525,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestResult);
+$globals.TestResult);
 
 
 
-$vm.addClass('TestSuiteRunner', globals.Object, ['suite', 'result', 'announcer', 'runNextTest'], 'SUnit');
+$vm.addClass('TestSuiteRunner', $globals.Object, ['suite', 'result', 'announcer', 'runNextTest'], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.TestSuiteRunner.comment="I am responsible for running a collection (`suite`) of tests.\x0a\x0a## API\x0a\x0aInstances should be created using the class-side `#on:` method, taking a collection of tests to run as parameter.\x0aTo run the test suite, use `#run`.";
+$globals.TestSuiteRunner.comment="I am responsible for running a collection (`suite`) of tests.\x0a\x0a## API\x0a\x0aInstances should be created using the class-side `#on:` method, taking a collection of tests to run as parameter.\x0aTo run the test suite, use `#run`.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -1551,7 +1551,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestSuiteRunner);
+$globals.TestSuiteRunner);
 
 $vm.addMethod(
 $vm.method({
@@ -1559,7 +1559,7 @@ selector: "contextOf:",
 protocol: 'private',
 fn: function (anInteger){
 var self=this;
-function $ReportingTestContext(){return globals.ReportingTestContext||(typeof ReportingTestContext=="undefined"?nil:ReportingTestContext)}
+function $ReportingTestContext(){return $globals.ReportingTestContext||(typeof ReportingTestContext=="undefined"?nil:ReportingTestContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1575,7 +1575,7 @@ return self._resume();
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"contextOf:",{anInteger:anInteger},globals.TestSuiteRunner)});
+}, function($ctx1) {$ctx1.fill(self,"contextOf:",{anInteger:anInteger},$globals.TestSuiteRunner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1585,7 +1585,7 @@ referencedClasses: ["ReportingTestContext"],
 //>>excludeEnd("ide");
 messageSends: ["testCase:result:finished:", "at:", "resume"]
 }),
-globals.TestSuiteRunner);
+$globals.TestSuiteRunner);
 
 $vm.addMethod(
 $vm.method({
@@ -1593,8 +1593,8 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
-function $TestResult(){return globals.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
+function $Announcer(){return $globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
+function $TestResult(){return $globals.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1603,7 +1603,7 @@ var $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.TestSuiteRunner.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.TestSuiteRunner.superclass.fn.prototype._initialize.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -1629,7 +1629,7 @@ return _st(self._contextOf_(_st(runs).__plus((1))))._start();
 });
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.TestSuiteRunner)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.TestSuiteRunner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1639,7 +1639,7 @@ referencedClasses: ["Announcer", "TestResult"],
 //>>excludeEnd("ide");
 messageSends: ["initialize", "new", "runs", "ifTrue:", "<", "total", "start", "contextOf:", "+"]
 }),
-globals.TestSuiteRunner);
+$globals.TestSuiteRunner);
 
 $vm.addMethod(
 $vm.method({
@@ -1659,7 +1659,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestSuiteRunner);
+$globals.TestSuiteRunner);
 
 $vm.addMethod(
 $vm.method({
@@ -1667,7 +1667,7 @@ selector: "resume",
 protocol: 'actions',
 fn: function (){
 var self=this;
-function $ResultAnnouncement(){return globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
+function $ResultAnnouncement(){return $globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1675,7 +1675,7 @@ _st(self["@runNextTest"])._fork();
 _st(self["@announcer"])._announce_(_st(_st($ResultAnnouncement())._new())._result_(self["@result"]));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"resume",{},globals.TestSuiteRunner)});
+}, function($ctx1) {$ctx1.fill(self,"resume",{},$globals.TestSuiteRunner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1685,7 +1685,7 @@ referencedClasses: ["ResultAnnouncement"],
 //>>excludeEnd("ide");
 messageSends: ["fork", "announce:", "result:", "new"]
 }),
-globals.TestSuiteRunner);
+$globals.TestSuiteRunner);
 
 $vm.addMethod(
 $vm.method({
@@ -1700,7 +1700,7 @@ _st(self["@result"])._total_(_st(self["@suite"])._size());
 self._resume();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"run",{},globals.TestSuiteRunner)});
+}, function($ctx1) {$ctx1.fill(self,"run",{},$globals.TestSuiteRunner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1710,7 +1710,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["total:", "size", "resume"]
 }),
-globals.TestSuiteRunner);
+$globals.TestSuiteRunner);
 
 $vm.addMethod(
 $vm.method({
@@ -1729,7 +1729,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TestSuiteRunner);
+$globals.TestSuiteRunner);
 
 
 $vm.addMethod(
@@ -1744,7 +1744,7 @@ return $vm.withContext(function($ctx1) {
 self._shouldNotImplement();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"new",{},globals.TestSuiteRunner.klass)});
+}, function($ctx1) {$ctx1.fill(self,"new",{},$globals.TestSuiteRunner.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1754,7 +1754,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["shouldNotImplement"]
 }),
-globals.TestSuiteRunner.klass);
+$globals.TestSuiteRunner.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -1770,14 +1770,14 @@ $2=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.TestSuiteRunner.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$globals.TestSuiteRunner.klass.superclass.fn.prototype._new.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 $1=_st($2)._suite_(aCollection);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"on:",{aCollection:aCollection},globals.TestSuiteRunner.klass)});
+}, function($ctx1) {$ctx1.fill(self,"on:",{aCollection:aCollection},$globals.TestSuiteRunner.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1787,7 +1787,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["suite:", "new"]
 }),
-globals.TestSuiteRunner.klass);
+$globals.TestSuiteRunner.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -1795,7 +1795,7 @@ selector: "isTestClass",
 protocol: '*SUnit',
 fn: function (){
 var self=this;
-function $TestCase(){return globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
+function $TestCase(){return $globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1811,7 +1811,7 @@ return _st(self._isAbstract())._not();
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isTestClass",{},globals.Behavior)});
+}, function($ctx1) {$ctx1.fill(self,"isTestClass",{},$globals.Behavior)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1821,7 +1821,7 @@ referencedClasses: ["TestCase"],
 //>>excludeEnd("ide");
 messageSends: ["and:", "includesBehavior:", "not", "isAbstract"]
 }),
-globals.Behavior);
+$globals.Behavior);
 
 $vm.addMethod(
 $vm.method({
@@ -1844,7 +1844,7 @@ return _st(each)._isTestClass();
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isTestPackage",{},globals.Package)});
+}, function($ctx1) {$ctx1.fill(self,"isTestPackage",{},$globals.Package)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1854,6 +1854,6 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["anySatisfy:", "classes", "isTestClass"]
 }),
-globals.Package);
+$globals.Package);
 
 });

@@ -4,9 +4,9 @@ var smalltalk=$vm,_st=$recv,globals=$globals;
 $vm.addPackage('SUnit-Tests');
 $vm.packages["SUnit-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('ExampleSetTest', globals.TestCase, ['empty', 'full'], 'SUnit-Tests');
+$vm.addClass('ExampleSetTest', $globals.TestCase, ['empty', 'full'], 'SUnit-Tests');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.ExampleSetTest.comment="ExampleSetTest is taken from Pharo 1.4.\x0a\x0aTHe purpose of this class is to demonstrate a simple use case of the test framework.";
+$globals.ExampleSetTest.comment="ExampleSetTest is taken from Pharo 1.4.\x0a\x0aTHe purpose of this class is to demonstrate a simple use case of the test framework.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -14,7 +14,7 @@ selector: "setUp",
 protocol: 'running',
 fn: function (){
 var self=this;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -22,7 +22,7 @@ self["@empty"]=_st($Set())._new();
 self["@full"]=_st($Set())._with_with_((5),"abc");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.ExampleSetTest)});
+}, function($ctx1) {$ctx1.fill(self,"setUp",{},$globals.ExampleSetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -32,7 +32,7 @@ referencedClasses: ["Set"],
 //>>excludeEnd("ide");
 messageSends: ["new", "with:with:"]
 }),
-globals.ExampleSetTest);
+$globals.ExampleSetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -47,7 +47,7 @@ _st(self["@empty"])._add_((5));
 self._assert_(_st(self["@empty"])._includes_((5)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAdd",{},globals.ExampleSetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAdd",{},$globals.ExampleSetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -57,7 +57,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["add:", "assert:", "includes:"]
 }),
-globals.ExampleSetTest);
+$globals.ExampleSetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -72,7 +72,7 @@ _st(self["@empty"])._addAll_((1)._to_((100)));
 self._assert_equals_(_st(self["@empty"])._size(),(100));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testGrow",{},globals.ExampleSetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testGrow",{},$globals.ExampleSetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -82,7 +82,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["addAll:", "to:", "assert:equals:", "size"]
 }),
-globals.ExampleSetTest);
+$globals.ExampleSetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -90,7 +90,7 @@ selector: "testIllegal",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -117,7 +117,7 @@ return _st(self["@empty"])._at_put_((5),"abc");
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIllegal",{},globals.ExampleSetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIllegal",{},$globals.ExampleSetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -127,7 +127,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "at:", "at:put:"]
 }),
-globals.ExampleSetTest);
+$globals.ExampleSetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -150,7 +150,7 @@ $ctx1.sendIdx["assert:"]=1;
 self._assert_(_st(self["@full"])._includes_("abc"));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIncludes",{},globals.ExampleSetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIncludes",{},$globals.ExampleSetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -160,7 +160,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "includes:"]
 }),
-globals.ExampleSetTest);
+$globals.ExampleSetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -192,7 +192,7 @@ _st(self["@full"])._add_((5));
 self._assert_equals_(_st(self["@full"])._occurrencesOf_((5)),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testOccurrences",{},globals.ExampleSetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testOccurrences",{},$globals.ExampleSetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -202,7 +202,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "occurrencesOf:", "add:"]
 }),
-globals.ExampleSetTest);
+$globals.ExampleSetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -223,7 +223,7 @@ self._assert_($1);
 self._deny_(_st(self["@full"])._includes_((5)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemove",{},globals.ExampleSetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemove",{},$globals.ExampleSetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -233,11 +233,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["remove:", "assert:", "includes:", "deny:"]
 }),
-globals.ExampleSetTest);
+$globals.ExampleSetTest);
 
 
 
-$vm.addClass('SUnitAsyncTest', globals.TestCase, ['flag'], 'SUnit-Tests');
+$vm.addClass('SUnitAsyncTest', $globals.TestCase, ['flag'], 'SUnit-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "fakeError",
@@ -262,7 +262,7 @@ return self._error_("Intentional");
 })))._valueWithTimeout_((20));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"fakeError",{},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"fakeError",{},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -272,7 +272,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "error:"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -296,7 +296,7 @@ return self._error_("Intentional");
 })))._valueWithTimeout_((20));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"fakeErrorFailingInTearDown",{},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"fakeErrorFailingInTearDown",{},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -306,7 +306,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "error:"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -332,7 +332,7 @@ return self._assert_(false);
 })))._valueWithTimeout_((20));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"fakeFailure",{},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"fakeFailure",{},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -342,7 +342,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "assert:"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -385,7 +385,7 @@ $ctx1.sendIdx["valueWithTimeout:"]=1;
 //>>excludeEnd("ctx");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"fakeMultipleTimeoutFailing",{},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"fakeMultipleTimeoutFailing",{},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -395,7 +395,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -438,7 +438,7 @@ $ctx1.sendIdx["valueWithTimeout:"]=1;
 //>>excludeEnd("ctx");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"fakeMultipleTimeoutPassing",{},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"fakeMultipleTimeoutPassing",{},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -448,7 +448,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -471,7 +471,7 @@ return self._finished();
 })))._valueWithTimeout_((20));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"fakeTimeout",{},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"fakeTimeout",{},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -481,7 +481,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -504,7 +504,7 @@ return _st(each)._selector();
 })))._asSet();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"selectorSetOf:",{aCollection:aCollection},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"selectorSetOf:",{aCollection:aCollection},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -514,7 +514,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["asSet", "collect:", "selector"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -533,7 +533,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -547,7 +547,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_("ok",self["@flag"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"tearDown",{},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"tearDown",{},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -557,7 +557,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -566,8 +566,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var suite,runner,result,assertBlock;
-function $TestSuiteRunner(){return globals.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
-function $ResultAnnouncement(){return globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
+function $TestSuiteRunner(){return $globals.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
+function $ResultAnnouncement(){return $globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -625,7 +625,7 @@ return _st($4)._ifTrue_(assertBlock);
 _st(runner)._run();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsyncErrorsAndFailures",{suite:suite,runner:runner,result:result,assertBlock:assertBlock},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsyncErrorsAndFailures",{suite:suite,runner:runner,result:result,assertBlock:assertBlock},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -635,7 +635,7 @@ referencedClasses: ["TestSuiteRunner", "ResultAnnouncement"],
 //>>excludeEnd("ide");
 messageSends: ["collect:", "selector:", "class", "on:", "timeout:", "result", "async:", "assert:equals:", "selectorSetOf:", "errors", "asSet", "failures", "finished", "on:do:", "announcer", "ifTrue:", "==", "=", "runs", "total", "run"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -643,7 +643,7 @@ selector: "testAsyncNeedsTimeout",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -676,7 +676,7 @@ return self._async_((function(){
 self._finished();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsyncNeedsTimeout",{},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsyncNeedsTimeout",{},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -686,7 +686,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "async:", "timeout:", "shouldnt:raise:", "finished"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -694,7 +694,7 @@ selector: "testFinishedNeedsTimeout",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -722,7 +722,7 @@ return self._finished();
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testFinishedNeedsTimeout",{},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"testFinishedNeedsTimeout",{},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -732,7 +732,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "finished", "timeout:", "shouldnt:raise:"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -762,7 +762,7 @@ self._finished();
 self._deny_(self._isAsync());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIsAsyncReturnsCorrectValues",{},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIsAsyncReturnsCorrectValues",{},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -772,7 +772,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["deny:", "isAsync", "timeout:", "assert:", "finished"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -799,7 +799,7 @@ return self["@flag"];
 })))._valueWithTimeout_((5));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPass",{},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPass",{},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -809,7 +809,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "assert:", "finished"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -818,9 +818,9 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var suite,runner,result,assertBlock;
-function $TestSuiteRunner(){return globals.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
-function $ResultAnnouncement(){return globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
+function $TestSuiteRunner(){return $globals.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $ResultAnnouncement(){return $globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -874,7 +874,7 @@ return _st($3)._ifTrue_(assertBlock);
 _st(runner)._run();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTimeouts",{suite:suite,runner:runner,result:result,assertBlock:assertBlock},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTimeouts",{suite:suite,runner:runner,result:result,assertBlock:assertBlock},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -884,7 +884,7 @@ referencedClasses: ["TestSuiteRunner", "Set", "ResultAnnouncement"],
 //>>excludeEnd("ide");
 messageSends: ["collect:", "selector:", "class", "on:", "timeout:", "result", "async:", "assert:equals:", "selectorSetOf:", "errors", "new", "failures", "asSet", "finished", "on:do:", "announcer", "ifTrue:", "==", "=", "runs", "total", "run"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 $vm.addMethod(
 $vm.method({
@@ -946,7 +946,7 @@ return self._assert_equals_(x,(1));
 })))._valueWithTimeout_((0));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTwoAsyncPassesWithFinishedOnlyOneIsRun",{x:x},globals.SUnitAsyncTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTwoAsyncPassesWithFinishedOnlyOneIsRun",{x:x},$globals.SUnitAsyncTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -956,7 +956,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished", "+", "assert:equals:"]
 }),
-globals.SUnitAsyncTest);
+$globals.SUnitAsyncTest);
 
 
 });

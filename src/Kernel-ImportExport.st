@@ -253,7 +253,7 @@ jsClassNameFor: aClass
 		ifFalse: [
 			aClass
 				ifNil: [ 'null' ]
-				ifNotNil: [ 'globals.', aClass name ] ]
+				ifNotNil: [ '$globals.', aClass name ] ]
 ! !
 
 !Exporter methodsFor: 'output'!

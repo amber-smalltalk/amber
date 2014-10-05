@@ -4,9 +4,9 @@ var smalltalk=$vm,_st=$recv,globals=$globals;
 $vm.addPackage('Compiler-Inlining');
 $vm.packages["Compiler-Inlining"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('IRInlinedAssignment', globals.IRAssignment, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedAssignment', $globals.IRAssignment, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRInlinedAssignment.comment="I represent an inlined assignment instruction.";
+$globals.IRInlinedAssignment.comment="I represent an inlined assignment instruction.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -21,7 +21,7 @@ var $1;
 $1=_st(aVisitor)._visitIRInlinedAssignment_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedAssignment)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRInlinedAssignment)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -31,7 +31,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInlinedAssignment:"]
 }),
-globals.IRInlinedAssignment);
+$globals.IRInlinedAssignment);
 
 $vm.addMethod(
 $vm.method({
@@ -49,13 +49,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInlinedAssignment);
+$globals.IRInlinedAssignment);
 
 
 
-$vm.addClass('IRInlinedClosure', globals.IRClosure, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedClosure', $globals.IRClosure, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRInlinedClosure.comment="I represent an inlined closure instruction.";
+$globals.IRInlinedClosure.comment="I represent an inlined closure instruction.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -69,7 +69,7 @@ return $vm.withContext(function($ctx1) {
 _st(aVisitor)._visitIRInlinedClosure_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedClosure)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRInlinedClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -79,7 +79,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInlinedClosure:"]
 }),
-globals.IRInlinedClosure);
+$globals.IRInlinedClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -97,13 +97,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInlinedClosure);
+$globals.IRInlinedClosure);
 
 
 
-$vm.addClass('IRInlinedReturn', globals.IRReturn, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedReturn', $globals.IRReturn, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRInlinedReturn.comment="I represent an inlined local return instruction.";
+$globals.IRInlinedReturn.comment="I represent an inlined local return instruction.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -118,7 +118,7 @@ var $1;
 $1=_st(aVisitor)._visitIRInlinedReturn_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedReturn)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRInlinedReturn)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -128,7 +128,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInlinedReturn:"]
 }),
-globals.IRInlinedReturn);
+$globals.IRInlinedReturn);
 
 $vm.addMethod(
 $vm.method({
@@ -146,13 +146,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInlinedReturn);
+$globals.IRInlinedReturn);
 
 
 
-$vm.addClass('IRInlinedSend', globals.IRSend, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedSend', $globals.IRSend, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRInlinedSend.comment="I am the abstract super class of inlined message send instructions.";
+$globals.IRInlinedSend.comment="I am the abstract super class of inlined message send instructions.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -166,7 +166,7 @@ return $vm.withContext(function($ctx1) {
 _st(aVisitor)._visitInlinedSend_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedSend)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRInlinedSend)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -176,7 +176,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitInlinedSend:"]
 }),
-globals.IRInlinedSend);
+$globals.IRInlinedSend);
 
 $vm.addMethod(
 $vm.method({
@@ -196,7 +196,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInlinedSend);
+$globals.IRInlinedSend);
 
 $vm.addMethod(
 $vm.method({
@@ -214,13 +214,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInlinedSend);
+$globals.IRInlinedSend);
 
 
 
-$vm.addClass('IRInlinedIfFalse', globals.IRInlinedSend, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedIfFalse', $globals.IRInlinedSend, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRInlinedIfFalse.comment="I represent an inlined `#ifFalse:` message send instruction.";
+$globals.IRInlinedIfFalse.comment="I represent an inlined `#ifFalse:` message send instruction.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -234,7 +234,7 @@ return $vm.withContext(function($ctx1) {
 _st(aVisitor)._visitIRInlinedIfFalse_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedIfFalse)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRInlinedIfFalse)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -244,13 +244,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInlinedIfFalse:"]
 }),
-globals.IRInlinedIfFalse);
+$globals.IRInlinedIfFalse);
 
 
 
-$vm.addClass('IRInlinedIfNilIfNotNil', globals.IRInlinedSend, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedIfNilIfNotNil', $globals.IRInlinedSend, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRInlinedIfNilIfNotNil.comment="I represent an inlined `#ifNil:ifNotNil:` message send instruction.";
+$globals.IRInlinedIfNilIfNotNil.comment="I represent an inlined `#ifNil:ifNotNil:` message send instruction.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -264,7 +264,7 @@ return $vm.withContext(function($ctx1) {
 _st(aVisitor)._visitIRInlinedIfNilIfNotNil_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedIfNilIfNotNil)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRInlinedIfNilIfNotNil)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -274,7 +274,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInlinedIfNilIfNotNil:"]
 }),
-globals.IRInlinedIfNilIfNotNil);
+$globals.IRInlinedIfNilIfNotNil);
 
 $vm.addMethod(
 $vm.method({
@@ -282,7 +282,7 @@ selector: "internalVariables",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -290,7 +290,7 @@ var $1;
 $1=_st($Array())._with_(self._receiverInternalVariable());
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"internalVariables",{},globals.IRInlinedIfNilIfNotNil)});
+}, function($ctx1) {$ctx1.fill(self,"internalVariables",{},$globals.IRInlinedIfNilIfNotNil)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -300,7 +300,7 @@ referencedClasses: ["Array"],
 //>>excludeEnd("ide");
 messageSends: ["with:", "receiverInternalVariable"]
 }),
-globals.IRInlinedIfNilIfNotNil);
+$globals.IRInlinedIfNilIfNotNil);
 
 $vm.addMethod(
 $vm.method({
@@ -308,8 +308,8 @@ selector: "receiverInternalVariable",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $IRVariable(){return globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
-function $AliasVar(){return globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
+function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
+function $AliasVar(){return $globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -323,7 +323,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"receiverInternalVariable",{},globals.IRInlinedIfNilIfNotNil)});
+}, function($ctx1) {$ctx1.fill(self,"receiverInternalVariable",{},$globals.IRInlinedIfNilIfNotNil)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -333,7 +333,7 @@ referencedClasses: ["IRVariable", "AliasVar"],
 //>>excludeEnd("ide");
 messageSends: ["variable:", "new", "name:", "receiverInternalVariableName", "yourself"]
 }),
-globals.IRInlinedIfNilIfNotNil);
+$globals.IRInlinedIfNilIfNotNil);
 
 $vm.addMethod(
 $vm.method({
@@ -351,13 +351,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInlinedIfNilIfNotNil);
+$globals.IRInlinedIfNilIfNotNil);
 
 
 
-$vm.addClass('IRInlinedIfTrue', globals.IRInlinedSend, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedIfTrue', $globals.IRInlinedSend, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRInlinedIfTrue.comment="I represent an inlined `#ifTrue:` message send instruction.";
+$globals.IRInlinedIfTrue.comment="I represent an inlined `#ifTrue:` message send instruction.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -371,7 +371,7 @@ return $vm.withContext(function($ctx1) {
 _st(aVisitor)._visitIRInlinedIfTrue_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedIfTrue)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRInlinedIfTrue)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -381,13 +381,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInlinedIfTrue:"]
 }),
-globals.IRInlinedIfTrue);
+$globals.IRInlinedIfTrue);
 
 
 
-$vm.addClass('IRInlinedIfTrueIfFalse', globals.IRInlinedSend, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedIfTrueIfFalse', $globals.IRInlinedSend, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRInlinedIfTrueIfFalse.comment="I represent an inlined `#ifTrue:ifFalse:` message send instruction.";
+$globals.IRInlinedIfTrueIfFalse.comment="I represent an inlined `#ifTrue:ifFalse:` message send instruction.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -401,7 +401,7 @@ return $vm.withContext(function($ctx1) {
 _st(aVisitor)._visitIRInlinedIfTrueIfFalse_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedIfTrueIfFalse)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRInlinedIfTrueIfFalse)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -411,13 +411,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInlinedIfTrueIfFalse:"]
 }),
-globals.IRInlinedIfTrueIfFalse);
+$globals.IRInlinedIfTrueIfFalse);
 
 
 
-$vm.addClass('IRInlinedSequence', globals.IRBlockSequence, [], 'Compiler-Inlining');
+$vm.addClass('IRInlinedSequence', $globals.IRBlockSequence, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRInlinedSequence.comment="I represent a (block) sequence inside an inlined closure instruction (instance of `IRInlinedClosure`).";
+$globals.IRInlinedSequence.comment="I represent a (block) sequence inside an inlined closure instruction (instance of `IRInlinedClosure`).";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -431,7 +431,7 @@ return $vm.withContext(function($ctx1) {
 _st(aVisitor)._visitIRInlinedSequence_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInlinedSequence)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRInlinedSequence)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -441,7 +441,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInlinedSequence:"]
 }),
-globals.IRInlinedSequence);
+$globals.IRInlinedSequence);
 
 $vm.addMethod(
 $vm.method({
@@ -459,13 +459,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInlinedSequence);
+$globals.IRInlinedSequence);
 
 
 
-$vm.addClass('IRInliner', globals.IRVisitor, [], 'Compiler-Inlining');
+$vm.addClass('IRInliner', $globals.IRVisitor, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRInliner.comment="I visit an IR tree, inlining message sends and block closures.\x0a\x0aMessage selectors that can be inlined are answered by `IRSendInliner >> #inlinedSelectors`";
+$globals.IRInliner.comment="I visit an IR tree, inlining message sends and block closures.\x0a\x0aMessage selectors that can be inlined are answered by `IRSendInliner >> #inlinedSelectors`";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -473,7 +473,7 @@ selector: "assignmentInliner",
 protocol: 'factory',
 fn: function (){
 var self=this;
-function $IRAssignmentInliner(){return globals.IRAssignmentInliner||(typeof IRAssignmentInliner=="undefined"?nil:IRAssignmentInliner)}
+function $IRAssignmentInliner(){return $globals.IRAssignmentInliner||(typeof IRAssignmentInliner=="undefined"?nil:IRAssignmentInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -484,7 +484,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"assignmentInliner",{},globals.IRInliner)});
+}, function($ctx1) {$ctx1.fill(self,"assignmentInliner",{},$globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -494,7 +494,7 @@ referencedClasses: ["IRAssignmentInliner"],
 //>>excludeEnd("ide");
 messageSends: ["translator:", "new", "yourself"]
 }),
-globals.IRInliner);
+$globals.IRInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -502,7 +502,7 @@ selector: "returnInliner",
 protocol: 'factory',
 fn: function (){
 var self=this;
-function $IRReturnInliner(){return globals.IRReturnInliner||(typeof IRReturnInliner=="undefined"?nil:IRReturnInliner)}
+function $IRReturnInliner(){return $globals.IRReturnInliner||(typeof IRReturnInliner=="undefined"?nil:IRReturnInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -513,7 +513,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"returnInliner",{},globals.IRInliner)});
+}, function($ctx1) {$ctx1.fill(self,"returnInliner",{},$globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -523,7 +523,7 @@ referencedClasses: ["IRReturnInliner"],
 //>>excludeEnd("ide");
 messageSends: ["translator:", "new", "yourself"]
 }),
-globals.IRInliner);
+$globals.IRInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -531,7 +531,7 @@ selector: "sendInliner",
 protocol: 'factory',
 fn: function (){
 var self=this;
-function $IRSendInliner(){return globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
+function $IRSendInliner(){return $globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -542,7 +542,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sendInliner",{},globals.IRInliner)});
+}, function($ctx1) {$ctx1.fill(self,"sendInliner",{},$globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -552,7 +552,7 @@ referencedClasses: ["IRSendInliner"],
 //>>excludeEnd("ide");
 messageSends: ["translator:", "new", "yourself"]
 }),
-globals.IRInliner);
+$globals.IRInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -595,7 +595,7 @@ $ctx1.sendIdx["and:"]=1;
 //>>excludeEnd("ctx");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldInlineAssignment:",{anIRAssignment:anIRAssignment},globals.IRInliner)});
+}, function($ctx1) {$ctx1.fill(self,"shouldInlineAssignment:",{anIRAssignment:anIRAssignment},$globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -605,7 +605,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["and:", "not", "isInlined", "isSend", "last", "instructions", "shouldInlineSend:"]
 }),
-globals.IRInliner);
+$globals.IRInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -648,7 +648,7 @@ $ctx1.sendIdx["and:"]=1;
 //>>excludeEnd("ctx");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldInlineReturn:",{anIRReturn:anIRReturn},globals.IRInliner)});
+}, function($ctx1) {$ctx1.fill(self,"shouldInlineReturn:",{anIRReturn:anIRReturn},$globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -658,7 +658,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["and:", "not", "isInlined", "isSend", "first", "instructions", "shouldInlineSend:"]
 }),
-globals.IRInliner);
+$globals.IRInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -666,7 +666,7 @@ selector: "shouldInlineSend:",
 protocol: 'testing',
 fn: function (anIRSend){
 var self=this;
-function $IRSendInliner(){return globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
+function $IRSendInliner(){return $globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -682,7 +682,7 @@ return _st($IRSendInliner())._shouldInline_(anIRSend);
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldInlineSend:",{anIRSend:anIRSend},globals.IRInliner)});
+}, function($ctx1) {$ctx1.fill(self,"shouldInlineSend:",{anIRSend:anIRSend},$globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -692,7 +692,7 @@ referencedClasses: ["IRSendInliner"],
 //>>excludeEnd("ide");
 messageSends: ["and:", "not", "isInlined", "shouldInline:"]
 }),
-globals.IRInliner);
+$globals.IRInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -701,7 +701,7 @@ protocol: 'visiting',
 fn: function (anIRNonLocalReturn){
 var self=this;
 var localReturn;
-function $IRReturn(){return globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
+function $IRReturn(){return $globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -744,13 +744,13 @@ $9=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.IRInliner.superclass.fn.prototype._visitIRNonLocalReturn_.apply(_st(self), [anIRNonLocalReturn]));
+$globals.IRInliner.superclass.fn.prototype._visitIRNonLocalReturn_.apply(_st(self), [anIRNonLocalReturn]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 return $9;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"transformNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn,localReturn:localReturn},globals.IRInliner)});
+}, function($ctx1) {$ctx1.fill(self,"transformNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn,localReturn:localReturn},$globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -760,7 +760,7 @@ referencedClasses: ["IRReturn"],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:", "canInlineNonLocalReturns", "scope", "removeNonLocalReturn:", "methodScope", "scope:", "new", "yourself", "do:", "instructions", "add:", "replaceWith:", "visitIRNonLocalReturn:"]
 }),
-globals.IRInliner);
+$globals.IRInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -780,14 +780,14 @@ $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.IRInliner.superclass.fn.prototype._visitIRAssignment_.apply(_st(self), [anIRAssignment]));
+$globals.IRInliner.superclass.fn.prototype._visitIRAssignment_.apply(_st(self), [anIRAssignment]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRAssignment:",{anIRAssignment:anIRAssignment},globals.IRInliner)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRAssignment:",{anIRAssignment:anIRAssignment},$globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -797,7 +797,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "shouldInlineAssignment:", "inlineAssignment:", "assignmentInliner", "visitIRAssignment:"]
 }),
-globals.IRInliner);
+$globals.IRInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -812,7 +812,7 @@ var $1;
 $1=self._transformNonLocalReturn_(anIRNonLocalReturn);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn},globals.IRInliner)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn},$globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -822,7 +822,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["transformNonLocalReturn:"]
 }),
-globals.IRInliner);
+$globals.IRInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -842,14 +842,14 @@ $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.IRInliner.superclass.fn.prototype._visitIRReturn_.apply(_st(self), [anIRReturn]));
+$globals.IRInliner.superclass.fn.prototype._visitIRReturn_.apply(_st(self), [anIRReturn]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRReturn:",{anIRReturn:anIRReturn},globals.IRInliner)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRReturn:",{anIRReturn:anIRReturn},$globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -859,7 +859,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "shouldInlineReturn:", "inlineReturn:", "returnInliner", "visitIRReturn:"]
 }),
-globals.IRInliner);
+$globals.IRInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -879,14 +879,14 @@ $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.IRInliner.superclass.fn.prototype._visitIRSend_.apply(_st(self), [anIRSend]));
+$globals.IRInliner.superclass.fn.prototype._visitIRSend_.apply(_st(self), [anIRSend]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend},globals.IRInliner)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend},$globals.IRInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -896,13 +896,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "shouldInlineSend:", "inlineSend:", "sendInliner", "visitIRSend:"]
 }),
-globals.IRInliner);
+$globals.IRInliner);
 
 
 
-$vm.addClass('IRInliningJSTranslator', globals.IRJSTranslator, [], 'Compiler-Inlining');
+$vm.addClass('IRInliningJSTranslator', $globals.IRJSTranslator, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRInliningJSTranslator.comment="I am a specialized JavaScript translator able to write inlined IR instructions to JavaScript stream (`JSStream` instance).";
+$globals.IRInliningJSTranslator.comment="I am a specialized JavaScript translator able to write inlined IR instructions to JavaScript stream (`JSStream` instance).";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -916,7 +916,7 @@ return $vm.withContext(function($ctx1) {
 self._visit_(_st(_st(anIRInlinedAssignment)._instructions())._last());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedAssignment:",{anIRInlinedAssignment:anIRInlinedAssignment},globals.IRInliningJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedAssignment:",{anIRInlinedAssignment:anIRInlinedAssignment},$globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -926,7 +926,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visit:", "last", "instructions"]
 }),
-globals.IRInliningJSTranslator);
+$globals.IRInliningJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -957,7 +957,7 @@ return self._visit_(each);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedClosure:",{anIRInlinedClosure:anIRInlinedClosure},globals.IRInliningJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedClosure:",{anIRInlinedClosure:anIRInlinedClosure},$globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -967,7 +967,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutVars:", "stream", "collect:", "tempDeclarations", "asVariableName", "name", "do:", "instructions", "visit:"]
 }),
-globals.IRInliningJSTranslator);
+$globals.IRInliningJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -1019,7 +1019,7 @@ return self._visit_(_st(_st(anIRInlinedIfFalse)._instructions())._last());
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfFalse:",{anIRInlinedIfFalse:anIRInlinedIfFalse},globals.IRInliningJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfFalse:",{anIRInlinedIfFalse:anIRInlinedIfFalse},$globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1029,7 +1029,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutIf:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "last"]
 }),
-globals.IRInliningJSTranslator);
+$globals.IRInliningJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -1101,7 +1101,7 @@ return self._visit_(_st(_st(anIRInlinedIfNilIfNotNil)._instructions())._third())
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfNilIfNotNil:",{anIRInlinedIfNilIfNotNil:anIRInlinedIfNilIfNotNil},globals.IRInliningJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfNilIfNotNil:",{anIRInlinedIfNilIfNotNil:anIRInlinedIfNilIfNotNil},$globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1111,7 +1111,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutIfElse:with:with:", "stream", "nextPutAll:", ",", "receiverInternalVariableName", "visit:", "first", "instructions", "second", "third"]
 }),
-globals.IRInliningJSTranslator);
+$globals.IRInliningJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -1163,7 +1163,7 @@ return self._visit_(_st(_st(anIRInlinedIfTrue)._instructions())._last());
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfTrue:",{anIRInlinedIfTrue:anIRInlinedIfTrue},globals.IRInliningJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfTrue:",{anIRInlinedIfTrue:anIRInlinedIfTrue},$globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1173,7 +1173,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutIf:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "last"]
 }),
-globals.IRInliningJSTranslator);
+$globals.IRInliningJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -1241,7 +1241,7 @@ return self._visit_(_st(_st(anIRInlinedIfTrueIfFalse)._instructions())._third())
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfTrueIfFalse:",{anIRInlinedIfTrueIfFalse:anIRInlinedIfTrueIfFalse},globals.IRInliningJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfTrueIfFalse:",{anIRInlinedIfTrueIfFalse:anIRInlinedIfTrueIfFalse},$globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1251,7 +1251,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutIfElse:with:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "second", "third"]
 }),
-globals.IRInliningJSTranslator);
+$globals.IRInliningJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -1281,7 +1281,7 @@ _st(self._stream())._nextPutNonLocalReturnWith_((function(){
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedNonLocalReturn:",{anIRInlinedReturn:anIRInlinedReturn},globals.IRInliningJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedNonLocalReturn:",{anIRInlinedReturn:anIRInlinedReturn},$globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1291,7 +1291,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutStatementWith:", "stream", "visit:", "last", "instructions", "nextPutNonLocalReturnWith:"]
 }),
-globals.IRInliningJSTranslator);
+$globals.IRInliningJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -1305,7 +1305,7 @@ return $vm.withContext(function($ctx1) {
 self._visit_(_st(_st(anIRInlinedReturn)._instructions())._last());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedReturn:",{anIRInlinedReturn:anIRInlinedReturn},globals.IRInliningJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedReturn:",{anIRInlinedReturn:anIRInlinedReturn},$globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1315,7 +1315,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visit:", "last", "instructions"]
 }),
-globals.IRInliningJSTranslator);
+$globals.IRInliningJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -1345,7 +1345,7 @@ return self._visit_(each);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedSequence:",{anIRInlinedSequence:anIRInlinedSequence},globals.IRInliningJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedSequence:",{anIRInlinedSequence:anIRInlinedSequence},$globals.IRInliningJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1355,13 +1355,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["do:", "instructions", "nextPutStatementWith:", "stream", "visit:"]
 }),
-globals.IRInliningJSTranslator);
+$globals.IRInliningJSTranslator);
 
 
 
-$vm.addClass('IRSendInliner', globals.Object, ['send', 'translator'], 'Compiler-Inlining');
+$vm.addClass('IRSendInliner', $globals.Object, ['send', 'translator'], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRSendInliner.comment="I inline some message sends and block closure arguments. I heavily rely on #perform: to dispatch inlining methods.";
+$globals.IRSendInliner.comment="I inline some message sends and block closure arguments. I heavily rely on #perform: to dispatch inlining methods.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -1369,7 +1369,7 @@ selector: "ifFalse:",
 protocol: 'inlining',
 fn: function (anIRInstruction){
 var self=this;
-function $IRInlinedIfFalse(){return globals.IRInlinedIfFalse||(typeof IRInlinedIfFalse=="undefined"?nil:IRInlinedIfFalse)}
+function $IRInlinedIfFalse(){return $globals.IRInlinedIfFalse||(typeof IRInlinedIfFalse=="undefined"?nil:IRInlinedIfFalse)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1377,7 +1377,7 @@ var $1;
 $1=self._inlinedSend_with_(_st($IRInlinedIfFalse())._new(),anIRInstruction);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifFalse:",{anIRInstruction:anIRInstruction},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"ifFalse:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1387,7 +1387,7 @@ referencedClasses: ["IRInlinedIfFalse"],
 //>>excludeEnd("ide");
 messageSends: ["inlinedSend:with:", "new"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -1402,7 +1402,7 @@ var $1;
 $1=self._perform_withArguments_("ifTrue:ifFalse:",[anotherIRInstruction,anIRInstruction]);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifFalse:ifTrue:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"ifFalse:ifTrue:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1412,7 +1412,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["perform:withArguments:"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -1420,9 +1420,9 @@ selector: "ifNil:",
 protocol: 'inlining',
 fn: function (anIRInstruction){
 var self=this;
-function $IRInlinedIfNilIfNotNil(){return globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
-function $IRClosure(){return globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
-function $IRBlockSequence(){return globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
+function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
+function $IRClosure(){return $globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
+function $IRBlockSequence(){return $globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1453,7 +1453,7 @@ $3=$9;
 $1=self._inlinedSend_with_with_($2,anIRInstruction,$3);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifNil:",{anIRInstruction:anIRInstruction},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"ifNil:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1463,7 +1463,7 @@ referencedClasses: ["IRInlinedIfNilIfNotNil", "IRClosure", "IRBlockSequence"],
 //>>excludeEnd("ide");
 messageSends: ["inlinedSend:with:with:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -1471,7 +1471,7 @@ selector: "ifNil:ifNotNil:",
 protocol: 'inlining',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
-function $IRInlinedIfNilIfNotNil(){return globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
+function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1479,7 +1479,7 @@ var $1;
 $1=self._inlinedSend_with_with_(_st($IRInlinedIfNilIfNotNil())._new(),anIRInstruction,anotherIRInstruction);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1489,7 +1489,7 @@ referencedClasses: ["IRInlinedIfNilIfNotNil"],
 //>>excludeEnd("ide");
 messageSends: ["inlinedSend:with:with:", "new"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -1497,9 +1497,9 @@ selector: "ifNotNil:",
 protocol: 'inlining',
 fn: function (anIRInstruction){
 var self=this;
-function $IRInlinedIfNilIfNotNil(){return globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
-function $IRClosure(){return globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
-function $IRBlockSequence(){return globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
+function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
+function $IRClosure(){return $globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
+function $IRBlockSequence(){return $globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1530,7 +1530,7 @@ $3=$9;
 $1=self._inlinedSend_with_with_($2,$3,anIRInstruction);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{anIRInstruction:anIRInstruction},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1540,7 +1540,7 @@ referencedClasses: ["IRInlinedIfNilIfNotNil", "IRClosure", "IRBlockSequence"],
 //>>excludeEnd("ide");
 messageSends: ["inlinedSend:with:with:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -1548,7 +1548,7 @@ selector: "ifNotNil:ifNil:",
 protocol: 'inlining',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
-function $IRInlinedIfNilIfNotNil(){return globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
+function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1556,7 +1556,7 @@ var $1;
 $1=self._inlinedSend_with_with_(_st($IRInlinedIfNilIfNotNil())._new(),anotherIRInstruction,anIRInstruction);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1566,7 +1566,7 @@ referencedClasses: ["IRInlinedIfNilIfNotNil"],
 //>>excludeEnd("ide");
 messageSends: ["inlinedSend:with:with:", "new"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -1574,7 +1574,7 @@ selector: "ifTrue:",
 protocol: 'inlining',
 fn: function (anIRInstruction){
 var self=this;
-function $IRInlinedIfTrue(){return globals.IRInlinedIfTrue||(typeof IRInlinedIfTrue=="undefined"?nil:IRInlinedIfTrue)}
+function $IRInlinedIfTrue(){return $globals.IRInlinedIfTrue||(typeof IRInlinedIfTrue=="undefined"?nil:IRInlinedIfTrue)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1582,7 +1582,7 @@ var $1;
 $1=self._inlinedSend_with_(_st($IRInlinedIfTrue())._new(),anIRInstruction);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifTrue:",{anIRInstruction:anIRInstruction},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"ifTrue:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1592,7 +1592,7 @@ referencedClasses: ["IRInlinedIfTrue"],
 //>>excludeEnd("ide");
 messageSends: ["inlinedSend:with:", "new"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -1600,7 +1600,7 @@ selector: "ifTrue:ifFalse:",
 protocol: 'inlining',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
-function $IRInlinedIfTrueIfFalse(){return globals.IRInlinedIfTrueIfFalse||(typeof IRInlinedIfTrueIfFalse=="undefined"?nil:IRInlinedIfTrueIfFalse)}
+function $IRInlinedIfTrueIfFalse(){return $globals.IRInlinedIfTrueIfFalse||(typeof IRInlinedIfTrueIfFalse=="undefined"?nil:IRInlinedIfTrueIfFalse)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1608,7 +1608,7 @@ var $1;
 $1=self._inlinedSend_with_with_(_st($IRInlinedIfTrueIfFalse())._new(),anIRInstruction,anotherIRInstruction);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifTrue:ifFalse:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"ifTrue:ifFalse:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1618,7 +1618,7 @@ referencedClasses: ["IRInlinedIfTrueIfFalse"],
 //>>excludeEnd("ide");
 messageSends: ["inlinedSend:with:with:", "new"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -1627,10 +1627,10 @@ protocol: 'inlining',
 fn: function (anIRClosure){
 var self=this;
 var inlinedClosure,sequence,statements;
-function $IRTempDeclaration(){return globals.IRTempDeclaration||(typeof IRTempDeclaration=="undefined"?nil:IRTempDeclaration)}
-function $IRAssignment(){return globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
-function $IRVariable(){return globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
-function $AliasVar(){return globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
+function $IRTempDeclaration(){return $globals.IRTempDeclaration||(typeof IRTempDeclaration=="undefined"?nil:IRTempDeclaration)}
+function $IRAssignment(){return $globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
+function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
+function $AliasVar(){return $globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1828,7 +1828,7 @@ return _st(sequence)._add_(_st(statements)._last());
 $37=inlinedClosure;
 return $37;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,inlinedClosure:inlinedClosure,sequence:sequence,statements:statements},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,inlinedClosure:inlinedClosure,sequence:sequence,statements:statements},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1838,7 +1838,7 @@ referencedClasses: ["IRTempDeclaration", "IRAssignment", "IRVariable", "AliasVar
 //>>excludeEnd("ide");
 messageSends: ["inlinedClosure", "scope:", "scope", "parent:", "parent", "do:", "tempDeclarations", "add:", "inlinedSequence", "arguments", "name:", "new", "yourself", "variable:", "instructions", "last", "ifNotEmpty:", "allButLast", "ifTrue:ifFalse:", "and:", "isReturn", "isBlockReturn", "first"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -1859,7 +1859,7 @@ $2=_st($3)._selector();
 $1=self._perform_withArguments_($2,_st(_st(self._send())._instructions())._allButFirst());
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inlineSend:",{anIRSend:anIRSend},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlineSend:",{anIRSend:anIRSend},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1869,7 +1869,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["send:", "perform:withArguments:", "selector", "send", "allButFirst", "instructions"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -1877,7 +1877,7 @@ selector: "inlinedClosure",
 protocol: 'factory',
 fn: function (){
 var self=this;
-function $IRInlinedClosure(){return globals.IRInlinedClosure||(typeof IRInlinedClosure=="undefined"?nil:IRInlinedClosure)}
+function $IRInlinedClosure(){return $globals.IRInlinedClosure||(typeof IRInlinedClosure=="undefined"?nil:IRInlinedClosure)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1885,7 +1885,7 @@ var $1;
 $1=_st($IRInlinedClosure())._new();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inlinedClosure",{},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlinedClosure",{},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1895,7 +1895,7 @@ referencedClasses: ["IRInlinedClosure"],
 //>>excludeEnd("ide");
 messageSends: ["new"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -1939,7 +1939,7 @@ $ctx1.sendIdx["internalVariables"]=1;
 _st($7)._addAll_(_st(inlinedSend)._internalVariables());
 return inlinedSend;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inlinedSend:with:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,inlinedClosure:inlinedClosure},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlinedSend:with:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,inlinedClosure:inlinedClosure},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1949,7 +1949,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "isClosure", "inliningError:", "=", "size", "arguments", "visit:", "translator", "inlineClosure:", "add:", "first", "instructions", "send", "replaceWith:", "addAll:", "internalVariables", "method"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -2012,7 +2012,7 @@ $ctx1.sendIdx["internalVariables"]=1;
 _st($9)._addAll_(_st(inlinedSend)._internalVariables());
 return inlinedSend;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inlinedSend:with:with:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction,inlinedClosure1:inlinedClosure1,inlinedClosure2:inlinedClosure2},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlinedSend:with:with:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction,inlinedClosure1:inlinedClosure1,inlinedClosure2:inlinedClosure2},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2022,7 +2022,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "isClosure", "inliningError:", "visit:", "translator", "inlineClosure:", "add:", "first", "instructions", "send", "replaceWith:", "addAll:", "internalVariables", "method"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -2030,7 +2030,7 @@ selector: "inlinedSequence",
 protocol: 'factory',
 fn: function (){
 var self=this;
-function $IRInlinedSequence(){return globals.IRInlinedSequence||(typeof IRInlinedSequence=="undefined"?nil:IRInlinedSequence)}
+function $IRInlinedSequence(){return $globals.IRInlinedSequence||(typeof IRInlinedSequence=="undefined"?nil:IRInlinedSequence)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2038,7 +2038,7 @@ var $1;
 $1=_st($IRInlinedSequence())._new();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inlinedSequence",{},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlinedSequence",{},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2048,7 +2048,7 @@ referencedClasses: ["IRInlinedSequence"],
 //>>excludeEnd("ide");
 messageSends: ["new"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -2056,14 +2056,14 @@ selector: "inliningError:",
 protocol: 'error handling',
 fn: function (aString){
 var self=this;
-function $InliningError(){return globals.InliningError||(typeof InliningError=="undefined"?nil:InliningError)}
+function $InliningError(){return $globals.InliningError||(typeof InliningError=="undefined"?nil:InliningError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($InliningError())._signal_(aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inliningError:",{aString:aString},globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inliningError:",{aString:aString},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2073,7 +2073,7 @@ referencedClasses: ["InliningError"],
 //>>excludeEnd("ide");
 messageSends: ["signal:"]
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -2093,7 +2093,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -2112,7 +2112,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -2132,7 +2132,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -2151,7 +2151,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRSendInliner);
+$globals.IRSendInliner);
 
 
 $vm.addMethod(
@@ -2172,7 +2172,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRSendInliner.klass);
+$globals.IRSendInliner.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -2206,7 +2206,7 @@ return true;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldInline:",{anIRInstruction:anIRInstruction},globals.IRSendInliner.klass)});
+}, function($ctx1) {$ctx1.fill(self,"shouldInline:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2216,12 +2216,12 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "includes:", "inlinedSelectors", "selector", "do:", "allButFirst", "instructions", "isClosure"]
 }),
-globals.IRSendInliner.klass);
+$globals.IRSendInliner.klass);
 
 
-$vm.addClass('IRAssignmentInliner', globals.IRSendInliner, ['assignment'], 'Compiler-Inlining');
+$vm.addClass('IRAssignmentInliner', $globals.IRSendInliner, ['assignment'], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRAssignmentInliner.comment="I inline message sends together with assignments by moving them around into the inline closure instructions.\x0a\x0a##Example\x0a\x0a\x09foo\x0a\x09\x09| a |\x0a\x09\x09a := true ifTrue: [ 1 ]\x0a\x0aWill produce:\x0a\x0a\x09if($vm.assert(true) {\x0a\x09\x09a = 1;\x0a\x09};";
+$globals.IRAssignmentInliner.comment="I inline message sends together with assignments by moving them around into the inline closure instructions.\x0a\x0a##Example\x0a\x0a\x09foo\x0a\x09\x09| a |\x0a\x09\x09a := true ifTrue: [ 1 ]\x0a\x0aWill produce:\x0a\x0a\x09if($vm.assert(true) {\x0a\x09\x09a = 1;\x0a\x09};";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -2241,7 +2241,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRAssignmentInliner);
+$globals.IRAssignmentInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -2260,7 +2260,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRAssignmentInliner);
+$globals.IRAssignmentInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -2269,7 +2269,7 @@ protocol: 'inlining',
 fn: function (anIRAssignment){
 var self=this;
 var inlinedAssignment;
-function $IRInlinedAssignment(){return globals.IRInlinedAssignment||(typeof IRInlinedAssignment=="undefined"?nil:IRInlinedAssignment)}
+function $IRInlinedAssignment(){return $globals.IRInlinedAssignment||(typeof IRInlinedAssignment=="undefined"?nil:IRInlinedAssignment)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2294,7 +2294,7 @@ self._inlineSend_(_st(_st(inlinedAssignment)._instructions())._last());
 $2=inlinedAssignment;
 return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inlineAssignment:",{anIRAssignment:anIRAssignment,inlinedAssignment:inlinedAssignment},globals.IRAssignmentInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlineAssignment:",{anIRAssignment:anIRAssignment,inlinedAssignment:inlinedAssignment},$globals.IRAssignmentInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2304,7 +2304,7 @@ referencedClasses: ["IRInlinedAssignment"],
 //>>excludeEnd("ide");
 messageSends: ["assignment:", "new", "do:", "instructions", "add:", "replaceWith:", "inlineSend:", "last"]
 }),
-globals.IRAssignmentInliner);
+$globals.IRAssignmentInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -2313,7 +2313,7 @@ protocol: 'inlining',
 fn: function (anIRClosure){
 var self=this;
 var inlinedClosure,statements;
-function $IRAssignment(){return globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
+function $IRAssignment(){return $globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2322,7 +2322,7 @@ inlinedClosure=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.IRAssignmentInliner.superclass.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]));
+$globals.IRAssignmentInliner.superclass.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -2369,7 +2369,7 @@ return _st($5)._replaceWith_($6);
 $9=inlinedClosure;
 return $9;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,inlinedClosure:inlinedClosure,statements:statements},globals.IRAssignmentInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,inlinedClosure:inlinedClosure,statements:statements},$globals.IRAssignmentInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2379,13 +2379,13 @@ referencedClasses: ["IRAssignment"],
 //>>excludeEnd("ide");
 messageSends: ["inlineClosure:", "instructions", "last", "ifNotEmpty:", "ifTrue:", "canBeAssigned", "replaceWith:", "add:", "new", "first", "assignment", "copy", "yourself"]
 }),
-globals.IRAssignmentInliner);
+$globals.IRAssignmentInliner);
 
 
 
-$vm.addClass('IRReturnInliner', globals.IRSendInliner, [], 'Compiler-Inlining');
+$vm.addClass('IRReturnInliner', $globals.IRSendInliner, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRReturnInliner.comment="I inline message sends with inlined closure together with a return instruction.";
+$globals.IRReturnInliner.comment="I inline message sends with inlined closure together with a return instruction.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -2394,7 +2394,7 @@ protocol: 'inlining',
 fn: function (anIRClosure){
 var self=this;
 var closure,statements;
-function $IRReturn(){return globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
+function $IRReturn(){return $globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2403,7 +2403,7 @@ closure=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.IRReturnInliner.superclass.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]));
+$globals.IRReturnInliner.superclass.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -2441,7 +2441,7 @@ return _st($4)._replaceWith_($6);
 $7=closure;
 return $7;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,closure:closure,statements:statements},globals.IRReturnInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,closure:closure,statements:statements},$globals.IRReturnInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2451,7 +2451,7 @@ referencedClasses: ["IRReturn"],
 //>>excludeEnd("ide");
 messageSends: ["inlineClosure:", "instructions", "last", "ifNotEmpty:", "ifFalse:", "isReturn", "replaceWith:", "add:", "new", "copy", "yourself"]
 }),
-globals.IRReturnInliner);
+$globals.IRReturnInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -2483,7 +2483,7 @@ self._inlineSend_(_st(_st(return_)._instructions())._last());
 $2=return_;
 return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inlineReturn:",{anIRReturn:anIRReturn,return_:return_},globals.IRReturnInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlineReturn:",{anIRReturn:anIRReturn,return_:return_},$globals.IRReturnInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2493,7 +2493,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["inlinedReturn", "do:", "instructions", "add:", "replaceWith:", "inlineSend:", "last"]
 }),
-globals.IRReturnInliner);
+$globals.IRReturnInliner);
 
 $vm.addMethod(
 $vm.method({
@@ -2501,7 +2501,7 @@ selector: "inlinedReturn",
 protocol: 'factory',
 fn: function (){
 var self=this;
-function $IRInlinedReturn(){return globals.IRInlinedReturn||(typeof IRInlinedReturn=="undefined"?nil:IRInlinedReturn)}
+function $IRInlinedReturn(){return $globals.IRInlinedReturn||(typeof IRInlinedReturn=="undefined"?nil:IRInlinedReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2509,7 +2509,7 @@ var $1;
 $1=_st($IRInlinedReturn())._new();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inlinedReturn",{},globals.IRReturnInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlinedReturn",{},$globals.IRReturnInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2519,13 +2519,13 @@ referencedClasses: ["IRInlinedReturn"],
 //>>excludeEnd("ide");
 messageSends: ["new"]
 }),
-globals.IRReturnInliner);
+$globals.IRReturnInliner);
 
 
 
-$vm.addClass('InliningCodeGenerator', globals.CodeGenerator, [], 'Compiler-Inlining');
+$vm.addClass('InliningCodeGenerator', $globals.CodeGenerator, [], 'Compiler-Inlining');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.InliningCodeGenerator.comment="I am a specialized code generator that uses inlining to produce more optimized JavaScript output";
+$globals.InliningCodeGenerator.comment="I am a specialized code generator that uses inlining to produce more optimized JavaScript output";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -2557,7 +2557,7 @@ $3=_st($2)._contents();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream},globals.InliningCodeGenerator)});
+}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream},$globals.InliningCodeGenerator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2567,7 +2567,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visit:", "semanticAnalyzer", "translator", "inliner", "currentClass:", "irTranslator", "currentClass", "contents"]
 }),
-globals.InliningCodeGenerator);
+$globals.InliningCodeGenerator);
 
 $vm.addMethod(
 $vm.method({
@@ -2575,7 +2575,7 @@ selector: "inliner",
 protocol: 'compiling',
 fn: function (){
 var self=this;
-function $IRInliner(){return globals.IRInliner||(typeof IRInliner=="undefined"?nil:IRInliner)}
+function $IRInliner(){return $globals.IRInliner||(typeof IRInliner=="undefined"?nil:IRInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2583,7 +2583,7 @@ var $1;
 $1=_st($IRInliner())._new();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inliner",{},globals.InliningCodeGenerator)});
+}, function($ctx1) {$ctx1.fill(self,"inliner",{},$globals.InliningCodeGenerator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2593,7 +2593,7 @@ referencedClasses: ["IRInliner"],
 //>>excludeEnd("ide");
 messageSends: ["new"]
 }),
-globals.InliningCodeGenerator);
+$globals.InliningCodeGenerator);
 
 $vm.addMethod(
 $vm.method({
@@ -2601,7 +2601,7 @@ selector: "irTranslator",
 protocol: 'compiling',
 fn: function (){
 var self=this;
-function $IRInliningJSTranslator(){return globals.IRInliningJSTranslator||(typeof IRInliningJSTranslator=="undefined"?nil:IRInliningJSTranslator)}
+function $IRInliningJSTranslator(){return $globals.IRInliningJSTranslator||(typeof IRInliningJSTranslator=="undefined"?nil:IRInliningJSTranslator)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2609,7 +2609,7 @@ var $1;
 $1=_st($IRInliningJSTranslator())._new();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"irTranslator",{},globals.InliningCodeGenerator)});
+}, function($ctx1) {$ctx1.fill(self,"irTranslator",{},$globals.InliningCodeGenerator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2619,7 +2619,7 @@ referencedClasses: ["IRInliningJSTranslator"],
 //>>excludeEnd("ide");
 messageSends: ["new"]
 }),
-globals.InliningCodeGenerator);
+$globals.InliningCodeGenerator);
 
 
 });

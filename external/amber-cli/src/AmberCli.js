@@ -4,9 +4,9 @@ var smalltalk=$vm,_st=$recv,globals=$globals;
 $vm.addPackage('AmberCli');
 $vm.packages["AmberCli"].transport = {"type":"amd","amdNamespace":"amber_cli"};
 
-$vm.addClass('AmberCli', globals.Object, [], 'AmberCli');
+$vm.addClass('AmberCli', $globals.Object, [], 'AmberCli');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.AmberCli.comment="I am the Amber CLI (CommandLine Interface) tool which runs on Node.js.\x0a\x0aMy responsibility is to start different Amber programs like the FileServer or the Repl.\x0aWhich program to start is determined by the first commandline parameters passed to the AmberCli executable.\x0aUse `help` to get a list of all available options.\x0aAny further commandline parameters are passed to the specific program.\x0a\x0a## Commands\x0a\x0aNew commands can be added by creating a class side method in the `commands` protocol which takes one parameter.\x0aThis parameter is an array of all commandline options + values passed on to the program.\x0aAny `camelCaseCommand` is transformed into a commandline parameter of the form `camel-case-command` and vice versa.";
+$globals.AmberCli.comment="I am the Amber CLI (CommandLine Interface) tool which runs on Node.js.\x0a\x0aMy responsibility is to start different Amber programs like the FileServer or the Repl.\x0aWhich program to start is determined by the first commandline parameters passed to the AmberCli executable.\x0aUse `help` to get a list of all available options.\x0aAny further commandline parameters are passed to the specific program.\x0a\x0a## Commands\x0a\x0aNew commands can be added by creating a class side method in the `commands` protocol which takes one parameter.\x0aThis parameter is an array of all commandline options + values passed on to the program.\x0aAny `camelCaseCommand` is transformed into a commandline parameter of the form `camel-case-command` and vice versa.";
 //>>excludeEnd("ide");
 
 $vm.addMethod(
@@ -53,7 +53,7 @@ return _st(_st(_st(each)._allButLast())._replace_with_("([A-Z])","-$1"))._asLowe
 $1=switches;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},globals.AmberCli.klass)});
+}, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},$globals.AmberCli.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -63,7 +63,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collect:", "methodsInProtocol:", "class", "selector", "select:", "match:", "asLowercase", "replace:with:", "allButLast"]
 }),
-globals.AmberCli.klass);
+$globals.AmberCli.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -71,14 +71,14 @@ selector: "config:",
 protocol: 'commands',
 fn: function (args){
 var self=this;
-function $Configurator(){return globals.Configurator||(typeof Configurator=="undefined"?nil:Configurator)}
+function $Configurator(){return $globals.Configurator||(typeof Configurator=="undefined"?nil:Configurator)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($Configurator())._new())._start();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"config:",{args:args},globals.AmberCli.klass)});
+}, function($ctx1) {$ctx1.fill(self,"config:",{args:args},$globals.AmberCli.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -88,7 +88,7 @@ referencedClasses: ["Configurator"],
 //>>excludeEnd("ide");
 messageSends: ["start", "new"]
 }),
-globals.AmberCli.klass);
+$globals.AmberCli.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -97,7 +97,7 @@ protocol: 'commandline',
 fn: function (args){
 var self=this;
 var selector;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -111,7 +111,7 @@ _st(args)._remove_(_st(args)._first());
 self._perform_withArguments_(selector,_st($Array())._with_(args));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"handleArguments:",{args:args,selector:selector},globals.AmberCli.klass)});
+}, function($ctx1) {$ctx1.fill(self,"handleArguments:",{args:args,selector:selector},$globals.AmberCli.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -121,7 +121,7 @@ referencedClasses: ["Array"],
 //>>excludeEnd("ide");
 messageSends: ["selectorForCommandLineSwitch:", "first", "remove:", "perform:withArguments:", "with:"]
 }),
-globals.AmberCli.klass);
+$globals.AmberCli.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -129,7 +129,7 @@ selector: "help:",
 protocol: 'commands',
 fn: function (args){
 var self=this;
-function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -145,7 +145,7 @@ return _st(console)._log_(each);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"help:",{args:args},globals.AmberCli.klass)});
+}, function($ctx1) {$ctx1.fill(self,"help:",{args:args},$globals.AmberCli.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -155,7 +155,7 @@ referencedClasses: ["Transcript"],
 //>>excludeEnd("ide");
 messageSends: ["show:", "do:", "commandLineSwitches", "log:"]
 }),
-globals.AmberCli.klass);
+$globals.AmberCli.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -163,14 +163,14 @@ selector: "init:",
 protocol: 'commands',
 fn: function (args){
 var self=this;
-function $Initer(){return globals.Initer||(typeof Initer=="undefined"?nil:Initer)}
+function $Initer(){return $globals.Initer||(typeof Initer=="undefined"?nil:Initer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($Initer())._new())._start();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"init:",{args:args},globals.AmberCli.klass)});
+}, function($ctx1) {$ctx1.fill(self,"init:",{args:args},$globals.AmberCli.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -180,7 +180,7 @@ referencedClasses: ["Initer"],
 //>>excludeEnd("ide");
 messageSends: ["start", "new"]
 }),
-globals.AmberCli.klass);
+$globals.AmberCli.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -189,8 +189,8 @@ protocol: 'startup',
 fn: function (){
 var self=this;
 var args,nodeMinorVersion;
-function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -246,7 +246,7 @@ return $11;
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"main",{args:args,nodeMinorVersion:nodeMinorVersion},globals.AmberCli.klass)});
+}, function($ctx1) {$ctx1.fill(self,"main",{args:args,nodeMinorVersion:nodeMinorVersion},$globals.AmberCli.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -256,7 +256,7 @@ referencedClasses: ["Transcript", "Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["show:", ",", "version", "node", "versions", "asNumber", "second", "tokenize:", "ifTrue:", "<", "argv", "removeFrom:to:", "ifTrue:ifFalse:", "isEmpty", "help:", "handleArguments:"]
 }),
-globals.AmberCli.klass);
+$globals.AmberCli.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -264,7 +264,7 @@ selector: "repl:",
 protocol: 'commands',
 fn: function (args){
 var self=this;
-function $Repl(){return globals.Repl||(typeof Repl=="undefined"?nil:Repl)}
+function $Repl(){return $globals.Repl||(typeof Repl=="undefined"?nil:Repl)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -272,7 +272,7 @@ var $1;
 $1=_st(_st($Repl())._new())._createInterface();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"repl:",{args:args},globals.AmberCli.klass)});
+}, function($ctx1) {$ctx1.fill(self,"repl:",{args:args},$globals.AmberCli.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -282,7 +282,7 @@ referencedClasses: ["Repl"],
 //>>excludeEnd("ide");
 messageSends: ["createInterface", "new"]
 }),
-globals.AmberCli.klass);
+$globals.AmberCli.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -314,7 +314,7 @@ selector;
 $2=selector;
 return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch,command:command,selector:selector},globals.AmberCli.klass)});
+}, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch,command:command,selector:selector},$globals.AmberCli.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -324,7 +324,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "includes:", "commandLineSwitches", ",", "replace:with:", "asUppercase", "second"]
 }),
-globals.AmberCli.klass);
+$globals.AmberCli.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -332,7 +332,7 @@ selector: "serve:",
 protocol: 'commands',
 fn: function (args){
 var self=this;
-function $FileServer(){return globals.FileServer||(typeof FileServer=="undefined"?nil:FileServer)}
+function $FileServer(){return $globals.FileServer||(typeof FileServer=="undefined"?nil:FileServer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -340,7 +340,7 @@ var $1;
 $1=_st(_st($FileServer())._createServerWithArguments_(args))._start();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"serve:",{args:args},globals.AmberCli.klass)});
+}, function($ctx1) {$ctx1.fill(self,"serve:",{args:args},$globals.AmberCli.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -350,7 +350,7 @@ referencedClasses: ["FileServer"],
 //>>excludeEnd("ide");
 messageSends: ["start", "createServerWithArguments:"]
 }),
-globals.AmberCli.klass);
+$globals.AmberCli.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -368,10 +368,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AmberCli.klass);
+$globals.AmberCli.klass);
 
 
-$vm.addClass('BaseFileManipulator', globals.Object, ['path', 'fs'], 'AmberCli');
+$vm.addClass('BaseFileManipulator', $globals.Object, ['path', 'fs'], 'AmberCli');
 $vm.addMethod(
 $vm.method({
 selector: "dirname",
@@ -384,7 +384,7 @@ return $vm.withContext(function($ctx1) {
 return __dirname;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"dirname",{},globals.BaseFileManipulator)});
+}, function($ctx1) {$ctx1.fill(self,"dirname",{},$globals.BaseFileManipulator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -394,7 +394,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.BaseFileManipulator);
+$globals.BaseFileManipulator);
 
 $vm.addMethod(
 $vm.method({
@@ -409,7 +409,7 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.BaseFileManipulator.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.BaseFileManipulator.superclass.fn.prototype._initialize.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -420,7 +420,7 @@ $ctx1.sendIdx["value:"]=1;
 self["@fs"]=_st(require)._value_("fs");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.BaseFileManipulator)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.BaseFileManipulator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -430,7 +430,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initialize", "value:"]
 }),
-globals.BaseFileManipulator);
+$globals.BaseFileManipulator);
 
 $vm.addMethod(
 $vm.method({
@@ -445,7 +445,7 @@ var $1;
 $1=_st(self["@path"])._join_with_(self._dirname(),"..");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"rootDirname",{},globals.BaseFileManipulator)});
+}, function($ctx1) {$ctx1.fill(self,"rootDirname",{},$globals.BaseFileManipulator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -455,11 +455,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["join:with:", "dirname"]
 }),
-globals.BaseFileManipulator);
+$globals.BaseFileManipulator);
 
 
 
-$vm.addClass('Configurator', globals.BaseFileManipulator, [], 'AmberCli');
+$vm.addClass('Configurator', $globals.BaseFileManipulator, [], 'AmberCli');
 $vm.addMethod(
 $vm.method({
 selector: "initialize",
@@ -473,13 +473,13 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.Configurator.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.Configurator.superclass.fn.prototype._initialize.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Configurator)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.Configurator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -489,7 +489,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initialize"]
 }),
-globals.Configurator);
+$globals.Configurator);
 
 $vm.addMethod(
 $vm.method({
@@ -516,7 +516,7 @@ return _st(process)._exit_((111));
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"start",{},globals.Configurator)});
+}, function($ctx1) {$ctx1.fill(self,"start",{},$globals.Configurator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -526,7 +526,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["writeConfigThenDo:", "ifNotNil:ifNil:", "exit:", "exit"]
 }),
-globals.Configurator);
+$globals.Configurator);
 
 $vm.addMethod(
 $vm.method({
@@ -540,7 +540,7 @@ return $vm.withContext(function($ctx1) {
 _st(_st(require)._value_("amber-dev/lib/config"))._writeConfig_toFile_thenDo_(_st(process)._cwd(),"config.js",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"writeConfigThenDo:",{aBlock:aBlock},globals.Configurator)});
+}, function($ctx1) {$ctx1.fill(self,"writeConfigThenDo:",{aBlock:aBlock},$globals.Configurator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -550,13 +550,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["writeConfig:toFile:thenDo:", "value:", "cwd"]
 }),
-globals.Configurator);
+$globals.Configurator);
 
 
 
-$vm.addClass('FileServer', globals.BaseFileManipulator, ['http', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'AmberCli');
+$vm.addClass('FileServer', $globals.BaseFileManipulator, ['http', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'AmberCli');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.FileServer.comment="I am the Amber Smalltalk FileServer.\x0aMy runtime requirement is a functional Node.js executable.\x0a\x0aTo start a FileServer instance on port `4000` use the following code:\x0a\x0a    FileServer new start\x0a\x0aA parameterized instance can be created with the following code:\x0a\x0a    FileServer createServerWithArguments: options\x0a\x0aHere, `options` is an array of commandline style strings each followed by a value e.g. `#('--port', '6000', '--host', '0.0.0.0')`.\x0aA list of all available parameters can be printed to the commandline by passing `--help` as parameter.\x0aSee the `Options` section for further details on how options are mapped to instance methods.\x0a\x0aAfter startup FileServer checks if the directory layout required by Amber is present and logs a warning on absence.\x0a\x0a\x0a## Options\x0a\x0aEach option is of the form `--some-option-string` which is transformed into a selector of the format `someOptionString:`.\x0aThe trailing `--` gets removed, each `-[a-z]` gets transformed into the according uppercase letter, and a `:` is appended to create a selector which takes a single argument.\x0aAfterwards, the selector gets executed on the `FileServer` instance with the value following in the options array as parameter.\x0a\x0a## Adding new commandline parameters\x0a\x0aAdding new commandline parameters to `FileServer` is as easy as adding a new single parameter method to the `accessing` protocol.";
+$globals.FileServer.comment="I am the Amber Smalltalk FileServer.\x0aMy runtime requirement is a functional Node.js executable.\x0a\x0aTo start a FileServer instance on port `4000` use the following code:\x0a\x0a    FileServer new start\x0a\x0aA parameterized instance can be created with the following code:\x0a\x0a    FileServer createServerWithArguments: options\x0a\x0aHere, `options` is an array of commandline style strings each followed by a value e.g. `#('--port', '6000', '--host', '0.0.0.0')`.\x0aA list of all available parameters can be printed to the commandline by passing `--help` as parameter.\x0aSee the `Options` section for further details on how options are mapped to instance methods.\x0a\x0aAfter startup FileServer checks if the directory layout required by Amber is present and logs a warning on absence.\x0a\x0a\x0a## Options\x0a\x0aEach option is of the form `--some-option-string` which is transformed into a selector of the format `someOptionString:`.\x0aThe trailing `--` gets removed, each `-[a-z]` gets transformed into the according uppercase letter, and a `:` is appended to create a selector which takes a single argument.\x0aAfterwards, the selector gets executed on the `FileServer` instance with the value following in the options array as parameter.\x0a\x0a## Adding new commandline parameters\x0a\x0aAdding new commandline parameters to `FileServer` is as easy as adding a new single parameter method to the `accessing` protocol.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -570,7 +570,7 @@ return $vm.withContext(function($ctx1) {
 return (new Buffer(aString, 'base64').toString());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"base64Decode:",{aString:aString},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"base64Decode:",{aString:aString},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -580,7 +580,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -600,7 +600,7 @@ $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"basePath",{},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"basePath",{},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -610,7 +610,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "defaultBasePath", "class"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -625,7 +625,7 @@ self["@basePath"]=aString;
 self._validateBasePath();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"basePath:",{aString:aString},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"basePath:",{aString:aString},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -635,7 +635,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["validateBasePath"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -665,7 +665,7 @@ _st(console)._warn_("    for all paths that do not map to a file, with --fallbac
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"checkDirectoryLayout",{},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"checkDirectoryLayout",{},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -675,7 +675,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "existsSync:", "withBasePath:", "warn:"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -695,7 +695,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -714,7 +714,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -749,7 +749,7 @@ return self._respondNotFoundTo_(aResponse);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"handleGETRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse,uri:uri,filename:filename},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"handleGETRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse,uri:uri,filename:filename},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -759,7 +759,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "url", "join:with:", "basePath", "pathname", "exists:do:", "ifFalse:ifTrue:", "respondNotFoundTo:", "ifTrue:ifFalse:", "isDirectory", "statSync:", "respondDirectoryNamed:from:to:", "respondFileNamed:to:"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -770,11 +770,11 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(aResponse)._writeHead_options_((200),globals.HashedCollection._newFromPairs_(["Access-Control-Allow-Origin","*","Access-Control-Allow-Methods","GET, PUT, POST, DELETE, OPTIONS","Access-Control-Allow-Headers","Content-Type, Accept","Content-Length",(0),"Access-Control-Max-Age",(10)]));
+_st(aResponse)._writeHead_options_((200),$globals.HashedCollection._newFromPairs_(["Access-Control-Allow-Origin","*","Access-Control-Allow-Methods","GET, PUT, POST, DELETE, OPTIONS","Access-Control-Allow-Headers","Content-Type, Accept","Content-Length",(0),"Access-Control-Max-Age",(10)]));
 _st(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"handleOPTIONSRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"handleOPTIONSRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -784,7 +784,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["writeHead:options:", "end"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -872,7 +872,7 @@ return _st(stream)._end();
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"handlePUTRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse,file:file,stream:stream},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"handlePUTRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse,file:file,stream:stream},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -882,7 +882,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "isAuthenticated:", "respondAuthenticationRequiredTo:", ",", "url", "createWriteStream:", "on:do:", "warn:", "respondNotCreatedTo:", "respondCreatedTo:", "setEncoding:", "write:", "ifTrue:", "writable", "end"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -922,7 +922,7 @@ self._handleOPTIONSRequest_respondTo_(aRequest,aResponse);
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"handleRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"handleRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -932,7 +932,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:", "=", "method", "handlePUTRequest:respondTo:", "handleGETRequest:respondTo:", "handleOPTIONSRequest:respondTo:"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -952,7 +952,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -971,7 +971,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -987,7 +987,7 @@ var $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.FileServer.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.FileServer.superclass.fn.prototype._initialize.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -1011,7 +1011,7 @@ self["@password"]=nil;
 self["@fallbackPage"]=nil;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1021,7 +1021,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initialize", "require:", "defaultHost", "class", "defaultPort"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1110,7 +1110,7 @@ return false;
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isAuthenticated:",{aRequest:aRequest,header:header,token:token,auth:auth,parts:parts},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"isAuthenticated:",{aRequest:aRequest,header:header,token:token,auth:auth,parts:parts},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1120,7 +1120,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:", "and:", "isNil", "ifNil:", "at:", "headers", "ifTrue:ifFalse:", "isEmpty", "tokenize:", "base64Decode:", "="]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1139,7 +1139,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1159,7 +1159,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1178,7 +1178,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1193,7 +1193,7 @@ var $1;
 $1=_st(require)._value_(aModuleString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"require:",{aModuleString:aModuleString},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"require:",{aModuleString:aModuleString},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1203,7 +1203,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1215,12 +1215,12 @@ var self=this;
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-_st(aResponse)._writeHead_options_((401),globals.HashedCollection._newFromPairs_(["WWW-Authenticate","Basic realm=\x22Secured Developer Area\x22"]));
+_st(aResponse)._writeHead_options_((401),$globals.HashedCollection._newFromPairs_(["WWW-Authenticate","Basic realm=\x22Secured Developer Area\x22"]));
 _st(aResponse)._write_("<html><body>Authentication needed</body></html>");
 $1=_st(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"respondAuthenticationRequiredTo:",{aResponse:aResponse},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"respondAuthenticationRequiredTo:",{aResponse:aResponse},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1230,7 +1230,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["writeHead:options:", "write:", "end"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1242,11 +1242,11 @@ var self=this;
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-_st(aResponse)._writeHead_options_((201),globals.HashedCollection._newFromPairs_(["Content-Type","text/plain","Access-Control-Allow-Origin","*"]));
+_st(aResponse)._writeHead_options_((201),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain","Access-Control-Allow-Origin","*"]));
 $1=_st(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"respondCreatedTo:",{aResponse:aResponse},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"respondCreatedTo:",{aResponse:aResponse},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1256,7 +1256,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["writeHead:options:", "end"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1295,7 +1295,7 @@ self._respondRedirect_to_($4,aResponse);
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"respondDirectoryNamed:from:to:",{aDirname:aDirname,aUrl:aUrl,aResponse:aResponse},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"respondDirectoryNamed:from:to:",{aDirname:aDirname,aUrl:aUrl,aResponse:aResponse},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1305,7 +1305,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "endsWith:", "pathname", "respondFileNamed:to:", ",", "respondRedirect:to:", "ifNil:", "search"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1340,7 +1340,7 @@ if($vm.assert($4)){
 type=_st(type).__comma(";charset=utf-8");
 type;
 };
-_st(aResponse)._writeHead_options_((200),globals.HashedCollection._newFromPairs_(["Content-Type",type]));
+_st(aResponse)._writeHead_options_((200),$globals.HashedCollection._newFromPairs_(["Content-Type",type]));
 _st(aResponse)._write_encoding_(file,"binary");
 $5=_st(aResponse)._end();
 return $5;
@@ -1351,7 +1351,7 @@ return $5;
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"respondFileNamed:to:",{aFilename:aFilename,aResponse:aResponse,type:type,filename:filename},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"respondFileNamed:to:",{aFilename:aFilename,aResponse:aResponse,type:type,filename:filename},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1361,7 +1361,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["readFile:do:", "ifTrue:ifFalse:", "notNil", "log:", ",", "respondNotFoundTo:", "mimeTypeFor:", "class", "ifTrue:", "=", "writeHead:options:", "write:encoding:", "end"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1373,12 +1373,12 @@ var self=this;
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-_st(aResponse)._writeHead_options_((500),globals.HashedCollection._newFromPairs_(["Content-Type","text/plain"]));
+_st(aResponse)._writeHead_options_((500),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain"]));
 _st(aResponse)._write_("500 Internal server error");
 $1=_st(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"respondInternalErrorTo:",{aResponse:aResponse},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"respondInternalErrorTo:",{aResponse:aResponse},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1388,7 +1388,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["writeHead:options:", "write:", "end"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1400,12 +1400,12 @@ var self=this;
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-_st(aResponse)._writeHead_options_((400),globals.HashedCollection._newFromPairs_(["Content-Type","text/plain"]));
+_st(aResponse)._writeHead_options_((400),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain"]));
 _st(aResponse)._write_("File could not be created. Did you forget to create the src directory on the server?");
 $1=_st(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"respondNotCreatedTo:",{aResponse:aResponse},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"respondNotCreatedTo:",{aResponse:aResponse},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1415,7 +1415,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["writeHead:options:", "write:", "end"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1436,7 +1436,7 @@ if(!$vm.assert($1)){
 $3=self._respondFileNamed_to_(self._fallbackPage(),aResponse);
 return $3;
 };
-_st(aResponse)._writeHead_options_((404),globals.HashedCollection._newFromPairs_(["Content-Type","text/html"]));
+_st(aResponse)._writeHead_options_((404),$globals.HashedCollection._newFromPairs_(["Content-Type","text/html"]));
 _st(aResponse)._write_("<html><body><p>404 Not found</p>");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["write:"]=1;
@@ -1461,7 +1461,7 @@ _st(aResponse)._write_("</ul></p></body></html>");
 $4=_st(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"respondNotFoundTo:",{aResponse:aResponse},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"respondNotFoundTo:",{aResponse:aResponse},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1471,7 +1471,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "isNil", "fallbackPage", "respondFileNamed:to:", "writeHead:options:", "write:", "end"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1483,11 +1483,11 @@ var self=this;
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-_st(aResponse)._writeHead_options_((200),globals.HashedCollection._newFromPairs_(["Content-Type","text/plain","Access-Control-Allow-Origin","*"]));
+_st(aResponse)._writeHead_options_((200),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain","Access-Control-Allow-Origin","*"]));
 $1=_st(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"respondOKTo:",{aResponse:aResponse},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"respondOKTo:",{aResponse:aResponse},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1497,7 +1497,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["writeHead:options:", "end"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1509,11 +1509,11 @@ var self=this;
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-_st(aResponse)._writeHead_options_((303),globals.HashedCollection._newFromPairs_(["Location",aString]));
+_st(aResponse)._writeHead_options_((303),$globals.HashedCollection._newFromPairs_(["Location",aString]));
 $1=_st(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"respondRedirect:to:",{aString:aString,aResponse:aResponse},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"respondRedirect:to:",{aString:aString,aResponse:aResponse},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1523,7 +1523,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["writeHead:options:", "end"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1596,7 +1596,7 @@ return _st($4)._log_($5);
 $11=_st($1)._listen_host_(self._port(),self._host());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"start",{},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"start",{},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1606,7 +1606,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["checkDirectoryLayout", "on:do:", "createServer:", "handleRequest:respondTo:", "log:", ",", "host", "asString", "port", "listen:host:"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1621,7 +1621,7 @@ self._port_(aPort);
 self._start();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"startOn:",{aPort:aPort},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"startOn:",{aPort:aPort},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1631,7 +1631,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["port:", "start"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1650,7 +1650,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1706,7 +1706,7 @@ return _st($8)._warn_($9);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"validateBasePath",{},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"validateBasePath",{},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1716,7 +1716,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["stat:then:", "basePath", "ifNil:ifNotNil:", "ifFalse:", "isDirectory", "warn:", ","]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1731,7 +1731,7 @@ var $1;
 $1=_st(self["@path"])._join_with_(self._basePath(),aBaseRelativePath);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"withBasePath:",{aBaseRelativePath:aBaseRelativePath},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"withBasePath:",{aBaseRelativePath:aBaseRelativePath},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1741,7 +1741,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["join:with:", "basePath"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 $vm.addMethod(
 $vm.method({
@@ -1755,7 +1755,7 @@ return $vm.withContext(function($ctx1) {
 _st(console)._log_(aFilename);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"writeData:toFileNamed:",{data:data,aFilename:aFilename},globals.FileServer)});
+}, function($ctx1) {$ctx1.fill(self,"writeData:toFileNamed:",{data:data,aFilename:aFilename},$globals.FileServer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1765,10 +1765,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["log:"]
 }),
-globals.FileServer);
+$globals.FileServer);
 
 
-globals.FileServer.klass.iVarNames = ['mimeTypes'];
+$globals.FileServer.klass.iVarNames = ['mimeTypes'];
 $vm.addMethod(
 $vm.method({
 selector: "commandLineSwitches",
@@ -1816,7 +1816,7 @@ $ctx2.sendIdx["replace:with:"]=1;
 $1=switches;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},globals.FileServer.klass)});
+}, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},$globals.FileServer.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1826,7 +1826,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collect:", "methodsInProtocol:", "selector", "select:", "match:", "replace:with:", "asLowercase", "allButLast"]
 }),
-globals.FileServer.klass);
+$globals.FileServer.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -1835,7 +1835,7 @@ protocol: 'initialization',
 fn: function (options){
 var self=this;
 var server,popFront,front,optionName,optionValue,switches;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1933,7 +1933,7 @@ return $11;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"createServerWithArguments:",{options:options,server:server,popFront:popFront,front:front,optionName:optionName,optionValue:optionValue,switches:switches},globals.FileServer.klass)});
+}, function($ctx1) {$ctx1.fill(self,"createServerWithArguments:",{options:options,server:server,popFront:popFront,front:front,optionName:optionName,optionValue:optionValue,switches:switches},$globals.FileServer.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1943,7 +1943,7 @@ referencedClasses: ["Array"],
 //>>excludeEnd("ide");
 messageSends: ["commandLineSwitches", "new", "ifEmpty:", "ifFalse:", "even", "size", "log:", ",", "first", "remove:", "whileTrue:", "notEmpty", "value:", "ifTrue:ifFalse:", "includes:", "selectorForCommandLineSwitch:", "perform:withArguments:", "with:"]
 }),
-globals.FileServer.klass);
+$globals.FileServer.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -1961,7 +1961,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.FileServer.klass);
+$globals.FileServer.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -1979,7 +1979,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.FileServer.klass);
+$globals.FileServer.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -1988,7 +1988,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 var $1;
-$1=globals.HashedCollection._newFromPairs_(["%","application/x-trash","323","text/h323","abw","application/x-abiword","ai","application/postscript","aif","audio/x-aiff","aifc","audio/x-aiff","aiff","audio/x-aiff","alc","chemical/x-alchemy","art","image/x-jg","asc","text/plain","asf","video/x-ms-asf","asn","chemical/x-ncbi-asn1-spec","aso","chemical/x-ncbi-asn1-binary","asx","video/x-ms-asf","au","audio/basic","avi","video/x-msvideo","b","chemical/x-molconn-Z","bak","application/x-trash","bat","application/x-msdos-program","bcpio","application/x-bcpio","bib","text/x-bibtex","bin","application/octet-stream","bmp","image/x-ms-bmp","book","application/x-maker","bsd","chemical/x-crossfire","c","text/x-csrc","c++","text/x-c++src","c3d","chemical/x-chem3d","cac","chemical/x-cache","cache","chemical/x-cache","cascii","chemical/x-cactvs-binary","cat","application/vnd.ms-pki.seccat","cbin","chemical/x-cactvs-binary","cc","text/x-c++src","cdf","application/x-cdf","cdr","image/x-coreldraw","cdt","image/x-coreldrawtemplate","cdx","chemical/x-cdx","cdy","application/vnd.cinderella","cef","chemical/x-cxf","cer","chemical/x-cerius","chm","chemical/x-chemdraw","chrt","application/x-kchart","cif","chemical/x-cif","class","application/java-vm","cls","text/x-tex","cmdf","chemical/x-cmdf","cml","chemical/x-cml","cod","application/vnd.rim.cod","com","application/x-msdos-program","cpa","chemical/x-compass","cpio","application/x-cpio","cpp","text/x-c++src","cpt","image/x-corelphotopaint","crl","application/x-pkcs7-crl","crt","application/x-x509-ca-cert","csf","chemical/x-cache-csf","csh","text/x-csh","csm","chemical/x-csml","csml","chemical/x-csml","css","text/css","csv","text/comma-separated-values","ctab","chemical/x-cactvs-binary","ctx","chemical/x-ctx","cu","application/cu-seeme","cub","chemical/x-gaussian-cube","cxf","chemical/x-cxf","cxx","text/x-c++src","dat","chemical/x-mopac-input","dcr","application/x-director","deb","application/x-debian-package","dif","video/dv","diff","text/plain","dir","application/x-director","djv","image/vnd.djvu","djvu","image/vnd.djvu","dl","video/dl","dll","application/x-msdos-program","dmg","application/x-apple-diskimage","dms","application/x-dms","doc","application/msword","dot","application/msword","dv","video/dv","dvi","application/x-dvi","dx","chemical/x-jcamp-dx","dxr","application/x-director","emb","chemical/x-embl-dl-nucleotide","embl","chemical/x-embl-dl-nucleotide","ent","chemical/x-pdb","eps","application/postscript","etx","text/x-setext","exe","application/x-msdos-program","ez","application/andrew-inset","fb","application/x-maker","fbdoc","application/x-maker","fch","chemical/x-gaussian-checkpoint","fchk","chemical/x-gaussian-checkpoint","fig","application/x-xfig","flac","application/x-flac","fli","video/fli","fm","application/x-maker","frame","application/x-maker","frm","application/x-maker","gal","chemical/x-gaussian-log","gam","chemical/x-gamess-input","gamin","chemical/x-gamess-input","gau","chemical/x-gaussian-input","gcd","text/x-pcs-gcd","gcf","application/x-graphing-calculator","gcg","chemical/x-gcg8-sequence","gen","chemical/x-genbank","gf","application/x-tex-gf","gif","image/gif","gjc","chemical/x-gaussian-input","gjf","chemical/x-gaussian-input","gl","video/gl","gnumeric","application/x-gnumeric","gpt","chemical/x-mopac-graph","gsf","application/x-font","gsm","audio/x-gsm","gtar","application/x-gtar","h","text/x-chdr","h++","text/x-c++hdr","hdf","application/x-hdf","hh","text/x-c++hdr","hin","chemical/x-hin","hpp","text/x-c++hdr","hqx","application/mac-binhex40","hs","text/x-haskell","hta","application/hta","htc","text/x-component","htm","text/html","html","text/html","hxx","text/x-c++hdr","ica","application/x-ica","ice","x-conference/x-cooltalk","ico","image/x-icon","ics","text/calendar","icz","text/calendar","ief","image/ief","iges","model/iges","igs","model/iges","iii","application/x-iphone","inp","chemical/x-gamess-input","ins","application/x-internet-signup","iso","application/x-iso9660-image","isp","application/x-internet-signup","ist","chemical/x-isostar","istr","chemical/x-isostar","jad","text/vnd.sun.j2me.app-descriptor","jar","application/java-archive","java","text/x-java","jdx","chemical/x-jcamp-dx","jmz","application/x-jmol","jng","image/x-jng","jnlp","application/x-java-jnlp-file","jpe","image/jpeg","jpeg","image/jpeg","jpg","image/jpeg","js","application/javascript","kar","audio/midi","key","application/pgp-keys","kil","application/x-killustrator","kin","chemical/x-kinemage","kpr","application/x-kpresenter","kpt","application/x-kpresenter","ksp","application/x-kspread","kwd","application/x-kword","kwt","application/x-kword","latex","application/x-latex","lha","application/x-lha","lhs","text/x-literate-haskell","lsf","video/x-la-asf","lsx","video/x-la-asf","ltx","text/x-tex","lzh","application/x-lzh","lzx","application/x-lzx","m3u","audio/x-mpegurl","m4a","audio/mpeg","maker","application/x-maker","man","application/x-troff-man","mcif","chemical/x-mmcif","mcm","chemical/x-macmolecule","mdb","application/msaccess","me","application/x-troff-me","mesh","model/mesh","mid","audio/midi","midi","audio/midi","mif","application/x-mif","mm","application/x-freemind","mmd","chemical/x-macromodel-input","mmf","application/vnd.smaf","mml","text/mathml","mmod","chemical/x-macromodel-input","mng","video/x-mng","moc","text/x-moc","mol","chemical/x-mdl-molfile","mol2","chemical/x-mol2","moo","chemical/x-mopac-out","mop","chemical/x-mopac-input","mopcrt","chemical/x-mopac-input","mov","video/quicktime","movie","video/x-sgi-movie","mp2","audio/mpeg","mp3","audio/mpeg","mp4","video/mp4","mpc","chemical/x-mopac-input","mpe","video/mpeg","mpeg","video/mpeg","mpega","audio/mpeg","mpg","video/mpeg","mpga","audio/mpeg","ms","application/x-troff-ms","msh","model/mesh","msi","application/x-msi","mvb","chemical/x-mopac-vib","mxu","video/vnd.mpegurl","nb","application/mathematica","nc","application/x-netcdf","nwc","application/x-nwc","o","application/x-object","oda","application/oda","odb","application/vnd.oasis.opendocument.database","odc","application/vnd.oasis.opendocument.chart","odf","application/vnd.oasis.opendocument.formula","odg","application/vnd.oasis.opendocument.graphics","odi","application/vnd.oasis.opendocument.image","odm","application/vnd.oasis.opendocument.text-master","odp","application/vnd.oasis.opendocument.presentation","ods","application/vnd.oasis.opendocument.spreadsheet","odt","application/vnd.oasis.opendocument.text","ogg","application/ogg","old","application/x-trash","oth","application/vnd.oasis.opendocument.text-web","oza","application/x-oz-application","p","text/x-pascal","p7r","application/x-pkcs7-certreqresp","pac","application/x-ns-proxy-autoconfig","pas","text/x-pascal","pat","image/x-coreldrawpattern","pbm","image/x-portable-bitmap","pcf","application/x-font","pcf.Z","application/x-font","pcx","image/pcx","pdb","chemical/x-pdb","pdf","application/pdf","pfa","application/x-font","pfb","application/x-font","pgm","image/x-portable-graymap","pgn","application/x-chess-pgn","pgp","application/pgp-signature","pk","application/x-tex-pk","pl","text/x-perl","pls","audio/x-scpls","pm","text/x-perl","png","image/png","pnm","image/x-portable-anymap","pot","text/plain","ppm","image/x-portable-pixmap","pps","application/vnd.ms-powerpoint","ppt","application/vnd.ms-powerpoint","prf","application/pics-rules","prt","chemical/x-ncbi-asn1-ascii","ps","application/postscript","psd","image/x-photoshop","psp","text/x-psp","py","text/x-python","pyc","application/x-python-code","pyo","application/x-python-code","qt","video/quicktime","qtl","application/x-quicktimeplayer","ra","audio/x-realaudio","ram","audio/x-pn-realaudio","rar","application/rar","ras","image/x-cmu-raster","rd","chemical/x-mdl-rdfile","rdf","application/rdf+xml","rgb","image/x-rgb","rm","audio/x-pn-realaudio","roff","application/x-troff","ros","chemical/x-rosdal","rpm","application/x-redhat-package-manager","rss","application/rss+xml","rtf","text/rtf","rtx","text/richtext","rxn","chemical/x-mdl-rxnfile","sct","text/scriptlet","sd","chemical/x-mdl-sdfile","sd2","audio/x-sd2","sda","application/vnd.stardivision.draw","sdc","application/vnd.stardivision.calc","sdd","application/vnd.stardivision.impress","sdf","chemical/x-mdl-sdfile","sdp","application/vnd.stardivision.impress","sdw","application/vnd.stardivision.writer","ser","application/java-serialized-object","sgf","application/x-go-sgf","sgl","application/vnd.stardivision.writer-global","sh","text/x-sh","shar","application/x-shar","shtml","text/html","sid","audio/prs.sid","sik","application/x-trash","silo","model/mesh","sis","application/vnd.symbian.install","sit","application/x-stuffit","skd","application/x-koan","skm","application/x-koan","skp","application/x-koan","skt","application/x-koan","smf","application/vnd.stardivision.math","smi","application/smil","smil","application/smil","snd","audio/basic","spc","chemical/x-galactic-spc","spl","application/x-futuresplash","src","application/x-wais-source","stc","application/vnd.sun.xml.calc.template","std","application/vnd.sun.xml.draw.template","sti","application/vnd.sun.xml.impress.template","stl","application/vnd.ms-pki.stl","stw","application/vnd.sun.xml.writer.template","sty","text/x-tex","sv4cpio","application/x-sv4cpio","sv4crc","application/x-sv4crc","svg","image/svg+xml","svgz","image/svg+xml","sw","chemical/x-swissprot","swf","application/x-shockwave-flash","swfl","application/x-shockwave-flash","sxc","application/vnd.sun.xml.calc","sxd","application/vnd.sun.xml.draw","sxg","application/vnd.sun.xml.writer.global","sxi","application/vnd.sun.xml.impress","sxm","application/vnd.sun.xml.math","sxw","application/vnd.sun.xml.writer","t","application/x-troff","tar","application/x-tar","taz","application/x-gtar","tcl","text/x-tcl","tex","text/x-tex","texi","application/x-texinfo","texinfo","application/x-texinfo","text","text/plain","tgf","chemical/x-mdl-tgf","tgz","application/x-gtar","tif","image/tiff","tiff","image/tiff","tk","text/x-tcl","tm","text/texmacs","torrent","application/x-bittorrent","tr","application/x-troff","ts","text/texmacs","tsp","application/dsptype","tsv","text/tab-separated-values","txt","text/plain","udeb","application/x-debian-package","uls","text/iuls","ustar","application/x-ustar","val","chemical/x-ncbi-asn1-binary","vcd","application/x-cdlink","vcf","text/x-vcard","vcs","text/x-vcalendar","vmd","chemical/x-vmd","vms","chemical/x-vamas-iso14976","vor","application/vnd.stardivision.writer","vrm","x-world/x-vrml","vrml","x-world/x-vrml","vsd","application/vnd.visio","wad","application/x-doom","wav","audio/x-wav","wax","audio/x-ms-wax","wbmp","image/vnd.wap.wbmp","wbxml","application/vnd.wap.wbxml","wk","application/x-123","wm","video/x-ms-wm","wma","audio/x-ms-wma","wmd","application/x-ms-wmd","wml","text/vnd.wap.wml","wmlc","application/vnd.wap.wmlc","wmls","text/vnd.wap.wmlscript","wmlsc","application/vnd.wap.wmlscriptc","wmv","video/x-ms-wmv","wmx","video/x-ms-wmx","wmz","application/x-ms-wmz","wp5","application/wordperfect5.1","wpd","application/wordperfect","wrl","x-world/x-vrml","wsc","text/scriptlet","wvx","video/x-ms-wvx","wz","application/x-wingz","xbm","image/x-xbitmap","xcf","application/x-xcf","xht","application/xhtml+xml","xhtml","application/xhtml+xml","xlb","application/vnd.ms-excel","xls","application/vnd.ms-excel","xlt","application/vnd.ms-excel","xml","application/xml","xpi","application/x-xpinstall","xpm","image/x-xpixmap","xsl","application/xml","xtel","chemical/x-xtel","xul","application/vnd.mozilla.xul+xml","xwd","image/x-xwindowdump","xyz","chemical/x-xyz","zip","application/zip","zmt","chemical/x-mopac-input","~","application/x-trash"]);
+$1=$globals.HashedCollection._newFromPairs_(["%","application/x-trash","323","text/h323","abw","application/x-abiword","ai","application/postscript","aif","audio/x-aiff","aifc","audio/x-aiff","aiff","audio/x-aiff","alc","chemical/x-alchemy","art","image/x-jg","asc","text/plain","asf","video/x-ms-asf","asn","chemical/x-ncbi-asn1-spec","aso","chemical/x-ncbi-asn1-binary","asx","video/x-ms-asf","au","audio/basic","avi","video/x-msvideo","b","chemical/x-molconn-Z","bak","application/x-trash","bat","application/x-msdos-program","bcpio","application/x-bcpio","bib","text/x-bibtex","bin","application/octet-stream","bmp","image/x-ms-bmp","book","application/x-maker","bsd","chemical/x-crossfire","c","text/x-csrc","c++","text/x-c++src","c3d","chemical/x-chem3d","cac","chemical/x-cache","cache","chemical/x-cache","cascii","chemical/x-cactvs-binary","cat","application/vnd.ms-pki.seccat","cbin","chemical/x-cactvs-binary","cc","text/x-c++src","cdf","application/x-cdf","cdr","image/x-coreldraw","cdt","image/x-coreldrawtemplate","cdx","chemical/x-cdx","cdy","application/vnd.cinderella","cef","chemical/x-cxf","cer","chemical/x-cerius","chm","chemical/x-chemdraw","chrt","application/x-kchart","cif","chemical/x-cif","class","application/java-vm","cls","text/x-tex","cmdf","chemical/x-cmdf","cml","chemical/x-cml","cod","application/vnd.rim.cod","com","application/x-msdos-program","cpa","chemical/x-compass","cpio","application/x-cpio","cpp","text/x-c++src","cpt","image/x-corelphotopaint","crl","application/x-pkcs7-crl","crt","application/x-x509-ca-cert","csf","chemical/x-cache-csf","csh","text/x-csh","csm","chemical/x-csml","csml","chemical/x-csml","css","text/css","csv","text/comma-separated-values","ctab","chemical/x-cactvs-binary","ctx","chemical/x-ctx","cu","application/cu-seeme","cub","chemical/x-gaussian-cube","cxf","chemical/x-cxf","cxx","text/x-c++src","dat","chemical/x-mopac-input","dcr","application/x-director","deb","application/x-debian-package","dif","video/dv","diff","text/plain","dir","application/x-director","djv","image/vnd.djvu","djvu","image/vnd.djvu","dl","video/dl","dll","application/x-msdos-program","dmg","application/x-apple-diskimage","dms","application/x-dms","doc","application/msword","dot","application/msword","dv","video/dv","dvi","application/x-dvi","dx","chemical/x-jcamp-dx","dxr","application/x-director","emb","chemical/x-embl-dl-nucleotide","embl","chemical/x-embl-dl-nucleotide","ent","chemical/x-pdb","eps","application/postscript","etx","text/x-setext","exe","application/x-msdos-program","ez","application/andrew-inset","fb","application/x-maker","fbdoc","application/x-maker","fch","chemical/x-gaussian-checkpoint","fchk","chemical/x-gaussian-checkpoint","fig","application/x-xfig","flac","application/x-flac","fli","video/fli","fm","application/x-maker","frame","application/x-maker","frm","application/x-maker","gal","chemical/x-gaussian-log","gam","chemical/x-gamess-input","gamin","chemical/x-gamess-input","gau","chemical/x-gaussian-input","gcd","text/x-pcs-gcd","gcf","application/x-graphing-calculator","gcg","chemical/x-gcg8-sequence","gen","chemical/x-genbank","gf","application/x-tex-gf","gif","image/gif","gjc","chemical/x-gaussian-input","gjf","chemical/x-gaussian-input","gl","video/gl","gnumeric","application/x-gnumeric","gpt","chemical/x-mopac-graph","gsf","application/x-font","gsm","audio/x-gsm","gtar","application/x-gtar","h","text/x-chdr","h++","text/x-c++hdr","hdf","application/x-hdf","hh","text/x-c++hdr","hin","chemical/x-hin","hpp","text/x-c++hdr","hqx","application/mac-binhex40","hs","text/x-haskell","hta","application/hta","htc","text/x-component","htm","text/html","html","text/html","hxx","text/x-c++hdr","ica","application/x-ica","ice","x-conference/x-cooltalk","ico","image/x-icon","ics","text/calendar","icz","text/calendar","ief","image/ief","iges","model/iges","igs","model/iges","iii","application/x-iphone","inp","chemical/x-gamess-input","ins","application/x-internet-signup","iso","application/x-iso9660-image","isp","application/x-internet-signup","ist","chemical/x-isostar","istr","chemical/x-isostar","jad","text/vnd.sun.j2me.app-descriptor","jar","application/java-archive","java","text/x-java","jdx","chemical/x-jcamp-dx","jmz","application/x-jmol","jng","image/x-jng","jnlp","application/x-java-jnlp-file","jpe","image/jpeg","jpeg","image/jpeg","jpg","image/jpeg","js","application/javascript","kar","audio/midi","key","application/pgp-keys","kil","application/x-killustrator","kin","chemical/x-kinemage","kpr","application/x-kpresenter","kpt","application/x-kpresenter","ksp","application/x-kspread","kwd","application/x-kword","kwt","application/x-kword","latex","application/x-latex","lha","application/x-lha","lhs","text/x-literate-haskell","lsf","video/x-la-asf","lsx","video/x-la-asf","ltx","text/x-tex","lzh","application/x-lzh","lzx","application/x-lzx","m3u","audio/x-mpegurl","m4a","audio/mpeg","maker","application/x-maker","man","application/x-troff-man","mcif","chemical/x-mmcif","mcm","chemical/x-macmolecule","mdb","application/msaccess","me","application/x-troff-me","mesh","model/mesh","mid","audio/midi","midi","audio/midi","mif","application/x-mif","mm","application/x-freemind","mmd","chemical/x-macromodel-input","mmf","application/vnd.smaf","mml","text/mathml","mmod","chemical/x-macromodel-input","mng","video/x-mng","moc","text/x-moc","mol","chemical/x-mdl-molfile","mol2","chemical/x-mol2","moo","chemical/x-mopac-out","mop","chemical/x-mopac-input","mopcrt","chemical/x-mopac-input","mov","video/quicktime","movie","video/x-sgi-movie","mp2","audio/mpeg","mp3","audio/mpeg","mp4","video/mp4","mpc","chemical/x-mopac-input","mpe","video/mpeg","mpeg","video/mpeg","mpega","audio/mpeg","mpg","video/mpeg","mpga","audio/mpeg","ms","application/x-troff-ms","msh","model/mesh","msi","application/x-msi","mvb","chemical/x-mopac-vib","mxu","video/vnd.mpegurl","nb","application/mathematica","nc","application/x-netcdf","nwc","application/x-nwc","o","application/x-object","oda","application/oda","odb","application/vnd.oasis.opendocument.database","odc","application/vnd.oasis.opendocument.chart","odf","application/vnd.oasis.opendocument.formula","odg","application/vnd.oasis.opendocument.graphics","odi","application/vnd.oasis.opendocument.image","odm","application/vnd.oasis.opendocument.text-master","odp","application/vnd.oasis.opendocument.presentation","ods","application/vnd.oasis.opendocument.spreadsheet","odt","application/vnd.oasis.opendocument.text","ogg","application/ogg","old","application/x-trash","oth","application/vnd.oasis.opendocument.text-web","oza","application/x-oz-application","p","text/x-pascal","p7r","application/x-pkcs7-certreqresp","pac","application/x-ns-proxy-autoconfig","pas","text/x-pascal","pat","image/x-coreldrawpattern","pbm","image/x-portable-bitmap","pcf","application/x-font","pcf.Z","application/x-font","pcx","image/pcx","pdb","chemical/x-pdb","pdf","application/pdf","pfa","application/x-font","pfb","application/x-font","pgm","image/x-portable-graymap","pgn","application/x-chess-pgn","pgp","application/pgp-signature","pk","application/x-tex-pk","pl","text/x-perl","pls","audio/x-scpls","pm","text/x-perl","png","image/png","pnm","image/x-portable-anymap","pot","text/plain","ppm","image/x-portable-pixmap","pps","application/vnd.ms-powerpoint","ppt","application/vnd.ms-powerpoint","prf","application/pics-rules","prt","chemical/x-ncbi-asn1-ascii","ps","application/postscript","psd","image/x-photoshop","psp","text/x-psp","py","text/x-python","pyc","application/x-python-code","pyo","application/x-python-code","qt","video/quicktime","qtl","application/x-quicktimeplayer","ra","audio/x-realaudio","ram","audio/x-pn-realaudio","rar","application/rar","ras","image/x-cmu-raster","rd","chemical/x-mdl-rdfile","rdf","application/rdf+xml","rgb","image/x-rgb","rm","audio/x-pn-realaudio","roff","application/x-troff","ros","chemical/x-rosdal","rpm","application/x-redhat-package-manager","rss","application/rss+xml","rtf","text/rtf","rtx","text/richtext","rxn","chemical/x-mdl-rxnfile","sct","text/scriptlet","sd","chemical/x-mdl-sdfile","sd2","audio/x-sd2","sda","application/vnd.stardivision.draw","sdc","application/vnd.stardivision.calc","sdd","application/vnd.stardivision.impress","sdf","chemical/x-mdl-sdfile","sdp","application/vnd.stardivision.impress","sdw","application/vnd.stardivision.writer","ser","application/java-serialized-object","sgf","application/x-go-sgf","sgl","application/vnd.stardivision.writer-global","sh","text/x-sh","shar","application/x-shar","shtml","text/html","sid","audio/prs.sid","sik","application/x-trash","silo","model/mesh","sis","application/vnd.symbian.install","sit","application/x-stuffit","skd","application/x-koan","skm","application/x-koan","skp","application/x-koan","skt","application/x-koan","smf","application/vnd.stardivision.math","smi","application/smil","smil","application/smil","snd","audio/basic","spc","chemical/x-galactic-spc","spl","application/x-futuresplash","src","application/x-wais-source","stc","application/vnd.sun.xml.calc.template","std","application/vnd.sun.xml.draw.template","sti","application/vnd.sun.xml.impress.template","stl","application/vnd.ms-pki.stl","stw","application/vnd.sun.xml.writer.template","sty","text/x-tex","sv4cpio","application/x-sv4cpio","sv4crc","application/x-sv4crc","svg","image/svg+xml","svgz","image/svg+xml","sw","chemical/x-swissprot","swf","application/x-shockwave-flash","swfl","application/x-shockwave-flash","sxc","application/vnd.sun.xml.calc","sxd","application/vnd.sun.xml.draw","sxg","application/vnd.sun.xml.writer.global","sxi","application/vnd.sun.xml.impress","sxm","application/vnd.sun.xml.math","sxw","application/vnd.sun.xml.writer","t","application/x-troff","tar","application/x-tar","taz","application/x-gtar","tcl","text/x-tcl","tex","text/x-tex","texi","application/x-texinfo","texinfo","application/x-texinfo","text","text/plain","tgf","chemical/x-mdl-tgf","tgz","application/x-gtar","tif","image/tiff","tiff","image/tiff","tk","text/x-tcl","tm","text/texmacs","torrent","application/x-bittorrent","tr","application/x-troff","ts","text/texmacs","tsp","application/dsptype","tsv","text/tab-separated-values","txt","text/plain","udeb","application/x-debian-package","uls","text/iuls","ustar","application/x-ustar","val","chemical/x-ncbi-asn1-binary","vcd","application/x-cdlink","vcf","text/x-vcard","vcs","text/x-vcalendar","vmd","chemical/x-vmd","vms","chemical/x-vamas-iso14976","vor","application/vnd.stardivision.writer","vrm","x-world/x-vrml","vrml","x-world/x-vrml","vsd","application/vnd.visio","wad","application/x-doom","wav","audio/x-wav","wax","audio/x-ms-wax","wbmp","image/vnd.wap.wbmp","wbxml","application/vnd.wap.wbxml","wk","application/x-123","wm","video/x-ms-wm","wma","audio/x-ms-wma","wmd","application/x-ms-wmd","wml","text/vnd.wap.wml","wmlc","application/vnd.wap.wmlc","wmls","text/vnd.wap.wmlscript","wmlsc","application/vnd.wap.wmlscriptc","wmv","video/x-ms-wmv","wmx","video/x-ms-wmx","wmz","application/x-ms-wmz","wp5","application/wordperfect5.1","wpd","application/wordperfect","wrl","x-world/x-vrml","wsc","text/scriptlet","wvx","video/x-ms-wvx","wz","application/x-wingz","xbm","image/x-xbitmap","xcf","application/x-xcf","xht","application/xhtml+xml","xhtml","application/xhtml+xml","xlb","application/vnd.ms-excel","xls","application/vnd.ms-excel","xlt","application/vnd.ms-excel","xml","application/xml","xpi","application/x-xpinstall","xpm","image/x-xpixmap","xsl","application/xml","xtel","chemical/x-xtel","xul","application/vnd.mozilla.xul+xml","xwd","image/x-xwindowdump","xyz","chemical/x-xyz","zip","application/zip","zmt","chemical/x-mopac-input","~","application/x-trash"]);
 return $1;
 
 },
@@ -1999,7 +1999,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.FileServer.klass);
+$globals.FileServer.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -2017,7 +2017,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.FileServer.klass);
+$globals.FileServer.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -2026,7 +2026,7 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 var fileServer,args;
-function $FileServer(){return globals.FileServer||(typeof FileServer=="undefined"?nil:FileServer)}
+function $FileServer(){return $globals.FileServer||(typeof FileServer=="undefined"?nil:FileServer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2062,7 +2062,7 @@ return self;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"main",{fileServer:fileServer,args:args},globals.FileServer.klass)});
+}, function($ctx1) {$ctx1.fill(self,"main",{fileServer:fileServer,args:args},$globals.FileServer.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2072,7 +2072,7 @@ referencedClasses: ["FileServer"],
 //>>excludeEnd("ide");
 messageSends: ["argv", "removeFrom:to:", "detect:ifNone:", "ifTrue:", "=", "printHelp", "createServerWithArguments:", "start"]
 }),
-globals.FileServer.klass);
+$globals.FileServer.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -2090,7 +2090,7 @@ return "text/plain";
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"mimeTypeFor:",{aString:aString},globals.FileServer.klass)});
+}, function($ctx1) {$ctx1.fill(self,"mimeTypeFor:",{aString:aString},$globals.FileServer.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2100,7 +2100,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:ifAbsent:", "mimeTypes", "replace:with:"]
 }),
-globals.FileServer.klass);
+$globals.FileServer.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -2121,7 +2121,7 @@ $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"mimeTypes",{},globals.FileServer.klass)});
+}, function($ctx1) {$ctx1.fill(self,"mimeTypes",{},$globals.FileServer.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2131,7 +2131,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "defaultMimeTypes"]
 }),
-globals.FileServer.klass);
+$globals.FileServer.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -2161,7 +2161,7 @@ return _st(console)._log_(_st(each).__comma(" <parameter>"));
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"printHelp",{},globals.FileServer.klass)});
+}, function($ctx1) {$ctx1.fill(self,"printHelp",{},$globals.FileServer.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2171,7 +2171,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["log:", "do:", "commandLineSwitches", ","]
 }),
-globals.FileServer.klass);
+$globals.FileServer.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -2198,7 +2198,7 @@ $ctx1.sendIdx["replace:with:"]=1;
 $1=_st($2).__comma(":");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch},globals.FileServer.klass)});
+}, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch},$globals.FileServer.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2208,10 +2208,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: [",", "replace:with:", "asUppercase", "second"]
 }),
-globals.FileServer.klass);
+$globals.FileServer.klass);
 
 
-$vm.addClass('Initer', globals.BaseFileManipulator, ['childProcess', 'nmPath'], 'AmberCli');
+$vm.addClass('Initer', $globals.BaseFileManipulator, ['childProcess', 'nmPath'], 'AmberCli');
 $vm.addMethod(
 $vm.method({
 selector: "bowerInstallThenDo:",
@@ -2246,7 +2246,7 @@ return _st(aBlock)._value_($3);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"bowerInstallThenDo:",{aBlock:aBlock,child:child},globals.Initer)});
+}, function($ctx1) {$ctx1.fill(self,"bowerInstallThenDo:",{aBlock:aBlock,child:child},$globals.Initer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2256,7 +2256,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["fork:args:", "npmScriptForModule:named:", "on:do:", "value:", "ifTrue:ifFalse:", "="]
 }),
-globals.Initer);
+$globals.Initer);
 
 $vm.addMethod(
 $vm.method({
@@ -2264,7 +2264,7 @@ selector: "finishMessage",
 protocol: 'action',
 fn: function (){
 var self=this;
-function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2274,7 +2274,7 @@ _st((function(){
 }))._valueWithTimeout_((600));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"finishMessage",{},globals.Initer)});
+}, function($ctx1) {$ctx1.fill(self,"finishMessage",{},$globals.Initer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2284,7 +2284,7 @@ referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: ["log:", "join:", "lf", "valueWithTimeout:"]
 }),
-globals.Initer);
+$globals.Initer);
 
 $vm.addMethod(
 $vm.method({
@@ -2324,7 +2324,7 @@ return _st(aBlock)._value_($3);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"gruntInitThenDo:",{aBlock:aBlock,child:child,sanitizedTemplatePath:sanitizedTemplatePath},globals.Initer)});
+}, function($ctx1) {$ctx1.fill(self,"gruntInitThenDo:",{aBlock:aBlock,child:child,sanitizedTemplatePath:sanitizedTemplatePath},$globals.Initer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2334,7 +2334,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["replace:with:", "join:with:", "fork:args:", "npmScriptForModule:named:", "on:do:", "value:", "ifTrue:ifFalse:", "="]
 }),
-globals.Initer);
+$globals.Initer);
 
 $vm.addMethod(
 $vm.method({
@@ -2370,7 +2370,7 @@ return _st(aBlock)._value_($3);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"gruntThenDo:",{aBlock:aBlock,child:child},globals.Initer)});
+}, function($ctx1) {$ctx1.fill(self,"gruntThenDo:",{aBlock:aBlock,child:child},$globals.Initer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2380,7 +2380,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["fork:args:", "npmScriptForModule:named:", "on:do:", "value:", "ifTrue:ifFalse:", "="]
 }),
-globals.Initer);
+$globals.Initer);
 
 $vm.addMethod(
 $vm.method({
@@ -2395,7 +2395,7 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.Initer.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.Initer.superclass.fn.prototype._initialize.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -2403,7 +2403,7 @@ self["@childProcess"]=_st(require)._value_("child_process");
 self["@nmPath"]=_st(self["@path"])._join_with_(self._rootDirname(),"node_modules");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Initer)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.Initer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2413,7 +2413,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initialize", "value:", "join:with:", "rootDirname"]
 }),
-globals.Initer);
+$globals.Initer);
 
 $vm.addMethod(
 $vm.method({
@@ -2431,10 +2431,10 @@ $1=_st(child)._stdout();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["stdout"]=1;
 //>>excludeEnd("ctx");
-_st($1)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
+_st($1)._pipe_options_(_st(process)._stdout(),$globals.HashedCollection._newFromPairs_(["end",false]));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"npmInstallThenDo:",{aBlock:aBlock,child:child},globals.Initer)});
+}, function($ctx1) {$ctx1.fill(self,"npmInstallThenDo:",{aBlock:aBlock,child:child},$globals.Initer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2444,7 +2444,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["exec:thenDo:", "pipe:options:", "stdout"]
 }),
-globals.Initer);
+$globals.Initer);
 
 $vm.addMethod(
 $vm.method({
@@ -2453,8 +2453,8 @@ protocol: 'npm',
 fn: function (aString,anotherString){
 var self=this;
 var modulePath,packageJson,binSection,scriptPath;
-function $JSObjectProxy(){return globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2481,7 +2481,7 @@ scriptPath=_st(binSection)._at_(anotherString);
 $6=_st(self["@path"])._join_with_(modulePath,scriptPath);
 return $6;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"npmScriptForModule:named:",{aString:aString,anotherString:anotherString,modulePath:modulePath,packageJson:packageJson,binSection:binSection,scriptPath:scriptPath},globals.Initer)});
+}, function($ctx1) {$ctx1.fill(self,"npmScriptForModule:named:",{aString:aString,anotherString:anotherString,modulePath:modulePath,packageJson:packageJson,binSection:binSection,scriptPath:scriptPath},$globals.Initer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2491,7 +2491,7 @@ referencedClasses: ["JSObjectProxy", "Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["dirname:", "resolve:", "on:", ",", "readJSObject:", "value:", "at:", "ifTrue:ifFalse:", "isString", "join:with:"]
 }),
-globals.Initer);
+$globals.Initer);
 
 $vm.addMethod(
 $vm.method({
@@ -2601,7 +2601,7 @@ $ctx2.sendIdx["exit:"]=1;
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"start",{},globals.Initer)});
+}, function($ctx1) {$ctx1.fill(self,"start",{},$globals.Initer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2611,13 +2611,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["gruntInitThenDo:", "ifNotNil:ifNil:", "log:", "exit:", "bowerInstallThenDo:", "npmInstallThenDo:", "gruntThenDo:", "finishMessage", "exit"]
 }),
-globals.Initer);
+$globals.Initer);
 
 
 
-$vm.addClass('Repl', globals.Object, ['readline', 'interface', 'util', 'session', 'resultCount', 'commands'], 'AmberCli');
+$vm.addClass('Repl', $globals.Object, ['readline', 'interface', 'util', 'session', 'resultCount', 'commands'], 'AmberCli');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.Repl.comment="I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.\x0aOn the prompt you can type Amber statements which will be evaluated after pressing <Enter>.\x0aThe evaluation is comparable with executing a 'DoIt' in a workspace.\x0a\x0aMy runtime requirement is a functional Node.js executable with working Readline support.";
+$globals.Repl.comment="I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.\x0aOn the prompt you can type Amber statements which will be evaluated after pressing <Enter>.\x0aThe evaluation is comparable with executing a 'DoIt' in a workspace.\x0a\x0aMy runtime requirement is a functional Node.js executable with working Readline support.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -2637,7 +2637,7 @@ self._setPreviousVariablesFor_from_(newObject,anObject);
 $1=newObject;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"addVariableNamed:to:",{aString:aString,anObject:anObject,newClass:newClass,newObject:newObject},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"addVariableNamed:to:",{aString:aString,anObject:anObject,newClass:newClass,newObject:newObject},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2647,7 +2647,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclass:withVariable:", "class", "encapsulateVariable:withValue:in:", "new", "setPreviousVariablesFor:from:"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -2655,8 +2655,8 @@ selector: "assignNewVariable:do:",
 protocol: 'private',
 fn: function (buffer,aBlock){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
-function $ConsoleErrorHandler(){return globals.ConsoleErrorHandler||(typeof ConsoleErrorHandler=="undefined"?nil:ConsoleErrorHandler)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $ConsoleErrorHandler(){return $globals.ConsoleErrorHandler||(typeof ConsoleErrorHandler=="undefined"?nil:ConsoleErrorHandler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2711,7 +2711,7 @@ return _st(aBlock)._value_value_(varName,value);
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"assignNewVariable:do:",{buffer:buffer,aBlock:aBlock},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"assignNewVariable:do:",{buffer:buffer,aBlock:aBlock},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2721,7 +2721,7 @@ referencedClasses: ["Error", "ConsoleErrorHandler"],
 //>>excludeEnd("ide");
 messageSends: ["parseAssignment:do:", "ifNil:", "nextResultName", "addVariableNamed:to:", "on:do:", "eval:on:", ",", "logError:", "new", "value:value:"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -2730,7 +2730,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 var esc,cls;
-function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2748,7 +2748,7 @@ _st(_st(process)._stdout())._write_(cls);
 _st(self["@interface"])._prompt();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"clearScreen",{esc:esc,cls:cls},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"clearScreen",{esc:esc,cls:cls},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2758,7 +2758,7 @@ referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: ["fromCharCode:", ",", "write:", "stdout", "prompt"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -2772,7 +2772,7 @@ return $vm.withContext(function($ctx1) {
 _st(_st(process)._stdin())._destroy();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"close",{},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"close",{},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2782,7 +2782,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["destroy", "stdin"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -2802,7 +2802,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -2842,7 +2842,7 @@ $1=self._setPrompt();
 _st(self["@interface"])._prompt();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"createInterface",{},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"createInterface",{},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2852,7 +2852,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["createInterface:stdout:", "stdin", "stdout", "on:do:", "processLine:", "close", "printWelcome", "setupHotkeys", "setPrompt", "prompt"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -2861,7 +2861,7 @@ protocol: 'private',
 fn: function (aString,anObject,aClass){
 var self=this;
 var compiler;
-function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2892,7 +2892,7 @@ $ctx1.sendIdx[","]=4;
 _st($5)._install_forClass_protocol_($6,aClass,"session");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"encapsulateVariable:withValue:in:",{aString:aString,anObject:anObject,aClass:aClass,compiler:compiler},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"encapsulateVariable:withValue:in:",{aString:aString,anObject:anObject,aClass:aClass,compiler:compiler},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2902,7 +2902,7 @@ referencedClasses: ["Compiler"],
 //>>excludeEnd("ide");
 messageSends: ["new", "install:forClass:protocol:", ","]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -2910,7 +2910,7 @@ selector: "eval:",
 protocol: 'actions',
 fn: function (buffer){
 var self=this;
-function $DoIt(){return globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
+function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2918,7 +2918,7 @@ var $1;
 $1=self._eval_on_(buffer,_st($DoIt())._new());
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"eval:",{buffer:buffer},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"eval:",{buffer:buffer},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2928,7 +2928,7 @@ referencedClasses: ["DoIt"],
 //>>excludeEnd("ide");
 messageSends: ["eval:on:", "new"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -2937,7 +2937,7 @@ protocol: 'actions',
 fn: function (buffer,anObject){
 var self=this;
 var result;
-function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2971,7 +2971,7 @@ return _st(_st(process)._stdout())._write_(_st(e)._jsStack());
 $3=result;
 return $3;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"eval:on:",{buffer:buffer,anObject:anObject,result:result},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"eval:on:",{buffer:buffer,anObject:anObject,result:result},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2981,7 +2981,7 @@ referencedClasses: ["Compiler"],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "isEmpty", "tryCatch:", "evaluateExpression:on:", "new", "ifTrue:ifFalse:", "isSmalltalkError", "resignal", "write:", "stdout", "jsStack"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3012,7 +3012,7 @@ return false;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"executeCommand:",{aString:aString},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"executeCommand:",{aString:aString},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3022,7 +3022,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["keysAndValuesDo:", "commands", "ifTrue:", "includes:", "value"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3030,7 +3030,7 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $DoIt(){return globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
+function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3038,7 +3038,7 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.Repl.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.Repl.superclass.fn.prototype._initialize.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -3051,7 +3051,7 @@ self["@util"]=_st(require)._value_("util");
 self._setupCommands();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3061,7 +3061,7 @@ referencedClasses: ["DoIt"],
 //>>excludeEnd("ide");
 messageSends: ["initialize", "new", "value:", "setupCommands"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3088,7 +3088,7 @@ $1=_st($3)._copyWithAll_(self._instanceVariableNamesFor_(_st(aClass)._superclass
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"instanceVariableNamesFor:",{aClass:aClass},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"instanceVariableNamesFor:",{aClass:aClass},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3098,7 +3098,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNotNil:ifNil:", "superclass", "copyWithAll:", "instanceVariableNames", "instanceVariableNamesFor:"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3113,7 +3113,7 @@ var $1;
 $1=_st(aString)._match_("^[a-z_]\x5cw*$"._asRegexp());
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isIdentifier:",{aString:aString},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"isIdentifier:",{aString:aString},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3123,7 +3123,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["match:", "asRegexp"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3138,7 +3138,7 @@ var $1;
 $1=_st(self._instanceVariableNamesFor_(_st(self["@session"])._class()))._includes_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isVariableDefined:",{aString:aString},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"isVariableDefined:",{aString:aString},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3148,7 +3148,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["includes:", "instanceVariableNamesFor:", "class"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3169,7 +3169,7 @@ self["@resultCount"]=_st(self["@resultCount"]).__plus((1));
 $2="res".__comma(_st(self["@resultCount"])._asString());
 return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextResultName",{},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"nextResultName",{},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3179,7 +3179,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNotNil:ifNil:", "+", ",", "asString"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3205,7 +3205,7 @@ self._clearScreen();
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onKeyPress:",{key:key},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"onKeyPress:",{key:key},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3215,7 +3215,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:", "and:", "ctrl", "=", "name", "clearScreen"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3260,7 +3260,7 @@ $1=_st(aBlock)._value_value_(nil,nil);
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"parseAssignment:do:",{aString:aString,aBlock:aBlock,assignment:assignment},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"parseAssignment:do:",{aString:aString,aBlock:aBlock,assignment:assignment},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3270,7 +3270,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collect:", "tokenize:", "trimBoth", "ifTrue:ifFalse:", "and:", "=", "size", "isIdentifier:", "first", "value:value:", "last"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3278,7 +3278,7 @@ selector: "presentResultNamed:withValue:",
 protocol: 'private',
 fn: function (varName,value){
 var self=this;
-function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3300,7 +3300,7 @@ $4=_st($Transcript())._cr();
 _st(self["@interface"])._prompt();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"presentResultNamed:withValue:",{varName:varName,value:value},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"presentResultNamed:withValue:",{varName:varName,value:value},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3310,7 +3310,7 @@ referencedClasses: ["Transcript"],
 //>>excludeEnd("ide");
 messageSends: ["show:", ",", "name", "class", "asString", "cr", "prompt"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3318,7 +3318,7 @@ selector: "printWelcome",
 protocol: 'actions',
 fn: function (){
 var self=this;
-function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3327,7 +3327,7 @@ _st($Transcript())._show_("Type :q to exit.");
 $1=_st($Transcript())._cr();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"printWelcome",{},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"printWelcome",{},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3337,7 +3337,7 @@ referencedClasses: ["Transcript"],
 //>>excludeEnd("ide");
 messageSends: ["show:", "cr"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3370,7 +3370,7 @@ self._assignNewVariable_do_(buffer,show);
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"processLine:",{buffer:buffer,show:show},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"processLine:",{buffer:buffer,show:show},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3380,7 +3380,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["presentResultNamed:withValue:", "ifFalse:", "executeCommand:", "ifTrue:ifFalse:", "isVariableDefined:", "value:value:", "perform:", "assignNewVariable:do:"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3398,7 +3398,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3420,7 +3420,7 @@ return _st(newObject)._perform_withArguments_(_st(each).__comma(":"),[_st(oldObj
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setPreviousVariablesFor:from:",{newObject:newObject,oldObject:oldObject},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"setPreviousVariablesFor:from:",{newObject:newObject,oldObject:oldObject},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3430,7 +3430,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["do:", "instanceVariableNamesFor:", "class", "perform:withArguments:", ",", "perform:"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3444,7 +3444,7 @@ return $vm.withContext(function($ctx1) {
 _st(self["@interface"])._setPrompt_(self._prompt());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setPrompt",{},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"setPrompt",{},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3454,7 +3454,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["setPrompt:", "prompt"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3462,7 +3462,7 @@ selector: "setupCommands",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3491,7 +3491,7 @@ return _st(self["@interface"])._prompt();
 self["@commands"]=_st($Dictionary())._from_($1);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setupCommands",{},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"setupCommands",{},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3501,7 +3501,7 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["from:", "->", "exit", "prompt"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3528,7 +3528,7 @@ return self._onKeyPress_(key);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setupHotkeys",{},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"setupHotkeys",{},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3538,7 +3538,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["on:do:", "stdin", "ifNotNil:", "onKeyPress:"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3546,7 +3546,7 @@ selector: "subclass:withVariable:",
 protocol: 'private',
 fn: function (aClass,varName){
 var self=this;
-function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3554,7 +3554,7 @@ var $1;
 $1=_st(_st($ClassBuilder())._new())._addSubclassOf_named_instanceVariableNames_package_(aClass,_st(self._subclassNameFor_(aClass))._asSymbol(),[varName],"Compiler-Core");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"subclass:withVariable:",{aClass:aClass,varName:varName},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"subclass:withVariable:",{aClass:aClass,varName:varName},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3564,7 +3564,7 @@ referencedClasses: ["ClassBuilder"],
 //>>excludeEnd("ide");
 messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "new", "asSymbol", "subclassNameFor:"]
 }),
-globals.Repl);
+$globals.Repl);
 
 $vm.addMethod(
 $vm.method({
@@ -3605,7 +3605,7 @@ $1=_st($8)._replaceRegexp_with_("\x5cd+$"._asRegexp(),_st(counter)._asString());
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"subclassNameFor:",{aClass:aClass},globals.Repl)});
+}, function($ctx1) {$ctx1.fill(self,"subclassNameFor:",{aClass:aClass},$globals.Repl)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3615,7 +3615,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNotNil:ifNil:", "matchesOf:", "name", "+", "asNumber", "first", "replaceRegexp:with:", "asRegexp", "asString", ","]
 }),
-globals.Repl);
+$globals.Repl);
 
 
 $vm.addMethod(
@@ -3630,7 +3630,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._new())._createInterface();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"main",{},globals.Repl.klass)});
+}, function($ctx1) {$ctx1.fill(self,"main",{},$globals.Repl.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3640,6 +3640,6 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["createInterface", "new"]
 }),
-globals.Repl.klass);
+$globals.Repl.klass);
 
 });

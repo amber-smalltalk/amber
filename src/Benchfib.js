@@ -4,7 +4,7 @@ var smalltalk=$vm,_st=$recv,globals=$globals;
 $vm.addPackage('Benchfib');
 $vm.packages["Benchfib"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('Benchfib', globals.Object, [], 'Benchfib');
+$vm.addClass('Benchfib', $globals.Object, [], 'Benchfib');
 
 $vm.addMethod(
 $vm.method({
@@ -20,7 +20,7 @@ result=(0)._tinyBenchmarks();
 _st(console)._log_("0 tinyBenchmarks => ".__comma(result));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"main",{result:result},globals.Benchfib.klass)});
+}, function($ctx1) {$ctx1.fill(self,"main",{result:result},$globals.Benchfib.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -30,7 +30,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tinyBenchmarks", "log:", ","]
 }),
-globals.Benchfib.klass);
+$globals.Benchfib.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -62,7 +62,7 @@ $ctx1.sendIdx["+"]=1;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"benchFib",{},globals.Number)});
+}, function($ctx1) {$ctx1.fill(self,"benchFib",{},$globals.Number)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -72,7 +72,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "<", "+", "benchFib", "-"]
 }),
-globals.Number);
+$globals.Number);
 
 $vm.addMethod(
 $vm.method({
@@ -81,7 +81,7 @@ protocol: '*Benchfib',
 fn: function (){
 var self=this;
 var size,flags,prime,k,count;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -159,7 +159,7 @@ $ctx1.sendIdx["to:do:"]=1;
 $2=count;
 return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"benchmark",{size:size,flags:flags,prime:prime,k:k,count:count},globals.Number)});
+}, function($ctx1) {$ctx1.fill(self,"benchmark",{size:size,flags:flags,prime:prime,k:k,count:count},$globals.Number)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -169,7 +169,7 @@ referencedClasses: ["Array"],
 //>>excludeEnd("ide");
 messageSends: ["to:do:", "new", "timesRepeat:", "add:", "ifTrue:", "at:", "+", "whileTrue:", "<=", "at:put:"]
 }),
-globals.Number);
+$globals.Number);
 
 $vm.addMethod(
 $vm.method({
@@ -186,7 +186,7 @@ return 1;
 return (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;};
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"jsbenchFib",{},globals.Number)});
+}, function($ctx1) {$ctx1.fill(self,"jsbenchFib",{},$globals.Number)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -196,7 +196,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Number);
+$globals.Number);
 
 $vm.addMethod(
 $vm.method({
@@ -231,7 +231,7 @@ for (var z=0;z<this;z++) {
 return count;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"jsbenchmark",{},globals.Number)});
+}, function($ctx1) {$ctx1.fill(self,"jsbenchmark",{},$globals.Number)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -241,7 +241,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Number);
+$globals.Number);
 
 $vm.addMethod(
 $vm.method({
@@ -250,7 +250,7 @@ protocol: '*Benchfib',
 fn: function (){
 var self=this;
 var t1,t2,r,n1,n2;
-function $Date(){return globals.Date||(typeof Date=="undefined"?nil:Date)}
+function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -353,7 +353,7 @@ $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"jstinyBenchmarks",{t1:t1,t2:t2,r:r,n1:n1,n2:n2},globals.Number)});
+}, function($ctx1) {$ctx1.fill(self,"jstinyBenchmarks",{t1:t1,t2:t2,r:r,n1:n1,n2:n2},$globals.Number)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -363,7 +363,7 @@ referencedClasses: ["Date"],
 //>>excludeEnd("ide");
 messageSends: ["whileTrue:", "millisecondsToRun:", "jsbenchmark", "<", "*", "jsbenchFib", "+", ",", "printString", "/"]
 }),
-globals.Number);
+$globals.Number);
 
 $vm.addMethod(
 $vm.method({
@@ -372,7 +372,7 @@ protocol: '*Benchfib',
 fn: function (){
 var self=this;
 var t1,t2,r,n1,n2;
-function $Date(){return globals.Date||(typeof Date=="undefined"?nil:Date)}
+function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -475,7 +475,7 @@ $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"tinyBenchmarks",{t1:t1,t2:t2,r:r,n1:n1,n2:n2},globals.Number)});
+}, function($ctx1) {$ctx1.fill(self,"tinyBenchmarks",{t1:t1,t2:t2,r:r,n1:n1,n2:n2},$globals.Number)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -485,6 +485,6 @@ referencedClasses: ["Date"],
 //>>excludeEnd("ide");
 messageSends: ["whileTrue:", "millisecondsToRun:", "benchmark", "<", "*", "benchFib", "+", ",", "printString", "/"]
 }),
-globals.Number);
+$globals.Number);
 
 });

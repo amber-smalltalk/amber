@@ -4,9 +4,9 @@ var smalltalk=$vm,_st=$recv,globals=$globals;
 $vm.addPackage('Compiler-Interpreter');
 $vm.packages["Compiler-Interpreter"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('AIBlockClosure', globals.BlockClosure, ['node', 'outerContext'], 'Compiler-Interpreter');
+$vm.addClass('AIBlockClosure', $globals.BlockClosure, ['node', 'outerContext'], 'Compiler-Interpreter');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.AIBlockClosure.comment="I am a special `BlockClosure` subclass used by an interpreter to interpret a block node.\x0a\x0aWhile I am polymorphic with `BlockClosure`, some methods such as `#new` will raise interpretation errors. Unlike a `BlockClosure`, my instance are not JavaScript functions.\x0a\x0aEvaluating an instance will result in interpreting the `node` instance variable (instance of `BlockNode`).";
+$globals.AIBlockClosure.comment="I am a special `BlockClosure` subclass used by an interpreter to interpret a block node.\x0a\x0aWhile I am polymorphic with `BlockClosure`, some methods such as `#new` will raise interpretation errors. Unlike a `BlockClosure`, my instance are not JavaScript functions.\x0a\x0aEvaluating an instance will result in interpreting the `node` instance variable (instance of `BlockNode`).";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -20,7 +20,7 @@ return $vm.withContext(function($ctx1) {
 self._interpreterError();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"applyTo:arguments:",{anObject:anObject,aCollection:aCollection},globals.AIBlockClosure)});
+}, function($ctx1) {$ctx1.fill(self,"applyTo:arguments:",{anObject:anObject,aCollection:aCollection},$globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -30,7 +30,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["interpreterError"]
 }),
-globals.AIBlockClosure);
+$globals.AIBlockClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -48,7 +48,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AIBlockClosure);
+$globals.AIBlockClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -62,7 +62,7 @@ return $vm.withContext(function($ctx1) {
 self._interpreterError();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"currySelf",{},globals.AIBlockClosure)});
+}, function($ctx1) {$ctx1.fill(self,"currySelf",{},$globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -72,7 +72,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["interpreterError"]
 }),
-globals.AIBlockClosure);
+$globals.AIBlockClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -92,7 +92,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AIBlockClosure);
+$globals.AIBlockClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -100,14 +100,14 @@ selector: "interpreterError",
 protocol: 'error handling',
 fn: function (){
 var self=this;
-function $ASTInterpreterError(){return globals.ASTInterpreterError||(typeof ASTInterpreterError=="undefined"?nil:ASTInterpreterError)}
+function $ASTInterpreterError(){return $globals.ASTInterpreterError||(typeof ASTInterpreterError=="undefined"?nil:ASTInterpreterError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($ASTInterpreterError())._signal_("Method cannot be interpreted by the interpreter.");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"interpreterError",{},globals.AIBlockClosure)});
+}, function($ctx1) {$ctx1.fill(self,"interpreterError",{},$globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -117,7 +117,7 @@ referencedClasses: ["ASTInterpreterError"],
 //>>excludeEnd("ide");
 messageSends: ["signal:"]
 }),
-globals.AIBlockClosure);
+$globals.AIBlockClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -132,7 +132,7 @@ var $1;
 $1=_st(_st(self["@node"])._temps())._size();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"numArgs",{},globals.AIBlockClosure)});
+}, function($ctx1) {$ctx1.fill(self,"numArgs",{},$globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -142,7 +142,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["size", "temps"]
 }),
-globals.AIBlockClosure);
+$globals.AIBlockClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -157,7 +157,7 @@ var $1;
 $1=self._valueWithPossibleArguments_([]);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"value",{},globals.AIBlockClosure)});
+}, function($ctx1) {$ctx1.fill(self,"value",{},$globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -167,7 +167,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["valueWithPossibleArguments:"]
 }),
-globals.AIBlockClosure);
+$globals.AIBlockClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -182,7 +182,7 @@ var $1;
 $1=self._valueWithPossibleArguments_([anArgument]);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"value:",{anArgument:anArgument},globals.AIBlockClosure)});
+}, function($ctx1) {$ctx1.fill(self,"value:",{anArgument:anArgument},$globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -192,7 +192,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["valueWithPossibleArguments:"]
 }),
-globals.AIBlockClosure);
+$globals.AIBlockClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -207,7 +207,7 @@ var $1;
 $1=self._valueWithPossibleArguments_([firstArgument,secondArgument]);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArgument:firstArgument,secondArgument:secondArgument},globals.AIBlockClosure)});
+}, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArgument:firstArgument,secondArgument:secondArgument},$globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -217,7 +217,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["valueWithPossibleArguments:"]
 }),
-globals.AIBlockClosure);
+$globals.AIBlockClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -232,7 +232,7 @@ var $1;
 $1=self._valueWithPossibleArguments_([firstArgument,secondArgument,thirdArgument]);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArgument:firstArgument,secondArgument:secondArgument,thirdArgument:thirdArgument},globals.AIBlockClosure)});
+}, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArgument:firstArgument,secondArgument:secondArgument,thirdArgument:thirdArgument},$globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -242,7 +242,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["valueWithPossibleArguments:"]
 }),
-globals.AIBlockClosure);
+$globals.AIBlockClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -299,7 +299,7 @@ _st($5)._setNonLocalReturnFromContext_(context);
 $6=_st(_st(context)._interpreter())._pop();
 return $6;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection,context:context,sequenceNode:sequenceNode},globals.AIBlockClosure)});
+}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection,context:context,sequenceNode:sequenceNode},$globals.AIBlockClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -309,7 +309,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newInnerContext", "parent:", "copy", "first", "nodes", "yourself", "do:", "temps", "defineLocal:", "withIndexDo:", "parameters", "localAt:put:", "at:ifAbsent:", "node:", "interpreter", "nextChild", "proceed", "setNonLocalReturnFromContext:", "pop"]
 }),
-globals.AIBlockClosure);
+$globals.AIBlockClosure);
 
 
 $vm.addMethod(
@@ -328,7 +328,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"forContext:node:",{aContext:aContext,aNode:aNode},globals.AIBlockClosure.klass)});
+}, function($ctx1) {$ctx1.fill(self,"forContext:node:",{aContext:aContext,aNode:aNode},$globals.AIBlockClosure.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -338,12 +338,12 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initializeWithContext:node:", "new", "yourself"]
 }),
-globals.AIBlockClosure.klass);
+$globals.AIBlockClosure.klass);
 
 
-$vm.addClass('AIContext', globals.MethodContext, ['outerContext', 'innerContext', 'pc', 'locals', 'selector', 'index', 'sendIndexes', 'evaluatedSelector', 'ast', 'interpreter', 'supercall'], 'Compiler-Interpreter');
+$vm.addClass('AIContext', $globals.MethodContext, ['outerContext', 'innerContext', 'pc', 'locals', 'selector', 'index', 'sendIndexes', 'evaluatedSelector', 'ast', 'interpreter', 'supercall'], 'Compiler-Interpreter');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.AIContext.comment="I am like a `MethodContext`, used by the `ASTInterpreter`.\x0aUnlike a `MethodContext`, my instances are not read-only.\x0a\x0aWhen debugging, my instances are created by copying the current `MethodContext` (thisContext)";
+$globals.AIContext.comment="I am like a `MethodContext`, used by the `ASTInterpreter`.\x0aUnlike a `MethodContext`, my instances are not read-only.\x0a\x0aWhen debugging, my instances are created by copying the current `MethodContext` (thisContext)";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -374,7 +374,7 @@ return self._error_("Argument not in context");
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"arguments",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"arguments",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -384,7 +384,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collect:", "arguments", "ast", "localAt:ifAbsent:", "error:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -417,7 +417,7 @@ $4;
 $5=self["@ast"];
 return $5;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ast",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"ast",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -427,7 +427,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:", "isBlockContext", "ifNotNil:", "outerContext", "ast", "ifNil:", "initializeAST"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -442,7 +442,7 @@ var $1;
 $1=_st(self._locals())._at_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"basicLocalAt:",{aString:aString},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"basicLocalAt:",{aString:aString},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -452,7 +452,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:", "locals"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -466,7 +466,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._locals())._at_put_(aString,anObject);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"basicLocalAt:put:",{aString:aString,anObject:anObject},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"basicLocalAt:put:",{aString:aString,anObject:anObject},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -476,7 +476,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "locals"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -491,7 +491,7 @@ var $1;
 $1=self._localAt_("self");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"basicReceiver",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"basicReceiver",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -501,7 +501,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["localAt:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -515,7 +515,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._locals())._at_put_(aString,nil);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"defineLocal:",{aString:aString},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"defineLocal:",{aString:aString},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -525,7 +525,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "locals"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -540,7 +540,7 @@ var $1;
 $1=_st(anEvaluator)._evaluate_context_(aString,self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"evaluate:on:",{aString:aString,anEvaluator:anEvaluator},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"evaluate:on:",{aString:aString,anEvaluator:anEvaluator},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -550,7 +550,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["evaluate:context:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -558,7 +558,7 @@ selector: "evaluateNode:",
 protocol: 'evaluating',
 fn: function (aNode){
 var self=this;
-function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
+function $ASTInterpreter(){return $globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -571,7 +571,7 @@ $3=_st($2)._result();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"evaluateNode:",{aNode:aNode},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"evaluateNode:",{aNode:aNode},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -581,7 +581,7 @@ referencedClasses: ["ASTInterpreter"],
 //>>excludeEnd("ide");
 messageSends: ["context:", "new", "node:", "nextChild", "proceed", "result"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -601,7 +601,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -620,7 +620,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -640,7 +640,7 @@ $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"index",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"index",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -650,7 +650,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -669,7 +669,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -677,7 +677,7 @@ selector: "initializeAST",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
+function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -690,7 +690,7 @@ self["@ast"]=_st($1)._ast();
 _st(_st($SemanticAnalyzer())._on_(_st(self._method())._methodClass()))._visit_(self["@ast"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initializeAST",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"initializeAST",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -700,7 +700,7 @@ referencedClasses: ["SemanticAnalyzer"],
 //>>excludeEnd("ide");
 messageSends: ["ast", "method", "visit:", "on:", "methodClass"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -749,7 +749,7 @@ return _st(self._locals())._at_put_(key,value);
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:",{aMethodContext:aMethodContext},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:",{aMethodContext:aMethodContext},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -759,7 +759,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["evaluatedSelector:", "evaluatedSelector", "index:", "index", "sendIndexes:", "sendIndexes", "receiver:", "receiver", "supercall:", "supercall", "selector:", "selector", "ifNotNil:", "outerContext", "methodContext", "outerContext:", "fromMethodContext:", "class", "keysAndValuesDo:", "locals", "at:put:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -767,7 +767,7 @@ selector: "initializeInterpreter",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
+function $ASTInterpreter(){return $globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -784,7 +784,7 @@ self._setupInterpreter_(self["@interpreter"]);
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initializeInterpreter",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"initializeInterpreter",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -794,7 +794,7 @@ referencedClasses: ["ASTInterpreter"],
 //>>excludeEnd("ide");
 messageSends: ["context:", "new", "yourself", "ifNotNil:", "innerContext", "setupInterpreter:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -802,7 +802,7 @@ selector: "initializeLocals",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -810,7 +810,7 @@ self["@locals"]=_st($Dictionary())._new();
 _st(self["@locals"])._at_put_("thisContext",self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initializeLocals",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"initializeLocals",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -820,7 +820,7 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["new", "at:put:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -840,7 +840,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -859,7 +859,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -880,7 +880,7 @@ $1;
 $2=self["@interpreter"];
 return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"interpreter",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -890,7 +890,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "initializeInterpreter"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -909,7 +909,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -924,7 +924,7 @@ var $1;
 $1=_st(self._innerContext())._isNil();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isTopContext",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"isTopContext",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -934,7 +934,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["isNil", "innerContext"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -951,7 +951,7 @@ context=self._lookupContextForLocal_(aString);
 $1=_st(context)._basicLocalAt_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"localAt:",{aString:aString,context:context},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"localAt:",{aString:aString,context:context},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -961,7 +961,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["lookupContextForLocal:", "basicLocalAt:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -991,7 +991,7 @@ return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"localAt:ifAbsent:",{aString:aString,aBlock:aBlock,context:context},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"localAt:ifAbsent:",{aString:aString,aBlock:aBlock,context:context},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1001,7 +1001,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["lookupContextForLocal:ifNone:", "value", "basicLocalAt:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1017,7 +1017,7 @@ context=self._lookupContextForLocal_(aString);
 _st(context)._basicLocalAt_put_(aString,anObject);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"localAt:put:",{aString:aString,anObject:anObject,context:context},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"localAt:put:",{aString:aString,anObject:anObject,context:context},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1027,7 +1027,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["lookupContextForLocal:", "basicLocalAt:put:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1048,7 +1048,7 @@ $1;
 $2=self["@locals"];
 return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"locals",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"locals",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1058,7 +1058,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "initializeLocals"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1081,7 +1081,7 @@ return self._variableNotFound();
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"lookupContextForLocal:",{aString:aString},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"lookupContextForLocal:",{aString:aString},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1091,7 +1091,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["lookupContextForLocal:ifNone:", "variableNotFound"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1126,7 +1126,7 @@ return _st(context)._lookupContextForLocal_(aString);
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"lookupContextForLocal:ifNone:",{aString:aString,aBlock:aBlock},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"lookupContextForLocal:ifNone:",{aString:aString,aBlock:aBlock},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1136,7 +1136,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:ifPresent:ifAbsent:", "locals", "ifNil:ifNotNil:", "outerContext", "lookupContextForLocal:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1154,7 +1154,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"newInnerContext",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"newInnerContext",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1164,7 +1164,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["outerContext:", "new", "class", "yourself"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1184,7 +1184,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1207,7 +1207,7 @@ _st(context)._innerContext_(self);
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"outerContext:",{anAIContext:anAIContext},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"outerContext:",{anAIContext:anAIContext},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1217,7 +1217,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNotNil:", "innerContext:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1231,7 +1231,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._locals())._at_put_("self",anObject);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"receiver:",{anObject:anObject},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"receiver:",{anObject:anObject},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1241,7 +1241,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "locals"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1261,7 +1261,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1280,7 +1280,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1298,7 +1298,7 @@ return (0);
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sendIndexAt:",{aString:aString},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"sendIndexAt:",{aString:aString},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1308,7 +1308,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:ifAbsent:", "sendIndexes"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1316,7 +1316,7 @@ selector: "sendIndexes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1329,7 +1329,7 @@ $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sendIndexes",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"sendIndexes",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1339,7 +1339,7 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "new"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1358,7 +1358,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1367,7 +1367,7 @@ protocol: 'interpreting',
 fn: function (anInterpreter){
 var self=this;
 var currentNode;
-function $ASTPCNodeVisitor(){return globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
+function $ASTPCNodeVisitor(){return $globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1424,7 +1424,7 @@ $ctx2.sendIdx["push:"]=1;
 _st(anInterpreter)._push_(_st(self._innerContext())._receiver());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setupInterpreter:",{anInterpreter:anInterpreter,currentNode:currentNode},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"setupInterpreter:",{anInterpreter:anInterpreter,currentNode:currentNode},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1434,7 +1434,7 @@ referencedClasses: ["ASTPCNodeVisitor"],
 //>>excludeEnd("ide");
 messageSends: ["selector:", "new", "evaluatedSelector", "context:", "visit:", "ast", "currentNode", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "node:", "reversed", "arguments", "innerContext", "push:", "receiver"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1454,7 +1454,7 @@ $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"supercall",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"supercall",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1464,7 +1464,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1483,7 +1483,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AIContext);
+$globals.AIContext);
 
 $vm.addMethod(
 $vm.method({
@@ -1497,7 +1497,7 @@ return $vm.withContext(function($ctx1) {
 self._error_("Variable missing");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"variableNotFound",{},globals.AIContext)});
+}, function($ctx1) {$ctx1.fill(self,"variableNotFound",{},$globals.AIContext)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1507,7 +1507,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["error:"]
 }),
-globals.AIContext);
+$globals.AIContext);
 
 
 $vm.addMethod(
@@ -1526,7 +1526,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"fromMethodContext:",{aMethodContext:aMethodContext},globals.AIContext.klass)});
+}, function($ctx1) {$ctx1.fill(self,"fromMethodContext:",{aMethodContext:aMethodContext},$globals.AIContext.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1536,12 +1536,12 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initializeFromMethodContext:", "new", "yourself"]
 }),
-globals.AIContext.klass);
+$globals.AIContext.klass);
 
 
-$vm.addClass('AISemanticAnalyzer', globals.SemanticAnalyzer, ['context'], 'Compiler-Interpreter');
+$vm.addClass('AISemanticAnalyzer', $globals.SemanticAnalyzer, ['context'], 'Compiler-Interpreter');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.AISemanticAnalyzer.comment="I perform the same semantic analysis than `SemanticAnalyzer`, with the difference that provided an `AIContext` context, variables are bound with the context variables.";
+$globals.AISemanticAnalyzer.comment="I perform the same semantic analysis than `SemanticAnalyzer`, with the difference that provided an `AIContext` context, variables are bound with the context variables.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -1561,7 +1561,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AISemanticAnalyzer);
+$globals.AISemanticAnalyzer);
 
 $vm.addMethod(
 $vm.method({
@@ -1580,7 +1580,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AISemanticAnalyzer);
+$globals.AISemanticAnalyzer);
 
 $vm.addMethod(
 $vm.method({
@@ -1588,7 +1588,7 @@ selector: "visitVariableNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $ASTContextVar(){return globals.ASTContextVar||(typeof ASTContextVar=="undefined"?nil:ASTContextVar)}
+function $ASTContextVar(){return $globals.ASTContextVar||(typeof ASTContextVar=="undefined"?nil:ASTContextVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1603,7 +1603,7 @@ $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.supercall = true, 
 //>>excludeEnd("ctx");
-globals.AISemanticAnalyzer.superclass.fn.prototype._visitVariableNode_.apply(_st(self), [aNode]));
+$globals.AISemanticAnalyzer.superclass.fn.prototype._visitVariableNode_.apply(_st(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.supercall = false;
 //>>excludeEnd("ctx");;
@@ -1617,7 +1617,7 @@ return self;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},globals.AISemanticAnalyzer)});
+}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},$globals.AISemanticAnalyzer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1627,13 +1627,13 @@ referencedClasses: ["ASTContextVar"],
 //>>excludeEnd("ide");
 messageSends: ["localAt:ifAbsent:", "context", "value", "visitVariableNode:", "binding:", "new"]
 }),
-globals.AISemanticAnalyzer);
+$globals.AISemanticAnalyzer);
 
 
 
-$vm.addClass('ASTContextVar', globals.ScopeVar, ['context'], 'Compiler-Interpreter');
+$vm.addClass('ASTContextVar', $globals.ScopeVar, ['context'], 'Compiler-Interpreter');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.ASTContextVar.comment="I am a variable defined in a `context`.";
+$globals.ASTContextVar.comment="I am a variable defined in a `context`.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -1653,7 +1653,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTContextVar);
+$globals.ASTContextVar);
 
 $vm.addMethod(
 $vm.method({
@@ -1672,13 +1672,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTContextVar);
+$globals.ASTContextVar);
 
 
 
-$vm.addClass('ASTDebugger', globals.Object, ['interpreter', 'context', 'result'], 'Compiler-Interpreter');
+$vm.addClass('ASTDebugger', $globals.Object, ['interpreter', 'context', 'result'], 'Compiler-Interpreter');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.ASTDebugger.comment="I am a stepping debugger interface for Amber code.\x0aI internally use an instance of `ASTInterpreter` to actually step through node and interpret them.\x0a\x0aMy instances are created from an `AIContext` with `ASTDebugger class >> context:`.\x0aThey hold an `AIContext` instance internally, recursive copy of the `MethodContext`.\x0a\x0a## API\x0a\x0aUse the methods of the `'stepping'` protocol to do stepping.";
+$globals.ASTDebugger.comment="I am a stepping debugger interface for Amber code.\x0aI internally use an instance of `ASTInterpreter` to actually step through node and interpret them.\x0a\x0aMy instances are created from an `AIContext` with `ASTDebugger class >> context:`.\x0aThey hold an `AIContext` instance internally, recursive copy of the `MethodContext`.\x0a\x0a## API\x0a\x0aUse the methods of the `'stepping'` protocol to do stepping.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -1710,7 +1710,7 @@ return _st(self._context())._isTopContext();
 }));
 return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"atEnd",{},globals.ASTDebugger)});
+}, function($ctx1) {$ctx1.fill(self,"atEnd",{},$globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1720,7 +1720,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "context", "and:", "atEnd", "interpreter", "isTopContext"]
 }),
-globals.ASTDebugger);
+$globals.ASTDebugger);
 
 $vm.addMethod(
 $vm.method({
@@ -1740,7 +1740,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTDebugger);
+$globals.ASTDebugger);
 
 $vm.addMethod(
 $vm.method({
@@ -1759,7 +1759,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTDebugger);
+$globals.ASTDebugger);
 
 $vm.addMethod(
 $vm.method({
@@ -1781,7 +1781,7 @@ _st(cxt)._innerContext_(nil);
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"flushInnerContexts",{},globals.ASTDebugger)});
+}, function($ctx1) {$ctx1.fill(self,"flushInnerContexts",{},$globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1791,7 +1791,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNotNil:", "context", "innerContext:"]
 }),
-globals.ASTDebugger);
+$globals.ASTDebugger);
 
 $vm.addMethod(
 $vm.method({
@@ -1813,7 +1813,7 @@ $1=_st(ctx)._interpreter();
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"interpreter",{},globals.ASTDebugger)});
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{},$globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1823,7 +1823,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNotNil:", "context", "interpreter"]
 }),
-globals.ASTDebugger);
+$globals.ASTDebugger);
 
 $vm.addMethod(
 $vm.method({
@@ -1838,7 +1838,7 @@ var $1;
 $1=_st(self._context())._method();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"method",{},globals.ASTDebugger)});
+}, function($ctx1) {$ctx1.fill(self,"method",{},$globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1848,7 +1848,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["method", "context"]
 }),
-globals.ASTDebugger);
+$globals.ASTDebugger);
 
 $vm.addMethod(
 $vm.method({
@@ -1871,7 +1871,7 @@ $1=_st(self._interpreter())._node();
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"node",{},globals.ASTDebugger)});
+}, function($ctx1) {$ctx1.fill(self,"node",{},$globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1881,7 +1881,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNotNil:", "interpreter", "node"]
 }),
-globals.ASTDebugger);
+$globals.ASTDebugger);
 
 $vm.addMethod(
 $vm.method({
@@ -1927,7 +1927,7 @@ _st(self._interpreter())._skip();
 self._flushInnerContexts();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onStep",{},globals.ASTDebugger)});
+}, function($ctx1) {$ctx1.fill(self,"onStep",{},$globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1937,7 +1937,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["result", "interpreter", "ifTrue:", "atEnd", "ifNotNil:", "outerContext", "context", "context:", "ifFalse:", "skip", "flushInnerContexts"]
 }),
-globals.ASTDebugger);
+$globals.ASTDebugger);
 
 $vm.addMethod(
 $vm.method({
@@ -1967,7 +1967,7 @@ return self._stepOver();
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"proceed",{},globals.ASTDebugger)});
+}, function($ctx1) {$ctx1.fill(self,"proceed",{},$globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1977,7 +1977,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["whileFalse:", "atEnd", "stepOver"]
 }),
-globals.ASTDebugger);
+$globals.ASTDebugger);
 
 $vm.addMethod(
 $vm.method({
@@ -1992,7 +1992,7 @@ _st(self._interpreter())._restart();
 self._flushInnerContexts();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"restart",{},globals.ASTDebugger)});
+}, function($ctx1) {$ctx1.fill(self,"restart",{},$globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2002,7 +2002,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["restart", "interpreter", "flushInnerContexts"]
 }),
-globals.ASTDebugger);
+$globals.ASTDebugger);
 
 $vm.addMethod(
 $vm.method({
@@ -2022,7 +2022,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTDebugger);
+$globals.ASTDebugger);
 
 $vm.addMethod(
 $vm.method({
@@ -2036,7 +2036,7 @@ return $vm.withContext(function($ctx1) {
 self._shouldBeImplemented();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"stepInto",{},globals.ASTDebugger)});
+}, function($ctx1) {$ctx1.fill(self,"stepInto",{},$globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2046,7 +2046,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["shouldBeImplemented"]
 }),
-globals.ASTDebugger);
+$globals.ASTDebugger);
 
 $vm.addMethod(
 $vm.method({
@@ -2071,7 +2071,7 @@ _st($2)._skip();
 self._onStep();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"stepOver",{},globals.ASTDebugger)});
+}, function($ctx1) {$ctx1.fill(self,"stepOver",{},$globals.ASTDebugger)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2081,7 +2081,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:ifTrue:", "isTopContext", "context", "skip", "interpreter", "stepOver", "onStep"]
 }),
-globals.ASTDebugger);
+$globals.ASTDebugger);
 
 
 $vm.addMethod(
@@ -2100,7 +2100,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},globals.ASTDebugger.klass)});
+}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},$globals.ASTDebugger.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2110,12 +2110,12 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["context:", "new", "yourself"]
 }),
-globals.ASTDebugger.klass);
+$globals.ASTDebugger.klass);
 
 
-$vm.addClass('ASTInterpreter', globals.NodeVisitor, ['node', 'context', 'stack', 'returnValue', 'returned', 'forceAtEnd'], 'Compiler-Interpreter');
+$vm.addClass('ASTInterpreter', $globals.NodeVisitor, ['node', 'context', 'stack', 'returnValue', 'returned', 'forceAtEnd'], 'Compiler-Interpreter');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.ASTInterpreter.comment="I visit an AST, interpreting (evaluating) nodes one after the other, using a small stack machine.\x0a\x0a## API\x0a\x0aWhile my instances should be used from within an `ASTDebugger`, which provides a more high level interface,\x0ayou can use methods from the `interpreting` protocol:\x0a\x0a- `#step` evaluates the current `node` only\x0a- `#stepOver` evaluates the AST from the current `node` up to the next stepping node (most likely the next send node)\x0a- `#proceed` evaluates eagerly the AST\x0a- `#restart` select the first node of the AST\x0a- `#skip` skips the current node, moving to the next one if any";
+$globals.ASTInterpreter.comment="I visit an AST, interpreting (evaluating) nodes one after the other, using a small stack machine.\x0a\x0a## API\x0a\x0aWhile my instances should be used from within an `ASTDebugger`, which provides a more high level interface,\x0ayou can use methods from the `interpreting` protocol:\x0a\x0a- `#step` evaluates the current `node` only\x0a- `#stepOver` evaluates the AST from the current `node` up to the next stepping node (most likely the next send node)\x0a- `#proceed` evaluates eagerly the AST\x0a- `#restart` select the first node of the AST\x0a- `#skip` skips the current node, moving to the next one if any";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -2144,7 +2144,7 @@ _st(self._context())._localAt_put_(_st(aNode)._value(),anObject);
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"assign:to:",{aNode:aNode,anObject:anObject},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"assign:to:",{aNode:aNode,anObject:anObject},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2154,7 +2154,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "isInstanceVar", "binding", "instVarAt:put:", "receiver", "context", "value", "localAt:put:"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2181,7 +2181,7 @@ return _st(self._node())._isNil();
 }));
 return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"atEnd",{},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"atEnd",{},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2191,7 +2191,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:", "or:", "hasReturned", "isNil", "node"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2211,7 +2211,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2230,7 +2230,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2239,8 +2239,8 @@ protocol: 'private',
 fn: function (aString){
 var self=this;
 var source,function_;
-function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
-function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
+function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2303,7 +2303,7 @@ function_=_st(_st($Compiler())._new())._eval_(source);
 $5=_st(function_)._valueWithPossibleArguments_(_st(_st(self._context())._locals())._values());
 return $5;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString,source:source,function_:function_},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString,source:source,function_:function_},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2313,7 +2313,7 @@ referencedClasses: ["String", "Compiler"],
 //>>excludeEnd("ide");
 messageSends: ["streamContents:", "nextPutAll:", "do:separatedBy:", "keys", "locals", "context", "eval:", "new", "valueWithPossibleArguments:", "values"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2333,7 +2333,7 @@ $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"hasReturned",{},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"hasReturned",{},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2343,7 +2343,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2358,14 +2358,14 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.ASTInterpreter.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.ASTInterpreter.superclass.fn.prototype._initialize.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 self["@forceAtEnd"]=false;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2375,7 +2375,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initialize"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2389,7 +2389,7 @@ return $vm.withContext(function($ctx1) {
 self._visit_(self._node());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"interpret",{},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"interpret",{},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2399,7 +2399,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visit:", "node"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2414,7 +2414,7 @@ self._node_(aNode);
 self._interpret();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"interpret:",{aNode:aNode},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"interpret:",{aNode:aNode},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2424,7 +2424,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["node:", "interpret"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2432,7 +2432,7 @@ selector: "messageFromSendNode:arguments:",
 protocol: 'private',
 fn: function (aSendNode,aCollection){
 var self=this;
-function $Message(){return globals.Message||(typeof Message=="undefined"?nil:Message)}
+function $Message(){return $globals.Message||(typeof Message=="undefined"?nil:Message)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2444,7 +2444,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"messageFromSendNode:arguments:",{aSendNode:aSendNode,aCollection:aCollection},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"messageFromSendNode:arguments:",{aSendNode:aSendNode,aCollection:aCollection},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2454,7 +2454,7 @@ referencedClasses: ["Message"],
 //>>excludeEnd("ide");
 messageSends: ["selector:", "new", "selector", "arguments:", "yourself"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2462,7 +2462,7 @@ selector: "messageNotUnderstood:receiver:",
 protocol: 'private',
 fn: function (aMessage,anObject){
 var self=this;
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2473,7 +2473,7 @@ _st($1)._receiver_(anObject);
 $2=_st($1)._signal();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"messageNotUnderstood:receiver:",{aMessage:aMessage,anObject:anObject},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"messageNotUnderstood:receiver:",{aMessage:aMessage,anObject:anObject},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2483,7 +2483,7 @@ referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["meesage:", "new", "receiver:", "signal"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2497,7 +2497,7 @@ return $vm.withContext(function($ctx1) {
 self._node_(_st(self._node())._nextNode());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"next",{},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"next",{},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2507,7 +2507,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["node:", "nextNode", "node"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2527,7 +2527,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2546,7 +2546,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2573,7 +2573,7 @@ return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"peek",{},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"peek",{},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2583,7 +2583,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifEmpty:", "stack", "last"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2601,7 +2601,7 @@ _st(self._stack())._removeLast();
 $1=peekedValue;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"pop",{peekedValue:peekedValue},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"pop",{peekedValue:peekedValue},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2611,7 +2611,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["peek", "removeLast", "stack"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2641,7 +2641,7 @@ return self._step();
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"proceed",{},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"proceed",{},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2651,7 +2651,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["whileFalse:", "atEnd", "step"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2666,7 +2666,7 @@ var $1;
 $1=_st(self._stack())._add_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"push:",{anObject:anObject},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"push:",{anObject:anObject},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2676,7 +2676,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["add:", "stack"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2690,7 +2690,7 @@ return $vm.withContext(function($ctx1) {
 self._node_(_st(_st(self._context())._ast())._nextChild());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"restart",{},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"restart",{},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2700,7 +2700,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["node:", "nextChild", "ast", "context"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2720,7 +2720,7 @@ $1=_st(self._context())._receiver();
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"result",{},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"result",{},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2730,7 +2730,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "hasReturned", "returnValue", "receiver", "context"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2750,7 +2750,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2769,7 +2769,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2820,7 +2820,7 @@ return $6;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sendMessage:to:superSend:",{aMessage:aMessage,anObject:anObject,aBoolean:aBoolean,method:method},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"sendMessage:to:superSend:",{aMessage:aMessage,anObject:anObject,aBoolean:aBoolean,method:method},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2830,7 +2830,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "sendTo:", "ifNil:", "superclass", "class", "messageNotUnderstood:receiver:", "at:ifAbsent:", "methodDictionary", "selector", "sendTo:arguments:", "arguments"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2854,7 +2854,7 @@ self._returnValue_(_st(_st(aContext)._interpreter())._returnValue());
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setNonLocalReturnFromContext:",{aContext:aContext},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"setNonLocalReturnFromContext:",{aContext:aContext},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2864,7 +2864,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:", "hasReturned", "interpreter", "returnValue:", "returnValue"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2878,7 +2878,7 @@ return $vm.withContext(function($ctx1) {
 self._next();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"skip",{},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"skip",{},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2888,7 +2888,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["next"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2896,7 +2896,7 @@ selector: "stack",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2910,7 +2910,7 @@ $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"stack",{},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"stack",{},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2920,7 +2920,7 @@ referencedClasses: ["OrderedCollection"],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "new"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2936,7 +2936,7 @@ self._interpret();
 $1=self._next();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"step",{},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"step",{},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2946,7 +2946,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["interpret", "next"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -2994,7 +2994,7 @@ return self._step();
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"stepOver",{},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"stepOver",{},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3004,7 +3004,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["step", "whileFalse:", "or:", "isNil", "node", "isSteppingNode"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -3022,14 +3022,14 @@ if(!$vm.assert($1)){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.ASTInterpreter.superclass.fn.prototype._visit_.apply(_st(self), [aNode]));
+$globals.ASTInterpreter.superclass.fn.prototype._visit_.apply(_st(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3039,7 +3039,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "hasReturned", "visit:"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -3060,7 +3060,7 @@ self._push_(poppedValue);
 self._assign_to_(_st(aNode)._left(),poppedValue);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode,poppedValue:poppedValue},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode,poppedValue:poppedValue},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3070,7 +3070,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["pop", "push:", "assign:to:", "left"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -3079,7 +3079,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var block;
-function $AIBlockClosure(){return globals.AIBlockClosure||(typeof AIBlockClosure=="undefined"?nil:AIBlockClosure)}
+function $AIBlockClosure(){return $globals.AIBlockClosure||(typeof AIBlockClosure=="undefined"?nil:AIBlockClosure)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3087,7 +3087,7 @@ block=_st($AIBlockClosure())._forContext_node_(self._context(),aNode);
 self._push_(block);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode,block:block},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode,block:block},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3097,7 +3097,7 @@ referencedClasses: ["AIBlockClosure"],
 //>>excludeEnd("ide");
 messageSends: ["forContext:node:", "context", "push:"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -3112,14 +3112,14 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.ASTInterpreter.superclass.fn.prototype._visitBlockSequenceNode_.apply(_st(self), [aNode]));
+$globals.ASTInterpreter.superclass.fn.prototype._visitBlockSequenceNode_.apply(_st(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 self["@forceAtEnd"]=true;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3129,7 +3129,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitBlockSequenceNode:"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -3154,7 +3154,7 @@ return _st(array)._addFirst_(self._pop());
 self._push_(array);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode,array:array},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode,array:array},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3164,7 +3164,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["do:", "nodes", "addFirst:", "pop", "push:"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -3173,8 +3173,8 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var keyValueList;
-function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
-function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3191,7 +3191,7 @@ return _st(keyValueList)._add_(self._pop());
 self._push_(_st($HashedCollection())._newFromPairs_(_st(keyValueList)._reversed()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,keyValueList:keyValueList},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,keyValueList:keyValueList},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3201,7 +3201,7 @@ referencedClasses: ["OrderedCollection", "HashedCollection"],
 //>>excludeEnd("ide");
 messageSends: ["new", "do:", "nodes", "add:", "pop", "push:", "newFromPairs:", "reversed"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -3216,7 +3216,7 @@ self["@returned"]=true;
 self._returnValue_(self._eval_(_st(aNode)._source()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3226,7 +3226,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["returnValue:", "eval:", "source"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -3244,7 +3244,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -3259,7 +3259,7 @@ self["@returned"]=true;
 self._returnValue_(self._pop());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3269,7 +3269,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["returnValue:", "pop"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -3316,7 +3316,7 @@ self._push_(result);
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,receiver:receiver,args:args,message:message,result:result},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,receiver:receiver,args:args,message:message,result:result},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3326,7 +3326,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collect:", "arguments", "pop", "messageFromSendNode:arguments:", "reversed", "sendMessage:to:superSend:", "superSend", "ifTrue:ifFalse:", "and:", "isCascadeSendNode", "not", "isLastChild", "push:"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -3348,7 +3348,7 @@ return _st(self._context())._defineLocal_(each);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3358,7 +3358,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["do:", "temps", "defineLocal:", "context"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -3372,7 +3372,7 @@ return $vm.withContext(function($ctx1) {
 self._push_(_st(aNode)._value());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3382,7 +3382,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["push:", "value"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 $vm.addMethod(
 $vm.method({
@@ -3390,8 +3390,8 @@ selector: "visitVariableNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $PlatformInterface(){return globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3482,7 +3482,7 @@ return _st(_st($PlatformInterface())._globals())._at_(_st(aNode)._value());
 self._push_($7);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3492,19 +3492,19 @@ referencedClasses: ["PlatformInterface", "Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "globals", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:ifAbsent:", "isCapitalized", "at:"]
 }),
-globals.ASTInterpreter);
+$globals.ASTInterpreter);
 
 
 
-$vm.addClass('ASTInterpreterError', globals.Error, [], 'Compiler-Interpreter');
+$vm.addClass('ASTInterpreterError', $globals.Error, [], 'Compiler-Interpreter');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.ASTInterpreterError.comment="I get signaled when an AST interpreter is unable to interpret a node.";
+$globals.ASTInterpreterError.comment="I get signaled when an AST interpreter is unable to interpret a node.";
 //>>excludeEnd("ide");
 
 
-$vm.addClass('ASTPCNodeVisitor', globals.NodeVisitor, ['context', 'index', 'selector', 'currentNode'], 'Compiler-Interpreter');
+$vm.addClass('ASTPCNodeVisitor', $globals.NodeVisitor, ['context', 'index', 'selector', 'currentNode'], 'Compiler-Interpreter');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.ASTPCNodeVisitor.comment="I visit an AST until I get to the current node for the `context` and answer it.\x0a\x0a## API\x0a\x0aMy instances must be filled with a context object using `#context:`.\x0a\x0aAfter visiting the AST the current node is answered by `#currentNode`";
+$globals.ASTPCNodeVisitor.comment="I visit an AST until I get to the current node for the `context` and answer it.\x0a\x0a## API\x0a\x0aMy instances must be filled with a context object using `#context:`.\x0a\x0aAfter visiting the AST the current node is answered by `#currentNode`";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -3524,7 +3524,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTPCNodeVisitor);
+$globals.ASTPCNodeVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3543,7 +3543,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTPCNodeVisitor);
+$globals.ASTPCNodeVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3563,7 +3563,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTPCNodeVisitor);
+$globals.ASTPCNodeVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3577,7 +3577,7 @@ return $vm.withContext(function($ctx1) {
 self["@index"]=_st(self._index()).__plus((1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"increaseIndex",{},globals.ASTPCNodeVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"increaseIndex",{},$globals.ASTPCNodeVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3587,7 +3587,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["+", "index"]
 }),
-globals.ASTPCNodeVisitor);
+$globals.ASTPCNodeVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3608,7 +3608,7 @@ $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"index",{},globals.ASTPCNodeVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"index",{},$globals.ASTPCNodeVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3618,7 +3618,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:"]
 }),
-globals.ASTPCNodeVisitor);
+$globals.ASTPCNodeVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3638,7 +3638,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTPCNodeVisitor);
+$globals.ASTPCNodeVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3657,7 +3657,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTPCNodeVisitor);
+$globals.ASTPCNodeVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3676,7 +3676,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ASTPCNodeVisitor);
+$globals.ASTPCNodeVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3699,7 +3699,7 @@ sendIndex=_st($1)._sendIndexAt_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.ASTPCNodeVisitor.superclass.fn.prototype._visitSendNode_.apply(_st(self), [aNode]));
+$globals.ASTPCNodeVisitor.superclass.fn.prototype._visitSendNode_.apply(_st(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -3721,7 +3721,7 @@ self._increaseIndex();
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,sendIndex:sendIndex},globals.ASTPCNodeVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,sendIndex:sendIndex},$globals.ASTPCNodeVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3731,7 +3731,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["sendIndexAt:", "context", "selector", "visitSendNode:", "ifTrue:", "=", "index", "increaseIndex"]
 }),
-globals.ASTPCNodeVisitor);
+$globals.ASTPCNodeVisitor);
 
 
 $vm.addMethod(
@@ -3750,7 +3750,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AssignmentNode);
+$globals.AssignmentNode);
 
 $vm.addMethod(
 $vm.method({
@@ -3768,7 +3768,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.BlockNode);
+$globals.BlockNode);
 
 $vm.addMethod(
 $vm.method({
@@ -3786,7 +3786,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.DynamicArrayNode);
+$globals.DynamicArrayNode);
 
 $vm.addMethod(
 $vm.method({
@@ -3804,7 +3804,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.DynamicDictionaryNode);
+$globals.DynamicDictionaryNode);
 
 $vm.addMethod(
 $vm.method({
@@ -3822,7 +3822,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JSStatementNode);
+$globals.JSStatementNode);
 
 $vm.addMethod(
 $vm.method({
@@ -3840,7 +3840,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Node);
+$globals.Node);
 
 $vm.addMethod(
 $vm.method({
@@ -3858,6 +3858,6 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.SendNode);
+$globals.SendNode);
 
 });

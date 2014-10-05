@@ -4,9 +4,9 @@ var smalltalk=$vm,_st=$recv,globals=$globals;
 $vm.addPackage('Compiler-IR');
 $vm.packages["Compiler-IR"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('IRASTTranslator', globals.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
+$vm.addClass('IRASTTranslator', $globals.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRASTTranslator.comment="I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.";
+$globals.IRASTTranslator.comment="I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -15,9 +15,9 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var variable;
-function $IRVariable(){return globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
-function $AliasVar(){return globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
-function $IRAssignment(){return globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
+function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
+function $AliasVar(){return $globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
+function $IRAssignment(){return $globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -66,7 +66,7 @@ _st(_st(self._method())._internalVariables())._add_(variable);
 $12=variable;
 return $12;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"alias:",{aNode:aNode,variable:variable},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"alias:",{aNode:aNode,variable:variable},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -76,7 +76,7 @@ referencedClasses: ["IRVariable", "AliasVar", "IRAssignment"],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:", "isImmutable", "visit:", "variable:", "new", "name:", ",", "nextAlias", "yourself", "add:", "sequence", "internalVariables", "method"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -85,7 +85,7 @@ protocol: 'visiting',
 fn: function (aCollection){
 var self=this;
 var threshold,result;
-function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -127,7 +127,7 @@ return _st($2)._add_($3);
 $5=result;
 return $5;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"aliasTemporally:",{aCollection:aCollection,threshold:threshold,result:result},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"aliasTemporally:",{aCollection:aCollection,threshold:threshold,result:result},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -137,7 +137,7 @@ referencedClasses: ["OrderedCollection"],
 //>>excludeEnd("ide");
 messageSends: ["withIndexDo:", "ifTrue:", "subtreeNeedsAliasing", "new", "add:", "ifTrue:ifFalse:", "<=", "alias:", "visit:"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -157,7 +157,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -176,7 +176,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -199,7 +199,7 @@ self["@nextAlias"]=_st(self["@nextAlias"]).__plus((1));
 $2=_st(self["@nextAlias"])._asString();
 return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextAlias",{},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"nextAlias",{},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -209,7 +209,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "+", "asString"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -229,7 +229,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -248,7 +248,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -268,7 +268,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -287,7 +287,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -307,7 +307,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -326,7 +326,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -335,7 +335,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var left,right,assignment;
-function $IRAssignment(){return globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
+function $IRAssignment(){return $globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -361,7 +361,7 @@ $ctx1.sendIdx["add:"]=1;
 $5=left;
 return $5;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode,left:left,right:right,assignment:assignment},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode,left:left,right:right,assignment:assignment},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -371,7 +371,7 @@ referencedClasses: ["IRAssignment"],
 //>>excludeEnd("ide");
 messageSends: ["visit:", "right", "left", "add:", "sequence", "new", "yourself"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -380,8 +380,8 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var closure;
-function $IRClosure(){return globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
-function $IRTempDeclaration(){return globals.IRTempDeclaration||(typeof IRTempDeclaration=="undefined"?nil:IRTempDeclaration)}
+function $IRClosure(){return $globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
+function $IRTempDeclaration(){return $globals.IRTempDeclaration||(typeof IRTempDeclaration=="undefined"?nil:IRTempDeclaration)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -442,7 +442,7 @@ return _st(closure)._add_(self._visit_(each));
 $9=closure;
 return $9;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode,closure:closure},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode,closure:closure},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -452,7 +452,7 @@ referencedClasses: ["IRClosure", "IRTempDeclaration"],
 //>>excludeEnd("ide");
 messageSends: ["arguments:", "new", "parameters", "requiresSmalltalkContext:", "requiresSmalltalkContext", "scope:", "scope", "yourself", "do:", "temps", "add:", "name:", "name", "nodes", "visit:"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -460,8 +460,8 @@ selector: "visitBlockSequenceNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $IRBlockSequence(){return globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
-function $IRBlockReturn(){return globals.IRBlockReturn||(typeof IRBlockReturn=="undefined"?nil:IRBlockReturn)}
+function $IRBlockSequence(){return $globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
+function $IRBlockReturn(){return $globals.IRBlockReturn||(typeof IRBlockReturn=="undefined"?nil:IRBlockReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -558,7 +558,7 @@ $ctx3.sendIdx["add:"]=2;
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -568,7 +568,7 @@ referencedClasses: ["IRBlockSequence", "IRBlockReturn"],
 //>>excludeEnd("ide");
 messageSends: ["withSequence:do:", "new", "ifNotEmpty:", "nodes", "do:", "allButLast", "add:", "sequence", "visitOrAlias:", "ifFalse:ifTrue:", "isReturnNode", "last", "yourself"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -577,7 +577,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var alias,receiver;
-function $VariableNode(){return globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
+function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -635,7 +635,7 @@ return _st(self._sequence())._add_(self._visit_(each));
 $6=self._alias_(_st(_st(aNode)._nodes())._last());
 return $6;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode,alias:alias,receiver:receiver},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode,alias:alias,receiver:receiver},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -645,7 +645,7 @@ referencedClasses: ["VariableNode"],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "isImmutable", "receiver", "alias:", "binding:", "new", "variable", "do:", "nodes", "receiver:", "allButLast", "add:", "sequence", "visit:", "last"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -654,7 +654,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var array;
-function $IRDynamicArray(){return globals.IRDynamicArray||(typeof IRDynamicArray=="undefined"?nil:IRDynamicArray)}
+function $IRDynamicArray(){return $globals.IRDynamicArray||(typeof IRDynamicArray=="undefined"?nil:IRDynamicArray)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -672,7 +672,7 @@ return _st(array)._add_(each);
 $1=array;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode,array:array},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode,array:array},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -682,7 +682,7 @@ referencedClasses: ["IRDynamicArray"],
 //>>excludeEnd("ide");
 messageSends: ["new", "do:", "aliasTemporally:", "nodes", "add:"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -691,7 +691,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var dictionary;
-function $IRDynamicDictionary(){return globals.IRDynamicDictionary||(typeof IRDynamicDictionary=="undefined"?nil:IRDynamicDictionary)}
+function $IRDynamicDictionary(){return $globals.IRDynamicDictionary||(typeof IRDynamicDictionary=="undefined"?nil:IRDynamicDictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -709,7 +709,7 @@ return _st(dictionary)._add_(each);
 $1=dictionary;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,dictionary:dictionary},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,dictionary:dictionary},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -719,7 +719,7 @@ referencedClasses: ["IRDynamicDictionary"],
 //>>excludeEnd("ide");
 messageSends: ["new", "do:", "aliasTemporally:", "nodes", "add:"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -727,7 +727,7 @@ selector: "visitJSStatementNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $IRVerbatim(){return globals.IRVerbatim||(typeof IRVerbatim=="undefined"?nil:IRVerbatim)}
+function $IRVerbatim(){return $globals.IRVerbatim||(typeof IRVerbatim=="undefined"?nil:IRVerbatim)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -738,7 +738,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -748,7 +748,7 @@ referencedClasses: ["IRVerbatim"],
 //>>excludeEnd("ide");
 messageSends: ["source:", "new", "crlfSanitized", "source", "yourself"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -756,11 +756,11 @@ selector: "visitMethodNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $IRMethod(){return globals.IRMethod||(typeof IRMethod=="undefined"?nil:IRMethod)}
-function $IRTempDeclaration(){return globals.IRTempDeclaration||(typeof IRTempDeclaration=="undefined"?nil:IRTempDeclaration)}
-function $IRReturn(){return globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
-function $IRVariable(){return globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
-function $IRVerbatim(){return globals.IRVerbatim||(typeof IRVerbatim=="undefined"?nil:IRVerbatim)}
+function $IRMethod(){return $globals.IRMethod||(typeof IRMethod=="undefined"?nil:IRMethod)}
+function $IRTempDeclaration(){return $globals.IRTempDeclaration||(typeof IRTempDeclaration=="undefined"?nil:IRTempDeclaration)}
+function $IRReturn(){return $globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
+function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
+function $IRVerbatim(){return $globals.IRVerbatim||(typeof IRVerbatim=="undefined"?nil:IRVerbatim)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -899,7 +899,7 @@ $26;
 $29=self._method();
 return $29;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -909,7 +909,7 @@ referencedClasses: ["IRMethod", "IRTempDeclaration", "IRReturn", "IRVariable", "
 //>>excludeEnd("ide");
 messageSends: ["method:", "source:", "new", "crlfSanitized", "source", "theClass:", "theClass", "arguments:", "arguments", "selector:", "selector", "sendIndexes:", "sendIndexes", "superSends:", "superSends", "requiresSmalltalkContext:", "requiresSmalltalkContext", "classReferences:", "classReferences", "scope:", "scope", "yourself", "do:", "temps", "add:", "method", "name:", "name", "nodes", "visit:", "ifFalse:", "hasLocalReturn", "variable:", "at:", "pseudoVars"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -929,7 +929,7 @@ $1=self._visit_(aNode);
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitOrAlias:",{aNode:aNode},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitOrAlias:",{aNode:aNode},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -939,7 +939,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "shouldBeAliased", "alias:", "visit:"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -948,8 +948,8 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var return_;
-function $IRNonLocalReturn(){return globals.IRNonLocalReturn||(typeof IRNonLocalReturn=="undefined"?nil:IRNonLocalReturn)}
-function $IRReturn(){return globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
+function $IRNonLocalReturn(){return $globals.IRNonLocalReturn||(typeof IRNonLocalReturn=="undefined"?nil:IRNonLocalReturn)}
+function $IRReturn(){return $globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -976,7 +976,7 @@ return _st(return_)._add_(self._alias_(each));
 $2=return_;
 return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode,return_:return_},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode,return_:return_},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -986,7 +986,7 @@ referencedClasses: ["IRNonLocalReturn", "IRReturn"],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "nonLocalReturn", "new", "scope:", "scope", "do:", "nodes", "add:", "alias:"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -995,7 +995,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var send,all,receiver,arguments;
-function $IRSend(){return globals.IRSend||(typeof IRSend=="undefined"?nil:IRSend)}
+function $IRSend(){return $globals.IRSend||(typeof IRSend=="undefined"?nil:IRSend)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1027,7 +1027,7 @@ return _st(send)._add_(each);
 $4=send;
 return $4;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,send:send,all:all,receiver:receiver,arguments:arguments},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,send:send,all:all,receiver:receiver,arguments:arguments},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1037,7 +1037,7 @@ referencedClasses: ["IRSend"],
 //>>excludeEnd("ide");
 messageSends: ["new", "selector:", "selector", "index:", "index", "ifTrue:", "superSend", "classSend:", "superclass", "theClass", "aliasTemporally:", ",", "receiver", "arguments", "first", "allButFirst", "add:", "do:"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -1045,7 +1045,7 @@ selector: "visitSequenceNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $IRSequence(){return globals.IRSequence||(typeof IRSequence=="undefined"?nil:IRSequence)}
+function $IRSequence(){return $globals.IRSequence||(typeof IRSequence=="undefined"?nil:IRSequence)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1075,7 +1075,7 @@ return _st(self._sequence())._add_(instruction);
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1085,7 +1085,7 @@ referencedClasses: ["IRSequence"],
 //>>excludeEnd("ide");
 messageSends: ["withSequence:do:", "new", "do:", "nodes", "visitOrAlias:", "ifFalse:", "isVariable", "add:", "sequence"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -1093,7 +1093,7 @@ selector: "visitValueNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $IRValue(){return globals.IRValue||(typeof IRValue=="undefined"?nil:IRValue)}
+function $IRValue(){return $globals.IRValue||(typeof IRValue=="undefined"?nil:IRValue)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1104,7 +1104,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1114,7 +1114,7 @@ referencedClasses: ["IRValue"],
 //>>excludeEnd("ide");
 messageSends: ["value:", "new", "value", "yourself"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -1122,7 +1122,7 @@ selector: "visitVariableNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $IRVariable(){return globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
+function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1133,7 +1133,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1143,7 +1143,7 @@ referencedClasses: ["IRVariable"],
 //>>excludeEnd("ide");
 messageSends: ["variable:", "new", "binding", "yourself"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -1164,7 +1164,7 @@ _st(aBlock)._value();
 self._sequence_(outerSequence);
 return aSequence;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"withSequence:do:",{aSequence:aSequence,aBlock:aBlock,outerSequence:outerSequence},globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"withSequence:do:",{aSequence:aSequence,aBlock:aBlock,outerSequence:outerSequence},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1174,13 +1174,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["sequence", "sequence:", "value"]
 }),
-globals.IRASTTranslator);
+$globals.IRASTTranslator);
 
 
 
-$vm.addClass('IRInstruction', globals.Object, ['parent', 'instructions'], 'Compiler-IR');
+$vm.addClass('IRInstruction', $globals.Object, ['parent', 'instructions'], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRInstruction.comment="I am the abstract root class of the IR (intermediate representation) instructions class hierarchy.\x0aThe IR graph is used to emit JavaScript code using a JSStream.";
+$globals.IRInstruction.comment="I am the abstract root class of the IR (intermediate representation) instructions class hierarchy.\x0aThe IR graph is used to emit JavaScript code using a JSStream.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -1195,7 +1195,7 @@ var $1;
 $1=_st(aVisitor)._visitIRInstruction_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1205,7 +1205,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1221,7 +1221,7 @@ _st(anObject)._parent_(self);
 $1=_st(self._instructions())._add_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},globals.IRInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},$globals.IRInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1231,7 +1231,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["parent:", "add:", "instructions"]
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1249,7 +1249,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1257,7 +1257,7 @@ selector: "instructions",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1271,7 +1271,7 @@ $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"instructions",{},globals.IRInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"instructions",{},$globals.IRInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1281,7 +1281,7 @@ referencedClasses: ["OrderedCollection"],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "new"]
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1299,7 +1299,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1317,7 +1317,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1335,7 +1335,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1353,7 +1353,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1371,7 +1371,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1389,7 +1389,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1407,7 +1407,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1425,7 +1425,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1443,7 +1443,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1458,7 +1458,7 @@ var $1;
 $1=_st(self._parent())._method();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"method",{},globals.IRInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"method",{},$globals.IRInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1468,7 +1468,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["method", "parent"]
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1486,7 +1486,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1506,7 +1506,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1525,7 +1525,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1539,7 +1539,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._parent())._remove_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"remove",{},globals.IRInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"remove",{},$globals.IRInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1549,7 +1549,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["remove:", "parent"]
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1563,7 +1563,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._instructions())._remove_(anIRInstruction);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"remove:",{anIRInstruction:anIRInstruction},globals.IRInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"remove:",{anIRInstruction:anIRInstruction},$globals.IRInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1573,7 +1573,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["remove:", "instructions"]
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1593,7 +1593,7 @@ $ctx1.sendIdx["instructions"]=1;
 _st($1)._at_put_(_st(self._instructions())._indexOf_(anIRInstruction),anotherIRInstruction);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"replace:with:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},globals.IRInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"replace:with:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},$globals.IRInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1603,7 +1603,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["parent:", "at:put:", "instructions", "indexOf:"]
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1617,7 +1617,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._parent())._replace_with_(self,anIRInstruction);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"replaceWith:",{anIRInstruction:anIRInstruction},globals.IRInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"replaceWith:",{anIRInstruction:anIRInstruction},$globals.IRInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1627,7 +1627,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["replace:with:", "parent"]
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1649,7 +1649,7 @@ $1=_st(node)._scope();
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"scope",{},globals.IRInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"scope",{},$globals.IRInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1659,7 +1659,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNotNil:", "parent", "scope"]
 }),
-globals.IRInstruction);
+$globals.IRInstruction);
 
 
 $vm.addMethod(
@@ -1678,7 +1678,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"on:",{aBuilder:aBuilder},globals.IRInstruction.klass)});
+}, function($ctx1) {$ctx1.fill(self,"on:",{aBuilder:aBuilder},$globals.IRInstruction.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1688,10 +1688,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["builder:", "new", "yourself"]
 }),
-globals.IRInstruction.klass);
+$globals.IRInstruction.klass);
 
 
-$vm.addClass('IRAssignment', globals.IRInstruction, [], 'Compiler-IR');
+$vm.addClass('IRAssignment', $globals.IRInstruction, [], 'Compiler-IR');
 $vm.addMethod(
 $vm.method({
 selector: "accept:",
@@ -1705,7 +1705,7 @@ var $1;
 $1=_st(aVisitor)._visitIRAssignment_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRAssignment)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRAssignment)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1715,11 +1715,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRAssignment:"]
 }),
-globals.IRAssignment);
+$globals.IRAssignment);
 
 
 
-$vm.addClass('IRDynamicArray', globals.IRInstruction, [], 'Compiler-IR');
+$vm.addClass('IRDynamicArray', $globals.IRInstruction, [], 'Compiler-IR');
 $vm.addMethod(
 $vm.method({
 selector: "accept:",
@@ -1733,7 +1733,7 @@ var $1;
 $1=_st(aVisitor)._visitIRDynamicArray_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRDynamicArray)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRDynamicArray)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1743,11 +1743,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRDynamicArray:"]
 }),
-globals.IRDynamicArray);
+$globals.IRDynamicArray);
 
 
 
-$vm.addClass('IRDynamicDictionary', globals.IRInstruction, [], 'Compiler-IR');
+$vm.addClass('IRDynamicDictionary', $globals.IRInstruction, [], 'Compiler-IR');
 $vm.addMethod(
 $vm.method({
 selector: "accept:",
@@ -1761,7 +1761,7 @@ var $1;
 $1=_st(aVisitor)._visitIRDynamicDictionary_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRDynamicDictionary)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRDynamicDictionary)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1771,11 +1771,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRDynamicDictionary:"]
 }),
-globals.IRDynamicDictionary);
+$globals.IRDynamicDictionary);
 
 
 
-$vm.addClass('IRScopedInstruction', globals.IRInstruction, ['scope'], 'Compiler-IR');
+$vm.addClass('IRScopedInstruction', $globals.IRInstruction, ['scope'], 'Compiler-IR');
 $vm.addMethod(
 $vm.method({
 selector: "scope",
@@ -1794,7 +1794,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRScopedInstruction);
+$globals.IRScopedInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1813,11 +1813,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRScopedInstruction);
+$globals.IRScopedInstruction);
 
 
 
-$vm.addClass('IRClosureInstruction', globals.IRScopedInstruction, ['arguments', 'requiresSmalltalkContext'], 'Compiler-IR');
+$vm.addClass('IRClosureInstruction', $globals.IRScopedInstruction, ['arguments', 'requiresSmalltalkContext'], 'Compiler-IR');
 $vm.addMethod(
 $vm.method({
 selector: "arguments",
@@ -1836,7 +1836,7 @@ $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"arguments",{},globals.IRClosureInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"arguments",{},$globals.IRClosureInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1846,7 +1846,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:"]
 }),
-globals.IRClosureInstruction);
+$globals.IRClosureInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1865,7 +1865,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRClosureInstruction);
+$globals.IRClosureInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1891,7 +1891,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"locals",{},globals.IRClosureInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"locals",{},$globals.IRClosureInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1901,7 +1901,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["addAll:", "copy", "arguments", "collect:", "tempDeclarations", "name", "yourself"]
 }),
-globals.IRClosureInstruction);
+$globals.IRClosureInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1921,7 +1921,7 @@ $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"requiresSmalltalkContext",{},globals.IRClosureInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"requiresSmalltalkContext",{},$globals.IRClosureInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1931,7 +1931,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:"]
 }),
-globals.IRClosureInstruction);
+$globals.IRClosureInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1950,7 +1950,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRClosureInstruction);
+$globals.IRClosureInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -1965,14 +1965,14 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.IRClosureInstruction.superclass.fn.prototype._scope_.apply(_st(self), [aScope]));
+$globals.IRClosureInstruction.superclass.fn.prototype._scope_.apply(_st(self), [aScope]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 _st(aScope)._instruction_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"scope:",{aScope:aScope},globals.IRClosureInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"scope:",{aScope:aScope},$globals.IRClosureInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1982,7 +1982,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["scope:", "instruction:"]
 }),
-globals.IRClosureInstruction);
+$globals.IRClosureInstruction);
 
 $vm.addMethod(
 $vm.method({
@@ -2005,7 +2005,7 @@ return _st(each)._isTempDeclaration();
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"tempDeclarations",{},globals.IRClosureInstruction)});
+}, function($ctx1) {$ctx1.fill(self,"tempDeclarations",{},$globals.IRClosureInstruction)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2015,11 +2015,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["select:", "instructions", "isTempDeclaration"]
 }),
-globals.IRClosureInstruction);
+$globals.IRClosureInstruction);
 
 
 
-$vm.addClass('IRClosure', globals.IRClosureInstruction, [], 'Compiler-IR');
+$vm.addClass('IRClosure', $globals.IRClosureInstruction, [], 'Compiler-IR');
 $vm.addMethod(
 $vm.method({
 selector: "accept:",
@@ -2033,7 +2033,7 @@ var $1;
 $1=_st(aVisitor)._visitIRClosure_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRClosure)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2043,7 +2043,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRClosure:"]
 }),
-globals.IRClosure);
+$globals.IRClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -2061,7 +2061,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRClosure);
+$globals.IRClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -2076,7 +2076,7 @@ var $1;
 $1=_st(self._instructions())._last();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sequence",{},globals.IRClosure)});
+}, function($ctx1) {$ctx1.fill(self,"sequence",{},$globals.IRClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2086,13 +2086,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["last", "instructions"]
 }),
-globals.IRClosure);
+$globals.IRClosure);
 
 
 
-$vm.addClass('IRMethod', globals.IRClosureInstruction, ['theClass', 'source', 'selector', 'classReferences', 'sendIndexes', 'superSends', 'requiresSmalltalkContext', 'internalVariables'], 'Compiler-IR');
+$vm.addClass('IRMethod', $globals.IRClosureInstruction, ['theClass', 'source', 'selector', 'classReferences', 'sendIndexes', 'superSends', 'requiresSmalltalkContext', 'internalVariables'], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRMethod.comment="I am a method instruction";
+$globals.IRMethod.comment="I am a method instruction";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -2107,7 +2107,7 @@ var $1;
 $1=_st(aVisitor)._visitIRMethod_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRMethod)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRMethod)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2117,7 +2117,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRMethod:"]
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2137,7 +2137,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2156,7 +2156,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2164,7 +2164,7 @@ selector: "internalVariables",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2178,7 +2178,7 @@ $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"internalVariables",{},globals.IRMethod)});
+}, function($ctx1) {$ctx1.fill(self,"internalVariables",{},$globals.IRMethod)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2188,7 +2188,7 @@ referencedClasses: ["Set"],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "new"]
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2206,7 +2206,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2221,7 +2221,7 @@ var $1;
 $1=_st(self._sendIndexes())._keys();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"messageSends",{},globals.IRMethod)});
+}, function($ctx1) {$ctx1.fill(self,"messageSends",{},$globals.IRMethod)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2231,7 +2231,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["keys", "sendIndexes"]
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2249,7 +2249,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2269,7 +2269,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2288,7 +2288,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2308,7 +2308,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2327,7 +2327,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2347,7 +2347,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2366,7 +2366,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2386,7 +2386,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2405,7 +2405,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2425,7 +2425,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 $vm.addMethod(
 $vm.method({
@@ -2444,13 +2444,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRMethod);
+$globals.IRMethod);
 
 
 
-$vm.addClass('IRReturn', globals.IRScopedInstruction, [], 'Compiler-IR');
+$vm.addClass('IRReturn', $globals.IRScopedInstruction, [], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRReturn.comment="I am a local return instruction.";
+$globals.IRReturn.comment="I am a local return instruction.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -2465,7 +2465,7 @@ var $1;
 $1=_st(aVisitor)._visitIRReturn_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRReturn)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRReturn)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2475,7 +2475,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRReturn:"]
 }),
-globals.IRReturn);
+$globals.IRReturn);
 
 $vm.addMethod(
 $vm.method({
@@ -2493,7 +2493,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRReturn);
+$globals.IRReturn);
 
 $vm.addMethod(
 $vm.method({
@@ -2511,7 +2511,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRReturn);
+$globals.IRReturn);
 
 $vm.addMethod(
 $vm.method({
@@ -2529,7 +2529,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRReturn);
+$globals.IRReturn);
 
 $vm.addMethod(
 $vm.method({
@@ -2544,7 +2544,7 @@ var $1;
 $1=_st(self._isLocalReturn())._not();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isNonLocalReturn",{},globals.IRReturn)});
+}, function($ctx1) {$ctx1.fill(self,"isNonLocalReturn",{},$globals.IRReturn)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2554,7 +2554,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["not", "isLocalReturn"]
 }),
-globals.IRReturn);
+$globals.IRReturn);
 
 $vm.addMethod(
 $vm.method({
@@ -2572,7 +2572,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRReturn);
+$globals.IRReturn);
 
 $vm.addMethod(
 $vm.method({
@@ -2592,7 +2592,7 @@ $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"scope",{},globals.IRReturn)});
+}, function($ctx1) {$ctx1.fill(self,"scope",{},$globals.IRReturn)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2602,13 +2602,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "scope", "parent"]
 }),
-globals.IRReturn);
+$globals.IRReturn);
 
 
 
-$vm.addClass('IRBlockReturn', globals.IRReturn, [], 'Compiler-IR');
+$vm.addClass('IRBlockReturn', $globals.IRReturn, [], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRBlockReturn.comment="Smalltalk blocks return their last statement. I am a implicit block return instruction.";
+$globals.IRBlockReturn.comment="Smalltalk blocks return their last statement. I am a implicit block return instruction.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -2623,7 +2623,7 @@ var $1;
 $1=_st(aVisitor)._visitIRBlockReturn_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRBlockReturn)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRBlockReturn)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2633,7 +2633,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRBlockReturn:"]
 }),
-globals.IRBlockReturn);
+$globals.IRBlockReturn);
 
 $vm.addMethod(
 $vm.method({
@@ -2651,13 +2651,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRBlockReturn);
+$globals.IRBlockReturn);
 
 
 
-$vm.addClass('IRNonLocalReturn', globals.IRReturn, [], 'Compiler-IR');
+$vm.addClass('IRNonLocalReturn', $globals.IRReturn, [], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRNonLocalReturn.comment="I am a non local return instruction.\x0aNon local returns are handled using a try/catch JavaScript statement.\x0a\x0aSee `IRNonLocalReturnHandling` class.";
+$globals.IRNonLocalReturn.comment="I am a non local return instruction.\x0aNon local returns are handled using a try/catch JavaScript statement.\x0a\x0aSee `IRNonLocalReturnHandling` class.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -2672,7 +2672,7 @@ var $1;
 $1=_st(aVisitor)._visitIRNonLocalReturn_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRNonLocalReturn)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRNonLocalReturn)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2682,7 +2682,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRNonLocalReturn:"]
 }),
-globals.IRNonLocalReturn);
+$globals.IRNonLocalReturn);
 
 $vm.addMethod(
 $vm.method({
@@ -2700,11 +2700,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRNonLocalReturn);
+$globals.IRNonLocalReturn);
 
 
 
-$vm.addClass('IRTempDeclaration', globals.IRScopedInstruction, ['name'], 'Compiler-IR');
+$vm.addClass('IRTempDeclaration', $globals.IRScopedInstruction, ['name'], 'Compiler-IR');
 $vm.addMethod(
 $vm.method({
 selector: "accept:",
@@ -2718,7 +2718,7 @@ var $1;
 $1=_st(aVisitor)._visitIRTempDeclaration_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRTempDeclaration)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRTempDeclaration)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2728,7 +2728,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRTempDeclaration:"]
 }),
-globals.IRTempDeclaration);
+$globals.IRTempDeclaration);
 
 $vm.addMethod(
 $vm.method({
@@ -2746,7 +2746,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRTempDeclaration);
+$globals.IRTempDeclaration);
 
 $vm.addMethod(
 $vm.method({
@@ -2766,7 +2766,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRTempDeclaration);
+$globals.IRTempDeclaration);
 
 $vm.addMethod(
 $vm.method({
@@ -2785,13 +2785,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRTempDeclaration);
+$globals.IRTempDeclaration);
 
 
 
-$vm.addClass('IRSend', globals.IRInstruction, ['selector', 'classSend', 'index'], 'Compiler-IR');
+$vm.addClass('IRSend', $globals.IRInstruction, ['selector', 'classSend', 'index'], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRSend.comment="I am a message send instruction.";
+$globals.IRSend.comment="I am a message send instruction.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -2806,7 +2806,7 @@ var $1;
 $1=_st(aVisitor)._visitIRSend_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRSend)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRSend)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2816,7 +2816,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRSend:"]
 }),
-globals.IRSend);
+$globals.IRSend);
 
 $vm.addMethod(
 $vm.method({
@@ -2836,7 +2836,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRSend);
+$globals.IRSend);
 
 $vm.addMethod(
 $vm.method({
@@ -2855,7 +2855,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRSend);
+$globals.IRSend);
 
 $vm.addMethod(
 $vm.method({
@@ -2875,7 +2875,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRSend);
+$globals.IRSend);
 
 $vm.addMethod(
 $vm.method({
@@ -2894,7 +2894,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRSend);
+$globals.IRSend);
 
 $vm.addMethod(
 $vm.method({
@@ -2912,7 +2912,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRSend);
+$globals.IRSend);
 
 $vm.addMethod(
 $vm.method({
@@ -2932,7 +2932,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRSend);
+$globals.IRSend);
 
 $vm.addMethod(
 $vm.method({
@@ -2951,11 +2951,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRSend);
+$globals.IRSend);
 
 
 
-$vm.addClass('IRSequence', globals.IRInstruction, [], 'Compiler-IR');
+$vm.addClass('IRSequence', $globals.IRInstruction, [], 'Compiler-IR');
 $vm.addMethod(
 $vm.method({
 selector: "accept:",
@@ -2969,7 +2969,7 @@ var $1;
 $1=_st(aVisitor)._visitIRSequence_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRSequence)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRSequence)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2979,7 +2979,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRSequence:"]
 }),
-globals.IRSequence);
+$globals.IRSequence);
 
 $vm.addMethod(
 $vm.method({
@@ -2997,11 +2997,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRSequence);
+$globals.IRSequence);
 
 
 
-$vm.addClass('IRBlockSequence', globals.IRSequence, [], 'Compiler-IR');
+$vm.addClass('IRBlockSequence', $globals.IRSequence, [], 'Compiler-IR');
 $vm.addMethod(
 $vm.method({
 selector: "accept:",
@@ -3015,7 +3015,7 @@ var $1;
 $1=_st(aVisitor)._visitIRBlockSequence_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRBlockSequence)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRBlockSequence)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3025,13 +3025,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRBlockSequence:"]
 }),
-globals.IRBlockSequence);
+$globals.IRBlockSequence);
 
 
 
-$vm.addClass('IRValue', globals.IRInstruction, ['value'], 'Compiler-IR');
+$vm.addClass('IRValue', $globals.IRInstruction, ['value'], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRValue.comment="I am the simplest possible instruction. I represent a value.";
+$globals.IRValue.comment="I am the simplest possible instruction. I represent a value.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -3046,7 +3046,7 @@ var $1;
 $1=_st(aVisitor)._visitIRValue_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRValue)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRValue)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3056,7 +3056,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRValue:"]
 }),
-globals.IRValue);
+$globals.IRValue);
 
 $vm.addMethod(
 $vm.method({
@@ -3074,7 +3074,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRValue);
+$globals.IRValue);
 
 $vm.addMethod(
 $vm.method({
@@ -3094,7 +3094,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRValue);
+$globals.IRValue);
 
 $vm.addMethod(
 $vm.method({
@@ -3113,13 +3113,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRValue);
+$globals.IRValue);
 
 
 
-$vm.addClass('IRVariable', globals.IRInstruction, ['variable'], 'Compiler-IR');
+$vm.addClass('IRVariable', $globals.IRInstruction, ['variable'], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.IRVariable.comment="I am a variable instruction.";
+$globals.IRVariable.comment="I am a variable instruction.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -3134,7 +3134,7 @@ var $1;
 $1=_st(aVisitor)._visitIRVariable_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRVariable)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRVariable)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3144,7 +3144,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRVariable:"]
 }),
-globals.IRVariable);
+$globals.IRVariable);
 
 $vm.addMethod(
 $vm.method({
@@ -3162,7 +3162,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRVariable);
+$globals.IRVariable);
 
 $vm.addMethod(
 $vm.method({
@@ -3177,7 +3177,7 @@ var $1;
 $1=_st(_st(self._variable())._isPseudoVar())._not();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"needsBoxingAsReceiver",{},globals.IRVariable)});
+}, function($ctx1) {$ctx1.fill(self,"needsBoxingAsReceiver",{},$globals.IRVariable)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3187,7 +3187,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["not", "isPseudoVar", "variable"]
 }),
-globals.IRVariable);
+$globals.IRVariable);
 
 $vm.addMethod(
 $vm.method({
@@ -3207,7 +3207,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRVariable);
+$globals.IRVariable);
 
 $vm.addMethod(
 $vm.method({
@@ -3226,11 +3226,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRVariable);
+$globals.IRVariable);
 
 
 
-$vm.addClass('IRVerbatim', globals.IRInstruction, ['source'], 'Compiler-IR');
+$vm.addClass('IRVerbatim', $globals.IRInstruction, ['source'], 'Compiler-IR');
 $vm.addMethod(
 $vm.method({
 selector: "accept:",
@@ -3244,7 +3244,7 @@ var $1;
 $1=_st(aVisitor)._visitIRVerbatim_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},globals.IRVerbatim)});
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRVerbatim)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3254,7 +3254,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRVerbatim:"]
 }),
-globals.IRVerbatim);
+$globals.IRVerbatim);
 
 $vm.addMethod(
 $vm.method({
@@ -3274,7 +3274,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRVerbatim);
+$globals.IRVerbatim);
 
 $vm.addMethod(
 $vm.method({
@@ -3293,11 +3293,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRVerbatim);
+$globals.IRVerbatim);
 
 
 
-$vm.addClass('IRVisitor', globals.Object, [], 'Compiler-IR');
+$vm.addClass('IRVisitor', $globals.Object, [], 'Compiler-IR');
 $vm.addMethod(
 $vm.method({
 selector: "visit:",
@@ -3311,7 +3311,7 @@ var $1;
 $1=_st(anIRInstruction)._accept_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visit:",{anIRInstruction:anIRInstruction},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visit:",{anIRInstruction:anIRInstruction},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3321,7 +3321,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["accept:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3336,7 +3336,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRAssignment);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRAssignment:",{anIRAssignment:anIRAssignment},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRAssignment:",{anIRAssignment:anIRAssignment},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3346,7 +3346,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3361,7 +3361,7 @@ var $1;
 $1=self._visitIRReturn_(anIRBlockReturn);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRBlockReturn:",{anIRBlockReturn:anIRBlockReturn},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRBlockReturn:",{anIRBlockReturn:anIRBlockReturn},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3371,7 +3371,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRReturn:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3386,7 +3386,7 @@ var $1;
 $1=self._visitIRSequence_(anIRBlockSequence);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRBlockSequence:",{anIRBlockSequence:anIRBlockSequence},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRBlockSequence:",{anIRBlockSequence:anIRBlockSequence},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3396,7 +3396,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRSequence:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3411,7 +3411,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRClosure);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRClosure:",{anIRClosure:anIRClosure},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRClosure:",{anIRClosure:anIRClosure},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3421,7 +3421,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3436,7 +3436,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRDynamicArray);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRDynamicArray:",{anIRDynamicArray:anIRDynamicArray},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRDynamicArray:",{anIRDynamicArray:anIRDynamicArray},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3446,7 +3446,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3461,7 +3461,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRDynamicDictionary);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRDynamicDictionary:",{anIRDynamicDictionary:anIRDynamicDictionary},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRDynamicDictionary:",{anIRDynamicDictionary:anIRDynamicDictionary},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3471,7 +3471,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3486,7 +3486,7 @@ var $1;
 $1=self._visitIRClosure_(anIRInlinedClosure);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedClosure:",{anIRInlinedClosure:anIRInlinedClosure},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedClosure:",{anIRInlinedClosure:anIRInlinedClosure},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3496,7 +3496,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRClosure:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3511,7 +3511,7 @@ var $1;
 $1=self._visitIRSequence_(anIRInlinedSequence);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedSequence:",{anIRInlinedSequence:anIRInlinedSequence},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedSequence:",{anIRInlinedSequence:anIRInlinedSequence},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3521,7 +3521,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRSequence:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3543,7 +3543,7 @@ return self._visit_(each);
 }));
 return anIRInstruction;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRInstruction:",{anIRInstruction:anIRInstruction},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRInstruction:",{anIRInstruction:anIRInstruction},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3553,7 +3553,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["do:", "instructions", "visit:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3568,7 +3568,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRMethod);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRMethod:",{anIRMethod:anIRMethod},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRMethod:",{anIRMethod:anIRMethod},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3578,7 +3578,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3593,7 +3593,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRNonLocalReturn);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3603,7 +3603,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3618,7 +3618,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRNonLocalReturnHandling);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturnHandling:",{anIRNonLocalReturnHandling:anIRNonLocalReturnHandling},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturnHandling:",{anIRNonLocalReturnHandling:anIRNonLocalReturnHandling},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3628,7 +3628,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3643,7 +3643,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRReturn);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRReturn:",{anIRReturn:anIRReturn},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRReturn:",{anIRReturn:anIRReturn},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3653,7 +3653,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3668,7 +3668,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRSend);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3678,7 +3678,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3693,7 +3693,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRSequence);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRSequence:",{anIRSequence:anIRSequence},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRSequence:",{anIRSequence:anIRSequence},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3703,7 +3703,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3718,7 +3718,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRTempDeclaration);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRTempDeclaration:",{anIRTempDeclaration:anIRTempDeclaration},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRTempDeclaration:",{anIRTempDeclaration:anIRTempDeclaration},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3728,7 +3728,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3743,7 +3743,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRValue);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRValue:",{anIRValue:anIRValue},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRValue:",{anIRValue:anIRValue},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3753,7 +3753,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3768,7 +3768,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRVariable);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRVariable:",{anIRVariable:anIRVariable},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRVariable:",{anIRVariable:anIRVariable},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3778,7 +3778,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 $vm.addMethod(
 $vm.method({
@@ -3793,7 +3793,7 @@ var $1;
 $1=self._visitIRInstruction_(anIRVerbatim);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRVerbatim:",{anIRVerbatim:anIRVerbatim},globals.IRVisitor)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRVerbatim:",{anIRVerbatim:anIRVerbatim},$globals.IRVisitor)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3803,11 +3803,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitIRInstruction:"]
 }),
-globals.IRVisitor);
+$globals.IRVisitor);
 
 
 
-$vm.addClass('IRJSTranslator', globals.IRVisitor, ['stream', 'currentClass'], 'Compiler-IR');
+$vm.addClass('IRJSTranslator', $globals.IRVisitor, ['stream', 'currentClass'], 'Compiler-IR');
 $vm.addMethod(
 $vm.method({
 selector: "contents",
@@ -3821,7 +3821,7 @@ var $1;
 $1=_st(self._stream())._contents();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"contents",{},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"contents",{},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3831,7 +3831,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["contents", "stream"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -3851,7 +3851,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -3870,7 +3870,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -3878,7 +3878,7 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $JSStream(){return globals.JSStream||(typeof JSStream=="undefined"?nil:JSStream)}
+function $JSStream(){return $globals.JSStream||(typeof JSStream=="undefined"?nil:JSStream)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3886,14 +3886,14 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.IRJSTranslator.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.IRJSTranslator.superclass.fn.prototype._initialize.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 self["@stream"]=_st($JSStream())._new();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3903,7 +3903,7 @@ referencedClasses: ["JSStream"],
 //>>excludeEnd("ide");
 messageSends: ["initialize", "new"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -3923,7 +3923,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -3942,7 +3942,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -3967,7 +3967,7 @@ _st(self._stream())._nextPutAssignment();
 self._visit_(_st(_st(anIRAssignment)._instructions())._last());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRAssignment:",{anIRAssignment:anIRAssignment},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRAssignment:",{anIRAssignment:anIRAssignment},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3977,7 +3977,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visit:", "first", "instructions", "nextPutAssignment", "stream", "last"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4018,7 +4018,7 @@ return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.supercall = true, 
 //>>excludeEnd("ctx");
-globals.IRJSTranslator.superclass.fn.prototype._visitIRClosure_.apply(_st(self), [anIRClosure]));
+$globals.IRJSTranslator.superclass.fn.prototype._visitIRClosure_.apply(_st(self), [anIRClosure]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.supercall = false;
 //>>excludeEnd("ctx");;
@@ -4032,7 +4032,7 @@ $ctx3.supercall = false;
 }),_st(anIRClosure)._arguments());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRClosure:",{anIRClosure:anIRClosure},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRClosure:",{anIRClosure:anIRClosure},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4042,7 +4042,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutClosureWith:arguments:", "stream", "nextPutVars:", "collect:", "tempDeclarations", "asVariableName", "name", "nextPutBlockContextFor:during:", "visitIRClosure:", "arguments"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4085,7 +4085,7 @@ $ctx2.sendIdx["nextPutAll:"]=2;
 _st(self["@stream"])._nextPutAll_("]");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRDynamicArray:",{anIRDynamicArray:anIRDynamicArray},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRDynamicArray:",{anIRDynamicArray:anIRDynamicArray},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4095,7 +4095,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "stream", "do:separatedBy:", "instructions", "visit:"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4111,7 +4111,7 @@ $1=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["stream"]=1;
 //>>excludeEnd("ctx");
-_st($1)._nextPutAll_("globals.HashedCollection._newFromPairs_([");
+_st($1)._nextPutAll_("$globals.HashedCollection._newFromPairs_([");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
@@ -4142,17 +4142,17 @@ $ctx2.sendIdx["nextPutAll:"]=2;
 _st(self._stream())._nextPutAll_("])");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRDynamicDictionary:",{anIRDynamicDictionary:anIRDynamicDictionary},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRDynamicDictionary:",{anIRDynamicDictionary:anIRDynamicDictionary},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRDynamicDictionary"],
-source: "visitIRDynamicDictionary: anIRDynamicDictionary\x0a\x09self stream nextPutAll: 'globals.HashedCollection._newFromPairs_(['.\x0a\x09\x09anIRDynamicDictionary instructions\x0a\x09\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream nextPutAll: '])'",
+source: "visitIRDynamicDictionary: anIRDynamicDictionary\x0a\x09self stream nextPutAll: '$globals.HashedCollection._newFromPairs_(['.\x0a\x09\x09anIRDynamicDictionary instructions\x0a\x09\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream nextPutAll: '])'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "stream", "do:separatedBy:", "instructions", "visit:"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4251,7 +4251,7 @@ return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx5.supercall = true, 
 //>>excludeEnd("ctx");
-globals.IRJSTranslator.superclass.fn.prototype._visitIRMethod_.apply(_st(self), [anIRMethod]));
+$globals.IRJSTranslator.superclass.fn.prototype._visitIRMethod_.apply(_st(self), [anIRMethod]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx5.supercall = false;
 //>>excludeEnd("ctx");;
@@ -4267,7 +4267,7 @@ return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx4.supercall = true, 
 //>>excludeEnd("ctx");
-globals.IRJSTranslator.superclass.fn.prototype._visitIRMethod_.apply(_st(self), [anIRMethod]));
+$globals.IRJSTranslator.superclass.fn.prototype._visitIRMethod_.apply(_st(self), [anIRMethod]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx4.supercall = false;
 //>>excludeEnd("ctx");;
@@ -4286,7 +4286,7 @@ $ctx4.supercall = false;
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRMethod:",{anIRMethod:anIRMethod},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRMethod:",{anIRMethod:anIRMethod},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4296,7 +4296,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutMethodDeclaration:with:", "stream", "nextPutFunctionWith:arguments:", "nextPutVars:", "collect:", "tempDeclarations", "asVariableName", "name", "do:", "classReferences", "nextPutClassRefFunction:", "nextPutContextFor:during:", "ifTrue:", "notEmpty", "internalVariables", "asSet", "alias", "variable", "ifTrue:ifFalse:", "hasNonLocalReturn", "scope", "nextPutNonLocalReturnHandlingWith:", "visitIRMethod:", "arguments"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4315,7 +4315,7 @@ return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.supercall = true, 
 //>>excludeEnd("ctx");
-globals.IRJSTranslator.superclass.fn.prototype._visitIRNonLocalReturn_.apply(_st(self), [anIRNonLocalReturn]));
+$globals.IRJSTranslator.superclass.fn.prototype._visitIRNonLocalReturn_.apply(_st(self), [anIRNonLocalReturn]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.supercall = false;
 //>>excludeEnd("ctx");;
@@ -4325,7 +4325,7 @@ $ctx2.supercall = false;
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4335,7 +4335,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutNonLocalReturnWith:", "stream", "visitIRNonLocalReturn:"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4354,7 +4354,7 @@ return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.supercall = true, 
 //>>excludeEnd("ctx");
-globals.IRJSTranslator.superclass.fn.prototype._visitIRReturn_.apply(_st(self), [anIRReturn]));
+$globals.IRJSTranslator.superclass.fn.prototype._visitIRReturn_.apply(_st(self), [anIRReturn]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.supercall = false;
 //>>excludeEnd("ctx");;
@@ -4364,7 +4364,7 @@ $ctx2.supercall = false;
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRReturn:",{anIRReturn:anIRReturn},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRReturn:",{anIRReturn:anIRReturn},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4374,7 +4374,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutReturnWith:", "stream", "visitIRReturn:"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4408,7 +4408,7 @@ _st(self._stream())._nextPutSendIndexFor_(anIRSend);
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend,sends:sends},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend,sends:sends},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4418,7 +4418,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["size", "at:", "sendIndexes", "method", "selector", "ifNil:ifNotNil:", "classSend", "visitSend:", "visitSuperSend:", "ifTrue:", "and:", ">", "<", "index", "nextPutSendIndexFor:", "stream"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4453,7 +4453,7 @@ return _st(self._stream())._nextPutStatementWith_(self._visit_(each));
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRSequence:",{anIRSequence:anIRSequence},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRSequence:",{anIRSequence:anIRSequence},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4463,7 +4463,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutSequenceWith:", "stream", "do:", "instructions", "nextPutStatementWith:", "visit:"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4481,7 +4481,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4495,7 +4495,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._stream())._nextPutAll_(_st(_st(anIRValue)._value())._asJavascript());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRValue:",{anIRValue:anIRValue},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRValue:",{anIRValue:anIRValue},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4505,7 +4505,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "stream", "asJavascript", "value"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4537,7 +4537,7 @@ _st(self._stream())._nextPutAll_(_st(_st(anIRVariable)._variable())._alias());
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRVariable:",{anIRVariable:anIRVariable},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRVariable:",{anIRVariable:anIRVariable},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4547,7 +4547,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "=", "name", "variable", "nextPutAll:", "stream", "alias"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4574,7 +4574,7 @@ return _st(self._stream())._nextPutAll_(_st(anIRVerbatim)._source());
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitIRVerbatim:",{anIRVerbatim:anIRVerbatim},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRVerbatim:",{anIRVerbatim:anIRVerbatim},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4584,7 +4584,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutStatementWith:", "stream", "nextPutAll:", "source"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4616,7 +4616,7 @@ self._visit_(anIRInstruction);
 _st(self._stream())._nextPutAll_(")");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitReceiver:",{anIRInstruction:anIRInstruction},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitReceiver:",{anIRInstruction:anIRInstruction},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4626,7 +4626,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "needsBoxingAsReceiver", "visit:", "nextPutAll:", "stream"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4683,7 +4683,7 @@ $ctx2.sendIdx["nextPutAll:"]=2;
 _st(self._stream())._nextPutAll_(")");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitSend:",{anIRSend:anIRSend},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitSend:",{anIRSend:anIRSend},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4693,7 +4693,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitReceiver:", "first", "instructions", "nextPutAll:", "stream", ",", "asJavaScriptMethodName", "selector", "do:separatedBy:", "allButFirst", "visit:"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 $vm.addMethod(
 $vm.method({
@@ -4841,7 +4841,7 @@ _st($13)._lf();
 $14=_st($13)._nextPutAll_("//>>excludeEnd(\x22ctx\x22);");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitSuperSend:",{anIRSend:anIRSend},globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitSuperSend:",{anIRSend:anIRSend},$globals.IRJSTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4851,11 +4851,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "stream", "lf", ",", "alias", "scope", "asJavascript", "currentClass", "asJavaScriptMethodName", "selector", "visit:", "first", "instructions", "do:separatedBy:", "allButFirst"]
 }),
-globals.IRJSTranslator);
+$globals.IRJSTranslator);
 
 
 
-$vm.addClass('JSStream', globals.Object, ['stream'], 'Compiler-IR');
+$vm.addClass('JSStream', $globals.Object, ['stream'], 'Compiler-IR');
 $vm.addMethod(
 $vm.method({
 selector: "contents",
@@ -4869,7 +4869,7 @@ var $1;
 $1=_st(self["@stream"])._contents();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"contents",{},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"contents",{},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4879,7 +4879,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["contents"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -4894,14 +4894,14 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.JSStream.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.JSStream.superclass.fn.prototype._initialize.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 self["@stream"]=""._writeStream();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4911,7 +4911,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initialize", "writeStream"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -4925,7 +4925,7 @@ return $vm.withContext(function($ctx1) {
 _st(self["@stream"])._lf();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"lf",{},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"lf",{},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4935,7 +4935,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["lf"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -4949,7 +4949,7 @@ return $vm.withContext(function($ctx1) {
 _st(self["@stream"])._nextPut_(aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPut:",{aString:aString},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPut:",{aString:aString},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4959,7 +4959,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPut:"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -4973,7 +4973,7 @@ return $vm.withContext(function($ctx1) {
 _st(self["@stream"])._nextPutAll_(aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aString:aString},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aString:aString},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4983,7 +4983,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -4997,7 +4997,7 @@ return $vm.withContext(function($ctx1) {
 _st(self["@stream"])._nextPutAll_("=");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutAssignment",{},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutAssignment",{},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5007,7 +5007,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -5175,7 +5175,7 @@ self._lf();
 $24=self._nextPutAll_("//>>excludeEnd(\x22ctx\x22);");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutBlockContextFor:during:",{anIRClosure:anIRClosure,aBlock:aBlock},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutBlockContextFor:during:",{anIRClosure:anIRClosure,aBlock:aBlock},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5185,7 +5185,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "requiresSmalltalkContext", "value", "nextPutAll:", "lf", ",", "alias", "scope", "do:separatedBy:", "locals", "asVariableName", "outerScope", "asString", "blockIndex"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -5206,7 +5206,7 @@ _st($1)._nextPutAll_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=2;
 //>>excludeEnd("ctx");
-_st($1)._nextPutAll_("(){return globals.");
+_st($1)._nextPutAll_("(){return $globals.");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=3;
 //>>excludeEnd("ctx");
@@ -5234,17 +5234,17 @@ _st($1)._nextPutAll_(")}");
 $2=_st($1)._lf();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutClassRefFunction:",{aString:aString},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutClassRefFunction:",{aString:aString},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "nextPutClassRefFunction: aString\x0a\x09\x22Creates an inner function $aString into method and called as `$Foo()`whenever the global is accessed.\x0a\x09This ensures that undefined global access will answer `nil`\x22\x0a\x09\x0a\x09stream\x0a\x09\x09nextPutAll: 'function $';\x0a\x09\x09nextPutAll: aString;\x0a\x09\x09nextPutAll: '(){return globals.';\x0a\x09\x09nextPutAll: aString;\x0a\x09\x09nextPutAll: '||(typeof ';\x0a\x09\x09nextPutAll: aString;\x0a\x09\x09nextPutAll: '==\x22undefined\x22?nil:';\x0a\x09\x09nextPutAll: aString;\x0a\x09\x09nextPutAll: ')}';\x0a\x09\x09lf",
+source: "nextPutClassRefFunction: aString\x0a\x09\x22Creates an inner function $aString into method and called as `$Foo()`whenever the global is accessed.\x0a\x09This ensures that undefined global access will answer `nil`\x22\x0a\x09\x0a\x09stream\x0a\x09\x09nextPutAll: 'function $';\x0a\x09\x09nextPutAll: aString;\x0a\x09\x09nextPutAll: '(){return $globals.';\x0a\x09\x09nextPutAll: aString;\x0a\x09\x09nextPutAll: '||(typeof ';\x0a\x09\x09nextPutAll: aString;\x0a\x09\x09nextPutAll: '==\x22undefined\x22?nil:';\x0a\x09\x09nextPutAll: aString;\x0a\x09\x09nextPutAll: ')}';\x0a\x09\x09lf",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "lf"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -5295,7 +5295,7 @@ _st($3)._lf();
 $4=_st($3)._nextPutAll_("})");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutClosureWith:arguments:",{aBlock:aBlock,anArray:anArray},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutClosureWith:arguments:",{aBlock:aBlock,anArray:anArray},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5305,7 +5305,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "do:separatedBy:", "asVariableName", "nextPut:", "lf", "value"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -5463,7 +5463,7 @@ self._lf();
 $19=self._nextPutAll_("//>>excludeEnd(\x22ctx\x22);");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutContextFor:during:",{aMethod:aMethod,aBlock:aBlock},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutContextFor:during:",{aMethod:aMethod,aBlock:aBlock},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5473,7 +5473,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "requiresSmalltalkContext", "value", "nextPutAll:", "lf", ",", "alias", "scope", "asJavascript", "selector", "do:separatedBy:", "locals", "asVariableName", "theClass"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -5533,7 +5533,7 @@ _st($5)._lf();
 $6=_st($5)._nextPutAll_("}");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutFunctionWith:arguments:",{aBlock:aBlock,anArray:anArray},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutFunctionWith:arguments:",{aBlock:aBlock,anArray:anArray},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5543,7 +5543,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "do:separatedBy:", "asVariableName", "nextPut:", "lf", "value"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -5573,7 +5573,7 @@ _st(anotherBlock)._value();
 _st(self["@stream"])._nextPutAll_("}");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutIf:with:",{aBlock:aBlock,anotherBlock:anotherBlock},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutIf:with:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5583,7 +5583,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "value", "lf"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -5626,7 +5626,7 @@ _st(elseBlock)._value();
 _st(self["@stream"])._nextPutAll_("}");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutIfElse:with:with:",{aBlock:aBlock,ifBlock:ifBlock,elseBlock:elseBlock},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutIfElse:with:with:",{aBlock:aBlock,ifBlock:ifBlock,elseBlock:elseBlock},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5636,7 +5636,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "value", "lf"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -5644,7 +5644,7 @@ selector: "nextPutMethodDeclaration:with:",
 protocol: 'streaming',
 fn: function (aMethod,aBlock){
 var self=this;
-function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -5801,7 +5801,7 @@ $ctx1.sendIdx["nextPutAll:"]=10;
 $26=_st($25)._nextPutAll_("})");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutMethodDeclaration:with:",{aMethod:aMethod,aBlock:aBlock},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutMethodDeclaration:with:",{aMethod:aMethod,aBlock:aBlock},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5811,7 +5811,7 @@ referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "source", "value", "asArray", "messageSends", "collect:", "arguments", "do:separatedBy:", "classReferences"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -5854,7 +5854,7 @@ _st($3)._nextPutAll_("catch(e) {if(e===$early)return e[0]; throw e}");
 $4=_st($3)._lf();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutNonLocalReturnHandlingWith:",{aBlock:aBlock},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutNonLocalReturnHandlingWith:",{aBlock:aBlock},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5864,7 +5864,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "lf", "value"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -5883,7 +5883,7 @@ _st(aBlock)._value();
 _st(self["@stream"])._nextPutAll_("]");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutNonLocalReturnWith:",{aBlock:aBlock},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutNonLocalReturnWith:",{aBlock:aBlock},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5893,7 +5893,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "value"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -5907,7 +5907,7 @@ return $vm.withContext(function($ctx1) {
 _st(self["@stream"])._nextPutAll_("return ");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutReturn",{},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutReturn",{},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5917,7 +5917,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -5932,7 +5932,7 @@ self._nextPutReturn();
 _st(aBlock)._value();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutReturnWith:",{aBlock:aBlock},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutReturnWith:",{aBlock:aBlock},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5942,7 +5942,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutReturn", "value"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -5998,7 +5998,7 @@ self._lf();
 $1=self._nextPutAll_("//>>excludeEnd(\x22ctx\x22)");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutSendIndexFor:",{anIRSend:anIRSend},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutSendIndexFor:",{anIRSend:anIRSend},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6008,7 +6008,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "lf", "alias", "scope", "asJavascript", "selector", "asString", "index"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -6022,7 +6022,7 @@ return $vm.withContext(function($ctx1) {
 _st(aBlock)._value();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutSequenceWith:",{aBlock:aBlock},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutSequenceWith:",{aBlock:aBlock},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6032,7 +6032,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -6050,7 +6050,7 @@ _st($1)._nextPutAll_(";");
 $2=_st($1)._lf();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutStatementWith:",{aBlock:aBlock},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutStatementWith:",{aBlock:aBlock},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6060,7 +6060,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value", "nextPutAll:", "lf"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 $vm.addMethod(
 $vm.method({
@@ -6112,7 +6112,7 @@ return self;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutVars:",{aCollection:aCollection},globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutVars:",{aCollection:aCollection},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6122,7 +6122,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifEmpty:", "nextPutAll:", "do:separatedBy:", "lf"]
 }),
-globals.JSStream);
+$globals.JSStream);
 
 
 $vm.addMethod(
@@ -6137,7 +6137,7 @@ return $vm.withContext(function($ctx1) {
 _st(anIRInstruction)._appendBlock_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendToInstruction:",{anIRInstruction:anIRInstruction},globals.BlockClosure)});
+}, function($ctx1) {$ctx1.fill(self,"appendToInstruction:",{anIRInstruction:anIRInstruction},$globals.BlockClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6147,6 +6147,6 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["appendBlock:"]
 }),
-globals.BlockClosure);
+$globals.BlockClosure);
 
 });

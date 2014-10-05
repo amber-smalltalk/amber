@@ -4,9 +4,9 @@ var smalltalk=$vm,_st=$recv,globals=$globals;
 $vm.addPackage('Examples');
 $vm.packages["Examples"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('Counter', globals.Widget, ['count', 'header'], 'Examples');
+$vm.addClass('Counter', $globals.Widget, ['count', 'header'], 'Examples');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.Counter.comment="This is a trivial Widget example mimicking the classic Counter example in Seaside.\x0aIn order to play with it, just evaluate the doit below in a workspace.\x0aThen take a look in the HTML document above the IDE.\x0a\x0a\x09\x09Counter tryExample";
+$globals.Counter.comment="This is a trivial Widget example mimicking the classic Counter example in Seaside.\x0aIn order to play with it, just evaluate the doit below in a workspace.\x0aThen take a look in the HTML document above the IDE.\x0a\x0a\x09\x09Counter tryExample";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -29,7 +29,7 @@ return _st(html)._with_(_st(self["@count"])._asString());
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"decrease",{},globals.Counter)});
+}, function($ctx1) {$ctx1.fill(self,"decrease",{},$globals.Counter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -39,7 +39,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["-", "contents:", "with:", "asString"]
 }),
-globals.Counter);
+$globals.Counter);
 
 $vm.addMethod(
 $vm.method({
@@ -62,7 +62,7 @@ return _st(html)._with_(_st(self["@count"])._asString());
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"increase",{},globals.Counter)});
+}, function($ctx1) {$ctx1.fill(self,"increase",{},$globals.Counter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -72,7 +72,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["+", "contents:", "with:", "asString"]
 }),
-globals.Counter);
+$globals.Counter);
 
 $vm.addMethod(
 $vm.method({
@@ -87,14 +87,14 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.Counter.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.Counter.superclass.fn.prototype._initialize.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 self["@count"]=(0);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Counter)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.Counter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -104,7 +104,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initialize"]
 }),
-globals.Counter);
+$globals.Counter);
 
 $vm.addMethod(
 $vm.method({
@@ -156,7 +156,7 @@ return self._decrease();
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},globals.Counter)});
+}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},$globals.Counter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -166,7 +166,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "h1", "asString", "yourself", "button", "onClick:", "increase", "decrease"]
 }),
-globals.Counter);
+$globals.Counter);
 
 
 $vm.addMethod(
@@ -181,7 +181,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._new())._appendToJQuery_("body"._asJQuery());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"tryExample",{},globals.Counter.klass)});
+}, function($ctx1) {$ctx1.fill(self,"tryExample",{},$globals.Counter.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -191,6 +191,6 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["appendToJQuery:", "new", "asJQuery"]
 }),
-globals.Counter.klass);
+$globals.Counter.klass);
 
 });

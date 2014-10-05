@@ -1141,7 +1141,7 @@ current
 
 globals
 	"Future compatibility to be able to use Smalltalk globals at: ..."
-	<return globals>
+	<return $globals>
 !
 
 includesKey: aKey
@@ -1349,7 +1349,9 @@ SmalltalkImage class instanceVariableNames: 'current'!
 !SmalltalkImage class methodsFor: 'initialization'!
 
 initialize
-	globals at: 'Smalltalk' put: self current
+	| st |
+	st := self current.
+	st globals at: 'Smalltalk' put: st
 ! !
 
 !SmalltalkImage class methodsFor: 'instance creation'!

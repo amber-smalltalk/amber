@@ -4,7 +4,7 @@ var smalltalk=$vm,_st=$recv,globals=$globals;
 $vm.addPackage('Kernel-Tests');
 $vm.packages["Kernel-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('AnnouncementSubscriptionTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('AnnouncementSubscriptionTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testAddExtensionMethod",
@@ -63,7 +63,7 @@ _st(_st(self._class())._package())._beDirty();
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddExtensionMethod",{method:method,dirty:dirty},globals.AnnouncementSubscriptionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddExtensionMethod",{method:method,dirty:dirty},$globals.AnnouncementSubscriptionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -73,7 +73,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["isDirty", "package", "class", "beClean", "compile:protocol:", "deny:", "removeCompiledMethod:", "ifTrue:", "beDirty"]
 }),
-globals.AnnouncementSubscriptionTest);
+$globals.AnnouncementSubscriptionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -82,10 +82,10 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var subscription,announcementClass1,announcementClass2,classBuilder;
-function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-function $SystemAnnouncement(){return globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
-function $AnnouncementSubscription(){return globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $SystemAnnouncement(){return $globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
+function $AnnouncementSubscription(){return $globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -116,7 +116,7 @@ self._assert_equals_(_st(subscription)._handlesAnnouncement_($Object()),false);
 _st(classBuilder)._basicRemoveClass_(announcementClass1);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testHandlesAnnouncement",{subscription:subscription,announcementClass1:announcementClass1,announcementClass2:announcementClass2,classBuilder:classBuilder},globals.AnnouncementSubscriptionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testHandlesAnnouncement",{subscription:subscription,announcementClass1:announcementClass1,announcementClass2:announcementClass2,classBuilder:classBuilder},$globals.AnnouncementSubscriptionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -126,11 +126,11 @@ referencedClasses: ["ClassBuilder", "SystemAnnouncement", "AnnouncementSubscript
 //>>excludeEnd("ide");
 messageSends: ["new", "basicAddSubclassOf:named:instanceVariableNames:package:", "announcementClass:", "assert:equals:", "handlesAnnouncement:", "basicRemoveClass:"]
 }),
-globals.AnnouncementSubscriptionTest);
+$globals.AnnouncementSubscriptionTest);
 
 
 
-$vm.addClass('AnnouncerTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('AnnouncerTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testOnDo",
@@ -138,8 +138,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var counter,announcer;
-function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
-function $SystemAnnouncement(){return globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
+function $Announcer(){return $globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
+function $SystemAnnouncement(){return $globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -176,7 +176,7 @@ _st(announcer)._announce_(_st($SystemAnnouncement())._new());
 self._assert_equals_(counter,(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testOnDo",{counter:counter,announcer:announcer},globals.AnnouncerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testOnDo",{counter:counter,announcer:announcer},$globals.AnnouncerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -186,7 +186,7 @@ referencedClasses: ["Announcer", "SystemAnnouncement"],
 //>>excludeEnd("ide");
 messageSends: ["new", "on:do:", "+", "announce:", "assert:equals:"]
 }),
-globals.AnnouncerTest);
+$globals.AnnouncerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -195,8 +195,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var counter,announcer;
-function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
-function $SystemAnnouncement(){return globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
+function $Announcer(){return $globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
+function $SystemAnnouncement(){return $globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -247,7 +247,7 @@ _st(announcer)._announce_(_st($SystemAnnouncement())._new());
 self._assert_equals_(counter,(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testOnDoFor",{counter:counter,announcer:announcer},globals.AnnouncerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testOnDoFor",{counter:counter,announcer:announcer},$globals.AnnouncerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -257,7 +257,7 @@ referencedClasses: ["Announcer", "SystemAnnouncement"],
 //>>excludeEnd("ide");
 messageSends: ["new", "on:do:for:", "+", "announce:", "assert:equals:", "unsubscribe:"]
 }),
-globals.AnnouncerTest);
+$globals.AnnouncerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -266,8 +266,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var counter,announcer;
-function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
-function $SystemAnnouncement(){return globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
+function $Announcer(){return $globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
+function $SystemAnnouncement(){return $globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -304,7 +304,7 @@ _st(announcer)._announce_(_st($SystemAnnouncement())._new());
 self._assert_equals_(counter,(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testOnDoOnce",{counter:counter,announcer:announcer},globals.AnnouncerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testOnDoOnce",{counter:counter,announcer:announcer},$globals.AnnouncerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -314,18 +314,18 @@ referencedClasses: ["Announcer", "SystemAnnouncement"],
 //>>excludeEnd("ide");
 messageSends: ["new", "on:doOnce:", "+", "announce:", "assert:equals:"]
 }),
-globals.AnnouncerTest);
+$globals.AnnouncerTest);
 
 
 
-$vm.addClass('BlockClosureTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('BlockClosureTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testCanClearInterval",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -348,7 +348,7 @@ return _st(_st($Error())._new())._signal();
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCanClearInterval",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCanClearInterval",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -358,7 +358,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["shouldnt:raise:", "clearInterval", "valueWithInterval:", "signal", "new"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 $vm.addMethod(
 $vm.method({
@@ -366,7 +366,7 @@ selector: "testCanClearTimeout",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -389,7 +389,7 @@ return _st(_st($Error())._new())._signal();
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCanClearTimeout",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCanClearTimeout",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -399,7 +399,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["shouldnt:raise:", "clearTimeout", "valueWithTimeout:", "signal", "new"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 $vm.addMethod(
 $vm.method({
@@ -421,7 +421,7 @@ return (1).__plus((1));
 }))._compiledSource())._includesSubString_("function"));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCompiledSource",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCompiledSource",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -431,7 +431,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "includesSubString:", "compiledSource", "+"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 $vm.addMethod(
 $vm.method({
@@ -440,8 +440,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var curriedMethod,array;
-function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -475,7 +475,7 @@ return _st($Array())._removeCompiledMethod_(curriedMethod);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCurrySelf",{curriedMethod:curriedMethod,array:array},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCurrySelf",{curriedMethod:curriedMethod,array:array},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -485,7 +485,7 @@ referencedClasses: ["ClassBuilder", "Array"],
 //>>excludeEnd("ide");
 messageSends: ["asCompiledMethod:", "currySelf", "at:", "installMethod:forClass:protocol:", "new", "ensure:", "assert:equals:", "foo:", "removeCompiledMethod:"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 $vm.addMethod(
 $vm.method({
@@ -505,7 +505,7 @@ return (4);
 })),(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEnsure",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEnsure",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -515,7 +515,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "ensure:"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 $vm.addMethod(
 $vm.method({
@@ -523,7 +523,7 @@ selector: "testEnsureRaises",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -549,7 +549,7 @@ return true;
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEnsureRaises",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEnsureRaises",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -559,7 +559,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "ensure:", "signal", "new"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 $vm.addMethod(
 $vm.method({
@@ -567,7 +567,7 @@ selector: "testExceptionSemantics",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -605,7 +605,7 @@ return self._finished();
 })))._valueWithTimeout_((0));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testExceptionSemantics",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testExceptionSemantics",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -615,7 +615,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "on:do:", "assert:", "signal", "deny:", "finished"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 $vm.addMethod(
 $vm.method({
@@ -636,20 +636,20 @@ return $vm.withContext(function($ctx1) {
 	self._assert_equals_(result.name, 'theTestPrototype');
 
 	"newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made."
-	self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, globals.Error);;
+	self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, $globals.Error);;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNewWithValues",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNewWithValues",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testNewWithValues\x0a<\x0a\x09function TestConstructor(arg1, arg2, arg3) {}\x0a\x09TestConstructor.prototype.name = 'theTestPrototype';\x0a\x0a\x09var wrappedConstructor = _st(TestConstructor);\x0a\x09var result = wrappedConstructor._newWithValues_([1, 2, 3 ]);\x0a\x09self._assert_(result instanceof TestConstructor);\x0a\x09self._assert_equals_(result.name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, globals.Error);\x0a>",
+source: "testNewWithValues\x0a<\x0a\x09function TestConstructor(arg1, arg2, arg3) {}\x0a\x09TestConstructor.prototype.name = 'theTestPrototype';\x0a\x0a\x09var wrappedConstructor = _st(TestConstructor);\x0a\x09var result = wrappedConstructor._newWithValues_([1, 2, 3 ]);\x0a\x09self._assert_(result instanceof TestConstructor);\x0a\x09self._assert_equals_(result.name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, $globals.Error);\x0a>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 $vm.addMethod(
 $vm.method({
@@ -676,7 +676,7 @@ self._assert_equals_(_st((function(a,b){
 }))._numArgs(),(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNumArgs",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNumArgs",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -686,7 +686,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "numArgs"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 $vm.addMethod(
 $vm.method({
@@ -694,7 +694,7 @@ selector: "testOnDo",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -712,7 +712,7 @@ return true;
 })));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testOnDo",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testOnDo",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -722,7 +722,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "on:do:", "signal", "new"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 $vm.addMethod(
 $vm.method({
@@ -783,7 +783,7 @@ return (1);
 }))._value(),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValue",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValue",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -793,7 +793,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "value", "+", "value:", "value:value:", "*"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 $vm.addMethod(
 $vm.method({
@@ -846,7 +846,7 @@ return _st(a).__plus(b);
 }))._valueWithPossibleArguments_([(3), (4), (5)]),(7));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValueWithPossibleArguments",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValueWithPossibleArguments",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -856,7 +856,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "valueWithPossibleArguments:", "+"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 $vm.addMethod(
 $vm.method({
@@ -912,7 +912,7 @@ return _st(i).__gt((5));
 self._assert_equals_(i,(6));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testWhileFalse",{i:i},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testWhileFalse",{i:i},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -922,7 +922,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["whileFalse:", ">", "+", "assert:equals:", "whileFalse"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 $vm.addMethod(
 $vm.method({
@@ -978,7 +978,7 @@ return _st(i).__lt((5));
 self._assert_equals_(i,(5));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testWhileTrue",{i:i},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testWhileTrue",{i:i},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -988,11 +988,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["whileTrue:", "<", "+", "assert:equals:", "whileTrue"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 
 
-$vm.addClass('BooleanTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('BooleanTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testEquality",
@@ -1084,7 +1084,7 @@ $11=_st($12).__eq(true._yourself());
 self._assert_($11);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEquality",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEquality",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1094,7 +1094,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["deny:", "=", "assert:", "yourself"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1187,7 +1187,7 @@ $11=_st($12).__eq_eq(true._yourself());
 self._assert_($11);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1197,7 +1197,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["deny:", "==", "assert:", "yourself"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1272,7 +1272,7 @@ $8="alternative block";
 self._assert_equals_($8,"alternative block2");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalse",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalse",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1282,7 +1282,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1386,7 +1386,7 @@ $15="alternative block";
 self._assert_equals_($15,"alternative block2");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalseWithBoxing",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalseWithBoxing",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1396,7 +1396,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "ifTrue:", "yourself", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1538,7 +1538,7 @@ $24=_st($25).__or((1).__gt((2)));
 $23=self._assert_($24);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLogic",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLogic",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1548,7 +1548,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "&", "deny:", "|", ">"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1749,7 +1749,7 @@ return (1).__gt((2));
 $20=self._assert_($21);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLogicKeywords",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLogicKeywords",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1759,7 +1759,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "and:", "deny:", "or:", ">"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1767,7 +1767,7 @@ selector: "testNonBooleanError",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $NonBooleanReceiver(){return globals.NonBooleanReceiver||(typeof NonBooleanReceiver=="undefined"?nil:NonBooleanReceiver)}
+function $NonBooleanReceiver(){return $globals.NonBooleanReceiver||(typeof NonBooleanReceiver=="undefined"?nil:NonBooleanReceiver)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1784,7 +1784,7 @@ if($vm.assert("")){
 }),$NonBooleanReceiver());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNonBooleanError",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNonBooleanError",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1794,25 +1794,25 @@ referencedClasses: ["NonBooleanReceiver"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "ifTrue:ifFalse:"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
 
 
-$vm.addClass('ClassBuilderTest', globals.TestCase, ['builder', 'theClass'], 'Kernel-Tests');
+$vm.addClass('ClassBuilderTest', $globals.TestCase, ['builder', 'theClass'], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "setUp",
 protocol: 'running',
 fn: function (){
 var self=this;
-function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@builder"]=_st($ClassBuilder())._new();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"setUp",{},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1822,7 +1822,7 @@ referencedClasses: ["ClassBuilder"],
 //>>excludeEnd("ide");
 messageSends: ["new"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1830,7 +1830,7 @@ selector: "tearDown",
 protocol: 'running',
 fn: function (){
 var self=this;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1845,7 +1845,7 @@ self["@theClass"];
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"tearDown",{},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"tearDown",{},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1855,7 +1855,7 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["ifNotNil:", "removeClass:"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1863,7 +1863,7 @@ selector: "testClassCopy",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $ObjectMock(){return globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
+function $ObjectMock(){return $globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1914,7 +1914,7 @@ $ctx1.sendIdx["keys"]=1;
 self._assert_equals_($7,_st(_st($ObjectMock())._methodDictionary())._keys());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testClassCopy",{},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"testClassCopy",{},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1924,7 +1924,7 @@ referencedClasses: ["ObjectMock"],
 //>>excludeEnd("ide");
 messageSends: ["copyClass:named:", "assert:", "==", "superclass", "instanceVariableNames", "assert:equals:", "name", "package", "keys", "methodDictionary"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1933,9 +1933,9 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var instance,oldClass;
-function $ObjectMock(){return globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $ObjectMock2(){return globals.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
+function $ObjectMock(){return $globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $ObjectMock2(){return $globals.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2010,7 +2010,7 @@ self._assert_(_st(_st(_st($Smalltalk())._globals())._at_(_st(_st(instance)._clas
 _st($Smalltalk())._removeClass_($ObjectMock2());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testClassMigration",{instance:instance,oldClass:oldClass},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"testClassMigration",{instance:instance,oldClass:oldClass},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2020,7 +2020,7 @@ referencedClasses: ["ObjectMock", "Smalltalk", "ObjectMock2"],
 //>>excludeEnd("ide");
 messageSends: ["copyClass:named:", "new", "at:", "globals", "subclass:instanceVariableNames:package:", "deny:", "==", "assert:", "superclass", "isEmpty", "instanceVariableNames", "assert:equals:", "selectors", "comment", "name", "package", "class", "isNil", "removeClass:"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2028,9 +2028,9 @@ selector: "testClassMigrationWithClassInstanceVariables",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $ObjectMock(){return globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
-function $ObjectMock2(){return globals.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $ObjectMock(){return $globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
+function $ObjectMock2(){return $globals.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2046,7 +2046,7 @@ self._assert_equals_(_st(_st($ObjectMock2())._class())._instanceVariableNames(),
 _st($Smalltalk())._removeClass_($ObjectMock2());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithClassInstanceVariables",{},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithClassInstanceVariables",{},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2056,7 +2056,7 @@ referencedClasses: ["ObjectMock", "ObjectMock2", "Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["copyClass:named:", "instanceVariableNames:", "class", "subclass:instanceVariableNames:package:", "at:", "globals", "assert:equals:", "instanceVariableNames", "removeClass:"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2064,11 +2064,11 @@ selector: "testClassMigrationWithSubclasses",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $ObjectMock(){return globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
-function $ObjectMock2(){return globals.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
-function $ObjectMock3(){return globals.ObjectMock3||(typeof ObjectMock3=="undefined"?nil:ObjectMock3)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $ObjectMock4(){return globals.ObjectMock4||(typeof ObjectMock4=="undefined"?nil:ObjectMock4)}
+function $ObjectMock(){return $globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
+function $ObjectMock2(){return $globals.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
+function $ObjectMock3(){return $globals.ObjectMock3||(typeof ObjectMock3=="undefined"?nil:ObjectMock3)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $ObjectMock4(){return $globals.ObjectMock4||(typeof ObjectMock4=="undefined"?nil:ObjectMock4)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2119,7 +2119,7 @@ return _st($Smalltalk())._removeClass_(each);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithSubclasses",{},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithSubclasses",{},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2129,7 +2129,7 @@ referencedClasses: ["ObjectMock", "ObjectMock2", "ObjectMock3", "Smalltalk", "Ob
 //>>excludeEnd("ide");
 messageSends: ["copyClass:named:", "subclass:instanceVariableNames:package:", "at:", "globals", "assert:", "includes:", "subclasses", "do:", "allSubclasses", "removeClass:"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2143,7 +2143,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_(_st(self["@builder"])._instanceVariableNamesFor_("  hello   world   "),["hello", "world"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testInstanceVariableNames",{},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"testInstanceVariableNames",{},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2153,11 +2153,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "instanceVariableNamesFor:"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
 
 
-$vm.addClass('CollectionTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('CollectionTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "assertSameContents:as:",
@@ -2196,7 +2196,7 @@ return self._assert_($3);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"assertSameContents:as:",{aCollection:aCollection,anotherCollection:anotherCollection},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"assertSameContents:as:",{aCollection:aCollection,anotherCollection:anotherCollection},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2206,7 +2206,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "=", "size", "do:", "occurrencesOf:"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2220,7 +2220,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collection",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collection",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2230,7 +2230,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2245,7 +2245,7 @@ var $1;
 $1=_st(self._class())._collectionClass();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2255,7 +2255,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collectionClass", "class"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2269,7 +2269,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2279,7 +2279,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2293,7 +2293,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2303,7 +2303,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2317,7 +2317,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2327,7 +2327,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2341,7 +2341,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2351,7 +2351,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2369,7 +2369,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2387,7 +2387,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2402,7 +2402,7 @@ var $1;
 $1=_st(self._collectionClass())._with_(self._sampleNewValue());
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2412,7 +2412,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "collectionClass", "sampleNewValue"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2543,7 +2543,7 @@ $29=_st($28)._yourself();
 self._assertSameContents_as_($29,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2553,7 +2553,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "addAll:", "collection", "new", "collectionClass", "yourself", "sampleNewValueAsCollection", "collectionWithNewValue", "assertSameContents:as:"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2592,7 +2592,7 @@ return _st(each).__tild_eq(anyOne);
 })));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAllSatisfy",{collection:collection,anyOne:anyOne},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAllSatisfy",{collection:collection,anyOne:anyOne},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2602,7 +2602,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collection", "anyOne", "assert:", "allSatisfy:", "includes:", "deny:", "~="]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2610,7 +2610,7 @@ selector: "testAnyOne",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2635,7 +2635,7 @@ $1=_st($2)._includes_(_st(self._collection())._anyOne());
 self._assert_($1);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAnyOne",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAnyOne",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2645,7 +2645,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "anyOne", "new", "collectionClass", "assert:", "includes:", "collection"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2654,7 +2654,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var anyOne;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2695,7 +2695,7 @@ return _st(each).__eq(_st($Object())._new());
 })));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAnySatisfy",{anyOne:anyOne},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAnySatisfy",{anyOne:anyOne},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2705,7 +2705,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["anyOne", "collection", "assert:", "anySatisfy:", "=", "deny:", "new"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2724,7 +2724,7 @@ $ctx1.sendIdx["collection"]=1;
 self._assertSameContents_as_($1,_st(self._collection())._asArray());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsArray",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsArray",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2734,7 +2734,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assertSameContents:as:", "collection", "asArray"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2753,7 +2753,7 @@ $ctx1.sendIdx["collection"]=1;
 self._assertSameContents_as_($1,_st(self._collection())._asOrderedCollection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsOrderedCollection",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsOrderedCollection",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2763,7 +2763,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assertSameContents:as:", "collection", "asOrderedCollection"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2789,7 +2789,7 @@ return self._assert_(_st(set)._includes_(each));
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsSet",{c:c,set:set},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsSet",{c:c,set:set},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2799,7 +2799,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collectionWithDuplicates", "asSet", "assert:equals:", "size", "do:", "assert:", "includes:"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2910,7 +2910,7 @@ return _st(each)._printString();
 })),self._collectionOfPrintStrings());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCollect",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCollect",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2920,7 +2920,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "collect:", "collection", "collectionWithNewValue", "new", "collectionClass", "printString", "detect:", "sampleNewValue", "collectionOfPrintStrings"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -3024,7 +3024,7 @@ self._assert_equals_($16,$19);
 self._assertSameContents_as_(_st(self._sampleNewValueAsCollection()).__comma(self._collection()),self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComma",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComma",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3034,7 +3034,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", ",", "collection", "new", "collectionClass", "sampleNewValueAsCollection", "collectionWithNewValue", "assertSameContents:as:"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -3042,7 +3042,7 @@ selector: "testDetect",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3146,7 +3146,7 @@ return _st(each).__eq(self._sampleNewValue());
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDetect",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDetect",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3156,7 +3156,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["shouldnt:raise:", "detect:", "collection", "should:raise:", "assert:equals:", "sampleNewValueAsCollection", "sampleNewValue", "collectionWithNewValue", "="]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -3165,7 +3165,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var sentinel;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3267,7 +3267,7 @@ return sentinel;
 })),sentinel);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDetectIfNone",{sentinel:sentinel},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDetectIfNone",{sentinel:sentinel},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3277,7 +3277,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:", "~=", "detect:ifNone:", "collection", "assert:equals:", "sampleNewValueAsCollection", "sampleNewValue", "collectionWithNewValue", "="]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -3286,7 +3286,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var newCollection;
-function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3335,7 +3335,7 @@ return _st(newCollection)._add_(each);
 self._assertSameContents_as_(self._collectionWithDuplicates(),newCollection);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDo",{newCollection:newCollection},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDo",{newCollection:newCollection},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3345,7 +3345,7 @@ referencedClasses: ["OrderedCollection"],
 //>>excludeEnd("ide");
 messageSends: ["new", "do:", "collection", "add:", "assertSameContents:as:", "collectionWithDuplicates"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -3555,7 +3555,7 @@ return (999);
 self._assert_equals_($28,self._collection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIfEmptyFamily",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIfEmptyFamily",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3565,7 +3565,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "ifEmpty:", "new", "collectionClass", "collection", "ifNotEmpty:", "ifEmpty:ifNotEmpty:", "ifNotEmpty:ifEmpty:"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -3585,7 +3585,7 @@ self._assert_($1);
 self._deny_(_st(self._collection())._isEmpty());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3595,7 +3595,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "isEmpty", "new", "collectionClass", "deny:", "collection"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -3604,7 +3604,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var anyOne;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3645,7 +3645,7 @@ return _st(each).__eq(_st($Object())._new());
 })));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNoneSatisfy",{anyOne:anyOne},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNoneSatisfy",{anyOne:anyOne},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3655,7 +3655,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["anyOne", "collection", "deny:", "noneSatisfy:", "=", "assert:", "new"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -3673,7 +3673,7 @@ $2=_st($1)._yourself();
 self._assert_equals_($2,_st(self._collectionClass())._new());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3683,7 +3683,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "removeAll", "collection", "yourself", "new", "collectionClass"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -3830,7 +3830,7 @@ return _st(each).__tild_eq(self._sampleNewValue());
 })),self._collection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSelect",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSelect",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3840,7 +3840,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "select:", "collection", "new", "collectionClass", "collectionWithNewValue", "=", "sampleNewValue", "sampleNewValueAsCollection", "~="]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -3871,7 +3871,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_(_st(self._collection())._size(),self._collectionSize());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSize",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSize",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3881,7 +3881,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "size", "new", "collectionClass", "sampleNewValueAsCollection", "collection", "collectionSize"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 
 $vm.addMethod(
@@ -3900,7 +3900,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.CollectionTest.klass);
+$globals.CollectionTest.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -3915,7 +3915,7 @@ var $1;
 $1=_st(self._collectionClass())._isNil();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},globals.CollectionTest.klass)});
+}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},$globals.CollectionTest.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3925,10 +3925,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["isNil", "collectionClass"]
 }),
-globals.CollectionTest.klass);
+$globals.CollectionTest.klass);
 
 
-$vm.addClass('IndexableCollectionTest', globals.CollectionTest, [], 'Kernel-Tests');
+$vm.addClass('IndexableCollectionTest', $globals.CollectionTest, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "collectionWithNewValue",
@@ -3941,7 +3941,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3951,7 +3951,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -3965,7 +3965,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sampleNewIndex",{},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"sampleNewIndex",{},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3975,7 +3975,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -3989,7 +3989,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sampleNonIndexesDo:",{aBlock:aBlock},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"sampleNonIndexesDo:",{aBlock:aBlock},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3999,7 +3999,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4013,7 +4013,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4023,7 +4023,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4031,7 +4031,7 @@ selector: "testAt",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -4071,7 +4071,7 @@ return self._assert_equals_(_st(self._collection())._at_(index),value);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAt",{},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAt",{},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4081,7 +4081,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["nonIndexesDo:", "should:raise:", "at:", "collection", "samplesDo:", "assert:equals:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4147,7 +4147,7 @@ return self._sampleNewValue();
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4157,7 +4157,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nonIndexesDo:", "assert:equals:", "at:ifAbsent:", "collection", "sampleNewValue", "samplesDo:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4223,7 +4223,7 @@ $ctx1.sendIdx["assert:equals:"]=3;
 self._assert_equals_(newCollection,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsentPut",{newCollection:newCollection},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsentPut",{newCollection:newCollection},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4233,7 +4233,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collection", "samplesDo:", "assert:equals:", "at:ifAbsentPut:", "sampleNewValue", "sampleNewIndex", "collectionWithNewValue"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4242,7 +4242,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var visited,sentinel;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -4303,7 +4303,7 @@ return self._assert_equals_(visited,_st(self._collection())._at_(index));
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{visited:visited,sentinel:sentinel},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{visited:visited,sentinel:sentinel},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4313,7 +4313,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "nonIndexesDo:", "assert:equals:", "at:ifPresent:", "collection", "assert:", "isNil", "samplesDo:", "at:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4322,7 +4322,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var visited,sentinel;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -4406,7 +4406,7 @@ return self._assert_equals_(visited,_st(self._collection())._at_(index));
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{visited:visited,sentinel:sentinel},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{visited:visited,sentinel:sentinel},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4416,7 +4416,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "nonIndexesDo:", "assert:equals:", "at:ifPresent:ifAbsent:", "collection", "sampleNewValue", "assert:", "isNil", "samplesDo:", "at:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4452,7 +4452,7 @@ _st(newCollection)._at_put_(self._sampleNewIndex(),self._sampleNewValue());
 self._assert_equals_(newCollection,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtPut",{newCollection:newCollection},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtPut",{newCollection:newCollection},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4462,7 +4462,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collection", "samplesDo:", "at:put:", "assert:equals:", "sampleNewIndex", "sampleNewValue", "collectionWithNewValue"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4534,7 +4534,7 @@ $ctx1.sendIdx["deny:"]=1;
 self._deny_(_st(self._collection()).__eq(_st(self._collectionClass())._new()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEquality",{},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEquality",{},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4544,7 +4544,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "new", "collectionClass", "collection", "collectionWithNewValue", "deny:", "="]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4552,7 +4552,7 @@ selector: "testIndexOf",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -4584,7 +4584,7 @@ return self._assert_equals_(_st(self._collection())._indexOf_(value),index);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4594,7 +4594,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "indexOf:", "collection", "sampleNewValue", "samplesDo:", "assert:equals:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4603,7 +4603,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var jsNull;
-function $JSON(){return globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
+function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -4623,7 +4623,7 @@ return self._assert_equals_($2,index);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIndexOfWithNull",{jsNull:jsNull},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIndexOfWithNull",{jsNull:jsNull},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4633,7 +4633,7 @@ referencedClasses: ["JSON"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "samplesDo:", "assert:equals:", "at:put:", "collection", "indexOf:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4660,7 +4660,7 @@ return self._assert_equals_(_st(collection)._at_(index),each);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testWithIndexDo",{collection:collection},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testWithIndexDo",{collection:collection},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4670,11 +4670,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collection", "withIndexDo:", "assert:equals:", "at:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 
 
-$vm.addClass('AssociativeCollectionTest', globals.IndexableCollectionTest, [], 'Kernel-Tests');
+$vm.addClass('AssociativeCollectionTest', $globals.IndexableCollectionTest, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "collectionKeys",
@@ -4687,7 +4687,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4697,7 +4697,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4711,7 +4711,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionValues",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionValues",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4721,7 +4721,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4739,7 +4739,7 @@ $ctx1.sendIdx["value:"]=1;
 _st(aBlock)._value_("z");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nonIndexesDo:",{aBlock:aBlock},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"nonIndexesDo:",{aBlock:aBlock},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4749,7 +4749,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4767,7 +4767,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4781,7 +4781,7 @@ return $vm.withContext(function($ctx1) {
 _st(aBlock)._value_value_("a",(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4791,7 +4791,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:value:"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4807,7 +4807,7 @@ var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.AssociativeCollectionTest.superclass.fn.prototype._testAddAll.apply(_st(self), []));
+$globals.AssociativeCollectionTest.superclass.fn.prototype._testAddAll.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -4873,7 +4873,7 @@ $13=$15;
 self._assert_equals_($13,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4883,7 +4883,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["testAddAll", "assert:equals:", "addAll:", "collection", "yourself", "collectionWithNewValue"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4891,14 +4891,14 @@ selector: "testAsDictionary",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_(_st(_st(_st(self._collectionClass())._new())._asDictionary())._isMemberOf_($Dictionary()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsDictionary",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsDictionary",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4908,7 +4908,7 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "isMemberOf:", "asDictionary", "new", "collectionClass"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4916,14 +4916,14 @@ selector: "testAsHashedCollection",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_(_st(_st(_st(self._collectionClass())._new())._asHashedCollection())._isMemberOf_($HashedCollection()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsHashedCollection",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsHashedCollection",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4933,7 +4933,7 @@ referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "isMemberOf:", "asHashedCollection", "new", "collectionClass"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -4949,7 +4949,7 @@ var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.AssociativeCollectionTest.superclass.fn.prototype._testComma.apply(_st(self), []));
+$globals.AssociativeCollectionTest.superclass.fn.prototype._testComma.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -5001,7 +5001,7 @@ $9=_st($10).__comma(self._collection());
 self._assert_equals_($9,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComma",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComma",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5011,7 +5011,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["testComma", "assert:equals:", ",", "collection", "collectionWithNewValue"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5029,10 +5029,10 @@ $1="a".__minus_gt((1));
 $ctx1.sendIdx["->"]=1;
 //>>excludeEnd("ctx");
 associations=[$1,"b".__minus_gt((2))];
-self._assertSameContents_as_(_st(_st(self._class())._collectionClass())._from_(associations),globals.HashedCollection._newFromPairs_(["a",(1),"b",(2)]));
+self._assertSameContents_as_(_st(_st(self._class())._collectionClass())._from_(associations),$globals.HashedCollection._newFromPairs_(["a",(1),"b",(2)]));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testFrom",{associations:associations},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testFrom",{associations:associations},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5042,7 +5042,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["->", "assertSameContents:as:", "from:", "collectionClass", "class"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5075,7 +5075,7 @@ $ctx1.sendIdx["assertSameContents:as:"]=1;
 self._assertSameContents_as_(_st(self._collectionWithNewValue())._keys(),_st(self._collectionKeys()).__comma([self._sampleNewIndex()]));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testKeys",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testKeys",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5085,7 +5085,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "isEmpty", "keys", "new", "collectionClass", "assertSameContents:as:", "collection", "collectionKeys", "collectionWithNewValue", ",", "sampleNewIndex"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5098,10 +5098,10 @@ var flattenedAssociations;
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 flattenedAssociations=["a",(1),"b",(2)];
-self._assertSameContents_as_(_st(_st(self._class())._collectionClass())._newFromPairs_(flattenedAssociations),globals.HashedCollection._newFromPairs_(["a",(1),"b",(2)]));
+self._assertSameContents_as_(_st(_st(self._class())._collectionClass())._newFromPairs_(flattenedAssociations),$globals.HashedCollection._newFromPairs_(["a",(1),"b",(2)]));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNewFromPairs",{flattenedAssociations:flattenedAssociations},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNewFromPairs",{flattenedAssociations:flattenedAssociations},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5111,7 +5111,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assertSameContents:as:", "newFromPairs:", "collectionClass", "class"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5142,7 +5142,7 @@ $ctx1.sendIdx[","]=1;
 self._assert_equals_($1,$5);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPrintString",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPrintString",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5152,7 +5152,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "at:put:", "new", "collectionClass", "printString", ",", "name"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5160,7 +5160,7 @@ selector: "testRemoveKey",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -5235,7 +5235,7 @@ $8=_st($7)._yourself();
 self._assert_equals_($8,self._collection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveKey",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveKey",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5245,7 +5245,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["nonIndexesDo:", "collection", "should:raise:", "removeKey:", "assert:equals:", "samplesDo:", "deny:", "=", "collectionWithNewValue", "sampleNewIndex", "yourself"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5354,7 +5354,7 @@ $10=_st($9)._yourself();
 self._assert_equals_($10,self._collection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveKeyIfAbsent",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveKeyIfAbsent",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5364,7 +5364,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nonIndexesDo:", "collection", "assert:equals:", "removeKey:ifAbsent:", "sampleNewValue", "samplesDo:", "deny:", "=", "collectionWithNewValue", "sampleNewIndex", "assert:", "yourself"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5397,7 +5397,7 @@ $ctx1.sendIdx["assertSameContents:as:"]=1;
 self._assertSameContents_as_(_st(self._collectionWithNewValue())._values(),_st(self._collectionValues()).__comma([self._sampleNewValue()]));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValues",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValues",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5407,18 +5407,18 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "isEmpty", "values", "new", "collectionClass", "assertSameContents:as:", "collection", "collectionValues", "collectionWithNewValue", ",", "sampleNewValue"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 
 
-$vm.addClass('DictionaryTest', globals.AssociativeCollectionTest, [], 'Kernel-Tests');
+$vm.addClass('DictionaryTest', $globals.AssociativeCollectionTest, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "collection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -5441,7 +5441,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collection",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"collection",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5451,7 +5451,7 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "@", "yourself"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5466,7 +5466,7 @@ var $1;
 $1=[(1),"a",true,(1).__at((3))];
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5476,7 +5476,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["@"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5484,7 +5484,7 @@ selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -5507,7 +5507,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5517,7 +5517,7 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "@", "yourself"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5535,7 +5535,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5555,7 +5555,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5563,7 +5563,7 @@ selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -5598,7 +5598,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5608,7 +5608,7 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "yourself"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5616,7 +5616,7 @@ selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -5643,7 +5643,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5653,7 +5653,7 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "@", "yourself"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5661,7 +5661,7 @@ selector: "sampleNewValueAsCollection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -5672,7 +5672,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5682,7 +5682,7 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "yourself"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5697,7 +5697,7 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.DictionaryTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
+$globals.DictionaryTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -5708,7 +5708,7 @@ $ctx1.sendIdx["value:value:"]=1;
 _st(aBlock)._value_value_((1).__at((3)),(-4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5718,7 +5718,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["samplesDo:", "value:value:", "@"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5727,7 +5727,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var d;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -5817,7 +5817,7 @@ self._assert_($11);
 self._deny_(_st(d)._includesKey_((3).__at((1))));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAccessing",{d:d},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAccessing",{d:d},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5827,7 +5827,7 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["new", "at:put:", "assert:equals:", "at:", "at:ifAbsent:", "deny:", "=", "assert:", "includesKey:", "@"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5835,14 +5835,14 @@ selector: "testDynamicDictionaries",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(globals.HashedCollection._newFromPairs_(["hello",(1)]))._asDictionary(),_st($Dictionary())._with_("hello".__minus_gt((1))));
+self._assert_equals_(_st($globals.HashedCollection._newFromPairs_(["hello",(1)]))._asDictionary(),_st($Dictionary())._with_("hello".__minus_gt((1))));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5852,7 +5852,7 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asDictionary", "with:", "->"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
 
 $vm.addMethod(
@@ -5861,7 +5861,7 @@ selector: "collectionClass",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $Dictionary();
 
 },
@@ -5872,10 +5872,10 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.DictionaryTest.klass);
+$globals.DictionaryTest.klass);
 
 
-$vm.addClass('HashedCollectionTest', globals.AssociativeCollectionTest, [], 'Kernel-Tests');
+$vm.addClass('HashedCollectionTest', $globals.AssociativeCollectionTest, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "collection",
@@ -5883,7 +5883,7 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 var $1;
-$1=globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4)]);
+$1=$globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4)]);
 return $1;
 
 },
@@ -5894,7 +5894,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5914,7 +5914,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5923,7 +5923,7 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 var $1;
-$1=globals.HashedCollection._newFromPairs_(["b","1","a","2","c","3","d","-4"]);
+$1=$globals.HashedCollection._newFromPairs_(["b","1","a","2","c","3","d","-4"]);
 return $1;
 
 },
@@ -5934,7 +5934,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5952,7 +5952,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5972,7 +5972,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -5981,7 +5981,7 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 var $1;
-$1=globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"e",(1),"f",(2),"g",(10)]);
+$1=$globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"e",(1),"f",(2),"g",(10)]);
 return $1;
 
 },
@@ -5992,7 +5992,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6001,7 +6001,7 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 var $1;
-$1=globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"new","N"]);
+$1=$globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"new","N"]);
 return $1;
 
 },
@@ -6012,7 +6012,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6021,7 +6021,7 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 var $1;
-$1=globals.HashedCollection._newFromPairs_(["new","N"]);
+$1=$globals.HashedCollection._newFromPairs_(["new","N"]);
 return $1;
 
 },
@@ -6032,7 +6032,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6040,14 +6040,14 @@ selector: "testDynamicDictionaries",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(globals.HashedCollection._newFromPairs_(["hello",(1)]))._asHashedCollection(),_st($HashedCollection())._with_("hello".__minus_gt((1))));
+self._assert_equals_(_st($globals.HashedCollection._newFromPairs_(["hello",(1)]))._asHashedCollection(),_st($HashedCollection())._with_("hello".__minus_gt((1))));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},globals.HashedCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},$globals.HashedCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6057,7 +6057,7 @@ referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asHashedCollection", "with:", "->"]
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
 
 $vm.addMethod(
@@ -6066,7 +6066,7 @@ selector: "collectionClass",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return $HashedCollection();
 
 },
@@ -6077,10 +6077,10 @@ referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest.klass);
+$globals.HashedCollectionTest.klass);
 
 
-$vm.addClass('SequenceableCollectionTest', globals.IndexableCollectionTest, [], 'Kernel-Tests');
+$vm.addClass('SequenceableCollectionTest', $globals.IndexableCollectionTest, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "collectionFirst",
@@ -6093,7 +6093,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionFirst",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionFirst",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6103,7 +6103,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6117,7 +6117,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionFirstTwo",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionFirstTwo",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6127,7 +6127,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6141,7 +6141,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionLast",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionLast",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6151,7 +6151,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6165,7 +6165,7 @@ return $vm.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionLastTwo",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionLastTwo",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6175,7 +6175,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6197,7 +6197,7 @@ $ctx1.sendIdx["value:"]=2;
 _st(aBlock)._value_("z");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nonIndexesDo:",{aBlock:aBlock},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"nonIndexesDo:",{aBlock:aBlock},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6207,7 +6207,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:", "+", "collectionSize"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6225,7 +6225,7 @@ $ctx1.sendIdx["value:value:"]=1;
 _st(aBlock)._value_value_(self._collectionSize(),self._collectionLast());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6235,7 +6235,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:value:", "collectionFirst", "collectionSize", "collectionLast"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6287,7 +6287,7 @@ self._assert_($6);
 self._deny_(_st(self._collection())._beginsWith_(self._collectionLastTwo()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testBeginsWith",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testBeginsWith",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6297,7 +6297,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "beginsWith:", "collection", "new", "collectionClass", "collectionFirstTwo", "deny:", "collectionLastTwo"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6349,7 +6349,7 @@ self._assert_($6);
 self._deny_(_st(self._collection())._endsWith_(self._collectionFirstTwo()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEndsWith",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEndsWith",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6359,7 +6359,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "endsWith:", "collection", "new", "collectionClass", "collectionLastTwo", "deny:", "collectionFirstTwo"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6373,7 +6373,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_(_st(self._collection())._first(),self._collectionFirst());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testFirst",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testFirst",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6383,7 +6383,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "first", "collection", "collectionFirst"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6391,7 +6391,7 @@ selector: "testFirstN",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -6444,7 +6444,7 @@ return _st(self._collection())._first_((33));
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testFirstN",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testFirstN",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6454,7 +6454,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "first:", "collection", "collectionFirstTwo", "new", "collectionClass", "collectionSize", "should:raise:"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6474,7 +6474,7 @@ $1=_st($2)._fourth();
 self._assert_equals_($1,_st(self._collection())._at_((4)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testFourth",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testFourth",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6484,7 +6484,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "fourth", "collection", "at:"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6493,7 +6493,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var jsNull;
-function $JSON(){return globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
+function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -6534,7 +6534,7 @@ return self._assert_equals_(_st(self._collection())._indexOf_startingAt_(value,_
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAt",{jsNull:jsNull},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAt",{jsNull:jsNull},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6544,7 +6544,7 @@ referencedClasses: ["JSON"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "samplesDo:", "assert:equals:", "indexOf:startingAt:", "collection", "+"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6553,7 +6553,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var jsNull;
-function $JSON(){return globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
+function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -6590,7 +6590,7 @@ return self._assert_equals_(_st(collection)._indexOf_startingAt_(jsNull,_st(inde
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAtWithNull",{jsNull:jsNull},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAtWithNull",{jsNull:jsNull},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6600,7 +6600,7 @@ referencedClasses: ["JSON"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "samplesDo:", "collection", "at:put:", "assert:equals:", "indexOf:startingAt:", "+"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6614,7 +6614,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_(_st(self._collection())._last(),self._collectionLast());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLast",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLast",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6624,7 +6624,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "last", "collection", "collectionLast"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6632,7 +6632,7 @@ selector: "testLastN",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -6685,7 +6685,7 @@ return _st(self._collection())._last_((33));
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLastN",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLastN",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6695,7 +6695,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "last:", "collection", "collectionLastTwo", "new", "collectionClass", "collectionSize", "should:raise:"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6715,7 +6715,7 @@ $1=_st($2)._second();
 self._assert_equals_($1,_st(self._collection())._at_((2)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSecond",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSecond",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6725,7 +6725,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "second", "collection", "at:"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6745,7 +6745,7 @@ $1=_st($2)._third();
 self._assert_equals_($1,_st(self._collection())._at_((3)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testThird",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testThird",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6755,11 +6755,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "third", "collection", "at:"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 
 
-$vm.addClass('ArrayTest', globals.SequenceableCollectionTest, [], 'Kernel-Tests');
+$vm.addClass('ArrayTest', $globals.SequenceableCollectionTest, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "collection",
@@ -6778,7 +6778,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6796,7 +6796,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6816,7 +6816,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6834,7 +6834,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6854,7 +6854,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6874,7 +6874,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6892,7 +6892,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6912,7 +6912,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6932,7 +6932,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6950,7 +6950,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6965,14 +6965,14 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.ArrayTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
+$globals.ArrayTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 _st(aBlock)._value_value_((3),(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6982,7 +6982,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["samplesDo:", "value:value:"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -6999,7 +6999,7 @@ _st(array)._add_((6));
 self._assert_equals_(_st(array)._last(),(6));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAdd",{array:array},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAdd",{array:array},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7009,7 +7009,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collection", "add:", "assert:equals:", "last"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7027,7 +7027,7 @@ $2=_st($1)._yourself();
 self._assert_equals_(_st($2)._first(),(0));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddFirst",{},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddFirst",{},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7037,7 +7037,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "first", "addFirst:", "collection", "yourself"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7046,7 +7046,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -7116,7 +7116,7 @@ _st(array)._addLast_((3));
 self._assert_equals_(_st(array)._printString(),"an Array ('foo' 3 3)");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPrintString",{array:array},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPrintString",{array:array},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7126,7 +7126,7 @@ referencedClasses: ["Array"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:equals:", "printString", "add:", "remove:", "addLast:"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7135,7 +7135,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -7156,7 +7156,7 @@ return _st(array)._remove_((3));
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemove",{array:array},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemove",{array:array},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7166,7 +7166,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["remove:", "assert:equals:", "should:raise:"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7197,7 +7197,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_([(1), (2), (3), (4)]._removeFrom_to_((2),(4)),[(1)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveFromTo",{},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveFromTo",{},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7207,7 +7207,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "removeFrom:to:"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7238,7 +7238,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_(["hello"]._removeIndex_((1)),[]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveIndex",{},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveIndex",{},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7248,7 +7248,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "removeIndex:"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7265,7 +7265,7 @@ _st(array)._removeLast();
 self._assert_equals_(_st(array)._last(),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveLast",{array:array},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveLast",{array:array},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7275,7 +7275,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["removeLast", "assert:equals:", "last"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7291,7 +7291,7 @@ array=[(5), (4), (3), (2), (1)];
 self._assert_equals_(_st(array)._reversed(),[(1), (2), (3), (4), (5)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testReversed",{array:array},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testReversed",{array:array},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7301,7 +7301,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "reversed"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7318,7 +7318,7 @@ _st(array)._sort();
 self._assert_equals_(array,[(1), (5), (10)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSort",{array:array},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSort",{array:array},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7328,7 +7328,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["sort", "assert:equals:"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 
 $vm.addMethod(
@@ -7337,7 +7337,7 @@ selector: "collectionClass",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $Array();
 
 },
@@ -7348,10 +7348,10 @@ referencedClasses: ["Array"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest.klass);
+$globals.ArrayTest.klass);
 
 
-$vm.addClass('StringTest', globals.SequenceableCollectionTest, [], 'Kernel-Tests');
+$vm.addClass('StringTest', $globals.SequenceableCollectionTest, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "collection",
@@ -7368,7 +7368,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7386,7 +7386,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7404,7 +7404,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7422,7 +7422,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7440,7 +7440,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7458,7 +7458,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7476,7 +7476,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7494,7 +7494,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7512,7 +7512,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7530,7 +7530,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7545,14 +7545,14 @@ return $vm.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.StringTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
+$globals.StringTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 _st(aBlock)._value_value_((3),"l");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7562,7 +7562,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["samplesDo:", "value:value:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7570,7 +7570,7 @@ selector: "testAddAll",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -7590,7 +7590,7 @@ return _st($1)._addAll_(self._collection());
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7600,7 +7600,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "addAll:", "collection"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7608,7 +7608,7 @@ selector: "testAddRemove",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -7635,7 +7635,7 @@ return "hello"._remove_("h");
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddRemove",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddRemove",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7645,7 +7645,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "add:", "remove:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7659,7 +7659,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_("hello"._asArray(),["h", "e", "l", "l", "o"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsArray",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsArray",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7669,7 +7669,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asArray"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7683,7 +7683,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_("JACKIE"._asLowercase(),"jackie");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsLowerCase",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsLowerCase",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7693,7 +7693,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asLowercase"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7724,7 +7724,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_("-1.5"._asNumber(),(-1.5));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7734,7 +7734,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asNumber"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7748,7 +7748,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_("jackie"._asUppercase(),"JACKIE");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsUpperCase",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsUpperCase",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7758,7 +7758,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asUppercase"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7784,7 +7784,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_(_st(characterU)._asciiValue(),(85));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsciiValue",{characterA:characterA,characterU:characterU},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsciiValue",{characterA:characterA,characterU:characterU},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7794,7 +7794,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asciiValue"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7802,7 +7802,7 @@ selector: "testAtIfAbsentPut",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -7820,7 +7820,7 @@ return "a";
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsentPut",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsentPut",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7830,7 +7830,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "at:ifAbsentPut:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7838,7 +7838,7 @@ selector: "testAtPut",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -7853,7 +7853,7 @@ return "hello"._at_put_((1),"a");
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtPut",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtPut",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7863,7 +7863,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "at:put:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7906,7 +7906,7 @@ $ctx1.sendIdx["assert:equals:"]=4;
 self._assert_equals_("test"._isCapitalized(),false);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCapitalized",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCapitalized",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7916,7 +7916,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "capitalized", "isCapitalized"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -7971,7 +7971,7 @@ $ctx1.sendIdx["assert:equals:"]=5;
 self._assert_equals_("jackie"._charCodeAt_((6)),(101));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCharCodeAt",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCharCodeAt",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7981,7 +7981,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "charCodeAt:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8004,7 +8004,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_("jackie"._copyFrom_to_((4),(6)),"kie");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCopyFromTo",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCopyFromTo",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8014,7 +8014,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "copyFrom:to:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8028,7 +8028,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_("*hello* *world*"._copyWithoutAll_("*"),"hello world");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCopyWithoutAll",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCopyWithoutAll",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8038,7 +8038,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "copyWithoutAll:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8084,7 +8084,7 @@ self._assert_equals_("hello"._yourself(),"hello");
 self._deny_("".__eq((0)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEquality",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEquality",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8094,7 +8094,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "deny:", "=", "at:ifAbsent:", "yourself"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8142,7 +8142,7 @@ self._assert_($5);
 self._deny_("".__eq_eq((0)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8152,7 +8152,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "==", "deny:", "yourself"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8181,7 +8181,7 @@ $3=_st($4).__eq("bar"._identityHash());
 self._deny_($3);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIdentityHash",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIdentityHash",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8191,7 +8191,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "identityHash", "deny:", "="]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8211,7 +8211,7 @@ self._assert_($1);
 self._deny_("amber"._includesSubString_("zork"));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIncludesSubString",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIncludesSubString",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8221,7 +8221,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "includesSubString:", "deny:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8239,7 +8239,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8257,7 +8257,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8283,7 +8283,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_(_st(consonant)._isVowel(),false);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIsVowel",{vowel:vowel,consonant:consonant},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIsVowel",{vowel:vowel,consonant:consonant},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8293,7 +8293,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "isVowel"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8307,7 +8307,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_(","._join_(["hello", "world"]),"hello,world");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testJoin",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testJoin",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8317,7 +8317,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "join:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8325,7 +8325,7 @@ selector: "testRemoveAll",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -8340,7 +8340,7 @@ return _st(self._collection())._removeAll();
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8350,7 +8350,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "removeAll", "collection"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8364,7 +8364,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_("jackiechan"._reversed(),"nahceikcaj");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testReversed",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testReversed",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8374,7 +8374,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "reversed"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8382,7 +8382,7 @@ selector: "testStreamContents",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -8404,7 +8404,7 @@ return $1;
 })),"hello world");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testStreamContents",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testStreamContents",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8414,7 +8414,7 @@ referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "streamContents:", "nextPutAll:", "space"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8428,7 +8428,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_("jackiechan"._subStrings_("ie"),["jack", "chan"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSubStrings",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSubStrings",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8438,7 +8438,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "subStrings:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8456,7 +8456,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_("jackie               "._trimRight(),"jackie");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTrim",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTrim",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8466,7 +8466,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "trimLeft", "trimRight"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8484,7 +8484,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_([(1), (2), (3)]._collect_("asString"),["1", "2", "3"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValue",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValue",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8494,7 +8494,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "value:", "collect:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 
 $vm.addMethod(
@@ -8503,7 +8503,7 @@ selector: "collectionClass",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $String();
 
 },
@@ -8514,18 +8514,18 @@ referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest.klass);
+$globals.StringTest.klass);
 
 
-$vm.addClass('SetTest', globals.CollectionTest, [], 'Kernel-Tests');
+$vm.addClass('SetTest', $globals.CollectionTest, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "collection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -8548,7 +8548,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collection",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"collection",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8558,7 +8558,7 @@ referencedClasses: ["Set", "Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["add:", "new", "@", "yourself"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8566,7 +8566,7 @@ selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -8589,7 +8589,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8599,7 +8599,7 @@ referencedClasses: ["Set"],
 //>>excludeEnd("ide");
 messageSends: ["add:", "new", "yourself"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8617,7 +8617,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.SetTest);
+$globals.SetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8635,7 +8635,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8645,7 +8645,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["add:", "collection", "yourself"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8653,8 +8653,8 @@ selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -8681,7 +8681,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8691,7 +8691,7 @@ referencedClasses: ["Set", "Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["add:", "new", "@", "yourself"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8707,7 +8707,7 @@ var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.SetTest.superclass.fn.prototype._testAddAll.apply(_st(self), []));
+$globals.SetTest.superclass.fn.prototype._testAddAll.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -8773,7 +8773,7 @@ $13=$15;
 self._assert_equals_($13,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8783,7 +8783,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["testAddAll", "assert:equals:", "addAll:", "collection", "yourself", "collectionWithNewValue"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8792,7 +8792,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var set;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -8824,7 +8824,7 @@ _st(set)._remove_((3));
 self._deny_(_st(set)._includes_((3)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddRemove",{set:set},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddRemove",{set:set},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8834,7 +8834,7 @@ referencedClasses: ["Set"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:", "isEmpty", "add:", "includes:", "remove:", "deny:"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8842,8 +8842,8 @@ selector: "testAt",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -8858,7 +8858,7 @@ return _st(_st($Set())._new())._at_put_((1),(2));
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAt",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAt",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8868,7 +8868,7 @@ referencedClasses: ["Set", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "at:put:", "new"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8884,7 +8884,7 @@ var $2,$1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.SetTest.superclass.fn.prototype._testCollect.apply(_st(self), []));
+$globals.SetTest.superclass.fn.prototype._testCollect.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -8904,7 +8904,7 @@ return _st(x).__backslash_backslash((3));
 self._assert_equals_($1,[(0), (2)]._asSet());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCollect",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCollect",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8914,7 +8914,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["testCollect", "assert:equals:", "collect:", "asSet", "\x5c\x5c"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -8930,7 +8930,7 @@ var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.SetTest.superclass.fn.prototype._testComma.apply(_st(self), []));
+$globals.SetTest.superclass.fn.prototype._testComma.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -8982,7 +8982,7 @@ $9=_st($10).__comma(self._collection());
 self._assert_equals_($9,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComma",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComma",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8992,7 +8992,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["testComma", "assert:equals:", ",", "collection", "collectionWithNewValue"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9049,7 +9049,7 @@ $8=_st($9).__eq([(0), (2)]._asSet());
 self._deny_($8);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComparing",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComparing",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9059,7 +9059,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asSet", "deny:", "="]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9068,7 +9068,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var set;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -9141,7 +9141,7 @@ _st(set)._add_((3));
 self._assert_equals_(_st(set)._printString(),"a Set (3 'foo')");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPrintString",{set:set},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPrintString",{set:set},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9151,7 +9151,7 @@ referencedClasses: ["Set"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:equals:", "printString", "add:", "remove:"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9173,7 +9173,7 @@ $1=_st($2)._asArray();
 self._assert_equals_($1,["foo"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testUnboxedObjects",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testUnboxedObjects",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9183,7 +9183,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asArray", "asSet", "yourself"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9192,7 +9192,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var set;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -9226,7 +9226,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_(_st(set)._asArray(),[(21), "hello"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testUnicity",{set:set},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testUnicity",{set:set},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9236,7 +9236,7 @@ referencedClasses: ["Set"],
 //>>excludeEnd("ide");
 messageSends: ["new", "add:", "assert:equals:", "size", "asArray"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 
 $vm.addMethod(
@@ -9245,7 +9245,7 @@ selector: "collectionClass",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 return $Set();
 
 },
@@ -9256,10 +9256,10 @@ referencedClasses: ["Set"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.SetTest.klass);
+$globals.SetTest.klass);
 
 
-$vm.addClass('ConsoleTranscriptTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('ConsoleTranscriptTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testShow",
@@ -9267,9 +9267,9 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var originalTranscript;
-function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-function $ConsoleTranscript(){return globals.ConsoleTranscript||(typeof ConsoleTranscript=="undefined"?nil:ConsoleTranscript)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $ConsoleTranscript(){return $globals.ConsoleTranscript||(typeof ConsoleTranscript=="undefined"?nil:ConsoleTranscript)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -9305,7 +9305,7 @@ return _st($Transcript())._show_(console);
 _st($Transcript())._register_(originalTranscript);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testShow",{originalTranscript:originalTranscript},globals.ConsoleTranscriptTest)});
+}, function($ctx1) {$ctx1.fill(self,"testShow",{originalTranscript:originalTranscript},$globals.ConsoleTranscriptTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9315,11 +9315,11 @@ referencedClasses: ["Transcript", "ConsoleTranscript", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["current", "register:", "new", "shouldnt:raise:", "show:"]
 }),
-globals.ConsoleTranscriptTest);
+$globals.ConsoleTranscriptTest);
 
 
 
-$vm.addClass('JSObjectProxyTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('JSObjectProxyTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "jsNull",
@@ -9332,7 +9332,7 @@ return $vm.withContext(function($ctx1) {
 return null;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"jsNull",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"jsNull",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9342,7 +9342,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9356,7 +9356,7 @@ return $vm.withContext(function($ctx1) {
 return {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0};
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"jsObject",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"jsObject",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9366,7 +9366,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9380,7 +9380,7 @@ return $vm.withContext(function($ctx1) {
 return;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"jsUndefined",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"jsUndefined",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9390,7 +9390,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9443,7 +9443,7 @@ return "Property does not exist";
 })),nil);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{testObject:testObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{testObject:testObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9453,7 +9453,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "assert:equals:", "at:ifAbsent:"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9547,7 +9547,7 @@ return "hello ".__comma(_st(x)._asString());
 })),"hello nil");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{testObject:testObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{testObject:testObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9557,7 +9557,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "assert:equals:", "at:ifPresent:", ",", "asString"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9663,7 +9663,7 @@ return "not present";
 })),"hello nil");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{testObject:testObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{testObject:testObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9673,7 +9673,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "assert:equals:", "at:ifPresent:ifAbsent:", ",", "asString"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9700,7 +9700,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_(_st(testObject)._at_("abc"),"xyz");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtPut",{testObject:testObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtPut",{testObject:testObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9710,7 +9710,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "assert:", "~=", "at:", "assert:equals:", "at:put:"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9718,7 +9718,7 @@ selector: "testComparison",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -9740,7 +9740,7 @@ $ctx1.sendIdx["deny:"]=1;
 self._deny_(_st(console).__eq(self._jsObject()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComparison",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComparison",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9750,7 +9750,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "indexOf:", "assert:", "=", "deny:", "new", "jsObject"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9758,7 +9758,7 @@ selector: "testDNU",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -9773,7 +9773,7 @@ return _st(self._jsObject())._foo();
 }),$MessageNotUnderstood());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDNU",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDNU",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9783,7 +9783,7 @@ referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "foo", "jsObject"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9792,7 +9792,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var jsObject;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -9838,7 +9838,7 @@ return _st(jsObject)._foo_((4));
 self._assert_equals_(_st(jsObject)._foo(),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDNURegression1057",{jsObject:jsObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDNURegression1057",{jsObject:jsObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9848,7 +9848,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["basicAt:put:", "shouldnt:raise:", "foo", "assert:equals:", "foo:"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9857,7 +9857,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var jsObject;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -9891,7 +9891,7 @@ return _st(jsObject)._x_((4));
 self._assert_equals_(_st(jsObject)._x(),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDNURegression1059",{jsObject:jsObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDNURegression1059",{jsObject:jsObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9901,7 +9901,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["basicAt:put:", "error", "shouldnt:raise:", "x:", "assert:equals:", "x"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9910,7 +9910,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var jsObject,stored;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -9936,7 +9936,7 @@ return _st(jsObject)._x_((4));
 self._assert_equals_(stored,(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDNURegression1062",{jsObject:jsObject,stored:stored},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDNURegression1062",{jsObject:jsObject,stored:stored},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9946,7 +9946,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["basicAt:put:", "shouldnt:raise:", "x:", "assert:equals:"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -9979,7 +9979,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_(_st(self._jsObject())._c_((3)),(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9989,7 +9989,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "a", "jsObject", "b", "c:"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10003,7 +10003,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_(_st(self._jsObject())._c_((1)),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMethodWithArguments",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMethodWithArguments",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10013,7 +10013,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "c:", "jsObject"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10027,7 +10027,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_(_st(self._jsObject())._printString(),"[object Object]");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPrinting",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPrinting",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10037,7 +10037,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "printString", "jsObject"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10063,7 +10063,7 @@ _st(object)._d_("hello");
 self._assert_equals_(_st(object)._d(),"hello");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsEmptyString",{object:object},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsEmptyString",{object:object},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10073,7 +10073,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "assert:equals:", "d", "d:"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10082,7 +10082,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var object;
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -10102,7 +10102,7 @@ $ctx2.sendIdx["e"]=1;
 self._assert_(_st(_st(object)._e())._isNil());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsUndefined",{object:object},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsUndefined",{object:object},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10112,7 +10112,7 @@ referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "shouldnt:raise:", "e", "assert:", "isNil"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10186,7 +10186,7 @@ _st(jsObject)._a_(false);
 self._assert_equals_(_st(jsObject)._a(),false);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSetPropertyWithFalsyValue",{jsObject:jsObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSetPropertyWithFalsyValue",{jsObject:jsObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10196,7 +10196,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "assert:equals:", "a", "a:", "jsNull", "jsUndefined"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10213,7 +10213,7 @@ _st(testObject)._at_put_("value","aValue");
 self._assert_equals_(_st(testObject)._value(),"aValue");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValue",{testObject:testObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValue",{testObject:testObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10223,7 +10223,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "at:put:", "assert:equals:", "value"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10243,7 +10243,7 @@ object=$2;
 self._assert_equals_(_st(object)._d(),"test");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testYourself",{object:object},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testYourself",{object:object},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10253,18 +10253,18 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["d:", "jsObject", "yourself", "assert:equals:", "d"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 
 
-$vm.addClass('JavaScriptExceptionTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('JavaScriptExceptionTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testCatchingException",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -10287,7 +10287,7 @@ return self._assert_(_st(_st(error)._exception()).__eq("test"));
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCatchingException",{},globals.JavaScriptExceptionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCatchingException",{},$globals.JavaScriptExceptionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10297,7 +10297,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["on:do:", "throwException", "assert:", "=", "exception"]
 }),
-globals.JavaScriptExceptionTest);
+$globals.JavaScriptExceptionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10305,7 +10305,7 @@ selector: "testRaisingException",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $JavaScriptException(){return globals.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
+function $JavaScriptException(){return $globals.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -10320,7 +10320,7 @@ return self._throwException();
 }),$JavaScriptException());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRaisingException",{},globals.JavaScriptExceptionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRaisingException",{},$globals.JavaScriptExceptionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10330,7 +10330,7 @@ referencedClasses: ["JavaScriptException"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "throwException"]
 }),
-globals.JavaScriptExceptionTest);
+$globals.JavaScriptExceptionTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10344,7 +10344,7 @@ return $vm.withContext(function($ctx1) {
 throw 'test';
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"throwException",{},globals.JavaScriptExceptionTest)});
+}, function($ctx1) {$ctx1.fill(self,"throwException",{},$globals.JavaScriptExceptionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10354,11 +10354,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JavaScriptExceptionTest);
+$globals.JavaScriptExceptionTest);
 
 
 
-$vm.addClass('MessageSendTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('MessageSendTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testValue",
@@ -10366,8 +10366,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var messageSend;
-function $MessageSend(){return globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $MessageSend(){return $globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -10383,7 +10383,7 @@ messageSend=$2;
 self._assert_equals_(_st(messageSend)._value(),"an Object");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValue",{messageSend:messageSend},globals.MessageSendTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValue",{messageSend:messageSend},$globals.MessageSendTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10393,7 +10393,7 @@ referencedClasses: ["MessageSend", "Object"],
 //>>excludeEnd("ide");
 messageSends: ["receiver:", "new", "selector:", "yourself", "assert:equals:", "value"]
 }),
-globals.MessageSendTest);
+$globals.MessageSendTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10402,7 +10402,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var messageSend;
-function $MessageSend(){return globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
+function $MessageSend(){return $globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -10419,7 +10419,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_(_st(messageSend)._valueWithPossibleArguments_([(4)]),(6));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValueWithArguments",{messageSend:messageSend},globals.MessageSendTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValueWithArguments",{messageSend:messageSend},$globals.MessageSendTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10429,18 +10429,18 @@ referencedClasses: ["MessageSend"],
 //>>excludeEnd("ide");
 messageSends: ["receiver:", "new", "selector:", "yourself", "assert:equals:", "value:", "valueWithPossibleArguments:"]
 }),
-globals.MessageSendTest);
+$globals.MessageSendTest);
 
 
 
-$vm.addClass('MethodInheritanceTest', globals.TestCase, ['receiverTop', 'receiverMiddle', 'receiverBottom', 'method', 'performBlock'], 'Kernel-Tests');
+$vm.addClass('MethodInheritanceTest', $globals.TestCase, ['receiverTop', 'receiverMiddle', 'receiverBottom', 'method', 'performBlock'], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "codeGeneratorClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $CodeGenerator(){return globals.CodeGenerator||(typeof CodeGenerator=="undefined"?nil:CodeGenerator)}
+function $CodeGenerator(){return $globals.CodeGenerator||(typeof CodeGenerator=="undefined"?nil:CodeGenerator)}
 return $CodeGenerator();
 
 },
@@ -10451,7 +10451,7 @@ referencedClasses: ["CodeGenerator"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10459,7 +10459,7 @@ selector: "compiler",
 protocol: 'factory',
 fn: function (){
 var self=this;
-function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -10470,7 +10470,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compiler",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"compiler",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10480,7 +10480,7 @@ referencedClasses: ["Compiler"],
 //>>excludeEnd("ide");
 messageSends: ["codeGeneratorClass:", "new", "codeGeneratorClass", "yourself"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10494,7 +10494,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._targetClassBottom())._removeCompiledMethod_(self["@method"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"deinstallBottom",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"deinstallBottom",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10504,7 +10504,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["removeCompiledMethod:", "targetClassBottom"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10518,7 +10518,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._targetClassMiddle())._removeCompiledMethod_(self["@method"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"deinstallMiddle",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"deinstallMiddle",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10528,7 +10528,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["removeCompiledMethod:", "targetClassMiddle"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10542,7 +10542,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._targetClassTop())._removeCompiledMethod_(self["@method"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"deinstallTop",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"deinstallTop",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10552,7 +10552,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["removeCompiledMethod:", "targetClassTop"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10566,7 +10566,7 @@ return $vm.withContext(function($ctx1) {
 self["@method"]=_st(self._compiler())._install_forClass_protocol_(aString,self._targetClassBottom(),"tests");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"installBottom:",{aString:aString},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"installBottom:",{aString:aString},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10576,7 +10576,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["install:forClass:protocol:", "compiler", "targetClassBottom"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10590,7 +10590,7 @@ return $vm.withContext(function($ctx1) {
 self["@method"]=_st(self._compiler())._install_forClass_protocol_(aString,self._targetClassMiddle(),"tests");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"installMiddle:",{aString:aString},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"installMiddle:",{aString:aString},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10600,7 +10600,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["install:forClass:protocol:", "compiler", "targetClassMiddle"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10614,7 +10614,7 @@ return $vm.withContext(function($ctx1) {
 self["@method"]=_st(self._compiler())._install_forClass_protocol_(aString,self._targetClassTop(),"tests");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"installTop:",{aString:aString},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"installTop:",{aString:aString},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10624,7 +10624,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["install:forClass:protocol:", "compiler", "targetClassTop"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10656,7 +10656,7 @@ return self._error_("performBlock not initialized");
 });
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"setUp",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10666,7 +10666,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["new", "targetClassTop", "targetClassMiddle", "targetClassBottom", "error:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10682,7 +10682,7 @@ self._shouldMNUMiddle();
 self._shouldMNUBottom();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldMNU",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"shouldMNU",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10692,7 +10692,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["shouldMNUTop", "shouldMNUMiddle", "shouldMNUBottom"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10700,7 +10700,7 @@ selector: "shouldMNUBottom",
 protocol: 'testing',
 fn: function (){
 var self=this;
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -10715,7 +10715,7 @@ return _st(self["@performBlock"])._value_(self["@receiverBottom"]);
 }),$MessageNotUnderstood());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldMNUBottom",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"shouldMNUBottom",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10725,7 +10725,7 @@ referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "value:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10733,7 +10733,7 @@ selector: "shouldMNUMiddle",
 protocol: 'testing',
 fn: function (){
 var self=this;
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -10748,7 +10748,7 @@ return _st(self["@performBlock"])._value_(self["@receiverMiddle"]);
 }),$MessageNotUnderstood());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldMNUMiddle",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"shouldMNUMiddle",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10758,7 +10758,7 @@ referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "value:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10766,7 +10766,7 @@ selector: "shouldMNUTop",
 protocol: 'testing',
 fn: function (){
 var self=this;
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -10781,7 +10781,7 @@ return _st(self["@performBlock"])._value_(self["@receiverTop"]);
 }),$MessageNotUnderstood());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldMNUTop",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"shouldMNUTop",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10791,7 +10791,7 @@ referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "value:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10823,7 +10823,7 @@ result=_st(self["@performBlock"])._value_(self["@receiverBottom"]);
 self._assert_equals_(["bottom",anObject],["bottom",result]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldReturn:",{anObject:anObject,result:result},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"shouldReturn:",{anObject:anObject,result:result},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10833,7 +10833,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:", "assert:equals:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10865,7 +10865,7 @@ result=_st(self["@performBlock"])._value_(self["@receiverBottom"]);
 self._assert_equals_(["bottom",anObject3],["bottom",result]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldReturn:and:and:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3,result:result},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"shouldReturn:and:and:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3,result:result},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10875,7 +10875,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:", "assert:equals:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10883,7 +10883,7 @@ selector: "targetClassBottom",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $JavaScriptException(){return globals.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
+function $JavaScriptException(){return $globals.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
 return $JavaScriptException();
 
 },
@@ -10894,7 +10894,7 @@ referencedClasses: ["JavaScriptException"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10902,7 +10902,7 @@ selector: "targetClassMiddle",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 return $Error();
 
 },
@@ -10913,7 +10913,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10921,7 +10921,7 @@ selector: "targetClassTop",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 return $Object();
 
 },
@@ -10932,7 +10932,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -10940,7 +10940,7 @@ selector: "tearDown",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -10985,7 +10985,7 @@ return self._deinstallBottom();
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"tearDown",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"tearDown",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10995,7 +10995,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["on:do:", "deinstallTop", "deinstallMiddle", "deinstallBottom"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -11028,7 +11028,7 @@ self._deinstallTop();
 self._shouldMNU();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMNU11",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMNU11",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11038,7 +11038,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["foo", "shouldMNU", "installTop:", "deinstallTop"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -11071,7 +11071,7 @@ self._deinstallMiddle();
 self._shouldMNU();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMNU22",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMNU22",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11081,7 +11081,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["foo", "shouldMNU", "installMiddle:", "deinstallMiddle"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 $vm.addMethod(
 $vm.method({
@@ -11113,7 +11113,7 @@ self._installTop_("foo ^ true");
 self._shouldReturn_(true);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testReturns1",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"testReturns1",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11123,11 +11123,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["foo", "installTop:", "shouldReturn:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 
 
-$vm.addClass('NumberTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('NumberTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testAbs",
@@ -11149,7 +11149,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_((-4)._abs(),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAbs",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAbs",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11159,7 +11159,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "abs"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -11226,7 +11226,7 @@ $ctx1.sendIdx["assert:equals:"]=8;
 self._assert_equals_((1).__plus((2).__star((3))),(7));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11236,7 +11236,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "+", "-", "/", "*", "//", "\x5c\x5c"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -11250,7 +11250,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_((3)._asNumber(),(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11260,7 +11260,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asNumber"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -11291,7 +11291,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_((1)._ceiling(),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCeiling",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCeiling",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11301,7 +11301,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "ceiling"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -11357,7 +11357,7 @@ $ctx1.sendIdx["assert:"]=5;
 self._assert_((3).__lt_eq((3.1)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComparison",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComparison",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11367,7 +11367,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", ">", "<", "deny:", ">=", "<="]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -11390,7 +11390,7 @@ $ctx1.sendIdx["assert:"]=1;
 self._assert_(_st((1)._deepCopy()).__eq_eq((1)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCopying",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCopying",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11400,7 +11400,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "==", "copy", "deepCopy"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -11496,7 +11496,7 @@ $ctx1.sendIdx["deny:"]=4;
 self._deny_((0).__eq(""));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEquality",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEquality",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11506,7 +11506,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "=", "deny:", "yourself"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -11537,7 +11537,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_((1)._floor(),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testFloor",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testFloor",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11547,7 +11547,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "floor"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -11606,7 +11606,7 @@ $ctx1.sendIdx["assert:equals:"]=6;
 self._assert_equals_((15)._truncated(),(15));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testHexNumbers",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testHexNumbers",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11616,7 +11616,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "truncated"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -11688,7 +11688,7 @@ self._assert_($8);
 self._deny_((1).__eq_eq((2)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11698,7 +11698,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "==", "deny:", "yourself"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -11706,7 +11706,7 @@ selector: "testInvalidHexNumbers",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -12201,7 +12201,7 @@ return (11259375)._Z();
 }),$MessageNotUnderstood());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testInvalidHexNumbers",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testInvalidHexNumbers",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12211,7 +12211,7 @@ referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "rG", "rg", "rH", "rh", "rI", "ri", "rJ", "rj", "rK", "rk", "rL", "rl", "rM", "rm", "rN", "rn", "rO", "ro", "rP", "rp", "rQ", "rq", "rR", "rr", "rS", "rs", "rT", "rt", "rU", "ru", "rV", "rv", "rW", "rw", "rX", "rx", "rY", "ry", "rZ", "rz", "Z"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12219,7 +12219,7 @@ selector: "testLog",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Number(){return globals.Number||(typeof Number=="undefined"?nil:Number)}
+function $Number(){return $globals.Number||(typeof Number=="undefined"?nil:Number)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -12234,7 +12234,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_(_st(_st($Number())._e())._ln(),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLog",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLog",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12244,7 +12244,7 @@ referencedClasses: ["Number"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "log", "log:", "ln", "e"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12262,7 +12262,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_((2)._min_((5)),(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMinMax",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMinMax",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12272,7 +12272,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "max:", "min:"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12295,7 +12295,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_((-3)._negated(),(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNegated",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNegated",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12305,7 +12305,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "negated"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12428,7 +12428,7 @@ $ctx1.sendIdx["assert:equals:"]=12;
 self._assert_equals_((0)._printShowingDecimalPlaces_((2)),"0.00");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPrintShowingDecimalPlaces",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPrintShowingDecimalPlaces",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12438,7 +12438,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "printShowingDecimalPlaces:", "negated"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12481,7 +12481,7 @@ $ctx1.sendIdx["assert:equals:"]=4;
 self._assert_equals_((2).__star_star((4)),(16));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRaisedTo",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRaisedTo",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12491,7 +12491,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "raisedTo:", "**"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12522,7 +12522,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_((3.51)._rounded(),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRounded",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRounded",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12532,7 +12532,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "rounded"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12563,7 +12563,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_((-1.4)._sign(),(-1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSign",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSign",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12573,7 +12573,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "sign"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12596,7 +12596,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_((16)._sqrt(),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSqrt",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSqrt",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12606,7 +12606,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "sqrt"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12620,7 +12620,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_((4)._squared(),(16));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSquared",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSquared",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12630,7 +12630,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "squared"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12676,7 +12676,7 @@ return i;
 self._assert_equals_(i,(5));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTimesRepeat",{i:i},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTimesRepeat",{i:i},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12686,7 +12686,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timesRepeat:", "+", "assert:equals:"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12700,7 +12700,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_((1)._to_((5)),[(1), (2), (3), (4), (5)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTo",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTo",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12710,7 +12710,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "to:"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12718,7 +12718,7 @@ selector: "testToBy",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -12739,7 +12739,7 @@ return (1)._to_by_((4),(0));
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testToBy",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testToBy",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12749,7 +12749,7 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "to:by:", "should:raise:"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12783,7 +12783,7 @@ $ctx1.sendIdx["assert:equals:"]=5;
 self._assert_equals_((0)._arcTan(),(0));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTrigonometry",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTrigonometry",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12793,7 +12793,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "cos", "sin", "tan", "arcCos", "arcSin", "arcTan"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12824,7 +12824,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_((3.51)._truncated(),(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTruncated",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTruncated",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12834,13 +12834,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "truncated"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 
 
-$vm.addClass('ObjectMock', globals.Object, ['foo', 'bar'], 'Kernel-Tests');
+$vm.addClass('ObjectMock', $globals.Object, ['foo', 'bar'], 'Kernel-Tests');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.ObjectMock.comment="ObjectMock is there only to perform tests on classes.";
+$globals.ObjectMock.comment="ObjectMock is there only to perform tests on classes.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -12860,7 +12860,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ObjectMock);
+$globals.ObjectMock);
 
 $vm.addMethod(
 $vm.method({
@@ -12879,11 +12879,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ObjectMock);
+$globals.ObjectMock);
 
 
 
-$vm.addClass('ObjectTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('ObjectTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "notDefined",
@@ -12896,7 +12896,7 @@ return $vm.withContext(function($ctx1) {
 return void 0;;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"notDefined",{},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"notDefined",{},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12906,7 +12906,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12915,7 +12915,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -12933,7 +12933,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_(_st(o)._basicAt_("b"),nil);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testBasicAccess",{o:o},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testBasicAccess",{o:o},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12943,7 +12943,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "basicAt:put:", "assert:equals:", "basicAt:"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12952,7 +12952,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -12980,7 +12980,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_(_st(o)._basicPerform_withArguments_("func2",[(3)]),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testBasicPerform",{o:o},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testBasicPerform",{o:o},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12990,7 +12990,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "basicAt:put:", "+", "assert:equals:", "basicPerform:", "basicPerform:withArguments:"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
 $vm.addMethod(
 $vm.method({
@@ -12998,8 +12998,8 @@ selector: "testDNU",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -13014,7 +13014,7 @@ return _st(_st($Object())._new())._foo();
 }),$MessageNotUnderstood());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDNU",{},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDNU",{},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13024,7 +13024,7 @@ referencedClasses: ["Object", "MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "foo", "new"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13033,7 +13033,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -13070,7 +13070,7 @@ $ctx1.sendIdx["assert:"]=2;
 self._assert_(_st(o).__eq(_st(o)._yourself()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEquality",{o:o},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEquality",{o:o},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13080,7 +13080,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "deny:", "=", "assert:", "yourself"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13088,8 +13088,8 @@ selector: "testHalt",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -13104,7 +13104,7 @@ return _st(_st($Object())._new())._halt();
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testHalt",{},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testHalt",{},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13114,7 +13114,7 @@ referencedClasses: ["Object", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "halt", "new"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13123,7 +13123,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -13160,7 +13160,7 @@ $ctx1.sendIdx["assert:"]=2;
 self._assert_(_st(o).__eq_eq(_st(o)._yourself()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIdentity",{o:o},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIdentity",{o:o},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13170,7 +13170,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "deny:", "==", "assert:", "yourself"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13178,7 +13178,7 @@ selector: "testIfNil",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -13238,7 +13238,7 @@ $10=true;
 self._assert_equals_($10,true);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13248,7 +13248,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["deny:", "isNil", "new", "=", "ifNil:", "assert:equals:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13257,7 +13257,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
-function $ObjectMock(){return globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
+function $ObjectMock(){return $globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -13283,7 +13283,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_(_st(o)._instVarAt_("foo"),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testInstVars",{o:o},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testInstVars",{o:o},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13293,7 +13293,7 @@ referencedClasses: ["ObjectMock"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:equals:", "instVarAt:", "instVarAt:put:"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13307,7 +13307,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_(self._notDefined(),nil);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNilUndefined",{},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNilUndefined",{},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13317,7 +13317,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "notDefined"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13326,7 +13326,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
-function $ObjectMock(){return globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
+function $ObjectMock(){return $globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -13334,7 +13334,7 @@ o=_st($ObjectMock())._new();
 self._assert_(_st(_st(o)._yourself()).__eq_eq(o));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testYourself",{o:o},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testYourself",{o:o},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13344,7 +13344,7 @@ referencedClasses: ["ObjectMock"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:", "==", "yourself"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13353,7 +13353,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var o1,o2;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -13384,7 +13384,7 @@ $4=_st($5).__eq_eq(_st(o2)._identityHash());
 self._deny_($4);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testidentityHash",{o1:o1,o2:o2},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testidentityHash",{o1:o1,o2:o2},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13394,18 +13394,18 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:", "==", "identityHash", "deny:"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
 
 
-$vm.addClass('PointTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('PointTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testAccessing",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
+function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -13443,7 +13443,7 @@ $ctx1.sendIdx["assert:equals:"]=3;
 self._assert_equals_(_st(_st(_st($Point())._new())._y_((4)))._y(),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAccessing",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAccessing",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13453,7 +13453,7 @@ referencedClasses: ["Point"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "x", "x:y:", "y", "x:", "new", "y:"]
 }),
-globals.PointTest);
+$globals.PointTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13461,7 +13461,7 @@ selector: "testArithmetic",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
+function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -13525,7 +13525,7 @@ $13=_st($14).__slash((3).__at((4)));
 self._assert_equals_($13,_st($Point())._x_y_((2),(2)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13535,7 +13535,7 @@ referencedClasses: ["Point"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "*", "@", "x:y:", "+", "-", "/"]
 }),
-globals.PointTest);
+$globals.PointTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13543,14 +13543,14 @@ selector: "testAt",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
+function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_((3).__at((4)),_st($Point())._x_y_((3),(4)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAt",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAt",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13560,7 +13560,7 @@ referencedClasses: ["Point"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "@", "x:y:"]
 }),
-globals.PointTest);
+$globals.PointTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13680,7 +13680,7 @@ $22=_st($23).__gt_eq((5).__at((5)));
 self._deny_($22);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComparison",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComparison",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13690,7 +13690,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "<", "@", "deny:", "<=", ">", ">="]
 }),
-globals.PointTest);
+$globals.PointTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13723,7 +13723,7 @@ $4=_st($5).__eq((3).__at((6)));
 self._deny_($4);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEgality",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEgality",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13733,7 +13733,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "=", "@", "deny:"]
 }),
-globals.PointTest);
+$globals.PointTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13741,7 +13741,7 @@ selector: "testNew",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
+function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -13792,7 +13792,7 @@ self._assert_equals_($8,nil);
 self._deny_(_st(_st(_st(_st($Point())._new())._y_((4)))._y()).__eq((0)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNew",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNew",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13802,7 +13802,7 @@ referencedClasses: ["Point"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "y", "x:", "new", "deny:", "=", "x", "y:"]
 }),
-globals.PointTest);
+$globals.PointTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13890,7 +13890,7 @@ $14=_st($15)._translateBy_($16);
 self._assert_equals_($14,(0).__at((3)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTranslateBy",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTranslateBy",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13900,11 +13900,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "translateBy:", "@", "negated"]
 }),
-globals.PointTest);
+$globals.PointTest);
 
 
 
-$vm.addClass('QueueTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('QueueTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testNextIfAbsent",
@@ -13912,7 +13912,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var queue;
-function $Queue(){return globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
+function $Queue(){return $globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -13931,7 +13931,7 @@ self._assert_($1);
 self._deny_(_st(_st(queue)._nextIfAbsent_("empty")).__eq("index1"));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNextIfAbsent",{queue:queue},globals.QueueTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNextIfAbsent",{queue:queue},$globals.QueueTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13941,7 +13941,7 @@ referencedClasses: ["Queue"],
 //>>excludeEnd("ide");
 messageSends: ["new", "nextPut:", "assert:", "=", "nextIfAbsent:", "deny:"]
 }),
-globals.QueueTest);
+$globals.QueueTest);
 
 $vm.addMethod(
 $vm.method({
@@ -13950,8 +13950,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var queue;
-function $Queue(){return globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Queue(){return $globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -13989,7 +13989,7 @@ return _st(queue)._next();
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testQueueNext",{queue:queue},globals.QueueTest)});
+}, function($ctx1) {$ctx1.fill(self,"testQueueNext",{queue:queue},$globals.QueueTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13999,11 +13999,11 @@ referencedClasses: ["Queue", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["new", "nextPut:", "assert:", "=", "next", "deny:", "should:raise:"]
 }),
-globals.QueueTest);
+$globals.QueueTest);
 
 
 
-$vm.addClass('RandomTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('RandomTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testAtRandomNumber",
@@ -14031,7 +14031,7 @@ return self._assert_(_st(val).__lt((11)));
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtRandomNumber",{val:val},globals.RandomTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtRandomNumber",{val:val},$globals.RandomTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14041,7 +14041,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timesRepeat:", "atRandom", "assert:", ">", "<"]
 }),
-globals.RandomTest);
+$globals.RandomTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14080,7 +14080,7 @@ return self._assert_($1);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtRandomSequenceableCollection",{val:val},globals.RandomTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtRandomSequenceableCollection",{val:val},$globals.RandomTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14090,7 +14090,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timesRepeat:", "atRandom", "assert:", "|", "="]
 }),
-globals.RandomTest);
+$globals.RandomTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14098,7 +14098,7 @@ selector: "textNext",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Random(){return globals.Random||(typeof Random=="undefined"?nil:Random)}
+function $Random(){return $globals.Random||(typeof Random=="undefined"?nil:Random)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -14127,7 +14127,7 @@ return _st(next).__eq(current);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"textNext",{},globals.RandomTest)});
+}, function($ctx1) {$ctx1.fill(self,"textNext",{},$globals.RandomTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14137,11 +14137,11 @@ referencedClasses: ["Random"],
 //>>excludeEnd("ide");
 messageSends: ["timesRepeat:", "next", "new", "assert:", ">=", "<", "deny:", "="]
 }),
-globals.RandomTest);
+$globals.RandomTest);
 
 
 
-$vm.addClass('StreamTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('StreamTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "collectionClass",
@@ -14155,7 +14155,7 @@ var $1;
 $1=_st(self._class())._collectionClass();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14165,7 +14165,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collectionClass", "class"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14180,7 +14180,7 @@ var $1;
 $1=_st(self._collectionClass())._new();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"newCollection",{},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"newCollection",{},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14190,7 +14190,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["new", "collectionClass"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14205,7 +14205,7 @@ var $1;
 $1=_st(_st(self._collectionClass())._new())._stream();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"newStream",{},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"newStream",{},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14215,7 +14215,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["stream", "new", "collectionClass"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14267,7 +14267,7 @@ $ctx1.sendIdx["deny:"]=2;
 self._deny_(_st(stream)._atStart());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtStartAtEnd",{stream:stream},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtStartAtEnd",{stream:stream},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14277,7 +14277,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newStream", "assert:", "atStart", "atEnd", "nextPutAll:", "newCollection", "deny:", "position:"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14300,7 +14300,7 @@ _st($1)._nextPutAll_($2);
 self._assert_equals_(_st(stream)._contents(),self._newCollection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testContents",{stream:stream},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testContents",{stream:stream},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14310,7 +14310,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newStream", "nextPutAll:", "newCollection", "assert:equals:", "contents"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14333,7 +14333,7 @@ _st(stream)._nextPutAll_(self._newCollection());
 self._deny_(_st(stream)._isEmpty());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{stream:stream},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{stream:stream},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14343,7 +14343,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newStream", "assert:", "isEmpty", "nextPutAll:", "newCollection", "deny:"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14392,7 +14392,7 @@ _st(stream)._next();
 self._assert_equals_(_st(stream)._position(),(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPosition",{collection:collection,stream:stream},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPosition",{collection:collection,stream:stream},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14402,7 +14402,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newCollection", "newStream", "nextPutAll:", "assert:equals:", "position", "size", "position:", "next"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14436,7 +14436,7 @@ return self._assert_equals_($3,each);
 self._assert_(_st(_st(stream)._next())._isNil());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testReading",{stream:stream,collection:collection},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testReading",{stream:stream,collection:collection},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14446,7 +14446,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newCollection", "newStream", "nextPutAll:", "position:", "do:", "assert:equals:", "next", "assert:", "isNil"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14464,7 +14464,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14490,7 +14490,7 @@ return _st(stream).__lt_lt(each);
 self._assert_equals_(_st(stream)._contents(),collection);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testWrite",{stream:stream,collection:collection},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testWrite",{stream:stream,collection:collection},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14500,7 +14500,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newCollection", "newStream", "do:", "<<", "assert:equals:", "contents"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14540,7 +14540,7 @@ _st(stream)._nextPutAll_(collection);
 self._assert_equals_(_st(stream)._contents(),collection);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testWriting",{stream:stream,collection:collection},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testWriting",{stream:stream,collection:collection},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14550,7 +14550,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newCollection", "newStream", "do:", "nextPut:", "assert:equals:", "contents", "nextPutAll:"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
 
 $vm.addMethod(
@@ -14569,7 +14569,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StreamTest.klass);
+$globals.StreamTest.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -14584,7 +14584,7 @@ var $1;
 $1=_st(self._collectionClass())._isNil();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},globals.StreamTest.klass)});
+}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},$globals.StreamTest.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14594,10 +14594,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["isNil", "collectionClass"]
 }),
-globals.StreamTest.klass);
+$globals.StreamTest.klass);
 
 
-$vm.addClass('ArrayStreamTest', globals.StreamTest, [], 'Kernel-Tests');
+$vm.addClass('ArrayStreamTest', $globals.StreamTest, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "newCollection",
@@ -14611,7 +14611,7 @@ var $1;
 $1=[true,(1),(3).__at((4)),"foo"];
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"newCollection",{},globals.ArrayStreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"newCollection",{},$globals.ArrayStreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14621,7 +14621,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["@"]
 }),
-globals.ArrayStreamTest);
+$globals.ArrayStreamTest);
 
 
 $vm.addMethod(
@@ -14630,7 +14630,7 @@ selector: "collectionClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $Array();
 
 },
@@ -14641,10 +14641,10 @@ referencedClasses: ["Array"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayStreamTest.klass);
+$globals.ArrayStreamTest.klass);
 
 
-$vm.addClass('StringStreamTest', globals.StreamTest, [], 'Kernel-Tests');
+$vm.addClass('StringStreamTest', $globals.StreamTest, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "newCollection",
@@ -14661,7 +14661,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringStreamTest);
+$globals.StringStreamTest);
 
 
 $vm.addMethod(
@@ -14670,7 +14670,7 @@ selector: "collectionClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $String();
 
 },
@@ -14681,10 +14681,10 @@ referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringStreamTest.klass);
+$globals.StringStreamTest.klass);
 
 
-$vm.addClass('UndefinedTest', globals.TestCase, [], 'Kernel-Tests');
+$vm.addClass('UndefinedTest', $globals.TestCase, [], 'Kernel-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testCopying",
@@ -14697,7 +14697,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_equals_(nil._copy(),nil);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCopying",{},globals.UndefinedTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCopying",{},$globals.UndefinedTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14707,7 +14707,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "copy"]
 }),
-globals.UndefinedTest);
+$globals.UndefinedTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14721,7 +14721,7 @@ return $vm.withContext(function($ctx1) {
 self._assert_(_st(nil._deepCopy()).__eq(nil));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDeepCopy",{},globals.UndefinedTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDeepCopy",{},$globals.UndefinedTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14731,7 +14731,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "=", "deepCopy"]
 }),
-globals.UndefinedTest);
+$globals.UndefinedTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14780,7 +14780,7 @@ $5=_st($6).__eq(true);
 self._deny_($5);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},globals.UndefinedTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},$globals.UndefinedTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14790,7 +14790,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "ifNil:", "deny:", "=", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"]
 }),
-globals.UndefinedTest);
+$globals.UndefinedTest);
 
 $vm.addMethod(
 $vm.method({
@@ -14805,7 +14805,7 @@ self._assert_(nil._isNil());
 self._deny_(nil._notNil());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIsNil",{},globals.UndefinedTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIsNil",{},$globals.UndefinedTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14815,7 +14815,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "isNil", "deny:", "notNil"]
 }),
-globals.UndefinedTest);
+$globals.UndefinedTest);
 
 
 });

@@ -4,9 +4,9 @@ var smalltalk=$vm,_st=$recv,globals=$globals;
 $vm.addPackage('Web');
 $vm.packages["Web"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('BrowserInterface', globals.Object, [], 'Web');
+$vm.addClass('BrowserInterface', $globals.Object, [], 'Web');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.BrowserInterface.comment="I am platform interface class that tries to use window and jQuery; that is, one for browser environment.\x0a\x0a## API\x0a\x0a    self isAvailable. \x22true if window and jQuery exist\x22.\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
+$globals.BrowserInterface.comment="I am platform interface class that tries to use window and jQuery; that is, one for browser environment.\x0a\x0a## API\x0a\x0a    self isAvailable. \x22true if window and jQuery exist\x22.\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -21,7 +21,7 @@ var $1;
 $1=_st(jQuery)._ajax_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},globals.BrowserInterface)});
+}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},$globals.BrowserInterface)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -31,7 +31,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ajax:"]
 }),
-globals.BrowserInterface);
+$globals.BrowserInterface);
 
 $vm.addMethod(
 $vm.method({
@@ -46,7 +46,7 @@ var $1;
 $1=_st(window)._alert_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},globals.BrowserInterface)});
+}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.BrowserInterface)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -56,7 +56,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["alert:"]
 }),
-globals.BrowserInterface);
+$globals.BrowserInterface);
 
 $vm.addMethod(
 $vm.method({
@@ -71,7 +71,7 @@ var $1;
 $1=_st(window)._confirm_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},globals.BrowserInterface)});
+}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.BrowserInterface)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -81,7 +81,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["confirm:"]
 }),
-globals.BrowserInterface);
+$globals.BrowserInterface);
 
 $vm.addMethod(
 $vm.method({
@@ -95,7 +95,7 @@ return $vm.withContext(function($ctx1) {
 return typeof window !== "undefined" && typeof jQuery !== "undefined";
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isAvailable",{},globals.BrowserInterface)});
+}, function($ctx1) {$ctx1.fill(self,"isAvailable",{},$globals.BrowserInterface)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -105,7 +105,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.BrowserInterface);
+$globals.BrowserInterface);
 
 $vm.addMethod(
 $vm.method({
@@ -120,7 +120,7 @@ var $1;
 $1=_st(window)._prompt_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},globals.BrowserInterface)});
+}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.BrowserInterface)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -130,7 +130,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["prompt:"]
 }),
-globals.BrowserInterface);
+$globals.BrowserInterface);
 
 $vm.addMethod(
 $vm.method({
@@ -145,7 +145,7 @@ var $1;
 $1=_st(window)._prompt_default_(aString,defaultString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},globals.BrowserInterface)});
+}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.BrowserInterface)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -155,13 +155,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["prompt:default:"]
 }),
-globals.BrowserInterface);
+$globals.BrowserInterface);
 
 
 
-$vm.addClass('HTMLCanvas', globals.Object, ['root'], 'Web');
+$vm.addClass('HTMLCanvas', $globals.Object, ['root'], 'Web');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.HTMLCanvas.comment="I am a canvas for building HTML.\x0a\x0aI provide the `#tag:` method to create a `TagBrush` (wrapping a DOM element) and convenience methods in the `tags` protocol.\x0a\x0a## API\x0a\x0aMy instances are used as the argument of the `#renderOn:` method of `Widget` objects.\x0a\x0aThe `#with:` method is used to compose HTML, nesting tags. `#with:` can take a `TagBrush`, a `String`, a `BlockClosure` or a `Widget` as argument.\x0a\x0a## Usage example:\x0a\x0a    aCanvas a \x0a        with: [ aCanvas span with: 'click me' ];\x0a        onClick: [ window alert: 'clicked!' ]";
+$globals.HTMLCanvas.comment="I am a canvas for building HTML.\x0a\x0aI provide the `#tag:` method to create a `TagBrush` (wrapping a DOM element) and convenience methods in the `tags` protocol.\x0a\x0a## API\x0a\x0aMy instances are used as the argument of the `#renderOn:` method of `Widget` objects.\x0a\x0aThe `#with:` method is used to compose HTML, nesting tags. `#with:` can take a `TagBrush`, a `String`, a `BlockClosure` or a `Widget` as argument.\x0a\x0a## Usage example:\x0a\x0a    aCanvas a \x0a        with: [ aCanvas span with: 'click me' ];\x0a        onClick: [ window alert: 'clicked!' ]";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -176,7 +176,7 @@ var $1;
 $1=self._tag_("a");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"a",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"a",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -186,7 +186,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -201,7 +201,7 @@ var $1;
 $1=self._tag_("abbr");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"abbr",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"abbr",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -211,7 +211,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -226,7 +226,7 @@ var $1;
 $1=self._tag_("address");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"address",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"address",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -236,7 +236,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -251,7 +251,7 @@ var $1;
 $1=self._tag_("area");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"area",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"area",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -261,7 +261,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -276,7 +276,7 @@ var $1;
 $1=self._tag_("article");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"article",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"article",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -286,7 +286,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -301,7 +301,7 @@ var $1;
 $1=self._tag_("aside");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"aside",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"aside",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -311,7 +311,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -326,7 +326,7 @@ var $1;
 $1=self._tag_("audio");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"audio",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"audio",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -336,7 +336,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -351,7 +351,7 @@ var $1;
 $1=self._tag_("base");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"base",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"base",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -361,7 +361,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -376,7 +376,7 @@ var $1;
 $1=self._tag_("blockquote");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"blockquote",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"blockquote",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -386,7 +386,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -401,7 +401,7 @@ var $1;
 $1=self._tag_("body");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"body",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"body",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -411,7 +411,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -426,7 +426,7 @@ var $1;
 $1=self._tag_("br");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"br",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"br",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -436,7 +436,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -451,7 +451,7 @@ var $1;
 $1=self._tag_("button");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"button",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"button",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -461,7 +461,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -476,7 +476,7 @@ var $1;
 $1=self._tag_("canvas");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"canvas",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"canvas",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -486,7 +486,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -501,7 +501,7 @@ var $1;
 $1=self._tag_("caption");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"caption",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"caption",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -511,7 +511,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -526,7 +526,7 @@ var $1;
 $1=self._tag_("cite");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"cite",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"cite",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -536,7 +536,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -551,7 +551,7 @@ var $1;
 $1=self._tag_("code");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"code",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"code",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -561,7 +561,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -576,7 +576,7 @@ var $1;
 $1=self._tag_("col");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"col",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"col",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -586,7 +586,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -601,7 +601,7 @@ var $1;
 $1=self._tag_("colgroup");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"colgroup",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"colgroup",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -611,7 +611,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -626,7 +626,7 @@ var $1;
 $1=self._tag_("command");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"command",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"command",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -636,7 +636,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -651,7 +651,7 @@ var $1;
 $1=self._tag_("datalist");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"datalist",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"datalist",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -661,7 +661,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -676,7 +676,7 @@ var $1;
 $1=self._tag_("dd");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"dd",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"dd",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -686,7 +686,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -701,7 +701,7 @@ var $1;
 $1=self._tag_("del");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"del",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"del",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -711,7 +711,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -726,7 +726,7 @@ var $1;
 $1=self._tag_("details");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"details",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"details",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -736,7 +736,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -751,7 +751,7 @@ var $1;
 $1=self._tag_("div");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"div",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"div",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -761,7 +761,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -776,7 +776,7 @@ var $1;
 $1=_st(self._div())._with_(aBlock);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"div:",{aBlock:aBlock},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"div:",{aBlock:aBlock},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -786,7 +786,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "div"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -801,7 +801,7 @@ var $1;
 $1=self._tag_("dl");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"dl",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"dl",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -811,7 +811,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -826,7 +826,7 @@ var $1;
 $1=self._tag_("dt");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"dt",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"dt",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -836,7 +836,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -851,7 +851,7 @@ var $1;
 $1=self._tag_("em");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"em",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"em",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -861,7 +861,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -876,7 +876,7 @@ var $1;
 $1=self._tag_("embed");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"embed",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"embed",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -886,7 +886,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -917,7 +917,7 @@ self._error_("Not an HTML entity: ".__comma(aString));
 self._with_(result);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"entity:",{aString:aString,result:result},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"entity:",{aString:aString,result:result},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -927,7 +927,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["text", "html:", "asJQuery", ",", "ifFalse:", "=", "size", "error:", "with:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -942,7 +942,7 @@ var $1;
 $1=self._tag_("fieldset");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"fieldset",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"fieldset",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -952,7 +952,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -967,7 +967,7 @@ var $1;
 $1=self._tag_("figcaption");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"figcaption",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"figcaption",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -977,7 +977,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -992,7 +992,7 @@ var $1;
 $1=self._tag_("figure");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"figure",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"figure",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1002,7 +1002,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1017,7 +1017,7 @@ var $1;
 $1=self._tag_("footer");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"footer",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"footer",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1027,7 +1027,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1042,7 +1042,7 @@ var $1;
 $1=self._tag_("form");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"form",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"form",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1052,7 +1052,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1067,7 +1067,7 @@ var $1;
 $1=self._tag_("h1");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"h1",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"h1",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1077,7 +1077,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1092,7 +1092,7 @@ var $1;
 $1=_st(self._h1())._with_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"h1:",{anObject:anObject},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"h1:",{anObject:anObject},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1102,7 +1102,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "h1"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1117,7 +1117,7 @@ var $1;
 $1=self._tag_("h2");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"h2",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"h2",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1127,7 +1127,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1142,7 +1142,7 @@ var $1;
 $1=_st(self._h2())._with_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"h2:",{anObject:anObject},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"h2:",{anObject:anObject},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1152,7 +1152,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "h2"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1167,7 +1167,7 @@ var $1;
 $1=self._tag_("h3");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"h3",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"h3",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1177,7 +1177,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1192,7 +1192,7 @@ var $1;
 $1=_st(self._h3())._with_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"h3:",{anObject:anObject},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"h3:",{anObject:anObject},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1202,7 +1202,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "h3"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1217,7 +1217,7 @@ var $1;
 $1=self._tag_("h4");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"h4",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"h4",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1227,7 +1227,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1242,7 +1242,7 @@ var $1;
 $1=_st(self._h4())._with_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"h4:",{anObject:anObject},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"h4:",{anObject:anObject},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1252,7 +1252,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "h4"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1267,7 +1267,7 @@ var $1;
 $1=self._tag_("h5");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"h5",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"h5",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1277,7 +1277,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1292,7 +1292,7 @@ var $1;
 $1=_st(self._h5())._with_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"h5:",{anObject:anObject},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"h5:",{anObject:anObject},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1302,7 +1302,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "h5"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1317,7 +1317,7 @@ var $1;
 $1=self._tag_("h6");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"h6",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"h6",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1327,7 +1327,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1342,7 +1342,7 @@ var $1;
 $1=_st(self._h6())._with_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"h6:",{anObject:anObject},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"h6:",{anObject:anObject},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1352,7 +1352,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "h6"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1367,7 +1367,7 @@ var $1;
 $1=self._tag_("head");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"head",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"head",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1377,7 +1377,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1392,7 +1392,7 @@ var $1;
 $1=self._tag_("header");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"header",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"header",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1402,7 +1402,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1417,7 +1417,7 @@ var $1;
 $1=self._tag_("hgroup");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"hgroup",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"hgroup",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1427,7 +1427,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1442,7 +1442,7 @@ var $1;
 $1=self._tag_("hr");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"hr",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"hr",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1452,7 +1452,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1467,7 +1467,7 @@ var $1;
 $1=self._tag_("html");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"html",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"html",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1477,7 +1477,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1492,7 +1492,7 @@ var $1;
 $1=self._tag_("iframe");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"iframe",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"iframe",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1502,7 +1502,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1517,7 +1517,7 @@ var $1;
 $1=_st(self._iframe())._src_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"iframe:",{aString:aString},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"iframe:",{aString:aString},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1527,7 +1527,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["src:", "iframe"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1542,7 +1542,7 @@ var $1;
 $1=self._tag_("img");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"img",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"img",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1552,7 +1552,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1567,7 +1567,7 @@ var $1;
 $1=_st(self._img())._src_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"img:",{aString:aString},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"img:",{aString:aString},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1577,7 +1577,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["src:", "img"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1585,7 +1585,7 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $TagBrush(){return globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
+function $TagBrush(){return $globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1594,7 +1594,7 @@ var $1,$receiver;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.HTMLCanvas.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.HTMLCanvas.superclass.fn.prototype._initialize.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -1607,7 +1607,7 @@ $1;
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1617,7 +1617,7 @@ referencedClasses: ["TagBrush"],
 //>>excludeEnd("ide");
 messageSends: ["initialize", "ifNil:", "fromString:canvas:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1625,14 +1625,14 @@ selector: "initializeFromJQuery:",
 protocol: 'initialization',
 fn: function (aJQuery){
 var self=this;
-function $TagBrush(){return globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
+function $TagBrush(){return $globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@root"]=_st($TagBrush())._fromJQuery_canvas_(aJQuery,self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1642,7 +1642,7 @@ referencedClasses: ["TagBrush"],
 //>>excludeEnd("ide");
 messageSends: ["fromJQuery:canvas:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1657,7 +1657,7 @@ var $1;
 $1=self._tag_("input");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"input",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"input",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1667,7 +1667,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1682,7 +1682,7 @@ var $1;
 $1=self._tag_("label");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"label",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"label",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1692,7 +1692,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1707,7 +1707,7 @@ var $1;
 $1=self._tag_("legend");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"legend",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"legend",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1717,7 +1717,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1732,7 +1732,7 @@ var $1;
 $1=self._tag_("li");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"li",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"li",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1742,7 +1742,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1757,7 +1757,7 @@ var $1;
 $1=_st(self._li())._with_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"li:",{anObject:anObject},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"li:",{anObject:anObject},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1767,7 +1767,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "li"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1782,7 +1782,7 @@ var $1;
 $1=self._tag_("link");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"link",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"link",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1792,7 +1792,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1807,7 +1807,7 @@ var $1;
 $1=self._tag_("map");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"map",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"map",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1817,7 +1817,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1832,7 +1832,7 @@ var $1;
 $1=self._tag_("mark");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"mark",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"mark",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1842,7 +1842,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1857,7 +1857,7 @@ var $1;
 $1=self._tag_("menu");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"menu",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"menu",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1867,7 +1867,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1882,7 +1882,7 @@ var $1;
 $1=self._tag_("meta");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"meta",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"meta",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1892,7 +1892,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1907,7 +1907,7 @@ var $1;
 $1=self._tag_("nav");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nav",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"nav",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1917,7 +1917,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1925,7 +1925,7 @@ selector: "newTag:",
 protocol: 'tags',
 fn: function (aString){
 var self=this;
-function $TagBrush(){return globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
+function $TagBrush(){return $globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1933,7 +1933,7 @@ var $1;
 $1=_st($TagBrush())._fromString_canvas_(aString,self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"newTag:",{aString:aString},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"newTag:",{aString:aString},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1943,7 +1943,7 @@ referencedClasses: ["TagBrush"],
 //>>excludeEnd("ide");
 messageSends: ["fromString:canvas:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1958,7 +1958,7 @@ var $1;
 $1=self._tag_("noscript");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"noscript",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"noscript",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1968,7 +1968,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -1983,7 +1983,7 @@ var $1;
 $1=self._tag_("object");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"object",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"object",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1993,7 +1993,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2008,7 +2008,7 @@ var $1;
 $1=self._tag_("ol");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ol",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"ol",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2018,7 +2018,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2033,7 +2033,7 @@ var $1;
 $1=_st(self._ol())._with_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ol:",{anObject:anObject},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"ol:",{anObject:anObject},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2043,7 +2043,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "ol"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2058,7 +2058,7 @@ var $1;
 $1=self._tag_("optgroup");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"optgroup",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"optgroup",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2068,7 +2068,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2083,7 +2083,7 @@ var $1;
 $1=self._tag_("option");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"option",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"option",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2093,7 +2093,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2108,7 +2108,7 @@ var $1;
 $1=self._tag_("output");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"output",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"output",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2118,7 +2118,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2133,7 +2133,7 @@ var $1;
 $1=self._tag_("p");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"p",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"p",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2143,7 +2143,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2158,7 +2158,7 @@ var $1;
 $1=_st(self._p())._with_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"p:",{anObject:anObject},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"p:",{anObject:anObject},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2168,7 +2168,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "p"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2183,7 +2183,7 @@ var $1;
 $1=self._tag_("param");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"param",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"param",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2193,7 +2193,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2208,7 +2208,7 @@ var $1;
 $1=self._tag_("pre");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"pre",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"pre",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2218,7 +2218,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2233,7 +2233,7 @@ var $1;
 $1=self._tag_("progress");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"progress",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"progress",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2243,7 +2243,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2263,7 +2263,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2282,7 +2282,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2297,7 +2297,7 @@ var $1;
 $1=self._tag_("script");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"script",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"script",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2307,7 +2307,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2322,7 +2322,7 @@ var $1;
 $1=self._tag_("section");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"section",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"section",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2332,7 +2332,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2347,7 +2347,7 @@ var $1;
 $1=self._tag_("select");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"select",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"select",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2357,7 +2357,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2372,7 +2372,7 @@ var $1;
 $1=self._tag_("small");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"small",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"small",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2382,7 +2382,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2391,7 +2391,7 @@ protocol: 'accessing',
 fn: function (anElement){
 var self=this;
 var clone,caret;
-function $TagBrush(){return globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
+function $TagBrush(){return $globals.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2411,7 +2411,7 @@ caret;
 $3=_st($TagBrush())._fromJQuery_canvas_(_st(caret)._removeAttr_("data-snippet"),self);
 return $3;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"snippet:",{anElement:anElement,clone:clone,caret:caret},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"snippet:",{anElement:anElement,clone:clone,caret:caret},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2421,7 +2421,7 @@ referencedClasses: ["TagBrush"],
 //>>excludeEnd("ide");
 messageSends: ["clone", "asJQuery", "with:", "fromJQuery:canvas:", "find:", "ifTrue:", "isEmpty", "toArray", "removeAttr:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2436,7 +2436,7 @@ var $1;
 $1=self._tag_("source");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"source",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"source",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2446,7 +2446,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2461,7 +2461,7 @@ var $1;
 $1=self._tag_("span");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"span",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"span",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2471,7 +2471,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2486,7 +2486,7 @@ var $1;
 $1=_st(self._span())._with_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"span:",{anObject:anObject},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"span:",{anObject:anObject},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2496,7 +2496,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "span"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2511,7 +2511,7 @@ var $1;
 $1=self._tag_("strong");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"strong",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"strong",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2521,7 +2521,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2536,7 +2536,7 @@ var $1;
 $1=_st(self._strong())._with_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"strong:",{anObject:anObject},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"strong:",{anObject:anObject},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2546,7 +2546,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "strong"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2561,7 +2561,7 @@ var $1;
 $1=self._tag_("style");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"style",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"style",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2571,7 +2571,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2589,7 +2589,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"style:",{aString:aString},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"style:",{aString:aString},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2599,7 +2599,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "style", "yourself"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2614,7 +2614,7 @@ var $1;
 $1=self._tag_("sub");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sub",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"sub",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2624,7 +2624,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2639,7 +2639,7 @@ var $1;
 $1=self._tag_("summary");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"summary",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"summary",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2649,7 +2649,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2664,7 +2664,7 @@ var $1;
 $1=self._tag_("sup");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sup",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"sup",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2674,7 +2674,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2689,7 +2689,7 @@ var $1;
 $1=self._tag_("table");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"table",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"table",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2699,7 +2699,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2714,7 +2714,7 @@ var $1;
 $1=_st(self["@root"])._addBrush_(self._newTag_(aString));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"tag:",{aString:aString},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"tag:",{aString:aString},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2724,7 +2724,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["addBrush:", "newTag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2739,7 +2739,7 @@ var $1;
 $1=self._tag_("tbody");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"tbody",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"tbody",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2749,7 +2749,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2764,7 +2764,7 @@ var $1;
 $1=self._tag_("td");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"td",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"td",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2774,7 +2774,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2789,7 +2789,7 @@ var $1;
 $1=self._tag_("textarea");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"textarea",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"textarea",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2799,7 +2799,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2814,7 +2814,7 @@ var $1;
 $1=self._tag_("tfoot");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"tfoot",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"tfoot",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2824,7 +2824,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2839,7 +2839,7 @@ var $1;
 $1=self._tag_("th");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"th",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"th",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2849,7 +2849,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2864,7 +2864,7 @@ var $1;
 $1=self._tag_("thead");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"thead",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"thead",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2874,7 +2874,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2889,7 +2889,7 @@ var $1;
 $1=self._tag_("time");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"time",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"time",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2899,7 +2899,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2914,7 +2914,7 @@ var $1;
 $1=self._tag_("title");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"title",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"title",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2924,7 +2924,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2939,7 +2939,7 @@ var $1;
 $1=self._tag_("tr");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"tr",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"tr",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2949,7 +2949,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2964,7 +2964,7 @@ var $1;
 $1=self._tag_("ul");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ul",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"ul",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2974,7 +2974,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -2989,7 +2989,7 @@ var $1;
 $1=_st(self._ul())._with_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ul:",{anObject:anObject},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"ul:",{anObject:anObject},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2999,7 +2999,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "ul"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -3014,7 +3014,7 @@ var $1;
 $1=self._tag_("video");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"video",{},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"video",{},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3024,7 +3024,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["tag:"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 $vm.addMethod(
 $vm.method({
@@ -3039,7 +3039,7 @@ var $1;
 $1=_st(self._root())._with_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},globals.HTMLCanvas)});
+}, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},$globals.HTMLCanvas)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3049,7 +3049,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "root"]
 }),
-globals.HTMLCanvas);
+$globals.HTMLCanvas);
 
 
 $vm.addMethod(
@@ -3064,7 +3064,7 @@ return $vm.withContext(function($ctx1) {
 _st(jQuery)._basicAt_put_("allowJavaScriptCalls",true);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HTMLCanvas.klass)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.HTMLCanvas.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3074,7 +3074,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["basicAt:put:"]
 }),
-globals.HTMLCanvas.klass);
+$globals.HTMLCanvas.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -3093,7 +3093,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onJQuery:",{aJQuery:aJQuery},globals.HTMLCanvas.klass)});
+}, function($ctx1) {$ctx1.fill(self,"onJQuery:",{aJQuery:aJQuery},$globals.HTMLCanvas.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3103,12 +3103,12 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initializeFromJQuery:", "basicNew", "initialize", "yourself"]
 }),
-globals.HTMLCanvas.klass);
+$globals.HTMLCanvas.klass);
 
 
-$vm.addClass('HTMLSnippet', globals.Object, ['snippets'], 'Web');
+$vm.addClass('HTMLSnippet', $globals.Object, ['snippets'], 'Web');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.HTMLSnippet.comment="My sole instance is the registry of html snippets.\x0a`HTMLSnippet current` is the public singleton instance.\x0a\x0aOn startup, it scans the document for any html elements\x0awith `'data-snippet=\x22foo\x22'` attribute and takes them off the document,\x0aremembering them in the store under the specified name.\x0aIt also install method #foo into HTMLCanvas dynamically.\x0a\x0aEvery html snippet should mark a 'caret', a place where contents\x0acan be inserted, by 'data-snippet=\x22*\x22' (a special name for caret).\x0aFor example:\x0a\x0a`<li data-snippet='menuelement' class='...'><a data-snippet='*'></a></li>`\x0a\x0adefines a list element with a link inside; the link itself is marked as a caret.\x0a\x0aYou can later issue\x0a\x0a`html menuelement href: '/foo'; with: 'A foo'`\x0a\x0ato insert the whole snippet and directly manipulate the caret, so it renders:\x0a\x0a`<li class='...'><a href='/foo'>A foo</a></li>`\x0a\x0aFor a self-careting tags (not very useful, but you do not need to fill class etc.\x0ayou can use\x0a\x0a`<div class='lots of classes' attr1='one' attr2='two' data-snippet='*bar'></div>`\x0a\x0aand in code later do:\x0a\x0a`html bar with: [ xxx ]`\x0a\x0ato render\x0a\x0a`<div class='lots of classes' attr1='one' attr2='two'>...added by xxx...</div>`";
+$globals.HTMLSnippet.comment="My sole instance is the registry of html snippets.\x0a`HTMLSnippet current` is the public singleton instance.\x0a\x0aOn startup, it scans the document for any html elements\x0awith `'data-snippet=\x22foo\x22'` attribute and takes them off the document,\x0aremembering them in the store under the specified name.\x0aIt also install method #foo into HTMLCanvas dynamically.\x0a\x0aEvery html snippet should mark a 'caret', a place where contents\x0acan be inserted, by 'data-snippet=\x22*\x22' (a special name for caret).\x0aFor example:\x0a\x0a`<li data-snippet='menuelement' class='...'><a data-snippet='*'></a></li>`\x0a\x0adefines a list element with a link inside; the link itself is marked as a caret.\x0a\x0aYou can later issue\x0a\x0a`html menuelement href: '/foo'; with: 'A foo'`\x0a\x0ato insert the whole snippet and directly manipulate the caret, so it renders:\x0a\x0a`<li class='...'><a href='/foo'>A foo</a></li>`\x0a\x0aFor a self-careting tags (not very useful, but you do not need to fill class etc.\x0ayou can use\x0a\x0a`<div class='lots of classes' attr1='one' attr2='two' data-snippet='*bar'></div>`\x0a\x0aand in code later do:\x0a\x0a`html bar with: [ xxx ]`\x0a\x0ato render\x0a\x0a`<div class='lots of classes' attr1='one' attr2='two'>...added by xxx...</div>`";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -3130,7 +3130,7 @@ return self._installSnippetFromJQuery_(_st(each)._asJQuery());
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery},globals.HTMLSnippet)});
+}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery},$globals.HTMLSnippet)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3140,7 +3140,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["do:", "snippetsFromJQuery:", "installSnippetFromJQuery:", "asJQuery"]
 }),
-globals.HTMLSnippet);
+$globals.HTMLSnippet);
 
 $vm.addMethod(
 $vm.method({
@@ -3168,7 +3168,7 @@ self._snippetAt_install_(name,_st(_st(element)._detach())._get_((0)));
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"installSnippetFromJQuery:",{element:element,name:name},globals.HTMLSnippet)});
+}, function($ctx1) {$ctx1.fill(self,"installSnippetFromJQuery:",{element:element,name:name},$globals.HTMLSnippet)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3178,7 +3178,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["attr:", "ifFalse:", "=", "ifTrue:ifFalse:", "test:", "asRegexp", "allButFirst", "attr:put:", "removeAttr:", "snippetAt:install:", "get:", "detach"]
 }),
-globals.HTMLSnippet);
+$globals.HTMLSnippet);
 
 $vm.addMethod(
 $vm.method({
@@ -3193,7 +3193,7 @@ var $1;
 $1=_st(self._snippets())._at_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"snippetAt:",{aString:aString},globals.HTMLSnippet)});
+}, function($ctx1) {$ctx1.fill(self,"snippetAt:",{aString:aString},$globals.HTMLSnippet)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3203,7 +3203,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:", "snippets"]
 }),
-globals.HTMLSnippet);
+$globals.HTMLSnippet);
 
 $vm.addMethod(
 $vm.method({
@@ -3211,8 +3211,8 @@ selector: "snippetAt:compile:",
 protocol: 'method generation',
 fn: function (aString,anElement){
 var self=this;
-function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-function $HTMLCanvas(){return globals.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
+function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $HTMLCanvas(){return $globals.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3227,7 +3227,7 @@ return _st(htmlReceiver)._snippet_(anElement);
 }))._currySelf())._asCompiledMethod_(aString),$HTMLCanvas(),"**snippets");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"snippetAt:compile:",{aString:aString,anElement:anElement},globals.HTMLSnippet)});
+}, function($ctx1) {$ctx1.fill(self,"snippetAt:compile:",{aString:aString,anElement:anElement},$globals.HTMLSnippet)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3237,7 +3237,7 @@ referencedClasses: ["ClassBuilder", "HTMLCanvas"],
 //>>excludeEnd("ide");
 messageSends: ["installMethod:forClass:protocol:", "new", "asCompiledMethod:", "currySelf", "snippet:"]
 }),
-globals.HTMLSnippet);
+$globals.HTMLSnippet);
 
 $vm.addMethod(
 $vm.method({
@@ -3252,7 +3252,7 @@ _st(self._snippets())._at_put_(aString,anElement);
 self._snippetAt_compile_(aString,anElement);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"snippetAt:install:",{aString:aString,anElement:anElement},globals.HTMLSnippet)});
+}, function($ctx1) {$ctx1.fill(self,"snippetAt:install:",{aString:aString,anElement:anElement},$globals.HTMLSnippet)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3262,7 +3262,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "snippets", "snippetAt:compile:"]
 }),
-globals.HTMLSnippet);
+$globals.HTMLSnippet);
 
 $vm.addMethod(
 $vm.method({
@@ -3276,14 +3276,14 @@ return $vm.withContext(function($ctx1) {
 var $2,$1,$receiver;
 $2=self["@snippets"];
 if(($receiver = $2) == null || $receiver.isNil){
-self["@snippets"]=globals.HashedCollection._newFromPairs_([]);
+self["@snippets"]=$globals.HashedCollection._newFromPairs_([]);
 $1=self["@snippets"];
 } else {
 $1=$2;
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"snippets",{},globals.HTMLSnippet)});
+}, function($ctx1) {$ctx1.fill(self,"snippets",{},$globals.HTMLSnippet)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3293,7 +3293,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:"]
 }),
-globals.HTMLSnippet);
+$globals.HTMLSnippet);
 
 $vm.addMethod(
 $vm.method({
@@ -3308,7 +3308,7 @@ var $1;
 $1=_st(_st(aJQuery)._find_("[data-snippet]"))._toArray();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"snippetsFromJQuery:",{aJQuery:aJQuery},globals.HTMLSnippet)});
+}, function($ctx1) {$ctx1.fill(self,"snippetsFromJQuery:",{aJQuery:aJQuery},$globals.HTMLSnippet)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3318,10 +3318,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["toArray", "find:"]
 }),
-globals.HTMLSnippet);
+$globals.HTMLSnippet);
 
 
-globals.HTMLSnippet.klass.iVarNames = ['current'];
+$globals.HTMLSnippet.klass.iVarNames = ['current'];
 $vm.addMethod(
 $vm.method({
 selector: "current",
@@ -3340,7 +3340,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HTMLSnippet.klass);
+$globals.HTMLSnippet.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -3358,7 +3358,7 @@ $2=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.HTMLSnippet.klass.superclass.fn.prototype._new.apply(_st(self), []));
+$globals.HTMLSnippet.klass.superclass.fn.prototype._new.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -3371,7 +3371,7 @@ $1;
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ensureCurrent",{},globals.HTMLSnippet.klass)});
+}, function($ctx1) {$ctx1.fill(self,"ensureCurrent",{},$globals.HTMLSnippet.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3381,7 +3381,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "initializeFromJQuery:", "new", "asJQuery", "yourself"]
 }),
-globals.HTMLSnippet.klass);
+$globals.HTMLSnippet.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -3397,7 +3397,7 @@ var $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.HTMLSnippet.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.HTMLSnippet.klass.superclass.fn.prototype._initialize.apply(_st(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -3407,7 +3407,7 @@ self._ensureCurrent();
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.HTMLSnippet.klass)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.HTMLSnippet.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3417,7 +3417,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initialize", "ifTrue:", "isDOMAvailable", "ensureCurrent"]
 }),
-globals.HTMLSnippet.klass);
+$globals.HTMLSnippet.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -3431,7 +3431,7 @@ return $vm.withContext(function($ctx1) {
  return typeof document !== 'undefined' ;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isDOMAvailable",{},globals.HTMLSnippet.klass)});
+}, function($ctx1) {$ctx1.fill(self,"isDOMAvailable",{},$globals.HTMLSnippet.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3441,7 +3441,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HTMLSnippet.klass);
+$globals.HTMLSnippet.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -3455,7 +3455,7 @@ return $vm.withContext(function($ctx1) {
 self._shouldNotImplement();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"new",{},globals.HTMLSnippet.klass)});
+}, function($ctx1) {$ctx1.fill(self,"new",{},$globals.HTMLSnippet.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3465,12 +3465,12 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["shouldNotImplement"]
 }),
-globals.HTMLSnippet.klass);
+$globals.HTMLSnippet.klass);
 
 
-$vm.addClass('TagBrush', globals.Object, ['canvas', 'element'], 'Web');
+$vm.addClass('TagBrush', $globals.Object, ['canvas', 'element'], 'Web');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.TagBrush.comment="I am a brush for building a single DOM element (which I hold onto).\x0a\x0aAll tags but `<style>` are instances of me (see the `StyleBrush` class).\x0a\x0a## API\x0a\x0a1. Nesting\x0a\x0a    Use `#with:` to nest tags. `#with:` can take aString, `TagBrush` instance, a `Widget` or block closure as parameter.\x0a\x0a    Example: `aTag with: aString with: aCanvas div`\x0a\x0a2. Events\x0a\x0a    The `events` protocol contains all methods related to events (delegating event handling to jQuery).\x0a\x0a    Example: `aTag onClick: [ window alert: 'clicked' ]`\x0a\x0a3. Attributes\x0a\x0a    The `attribute` protocol contains methods for attribute manipulation (delegating to jQuery too).\x0a\x0a    Example: `aTag at: 'value' put: 'hello world'`\x0a\x0a4. Raw access and jQuery\x0a\x0a    The `#element` method can be used to access to JavaScript DOM element object.\x0a\x0a    Example: `aTag element cssStyle`\x0a\x0a    Use `#asJQuery` to access to the receiver converted into a jQuery object.\x0a\x0a    Example: `aTag asJQuery css: 'color' value: 'red'`";
+$globals.TagBrush.comment="I am a brush for building a single DOM element (which I hold onto).\x0a\x0aAll tags but `<style>` are instances of me (see the `StyleBrush` class).\x0a\x0a## API\x0a\x0a1. Nesting\x0a\x0a    Use `#with:` to nest tags. `#with:` can take aString, `TagBrush` instance, a `Widget` or block closure as parameter.\x0a\x0a    Example: `aTag with: aString with: aCanvas div`\x0a\x0a2. Events\x0a\x0a    The `events` protocol contains all methods related to events (delegating event handling to jQuery).\x0a\x0a    Example: `aTag onClick: [ window alert: 'clicked' ]`\x0a\x0a3. Attributes\x0a\x0a    The `attribute` protocol contains methods for attribute manipulation (delegating to jQuery too).\x0a\x0a    Example: `aTag at: 'value' put: 'hello world'`\x0a\x0a4. Raw access and jQuery\x0a\x0a    The `#element` method can be used to access to JavaScript DOM element object.\x0a\x0a    Example: `aTag element cssStyle`\x0a\x0a    Use `#asJQuery` to access to the receiver converted into a jQuery object.\x0a\x0a    Example: `aTag asJQuery css: 'color' value: 'red'`";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -3484,7 +3484,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("accesskey",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accesskey:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"accesskey:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3494,7 +3494,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3508,7 +3508,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("action",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"action:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"action:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3518,7 +3518,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3532,7 +3532,7 @@ return $vm.withContext(function($ctx1) {
 self._appendChild_(_st(aTagBrush)._element());
 return aTagBrush;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"addBrush:",{aTagBrush:aTagBrush},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"addBrush:",{aTagBrush:aTagBrush},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3542,7 +3542,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["appendChild:", "element"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3556,7 +3556,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("align",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"align:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"align:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3566,7 +3566,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3580,7 +3580,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("alt",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"alt:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"alt:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3590,7 +3590,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3604,7 +3604,7 @@ return $vm.withContext(function($ctx1) {
 _st(anObject)._appendToBrush_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"append:",{anObject:anObject},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"append:",{anObject:anObject},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3614,7 +3614,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["appendToBrush:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3635,7 +3635,7 @@ _st(aBlock)._value_(self["@canvas"]);
 _st(self["@canvas"])._root_(root);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendBlock:",{aBlock:aBlock,root:root},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"appendBlock:",{aBlock:aBlock,root:root},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3645,7 +3645,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["root", "root:", "value:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3664,7 +3664,7 @@ var element=self['@element'];
 	} ;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendChild:",{anElement:anElement},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"appendChild:",{anElement:anElement},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3674,7 +3674,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3688,7 +3688,7 @@ return $vm.withContext(function($ctx1) {
 var element=self['@element'].appendChild(anElement["@element"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendDocumentFragment:",{anElement:anElement},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"appendDocumentFragment:",{anElement:anElement},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3698,7 +3698,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3712,7 +3712,7 @@ return $vm.withContext(function($ctx1) {
 self._appendChild_(self._createTextNodeFor_(aString));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendString:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"appendString:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3722,7 +3722,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["appendChild:", "createTextNodeFor:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3736,7 +3736,7 @@ return $vm.withContext(function($ctx1) {
 _st(aTagBrush)._addBrush_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3746,7 +3746,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["addBrush:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3761,7 +3761,7 @@ var $1;
 $1=_st(self._element())._asJQuery();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3771,7 +3771,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["asJQuery", "element"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3786,7 +3786,7 @@ var $1;
 $1=_st(self._element())._asJQueryInContext_(aContext);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3796,7 +3796,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["asJQueryInContext:", "element"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3804,7 +3804,7 @@ selector: "at:",
 protocol: 'attributes',
 fn: function (aString){
 var self=this;
-function $Collection(){return globals.Collection||(typeof Collection=="undefined"?nil:Collection)}
+function $Collection(){return $globals.Collection||(typeof Collection=="undefined"?nil:Collection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -3820,7 +3820,7 @@ return _st(_st($Collection())._new())._errorNotFound();
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3830,7 +3830,7 @@ referencedClasses: ["Collection"],
 //>>excludeEnd("ide");
 messageSends: ["at:ifAbsent:", "errorNotFound", "new"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3844,7 +3844,7 @@ return $vm.withContext(function($ctx1) {
 return self['@element'].hasAttribute(aString) ? self['@element'].getAttribute(aString) : aBlock._value();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3854,7 +3854,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3868,7 +3868,7 @@ return $vm.withContext(function($ctx1) {
 self['@element'].setAttribute(aString, aValue); return aValue;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,aValue:aValue},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,aValue:aValue},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3878,7 +3878,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3892,7 +3892,7 @@ return $vm.withContext(function($ctx1) {
 self['@element'].className = aString;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"class:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"class:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3902,7 +3902,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3916,7 +3916,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("cols",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"cols:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"cols:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3926,7 +3926,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3940,7 +3940,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("contenteditable",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"contenteditable:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"contenteditable:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3950,7 +3950,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3966,7 +3966,7 @@ self._empty();
 $1=self._append_(anObject);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"contents:",{anObject:anObject},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"contents:",{anObject:anObject},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3976,7 +3976,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["empty", "append:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -3990,7 +3990,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("contextmenu",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"contextmenu:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"contextmenu:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4000,7 +4000,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4014,7 +4014,7 @@ return $vm.withContext(function($ctx1) {
 return document.createElement(String(aString));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"createElementFor:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"createElementFor:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4024,7 +4024,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4038,7 +4038,7 @@ return $vm.withContext(function($ctx1) {
 return document.createTextNode(String(aString));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"createTextNodeFor:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"createTextNodeFor:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4048,7 +4048,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4062,7 +4062,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("draggable",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"draggable:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"draggable:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4072,7 +4072,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4092,7 +4092,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4106,7 +4106,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._empty();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"empty",{},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"empty",{},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4116,7 +4116,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["empty", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4130,7 +4130,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("for",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4140,7 +4140,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4154,7 +4154,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("height",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"height:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"height:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4164,7 +4164,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4178,7 +4178,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("hidden","hidden");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"hidden",{},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"hidden",{},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4188,7 +4188,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4202,7 +4202,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("href",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"href:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"href:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4212,7 +4212,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4226,7 +4226,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("id",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"id:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"id:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4236,7 +4236,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4251,7 +4251,7 @@ self["@element"]=_st(aJQuery)._get_((0));
 self["@canvas"]=aCanvas;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:canvas:",{aJQuery:aJQuery,aCanvas:aCanvas},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:canvas:",{aJQuery:aJQuery,aCanvas:aCanvas},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4261,7 +4261,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["get:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4276,7 +4276,7 @@ self["@element"]=self._createElementFor_(aString);
 self["@canvas"]=aCanvas;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initializeFromString:canvas:",{aString:aString,aCanvas:aCanvas},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"initializeFromString:canvas:",{aString:aString,aCanvas:aCanvas},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4286,7 +4286,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["createElementFor:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4300,7 +4300,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("media",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"media:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"media:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4310,7 +4310,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4324,7 +4324,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("method",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"method:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"method:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4334,7 +4334,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4348,7 +4348,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("name",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4358,7 +4358,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4372,7 +4372,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("blur",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onBlur:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onBlur:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4382,7 +4382,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4396,7 +4396,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("change",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onChange:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onChange:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4406,7 +4406,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4420,7 +4420,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("click",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onClick:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onClick:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4430,7 +4430,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4444,7 +4444,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("dblclick",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onDblClick:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onDblClick:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4454,7 +4454,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4468,7 +4468,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("focus",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onFocus:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onFocus:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4478,7 +4478,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4492,7 +4492,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("focusin",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onFocusIn:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onFocusIn:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4502,7 +4502,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4516,7 +4516,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("focusout",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onFocusOut:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onFocusOut:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4526,7 +4526,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4540,7 +4540,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("hover",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onHover:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onHover:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4550,7 +4550,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4564,7 +4564,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("keydown",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4574,7 +4574,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4588,7 +4588,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("keypress",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onKeyPress:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onKeyPress:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4598,7 +4598,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4612,7 +4612,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("keyup",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onKeyUp:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onKeyUp:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4622,7 +4622,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4636,7 +4636,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("mousedown",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onMouseDown:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onMouseDown:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4646,7 +4646,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4660,7 +4660,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("mouseenter",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onMouseEnter:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onMouseEnter:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4670,7 +4670,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4684,7 +4684,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("mouseleave",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onMouseLeave:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onMouseLeave:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4694,7 +4694,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4708,7 +4708,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("mousemove",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onMouseMove:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onMouseMove:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4718,7 +4718,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4732,7 +4732,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("mouseout",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onMouseOut:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onMouseOut:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4742,7 +4742,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4756,7 +4756,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("mouseover",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onMouseOver:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onMouseOver:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4766,7 +4766,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4780,7 +4780,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("mouseup",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onMouseUp:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onMouseUp:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4790,7 +4790,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4804,7 +4804,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("select",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onSelect:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onSelect:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4814,7 +4814,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4828,7 +4828,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("submit",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onSubmit:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onSubmit:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4838,7 +4838,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4852,7 +4852,7 @@ return $vm.withContext(function($ctx1) {
 _st(self._asJQuery())._bind_do_("unload",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onUnload:",{aBlock:aBlock},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"onUnload:",{aBlock:aBlock},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4862,7 +4862,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["bind:do:", "asJQuery"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4876,7 +4876,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("placeholder",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"placeholder:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"placeholder:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4886,7 +4886,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4900,7 +4900,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("rel",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"rel:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"rel:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4910,7 +4910,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4924,7 +4924,7 @@ return $vm.withContext(function($ctx1) {
 self['@element'].removeAttribute(aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"removeAt:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"removeAt:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4934,7 +4934,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4948,7 +4948,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("rows",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"rows:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"rows:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4958,7 +4958,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4972,7 +4972,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("src",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"src:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"src:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4982,7 +4982,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -4996,7 +4996,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("style",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"style:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"style:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5006,7 +5006,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -5020,7 +5020,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("tabindex",aNumber);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"tabindex:",{aNumber:aNumber},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"tabindex:",{aNumber:aNumber},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5030,7 +5030,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -5044,7 +5044,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("target",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"target:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"target:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5054,7 +5054,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -5068,7 +5068,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("title",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"title:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"title:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5078,7 +5078,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -5092,7 +5092,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("type",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"type:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"type:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5102,7 +5102,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -5116,7 +5116,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("valign",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"valign:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"valign:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5126,7 +5126,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -5140,7 +5140,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("value",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"value:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"value:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5150,7 +5150,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -5164,7 +5164,7 @@ return $vm.withContext(function($ctx1) {
 self._at_put_("width",aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"width:",{aString:aString},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"width:",{aString:aString},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5174,7 +5174,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 $vm.addMethod(
 $vm.method({
@@ -5188,7 +5188,7 @@ return $vm.withContext(function($ctx1) {
 self._append_(anObject);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},globals.TagBrush)});
+}, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},$globals.TagBrush)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5198,7 +5198,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["append:"]
 }),
-globals.TagBrush);
+$globals.TagBrush);
 
 
 $vm.addMethod(
@@ -5217,7 +5217,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"fromJQuery:canvas:",{aJQuery:aJQuery,aCanvas:aCanvas},globals.TagBrush.klass)});
+}, function($ctx1) {$ctx1.fill(self,"fromJQuery:canvas:",{aJQuery:aJQuery,aCanvas:aCanvas},$globals.TagBrush.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5227,7 +5227,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initializeFromJQuery:canvas:", "new", "yourself"]
 }),
-globals.TagBrush.klass);
+$globals.TagBrush.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -5245,7 +5245,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"fromString:canvas:",{aString:aString,aCanvas:aCanvas},globals.TagBrush.klass)});
+}, function($ctx1) {$ctx1.fill(self,"fromString:canvas:",{aString:aString,aCanvas:aCanvas},$globals.TagBrush.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5255,12 +5255,12 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initializeFromString:canvas:", "new", "yourself"]
 }),
-globals.TagBrush.klass);
+$globals.TagBrush.klass);
 
 
-$vm.addClass('Widget', globals.InterfacingObject, [], 'Web');
+$vm.addClass('Widget', $globals.InterfacingObject, [], 'Web');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.Widget.comment="I am a presenter building HTML. Subclasses are typically reusable components.\x0a\x0a## API\x0a\x0aUse `#renderContentOn:` to build HTML. (See `HTMLCanvas` and `TagBrush` classes for more about building HTML).\x0a\x0aTo add a widget to the page, the convenience method `#appendToJQuery:` is very useful.\x0a\x0aExemple: \x0a\x0a    Counter new appendToJQuery: 'body' asJQuery";
+$globals.Widget.comment="I am a presenter building HTML. Subclasses are typically reusable components.\x0a\x0a## API\x0a\x0aUse `#renderContentOn:` to build HTML. (See `HTMLCanvas` and `TagBrush` classes for more about building HTML).\x0a\x0aTo add a widget to the page, the convenience method `#appendToJQuery:` is very useful.\x0a\x0aExemple: \x0a\x0a    Counter new appendToJQuery: 'body' asJQuery";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -5274,7 +5274,7 @@ return $vm.withContext(function($ctx1) {
 self._appendToJQuery_(_st(aTagBrush)._asJQuery());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.Widget)});
+}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},$globals.Widget)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5284,7 +5284,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["appendToJQuery:", "asJQuery"]
 }),
-globals.Widget);
+$globals.Widget);
 
 $vm.addMethod(
 $vm.method({
@@ -5292,14 +5292,14 @@ selector: "appendToJQuery:",
 protocol: 'adding',
 fn: function (aJQuery){
 var self=this;
-function $HTMLCanvas(){return globals.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
+function $HTMLCanvas(){return $globals.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._renderOn_(_st($HTMLCanvas())._onJQuery_(aJQuery));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.Widget)});
+}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},$globals.Widget)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5309,7 +5309,7 @@ referencedClasses: ["HTMLCanvas"],
 //>>excludeEnd("ide");
 messageSends: ["renderOn:", "onJQuery:"]
 }),
-globals.Widget);
+$globals.Widget);
 
 $vm.addMethod(
 $vm.method({
@@ -5327,7 +5327,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Widget);
+$globals.Widget);
 
 
 $vm.addMethod(
@@ -5346,7 +5346,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Widget.klass);
+$globals.Widget.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -5360,7 +5360,7 @@ return $vm.withContext(function($ctx1) {
 _st(aTagBrush)._appendBlock_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.BlockClosure)});
+}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},$globals.BlockClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5370,7 +5370,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["appendBlock:"]
 }),
-globals.BlockClosure);
+$globals.BlockClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -5378,14 +5378,14 @@ selector: "appendToJQuery:",
 protocol: '*Web',
 fn: function (aJQuery){
 var self=this;
-function $HTMLCanvas(){return globals.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
+function $HTMLCanvas(){return $globals.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._value_(_st($HTMLCanvas())._onJQuery_(aJQuery));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.BlockClosure)});
+}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},$globals.BlockClosure)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5395,7 +5395,7 @@ referencedClasses: ["HTMLCanvas"],
 //>>excludeEnd("ide");
 messageSends: ["value:", "onJQuery:"]
 }),
-globals.BlockClosure);
+$globals.BlockClosure);
 
 $vm.addMethod(
 $vm.method({
@@ -5403,7 +5403,7 @@ selector: "asSnippet",
 protocol: '*Web',
 fn: function (){
 var self=this;
-function $HTMLSnippet(){return globals.HTMLSnippet||(typeof HTMLSnippet=="undefined"?nil:HTMLSnippet)}
+function $HTMLSnippet(){return $globals.HTMLSnippet||(typeof HTMLSnippet=="undefined"?nil:HTMLSnippet)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -5411,7 +5411,7 @@ var $1;
 $1=_st(_st($HTMLSnippet())._current())._snippetAt_(self._asString());
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"asSnippet",{},globals.CharacterArray)});
+}, function($ctx1) {$ctx1.fill(self,"asSnippet",{},$globals.CharacterArray)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5421,7 +5421,7 @@ referencedClasses: ["HTMLSnippet"],
 //>>excludeEnd("ide");
 messageSends: ["snippetAt:", "current", "asString"]
 }),
-globals.CharacterArray);
+$globals.CharacterArray);
 
 $vm.addMethod(
 $vm.method({
@@ -5435,7 +5435,7 @@ return $vm.withContext(function($ctx1) {
 return jQuery(self['@jsObject']);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},globals.JSObjectProxy)});
+}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},$globals.JSObjectProxy)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5445,7 +5445,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JSObjectProxy);
+$globals.JSObjectProxy);
 
 $vm.addMethod(
 $vm.method({
@@ -5459,7 +5459,7 @@ return $vm.withContext(function($ctx1) {
 return jQuery(self['@jsObject'], aContext);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},globals.JSObjectProxy)});
+}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},$globals.JSObjectProxy)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5469,7 +5469,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JSObjectProxy);
+$globals.JSObjectProxy);
 
 $vm.addMethod(
 $vm.method({
@@ -5483,7 +5483,7 @@ return $vm.withContext(function($ctx1) {
 _st(aTagBrush)._append_(self._asString());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.Object)});
+}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},$globals.Object)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5493,7 +5493,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["append:", "asString"]
 }),
-globals.Object);
+$globals.Object);
 
 $vm.addMethod(
 $vm.method({
@@ -5507,7 +5507,7 @@ return $vm.withContext(function($ctx1) {
 _st(aJQuery)._append_(self._asString());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.Object)});
+}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},$globals.Object)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5517,7 +5517,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["append:", "asString"]
 }),
-globals.Object);
+$globals.Object);
 
 $vm.addMethod(
 $vm.method({
@@ -5532,7 +5532,7 @@ var $1;
 $1=self._postMessageTo_origin_(aFrame,"*");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"postMessageTo:",{aFrame:aFrame},globals.Object)});
+}, function($ctx1) {$ctx1.fill(self,"postMessageTo:",{aFrame:aFrame},$globals.Object)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5542,7 +5542,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["postMessageTo:origin:"]
 }),
-globals.Object);
+$globals.Object);
 
 $vm.addMethod(
 $vm.method({
@@ -5556,7 +5556,7 @@ return $vm.withContext(function($ctx1) {
 return aFrame.postMessage(self, aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"postMessageTo:origin:",{aFrame:aFrame,aString:aString},globals.Object)});
+}, function($ctx1) {$ctx1.fill(self,"postMessageTo:origin:",{aFrame:aFrame,aString:aString},$globals.Object)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5566,7 +5566,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Object);
+$globals.Object);
 
 $vm.addMethod(
 $vm.method({
@@ -5580,7 +5580,7 @@ return $vm.withContext(function($ctx1) {
 _st(aTagBrush)._appendString_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},globals.String)});
+}, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},$globals.String)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5590,7 +5590,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["appendString:"]
 }),
-globals.String);
+$globals.String);
 
 $vm.addMethod(
 $vm.method({
@@ -5604,7 +5604,7 @@ return $vm.withContext(function($ctx1) {
 _st(aJQuery)._append_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},globals.String)});
+}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},$globals.String)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5614,7 +5614,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["append:"]
 }),
-globals.String);
+$globals.String);
 
 $vm.addMethod(
 $vm.method({
@@ -5628,7 +5628,7 @@ return $vm.withContext(function($ctx1) {
 return jQuery(String(self));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},globals.String)});
+}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},$globals.String)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5638,7 +5638,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.String);
+$globals.String);
 
 $vm.addMethod(
 $vm.method({
@@ -5652,7 +5652,7 @@ return $vm.withContext(function($ctx1) {
 return jQuery(String(self), aContext);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},globals.String)});
+}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},$globals.String)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5662,6 +5662,6 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.String);
+$globals.String);
 
 });

@@ -4,21 +4,21 @@ var smalltalk=$vm,_st=$recv,globals=$globals;
 $vm.addPackage('Compiler-Tests');
 $vm.packages["Compiler-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('ASTParsingTest', globals.TestCase, [], 'Compiler-Tests');
+$vm.addClass('ASTParsingTest', $globals.TestCase, [], 'Compiler-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "analyze:forClass:",
 protocol: 'convenience',
 fn: function (aNode,aClass){
 var self=this;
-function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
+function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($SemanticAnalyzer())._on_(aClass))._visit_(aNode);
 return aNode;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass},globals.ASTParsingTest)});
+}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass},$globals.ASTParsingTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -28,7 +28,7 @@ referencedClasses: ["SemanticAnalyzer"],
 //>>excludeEnd("ide");
 messageSends: ["visit:", "on:"]
 }),
-globals.ASTParsingTest);
+$globals.ASTParsingTest);
 
 $vm.addMethod(
 $vm.method({
@@ -36,7 +36,7 @@ selector: "parse:",
 protocol: 'parsing',
 fn: function (aString){
 var self=this;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -44,7 +44,7 @@ var $1;
 $1=_st($Smalltalk())._parse_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},globals.ASTParsingTest)});
+}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},$globals.ASTParsingTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -54,7 +54,7 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:"]
 }),
-globals.ASTParsingTest);
+$globals.ASTParsingTest);
 
 $vm.addMethod(
 $vm.method({
@@ -69,7 +69,7 @@ var $1;
 $1=self._analyze_forClass_(self._parse_(aString),aClass);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},globals.ASTParsingTest)});
+}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},$globals.ASTParsingTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -79,19 +79,19 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["analyze:forClass:", "parse:"]
 }),
-globals.ASTParsingTest);
+$globals.ASTParsingTest);
 
 
 
-$vm.addClass('ASTPCNodeVisitorTest', globals.ASTParsingTest, [], 'Compiler-Tests');
+$vm.addClass('ASTPCNodeVisitorTest', $globals.ASTParsingTest, [], 'Compiler-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "astPCNodeVisitor",
 protocol: 'factory',
 fn: function (){
 var self=this;
-function $ASTPCNodeVisitor(){return globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
-function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+function $ASTPCNodeVisitor(){return $globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
+function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -110,7 +110,7 @@ $5=_st($2)._yourself();
 $1=$5;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitor",{},globals.ASTPCNodeVisitorTest)});
+}, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitor",{},$globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -120,7 +120,7 @@ referencedClasses: ["ASTPCNodeVisitor", "AIContext"],
 //>>excludeEnd("ide");
 messageSends: ["context:", "new", "yourself"]
 }),
-globals.ASTPCNodeVisitorTest);
+$globals.ASTPCNodeVisitorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -128,8 +128,8 @@ selector: "astPCNodeVisitorForSelector:",
 protocol: 'factory',
 fn: function (aString){
 var self=this;
-function $ASTPCNodeVisitor(){return globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
-function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+function $ASTPCNodeVisitor(){return $globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
+function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -149,7 +149,7 @@ $5=_st($2)._yourself();
 $1=$5;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitorForSelector:",{aString:aString},globals.ASTPCNodeVisitorTest)});
+}, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitorForSelector:",{aString:aString},$globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -159,7 +159,7 @@ referencedClasses: ["ASTPCNodeVisitor", "AIContext"],
 //>>excludeEnd("ide");
 messageSends: ["selector:", "new", "context:", "yourself"]
 }),
-globals.ASTPCNodeVisitorTest);
+$globals.ASTPCNodeVisitorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -168,7 +168,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var ast,visitor;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -180,7 +180,7 @@ $2=_st($1)._currentNode();
 self._assert_(_st($2)._isJSStatementNode());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testJSStatementNode",{ast:ast,visitor:visitor},globals.ASTPCNodeVisitorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testJSStatementNode",{ast:ast,visitor:visitor},$globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -190,7 +190,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["parse:forClass:", "assert:", "isJSStatementNode", "visit:", "astPCNodeVisitor", "currentNode"]
 }),
-globals.ASTPCNodeVisitorTest);
+$globals.ASTPCNodeVisitorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -199,7 +199,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var ast;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -211,7 +211,7 @@ $2=_st($1)._currentNode();
 self._assert_equals_(_st($2)._selector(),"yourself");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{ast:ast},globals.ASTPCNodeVisitorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{ast:ast},$globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -221,7 +221,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForSelector:", "currentNode"]
 }),
-globals.ASTPCNodeVisitorTest);
+$globals.ASTPCNodeVisitorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -230,7 +230,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var ast;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -242,7 +242,7 @@ $2=_st($1)._currentNode();
 self._assert_equals_(_st($2)._selector(),"yourself");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMessageSendWithBlocks",{ast:ast},globals.ASTPCNodeVisitorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMessageSendWithBlocks",{ast:ast},$globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -252,7 +252,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForSelector:", "currentNode"]
 }),
-globals.ASTPCNodeVisitorTest);
+$globals.ASTPCNodeVisitorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -261,7 +261,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var ast;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -298,7 +298,7 @@ $6=_st($5)._currentNode();
 self._assert_equals_(_st($6)._selector(),"asBoolean");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMessageSendWithInlining",{ast:ast},globals.ASTPCNodeVisitorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMessageSendWithInlining",{ast:ast},$globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -308,7 +308,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForSelector:", "currentNode"]
 }),
-globals.ASTPCNodeVisitorTest);
+$globals.ASTPCNodeVisitorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -317,7 +317,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var ast;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -329,7 +329,7 @@ $2=_st($1)._currentNode();
 self._assert_(_st($2)._isNil());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNoMessageSend",{ast:ast},globals.ASTPCNodeVisitorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNoMessageSend",{ast:ast},$globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -339,7 +339,7 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["parse:forClass:", "assert:", "isNil", "visit:", "astPCNodeVisitor", "currentNode"]
 }),
-globals.ASTPCNodeVisitorTest);
+$globals.ASTPCNodeVisitorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -348,7 +348,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var ast,visitor;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -360,7 +360,7 @@ $2=_st($1)._currentNode();
 self._assert_(_st($2)._isJSStatementNode());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPC",{ast:ast,visitor:visitor},globals.ASTPCNodeVisitorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPC",{ast:ast,visitor:visitor},$globals.ASTPCNodeVisitorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -370,11 +370,11 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["parse:forClass:", "assert:", "isJSStatementNode", "visit:", "astPCNodeVisitor", "currentNode"]
 }),
-globals.ASTPCNodeVisitorTest);
+$globals.ASTPCNodeVisitorTest);
 
 
 
-$vm.addClass('ASTPositionTest', globals.ASTParsingTest, [], 'Compiler-Tests');
+$vm.addClass('ASTPositionTest', $globals.ASTParsingTest, [], 'Compiler-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testNodeAtPosition",
@@ -438,7 +438,7 @@ return nil;
 })))._selector(),"foo");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNodeAtPosition",{node:node},globals.ASTPositionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNodeAtPosition",{node:node},$globals.ASTPositionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -448,18 +448,18 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "assert:equals:", "source", "navigationNodeAt:ifAbsent:", "@", "selector"]
 }),
-globals.ASTPositionTest);
+$globals.ASTPositionTest);
 
 
 
-$vm.addClass('CodeGeneratorTest', globals.ASTParsingTest, ['receiver'], 'Compiler-Tests');
+$vm.addClass('CodeGeneratorTest', $globals.ASTParsingTest, ['receiver'], 'Compiler-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "codeGeneratorClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $CodeGenerator(){return globals.CodeGenerator||(typeof CodeGenerator=="undefined"?nil:CodeGenerator)}
+function $CodeGenerator(){return $globals.CodeGenerator||(typeof CodeGenerator=="undefined"?nil:CodeGenerator)}
 return $CodeGenerator();
 
 },
@@ -470,7 +470,7 @@ referencedClasses: ["CodeGenerator"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -478,7 +478,7 @@ selector: "compiler",
 protocol: 'factory',
 fn: function (){
 var self=this;
-function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -489,7 +489,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compiler",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"compiler",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -499,7 +499,7 @@ referencedClasses: ["Compiler"],
 //>>excludeEnd("ide");
 messageSends: ["codeGeneratorClass:", "new", "codeGeneratorClass", "yourself"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -507,14 +507,14 @@ selector: "setUp",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $DoIt(){return globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
+function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@receiver"]=_st($DoIt())._new();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"setUp",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -524,7 +524,7 @@ referencedClasses: ["DoIt"],
 //>>excludeEnd("ide");
 messageSends: ["new"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -549,7 +549,7 @@ _st(_st(anObject)._class())._removeCompiledMethod_(method);
 self._assert_equals_(aResult,result);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult,method:method,result:result},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult,method:method,result:result},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -559,7 +559,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["install:forClass:protocol:", "compiler", "class", "perform:", "selector", "removeCompiledMethod:", "assert:equals:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -574,7 +574,7 @@ var $1;
 $1=self._should_receiver_return_(aString,self["@receiver"],anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -584,7 +584,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:receiver:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -602,7 +602,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -624,7 +624,7 @@ $ctx1.sendIdx["should:return:"]=2;
 self._should_return_("foo | a | ^ a := true ifTrue: [ 1 ]",(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAssignment",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAssignment",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -634,7 +634,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -652,7 +652,7 @@ $ctx1.sendIdx["should:return:"]=1;
 self._should_return_("\x5c\x5c arg ^ 42",(42));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testBackslashSelectors",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testBackslashSelectors",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -662,7 +662,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -684,7 +684,7 @@ $ctx1.sendIdx["should:return:"]=2;
 self._should_return_("foo ^ #(1 2 3) collect: [ :each | each odd ifTrue: [ each + 1 ] ifFalse: [ each - 1 ] ]",[(2), (1), (4)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testBlockReturn",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testBlockReturn",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -694,7 +694,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -708,7 +708,7 @@ return $vm.withContext(function($ctx1) {
 self._should_return_("foo ^ Array new add: 3; add: 4; yourself",[(3), (4)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCascades",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCascades",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -718,7 +718,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -736,7 +736,7 @@ $ctx1.sendIdx["should:return:"]=1;
 self._should_return_("foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]",(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCascadesWithInlining",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCascadesWithInlining",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -746,7 +746,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -764,7 +764,7 @@ $ctx1.sendIdx["should:return:"]=1;
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ { x. true ifTrue: [ x := 2 ] }\x0a",[(1), (2)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDynamicArrayElementsOrdered",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDynamicArrayElementsOrdered",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -774,7 +774,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -785,10 +785,10 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._should_return_("foo\x0a\x09| x |\x0a\x09x := 'foo'.\x0a\x09^ #{ x->1. 'bar'->(true ifTrue: [ 2 ]) }\x0a",globals.HashedCollection._newFromPairs_(["foo",(1),"bar",(2)]));
+self._should_return_("foo\x0a\x09| x |\x0a\x09x := 'foo'.\x0a\x09^ #{ x->1. 'bar'->(true ifTrue: [ 2 ]) }\x0a",$globals.HashedCollection._newFromPairs_(["foo",(1),"bar",(2)]));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaryElementsOrdered",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaryElementsOrdered",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -798,7 +798,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -806,7 +806,7 @@ selector: "testDynamicDictionaryWithMoreArrows",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -819,7 +819,7 @@ $1=_st($HashedCollection())._with_($2);
 self._should_return_("foo ^ #{1->2->3}",$1);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaryWithMoreArrows",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaryWithMoreArrows",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -829,7 +829,7 @@ referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
 messageSends: ["should:return:", "with:", "->"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -837,7 +837,7 @@ selector: "testGlobalVar",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $BlockClosure(){return globals.BlockClosure||(typeof BlockClosure=="undefined"?nil:BlockClosure)}
+function $BlockClosure(){return $globals.BlockClosure||(typeof BlockClosure=="undefined"?nil:BlockClosure)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -852,7 +852,7 @@ $ctx1.sendIdx["should:return:"]=2;
 self._should_return_("foo ^ NonExistingVar",nil);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testGlobalVar",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testGlobalVar",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -862,7 +862,7 @@ referencedClasses: ["BlockClosure"],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -870,7 +870,7 @@ selector: "testInnerTemporalDependentElementsOrdered",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -923,10 +923,10 @@ self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ { 'foo'->x. 'bar'
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["should:return:"]=4;
 //>>excludeEnd("ctx");
-self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ #{ 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",globals.HashedCollection._newFromPairs_(["foo",(1),"bar",(2)]));
+self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ #{ 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",$globals.HashedCollection._newFromPairs_(["foo",(1),"bar",(2)]));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testInnerTemporalDependentElementsOrdered",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testInnerTemporalDependentElementsOrdered",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -936,7 +936,7 @@ referencedClasses: ["Array"],
 //>>excludeEnd("ide");
 messageSends: ["should:return:", "->"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -950,7 +950,7 @@ return $vm.withContext(function($ctx1) {
 self._should_return_("foo <return 2+3>",(5));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testJSStatement",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testJSStatement",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -960,7 +960,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -974,7 +974,7 @@ return $vm.withContext(function($ctx1) {
 self._should_return_("foo | a | a := 1. [ a := 2 ] value. ^ a",(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLexicalScope",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLexicalScope",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -984,7 +984,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1019,7 +1019,7 @@ self._should_return_("foo ^ false",false);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["should:return:"]=6;
 //>>excludeEnd("ctx");
-self._should_return_("foo ^ #{1->2. 3->4}",globals.HashedCollection._newFromPairs_([(1),(2),(3),(4)]));
+self._should_return_("foo ^ #{1->2. 3->4}",$globals.HashedCollection._newFromPairs_([(1),(2),(3),(4)]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["should:return:"]=7;
 //>>excludeEnd("ctx");
@@ -1038,7 +1038,7 @@ $ctx1.sendIdx["should:return:"]=10;
 self._should_return_("foo ^ -2.5e4",(-25000));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLiterals",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLiterals",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1048,7 +1048,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1078,7 +1078,7 @@ $ctx1.sendIdx["should:return:"]=4;
 self._should_return_("foo | a b | a := 1. b := 2. ^ a + b",(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLocalReturn",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLocalReturn",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1088,7 +1088,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1118,7 +1118,7 @@ $ctx1.sendIdx["should:return:"]=4;
 self._should_return_("foo ^ 1 to: 5 by: 2",[(1), (3), (5)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMessageSends",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMessageSends",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1128,7 +1128,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1142,7 +1142,7 @@ return $vm.withContext(function($ctx1) {
 self._should_return_("foo | a b c | a := 2. b := 3. c := a + b. ^ c * 6",(30));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMultipleSequences",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMultipleSequences",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1152,7 +1152,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1166,7 +1166,7 @@ return $vm.withContext(function($ctx1) {
 self._should_return_("foo ^ #( 1 2 ) at: 1 put: 3; yourself",[(3), (2)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMutableLiterals",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMutableLiterals",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1176,7 +1176,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1202,7 +1202,7 @@ $ctx1.sendIdx["should:return:"]=3;
 self._should_return_("foo true ifTrue: [ false ifTrue: [ ^ 1 ] ]",self["@receiver"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNestedIfTrue",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNestedIfTrue",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1212,7 +1212,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1220,14 +1220,14 @@ selector: "testNestedSends",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
+function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ (Point x: (Point x: 2 y: 3) y: 4) asString",_st(_st($Point())._x_y_((2).__at((3)),(4)))._asString());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNestedSends",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNestedSends",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1237,7 +1237,7 @@ referencedClasses: ["Point"],
 //>>excludeEnd("ide");
 messageSends: ["should:return:", "asString", "x:y:", "@"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1263,7 +1263,7 @@ $ctx1.sendIdx["should:return:"]=3;
 self._should_return_("foo [ :x | ^ x + x ] value: 4. ^ 2",(8));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1273,7 +1273,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1281,7 +1281,7 @@ selector: "testPascalCaseGlobal",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1292,7 +1292,7 @@ $ctx1.sendIdx["should:return:"]=1;
 self._should_return_("foo ^NonExistent",nil);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPascalCaseGlobal",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPascalCaseGlobal",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1302,7 +1302,7 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["should:return:", "at:", "globals"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1310,7 +1310,7 @@ selector: "testSendReceiverAndArgumentsOrdered",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1321,7 +1321,7 @@ $ctx1.sendIdx["should:return:"]=1;
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := Array.\x0a\x09^ x with: x with: (true ifTrue: [ x := 2 ])\x0a",[$Array(),(2)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSendReceiverAndArgumentsOrdered",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSendReceiverAndArgumentsOrdered",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1331,7 +1331,7 @@ referencedClasses: ["Array"],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1345,7 +1345,7 @@ return $vm.withContext(function($ctx1) {
 self._should_receiver_return_("foo ^ super isBoolean",true,false);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSuperSend",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSuperSend",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1355,7 +1355,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:receiver:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1389,7 +1389,7 @@ $ctx1.sendIdx["should:return:"]=5;
 self._should_return_("foo | AVariable | AVariable := 1. ^ AVariable",(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTempVariables",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTempVariables",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1399,7 +1399,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1413,7 +1413,7 @@ return $vm.withContext(function($ctx1) {
 self._should_return_("foo ^ [ thisContext ] value outerContext == thisContext",true);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testThisContext",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testThisContext",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1423,7 +1423,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1449,7 +1449,7 @@ $ctx1.sendIdx["should:return:"]=3;
 self._should_return_("foo ^ false ifFalse: [ 2 ]",(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testifFalse",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testifFalse",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1459,7 +1459,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1485,7 +1485,7 @@ $ctx1.sendIdx["should:return:"]=3;
 self._should_return_("foo ^ false ifFalse: [ 2 ] ifTrue: [ 1 ]",(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testifFalseIfTrue",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testifFalseIfTrue",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1495,7 +1495,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1521,7 +1521,7 @@ $ctx1.sendIdx["should:return:"]=3;
 self._should_return_("foo nil ifNil: [ ^ 2 ]",(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testifNil",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testifNil",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1531,7 +1531,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1557,7 +1557,7 @@ $ctx1.sendIdx["should:return:"]=3;
 self._should_return_("foo nil ifNil: [ ^ 2 ] ifNotNil: [ ^3 ]",(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testifNilIfNotNil",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testifNilIfNotNil",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1567,7 +1567,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1593,7 +1593,7 @@ $ctx1.sendIdx["should:return:"]=3;
 self._should_return_("foo nil ifNotNil: [ ^ 2 ]",self["@receiver"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testifNotNil",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testifNotNil",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1603,7 +1603,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1637,7 +1637,7 @@ $ctx1.sendIdx["should:return:"]=5;
 self._should_return_("foo ^ nil ifNotNil: [ :val | val + 2 ] ifNil: [ 5 ]",(5));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testifNotNilWithArgument",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testifNotNilWithArgument",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1647,7 +1647,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1673,7 +1673,7 @@ $ctx1.sendIdx["should:return:"]=3;
 self._should_return_("foo ^ true ifTrue: [ 2 ]",(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testifTrue",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testifTrue",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1683,7 +1683,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1709,7 +1709,7 @@ $ctx1.sendIdx["should:return:"]=3;
 self._should_return_("foo ^ true ifTrue: [ 2 ] ifFalse: [ 1 ]",(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testifTrueIfFalse",{},globals.CodeGeneratorTest)});
+}, function($ctx1) {$ctx1.fill(self,"testifTrueIfFalse",{},$globals.CodeGeneratorTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1719,25 +1719,25 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
 }),
-globals.CodeGeneratorTest);
+$globals.CodeGeneratorTest);
 
 
 
-$vm.addClass('ASTInterpreterTest', globals.CodeGeneratorTest, [], 'Compiler-Tests');
+$vm.addClass('ASTInterpreterTest', $globals.CodeGeneratorTest, [], 'Compiler-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "analyze:forClass:",
 protocol: 'parsing',
 fn: function (aNode,aClass){
 var self=this;
-function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
+function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($SemanticAnalyzer())._on_(aClass))._visit_(aNode);
 return aNode;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass},globals.ASTInterpreterTest)});
+}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass},$globals.ASTInterpreterTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1747,7 +1747,7 @@ referencedClasses: ["SemanticAnalyzer"],
 //>>excludeEnd("ide");
 messageSends: ["visit:", "on:"]
 }),
-globals.ASTInterpreterTest);
+$globals.ASTInterpreterTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1756,8 +1756,8 @@ protocol: 'private',
 fn: function (aString,anObject,aDictionary){
 var self=this;
 var ctx,ast,interpreter;
-function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
-function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+function $ASTInterpreter(){return $globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
+function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1805,7 +1805,7 @@ $6=_st($5)._result();
 $4=$6;
 return $4;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,ast:ast,interpreter:interpreter},globals.ASTInterpreterTest)});
+}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,ast:ast,interpreter:interpreter},$globals.ASTInterpreterTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1815,7 +1815,7 @@ referencedClasses: ["ASTInterpreter", "AIContext"],
 //>>excludeEnd("ide");
 messageSends: ["new", "parse:forClass:", "class", "receiver:", "interpreter:", "yourself", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpret:", "nextChild", "proceed", "result"]
 }),
-globals.ASTInterpreterTest);
+$globals.ASTInterpreterTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1823,7 +1823,7 @@ selector: "parse:",
 protocol: 'parsing',
 fn: function (aString){
 var self=this;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1831,7 +1831,7 @@ var $1;
 $1=_st($Smalltalk())._parse_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},globals.ASTInterpreterTest)});
+}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},$globals.ASTInterpreterTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1841,7 +1841,7 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:"]
 }),
-globals.ASTInterpreterTest);
+$globals.ASTInterpreterTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1856,7 +1856,7 @@ var $1;
 $1=self._analyze_forClass_(self._parse_(aString),aClass);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},globals.ASTInterpreterTest)});
+}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},$globals.ASTInterpreterTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1866,7 +1866,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["analyze:forClass:", "parse:"]
 }),
-globals.ASTInterpreterTest);
+$globals.ASTInterpreterTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1879,10 +1879,10 @@ return $vm.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 self["@receiver"]=anObject;
-$1=self._assert_equals_(self._interpret_receiver_withArguments_(aString,self["@receiver"],globals.HashedCollection._newFromPairs_([])),aResult);
+$1=self._assert_equals_(self._interpret_receiver_withArguments_(aString,self["@receiver"],$globals.HashedCollection._newFromPairs_([])),aResult);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult},globals.ASTInterpreterTest)});
+}, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult},$globals.ASTInterpreterTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1892,7 +1892,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "interpret:receiver:withArguments:"]
 }),
-globals.ASTInterpreterTest);
+$globals.ASTInterpreterTest);
 
 $vm.addMethod(
 $vm.method({
@@ -1907,7 +1907,7 @@ var $1;
 $1=self._should_receiver_return_(aString,self["@receiver"],anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject},globals.ASTInterpreterTest)});
+}, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject},$globals.ASTInterpreterTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1917,11 +1917,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:receiver:return:"]
 }),
-globals.ASTInterpreterTest);
+$globals.ASTInterpreterTest);
 
 
 
-$vm.addClass('ASTDebuggerTest', globals.ASTInterpreterTest, [], 'Compiler-Tests');
+$vm.addClass('ASTDebuggerTest', $globals.ASTInterpreterTest, [], 'Compiler-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "interpret:receiver:withArguments:",
@@ -1929,9 +1929,9 @@ protocol: 'private',
 fn: function (aString,anObject,aDictionary){
 var self=this;
 var ctx,ast,debugger_;
-function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
-function $ASTInterpreter(){return globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
-function $ASTDebugger(){return globals.ASTDebugger||(typeof ASTDebugger=="undefined"?nil:ASTDebugger)}
+function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+function $ASTInterpreter(){return $globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
+function $ASTDebugger(){return $globals.ASTDebugger||(typeof ASTDebugger=="undefined"?nil:ASTDebugger)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -1986,7 +1986,7 @@ $7=_st($6)._result();
 $5=$7;
 return $5;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,ast:ast,debugger_:debugger_},globals.ASTDebuggerTest)});
+}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,ast:ast,debugger_:debugger_},$globals.ASTDebuggerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1996,18 +1996,18 @@ referencedClasses: ["AIContext", "ASTInterpreter", "ASTDebugger"],
 //>>excludeEnd("ide");
 messageSends: ["receiver:", "new", "interpreter:", "yourself", "parse:forClass:", "class", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "node:", "nextChild", "proceed", "result"]
 }),
-globals.ASTDebuggerTest);
+$globals.ASTDebuggerTest);
 
 
 
-$vm.addClass('InliningCodeGeneratorTest', globals.CodeGeneratorTest, [], 'Compiler-Tests');
+$vm.addClass('InliningCodeGeneratorTest', $globals.CodeGeneratorTest, [], 'Compiler-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "codeGeneratorClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $InliningCodeGenerator(){return globals.InliningCodeGenerator||(typeof InliningCodeGenerator=="undefined"?nil:InliningCodeGenerator)}
+function $InliningCodeGenerator(){return $globals.InliningCodeGenerator||(typeof InliningCodeGenerator=="undefined"?nil:InliningCodeGenerator)}
 return $InliningCodeGenerator();
 
 },
@@ -2018,11 +2018,11 @@ referencedClasses: ["InliningCodeGenerator"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.InliningCodeGeneratorTest);
+$globals.InliningCodeGeneratorTest);
 
 
 
-$vm.addClass('ScopeVarTest', globals.TestCase, [], 'Compiler-Tests');
+$vm.addClass('ScopeVarTest', $globals.TestCase, [], 'Compiler-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "testClassRefVar",
@@ -2030,9 +2030,9 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var node;
-function $VariableNode(){return globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
-function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
-function $MethodLexicalScope(){return globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
+function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
+function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
+function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2053,7 +2053,7 @@ $4=_st($3)._visit_(node);
 self._assert_(_st(_st(node)._binding())._isClassRefVar());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testClassRefVar",{node:node},globals.ScopeVarTest)});
+}, function($ctx1) {$ctx1.fill(self,"testClassRefVar",{node:node},$globals.ScopeVarTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2063,7 +2063,7 @@ referencedClasses: ["VariableNode", "SemanticAnalyzer", "MethodLexicalScope"],
 //>>excludeEnd("ide");
 messageSends: ["value:", "new", "yourself", "pushScope:", "visit:", "assert:", "isClassRefVar", "binding"]
 }),
-globals.ScopeVarTest);
+$globals.ScopeVarTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2072,8 +2072,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var node,scope;
-function $VariableNode(){return globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
-function $MethodLexicalScope(){return globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
+function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
+function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2090,7 +2090,7 @@ _st(scope)._addIVar_("bzzz");
 self._assert_(_st(_st(scope)._bindingFor_(node))._isInstanceVar());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testInstanceVar",{node:node,scope:scope},globals.ScopeVarTest)});
+}, function($ctx1) {$ctx1.fill(self,"testInstanceVar",{node:node,scope:scope},$globals.ScopeVarTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2100,7 +2100,7 @@ referencedClasses: ["VariableNode", "MethodLexicalScope"],
 //>>excludeEnd("ide");
 messageSends: ["value:", "new", "yourself", "addIVar:", "assert:", "isInstanceVar", "bindingFor:"]
 }),
-globals.ScopeVarTest);
+$globals.ScopeVarTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2109,8 +2109,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var node,pseudoVars;
-function $VariableNode(){return globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
-function $MethodLexicalScope(){return globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
+function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
+function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2135,7 +2135,7 @@ return self._assert_(_st(_st(_st($MethodLexicalScope())._new())._bindingFor_(nod
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPseudoVar",{node:node,pseudoVars:pseudoVars},globals.ScopeVarTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPseudoVar",{node:node,pseudoVars:pseudoVars},$globals.ScopeVarTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2145,7 +2145,7 @@ referencedClasses: ["VariableNode", "MethodLexicalScope"],
 //>>excludeEnd("ide");
 messageSends: ["do:", "value:", "new", "yourself", "assert:", "isPseudoVar", "bindingFor:"]
 }),
-globals.ScopeVarTest);
+$globals.ScopeVarTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2154,8 +2154,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var node,scope;
-function $VariableNode(){return globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
-function $MethodLexicalScope(){return globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
+function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
+function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2172,7 +2172,7 @@ _st(scope)._addTemp_("bzzz");
 self._assert_(_st(_st(scope)._bindingFor_(node))._isTempVar());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTempVar",{node:node,scope:scope},globals.ScopeVarTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTempVar",{node:node,scope:scope},$globals.ScopeVarTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2182,7 +2182,7 @@ referencedClasses: ["VariableNode", "MethodLexicalScope"],
 //>>excludeEnd("ide");
 messageSends: ["value:", "new", "yourself", "addTemp:", "assert:", "isTempVar", "bindingFor:"]
 }),
-globals.ScopeVarTest);
+$globals.ScopeVarTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2191,8 +2191,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var node;
-function $VariableNode(){return globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
-function $MethodLexicalScope(){return globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
+function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
+function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2207,7 +2207,7 @@ node=$2;
 self._assert_(_st(_st(_st($MethodLexicalScope())._new())._bindingFor_(node))._isNil());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testUnknownVar",{node:node},globals.ScopeVarTest)});
+}, function($ctx1) {$ctx1.fill(self,"testUnknownVar",{node:node},$globals.ScopeVarTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2217,26 +2217,26 @@ referencedClasses: ["VariableNode", "MethodLexicalScope"],
 //>>excludeEnd("ide");
 messageSends: ["value:", "new", "yourself", "assert:", "isNil", "bindingFor:"]
 }),
-globals.ScopeVarTest);
+$globals.ScopeVarTest);
 
 
 
-$vm.addClass('SemanticAnalyzerTest', globals.TestCase, ['analyzer'], 'Compiler-Tests');
+$vm.addClass('SemanticAnalyzerTest', $globals.TestCase, ['analyzer'], 'Compiler-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "setUp",
 protocol: 'running',
 fn: function (){
 var self=this;
-function $SemanticAnalyzer(){return globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@analyzer"]=_st($SemanticAnalyzer())._on_($Object());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"setUp",{},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2246,7 +2246,7 @@ referencedClasses: ["SemanticAnalyzer", "Object"],
 //>>excludeEnd("ide");
 messageSends: ["on:"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2255,8 +2255,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $InvalidAssignmentError(){return globals.InvalidAssignmentError||(typeof InvalidAssignmentError=="undefined"?nil:InvalidAssignmentError)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $InvalidAssignmentError(){return $globals.InvalidAssignmentError||(typeof InvalidAssignmentError=="undefined"?nil:InvalidAssignmentError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2273,7 +2273,7 @@ return _st(self["@analyzer"])._visit_(ast);
 }),$InvalidAssignmentError());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAssignment",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAssignment",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2283,7 +2283,7 @@ referencedClasses: ["Smalltalk", "InvalidAssignmentError"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "should:raise:", "visit:"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2292,7 +2292,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2302,7 +2302,7 @@ _st(self["@analyzer"])._visit_(ast);
 self._deny_(_st(_st(ast)._scope())._hasNonLocalReturn());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2312,7 +2312,7 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "visit:", "deny:", "hasNonLocalReturn", "scope"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2321,7 +2321,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2331,7 +2331,7 @@ _st(self["@analyzer"])._visit_(ast);
 self._assert_(_st(_st(ast)._scope())._hasNonLocalReturn());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn2",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn2",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2341,7 +2341,7 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "visit:", "assert:", "hasNonLocalReturn", "scope"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2350,7 +2350,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2371,7 +2371,7 @@ $1=_st($2).__eq_eq(_st(ast)._scope());
 self._deny_($1);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testScope",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testScope",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2381,7 +2381,7 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "visit:", "deny:", "==", "scope", "last", "nodes", "first"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2390,7 +2390,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2427,7 +2427,7 @@ $1=_st($2).__eq_eq(_st(ast)._scope());
 self._deny_($1);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testScope2",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testScope2",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2437,7 +2437,7 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "visit:", "deny:", "==", "scope", "first", "nodes", "last"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2446,7 +2446,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2492,7 +2492,7 @@ $3=_st($4)._scopeLevel();
 self._assert_equals_($3,(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testScopeLevel",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testScopeLevel",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2502,7 +2502,7 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "visit:", "assert:equals:", "scopeLevel", "scope", "first", "nodes", "last"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2511,8 +2511,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $UnknownVariableError(){return globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $UnknownVariableError(){return $globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2529,7 +2529,7 @@ return _st(self["@analyzer"])._visit_(ast);
 }),$UnknownVariableError());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testUnknownVariables",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testUnknownVariables",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2539,7 +2539,7 @@ referencedClasses: ["Smalltalk", "UnknownVariableError"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "should:raise:", "visit:"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2548,8 +2548,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $UnknownVariableError(){return globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $UnknownVariableError(){return $globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2566,7 +2566,7 @@ return _st(self["@analyzer"])._visit_(ast);
 }),$UnknownVariableError());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testUnknownVariablesWithScope",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testUnknownVariablesWithScope",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2576,7 +2576,7 @@ referencedClasses: ["Smalltalk", "UnknownVariableError"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "should:raise:", "visit:"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2585,7 +2585,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2594,7 +2594,7 @@ ast=_st($Smalltalk())._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2604,7 +2604,7 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "visit:"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2613,8 +2613,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $ShadowingVariableError(){return globals.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $ShadowingVariableError(){return $globals.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2631,7 +2631,7 @@ return _st(self["@analyzer"])._visit_(ast);
 }),$ShadowingVariableError());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing2",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing2",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2641,7 +2641,7 @@ referencedClasses: ["Smalltalk", "ShadowingVariableError"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "should:raise:", "visit:"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2650,7 +2650,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2659,7 +2659,7 @@ ast=_st($Smalltalk())._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing3",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing3",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2669,7 +2669,7 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "visit:"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2678,7 +2678,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2687,7 +2687,7 @@ ast=_st($Smalltalk())._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing4",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing4",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2697,7 +2697,7 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "visit:"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2706,8 +2706,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $ShadowingVariableError(){return globals.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $ShadowingVariableError(){return $globals.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2724,7 +2724,7 @@ return _st(self["@analyzer"])._visit_(ast);
 }),$ShadowingVariableError());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing5",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing5",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2734,7 +2734,7 @@ referencedClasses: ["Smalltalk", "ShadowingVariableError"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "should:raise:", "visit:"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2743,7 +2743,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2913,7 +2913,7 @@ $28=_st($29).__eq_eq($40);
 self._assert_($28);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testVariablesLookup",{src:src,ast:ast},globals.SemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testVariablesLookup",{src:src,ast:ast},$globals.SemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2923,20 +2923,20 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "visit:", "assert:", "isTempVar", "binding", "receiver", "first", "nodes", "==", "scope", "left", "last"]
 }),
-globals.SemanticAnalyzerTest);
+$globals.SemanticAnalyzerTest);
 
 
 
-$vm.addClass('AISemanticAnalyzerTest', globals.SemanticAnalyzerTest, [], 'Compiler-Tests');
+$vm.addClass('AISemanticAnalyzerTest', $globals.SemanticAnalyzerTest, [], 'Compiler-Tests');
 $vm.addMethod(
 $vm.method({
 selector: "setUp",
 protocol: 'running',
 fn: function (){
 var self=this;
-function $AISemanticAnalyzer(){return globals.AISemanticAnalyzer||(typeof AISemanticAnalyzer=="undefined"?nil:AISemanticAnalyzer)}
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
-function $AIContext(){return globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+function $AISemanticAnalyzer(){return $globals.AISemanticAnalyzer||(typeof AISemanticAnalyzer=="undefined"?nil:AISemanticAnalyzer)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2956,7 +2956,7 @@ $6=_st($1)._yourself();
 self["@analyzer"]=$6;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.AISemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"setUp",{},$globals.AISemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2966,7 +2966,7 @@ referencedClasses: ["AISemanticAnalyzer", "Object", "AIContext"],
 //>>excludeEnd("ide");
 messageSends: ["context:", "on:", "defineLocal:", "new", "localAt:put:", "yourself"]
 }),
-globals.AISemanticAnalyzerTest);
+$globals.AISemanticAnalyzerTest);
 
 $vm.addMethod(
 $vm.method({
@@ -2975,8 +2975,8 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var src,ast;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $UnknownVariableError(){return globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $UnknownVariableError(){return $globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2993,7 +2993,7 @@ return _st(self["@analyzer"])._visit_(ast);
 }),$UnknownVariableError());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testContextVariables",{src:src,ast:ast},globals.AISemanticAnalyzerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testContextVariables",{src:src,ast:ast},$globals.AISemanticAnalyzerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3003,7 +3003,7 @@ referencedClasses: ["Smalltalk", "UnknownVariableError"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "shouldnt:raise:", "visit:"]
 }),
-globals.AISemanticAnalyzerTest);
+$globals.AISemanticAnalyzerTest);
 
 
 });

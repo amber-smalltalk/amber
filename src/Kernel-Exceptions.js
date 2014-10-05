@@ -4,9 +4,9 @@ var smalltalk=$vm,_st=$recv,globals=$globals;
 $vm.addPackage('Kernel-Exceptions');
 $vm.packages["Kernel-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('Error', globals.Object, ['messageText'], 'Kernel-Exceptions');
+$vm.addClass('Error', $globals.Object, ['messageText'], 'Kernel-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.Error.comment="From the ANSI standard:\x0a\x0aThis protocol describes the behavior of instances of class `Error`.\x0aThese are used to represent error conditions that prevent the normal continuation of processing.\x0aActual error exceptions used by an application may be subclasses of this class.\x0aAs `Error` is explicitly specified to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.";
+$globals.Error.comment="From the ANSI standard:\x0a\x0aThis protocol describes the behavior of instances of class `Error`.\x0aThese are used to represent error conditions that prevent the normal continuation of processing.\x0aActual error exceptions used by an application may be subclasses of this class.\x0aAs `Error` is explicitly specified to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -20,7 +20,7 @@ return $vm.withContext(function($ctx1) {
 self.amberHandled = true;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"beHandled",{},globals.Error)});
+}, function($ctx1) {$ctx1.fill(self,"beHandled",{},$globals.Error)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -30,7 +30,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Error);
+$globals.Error);
 
 $vm.addMethod(
 $vm.method({
@@ -44,7 +44,7 @@ return $vm.withContext(function($ctx1) {
 self.amberHandled = false;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"beUnhandled",{},globals.Error)});
+}, function($ctx1) {$ctx1.fill(self,"beUnhandled",{},$globals.Error)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -54,7 +54,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Error);
+$globals.Error);
 
 $vm.addMethod(
 $vm.method({
@@ -68,7 +68,7 @@ return $vm.withContext(function($ctx1) {
 return self.context;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"context",{},globals.Error)});
+}, function($ctx1) {$ctx1.fill(self,"context",{},$globals.Error)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -78,7 +78,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Error);
+$globals.Error);
 
 $vm.addMethod(
 $vm.method({
@@ -92,7 +92,7 @@ return $vm.withContext(function($ctx1) {
 self._messageText_("Errorclass: ".__comma(_st(self._class())._name()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.Error)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.Error)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -102,7 +102,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["messageText:", ",", "name", "class"]
 }),
-globals.Error);
+$globals.Error);
 
 $vm.addMethod(
 $vm.method({
@@ -116,7 +116,7 @@ return $vm.withContext(function($ctx1) {
 return self.smalltalkError === true;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isSmalltalkError",{},globals.Error)});
+}, function($ctx1) {$ctx1.fill(self,"isSmalltalkError",{},$globals.Error)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -126,7 +126,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Error);
+$globals.Error);
 
 $vm.addMethod(
 $vm.method({
@@ -140,7 +140,7 @@ return $vm.withContext(function($ctx1) {
 return self.stack;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"jsStack",{},globals.Error)});
+}, function($ctx1) {$ctx1.fill(self,"jsStack",{},$globals.Error)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -150,7 +150,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Error);
+$globals.Error);
 
 $vm.addMethod(
 $vm.method({
@@ -170,7 +170,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Error);
+$globals.Error);
 
 $vm.addMethod(
 $vm.method({
@@ -189,7 +189,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Error);
+$globals.Error);
 
 $vm.addMethod(
 $vm.method({
@@ -206,7 +206,7 @@ return $vm.withContext(function($ctx1) {
 	;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"resignal",{},globals.Error)});
+}, function($ctx1) {$ctx1.fill(self,"resignal",{},$globals.Error)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -216,7 +216,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Error);
+$globals.Error);
 
 $vm.addMethod(
 $vm.method({
@@ -235,7 +235,7 @@ return $vm.withContext(function($ctx1) {
 	;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"signal",{},globals.Error)});
+}, function($ctx1) {$ctx1.fill(self,"signal",{},$globals.Error)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -245,7 +245,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Error);
+$globals.Error);
 
 $vm.addMethod(
 $vm.method({
@@ -260,7 +260,7 @@ self._messageText_(aString);
 self._signal();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},globals.Error)});
+}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},$globals.Error)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -270,7 +270,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["messageText:", "signal"]
 }),
-globals.Error);
+$globals.Error);
 
 $vm.addMethod(
 $vm.method({
@@ -285,7 +285,7 @@ var $1;
 $1=self._signalerContextFrom_(self._context());
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"signalerContext",{},globals.Error)});
+}, function($ctx1) {$ctx1.fill(self,"signalerContext",{},$globals.Error)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -295,7 +295,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["signalerContextFrom:", "context"]
 }),
-globals.Error);
+$globals.Error);
 
 $vm.addMethod(
 $vm.method({
@@ -335,7 +335,7 @@ return _st($2)._not();
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},globals.Error)});
+}, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},$globals.Error)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -345,7 +345,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class"]
 }),
-globals.Error);
+$globals.Error);
 
 $vm.addMethod(
 $vm.method({
@@ -359,7 +359,7 @@ return $vm.withContext(function($ctx1) {
 return self.amberHandled || false;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"wasHandled",{},globals.Error)});
+}, function($ctx1) {$ctx1.fill(self,"wasHandled",{},$globals.Error)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -369,7 +369,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Error);
+$globals.Error);
 
 
 $vm.addMethod(
@@ -388,7 +388,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Error.klass);
+$globals.Error.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -403,7 +403,7 @@ var $1;
 $1=_st(self._new())._signal();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"signal",{},globals.Error.klass)});
+}, function($ctx1) {$ctx1.fill(self,"signal",{},$globals.Error.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -413,7 +413,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["signal", "new"]
 }),
-globals.Error.klass);
+$globals.Error.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -428,7 +428,7 @@ var $1;
 $1=_st(self._new())._signal_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},globals.Error.klass)});
+}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},$globals.Error.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -438,12 +438,12 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["signal:", "new"]
 }),
-globals.Error.klass);
+$globals.Error.klass);
 
 
-$vm.addClass('Halt', globals.Error, [], 'Kernel-Exceptions');
+$vm.addClass('Halt', $globals.Error, [], 'Kernel-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.Halt.comment="I am provided to support `Object>>#halt`.";
+$globals.Halt.comment="I am provided to support `Object>>#halt`.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -461,7 +461,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.Halt);
+$globals.Halt);
 
 $vm.addMethod(
 $vm.method({
@@ -512,7 +512,7 @@ return _st($2)._not();
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},globals.Halt)});
+}, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},$globals.Halt)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -522,13 +522,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class", "=", "selector", "method"]
 }),
-globals.Halt);
+$globals.Halt);
 
 
 
-$vm.addClass('JavaScriptException', globals.Error, ['exception'], 'Kernel-Exceptions');
+$vm.addClass('JavaScriptException', $globals.Error, ['exception'], 'Kernel-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.JavaScriptException.comment="A JavaScriptException is thrown when a non-Smalltalk exception occurs while in the Smalltalk stack.\x0aSee `boot.js` `inContext()` and `BlockClosure >> on:do:`";
+$globals.JavaScriptException.comment="A JavaScriptException is thrown when a non-Smalltalk exception occurs while in the Smalltalk stack.\x0aSee `boot.js` `inContext()` and `BlockClosure >> on:do:`";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -542,7 +542,7 @@ return $vm.withContext(function($ctx1) {
 self.context = aMethodContext;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"context:",{aMethodContext:aMethodContext},globals.JavaScriptException)});
+}, function($ctx1) {$ctx1.fill(self,"context:",{aMethodContext:aMethodContext},$globals.JavaScriptException)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -552,7 +552,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JavaScriptException);
+$globals.JavaScriptException);
 
 $vm.addMethod(
 $vm.method({
@@ -572,7 +572,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JavaScriptException);
+$globals.JavaScriptException);
 
 $vm.addMethod(
 $vm.method({
@@ -591,7 +591,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JavaScriptException);
+$globals.JavaScriptException);
 
 $vm.addMethod(
 $vm.method({
@@ -605,7 +605,7 @@ return $vm.withContext(function($ctx1) {
 return 'JavaScript exception: ' + self["@exception"].toString();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.JavaScriptException)});
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},$globals.JavaScriptException)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -615,7 +615,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JavaScriptException);
+$globals.JavaScriptException);
 
 
 $vm.addMethod(
@@ -634,7 +634,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"on:",{anException:anException},globals.JavaScriptException.klass)});
+}, function($ctx1) {$ctx1.fill(self,"on:",{anException:anException},$globals.JavaScriptException.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -644,7 +644,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["exception:", "new", "yourself"]
 }),
-globals.JavaScriptException.klass);
+$globals.JavaScriptException.klass);
 
 $vm.addMethod(
 $vm.method({
@@ -663,7 +663,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"on:context:",{anException:anException,aMethodContext:aMethodContext},globals.JavaScriptException.klass)});
+}, function($ctx1) {$ctx1.fill(self,"on:context:",{anException:anException,aMethodContext:aMethodContext},$globals.JavaScriptException.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -673,12 +673,12 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["exception:", "new", "context:", "yourself"]
 }),
-globals.JavaScriptException.klass);
+$globals.JavaScriptException.klass);
 
 
-$vm.addClass('MessageNotUnderstood', globals.Error, ['message', 'receiver'], 'Kernel-Exceptions');
+$vm.addClass('MessageNotUnderstood', $globals.Error, ['message', 'receiver'], 'Kernel-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.MessageNotUnderstood.comment="This exception is provided to support `Object>>doesNotUnderstand:`.";
+$globals.MessageNotUnderstood.comment="This exception is provided to support `Object>>doesNotUnderstand:`.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -698,7 +698,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.MessageNotUnderstood);
+$globals.MessageNotUnderstood);
 
 $vm.addMethod(
 $vm.method({
@@ -717,7 +717,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.MessageNotUnderstood);
+$globals.MessageNotUnderstood);
 
 $vm.addMethod(
 $vm.method({
@@ -735,7 +735,7 @@ $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},globals.MessageNotUnderstood)});
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},$globals.MessageNotUnderstood)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -745,7 +745,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: [",", "asString", "receiver", "selector", "message"]
 }),
-globals.MessageNotUnderstood);
+$globals.MessageNotUnderstood);
 
 $vm.addMethod(
 $vm.method({
@@ -765,7 +765,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.MessageNotUnderstood);
+$globals.MessageNotUnderstood);
 
 $vm.addMethod(
 $vm.method({
@@ -784,13 +784,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.MessageNotUnderstood);
+$globals.MessageNotUnderstood);
 
 
 
-$vm.addClass('NonBooleanReceiver', globals.Error, ['object'], 'Kernel-Exceptions');
+$vm.addClass('NonBooleanReceiver', $globals.Error, ['object'], 'Kernel-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.NonBooleanReceiver.comment="NonBooleanReceiver exceptions may be thrown when executing inlined methods such as `#ifTrue:` with a non boolean receiver.";
+$globals.NonBooleanReceiver.comment="NonBooleanReceiver exceptions may be thrown when executing inlined methods such as `#ifTrue:` with a non boolean receiver.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -810,7 +810,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.NonBooleanReceiver);
+$globals.NonBooleanReceiver);
 
 $vm.addMethod(
 $vm.method({
@@ -829,13 +829,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.NonBooleanReceiver);
+$globals.NonBooleanReceiver);
 
 
 
-$vm.addClass('PackageCommitError', globals.Error, [], 'Kernel-Exceptions');
+$vm.addClass('PackageCommitError', $globals.Error, [], 'Kernel-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.PackageCommitError.comment="I get signaled when an attempt to commit a package has failed.";
+$globals.PackageCommitError.comment="I get signaled when an attempt to commit a package has failed.";
 //>>excludeEnd("ide");
 
 });

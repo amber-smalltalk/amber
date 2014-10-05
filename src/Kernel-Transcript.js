@@ -4,9 +4,9 @@ var smalltalk=$vm,_st=$recv,globals=$globals;
 $vm.addPackage('Kernel-Transcript');
 $vm.packages["Kernel-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('ConsoleTranscript', globals.Object, ['textarea'], 'Kernel-Transcript');
+$vm.addClass('ConsoleTranscript', $globals.Object, ['textarea'], 'Kernel-Transcript');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.ConsoleTranscript.comment="I am a specific transcript emitting to the JavaScript console.\x0a\x0aIf no other transcript is registered, I am the default.";
+$globals.ConsoleTranscript.comment="I am a specific transcript emitting to the JavaScript console.\x0a\x0aIf no other transcript is registered, I am the default.";
 //>>excludeEnd("ide");
 $vm.addMethod(
 $vm.method({
@@ -24,7 +24,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ConsoleTranscript);
+$globals.ConsoleTranscript);
 
 $vm.addMethod(
 $vm.method({
@@ -42,7 +42,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ConsoleTranscript);
+$globals.ConsoleTranscript);
 
 $vm.addMethod(
 $vm.method({
@@ -60,7 +60,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ConsoleTranscript);
+$globals.ConsoleTranscript);
 
 $vm.addMethod(
 $vm.method({
@@ -74,7 +74,7 @@ return $vm.withContext(function($ctx1) {
 console.log(String(_st(anObject)._asString()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},globals.ConsoleTranscript)});
+}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},$globals.ConsoleTranscript)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -84,7 +84,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ConsoleTranscript);
+$globals.ConsoleTranscript);
 
 
 $vm.addMethod(
@@ -93,14 +93,14 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $vm.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($Transcript())._registerIfNone_(self._new());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ConsoleTranscript.klass)});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.ConsoleTranscript.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -110,6 +110,6 @@ referencedClasses: ["Transcript"],
 //>>excludeEnd("ide");
 messageSends: ["registerIfNone:", "new"]
 }),
-globals.ConsoleTranscript.klass);
+$globals.ConsoleTranscript.klass);
 
 });
