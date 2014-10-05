@@ -83024,18 +83024,28 @@ var child;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-var $1,$2,$3;
-$1=self["@childProcess"];
-$2=_st("\x22".__comma(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","bower"))).__comma("\x22 install");
+var $1,$4,$3,$2;
+child=_st(self["@childProcess"])._fork_args_(self._npmScriptForModule_named_("bower","bower"),["install"]);
+$1=child;
+_st($1)._on_do_("error",aBlock);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=1;
+$ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
-child=_st($1)._exec_thenDo_($2,aBlock);
-$3=_st(child)._stdout();
+$2=_st($1)._on_do_("close",(function(code){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["stdout"]=1;
+return smalltalk.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-_st($3)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
+$4=_st(code).__eq((0));
+if(smalltalk.assert($4)){
+$3=nil;
+} else {
+$3=code;
+};
+return _st(aBlock)._value_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({code:code},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"bowerInstallThenDo:",{aBlock:aBlock,child:child},globals.Initer)});
@@ -83043,10 +83053,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "bowerInstallThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: '\x22', (path join: nmPath with: '.bin' with: 'bower'), '\x22 install'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
+source: "bowerInstallThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09fork: (self npmScriptForModule: 'bower' named: 'bower')\x0a\x09\x09args: #('install').\x0a\x09child\x0a\x09\x09on: 'error' do: aBlock;\x0a\x09\x09on: 'close' do: [ :code |\x0a\x09\x09\x09aBlock value: (code = 0 ifTrue: [ nil ] ifFalse: [ code ]) ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["exec:thenDo:", ",", "join:with:with:", "pipe:options:", "stdout"]
+messageSends: ["fork:args:", "npmScriptForModule:named:", "on:do:", "value:", "ifTrue:ifFalse:", "="]
 }),
 globals.Initer);
 
@@ -83084,58 +83094,47 @@ selector: "gruntInitThenDo:",
 protocol: 'action',
 fn: function (aBlock){
 var self=this;
-var child;
+var child,sanitizedTemplatePath;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-var $1,$4,$5,$3,$2,$6,$7,$8;
-$1=self["@childProcess"];
-$4=_st("\x22".__comma(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt-init"))).__comma("\x22 \x22");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=3;
-//>>excludeEnd("ctx");
-$5=_st(_st(_st(self["@path"])._join_with_(self["@nmPath"],"grunt-init-amber"))._replace_with_("\x5c\x5c","\x5c\x5c"))._replace_with_(":","\x5c:");
+var $1,$4,$3,$2;
+sanitizedTemplatePath=_st(_st(_st(self["@path"])._join_with_(self["@nmPath"],"grunt-init-amber"))._replace_with_("\x5c\x5c","\x5c\x5c"))._replace_with_(":","\x5c:");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["replace:with:"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4).__comma($5);
+child=_st(self["@childProcess"])._fork_args_(self._npmScriptForModule_named_("grunt-init","grunt-init"),[sanitizedTemplatePath]);
+$1=child;
+_st($1)._on_do_("error",aBlock);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=2;
+$ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
-$2=_st($3).__comma("\x22");
+$2=_st($1)._on_do_("close",(function(code){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=1;
+return smalltalk.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-child=_st($1)._exec_thenDo_($2,aBlock);
-$6=_st(child)._stdout();
+$4=_st(code).__eq((0));
+if(smalltalk.assert($4)){
+$3=nil;
+} else {
+$3=code;
+};
+return _st(aBlock)._value_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["stdout"]=1;
+}, function($ctx2) {$ctx2.fillBlock({code:code},$ctx1,1)});
 //>>excludeEnd("ctx");
-_st($6)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["pipe:options:"]=1;
-//>>excludeEnd("ctx");
-$7=_st(process)._stdin();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["stdin"]=1;
-//>>excludeEnd("ctx");
-_st($7)._resume();
-$8=_st(process)._stdin();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["stdin"]=2;
-//>>excludeEnd("ctx");
-_st($8)._pipe_options_(_st(child)._stdin(),globals.HashedCollection._newFromPairs_(["end",false]));
+}));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"gruntInitThenDo:",{aBlock:aBlock,child:child},globals.Initer)});
+}, function($ctx1) {$ctx1.fill(self,"gruntInitThenDo:",{aBlock:aBlock,child:child,sanitizedTemplatePath:sanitizedTemplatePath},globals.Initer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "gruntInitThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: '\x22', (path join: nmPath with: '.bin' with: 'grunt-init'), '\x22 \x22', (((path join: nmPath with: 'grunt-init-amber') replace: '\x5c\x5c' with: '\x5c\x5c') replace: ':' with: '\x5c:'), '\x22'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }.\x0a\x09process stdin resume.\x0a\x09process stdin pipe: child stdin options: #{ 'end' -> false }",
+source: "gruntInitThenDo: aBlock\x0a\x09| child sanitizedTemplatePath |\x0a\x09sanitizedTemplatePath := ((path join: nmPath with: 'grunt-init-amber')\x0a\x09\x09replace: '\x5c\x5c' with: '\x5c\x5c') replace: ':' with: '\x5c:'.\x0a\x09child := childProcess\x0a\x09\x09fork: (self npmScriptForModule: 'grunt-init' named: 'grunt-init')\x0a\x09\x09args: {sanitizedTemplatePath}.\x0a\x09child\x0a\x09\x09on: 'error' do: aBlock;\x0a\x09\x09on: 'close' do: [ :code |\x0a\x09\x09\x09aBlock value: (code = 0 ifTrue: [ nil ] ifFalse: [ code ]) ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["exec:thenDo:", ",", "join:with:with:", "replace:with:", "join:with:", "pipe:options:", "stdout", "resume", "stdin"]
+messageSends: ["replace:with:", "join:with:", "fork:args:", "npmScriptForModule:named:", "on:do:", "value:", "ifTrue:ifFalse:", "="]
 }),
 globals.Initer);
 
@@ -83149,18 +83148,28 @@ var child;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return smalltalk.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-var $1,$2,$3;
-$1=self["@childProcess"];
-$2=_st("\x22".__comma(_st(self["@path"])._join_with_with_(self["@nmPath"],".bin","grunt"))).__comma("\x22 default devel");
+var $1,$4,$3,$2;
+child=_st(self["@childProcess"])._fork_args_(self._npmScriptForModule_named_("grunt-cli","grunt"),["default", "devel"]);
+$1=child;
+_st($1)._on_do_("error",aBlock);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=1;
+$ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
-child=_st($1)._exec_thenDo_($2,aBlock);
-$3=_st(child)._stdout();
+$2=_st($1)._on_do_("close",(function(code){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["stdout"]=1;
+return smalltalk.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-_st($3)._pipe_options_(_st(process)._stdout(),globals.HashedCollection._newFromPairs_(["end",false]));
+$4=_st(code).__eq((0));
+if(smalltalk.assert($4)){
+$3=nil;
+} else {
+$3=code;
+};
+return _st(aBlock)._value_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({code:code},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"gruntThenDo:",{aBlock:aBlock,child:child},globals.Initer)});
@@ -83168,10 +83177,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "gruntThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09exec: '\x22', (path join: nmPath with: '.bin' with: 'grunt'), '\x22 default devel'\x0a\x09\x09thenDo: aBlock.\x0a\x09child stdout pipe: process stdout options: #{ 'end' -> false }",
+source: "gruntThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09fork: (self npmScriptForModule: 'grunt-cli' named: 'grunt')\x0a\x09\x09args: #('default' 'devel').\x0a\x09child\x0a\x09\x09on: 'error' do: aBlock;\x0a\x09\x09on: 'close' do: [ :code |\x0a\x09\x09\x09aBlock value: (code = 0 ifTrue: [ nil ] ifFalse: [ code ]) ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["exec:thenDo:", ",", "join:with:with:", "pipe:options:", "stdout"]
+messageSends: ["fork:args:", "npmScriptForModule:named:", "on:do:", "value:", "ifTrue:ifFalse:", "="]
 }),
 globals.Initer);
 
@@ -83236,6 +83245,53 @@ source: "npmInstallThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["exec:thenDo:", "pipe:options:", "stdout"]
+}),
+globals.Initer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "npmScriptForModule:named:",
+protocol: 'npm',
+fn: function (aString,anotherString){
+var self=this;
+var modulePath,packageJson,binSection,scriptPath;
+function $JSObjectProxy(){return globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return smalltalk.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1,$3,$4,$2,$5,$6;
+$1=self["@path"];
+$3=_st($JSObjectProxy())._on_(require);
+$4=_st(aString).__comma("/package.json");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+$2=_st($3)._resolve_($4);
+modulePath=_st($1)._dirname_($2);
+packageJson=_st($Smalltalk())._readJSObject_(_st(require)._value_(_st(aString).__comma("/package.json")));
+binSection=_st(packageJson)._at_("bin");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:"]=1;
+//>>excludeEnd("ctx");
+$5=_st(binSection)._isString();
+if(smalltalk.assert($5)){
+scriptPath=binSection;
+} else {
+scriptPath=_st(binSection)._at_(anotherString);
+};
+$6=_st(self["@path"])._join_with_(modulePath,scriptPath);
+return $6;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"npmScriptForModule:named:",{aString:aString,anotherString:anotherString,modulePath:modulePath,packageJson:packageJson,binSection:binSection,scriptPath:scriptPath},globals.Initer)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anotherString"],
+source: "npmScriptForModule: aString named: anotherString\x0a\x09| modulePath packageJson binSection scriptPath |\x0a\x09modulePath := path dirname: (\x0a\x09\x09(JSObjectProxy on: require)\x0a\x09\x09\x09resolve: aString, '/package.json').\x0a\x09packageJson := Smalltalk readJSObject: (\x0a\x09\x09require value: aString, '/package.json').\x0a\x09binSection := packageJson at: 'bin'.\x0a\x09scriptPath := binSection isString\x0a\x09\x09ifTrue: [ binSection ]\x0a\x09\x09ifFalse: [ binSection at: anotherString ].\x0a\x09^ path join: modulePath with: scriptPath",
+referencedClasses: ["JSObjectProxy", "Smalltalk"],
+//>>excludeEnd("ide");
+messageSends: ["dirname:", "resolve:", "on:", ",", "readJSObject:", "value:", "at:", "ifTrue:ifFalse:", "isString", "join:with:"]
 }),
 globals.Initer);
 

@@ -991,9 +991,12 @@ BaseFileManipulator subclass: #Initer
 bowerInstallThenDo: aBlock
 	| child |
 	child := childProcess
-		exec: '"', (path join: nmPath with: '.bin' with: 'bower'), '" install'
-		thenDo: aBlock.
-	child stdout pipe: process stdout options: #{ 'end' -> false }
+		fork: (self npmScriptForModule: 'bower' named: 'bower')
+		args: #('install').
+	child
+		on: 'error' do: aBlock;
+		on: 'close' do: [ :code |
+			aBlock value: (code = 0 ifTrue: [ nil ] ifFalse: [ code ]) ]
 !
 
 finishMessage
@@ -1017,21 +1020,27 @@ finishMessage
 !
 
 gruntInitThenDo: aBlock
-	| child |
+	| child sanitizedTemplatePath |
+	sanitizedTemplatePath := ((path join: nmPath with: 'grunt-init-amber')
+		replace: '\\' with: '\\') replace: ':' with: '\:'.
 	child := childProcess
-		exec: '"', (path join: nmPath with: '.bin' with: 'grunt-init'), '" "', (((path join: nmPath with: 'grunt-init-amber') replace: '\\' with: '\\') replace: ':' with: '\:'), '"'
-		thenDo: aBlock.
-	child stdout pipe: process stdout options: #{ 'end' -> false }.
-	process stdin resume.
-	process stdin pipe: child stdin options: #{ 'end' -> false }
+		fork: (self npmScriptForModule: 'grunt-init' named: 'grunt-init')
+		args: {sanitizedTemplatePath}.
+	child
+		on: 'error' do: aBlock;
+		on: 'close' do: [ :code |
+			aBlock value: (code = 0 ifTrue: [ nil ] ifFalse: [ code ]) ]
 !
 
 gruntThenDo: aBlock
 	| child |
 	child := childProcess
-		exec: '"', (path join: nmPath with: '.bin' with: 'grunt'), '" default devel'
-		thenDo: aBlock.
-	child stdout pipe: process stdout options: #{ 'end' -> false }
+		fork: (self npmScriptForModule: 'grunt-cli' named: 'grunt')
+		args: #('default' 'devel').
+	child
+		on: 'error' do: aBlock;
+		on: 'close' do: [ :code |
+			aBlock value: (code = 0 ifTrue: [ nil ] ifFalse: [ code ]) ]
 !
 
 npmInstallThenDo: aBlock
@@ -1077,6 +1086,22 @@ initialize
 	super initialize.
 	childProcess := require value: 'child_process'.
 	nmPath := path join: self rootDirname with: 'node_modules'
+! !
+
+!Initer methodsFor: 'npm'!
+
+npmScriptForModule: aString named: anotherString
+	| modulePath packageJson binSection scriptPath |
+	modulePath := path dirname: (
+		(JSObjectProxy on: require)
+			resolve: aString, '/package.json').
+	packageJson := Smalltalk readJSObject: (
+		require value: aString, '/package.json').
+	binSection := packageJson at: 'bin'.
+	scriptPath := binSection isString
+		ifTrue: [ binSection ]
+		ifFalse: [ binSection at: anotherString ].
+	^ path join: modulePath with: scriptPath
 ! !
 
 Object subclass: #Repl
