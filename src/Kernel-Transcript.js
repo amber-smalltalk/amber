@@ -1,5 +1,5 @@
 define("amber_core/Kernel-Transcript", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
-var $core=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-Transcript');
 $core.packages["Kernel-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};

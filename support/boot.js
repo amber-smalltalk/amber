@@ -1161,5 +1161,5 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		brikz.rebuild();
 	};
 
-	return { vm: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiver.asReceiver };
+	return { api: api, /*deprecated:*/vm: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiver.asReceiver };
 });

@@ -1,5 +1,5 @@
 define("amber_core/SUnit", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Classes", "amber_core/Kernel-Infrastructure"], function($boot){
-var $core=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('SUnit');
 $core.packages["SUnit"].transport = {"type":"amd","amdNamespace":"amber_core"};

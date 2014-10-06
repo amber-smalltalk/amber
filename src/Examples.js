@@ -1,5 +1,5 @@
 define("amber_core/Examples", ["amber/boot", "amber_core/Web"], function($boot){
-var $core=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Examples');
 $core.packages["Examples"].transport = {"type":"amd","amdNamespace":"amber_core"};
