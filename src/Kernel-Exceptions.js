@@ -1,21 +1,21 @@
 define("amber_core/Kernel-Exceptions", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
-var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$vm,_st=$recv,globals=$globals;
-$vm.addPackage('Kernel-Exceptions');
-$vm.packages["Kernel-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
+var $core=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var smalltalk=$core,_st=$recv,globals=$globals;
+$core.addPackage('Kernel-Exceptions');
+$core.packages["Kernel-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('Error', $globals.Object, ['messageText'], 'Kernel-Exceptions');
+$core.addClass('Error', $globals.Object, ['messageText'], 'Kernel-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.Error.comment="From the ANSI standard:\x0a\x0aThis protocol describes the behavior of instances of class `Error`.\x0aThese are used to represent error conditions that prevent the normal continuation of processing.\x0aActual error exceptions used by an application may be subclasses of this class.\x0aAs `Error` is explicitly specified to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "beHandled",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.amberHandled = true;
 return self;
@@ -32,14 +32,14 @@ messageSends: []
 }),
 $globals.Error);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "beUnhandled",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.amberHandled = false;
 return self;
@@ -56,14 +56,14 @@ messageSends: []
 }),
 $globals.Error);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "context",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.context;
 return self;
@@ -80,14 +80,14 @@ messageSends: []
 }),
 $globals.Error);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._messageText_("Errorclass: ".__comma(_st(self._class())._name()));
 return self;
@@ -104,14 +104,14 @@ messageSends: ["messageText:", ",", "name", "class"]
 }),
 $globals.Error);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isSmalltalkError",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.smalltalkError === true;
 return self;
@@ -128,14 +128,14 @@ messageSends: []
 }),
 $globals.Error);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "jsStack",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.stack;
 return self;
@@ -152,8 +152,8 @@ messageSends: []
 }),
 $globals.Error);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "messageText",
 protocol: 'accessing',
 fn: function (){
@@ -172,8 +172,8 @@ messageSends: []
 }),
 $globals.Error);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "messageText:",
 protocol: 'accessing',
 fn: function (aString){
@@ -191,14 +191,14 @@ messageSends: []
 }),
 $globals.Error);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "resignal",
 protocol: 'signaling',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		self.amberHandled = false;
@@ -218,18 +218,18 @@ messageSends: []
 }),
 $globals.Error);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "signal",
 protocol: 'signaling',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 		self.amberHandled = false;
-		self.context = $vm.getThisContext(); 
+		self.context = $core.getThisContext(); 
 		self.smalltalkError = true;
 		throw self;
 	;
@@ -240,21 +240,21 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "signal\x0a\x09<\x0a\x09\x09self.amberHandled = false;\x0a\x09\x09self.context = $vm.getThisContext(); \x0a\x09\x09self.smalltalkError = true;\x0a\x09\x09throw self;\x0a\x09>",
+source: "signal\x0a\x09<\x0a\x09\x09self.amberHandled = false;\x0a\x09\x09self.context = $core.getThisContext(); \x0a\x09\x09self.smalltalkError = true;\x0a\x09\x09throw self;\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
 $globals.Error);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "signal:",
 protocol: 'signaling',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._messageText_(aString);
 self._signal();
@@ -272,14 +272,14 @@ messageSends: ["messageText:", "signal"]
 }),
 $globals.Error);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "signalerContext",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._signalerContextFrom_(self._context());
@@ -297,19 +297,19 @@ messageSends: ["signalerContextFrom:", "context"]
 }),
 $globals.Error);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "signalerContextFrom:",
 protocol: 'accessing',
 fn: function (aContext){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 $1=_st(aContext)._findContextSuchThat_((function(context){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=_st(context)._receiver();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -321,7 +321,7 @@ $ctx2.sendIdx["=="]=1;
 //>>excludeEnd("ctx");
 $2=_st($3)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(_st(context)._receiver()).__eq_eq(self._class());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -347,14 +347,14 @@ messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class"]
 }),
 $globals.Error);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "wasHandled",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return self.amberHandled || false;
 return self;
@@ -372,8 +372,8 @@ messageSends: []
 $globals.Error);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
@@ -390,14 +390,14 @@ messageSends: []
 }),
 $globals.Error.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "signal",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._new())._signal();
@@ -415,14 +415,14 @@ messageSends: ["signal", "new"]
 }),
 $globals.Error.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "signal:",
 protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._new())._signal_(aString);
@@ -441,12 +441,12 @@ messageSends: ["signal:", "new"]
 $globals.Error.klass);
 
 
-$vm.addClass('Halt', $globals.Error, [], 'Kernel-Exceptions');
+$core.addClass('Halt', $globals.Error, [], 'Kernel-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.Halt.comment="I am provided to support `Object>>#halt`.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "messageText",
 protocol: 'accessing',
 fn: function (){
@@ -463,19 +463,19 @@ messageSends: []
 }),
 $globals.Halt);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "signalerContextFrom:",
 protocol: 'accessing',
 fn: function (aContext){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 $1=_st(aContext)._findContextSuchThat_((function(context){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=_st(context)._receiver();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -487,11 +487,11 @@ $ctx2.sendIdx["=="]=1;
 //>>excludeEnd("ctx");
 $2=_st($3)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(_st(_st(context)._receiver()).__eq_eq(self._class()))._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return _st(_st(_st(context)._method())._selector()).__eq("halt");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -526,18 +526,18 @@ $globals.Halt);
 
 
 
-$vm.addClass('JavaScriptException', $globals.Error, ['exception'], 'Kernel-Exceptions');
+$core.addClass('JavaScriptException', $globals.Error, ['exception'], 'Kernel-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.JavaScriptException.comment="A JavaScriptException is thrown when a non-Smalltalk exception occurs while in the Smalltalk stack.\x0aSee `boot.js` `inContext()` and `BlockClosure >> on:do:`";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "context:",
 protocol: 'accessing',
 fn: function (aMethodContext){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self.context = aMethodContext;
 return self;
@@ -554,8 +554,8 @@ messageSends: []
 }),
 $globals.JavaScriptException);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "exception",
 protocol: 'accessing',
 fn: function (){
@@ -574,8 +574,8 @@ messageSends: []
 }),
 $globals.JavaScriptException);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "exception:",
 protocol: 'accessing',
 fn: function (anException){
@@ -593,14 +593,14 @@ messageSends: []
 }),
 $globals.JavaScriptException);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "messageText",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return 'JavaScript exception: ' + self["@exception"].toString();
 return self;
@@ -618,14 +618,14 @@ messageSends: []
 $globals.JavaScriptException);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "on:",
 protocol: 'instance creation',
 fn: function (anException){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -646,14 +646,14 @@ messageSends: ["exception:", "new", "yourself"]
 }),
 $globals.JavaScriptException.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "on:context:",
 protocol: 'instance creation',
 fn: function (anException,aMethodContext){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -676,12 +676,12 @@ messageSends: ["exception:", "new", "context:", "yourself"]
 $globals.JavaScriptException.klass);
 
 
-$vm.addClass('MessageNotUnderstood', $globals.Error, ['message', 'receiver'], 'Kernel-Exceptions');
+$core.addClass('MessageNotUnderstood', $globals.Error, ['message', 'receiver'], 'Kernel-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.MessageNotUnderstood.comment="This exception is provided to support `Object>>doesNotUnderstand:`.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "message",
 protocol: 'accessing',
 fn: function (){
@@ -700,8 +700,8 @@ messageSends: []
 }),
 $globals.MessageNotUnderstood);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "message:",
 protocol: 'accessing',
 fn: function (aMessage){
@@ -719,14 +719,14 @@ messageSends: []
 }),
 $globals.MessageNotUnderstood);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "messageText",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(_st(self._receiver())._asString()).__comma(" does not understand #")).__comma(_st(self._message())._selector());
@@ -747,8 +747,8 @@ messageSends: [",", "asString", "receiver", "selector", "message"]
 }),
 $globals.MessageNotUnderstood);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "receiver",
 protocol: 'accessing',
 fn: function (){
@@ -767,8 +767,8 @@ messageSends: []
 }),
 $globals.MessageNotUnderstood);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "receiver:",
 protocol: 'accessing',
 fn: function (anObject){
@@ -788,12 +788,12 @@ $globals.MessageNotUnderstood);
 
 
 
-$vm.addClass('NonBooleanReceiver', $globals.Error, ['object'], 'Kernel-Exceptions');
+$core.addClass('NonBooleanReceiver', $globals.Error, ['object'], 'Kernel-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.NonBooleanReceiver.comment="NonBooleanReceiver exceptions may be thrown when executing inlined methods such as `#ifTrue:` with a non boolean receiver.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "object",
 protocol: 'accessing',
 fn: function (){
@@ -812,8 +812,8 @@ messageSends: []
 }),
 $globals.NonBooleanReceiver);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "object:",
 protocol: 'accessing',
 fn: function (anObject){
@@ -833,7 +833,7 @@ $globals.NonBooleanReceiver);
 
 
 
-$vm.addClass('PackageCommitError', $globals.Error, [], 'Kernel-Exceptions');
+$core.addClass('PackageCommitError', $globals.Error, [], 'Kernel-Exceptions');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.PackageCommitError.comment="I get signaled when an attempt to commit a package has failed.";
 //>>excludeEnd("ide");

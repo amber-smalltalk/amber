@@ -1,15 +1,15 @@
 define("amber_core/Kernel-Transcript", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
-var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$vm,_st=$recv,globals=$globals;
-$vm.addPackage('Kernel-Transcript');
-$vm.packages["Kernel-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
+var $core=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var smalltalk=$core,_st=$recv,globals=$globals;
+$core.addPackage('Kernel-Transcript');
+$core.packages["Kernel-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('ConsoleTranscript', $globals.Object, ['textarea'], 'Kernel-Transcript');
+$core.addClass('ConsoleTranscript', $globals.Object, ['textarea'], 'Kernel-Transcript');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ConsoleTranscript.comment="I am a specific transcript emitting to the JavaScript console.\x0a\x0aIf no other transcript is registered, I am the default.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "clear",
 protocol: 'printing',
 fn: function (){
@@ -26,8 +26,8 @@ messageSends: []
 }),
 $globals.ConsoleTranscript);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "cr",
 protocol: 'printing',
 fn: function (){
@@ -44,8 +44,8 @@ messageSends: []
 }),
 $globals.ConsoleTranscript);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "open",
 protocol: 'actions',
 fn: function (){
@@ -62,14 +62,14 @@ messageSends: []
 }),
 $globals.ConsoleTranscript);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "show:",
 protocol: 'printing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 console.log(String(_st(anObject)._asString()));
 return self;
@@ -87,15 +87,15 @@ messageSends: []
 $globals.ConsoleTranscript);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($Transcript())._registerIfNone_(self._new());
 return self;

@@ -1497,7 +1497,7 @@ asJSON
 !
 
 asJavaScriptMethodName
-	<return $vm.st2js(self)>
+	<return $core.st2js(self)>
 !
 
 asJavascript

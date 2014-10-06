@@ -1034,7 +1034,7 @@ visitIRValue: anIRValue
 
 visitIRVariable: anIRVariable
 	anIRVariable variable name = 'thisContext'
-		ifTrue: [ self stream nextPutAll: '$vm.getThisContext()' ]
+		ifTrue: [ self stream nextPutAll: '$core.getThisContext()' ]
 		ifFalse: [ self stream nextPutAll: anIRVariable variable alias ]
 !
 
@@ -1122,7 +1122,7 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 	self
 		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);';
 		lf;
-		nextPutAll: 'return $vm.withContext(function(', anIRClosure scope alias, ') {';
+		nextPutAll: 'return $core.withContext(function(', anIRClosure scope alias, ') {';
 		lf;
 		nextPutAll: '//>>excludeEnd("ctx");';
 		lf.
@@ -1183,7 +1183,7 @@ nextPutContextFor: aMethod during: aBlock
 	self
 		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);';
 		lf;
-		nextPutAll: 'return $vm.withContext(function(', aMethod scope alias, ') { ';
+		nextPutAll: 'return $core.withContext(function(', aMethod scope alias, ') { ';
 		lf;
 		nextPutAll: '//>>excludeEnd("ctx");';
 		lf.
@@ -1243,7 +1243,7 @@ nextPutIfElse: aBlock with: ifBlock with: elseBlock
 
 nextPutMethodDeclaration: aMethod with: aBlock
 	stream
-		nextPutAll: '$vm.method({'; lf;
+		nextPutAll: '$core.method({'; lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ','; lf;
 		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.
 	aBlock value.
@@ -1300,7 +1300,7 @@ nextPutSendIndexFor: anIRSend
 
 nextPutSequenceWith: aBlock
 	"stream
-		nextPutAll: 'switch($vm.thisContext.pc){'; lf."
+		nextPutAll: 'switch($core.thisContext.pc){'; lf."
 	aBlock value.
 	"stream
 		nextPutAll: '};'; lf"

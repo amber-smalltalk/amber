@@ -91,7 +91,7 @@ Typical use cases include IDEs, remote access and restricting browsing.!
 !Environment methodsFor: 'accessing'!
 
 allSelectors
-	^ Smalltalk vm allSelectors
+	^ Smalltalk core allSelectors
 !
 
 availableClassNames
@@ -424,7 +424,7 @@ doesNotUnderstand: aMessage
 
 forwardMessage: aString withArguments: anArray
 	<
-		return $vm.accessJavaScript(self._jsObject(), aString, anArray);
+		return $core.accessJavaScript(self._jsObject(), aString, anArray);
 	>
 !
 
@@ -1089,7 +1089,7 @@ Object subclass: #SmalltalkImage
 	package: 'Kernel-Infrastructure'!
 !SmalltalkImage commentStamp!
 I represent the Smalltalk system, wrapping
-operations of variable `$vm` declared in `support/boot.js`.
+operations of variable `$core` declared in `support/boot.js`.
 
 ## API
 
@@ -1131,6 +1131,10 @@ at: aString put: anObject
 	^ self globals at: aString put: anObject
 !
 
+core
+	<return $core>
+!
+
 current
 	"Backward compatibility for Smalltalk current ..."
 	self deprecatedAPI.
@@ -1143,7 +1147,7 @@ globals
 !
 
 includesKey: aKey
-	<return $vm.hasOwnProperty(aKey)>
+	<return $core.hasOwnProperty(aKey)>
 !
 
 parse: aString
@@ -1162,12 +1166,12 @@ pseudoVariableNames
 !
 
 readJSObject: anObject
-	<return $vm.readJSObject(anObject)>
+	<return $core.readJSObject(anObject)>
 !
 
 reservedWords
 	"JavaScript reserved words"
-	<return $vm.reservedWords>
+	<return $core.reservedWords>
 !
 
 settings
@@ -1181,14 +1185,14 @@ version
 !
 
 vm
-	"Future compatibility to be able to use Smalltalk vm ..."
-	<return $vm>
+	self deprecatedAPI: 'Use #core'.
+	^self core
 ! !
 
 !SmalltalkImage methodsFor: 'accessing amd'!
 
 amdRequire
-	^ self vm at: 'amdRequire'
+	^ self core at: 'amdRequire'
 !
 
 defaultAmdNamespace
@@ -1202,7 +1206,7 @@ defaultAmdNamespace: aString
 !SmalltalkImage methodsFor: 'classes'!
 
 classes
-	<return $vm.classes()>
+	<return $core.classes()>
 !
 
 removeClass: aClass
@@ -1243,7 +1247,7 @@ deleteGlobalJsVariable: aString
 
 globalJsVariables
 	"Array of global JavaScript variables"
-	<return $vm.globalJsVariables>
+	<return $core.globalJsVariables>
 ! !
 
 !SmalltalkImage methodsFor: 'packages'!
@@ -1263,7 +1267,7 @@ createPackage: packageName
 !
 
 packageAt: packageName
-	<return $vm.packages[packageName]>
+	<return $core.packages[packageName]>
 !
 
 packageAt: packageName ifAbsent: aBlock
@@ -1274,8 +1278,8 @@ packages
 	"Return all Package instances in the system."
 
 	<
-		return Object.keys($vm.packages).map(function(k) {
-			return $vm.packages[k];
+		return Object.keys($core.packages).map(function(k) {
+			return $core.packages[k];
 		})
 	>
 !
@@ -1305,7 +1309,7 @@ renamePackage: packageName to: newName
 
 basicCreatePackage: packageName
 	"Create and bind a new bare package with given name and return it."
-	<return $vm.addPackage(packageName)>
+	<return $core.addPackage(packageName)>
 !
 
 basicParse: aString
@@ -1323,14 +1327,14 @@ createPackage: packageName properties: aDict
 deleteClass: aClass
 	"Deletes a class by deleting its binding only. Use #removeClass instead"
 	
-	<$vm.removeClass(aClass)>
+	<$core.removeClass(aClass)>
 !
 
 deletePackage: packageName
 	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
 	To remove a package, use #removePackage instead."
 
-	<delete $vm.packages[packageName]>
+	<delete $core.packages[packageName]>
 ! !
 
 !SmalltalkImage methodsFor: 'testing'!
@@ -1374,7 +1378,7 @@ do: aBlock displayingProgress: aString
 !String methodsFor: '*Kernel-Infrastructure'!
 
 asJavaScriptPropertyName
-<return $vm.st2prop(self)>
+<return $core.st2prop(self)>
 !
 
 asJavaScriptSelector

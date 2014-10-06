@@ -1,15 +1,15 @@
 define("amber_core/SUnit", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Classes", "amber_core/Kernel-Infrastructure"], function($boot){
-var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$vm,_st=$recv,globals=$globals;
-$vm.addPackage('SUnit');
-$vm.packages["SUnit"].transport = {"type":"amd","amdNamespace":"amber_core"};
+var $core=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var smalltalk=$core,_st=$recv,globals=$globals;
+$core.addPackage('SUnit');
+$core.packages["SUnit"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('ResultAnnouncement', $globals.Object, ['result'], 'SUnit');
+$core.addClass('ResultAnnouncement', $globals.Object, ['result'], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ResultAnnouncement.comment="I get signaled when a `TestCase` has been run.\x0a\x0aMy instances hold the result (instance of `TestResult`) of the test run.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "result",
 protocol: 'accessing',
 fn: function (){
@@ -28,8 +28,8 @@ messageSends: []
 }),
 $globals.ResultAnnouncement);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "result:",
 protocol: 'accessing',
 fn: function (aTestResult){
@@ -49,18 +49,18 @@ $globals.ResultAnnouncement);
 
 
 
-$vm.addClass('TestCase', $globals.Object, ['testSelector', 'asyncTimeout', 'context'], 'SUnit');
+$core.addClass('TestCase', $globals.Object, ['testSelector', 'asyncTimeout', 'context'], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.TestCase.comment="I am an implementation of the command pattern to run a test.\x0a\x0a## API\x0a\x0aMy instances are created with the class method `#selector:`,\x0apassing the symbol that names the method to be executed when the test case runs.\x0a\x0aWhen you discover a new fixture, subclass `TestCase` and create a `#test...` method for the first test.\x0aAs that method develops and more `#test...` methods are added, you will find yourself refactoring temps\x0ainto instance variables for the objects in the fixture and overriding `#setUp` to initialize these variables.\x0aAs required, override `#tearDown` to nil references, release objects and deallocate.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "assert:",
 protocol: 'testing',
 fn: function (aBoolean){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_description_(aBoolean,"Assertion failed");
 return self;
@@ -77,16 +77,16 @@ messageSends: ["assert:description:"]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "assert:description:",
 protocol: 'testing',
 fn: function (aBoolean,aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-if(!$vm.assert(aBoolean)){
+if(!$core.assert(aBoolean)){
 self._signalFailure_(aString);
 };
 return self;
@@ -103,14 +103,14 @@ messageSends: ["ifFalse:", "signalFailure:"]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "assert:equals:",
 protocol: 'testing',
 fn: function (actual,expected){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$6,$5,$4,$3,$1;
 $2=_st(actual).__eq(expected);
@@ -142,25 +142,25 @@ messageSends: ["assert:description:", "=", ",", "printString"]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "async:",
 protocol: 'async',
 fn: function (aBlock){
 var self=this;
 var c;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 self._errorIfNotAsync_("#async");
 c=self["@context"];
 $1=(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=self._isAsync();
-if($vm.assert($2)){
+if($core.assert($2)){
 return _st(c)._execute_(aBlock);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -181,8 +181,8 @@ messageSends: ["errorIfNotAsync:", "ifTrue:", "isAsync", "execute:"]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "context:",
 protocol: 'accessing',
 fn: function (aRunningTestContext){
@@ -200,14 +200,14 @@ messageSends: []
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "deny:",
 protocol: 'testing',
 fn: function (aBoolean){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_(_st(aBoolean)._not());
 return self;
@@ -224,18 +224,18 @@ messageSends: ["assert:", "not"]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "errorIfNotAsync:",
 protocol: 'error handling',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._isAsync();
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 self._error_(_st(aString).__comma(" used without prior #timeout:"));
 };
 return self;
@@ -252,14 +252,14 @@ messageSends: ["ifFalse:", "isAsync", "error:", ","]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "finished",
 protocol: 'async',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._errorIfNotAsync_("#finished");
 self["@asyncTimeout"]=nil;
@@ -277,14 +277,14 @@ messageSends: ["errorIfNotAsync:"]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isAsync",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@asyncTimeout"])._notNil();
@@ -302,14 +302,14 @@ messageSends: ["notNil"]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "performTest",
 protocol: 'running',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@asyncTimeout"]=nil;
 self._perform_(self._selector());
@@ -327,15 +327,15 @@ messageSends: ["perform:", "selector"]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "runCase",
 protocol: 'running',
 fn: function (){
 var self=this;
 function $TestContext(){return $globals.TestContext||(typeof TestContext=="undefined"?nil:TestContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($TestContext())._testCase_(self))._start();
 return self;
@@ -352,8 +352,8 @@ messageSends: ["start", "testCase:"]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selector",
 protocol: 'accessing',
 fn: function (){
@@ -372,8 +372,8 @@ messageSends: []
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "setTestSelector:",
 protocol: 'accessing',
 fn: function (aSelector){
@@ -391,8 +391,8 @@ messageSends: []
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "setUp",
 protocol: 'running',
 fn: function (){
@@ -409,14 +409,14 @@ messageSends: []
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "should:",
 protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_(_st(aBlock)._value());
 return self;
@@ -433,18 +433,18 @@ messageSends: ["assert:", "value"]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "should:raise:",
 protocol: 'testing',
 fn: function (aBlock,anExceptionClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_(_st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(aBlock)._value();
 return false;
@@ -469,18 +469,18 @@ messageSends: ["assert:", "on:do:", "value"]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "shouldnt:raise:",
 protocol: 'testing',
 fn: function (aBlock,anExceptionClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_(_st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(aBlock)._value();
 return true;
@@ -505,15 +505,15 @@ messageSends: ["assert:", "on:do:", "value"]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "signalFailure:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
 function $TestFailure(){return $globals.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st($TestFailure())._new();
@@ -533,8 +533,8 @@ messageSends: ["messageText:", "new", "signal"]
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "tearDown",
 protocol: 'running',
 fn: function (){
@@ -551,14 +551,14 @@ messageSends: []
 }),
 $globals.TestCase);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "timeout:",
 protocol: 'async',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@asyncTimeout"];
@@ -570,7 +570,7 @@ _st(self["@asyncTimeout"])._clearTimeout();
 self["@asyncTimeout"]=(0);
 self["@asyncTimeout"]=_st(self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._assert_description_(false,"SUnit grace time exhausted");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -592,20 +592,20 @@ messageSends: ["ifNotNil:", "clearTimeout", "valueWithTimeout:", "async:", "asse
 $globals.TestCase);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "allTestSelectors",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 var selectors;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 selectors=self._testSelectors();
 $1=self._shouldInheritSelectors();
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(selectors)._addAll_(_st(self._superclass())._allTestSelectors());
 };
 $2=selectors;
@@ -623,19 +623,19 @@ messageSends: ["testSelectors", "ifTrue:", "shouldInheritSelectors", "addAll:", 
 }),
 $globals.TestCase.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "buildSuite",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._allTestSelectors())._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._selector_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -656,8 +656,8 @@ messageSends: ["collect:", "allTestSelectors", "selector:"]
 }),
 $globals.TestCase.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "heliosClass",
 protocol: 'helios',
 fn: function (){
@@ -674,14 +674,14 @@ messageSends: []
 }),
 $globals.TestCase.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isAbstract",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._name()).__eq("TestCase");
@@ -699,8 +699,8 @@ messageSends: ["=", "name"]
 }),
 $globals.TestCase.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "lookupHierarchyRoot",
 protocol: 'accessing',
 fn: function (){
@@ -718,14 +718,14 @@ messageSends: []
 }),
 $globals.TestCase.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selector:",
 protocol: 'accessing',
 fn: function (aSelector){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -746,14 +746,14 @@ messageSends: ["setTestSelector:", "new", "yourself"]
 }),
 $globals.TestCase.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "shouldInheritSelectors",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self.__tild_eq(self._lookupHierarchyRoot());
@@ -771,19 +771,19 @@ messageSends: ["~=", "lookupHierarchyRoot"]
 }),
 $globals.TestCase.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "testSelectors",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(self._methodDictionary())._keys())._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._match_("^test");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -805,19 +805,19 @@ messageSends: ["select:", "keys", "methodDictionary", "match:"]
 $globals.TestCase.klass);
 
 
-$vm.addClass('TestContext', $globals.Object, ['testCase'], 'SUnit');
+$core.addClass('TestContext', $globals.Object, ['testCase'], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.TestContext.comment="I govern running a particular test case.\x0a\x0aMy main added value is `#execute:` method which runs a block as a part of test case (restores context, nilling it afterwards, cleaning/calling `#tearDown` as appropriate for sync/async scenario).";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "execute:",
 protocol: 'running',
 fn: function (aBlock){
 var self=this;
 var failed;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 _st(self["@testCase"])._context_(self);
@@ -826,7 +826,7 @@ $ctx1.sendIdx["context:"]=1;
 //>>excludeEnd("ctx");
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 failed=true;
 failed;
@@ -838,12 +838,12 @@ return failed;
 //>>excludeEnd("ctx");
 }))._ensure_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(self["@testCase"])._context_(nil);
 $1=_st(failed)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(self["@testCase"])._isAsync();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -853,11 +853,11 @@ $ctx3.sendIdx["isAsync"]=1;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(self["@testCase"])._finished();
 };
 $2=_st(self["@testCase"])._isAsync();
-if(!$vm.assert($2)){
+if(!$core.assert($2)){
 return _st(self["@testCase"])._tearDown();
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -878,18 +878,18 @@ messageSends: ["context:", "ensure:", "value", "ifTrue:", "and:", "isAsync", "fi
 }),
 $globals.TestContext);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "start",
 protocol: 'running',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._execute_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(self["@testCase"])._setUp();
 return _st(self["@testCase"])._performTest();
@@ -911,8 +911,8 @@ messageSends: ["execute:", "setUp", "performTest"]
 }),
 $globals.TestContext);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "testCase:",
 protocol: 'accessing',
 fn: function (aTestCase){
@@ -931,14 +931,14 @@ messageSends: []
 $globals.TestContext);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "testCase:",
 protocol: 'instance creation',
 fn: function (aTestCase){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -960,27 +960,27 @@ messageSends: ["testCase:", "new", "yourself"]
 $globals.TestContext.klass);
 
 
-$vm.addClass('ReportingTestContext', $globals.TestContext, ['finished', 'result'], 'SUnit');
+$core.addClass('ReportingTestContext', $globals.TestContext, ['finished', 'result'], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ReportingTestContext.comment="I add `TestResult` reporting to `TestContext`.\x0a\x0aErrors are caught and save into a `TestResult`,\x0aWhen test case is finished (which can be later for async tests), a callback block is executed; this is used by a `TestSuiteRunner`.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "execute:",
 protocol: 'running',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._withErrorReporting_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -999,10 +999,10 @@ $ctx3.supercall = false;
 //>>excludeEnd("ctx");
 }))._ensure_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(self["@testCase"])._isAsync();
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 _st(self["@result"])._increaseRuns();
 return _st(self["@finished"])._value();
 };
@@ -1024,8 +1024,8 @@ messageSends: ["ensure:", "withErrorReporting:", "execute:", "ifFalse:", "isAsyn
 }),
 $globals.ReportingTestContext);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "finished:",
 protocol: 'accessing',
 fn: function (aBlock){
@@ -1043,8 +1043,8 @@ messageSends: []
 }),
 $globals.ReportingTestContext);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "result:",
 protocol: 'accessing',
 fn: function (aTestResult){
@@ -1062,8 +1062,8 @@ messageSends: []
 }),
 $globals.ReportingTestContext);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "withErrorReporting:",
 protocol: 'private',
 fn: function (aBlock){
@@ -1071,15 +1071,15 @@ var self=this;
 function $TestFailure(){return $globals.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(aBlock)._on_do_($TestFailure(),(function(ex){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(self["@result"])._addFailure_(self["@testCase"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1091,7 +1091,7 @@ return _st(self["@result"])._addFailure_(self["@testCase"]);
 //>>excludeEnd("ctx");
 }))._on_do_($Error(),(function(ex){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@result"])._addError_(self["@testCase"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1116,14 +1116,14 @@ messageSends: ["on:do:", "addFailure:", "addError:"]
 $globals.ReportingTestContext);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "testCase:result:finished:",
 protocol: 'instance creation',
 fn: function (aTestCase,aTestResult,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=(
@@ -1153,24 +1153,24 @@ messageSends: ["result:", "testCase:", "finished:", "yourself"]
 $globals.ReportingTestContext.klass);
 
 
-$vm.addClass('TestFailure', $globals.Error, [], 'SUnit');
+$core.addClass('TestFailure', $globals.Error, [], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.TestFailure.comment="I am raised when the boolean parameter of an #`assert:` or `#deny:` call is the opposite of what the assertion claims.\x0a\x0aThe test framework distinguishes between failures and errors.\x0aA failure is an event whose possibiity is explicitly anticipated and checked for in an assertion,\x0awhereas an error is an unanticipated problem like a division by 0 or an index out of bounds.";
 //>>excludeEnd("ide");
 
 
-$vm.addClass('TestResult', $globals.Object, ['timestamp', 'runs', 'errors', 'failures', 'total'], 'SUnit');
+$core.addClass('TestResult', $globals.Object, ['timestamp', 'runs', 'errors', 'failures', 'total'], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.TestResult.comment="I implement the collecting parameter pattern for running a bunch of tests.\x0a\x0aMy instances hold tests that have run, sorted into the result categories of passed, failures and errors.\x0a\x0a`TestResult` is an interesting object to subclass or substitute. `#runCase:` is the external protocol you need to reproduce";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "addError:",
 protocol: 'accessing',
 fn: function (anError){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._errors())._add_(anError);
 return self;
@@ -1187,14 +1187,14 @@ messageSends: ["add:", "errors"]
 }),
 $globals.TestResult);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "addFailure:",
 protocol: 'accessing',
 fn: function (aFailure){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._failures())._add_(aFailure);
 return self;
@@ -1211,8 +1211,8 @@ messageSends: ["add:", "failures"]
 }),
 $globals.TestResult);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "errors",
 protocol: 'accessing',
 fn: function (){
@@ -1231,8 +1231,8 @@ messageSends: []
 }),
 $globals.TestResult);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "failures",
 protocol: 'accessing',
 fn: function (){
@@ -1251,14 +1251,14 @@ messageSends: []
 }),
 $globals.TestResult);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "increaseRuns",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@runs"]=_st(self["@runs"]).__plus((1));
 return self;
@@ -1275,8 +1275,8 @@ messageSends: ["+"]
 }),
 $globals.TestResult);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
@@ -1284,7 +1284,7 @@ var self=this;
 function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1316,14 +1316,14 @@ messageSends: ["initialize", "now", "new"]
 }),
 $globals.TestResult);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nextRunDo:",
 protocol: 'running',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 $3=self._runs();
@@ -1331,7 +1331,7 @@ $3=self._runs();
 $ctx1.sendIdx["runs"]=1;
 //>>excludeEnd("ctx");
 $2=_st($3).__eq_eq(self._total());
-if(!$vm.assert($2)){
+if(!$core.assert($2)){
 $1=_st(aBlock)._value_(_st(self._runs()).__plus((1)));
 };
 return $1;
@@ -1348,8 +1348,8 @@ messageSends: ["ifFalse:", "==", "runs", "total", "value:", "+"]
 }),
 $globals.TestResult);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "runCase:",
 protocol: 'running',
 fn: function (aTestCase){
@@ -1357,15 +1357,15 @@ var self=this;
 function $TestFailure(){return $globals.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 self._increaseRuns();
 return _st(aTestCase)._runCase();
@@ -1374,7 +1374,7 @@ return _st(aTestCase)._runCase();
 //>>excludeEnd("ctx");
 }))._on_do_($TestFailure(),(function(ex){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._addFailure_(aTestCase);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1386,7 +1386,7 @@ return self._addFailure_(aTestCase);
 //>>excludeEnd("ctx");
 }))._on_do_($Error(),(function(ex){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._addError_(aTestCase);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1410,8 +1410,8 @@ messageSends: ["on:do:", "increaseRuns", "runCase", "addFailure:", "addError:"]
 }),
 $globals.TestResult);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "runs",
 protocol: 'accessing',
 fn: function (){
@@ -1430,23 +1430,23 @@ messageSends: []
 }),
 $globals.TestResult);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "status",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st(self._errors())._isEmpty();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["isEmpty"]=1;
 //>>excludeEnd("ctx");
-if($vm.assert($2)){
+if($core.assert($2)){
 $3=_st(self._failures())._isEmpty();
-if($vm.assert($3)){
+if($core.assert($3)){
 $1="success";
 } else {
 $1="failure";
@@ -1468,8 +1468,8 @@ messageSends: ["ifTrue:ifFalse:", "isEmpty", "errors", "failures"]
 }),
 $globals.TestResult);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "timestamp",
 protocol: 'accessing',
 fn: function (){
@@ -1488,8 +1488,8 @@ messageSends: []
 }),
 $globals.TestResult);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "total",
 protocol: 'accessing',
 fn: function (){
@@ -1508,8 +1508,8 @@ messageSends: []
 }),
 $globals.TestResult);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "total:",
 protocol: 'accessing',
 fn: function (aNumber){
@@ -1529,12 +1529,12 @@ $globals.TestResult);
 
 
 
-$vm.addClass('TestSuiteRunner', $globals.Object, ['suite', 'result', 'announcer', 'runNextTest'], 'SUnit');
+$core.addClass('TestSuiteRunner', $globals.Object, ['suite', 'result', 'announcer', 'runNextTest'], 'SUnit');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.TestSuiteRunner.comment="I am responsible for running a collection (`suite`) of tests.\x0a\x0a## API\x0a\x0aInstances should be created using the class-side `#on:` method, taking a collection of tests to run as parameter.\x0aTo run the test suite, use `#run`.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "announcer",
 protocol: 'accessing',
 fn: function (){
@@ -1553,20 +1553,20 @@ messageSends: []
 }),
 $globals.TestSuiteRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "contextOf:",
 protocol: 'private',
 fn: function (anInteger){
 var self=this;
 function $ReportingTestContext(){return $globals.ReportingTestContext||(typeof ReportingTestContext=="undefined"?nil:ReportingTestContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($ReportingTestContext())._testCase_result_finished_(_st(self["@suite"])._at_(anInteger),self["@result"],(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._resume();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1587,8 +1587,8 @@ messageSends: ["testCase:result:finished:", "at:", "resume"]
 }),
 $globals.TestSuiteRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
@@ -1596,7 +1596,7 @@ var self=this;
 function $Announcer(){return $globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
 function $TestResult(){return $globals.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 (
@@ -1615,12 +1615,12 @@ self["@result"]=_st($TestResult())._new();
 self["@runNextTest"]=(function(){
 var runs;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 runs=_st(self["@result"])._runs();
 runs;
 $1=_st(runs).__lt(_st(self["@result"])._total());
-if($vm.assert($1)){
+if($core.assert($1)){
 return _st(self._contextOf_(_st(runs).__plus((1))))._start();
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1641,8 +1641,8 @@ messageSends: ["initialize", "new", "runs", "ifTrue:", "<", "total", "start", "c
 }),
 $globals.TestSuiteRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "result",
 protocol: 'accessing',
 fn: function (){
@@ -1661,15 +1661,15 @@ messageSends: []
 }),
 $globals.TestSuiteRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "resume",
 protocol: 'actions',
 fn: function (){
 var self=this;
 function $ResultAnnouncement(){return $globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@runNextTest"])._fork();
 _st(self["@announcer"])._announce_(_st(_st($ResultAnnouncement())._new())._result_(self["@result"]));
@@ -1687,14 +1687,14 @@ messageSends: ["fork", "announce:", "result:", "new"]
 }),
 $globals.TestSuiteRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "run",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@result"])._total_(_st(self["@suite"])._size());
 self._resume();
@@ -1712,8 +1712,8 @@ messageSends: ["total:", "size", "resume"]
 }),
 $globals.TestSuiteRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "suite:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -1732,14 +1732,14 @@ messageSends: []
 $globals.TestSuiteRunner);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "new",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._shouldNotImplement();
 return self;
@@ -1756,14 +1756,14 @@ messageSends: ["shouldNotImplement"]
 }),
 $globals.TestSuiteRunner.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "on:",
 protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=(
@@ -1789,20 +1789,20 @@ messageSends: ["suite:", "new"]
 }),
 $globals.TestSuiteRunner.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isTestClass",
 protocol: '*SUnit',
 fn: function (){
 var self=this;
 function $TestCase(){return $globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._includesBehavior_($TestCase()))._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._isAbstract())._not();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1823,19 +1823,19 @@ messageSends: ["and:", "includesBehavior:", "not", "isAbstract"]
 }),
 $globals.Behavior);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isTestPackage",
 protocol: '*SUnit',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._classes())._anySatisfy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._isTestClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

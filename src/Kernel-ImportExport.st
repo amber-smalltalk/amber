@@ -261,7 +261,7 @@ jsClassNameFor: aClass
 exportDefinitionOf: aClass on: aStream
 	aStream
 		lf;
-		nextPutAll: '$vm.addClass(';
+		nextPutAll: '$core.addClass(';
 		nextPutAll: '''', (self classNameFor: aClass), ''', ';
 		nextPutAll: (self jsClassNameFor: aClass superclass);
 		nextPutAll: ', ['.
@@ -300,8 +300,8 @@ exportMetaDefinitionOf: aClass on: aStream
 
 exportMethod: aMethod on: aStream
 	aStream
-		nextPutAll: '$vm.addMethod(';lf;
-		nextPutAll: '$vm.method({';lf;
+		nextPutAll: '$core.addMethod(';lf;
+		nextPutAll: '$core.method({';lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
 		nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
@@ -340,7 +340,7 @@ exportPackage: aPackage on: aStream
 
 exportPackageDefinitionOf: aPackage on: aStream
 	aStream
-		nextPutAll: '$vm.addPackage(';
+		nextPutAll: '$core.addPackage(';
 		nextPutAll: '''', aPackage name, ''');';
 		lf
 !
@@ -359,7 +359,7 @@ exportPackagePrologueOf: aPackage on: aStream
 
 exportPackageTransportOf: aPackage on: aStream
 	aStream
-		nextPutAll: '$vm.packages[';
+		nextPutAll: '$core.packages[';
 		nextPutAll: aPackage name asJavascript;
 		nextPutAll: '].transport = ';
 		nextPutAll: aPackage transport asJSONString;
@@ -391,9 +391,9 @@ exportPackagePrologueOf: aPackage on: aStream
 		nextPutAll: (#('amber/boot'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;
 		nextPutAll: ', function($boot){';
 		lf;
-		nextPutAll: 'var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';
+		nextPutAll: 'var $core=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';
 		lf;
-		nextPutAll: 'var smalltalk=$vm,_st=$recv,globals=$globals;';
+		nextPutAll: 'var smalltalk=$core,_st=$recv,globals=$globals;';
 		lf
 ! !
 

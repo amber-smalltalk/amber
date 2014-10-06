@@ -47,7 +47,7 @@ whileFalse
 !
 
 whileFalse: aBlock
-	<while(!!$vm.assert(self._value())) {aBlock._value()}>
+	<while(!!$core.assert(self._value())) {aBlock._value()}>
 !
 
 whileTrue
@@ -55,13 +55,13 @@ whileTrue
 !
 
 whileTrue: aBlock
-	<while($vm.assert(self._value())) {aBlock._value()}>
+	<while($core.assert(self._value())) {aBlock._value()}>
 ! !
 
 !BlockClosure methodsFor: 'converting'!
 
 asCompiledMethod: aString
-	<return $vm.method({selector:aString, fn:self});>
+	<return $core.method({selector:aString, fn:self});>
 !
 
 currySelf
@@ -633,7 +633,7 @@ receiver
 selector
 	<
 		if(self.selector) {
-			return $vm.js2st(self.selector);
+			return $core.js2st(self.selector);
 		} else {
 			return nil;
 		}

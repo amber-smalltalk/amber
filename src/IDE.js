@@ -1,12 +1,12 @@
 define("amber_core/IDE", ["amber/boot", "amber_core/Web", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections", "amber_core/Kernel-Methods"], function($boot){
-var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$vm,_st=$recv,globals=$globals;
-$vm.addPackage('IDE');
-$vm.packages["IDE"].transport = {"type":"amd","amdNamespace":"amber_core"};
+var $core=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var smalltalk=$core,_st=$recv,globals=$globals;
+$core.addPackage('IDE');
+$core.packages["IDE"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('ClassesList', $globals.Widget, ['browser', 'ul', 'nodes'], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('ClassesList', $globals.Widget, ['browser', 'ul', 'nodes'], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "browser",
 protocol: 'accessing',
 fn: function (){
@@ -25,8 +25,8 @@ messageSends: []
 }),
 $globals.ClassesList);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "browser:",
 protocol: 'accessing',
 fn: function (aBrowser){
@@ -44,14 +44,14 @@ messageSends: []
 }),
 $globals.ClassesList);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "category",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._browser())._selectedPackage();
@@ -69,8 +69,8 @@ messageSends: ["selectedPackage", "browser"]
 }),
 $globals.ClassesList);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "getNodes",
 protocol: 'accessing',
 fn: function (){
@@ -78,7 +78,7 @@ var self=this;
 var classes,children,others;
 function $ClassesListNode(){return $globals.ClassesListNode||(typeof ClassesListNode=="undefined"?nil:ClassesListNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 $1=self._browser();
@@ -90,10 +90,10 @@ children=[];
 others=[];
 _st(classes)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=_st(classes)._includes_(_st(each)._superclass());
-if($vm.assert($2)){
+if($core.assert($2)){
 return _st(others)._add_(each);
 } else {
 return _st(children)._add_(each);
@@ -107,7 +107,7 @@ $ctx2.sendIdx["add:"]=1;
 }));
 $3=_st(children)._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st($ClassesListNode())._on_browser_classes_level_(each,self._browser(),others,(0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -128,14 +128,14 @@ messageSends: ["classes", "browser", "do:", "ifFalse:ifTrue:", "includes:", "sup
 }),
 $globals.ClassesList);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nodes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
 $1=self["@nodes"];
@@ -160,14 +160,14 @@ messageSends: ["ifNil:", "getNodes"]
 }),
 $globals.ClassesList);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st(html)._ul();
@@ -189,8 +189,8 @@ messageSends: ["class:", "ul", "yourself", "updateNodes"]
 }),
 $globals.ClassesList);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "resetNodes",
 protocol: 'accessing',
 fn: function (){
@@ -208,22 +208,22 @@ messageSends: []
 }),
 $globals.ClassesList);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateNodes",
 protocol: 'rendering',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@ul"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._nodes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(each)._renderOn_(html);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -249,14 +249,14 @@ messageSends: ["contents:", "do:", "nodes", "renderOn:"]
 $globals.ClassesList);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "on:",
 protocol: 'instance creation',
 fn: function (aBrowser){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -278,9 +278,9 @@ messageSends: ["browser:", "new", "yourself"]
 $globals.ClassesList.klass);
 
 
-$vm.addClass('ClassesListNode', $globals.Widget, ['browser', 'theClass', 'level', 'nodes'], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('ClassesListNode', $globals.Widget, ['browser', 'theClass', 'level', 'nodes'], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "browser",
 protocol: 'accessing',
 fn: function (){
@@ -299,8 +299,8 @@ messageSends: []
 }),
 $globals.ClassesListNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "browser:",
 protocol: 'accessing',
 fn: function (aBrowser){
@@ -318,8 +318,8 @@ messageSends: []
 }),
 $globals.ClassesListNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "getNodesFrom:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -327,17 +327,17 @@ var self=this;
 var children,others;
 function $ClassesListNode(){return $globals.ClassesListNode||(typeof ClassesListNode=="undefined"?nil:ClassesListNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 children=[];
 others=[];
 _st(aCollection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(_st(each)._superclass()).__eq(self._theClass());
-if($vm.assert($1)){
+if($core.assert($1)){
 return _st(children)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["add:"]=1;
@@ -351,7 +351,7 @@ return _st(others)._add_(each);
 }));
 self["@nodes"]=_st(children)._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st($ClassesListNode())._on_browser_classes_level_(each,self._browser(),others,_st(self._level()).__plus((1)));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -372,8 +372,8 @@ messageSends: ["do:", "ifTrue:ifFalse:", "=", "superclass", "theClass", "add:", 
 }),
 $globals.ClassesListNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "label",
 protocol: 'accessing',
 fn: function (){
@@ -381,13 +381,13 @@ var self=this;
 var str;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 str=_st(_st($String())._new())._writeStream();
 _st(self._level())._timesRepeat_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(str)._nextPutAll_("&nbsp;&nbsp;&nbsp;&nbsp;");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -413,8 +413,8 @@ messageSends: ["writeStream", "new", "timesRepeat:", "level", "nextPutAll:", "na
 }),
 $globals.ClassesListNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "level",
 protocol: 'accessing',
 fn: function (){
@@ -433,8 +433,8 @@ messageSends: []
 }),
 $globals.ClassesListNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "level:",
 protocol: 'accessing',
 fn: function (anInteger){
@@ -452,8 +452,8 @@ messageSends: []
 }),
 $globals.ClassesListNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nodes",
 protocol: 'accessing',
 fn: function (){
@@ -472,21 +472,21 @@ messageSends: []
 }),
 $globals.ClassesListNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 var li,cssClass;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$5,$3,$6;
 cssClass="";
 li=_st(_st(html)._li())._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=self._browser();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -508,7 +508,7 @@ $5=self._theClass();
 $ctx1.sendIdx["theClass"]=2;
 //>>excludeEnd("ctx");
 $3=_st($4).__eq($5);
-if($vm.assert($3)){
+if($core.assert($3)){
 cssClass=_st(cssClass).__comma(" selected");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
@@ -516,14 +516,14 @@ $ctx1.sendIdx[","]=1;
 cssClass;
 };
 $6=_st(_st(self._theClass())._comment())._isEmpty();
-if(!$vm.assert($6)){
+if(!$core.assert($6)){
 cssClass=_st(cssClass).__comma(" commented");
 cssClass;
 };
 _st(li)._class_(cssClass);
 _st(self._nodes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._renderOn_(html);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -544,8 +544,8 @@ messageSends: ["onClick:", "li", "selectClass:", "browser", "theClass", "html:",
 }),
 $globals.ClassesListNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "theClass",
 protocol: 'accessing',
 fn: function (){
@@ -564,8 +564,8 @@ messageSends: []
 }),
 $globals.ClassesListNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "theClass:",
 protocol: 'accessing',
 fn: function (aClass){
@@ -584,14 +584,14 @@ messageSends: []
 $globals.ClassesListNode);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "on:browser:classes:level:",
 protocol: 'instance creation',
 fn: function (aClass,aBrowser,aCollection,anInteger){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -616,9 +616,9 @@ messageSends: ["theClass:", "new", "browser:", "level:", "getNodesFrom:", "yours
 $globals.ClassesListNode.klass);
 
 
-$vm.addClass('DebugErrorHandler', $globals.Object, [], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('DebugErrorHandler', $globals.Object, [], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "handleError:",
 protocol: 'error handling',
 fn: function (anError){
@@ -627,12 +627,12 @@ function $Debugger(){return $globals.Debugger||(typeof Debugger=="undefined"?nil
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 function $ConsoleErrorHandler(){return $globals.ConsoleErrorHandler||(typeof ConsoleErrorHandler=="undefined"?nil:ConsoleErrorHandler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st($Debugger())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -646,7 +646,7 @@ return $2;
 //>>excludeEnd("ctx");
 }))._on_do_($Error(),(function(error){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st($ConsoleErrorHandler())._new())._handleError_(error);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -668,15 +668,15 @@ messageSends: ["on:do:", "error:", "new", "open", "handleError:"]
 $globals.DebugErrorHandler);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 function $ErrorHandler(){return $globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($ErrorHandler())._register_(self._new());
 return self;
@@ -694,15 +694,15 @@ messageSends: ["register:", "new"]
 $globals.DebugErrorHandler.klass);
 
 
-$vm.addClass('SourceArea', $globals.Widget, ['editor', 'div', 'receiver', 'onDoIt'], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('SourceArea', $globals.Widget, ['editor', 'div', 'receiver', 'onDoIt'], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "clear",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._val_("");
 return self;
@@ -719,14 +719,14 @@ messageSends: ["val:"]
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "currentLine",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@editor"])._getLine_(_st(_st(self["@editor"])._getCursor())._line());
@@ -744,18 +744,18 @@ messageSends: ["getLine:", "line", "getCursor"]
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "currentLineOrSelection",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st(self["@editor"])._somethingSelected();
-if($vm.assert($2)){
+if($core.assert($2)){
 $1=self._selection();
 } else {
 $1=self._currentLine();
@@ -774,15 +774,15 @@ messageSends: ["ifFalse:ifTrue:", "somethingSelected", "currentLine", "selection
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "doIt",
 protocol: 'actions',
 fn: function (){
 var self=this;
 var result;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
 result=self._eval_(self._currentLineOrSelection());
@@ -810,8 +810,8 @@ messageSends: ["eval:", "currentLineOrSelection", "ifNotNil:", "onDoIt", "value"
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "editor",
 protocol: 'accessing',
 fn: function (){
@@ -830,8 +830,8 @@ messageSends: []
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "eval:",
 protocol: 'actions',
 fn: function (aString){
@@ -840,7 +840,7 @@ var compiler;
 function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 var $early={};
@@ -848,7 +848,7 @@ try {
 compiler=_st($Compiler())._new();
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(compiler)._parseExpression_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -856,7 +856,7 @@ return _st(compiler)._parseExpression_(aString);
 //>>excludeEnd("ctx");
 }))._on_do_($Error(),(function(ex){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=self._alert_(_st(ex)._messageText());
 throw $early=[$1];
@@ -881,15 +881,15 @@ messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "ev
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "fileIn",
 protocol: 'actions',
 fn: function (){
 var self=this;
 function $Importer(){return $globals.Importer||(typeof Importer=="undefined"?nil:Importer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($Importer())._new())._import_(_st(self._currentLineOrSelection())._readStream());
 return self;
@@ -906,14 +906,14 @@ messageSends: ["import:", "new", "readStream", "currentLineOrSelection"]
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "focus",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._editor())._focus();
 return self;
@@ -930,14 +930,14 @@ messageSends: ["focus", "editor"]
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "handleKeyDown:",
 protocol: 'actions',
 fn: function (anEvent){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 80) { //ctrl+p
@@ -970,14 +970,14 @@ messageSends: []
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "inspectIt",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._doIt())._inspect();
 return self;
@@ -994,8 +994,8 @@ messageSends: ["inspect", "doIt"]
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "onDoIt",
 protocol: 'accessing',
 fn: function (){
@@ -1014,8 +1014,8 @@ messageSends: []
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "onDoIt:",
 protocol: 'accessing',
 fn: function (aBlock){
@@ -1033,14 +1033,14 @@ messageSends: []
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "onKeyDown:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@div"])._onKeyDown_(aBlock);
 return self;
@@ -1057,14 +1057,14 @@ messageSends: ["onKeyDown:"]
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "onKeyUp:",
 protocol: 'events',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@div"])._onKeyUp_(aBlock);
 return self;
@@ -1081,8 +1081,8 @@ messageSends: ["onKeyUp:"]
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "print:",
 protocol: 'actions',
 fn: function (aString){
@@ -1090,7 +1090,7 @@ var self=this;
 var start,stop,currentLine;
 function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3,$5,$6,$7,$8,$9,$10,$12,$11;
 $1=_st(self["@editor"])._getCursor_(false);
@@ -1122,7 +1122,7 @@ $ctx1.sendIdx["getSelection"]=1;
 //>>excludeEnd("ctx");
 _st($5)._ifEmpty_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $6=start;
 $7=_st(_st(self["@editor"])._getLine_(currentLine))._size();
@@ -1178,14 +1178,14 @@ messageSends: ["line", "getCursor:", "new", "at:put:", "ch", "ifEmpty:", "getSel
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "printIt",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._print_(_st(self._doIt())._printString());
 self._focus();
@@ -1203,15 +1203,15 @@ messageSends: ["print:", "printString", "doIt", "focus"]
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "receiver",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@receiver"];
@@ -1234,8 +1234,8 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "receiver:",
 protocol: 'accessing',
 fn: function (anObject){
@@ -1253,20 +1253,20 @@ messageSends: []
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 var textarea;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@div"]=_st(_st(html)._div())._class_("source");
 _st(self["@div"])._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 textarea=_st(html)._textarea();
 return textarea;
@@ -1277,7 +1277,7 @@ return textarea;
 self._setEditorOn_(_st(textarea)._element());
 _st(self["@div"])._onKeyDown_((function(e){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._handleKeyDown_(e);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1298,14 +1298,14 @@ messageSends: ["class:", "div", "with:", "textarea", "setEditorOn:", "element", 
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selection",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@editor"])._getSelection();
@@ -1323,14 +1323,14 @@ messageSends: ["getSelection"]
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "setEditorOn:",
 protocol: 'accessing',
 fn: function (aTextarea){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 		theme: 'ide.codeMirrorTheme'._settingValueIfAbsent_('default'),
@@ -1356,14 +1356,14 @@ messageSends: []
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "val",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@editor"])._getValue();
@@ -1381,14 +1381,14 @@ messageSends: ["getValue"]
 }),
 $globals.SourceArea);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "val:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@editor"])._setValue_(aString);
 return self;
@@ -1406,14 +1406,14 @@ messageSends: ["setValue:"]
 $globals.SourceArea);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1438,14 +1438,14 @@ messageSends: ["initialize", "setupCodeMirror"]
 }),
 $globals.SourceArea.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "setupCodeMirror",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
  CodeMirror.keyMap["default"].fallthrough = ["basic"] ;
 return self;
@@ -1463,15 +1463,15 @@ messageSends: []
 $globals.SourceArea.klass);
 
 
-$vm.addClass('TabManager', $globals.Widget, ['selectedTab', 'tabs', 'opened', 'ul', 'input'], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('TabManager', $globals.Widget, ['selectedTab', 'tabs', 'opened', 'ul', 'input'], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "addTab:",
 protocol: 'adding/Removing',
 fn: function (aWidget){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._tabs())._add_(aWidget);
 _st(aWidget)._appendToJQuery_("#amber"._asJQuery());
@@ -1490,18 +1490,18 @@ messageSends: ["add:", "tabs", "appendToJQuery:", "asJQuery", "hide"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "close",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 $1=self["@opened"];
-if($vm.assert($1)){
+if($core.assert($1)){
 $2="#amber"._asJQuery();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJQuery"]=1;
@@ -1538,14 +1538,14 @@ messageSends: ["ifTrue:", "hide", "asJQuery", "removeBodyMargin", "removeClass:"
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "closeTab:",
 protocol: 'actions',
 fn: function (aWidget){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._removeTab_(aWidget);
 self._selectTab_(_st(self._tabs())._last());
@@ -1565,8 +1565,8 @@ messageSends: ["removeTab:", "selectTab:", "last", "tabs", "remove", "update"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
@@ -1577,7 +1577,7 @@ function $IDETranscript(){return $globals.IDETranscript||(typeof IDETranscript==
 function $Workspace(){return $globals.Workspace||(typeof Workspace=="undefined"?nil:Workspace)}
 function $TestRunner(){return $globals.TestRunner||(typeof TestRunner=="undefined"?nil:TestRunner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7;
 (
@@ -1592,7 +1592,7 @@ _st($Inspector())._register_($IDEInspector());
 self["@opened"]=true;
 $1=(function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(html)._div())._id_("amber");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1629,7 +1629,7 @@ $5=self._addTab_(_st($TestRunner())._new());
 self._selectTab_(_st(self._tabs())._last());
 self._onResize_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._updateBodyMargin();
 $6=self._updatePosition();
@@ -1643,7 +1643,7 @@ return $6;
 }));
 $7=self._onWindowResize_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._updatePosition();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1664,15 +1664,15 @@ messageSends: ["initialize", "register:", "appendToJQuery:", "id:", "div", "asJQ
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "labelFor:",
 protocol: 'accessing',
 fn: function (aWidget){
 var self=this;
 var label,maxSize;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2,$5,$6;
 maxSize=(15);
@@ -1691,7 +1691,7 @@ $ctx1.sendIdx["size"]=1;
 $2=_st($3)._min_(maxSize);
 label=_st($1)._copyFrom_to_((0),$2);
 $5=_st(_st(_st(aWidget)._label())._size()).__gt(maxSize);
-if($vm.assert($5)){
+if($core.assert($5)){
 label=_st(label).__comma("...");
 label;
 };
@@ -1710,15 +1710,15 @@ messageSends: ["copyFrom:to:", "label", "min:", "size", "ifTrue:", ">", ","]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "newBrowserTab",
 protocol: 'actions',
 fn: function (){
 var self=this;
 function $Browser(){return $globals.Browser||(typeof Browser=="undefined"?nil:Browser)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($Browser())._open();
 return self;
@@ -1735,14 +1735,14 @@ messageSends: ["open"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "onResize:",
 protocol: 'actions',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st("#amber"._asJQuery())._resizable_($globals.HashedCollection._newFromPairs_(["handles","n","resize",aBlock,"minHeight",(230)]));
 return self;
@@ -1759,14 +1759,14 @@ messageSends: ["resizable:", "asJQuery"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "onWindowResize:",
 protocol: 'actions',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(window)._asJQuery())._resize_(aBlock);
 return self;
@@ -1783,18 +1783,18 @@ messageSends: ["resize:", "asJQuery"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "open",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 $1=self["@opened"];
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 $2="body"._asJQuery();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJQuery"]=1;
@@ -1831,14 +1831,14 @@ messageSends: ["ifFalse:", "addClass:", "asJQuery", "show", "updateBodyMargin"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "removeBodyMargin",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._setBodyMargin_((0));
 return self;
@@ -1855,14 +1855,14 @@ messageSends: ["setBodyMargin:"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "removeTab:",
 protocol: 'adding/Removing',
 fn: function (aWidget){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._tabs())._remove_(aWidget);
 self._update();
@@ -1880,14 +1880,14 @@ messageSends: ["remove:", "tabs", "update"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 _st(_st(html)._div())._id_("logo");
@@ -1914,20 +1914,20 @@ messageSends: ["id:", "div", "renderToolbarOn:", "ul", "yourself", "renderTabs"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderTabFor:on:",
 protocol: 'rendering',
 fn: function (aWidget,html){
 var self=this;
 var li;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$6,$7,$8,$9,$5,$10;
 li=_st(html)._li();
 $1=_st(self["@selectedTab"]).__eq(aWidget);
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(li)._class_("selected");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class:"]=1;
@@ -1936,7 +1936,7 @@ $ctx1.sendIdx["class:"]=1;
 $2=li;
 _st($2)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $3=_st(html)._span();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1956,10 +1956,10 @@ $ctx2.sendIdx["class:"]=3;
 //>>excludeEnd("ctx");
 $5=_st($4)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $6=_st(aWidget)._canBeClosed();
-if($vm.assert($6)){
+if($core.assert($6)){
 $7=_st(html)._span();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["span"]=3;
@@ -1974,7 +1974,7 @@ $ctx3.sendIdx["with:"]=3;
 //>>excludeEnd("ctx");
 $8=_st($7)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._closeTab_(aWidget);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2009,7 +2009,7 @@ $ctx1.sendIdx["with:"]=1;
 //>>excludeEnd("ctx");
 $10=_st($2)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._selectTab_(aWidget);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2030,23 +2030,23 @@ messageSends: ["li", "ifTrue:", "=", "class:", "with:", "span", "canBeClosed", "
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderTabs",
 protocol: 'rendering',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5;
 _st(self["@ul"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(self._tabs())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._renderTabFor_on_(each,html);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2060,7 +2060,7 @@ $ctx2.sendIdx["class:"]=1;
 //>>excludeEnd("ctx");
 _st($1)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $2=_st(html)._span();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2090,7 +2090,7 @@ $ctx2.sendIdx["with:"]=1;
 //>>excludeEnd("ctx");
 $5=_st($1)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._newBrowserTab();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2116,14 +2116,14 @@ messageSends: ["contents:", "do:", "tabs", "renderTabFor:on:", "class:", "li", "
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderToolbarOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$4,$5,$6,$7,$2;
 $1=_st(html)._div();
@@ -2136,7 +2136,7 @@ $ctx1.sendIdx["id:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $3=_st(html)._input();
 _st($3)._class_("implementors");
@@ -2145,10 +2145,10 @@ self["@input"]=$4;
 self["@input"];
 _st(self["@input"])._onKeyPress_((function(event){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $5=_st(_st(event)._keyCode()).__eq((13));
-if($vm.assert($5)){
+if($core.assert($5)){
 return self._search_(_st(_st(self["@input"])._asJQuery())._val());
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2159,7 +2159,7 @@ $6=_st(html)._div();
 _st($6)._id_("amber_close");
 $7=_st($6)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._close();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2185,8 +2185,8 @@ messageSends: ["id:", "div", "with:", "class:", "input", "yourself", "onKeyPress
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "search:",
 protocol: 'actions',
 fn: function (aString){
@@ -2196,12 +2196,12 @@ function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?
 function $Browser(){return $globals.Browser||(typeof Browser=="undefined"?nil:Browser)}
 function $ReferencesBrowser(){return $globals.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 searchedClass=_st(_st($Smalltalk())._globals())._at_(aString);
 $1=_st(searchedClass)._isClass();
-if($vm.assert($1)){
+if($core.assert($1)){
 _st($Browser())._openOn_(searchedClass);
 } else {
 _st($ReferencesBrowser())._search_(aString);
@@ -2220,20 +2220,20 @@ messageSends: ["at:", "globals", "ifTrue:ifFalse:", "isClass", "openOn:", "searc
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectTab:",
 protocol: 'actions',
 fn: function (aWidget){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._open();
 self["@selectedTab"]=aWidget;
 _st(self._tabs())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._hide();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2256,14 +2256,14 @@ messageSends: ["open", "do:", "tabs", "hide", "show", "update"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "setBodyMargin:",
 protocol: 'actions',
 fn: function (anInteger){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(".amberBody"._asJQuery())._css_put_("margin-bottom",_st(_st(anInteger)._asString()).__comma("px"));
 return self;
@@ -2280,15 +2280,15 @@ messageSends: ["css:put:", "asJQuery", ",", "asString"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "tabs",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@tabs"];
@@ -2312,14 +2312,14 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "update",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._renderTabs();
 return self;
@@ -2336,14 +2336,14 @@ messageSends: ["renderTabs"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateBodyMargin",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._setBodyMargin_(_st("#amber"._asJQuery())._height());
 return self;
@@ -2360,14 +2360,14 @@ messageSends: ["setBodyMargin:", "height", "asJQuery"]
 }),
 $globals.TabManager);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updatePosition",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1="#amber"._asJQuery();
@@ -2392,14 +2392,14 @@ $globals.TabManager);
 
 
 $globals.TabManager.klass.iVarNames = ['current'];
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "current",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@current"];
@@ -2430,14 +2430,14 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.TabManager.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "new",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._shouldNotImplement();
 return self;
@@ -2454,8 +2454,8 @@ messageSends: ["shouldNotImplement"]
 }),
 $globals.TabManager.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "toggleAmberIDE",
 protocol: 'actions',
 fn: function (){
@@ -2463,7 +2463,7 @@ var self=this;
 function $Browser(){return $globals.Browser||(typeof Browser=="undefined"?nil:Browser)}
 function $TabManager(){return $globals.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1,$4,$5;
 $3="#amber"._asJQuery();
@@ -2472,14 +2472,14 @@ $ctx1.sendIdx["asJQuery"]=1;
 //>>excludeEnd("ctx");
 $2=_st($3)._length();
 $1=_st($2).__eq((0));
-if($vm.assert($1)){
+if($core.assert($1)){
 _st($Browser())._open();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["open"]=1;
 //>>excludeEnd("ctx");
 } else {
 $4=_st("#amber"._asJQuery())._is_(":visible");
-if($vm.assert($4)){
+if($core.assert($4)){
 $5=_st($TabManager())._current();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["current"]=1;
@@ -2504,9 +2504,9 @@ messageSends: ["ifTrue:ifFalse:", "=", "length", "asJQuery", "open", "is:", "clo
 $globals.TabManager.klass);
 
 
-$vm.addClass('TabWidget', $globals.Widget, ['div'], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('TabWidget', $globals.Widget, ['div'], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "canBeClosed",
 protocol: 'testing',
 fn: function (){
@@ -2523,15 +2523,15 @@ messageSends: []
 }),
 $globals.TabWidget);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "close",
 protocol: 'actions',
 fn: function (){
 var self=this;
 function $TabManager(){return $globals.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($TabManager())._current())._closeTab_(self);
 return self;
@@ -2548,14 +2548,14 @@ messageSends: ["closeTab:", "current"]
 }),
 $globals.TabWidget);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "hide",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(self["@div"])._asJQuery())._hide();
 return self;
@@ -2572,14 +2572,14 @@ messageSends: ["hide", "asJQuery"]
 }),
 $globals.TabWidget);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
@@ -2596,15 +2596,15 @@ messageSends: ["subclassResponsibility"]
 }),
 $globals.TabWidget);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "open",
 protocol: 'actions',
 fn: function (){
 var self=this;
 function $TabManager(){return $globals.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($TabManager())._current();
@@ -2627,14 +2627,14 @@ messageSends: ["addTab:", "current", "selectTab:"]
 }),
 $globals.TabWidget);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "remove",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(self["@div"])._asJQuery())._remove();
 return self;
@@ -2651,8 +2651,8 @@ messageSends: ["remove", "asJQuery"]
 }),
 $globals.TabWidget);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderBoxOn:",
 protocol: 'rendering',
 fn: function (html){
@@ -2669,8 +2669,8 @@ messageSends: []
 }),
 $globals.TabWidget);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderButtonsOn:",
 protocol: 'rendering',
 fn: function (html){
@@ -2687,14 +2687,14 @@ messageSends: []
 }),
 $globals.TabWidget);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st(html)._div();
@@ -2716,19 +2716,19 @@ messageSends: ["class:", "div", "yourself", "renderTab"]
 }),
 $globals.TabWidget);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderTab",
 protocol: 'rendering',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 _st(self["@div"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(html)._div();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2740,7 +2740,7 @@ $ctx2.sendIdx["class:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._renderBoxOn_(html);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2755,7 +2755,7 @@ $3=_st(html)._div();
 _st($3)._class_("amber_buttons");
 $4=_st($3)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._renderButtonsOn_(html);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2781,14 +2781,14 @@ messageSends: ["contents:", "class:", "div", "with:", "renderBoxOn:", "renderBut
 }),
 $globals.TabWidget);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "show",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(self["@div"])._asJQuery())._show();
 return self;
@@ -2805,14 +2805,14 @@ messageSends: ["show", "asJQuery"]
 }),
 $globals.TabWidget);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "update",
 protocol: 'rendering',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._renderTab();
 return self;
@@ -2830,14 +2830,14 @@ messageSends: ["renderTab"]
 $globals.TabWidget);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "open",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._new())._open();
@@ -2856,16 +2856,16 @@ messageSends: ["open", "new"]
 $globals.TabWidget.klass);
 
 
-$vm.addClass('Browser', $globals.TabWidget, ['selectedPackage', 'selectedClass', 'selectedProtocol', 'selectedMethod', 'packagesList', 'classesList', 'protocolsList', 'methodsList', 'sourceArea', 'tabsList', 'selectedTab', 'saveButton', 'classButtons', 'methodButtons', 'unsavedChanges'], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('Browser', $globals.TabWidget, ['selectedPackage', 'selectedClass', 'selectedProtocol', 'selectedMethod', 'packagesList', 'classesList', 'protocolsList', 'methodsList', 'sourceArea', 'tabsList', 'selectedTab', 'saveButton', 'classButtons', 'methodButtons', 'unsavedChanges'], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "addInstanceVariableNamed:toClass:",
 protocol: 'actions',
 fn: function (aString,aClass){
 var self=this;
 function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5;
 $1=_st($ClassBuilder())._new();
@@ -2892,8 +2892,8 @@ messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "new", "sup
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "addNewClass",
 protocol: 'actions',
 fn: function (){
@@ -2902,20 +2902,20 @@ var className;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 className=self._prompt_("New class");
 $1=_st(_st(className)._notNil())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(className)._notEmpty();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($1)){
+if($core.assert($1)){
 _st($Object())._subclass_instanceVariableNames_package_(className,"",self._selectedPackage());
 self._resetClassesList();
 $2=self._updateClassesList();
@@ -2936,28 +2936,28 @@ messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "subclass:ins
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "addNewProtocol",
 protocol: 'actions',
 fn: function (){
 var self=this;
 var newProtocol;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 newProtocol=self._prompt_("New method protocol");
 $1=_st(_st(newProtocol)._notNil())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(newProtocol)._notEmpty();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(self["@selectedMethod"])._protocol_(newProtocol);
 self._setMethodProtocol_(newProtocol);
 };
@@ -2975,8 +2975,8 @@ messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "protocol:", 
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "canBeClosed",
 protocol: 'testing',
 fn: function (){
@@ -2993,18 +2993,18 @@ messageSends: []
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "cancelChanges",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self["@unsavedChanges"];
-if($vm.assert($2)){
+if($core.assert($2)){
 $1=self._confirm_("Cancel changes?");
 } else {
 $1=true;
@@ -3023,14 +3023,14 @@ messageSends: ["ifTrue:ifFalse:", "confirm:"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "classCommentSource",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@selectedClass"])._comment();
@@ -3048,8 +3048,8 @@ messageSends: ["comment"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "classDeclarationSource",
 protocol: 'accessing',
 fn: function (){
@@ -3057,7 +3057,7 @@ var self=this;
 var stream;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$6,$7,$5,$8,$9,$10,$11,$12,$13,$receiver;
 stream=""._writeStream();
@@ -3104,7 +3104,7 @@ $ctx1.sendIdx["nextPutAll:"]=5;
 //>>excludeEnd("ctx");
 _st(_st(self["@selectedClass"])._instanceVariableNames())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(stream)._nextPutAll_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3115,7 +3115,7 @@ $ctx2.sendIdx["nextPutAll:"]=6;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(stream)._nextPutAll_(" ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3159,14 +3159,14 @@ messageSends: ["writeStream", "ifNil:", "classDeclarationTemplate", "nextPutAll:
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "classDeclarationTemplate",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st("Object subclass: #NameOfSubclass\x0a\x09instanceVariableNames: ''\x0a\x09package: '".__comma(self._selectedPackage())).__comma("'");
@@ -3187,20 +3187,20 @@ messageSends: [",", "selectedPackage"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "classes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $1=_st(_st(_st(_st($Smalltalk())._classes())._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._category()).__eq(self["@selectedPackage"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3208,7 +3208,7 @@ return _st(_st(each)._category()).__eq(self["@selectedPackage"]);
 //>>excludeEnd("ctx");
 })))._sort_((function(a,b){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=_st(a)._name();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3233,15 +3233,15 @@ messageSends: ["asSet", "sort:", "select:", "classes", "=", "category", "<", "na
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "commitPackage",
 protocol: 'actions',
 fn: function (){
 var self=this;
 function $Package(){return $globals.Package||(typeof Package=="undefined"?nil:Package)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@selectedPackage"];
@@ -3264,15 +3264,15 @@ messageSends: ["ifNotNil:", "commit", "named:"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "compile",
 protocol: 'actions',
 fn: function (){
 var self=this;
 var currentEditLine;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$4,$receiver;
 self._disableSaveButton();
@@ -3282,7 +3282,7 @@ $ctx1.sendIdx["editor"]=1;
 //>>excludeEnd("ctx");
 currentEditLine=_st($1)._getCursor();
 $2=_st(self["@selectedTab"]).__eq("comment");
-if($vm.assert($2)){
+if($core.assert($2)){
 $3=self["@selectedClass"];
 if(($receiver = $3) == null || $receiver.isNil){
 $3;
@@ -3296,14 +3296,14 @@ $ctx1.sendIdx["notNil"]=1;
 //>>excludeEnd("ctx");
 $4=_st($5)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@selectedMethod"])._notNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($4)){
+if($core.assert($4)){
 self._compileMethodDefinition();
 } else {
 self._compileDefinition();
@@ -3324,14 +3324,14 @@ messageSends: ["disableSaveButton", "getCursor", "editor", "ifTrue:ifFalse:", "=
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "compileClassComment",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@selectedClass"])._comment_(_st(self["@sourceArea"])._val());
 return self;
@@ -3348,8 +3348,8 @@ messageSends: ["comment:", "val"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "compileDefinition",
 protocol: 'actions',
 fn: function (){
@@ -3357,7 +3357,7 @@ var self=this;
 var newClass;
 function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 newClass=_st(_st($Compiler())._new())._evaluateExpression_(_st(self["@sourceArea"])._val());
@@ -3379,18 +3379,18 @@ messageSends: ["evaluateExpression:", "new", "val", "resetClassesList", "updateC
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "compileMethodDefinition",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@selectedTab"]).__eq("instance");
-if($vm.assert($1)){
+if($core.assert($1)){
 self._compileMethodDefinitionFor_(self["@selectedClass"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["compileMethodDefinitionFor:"]=1;
@@ -3412,8 +3412,8 @@ messageSends: ["ifTrue:ifFalse:", "=", "compileMethodDefinitionFor:", "class"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "compileMethodDefinitionFor:",
 protocol: 'actions',
 fn: function (aClass){
@@ -3423,7 +3423,7 @@ function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil
 function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$6,$5,$4,$3,$7,$9,$8,$10,$receiver;
 var $early={};
@@ -3443,7 +3443,7 @@ $ctx1.sendIdx["new"]=1;
 _st(compiler)._source_(source);
 node=_st(compiler)._parse_(source);
 $2=_st(node)._isParseFailure();
-if($vm.assert($2)){
+if($core.assert($2)){
 $6="PARSE ERROR: ".__comma(_st(node)._reason());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=3;
@@ -3463,16 +3463,16 @@ _st(compiler)._currentClass_(aClass);
 method=_st(compiler)._eval_(_st(compiler)._compileNode_(node));
 _st(_st(compiler)._unknownVariables())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $7=_st($PlatformInterface())._existsGlobal_(each);
-if(!$vm.assert($7)){
+if(!$core.assert($7)){
 $9=_st("Declare '".__comma(each)).__comma("' as instance variable?");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=4;
 //>>excludeEnd("ctx");
 $8=self._confirm_($9);
-if($vm.assert($8)){
+if($core.assert($8)){
 self._addInstanceVariableNamed_toClass_(each,aClass);
 $10=self._compileMethodDefinitionFor_(aClass);
 throw $early=[$10];
@@ -3501,8 +3501,8 @@ messageSends: ["val", "ifNil:", "protocol", "new", "source:", "parse:", "ifTrue:
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "copyClass",
 protocol: 'actions',
 fn: function (){
@@ -3511,20 +3511,20 @@ var className;
 function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 className=self._prompt_("Copy class");
 $1=_st(_st(className)._notNil())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(className)._notEmpty();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(_st($ClassBuilder())._new())._copyClass_named_(self._selectedClass(),className);
 self._resetClassesList();
 $2=self._updateClassesList();
@@ -3545,18 +3545,18 @@ messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "copyClass:na
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "declarationSource",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st(self["@selectedTab"]).__eq("instance");
-if($vm.assert($2)){
+if($core.assert($2)){
 $1=self._classDeclarationSource();
 } else {
 $1=self._metaclassDeclarationSource();
@@ -3575,14 +3575,14 @@ messageSends: ["ifTrue:ifFalse:", "=", "classDeclarationSource", "metaclassDecla
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "disableSaveButton",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@saveButton"];
@@ -3606,8 +3606,8 @@ messageSends: ["ifNotNil:", "at:put:"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "dummyMethodSource",
 protocol: 'accessing',
 fn: function (){
@@ -3624,14 +3624,14 @@ messageSends: []
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "handleSourceAreaKeyDown:",
 protocol: 'actions',
 fn: function (anEvent){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 83) { //ctrl+s
@@ -3655,14 +3655,14 @@ messageSends: []
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "hideClassButtons",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(self["@classButtons"])._asJQuery())._hide();
 return self;
@@ -3679,14 +3679,14 @@ messageSends: ["hide", "asJQuery"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "hideMethodButtons",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(self["@methodButtons"])._asJQuery())._hide();
 return self;
@@ -3703,14 +3703,14 @@ messageSends: ["hide", "asJQuery"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3737,14 +3737,14 @@ messageSends: ["initialize", "first", "packages"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@selectedClass"];
@@ -3767,15 +3767,15 @@ messageSends: ["ifNil:ifNotNil:", ",", "name"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "metaclassDeclarationSource",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 var stream;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$receiver;
 stream=""._writeStream();
@@ -3799,7 +3799,7 @@ $ctx1.sendIdx["nextPutAll:"]=3;
 $3;
 _st(_st(_st(self["@selectedClass"])._class())._instanceVariableNames())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(stream)._nextPutAll_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3810,7 +3810,7 @@ $ctx2.sendIdx["nextPutAll:"]=4;
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(stream)._nextPutAll_(" ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3837,14 +3837,14 @@ messageSends: ["writeStream", "ifNotNil:", "nextPutAll:", "asString", "do:separa
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "methodSource",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@selectedMethod"];
@@ -3867,22 +3867,22 @@ messageSends: ["ifNil:ifNotNil:", "dummyMethodSource", "source"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "methods",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 var klass;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$7,$8,$6,$9,$5,$receiver;
 $1=_st(self["@selectedTab"]).__eq("comment");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
-if($vm.assert($1)){
+if($core.assert($1)){
 $2=[];
 return $2;
 };
@@ -3891,7 +3891,7 @@ if(($receiver = $3) == null || $receiver.isNil){
 $3;
 } else {
 $4=_st(self["@selectedTab"]).__eq("instance");
-if($vm.assert($4)){
+if($core.assert($4)){
 klass=self["@selectedClass"];
 } else {
 klass=_st(self["@selectedClass"])._class();
@@ -3911,7 +3911,7 @@ $6=_st(klass)._methodsInProtocol_(self["@selectedProtocol"]);
 };
 $5=_st($6)._sort_((function(a,b){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $9=_st(a)._selector();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3936,8 +3936,8 @@ messageSends: ["ifTrue:", "=", "ifNotNil:", "ifTrue:ifFalse:", "class", "sort:",
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "packages",
 protocol: 'accessing',
 fn: function (){
@@ -3946,13 +3946,13 @@ var packages;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$4;
 packages=_st($Array())._new();
 _st(_st($Smalltalk())._classes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=packages;
 $3=_st(each)._category();
@@ -3960,7 +3960,7 @@ $3=_st(each)._category();
 $ctx2.sendIdx["category"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._includes_($3);
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 return _st(packages)._add_(_st(each)._category());
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3982,8 +3982,8 @@ messageSends: ["new", "do:", "classes", "ifFalse:", "includes:", "category", "ad
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "protocols",
 protocol: 'accessing',
 fn: function (){
@@ -3991,7 +3991,7 @@ var self=this;
 var klass;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$8,$receiver;
 $1=self["@selectedClass"];
@@ -4002,19 +4002,19 @@ $2=_st(self["@selectedTab"]).__eq("comment");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
-if($vm.assert($2)){
+if($core.assert($2)){
 $3=[];
 return $3;
 };
 $4=_st(self["@selectedTab"]).__eq("instance");
-if($vm.assert($4)){
+if($core.assert($4)){
 klass=self["@selectedClass"];
 } else {
 klass=_st(self["@selectedClass"])._class();
 };
 klass;
 $5=_st(_st(klass)._methodDictionary())._isEmpty();
-if($vm.assert($5)){
+if($core.assert($5)){
 $6=_st($Array())._with_("not yet classified");
 return $6;
 };
@@ -4036,15 +4036,15 @@ messageSends: ["ifNotNil:", "ifTrue:", "=", "ifTrue:ifFalse:", "class", "isEmpty
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "removeClass",
 protocol: 'actions',
 fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st("Do you really want to remove ".__comma(_st(self["@selectedClass"])._name())).__comma("?");
@@ -4052,7 +4052,7 @@ $2=_st("Do you really want to remove ".__comma(_st(self["@selectedClass"])._name
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
 $1=self._confirm_($2);
-if($vm.assert($1)){
+if($core.assert($1)){
 _st($Smalltalk())._removeClass_(self["@selectedClass"]);
 self._resetClassesList();
 self._selectClass_(nil);
@@ -4071,26 +4071,26 @@ messageSends: ["ifTrue:", "confirm:", ",", "name", "removeClass:", "resetClasses
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "removeMethod",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$2,$4;
 $1=self._cancelChanges();
-if($vm.assert($1)){
+if($core.assert($1)){
 $3=_st("Do you really want to remove #".__comma(_st(self["@selectedMethod"])._selector())).__comma("?");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
 $2=self._confirm_($3);
-if($vm.assert($2)){
+if($core.assert($2)){
 $4=_st(self["@selectedTab"]).__eq("instance");
-if($vm.assert($4)){
+if($core.assert($4)){
 _st(self["@selectedClass"])._removeCompiledMethod_(self["@selectedMethod"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["removeCompiledMethod:"]=1;
@@ -4115,15 +4115,15 @@ messageSends: ["ifTrue:", "cancelChanges", "confirm:", ",", "selector", "ifTrue:
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "removePackage",
 protocol: 'actions',
 fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st("Do you really want to remove the whole package ".__comma(self["@selectedPackage"])).__comma(" with all its classes?");
@@ -4131,7 +4131,7 @@ $2=_st("Do you really want to remove the whole package ".__comma(self["@selected
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
 $1=self._confirm_($2);
-if($vm.assert($1)){
+if($core.assert($1)){
 _st($Smalltalk())._removePackage_(self["@selectedPackage"]);
 self._updateCategoriesList();
 };
@@ -4149,28 +4149,28 @@ messageSends: ["ifTrue:", "confirm:", ",", "removePackage:", "updateCategoriesLi
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renameClass",
 protocol: 'actions',
 fn: function (){
 var self=this;
 var newName;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 newName=self._prompt_("Rename class ".__comma(_st(self["@selectedClass"])._name()));
 $1=_st(_st(newName)._notNil())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(newName)._notEmpty();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(self["@selectedClass"])._rename_(newName);
 self._updateClassesList();
 $2=self._updateSourceAndButtons();
@@ -4190,8 +4190,8 @@ messageSends: ["prompt:", ",", "name", "ifTrue:", "and:", "notNil", "notEmpty", 
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renamePackage",
 protocol: 'actions',
 fn: function (){
@@ -4199,7 +4199,7 @@ var self=this;
 var newName;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
 newName=self._prompt_("Rename package ".__comma(self["@selectedPackage"]));
@@ -4208,7 +4208,7 @@ if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
 $2=_st(newName)._notEmpty();
-if($vm.assert($2)){
+if($core.assert($2)){
 _st($Smalltalk())._renamePackage_to_(self["@selectedPackage"],newName);
 self._updateCategoriesList();
 };
@@ -4227,29 +4227,29 @@ messageSends: ["prompt:", ",", "ifNotNil:", "ifTrue:", "notEmpty", "renamePackag
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderBottomPanelOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $SourceArea(){return $globals.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st(html)._div();
 _st($1)._class_("amber_sourceCode");
 $2=_st($1)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self["@sourceArea"]=_st($SourceArea())._new();
 self["@sourceArea"];
 _st(self["@sourceArea"])._renderOn_(html);
 _st(self["@sourceArea"])._onKeyDown_((function(e){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._handleSourceAreaKeyDown_(e);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4258,7 +4258,7 @@ return self._handleSourceAreaKeyDown_(e);
 }));
 return _st(self["@sourceArea"])._onKeyUp_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._updateStatus();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4283,14 +4283,14 @@ messageSends: ["class:", "div", "with:", "new", "renderOn:", "onKeyDown:", "hand
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderBoxOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._renderTopPanelOn_(html);
@@ -4310,14 +4310,14 @@ messageSends: ["renderTopPanelOn:", "renderTabsOn:", "renderBottomPanelOn:"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderButtonsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$6,$7,$8,$9,$10,$4;
 self["@saveButton"]=_st(html)._button();
@@ -4331,7 +4331,7 @@ $ctx1.sendIdx["with:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._compile();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4350,7 +4350,7 @@ $3=_st(html)._div();
 _st($3)._class_("right");
 $4=_st($3)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $5=_st(html)._button();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4362,7 +4362,7 @@ $ctx2.sendIdx["with:"]=3;
 //>>excludeEnd("ctx");
 $6=_st($5)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(self["@sourceArea"])._doIt();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4383,7 +4383,7 @@ $ctx2.sendIdx["with:"]=4;
 //>>excludeEnd("ctx");
 $8=_st($7)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(self["@sourceArea"])._printIt();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4398,7 +4398,7 @@ $9=_st(html)._button();
 _st($9)._with_("InspectIt");
 $10=_st($9)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(self["@sourceArea"])._inspectIt();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4428,14 +4428,14 @@ messageSends: ["button", "with:", "onClick:", "compile", "span", "class:", "div"
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderTabsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@tabsList"]=_st(_st(html)._ul())._class_("amber_tabs amber_browser");
 self._updateTabsList();
@@ -4453,15 +4453,15 @@ messageSends: ["class:", "ul", "updateTabsList"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderTopPanelOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $ClassesList(){return $globals.ClassesList||(typeof ClassesList=="undefined"?nil:ClassesList)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$4,$6,$7,$8,$9,$10,$11,$5,$12,$13,$2;
 $1=_st(html)._div();
@@ -4474,7 +4474,7 @@ $ctx1.sendIdx["class:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $3=_st(html)._ul();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4495,7 +4495,7 @@ $ctx2.sendIdx["class:"]=3;
 //>>excludeEnd("ctx");
 $5=_st($4)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $6=_st(html)._button();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4507,7 +4507,7 @@ $ctx3.sendIdx["title:"]=1;
 //>>excludeEnd("ctx");
 _st($6)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._commitPackage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4532,7 +4532,7 @@ $ctx3.sendIdx["title:"]=2;
 //>>excludeEnd("ctx");
 _st($8)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._renamePackage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4551,7 +4551,7 @@ $10=_st(html)._button();
 _st($10)._title_("Remove this package from the system");
 _st($10)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._removePackage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4612,14 +4612,14 @@ messageSends: ["class:", "div", "with:", "ul", "title:", "button", "onClick:", "
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "resetClassesList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@classesList"])._resetNodes();
 return self;
@@ -4636,24 +4636,24 @@ messageSends: ["resetNodes"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "search:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._cancelChanges();
-if($vm.assert($1)){
+if($core.assert($1)){
 var searchedClass;
 searchedClass=_st(_st($Smalltalk())._globals())._at_(aString);
 searchedClass;
 $2=_st(searchedClass)._isClass();
-if($vm.assert($2)){
+if($core.assert($2)){
 _st(self._class())._openOn_(searchedClass);
 } else {
 self._searchReferencesOf_(aString);
@@ -4673,15 +4673,15 @@ messageSends: ["ifTrue:", "cancelChanges", "at:", "globals", "ifTrue:ifFalse:", 
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "searchClassReferences",
 protocol: 'actions',
 fn: function (){
 var self=this;
 function $ReferencesBrowser(){return $globals.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($ReferencesBrowser())._search_(_st(self["@selectedClass"])._name());
 return self;
@@ -4698,15 +4698,15 @@ messageSends: ["search:", "name"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "searchReferencesOf:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
 function $ReferencesBrowser(){return $globals.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($ReferencesBrowser())._search_(aString);
 return self;
@@ -4723,18 +4723,18 @@ messageSends: ["search:"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectCategory:",
 protocol: 'actions',
 fn: function (aCategory){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._cancelChanges();
-if($vm.assert($1)){
+if($core.assert($1)){
 self["@selectedPackage"]=aCategory;
 self["@selectedPackage"];
 self["@selectedMethod"]=nil;
@@ -4763,18 +4763,18 @@ messageSends: ["ifTrue:", "cancelChanges", "resetClassesList", "updateCategories
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectClass:",
 protocol: 'actions',
 fn: function (aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._cancelChanges();
-if($vm.assert($1)){
+if($core.assert($1)){
 self["@selectedClass"]=aClass;
 self["@selectedClass"];
 self["@selectedMethod"]=nil;
@@ -4800,18 +4800,18 @@ messageSends: ["ifTrue:", "cancelChanges", "updateClassesList", "updateProtocols
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectMethod:",
 protocol: 'actions',
 fn: function (aMethod){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._cancelChanges();
-if($vm.assert($1)){
+if($core.assert($1)){
 self["@selectedMethod"]=aMethod;
 self["@selectedMethod"];
 self._updateProtocolsList();
@@ -4833,18 +4833,18 @@ messageSends: ["ifTrue:", "cancelChanges", "updateProtocolsList", "updateMethods
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectProtocol:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._cancelChanges();
-if($vm.assert($1)){
+if($core.assert($1)){
 self["@selectedProtocol"]=aString;
 self["@selectedProtocol"];
 self["@selectedMethod"]=nil;
@@ -4868,18 +4868,18 @@ messageSends: ["ifTrue:", "cancelChanges", "updateProtocolsList", "updateMethods
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectTab:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._cancelChanges();
-if($vm.assert($1)){
+if($core.assert($1)){
 self["@selectedTab"]=aString;
 self["@selectedTab"];
 self._selectProtocol_(nil);
@@ -4899,8 +4899,8 @@ messageSends: ["ifTrue:", "cancelChanges", "selectProtocol:", "updateTabsList"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectedClass",
 protocol: 'accessing',
 fn: function (){
@@ -4919,8 +4919,8 @@ messageSends: []
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectedPackage",
 protocol: 'accessing',
 fn: function (){
@@ -4939,20 +4939,20 @@ messageSends: []
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "setMethodProtocol:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 $1=self._cancelChanges();
-if($vm.assert($1)){
+if($core.assert($1)){
 $2=_st(self._protocols())._includes_(aString);
-if($vm.assert($2)){
+if($core.assert($2)){
 _st(self["@selectedMethod"])._protocol_(aString);
 self["@selectedProtocol"]=aString;
 self["@selectedProtocol"];
@@ -4980,14 +4980,14 @@ messageSends: ["ifTrue:", "cancelChanges", "ifFalse:ifTrue:", "includes:", "prot
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "showClassButtons",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(self["@classButtons"])._asJQuery())._show();
 return self;
@@ -5004,14 +5004,14 @@ messageSends: ["show", "asJQuery"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "showMethodButtons",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(self["@methodButtons"])._asJQuery())._show();
 return self;
@@ -5028,32 +5028,32 @@ messageSends: ["show", "asJQuery"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "source",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2,$6,$5,$receiver;
 $1=_st(self["@selectedTab"]).__eq("comment");
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 $4=_st(self["@selectedProtocol"])._notNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["notNil"]=1;
 //>>excludeEnd("ctx");
 $3=_st($4)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@selectedMethod"])._notNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($3)){
+if($core.assert($3)){
 $2=self._methodSource();
 } else {
 $2=self._declarationSource();
@@ -5080,27 +5080,27 @@ messageSends: ["ifFalse:", "=", "ifFalse:ifTrue:", "or:", "notNil", "declaration
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateCategoriesList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 _st(self["@packagesList"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._packages())._do_((function(each){
 var li,label;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $1=_st(each)._isEmpty();
-if($vm.assert($1)){
+if($core.assert($1)){
 label="Unclassified";
 label;
 } else {
@@ -5110,14 +5110,14 @@ label;
 li=_st(html)._li();
 li;
 $2=_st(self["@selectedPackage"]).__eq(each);
-if($vm.assert($2)){
+if($core.assert($2)){
 _st(li)._class_("selected");
 };
 $3=li;
 _st($3)._with_(label);
 $4=_st($3)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._selectCategory_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5147,15 +5147,15 @@ messageSends: ["contents:", "do:", "packages", "ifTrue:ifFalse:", "isEmpty", "li
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateClassesList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 function $TabManager(){return $globals.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($TabManager())._current())._update();
 _st(self["@classesList"])._updateNodes();
@@ -5173,36 +5173,36 @@ messageSends: ["update", "current", "updateNodes"]
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateMethodsList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 _st(self["@methodsList"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._methods())._do_((function(each){
 var li;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 li=_st(html)._li();
 li;
 $1=_st(self["@selectedMethod"]).__eq(each);
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(li)._class_("selected");
 };
 $2=li;
 _st($2)._with_(_st(each)._selector());
 $3=_st($2)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._selectMethod_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5232,36 +5232,36 @@ messageSends: ["contents:", "do:", "methods", "li", "ifTrue:", "=", "class:", "w
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateProtocolsList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 _st(self["@protocolsList"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._protocols())._do_((function(each){
 var li;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 li=_st(html)._li();
 li;
 $1=_st(self["@selectedProtocol"]).__eq(each);
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(li)._class_("selected");
 };
 $2=li;
 _st($2)._with_(each);
 $3=_st($2)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._selectProtocol_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5291,21 +5291,21 @@ messageSends: ["contents:", "do:", "protocols", "li", "ifTrue:", "=", "class:", 
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateSourceAndButtons",
 protocol: 'updating',
 fn: function (){
 var self=this;
 var currentProtocol;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$15,$14,$17,$18,$19,$20,$22,$21,$23,$24,$16,$25,$26,$28,$29,$30,$31,$27,$32,$33;
 self._disableSaveButton();
 _st(self["@classButtons"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(html)._button();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5314,7 +5314,7 @@ $ctx2.sendIdx["button"]=1;
 _st($1)._title_("Create a new class");
 _st($1)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._addNewClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5339,7 +5339,7 @@ $ctx2.sendIdx["with:"]=2;
 //>>excludeEnd("ctx");
 $4=_st($3)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._renameClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5360,7 +5360,7 @@ $ctx2.sendIdx["with:"]=3;
 //>>excludeEnd("ctx");
 $6=_st($5)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._copyClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5381,7 +5381,7 @@ $ctx2.sendIdx["with:"]=4;
 //>>excludeEnd("ctx");
 $8=_st($7)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._removeClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5402,7 +5402,7 @@ $ctx2.sendIdx["with:"]=5;
 //>>excludeEnd("ctx");
 $10=_st($9)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._searchClassReferences();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5423,7 +5423,7 @@ $ctx1.sendIdx["contents:"]=1;
 _st(self["@methodButtons"])._contents_((function(html){
 var protocolSelect,referencesSelect;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $11=_st(html)._button();
 _st($11)._with_("Remove method");
@@ -5432,7 +5432,7 @@ $ctx2.sendIdx["with:"]=6;
 //>>excludeEnd("ctx");
 $12=_st($11)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._removeMethod();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5448,7 +5448,7 @@ protocolSelect;
 $13=protocolSelect;
 _st($13)._onChange_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $15=_st(protocolSelect)._asJQuery();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5468,7 +5468,7 @@ $ctx2.sendIdx["onChange:"]=1;
 //>>excludeEnd("ctx");
 $16=_st($13)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $17=_st(html)._option();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5504,7 +5504,7 @@ $ctx3.sendIdx["isNil"]=1;
 //>>excludeEnd("ctx");
 $21=_st($22)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return _st(self["@selectedMethod"])._notNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5514,14 +5514,14 @@ $ctx4.sendIdx["notNil"]=1;
 }, function($ctx4) {$ctx4.fillBlock({},$ctx3,11)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($21)){
+if($core.assert($21)){
 currentProtocol=_st(self["@selectedMethod"])._category();
 currentProtocol;
 };
 return _st(self._protocols())._do_((function(each){
 var option;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 $23=_st(html)._option();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5533,7 +5533,7 @@ $ctx4.sendIdx["with:"]=10;
 //>>excludeEnd("ctx");
 option;
 $24=_st(currentProtocol).__eq(each);
-if($vm.assert($24)){
+if($core.assert($24)){
 return _st(option)._at_put_("selected","selected");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx4.sendIdx["at:put:"]=2;
@@ -5558,13 +5558,13 @@ $25=_st(self["@selectedMethod"])._isNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["isNil"]=2;
 //>>excludeEnd("ctx");
-if(!$vm.assert($25)){
+if(!$core.assert($25)){
 referencesSelect=_st(html)._select();
 referencesSelect;
 $26=referencesSelect;
 _st($26)._onChange_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._searchReferencesOf_(_st(_st(referencesSelect)._asJQuery())._val());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5574,7 +5574,7 @@ return self._searchReferencesOf_(_st(_st(referencesSelect)._asJQuery())._val());
 $27=_st($26)._with_((function(){
 var option;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $28=_st(html)._option();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5602,7 +5602,7 @@ $ctx3.sendIdx["with:"]=13;
 $31;
 return _st(_st(_st(self["@selectedMethod"])._messageSends())._sorted())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return _st(_st(html)._option())._with_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5626,18 +5626,18 @@ $32=_st(self["@selectedMethod"])._isNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["isNil"]=3;
 //>>excludeEnd("ctx");
-if($vm.assert($32)){
+if($core.assert($32)){
 self._hideMethodButtons();
 $33=_st(_st(self["@selectedClass"])._isNil())._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@selectedProtocol"])._notNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,20)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($33)){
+if($core.assert($33)){
 self._hideClassButtons();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["hideClassButtons"]=1;
@@ -5664,18 +5664,18 @@ messageSends: ["disableSaveButton", "contents:", "title:", "button", "onClick:",
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateStatus",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$receiver;
 $1=_st(_st(self["@sourceArea"])._val()).__eq(self._source());
-if($vm.assert($1)){
+if($core.assert($1)){
 $2=self["@saveButton"];
 if(($receiver = $2) == null || $receiver.isNil){
 $2;
@@ -5708,20 +5708,20 @@ messageSends: ["ifTrue:ifFalse:", "=", "val", "source", "ifNotNil:", "at:put:", 
 }),
 $globals.Browser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateTabsList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20;
 _st(self["@tabsList"])._contents_((function(html){
 var li;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 li=_st(html)._li();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5732,7 +5732,7 @@ $1=_st(self["@selectedTab"]).__eq("instance");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["="]=1;
 //>>excludeEnd("ctx");
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(li)._class_("selected");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["class:"]=1;
@@ -5741,7 +5741,7 @@ $ctx2.sendIdx["class:"]=1;
 $2=li;
 _st($2)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $3=_st(html)._span();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5781,7 +5781,7 @@ $ctx2.sendIdx["with:"]=1;
 //>>excludeEnd("ctx");
 $7=_st($2)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._selectTab_("instance");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5804,7 +5804,7 @@ $8=_st(self["@selectedTab"]).__eq("class");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["="]=2;
 //>>excludeEnd("ctx");
-if($vm.assert($8)){
+if($core.assert($8)){
 _st(li)._class_("selected");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["class:"]=5;
@@ -5813,7 +5813,7 @@ $ctx2.sendIdx["class:"]=5;
 $9=li;
 _st($9)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $10=_st(html)._span();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5853,7 +5853,7 @@ $ctx2.sendIdx["with:"]=3;
 //>>excludeEnd("ctx");
 $14=_st($9)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._selectTab_("class");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5870,7 +5870,7 @@ $14;
 li=_st(html)._li();
 li;
 $15=_st(self["@selectedTab"]).__eq("comment");
-if($vm.assert($15)){
+if($core.assert($15)){
 _st(li)._class_("selected");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["class:"]=9;
@@ -5879,7 +5879,7 @@ $ctx2.sendIdx["class:"]=9;
 $16=li;
 _st($16)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $17=_st(html)._span();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5909,7 +5909,7 @@ $ctx2.sendIdx["with:"]=5;
 //>>excludeEnd("ctx");
 $20=_st($16)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._selectTab_("comment");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5936,14 +5936,14 @@ messageSends: ["contents:", "li", "ifTrue:", "=", "class:", "with:", "span", "on
 $globals.Browser);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "open",
 protocol: 'convenience',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._new())._open();
 return self;
@@ -5960,14 +5960,14 @@ messageSends: ["open", "new"]
 }),
 $globals.Browser.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "openOn:",
 protocol: 'convenience',
 fn: function (aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -5990,9 +5990,9 @@ messageSends: ["open", "new", "selectCategory:", "category", "selectClass:"]
 $globals.Browser.klass);
 
 
-$vm.addClass('Debugger', $globals.TabWidget, ['error', 'selectedContext', 'sourceArea', 'ul', 'ul2', 'inspector', 'saveButton', 'unsavedChanges', 'selectedVariable', 'selectedVariableName', 'inspectButton'], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('Debugger', $globals.TabWidget, ['error', 'selectedContext', 'sourceArea', 'ul', 'ul2', 'inspector', 'saveButton', 'unsavedChanges', 'selectedVariable', 'selectedVariableName', 'inspectButton'], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "allVariables",
 protocol: 'accessing',
 fn: function (){
@@ -6000,7 +6000,7 @@ var self=this;
 var all;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1,$4;
 all=_st($Dictionary())._new();
@@ -6012,7 +6012,7 @@ $2=_st($3)._class();
 $1=_st($2)._allInstanceVariableNames();
 _st($1)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(all)._at_put_(each,_st(self._receiver())._instVarAt_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6024,7 +6024,7 @@ $ctx2.sendIdx["at:put:"]=1;
 }));
 _st(_st(self["@selectedContext"])._locals())._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(all)._at_put_(key,value);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6046,8 +6046,8 @@ messageSends: ["new", "do:", "allInstanceVariableNames", "class", "receiver", "a
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "canBeClosed",
 protocol: 'testing',
 fn: function (){
@@ -6064,8 +6064,8 @@ messageSends: []
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "error",
 protocol: 'accessing',
 fn: function (){
@@ -6084,8 +6084,8 @@ messageSends: []
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "error:",
 protocol: 'accessing',
 fn: function (anError){
@@ -6103,14 +6103,14 @@ messageSends: []
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6135,14 +6135,14 @@ messageSends: ["initialize", "="]
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "inspectSelectedVariable",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@selectedVariable"])._inspect();
 return self;
@@ -6159,8 +6159,8 @@ messageSends: ["inspect"]
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "label",
 protocol: 'accessing',
 fn: function (){
@@ -6177,14 +6177,14 @@ messageSends: []
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "method",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@selectedContext"])._method();
@@ -6202,14 +6202,14 @@ messageSends: ["method"]
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "proceed",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._close();
 _st(_st(self["@selectedContext"])._receiver())._perform_withArguments_(_st(self["@selectedContext"])._selector(),_st(self["@selectedContext"])._temps());
@@ -6227,14 +6227,14 @@ messageSends: ["close", "perform:withArguments:", "receiver", "selector", "temps
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "receiver",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@selectedContext"])._receiver();
@@ -6252,15 +6252,15 @@ messageSends: ["receiver"]
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderBottomPanelOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $SourceArea(){return $globals.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st(html)._div();
@@ -6273,7 +6273,7 @@ $ctx1.sendIdx["class:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self["@sourceArea"]=_st($SourceArea())._new();
 self["@sourceArea"];
@@ -6289,7 +6289,7 @@ $ctx1.sendIdx["class:"]=2;
 self["@inspector"]=_st(_st(html)._div())._class_("amber_column debugger inspector");
 _st(self["@sourceArea"])._onKeyUp_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._updateStatus();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6310,14 +6310,14 @@ messageSends: ["class:", "div", "with:", "new", "renderOn:", "ul", "onKeyUp:", "
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderBoxOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._renderTopPanelOn_(html);
@@ -6336,14 +6336,14 @@ messageSends: ["renderTopPanelOn:", "renderBottomPanelOn:"]
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderButtonsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15;
 $1=_st(html)._button();
@@ -6356,7 +6356,7 @@ $ctx1.sendIdx["with:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._save();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6377,7 +6377,7 @@ $ctx1.sendIdx["with:"]=2;
 //>>excludeEnd("ctx");
 $4=_st($3)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@sourceArea"])._doIt();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6397,7 +6397,7 @@ $ctx1.sendIdx["with:"]=3;
 //>>excludeEnd("ctx");
 $6=_st($5)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@sourceArea"])._printIt();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6417,7 +6417,7 @@ $ctx1.sendIdx["with:"]=4;
 //>>excludeEnd("ctx");
 $8=_st($7)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@sourceArea"])._inspectIt();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6437,7 +6437,7 @@ $ctx1.sendIdx["with:"]=5;
 //>>excludeEnd("ctx");
 $10=_st($9)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._proceed();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6457,7 +6457,7 @@ $ctx1.sendIdx["with:"]=6;
 //>>excludeEnd("ctx");
 $12=_st($11)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._close();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6472,7 +6472,7 @@ _st($13)._class_("amber_button debugger inspect");
 _st($13)._with_("Inspect");
 $14=_st($13)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._inspectSelectedVariable();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6498,27 +6498,27 @@ messageSends: ["with:", "button", "onClick:", "save", "doIt", "printIt", "inspec
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderContext:on:",
 protocol: 'rendering',
 fn: function (aContext,html){
 var self=this;
 var li;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$receiver;
 li=_st(html)._li();
 $1=_st(self["@selectedContext"]).__eq(aContext);
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(li)._class_("selected");
 };
 $2=li;
 _st($2)._with_(_st(aContext)._asString());
 $3=_st($2)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._selectContext_(aContext);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6548,14 +6548,14 @@ messageSends: ["li", "ifTrue:", "=", "class:", "with:", "asString", "onClick:", 
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderTopPanelOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$6,$8,$7,$5,$9,$10,$3;
 $1=self._error();
@@ -6576,7 +6576,7 @@ $ctx1.sendIdx["class:"]=1;
 //>>excludeEnd("ctx");
 $3=_st($2)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=_st(html)._div();
 _st($4)._class_("label");
@@ -6598,7 +6598,7 @@ $9=_st(html)._ul();
 _st($9)._class_("amber_column debugger contexts");
 $10=_st($9)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._renderContext_on_(_st(self._error())._context(),html);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6628,15 +6628,15 @@ messageSends: ["context", "error", "class:", "div", "with:", "messageText", "ul"
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "save",
 protocol: 'actions',
 fn: function (){
 var self=this;
 var protocol;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 $4=_st(self["@selectedContext"])._receiver();
@@ -6666,14 +6666,14 @@ messageSends: ["category", "at:", "methodDictionary", "class", "receiver", "sele
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectContext:",
 protocol: 'actions',
 fn: function (aContext){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self["@selectedContext"]=aContext;
@@ -6698,20 +6698,20 @@ messageSends: ["updateContextsList", "updateSourceArea", "updateInspector", "upd
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectVariable:named:",
 protocol: 'actions',
 fn: function (anObject,aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@selectedVariable"]=anObject;
 self["@selectedVariableName"]=aString;
 _st(self["@inspector"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(html)._with_(_st(anObject)._printString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6733,14 +6733,14 @@ messageSends: ["contents:", "with:", "printString", "updateVariablesList"]
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "source",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self._method();
@@ -6766,18 +6766,18 @@ messageSends: ["ifNil:ifNotNil:", "method", "source"]
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateContextsList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@ul"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._renderContext_on_(_st(self._error())._context(),html);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6798,14 +6798,14 @@ messageSends: ["contents:", "renderContext:on:", "context", "error"]
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateInspector",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@inspector"])._contents_((function(html){
 
@@ -6824,14 +6824,14 @@ messageSends: ["contents:"]
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateSourceArea",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@sourceArea"])._val_(self._source());
 return self;
@@ -6848,18 +6848,18 @@ messageSends: ["val:", "source"]
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateStatus",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$receiver;
 $1=_st(_st(self["@sourceArea"])._val()).__eq(self._source());
-if($vm.assert($1)){
+if($core.assert($1)){
 $2=self["@saveButton"];
 if(($receiver = $2) == null || $receiver.isNil){
 $2;
@@ -6892,20 +6892,20 @@ messageSends: ["ifTrue:ifFalse:", "=", "val", "source", "ifNotNil:", "at:put:", 
 }),
 $globals.Debugger);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateVariablesList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$receiver;
 _st(self["@ul2"])._contents_((function(html){
 var li;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(html)._li();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6917,7 +6917,7 @@ $ctx2.sendIdx["with:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._selectVariable_named_(self._receiver(),"self");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6936,7 +6936,7 @@ $3=_st(self["@selectedVariableName"]).__eq("self");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["="]=1;
 //>>excludeEnd("ctx");
-if($vm.assert($3)){
+if($core.assert($3)){
 _st(li)._class_("selected");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["class:"]=1;
@@ -6944,13 +6944,13 @@ $ctx2.sendIdx["class:"]=1;
 };
 return _st(self._allVariables())._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $4=_st(html)._li();
 _st($4)._with_(key);
 $5=_st($4)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._selectVariable_named_(value,key);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6960,7 +6960,7 @@ return self._selectVariable_named_(value,key);
 li=$5;
 li;
 $6=_st(self["@selectedVariableName"]).__eq(key);
-if($vm.assert($6)){
+if($core.assert($6)){
 return _st(li)._class_("selected");
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6993,9 +6993,9 @@ $globals.Debugger);
 
 
 
-$vm.addClass('IDEInspector', $globals.TabWidget, ['label', 'variables', 'object', 'selectedVariable', 'variablesList', 'valueTextarea', 'diveButton', 'sourceArea'], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('IDEInspector', $globals.TabWidget, ['label', 'variables', 'object', 'selectedVariable', 'variablesList', 'valueTextarea', 'diveButton', 'sourceArea'], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "canBeClosed",
 protocol: 'testing',
 fn: function (){
@@ -7012,14 +7012,14 @@ messageSends: []
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "dive",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(self._variables())._at_(self._selectedVariable()))._inspect();
 return self;
@@ -7036,14 +7036,14 @@ messageSends: ["inspect", "at:", "variables", "selectedVariable"]
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "inspect:",
 protocol: 'actions',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@object"]=anObject;
 self["@variables"]=[];
@@ -7062,14 +7062,14 @@ messageSends: ["inspectOn:"]
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "label",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@label"];
@@ -7092,14 +7092,14 @@ messageSends: ["ifNil:"]
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "refresh",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._inspect_(self["@object"]);
@@ -7119,28 +7119,28 @@ messageSends: ["inspect:", "updateVariablesList", "updateValueTextarea"]
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderBottomPanelOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $SourceArea(){return $globals.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$4,$2;
 $1=_st(html)._div();
 _st($1)._class_("amber_sourceCode");
 $2=_st($1)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $3=_st($SourceArea())._new();
 _st($3)._receiver_(self["@object"]);
 _st($3)._onDoIt_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._refresh();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7169,14 +7169,14 @@ messageSends: ["class:", "div", "with:", "receiver:", "new", "onDoIt:", "refresh
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderBoxOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._renderTopPanelOn_(html);
@@ -7195,14 +7195,14 @@ messageSends: ["renderTopPanelOn:", "renderBottomPanelOn:"]
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderButtonsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$2,$4,$6,$5,$7,$8;
 $1=_st(html)._button();
@@ -7215,7 +7215,7 @@ $ctx1.sendIdx["with:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $3=self._sourceArea();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7239,7 +7239,7 @@ $ctx1.sendIdx["with:"]=2;
 //>>excludeEnd("ctx");
 $5=_st($4)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $6=self._sourceArea();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7257,7 +7257,7 @@ $7=_st(html)._button();
 _st($7)._with_("InspectIt");
 $8=_st($7)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._sourceArea())._inspectIt();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7279,14 +7279,14 @@ messageSends: ["with:", "button", "onClick:", "doIt", "sourceArea", "printIt", "
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderTopPanelOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$4,$5,$7,$8,$9,$10,$6,$2,$11;
 $1=_st(html)._div();
@@ -7299,7 +7299,7 @@ $ctx1.sendIdx["class:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self["@variablesList"]=_st(_st(html)._ul())._class_("amber_column variables");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7325,7 +7325,7 @@ $ctx2.sendIdx["class:"]=4;
 //>>excludeEnd("ctx");
 $6=_st($5)._with_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $7=_st(html)._button();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7341,7 +7341,7 @@ $ctx3.sendIdx["with:"]=3;
 //>>excludeEnd("ctx");
 $8=_st($7)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._refresh();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7360,7 +7360,7 @@ $ctx3.sendIdx["class:"]=6;
 _st($9)._with_("Dive");
 $10=_st($9)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._dive();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7401,14 +7401,14 @@ messageSends: ["class:", "div", "with:", "ul", "textarea", "at:put:", "yourself"
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectVariable:",
 protocol: 'updating',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._selectedVariable_(aString);
@@ -7429,8 +7429,8 @@ messageSends: ["selectedVariable:", "updateVariablesList", "updateValueTextarea"
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectedVariable",
 protocol: 'accessing',
 fn: function (){
@@ -7449,8 +7449,8 @@ messageSends: []
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectedVariable:",
 protocol: 'accessing',
 fn: function (aString){
@@ -7468,8 +7468,8 @@ messageSends: []
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "setLabel:",
 protocol: 'accessing',
 fn: function (aString){
@@ -7487,8 +7487,8 @@ messageSends: []
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "setVariables:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -7506,8 +7506,8 @@ messageSends: []
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "sourceArea",
 protocol: 'accessing',
 fn: function (){
@@ -7526,14 +7526,14 @@ messageSends: []
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateButtons",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 $3=self._selectedVariable();
@@ -7546,14 +7546,14 @@ $ctx1.sendIdx["notNil"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(self._variables())._at_(self._selectedVariable()))._notNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(self["@diveButton"])._removeAt_("disabled");
 } else {
 _st(self["@diveButton"])._at_put_("disabled",true);
@@ -7572,14 +7572,14 @@ messageSends: ["ifFalse:ifTrue:", "and:", "notNil", "selectedVariable", "at:", "
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateValueTextarea",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2;
 $1=_st(self["@valueTextarea"])._asJQuery();
@@ -7588,7 +7588,7 @@ $4=self._selectedVariable();
 $ctx1.sendIdx["selectedVariable"]=1;
 //>>excludeEnd("ctx");
 $3=_st($4)._isNil();
-if($vm.assert($3)){
+if($core.assert($3)){
 $2="";
 } else {
 $2=_st(_st(self._variables())._at_(self._selectedVariable()))._printString();
@@ -7608,24 +7608,24 @@ messageSends: ["val:", "asJQuery", "ifTrue:ifFalse:", "isNil", "selectedVariable
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateVariablesList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 _st(self["@variablesList"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._variables())._keysDo_((function(each){
 var li;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 li=_st(html)._li();
 li;
@@ -7633,7 +7633,7 @@ $1=li;
 _st($1)._with_(each);
 $2=_st($1)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._selectVariable_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7642,7 +7642,7 @@ return self._selectVariable_(each);
 }));
 $2;
 $3=_st(self._selectedVariable()).__eq(each);
-if($vm.assert($3)){
+if($core.assert($3)){
 return _st(li)._class_("selected");
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7667,8 +7667,8 @@ messageSends: ["contents:", "keysDo:", "variables", "li", "with:", "onClick:", "
 }),
 $globals.IDEInspector);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "variables",
 protocol: 'accessing',
 fn: function (){
@@ -7688,14 +7688,14 @@ messageSends: []
 $globals.IDEInspector);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "inspect:",
 protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -7717,14 +7717,14 @@ messageSends: ["inspect:", "new", "open", "yourself"]
 }),
 $globals.IDEInspector.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "on:",
 protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -7746,15 +7746,15 @@ messageSends: ["inspect:", "new", "yourself"]
 $globals.IDEInspector.klass);
 
 
-$vm.addClass('IDETranscript', $globals.TabWidget, ['textarea'], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('IDETranscript', $globals.TabWidget, ['textarea'], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "clear",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(self["@textarea"])._asJQuery())._val_("");
 return self;
@@ -7771,15 +7771,15 @@ messageSends: ["val:", "asJQuery"]
 }),
 $globals.IDETranscript);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "cr",
 protocol: 'actions',
 fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@textarea"])._asJQuery();
@@ -7801,8 +7801,8 @@ messageSends: ["val:", "asJQuery", ",", "val", "cr"]
 }),
 $globals.IDETranscript);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "label",
 protocol: 'accessing',
 fn: function (){
@@ -7819,15 +7819,15 @@ messageSends: []
 }),
 $globals.IDETranscript);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "open",
 protocol: 'actions',
 fn: function (){
 var self=this;
 function $TabManager(){return $globals.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st($TabManager())._current();
@@ -7847,14 +7847,14 @@ messageSends: ["open", "current", "selectTab:"]
 }),
 $globals.IDETranscript);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderBoxOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 self["@textarea"]=_st(html)._textarea();
@@ -7875,21 +7875,21 @@ messageSends: ["textarea", "class:", "at:put:"]
 }),
 $globals.IDETranscript);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderButtonsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st(html)._button();
 _st($1)._with_("Clear transcript");
 $2=_st($1)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._clear();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7910,14 +7910,14 @@ messageSends: ["with:", "button", "onClick:", "clear"]
 }),
 $globals.IDETranscript);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "show:",
 protocol: 'actions',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
 $1=self["@textarea"];
@@ -7947,14 +7947,14 @@ $globals.IDETranscript);
 
 
 $globals.IDETranscript.klass.iVarNames = ['current'];
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "current",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@current"];
@@ -7985,15 +7985,15 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.IDETranscript.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($Transcript())._register_(self._current());
 return self;
@@ -8010,14 +8010,14 @@ messageSends: ["register:", "current"]
 }),
 $globals.IDETranscript.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "new",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._shouldNotImplement();
 return self;
@@ -8034,15 +8034,15 @@ messageSends: ["shouldNotImplement"]
 }),
 $globals.IDETranscript.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "open",
 protocol: 'instance creation',
 fn: function (){
 var self=this;
 function $TabManager(){return $globals.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st($TabManager())._current();
@@ -8066,15 +8066,15 @@ messageSends: ["open", "current", "selectTab:"]
 $globals.IDETranscript.klass);
 
 
-$vm.addClass('ProgressBar', $globals.TabWidget, ['percent', 'progressDiv', 'div'], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('ProgressBar', $globals.TabWidget, ['percent', 'progressDiv', 'div'], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "percent",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@percent"];
@@ -8097,8 +8097,8 @@ messageSends: ["ifNil:"]
 }),
 $globals.ProgressBar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "percent:",
 protocol: 'accessing',
 fn: function (aNumber){
@@ -8116,14 +8116,14 @@ messageSends: []
 }),
 $globals.ProgressBar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st(html)._div();
@@ -8145,19 +8145,19 @@ messageSends: ["class:", "div", "yourself", "renderProgressBar"]
 }),
 $globals.ProgressBar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderProgressBar",
 protocol: 'rendering',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$4,$2;
 _st(self["@div"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(html)._div();
 _st($1)._class_("progress");
@@ -8186,14 +8186,14 @@ messageSends: ["contents:", "class:", "div", "style:", ",", "asString", "percent
 }),
 $globals.ProgressBar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updatePercent:",
 protocol: 'updating',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._percent_(aNumber);
 self._renderProgressBar();
@@ -8213,9 +8213,9 @@ $globals.ProgressBar);
 
 
 
-$vm.addClass('ReferencesBrowser', $globals.TabWidget, ['implementors', 'senders', 'implementorsList', 'input', 'timer', 'selector', 'sendersList', 'referencedClasses', 'referencedClassesList', 'matches', 'matchesList'], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('ReferencesBrowser', $globals.TabWidget, ['implementors', 'senders', 'implementorsList', 'input', 'timer', 'selector', 'sendersList', 'referencedClasses', 'referencedClassesList', 'matches', 'matchesList'], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "canBeClosed",
 protocol: 'testing',
 fn: function (){
@@ -8232,15 +8232,15 @@ messageSends: []
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "classesAndMetaclasses",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st($Smalltalk())._classes();
@@ -8249,7 +8249,7 @@ $ctx1.sendIdx["classes"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2).__comma(_st(_st($Smalltalk())._classes())._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._class();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8270,15 +8270,15 @@ messageSends: [",", "classes", "collect:", "class"]
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "implementors",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@implementors"];
@@ -8302,14 +8302,14 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8334,8 +8334,8 @@ messageSends: ["initialize"]
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "label",
 protocol: 'accessing',
 fn: function (){
@@ -8352,15 +8352,15 @@ messageSends: []
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "matches",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@matches"];
@@ -8384,8 +8384,8 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "openBrowserOn:",
 protocol: 'actions',
 fn: function (aMethod){
@@ -8393,7 +8393,7 @@ var self=this;
 var browser;
 function $Browser(){return $globals.Browser||(typeof Browser=="undefined"?nil:Browser)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$4,$1,$5,$6,$7;
 $3=_st(aMethod)._methodClass();
@@ -8404,7 +8404,7 @@ $2=_st($3)._isMetaclass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["isMetaclass"]=1;
 //>>excludeEnd("ctx");
-if($vm.assert($2)){
+if($core.assert($2)){
 $4=_st(aMethod)._methodClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["methodClass"]=2;
@@ -8418,7 +8418,7 @@ $ctx1.sendIdx["methodClass"]=3;
 };
 browser=_st($Browser())._openOn_($1);
 $5=_st(_st(aMethod)._methodClass())._isMetaclass();
-if($vm.assert($5)){
+if($core.assert($5)){
 _st(browser)._selectTab_("class");
 };
 $6=browser;
@@ -8438,15 +8438,15 @@ messageSends: ["openOn:", "ifTrue:ifFalse:", "isMetaclass", "methodClass", "inst
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "referencedClasses",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@referencedClasses"];
@@ -8470,14 +8470,14 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderBoxOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._renderInputOn_(html);
@@ -8499,14 +8499,14 @@ messageSends: ["renderInputOn:", "renderImplementorsOn:", "renderSendersOn:", "r
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderImplementorsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@implementorsList"]=_st(_st(html)._ul())._class_("amber_column implementors");
 self._updateImplementorsList();
@@ -8524,14 +8524,14 @@ messageSends: ["class:", "ul", "updateImplementorsList"]
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderInputOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st(html)._input();
@@ -8554,14 +8554,14 @@ messageSends: ["class:", "input", "yourself", "val:", "asJQuery", "setInputEvent
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderMatchesOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@matchesList"]=_st(_st(html)._ul())._class_("amber_column matches");
 self._updateMatchesList();
@@ -8579,14 +8579,14 @@ messageSends: ["class:", "ul", "updateMatchesList"]
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderReferencedClassesOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@referencedClassesList"]=_st(_st(html)._ul())._class_("amber_column referenced_classes");
 self._updateReferencedClassesList();
@@ -8604,14 +8604,14 @@ messageSends: ["class:", "ul", "updateReferencedClassesList"]
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderSendersOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@sendersList"]=_st(_st(html)._ul())._class_("amber_column senders");
 self._updateSendersList();
@@ -8629,14 +8629,14 @@ messageSends: ["class:", "ul", "updateSendersList"]
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "search:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._searchReferencesFor_(aString);
@@ -8658,28 +8658,28 @@ messageSends: ["searchReferencesFor:", "updateImplementorsList", "updateSendersL
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "searchMethodSource",
 protocol: 'actions',
 fn: function (){
 var self=this;
 var regex;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 regex=_st(self["@selector"])._allButFirst();
 _st(self._classesAndMetaclasses())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._methodDictionary())._valuesDo_((function(value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $1=_st(_st(value)._source())._match_(regex);
-if($vm.assert($1)){
+if($core.assert($1)){
 return _st(self._matches())._add_(value);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8704,30 +8704,30 @@ messageSends: ["allButFirst", "do:", "classesAndMetaclasses", "valuesDo:", "meth
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "searchReferencedClasses",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 _st(self._classesAndMetaclasses())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._methodDictionary())._valuesDo_((function(value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $2=_st(value)._referencedClasses();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["referencedClasses"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._includes_(self["@selector"]);
-if($vm.assert($1)){
+if($core.assert($1)){
 return _st(self._referencedClasses())._add_(value);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8752,15 +8752,15 @@ messageSends: ["do:", "classesAndMetaclasses", "valuesDo:", "methodDictionary", 
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "searchReferencesFor:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self["@selector"]=aString;
@@ -8779,7 +8779,7 @@ $ctx1.sendIdx["new"]=3;
 self["@matches"]=_st($Array())._new();
 self._searchMethodSource();
 $1=_st(self["@selector"])._match_("^[A-Z]");
-if($vm.assert($1)){
+if($core.assert($1)){
 self._searchReferencedClasses();
 } else {
 self._searchSelectorReferences();
@@ -8798,33 +8798,33 @@ messageSends: ["new", "searchMethodSource", "ifFalse:ifTrue:", "match:", "search
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "searchSelectorReferences",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 _st(self._classesAndMetaclasses())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._methodDictionary())._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $1=_st(key).__eq(self["@selector"]);
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(self._implementors())._add_(value);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
 };
 $2=_st(_st(value)._messageSends())._includes_(self["@selector"]);
-if($vm.assert($2)){
+if($core.assert($2)){
 return _st(self._senders())._add_(value);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8849,8 +8849,8 @@ messageSends: ["do:", "classesAndMetaclasses", "keysAndValuesDo:", "methodDictio
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selector",
 protocol: 'accessing',
 fn: function (){
@@ -8869,15 +8869,15 @@ messageSends: []
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "senders",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@senders"];
@@ -8901,24 +8901,24 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "setInputEvents",
 protocol: 'private',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$2,$receiver;
 $1=self["@input"];
 _st($1)._onKeyUp_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self["@timer"]=_st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._search_(_st(_st(self["@input"])._asJQuery())._val());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8932,7 +8932,7 @@ return self["@timer"];
 }));
 $2=_st($1)._onKeyDown_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $3=self["@timer"];
 if(($receiver = $3) == null || $receiver.isNil){
@@ -8958,19 +8958,19 @@ messageSends: ["onKeyUp:", "valueWithTimeout:", "search:", "val", "asJQuery", "o
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateImplementorsList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$7,$6,$5,$4,$3,$8,$9,$10,$11,$12;
 _st(self["@implementorsList"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(html)._li();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9004,7 +9004,7 @@ $8;
 return _st(self._implementors())._do_((function(each){
 var li;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 li=_st(html)._li();
 li;
@@ -9017,7 +9017,7 @@ $ctx3.sendIdx[","]=3;
 _st($10)._with_($11);
 $12=_st($9)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._openBrowserOn_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9047,19 +9047,19 @@ messageSends: ["contents:", "class:", "li", "with:", ",", "asString", "size", "i
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateMatchesList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$7,$6,$5,$4,$3,$8,$9,$10,$11,$12;
 _st(self["@matchesList"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(html)._li();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9093,7 +9093,7 @@ $8;
 return _st(self._matches())._do_((function(each){
 var li;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 li=_st(html)._li();
 li;
@@ -9106,7 +9106,7 @@ $ctx3.sendIdx[","]=3;
 _st($10)._with_($11);
 $12=_st($9)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._openBrowserOn_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9136,19 +9136,19 @@ messageSends: ["contents:", "class:", "li", "with:", ",", "asString", "size", "m
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateReferencedClassesList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$7,$6,$5,$4,$3,$8,$9,$10,$11,$12;
 _st(self["@referencedClassesList"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(html)._li();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9181,7 +9181,7 @@ $8=_st($1)._style_("font-weight: bold");
 $8;
 return _st(self._referencedClasses())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $9=_st(html)._li();
 $10=$9;
@@ -9192,7 +9192,7 @@ $ctx3.sendIdx[","]=3;
 _st($10)._with_($11);
 $12=_st($9)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._openBrowserOn_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9222,19 +9222,19 @@ messageSends: ["contents:", "class:", "li", "with:", ",", "asString", "size", "r
 }),
 $globals.ReferencesBrowser);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateSendersList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$7,$6,$5,$4,$3,$8,$9,$10,$11,$12;
 _st(self["@sendersList"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(html)._li();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9267,7 +9267,7 @@ $8=_st($1)._style_("font-weight: bold");
 $8;
 return _st(self._senders())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $9=_st(html)._li();
 $10=$9;
@@ -9278,7 +9278,7 @@ $ctx3.sendIdx[","]=3;
 _st($10)._with_($11);
 $12=_st($9)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._openBrowserOn_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9309,14 +9309,14 @@ messageSends: ["contents:", "class:", "li", "with:", ",", "asString", "size", "s
 $globals.ReferencesBrowser);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "search:",
 protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -9338,21 +9338,21 @@ messageSends: ["searchReferencesFor:", "new", "open"]
 $globals.ReferencesBrowser.klass);
 
 
-$vm.addClass('TestRunner', $globals.TabWidget, ['selectedCategories', 'packagesList', 'selectedClasses', 'classesList', 'selectedMethods', 'progressBar', 'methodsList', 'result', 'statusDiv'], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('TestRunner', $globals.TabWidget, ['selectedCategories', 'packagesList', 'selectedClasses', 'classesList', 'selectedMethods', 'progressBar', 'methodsList', 'result', 'statusDiv'], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "allClasses",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $TestCase(){return $globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st($TestCase())._allSubclasses())._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._isAbstract())._not();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9373,19 +9373,19 @@ messageSends: ["select:", "allSubclasses", "not", "isAbstract"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "classes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $1=_st(_st(self._allClasses())._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._selectedCategories())._includes_(_st(each)._category());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9393,7 +9393,7 @@ return _st(self._selectedCategories())._includes_(_st(each)._category());
 //>>excludeEnd("ctx");
 })))._sort_((function(a,b){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=_st(a)._name();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9418,15 +9418,15 @@ messageSends: ["sort:", "select:", "allClasses", "includes:", "selectedCategorie
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 function $TestResult(){return $globals.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9451,14 +9451,14 @@ messageSends: ["initialize", "new"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isSelectedCategory:",
 protocol: 'testing',
 fn: function (aCategory){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._selectedCategories())._includes_(aCategory);
@@ -9476,14 +9476,14 @@ messageSends: ["includes:", "selectedCategories"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isSelectedClass:",
 protocol: 'testing',
 fn: function (aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._selectedClasses())._includes_(aClass);
@@ -9501,8 +9501,8 @@ messageSends: ["includes:", "selectedClasses"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "label",
 protocol: 'accessing',
 fn: function (){
@@ -9519,8 +9519,8 @@ messageSends: []
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "packages",
 protocol: 'accessing',
 fn: function (){
@@ -9528,13 +9528,13 @@ var self=this;
 var packages;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$4;
 packages=_st($Array())._new();
 _st(self._allClasses())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=packages;
 $3=_st(each)._category();
@@ -9542,7 +9542,7 @@ $3=_st(each)._category();
 $ctx2.sendIdx["category"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._includes_($3);
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 return _st(packages)._add_(_st(each)._category());
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9564,14 +9564,14 @@ messageSends: ["new", "do:", "allClasses", "ifFalse:", "includes:", "category", 
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "performFailure:",
 protocol: 'actions',
 fn: function (aTestCase){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aTestCase)._runCase();
 return self;
@@ -9588,14 +9588,14 @@ messageSends: ["runCase"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "printErrors",
 protocol: 'printing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(_st(_st(self._result())._errors())._size())._asString()).__comma(" errors, ");
@@ -9613,14 +9613,14 @@ messageSends: [",", "asString", "size", "errors", "result"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "printFailures",
 protocol: 'printing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(_st(_st(self._result())._failures())._size())._asString()).__comma(" failures");
@@ -9638,14 +9638,14 @@ messageSends: [",", "asString", "size", "failures", "result"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "printPasses",
 protocol: 'printing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $6,$5,$9,$8,$7,$4,$3,$2,$1;
 $6=self._result();
@@ -9683,14 +9683,14 @@ messageSends: [",", "asString", "-", "runs", "result", "size", "errors", "failur
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "printTotal",
 protocol: 'printing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(_st(self._result())._total())._asString()).__comma(" runs, ");
@@ -9708,15 +9708,15 @@ messageSends: [",", "asString", "total", "result"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "progressBar",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $ProgressBar(){return $globals.ProgressBar||(typeof ProgressBar=="undefined"?nil:ProgressBar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@progressBar"];
@@ -9740,14 +9740,14 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderBoxOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._renderCategoriesOn_(html);
@@ -9767,21 +9767,21 @@ messageSends: ["renderCategoriesOn:", "renderClassesOn:", "renderResultsOn:"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderButtonsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st(html)._button();
 _st($1)._with_("Run selected");
 $2=_st($1)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._run_(self._testCases());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9802,14 +9802,14 @@ messageSends: ["with:", "button", "onClick:", "run:", "testCases"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderCategoriesOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@packagesList"]=_st(_st(html)._ul())._class_("amber_column sunit packages");
 self._updateCategoriesList();
@@ -9827,14 +9827,14 @@ messageSends: ["class:", "ul", "updateCategoriesList"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderClassesOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@classesList"]=_st(_st(html)._ul())._class_("amber_column sunit classes");
 self._updateClassesList();
@@ -9852,19 +9852,19 @@ messageSends: ["class:", "ul", "updateClassesList"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderErrorsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 _st(_st(self._result())._errors())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(html)._li();
 _st($1)._class_("errors");
@@ -9876,7 +9876,7 @@ $ctx2.sendIdx[","]=1;
 _st($2)._with_($3);
 $4=_st($1)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._performFailure_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9902,19 +9902,19 @@ messageSends: ["do:", "errors", "result", "class:", "li", "with:", ",", "name", 
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderFailuresOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 _st(_st(self._result())._failures())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(html)._li();
 _st($1)._class_("failures");
@@ -9926,7 +9926,7 @@ $ctx2.sendIdx[","]=1;
 _st($2)._with_($3);
 $4=_st($1)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._performFailure_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9952,14 +9952,14 @@ messageSends: ["do:", "failures", "result", "class:", "li", "with:", ",", "name"
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderResultsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@statusDiv"]=_st(html)._div();
 _st(html)._with_(self._progressBar());
@@ -9980,8 +9980,8 @@ messageSends: ["div", "with:", "progressBar", "class:", "ul", "updateMethodsList
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "result",
 protocol: 'accessing',
 fn: function (){
@@ -10000,8 +10000,8 @@ messageSends: []
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "run:",
 protocol: 'actions',
 fn: function (aCollection){
@@ -10010,7 +10010,7 @@ var worker;
 function $TestSuiteRunner(){return $globals.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
 function $ResultAnnouncement(){return $globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 worker=_st($TestSuiteRunner())._on_(aCollection);
@@ -10020,10 +10020,10 @@ $ctx1.sendIdx["result"]=1;
 //>>excludeEnd("ctx");
 _st(_st(worker)._announcer())._on_do_($ResultAnnouncement(),(function(ann){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(_st(ann)._result()).__eq_eq(self["@result"]);
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(self._progressBar())._updatePercent_(_st(_st(_st(self["@result"])._runs()).__slash(_st(self["@result"])._total())).__star((100)));
 self._updateStatusDiv();
 return self._updateMethodsList();
@@ -10047,22 +10047,22 @@ messageSends: ["on:", "result", "on:do:", "announcer", "ifTrue:", "==", "updateP
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectAllCategories",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 _st(self._packages())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(self["@selectedCategories"])._includes_(each);
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 return _st(self._selectedCategories())._add_(each);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10085,22 +10085,22 @@ messageSends: ["do:", "packages", "ifFalse:", "includes:", "add:", "selectedCate
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectAllClasses",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 _st(self._classes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(self["@selectedClasses"])._includes_(each);
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 return _st(self._selectedClasses())._add_(each);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10123,15 +10123,15 @@ messageSends: ["do:", "classes", "ifFalse:", "includes:", "add:", "selectedClass
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectedCategories",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@selectedCategories"];
@@ -10155,15 +10155,15 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectedClasses",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@selectedClasses"];
@@ -10187,14 +10187,14 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "statusInfo",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st(_st(self._printTotal()).__comma(self._printPasses())).__comma(self._printErrors());
@@ -10219,21 +10219,21 @@ messageSends: [",", "printTotal", "printPasses", "printErrors", "printFailures"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "testCases",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 var testCases;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 testCases=[];
 _st(_st(self._selectedClasses())._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._selectedCategories())._includes_(_st(each)._category());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10241,7 +10241,7 @@ return _st(self._selectedCategories())._includes_(_st(each)._category());
 //>>excludeEnd("ctx");
 })))._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(testCases)._addAll_(_st(each)._buildSuite());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10263,18 +10263,18 @@ messageSends: ["do:", "select:", "selectedClasses", "includes:", "selectedCatego
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "toggleCategory:",
 protocol: 'actions',
 fn: function (aCategory){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._isSelectedCategory_(aCategory);
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(self["@selectedCategories"])._remove_(aCategory);
 } else {
 _st(self["@selectedCategories"])._add_(aCategory);
@@ -10295,18 +10295,18 @@ messageSends: ["ifFalse:ifTrue:", "isSelectedCategory:", "add:", "remove:", "upd
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "toggleClass:",
 protocol: 'actions',
 fn: function (aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._isSelectedClass_(aClass);
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(self["@selectedClasses"])._remove_(aClass);
 } else {
 _st(self["@selectedClasses"])._add_(aClass);
@@ -10326,19 +10326,19 @@ messageSends: ["ifFalse:ifTrue:", "isSelectedClass:", "add:", "remove:", "update
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateCategoriesList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5;
 _st(self["@packagesList"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(html)._li();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10354,7 +10354,7 @@ $ctx2.sendIdx["with:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._selectAllCategories();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10368,19 +10368,19 @@ $2;
 return _st(self._packages())._do_((function(each){
 var li;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 li=_st(html)._li();
 li;
 $3=_st(self._selectedCategories())._includes_(each);
-if($vm.assert($3)){
+if($core.assert($3)){
 _st(li)._class_("selected");
 };
 $4=li;
 _st($4)._with_(each);
 $5=_st($4)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._toggleCategory_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10410,22 +10410,22 @@ messageSends: ["contents:", "class:", "li", "with:", "onClick:", "selectAllCateg
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateClassesList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6;
 _st(self["@classesList"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(self._selectedCategories())._isEmpty();
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 $2=_st(html)._li();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["li"]=1;
@@ -10440,7 +10440,7 @@ $ctx2.sendIdx["with:"]=1;
 //>>excludeEnd("ctx");
 $3=_st($2)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._selectAllClasses();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10455,19 +10455,19 @@ $3;
 return _st(self._classes())._do_((function(each){
 var li;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 li=_st(html)._li();
 li;
 $4=_st(self._selectedClasses())._includes_(each);
-if($vm.assert($4)){
+if($core.assert($4)){
 _st(li)._class_("selected");
 };
 $5=li;
 _st($5)._with_(_st(each)._name());
 $6=_st($5)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._toggleClass_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10497,18 +10497,18 @@ messageSends: ["contents:", "ifFalse:", "isEmpty", "selectedCategories", "class:
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateMethodsList",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@methodsList"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._renderErrorsOn_(html);
 return self._renderFailuresOn_(html);
@@ -10530,19 +10530,19 @@ messageSends: ["contents:", "renderErrorsOn:", "renderFailuresOn:"]
 }),
 $globals.TestRunner);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "updateStatusDiv",
 protocol: 'updating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@statusDiv"])._class_("sunit status ".__comma(_st(self["@result"])._status()));
 _st(self["@statusDiv"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(html)._span())._with_(self._statusInfo());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10565,15 +10565,15 @@ $globals.TestRunner);
 
 
 
-$vm.addClass('Workspace', $globals.TabWidget, ['sourceArea'], 'IDE');
-$vm.addMethod(
-$vm.method({
+$core.addClass('Workspace', $globals.TabWidget, ['sourceArea'], 'IDE');
+$core.addMethod(
+$core.method({
 selector: "clearWorkspace",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@sourceArea"])._clear();
 return self;
@@ -10590,14 +10590,14 @@ messageSends: ["clear"]
 }),
 $globals.Workspace);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "doIt",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@sourceArea"])._doIt();
 return self;
@@ -10614,14 +10614,14 @@ messageSends: ["doIt"]
 }),
 $globals.Workspace);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "fileIn",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@sourceArea"])._fileIn();
 return self;
@@ -10638,14 +10638,14 @@ messageSends: ["fileIn"]
 }),
 $globals.Workspace);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "inspectIt",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@sourceArea"])._inspectIt();
 return self;
@@ -10662,8 +10662,8 @@ messageSends: ["inspectIt"]
 }),
 $globals.Workspace);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "label",
 protocol: 'accessing',
 fn: function (){
@@ -10680,14 +10680,14 @@ messageSends: []
 }),
 $globals.Workspace);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "printIt",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@sourceArea"])._printIt();
 return self;
@@ -10704,15 +10704,15 @@ messageSends: ["printIt"]
 }),
 $globals.Workspace);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderBoxOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 function $SourceArea(){return $globals.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@sourceArea"]=_st($SourceArea())._new();
 _st(self["@sourceArea"])._renderOn_(html);
@@ -10730,14 +10730,14 @@ messageSends: ["new", "renderOn:"]
 }),
 $globals.Workspace);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "renderButtonsOn:",
 protocol: 'rendering',
 fn: function (html){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10;
 $1=_st(html)._button();
@@ -10754,7 +10754,7 @@ $ctx1.sendIdx["title:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._doIt();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10778,7 +10778,7 @@ $ctx1.sendIdx["title:"]=2;
 //>>excludeEnd("ctx");
 $4=_st($3)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._printIt();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10802,7 +10802,7 @@ $ctx1.sendIdx["title:"]=3;
 //>>excludeEnd("ctx");
 $6=_st($5)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._inspectIt();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10823,7 +10823,7 @@ $ctx1.sendIdx["with:"]=4;
 _st($7)._title_("ctrl+f");
 $8=_st($7)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._fileIn();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10837,7 +10837,7 @@ $9=_st(html)._button();
 _st($9)._with_("Clear workspace");
 $10=_st($9)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._clearWorkspace();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10858,14 +10858,14 @@ messageSends: ["with:", "button", "title:", "onClick:", "doIt", "printIt", "insp
 }),
 $globals.Workspace);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "show",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10891,8 +10891,8 @@ messageSends: ["show", "focus"]
 $globals.Workspace);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "inspectOn:",
 protocol: '*IDE',
 fn: function (anInspector){
@@ -10900,7 +10900,7 @@ var self=this;
 var variables;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 variables=_st($Dictionary())._new();
@@ -10914,7 +10914,7 @@ $ctx1.sendIdx["at:put:"]=2;
 //>>excludeEnd("ctx");
 self._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(variables)._at_put_(key,value);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10937,8 +10937,8 @@ messageSends: ["new", "at:put:", "keys", "keysAndValuesDo:", "setLabel:", "print
 }),
 $globals.AssociativeCollection);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "inspectOn:",
 protocol: '*IDE',
 fn: function (anInspector){
@@ -10946,7 +10946,7 @@ var self=this;
 var variables;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 variables=_st($Dictionary())._new();
@@ -10956,7 +10956,7 @@ $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
 self._withIndexDo_((function(each,i){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(variables)._at_put_(i,each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10979,8 +10979,8 @@ messageSends: ["new", "at:put:", "withIndexDo:", "setLabel:", "printString", "se
 }),
 $globals.Collection);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "inspectOn:",
 protocol: '*IDE',
 fn: function (anInspector){
@@ -10988,7 +10988,7 @@ var self=this;
 var variables;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 variables=_st($Dictionary())._new();
@@ -11037,8 +11037,8 @@ messageSends: ["new", "at:put:", "year", "month", "day", "hours", "minutes", "se
 }),
 $globals.Date);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "inspectOn:",
 protocol: '*IDE',
 fn: function (anInspector){
@@ -11046,7 +11046,7 @@ var self=this;
 var variables;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 variables=_st($Dictionary())._new();
@@ -11072,7 +11072,7 @@ $ctx1.sendIdx["at:put:"]=5;
 //>>excludeEnd("ctx");
 _st(_st(self._class())._instanceVariableNames())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(variables)._at_put_(each,self._instVarAt_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11095,8 +11095,8 @@ messageSends: ["new", "at:put:", "home", "receiver", "selector", "locals", "do:"
 }),
 $globals.MethodContext);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "inspectOn:",
 protocol: '*IDE',
 fn: function (anInspector){
@@ -11104,7 +11104,7 @@ var self=this;
 var variables,i;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 variables=_st($Dictionary())._new();
@@ -11115,7 +11115,7 @@ $ctx1.sendIdx["at:put:"]=1;
 i=(1);
 self._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 _st(variables)._at_put_(i,each);
 i=_st(i).__plus((1));
@@ -11140,15 +11140,15 @@ messageSends: ["new", "at:put:", "do:", "+", "setLabel:", "printString", "setVar
 }),
 $globals.Set);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "inspectOn:",
 protocol: '*IDE',
 fn: function (anInspector){
 var self=this;
 var label;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1,$5,$4;
 (
@@ -11165,7 +11165,7 @@ $ctx1.sendIdx["printString"]=1;
 //>>excludeEnd("ctx");
 $2=_st($3)._size();
 $1=_st($2).__gt((30));
-if($vm.assert($1)){
+if($core.assert($1)){
 $5=self._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=2;

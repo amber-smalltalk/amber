@@ -93,9 +93,9 @@ javascriptConstructor
 
 javascriptConstructor: aJavaScriptFunction
 	"Set the JS constructor used to instantiate.
-	See the JS counter-part in boot.js `$vm.setClassConstructor'"
+	See the JS counter-part in boot.js `$core.setClassConstructor'"
 	
-	<$vm.setClassConstructor(self, aJavaScriptFunction);>
+	<$core.setClassConstructor(self, aJavaScriptFunction);>
 !
 
 lookupSelector: selector
@@ -316,11 +316,11 @@ new
 !Behavior methodsFor: 'private'!
 
 basicAddCompiledMethod: aMethod
-	<$vm.addMethod(aMethod, self)>
+	<$core.addMethod(aMethod, self)>
 !
 
 basicRemoveCompiledMethod: aMethod
-	<$vm.removeMethod(aMethod,self)>
+	<$core.removeMethod(aMethod,self)>
 ! !
 
 !Behavior methodsFor: 'testing'!
@@ -712,7 +712,7 @@ installMethod: aCompiledMethod forClass: aBehavior protocol: aString
 
 basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
 	<
-		$vm.addClass(aString, aClass, aCollection, packageName);
+		$core.addClass(aString, aClass, aCollection, packageName);
 		return $globals[aString]
 	>
 !
@@ -728,7 +728,7 @@ basicClass: aClass instanceVariables: aCollection
 !
 
 basicRemoveClass: aClass
-	<$vm.removeClass(aClass)>
+	<$core.removeClass(aClass)>
 !
 
 basicRenameClass: aClass to: aString
@@ -756,7 +756,7 @@ rawRenameClass: aClass to: aString
 !ClassBuilder methodsFor: 'public'!
 
 setupClass: aClass
-	<$vm.init(aClass);>
+	<$core.init(aClass);>
 ! !
 
 Object subclass: #ClassCategoryReader

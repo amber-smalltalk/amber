@@ -1,22 +1,22 @@
 define("amber_core/Compiler-Semantic", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){
-var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$vm,_st=$recv,globals=$globals;
-$vm.addPackage('Compiler-Semantic');
-$vm.packages["Compiler-Semantic"].transport = {"type":"amd","amdNamespace":"amber_core"};
+var $core=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var smalltalk=$core,_st=$recv,globals=$globals;
+$core.addPackage('Compiler-Semantic');
+$core.packages["Compiler-Semantic"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('LexicalScope', $globals.Object, ['node', 'instruction', 'temps', 'args', 'outerScope', 'blockIndex'], 'Compiler-Semantic');
+$core.addClass('LexicalScope', $globals.Object, ['node', 'instruction', 'temps', 'args', 'outerScope', 'blockIndex'], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.LexicalScope.comment="I represent a lexical scope where variable names are associated with ScopeVars\x0aInstances are used for block scopes. Method scopes are instances of MethodLexicalScope.\x0a\x0aI am attached to a ScopeVar and method/block nodes.\x0aEach context (method/closure) get a fresh scope that inherits from its outer scope.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "addArg:",
 protocol: 'adding',
 fn: function (aString){
 var self=this;
 function $ArgVar(){return $globals.ArgVar||(typeof ArgVar=="undefined"?nil:ArgVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._args();
@@ -39,15 +39,15 @@ messageSends: ["at:put:", "args", "on:", "scope:", "at:"]
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "addTemp:",
 protocol: 'adding',
 fn: function (aString){
 var self=this;
 function $TempVar(){return $globals.TempVar||(typeof TempVar=="undefined"?nil:TempVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._temps();
@@ -70,14 +70,14 @@ messageSends: ["at:put:", "temps", "on:", "scope:", "at:"]
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "alias",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1="$ctx".__comma(_st(self._scopeLevel())._asString());
@@ -95,14 +95,14 @@ messageSends: [",", "asString", "scopeLevel"]
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "allVariableNames",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st(self._args())._keys();
@@ -124,15 +124,15 @@ messageSends: [",", "keys", "args", "temps"]
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "args",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@args"];
@@ -156,14 +156,14 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "bindingFor:",
 protocol: 'accessing',
 fn: function (aStringOrNode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$4,$5,$1;
 $2=self._pseudoVars();
@@ -173,7 +173,7 @@ $ctx1.sendIdx["value"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._at_ifAbsent_($3,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=self._args();
 $5=_st(aStringOrNode)._value();
@@ -182,7 +182,7 @@ $ctx2.sendIdx["value"]=2;
 //>>excludeEnd("ctx");
 return _st($4)._at_ifAbsent_($5,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(self._temps())._at_ifAbsent_(_st(aStringOrNode)._value(),(function(){
 return nil;
@@ -216,14 +216,14 @@ messageSends: ["at:ifAbsent:", "pseudoVars", "value", "args", "temps"]
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "blockIndex",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@blockIndex"];
@@ -246,8 +246,8 @@ messageSends: ["ifNil:"]
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "blockIndex:",
 protocol: 'accessing',
 fn: function (anInteger){
@@ -265,19 +265,19 @@ messageSends: []
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "canInlineNonLocalReturns",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._isInlined())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._outerScope())._canInlineNonLocalReturns();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -298,8 +298,8 @@ messageSends: ["and:", "isInlined", "canInlineNonLocalReturns", "outerScope"]
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "instruction",
 protocol: 'accessing',
 fn: function (){
@@ -318,8 +318,8 @@ messageSends: []
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "instruction:",
 protocol: 'accessing',
 fn: function (anIRInstruction){
@@ -337,14 +337,14 @@ messageSends: []
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isBlockScope",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._isMethodScope())._not();
@@ -362,14 +362,14 @@ messageSends: ["not", "isMethodScope"]
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isInlined",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 $3=self._instruction();
@@ -379,7 +379,7 @@ $ctx1.sendIdx["instruction"]=1;
 $2=_st($3)._notNil();
 $1=_st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._instruction())._isInlined();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -400,8 +400,8 @@ messageSends: ["and:", "notNil", "instruction", "isInlined"]
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isMethodScope",
 protocol: 'testing',
 fn: function (){
@@ -418,15 +418,15 @@ messageSends: []
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "lookupVariable:",
 protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 var lookup;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$receiver;
 lookup=self._bindingFor_(aNode);
@@ -460,14 +460,14 @@ messageSends: ["bindingFor:", "ifNil:", "ifNotNil:", "outerScope", "lookupVariab
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "methodScope",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self._outerScope();
@@ -493,8 +493,8 @@ messageSends: ["ifNotNil:", "outerScope", "methodScope"]
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "node",
 protocol: 'accessing',
 fn: function (){
@@ -513,8 +513,8 @@ messageSends: []
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "node:",
 protocol: 'accessing',
 fn: function (aNode){
@@ -532,8 +532,8 @@ messageSends: []
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "outerScope",
 protocol: 'accessing',
 fn: function (){
@@ -552,8 +552,8 @@ messageSends: []
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "outerScope:",
 protocol: 'accessing',
 fn: function (aLexicalScope){
@@ -571,14 +571,14 @@ messageSends: []
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "pseudoVars",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._methodScope())._pseudoVars();
@@ -596,14 +596,14 @@ messageSends: ["pseudoVars", "methodScope"]
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "scopeLevel",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3,$5,$receiver;
 $1=self._outerScope();
@@ -616,7 +616,7 @@ return (1);
 $1;
 };
 $2=self._isInlined();
-if($vm.assert($2)){
+if($core.assert($2)){
 $4=self._outerScope();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["outerScope"]=2;
@@ -642,15 +642,15 @@ messageSends: ["ifNil:", "outerScope", "ifTrue:", "isInlined", "scopeLevel", "+"
 }),
 $globals.LexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "temps",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@temps"];
@@ -676,19 +676,19 @@ $globals.LexicalScope);
 
 
 
-$vm.addClass('MethodLexicalScope', $globals.LexicalScope, ['iVars', 'pseudoVars', 'unknownVariables', 'localReturn', 'nonLocalReturns'], 'Compiler-Semantic');
+$core.addClass('MethodLexicalScope', $globals.LexicalScope, ['iVars', 'pseudoVars', 'unknownVariables', 'localReturn', 'nonLocalReturns'], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.MethodLexicalScope.comment="I represent a method scope.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "addIVar:",
 protocol: 'adding',
 fn: function (aString){
 var self=this;
 function $InstanceVar(){return $globals.InstanceVar||(typeof InstanceVar=="undefined"?nil:InstanceVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._iVars();
@@ -711,14 +711,14 @@ messageSends: ["at:put:", "iVars", "on:", "scope:", "at:"]
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "addNonLocalReturn:",
 protocol: 'adding',
 fn: function (aScope){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._nonLocalReturns())._add_(aScope);
 return self;
@@ -735,14 +735,14 @@ messageSends: ["add:", "nonLocalReturns"]
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "allVariableNames",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=(
@@ -768,14 +768,14 @@ messageSends: [",", "allVariableNames", "keys", "iVars"]
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "bindingFor:",
 protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=(
@@ -808,8 +808,8 @@ messageSends: ["ifNil:", "bindingFor:", "at:ifAbsent:", "iVars", "value"]
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "canInlineNonLocalReturns",
 protocol: 'testing',
 fn: function (){
@@ -826,14 +826,14 @@ messageSends: []
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "hasLocalReturn",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._localReturn();
@@ -851,14 +851,14 @@ messageSends: ["localReturn"]
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "hasNonLocalReturn",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._nonLocalReturns())._notEmpty();
@@ -876,15 +876,15 @@ messageSends: ["notEmpty", "nonLocalReturns"]
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "iVars",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@iVars"];
@@ -908,8 +908,8 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isMethodScope",
 protocol: 'testing',
 fn: function (){
@@ -926,14 +926,14 @@ messageSends: []
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "localReturn",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@localReturn"];
@@ -956,8 +956,8 @@ messageSends: ["ifNil:"]
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "localReturn:",
 protocol: 'accessing',
 fn: function (aBoolean){
@@ -975,8 +975,8 @@ messageSends: []
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "methodScope",
 protocol: 'accessing',
 fn: function (){
@@ -993,15 +993,15 @@ messageSends: []
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nonLocalReturns",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@nonLocalReturns"];
@@ -1025,8 +1025,8 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "pseudoVars",
 protocol: 'accessing',
 fn: function (){
@@ -1035,7 +1035,7 @@ function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefine
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $PseudoVar(){return $globals.PseudoVar||(typeof PseudoVar=="undefined"?nil:PseudoVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$receiver;
 $1=self["@pseudoVars"];
@@ -1044,7 +1044,7 @@ self["@pseudoVars"]=_st($Dictionary())._new();
 self["@pseudoVars"];
 _st(_st($Smalltalk())._pseudoVariableNames())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=_st($PseudoVar())._on_(each);
 _st($2)._scope_(self._methodScope());
@@ -1072,14 +1072,14 @@ messageSends: ["ifNil:", "new", "do:", "pseudoVariableNames", "at:put:", "scope:
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "removeNonLocalReturn:",
 protocol: 'adding',
 fn: function (aScope){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._nonLocalReturns())._remove_ifAbsent_(aScope,(function(){
 
@@ -1098,15 +1098,15 @@ messageSends: ["remove:ifAbsent:", "nonLocalReturns"]
 }),
 $globals.MethodLexicalScope);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "unknownVariables",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@unknownVariables"];
@@ -1132,18 +1132,18 @@ $globals.MethodLexicalScope);
 
 
 
-$vm.addClass('ScopeVar', $globals.Object, ['scope', 'name'], 'Compiler-Semantic');
+$core.addClass('ScopeVar', $globals.Object, ['scope', 'name'], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ScopeVar.comment="I am an entry in a LexicalScope that gets associated with variable nodes of the same name.\x0aThere are 4 different subclasses of vars: temp vars, local vars, args, and unknown/global vars.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "alias",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._name())._asVariableName();
@@ -1161,8 +1161,8 @@ messageSends: ["asVariableName", "name"]
 }),
 $globals.ScopeVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isArgVar",
 protocol: 'testing',
 fn: function (){
@@ -1179,8 +1179,8 @@ messageSends: []
 }),
 $globals.ScopeVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isClassRefVar",
 protocol: 'testing',
 fn: function (){
@@ -1197,8 +1197,8 @@ messageSends: []
 }),
 $globals.ScopeVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
@@ -1215,8 +1215,8 @@ messageSends: []
 }),
 $globals.ScopeVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isInstanceVar",
 protocol: 'testing',
 fn: function (){
@@ -1233,8 +1233,8 @@ messageSends: []
 }),
 $globals.ScopeVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isPseudoVar",
 protocol: 'testing',
 fn: function (){
@@ -1251,8 +1251,8 @@ messageSends: []
 }),
 $globals.ScopeVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isTempVar",
 protocol: 'testing',
 fn: function (){
@@ -1269,8 +1269,8 @@ messageSends: []
 }),
 $globals.ScopeVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isUnknownVar",
 protocol: 'testing',
 fn: function (){
@@ -1287,8 +1287,8 @@ messageSends: []
 }),
 $globals.ScopeVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "name",
 protocol: 'accessing',
 fn: function (){
@@ -1307,8 +1307,8 @@ messageSends: []
 }),
 $globals.ScopeVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "name:",
 protocol: 'accessing',
 fn: function (aString){
@@ -1326,8 +1326,8 @@ messageSends: []
 }),
 $globals.ScopeVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "scope",
 protocol: 'accessing',
 fn: function (){
@@ -1346,8 +1346,8 @@ messageSends: []
 }),
 $globals.ScopeVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "scope:",
 protocol: 'accessing',
 fn: function (aScope){
@@ -1365,27 +1365,27 @@ messageSends: []
 }),
 $globals.ScopeVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "validateAssignment",
 protocol: 'testing',
 fn: function (){
 var self=this;
 function $InvalidAssignmentError(){return $globals.InvalidAssignmentError||(typeof InvalidAssignmentError=="undefined"?nil:InvalidAssignmentError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 $1=_st(self._isArgVar())._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._isPseudoVar();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($1)){
+if($core.assert($1)){
 $2=_st($InvalidAssignmentError())._new();
 _st($2)._variableName_(self._name());
 $3=_st($2)._signal();
@@ -1406,14 +1406,14 @@ messageSends: ["ifTrue:", "or:", "isArgVar", "isPseudoVar", "variableName:", "ne
 $globals.ScopeVar);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "on:",
 protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
@@ -1435,12 +1435,12 @@ messageSends: ["name:", "new", "yourself"]
 $globals.ScopeVar.klass);
 
 
-$vm.addClass('AliasVar', $globals.ScopeVar, ['node'], 'Compiler-Semantic');
+$core.addClass('AliasVar', $globals.ScopeVar, ['node'], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.AliasVar.comment="I am an internally defined variable by the compiler";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "node",
 protocol: 'accessing',
 fn: function (){
@@ -1459,8 +1459,8 @@ messageSends: []
 }),
 $globals.AliasVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "node:",
 protocol: 'accessing',
 fn: function (aNode){
@@ -1480,12 +1480,12 @@ $globals.AliasVar);
 
 
 
-$vm.addClass('ArgVar', $globals.ScopeVar, [], 'Compiler-Semantic');
+$core.addClass('ArgVar', $globals.ScopeVar, [], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ArgVar.comment="I am an argument of a method or block.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isArgVar",
 protocol: 'testing',
 fn: function (){
@@ -1502,8 +1502,8 @@ messageSends: []
 }),
 $globals.ArgVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
@@ -1522,18 +1522,18 @@ $globals.ArgVar);
 
 
 
-$vm.addClass('ClassRefVar', $globals.ScopeVar, [], 'Compiler-Semantic');
+$core.addClass('ClassRefVar', $globals.ScopeVar, [], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ClassRefVar.comment="I am an class reference variable";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "alias",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st("$".__comma(self._name())).__comma("()");
@@ -1554,8 +1554,8 @@ messageSends: [",", "name"]
 }),
 $globals.ClassRefVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isClassRefVar",
 protocol: 'testing',
 fn: function (){
@@ -1572,8 +1572,8 @@ messageSends: []
 }),
 $globals.ClassRefVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
@@ -1592,18 +1592,18 @@ $globals.ClassRefVar);
 
 
 
-$vm.addClass('InstanceVar', $globals.ScopeVar, [], 'Compiler-Semantic');
+$core.addClass('InstanceVar', $globals.ScopeVar, [], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.InstanceVar.comment="I am an instance variable of a method or block.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "alias",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st("self[\x22@".__comma(self._name())).__comma("\x22]");
@@ -1624,8 +1624,8 @@ messageSends: [",", "name"]
 }),
 $globals.InstanceVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isInstanceVar",
 protocol: 'testing',
 fn: function (){
@@ -1644,18 +1644,18 @@ $globals.InstanceVar);
 
 
 
-$vm.addClass('PseudoVar', $globals.ScopeVar, [], 'Compiler-Semantic');
+$core.addClass('PseudoVar', $globals.ScopeVar, [], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.PseudoVar.comment="I am an pseudo variable.\x0a\x0aThe five Smalltalk pseudo variables are: 'self', 'super', 'nil', 'true' and 'false'";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "alias",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._name();
@@ -1673,8 +1673,8 @@ messageSends: ["name"]
 }),
 $globals.PseudoVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
@@ -1691,8 +1691,8 @@ messageSends: []
 }),
 $globals.PseudoVar);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isPseudoVar",
 protocol: 'testing',
 fn: function (){
@@ -1711,12 +1711,12 @@ $globals.PseudoVar);
 
 
 
-$vm.addClass('TempVar', $globals.ScopeVar, [], 'Compiler-Semantic');
+$core.addClass('TempVar', $globals.ScopeVar, [], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.TempVar.comment="I am an temporary variable of a method or block.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isTempVar",
 protocol: 'testing',
 fn: function (){
@@ -1735,12 +1735,12 @@ $globals.TempVar);
 
 
 
-$vm.addClass('UnknownVar', $globals.ScopeVar, [], 'Compiler-Semantic');
+$core.addClass('UnknownVar', $globals.ScopeVar, [], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.UnknownVar.comment="I am an unknown variable. Amber uses unknown variables as JavaScript globals";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isUnknownVar",
 protocol: 'testing',
 fn: function (){
@@ -1759,19 +1759,19 @@ $globals.UnknownVar);
 
 
 
-$vm.addClass('SemanticAnalyzer', $globals.NodeVisitor, ['currentScope', 'blockIndex', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
+$core.addClass('SemanticAnalyzer', $globals.NodeVisitor, ['currentScope', 'blockIndex', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.SemanticAnalyzer.comment="I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "classReferences",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@classReferences"];
@@ -1795,15 +1795,15 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "errorShadowingVariable:",
 protocol: 'error handling',
 fn: function (aString){
 var self=this;
 function $ShadowingVariableError(){return $globals.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st($ShadowingVariableError())._new();
@@ -1823,8 +1823,8 @@ messageSends: ["variableName:", "new", "signal"]
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "errorUnknownVariable:",
 protocol: 'error handling',
 fn: function (aNode){
@@ -1833,7 +1833,7 @@ var identifier;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $UnknownVariableError(){return $globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5;
 identifier=_st(aNode)._value();
@@ -1842,14 +1842,14 @@ $ctx1.sendIdx["value"]=1;
 //>>excludeEnd("ctx");
 $1=_st(_st(_st(_st($Smalltalk())._globalJsVariables())._includes_(identifier))._not())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._isVariableGloballyUndefined_(identifier);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($1)){
+if($core.assert($1)){
 $2=_st($UnknownVariableError())._new();
 $3=$2;
 $4=_st(aNode)._value();
@@ -1876,14 +1876,14 @@ messageSends: ["value", "ifTrue:ifFalse:", "and:", "not", "includes:", "globalJs
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isVariableGloballyUndefined:",
 protocol: 'testing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return eval('typeof ' + aString + ' == "undefined"');
 return self;
@@ -1900,15 +1900,15 @@ messageSends: []
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "messageSends",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@messageSends"];
@@ -1932,15 +1932,15 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "newBlockScope",
 protocol: 'factory',
 fn: function (){
 var self=this;
 function $LexicalScope(){return $globals.LexicalScope||(typeof LexicalScope=="undefined"?nil:LexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._newScopeOfClass_($LexicalScope());
@@ -1958,15 +1958,15 @@ messageSends: ["newScopeOfClass:"]
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "newMethodScope",
 protocol: 'factory',
 fn: function (){
 var self=this;
 function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._newScopeOfClass_($MethodLexicalScope());
@@ -1984,14 +1984,14 @@ messageSends: ["newScopeOfClass:"]
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "newScopeOfClass:",
 protocol: 'factory',
 fn: function (aLexicalScopeClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st(aLexicalScopeClass)._new();
@@ -2012,14 +2012,14 @@ messageSends: ["outerScope:", "new", "yourself"]
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nextBlockIndex",
 protocol: 'private',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
 $1=self["@blockIndex"];
@@ -2045,14 +2045,14 @@ messageSends: ["ifNil:", "+"]
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "popScope",
 protocol: 'scope',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@currentScope"];
@@ -2076,14 +2076,14 @@ messageSends: ["ifNotNil:", "outerScope"]
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "pushScope:",
 protocol: 'scope',
 fn: function (aScope){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aScope)._outerScope_(self["@currentScope"]);
 self["@currentScope"]=aScope;
@@ -2101,15 +2101,15 @@ messageSends: ["outerScope:"]
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "superSends",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@superSends"];
@@ -2133,8 +2133,8 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "theClass",
 protocol: 'accessing',
 fn: function (){
@@ -2153,8 +2153,8 @@ messageSends: []
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "theClass:",
 protocol: 'accessing',
 fn: function (aClass){
@@ -2172,14 +2172,14 @@ messageSends: []
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "validateVariableScope:",
 protocol: 'scope',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=_st(self["@currentScope"])._lookupVariable_(aString);
@@ -2202,14 +2202,14 @@ messageSends: ["ifNotNil:", "lookupVariable:", "errorShadowingVariable:"]
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "visitAssignmentNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2234,14 +2234,14 @@ messageSends: ["visitAssignmentNode:", "beAssigned", "left"]
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "visitBlockNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._pushScope_(self._newBlockScope());
 _st(aNode)._scope_(self["@currentScope"]);
@@ -2249,7 +2249,7 @@ _st(self["@currentScope"])._node_(aNode);
 _st(self["@currentScope"])._blockIndex_(self._nextBlockIndex());
 _st(_st(aNode)._parameters())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._validateVariableScope_(each);
 return _st(self["@currentScope"])._addArg_(each);
@@ -2280,14 +2280,14 @@ messageSends: ["pushScope:", "newBlockScope", "scope:", "node:", "blockIndex:", 
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "visitCascadeNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 (
@@ -2304,10 +2304,10 @@ $ctx1.sendIdx["nodes"]=1;
 //>>excludeEnd("ctx");
 $2=_st($3)._first();
 $1=_st($2)._superSend();
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(_st(aNode)._nodes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._superSend_(true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2329,14 +2329,14 @@ messageSends: ["visitCascadeNode:", "ifTrue:", "superSend", "first", "nodes", "d
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "visitMethodNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._pushScope_(self._newMethodScope());
@@ -2344,7 +2344,7 @@ _st(aNode)._scope_(self["@currentScope"]);
 _st(self["@currentScope"])._node_(aNode);
 _st(_st(self._theClass())._allInstanceVariableNames())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@currentScope"])._addIVar_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2356,7 +2356,7 @@ $ctx1.sendIdx["do:"]=1;
 //>>excludeEnd("ctx");
 _st(_st(aNode)._arguments())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._validateVariableScope_(each);
 return _st(self["@currentScope"])._addArg_(each);
@@ -2390,19 +2390,19 @@ messageSends: ["pushScope:", "newMethodScope", "scope:", "node:", "do:", "allIns
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "visitReturnNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st(aNode)._scope_(self["@currentScope"]);
 $1=_st(self["@currentScope"])._isMethodScope();
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(self["@currentScope"])._localReturn_(true);
 } else {
 _st(_st(self["@currentScope"])._methodScope())._addNonLocalReturn_(self["@currentScope"]);
@@ -2429,8 +2429,8 @@ messageSends: ["scope:", "ifTrue:ifFalse:", "isMethodScope", "localReturn:", "ad
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "visitSendNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -2438,7 +2438,7 @@ var self=this;
 function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 function $IRSendInliner(){return $globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1,$4,$5,$6,$8,$9,$7,$11,$12,$10,$13,$14,$15,$17,$18,$16,$receiver;
 $3=_st(aNode)._receiver();
@@ -2447,7 +2447,7 @@ $ctx1.sendIdx["receiver"]=1;
 //>>excludeEnd("ctx");
 $2=_st($3)._value();
 $1=_st($2).__eq("super");
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(aNode)._superSend_(true);
 $4=_st(aNode)._receiver();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2464,7 +2464,7 @@ $ctx1.sendIdx["selector"]=1;
 //>>excludeEnd("ctx");
 _st($5)._at_ifAbsentPut_($6,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st($Set())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2497,7 +2497,7 @@ $12=_st(aNode)._selector();
 $ctx1.sendIdx["selector"]=3;
 //>>excludeEnd("ctx");
 $10=_st($11)._includes_($12);
-if($vm.assert($10)){
+if($core.assert($10)){
 _st(aNode)._shouldBeInlined_(true);
 $13=_st(aNode)._receiver();
 if(($receiver = $13) == null || $receiver.isNil){
@@ -2519,7 +2519,7 @@ $ctx1.sendIdx["selector"]=4;
 //>>excludeEnd("ctx");
 _st($14)._at_ifAbsentPut_($15,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st($Set())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2562,18 +2562,18 @@ messageSends: ["ifTrue:ifFalse:", "=", "value", "receiver", "superSend:", "value
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "visitSequenceNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(aNode)._temps())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._validateVariableScope_(each);
 return _st(self["@currentScope"])._addTemp_(each);
@@ -2603,8 +2603,8 @@ messageSends: ["do:", "temps", "validateVariableScope:", "addTemp:", "visitSeque
 }),
 $globals.SemanticAnalyzer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "visitVariableNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -2613,7 +2613,7 @@ var binding;
 function $ClassRefVar(){return $globals.ClassRefVar||(typeof ClassRefVar=="undefined"?nil:ClassRefVar)}
 function $UnknownVar(){return $globals.UnknownVar||(typeof UnknownVar=="undefined"?nil:UnknownVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$2,$4,$5,$6,$7,$8,$9,$10,$11,$receiver;
 binding=_st(self["@currentScope"])._lookupVariable_(aNode);
@@ -2624,7 +2624,7 @@ $3=_st(aNode)._value();
 $ctx1.sendIdx["value"]=1;
 //>>excludeEnd("ctx");
 $2=_st($3)._isCapitalized();
-if($vm.assert($2)){
+if($core.assert($2)){
 $4=_st($ClassRefVar())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
@@ -2677,14 +2677,14 @@ messageSends: ["lookupVariable:", "ifNil:", "ifTrue:ifFalse:", "isCapitalized", 
 $globals.SemanticAnalyzer);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "on:",
 protocol: 'instance creation',
 fn: function (aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();

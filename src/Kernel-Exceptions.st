@@ -71,7 +71,7 @@ resignal
 signal
 	<
 		self.amberHandled = false;
-		self.context = $vm.getThisContext(); 
+		self.context = $core.getThisContext(); 
 		self.smalltalkError = true;
 		throw self;
 	>

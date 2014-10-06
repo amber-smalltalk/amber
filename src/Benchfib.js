@@ -1,20 +1,20 @@
 define("amber_core/Benchfib", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
-var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$vm,_st=$recv,globals=$globals;
-$vm.addPackage('Benchfib');
-$vm.packages["Benchfib"].transport = {"type":"amd","amdNamespace":"amber_core"};
+var $core=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var smalltalk=$core,_st=$recv,globals=$globals;
+$core.addPackage('Benchfib');
+$core.packages["Benchfib"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('Benchfib', $globals.Object, [], 'Benchfib');
+$core.addClass('Benchfib', $globals.Object, [], 'Benchfib');
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "main",
 protocol: 'not yet classified',
 fn: function (){
 var self=this;
 var result;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 result=(0)._tinyBenchmarks();
 _st(console)._log_("0 tinyBenchmarks => ".__comma(result));
@@ -32,18 +32,18 @@ messageSends: ["tinyBenchmarks", "log:", ","]
 }),
 $globals.Benchfib.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "benchFib",
 protocol: '*Benchfib',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$5,$4,$3,$1;
 $2=self.__lt((2));
-if($vm.assert($2)){
+if($core.assert($2)){
 $1=(1);
 } else {
 $5=self.__minus((1));
@@ -74,8 +74,8 @@ messageSends: ["ifTrue:ifFalse:", "<", "+", "benchFib", "-"]
 }),
 $globals.Number);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "benchmark",
 protocol: '*Benchfib',
 fn: function (){
@@ -83,13 +83,13 @@ var self=this;
 var size,flags,prime,k,count;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 size=(8190);
 (1)._to_do_(self,(function(iter){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 count=(0);
 count;
@@ -97,7 +97,7 @@ flags=_st($Array())._new();
 flags;
 _st(size)._timesRepeat_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(flags)._add_(true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -106,10 +106,10 @@ return _st(flags)._add_(true);
 }));
 return (1)._to_do_(size,(function(i){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $1=_st(flags)._at_(i);
-if($vm.assert($1)){
+if($core.assert($1)){
 prime=_st(i).__plus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["+"]=1;
@@ -122,7 +122,7 @@ $ctx3.sendIdx["+"]=2;
 k;
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return _st(k).__lt_eq(size);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -130,7 +130,7 @@ return _st(k).__lt_eq(size);
 //>>excludeEnd("ctx");
 }))._whileTrue_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 _st(flags)._at_put_(k,false);
 k=_st(k).__plus(prime);
@@ -171,14 +171,14 @@ messageSends: ["to:do:", "new", "timesRepeat:", "add:", "ifTrue:", "at:", "+", "
 }),
 $globals.Number);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "jsbenchFib",
 protocol: '*Benchfib',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 if (this < 2) {
 return 1;
@@ -198,14 +198,14 @@ messageSends: []
 }),
 $globals.Number);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "jsbenchmark",
 protocol: '*Benchfib',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 var size = 8190;
@@ -243,8 +243,8 @@ messageSends: []
 }),
 $globals.Number);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "jstinyBenchmarks",
 protocol: '*Benchfib',
 fn: function (){
@@ -252,17 +252,17 @@ var self=this;
 var t1,t2,r,n1,n2;
 function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $7,$6,$5,$4,$3,$2,$1;
 n1=(1);
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 t1=_st($Date())._millisecondsToRun_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(n1)._jsbenchmark();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -282,7 +282,7 @@ $ctx2.sendIdx["<"]=1;
 //>>excludeEnd("ctx");
 }))._whileTrue_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 n1=_st(n1).__star((2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -299,11 +299,11 @@ $ctx1.sendIdx["whileTrue:"]=1;
 n2=(28);
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 t2=_st($Date())._millisecondsToRun_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 r=_st(n2)._jsbenchFib();
 return r;
@@ -318,7 +318,7 @@ return _st(t2).__lt((1000));
 //>>excludeEnd("ctx");
 }))._whileTrue_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 n2=_st(n2).__plus((1));
 return n2;
@@ -365,8 +365,8 @@ messageSends: ["whileTrue:", "millisecondsToRun:", "jsbenchmark", "<", "*", "jsb
 }),
 $globals.Number);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "tinyBenchmarks",
 protocol: '*Benchfib',
 fn: function (){
@@ -374,17 +374,17 @@ var self=this;
 var t1,t2,r,n1,n2;
 function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $7,$6,$5,$4,$3,$2,$1;
 n1=(1);
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 t1=_st($Date())._millisecondsToRun_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(n1)._benchmark();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -404,7 +404,7 @@ $ctx2.sendIdx["<"]=1;
 //>>excludeEnd("ctx");
 }))._whileTrue_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 n1=_st(n1).__star((2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -421,11 +421,11 @@ $ctx1.sendIdx["whileTrue:"]=1;
 n2=(16);
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 t2=_st($Date())._millisecondsToRun_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 r=_st(n2)._benchFib();
 return r;
@@ -440,7 +440,7 @@ return _st(t2).__lt((1000));
 //>>excludeEnd("ctx");
 }))._whileTrue_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 n2=_st(n2).__plus((1));
 return n2;

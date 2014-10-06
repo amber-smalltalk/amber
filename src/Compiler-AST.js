@@ -1,21 +1,21 @@
 define("amber_core/Compiler-AST", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){
-var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$vm,_st=$recv,globals=$globals;
-$vm.addPackage('Compiler-AST');
-$vm.packages["Compiler-AST"].transport = {"type":"amd","amdNamespace":"amber_core"};
+var $core=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var smalltalk=$core,_st=$recv,globals=$globals;
+$core.addPackage('Compiler-AST');
+$core.packages["Compiler-AST"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$vm.addClass('Node', $globals.Object, ['parent', 'position', 'source', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
+$core.addClass('Node', $globals.Object, ['parent', 'position', 'source', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.Node.comment="I am the abstract root class of the abstract syntax tree.\x0a\x0aConcrete classes should implement `#accept:` to allow visiting.\x0a\x0a`position` holds a point containing line and column number of the symbol location in the original source file.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitNode_(self);
@@ -33,14 +33,14 @@ messageSends: ["visitNode:"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "addNode:",
 protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._nodes())._add_(aNode);
 _st(aNode)._parent_(self);
@@ -58,15 +58,15 @@ messageSends: ["add:", "nodes", "parent:"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "allNodes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 var allNodes;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._nodes();
@@ -76,7 +76,7 @@ $ctx1.sendIdx["nodes"]=1;
 allNodes=_st($1)._asSet();
 _st(self._nodes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(allNodes)._addAll_(_st(each)._allNodes());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -98,19 +98,19 @@ messageSends: ["asSet", "nodes", "do:", "addAll:", "allNodes"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "inPosition:",
 protocol: 'testing',
 fn: function (aPoint){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(self._positionStart()).__lt_eq(aPoint))._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._positionEnd()).__gt_eq(aPoint);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -131,8 +131,8 @@ messageSends: ["and:", "<=", "positionStart", ">=", "positionEnd"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isAssignmentNode",
 protocol: 'testing',
 fn: function (){
@@ -149,8 +149,8 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isBlockNode",
 protocol: 'testing',
 fn: function (){
@@ -167,8 +167,8 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isBlockSequenceNode",
 protocol: 'testing',
 fn: function (){
@@ -185,8 +185,8 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isCascadeNode",
 protocol: 'testing',
 fn: function (){
@@ -203,8 +203,8 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
@@ -221,8 +221,8 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isJSStatementNode",
 protocol: 'testing',
 fn: function (){
@@ -239,14 +239,14 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isLastChild",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(_st(self._parent())._nodes())._last()).__eq(self);
@@ -264,8 +264,8 @@ messageSends: ["=", "last", "nodes", "parent"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isNavigationNode",
 protocol: 'testing',
 fn: function (){
@@ -282,8 +282,8 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isNode",
 protocol: 'testing',
 fn: function (){
@@ -300,14 +300,14 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isReferenced",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 $4=self._parent();
@@ -317,7 +317,7 @@ $ctx1.sendIdx["parent"]=1;
 $3=_st($4)._isSequenceNode();
 $2=_st($3)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._parent())._isAssignmentNode();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -339,8 +339,8 @@ messageSends: ["not", "or:", "isSequenceNode", "parent", "isAssignmentNode"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isReturnNode",
 protocol: 'testing',
 fn: function (){
@@ -357,8 +357,8 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isSendNode",
 protocol: 'testing',
 fn: function (){
@@ -375,8 +375,8 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isSequenceNode",
 protocol: 'testing',
 fn: function (){
@@ -393,8 +393,8 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isValueNode",
 protocol: 'testing',
 fn: function (){
@@ -411,8 +411,8 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isVariableNode",
 protocol: 'testing',
 fn: function (){
@@ -429,14 +429,14 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "method",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self._parent();
@@ -461,26 +461,26 @@ messageSends: ["ifNotNil:", "parent", "method"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "navigationNodeAt:ifAbsent:",
 protocol: 'accessing',
 fn: function (aPoint,aBlock){
 var self=this;
 var children;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2;
 var $early={};
 try {
 children=_st(self._allNodes())._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._isNavigationNode())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(each)._inPosition_(aPoint);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -493,7 +493,7 @@ return _st(each)._inPosition_(aPoint);
 }));
 _st(children)._ifEmpty_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(aBlock)._value();
 throw $early=[$1];
@@ -503,7 +503,7 @@ throw $early=[$1];
 }));
 $2=_st(_st(_st(children)._asArray())._sort_((function(a,b){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=_st(a)._positionStart();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -534,14 +534,14 @@ messageSends: ["select:", "allNodes", "and:", "isNavigationNode", "inPosition:",
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nextChild",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 $3=self._nodes();
@@ -549,7 +549,7 @@ $3=self._nodes();
 $ctx1.sendIdx["nodes"]=1;
 //>>excludeEnd("ctx");
 $2=_st($3)._isEmpty();
-if($vm.assert($2)){
+if($core.assert($2)){
 $1=self;
 } else {
 $1=_st(_st(self._nodes())._first())._nextChild();
@@ -568,14 +568,14 @@ messageSends: ["ifTrue:ifFalse:", "isEmpty", "nodes", "nextChild", "first"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nextNode",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self._parent();
@@ -600,15 +600,15 @@ messageSends: ["ifNotNil:", "parent", "nextNode:"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nextNode:",
 protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 var next;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 var $early={};
@@ -638,15 +638,15 @@ messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:", "nextChild"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nodes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@nodes"];
@@ -670,19 +670,19 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nodes:",
 protocol: 'building',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@nodes"]=aCollection;
 _st(aCollection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._parent_(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -703,8 +703,8 @@ messageSends: ["do:", "parent:"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "parent",
 protocol: 'accessing',
 fn: function (){
@@ -723,8 +723,8 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "parent:",
 protocol: 'accessing',
 fn: function (aNode){
@@ -742,14 +742,14 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "position",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$receiver;
 $2=self["@position"];
@@ -779,8 +779,8 @@ messageSends: ["ifNil:", "ifNotNil:", "parent", "position"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "position:",
 protocol: 'accessing',
 fn: function (aPosition){
@@ -798,14 +798,14 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "positionEnd",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$7,$6,$5,$4,$3,$1;
 $2=self._positionStart();
@@ -841,14 +841,14 @@ messageSends: ["+", "positionStart", "@", "-", "size", "lines", "source", "last"
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "positionStart",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._position();
@@ -866,14 +866,14 @@ messageSends: ["position"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "postCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -885,7 +885,7 @@ $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 _st(self._nodes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._parent_(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -906,19 +906,19 @@ messageSends: ["postCopy", "do:", "nodes", "parent:"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "requiresSmalltalkContext",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(self._nodes())._detect_ifNone_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._requiresSmalltalkContext();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -942,14 +942,14 @@ messageSends: ["notNil", "detect:ifNone:", "nodes", "requiresSmalltalkContext"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "shouldBeAliased",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@shouldBeAliased"];
@@ -972,8 +972,8 @@ messageSends: ["ifNil:"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "shouldBeAliased:",
 protocol: 'accessing',
 fn: function (aBoolean){
@@ -991,14 +991,14 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "shouldBeInlined",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@shouldBeInlined"];
@@ -1021,8 +1021,8 @@ messageSends: ["ifNil:"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "shouldBeInlined:",
 protocol: 'accessing',
 fn: function (aBoolean){
@@ -1040,14 +1040,14 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "size",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._source())._size();
@@ -1065,14 +1065,14 @@ messageSends: ["size", "source"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "source",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@source"];
@@ -1095,8 +1095,8 @@ messageSends: ["ifNil:"]
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "source:",
 protocol: 'accessing',
 fn: function (aString){
@@ -1114,8 +1114,8 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "stopOnStepping",
 protocol: 'testing',
 fn: function (){
@@ -1132,19 +1132,19 @@ messageSends: []
 }),
 $globals.Node);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "subtreeNeedsAliasing",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(self._shouldBeAliased())._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._shouldBeInlined();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1152,11 +1152,11 @@ return self._shouldBeInlined();
 //>>excludeEnd("ctx");
 })))._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._nodes())._anySatisfy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(each)._subtreeNeedsAliasing();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1186,18 +1186,18 @@ $globals.Node);
 
 
 
-$vm.addClass('AssignmentNode', $globals.Node, ['left', 'right'], 'Compiler-AST');
+$core.addClass('AssignmentNode', $globals.Node, ['left', 'right'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.AssignmentNode.comment="I represent an assignment node.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitAssignmentNode_(self);
@@ -1215,8 +1215,8 @@ messageSends: ["visitAssignmentNode:"]
 }),
 $globals.AssignmentNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isAssignmentNode",
 protocol: 'testing',
 fn: function (){
@@ -1233,8 +1233,8 @@ messageSends: []
 }),
 $globals.AssignmentNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "left",
 protocol: 'accessing',
 fn: function (){
@@ -1253,14 +1253,14 @@ messageSends: []
 }),
 $globals.AssignmentNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "left:",
 protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@left"]=aNode;
 _st(aNode)._parent_(self);
@@ -1278,15 +1278,15 @@ messageSends: ["parent:"]
 }),
 $globals.AssignmentNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nodes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st($Array())._with_with_(self._left(),self._right());
@@ -1304,8 +1304,8 @@ messageSends: ["with:with:", "left", "right"]
 }),
 $globals.AssignmentNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "right",
 protocol: 'accessing',
 fn: function (){
@@ -1324,14 +1324,14 @@ messageSends: []
 }),
 $globals.AssignmentNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "right:",
 protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@right"]=aNode;
 _st(aNode)._parent_(self);
@@ -1349,14 +1349,14 @@ messageSends: ["parent:"]
 }),
 $globals.AssignmentNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "shouldBeAliased",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=(
@@ -1369,7 +1369,7 @@ $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 $1=_st($2)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._isReferenced();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1392,18 +1392,18 @@ $globals.AssignmentNode);
 
 
 
-$vm.addClass('BlockNode', $globals.Node, ['parameters', 'scope'], 'Compiler-AST');
+$core.addClass('BlockNode', $globals.Node, ['parameters', 'scope'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.BlockNode.comment="I represent an block closure node.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitBlockNode_(self);
@@ -1421,8 +1421,8 @@ messageSends: ["visitBlockNode:"]
 }),
 $globals.BlockNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isBlockNode",
 protocol: 'testing',
 fn: function (){
@@ -1439,8 +1439,8 @@ messageSends: []
 }),
 $globals.BlockNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nextChild",
 protocol: 'accessing',
 fn: function (){
@@ -1457,8 +1457,8 @@ messageSends: []
 }),
 $globals.BlockNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nextNode:",
 protocol: 'accessing',
 fn: function (aNode){
@@ -1475,15 +1475,15 @@ messageSends: []
 }),
 $globals.BlockNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "parameters",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@parameters"];
@@ -1507,8 +1507,8 @@ messageSends: ["ifNil:", "new"]
 }),
 $globals.BlockNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "parameters:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -1526,8 +1526,8 @@ messageSends: []
 }),
 $globals.BlockNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "scope",
 protocol: 'accessing',
 fn: function (){
@@ -1546,8 +1546,8 @@ messageSends: []
 }),
 $globals.BlockNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "scope:",
 protocol: 'accessing',
 fn: function (aLexicalScope){
@@ -1565,19 +1565,19 @@ messageSends: []
 }),
 $globals.BlockNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "subtreeNeedsAliasing",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._shouldBeAliased())._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._shouldBeInlined();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1600,18 +1600,18 @@ $globals.BlockNode);
 
 
 
-$vm.addClass('CascadeNode', $globals.Node, ['receiver'], 'Compiler-AST');
+$core.addClass('CascadeNode', $globals.Node, ['receiver'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.CascadeNode.comment="I represent an cascade node.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitCascadeNode_(self);
@@ -1629,8 +1629,8 @@ messageSends: ["visitCascadeNode:"]
 }),
 $globals.CascadeNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isCascadeNode",
 protocol: 'testing',
 fn: function (){
@@ -1647,8 +1647,8 @@ messageSends: []
 }),
 $globals.CascadeNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "receiver",
 protocol: 'accessing',
 fn: function (){
@@ -1667,8 +1667,8 @@ messageSends: []
 }),
 $globals.CascadeNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "receiver:",
 protocol: 'accessing',
 fn: function (aNode){
@@ -1688,18 +1688,18 @@ $globals.CascadeNode);
 
 
 
-$vm.addClass('DynamicArrayNode', $globals.Node, [], 'Compiler-AST');
+$core.addClass('DynamicArrayNode', $globals.Node, [], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.DynamicArrayNode.comment="I represent an dynamic array node.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitDynamicArrayNode_(self);
@@ -1719,18 +1719,18 @@ $globals.DynamicArrayNode);
 
 
 
-$vm.addClass('DynamicDictionaryNode', $globals.Node, [], 'Compiler-AST');
+$core.addClass('DynamicDictionaryNode', $globals.Node, [], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.DynamicDictionaryNode.comment="I represent an dynamic dictionary node.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitDynamicDictionaryNode_(self);
@@ -1750,18 +1750,18 @@ $globals.DynamicDictionaryNode);
 
 
 
-$vm.addClass('JSStatementNode', $globals.Node, [], 'Compiler-AST');
+$core.addClass('JSStatementNode', $globals.Node, [], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.JSStatementNode.comment="I represent an JavaScript statement node.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitJSStatementNode_(self);
@@ -1779,8 +1779,8 @@ messageSends: ["visitJSStatementNode:"]
 }),
 $globals.JSStatementNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isJSStatementNode",
 protocol: 'testing',
 fn: function (){
@@ -1797,8 +1797,8 @@ messageSends: []
 }),
 $globals.JSStatementNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "requiresSmalltalkContext",
 protocol: 'testing',
 fn: function (){
@@ -1817,18 +1817,18 @@ $globals.JSStatementNode);
 
 
 
-$vm.addClass('MethodNode', $globals.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'sendIndexes', 'superSends'], 'Compiler-AST');
+$core.addClass('MethodNode', $globals.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'sendIndexes', 'superSends'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.MethodNode.comment="I represent an method node.\x0a\x0aA method node must be the root and only method node of a valid AST.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitMethodNode_(self);
@@ -1846,14 +1846,14 @@ messageSends: ["visitMethodNode:"]
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "arguments",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@arguments"];
@@ -1876,8 +1876,8 @@ messageSends: ["ifNil:"]
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "arguments:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -1895,8 +1895,8 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "classReferences",
 protocol: 'accessing',
 fn: function (){
@@ -1915,8 +1915,8 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "classReferences:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -1934,14 +1934,14 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "messageSends",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._sendIndexes())._keys();
@@ -1959,8 +1959,8 @@ messageSends: ["keys", "sendIndexes"]
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "method",
 protocol: 'accessing',
 fn: function (){
@@ -1977,8 +1977,8 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "scope",
 protocol: 'accessing',
 fn: function (){
@@ -1997,8 +1997,8 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "scope:",
 protocol: 'accessing',
 fn: function (aMethodScope){
@@ -2016,8 +2016,8 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selector",
 protocol: 'accessing',
 fn: function (){
@@ -2036,8 +2036,8 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selector:",
 protocol: 'accessing',
 fn: function (aString){
@@ -2055,8 +2055,8 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "sendIndexes",
 protocol: 'accessing',
 fn: function (){
@@ -2075,8 +2075,8 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "sendIndexes:",
 protocol: 'accessing',
 fn: function (aDictionary){
@@ -2094,24 +2094,24 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "sequenceNode",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 var $early={};
 try {
 _st(self._nodes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(each)._isSequenceNode();
-if($vm.assert($1)){
+if($core.assert($1)){
 throw $early=[each];
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2134,8 +2134,8 @@ messageSends: ["do:", "nodes", "ifTrue:", "isSequenceNode"]
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "source",
 protocol: 'accessing',
 fn: function (){
@@ -2154,8 +2154,8 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "source:",
 protocol: 'accessing',
 fn: function (aString){
@@ -2173,8 +2173,8 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "superSends",
 protocol: 'accessing',
 fn: function (){
@@ -2193,8 +2193,8 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "superSends:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -2214,18 +2214,18 @@ $globals.MethodNode);
 
 
 
-$vm.addClass('ReturnNode', $globals.Node, ['scope'], 'Compiler-AST');
+$core.addClass('ReturnNode', $globals.Node, ['scope'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ReturnNode.comment="I represent an return node. At the AST level, there is not difference between a local return or non-local return.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitReturnNode_(self);
@@ -2243,8 +2243,8 @@ messageSends: ["visitReturnNode:"]
 }),
 $globals.ReturnNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isReturnNode",
 protocol: 'testing',
 fn: function (){
@@ -2261,14 +2261,14 @@ messageSends: []
 }),
 $globals.ReturnNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nonLocalReturn",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(self._scope())._isMethodScope())._not();
@@ -2286,8 +2286,8 @@ messageSends: ["not", "isMethodScope", "scope"]
 }),
 $globals.ReturnNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "scope",
 protocol: 'accessing',
 fn: function (){
@@ -2306,8 +2306,8 @@ messageSends: []
 }),
 $globals.ReturnNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "scope:",
 protocol: 'accessing',
 fn: function (aLexicalScope){
@@ -2327,18 +2327,18 @@ $globals.ReturnNode);
 
 
 
-$vm.addClass('SendNode', $globals.Node, ['selector', 'arguments', 'receiver', 'superSend', 'index'], 'Compiler-AST');
+$core.addClass('SendNode', $globals.Node, ['selector', 'arguments', 'receiver', 'superSend', 'index'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.SendNode.comment="I represent an message send node.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitSendNode_(self);
@@ -2356,14 +2356,14 @@ messageSends: ["visitSendNode:"]
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "arguments",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@arguments"];
@@ -2387,19 +2387,19 @@ messageSends: ["ifNil:"]
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "arguments:",
 protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@arguments"]=aCollection;
 _st(aCollection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._parent_(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2420,8 +2420,8 @@ messageSends: ["do:", "parent:"]
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "cascadeNodeWithMessages:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -2431,7 +2431,7 @@ function $SendNode(){return $globals.SendNode||(typeof SendNode=="undefined"?nil
 function $CascadeNode(){return $globals.CascadeNode||(typeof CascadeNode=="undefined"?nil:CascadeNode)}
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$5,$3;
 $1=_st($SendNode())._new();
@@ -2464,8 +2464,8 @@ messageSends: ["selector:", "new", "selector", "arguments:", "arguments", "yours
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "index",
 protocol: 'accessing',
 fn: function (){
@@ -2484,8 +2484,8 @@ messageSends: []
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "index:",
 protocol: 'accessing',
 fn: function (anInteger){
@@ -2503,14 +2503,14 @@ messageSends: []
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isCascadeSendNode",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._parent())._isCascadeNode();
@@ -2528,8 +2528,8 @@ messageSends: ["isCascadeNode", "parent"]
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isNavigationNode",
 protocol: 'testing',
 fn: function (){
@@ -2546,8 +2546,8 @@ messageSends: []
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isSendNode",
 protocol: 'testing',
 fn: function (){
@@ -2564,14 +2564,14 @@ messageSends: []
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "navigationLink",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._selector();
@@ -2589,15 +2589,15 @@ messageSends: ["selector"]
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nodes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$2,$5,$6,$4,$receiver;
 $1=self._receiver();
@@ -2632,8 +2632,8 @@ messageSends: ["ifNil:", "receiver", "copy", "arguments", "addAll:", "with:", "y
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "receiver",
 protocol: 'accessing',
 fn: function (){
@@ -2652,19 +2652,19 @@ messageSends: []
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "receiver:",
 protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self["@receiver"]=aNode;
 $1=_st(aNode)._isNode();
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(aNode)._parent_(self);
 };
 return self;
@@ -2681,8 +2681,8 @@ messageSends: ["ifTrue:", "isNode", "parent:"]
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "requiresSmalltalkContext",
 protocol: 'testing',
 fn: function (){
@@ -2699,8 +2699,8 @@ messageSends: []
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selector",
 protocol: 'accessing',
 fn: function (){
@@ -2719,8 +2719,8 @@ messageSends: []
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selector:",
 protocol: 'accessing',
 fn: function (aString){
@@ -2738,15 +2738,15 @@ messageSends: []
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "shouldBeAliased",
 protocol: 'testing',
 fn: function (){
 var self=this;
 var sends;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 sends=_st(_st(_st(self._method())._sendIndexes())._at_(self._selector()))._size();
@@ -2760,15 +2760,15 @@ $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 $1=_st($2)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self._isReferenced())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return _st(_st(_st(sends).__gt((1)))._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return _st(self._index()).__lt(sends);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2776,7 +2776,7 @@ return _st(self._index()).__lt(sends);
 //>>excludeEnd("ctx");
 })))._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 return self._superSend();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2811,8 +2811,8 @@ messageSends: ["size", "at:", "sendIndexes", "method", "selector", "or:", "shoul
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "stopOnStepping",
 protocol: 'testing',
 fn: function (){
@@ -2829,14 +2829,14 @@ messageSends: []
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "superSend",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@superSend"];
@@ -2859,8 +2859,8 @@ messageSends: ["ifNil:"]
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "superSend:",
 protocol: 'accessing',
 fn: function (aBoolean){
@@ -2878,15 +2878,15 @@ messageSends: []
 }),
 $globals.SendNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "valueForReceiver:",
 protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 function $SendNode(){return $globals.SendNode||(typeof SendNode=="undefined"?nil:SendNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$5,$4,$6,$1,$receiver;
 $2=_st($SendNode())._new();
@@ -2923,18 +2923,18 @@ $globals.SendNode);
 
 
 
-$vm.addClass('SequenceNode', $globals.Node, ['temps', 'scope'], 'Compiler-AST');
+$core.addClass('SequenceNode', $globals.Node, ['temps', 'scope'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.SequenceNode.comment="I represent an sequence node. A sequence represent a set of instructions inside the same scope (the method scope or a block scope).";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitSequenceNode_(self);
@@ -2952,15 +2952,15 @@ messageSends: ["visitSequenceNode:"]
 }),
 $globals.SequenceNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "asBlockSequenceNode",
 protocol: 'converting',
 fn: function (){
 var self=this;
 function $BlockSequenceNode(){return $globals.BlockSequenceNode||(typeof BlockSequenceNode=="undefined"?nil:BlockSequenceNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=_st($BlockSequenceNode())._new();
@@ -2984,8 +2984,8 @@ messageSends: ["position:", "new", "position", "source:", "source", "nodes:", "n
 }),
 $globals.SequenceNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isSequenceNode",
 protocol: 'testing',
 fn: function (){
@@ -3002,8 +3002,8 @@ messageSends: []
 }),
 $globals.SequenceNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "scope",
 protocol: 'accessing',
 fn: function (){
@@ -3022,8 +3022,8 @@ messageSends: []
 }),
 $globals.SequenceNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "scope:",
 protocol: 'accessing',
 fn: function (aLexicalScope){
@@ -3041,14 +3041,14 @@ messageSends: []
 }),
 $globals.SequenceNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "temps",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@temps"];
@@ -3071,8 +3071,8 @@ messageSends: ["ifNil:"]
 }),
 $globals.SequenceNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "temps:",
 protocol: 'accessing',
 fn: function (aCollection){
@@ -3092,18 +3092,18 @@ $globals.SequenceNode);
 
 
 
-$vm.addClass('BlockSequenceNode', $globals.SequenceNode, [], 'Compiler-AST');
+$core.addClass('BlockSequenceNode', $globals.SequenceNode, [], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.BlockSequenceNode.comment="I represent an special sequence node for block scopes.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitBlockSequenceNode_(self);
@@ -3121,8 +3121,8 @@ messageSends: ["visitBlockSequenceNode:"]
 }),
 $globals.BlockSequenceNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isBlockSequenceNode",
 protocol: 'testing',
 fn: function (){
@@ -3141,18 +3141,18 @@ $globals.BlockSequenceNode);
 
 
 
-$vm.addClass('ValueNode', $globals.Node, ['value'], 'Compiler-AST');
+$core.addClass('ValueNode', $globals.Node, ['value'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ValueNode.comment="I represent a value node.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitValueNode_(self);
@@ -3170,14 +3170,14 @@ messageSends: ["visitValueNode:"]
 }),
 $globals.ValueNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._value())._isImmutable();
@@ -3195,8 +3195,8 @@ messageSends: ["isImmutable", "value"]
 }),
 $globals.ValueNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isValueNode",
 protocol: 'testing',
 fn: function (){
@@ -3213,8 +3213,8 @@ messageSends: []
 }),
 $globals.ValueNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "value",
 protocol: 'accessing',
 fn: function (){
@@ -3233,8 +3233,8 @@ messageSends: []
 }),
 $globals.ValueNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "value:",
 protocol: 'accessing',
 fn: function (anObject){
@@ -3254,18 +3254,18 @@ $globals.ValueNode);
 
 
 
-$vm.addClass('VariableNode', $globals.ValueNode, ['assigned', 'binding'], 'Compiler-AST');
+$core.addClass('VariableNode', $globals.ValueNode, ['assigned', 'binding'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.VariableNode.comment="I represent an variable node.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "accept:",
 protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aVisitor)._visitVariableNode_(self);
@@ -3283,14 +3283,14 @@ messageSends: ["visitVariableNode:"]
 }),
 $globals.VariableNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "alias",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._binding())._alias();
@@ -3308,14 +3308,14 @@ messageSends: ["alias", "binding"]
 }),
 $globals.VariableNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "assigned",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@assigned"];
@@ -3338,8 +3338,8 @@ messageSends: ["ifNil:"]
 }),
 $globals.VariableNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "assigned:",
 protocol: 'accessing',
 fn: function (aBoolean){
@@ -3357,14 +3357,14 @@ messageSends: []
 }),
 $globals.VariableNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "beAssigned",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._binding())._validateAssignment();
 self["@assigned"]=true;
@@ -3382,8 +3382,8 @@ messageSends: ["validateAssignment", "binding"]
 }),
 $globals.VariableNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "binding",
 protocol: 'accessing',
 fn: function (){
@@ -3402,8 +3402,8 @@ messageSends: []
 }),
 $globals.VariableNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "binding:",
 protocol: 'accessing',
 fn: function (aScopeVar){
@@ -3421,14 +3421,14 @@ messageSends: []
 }),
 $globals.VariableNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isArgument",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._binding())._isArgVar();
@@ -3446,14 +3446,14 @@ messageSends: ["isArgVar", "binding"]
 }),
 $globals.VariableNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isImmutable",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._binding())._isImmutable();
@@ -3471,8 +3471,8 @@ messageSends: ["isImmutable", "binding"]
 }),
 $globals.VariableNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isNavigationNode",
 protocol: 'testing',
 fn: function (){
@@ -3489,8 +3489,8 @@ messageSends: []
 }),
 $globals.VariableNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isVariableNode",
 protocol: 'testing',
 fn: function (){
@@ -3507,14 +3507,14 @@ messageSends: []
 }),
 $globals.VariableNode);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "navigationLink",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._value();
@@ -3533,15 +3533,15 @@ messageSends: ["value"]
 $globals.VariableNode);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "ast",
 protocol: '*Compiler-AST',
 fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._source();
@@ -3550,7 +3550,7 @@ $ctx1.sendIdx["source"]=1;
 //>>excludeEnd("ctx");
 _st($1)._ifEmpty_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._error_("Method source is empty");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3572,8 +3572,8 @@ messageSends: ["ifEmpty:", "source", "error:", "parse:"]
 }),
 $globals.CompiledMethod);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isNode",
 protocol: '*Compiler-AST',
 fn: function (){

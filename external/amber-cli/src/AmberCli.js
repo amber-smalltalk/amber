@@ -1,28 +1,28 @@
 define("amber_cli/AmberCli", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
-var $vm=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$vm,_st=$recv,globals=$globals;
-$vm.addPackage('AmberCli');
-$vm.packages["AmberCli"].transport = {"type":"amd","amdNamespace":"amber_cli"};
+var $core=$boot.vm,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var smalltalk=$core,_st=$recv,globals=$globals;
+$core.addPackage('AmberCli');
+$core.packages["AmberCli"].transport = {"type":"amd","amdNamespace":"amber_cli"};
 
-$vm.addClass('AmberCli', $globals.Object, [], 'AmberCli');
+$core.addClass('AmberCli', $globals.Object, [], 'AmberCli');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.AmberCli.comment="I am the Amber CLI (CommandLine Interface) tool which runs on Node.js.\x0a\x0aMy responsibility is to start different Amber programs like the FileServer or the Repl.\x0aWhich program to start is determined by the first commandline parameters passed to the AmberCli executable.\x0aUse `help` to get a list of all available options.\x0aAny further commandline parameters are passed to the specific program.\x0a\x0a## Commands\x0a\x0aNew commands can be added by creating a class side method in the `commands` protocol which takes one parameter.\x0aThis parameter is an array of all commandline options + values passed on to the program.\x0aAny `camelCaseCommand` is transformed into a commandline parameter of the form `camel-case-command` and vice versa.";
 //>>excludeEnd("ide");
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "commandLineSwitches",
 protocol: 'commandline',
 fn: function (){
 var self=this;
 var switches;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 switches=_st(_st(self._class())._methodsInProtocol_("commands"))._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._selector();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -34,7 +34,7 @@ $ctx1.sendIdx["collect:"]=1;
 //>>excludeEnd("ctx");
 switches=_st(switches)._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._match_("^[^:]*:$");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -43,7 +43,7 @@ return _st(each)._match_("^[^:]*:$");
 }));
 switches=_st(switches)._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(_st(each)._allButLast())._replace_with_("([A-Z])","-$1"))._asLowercase();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -65,15 +65,15 @@ messageSends: ["collect:", "methodsInProtocol:", "class", "selector", "select:",
 }),
 $globals.AmberCli.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "config:",
 protocol: 'commands',
 fn: function (args){
 var self=this;
 function $Configurator(){return $globals.Configurator||(typeof Configurator=="undefined"?nil:Configurator)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($Configurator())._new())._start();
 return self;
@@ -90,8 +90,8 @@ messageSends: ["start", "new"]
 }),
 $globals.AmberCli.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "handleArguments:",
 protocol: 'commandline',
 fn: function (args){
@@ -99,7 +99,7 @@ var self=this;
 var selector;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(args)._first();
@@ -123,20 +123,20 @@ messageSends: ["selectorForCommandLineSwitch:", "first", "remove:", "perform:wit
 }),
 $globals.AmberCli.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "help:",
 protocol: 'commands',
 fn: function (args){
 var self=this;
 function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st($Transcript())._show_("Available commands");
 _st(self._commandLineSwitches())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(console)._log_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -157,15 +157,15 @@ messageSends: ["show:", "do:", "commandLineSwitches", "log:"]
 }),
 $globals.AmberCli.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "init:",
 protocol: 'commands',
 fn: function (args){
 var self=this;
 function $Initer(){return $globals.Initer||(typeof Initer=="undefined"?nil:Initer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st($Initer())._new())._start();
 return self;
@@ -182,8 +182,8 @@ messageSends: ["start", "new"]
 }),
 $globals.AmberCli.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "main",
 protocol: 'startup',
 fn: function (){
@@ -192,7 +192,7 @@ var args,nodeMinorVersion;
 function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $5,$4,$3,$2,$1,$8,$7,$6,$9,$10,$11;
 $5=_st($Smalltalk())._version();
@@ -227,7 +227,7 @@ $7=_st($8)._tokenize_(".");
 $6=_st($7)._second();
 nodeMinorVersion=_st($6)._asNumber();
 $9=_st(nodeMinorVersion).__lt((8));
-if($vm.assert($9)){
+if($core.assert($9)){
 _st($Transcript())._show_("You are currently using Node.js ".__comma(_st(process)._version()));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["show:"]=2;
@@ -238,7 +238,7 @@ return (-1);
 args=_st(process)._argv();
 _st(args)._removeFrom_to_((1),(2));
 $10=_st(args)._isEmpty();
-if($vm.assert($10)){
+if($core.assert($10)){
 self._help_(nil);
 } else {
 $11=self._handleArguments_(args);
@@ -258,15 +258,15 @@ messageSends: ["show:", ",", "version", "node", "versions", "asNumber", "second"
 }),
 $globals.AmberCli.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "repl:",
 protocol: 'commands',
 fn: function (args){
 var self=this;
 function $Repl(){return $globals.Repl||(typeof Repl=="undefined"?nil:Repl)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st($Repl())._new())._createInterface();
@@ -284,22 +284,22 @@ messageSends: ["createInterface", "new"]
 }),
 $globals.AmberCli.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectorForCommandLineSwitch:",
 protocol: 'commandline',
 fn: function (aSwitch){
 var self=this;
 var command,selector;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=_st(self._commandLineSwitches())._includes_(aSwitch);
-if($vm.assert($1)){
+if($core.assert($1)){
 selector=_st(_st(aSwitch)._replace_with_("-[a-z]",(function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._second())._asUppercase();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -326,15 +326,15 @@ messageSends: ["ifTrue:ifFalse:", "includes:", "commandLineSwitches", ",", "repl
 }),
 $globals.AmberCli.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "serve:",
 protocol: 'commands',
 fn: function (args){
 var self=this;
 function $FileServer(){return $globals.FileServer||(typeof FileServer=="undefined"?nil:FileServer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st($FileServer())._createServerWithArguments_(args))._start();
@@ -352,8 +352,8 @@ messageSends: ["start", "createServerWithArguments:"]
 }),
 $globals.AmberCli.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "version:",
 protocol: 'commands',
 fn: function (arguments){
@@ -371,15 +371,15 @@ messageSends: []
 $globals.AmberCli.klass);
 
 
-$vm.addClass('BaseFileManipulator', $globals.Object, ['path', 'fs'], 'AmberCli');
-$vm.addMethod(
-$vm.method({
+$core.addClass('BaseFileManipulator', $globals.Object, ['path', 'fs'], 'AmberCli');
+$core.addMethod(
+$core.method({
 selector: "dirname",
 protocol: 'private',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return __dirname;
 return self;
@@ -396,14 +396,14 @@ messageSends: []
 }),
 $globals.BaseFileManipulator);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -432,14 +432,14 @@ messageSends: ["initialize", "value:"]
 }),
 $globals.BaseFileManipulator);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "rootDirname",
 protocol: 'private',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@path"])._join_with_(self._dirname(),"..");
@@ -459,15 +459,15 @@ $globals.BaseFileManipulator);
 
 
 
-$vm.addClass('Configurator', $globals.BaseFileManipulator, [], 'AmberCli');
-$vm.addMethod(
-$vm.method({
+$core.addClass('Configurator', $globals.BaseFileManipulator, [], 'AmberCli');
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -491,19 +491,19 @@ messageSends: ["initialize"]
 }),
 $globals.Configurator);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "start",
 protocol: 'action',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $receiver;
 self._writeConfigThenDo_((function(err){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 if(($receiver = err) == null || $receiver.isNil){
 return _st(process)._exit();
@@ -528,14 +528,14 @@ messageSends: ["writeConfigThenDo:", "ifNotNil:ifNil:", "exit:", "exit"]
 }),
 $globals.Configurator);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "writeConfigThenDo:",
 protocol: 'action',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(require)._value_("amber-dev/lib/config"))._writeConfig_toFile_thenDo_(_st(process)._cwd(),"config.js",aBlock);
 return self;
@@ -554,18 +554,18 @@ $globals.Configurator);
 
 
 
-$vm.addClass('FileServer', $globals.BaseFileManipulator, ['http', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'AmberCli');
+$core.addClass('FileServer', $globals.BaseFileManipulator, ['http', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'AmberCli');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.FileServer.comment="I am the Amber Smalltalk FileServer.\x0aMy runtime requirement is a functional Node.js executable.\x0a\x0aTo start a FileServer instance on port `4000` use the following code:\x0a\x0a    FileServer new start\x0a\x0aA parameterized instance can be created with the following code:\x0a\x0a    FileServer createServerWithArguments: options\x0a\x0aHere, `options` is an array of commandline style strings each followed by a value e.g. `#('--port', '6000', '--host', '0.0.0.0')`.\x0aA list of all available parameters can be printed to the commandline by passing `--help` as parameter.\x0aSee the `Options` section for further details on how options are mapped to instance methods.\x0a\x0aAfter startup FileServer checks if the directory layout required by Amber is present and logs a warning on absence.\x0a\x0a\x0a## Options\x0a\x0aEach option is of the form `--some-option-string` which is transformed into a selector of the format `someOptionString:`.\x0aThe trailing `--` gets removed, each `-[a-z]` gets transformed into the according uppercase letter, and a `:` is appended to create a selector which takes a single argument.\x0aAfterwards, the selector gets executed on the `FileServer` instance with the value following in the options array as parameter.\x0a\x0a## Adding new commandline parameters\x0a\x0aAdding new commandline parameters to `FileServer` is as easy as adding a new single parameter method to the `accessing` protocol.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "base64Decode:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return (new Buffer(aString, 'base64').toString());
 return self;
@@ -582,14 +582,14 @@ messageSends: []
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "basePath",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@basePath"];
@@ -612,14 +612,14 @@ messageSends: ["ifNil:", "defaultBasePath", "class"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "basePath:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@basePath"]=aString;
 self._validateBasePath();
@@ -637,18 +637,18 @@ messageSends: ["validateBasePath"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "checkDirectoryLayout",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@fs"])._existsSync_(self._withBasePath_("index.html"));
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 _st(console)._warn_("Warning: project directory does not contain index.html.");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["warn:"]=1;
@@ -677,8 +677,8 @@ messageSends: ["ifFalse:", "existsSync:", "withBasePath:", "warn:"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "fallbackPage",
 protocol: 'accessing',
 fn: function (){
@@ -697,8 +697,8 @@ messageSends: []
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "fallbackPage:",
 protocol: 'accessing',
 fn: function (aString){
@@ -716,26 +716,26 @@ messageSends: []
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "handleGETRequest:respondTo:",
 protocol: 'request handling',
 fn: function (aRequest,aResponse){
 var self=this;
 var uri,filename;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 uri=_st(self["@url"])._parse_(_st(aRequest)._url());
 filename=_st(self["@path"])._join_with_(self._basePath(),_st(uri)._pathname());
 _st(self["@fs"])._exists_do_(filename,(function(aBoolean){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-if($vm.assert(aBoolean)){
+if($core.assert(aBoolean)){
 $1=_st(_st(self["@fs"])._statSync_(filename))._isDirectory();
-if($vm.assert($1)){
+if($core.assert($1)){
 return self._respondDirectoryNamed_from_to_(filename,uri,aResponse);
 } else {
 return self._respondFileNamed_to_(filename,aResponse);
@@ -761,14 +761,14 @@ messageSends: ["parse:", "url", "join:with:", "basePath", "pathname", "exists:do
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "handleOPTIONSRequest:respondTo:",
 protocol: 'request handling',
 fn: function (aRequest,aResponse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(aResponse)._writeHead_options_((200),$globals.HashedCollection._newFromPairs_(["Access-Control-Allow-Origin","*","Access-Control-Allow-Methods","GET, PUT, POST, DELETE, OPTIONS","Access-Control-Allow-Headers","Content-Type, Accept","Content-Length",(0),"Access-Control-Max-Age",(10)]));
 _st(aResponse)._end();
@@ -786,19 +786,19 @@ messageSends: ["writeHead:options:", "end"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "handlePUTRequest:respondTo:",
 protocol: 'request handling',
 fn: function (aRequest,aResponse){
 var self=this;
 var file,stream;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 $1=self._isAuthenticated_(aRequest);
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 self._respondAuthenticationRequiredTo_(aResponse);
 return nil;
 };
@@ -809,7 +809,7 @@ $ctx1.sendIdx[","]=1;
 stream=_st(self["@fs"])._createWriteStream_(file);
 _st(stream)._on_do_("error",(function(error){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=console;
 $3="Error creating WriteStream for file ".__comma(file);
@@ -835,7 +835,7 @@ $ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
 _st(stream)._on_do_("close",(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._respondCreatedTo_(aResponse);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -848,7 +848,7 @@ $ctx1.sendIdx["on:do:"]=2;
 _st(aRequest)._setEncoding_("utf8");
 _st(aRequest)._on_do_("data",(function(data){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(stream)._write_(data);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -860,10 +860,10 @@ $ctx1.sendIdx["on:do:"]=3;
 //>>excludeEnd("ctx");
 _st(aRequest)._on_do_("end",(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=_st(stream)._writable();
-if($vm.assert($4)){
+if($core.assert($4)){
 return _st(stream)._end();
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -884,14 +884,14 @@ messageSends: ["ifFalse:", "isAuthenticated:", "respondAuthenticationRequiredTo:
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "handleRequest:respondTo:",
 protocol: 'request handling',
 fn: function (aRequest,aResponse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$5;
 $2=_st(aRequest)._method();
@@ -902,7 +902,7 @@ $1=_st($2).__eq("PUT");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
-if($vm.assert($1)){
+if($core.assert($1)){
 self._handlePUTRequest_respondTo_(aRequest,aResponse);
 };
 $4=_st(aRequest)._method();
@@ -913,11 +913,11 @@ $3=_st($4).__eq("GET");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=2;
 //>>excludeEnd("ctx");
-if($vm.assert($3)){
+if($core.assert($3)){
 self._handleGETRequest_respondTo_(aRequest,aResponse);
 };
 $5=_st(_st(aRequest)._method()).__eq("OPTIONS");
-if($vm.assert($5)){
+if($core.assert($5)){
 self._handleOPTIONSRequest_respondTo_(aRequest,aResponse);
 };
 return self;
@@ -934,8 +934,8 @@ messageSends: ["ifTrue:", "=", "method", "handlePUTRequest:respondTo:", "handleG
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "host",
 protocol: 'accessing',
 fn: function (){
@@ -954,8 +954,8 @@ messageSends: []
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "host:",
 protocol: 'accessing',
 fn: function (hostname){
@@ -973,14 +973,14 @@ messageSends: []
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 (
@@ -1023,15 +1023,15 @@ messageSends: ["initialize", "require:", "defaultHost", "class", "defaultPort"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isAuthenticated:",
 protocol: 'private',
 fn: function (aRequest){
 var self=this;
 var header,token,auth,parts;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$4,$5,$6,$9,$10,$8,$7,$receiver;
 $2=_st(self["@username"])._isNil();
@@ -1040,7 +1040,7 @@ $ctx1.sendIdx["isNil"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@password"])._isNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1050,7 +1050,7 @@ return _st(self["@password"])._isNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["and:"]=1;
 //>>excludeEnd("ctx");
-if($vm.assert($1)){
+if($core.assert($1)){
 return true;
 };
 $3=_st(_st(aRequest)._headers())._at_("authorization");
@@ -1063,7 +1063,7 @@ header="";
 header=$3;
 };
 $4=_st(header)._isEmpty();
-if($vm.assert($4)){
+if($core.assert($4)){
 return false;
 } else {
 $5=_st(header)._tokenize_(" ");
@@ -1095,14 +1095,14 @@ $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
 $7=_st($8)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@password"]).__eq(_st(parts)._at_((2)));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,7)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($7)){
+if($core.assert($7)){
 return true;
 } else {
 return false;
@@ -1122,8 +1122,8 @@ messageSends: ["ifTrue:", "and:", "isNil", "ifNil:", "at:", "headers", "ifTrue:i
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "password:",
 protocol: 'accessing',
 fn: function (aPassword){
@@ -1141,8 +1141,8 @@ messageSends: []
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "port",
 protocol: 'accessing',
 fn: function (){
@@ -1161,8 +1161,8 @@ messageSends: []
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "port:",
 protocol: 'accessing',
 fn: function (aNumber){
@@ -1180,14 +1180,14 @@ messageSends: []
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "require:",
 protocol: 'private',
 fn: function (aModuleString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(require)._value_(aModuleString);
@@ -1205,14 +1205,14 @@ messageSends: ["value:"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "respondAuthenticationRequiredTo:",
 protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st(aResponse)._writeHead_options_((401),$globals.HashedCollection._newFromPairs_(["WWW-Authenticate","Basic realm=\x22Secured Developer Area\x22"]));
@@ -1232,14 +1232,14 @@ messageSends: ["writeHead:options:", "write:", "end"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "respondCreatedTo:",
 protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st(aResponse)._writeHead_options_((201),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain","Access-Control-Allow-Origin","*"]));
@@ -1258,14 +1258,14 @@ messageSends: ["writeHead:options:", "end"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "respondDirectoryNamed:from:to:",
 protocol: 'request handling',
 fn: function (aDirname,aUrl,aResponse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$5,$7,$6,$4,$receiver;
 $2=_st(aUrl)._pathname();
@@ -1273,7 +1273,7 @@ $2=_st(aUrl)._pathname();
 $ctx1.sendIdx["pathname"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._endsWith_("/");
-if($vm.assert($1)){
+if($core.assert($1)){
 $3=_st(aDirname).__comma("index.html");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
@@ -1307,24 +1307,24 @@ messageSends: ["ifTrue:ifFalse:", "endsWith:", "pathname", "respondFileNamed:to:
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "respondFileNamed:to:",
 protocol: 'request handling',
 fn: function (aFilename,aResponse){
 var self=this;
 var type,filename;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5;
 filename=aFilename;
 _st(self["@fs"])._readFile_do_(filename,(function(ex,file){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(ex)._notNil();
-if($vm.assert($1)){
+if($core.assert($1)){
 $2=console;
 $3=_st(filename).__comma(" does not exist");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1336,7 +1336,7 @@ return self._respondNotFoundTo_(aResponse);
 type=_st(self._class())._mimeTypeFor_(filename);
 type;
 $4=_st(type).__eq("application/javascript");
-if($vm.assert($4)){
+if($core.assert($4)){
 type=_st(type).__comma(";charset=utf-8");
 type;
 };
@@ -1363,14 +1363,14 @@ messageSends: ["readFile:do:", "ifTrue:ifFalse:", "notNil", "log:", ",", "respon
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "respondInternalErrorTo:",
 protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st(aResponse)._writeHead_options_((500),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain"]));
@@ -1390,14 +1390,14 @@ messageSends: ["writeHead:options:", "write:", "end"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "respondNotCreatedTo:",
 protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st(aResponse)._writeHead_options_((400),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain"]));
@@ -1417,14 +1417,14 @@ messageSends: ["writeHead:options:", "write:", "end"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "respondNotFoundTo:",
 protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$4;
 $2=self._fallbackPage();
@@ -1432,7 +1432,7 @@ $2=self._fallbackPage();
 $ctx1.sendIdx["fallbackPage"]=1;
 //>>excludeEnd("ctx");
 $1=_st($2)._isNil();
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 $3=self._respondFileNamed_to_(self._fallbackPage(),aResponse);
 return $3;
 };
@@ -1473,14 +1473,14 @@ messageSends: ["ifFalse:", "isNil", "fallbackPage", "respondFileNamed:to:", "wri
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "respondOKTo:",
 protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st(aResponse)._writeHead_options_((200),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain","Access-Control-Allow-Origin","*"]));
@@ -1499,14 +1499,14 @@ messageSends: ["writeHead:options:", "end"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "respondRedirect:to:",
 protocol: 'request handling',
 fn: function (aString,aResponse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st(aResponse)._writeHead_options_((303),$globals.HashedCollection._newFromPairs_(["Location",aString]));
@@ -1525,20 +1525,20 @@ messageSends: ["writeHead:options:", "end"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "start",
 protocol: 'starting',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$8,$7,$6,$10,$9,$5,$11;
 self._checkDirectoryLayout();
 $1=_st(self["@http"])._createServer_((function(request,response){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._handleRequest_respondTo_(request,response);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1547,7 +1547,7 @@ return self._handleRequest_respondTo_(request,response);
 }));
 _st($1)._on_do_("error",(function(error){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=console;
 $3="Error starting server: ".__comma(error);
@@ -1567,7 +1567,7 @@ $ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
 _st($1)._on_do_("listening",(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=console;
 $8=self._host();
@@ -1608,14 +1608,14 @@ messageSends: ["checkDirectoryLayout", "on:do:", "createServer:", "handleRequest
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "startOn:",
 protocol: 'starting',
 fn: function (aPort){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._port_(aPort);
 self._start();
@@ -1633,8 +1633,8 @@ messageSends: ["port:", "start"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "username:",
 protocol: 'accessing',
 fn: function (aUsername){
@@ -1652,14 +1652,14 @@ messageSends: []
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "validateBasePath",
 protocol: 'private',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$7,$6,$5,$8,$9,$receiver;
 $1=self["@fs"];
@@ -1669,11 +1669,11 @@ $ctx1.sendIdx["basePath"]=1;
 //>>excludeEnd("ctx");
 _st($1)._stat_then_($2,(function(err,stat){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 if(($receiver = err) == null || $receiver.isNil){
 $3=_st(stat)._isDirectory();
-if(!$vm.assert($3)){
+if(!$core.assert($3)){
 $4=console;
 $7=self._basePath();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1718,14 +1718,14 @@ messageSends: ["stat:then:", "basePath", "ifNil:ifNotNil:", "ifFalse:", "isDirec
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "withBasePath:",
 protocol: 'private',
 fn: function (aBaseRelativePath){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self["@path"])._join_with_(self._basePath(),aBaseRelativePath);
@@ -1743,14 +1743,14 @@ messageSends: ["join:with:", "basePath"]
 }),
 $globals.FileServer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "writeData:toFileNamed:",
 protocol: 'private',
 fn: function (data,aFilename){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(console)._log_(aFilename);
 return self;
@@ -1769,20 +1769,20 @@ $globals.FileServer);
 
 
 $globals.FileServer.klass.iVarNames = ['mimeTypes'];
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "commandLineSwitches",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 var switches;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 switches=_st(self._methodsInProtocol_("accessing"))._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._selector();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1794,7 +1794,7 @@ $ctx1.sendIdx["collect:"]=1;
 //>>excludeEnd("ctx");
 switches=_st(switches)._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(each)._match_("^[^:]*:$");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1803,7 +1803,7 @@ return _st(each)._match_("^[^:]*:$");
 }));
 switches=_st(switches)._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(_st(_st(each)._allButLast())._replace_with_("([A-Z])","-$1"))._asLowercase())._replace_with_("^([a-z])","--$1");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1828,8 +1828,8 @@ messageSends: ["collect:", "methodsInProtocol:", "selector", "select:", "match:"
 }),
 $globals.FileServer.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "createServerWithArguments:",
 protocol: 'initialization',
 fn: function (options){
@@ -1837,7 +1837,7 @@ var self=this;
 var server,popFront,front,optionName,optionValue,switches;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11;
 var $early={};
@@ -1850,7 +1850,7 @@ throw $early=[$1];
 
 }));
 $2=_st(_st(options)._size())._even();
-if(!$vm.assert($2)){
+if(!$core.assert($2)){
 _st(console)._log_("Using default parameters.");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["log:"]=1;
@@ -1878,7 +1878,7 @@ return $7;
 };
 popFront=(function(args){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 front=_st(args)._first();
 front;
@@ -1890,7 +1890,7 @@ return front;
 });
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(options)._notEmpty();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1898,7 +1898,7 @@ return _st(options)._notEmpty();
 //>>excludeEnd("ctx");
 }))._whileTrue_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 optionName=_st(popFront)._value_(options);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1908,7 +1908,7 @@ optionName;
 optionValue=_st(popFront)._value_(options);
 optionValue;
 $8=_st(switches)._includes_(optionName);
-if($vm.assert($8)){
+if($core.assert($8)){
 optionName=self._selectorForCommandLineSwitch_(optionName);
 optionName;
 return _st(server)._perform_withArguments_(optionName,_st($Array())._with_(optionValue));
@@ -1945,8 +1945,8 @@ messageSends: ["commandLineSwitches", "new", "ifEmpty:", "ifFalse:", "even", "si
 }),
 $globals.FileServer.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "defaultBasePath",
 protocol: 'accessing',
 fn: function (){
@@ -1963,8 +1963,8 @@ messageSends: []
 }),
 $globals.FileServer.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "defaultHost",
 protocol: 'accessing',
 fn: function (){
@@ -1981,8 +1981,8 @@ messageSends: []
 }),
 $globals.FileServer.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "defaultMimeTypes",
 protocol: 'accessing',
 fn: function (){
@@ -2001,8 +2001,8 @@ messageSends: []
 }),
 $globals.FileServer.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "defaultPort",
 protocol: 'accessing',
 fn: function (){
@@ -2019,8 +2019,8 @@ messageSends: []
 }),
 $globals.FileServer.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "main",
 protocol: 'initialization',
 fn: function (){
@@ -2028,7 +2028,7 @@ var self=this;
 var fileServer,args;
 function $FileServer(){return $globals.FileServer||(typeof FileServer=="undefined"?nil:FileServer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 var $early={};
@@ -2037,10 +2037,10 @@ args=_st(process)._argv();
 _st(args)._removeFrom_to_((1),(3));
 _st(args)._detect_ifNone_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(each).__eq("--help");
-if($vm.assert($1)){
+if($core.assert($1)){
 return _st($FileServer())._printHelp();
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2048,7 +2048,7 @@ return _st($FileServer())._printHelp();
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 fileServer=_st($FileServer())._createServerWithArguments_(args);
 fileServer;
@@ -2074,14 +2074,14 @@ messageSends: ["argv", "removeFrom:to:", "detect:ifNone:", "ifTrue:", "=", "prin
 }),
 $globals.FileServer.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "mimeTypeFor:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._mimeTypes())._at_ifAbsent_(_st(aString)._replace_with_(".*[\x5c.]",""),(function(){
@@ -2102,14 +2102,14 @@ messageSends: ["at:ifAbsent:", "mimeTypes", "replace:with:"]
 }),
 $globals.FileServer.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "mimeTypes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@mimeTypes"];
@@ -2133,14 +2133,14 @@ messageSends: ["ifNil:", "defaultMimeTypes"]
 }),
 $globals.FileServer.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "printHelp",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(console)._log_("Available commandline options are:");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2152,7 +2152,7 @@ $ctx1.sendIdx["log:"]=2;
 //>>excludeEnd("ctx");
 _st(self._commandLineSwitches())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(console)._log_(_st(each).__comma(" <parameter>"));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2173,19 +2173,19 @@ messageSends: ["log:", "do:", "commandLineSwitches", ","]
 }),
 $globals.FileServer.klass);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "selectorForCommandLineSwitch:",
 protocol: 'accessing',
 fn: function (aSwitch){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st(_st(aSwitch)._replace_with_("^--",""))._replace_with_("-[a-z]",(function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(each)._second())._asUppercase();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2211,16 +2211,16 @@ messageSends: [",", "replace:with:", "asUppercase", "second"]
 $globals.FileServer.klass);
 
 
-$vm.addClass('Initer', $globals.BaseFileManipulator, ['childProcess', 'nmPath'], 'AmberCli');
-$vm.addMethod(
-$vm.method({
+$core.addClass('Initer', $globals.BaseFileManipulator, ['childProcess', 'nmPath'], 'AmberCli');
+$core.addMethod(
+$core.method({
 selector: "bowerInstallThenDo:",
 protocol: 'action',
 fn: function (aBlock){
 var self=this;
 var child;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2;
 child=_st(self["@childProcess"])._fork_args_(self._npmScriptForModule_named_("bower","bower"),["install"]);
@@ -2231,10 +2231,10 @@ $ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._on_do_("close",(function(code){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=_st(code).__eq((0));
-if($vm.assert($4)){
+if($core.assert($4)){
 $3=nil;
 } else {
 $3=code;
@@ -2258,15 +2258,15 @@ messageSends: ["fork:args:", "npmScriptForModule:named:", "on:do:", "value:", "i
 }),
 $globals.Initer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "finishMessage",
 protocol: 'action',
 fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(console)._log_([" ", "The project should now be set up.", " ", " ", "To manage project from cli (run tests, recompile),", "the `grunt` command-line tool needs to be installed.", "If not present, it can be installed with:", "  (sudo) npm install -g grunt-cli", " ", "To manage project dependencies,", "the `bower` command-line tool needs to be installed.", "If not present, it can be installed with:", "  (sudo) npm install -g bower", " "]._join_(_st($String())._lf()));
 _st((function(){
@@ -2286,15 +2286,15 @@ messageSends: ["log:", "join:", "lf", "valueWithTimeout:"]
 }),
 $globals.Initer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "gruntInitThenDo:",
 protocol: 'action',
 fn: function (aBlock){
 var self=this;
 var child,sanitizedTemplatePath;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2;
 sanitizedTemplatePath=_st(_st(_st(self["@path"])._join_with_(self["@nmPath"],"grunt-init-amber"))._replace_with_("\x5c\x5c","\x5c\x5c"))._replace_with_(":","\x5c:");
@@ -2309,10 +2309,10 @@ $ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._on_do_("close",(function(code){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=_st(code).__eq((0));
-if($vm.assert($4)){
+if($core.assert($4)){
 $3=nil;
 } else {
 $3=code;
@@ -2336,15 +2336,15 @@ messageSends: ["replace:with:", "join:with:", "fork:args:", "npmScriptForModule:
 }),
 $globals.Initer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "gruntThenDo:",
 protocol: 'action',
 fn: function (aBlock){
 var self=this;
 var child;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2;
 child=_st(self["@childProcess"])._fork_args_(self._npmScriptForModule_named_("grunt-cli","grunt"),["default", "devel"]);
@@ -2355,10 +2355,10 @@ $ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
 $2=_st($1)._on_do_("close",(function(code){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $4=_st(code).__eq((0));
-if($vm.assert($4)){
+if($core.assert($4)){
 $3=nil;
 } else {
 $3=code;
@@ -2382,14 +2382,14 @@ messageSends: ["fork:args:", "npmScriptForModule:named:", "on:do:", "value:", "i
 }),
 $globals.Initer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2415,15 +2415,15 @@ messageSends: ["initialize", "value:", "join:with:", "rootDirname"]
 }),
 $globals.Initer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "npmInstallThenDo:",
 protocol: 'action',
 fn: function (aBlock){
 var self=this;
 var child;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 child=_st(self["@childProcess"])._exec_thenDo_("npm install",aBlock);
@@ -2446,8 +2446,8 @@ messageSends: ["exec:thenDo:", "pipe:options:", "stdout"]
 }),
 $globals.Initer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "npmScriptForModule:named:",
 protocol: 'npm',
 fn: function (aString,anotherString){
@@ -2456,7 +2456,7 @@ var modulePath,packageJson,binSection,scriptPath;
 function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$4,$2,$5,$6;
 $1=self["@path"];
@@ -2473,7 +2473,7 @@ binSection=_st(packageJson)._at_("bin");
 $ctx1.sendIdx["at:"]=1;
 //>>excludeEnd("ctx");
 $5=_st(binSection)._isString();
-if($vm.assert($5)){
+if($core.assert($5)){
 scriptPath=binSection;
 } else {
 scriptPath=_st(binSection)._at_(anotherString);
@@ -2493,34 +2493,34 @@ messageSends: ["dirname:", "resolve:", "on:", ",", "readJSObject:", "value:", "a
 }),
 $globals.Initer);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "start",
 protocol: 'action',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$8,$receiver;
 self._gruntInitThenDo_((function(error){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 if(($receiver = error) == null || $receiver.isNil){
 return self._bowerInstallThenDo_((function(error2){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 if(($receiver = error2) == null || $receiver.isNil){
 return self._npmInstallThenDo_((function(error3){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx4) {
+return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
 if(($receiver = error3) == null || $receiver.isNil){
 return self._gruntThenDo_((function(error4){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx5) {
+return $core.withContext(function($ctx5) {
 //>>excludeEnd("ctx");
 if(($receiver = error4) == null || $receiver.isNil){
 self._finishMessage();
@@ -2615,19 +2615,19 @@ $globals.Initer);
 
 
 
-$vm.addClass('Repl', $globals.Object, ['readline', 'interface', 'util', 'session', 'resultCount', 'commands'], 'AmberCli');
+$core.addClass('Repl', $globals.Object, ['readline', 'interface', 'util', 'session', 'resultCount', 'commands'], 'AmberCli');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.Repl.comment="I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.\x0aOn the prompt you can type Amber statements which will be evaluated after pressing <Enter>.\x0aThe evaluation is comparable with executing a 'DoIt' in a workspace.\x0a\x0aMy runtime requirement is a functional Node.js executable with working Readline support.";
 //>>excludeEnd("ide");
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "addVariableNamed:to:",
 protocol: 'private',
 fn: function (aString,anObject){
 var self=this;
 var newClass,newObject;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 newClass=self._subclass_withVariable_(_st(anObject)._class(),aString);
@@ -2649,8 +2649,8 @@ messageSends: ["subclass:withVariable:", "class", "encapsulateVariable:withValue
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "assignNewVariable:do:",
 protocol: 'private',
 fn: function (buffer,aBlock){
@@ -2658,13 +2658,13 @@ var self=this;
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 function $ConsoleErrorHandler(){return $globals.ConsoleErrorHandler||(typeof ConsoleErrorHandler=="undefined"?nil:ConsoleErrorHandler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$4,$2,$1,$receiver;
 $1=self._parseAssignment_do_(buffer,(function(name,expr){
 var varName,value;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 if(($receiver = name) == null || $receiver.isNil){
 varName=self._nextResultName();
@@ -2676,7 +2676,7 @@ self["@session"]=self._addVariableNamed_to_(varName,self["@session"]);
 self["@session"];
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $3=_st(varName).__comma(" := ");
 if(($receiver = expr) == null || $receiver.isNil){
@@ -2695,7 +2695,7 @@ return value;
 //>>excludeEnd("ctx");
 }))._on_do_($Error(),(function(e){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 _st(_st($ConsoleErrorHandler())._new())._logError_(e);
 value=nil;
@@ -2723,8 +2723,8 @@ messageSends: ["parseAssignment:do:", "ifNil:", "nextResultName", "addVariableNa
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "clearScreen",
 protocol: 'actions',
 fn: function (){
@@ -2732,7 +2732,7 @@ var self=this;
 var esc,cls;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 esc=_st($String())._fromCharCode_((27));
@@ -2760,14 +2760,14 @@ messageSends: ["fromCharCode:", ",", "write:", "stdout", "prompt"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "close",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(_st(process)._stdin())._destroy();
 return self;
@@ -2784,8 +2784,8 @@ messageSends: ["destroy", "stdin"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "commands",
 protocol: 'accessing',
 fn: function (){
@@ -2804,20 +2804,20 @@ messageSends: []
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "createInterface",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self["@interface"]=_st(self["@readline"])._createInterface_stdout_(_st(process)._stdin(),_st(process)._stdout());
 _st(self["@interface"])._on_do_("line",(function(buffer){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._processLine_(buffer);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2829,7 +2829,7 @@ $ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
 _st(self["@interface"])._on_do_("close",(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._close();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2854,8 +2854,8 @@ messageSends: ["createInterface:stdout:", "stdin", "stdout", "on:do:", "processL
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "encapsulateVariable:withValue:in:",
 protocol: 'private',
 fn: function (aString,anObject,aClass){
@@ -2863,7 +2863,7 @@ var self=this;
 var compiler;
 function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2,$5,$6;
 compiler=_st($Compiler())._new();
@@ -2904,15 +2904,15 @@ messageSends: ["new", "install:forClass:protocol:", ","]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "eval:",
 protocol: 'actions',
 fn: function (buffer){
 var self=this;
 function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._eval_on_(buffer,_st($DoIt())._new());
@@ -2930,8 +2930,8 @@ messageSends: ["eval:on:", "new"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "eval:on:",
 protocol: 'actions',
 fn: function (buffer,anObject){
@@ -2939,14 +2939,14 @@ var self=this;
 var result;
 function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 $1=_st(buffer)._isEmpty();
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 _st((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 result=_st(_st($Compiler())._new())._evaluateExpression_on_(buffer,anObject);
 return result;
@@ -2955,10 +2955,10 @@ return result;
 //>>excludeEnd("ctx");
 }))._tryCatch_((function(e){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=_st(e)._isSmalltalkError();
-if($vm.assert($2)){
+if($core.assert($2)){
 return _st(e)._resignal();
 } else {
 return _st(_st(process)._stdout())._write_(_st(e)._jsStack());
@@ -2983,24 +2983,24 @@ messageSends: ["ifFalse:", "isEmpty", "tryCatch:", "evaluateExpression:on:", "ne
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "executeCommand:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 var $early={};
 try {
 _st(self._commands())._keysAndValuesDo_((function(names,cmd){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=_st(names)._includes_(aString);
-if($vm.assert($1)){
+if($core.assert($1)){
 _st(cmd)._value();
 throw $early=[true];
 };
@@ -3024,15 +3024,15 @@ messageSends: ["keysAndValuesDo:", "commands", "ifTrue:", "includes:", "value"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3063,14 +3063,14 @@ messageSends: ["initialize", "new", "value:", "setupCommands"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "instanceVariableNamesFor:",
 protocol: 'private',
 fn: function (aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$receiver;
 $2=_st(aClass)._superclass();
@@ -3100,14 +3100,14 @@ messageSends: ["ifNotNil:ifNil:", "superclass", "copyWithAll:", "instanceVariabl
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isIdentifier:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(aString)._match_("^[a-z_]\x5cw*$"._asRegexp());
@@ -3125,14 +3125,14 @@ messageSends: ["match:", "asRegexp"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "isVariableDefined:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(self._instanceVariableNamesFor_(_st(self["@session"])._class()))._includes_(aString);
@@ -3150,14 +3150,14 @@ messageSends: ["includes:", "instanceVariableNamesFor:", "class"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "nextResultName",
 protocol: 'private',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
 $1=self["@resultCount"];
@@ -3181,26 +3181,26 @@ messageSends: ["ifNotNil:ifNil:", "+", ",", "asString"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "onKeyPress:",
 protocol: 'private',
 fn: function (key){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st(key)._ctrl())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(_st(key)._name()).__eq("l");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($1)){
+if($core.assert($1)){
 self._clearScreen();
 };
 return self;
@@ -3217,20 +3217,20 @@ messageSends: ["ifTrue:", "and:", "ctrl", "=", "name", "clearScreen"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "parseAssignment:do:",
 protocol: 'private',
 fn: function (aString,aBlock){
 var self=this;
 var assignment;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 assignment=_st(_st(aString)._tokenize_(":="))._collect_((function(s){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(s)._trimBoth();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3239,7 +3239,7 @@ return _st(s)._trimBoth();
 }));
 $2=_st(_st(_st(assignment)._size()).__eq((2)))._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $3=_st(assignment)._first();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3250,7 +3250,7 @@ return self._isIdentifier_($3);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
-if($vm.assert($2)){
+if($core.assert($2)){
 $1=_st(aBlock)._value_value_(_st(assignment)._first(),_st(assignment)._last());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value:value:"]=1;
@@ -3272,15 +3272,15 @@ messageSends: ["collect:", "tokenize:", "trimBoth", "ifTrue:ifFalse:", "and:", "
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "presentResultNamed:withValue:",
 protocol: 'private',
 fn: function (varName,value){
 var self=this;
 function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1,$4;
 $3=_st(_st(varName).__comma(": ")).__comma(_st(_st(value)._class())._name());
@@ -3312,15 +3312,15 @@ messageSends: ["show:", ",", "name", "class", "asString", "cr", "prompt"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "printWelcome",
 protocol: 'actions',
 fn: function (){
 var self=this;
 function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 _st($Transcript())._show_("Type :q to exit.");
@@ -3339,20 +3339,20 @@ messageSends: ["show:", "cr"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "processLine:",
 protocol: 'private',
 fn: function (buffer){
 var self=this;
 var show;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 show=(function(varName,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._presentResultNamed_withValue_(varName,value);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3360,9 +3360,9 @@ return self._presentResultNamed_withValue_(varName,value);
 //>>excludeEnd("ctx");
 });
 $1=self._executeCommand_(buffer);
-if(!$vm.assert($1)){
+if(!$core.assert($1)){
 $2=self._isVariableDefined_(buffer);
-if($vm.assert($2)){
+if($core.assert($2)){
 _st(show)._value_value_(buffer,_st(self["@session"])._perform_(buffer));
 } else {
 self._assignNewVariable_do_(buffer,show);
@@ -3382,8 +3382,8 @@ messageSends: ["presentResultNamed:withValue:", "ifFalse:", "executeCommand:", "
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "prompt",
 protocol: 'accessing',
 fn: function (){
@@ -3400,18 +3400,18 @@ messageSends: []
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "setPreviousVariablesFor:from:",
 protocol: 'private',
 fn: function (newObject,oldObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._instanceVariableNamesFor_(_st(oldObject)._class()))._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(newObject)._perform_withArguments_(_st(each).__comma(":"),[_st(oldObject)._perform_(each)]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3432,14 +3432,14 @@ messageSends: ["do:", "instanceVariableNamesFor:", "class", "perform:withArgumen
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "setPrompt",
 protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self["@interface"])._setPrompt_(self._prompt());
 return self;
@@ -3456,20 +3456,20 @@ messageSends: ["setPrompt:", "prompt"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "setupCommands",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=_st([":q"]).__minus_gt((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(process)._exit();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3481,7 +3481,7 @@ $ctx1.sendIdx["->"]=1;
 //>>excludeEnd("ctx");
 $1=[$2,_st([""]).__minus_gt((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return _st(self["@interface"])._prompt();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3503,19 +3503,19 @@ messageSends: ["from:", "->", "exit", "prompt"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "setupHotkeys",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $receiver;
 _st(_st(process)._stdin())._on_do_("keypress",(function(s,key){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 if(($receiver = key) == null || $receiver.isNil){
 return key;
@@ -3540,15 +3540,15 @@ messageSends: ["on:do:", "stdin", "ifNotNil:", "onKeyPress:"]
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "subclass:withVariable:",
 protocol: 'private',
 fn: function (aClass,varName){
 var self=this;
 function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=_st(_st($ClassBuilder())._new())._addSubclassOf_named_instanceVariableNames_package_(aClass,_st(self._subclassNameFor_(aClass))._asSymbol(),[varName],"Compiler-Core");
@@ -3566,14 +3566,14 @@ messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "new", "asS
 }),
 $globals.Repl);
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "subclassNameFor:",
 protocol: 'private',
 fn: function (aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$7,$6,$5,$4,$8,$1,$receiver;
 $3=_st(aClass)._name();
@@ -3618,14 +3618,14 @@ messageSends: ["ifNotNil:ifNil:", "matchesOf:", "name", "+", "asNumber", "first"
 $globals.Repl);
 
 
-$vm.addMethod(
-$vm.method({
+$core.addMethod(
+$core.method({
 selector: "main",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $vm.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 _st(self._new())._createInterface();
 return self;
