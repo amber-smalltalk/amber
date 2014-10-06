@@ -11,6 +11,15 @@ Issues:  https://github.com/amber-smalltalk/amber/issues?q=is%3Aissue+is%3Aclose
 For the most important API related changes see the file API-CHANGES.txt.
 
 
+18th Dec 2014 - Release 0.13.1
+===================================
+
+This is a planned maintenance release.
+It contains everything 0.14.0 contains,
+but it retains all the backwards compatibility stuff,
+which is going to be removed in 0.14.0.
+
+
 999st Oct 2014 - Release 0.13.0
 ===================================
 
