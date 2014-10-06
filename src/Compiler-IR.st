@@ -1046,7 +1046,7 @@ visitIRVerbatim: anIRVerbatim
 visitReceiver: anIRInstruction
 	anIRInstruction needsBoxingAsReceiver ifFalse: [ ^ self visit: anIRInstruction ].
 	
-	self stream nextPutAll: '_st('.
+	self stream nextPutAll: '$recv('.
 	self visit: anIRInstruction.
 	self stream nextPutAll: ')'
 !
@@ -1069,7 +1069,7 @@ visitSuperSend: anIRSend
 		nextPutAll: self currentClass asJavascript;
 		nextPutAll: '.superclass.fn.prototype.';
 		nextPutAll: anIRSend selector asJavaScriptMethodName, '.apply(';
-		nextPutAll: '_st('.
+		nextPutAll: '$recv('.
 	self visit: anIRSend instructions first.
 	self stream nextPutAll: '), ['.
 	anIRSend instructions allButFirst

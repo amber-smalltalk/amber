@@ -17,12 +17,12 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self["@count"]=_st(self["@count"]).__minus((1));
-_st(self["@header"])._contents_((function(html){
+self["@count"]=$recv(self["@count"]).__minus((1));
+$recv(self["@header"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(html)._with_(_st(self["@count"])._asString());
+return $recv(html)._with_($recv(self["@count"])._asString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -50,12 +50,12 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self["@count"]=_st(self["@count"]).__plus((1));
-_st(self["@header"])._contents_((function(html){
+self["@count"]=$recv(self["@count"]).__plus((1));
+$recv(self["@header"])._contents_((function(html){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(html)._with_(_st(self["@count"])._asString());
+return $recv(html)._with_($recv(self["@count"])._asString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -87,7 +87,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.Counter.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.Counter.superclass.fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -116,22 +116,22 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6;
-$1=_st(html)._h1();
-_st($1)._with_(_st(self["@count"])._asString());
+$1=$recv(html)._h1();
+$recv($1)._with_($recv(self["@count"])._asString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["with:"]=1;
 //>>excludeEnd("ctx");
-$2=_st($1)._yourself();
+$2=$recv($1)._yourself();
 self["@header"]=$2;
-$3=_st(html)._button();
+$3=$recv(html)._button();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["button"]=1;
 //>>excludeEnd("ctx");
-_st($3)._with_("++");
+$recv($3)._with_("++");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["with:"]=2;
 //>>excludeEnd("ctx");
-$4=_st($3)._onClick_((function(){
+$4=$recv($3)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -143,9 +143,9 @@ return self._increase();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["onClick:"]=1;
 //>>excludeEnd("ctx");
-$5=_st(html)._button();
-_st($5)._with_("--");
-$6=_st($5)._onClick_((function(){
+$5=$recv(html)._button();
+$recv($5)._with_("--");
+$6=$recv($5)._onClick_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -178,7 +178,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(self._new())._appendToJQuery_("body"._asJQuery());
+$recv(self._new())._appendToJQuery_("body"._asJQuery());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"tryExample",{},$globals.Counter.klass)});

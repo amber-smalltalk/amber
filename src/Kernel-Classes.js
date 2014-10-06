@@ -47,54 +47,54 @@ function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnou
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11,$receiver;
-oldMethod=_st(self._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
+oldMethod=$recv(self._methodDictionary())._at_ifAbsent_($recv(aMethod)._selector(),(function(){
 return nil;
 
 }));
 $2=self._protocols();
-$3=_st(aMethod)._protocol();
+$3=$recv(aMethod)._protocol();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["protocol"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._includes_($3);
+$1=$recv($2)._includes_($3);
 if(!$core.assert($1)){
 $4=self._organization();
-$5=_st(aMethod)._protocol();
+$5=$recv(aMethod)._protocol();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["protocol"]=2;
 //>>excludeEnd("ctx");
-_st($4)._addElement_($5);
+$recv($4)._addElement_($5);
 };
 self._basicAddCompiledMethod_(aMethod);
 $6=oldMethod;
 if(($receiver = $6) == null || $receiver.isNil){
 $6;
 } else {
-self._removeProtocolIfEmpty_(_st(oldMethod)._protocol());
+self._removeProtocolIfEmpty_($recv(oldMethod)._protocol());
 };
 $7=oldMethod;
 if(($receiver = $7) == null || $receiver.isNil){
-$8=_st($MethodAdded())._new();
+$8=$recv($MethodAdded())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-_st($8)._method_(aMethod);
+$recv($8)._method_(aMethod);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["method:"]=1;
 //>>excludeEnd("ctx");
-$9=_st($8)._yourself();
+$9=$recv($8)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
 announcement=$9;
 } else {
-$10=_st($MethodModified())._new();
-_st($10)._oldMethod_(oldMethod);
-_st($10)._method_(aMethod);
-$11=_st($10)._yourself();
+$10=$recv($MethodModified())._new();
+$recv($10)._oldMethod_(oldMethod);
+$recv($10)._method_(aMethod);
+$11=$recv($10)._yourself();
 announcement=$11;
 };
-_st(_st($SystemAnnouncer())._current())._announce_(announcement);
+$recv($recv($SystemAnnouncer())._current())._announce_(announcement);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"addCompiledMethod:",{aMethod:aMethod,oldMethod:oldMethod,announcement:announcement},$globals.Behavior)});
@@ -120,7 +120,7 @@ var result;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
-result=_st(self._instanceVariableNames())._copy();
+result=$recv(self._instanceVariableNames())._copy();
 $1=self._superclass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["superclass"]=1;
@@ -128,7 +128,7 @@ $ctx1.sendIdx["superclass"]=1;
 if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
-_st(result)._addAll_(_st(self._superclass())._allInstanceVariableNames());
+$recv(result)._addAll_($recv(self._superclass())._allInstanceVariableNames());
 };
 $2=result;
 return $2;
@@ -160,12 +160,12 @@ $3=self._selectors();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["selectors"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._inject_into_($3,(function(acc,each){
+$1=$recv($2)._inject_into_($3,(function(acc,each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-_st(acc)._addAll_(_st(each)._selectors());
-$4=_st(acc)._yourself();
+$recv(acc)._addAll_($recv(each)._selectors());
+$4=$recv(acc)._yourself();
 return $4;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1,1)});
@@ -201,11 +201,11 @@ subclasses=self._subclasses();
 $ctx1.sendIdx["subclasses"]=1;
 //>>excludeEnd("ctx");
 index=(1);
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(index).__gt(_st(subclasses)._size());
+return $recv(index).__gt($recv(subclasses)._size());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -213,8 +213,8 @@ return _st(index).__gt(_st(subclasses)._size());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-_st(subclasses)._addAll_(_st(_st(subclasses)._at_(index))._subclasses());
-index=_st(index).__plus((1));
+$recv(subclasses)._addAll_($recv($recv(subclasses)._at_(index))._subclasses());
+index=$recv(index).__plus((1));
 return index;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
@@ -244,11 +244,11 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(self._allSubclasses())._do_((function(each){
+$recv(self._allSubclasses())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(aBlock)._value_(each);
+return $recv(aBlock)._value_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -292,9 +292,9 @@ $5=self._superclass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["superclass"]=2;
 //>>excludeEnd("ctx");
-$4=_st($OrderedCollection())._with_($5);
-_st($4)._addAll_(_st(self._superclass())._allSuperclasses());
-$6=_st($4)._yourself();
+$4=$recv($OrderedCollection())._with_($5);
+$recv($4)._addAll_($recv(self._superclass())._allSuperclasses());
+$6=$recv($4)._yourself();
 $3=$6;
 return $3;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -392,7 +392,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1;
-$1=_st(self._includesSelector_(_st(aSelector)._asString()))._or_((function(){
+$1=$recv(self._includesSelector_($recv(aSelector)._asString()))._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -400,12 +400,12 @@ $3=self._superclass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["superclass"]=1;
 //>>excludeEnd("ctx");
-$2=_st($3)._notNil();
-return _st($2)._and_((function(){
+$2=$recv($3)._notNil();
+return $recv($2)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(self._superclass())._canUnderstand_(aSelector);
+return $recv(self._superclass())._canUnderstand_(aSelector);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
@@ -471,10 +471,10 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 self._basicAt_put_("comment",aString);
-$1=_st($ClassCommentChanged())._new();
-_st($1)._theClass_(self);
-$2=_st($1)._yourself();
-_st(_st($SystemAnnouncer())._current())._announce_($2);
+$1=$recv($ClassCommentChanged())._new();
+$recv($1)._theClass_(self);
+$2=$recv($1)._yourself();
+$recv($recv($SystemAnnouncer())._current())._announce_($2);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"comment:",{aString:aString},$globals.Behavior)});
@@ -500,9 +500,9 @@ function $ClassCommentReader(){return $globals.ClassCommentReader||(typeof Class
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=_st($ClassCommentReader())._new();
-_st($2)._class_(self);
-$3=_st($2)._yourself();
+$2=$recv($ClassCommentReader())._new();
+$recv($2)._class_(self);
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -579,7 +579,7 @@ function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(_st($Compiler())._new())._install_forClass_protocol_(aString,self,anotherString);
+$1=$recv($recv($Compiler())._new())._install_forClass_protocol_(aString,self,anotherString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"compile:protocol:",{aString:aString,anotherString:anotherString},$globals.Behavior)});
@@ -622,7 +622,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self.__eq_eq(aClass))._or_((function(){
+$1=$recv(self.__eq_eq(aClass))._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -655,7 +655,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._methodDictionary())._includesKey_(aString);
+$1=$recv(self._methodDictionary())._includesKey_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"includesSelector:",{aString:aString},$globals.Behavior)});
@@ -693,12 +693,12 @@ $4=self._superclass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["superclass"]=2;
 //>>excludeEnd("ctx");
-$3=_st(aClass).__eq_eq($4);
-$2=_st($3)._or_((function(){
+$3=$recv(aClass).__eq_eq($4);
+$2=$recv($3)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(self._superclass())._inheritsFrom_(aClass);
+return $recv(self._superclass())._inheritsFrom_(aClass);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
@@ -821,11 +821,11 @@ var $1,$2;
 var $early={};
 try {
 lookupClass=self;
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(lookupClass).__eq(nil);
+return $recv(lookupClass).__eq(nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -833,12 +833,12 @@ return _st(lookupClass).__eq(nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$1=_st(lookupClass)._includesSelector_(selector);
+$1=$recv(lookupClass)._includesSelector_(selector);
 if($core.assert($1)){
-$2=_st(lookupClass)._methodAt_(selector);
+$2=$recv(lookupClass)._methodAt_(selector);
 throw $early=[$2];
 };
-lookupClass=_st(lookupClass)._superclass();
+lookupClass=$recv(lookupClass)._superclass();
 return lookupClass;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
@@ -870,7 +870,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._methodDictionary())._at_(aString);
+$1=$recv(self._methodDictionary())._at_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"methodAt:",{aString:aString},$globals.Behavior)});
@@ -927,67 +927,67 @@ function $String(){return $globals.String||(typeof String=="undefined"?nil:Strin
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$4,$2,$7,$8,$6,$9,$5,$10,$1;
-$1=_st($String())._streamContents_((function(stream){
+$1=$recv($String())._streamContents_((function(stream){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_("messageSelectorAndArgumentNames");
+$recv(stream)._nextPutAll_("messageSelectorAndArgumentNames");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
-$3=_st($String())._lf();
+$3=$recv($String())._lf();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["lf"]=1;
 //>>excludeEnd("ctx");
-$4=_st($String())._tab();
+$4=$recv($String())._tab();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["tab"]=1;
 //>>excludeEnd("ctx");
-$2=_st($3).__comma($4);
+$2=$recv($3).__comma($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_($2);
+$recv(stream)._nextPutAll_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=2;
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_("\x22comment stating purpose of message\x22");
+$recv(stream)._nextPutAll_("\x22comment stating purpose of message\x22");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=3;
 //>>excludeEnd("ctx");
-$7=_st($String())._lf();
+$7=$recv($String())._lf();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["lf"]=2;
 //>>excludeEnd("ctx");
-$8=_st($String())._lf();
+$8=$recv($String())._lf();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["lf"]=3;
 //>>excludeEnd("ctx");
-$6=_st($7).__comma($8);
+$6=$recv($7).__comma($8);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=3;
 //>>excludeEnd("ctx");
-$9=_st($String())._tab();
+$9=$recv($String())._tab();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["tab"]=2;
 //>>excludeEnd("ctx");
-$5=_st($6).__comma($9);
+$5=$recv($6).__comma($9);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=2;
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_($5);
+$recv(stream)._nextPutAll_($5);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=4;
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_("| temporary variable names |");
+$recv(stream)._nextPutAll_("| temporary variable names |");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=5;
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_(_st(_st($String())._lf()).__comma(_st($String())._tab()));
+$recv(stream)._nextPutAll_($recv($recv($String())._lf()).__comma($recv($String())._tab()));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=6;
 //>>excludeEnd("ctx");
-$10=_st(stream)._nextPutAll_("statements");
+$10=$recv(stream)._nextPutAll_("statements");
 return $10;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
@@ -1017,7 +1017,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._methodDictionary())._values();
+$1=$recv(self._methodDictionary())._values();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"methods",{},$globals.Behavior)});
@@ -1043,9 +1043,9 @@ function $ClassCategoryReader(){return $globals.ClassCategoryReader||(typeof Cla
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=_st($ClassCategoryReader())._new();
-_st($2)._class_category_(self,aString);
-$3=_st($2)._yourself();
+$2=$recv($ClassCategoryReader())._new();
+$recv($2)._class_category_(self,aString);
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1096,11 +1096,11 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._methods())._select_((function(each){
+$1=$recv(self._methods())._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(_st(each)._protocol()).__eq(aString);
+return $recv($recv(each)._protocol()).__eq(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -1153,7 +1153,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._basicNew())._initialize();
+$1=$recv(self._basicNew())._initialize();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"new",{},$globals.Behavior)});
@@ -1204,11 +1204,11 @@ function $OrderedCollection(){return $globals.OrderedCollection||(typeof Ordered
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
-$1=_st(_st(self._ownProtocols())._inject_into_(_st($OrderedCollection())._new(),(function(acc,each){
+$1=$recv($recv(self._ownProtocols())._inject_into_($recv($OrderedCollection())._new(),(function(acc,each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(acc).__comma(self._methodsInProtocol_(each));
+return $recv(acc).__comma(self._methodsInProtocol_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -1216,11 +1216,11 @@ return _st(acc).__comma(self._methodsInProtocol_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$2=_st(a)._selector();
+$2=$recv(a)._selector();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["selector"]=1;
 //>>excludeEnd("ctx");
-return _st($2).__lt_eq(_st(b)._selector());
+return $recv($2).__lt_eq($recv(b)._selector());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,2)});
 //>>excludeEnd("ctx");
@@ -1249,11 +1249,11 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._protocols())._reject_((function(each){
+$1=$recv(self._protocols())._reject_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(each)._match_("^\x5c*");
+return $recv(each)._match_("^\x5c*");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -1282,7 +1282,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(_st(self._organization())._elements())._sorted();
+$1=$recv($recv(self._organization())._elements())._sorted();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"protocols",{},$globals.Behavior)});
@@ -1309,19 +1309,19 @@ function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-methodsByProtocol=_st($HashedCollection())._new();
+methodsByProtocol=$recv($HashedCollection())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-_st(self._methodDictionary())._valuesDo_((function(m){
+$recv(self._methodDictionary())._valuesDo_((function(m){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(_st(methodsByProtocol)._at_ifAbsentPut_(_st(m)._protocol(),(function(){
+return $recv($recv(methodsByProtocol)._at_ifAbsentPut_($recv(m)._protocol(),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st($Array())._new();
+return $recv($Array())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
@@ -1330,11 +1330,11 @@ return _st($Array())._new();
 }, function($ctx2) {$ctx2.fillBlock({m:m},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-_st(self._protocols())._do_((function(protocol){
+$recv(self._protocols())._do_((function(protocol){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(aBlock)._value_value_(protocol,_st(methodsByProtocol)._at_(protocol));
+return $recv(aBlock)._value_value_(protocol,$recv(methodsByProtocol)._at_(protocol));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({protocol:protocol},$ctx1,3)});
 //>>excludeEnd("ctx");
@@ -1388,7 +1388,7 @@ function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(_st($Compiler())._new())._recompile_(self);
+$1=$recv($recv($Compiler())._new())._recompile_(self);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"recompile",{},$globals.Behavior)});
@@ -1416,11 +1416,11 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 self._basicRemoveCompiledMethod_(aMethod);
-self._removeProtocolIfEmpty_(_st(aMethod)._protocol());
-$1=_st($MethodRemoved())._new();
-_st($1)._method_(aMethod);
-$2=_st($1)._yourself();
-_st(_st($SystemAnnouncer())._current())._announce_($2);
+self._removeProtocolIfEmpty_($recv(aMethod)._protocol());
+$1=$recv($MethodRemoved())._new();
+$recv($1)._method_(aMethod);
+$2=$recv($1)._yourself();
+$recv($recv($SystemAnnouncer())._current())._announce_($2);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"removeCompiledMethod:",{aMethod:aMethod},$globals.Behavior)});
@@ -1444,11 +1444,11 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(self._methods())._detect_ifNone_((function(each){
+$recv(self._methods())._detect_ifNone_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(_st(each)._protocol()).__eq(aString);
+return $recv($recv(each)._protocol()).__eq(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -1456,7 +1456,7 @@ return _st(_st(each)._protocol()).__eq(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(self._organization())._removeElement_(aString);
+return $recv(self._organization())._removeElement_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
@@ -1485,7 +1485,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._methodDictionary())._keys();
+$1=$recv(self._methodDictionary())._keys();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"selectors",{},$globals.Behavior)});
@@ -1602,9 +1602,9 @@ function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=_st($Array())._with_(self);
-_st($2)._addAll_(self._allSubclasses());
-$3=_st($2)._yourself();
+$2=$recv($Array())._with_(self);
+$recv($2)._addAll_(self._allSubclasses());
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1661,7 +1661,7 @@ function $Finder(){return $globals.Finder||(typeof Finder=="undefined"?nil:Finde
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st($Finder())._findClass_(self);
+$recv($Finder())._findClass_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"browse",{},$globals.Class)});
@@ -1693,7 +1693,7 @@ $ctx1.sendIdx["package"]=1;
 if(($receiver = $2) == null || $receiver.isNil){
 $1="Unclassified";
 } else {
-$1=_st(self._package())._name();
+$1=$recv(self._package())._name();
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1720,48 +1720,48 @@ function $String(){return $globals.String||(typeof String=="undefined"?nil:Strin
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$4,$2,$5,$6,$7,$1;
-$1=_st($String())._streamContents_((function(stream){
+$1=$recv($String())._streamContents_((function(stream){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_(_st(self._superclass())._asString());
+$recv(stream)._nextPutAll_($recv(self._superclass())._asString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_(" subclass: #");
+$recv(stream)._nextPutAll_(" subclass: #");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=2;
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_(self._name());
+$recv(stream)._nextPutAll_(self._name());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=3;
 //>>excludeEnd("ctx");
-$3=_st($String())._lf();
+$3=$recv($String())._lf();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["lf"]=1;
 //>>excludeEnd("ctx");
-$4=_st($String())._tab();
+$4=$recv($String())._tab();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["tab"]=1;
 //>>excludeEnd("ctx");
-$2=_st($3).__comma($4);
+$2=$recv($3).__comma($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_($2);
+$recv(stream)._nextPutAll_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=4;
 //>>excludeEnd("ctx");
-$5=_st(stream)._nextPutAll_("instanceVariableNames: '");
+$5=$recv(stream)._nextPutAll_("instanceVariableNames: '");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=5;
 //>>excludeEnd("ctx");
 $5;
-_st(self._instanceVariableNames())._do_separatedBy_((function(each){
+$recv(self._instanceVariableNames())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(stream)._nextPutAll_(each);
+return $recv(stream)._nextPutAll_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["nextPutAll:"]=6;
 //>>excludeEnd("ctx");
@@ -1772,7 +1772,7 @@ $ctx3.sendIdx["nextPutAll:"]=6;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(stream)._nextPutAll_(" ");
+return $recv(stream)._nextPutAll_(" ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["nextPutAll:"]=7;
 //>>excludeEnd("ctx");
@@ -1780,23 +1780,23 @@ $ctx3.sendIdx["nextPutAll:"]=7;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)});
 //>>excludeEnd("ctx");
 }));
-$6=_st("'".__comma(_st($String())._lf())).__comma(_st($String())._tab());
+$6=$recv("'".__comma($recv($String())._lf())).__comma($recv($String())._tab());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=2;
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_($6);
+$recv(stream)._nextPutAll_($6);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=8;
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_("package: '");
+$recv(stream)._nextPutAll_("package: '");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=9;
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_(self._category());
+$recv(stream)._nextPutAll_(self._category());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=10;
 //>>excludeEnd("ctx");
-$7=_st(stream)._nextPutAll_("'");
+$7=$recv(stream)._nextPutAll_("'");
 return $7;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
@@ -1894,23 +1894,23 @@ $2=self._package();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["package"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2).__eq(aPackage);
+$1=$recv($2).__eq(aPackage);
 if($core.assert($1)){
 return self;
 };
 oldPackage=self._package();
 self._basicAt_put_("pkg",aPackage);
-$3=_st(oldPackage)._organization();
+$3=$recv(oldPackage)._organization();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["organization"]=1;
 //>>excludeEnd("ctx");
-_st($3)._removeElement_(self);
-_st(_st(aPackage)._organization())._addElement_(self);
-$4=_st($ClassMoved())._new();
-_st($4)._theClass_(self);
-_st($4)._oldPackage_(oldPackage);
-$5=_st($4)._yourself();
-_st(_st($SystemAnnouncer())._current())._announce_($5);
+$recv($3)._removeElement_(self);
+$recv($recv(aPackage)._organization())._addElement_(self);
+$4=$recv($ClassMoved())._new();
+$recv($4)._theClass_(self);
+$recv($4)._oldPackage_(oldPackage);
+$5=$recv($4)._yourself();
+$recv($recv($SystemAnnouncer())._current())._announce_($5);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"package:",{aPackage:aPackage,oldPackage:oldPackage},$globals.Class)});
@@ -1934,7 +1934,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(aStream)._nextPutAll_(self._name());
+$recv(aStream)._nextPutAll_(self._name());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},$globals.Class)});
@@ -1959,7 +1959,7 @@ function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="un
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(_st($ClassBuilder())._new())._renameClass_to_(self,aString);
+$recv($recv($ClassBuilder())._new())._renameClass_to_(self,aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"rename:",{aString:aString},$globals.Class)});
@@ -2061,7 +2061,7 @@ function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="un
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(_st($ClassBuilder())._new())._superclass_subclass_instanceVariableNames_package_(self,_st(aString)._asString(),aString2,aString3);
+$1=$recv($recv($ClassBuilder())._new())._superclass_subclass_instanceVariableNames_package_(self,$recv(aString)._asString(),aString2,aString3);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:package:",{aString:aString,aString2:aString2,aString3:aString3},$globals.Class)});
@@ -2116,7 +2116,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st("$globals.".__comma(_st(self._instanceClass())._name())).__comma(".klass");
+$1=$recv("$globals.".__comma($recv(self._instanceClass())._name())).__comma(".klass");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
@@ -2145,24 +2145,24 @@ function $String(){return $globals.String||(typeof String=="undefined"?nil:Strin
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
-$1=_st($String())._streamContents_((function(stream){
+$1=$recv($String())._streamContents_((function(stream){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_(self._asString());
+$recv(stream)._nextPutAll_(self._asString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
-$2=_st(stream)._nextPutAll_(" instanceVariableNames: '");
+$2=$recv(stream)._nextPutAll_(" instanceVariableNames: '");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=2;
 //>>excludeEnd("ctx");
 $2;
-_st(self._instanceVariableNames())._do_separatedBy_((function(each){
+$recv(self._instanceVariableNames())._do_separatedBy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(stream)._nextPutAll_(each);
+return $recv(stream)._nextPutAll_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["nextPutAll:"]=3;
 //>>excludeEnd("ctx");
@@ -2173,7 +2173,7 @@ $ctx3.sendIdx["nextPutAll:"]=3;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(stream)._nextPutAll_(" ");
+return $recv(stream)._nextPutAll_(" ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["nextPutAll:"]=4;
 //>>excludeEnd("ctx");
@@ -2181,7 +2181,7 @@ $ctx3.sendIdx["nextPutAll:"]=4;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)});
 //>>excludeEnd("ctx");
 }));
-return _st(stream)._nextPutAll_("'");
+return $recv(stream)._nextPutAll_("'");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -2234,7 +2234,7 @@ function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="un
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(_st($ClassBuilder())._new())._class_instanceVariableNames_(self,aCollection);
+$recv($recv($ClassBuilder())._new())._class_instanceVariableNames_(self,aCollection);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"instanceVariableNames:",{aCollection:aCollection},$globals.Metaclass)});
@@ -2277,7 +2277,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._instanceClass())._package();
+$1=$recv(self._instanceClass())._package();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"package",{},$globals.Metaclass)});
@@ -2302,11 +2302,11 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-_st(aStream)._nextPutAll_(_st(self._instanceClass())._name());
+$recv(aStream)._nextPutAll_($recv(self._instanceClass())._name());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
-$1=_st(aStream)._nextPutAll_(" class");
+$1=$recv(aStream)._nextPutAll_(" class");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},$globals.Metaclass)});
@@ -2331,11 +2331,11 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(_st(_st(self._instanceClass())._subclasses())._select_((function(each){
+$1=$recv($recv($recv(self._instanceClass())._subclasses())._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(_st(each)._isMetaclass())._not();
+return $recv($recv(each)._isMetaclass())._not();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -2343,7 +2343,7 @@ return _st(_st(each)._isMetaclass())._not();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(each)._theMetaClass();
+return $recv(each)._theMetaClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 //>>excludeEnd("ctx");
@@ -2424,14 +2424,14 @@ function $Package(){return $globals.Package||(typeof Package=="undefined"?nil:Pa
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$receiver;
-theClass=_st(_st($Smalltalk())._globals())._at_(className);
-thePackage=_st($Package())._named_(packageName);
+theClass=$recv($recv($Smalltalk())._globals())._at_(className);
+thePackage=$recv($Package())._named_(packageName);
 $1=theClass;
 if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
-_st(theClass)._package_(thePackage);
-$2=_st(_st(theClass)._superclass()).__eq_eq(aClass);
+$recv(theClass)._package_(thePackage);
+$2=$recv($recv(theClass)._superclass()).__eq_eq(aClass);
 if(!$core.assert($2)){
 $3=self._migrateClassNamed_superclass_instanceVariableNames_package_(className,aClass,aCollection,packageName);
 return $3;
@@ -2513,11 +2513,11 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(aClass)._isMetaclass();
+$1=$recv(aClass)._isMetaclass();
 if(!$core.assert($1)){
-self._error_(_st(_st(aClass)._name()).__comma(" is not a metaclass"));
+self._error_($recv($recv(aClass)._name()).__comma(" is not a metaclass"));
 };
-_st(aClass)._basicAt_put_("iVarNames",aCollection);
+$recv(aClass)._basicAt_put_("iVarNames",aCollection);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"basicClass:instanceVariables:",{aClass:aClass,aCollection:aCollection},$globals.ClassBuilder)});
@@ -2626,10 +2626,10 @@ return $core.withContext(function($ctx1) {
 var $1,$2;
 self._basicClass_instanceVariableNames_(aClass,ivarNames);
 self._setupClass_(aClass);
-$1=_st($ClassDefinitionChanged())._new();
-_st($1)._theClass_(aClass);
-$2=_st($1)._yourself();
-_st(_st($SystemAnnouncer())._current())._announce_($2);
+$1=$recv($ClassDefinitionChanged())._new();
+$recv($1)._theClass_(aClass);
+$2=$recv($1)._yourself();
+$recv($recv($SystemAnnouncer())._current())._announce_($2);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"class:instanceVariableNames:",{aClass:aClass,ivarNames:ivarNames},$globals.ClassBuilder)});
@@ -2657,12 +2657,12 @@ function $ClassAdded(){return $globals.ClassAdded||(typeof ClassAdded=="undefine
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
-newClass=self._addSubclassOf_named_instanceVariableNames_package_(_st(aClass)._superclass(),className,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
+newClass=self._addSubclassOf_named_instanceVariableNames_package_($recv(aClass)._superclass(),className,$recv(aClass)._instanceVariableNames(),$recv($recv(aClass)._package())._name());
 self._copyClass_to_(aClass,newClass);
-$1=_st($ClassAdded())._new();
-_st($1)._theClass_(newClass);
-$2=_st($1)._yourself();
-_st(_st($SystemAnnouncer())._current())._announce_($2);
+$1=$recv($ClassAdded())._new();
+$recv($1)._theClass_(newClass);
+$2=$recv($1)._yourself();
+$recv($recv($SystemAnnouncer())._current())._announce_($2);
 $3=newClass;
 return $3;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2689,28 +2689,28 @@ function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$7,$6,$9,$8;
-_st(anotherClass)._comment_(_st(aClass)._comment());
-$1=_st(aClass)._methodDictionary();
+$recv(anotherClass)._comment_($recv(aClass)._comment());
+$1=$recv(aClass)._methodDictionary();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["methodDictionary"]=1;
 //>>excludeEnd("ctx");
-_st($1)._valuesDo_((function(each){
+$recv($1)._valuesDo_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$2=_st($Compiler())._new();
+$2=$recv($Compiler())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$3=_st(each)._source();
+$3=$recv(each)._source();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["source"]=1;
 //>>excludeEnd("ctx");
-$4=_st(each)._protocol();
+$4=$recv(each)._protocol();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["protocol"]=1;
 //>>excludeEnd("ctx");
-return _st($2)._install_forClass_protocol_($3,anotherClass,$4);
+return $recv($2)._install_forClass_protocol_($3,anotherClass,$4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["install:forClass:protocol:"]=1;
 //>>excludeEnd("ctx");
@@ -2721,26 +2721,26 @@ $ctx2.sendIdx["install:forClass:protocol:"]=1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["valuesDo:"]=1;
 //>>excludeEnd("ctx");
-$5=_st(anotherClass)._class();
+$5=$recv(anotherClass)._class();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=1;
 //>>excludeEnd("ctx");
-$7=_st(aClass)._class();
+$7=$recv(aClass)._class();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=2;
 //>>excludeEnd("ctx");
-$6=_st($7)._instanceVariableNames();
+$6=$recv($7)._instanceVariableNames();
 self._basicClass_instanceVariables_($5,$6);
-$9=_st(aClass)._class();
+$9=$recv(aClass)._class();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=3;
 //>>excludeEnd("ctx");
-$8=_st($9)._methodDictionary();
-_st($8)._valuesDo_((function(each){
+$8=$recv($9)._methodDictionary();
+$recv($8)._valuesDo_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(_st($Compiler())._new())._install_forClass_protocol_(_st(each)._source(),_st(anotherClass)._class(),_st(each)._protocol());
+return $recv($recv($Compiler())._new())._install_forClass_protocol_($recv(each)._source(),$recv(anotherClass)._class(),$recv(each)._protocol());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 //>>excludeEnd("ctx");
@@ -2769,8 +2769,8 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(aCompiledMethod)._protocol_(aString);
-_st(aBehavior)._addCompiledMethod_(aCompiledMethod);
+$recv(aCompiledMethod)._protocol_(aString);
+$recv(aBehavior)._addCompiledMethod_(aCompiledMethod);
 self._setupClass_(aBehavior);
 return aCompiledMethod;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2796,11 +2796,11 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(_st(aString)._tokenize_(" "))._reject_((function(each){
+$1=$recv($recv(aString)._tokenize_(" "))._reject_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(each)._isEmpty();
+return $recv(each)._isEmpty();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -2829,11 +2829,11 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
-$2=_st(aClass)._name();
+$2=$recv(aClass)._name();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["name"]=1;
 //>>excludeEnd("ctx");
-$1=self._migrateClassNamed_superclass_instanceVariableNames_package_($2,anotherClass,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
+$1=self._migrateClassNamed_superclass_instanceVariableNames_package_($2,anotherClass,$recv(aClass)._instanceVariableNames(),$recv($recv(aClass)._package())._name());
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"migrateClass:superclass:",{aClass:aClass,anotherClass:anotherClass},$globals.ClassBuilder)});
@@ -2864,13 +2864,13 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5;
 tmp="new*".__comma(className);
-oldClass=_st(_st($Smalltalk())._globals())._at_(className);
+oldClass=$recv($recv($Smalltalk())._globals())._at_(className);
 newClass=self._addSubclassOf_named_instanceVariableNames_package_(aClass,tmp,aCollection,packageName);
 self._basicSwapClassNames_with_(oldClass,newClass);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["basicSwapClassNames:with:"]=1;
 //>>excludeEnd("ctx");
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -2888,7 +2888,7 @@ $1=self._basicRemoveClass_(newClass);
 $ctx2.sendIdx["basicRemoveClass:"]=1;
 //>>excludeEnd("ctx");
 $1;
-return _st(exception)._signal();
+return $recv(exception)._signal();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1,2)});
 //>>excludeEnd("ctx");
@@ -2898,7 +2898,7 @@ self._rawRenameClass_to_(oldClass,tmp);
 $ctx1.sendIdx["rawRenameClass:to:"]=1;
 //>>excludeEnd("ctx");
 $2=self._rawRenameClass_to_(newClass,className);
-_st(_st(oldClass)._subclasses())._do_((function(each){
+$recv($recv(oldClass)._subclasses())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -2908,11 +2908,11 @@ return self._migrateClass_superclass_(each,newClass);
 //>>excludeEnd("ctx");
 }));
 self._basicRemoveClass_(oldClass);
-$3=_st($ClassMigrated())._new();
-_st($3)._theClass_(newClass);
-_st($3)._oldClass_(oldClass);
-$4=_st($3)._yourself();
-_st(_st($SystemAnnouncer())._current())._announce_($4);
+$3=$recv($ClassMigrated())._new();
+$recv($3)._theClass_(newClass);
+$recv($3)._oldClass_(oldClass);
+$4=$recv($3)._yourself();
+$recv($recv($SystemAnnouncer())._current())._announce_($4);
 $5=newClass;
 return $5;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2967,11 +2967,11 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 self._basicRenameClass_to_(aClass,className);
-_st(aClass)._recompile();
-$1=_st($ClassRenamed())._new();
-_st($1)._theClass_(aClass);
-$2=_st($1)._yourself();
-_st(_st($SystemAnnouncer())._current())._announce_($2);
+$recv(aClass)._recompile();
+$1=$recv($ClassRenamed())._new();
+$recv($1)._theClass_(aClass);
+$2=$recv($1)._yourself();
+$recv($recv($SystemAnnouncer())._current())._announce_($2);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,className:className},$globals.ClassBuilder)});
@@ -3056,10 +3056,10 @@ $2=packageName;
 };
 newClass=self._addSubclassOf_named_instanceVariableNames_package_(aClass,className,$1,$2);
 self._setupClass_(newClass);
-$3=_st($ClassAdded())._new();
-_st($3)._theClass_(newClass);
-$4=_st($3)._yourself();
-_st(_st($SystemAnnouncer())._current())._announce_($4);
+$3=$recv($ClassAdded())._new();
+$recv($3)._theClass_(newClass);
+$4=$recv($3)._yourself();
+$recv($recv($SystemAnnouncer())._current())._announce_($4);
 $5=newClass;
 return $5;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3111,7 +3111,7 @@ function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(_st($Compiler())._new())._install_forClass_protocol_(aString,self["@class"],self["@category"]);
+$recv($recv($Compiler())._new())._install_forClass_protocol_(aString,self["@class"],self["@category"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"compileMethod:",{aString:aString},$globals.ClassCategoryReader)});
@@ -3139,7 +3139,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.ClassCategoryReader.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.ClassCategoryReader.superclass.fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -3168,13 +3168,13 @@ function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="un
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-chunk=_st(aChunkParser)._nextChunk();
+chunk=$recv(aChunkParser)._nextChunk();
 chunk;
-return _st(chunk)._isEmpty();
+return $recv(chunk)._isEmpty();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -3187,7 +3187,7 @@ return self._compileMethod_(chunk);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
-_st(_st($ClassBuilder())._new())._setupClass_(self["@class"]);
+$recv($recv($ClassBuilder())._new())._setupClass_(self["@class"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"scanFrom:",{aChunkParser:aChunkParser,chunk:chunk},$globals.ClassCategoryReader)});
@@ -3240,7 +3240,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.ClassCommentReader.superclass.fn.prototype._initialize.apply(_st(self), []));
+$globals.ClassCommentReader.superclass.fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -3269,8 +3269,8 @@ var chunk;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-chunk=_st(aChunkParser)._nextChunk();
-$1=_st(chunk)._isEmpty();
+chunk=$recv(aChunkParser)._nextChunk();
+$1=$recv(chunk)._isEmpty();
 if(!$core.assert($1)){
 self._setComment_(chunk);
 };
@@ -3297,7 +3297,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(self["@class"])._comment_(aString);
+$recv(self["@class"])._comment_(aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"setComment:",{aString:aString},$globals.ClassCommentReader)});
@@ -3332,28 +3332,28 @@ return $core.withContext(function($ctx1) {
 var $1;
 children=[];
 others=[];
-_st(aCollection)._do_((function(each){
+$recv(aCollection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$1=_st(_st(each)._superclass()).__eq(self._theClass());
+$1=$recv($recv(each)._superclass()).__eq(self._theClass());
 if($core.assert($1)){
-return _st(children)._add_(each);
+return $recv(children)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
 } else {
-return _st(others)._add_(each);
+return $recv(others)._add_(each);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-self["@nodes"]=_st(children)._collect_((function(each){
+self["@nodes"]=$recv(children)._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st($ClassSorterNode())._on_classes_level_(each,others,_st(self._level()).__plus((1)));
+return $recv($ClassSorterNode())._on_classes_level_(each,others,$recv(self._level()).__plus((1)));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)});
 //>>excludeEnd("ctx");
@@ -3484,20 +3484,20 @@ $1=self._theClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["theClass"]=1;
 //>>excludeEnd("ctx");
-_st(aCollection)._add_($1);
-_st(_st(self._nodes())._sorted_((function(a,b){
+$recv(aCollection)._add_($1);
+$recv($recv(self._nodes())._sorted_((function(a,b){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$3=_st(a)._theClass();
+$3=$recv(a)._theClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["theClass"]=2;
 //>>excludeEnd("ctx");
-$2=_st($3)._name();
+$2=$recv($3)._name();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["name"]=1;
 //>>excludeEnd("ctx");
-return _st($2).__lt_eq(_st(_st(b)._theClass())._name());
+return $recv($2).__lt_eq($recv($recv(b)._theClass())._name());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -3505,7 +3505,7 @@ return _st($2).__lt_eq(_st(_st(b)._theClass())._name());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(aNode)._traverseClassesWith_(aCollection);
+return $recv(aNode)._traverseClassesWith_(aCollection);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({aNode:aNode},$ctx1,2)});
 //>>excludeEnd("ctx");
@@ -3536,10 +3536,10 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
-_st($2)._theClass_(aClass);
-_st($2)._level_(anInteger);
-_st($2)._getNodesFrom_(aCollection);
-$3=_st($2)._yourself();
+$recv($2)._theClass_(aClass);
+$recv($2)._level_(anInteger);
+$recv($2)._getNodesFrom_(aCollection);
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

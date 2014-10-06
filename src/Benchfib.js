@@ -17,7 +17,7 @@ var result;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 result=(0)._tinyBenchmarks();
-_st(console)._log_("0 tinyBenchmarks => ".__comma(result));
+$recv(console)._log_("0 tinyBenchmarks => ".__comma(result));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"main",{result:result},$globals.Benchfib.klass)});
@@ -50,12 +50,12 @@ $5=self.__minus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["-"]=1;
 //>>excludeEnd("ctx");
-$4=_st($5)._benchFib();
+$4=$recv($5)._benchFib();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["benchFib"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4).__plus(_st(self.__minus((2)))._benchFib());
-$1=_st($3).__plus((1));
+$3=$recv($4).__plus($recv(self.__minus((2)))._benchFib());
+$1=$recv($3).__plus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["+"]=1;
 //>>excludeEnd("ctx");
@@ -93,13 +93,13 @@ return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 count=(0);
 count;
-flags=_st($Array())._new();
+flags=$recv($Array())._new();
 flags;
-_st(size)._timesRepeat_((function(){
+$recv(size)._timesRepeat_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(flags)._add_(true);
+return $recv(flags)._add_(true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
@@ -108,23 +108,23 @@ return (1)._to_do_(size,(function(i){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-$1=_st(flags)._at_(i);
+$1=$recv(flags)._at_(i);
 if($core.assert($1)){
-prime=_st(i).__plus((1));
+prime=$recv(i).__plus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["+"]=1;
 //>>excludeEnd("ctx");
 prime;
-k=_st(i).__plus(prime);
+k=$recv(i).__plus(prime);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["+"]=2;
 //>>excludeEnd("ctx");
 k;
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
-return _st(k).__lt_eq(size);
+return $recv(k).__lt_eq(size);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx3,5)});
 //>>excludeEnd("ctx");
@@ -132,8 +132,8 @@ return _st(k).__lt_eq(size);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
-_st(flags)._at_put_(k,false);
-k=_st(k).__plus(prime);
+$recv(flags)._at_put_(k,false);
+k=$recv(k).__plus(prime);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx4.sendIdx["+"]=3;
 //>>excludeEnd("ctx");
@@ -142,7 +142,7 @@ return k;
 }, function($ctx4) {$ctx4.fillBlock({},$ctx3,6)});
 //>>excludeEnd("ctx");
 }));
-count=_st(count).__plus((1));
+count=$recv(count).__plus((1));
 return count;
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -256,15 +256,15 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $7,$6,$5,$4,$3,$2,$1;
 n1=(1);
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-t1=_st($Date())._millisecondsToRun_((function(){
+t1=$recv($Date())._millisecondsToRun_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(n1)._jsbenchmark();
+return $recv(n1)._jsbenchmark();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
@@ -273,7 +273,7 @@ return _st(n1)._jsbenchmark();
 $ctx2.sendIdx["millisecondsToRun:"]=1;
 //>>excludeEnd("ctx");
 t1;
-return _st(t1).__lt((1000));
+return $recv(t1).__lt((1000));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["<"]=1;
 //>>excludeEnd("ctx");
@@ -284,7 +284,7 @@ $ctx2.sendIdx["<"]=1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-n1=_st(n1).__star((2));
+n1=$recv(n1).__star((2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["*"]=1;
 //>>excludeEnd("ctx");
@@ -297,22 +297,22 @@ return n1;
 $ctx1.sendIdx["whileTrue:"]=1;
 //>>excludeEnd("ctx");
 n2=(28);
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-t2=_st($Date())._millisecondsToRun_((function(){
+t2=$recv($Date())._millisecondsToRun_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-r=_st(n2)._jsbenchFib();
+r=$recv(n2)._jsbenchFib();
 return r;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)});
 //>>excludeEnd("ctx");
 }));
 t2;
-return _st(t2).__lt((1000));
+return $recv(t2).__lt((1000));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)});
 //>>excludeEnd("ctx");
@@ -320,34 +320,34 @@ return _st(t2).__lt((1000));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-n2=_st(n2).__plus((1));
+n2=$recv(n2).__plus((1));
 return n2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)});
 //>>excludeEnd("ctx");
 }));
-$7=_st(n1).__star((500000));
+$7=$recv(n1).__star((500000));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["*"]=3;
 //>>excludeEnd("ctx");
-$6=_st($7).__star((1000));
+$6=$recv($7).__star((1000));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["*"]=2;
 //>>excludeEnd("ctx");
-$5=_st($6).__slash(t1);
+$5=$recv($6).__slash(t1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["/"]=1;
 //>>excludeEnd("ctx");
-$4=_st($5)._printString();
+$4=$recv($5)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4).__comma(" bytecodes/sec; ");
-$2=_st($3).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString());
+$3=$recv($4).__comma(" bytecodes/sec; ");
+$2=$recv($3).__comma($recv($recv($recv(r).__star((1000))).__slash(t2))._printString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
 //>>excludeEnd("ctx");
-$1=_st($2).__comma(" sends/sec");
+$1=$recv($2).__comma(" sends/sec");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
@@ -378,15 +378,15 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $7,$6,$5,$4,$3,$2,$1;
 n1=(1);
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-t1=_st($Date())._millisecondsToRun_((function(){
+t1=$recv($Date())._millisecondsToRun_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(n1)._benchmark();
+return $recv(n1)._benchmark();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
@@ -395,7 +395,7 @@ return _st(n1)._benchmark();
 $ctx2.sendIdx["millisecondsToRun:"]=1;
 //>>excludeEnd("ctx");
 t1;
-return _st(t1).__lt((1000));
+return $recv(t1).__lt((1000));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["<"]=1;
 //>>excludeEnd("ctx");
@@ -406,7 +406,7 @@ $ctx2.sendIdx["<"]=1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-n1=_st(n1).__star((2));
+n1=$recv(n1).__star((2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["*"]=1;
 //>>excludeEnd("ctx");
@@ -419,22 +419,22 @@ return n1;
 $ctx1.sendIdx["whileTrue:"]=1;
 //>>excludeEnd("ctx");
 n2=(16);
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-t2=_st($Date())._millisecondsToRun_((function(){
+t2=$recv($Date())._millisecondsToRun_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-r=_st(n2)._benchFib();
+r=$recv(n2)._benchFib();
 return r;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)});
 //>>excludeEnd("ctx");
 }));
 t2;
-return _st(t2).__lt((1000));
+return $recv(t2).__lt((1000));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)});
 //>>excludeEnd("ctx");
@@ -442,34 +442,34 @@ return _st(t2).__lt((1000));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-n2=_st(n2).__plus((1));
+n2=$recv(n2).__plus((1));
 return n2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)});
 //>>excludeEnd("ctx");
 }));
-$7=_st(n1).__star((500000));
+$7=$recv(n1).__star((500000));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["*"]=3;
 //>>excludeEnd("ctx");
-$6=_st($7).__star((1000));
+$6=$recv($7).__star((1000));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["*"]=2;
 //>>excludeEnd("ctx");
-$5=_st($6).__slash(t1);
+$5=$recv($6).__slash(t1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["/"]=1;
 //>>excludeEnd("ctx");
-$4=_st($5)._printString();
+$4=$recv($5)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4).__comma(" bytecodes/sec; ");
-$2=_st($3).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString());
+$3=$recv($4).__comma(" bytecodes/sec; ");
+$2=$recv($3).__comma($recv($recv($recv(r).__star((1000))).__slash(t2))._printString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
 //>>excludeEnd("ctx");
-$1=_st($2).__comma(" sends/sec");
+$1=$recv($2).__comma(" sends/sec");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");

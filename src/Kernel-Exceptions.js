@@ -89,7 +89,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._messageText_("Errorclass: ".__comma(_st(self._class())._name()));
+self._messageText_("Errorclass: ".__comma($recv(self._class())._name()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.Error)});
@@ -307,28 +307,28 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
-$1=_st(aContext)._findContextSuchThat_((function(context){
+$1=$recv(aContext)._findContextSuchThat_((function(context){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$4=_st(context)._receiver();
+$4=$recv(context)._receiver();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["receiver"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4).__eq_eq(self);
+$3=$recv($4).__eq_eq(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["=="]=1;
 //>>excludeEnd("ctx");
-$2=_st($3)._or_((function(){
+$2=$recv($3)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(_st(context)._receiver()).__eq_eq(self._class());
+return $recv($recv(context)._receiver()).__eq_eq(self._class());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
 }));
-return _st($2)._not();
+return $recv($2)._not();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -400,7 +400,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._new())._signal();
+$1=$recv(self._new())._signal();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"signal",{},$globals.Error.klass)});
@@ -425,7 +425,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._new())._signal_(aString);
+$1=$recv(self._new())._signal_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},$globals.Error.klass)});
@@ -473,27 +473,27 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
-$1=_st(aContext)._findContextSuchThat_((function(context){
+$1=$recv(aContext)._findContextSuchThat_((function(context){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$4=_st(context)._receiver();
+$4=$recv(context)._receiver();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["receiver"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4).__eq_eq(self);
+$3=$recv($4).__eq_eq(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["=="]=1;
 //>>excludeEnd("ctx");
-$2=_st($3)._or_((function(){
+$2=$recv($3)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(_st(_st(context)._receiver()).__eq_eq(self._class()))._or_((function(){
+return $recv($recv($recv(context)._receiver()).__eq_eq(self._class()))._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
-return _st(_st(_st(context)._method())._selector()).__eq("halt");
+return $recv($recv($recv(context)._method())._selector()).__eq("halt");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)});
 //>>excludeEnd("ctx");
@@ -505,7 +505,7 @@ return _st(_st(_st(context)._method())._selector()).__eq("halt");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["or:"]=1;
 //>>excludeEnd("ctx");
-return _st($2)._not();
+return $recv($2)._not();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -629,8 +629,8 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
-_st($2)._exception_(anException);
-$3=_st($2)._yourself();
+$recv($2)._exception_(anException);
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -657,9 +657,9 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._new();
-_st($2)._exception_(anException);
-_st($2)._context_(aMethodContext);
-$3=_st($2)._yourself();
+$recv($2)._exception_(anException);
+$recv($2)._context_(aMethodContext);
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -729,7 +729,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(_st(_st(self._receiver())._asString()).__comma(" does not understand #")).__comma(_st(self._message())._selector());
+$1=$recv($recv($recv(self._receiver())._asString()).__comma(" does not understand #")).__comma($recv(self._message())._selector());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");

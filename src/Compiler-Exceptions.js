@@ -112,7 +112,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st("Variable shadowing error: ".__comma(self._variableName())).__comma(" is already defined");
+$1=$recv("Variable shadowing error: ".__comma(self._variableName())).__comma(" is already defined");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
@@ -185,7 +185,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st("Unknown Variable error: ".__comma(self._variableName())).__comma(" is not defined");
+$1=$recv("Unknown Variable error: ".__comma(self._variableName())).__comma(" is not defined");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");

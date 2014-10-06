@@ -141,7 +141,7 @@ testNewWithValues
 	function TestConstructor(arg1, arg2, arg3) {}
 	TestConstructor.prototype.name = 'theTestPrototype';
 
-	var wrappedConstructor = _st(TestConstructor);
+	var wrappedConstructor = $recv(TestConstructor);
 	var result = wrappedConstructor._newWithValues_([1, 2, 3 ]);
 	self._assert_(result instanceof TestConstructor);
 	self._assert_equals_(result.name, 'theTestPrototype');
