@@ -2,7 +2,7 @@ define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
     var globals = boot.globals,
         exports = Object.create(globals), // backward compatibility, use {} later
         vm = boot.vm,
-        nil = boot.vm;
+        nil = boot.nil;
 
     // API
 
