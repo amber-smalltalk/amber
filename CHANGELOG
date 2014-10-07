@@ -27,6 +27,8 @@ Highlights:
 
 * Reworked cleaner DNU handling in core.
 * `amber init` fully embraced as the way to create new project.
+* Helios IDE is extracted and is now a project on its own.
+  * It is included as dev-dependency in any new project by default.
 * Movable data out of index.html:
   * list of production packages in deploy.js;
   * list of development packages in devel.js;
