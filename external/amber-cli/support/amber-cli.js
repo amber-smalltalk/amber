@@ -84510,4 +84510,4 @@ boot.vm.initialize();
 var vm = boot.vm, globals = boot.globals;
 globals.AmberCli._main();
 });
-requirejs("amber/_init");
+requirejs(["amber/_init"]);

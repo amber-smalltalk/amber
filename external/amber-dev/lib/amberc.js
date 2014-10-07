@@ -48,7 +48,7 @@ function createConcatenator () {
 				'boot.vm.initialize();',
 				realWork,
 				'});',
-				'requirejs("amber/_init");'
+				'requirejs(["amber/_init"]);'
 			);
 		},
 		toString: function () {
